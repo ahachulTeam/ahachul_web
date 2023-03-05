@@ -7,5 +7,10 @@ interface Props {
 export default function SomeComponent({ someProp }: Props) {
   const { sample } = useSample();
 
-  return <div>{someProp}</div>;
+  return (
+    <p>
+      <span>{someProp}</span>
+      <span>{sample}</span>
+    </p>
+  );
 }

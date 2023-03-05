@@ -1,1 +1,1 @@
-export type SomeThingType = string | number;
+export {};
