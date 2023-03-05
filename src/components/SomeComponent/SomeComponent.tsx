@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useSample } from '@/hooks';
+import { useSample } from "@/hooks";
 
-import * as S from './styled';
+import * as S from "./styled";
 
 interface Props {
   someProp: string;

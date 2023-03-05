@@ -1,1 +1,1 @@
-export { default as useSample } from './useSample';
+export { default as useSample } from "./useSample";

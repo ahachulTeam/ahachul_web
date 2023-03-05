@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 const useSample = () => {
-  const [sample, setSample] = useState('');
+  const [sample, setSample] = useState("");
 
   useEffect(() => {
-    setSample('sample');
+    setSample("sample");
   }, []);
 
   return { sample };
