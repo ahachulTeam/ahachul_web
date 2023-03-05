@@ -1,6 +1,6 @@
 import { SomeComponent } from "@/components/SomeComponent";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <main>
       <SomeComponent someProp="sample" />
