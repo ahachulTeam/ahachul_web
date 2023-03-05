@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 
-import StyledComponentsRegistry from "@/lib/StyledComponentsRegistry";
+import { AppProvider, StyledComponentsRegistry } from "@/lib";
 
 export const metadata = {
   title: "아하철이형",
@@ -14,7 +14,9 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="ko">
       <head />
       <body>
-        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        <StyledComponentsRegistry>
+          <AppProvider>{children}</AppProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );
