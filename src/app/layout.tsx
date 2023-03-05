@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 
-import { AppProvider, StyledComponentsRegistry } from "@/lib";
+import { AppProvider, StyledComponentsRegistry } from "@/libs";
 
 export const metadata = {
   title: "아하철이형",

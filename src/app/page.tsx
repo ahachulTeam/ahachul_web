@@ -1,4 +1,4 @@
-import Suspense from "@/lib/Suspense";
+import Suspense from "@/libs/Suspense";
 
 import { SomeComponent } from "@/components/SomeComponent";
 

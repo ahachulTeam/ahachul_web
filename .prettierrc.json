@@ -10,7 +10,7 @@
   "bracketSpacing": true,
   "importOrderSeparation": true,
   "importOrder": [
-    "^(@/lib)(.*|$)",
+    "^(@/libs)(.*|$)",
     "^(@/components)(.*|$)",
     "^(@/atoms)(.*|$)",
     "^(@/hooks)(.*|$)",
