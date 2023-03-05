@@ -1,4 +1,6 @@
+import StyledComponentsRegistry from '@/lib/StyledComponentsRegistry';
 import { PropsWithChildren } from 'react';
+import { ThemeProvider } from 'styled-components';
 
 export const metadata = {
   title: 'Create Next App',
@@ -8,7 +10,10 @@ export const metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="ko">
-      <body>{children}</body>
+      <head></head>
+      <body>
+        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+      </body>
     </html>
   );
 }
