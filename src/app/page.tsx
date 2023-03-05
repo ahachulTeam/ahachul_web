@@ -1,11 +1,11 @@
-import { Suspense } from "react";
+import Suspense from "@/lib/Suspense";
 
 import { SomeComponent } from "@/components/SomeComponent";
 
 export default function HomePage() {
   return (
     <main>
-      <Suspense fallback={<p>API 호출 로딩중..</p>}>
+      <Suspense fallback="API 호출 로딩중..">
         <SomeComponent someProp="someProp" />
       </Suspense>
     </main>
