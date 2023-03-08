@@ -1,0 +1,25 @@
+{
+  "endOfLine": "auto",
+  "semi": true,
+  "printWidth": 100,
+  "tabWidth": 2,
+  "singleQuote": false,
+  "trailingComma": "es5",
+  "useTabs": false,
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "importOrderSeparation": true,
+  "importOrder": [
+    "^(@/libs)(.*|$)",
+    "^(@/components)(.*|$)",
+    "^(@/atoms)(.*|$)",
+    "^(@/hooks)(.*|$)",
+    "^(@/types)(.*|$)",
+    "^(@/utils)(.*|$)",
+    "^(@/constants/)(.*|$)",
+    "^(@/assets/)(.*|$)",
+    "^(@/styles)(.*|$)",
+    "^(./styled)(.*|$)",
+    "^(./)(.*|$)"
+  ]
+}
