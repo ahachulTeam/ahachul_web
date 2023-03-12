@@ -1,89 +1,65 @@
 import { css } from "styled-components";
 
 export const fonts = {
-  regular13: css`
-    font-size: 1.3rem;
+  regular11: css`
+    font-size: 1.1rem;
     font-weight: 400;
     font-family: Pretendard;
-    line-height: 1.53846;
+    line-height: 1.18182;
+  `,
+  regular12: css`
+    font-size: 1.2rem;
+    font-weight: 400;
+    font-family: Pretendard;
+    line-height: 1.33333;
   `,
   regular14: css`
     font-size: 1.4rem;
     font-weight: 400;
     font-family: Pretendard;
-    line-height: 1.42857;
-  `,
-  regular15: css`
-    font-size: 1.5rem;
-    font-weight: 400;
-    font-family: Pretendard;
-    line-height: 1.6;
-  `,
-  regular16: css`
-    font-size: 1.6rem;
-    font-weight: 400;
-    font-family: Pretendard;
-    line-height: 1.75;
+    line-height: 1.35714;
   `,
   medium14: css`
     font-size: 1.4rem;
     font-weight: 500;
     font-family: Pretendard;
-    line-height: 1.42857;
-  `,
-  medium15: css`
-    font-size: 1.5rem;
-    font-weight: 500;
-    font-family: Pretendard;
-    line-height: 1.6;
-  `,
-  medium16: css`
-    font-size: 1.6rem;
-    font-weight: 500;
-    font-family: Pretendard;
-    line-height: 1.75;
+    line-height: 1.35714;
   `,
   semibold14: css`
     font-size: 1.4rem;
     font-weight: 600;
     font-family: Pretendard;
-    line-height: 1.42857;
-  `,
-  semibold15: css`
-    font-size: 1.5rem;
-    font-weight: 600;
-    font-family: Pretendard;
-    line-height: 1.6;
+    line-height: 1.35714;
   `,
   semibold16: css`
     font-size: 1.6rem;
     font-weight: 600;
     font-family: Pretendard;
-    line-height: 1.75;
+    line-height: 1.3125;
   `,
-  semibold17: css`
-    font-size: 1.7rem;
-    font-weight: 600;
+  bold14: css`
+    font-size: 1.4rem;
+    font-weight: 700;
     font-family: Pretendard;
-    line-height: 1.64705;
+    line-height: 1.35714;
+  `,
+  bold16: css`
+    font-size: 1.6rem;
+    font-weight: 700;
+    font-family: Pretendard;
+    line-height: 1.3125;
   `,
   bold18: css`
     font-size: 1.8rem;
     font-weight: 700;
     font-family: Pretendard;
-    line-height: 1.55555;
+    line-height: 1.27778;
   `,
   bold20: css`
     font-size: 2rem;
     font-weight: 700;
     font-family: Pretendard;
-    line-height: 1.6;
-  `,
-  bold24: css`
-    font-size: 2.4rem;
-    font-weight: 700;
-    font-family: Pretendard;
-    line-height: 1.5;
+    line-height: 1.25;
   `,
 } as const;
 

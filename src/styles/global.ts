@@ -184,7 +184,7 @@ const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
   }
   a {
-    color: ${theme.colors.gray60};
+    color: ${theme.colors.gray_60};
     text-decoration: none;
     cursor: pointer;
   }
@@ -234,7 +234,7 @@ const GlobalStyle = createGlobalStyle`
   }
   mark {
     background-color: inherit;
-    color: ${theme.colors.blue20};
+    color: ${theme.colors.primary};
   }
   pre {
     font-family: Pretendard, system-ui;
