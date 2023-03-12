@@ -6,7 +6,9 @@ export { default as CheckIcon } from "./ic_check.svg";
 export { default as SearchIcon } from "./ic_search.svg";
 export { default as ProfileIcon } from "./ic_profile.svg";
 export { default as RefetchIcon } from "./ic_refetch.svg";
+export { default as LocationIcon } from "./ic_location.svg";
 export { default as MiniHamburgerIcon } from "./ic_mini_hamburger.svg";
+export { default as NetworkUnConnectedIcon } from "./ic_network_unconnected.svg";
 
 export { default as HomeIcon } from "./ic_home.svg";
 export { default as HomeFillIcon } from "./ic_home_fill.svg";
