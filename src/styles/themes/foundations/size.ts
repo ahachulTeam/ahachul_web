@@ -1,6 +1,6 @@
 import { css } from "styled-components";
 
-import { breakPoint } from "@/styles/themes/breakPoint";
+import { breakPoint } from "./breakPoint";
 
 export const size = {
   header: {

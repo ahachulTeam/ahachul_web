@@ -1,7 +1,5 @@
+import { colors, fonts } from "../foundations";
 import { css } from "styled-components";
-
-import { colors } from "@/styles/themes/colors";
-import { fonts } from "@/styles/themes/fonts";
 
 const flexBoxCenter = css`
   display: flex;
@@ -34,7 +32,7 @@ export const button = {
     `,
     md: css`
       ${flexBoxCenter};
-      ${fonts.semibold15};
+      ${fonts.semibold16};
       height: 44px;
       border-radius: 10px;
       padding: 0 20px;
@@ -50,33 +48,33 @@ export const button = {
   variant: {
     primary: css`
       color: ${colors.white};
-      background-color: ${colors.blue20};
+      background-color: ${colors.primary};
       transition: 0.3s;
 
       @media (hover: hover) {
         &:not(:disabled):hover {
-          background-color: ${colors.blue40};
+          background-color: ${colors.secondary};
         }
       }
 
       &:disabled {
-        background-color: ${colors.blue20};
+        background-color: ${colors.primary};
         opacity: 0.4;
       }
     `,
     secondary: css`
-      color: ${colors.gray60};
-      background-color: ${colors.gray20};
+      color: ${colors.gray_60};
+      background-color: ${colors.gray_20};
       transition: 0.3s;
 
       @media (hover: hover) {
         &:not(:disabled):hover {
-          background-color: ${colors.gray30};
+          background-color: ${colors.gray_30};
         }
       }
 
       &:disabled {
-        background-color: ${colors.gray20};
+        background-color: ${colors.gray_20};
         opacity: 0.4;
       }
     `,
@@ -85,19 +83,19 @@ export const button = {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      border: 1px solid ${colors.gray20};
+      border: 1px solid ${colors.gray_20};
       background-color: ${colors.white};
 
       @media (hover: hover) {
         &:not(:disabled):hover {
-          background-color: ${colors.gray10};
+          background-color: ${colors.gray_10};
         }
       }
     `,
     ghost: css`
       ${fonts.medium14};
       position: relative;
-      color: ${colors.gray60};
+      color: ${colors.gray_60};
 
       &::before {
         content: "";
@@ -112,7 +110,7 @@ export const button = {
 
       @media (hover: hover) {
         &:not(:disabled):hover::before {
-          background-color: ${colors.gray60};
+          background-color: ${colors.gray_60};
         }
       }
     `,
@@ -120,7 +118,7 @@ export const button = {
       ${fonts.regular14};
       position: relative;
       height: max-content;
-      color: ${colors.gray60};
+      color: ${colors.gray_60};
       transition: 0.3s;
 
       &::before {
@@ -130,7 +128,7 @@ export const button = {
         left: 0;
         width: 100%;
         height: 1px;
-        background-color: ${colors.gray60};
+        background-color: ${colors.gray_60};
         transition: 0.3s;
       }
 

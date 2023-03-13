@@ -1,7 +1,5 @@
+import { colors, fonts } from "../foundations";
 import { css } from "styled-components";
-
-import { colors } from "@/styles/themes/colors";
-import { fonts } from "@/styles/themes/fonts";
 
 const flexBoxCenter = css`
   display: grid;
@@ -19,7 +17,7 @@ const tagCommon = css`
     width: 12px;
     height: 12px;
     margin-left: 8px;
-    fill: ${colors.gray50};
+    fill: ${colors.gray_50};
     transition: 0.3s;
   }
 `;
@@ -30,16 +28,16 @@ export const tag = {
     ${tagCommon};
     height: 32px;
     border-radius: 10px;
-    color: ${colors.gray70};
-    background-color: ${colors.gray40_3};
+    color: ${colors.gray_70};
+    background-color: ${colors.gray_40};
 
     @media (hover: hover) {
       &:not(:disabled):hover {
-        color: ${colors.gray80};
-        background-color: ${colors.gray40_7};
+        color: ${colors.gray_80};
+        background-color: ${colors.gray_40};
 
         & > svg {
-          fill: ${colors.gray60};
+          fill: ${colors.gray_60};
         }
       }
     }
@@ -49,12 +47,12 @@ export const tag = {
     ${tagCommon};
     height: 36px;
     border-radius: 10px;
-    border: 1px solid ${colors.gray70};
+    border: 1px solid ${colors.gray_70};
     background-color: ${colors.white};
 
     @media (hover: hover) {
       &:not(:disabled):hover {
-        background-color: ${colors.gray20};
+        background-color: ${colors.gray_20};
       }
     }
   `,
@@ -68,7 +66,7 @@ export const tag = {
         color: ${colors.black};
 
         & > svg {
-          fill: ${colors.gray80};
+          fill: ${colors.gray_80};
         }
       }
     }

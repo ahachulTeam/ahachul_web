@@ -3,6 +3,7 @@ export const colors = {
   black: "#272727",
   primary: "#00BAF6",
   secondary: "#D0EEFF",
+  red_10: "#FF8484",
   gray_10: "#F2F2F2",
   gray_20: "#E3E3E3",
   gray_30: "#CFCFCF",

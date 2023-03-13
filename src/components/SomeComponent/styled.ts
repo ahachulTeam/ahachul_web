@@ -12,3 +12,11 @@ export const Paragraph = styled.p`
     }
   `}
 `;
+
+export const CustomBtn = styled.button`
+  ${({ theme }) => css`
+    margin-top: 20px;
+    ${theme.button.size.md};
+    ${theme.button.variant.primary};
+  `}
+`;

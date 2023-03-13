@@ -1,4 +1,4 @@
-const zIndex = {
+export const zIndex = {
   hide: -1,
   auto: "auto",
   base: 0,
@@ -13,7 +13,5 @@ const zIndex = {
   toast: 1700,
   tooltip: 1800,
 };
-
-export default zIndex;
 
 export type ZIndexType = typeof zIndex;

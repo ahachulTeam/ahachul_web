@@ -1,7 +1,5 @@
+import { colors, fonts } from "../foundations";
 import { css } from "styled-components";
-
-import { colors } from "@/styles/themes/colors";
-import { fonts } from "@/styles/themes/fonts";
 
 const flexBoxCenter = css`
   display: flex;
@@ -11,17 +9,17 @@ const flexBoxCenter = css`
 export const tab = {
   body36: css`
     ${flexBoxCenter};
-    ${fonts.medium15};
+    ${fonts.medium14};
     position: relative;
     height: 100%;
     padding: 4px 16px;
-    color: ${colors.gray60};
+    color: ${colors.gray_60};
     transition: 0.3s;
 
     &[aria-selected="true"],
     &[aria-current="page"] {
-      ${fonts.semibold15};
-      color: ${colors.blue30};
+      ${fonts.semibold14};
+      color: ${colors.primary};
 
       &::before {
         content: "";
@@ -30,28 +28,28 @@ export const tab = {
         bottom: -2px;
         width: 100%;
         height: 2px;
-        background-color: ${colors.blue30};
+        background-color: ${colors.primary};
       }
     }
 
     @media (hover: hover) {
       &:not([aria-selected="true"]):not([aria-current="page"]):hover {
-        color: ${colors.gray70};
+        color: ${colors.gray_70};
       }
     }
   `,
   body40: css`
     ${flexBoxCenter};
-    ${fonts.medium16};
+    ${fonts.semibold16};
     position: relative;
     height: 100%;
     padding: 4px 18px;
-    color: ${colors.gray60};
+    color: ${colors.gray_60};
     transition: 0.3s;
 
     &[aria-selected="true"] {
       ${fonts.semibold16};
-      color: ${colors.blue30};
+      color: ${colors.primary};
 
       &::before {
         content: "";
@@ -60,22 +58,22 @@ export const tab = {
         bottom: -2px;
         width: 100%;
         height: 2px;
-        background-color: ${colors.blue30};
+        background-color: ${colors.primary};
       }
     }
 
     @media (hover: hover) {
       &:not([aria-selected="true"]):hover {
-        color: ${colors.gray70};
+        color: ${colors.gray_70};
       }
     }
   `,
 
   header: css`
     ${flexBoxCenter};
-    ${fonts.medium16};
+    ${fonts.semibold16};
     height: 100%;
-    color: ${colors.gray50};
+    color: ${colors.gray_50};
     transition: 0.3s;
 
     &[aria-current="page"] {
@@ -91,33 +89,33 @@ export const tab = {
   `,
   navMenu: css`
     ${flexBoxCenter};
-    ${fonts.medium15};
+    ${fonts.medium14};
     height: 100%;
-    color: ${colors.gray60};
+    color: ${colors.gray_60};
     transition: 0.3s;
 
     &[aria-current="page"] {
-      ${fonts.semibold15};
-      color: ${colors.blue40};
+      ${fonts.semibold16};
+      color: ${colors.primary};
     }
 
     @media (hover: hover) {
       &:not([aria-current="page"]):hover {
-        color: ${colors.gray70};
+        color: ${colors.gray_70};
       }
     }
   `,
   sub: css`
     ${flexBoxCenter};
-    ${fonts.medium15};
+    ${fonts.medium14};
     position: relative;
     height: 100%;
     padding: 6px 16px;
-    color: ${colors.gray60};
+    color: ${colors.gray_60};
     transition: 0.3s;
 
     &[aria-selected="true"] {
-      ${fonts.semibold15};
+      ${fonts.semibold16};
       color: ${colors.black};
 
       &::before {
@@ -133,7 +131,7 @@ export const tab = {
 
     @media (hover: hover) {
       &:not([aria-selected="true"]):hover {
-        color: ${colors.gray70};
+        color: ${colors.gray_70};
       }
     }
   `,
