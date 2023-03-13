@@ -4,6 +4,8 @@ export const Paragraph = styled.p`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
+    width: calc(100vw - 80px);
+    margin: 0 auto;
 
     > span {
       ${theme.fonts.bold20};
@@ -11,6 +13,13 @@ export const Paragraph = styled.p`
       background-color: ${theme.colors.subway.sin_bundang};
     }
   `}
+`;
+
+export const Components = styled.p`
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  width: 100%;
 `;
 
 export const PrimaryBtn = styled.button`
