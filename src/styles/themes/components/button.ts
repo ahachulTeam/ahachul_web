@@ -11,30 +11,30 @@ export const button = {
   size: {
     xs: css`
       ${flexBoxCenter};
-      ${fonts.semibold14};
+      ${fonts.regular14};
       height: 32px;
       border-radius: 10px;
       padding: 0 12px;
     `,
     sm: css`
       ${flexBoxCenter};
-      ${fonts.semibold14};
+      ${fonts.regular14};
       height: 36px;
       border-radius: 10px;
       padding: 0 16px;
     `,
     smd: css`
       ${flexBoxCenter};
-      ${fonts.semibold14};
+      ${fonts.medium14};
       height: 40px;
       border-radius: 10px;
       padding: 0 20px;
     `,
     md: css`
       ${flexBoxCenter};
-      ${fonts.semibold16};
+      ${fonts.medium14};
       height: 44px;
-      border-radius: 10px;
+      border-radius: 70px;
       padding: 0 20px;
     `,
     lg: css`
@@ -49,28 +49,36 @@ export const button = {
     primary: css`
       color: ${colors.white};
       background-color: ${colors.primary};
-      transition: 0.3s;
+      transition: all 0.3s ease-in-out;
 
       @media (hover: hover) {
         &:not(:disabled):hover {
-          background-color: ${colors.secondary};
+          background-color: ${colors.primary_hover};
         }
+      }
+
+      &:active {
+        background-color: ${colors.primary_active};
       }
 
       &:disabled {
-        background-color: ${colors.primary};
-        opacity: 0.4;
+        color: ${colors.gray_30};
+        background-color: ${colors.gray_20};
       }
     `,
     secondary: css`
-      color: ${colors.gray_60};
-      background-color: ${colors.gray_20};
-      transition: 0.3s;
+      color: ${colors.primary};
+      background-color: ${colors.secondary};
+      transition: all 0.3s ease-in-out;
 
       @media (hover: hover) {
         &:not(:disabled):hover {
-          background-color: ${colors.gray_30};
+          background-color: ${colors.secondary_hover};
         }
+      }
+
+      &:active {
+        background-color: ${colors.secondary_active};
       }
 
       &:disabled {
