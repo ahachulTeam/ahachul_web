@@ -12,7 +12,23 @@ export default function RootLayout({ children }: PropsWithChildren) {
 
   return (
     <html lang="ko">
-      <head />
+      <head>
+        <meta charSet="UTF-8" />
+        <link
+          rel="preload"
+          href="/fonts/Pretendard-Regular.otf"
+          as="font"
+          crossOrigin="anonymous"
+        />
+        <link rel="preload" href="/fonts/Pretendard-Medium.otf" as="font" crossOrigin="anonymous" />
+        <link
+          rel="preload"
+          href="/fonts/Pretendard-SemiBold.otf"
+          as="font"
+          crossOrigin="anonymous"
+        />
+        <link rel="preload" href="/fonts/Pretendard-Bold.otf" as="font" crossOrigin="anonymous" />
+      </head>
       <body>
         <StyledComponentsRegistry>
           <AppProvider>{children}</AppProvider>

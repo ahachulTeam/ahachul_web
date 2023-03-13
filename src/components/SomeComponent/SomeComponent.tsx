@@ -38,6 +38,7 @@ export default function SomeComponent({ someProp }: Props) {
       <span>{someProp}</span>
       <span>{sample}</span>
       <span>{sampleAtom}</span>
+      <S.CustomBtn>hello world</S.CustomBtn>
     </S.Paragraph>
   );
 }
