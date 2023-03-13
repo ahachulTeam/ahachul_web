@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "../common";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect } from "react";
@@ -38,7 +39,11 @@ export default function SomeComponent({ someProp }: Props) {
       <span>{someProp}</span>
       <span>{sample}</span>
       <span>{sampleAtom}</span>
-      <S.CustomBtn>hello world</S.CustomBtn>
+      <S.PrimaryBtn>hello world</S.PrimaryBtn>
+      <S.SecondaryBtn>hello korea</S.SecondaryBtn>
+      {/* TOOD: styled-components에서 css props 전달
+      가능한가 ? */}
+      <Button size="md" variant="primary" label="ah! hachul" />
     </S.Paragraph>
   );
 }

@@ -13,10 +13,17 @@ export const Paragraph = styled.p`
   `}
 `;
 
-export const CustomBtn = styled.button`
+export const PrimaryBtn = styled.button`
   ${({ theme }) => css`
     margin-top: 20px;
     ${theme.button.size.md};
     ${theme.button.variant.primary};
+    width: max-content;
+  `}
+`;
+
+export const SecondaryBtn = styled(PrimaryBtn)`
+  ${({ theme }) => css`
+    ${theme.button.variant.secondary};
   `}
 `;

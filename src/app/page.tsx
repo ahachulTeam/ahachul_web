@@ -7,6 +7,7 @@ export default function HomePage() {
     <main>
       <Suspense fallback="API 호출 로딩중..">
         <SomeComponent someProp="someProp" />
+        <br />
       </Suspense>
     </main>
   );
