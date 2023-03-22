@@ -7,7 +7,6 @@ export type ButtonSize = "xs" | "sm" | "smd" | "md" | "lg";
 export type ButtonVariant = "primary" | "secondary";
 
 interface ButtonProps {
-  className?: string;
   type?: "button" | "submit" | "reset";
   size: ButtonSize;
   variant: ButtonVariant;
@@ -17,18 +16,19 @@ interface ButtonProps {
 }
 
 export default function Button({
-  className,
   type = "button",
   size,
   variant,
   label,
   disabled,
   onClick,
+  ...restProps
 }: ButtonProps) {
   return (
     <S.Button
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...restProps}
       type={type}
-      className={className}
       size={size}
       variant={variant}
       disabled={disabled}

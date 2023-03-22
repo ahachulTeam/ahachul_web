@@ -1,6 +1,6 @@
 import { css, styled } from "styled-components";
 
-export const Paragraph = styled.p`
+export const Paragraph = styled.div`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
@@ -15,7 +15,7 @@ export const Paragraph = styled.p`
   `}
 `;
 
-export const Components = styled.p`
+export const Components = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 20px;

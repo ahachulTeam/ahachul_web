@@ -1,24 +1,24 @@
 import * as Tabs from "@radix-ui/react-tabs";
 import { css, styled } from "styled-components";
 
-export const TabsRoot = styled(Tabs.Root)`
+export const ToggleRoot = styled(Tabs.Root)`
   display: flex;
   flex-direction: column;
   width: 300px;
 `;
 
-export const TabsList = styled(Tabs.List)`
+export const ToggleList = styled(Tabs.List)`
   flex-shrink: 0;
   display: flex;
 `;
 
-export const TabsTrigger = styled(Tabs.Trigger)`
+export const ToggleTrigger = styled(Tabs.Trigger)`
   ${({ theme }) => css`
     ${theme.tab.navMenu};
   `}
 `;
 
-export const TabsContent = styled(Tabs.Content)`
+export const ToggleContent = styled(Tabs.Content)`
   ${({ theme }) => css`
     flex-grow: 1;
     padding: 20px;

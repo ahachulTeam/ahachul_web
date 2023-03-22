@@ -1,2 +1,2 @@
-export * from "./tab";
+export * from "./toggle";
 export * from "./button";
