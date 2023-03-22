@@ -1,4 +1,3 @@
-/* eslint-disable react/require-default-props */
 import React from "react";
 
 import * as S from "./styled";
@@ -26,7 +25,6 @@ export default function Button({
 }: ButtonProps) {
   return (
     <S.Button
-      // eslint-disable-next-line react/jsx-props-no-spreading
       {...restProps}
       type={type}
       size={size}

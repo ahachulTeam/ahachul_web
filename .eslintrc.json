@@ -26,6 +26,8 @@
     "import/prefer-default-export": 0,
     "react-hooks/exhaustive-deps": 0,
     "import/order": 0,
-    "import/no-extraneous-dependencies": 0
+    "import/no-extraneous-dependencies": 0,
+    "react/require-default-props": 0,
+    "react/jsx-props-no-spreading": "off"
   }
 }
