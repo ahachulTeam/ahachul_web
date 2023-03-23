@@ -14,7 +14,7 @@ export const ToggleList = styled(Tabs.List)`
 
 export const ToggleTrigger = styled(Tabs.Trigger)`
   ${({ theme }) => css`
-    ${theme.tab.navMenu};
+    ${theme.toggle.primary};
   `}
 `;
 

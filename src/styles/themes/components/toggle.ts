@@ -7,8 +7,8 @@ const flexBoxCenter = css`
   justify-contents: center;
 `;
 
-export const tab = {
-  navMenu: css`
+export const toggle = {
+  primary: css`
     ${fonts.medium14};
     ${flexBoxCenter};
     flex: 1;
@@ -49,4 +49,4 @@ export const tab = {
   `,
 } as const;
 
-export type TabType = typeof tab;
+export type ToggleType = typeof toggle;

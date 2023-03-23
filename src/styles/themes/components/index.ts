@@ -1,4 +1,4 @@
 export * from "./input";
-export * from "./tab";
+export * from "./toggle";
 export * from "./tag";
 export * from "./button";

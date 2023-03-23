@@ -76,9 +76,7 @@ Toggle.ToggleWithActionFn = function ToggleWithActionFnProps({
 }: ToggleWithActionFnProps) {
   const { tabAraiLabel } = useContext(ToggleContext);
 
-  const action = (tab: string) => () => {
-    actionFn(tab);
-  };
+  const action = (tab: string) => () => actionFn(tab);
 
   return (
     <S.ToggleList aria-label={tabAraiLabel}>
