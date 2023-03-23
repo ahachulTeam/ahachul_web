@@ -3,8 +3,8 @@ import { css } from "styled-components";
 
 const flexBoxCenter = css`
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 `;
 
 export const button = {

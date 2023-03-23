@@ -4,7 +4,7 @@ import { css } from "styled-components";
 const flexBoxCenter = css`
   display: flex;
   align-items: center;
-  justify-contents: center;
+  justify-content: center;
 `;
 
 export const toggle = {
