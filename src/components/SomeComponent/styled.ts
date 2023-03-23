@@ -36,3 +36,19 @@ export const SecondaryBtn = styled(PrimaryBtn)`
     ${theme.button.variant.secondary};
   `}
 `;
+
+export const GhostBtn = styled.button`
+  ${({ theme }) => css`
+    ${theme.button.size.md};
+    ${theme.button.variant.ghost};
+    width: max-content;
+  `}
+`;
+
+export const OutlineBtn = styled.button`
+  ${({ theme }) => css`
+    ${theme.button.size.md};
+    ${theme.button.variant.outline};
+    width: max-content;
+  `}
+`;

@@ -101,26 +101,18 @@ export const button = {
       }
     `,
     ghost: css`
-      ${fonts.medium14};
-      position: relative;
+      color: ${colors.black};
+      background-color: ${colors.white};
+
+      &:disabled {
+        color: ${colors.gray_40};
+      }
+    `,
+    outline: css`
       color: ${colors.gray_60};
-
-      &::before {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        background-color: transparent;
-        transition: 0.3s;
-      }
-
-      @media (hover: hover) {
-        &:not(:disabled):hover::before {
-          background-color: ${colors.gray_60};
-        }
-      }
+      background-color: ${colors.white};
+      border: 1px solid ${colors.gray_30};
+      border-radius: 10px;
     `,
     link: css`
       ${fonts.regular14};

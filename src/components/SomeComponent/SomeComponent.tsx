@@ -63,6 +63,8 @@ export default function SomeComponent({ someProp }: Props) {
       <S.Components>
         <S.PrimaryBtn>hello world</S.PrimaryBtn>
         <S.SecondaryBtn>hello korea</S.SecondaryBtn>
+        <S.GhostBtn>ghost</S.GhostBtn>
+        <S.OutlineBtn>outline</S.OutlineBtn>
         <br />
         <Button size="md" variant="primary" label="구매하기" />
         <br />
