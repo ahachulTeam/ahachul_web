@@ -1,4 +1,4 @@
-import { input, tab, tag, button } from "./components";
+import { input, tab, tag, button, checkbox } from "./components";
 import { a11y, boxShadows, breakPoint, colors, fonts, size, zIndex } from "./foundations";
 
 export const theme = {
@@ -13,4 +13,5 @@ export const theme = {
   size,
   tag,
   button,
+  checkbox,
 };
