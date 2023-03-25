@@ -3,5 +3,5 @@ export const getOneDepthPath = (path: string): string => {
   return `/${p}`;
 };
 
-export const isMathRoute = (path: string, comparePath: string): boolean =>
+export const isMatchRoute = (path: string, comparePath: string): boolean =>
   getOneDepthPath(comparePath) === getOneDepthPath(path);

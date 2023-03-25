@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { isMathRoute } from "@/utils";
+import { isMatchRoute } from "@/utils";
 
 import * as S from "./NavItem.styled";
 
@@ -16,7 +16,7 @@ interface NavItemProps {
 export default function NavItem({ label, path, icon }: NavItemProps) {
   const pathname = usePathname();
 
-  const isCurrentPage = isMathRoute(pathname, path);
+  const isCurrentPage = isMatchRoute(pathname, path);
 
   return (
     <S.NavItem>
