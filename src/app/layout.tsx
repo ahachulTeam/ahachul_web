@@ -2,6 +2,8 @@ import { PropsWithChildren } from "react";
 
 import { AppProvider, StyledComponentsRegistry } from "@/libs";
 
+import { Toast } from "@/components";
+
 export const metadata = {
   title: "아하철이형",
   description: "아하철이형_웹",
@@ -33,6 +35,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <StyledComponentsRegistry>
           <AppProvider>{children}</AppProvider>
         </StyledComponentsRegistry>
+        <Toast />
       </body>
     </html>
   );

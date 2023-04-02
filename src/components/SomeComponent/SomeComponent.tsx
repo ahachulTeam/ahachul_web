@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 import { useSampleAtom } from "@/atoms";
 
-import { useSample } from "@/hooks";
+import { useSample, useToast } from "@/hooks";
 
 import * as S from "./styled";
 
@@ -20,6 +20,7 @@ export const fetchSample = async () => {
 };
 
 export default function SomeComponent({ someProp }: Props) {
+  const toast = useToast();
   const { sample } = useSample();
   const { sample: sampleAtom, setSample: setSampleAtom } = useSampleAtom();
 
@@ -38,7 +39,17 @@ export default function SomeComponent({ someProp }: Props) {
       <span>{someProp}</span>
       <span>{sample}</span>
       <span>{sampleAtom}</span>
-      <S.CustomBtn>hello world</S.CustomBtn>
+      <S.CustomBtn
+        onClick={() =>
+          toast.error(
+            <>
+              제목은 <strong>40자</strong> 이내로 작성해주세요.
+            </>
+          )
+        }
+      >
+        hello world
+      </S.CustomBtn>
     </S.Paragraph>
   );
 }
