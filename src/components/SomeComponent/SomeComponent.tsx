@@ -69,11 +69,11 @@ export default function SomeComponent({ someProp }: Props) {
         <Button size="md" variant="primary" label="구매하기" />
         <br />
         <Toggle defaultValue={subwayTabs[0].tabLabel} tabAraiLabel="지하철 방면 설정 버튼">
-          <Toggle.ToggleWithChildren tabs={subwayTabs} />
+          <Toggle.WithChildren tabs={subwayTabs} />
         </Toggle>
         <br />
         <Toggle defaultValue={subwayTabs2.kyodae} tabAraiLabel="지하철 방면 설정 버튼">
-          <Toggle.ToggleWithActionFn tabs={subwayTabs2} actionFn={fetchActionFn} />
+          <Toggle.WithActionFn tabs={subwayTabs2} actionFn={fetchActionFn} />
         </Toggle>
       </S.Components>
     </S.Paragraph>

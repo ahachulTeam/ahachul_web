@@ -1,6 +1,3 @@
-/* eslint-disable react/no-unused-prop-types */
-
-/* eslint-disable react/require-default-props */
 import React, { createContext, useContext, useMemo } from "react";
 import type { ReactNode, PropsWithChildren } from "react";
 
@@ -12,13 +9,13 @@ interface ToggleProps {
   className?: string;
 }
 
-interface SelectedTab {
+interface ToggleTab {
   tabLabel: string;
   component: ReactNode;
 }
 
 interface ToggleWithChildrenProps {
-  tabs: SelectedTab[];
+  tabs: ToggleTab[];
 }
 
 interface ToggleWithActionFnProps {
@@ -32,7 +29,7 @@ interface ToggleContextValue {
 
 const ToggleContext = createContext({} as ToggleContextValue);
 
-function Toggle({
+function ToggleMain({
   defaultValue,
   tabAraiLabel,
   children,
@@ -49,7 +46,7 @@ function Toggle({
   );
 }
 
-Toggle.ToggleWithChildren = function ToggleWithChildren({ tabs }: ToggleWithChildrenProps) {
+const ToggleWithChildren = function ToggleWithChildren({ tabs }: ToggleWithChildrenProps) {
   const { tabAraiLabel } = useContext(ToggleContext);
 
   return (
@@ -70,7 +67,7 @@ Toggle.ToggleWithChildren = function ToggleWithChildren({ tabs }: ToggleWithChil
   );
 };
 
-Toggle.ToggleWithActionFn = function ToggleWithActionFnProps({
+const ToggleWithActionFn = function ToggleWithActionFnProps({
   tabs,
   actionFn,
 }: ToggleWithActionFnProps) {
@@ -89,4 +86,7 @@ Toggle.ToggleWithActionFn = function ToggleWithActionFnProps({
   );
 };
 
-export default Toggle;
+export const Toggle = Object.assign(ToggleMain, {
+  WithChildren: ToggleWithChildren,
+  WithActionFn: ToggleWithActionFn,
+});
