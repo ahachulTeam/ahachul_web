@@ -3,7 +3,9 @@
 import { Button, Toggle } from "../common";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
+
+import { Checkbox } from "@/components";
 
 import { useSampleAtom } from "@/atoms";
 
@@ -47,6 +49,12 @@ export default function SomeComponent({ someProp }: Props) {
     }
   };
 
+  const [checked, setChecked] = useState<boolean>(false);
+
+  const onCheckedChange = useCallback<React.ChangeEventHandler<HTMLInputElement>>(e => {
+    setChecked(e.target.checked);
+  }, []);
+
   useEffect(() => {
     console.log("API SUCCESS", data);
   }, [data]);
@@ -56,6 +64,7 @@ export default function SomeComponent({ someProp }: Props) {
   }, []);
 
   return (
+<<<<<<< HEAD
     <S.Paragraph>
       <span>{someProp}</span>
       <span>{sample}</span>
@@ -77,5 +86,19 @@ export default function SomeComponent({ someProp }: Props) {
         </Toggle>
       </S.Components>
     </S.Paragraph>
+=======
+    <>
+      <S.Paragraph>
+        <span>{someProp}</span>
+        <span>{sample}</span>
+        <span>{sampleAtom}</span>
+        <S.CustomBtn>hello world</S.CustomBtn>
+      </S.Paragraph>
+      <br />
+      <div style={{ padding: "20px" }}>
+        <Checkbox id="test" label="BUTTON" checked={checked} onChange={onCheckedChange} />
+      </div>
+    </>
+>>>>>>> develop
   );
 }

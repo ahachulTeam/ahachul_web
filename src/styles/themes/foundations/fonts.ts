@@ -26,6 +26,12 @@ export const fonts = {
     font-weight: 500;
     line-height: 1.35714;
   `,
+  medium16: css`
+    font-size: 1.6rem;
+    font-weight: 500;
+    font-family: Pretendard;
+    line-height: 1.8125;
+  `,
   semibold14: css`
     font-size: 1.4rem;
     font-weight: 600;
