@@ -2,6 +2,8 @@ export const colors = {
   white: "#F2F2F2",
   black: "#272727",
   primary: "#00BAF6",
+  primary_hover: "#80DDFB",
+  primary_active: "#009ED1",
   secondary: "#D0EEFF",
   red_10: "#FF8484",
   gray_10: "#F2F2F2",
