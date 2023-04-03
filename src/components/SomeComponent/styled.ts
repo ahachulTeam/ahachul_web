@@ -4,8 +4,6 @@ export const Paragraph = styled.div`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
-    width: calc(100vw - 80px);
-    margin: 0 auto;
 
     > span {
       ${theme.fonts.bold20};
