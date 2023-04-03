@@ -1,14 +1,12 @@
 import { css, styled } from "styled-components";
 
-interface CheckboxBoxProps {
-  checked?: boolean;
-}
-
-export const Checkbox = styled.div<CheckboxBoxProps>`
-  ${({ theme, checked }) => css`
+export const Checkbox = styled.div`
+  ${({ theme }) => css`
     ${theme.checkbox.primary};
 
-    border: ${checked && `1px solid ${theme.colors.primary}`};
+    &:has(input:checked) {
+      border: 1px solid ${theme.colors.primary};
+    }
 
     @media (hover: hover) {
       &:not(:disabled):hover {

@@ -2,17 +2,12 @@ import React, { useRef } from "react";
 
 import * as S from "./styled";
 
-interface CheckboxProps {
-  id: string;
-  name?: string;
+interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  value?: string | number;
-  checked: boolean;
   className?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function Checkbox({ id, className, name, label, checked, value, onChange }: CheckboxProps) {
+function Checkbox({ id, label, className, ...restProps }: CheckboxProps) {
   const checkboxRef = useRef<HTMLInputElement>(null);
   const uuid = `checkbox-${id}`;
   const onKeydown = (e: React.KeyboardEvent<HTMLLabelElement>) => {
@@ -26,19 +21,8 @@ function Checkbox({ id, className, name, label, checked, value, onChange }: Chec
   };
 
   return (
-    <S.Checkbox checked={checked} className={className}>
-      <input
-        id={uuid}
-        name={name}
-        value={value}
-        checked={checked}
-        ref={checkboxRef}
-        tabIndex={-1}
-        aria-hidden
-        aria-checked={checked ? "true" : "false"}
-        type="checkbox"
-        onChange={onChange}
-      />
+    <S.Checkbox className={className}>
+      <input {...restProps} id={uuid} ref={checkboxRef} tabIndex={-1} type="checkbox" />
       <label htmlFor={uuid} tabIndex={0} onKeyDown={onKeydown}>
         {label}
       </label>
