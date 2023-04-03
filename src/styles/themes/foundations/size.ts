@@ -1,11 +1,11 @@
 import { css } from "styled-components";
 
-import { breakPoint } from "./breakPoint";
-
 export const size = {
+  layout: {
+    width: "768px",
+  },
   header: {
-    height_d: "80px",
-    height_m: "60px",
+    height: "54px",
   },
   footer: {
     height_d: "322px",
@@ -15,15 +15,7 @@ export const size = {
   container: css`
     max-width: 100%;
     width: 100vw;
-    padding: 0 20px;
-
-    @media ${breakPoint.device.tablet} {
-      max-width: 1069px;
-      margin: 0 auto;
-    }
-    @media ${breakPoint.device.desktop} {
-      max-width: 1240px;
-    }
+    padding: 0 15px;
   `,
 } as const;
 
