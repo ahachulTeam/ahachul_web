@@ -9,6 +9,11 @@ export { default as RefetchIcon } from "./ic_refetch.svg";
 export { default as LocationIcon } from "./ic_location.svg";
 export { default as MiniHamburgerIcon } from "./ic_mini_hamburger.svg";
 export { default as NetworkUnConnectedIcon } from "./ic_network_unconnected.svg";
+export { default as PeoplesIcon } from "./ic_peoples.svg";
+export { default as QuetionBoxIcon } from "./ic_question_box.svg";
+export { default as HouseIcon } from "./ic_house.svg";
+export { default as BoardIcon } from "./ic_board.svg";
+export { default as SpeakerIcon } from "./ic_speaker.svg";
 
 export { default as HomeIcon } from "./ic_home.svg";
 export { default as HomeFillIcon } from "./ic_home_fill.svg";
