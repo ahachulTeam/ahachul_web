@@ -64,7 +64,6 @@ export default function SomeComponent({ someProp }: Props) {
   }, []);
 
   return (
-<<<<<<< HEAD
     <S.Paragraph>
       <span>{someProp}</span>
       <span>{sample}</span>
@@ -84,21 +83,10 @@ export default function SomeComponent({ someProp }: Props) {
         <Toggle defaultValue={subwayTabs2.kyodae} tabAraiLabel="지하철 방면 설정 버튼">
           <Toggle.WithActionFn tabs={subwayTabs2} actionFn={fetchActionFn} />
         </Toggle>
+        <div style={{ padding: "20px" }}>
+          <Checkbox id="test" label="BUTTON" checked={checked} onChange={onCheckedChange} />
+        </div>
       </S.Components>
     </S.Paragraph>
-=======
-    <>
-      <S.Paragraph>
-        <span>{someProp}</span>
-        <span>{sample}</span>
-        <span>{sampleAtom}</span>
-        <S.CustomBtn>hello world</S.CustomBtn>
-      </S.Paragraph>
-      <br />
-      <div style={{ padding: "20px" }}>
-        <Checkbox id="test" label="BUTTON" checked={checked} onChange={onCheckedChange} />
-      </div>
-    </>
->>>>>>> develop
   );
 }
