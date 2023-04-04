@@ -5,16 +5,19 @@ import { ThemeProvider } from "styled-components";
 
 import { GlobalStyle, theme } from "@/styles";
 
+import NextAuth from "./NextAuth";
 import ReactQuery from "./ReactQuery";
 import Recoil from "./Recoil";
 
 export default function AppProvider({ children }: PropsWithChildren) {
   return (
-    <Recoil>
-      <ReactQuery>
-        <GlobalStyle />
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
-      </ReactQuery>
-    </Recoil>
+    <NextAuth>
+      <Recoil>
+        <ReactQuery>
+          <GlobalStyle />
+          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        </ReactQuery>
+      </Recoil>
+    </NextAuth>
   );
 }
