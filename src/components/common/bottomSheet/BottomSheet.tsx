@@ -1,6 +1,7 @@
-import { ForwardedRef, forwardRef, PropsWithChildren, useEffect, useState } from "react";
+"use client";
 
-import { Portal } from "@/components";
+import { Portal } from "../portal";
+import { ForwardedRef, forwardRef, PropsWithChildren, useEffect, useState } from "react";
 
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 

@@ -191,7 +191,7 @@ const GlobalStyle = createGlobalStyle`
   button:focus-visible,
   a:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(255, 206, 50, 0.65) inset;
+    box-shadow: 0 0 0 2px rgba(0, 186, 246, 1) inset;
   }
   dialog {
     border: 0;
