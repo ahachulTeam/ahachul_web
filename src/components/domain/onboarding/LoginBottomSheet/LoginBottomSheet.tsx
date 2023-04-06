@@ -22,13 +22,13 @@ function LoginBottomSheet({ isOpen, onClose }: Props, ref: ForwardedRef<HTMLDial
       <S.ContentBox>
         <S.Link href={kakaoUrl}>
           <S.KakaoBtn>
-            <Image src="/images/kakao.svg" alt="카카오 로고" width={21} height={19} priority />
+            <Image src="/images/kakao.svg" alt="카카오 로고" width={21} height={19} />
             카카오 로그인
           </S.KakaoBtn>
         </S.Link>
         <S.Link href={googleUrl}>
           <S.GoogleBtn>
-            <Image src="/images/google.svg" alt="구글 로고" width={21} height={19} priority />
+            <Image src="/images/google.svg" alt="구글 로고" width={21} height={19} />
             구글 로그인
           </S.GoogleBtn>
         </S.Link>

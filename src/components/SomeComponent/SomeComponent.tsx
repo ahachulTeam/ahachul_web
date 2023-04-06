@@ -3,6 +3,7 @@
 import { Button, Toggle } from "../common";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 import { Checkbox } from "@/components";
@@ -69,7 +70,9 @@ export default function SomeComponent({ someProp }: Props) {
       <span>{sample}</span>
       <span>{sampleAtom}</span>
       <S.Components>
-        <S.PrimaryBtn>hello world</S.PrimaryBtn>
+        <Link href="/onboarding">
+          <S.PrimaryBtn>onboarding</S.PrimaryBtn>
+        </Link>
         <S.SecondaryBtn>hello korea</S.SecondaryBtn>
         <S.GhostBtn>ghost</S.GhostBtn>
         <S.OutlineBtn>outline</S.OutlineBtn>

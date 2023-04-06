@@ -1,7 +1,7 @@
 "use client";
 
 import { Portal } from "../portal";
-import { ForwardedRef, forwardRef, PropsWithChildren, useEffect, useState } from "react";
+import React, { ForwardedRef, forwardRef, PropsWithChildren, useEffect, useState } from "react";
 
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 
@@ -22,7 +22,7 @@ function BottomSheet(
   { children, title, isOpen, hasCloseBtn = false, onClose }: PropsWithChildren<BottomSheetProps>,
   ref: ForwardedRef<HTMLDialogElement>
 ) {
-  const [isShow, setIsShow] = useState(false);
+  const [isShow, setIsShow] = useState<boolean>(false);
 
   const handleClose = () => {
     setIsShow(false);
@@ -42,7 +42,13 @@ function BottomSheet(
   return (
     <Portal container="#modal-root" mounted={isOpen}>
       <S.Dim>
-        <S.BottomSheet ref={ref} open={isOpen} isShow={isShow} aria-modal="true" tabIndex={-1}>
+        <S.BottomSheet
+          ref={ref}
+          open={isOpen}
+          aria-modal="true"
+          data-isshow={!!isShow}
+          tabIndex={-1}
+        >
           <S.Header>
             <h2>{title}</h2>
             {hasCloseBtn && (
