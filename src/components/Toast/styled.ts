@@ -6,13 +6,22 @@ import { theme } from "@/styles";
 import { fonts } from "@/styles/themes/foundations";
 
 export const Toast = styled(ToastContainer)`
+  width: calc(100% - 20px);
+  max-width: ${theme.size.layout.width};
+  bottom: 124px;
+
+  &.Toastify__toast-container {
+    padding: 0;
+  }
+
   .Toastify__toast {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 360px;
+    width: 100%;
     height: 60px;
     padding: 20px;
+    margin: 0;
     border-radius: 20px;
     color: ${theme.colors.primary};
     background-color: ${theme.colors.secondary};
@@ -34,7 +43,10 @@ export const Toast = styled(ToastContainer)`
     }
   }
 
-  &.Toastify__toast-container--top-center {
-    top: 20px;
+  @media only screen and (max-width: 480px) {
+    &.Toastify__toast-container {
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
 `;

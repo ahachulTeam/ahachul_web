@@ -70,7 +70,7 @@ export default function SomeComponent({ someProp }: Props) {
       <span>{sample}</span>
       <span>{sampleAtom}</span>
       <S.Components>
-        <S.PrimaryBtn>hello world</S.PrimaryBtn>
+        <S.PrimaryBtn onClick={() => toast.error("as")}>hello world</S.PrimaryBtn>
         <S.SecondaryBtn>hello korea</S.SecondaryBtn>
         <S.GhostBtn>ghost</S.GhostBtn>
         <S.OutlineBtn>outline</S.OutlineBtn>
