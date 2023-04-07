@@ -1,39 +1,55 @@
+import localFont from "next/font/local";
 import { PropsWithChildren } from "react";
 
 import { AppProvider, StyledComponentsRegistry } from "@/libs";
 
-import { Toast } from "@/components";
+import { Toast } from "@/components/Toast";
+import Main from "@/components/main/Main";
+
+const pretendard = localFont({
+  src: [
+    {
+      path: "../../public/fonts/Pretendard-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Pretendard-Medium.otf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Pretendard-SemiBold.otf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Pretendard-Bold.otf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+});
 
 export const metadata = {
-  title: "아하철이형",
+  title: {
+    default: "아하철이형",
+    template: "%s | 아하철이형",
+  },
   description: "아하철이형_웹",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
-  const { title, description } = metadata;
-
   return (
-    <html lang="ko">
-      <head>
-        <meta charSet="UTF-8" />
-        <link
-          rel="preload"
-          href="/fonts/Pretendard-Regular.otf"
-          as="font"
-          crossOrigin="anonymous"
-        />
-        <link rel="preload" href="/fonts/Pretendard-Medium.otf" as="font" crossOrigin="anonymous" />
-        <link
-          rel="preload"
-          href="/fonts/Pretendard-SemiBold.otf"
-          as="font"
-          crossOrigin="anonymous"
-        />
-        <link rel="preload" href="/fonts/Pretendard-Bold.otf" as="font" crossOrigin="anonymous" />
-      </head>
+    <html lang="ko" className={pretendard.className}>
       <body>
         <StyledComponentsRegistry>
-          <AppProvider>{children}</AppProvider>
+          <AppProvider>
+            <Main>{children}</Main>
+          </AppProvider>
         </StyledComponentsRegistry>
         <Toast />
       </body>
