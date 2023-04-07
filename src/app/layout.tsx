@@ -48,6 +48,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <StyledComponentsRegistry>
           <AppProvider>
             <Main>{children}</Main>
+            <div id="modal-root" />
           </AppProvider>
         </StyledComponentsRegistry>
       </body>
