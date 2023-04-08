@@ -8,33 +8,8 @@ export const ToggleRoot = styled(Tabs.Root)`
 `;
 
 export const ToggleList = styled(Tabs.List)`
-  ${({ theme }) => css`
-    position: relative;
-    flex-shrink: 0;
-    display: flex;
-    border-radius: 40px;
-    background-color: ${theme.colors.gray_20};
-
-    &::before {
-      content: "";
-      position: absolute;
-      width: 50%;
-      background-color: ${theme.colors.primary};
-      height: 100%;
-      top: 0;
-      left: 0;
-      transition: all 250ms ease-in-out;
-      border-radius: 40px;
-    }
-
-    &:has(> button:first-child[data-state="active"])::before {
-      transform: translateX(0);
-    }
-
-    &:has(> button:last-child[data-state="active"])::before {
-      transform: translateX(100%);
-    }
-  `}
+  flex-shrink: 0;
+  display: flex;
 `;
 
 export const ToggleTrigger = styled(Tabs.Trigger)`
