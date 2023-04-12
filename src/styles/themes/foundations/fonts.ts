@@ -16,10 +16,16 @@ export const fonts = {
     font-weight: 400;
     line-height: 1.35714;
   `,
+  regular16: css`
+    font-size: 1.6rem;
+    font-weight: 400;
+    font-family: Pretendard;
+    line-height: 1.35714;
+  `,
   medium10: css`
     font-size: 1rem;
     font-weight: 500;
-    line-height: 2.2;
+    line-height: 1.35714;
   `,
   medium14: css`
     font-size: 1.4rem;

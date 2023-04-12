@@ -9,7 +9,7 @@ import { Checkbox } from "@/components";
 
 import { useSampleAtom } from "@/atoms";
 
-import { useSample } from "@/hooks";
+import { useSample, useToast } from "@/hooks";
 
 import * as S from "./styled";
 
@@ -36,6 +36,7 @@ export const fetchSample = async () => {
 };
 
 export default function SomeComponent({ someProp }: Props) {
+  const toast = useToast();
   const { sample } = useSample();
   const { sample: sampleAtom, setSample: setSampleAtom } = useSampleAtom();
 
@@ -69,7 +70,7 @@ export default function SomeComponent({ someProp }: Props) {
       <span>{sample}</span>
       <span>{sampleAtom}</span>
       <S.Components>
-        <S.PrimaryBtn>hello world</S.PrimaryBtn>
+        <S.PrimaryBtn onClick={() => toast.error("as")}>hello world</S.PrimaryBtn>
         <S.SecondaryBtn>hello korea</S.SecondaryBtn>
         <S.GhostBtn>ghost</S.GhostBtn>
         <S.OutlineBtn>outline</S.OutlineBtn>
