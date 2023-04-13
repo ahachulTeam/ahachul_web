@@ -2,7 +2,7 @@ import { atom, useRecoilState, useResetRecoilState } from "recoil";
 
 import tokenStorage from "@/utils/storage";
 
-import { ACCESS_TOKEN_STORAGE_KEY } from "@/constants/storage";
+import { ACCESS_TOKEN_STORAGE_KEY } from "@/constants/auth";
 
 const accessTokenAtom = atom<string | null>({
   key: "accessToken",

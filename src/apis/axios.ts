@@ -2,7 +2,7 @@ import axios, { AxiosInstance, CreateAxiosDefaults, isAxiosError } from "axios";
 
 import tokenStorage from "@/utils/storage";
 
-import { ACCESS_TOKEN_STORAGE_KEY } from "@/constants/storage";
+import { ACCESS_TOKEN_STORAGE_KEY } from "@/constants/auth";
 
 import { APIErrorResponse, ERROR_MESSAGE } from "@/constants";
 

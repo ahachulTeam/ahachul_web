@@ -4,7 +4,7 @@ import { useAccessToken, useResetAccessToken } from "@/atoms/auth";
 
 import tokenStorage from "@/utils/storage";
 
-import { ACCESS_TOKEN_STORAGE_KEY } from "@/constants/storage";
+import { ACCESS_TOKEN_STORAGE_KEY } from "@/constants/auth";
 
 const useAuth = () => {
   const storage = tokenStorage(ACCESS_TOKEN_STORAGE_KEY);
