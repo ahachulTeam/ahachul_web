@@ -7,9 +7,9 @@ interface PortalProps {
   mounted: boolean;
 }
 
-function Portal({ children, container, mounted }: PortalProps) {
-  if (mounted) {
-    const portal = document.querySelector(container);
+function Portal({ children, containerId, isMounted }: PortalProps) {
+  if (isMounted) {
+    const portal = document.getElementBtId(containerId);
 
     return portal ? createPortal(children, portal) : null;
   }
