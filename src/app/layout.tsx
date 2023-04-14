@@ -6,6 +6,8 @@ import { AppProvider, StyledComponentsRegistry } from "@/libs";
 import { Header, Toast } from "@/components";
 import Main from "@/components/main/Main";
 
+import { StaticSEO, KR_APP_NAME, EN_APP_NAME } from "@/constants/seo";
+
 const pretendard = localFont({
   src: [
     {
@@ -33,10 +35,10 @@ const pretendard = localFont({
 
 export const metadata = {
   title: {
-    default: "아하철이형",
-    template: "%s | 아하철이형",
+    default: `${KR_APP_NAME} | ${EN_APP_NAME}`,
+    template: EN_APP_NAME,
   },
-  description: "아하철이형_웹",
+  description: StaticSEO.main.title,
   icons: {
     icon: "/favicon.ico",
   },

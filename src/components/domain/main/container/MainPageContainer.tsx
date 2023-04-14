@@ -4,6 +4,8 @@ import Community from "../community/Community";
 import SwipeBanner from "../swipeBanner/SwipeBanner";
 import Link from "next/link";
 
+import { StaticSEO } from "@/constants/seo";
+
 import { ArrowIcon } from "@/assets/icons";
 
 import * as S from "./styled";
@@ -19,8 +21,8 @@ function MainPageContainer({ isAuthed = false }: MainPageContainerProps) {
 
   return (
     <>
-      <h1 css={S.visuallyHidden}>아하철이형</h1>
-      <h2 css={S.visuallyHidden}>AhHachul</h2>
+      <h1 css={S.visuallyHidden}>{StaticSEO.main.title}</h1>
+      <h2 css={S.visuallyHidden}>{StaticSEO.main.subTitle}</h2>
       <S.SubwayInfoSection>
         <div>
           <h3 css={S.h3}> 아하철님 열차정보와 혼잡도가 궁금하다면?</h3>

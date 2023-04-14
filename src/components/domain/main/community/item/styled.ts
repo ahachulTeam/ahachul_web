@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import { css, styled } from "styled-components";
+
+import { theme } from "@/styles";
 
 export const NavItem = styled.li`
   ${({ theme }) => css`
@@ -63,4 +66,8 @@ export const ImgBox = styled.div`
     border-radius: 5px;
     background-color: ${theme.colors.gray_40};
   `}
+`;
+
+export const visuallyHidden = css`
+  ${theme.a11y.visuallyHidden}
 `;
