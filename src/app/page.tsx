@@ -1,11 +1,5 @@
-import Suspense from "@/libs/Suspense";
-
-import { SomeComponent } from "@/components/SomeComponent";
+import { MainPageContainer } from "@/components";
 
 export default function HomePage() {
-  return (
-    <Suspense fallback="API 호출 로딩중..">
-      <SomeComponent someProp="someProp" />
-    </Suspense>
-  );
+  return <MainPageContainer />;
 }
