@@ -3,13 +3,13 @@ import { createPortal } from "react-dom";
 
 interface PortalProps {
   children: ReactNode;
-  container: string;
-  mounted: boolean;
+  containerId: string;
+  isMounted: boolean;
 }
 
 function Portal({ children, containerId, isMounted }: PortalProps) {
   if (isMounted) {
-    const portal = document.getElementBtId(containerId);
+    const portal = document.getElementById(containerId);
 
     return portal ? createPortal(children, portal) : null;
   }

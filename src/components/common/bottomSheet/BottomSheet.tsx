@@ -1,3 +1,5 @@
+"use client";
+
 import { Portal } from "../portal";
 import { ForwardedRef, forwardRef, PropsWithChildren, useEffect, useState } from "react";
 
@@ -38,7 +40,7 @@ function BottomSheet(
   }, [isOpen]);
 
   return (
-    <Portal container="#modal-root" mounted={isOpen}>
+    <Portal containerId="modal-root" isMounted={isOpen}>
       <S.Dim>
         <S.BottomSheet ref={ref} open={isOpen} isShow={isShow} aria-modal="true" tabIndex={-1}>
           <S.Header>

@@ -19,12 +19,7 @@ export const fonts = {
   regular16: css`
     font-size: 1.6rem;
     font-weight: 400;
-<<<<<<< HEAD
     line-height: 1.2;
-=======
-    font-family: Pretendard;
-    line-height: 1.35714;
->>>>>>> develop
   `,
   medium10: css`
     font-size: 1rem;
@@ -39,7 +34,6 @@ export const fonts = {
   medium16: css`
     font-size: 1.6rem;
     font-weight: 500;
-    font-family: Pretendard;
     line-height: 1.8125;
   `,
   semibold14: css`
