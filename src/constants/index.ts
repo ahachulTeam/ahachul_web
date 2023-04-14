@@ -1,2 +1,3 @@
-export * from "./regExp";
 export * from "./path";
+export * from "./common";
+export * from "./regExp";
