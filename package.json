@@ -16,9 +16,11 @@
     "next": "13.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-loading-skeleton": "^3.2.0",
     "react-toastify": "^9.1.2",
     "recoil": "^0.7.7",
-    "styled-components": "^6.0.0-beta.12"
+    "styled-components": "^6.0.0-beta.12",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.2.3",
@@ -28,6 +30,7 @@
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
     "@types/styled-components": "^5.1.26",
+    "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.54.0",
     "@typescript-eslint/parser": "^5.54.0",
     "eslint": "8.35.0",
