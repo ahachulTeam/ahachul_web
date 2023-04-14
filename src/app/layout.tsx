@@ -3,6 +3,7 @@ import { PropsWithChildren } from "react";
 
 import { AppProvider, StyledComponentsRegistry } from "@/libs";
 
+import { Toast } from "@/components";
 import Main from "@/components/main/Main";
 
 const pretendard = localFont({
@@ -47,8 +48,15 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <body>
         <StyledComponentsRegistry>
           <AppProvider>
+<<<<<<< HEAD
             <Main>{children}</Main>
             <div id="modal-root" />
+=======
+            <Main>
+              {children}
+              <Toast />
+            </Main>
+>>>>>>> develop
           </AppProvider>
         </StyledComponentsRegistry>
       </body>
