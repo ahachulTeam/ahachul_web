@@ -1,0 +1,1 @@
+export const BOTTOM_SHEET_DURATION = 300;
