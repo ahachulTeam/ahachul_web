@@ -28,6 +28,9 @@ export const CommunitySection = styled.section`
 
       & > svg {
         transform: rotate(180deg);
+        & > path {
+          stroke: #aaaaaa;
+        }
       }
     }
   }

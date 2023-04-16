@@ -8,10 +8,16 @@ export const Navbar = styled.nav`
     max-width: ${theme.size.layout.width};
     width: 100%;
     height: ${theme.size.bottomNavbar.height};
+    max-height: 0;
     border-top: 1px solid ${theme.colors.gray_30};
     background-color: ${theme.colors.white};
     transform: translateX(-50%);
+    transition: max-height 300ms cubic-bezier(0.43, 0.03, 0.15, 0.95);
     z-index: ${theme.zIndex.sticky};
+
+    &[data-status="up"] {
+      max-height: ${theme.size.bottomNavbar.height};
+    }
   `}
 `;
 
