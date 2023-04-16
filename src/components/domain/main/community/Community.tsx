@@ -1,3 +1,5 @@
+"use client";
+
 /* eslint-disable no-underscore-dangle */
 import { v4 } from "uuid";
 

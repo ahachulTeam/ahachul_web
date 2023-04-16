@@ -7,8 +7,9 @@ export const Main = styled.main`
     margin: 0 auto;
     width: 100%;
     max-width: ${theme.size.layout.width};
-    min-height: ${`calc(100vh - ${theme.size.header.height})`};
+    min-height: ${`calc(100vh - ${theme.size.header.height}) - ${theme.size.bottomNavbar.height})`};
     padding-top: ${theme.size.header.height};
+    padding-bottom: ${theme.size.bottomNavbar.height};
     background-color: ${theme.colors.white};
   `}
 `;

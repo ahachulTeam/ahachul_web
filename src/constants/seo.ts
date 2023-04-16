@@ -6,6 +6,7 @@ export const StaticSEO = {
   main: {
     title: `지하철을 빠르고 편리하게, ${PREFIX} ${KR_APP_NAME}`,
     subTitle: `지하철을 빠르고 편리하게, ${PREFIX} ${EN_APP_NAME}`,
+    description: `지하철에 대한 실시간 정보와 혼잡도를 ${KR_APP_NAME}에서 찾아보세요. 아하철 커뮤니티를 통해서는 한 발 빠른 지하철 소식을 확인하세요. 쾌적하고 편안한 여정을 위한 지하철 민원 서비스를 제공해요. 한 번에 찾아주는 지하철 분실물 보관함, 아하철에서 확인할 수 있어요`,
     congestion: `지하철 혼잡도를 빠르고 편리하게, ${PREFIX} ${KR_APP_NAME}`,
     information: `지하철 실시간 정보를 빠르고 편리하게, ${PREFIX} ${KR_APP_NAME}`,
     subwayNews: `지하철 최신 정보는 ${PREFIX} ${KR_APP_NAME}에서`,

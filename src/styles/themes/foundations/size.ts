@@ -7,6 +7,9 @@ export const size = {
   header: {
     height: "54px",
   },
+  bottomNavbar: {
+    height: "83px",
+  },
   footer: {
     height_d: "322px",
     height_t: "348px",

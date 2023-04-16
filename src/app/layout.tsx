@@ -3,8 +3,7 @@ import { PropsWithChildren } from "react";
 
 import { AppProvider, StyledComponentsRegistry } from "@/libs";
 
-import { Header, Toast } from "@/components";
-import Main from "@/components/main/Main";
+import { Main, Header, Navbar, Toast } from "@/components";
 
 import { StaticSEO, KR_APP_NAME, EN_APP_NAME } from "@/constants/seo";
 
@@ -35,10 +34,10 @@ const pretendard = localFont({
 
 export const metadata = {
   title: {
-    default: `${KR_APP_NAME} | ${EN_APP_NAME}`,
+    default: KR_APP_NAME,
     template: EN_APP_NAME,
   },
-  description: StaticSEO.main.title,
+  description: StaticSEO.main.description,
   icons: {
     icon: "/favicon.ico",
   },
@@ -52,7 +51,9 @@ export default function RootLayout({ children }: PropsWithChildren) {
           <AppProvider>
             <Header />
             <Main>{children}</Main>
+            <Navbar />
             <Toast />
+            <div id="modal-root" />
           </AppProvider>
         </StyledComponentsRegistry>
       </body>
