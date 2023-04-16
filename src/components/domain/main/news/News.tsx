@@ -24,11 +24,11 @@ function News() {
     <S.NewsWrapper>
       <Slider {...SLIDER_SETTINGS}>
         {NEWS_SLIDER_IMAGES.map(({ id, bannerImg, subway, title }) => (
-          <S.Banner key={id}>
+          <S.Banner key={title}>
             <S.BannerImg>{bannerImg}</S.BannerImg>
             <S.BannerInfo>
               <p>{subway}</p>
-              <h5>{title}</h5>
+              <h4>{title}</h4>
             </S.BannerInfo>
           </S.Banner>
         ))}

@@ -2,7 +2,7 @@ import { css } from "styled-components";
 
 export const size = {
   layout: {
-    width: "768px",
+    width: "390px",
   },
   header: {
     height: "56px",

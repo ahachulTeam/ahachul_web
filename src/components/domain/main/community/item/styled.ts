@@ -4,16 +4,13 @@ import { css, styled } from "styled-components";
 import { theme } from "@/styles";
 
 export const NavItem = styled.li`
-  ${({ theme }) => css`
-    & > a {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      column-gap: 16px;
-      padding: 26px 0;
-      border-bottom: 1px soild ${theme.colors.gray_20};
-    }
-  `}
+  & > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 16px;
+    padding: 26px 0;
+  }
 `;
 
 export const Flex = styled.div`
@@ -42,7 +39,7 @@ export const Box = styled.span`
     display: flex;
     justify-content: space-between;
 
-    & > span {
+    & > b {
       ${theme.fonts.regular12};
       display: flex;
       justify-content: center;
@@ -53,7 +50,6 @@ export const Box = styled.span`
       padding: 2px 8px;
       color: ${theme.colors.white};
       background-color: #bc2a38;
-      text-align: center;
     }
   `}
 `;

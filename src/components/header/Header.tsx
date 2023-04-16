@@ -24,7 +24,7 @@ function Header() {
             {isAuthed ? (
               <ProfileIcon />
             ) : (
-              <Image src={defaultUserImg} alt="마이 페이지" sizes="100%" fill priority />
+              <Image src={defaultUserImg} alt="마이 페이지" width={24} height={24} priority />
             )}
           </S.MenuBtn>
           <S.MenuBtn>

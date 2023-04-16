@@ -37,7 +37,7 @@ export const Divider = styled.div`
   ${({ theme }) => css`
     min-width: 100%;
     height: 10px;
-    background-color: ${theme.colors.gray_20};
+    background-color: ${theme.colors.gray_10};
   `}
 `;
 

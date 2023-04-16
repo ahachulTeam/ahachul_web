@@ -24,7 +24,7 @@ function Item({ data }: ItemProps) {
           </h4>
           <p>{data.content}</p>
           <S.Box>
-            <span>{data.subwayLine} HOT</span>
+            <b>{data.subwayLine} HOT</b>
           </S.Box>
         </S.Flex>
         <Image src={thumbnailDefaultImg} alt={data.title} />

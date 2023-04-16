@@ -64,6 +64,7 @@ export const BannerInfo = styled.div`
     border-radius: 90px;
     padding: 0 12px;
     background-color: ${theme.colors.primary};
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
     transform: translateX(-50%);
 
     & > p {
@@ -79,7 +80,7 @@ export const BannerInfo = styled.div`
       color: ${theme.colors.white};
     }
 
-    & > h5 {
+    & > h4 {
       ${theme.fonts.semibold14};
       color: ${theme.colors.white};
     }
