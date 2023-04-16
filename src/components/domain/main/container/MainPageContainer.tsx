@@ -26,22 +26,26 @@ function MainPageContainer({ isAuthed = false }: MainPageContainerProps) {
       <h2 css={S.visuallyHidden}>{StaticSEO.main.subTitle}</h2>
       <S.SubwayInfoSection>
         <div>
-          <h3 css={S.visuallyHidden}> 지하철 열차정보와 혼잡도가 궁금하다면?</h3>
+          <h3 css={S.visuallyHidden}>지하철 열차정보와 혼잡도가 궁금하다면?</h3>
         </div>
         <SubwayInfo />
       </S.SubwayInfoSection>
       <S.Divider />
       <S.NewsSection>
         <div css={S.bannerSectionTitle}>
-          <h3 css={S.h3}>🎙 지하철 HOT 소식</h3>
+          <h3 css={S.h3}>
+            <b>지하철</b> HOT 소식
+          </h3>
         </div>
         <News />
       </S.NewsSection>
       <S.Divider />
       <S.CommunitySection>
         <div>
-          <h3 css={S.h3}>🤣 실시간 HOT 게시물</h3>
-          <Link href={PATH.BOARD}>
+          <h3 css={S.h3}>
+            <b>실시간</b> HOT 게시물
+          </h3>
+          <Link href={PATH.BOARD} aria-label="커뮤니티 페이지 링크 버튼">
             <ArrowIcon />
           </Link>
         </div>

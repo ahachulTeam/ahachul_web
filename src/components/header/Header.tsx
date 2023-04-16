@@ -20,14 +20,20 @@ function Header() {
       <S.Container>
         <LogoLink />
         <S.Box>
-          <S.MenuBtn>
+          <S.MenuBtn aria-label="내 프로필 보기 버튼">
             {isAuthed ? (
               <ProfileIcon />
             ) : (
-              <Image src={defaultUserImg} alt="마이 페이지" width={24} height={24} priority />
+              <Image
+                src={defaultUserImg}
+                alt="내 프로필 보기 버튼"
+                width={24}
+                height={24}
+                priority
+              />
             )}
           </S.MenuBtn>
-          <S.MenuBtn>
+          <S.MenuBtn aria-label="내 알람 보기 버튼">
             <KenllIcon />
           </S.MenuBtn>
         </S.Box>

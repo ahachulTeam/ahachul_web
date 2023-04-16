@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import { css, styled } from "styled-components";
+
+import { theme } from "@/styles";
 
 import { BOTTOM_SHEET_DURATION } from "@/constants";
 
@@ -69,4 +72,8 @@ export const CloseBtn = styled.button`
 
 export const Content = styled.div`
   padding: 0 42px 36px 42px;
+`;
+
+export const visuallyHidden = css`
+  ${theme.a11y.visuallyHidden}
 `;

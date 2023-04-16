@@ -22,13 +22,13 @@ export const Flex = styled.div`
     height: 100%;
 
     & > h4 {
-      ${theme.fonts.bold18};
+      ${theme.fonts.bold16};
       color: ${theme.colors.black};
     }
 
     & > p {
       ${theme.fonts.regular12};
-      color: ${theme.colors.black};
+      color: #6e6e6e;
       font-weight: 300;
     }
   `}

@@ -9,7 +9,6 @@ export const Navbar = styled.nav`
     width: 100%;
     height: ${theme.size.bottomNavbar.height};
     border-top: 1px solid ${theme.colors.gray_30};
-    padding-bottom: 4px;
     background-color: ${theme.colors.white};
     transform: translateX(-50%);
     z-index: ${theme.zIndex.sticky};

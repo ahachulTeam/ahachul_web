@@ -186,13 +186,13 @@ const GlobalStyle = createGlobalStyle`
   path {
     pointer-events: none;
   }
-  [tabindex]:focus-visible,
+  /* [tabindex]:focus-visible,
   label:focus-visible,
   button:focus-visible,
   a:focus-visible {
     outline: none;
     box-shadow: 0 0 0 2px rgba(255, 206, 50, 0.65) inset;
-  }
+  } */
   dialog {
     border: 0;
     padding: 0;

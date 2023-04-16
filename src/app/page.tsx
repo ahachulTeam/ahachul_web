@@ -1,5 +1,10 @@
-import { MainPageContainer } from "@/components";
+import { BottomSheetForApp, MainPageContainer } from "@/components";
 
 export default function HomePage() {
-  return <MainPageContainer />;
+  return (
+    <>
+      <MainPageContainer />;
+      <BottomSheetForApp />
+    </>
+  );
 }

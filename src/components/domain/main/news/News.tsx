@@ -13,7 +13,7 @@ const SLIDER_SETTINGS = {
   infinite: true,
   slidesToShow: 1,
   slidesToScroll: 1,
-  autoplay: false,
+  autoplay: true,
   speed: 700,
   autoplaySpeed: 4000,
   cssEase: "linear",
@@ -23,7 +23,7 @@ function News() {
   return (
     <S.NewsWrapper>
       <Slider {...SLIDER_SETTINGS}>
-        {NEWS_SLIDER_IMAGES.map(({ id, bannerImg, subway, title }) => (
+        {NEWS_SLIDER_IMAGES.map(({ bannerImg, subway, title }) => (
           <S.Banner key={title}>
             <S.BannerImg>{bannerImg}</S.BannerImg>
             <S.BannerInfo>

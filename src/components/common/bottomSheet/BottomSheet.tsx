@@ -14,12 +14,24 @@ import { BOTTOM_SHEET_DURATION } from "@/constants";
 interface BottomSheetProps {
   title: string;
   isOpen: boolean;
+  isHeaderHidden?: boolean;
+  isTitleHidden?: boolean;
   hasCloseBtn?: boolean;
+  className?: string;
   onClose: () => void;
 }
 
 function BottomSheet(
-  { children, title, isOpen, hasCloseBtn = false, onClose }: PropsWithChildren<BottomSheetProps>,
+  {
+    children,
+    title,
+    isOpen,
+    isHeaderHidden = false,
+    isTitleHidden = false,
+    hasCloseBtn = false,
+    className,
+    onClose,
+  }: PropsWithChildren<BottomSheetProps>,
   ref: ForwardedRef<HTMLDialogElement>
 ) {
   const [isShow, setIsShow] = useState(false);
@@ -43,15 +55,18 @@ function BottomSheet(
     <Portal containerId="modal-root" isMounted={isOpen}>
       <S.Dim>
         <S.BottomSheet ref={ref} open={isOpen} isShow={isShow} aria-modal="true" tabIndex={-1}>
-          <S.Header>
-            <h2>{title}</h2>
-            {hasCloseBtn && (
-              <S.CloseBtn type="button" aria-label="닫기 버튼" onClick={onClose}>
-                <CloseIcon />
-              </S.CloseBtn>
-            )}
-          </S.Header>
-          <S.Content>{children}</S.Content>
+          {!isHeaderHidden && (
+            <S.Header>
+              <h2>{title}</h2>
+              {hasCloseBtn && (
+                <S.CloseBtn type="button" aria-label="닫기 버튼" onClick={onClose}>
+                  <CloseIcon />
+                </S.CloseBtn>
+              )}
+            </S.Header>
+          )}
+          {!isTitleHidden && <h2 css={S.visuallyHidden}>{title}</h2>}
+          <S.Content className={className}>{children}</S.Content>
         </S.BottomSheet>
       </S.Dim>
     </Portal>

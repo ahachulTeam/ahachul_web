@@ -4,6 +4,7 @@ export const NewsWrapper = styled.div`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
+    cursor: pointer;
 
     & > .slick-slider > .slick-dots {
       bottom: 75px;

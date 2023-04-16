@@ -51,5 +51,10 @@ export const bannerSectionTitle = css`
 `;
 
 export const h3 = css`
-  ${theme.fonts.bold20};
+  ${theme.fonts.bold18};
+  color: #aaaaaa;
+
+  & > b {
+    color: ${theme.colors.black};
+  }
 `;

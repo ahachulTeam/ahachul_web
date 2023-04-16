@@ -2,13 +2,13 @@ import { css } from "styled-components";
 
 export const size = {
   layout: {
-    width: "390px",
+    width: "430px",
   },
   header: {
     height: "56px",
   },
   bottomNavbar: {
-    height: "82px",
+    height: "60px",
   },
   footer: {
     height_d: "322px",

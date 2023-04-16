@@ -5,8 +5,8 @@ const useDisclosure = () => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const onOpen = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
+  const onOpen = useCallback((event?: React.MouseEvent<HTMLButtonElement>) => {
+    event?.stopPropagation();
     setIsOpen(true);
     setTimeout(() => dialoglRef.current?.focus());
   }, []);
