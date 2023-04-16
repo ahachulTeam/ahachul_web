@@ -4,13 +4,13 @@ import { css, styled } from "styled-components";
 import { theme } from "@/styles";
 
 export const SubwayInfoSection = styled.section`
-  height: 180px;
   padding: 20px 16px;
 `;
 
-export const SwipeBannerSection = styled.section`
-  height: 253px;
+export const NewsSection = styled.section`
   padding: 20px 0;
+  max-width: 100%;
+  overflow: hidden;
 `;
 
 export const CommunitySection = styled.section`

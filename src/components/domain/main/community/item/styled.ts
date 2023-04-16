@@ -47,6 +47,7 @@ export const Box = styled.span`
       display: flex;
       justify-content: center;
       align-items: center;
+      width: max-content;
       height: 20px;
       border-radius: 3px;
       padding: 2px 8px;

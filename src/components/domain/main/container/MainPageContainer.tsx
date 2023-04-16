@@ -1,7 +1,8 @@
 "use client";
 
 import Community from "../community/Community";
-import SwipeBanner from "../swipeBanner/SwipeBanner";
+import News from "../news/News";
+import SubwayInfo from "../subwayInfo/SubwayInfo";
 import Link from "next/link";
 
 import { StaticSEO } from "@/constants/seo";
@@ -25,16 +26,17 @@ function MainPageContainer({ isAuthed = false }: MainPageContainerProps) {
       <h2 css={S.visuallyHidden}>{StaticSEO.main.subTitle}</h2>
       <S.SubwayInfoSection>
         <div>
-          <h3 css={S.h3}> 아하철님 열차정보와 혼잡도가 궁금하다면?</h3>
+          <h3 css={S.visuallyHidden}> 지하철 열차정보와 혼잡도가 궁금하다면?</h3>
         </div>
+        <SubwayInfo />
       </S.SubwayInfoSection>
       <S.Divider />
-      <S.SwipeBannerSection>
+      <S.NewsSection>
         <div css={S.bannerSectionTitle}>
-          <h3 css={S.h3}>🎙 전철역 HOT 소식</h3>
+          <h3 css={S.h3}>🎙 지하철 HOT 소식</h3>
         </div>
-        <SwipeBanner />
-      </S.SwipeBannerSection>
+        <News />
+      </S.NewsSection>
       <S.Divider />
       <S.CommunitySection>
         <div>
