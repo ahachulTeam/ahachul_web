@@ -10,6 +10,7 @@ export const NavItem = styled.li`
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      row-gap: 4px;
       width: 100%;
       height: 100%;
 

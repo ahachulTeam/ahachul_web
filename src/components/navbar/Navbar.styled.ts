@@ -7,7 +7,7 @@ export const Navbar = styled.nav`
     left: 50%;
     max-width: ${theme.size.layout.width};
     width: 100%;
-    height: 83px;
+    height: ${theme.size.bottomNavbar.height};
     border-top: 1px solid ${theme.colors.gray_30};
     padding-bottom: 4px;
     background-color: ${theme.colors.white};

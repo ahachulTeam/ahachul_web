@@ -3,7 +3,7 @@
 import Image from "next/image";
 import defaultUserImg from "public/illust/img/img_userDefault.png";
 
-import { LogoLink } from "@/components";
+import { LogoLink } from "@/components/common";
 
 import { KenllIcon, ProfileIcon } from "@/assets/icons";
 

@@ -5,10 +5,10 @@ export const size = {
     width: "768px",
   },
   header: {
-    height: "54px",
+    height: "56px",
   },
   bottomNavbar: {
-    height: "83px",
+    height: "82px",
   },
   footer: {
     height_d: "322px",
