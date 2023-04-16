@@ -13,6 +13,7 @@ export const Navbar = styled.nav`
     background-color: ${theme.colors.white};
     transform: translateX(-50%);
     transition: max-height 300ms cubic-bezier(0.43, 0.03, 0.15, 0.95);
+    overflow: hidden;
     z-index: ${theme.zIndex.sticky};
 
     &[data-status="up"] {

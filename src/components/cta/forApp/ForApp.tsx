@@ -6,20 +6,39 @@ import { useEffect, useState } from "react";
 
 import { useDisclosure } from "@/hooks";
 
+import handleSessionStorage from "@/utils/storage";
+
 import * as S from "./styled";
+
+import { APP_CONVERSION_CTA_STORAGE_KEY } from "@/constants";
 
 function BottomSheetForApp() {
   const [isMounted, setIsMounted] = useState(false);
   const { dialoglRef, isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
+    const storage =
+      typeof window !== "undefined"
+        ? handleSessionStorage(APP_CONVERSION_CTA_STORAGE_KEY)
+        : undefined;
+
+    if (!storage) {
+      return;
+    }
+
+    const appConversionToken = storage.get();
+    const isAlreadyInitialized = () => !!appConversionToken;
+
+    if (!isAlreadyInitialized()) {
+      storage.set(APP_CONVERSION_CTA_STORAGE_KEY);
+      setIsMounted(true);
+    }
+  }, []);
+
+  useEffect(() => {
     if (!isMounted) return;
     onOpen();
   }, [isMounted]);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, [setIsMounted]);
 
   return (
     <S.CTABottomSheet

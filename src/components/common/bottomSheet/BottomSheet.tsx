@@ -54,7 +54,7 @@ function BottomSheet(
   return (
     <Portal containerId="modal-root" isMounted={isOpen}>
       <S.Dim>
-        <S.BottomSheet ref={ref} open={isOpen} isShow={isShow} aria-modal="true" tabIndex={-1}>
+        <S.BottomSheet ref={ref} open={isOpen} data-status={isShow} aria-modal="true" tabIndex={-1}>
           {!isHeaderHidden && (
             <S.Header>
               <h2>{title}</h2>
