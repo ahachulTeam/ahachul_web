@@ -16,6 +16,11 @@ export const fonts = {
     font-weight: 400;
     line-height: 1.35714;
   `,
+  regular20: css`
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.45;
+  `,
   regular16: css`
     font-size: 1.6rem;
     font-weight: 400;

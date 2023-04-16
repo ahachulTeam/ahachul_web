@@ -25,9 +25,7 @@ function MainPageContainer({ isAuthed = false }: MainPageContainerProps) {
       <h1 css={S.visuallyHidden}>{StaticSEO.main.title}</h1>
       <h2 css={S.visuallyHidden}>{StaticSEO.main.subTitle}</h2>
       <S.SubwayInfoSection>
-        <div>
-          <h3 css={S.visuallyHidden}>지하철 열차정보와 혼잡도가 궁금하다면?</h3>
-        </div>
+        <h3 css={S.visuallyHidden}>지하철 열차정보와 혼잡도가 궁금하다면?</h3>
         <SubwayInfo />
       </S.SubwayInfoSection>
       <S.Divider />
