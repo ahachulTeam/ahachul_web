@@ -1,3 +1,4 @@
+export * from "./badge";
 export * from "./portal";
 export * from "./toggle";
 export * from "./button";
