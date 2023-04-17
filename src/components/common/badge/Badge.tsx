@@ -55,7 +55,7 @@ const variants = {
   }),
 } as const;
 
-interface SubwayBadgeProps {
+interface SubwayBadgeProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
   label: string;
   isHottest?: boolean;
   className?: string;
@@ -66,14 +66,14 @@ interface BadgeProps {
   variant: keyof typeof variants;
 }
 
-const Badge = styled.div<BadgeProps>`
+const Badge = styled.label<BadgeProps>`
   ${({ theme, variant }) => css`
     ${theme.badge.primary};
     ${{ ...variants[(variant || "sin_bundang") as keyof typeof variants]() }};
   `}
 `;
 
-export default function SubwaytBadge({ label, isHottest, className }: SubwayBadgeProps) {
+export default function SubwaytBadge({ label, isHottest, className, ...props }: SubwayBadgeProps) {
   const variant = useMemo(() => {
     switch (label) {
       case "1호선":
@@ -110,7 +110,7 @@ export default function SubwaytBadge({ label, isHottest, className }: SubwayBadg
   }, [label]);
 
   return (
-    <Badge variant={variant} className={className}>
+    <Badge variant={variant} className={className} {...props}>
       {label} {isHottest && "HOT"}
     </Badge>
   );
