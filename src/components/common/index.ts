@@ -7,3 +7,4 @@ export * from "./button";
 export * from "./checkbox";
 export * from "./carousel";
 export * from "./bottomSheet";
+export * from "./filter";
