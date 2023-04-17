@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import thumbnailDefaultImg from "public/illust/img/img_thumbnailDefault.png";
 
+import { SubwayBadge } from "@/components/common";
+
 import { StaticSEO } from "@/constants/seo";
 
 import * as S from "./styled";
@@ -24,7 +26,7 @@ function Item({ data }: ItemProps) {
           </h4>
           <p>{data.content}</p>
           <S.Box>
-            <b>{data.subwayLine} HOT</b>
+            <SubwayBadge label={data.subwayLine} isHottest />
           </S.Box>
         </S.Flex>
         <Image src={thumbnailDefaultImg} alt={data.title} />

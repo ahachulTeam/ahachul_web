@@ -1,4 +1,5 @@
 export * from "./logo";
+export * from "./badge";
 export * from "./toast";
 export * from "./portal";
 export * from "./toggle";

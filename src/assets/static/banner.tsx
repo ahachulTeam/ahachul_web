@@ -8,7 +8,7 @@ export const NEWS_SLIDER_IMAGES = [
       <Image
         src={NewsBanner_Subway_Sinsa}
         alt="신사역의 새로운 변화!"
-        width={390}
+        width={430}
         height={189}
         priority
       />
@@ -22,7 +22,7 @@ export const NEWS_SLIDER_IMAGES = [
       <Image
         src={NewsBanner_Subway_Sinsa}
         alt="신사역의 새로운 변화!"
-        width={390}
+        width={430}
         height={189}
         priority
       />
