@@ -1,6 +1,6 @@
-import { ax } from "../axios";
-
 import { APIUser } from "@/types/user";
+
+import { ax } from "./axios";
 
 const userAPI = {
   getUserProfile: ({ userId }: { userId: APIUser["userId"] }) =>

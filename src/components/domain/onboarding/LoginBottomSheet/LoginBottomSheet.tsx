@@ -38,3 +38,6 @@ function LoginBottomSheet({ isOpen, onClose }: Props, ref: ForwardedRef<HTMLDial
 }
 
 export default forwardRef(LoginBottomSheet);
+
+// const kakaoUrl = `${process.env.NEXT_PUBLIC_API_URL}/v1/auth/login?providerType=KAKAO=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}`;
+// const kakaoUrl = `${process.env.NEXT_PUBLIC_API_URL}/v1/auth/redirect-url?providerType=KAKAO`;

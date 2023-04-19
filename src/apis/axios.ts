@@ -73,11 +73,12 @@ const setInterceptor = (instance: AxiosInstance) => {
 };
 
 const options: CreateAxiosDefaults = {
-  headers: {
-    Accept: "*/*",
-    "Content-Type": "application/json",
-  },
+  // headers: {
+  //   Accept: "*/*",
+  //   "Content-Type": "application/json",
+  // },
   timeout: 3000,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 };
 
 export const ax = axios.create({
