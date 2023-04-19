@@ -17,9 +17,9 @@ interface FilterItem {
 interface FilterProps {
   id: string;
   label: string;
-  options: FilterItem[];
+  options: ReadonlyArray<FilterItem>;
   value: string;
-  chnageValue: (value: string) => void;
+  chnageValue: (option: string) => void;
 }
 
 export default function Filter({ id, label, options, value, chnageValue }: FilterProps) {
@@ -30,8 +30,8 @@ export default function Filter({ id, label, options, value, chnageValue }: Filte
 
   useArrowKeyTrap(dialoglRef);
 
-  const handleOptionClick = (opt: string) => () => {
-    chnageValue(opt);
+  const handleOptionClick = (option: string) => () => {
+    chnageValue(option);
   };
 
   useEffect(() => {
