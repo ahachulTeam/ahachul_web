@@ -5,6 +5,8 @@ import { ForwardedRef, forwardRef } from "react";
 
 import { BottomSheet } from "@/components/common";
 
+import { kakaoUrl, googleUrl } from "@/constants/auth";
+
 import * as S from "./styled";
 
 interface Props {
@@ -13,9 +15,6 @@ interface Props {
 }
 
 function LoginBottomSheet({ isOpen, onClose }: Props, ref: ForwardedRef<HTMLDialogElement>) {
-  const kakaoUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code`;
-  const googleUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.NEXT_PUBLIC_GOOGLE_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&access_type=offline&response_type=code&scope=${process.env.NEXT_PUBLIC_GOOGLE_SCOPE}`;
-
   return (
     <BottomSheet ref={ref} title="로그인" isOpen={isOpen} onClose={onClose}>
       <S.ContentBox>

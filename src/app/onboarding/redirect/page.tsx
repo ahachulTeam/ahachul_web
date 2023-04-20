@@ -1,61 +1,36 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef } from "react";
-import { keyframes, styled } from "styled-components";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { styled } from "styled-components";
 
-import { getUserAccessToken } from "@/apis/auth";
+import { APILoginProviders } from "@/types/auth";
+
+import { animations } from "@/styles/themes/foundations";
+
+import useLoginMutation from "@/queries/auth/useLoginMutation";
 
 function RedirectPage() {
-  const router = useRouter();
   const searchParams = useSearchParams();
+  const providerCode = searchParams.get("code");
+  const providerType = searchParams.get("type");
 
-  const timeout = useRef<NodeJS.Timeout | null>(null);
-
-  const getAccessToken = async (code: string) => {
-    // if (!kakaoAccessToken) {
-    //   router.push("/404");
-    //   return;
-    // }
-    const userToken = await getUserAccessToken(code);
-    console.log(userToken);
-    // if (!userToken) {
-    //   router.push("/404");
-    // }
-
-    // timeout.current = setTimeout(() => {
-    //   router.push("/");
-    // }, 500);
-  };
+  const { mutate: mutateLogin } = useLoginMutation();
 
   useEffect(() => {
-    const providerType = searchParams.get("type");
-    const providerCode = searchParams.get("code");
-
-    const hasAuthed = !!providerCode;
-
-    if (hasAuthed) {
-      getAccessToken(providerCode);
+    if (!!providerCode && !!providerType) {
+      const providers: APILoginProviders = {
+        providerCode,
+        providerType: providerType as APILoginProviders["providerType"],
+      };
+      mutateLogin(providers);
     }
-
-    return () => clearTimeout(timeout.current as NodeJS.Timeout);
   }, []);
 
   return <Redirect />;
 }
 
 export default RedirectPage;
-
-const slideUpAndFade = keyframes`
-  from {
-    opacity: 0;
-    transform: translate(-50%, -40%);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-  }
-`;
 
 const Redirect = styled.div`
   background-image: url("/illust/onboding/_3.svg");
@@ -69,15 +44,9 @@ const Redirect = styled.div`
   height: 324px;
   margin: 0 auto;
   transform: translate(-50%, -50%);
-  animation: ${slideUpAndFade} 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+  animation: ${animations.slideUpAndFade} 1000ms cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
 `;
-
-// 1. login 성공 => access_token
-// 2. 유저 api data 받아온다
-// 3. api isSuccess =>
-
-// 구글 로그인, 카카오 로그인
 
 // const { isAuthed, setAuth } = useAuth();
 // //   const { isSuccess, data, refetch } = useMyProfileQuery({ enabled: isAuthed });
