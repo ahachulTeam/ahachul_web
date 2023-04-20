@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { styled } from "styled-components";
 
-import { APILoginProviders } from "@/types/auth";
+import { APILoginUserProviders } from "@/types/auth";
 
 import { animations } from "@/styles/themes/foundations";
 
@@ -19,11 +19,11 @@ function RedirectPage() {
 
   useEffect(() => {
     if (!!providerCode && !!providerType) {
-      const providers: APILoginProviders = {
+      const providers = {
         providerCode,
-        providerType: providerType as APILoginProviders["providerType"],
+        providerType,
       };
-      mutateLogin(providers);
+      mutateLogin(providers as APILoginUserProviders);
     }
   }, []);
 

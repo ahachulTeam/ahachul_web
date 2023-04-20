@@ -1,11 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { APIUser } from "@/types/user";
+import { UserModel } from "@/types/user";
 
 import userAPI from "@/apis/users";
 
 const useMyProfileMutation = () =>
-  useMutation(({ nickname }: { nickname: APIUser["nickname"] }) =>
+  useMutation(({ nickname }: { nickname: UserModel["nickname"] }) =>
     userAPI.updateMyProfile({ nickname }).then(({ data }) => data)
   );
 
