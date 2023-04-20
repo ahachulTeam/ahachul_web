@@ -29,6 +29,7 @@ function RedirectPage() {
   };
 
   useEffect(() => {
+    const providerType = searchParams.get("type");
     const providerCode = searchParams.get("code");
 
     const hasAuthed = !!providerCode;

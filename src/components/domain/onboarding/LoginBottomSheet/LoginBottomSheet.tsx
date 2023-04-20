@@ -14,8 +14,7 @@ interface Props {
 
 function LoginBottomSheet({ isOpen, onClose }: Props, ref: ForwardedRef<HTMLDialogElement>) {
   const kakaoUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&response_type=code`;
-
-  const googleUrl = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorize/kakao?redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_REDIRECT_URI}`;
+  const googleUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.NEXT_PUBLIC_GOOGLE_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}&access_type=offline&response_type=code&scope=${process.env.NEXT_PUBLIC_GOOGLE_SCOPE}`;
 
   return (
     <BottomSheet ref={ref} title="로그인" isOpen={isOpen} onClose={onClose}>
@@ -38,6 +37,3 @@ function LoginBottomSheet({ isOpen, onClose }: Props, ref: ForwardedRef<HTMLDial
 }
 
 export default forwardRef(LoginBottomSheet);
-
-// const kakaoUrl = `${process.env.NEXT_PUBLIC_API_URL}/v1/auth/login?providerType=KAKAO=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}`;
-// const kakaoUrl = `${process.env.NEXT_PUBLIC_API_URL}/v1/auth/redirect-url?providerType=KAKAO`;
