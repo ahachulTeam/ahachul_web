@@ -5,7 +5,7 @@ import Link from "next/link";
 import useMyProfileQuery from "@/queries/user/useMyProfileQuery";
 
 function MyPage() {
-  const { data: myProfile, refetch } = useMyProfileQuery();
+  const { data: myProfile, refetch } = useMyProfileQuery({ enabled: false });
 
   return (
     <div>

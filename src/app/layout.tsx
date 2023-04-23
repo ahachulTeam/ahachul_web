@@ -49,10 +49,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <StyledComponentsRegistry>
           <AppProvider>
             <Main>{children}</Main>
-<<<<<<< HEAD
-=======
             <Toast />
->>>>>>> develop
             <div id="modal-root" />
           </AppProvider>
         </StyledComponentsRegistry>

@@ -19,17 +19,8 @@ export const Dim = styled.div`
   `}
 `;
 
-<<<<<<< HEAD
 export const BottomSheet = styled.dialog`
   ${({ theme }) => css`
-=======
-interface BottomSheetlProps {
-  isShow: boolean;
-}
-
-export const BottomSheet = styled.dialog<BottomSheetlProps>`
-  ${({ theme, isShow }) => css`
->>>>>>> develop
     position: absolute;
     bottom: 0;
     left: 0;
@@ -38,19 +29,13 @@ export const BottomSheet = styled.dialog<BottomSheetlProps>`
     border-radius: 20px 20px 0px 0px;
     padding: 0;
     background-color: ${theme.colors.white};
-<<<<<<< HEAD
     transform: translateY(100%);
     transition: transform ${BOTTOM_SHEET_DURATION}ms ease 0s;
     z-index: ${theme.zIndex.dialog};
 
-    &[data-isshow="true"] {
+    &[data-show="true"] {
       transform: translateY(0);
     }
-=======
-    transform: ${isShow ? "translateY(0)" : "translateY(100%)"};
-    transition: transform ${BOTTOM_SHEET_DURATION}ms ease 0s;
-    z-index: ${theme.zIndex.dialog};
->>>>>>> develop
   `}
 `;
 
