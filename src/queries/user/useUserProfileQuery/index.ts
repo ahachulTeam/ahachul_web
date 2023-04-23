@@ -6,8 +6,8 @@ import userAPI from "@/apis/users";
 
 const useUserProfileQuery = ({ memberId }: { memberId: UserModel["memberId"] }) => {
   return useQuery(["user", memberId], async () => {
-    const { data } = await userAPI.getUserProfile({ memberId });
-    return data;
+    const res = await userAPI.getUserProfile({ memberId });
+    return res;
   });
 };
 
