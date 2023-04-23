@@ -24,7 +24,7 @@ export const fonts = {
   medium10: css`
     font-size: 1rem;
     font-weight: 500;
-    line-height: 2.2;
+    line-height: 1.35714;
   `,
   medium14: css`
     font-size: 1.4rem;
@@ -34,7 +34,6 @@ export const fonts = {
   medium16: css`
     font-size: 1.6rem;
     font-weight: 500;
-    font-family: Pretendard;
     line-height: 1.8125;
   `,
   semibold14: css`

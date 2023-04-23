@@ -1,10 +1,14 @@
+<<<<<<< HEAD
 "use client";
 
+=======
+>>>>>>> develop
 import { ReactNode } from "react";
 import { createPortal } from "react-dom";
 
 interface PortalProps {
   children: ReactNode;
+<<<<<<< HEAD
   container: string;
   mounted: boolean;
 }
@@ -12,6 +16,15 @@ interface PortalProps {
 function Portal({ children, container, mounted }: PortalProps) {
   if (mounted) {
     const portal = document.querySelector(container);
+=======
+  containerId: string;
+  isMounted: boolean;
+}
+
+function Portal({ children, containerId, isMounted }: PortalProps) {
+  if (isMounted) {
+    const portal = document.getElementById(containerId);
+>>>>>>> develop
 
     return portal ? createPortal(children, portal) : null;
   }
