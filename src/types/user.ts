@@ -1,11 +1,12 @@
-export interface UserModel {
-  userId: number;
-  name: string | null;
-  nickname: string | null;
-  oauthNickname: string;
-  email: string | null;
-  profileImage: string;
-  ageGroup: string;
-  gender: "NONE" | "MALE" | "FEMALE";
-  authProvider: "KAKAO" | "APPLE";
+import { APILoginUser } from "@/types/auth";
+
+export interface UserModel extends APILoginUser {
+  nickname?: string | null;
+  email?: string | null;
+  gender?: string;
+  ageRange?: string;
+}
+
+export interface VerifyNicknameModel {
+  available: boolean;
 }

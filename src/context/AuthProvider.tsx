@@ -1,93 +1,71 @@
-// import { useQueryClient } from "@tanstack/react-query";
-// import { useRouter } from "next/navigation";
-// import React, { useEffect, useState, createContext, useMemo, startTransition } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import React, { useEffect, useState, createContext, useMemo, startTransition } from "react";
 
-// // import type { UserModel } from "@/types";
-// import { Auth } from "@/utils/auth";
+import { UserModel } from "@/types/user";
 
-// // import { PathStorage } from "@/utils/pathStorage";
+import { Auth } from "@/utils/auth";
 
-// // import { NON_SAVED_PATH } from "@/constants";
+export const auth = new Auth();
 
-// export const auth = new Auth();
+interface AuthContextValue {
+  auth: Auth;
+  initializing: boolean;
+  user: UserModel | null;
+  error: { message: string } | null;
+}
 
-// const prevPathStorage = new PathStorage("prev_path");
-// const redirectPathStorage = new PathStorage("sign_in_redirect");
+export const AuthContext = createContext({} as AuthContextValue);
 
-// interface AuthContextValue {
-//   auth: Auth;
-//   initializing: boolean;
-//   user: UserModel | null;
-//   error: { message: string } | null;
-//   redirectPathStorage: PathStorage;
-//   prevPathStorage: PathStorage;
-// }
+AuthContext.displayName = "AuthContext";
 
-// export const AuthContext = createContext({} as AuthContextValue);
+export function useAuth() {
+  const contextValue = React.useContext(AuthContext);
 
-// AuthContext.displayName = "AuthContext";
+  if (!contextValue) {
+    throw new Error("useAuth must be used within AuthProvider");
+  }
 
-// export function useAuth() {
-//   const contextValue = React.useContext(AuthContext);
+  return contextValue;
+}
 
-//   if (!contextValue) {
-//     throw new Error("useAuth must be used within AuthProvider");
-//   }
+interface AuthProviderProps {
+  children: React.ReactNode;
+}
 
-//   return contextValue;
-// }
+export function AuthProvider({ children }: AuthProviderProps) {
+  const queryClient = useQueryClient();
 
-// interface AuthProviderProps {
-//   children: React.ReactNode;
-// }
+  const [user, setUser] = useState<UserModel | null>(null);
+  const [error, setError] = useState<{ message: string } | null>(null);
+  const [initializing, setInitializing] = useState(true);
 
-// export function AuthProvider({ children }: AuthProviderProps) {
-//   const router = useRouter();
-//   const queryClient = useQueryClient();
+  useEffect(() => {
+    auth.resolveUser().onAuthStateChanged((_user: UserModel | null, _error) => {
+      startTransition(() => {
+        if (_user) {
+          setUser(_user);
+          setError(null);
+        } else {
+          setUser(null);
+          setTimeout(() => queryClient.clear(), 500);
+          if (_error) {
+            setError(_error);
+          }
+        }
+        setInitializing(false);
+      });
+    });
+  }, []);
 
-//   const [user, setUser] = useState<UserModel | null>(null);
-//   const [error, setError] = useState<{ message: string } | null>(null);
-//   const [initializing, setInitializing] = useState(true);
+  const value = useMemo(
+    () => ({
+      user,
+      error,
+      auth,
+      initializing,
+    }),
+    [error, initializing, user]
+  );
 
-//   useEffect(() => {
-//     auth.resolveUser().onAuthStateChanged((_user: UserModel | null, _error) => {
-//       startTransition(() => {
-//         if (_user) {
-//           setUser(_user);
-//           setError(null);
-//         } else {
-//           setUser(null);
-//           setTimeout(() => queryClient.clear(), 500);
-//           if (_error) {
-//             setError(_error);
-//           }
-//         }
-//         setInitializing(false);
-//       });
-//     });
-//   }, []);
-
-//   useEffect(() => {
-//     if (NON_SAVED_PATH.includes(router.pathname)) return;
-//     if (router.asPath !== redirectPathStorage.getPath()) {
-//       prevPathStorage.setPath(redirectPathStorage.getPath());
-//       redirectPathStorage.setPath(router.asPath);
-//     }
-//   }, [router.asPath]);
-
-//   const value = useMemo(
-//     () => ({
-//       user,
-//       error,
-//       auth,
-//       initializing,
-//       prevPathStorage,
-//       redirectPathStorage,
-//     }),
-//     [error, initializing, user]
-//   );
-
-//   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-// }
-
-export {};
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}

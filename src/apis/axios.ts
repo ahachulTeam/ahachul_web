@@ -1,31 +1,42 @@
-import axios, { AxiosInstance, CreateAxiosDefaults, isAxiosError } from "axios";
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import axios, { AxiosError, AxiosInstance, CreateAxiosDefaults, isAxiosError } from "axios";
 
-import tokenStorage from "@/utils/storage";
+import { TokenService } from "@/utils/tokenService";
 
-import { ACCESS_TOKEN_STORAGE_KEY } from "@/constants/auth";
+import { APIErrorResponse, ERROR_MESSAGE } from "@/constants/error";
 
-import { APIErrorResponse, ERROR_MESSAGE } from "@/constants";
+import { auth } from "@/context";
 
-const storage = tokenStorage(ACCESS_TOKEN_STORAGE_KEY);
+export const tokenService = new TokenService(auth);
+export const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const setInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
     config => {
-      if (typeof window !== "undefined") {
-        const token = tokenStorage(ACCESS_TOKEN_STORAGE_KEY).get();
+      const requestConfig = config;
 
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
+      let { accessToken } = auth;
+      if (accessToken) {
+        requestConfig.headers.Authorization = `Bearer ${accessToken}`;
+      }
+
+      if (TokenService.isServer() && tokenService.context?.req?.cookies) {
+        accessToken = "";
+        if (tokenService.context.req.cookies[tokenService.cookieKey]) {
+          accessToken = JSON.parse(
+            tokenService.context.req.cookies[tokenService.cookieKey]!
+          ).accessToken;
+
+          requestConfig.headers.Cookie = `${tokenService.cookieKey}={${encodeURIComponent(
+            tokenService.context.req.cookies[tokenService.cookieKey]!.slice(1, -1)
+          )}}`;
         }
-      }
 
-      if (!config.data && (config.method === "get" || config.method === "delete")) {
-        config.data = {};
+        requestConfig.headers.Authorization = `Bearer ${accessToken}`;
       }
-
       return config;
     },
-    err => Promise.reject(err)
+    (err: AxiosError): Promise<AxiosError> => Promise.reject(err)
   );
 
   instance.interceptors.response.use(
@@ -38,32 +49,21 @@ const setInterceptor = (instance: AxiosInstance) => {
 
           const toastMessage = ERROR_MESSAGE[status]?.[code];
           console.warn(status, code, toastMessage);
-          if (code === "A1" || code === "A2" || code === "A3" || code === "A5" || code === "A7") {
+
+          if (code === "201" || code === "203" || code === "204" || code === "205") {
             // 다시 로그인
-            window.location.href = "/login";
-            storage.remove();
+            tokenService.expireSession();
             return Promise.reject(error);
           }
 
-          if (code === "A4") {
+          if (code === "202") {
             // 액세스 토큰 만료
-            try {
-              const response = await axios.post("/auth/refresh-token");
-              const token = response.data.accessToken;
-              if (token && error.config) {
-                error.config.headers.Authorization = `Bearers ${token}`;
-                storage.set(token);
-                return await ax(error.config);
-              }
-            } catch (error) {
-              window.location.replace("/login");
-              return Promise.reject(error);
-            }
+            return tokenService.resetTokenAndReAttemptRequest(error);
           }
           return Promise.reject(error);
-          // return { isError: true, message: toastMessage ?? message, error };
         }
       }
+
       console.error(error);
       return Promise.reject(error);
     }
@@ -73,12 +73,12 @@ const setInterceptor = (instance: AxiosInstance) => {
 };
 
 const options: CreateAxiosDefaults = {
-  // headers: {
-  //   Accept: "*/*",
-  //   "Content-Type": "application/json",
-  // },
+  headers: {
+    Accept: "*/*",
+    "Content-Type": "application/json",
+  },
   timeout: 3000,
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: BASE_URL,
 };
 
 export const ax = axios.create({

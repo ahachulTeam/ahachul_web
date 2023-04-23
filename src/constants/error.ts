@@ -1,6 +1,32 @@
 import { HttpStatusCode } from "axios";
 
-export type ErrorCode = "C1" | "U1" | "A1" | "A2" | "A3" | "A4" | "A5" | "A6" | "A7" | "B1";
+export type KeyOf<T> = keyof T;
+export type ValueOf<T> = T[keyof T];
+export type IndexOf<T, K extends KeyOf<T>> = ValueOf<T[K]>;
+
+export type ErrorCode =
+  | "100"
+  | "101"
+  | "102"
+  | "103"
+  | "200"
+  | "201"
+  | "202"
+  | "203"
+  | "204"
+  | "205";
+
+export type CommonResponseMessages =
+  | "SUCCESS"
+  | "BAD_REQUEST"
+  | "INTERNAL_SERVER_ERROR"
+  | "유효하지 않은 도메인입니다."
+  | "유효하지 않은 ID 토큰입니다."
+  | "유효기간이 만료된 엑세스 토큰입니다."
+  | "유효하지 않은 리프레쉬 토큰입니다."
+  | "유효기간이 만료된 리프레쉬 토큰입니다."
+  | "유효하지 않은 권한 코드입니다."
+  | "유효하지 않은 액세스 토큰입니다.";
 
 export type ErrorCodeInfo = Partial<Record<ErrorCode, string>>;
 export type APIErrorResponse = {
@@ -13,22 +39,20 @@ export type APIErrorResponse = {
 
 // 임시 에러 코드
 export const ERROR_MESSAGE: Partial<Record<HttpStatusCode, ErrorCodeInfo>> = {
+  200: {
+    "100": "SUCCESS",
+  },
   400: {
-    U1: "이미 존재하는 닉네임이에요.",
+    "101": "BAD_REQUEST",
+    "102": "INTERNAL_SERVER_ERROR",
+    "103": "유효하지 않은 도메인입니다.",
+    "200": "유효하지 않은 ID 토큰입니다.",
   },
   401: {
-    A1: "존재하지 않는 사용자예요.",
-    A2: "유효한 액세스 토큰이 아니에요.",
-    A3: "유효한 리프레시 토큰이 아니에요. 다시 로그인 해 주세요.",
-    A4: "액세스 토큰이 만료되었어요. 새로운 액세스 토큰 발급 요청을 보내주세요.",
-    A5: "리프레시 토큰이 존재하지 않아요.",
-    A6: "잘못된 로그아웃 요청이에요. 액세스 토큰이나 리프레시 토큰이 존재하지 않아요.",
-    A7: "접근 권한이 없습니다.",
-  },
-  403: {
-    C1: "리소스가 존재하지 않아요.",
-  },
-  500: {
-    B1: "",
+    "201": "유효하지 않은 엑세스 토큰입니다.",
+    "202": "유효기간이 만료된 엑세스 토큰입니다.",
+    "203": "유효하지 않은 리프레쉬 토큰입니다.",
+    "204": "유효기간이 만료된 리프레쉬 토큰입니다.",
+    "205": "유효하지 않은 권한 코드입니다.",
   },
 };
