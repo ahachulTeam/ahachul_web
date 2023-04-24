@@ -14,7 +14,7 @@ interface Props {
   onClose: () => void;
 }
 
-function LoginBottomSheet({ isOpen, onClose }: Props, ref: ForwardedRef<HTMLDialogElement>) {
+function LoginDrawer({ isOpen, onClose }: Props, ref: ForwardedRef<HTMLDialogElement>) {
   return (
     <BottomSheet ref={ref} title="로그인" isOpen={isOpen} onClose={onClose}>
       <S.ContentBox>
@@ -35,4 +35,4 @@ function LoginBottomSheet({ isOpen, onClose }: Props, ref: ForwardedRef<HTMLDial
   );
 }
 
-export default forwardRef(LoginBottomSheet);
+export default forwardRef(LoginDrawer);

@@ -1,3 +1,4 @@
+export * from "./seo";
 export * from "./path";
 export * from "./error";
 export * from "./auth";
