@@ -9,7 +9,7 @@ const BottomSheetForApp = dynamic(() => import("@/components/cta/forApp/ForApp")
 export default function HomePage() {
   return (
     <>
-      <MainPageContainer />;
+      <MainPageContainer />
       <BottomSheetForApp />
     </>
   );

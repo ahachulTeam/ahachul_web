@@ -39,7 +39,7 @@ export const fonts = {
   medium16: css`
     font-size: 1.6rem;
     font-weight: 500;
-    line-height: 1.8125;
+    line-height: 1.5;
   `,
   semibold14: css`
     font-size: 1.4rem;
@@ -75,6 +75,11 @@ export const fonts = {
     font-size: 2rem;
     font-weight: 700;
     line-height: 1.25;
+  `,
+  bold24: css`
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.5;
   `,
   extraBold28: css`
     font-size: 2.8rem;

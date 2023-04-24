@@ -13,4 +13,7 @@ export const StaticSEO = {
     subwayNews: `지하철 최신 정보는 ${PREFIX} ${KR_APP_NAME}에서`,
     community: `지하철 커뮤니티는 ${PREFIX} ${KR_APP_NAME}에서`,
   },
+  onboarding: {
+    title: `지하철을 빠르고 편리하게, ${PREFIX} ${KR_APP_NAME}`,
+  },
 };

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import defaultUserImg from "public/illust/img/img_userDefault.png";
 
 import { LogoLink } from "@/components/common";
@@ -12,11 +13,12 @@ import * as S from "./styled";
 // import { useAuth } from "@/context";
 
 function Header() {
+  const pathname = usePathname();
   const isAuthed = false;
   // const { isAuthed, initializing } = useAuth();
 
   return (
-    <S.Header>
+    <S.Header data-show={pathname !== "/onboarding"}>
       <S.Container>
         <LogoLink />
         <S.Box>

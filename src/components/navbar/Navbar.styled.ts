@@ -12,11 +12,11 @@ export const Navbar = styled.nav`
     border-top: 1px solid ${theme.colors.gray_30};
     background-color: ${theme.colors.white};
     transform: translateX(-50%);
-    transition: max-height 300ms cubic-bezier(0.43, 0.03, 0.15, 0.95);
+    transition: max-height 500ms cubic-bezier(0.43, 0.03, 0.15, 0.95);
     overflow: hidden;
     z-index: ${theme.zIndex.sticky};
 
-    &[data-status="up"] {
+    &[data-show="true"] {
       max-height: ${theme.size.bottomNavbar.height};
     }
   `}

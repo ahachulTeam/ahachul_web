@@ -4,6 +4,6 @@ export const PATH = {
   HOME: "/",
   LOST_FOUND: "/lostFound",
   BOARD: "/board",
-  LABS: "/labs",
+  LABS: "/onboarding",
   COMPLAINTS: "/complaints",
 };
