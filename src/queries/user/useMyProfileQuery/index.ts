@@ -8,6 +8,11 @@ type Options = Pick<
 >;
 
 const useMyProfileQuery = (options?: Options) =>
-  useQuery(["user", "me"], () => userAPI.getMyProfile(), { ...options, select: res => res.result });
+  useQuery({
+    queryKey: ["user", "me"],
+    queryFn: () => userAPI.getMyProfile(),
+    select: res => res.result,
+    enabled: options?.enabled,
+  });
 
 export default useMyProfileQuery;
