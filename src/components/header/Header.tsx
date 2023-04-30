@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import defaultUserImg from "public/illust/img/img_userDefault.png";

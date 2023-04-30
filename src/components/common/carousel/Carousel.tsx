@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { Navigation, Pagination, EffectFade, Mousewheel, Autoplay } from "swiper";
 import "swiper/css";
@@ -55,7 +53,7 @@ export default function Carousel({ data, fade = false }: CarouselProps) {
                 <p>{overview}</p>
               </S.BannerHead>
               <S.FadeBanner>
-                <Image fill priority src={backdropPath} alt={id} />
+                <Image fill priority src={backdropPath} alt="" />
               </S.FadeBanner>
             </SwiperSlide>
           ) : (

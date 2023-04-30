@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-shadow */
-import { css, styled } from "styled-components";
-
-import { theme } from "@/styles";
+import { css, Theme } from "@emotion/react";
+import styled from "@emotion/styled";
 
 export const Item = styled.li`
   & > a {
@@ -65,6 +63,6 @@ export const ImgBox = styled.div`
   `}
 `;
 
-export const visuallyHidden = css`
+export const visuallyHidden = (theme: Theme) => css`
   ${theme.a11y.visuallyHidden}
 `;

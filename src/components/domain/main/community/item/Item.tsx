@@ -1,18 +1,22 @@
-"use client";
-
-/* eslint-disable no-underscore-dangle */
 import Image from "next/image";
 import Link from "next/link";
 import thumbnailDefaultImg from "public/illust/img/img_thumbnailDefault.png";
 
 import { SubwayBadge } from "@/components/common";
 
-import { StaticSEO } from "@/constants/seo";
-
 import * as S from "./styled";
 
 interface ItemProps {
-  data: any;
+  data: {
+    _id: number;
+    title: string;
+    content: string;
+    likeCnt: string;
+    commentCnt: string;
+    subwayLine: string;
+    time: string;
+    category: string;
+  };
 }
 
 function Item({ data }: ItemProps) {

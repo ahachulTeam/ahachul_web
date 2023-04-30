@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-shadow */
-import { css, ExecutionContext, styled } from "styled-components";
-
-import { theme } from "@/styles";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 export const Container = styled.div`
   position: relative;
@@ -48,6 +46,8 @@ export const LookAroundBtn = styled.button`
   `}
 `;
 
-export const visuallyHidden = ({ theme }: ExecutionContext) => css`
-  ${theme.a11y.visuallyHidden}
+export const H2 = styled.h2`
+  ${({ theme }) => css`
+    ${theme.a11y.visuallyHidden}
+  `}
 `;

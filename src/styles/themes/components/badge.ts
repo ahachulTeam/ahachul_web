@@ -1,5 +1,5 @@
 import { colors, fonts } from "../foundations";
-import { css } from "styled-components";
+import { css } from "@emotion/react";
 
 const flexBoxCenter = css`
   display: flex;

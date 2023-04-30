@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-shadow */
-import { css, ExecutionContext, styled } from "styled-components";
-
-import { theme } from "@/styles";
+import { css, Theme } from "@emotion/react";
+import styled from "@emotion/styled";
 
 export const Container = styled.article`
   width: 100%;
@@ -48,7 +46,7 @@ export const Divider = styled.div`
   `}
 `;
 
-export const visuallyHidden = ({ theme }: ExecutionContext) => css`
+export const visuallyHidden = (theme: Theme) => css`
   ${theme.a11y.visuallyHidden}
 `;
 
@@ -57,7 +55,7 @@ export const bannerSectionTitle = css`
   margin-bottom: 18px;
 `;
 
-export const h3 = css`
+export const h3 = (theme: Theme) => css`
   ${theme.fonts.bold18};
   color: #aaaaaa;
 

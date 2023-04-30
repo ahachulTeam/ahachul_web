@@ -1,5 +1,3 @@
-"use client";
-
 import { Carousel } from "@/components/common";
 
 import { StaticSEO } from "@/constants/seo";
@@ -11,7 +9,7 @@ import * as S from "./styled";
 function OnboardingPageContainer() {
   return (
     <S.Container>
-      <h2 css={S.visuallyHidden}>{StaticSEO.onboarding.title}</h2>
+      <S.H2>{StaticSEO.onboarding.title}</S.H2>
       <Carousel data={ONBOARDING_CAROUSELS} fade />
       <S.Box>
         <S.LoginBtn type="button">로그인</S.LoginBtn>

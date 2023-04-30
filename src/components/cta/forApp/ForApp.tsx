@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import LogoImg from "public/illust/img/img_favicon.png";
 import { useEffect, useState } from "react";

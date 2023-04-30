@@ -1,5 +1,3 @@
-"use client";
-
 import Community from "../community/Community";
 import News from "../news/News";
 import SubwayInfo from "../subwayInfo/SubwayInfo";

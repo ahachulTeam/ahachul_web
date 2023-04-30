@@ -1,11 +1,7 @@
-"use client";
-
-/* eslint-disable @typescript-eslint/no-shadow */
-
-/* eslint-disable no-underscore-dangle */
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import React, { useMemo } from "react";
 import type { ReactNode } from "react";
-import { css, styled } from "styled-components";
 
 import { theme } from "@/styles";
 

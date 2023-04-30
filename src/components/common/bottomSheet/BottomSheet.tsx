@@ -1,5 +1,3 @@
-"use client";
-
 import { Portal } from "../portal";
 import { ForwardedRef, forwardRef, PropsWithChildren, useEffect, useState } from "react";
 

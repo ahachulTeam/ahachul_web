@@ -1,8 +1,8 @@
-import { createGlobalStyle } from "styled-components";
+import { css } from "@emotion/react";
 
 import { theme } from "@/styles/themes";
 
-const GlobalStyle = createGlobalStyle`
+const globalStyles = css`
   html {
     /* 1rem = 10px */
     font-size: 62.5%;
@@ -212,4 +212,4 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export default GlobalStyle;
+export default globalStyles;
