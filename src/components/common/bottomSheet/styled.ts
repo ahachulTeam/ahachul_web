@@ -1,4 +1,5 @@
-import { css, styled } from "styled-components";
+/* eslint-disable @typescript-eslint/no-shadow */
+import { css, styled, ExecutionContext } from "styled-components";
 
 import { BOTTOM_SHEET_DURATION } from "@/constants";
 
@@ -19,12 +20,8 @@ export const Dim = styled.div`
   `}
 `;
 
-interface BottomSheetlProps {
-  isShow: boolean;
-}
-
-export const BottomSheet = styled.dialog<BottomSheetlProps>`
-  ${({ theme, isShow }) => css`
+export const BottomSheet = styled.dialog`
+  ${({ theme }) => css`
     position: absolute;
     bottom: 0;
     left: 0;
@@ -33,9 +30,13 @@ export const BottomSheet = styled.dialog<BottomSheetlProps>`
     border-radius: 20px 20px 0px 0px;
     padding: 0;
     background-color: ${theme.colors.white};
-    transform: ${isShow ? "translateY(0)" : "translateY(100%)"};
+    transform: translateY(100%);
     transition: transform ${BOTTOM_SHEET_DURATION}ms ease 0s;
     z-index: ${theme.zIndex.dialog};
+
+    &[data-status="true"] {
+      transform: translateY(0);
+    }
   `}
 `;
 
@@ -69,4 +70,8 @@ export const CloseBtn = styled.button`
 
 export const Content = styled.div`
   padding: 0 42px 36px 42px;
+`;
+
+export const visuallyHidden = ({ theme }: ExecutionContext) => css`
+  ${theme.a11y.visuallyHidden}
 `;

@@ -30,6 +30,7 @@
     "react/require-default-props": 0,
     "jsx-a11y/no-noninteractive-tabindex": ["off"],
     "jsx-a11y/no-noninteractive-element-interactions": ["off"],
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "react/no-unknown-property": "off"
   }
 }

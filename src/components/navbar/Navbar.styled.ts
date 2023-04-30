@@ -7,12 +7,18 @@ export const Navbar = styled.nav`
     left: 50%;
     max-width: ${theme.size.layout.width};
     width: 100%;
-    height: 83px;
+    height: ${theme.size.bottomNavbar.height};
+    max-height: 0;
     border-top: 1px solid ${theme.colors.gray_30};
-    padding-bottom: 4px;
     background-color: ${theme.colors.white};
     transform: translateX(-50%);
+    transition: max-height 500ms cubic-bezier(0.43, 0.03, 0.15, 0.95);
+    overflow: hidden;
     z-index: ${theme.zIndex.sticky};
+
+    &[data-show="true"] {
+      max-height: ${theme.size.bottomNavbar.height};
+    }
   `}
 `;
 

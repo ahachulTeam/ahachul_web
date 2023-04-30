@@ -16,10 +16,15 @@ export const fonts = {
     font-weight: 400;
     line-height: 1.35714;
   `,
+  regular20: css`
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.45;
+  `,
   regular16: css`
     font-size: 1.6rem;
     font-weight: 400;
-    line-height: 1.2;
+    line-height: 1.875;
   `,
   medium10: css`
     font-size: 1rem;
@@ -34,7 +39,7 @@ export const fonts = {
   medium16: css`
     font-size: 1.6rem;
     font-weight: 500;
-    line-height: 1.8125;
+    line-height: 1.5;
   `,
   semibold14: css`
     font-size: 1.4rem;
@@ -45,6 +50,11 @@ export const fonts = {
     font-size: 1.6rem;
     font-weight: 600;
     line-height: 1.3125;
+  `,
+  semibold20: css`
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.2;
   `,
   bold14: css`
     font-size: 1.4rem;
@@ -65,6 +75,11 @@ export const fonts = {
     font-size: 2rem;
     font-weight: 700;
     line-height: 1.25;
+  `,
+  bold24: css`
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.5;
   `,
   extraBold28: css`
     font-size: 2.8rem;

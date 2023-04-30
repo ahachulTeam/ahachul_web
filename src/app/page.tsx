@@ -1,11 +1,16 @@
-import Suspense from "@/libs/Suspense";
+import dynamic from "next/dynamic";
 
-import { SomeComponent } from "@/components/SomeComponent";
+import { MainPageContainer } from "@/components";
+
+const BottomSheetForApp = dynamic(() => import("@/components/cta/forApp/ForApp"), {
+  ssr: false,
+});
 
 export default function HomePage() {
   return (
-    <Suspense fallback="API 호출 로딩중..">
-      <SomeComponent someProp="someProp" />
-    </Suspense>
+    <>
+      <MainPageContainer />
+      <BottomSheetForApp />
+    </>
   );
 }

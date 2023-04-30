@@ -3,8 +3,9 @@ import { PropsWithChildren } from "react";
 
 import { AppProvider, StyledComponentsRegistry } from "@/libs";
 
-import { Toast } from "@/components";
-import Main from "@/components/main/Main";
+import { Main, Header, Navbar, Toast } from "@/components";
+
+import { StaticSEO, KR_APP_NAME, EN_APP_NAME } from "@/constants/seo";
 
 const pretendard = localFont({
   src: [
@@ -33,10 +34,10 @@ const pretendard = localFont({
 
 export const metadata = {
   title: {
-    default: "아하철이형",
-    template: "%s | 아하철이형",
+    default: KR_APP_NAME,
+    template: EN_APP_NAME,
   },
-  description: "아하철이형_웹",
+  description: StaticSEO.main.description,
   icons: {
     icon: "/favicon.ico",
   },
@@ -48,7 +49,9 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <body>
         <StyledComponentsRegistry>
           <AppProvider>
+            <Header />
             <Main>{children}</Main>
+            <Navbar />
             <Toast />
             <div id="modal-root" />
           </AppProvider>
