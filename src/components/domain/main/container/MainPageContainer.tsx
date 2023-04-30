@@ -18,8 +18,6 @@ export type MainPageContainerProps = {
 };
 
 function MainPageContainer({ isAuthed = false }: MainPageContainerProps) {
-  console.log(isAuthed);
-
   return (
     <>
       <h2 css={S.visuallyHidden}>{StaticSEO.main.title}</h2>

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import { css, styled } from "styled-components";
+import { css, ExecutionContext, styled } from "styled-components";
 
 import { theme } from "@/styles";
 
@@ -48,6 +48,6 @@ export const LookAroundBtn = styled.button`
   `}
 `;
 
-export const visuallyHidden = css`
+export const visuallyHidden = ({ theme }: ExecutionContext) => css`
   ${theme.a11y.visuallyHidden}
 `;

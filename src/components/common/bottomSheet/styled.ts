@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import { css, styled } from "styled-components";
-
-import { theme } from "@/styles";
+import { css, styled, ExecutionContext } from "styled-components";
 
 import { BOTTOM_SHEET_DURATION } from "@/constants";
 
@@ -74,6 +72,6 @@ export const Content = styled.div`
   padding: 0 42px 36px 42px;
 `;
 
-export const visuallyHidden = css`
+export const visuallyHidden = ({ theme }: ExecutionContext) => css`
   ${theme.a11y.visuallyHidden}
 `;

@@ -17,13 +17,10 @@ interface ItemProps {
 
 function Item({ data }: ItemProps) {
   return (
-    <S.NavItem>
+    <S.Item>
       <Link href={`community/${data._id}`}>
         <S.Flex>
-          <h4>
-            {data.title}
-            <p css={S.visuallyHidden}>{` | ${data.subwayLine} ${StaticSEO.main.community}`}</p>
-          </h4>
+          <h4>{data.title}</h4>
           <p>{data.content}</p>
           <S.Box>
             <SubwayBadge label={data.subwayLine} isHottest />
@@ -31,7 +28,7 @@ function Item({ data }: ItemProps) {
         </S.Flex>
         <Image src={thumbnailDefaultImg} alt={data.title} />
       </Link>
-    </S.NavItem>
+    </S.Item>
   );
 }
 

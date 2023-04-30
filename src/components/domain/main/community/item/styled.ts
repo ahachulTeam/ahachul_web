@@ -3,7 +3,7 @@ import { css, styled } from "styled-components";
 
 import { theme } from "@/styles";
 
-export const NavItem = styled.li`
+export const Item = styled.li`
   & > a {
     display: flex;
     align-items: center;
