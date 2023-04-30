@@ -1,19 +1,18 @@
 import { Global, ThemeProvider } from "@emotion/react";
-import { usePathname, useSearchParams } from "next/navigation";
 import { PropsWithChildren, useEffect } from "react";
 
 import { theme, globalStyles } from "@/styles";
 
 import ReactQuery from "./ReactQuery";
 import Recoil from "./Recoil";
+import { useRouter } from "next/router";
 
 export default function AppProvider({ children }: PropsWithChildren) {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const { pathname, query } = useRouter();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname, searchParams]);
+  }, [pathname, query]);
 
   return (
     <Recoil>

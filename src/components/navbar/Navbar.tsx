@@ -1,14 +1,13 @@
-import { usePathname } from "next/navigation";
-
 import { useScrollDirection } from "@/hooks";
 
 import { NAV_MENUS } from "@/assets/static";
 
 import * as S from "./Navbar.styled";
 import NavItem from "./item/NavItem";
+import { useRouter } from "next/router";
 
 export default function Navbar() {
-  const pathname = usePathname();
+  const { pathname } = useRouter();
   const direction = useScrollDirection();
 
   return (

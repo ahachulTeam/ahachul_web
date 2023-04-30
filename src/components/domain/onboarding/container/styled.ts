@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
@@ -46,8 +46,6 @@ export const LookAroundBtn = styled.button`
   `}
 `;
 
-export const H2 = styled.h2`
-  ${({ theme }) => css`
-    ${theme.a11y.visuallyHidden}
-  `}
+export const visuallyHidden = (theme: Theme) => css`
+  ${theme.a11y.visuallyHidden}
 `;

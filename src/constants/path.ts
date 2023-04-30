@@ -3,7 +3,7 @@ export const PATH = {
   SIGN_UP: "/signup",
   HOME: "/",
   LOST_FOUND: "/lostFound",
-  BOARD: "/board",
+  COMMUNITY: "/community",
   LABS: "/onboarding",
   COMPLAINTS: "/complaints",
 };
