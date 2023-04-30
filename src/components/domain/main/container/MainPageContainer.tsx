@@ -19,7 +19,7 @@ export type MainPageContainerProps = {
 
 function MainPageContainer({ isAuthed = false }: MainPageContainerProps) {
   return (
-    <>
+    <S.Container>
       <h2 css={S.visuallyHidden}>{StaticSEO.main.title}</h2>
       <S.SubwayInfoSection>
         <h3 css={S.visuallyHidden}>지하철 열차정보와 혼잡도가 궁금하다면?</h3>
@@ -46,7 +46,7 @@ function MainPageContainer({ isAuthed = false }: MainPageContainerProps) {
         </div>
         <Community />
       </S.CommunitySection>
-    </>
+    </S.Container>
   );
 }
 

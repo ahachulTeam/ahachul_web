@@ -3,6 +3,10 @@ import { css, ExecutionContext, styled } from "styled-components";
 
 import { theme } from "@/styles";
 
+export const Container = styled.article`
+  width: 100%;
+`;
+
 export const SubwayInfoSection = styled.section`
   padding: 20px 16px;
 `;
