@@ -1,10 +1,9 @@
-import { Carousel } from "@/components/common";
-
 import { StaticSEO } from "@/constants/seo";
 
 import { ONBOARDING_CAROUSELS } from "@/assets/static";
 
 import * as S from "./styled";
+import { Carousel } from "../carousel";
 
 function OnboardingPageContainer() {
   return (

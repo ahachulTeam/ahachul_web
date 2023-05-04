@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 
 function SubwayInfo() {
   const router = useRouter();
-  const handleRouteSettingSubway = () => router.push("/my-page");
+  const handleRouteSettingSubway = () => router.push("/onboarding");
 
   return (
     <S.SubwayInfo className="temporary swipe banner">
