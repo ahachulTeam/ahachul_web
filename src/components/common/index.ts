@@ -2,6 +2,7 @@ export * from "./logo";
 export * from "./badge";
 export * from "./toast";
 export * from "./portal";
+export * from "./tagBtn";
 export * from "./toggle";
 export * from "./button";
 export * from "./checkbox";

@@ -7,6 +7,10 @@ export const anchor = css`
   display: flex;
   align-items: center;
   color: ${theme.colors.black};
+
+  & > b {
+    color: ${theme.colors.primary};
+  }
 `;
 
 export const visuallyHidden = (theme: Theme) => css`

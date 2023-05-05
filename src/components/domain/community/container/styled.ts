@@ -10,7 +10,9 @@ export const ListSection = styled.section`
 `;
 
 export const HashtagSection = styled.div`
-  height: 90px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
   padding: 13px 20px;
 `;
 

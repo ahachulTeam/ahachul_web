@@ -3,15 +3,15 @@ import { fonts } from "@/styles/themes/foundations/fonts";
 import { colors } from "@/styles/themes/foundations/colors";
 
 const flexBoxCenter = css`
-  display: grid;
-  grid-template-columns: minmax(0, max-content) 1fr;
+  display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const tagCommon = css`
-  ${fonts.medium14};
-  padding: 0 12px;
+  ${fonts.regular12};
+  padding: 0 18px;
+  border-radius: 135px;
   transition: 0.3s;
 `;
 
@@ -19,19 +19,15 @@ export const tag = {
   primary: css`
     ${flexBoxCenter};
     ${tagCommon};
-    height: 32px;
-    border-radius: 10px;
-    color: ${colors.gray_70};
-    background-color: ${colors.gray_40};
+    height: 30px;
+    border-radius: 135px;
+    color: ${colors.primary};
+    background-color: ${colors.secondary};
 
     @media (hover: hover) {
       &:not(:disabled):hover {
-        color: ${colors.gray_80};
-        background-color: ${colors.gray_40};
-
-        & > svg {
-          fill: ${colors.gray_60};
-        }
+        color: ${colors.primary_hover};
+        background-color: ${colors.secondary_hover};
       }
     }
   `,
@@ -39,7 +35,6 @@ export const tag = {
     ${flexBoxCenter};
     ${tagCommon};
     height: 36px;
-    border-radius: 10px;
     border: 1px solid ${colors.gray_70};
     background-color: ${colors.white};
 

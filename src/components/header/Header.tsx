@@ -3,7 +3,7 @@ import defaultUserImg from "public/illust/img/img_userDefault.png";
 
 import { LogoLink } from "@/components/common";
 
-import { KenllIcon, ProfileIcon } from "@/assets/icons";
+import { KenllIcon, ProfileIcon, SearchIcon } from "@/assets/icons";
 
 import * as S from "./styled";
 import { useRouter } from "next/router";
@@ -15,22 +15,30 @@ function Header() {
   const isAuthed = false;
   // const { isAuthed, initializing } = useAuth();
 
+  const isCummunity = true;
+
   return (
     <S.Header data-show={pathname !== "/onboarding"}>
       <S.Container>
         <LogoLink />
         <S.Box>
           <S.MenuBtn aria-label="내 프로필 보기 버튼">
-            {isAuthed ? (
-              <ProfileIcon />
+            {isCummunity ? (
+              <SearchIcon />
             ) : (
-              <Image
-                src={defaultUserImg}
-                alt="내 프로필 보기 버튼"
-                width={24}
-                height={24}
-                priority
-              />
+              <>
+                {isAuthed ? (
+                  <ProfileIcon />
+                ) : (
+                  <Image
+                    src={defaultUserImg}
+                    alt="내 프로필 보기 버튼"
+                    width={24}
+                    height={24}
+                    priority
+                  />
+                )}
+              </>
             )}
           </S.MenuBtn>
           <S.MenuBtn aria-label="내 알람 보기 버튼">
