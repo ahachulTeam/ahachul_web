@@ -1,9 +1,9 @@
 import { ReactElement } from "react";
 
-import { Layout } from "@/components";
+import { CommunityPageContainer, Layout } from "@/components";
 
 export default function CommunityPage() {
-  return <div>CommunityPage</div>;
+  return <CommunityPageContainer />;
 }
 
 CommunityPage.getLayout = function getLayout(page: ReactElement) {

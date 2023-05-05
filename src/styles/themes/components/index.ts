@@ -1,3 +1,4 @@
+export * from "./tag";
 export * from "./badge";
 export * from "./input";
 export * from "./toggle";
