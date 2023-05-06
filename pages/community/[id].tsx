@@ -3,25 +3,17 @@ import { ReactElement } from "react";
 import { Layout } from "@/components";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { ARTICLE_DETAIL_DUMMY_LIST } from "@/assets/dummy/community";
-import CommunityDetailPageContainer from "@/components/domain/community/detail/container/CommunityDetailPageContainer";
+import CommunityDetailPageContainer, {
+  CommunityDetailModel,
+} from "@/components/domain/community/detail/container/CommunityDetailPageContainer";
 
 interface CommunityDetailPageProps {
-  data?: {
-    _id: number;
-    title: string;
-    img_url: string;
-    content: string;
-    time: string;
-    author: string;
-    likeCnt: number;
-    hateCnt: number;
-    commentCnt: number;
-    viewCnt: number;
-    hashtags: string[];
-  };
+  data?: CommunityDetailModel;
 }
 
-export default function CommunityDetailPage({ data }: CommunityDetailPageProps) {
+export default function CommunityDetailPage({
+  data = {} as CommunityDetailModel,
+}: CommunityDetailPageProps) {
   return <CommunityDetailPageContainer data={data} />;
 }
 
