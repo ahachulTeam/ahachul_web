@@ -5,9 +5,8 @@ export const Container = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-contents: space-between;
+  justify-content: space-between;
   width: 100%;
-  height: 100%;
   padding: 0 16px;
 `;
 
