@@ -6,12 +6,13 @@ export const zIndex = {
   dropdown: 1000,
   sticky: 1100,
   banner: 1200,
-  dim: 1300,
-  modal: 1400,
-  popover: 1500,
-  dialog: 1600,
-  toast: 1700,
-  tooltip: 1800,
+  header: 1300,
+  dim: 1400,
+  modal: 1500,
+  popover: 1600,
+  dialog: 1700,
+  toast: 1800,
+  tooltip: 1900,
 };
 
 export type ZIndexType = typeof zIndex;

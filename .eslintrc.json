@@ -31,11 +31,15 @@
     "jsx-a11y/no-noninteractive-tabindex": ["off"],
     "jsx-a11y/no-noninteractive-element-interactions": ["off"],
     "react/jsx-props-no-spreading": "off",
+<<<<<<< HEAD
     "@typescript-eslint/no-unused-expressions": "off",
     "no-unused-vars": "off",
     "no-param-reassign": "off",
     "@typescript-eslint/no-shadow": "off",
     "@typescript-eslint/naming-convention": "off",
     "@typescript-eslint/no-use-before-define": "off"
+=======
+    "react/no-unknown-property": "off"
+>>>>>>> develop
   }
 }

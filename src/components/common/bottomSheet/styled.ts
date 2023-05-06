@@ -1,4 +1,5 @@
-import { css, styled } from "styled-components";
+/* eslint-disable @typescript-eslint/no-shadow */
+import { css, styled, ExecutionContext } from "styled-components";
 
 import { BOTTOM_SHEET_DURATION } from "@/constants";
 
@@ -33,7 +34,11 @@ export const BottomSheet = styled.dialog`
     transition: transform ${BOTTOM_SHEET_DURATION}ms ease 0s;
     z-index: ${theme.zIndex.dialog};
 
+<<<<<<< HEAD
     &[data-show="true"] {
+=======
+    &[data-status="true"] {
+>>>>>>> develop
       transform: translateY(0);
     }
   `}
@@ -69,4 +74,8 @@ export const CloseBtn = styled.button`
 
 export const Content = styled.div`
   padding: 0 42px 36px 42px;
+`;
+
+export const visuallyHidden = ({ theme }: ExecutionContext) => css`
+  ${theme.a11y.visuallyHidden}
 `;
