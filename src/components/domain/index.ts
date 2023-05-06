@@ -1,3 +1,3 @@
 export * from "./main";
-export * from "./community";
+export * from "./community/list";
 export * from "./onboarding";

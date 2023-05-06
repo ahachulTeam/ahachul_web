@@ -139,3 +139,18 @@ export const HASH_TAG_DUMMY_LIST = [
   "강남",
   "전장연",
 ];
+
+export const ARTICLE_DETAIL_DUMMY_LIST = {
+  _id: 1,
+  title: "오늘자 3호선 빌런 출현",
+  img_url: "/dummy/images/dummy1.png",
+  content:
+    "대통령은 조국의 평화적 통일을 위한 성실한 의무를 진다. 제1항의 해임건의는 국회재적의원 3분의 1 이상의 발의에 의하여 국회재적의원 과반수의 찬성이 있어야 한다.",
+  time: "2023-05-05T19:40:00.000Z",
+  author: "홍길동",
+  likeCnt: 1,
+  hateCnt: 0,
+  commentCnt: 2,
+  viewCnt: 3,
+  hashtags: ["3호선", "3호선 빌런"],
+};

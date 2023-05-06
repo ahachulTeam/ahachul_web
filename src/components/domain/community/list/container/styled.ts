@@ -9,7 +9,7 @@ export const ListSection = styled.section`
   padding: 20px 16px;
 `;
 
-export const HashtagSection = styled.div`
+export const HashtagSection = styled.section`
   display: flex;
   flex-direction: column;
   row-gap: 15px;

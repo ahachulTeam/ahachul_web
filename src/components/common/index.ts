@@ -1,3 +1,4 @@
+export * from "./tab";
 export * from "./logo";
 export * from "./badge";
 export * from "./toast";
