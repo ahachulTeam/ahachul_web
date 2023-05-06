@@ -8,6 +8,7 @@ export const Container = styled.div`
   justify-content: space-between;
   width: 100%;
   padding: 0 16px;
+  touch-action: none;
 `;
 
 export const Box = styled.div`
