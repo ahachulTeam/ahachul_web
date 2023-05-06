@@ -3,6 +3,7 @@
 import { Portal } from "../portal";
 import { ForwardedRef, forwardRef, PropsWithChildren, useEffect, useState } from "react";
 
+import useKeyTrap from "@/hooks/useKeyTrap";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
 
 import { CloseIcon } from "@/assets/icons";
@@ -12,12 +13,14 @@ import * as S from "./styled";
 import { BOTTOM_SHEET_DURATION } from "@/constants";
 
 interface BottomSheetProps {
+  id?: string;
   title: string;
   isOpen: boolean;
   isHeaderHidden?: boolean;
   isTitleHidden?: boolean;
   hasCloseBtn?: boolean;
   className?: string;
+  closedCases?: boolean[];
   onClose: () => void;
 }
 
@@ -25,11 +28,13 @@ function BottomSheet(
   {
     children,
     title,
-    isOpen,
     isHeaderHidden = false,
     isTitleHidden = false,
-    hasCloseBtn = false,
     className,
+    id,
+    isOpen,
+    hasCloseBtn = false,
+    closedCases = [],
     onClose,
   }: PropsWithChildren<BottomSheetProps>,
   ref: ForwardedRef<HTMLDialogElement>
@@ -44,12 +49,20 @@ function BottomSheet(
   };
 
   useOnClickOutside(ref, handleClose);
+  useKeyTrap(ref, handleClose);
 
   useEffect(() => {
     if (isOpen) {
       setIsShow(true);
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    const closing = closedCases.some(Boolean);
+    if (closing) {
+      handleClose();
+    }
+  }, [closedCases]);
 
   return (
     <Portal containerId="modal-root" isMounted={isOpen}>
