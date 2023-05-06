@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 export * from "./cta";
 export * from "./header";
->>>>>>> develop
 export * from "./domain";
 export * from "./common";
 export { default as Main } from "./main/Main";

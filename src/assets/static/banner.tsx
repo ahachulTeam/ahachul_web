@@ -1,19 +1,9 @@
-<<<<<<< HEAD
-import IcMainBanner from "public/illust/onboding/_1.svg";
-import IcSubBanner from "public/illust/onboding/_2.svg";
-
-export const ONBOARDING_SLIDER_IMAGES = [
-  {
-    id: 0,
-    bannerImg: <IcMainBanner />,
-=======
 import Image from "next/image";
 import { v4 } from "uuid";
 
 export const ONBOARDING_CAROUSELS = [
   {
     id: v4(),
->>>>>>> develop
     title: (
       <>
         한 발 빠른
@@ -21,19 +11,11 @@ export const ONBOARDING_CAROUSELS = [
         지하철 소식
       </>
     ),
-<<<<<<< HEAD
-    subTitle: "알고 싶은 실시간 지하철 정보들을 한 발 빠르게 전해줄게요!",
-  },
-  {
-    id: 1,
-    bannerImg: <IcSubBanner />,
-=======
     overview: "실시간 지하철 정보들을 한 발 빠르게 전해줄게요!",
     backdropPath: "illust/onbording/_01.svg",
   },
   {
     id: v4(),
->>>>>>> develop
     title: (
       <>
         쾌적하고 편안한 여정을
@@ -41,11 +23,6 @@ export const ONBOARDING_CAROUSELS = [
         위한 민원 서비스
       </>
     ),
-<<<<<<< HEAD
-    subTitle: "터치 한 번이면 유저의 의견을 바로 전달할 수 있어요!",
-  },
-];
-=======
     overview: "터치 한 번이면 의견을 바로 전달할 수 있어요!",
     backdropPath: "illust/onbording/_02.svg",
   },
@@ -105,4 +82,3 @@ export const NEWS_SLIDER_IMAGES = [
     title: "강남역의 새로운 변화!",
   },
 ] as const;
->>>>>>> develop

@@ -54,18 +54,6 @@ function BottomSheet(
   return (
     <Portal containerId="modal-root" isMounted={isOpen}>
       <S.Dim>
-<<<<<<< HEAD
-        <S.BottomSheet ref={ref} open={isOpen} data-show={!!isShow} aria-modal="true" tabIndex={-1}>
-          <S.Header>
-            <h2>{title}</h2>
-            {hasCloseBtn && (
-              <S.CloseBtn type="button" aria-label="닫기 버튼" onClick={onClose}>
-                <CloseIcon />
-              </S.CloseBtn>
-            )}
-          </S.Header>
-          <S.Content>{children}</S.Content>
-=======
         <S.BottomSheet ref={ref} open={isOpen} data-status={isShow} aria-modal="true" tabIndex={-1}>
           {!isHeaderHidden && (
             <S.Header>
@@ -79,7 +67,6 @@ function BottomSheet(
           )}
           {!isTitleHidden && <h2 css={S.visuallyHidden}>{title}</h2>}
           <S.Content className={className}>{children}</S.Content>
->>>>>>> develop
         </S.BottomSheet>
       </S.Dim>
     </Portal>

@@ -34,11 +34,7 @@ export const BottomSheet = styled.dialog`
     transition: transform ${BOTTOM_SHEET_DURATION}ms ease 0s;
     z-index: ${theme.zIndex.dialog};
 
-<<<<<<< HEAD
-    &[data-show="true"] {
-=======
     &[data-status="true"] {
->>>>>>> develop
       transform: translateY(0);
     }
   `}

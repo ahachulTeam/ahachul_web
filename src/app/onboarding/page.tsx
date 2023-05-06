@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 "use client";
 
-=======
->>>>>>> develop
 import { OnboardingPageContainer } from "@/components";
 
 function OnBoardingPage() {
