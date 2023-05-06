@@ -15,13 +15,18 @@ export { default as QuetionBoxIcon } from "./ic_question_box.svg";
 export { default as HouseIcon } from "./ic_house.svg";
 export { default as BoardIcon } from "./ic_board.svg";
 export { default as SpeakerIcon } from "./ic_speaker.svg";
+<<<<<<< HEAD
 export { default as KenllIcon } from "./ic_knell.svg";
+=======
+export { default as QuiltIcon } from "./ic_quilt.svg";
+>>>>>>> 7e80589 (feat: 필터에 사용되는 arrow down 아이콘 추가)
 
 export { default as HomeIcon } from "./ic_home.svg";
 export { default as HomeFillIcon } from "./ic_home_fill.svg";
 
 export { default as ArrowIcon } from "./ic_arrow.svg";
 export { default as ArrowDownIcon } from "./ic_arrow_down.svg";
+export { default as ArrowDownMinIcon } from "./ic_arrow_down_min.svg";
 
 export { default as CloseIcon } from "./ic_close.svg";
 export { default as CloseFillIcon } from "./ic_close_fill.svg";
