@@ -5,10 +5,7 @@ import { StandardResponse } from "@/types/common";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-type RenewAccessToken = Pick<
-  APILoginUser,
-  "accessToken" | "refreshToken" | "accessTokenExpiresIn" | "isNeedAdditionalUserInfo"
->;
+type RenewAccessToken = Omit<APILoginUser, "isNeedAdditionalUserInfo">;
 
 export const renewAccessToken = async (
   refreshToken: string
