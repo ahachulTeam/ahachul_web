@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 
 export const size = {
   layout: {
-    width: "430px",
+    width: "768px",
   },
   header: {
     height: "56px",

@@ -17,7 +17,7 @@ const useLoginMutation = () => {
       if (result.isNeedAdditionalUserInfo) router.replace("/onboarding/nickname");
       else {
         auth.signIn(result);
-        router.push("/mypage");
+        router.push("/my-page");
       }
     },
   });

@@ -29,7 +29,9 @@ function BottomSheetForApp() {
 
     if (!isAlreadyInitialized()) {
       storage.set(APP_CONVERSION_CTA_STORAGE_KEY);
-      setTimeout(() => setIsMounted(true), 500);
+      setTimeout(() => {
+        setIsMounted(true);
+      }, 1000);
     }
   }, []);
 

@@ -1,5 +1,3 @@
-import { useRouter } from "next/navigation";
-
 import { LoginDrawer } from "../loginDrawer";
 
 import useDisclosure from "@/hooks/useDisclosure";
@@ -10,6 +8,7 @@ import { ONBOARDING_CAROUSELS } from "@/assets/static";
 
 import * as S from "./styled";
 import { Carousel } from "../carousel";
+import { useRouter } from "next/router";
 
 function OnboardingPageContainer() {
   const router = useRouter();

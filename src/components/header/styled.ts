@@ -37,7 +37,7 @@ export const Container = styled.div`
 export const Box = styled.div`
   display: flex;
   align-items: center;
-  column-gap: 12px;
+  column-gap: 6px;
   height: 100%;
 `;
 

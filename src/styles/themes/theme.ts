@@ -1,4 +1,4 @@
-import { input, toggle, badge, button, checkbox } from "./components";
+import { tag, input, toggle, badge, button, checkbox } from "./components";
 import {
   a11y,
   animations,
@@ -17,6 +17,7 @@ export const theme = {
   breakPoint,
   colors,
   fonts,
+  tag,
   input,
   toggle,
   zIndex,

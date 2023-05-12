@@ -6,10 +6,10 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { NextComponentType } from "next/types";
 import NProgress from "nprogress";
-import "nprogress/nprogress.css";
 import { ReactElement, useEffect } from "react";
 
 import { AppProvider } from "@/libs";
+import "@/styles/nprogress.css";
 
 const Toast = dynamic<{}>(() => import("@/components").then(module => module.Toast));
 

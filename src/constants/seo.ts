@@ -16,4 +16,7 @@ export const StaticSEO = {
   onboarding: {
     title: `지하철을 빠르고 편리하게, ${PREFIX} ${KR_APP_NAME}`,
   },
+  community: {
+    title: `지하철 커뮤니티는 ${PREFIX} ${KR_APP_NAME}에서`,
+  },
 };
