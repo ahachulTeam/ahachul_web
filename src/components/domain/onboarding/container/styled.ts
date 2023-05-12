@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import { css, Theme } from "@emotion/react";
 import styled from "@emotion/styled";
+=======
+import { css, ExecutionContext, styled } from "styled-components";
+>>>>>>> develop
 
 export const Container = styled.div`
   position: relative;
