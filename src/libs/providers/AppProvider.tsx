@@ -1,5 +1,6 @@
 import { Global, ThemeProvider } from "@emotion/react";
 import { PropsWithChildren, useEffect } from "react";
+import { domMax, LazyMotion } from "framer-motion";
 
 import { theme, globalStyles } from "@/styles";
 
@@ -17,8 +18,10 @@ export default function AppProvider({ children }: PropsWithChildren) {
   return (
     <Recoil>
       <ReactQuery>
-        <Global styles={globalStyles} />
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        <LazyMotion features={domMax}>
+          <Global styles={globalStyles} />
+          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        </LazyMotion>
       </ReactQuery>
     </Recoil>
   );
