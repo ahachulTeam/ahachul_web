@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { ReactElement } from "react";
 
 import { Layout } from "@/components";
@@ -15,11 +16,23 @@ export default function CommunityDetailPage({
   data = {} as CommunityDetailModel,
 }: CommunityDetailPageProps) {
   return <CommunityDetailPageContainer data={data} />;
+=======
+import { useRouter } from "next/router";
+import { ReactElement } from "react";
+
+import { Layout } from "@/components";
+
+export default function CommunityDetailPage() {
+  const { query } = useRouter();
+
+  return <div>커뮤니티 {query?.id} 상세페이지</div>;
+>>>>>>> develop
 }
 
 CommunityDetailPage.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
 };
+<<<<<<< HEAD
 
 const REVALIDATE_SECONDS = 1000 * 60 * 10; // 10분
 
@@ -36,3 +49,5 @@ export const getStaticProps: GetStaticProps = async () => {
     revalidate: REVALIDATE_SECONDS,
   };
 };
+=======
+>>>>>>> develop
