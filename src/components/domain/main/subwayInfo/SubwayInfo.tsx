@@ -1,16 +1,14 @@
-"use client";
-
-import { useRouter } from "next/navigation";
 import AhHachulSuperModel from "public/illust/c8.svg";
 import SubwayIllust from "public/illust/m1.svg";
 
 import { ArrowIcon } from "@/assets/icons";
 
 import * as S from "./styled";
+import { useRouter } from "next/router";
 
 function SubwayInfo() {
   const router = useRouter();
-  const handleRouteSettingSubway = () => router.push("/my-page");
+  const handleRouteSettingSubway = () => router.push("/onboarding");
 
   return (
     <S.SubwayInfo className="temporary swipe banner">

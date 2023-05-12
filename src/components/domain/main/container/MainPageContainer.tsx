@@ -1,7 +1,4 @@
-"use client";
-
 import Community from "../community/Community";
-import News from "../news/News";
 import SubwayInfo from "../subwayInfo/SubwayInfo";
 import Link from "next/link";
 
@@ -26,21 +23,12 @@ function MainPageContainer({ isAuthed = false }: MainPageContainerProps) {
         <SubwayInfo />
       </S.SubwayInfoSection>
       <S.Divider />
-      <S.NewsSection>
-        <div css={S.bannerSectionTitle}>
-          <h3 css={S.h3}>
-            <b>지하철</b> HOT 소식
-          </h3>
-        </div>
-        <News />
-      </S.NewsSection>
-      <S.Divider />
       <S.CommunitySection>
         <div>
           <h3 css={S.h3}>
             <b>실시간</b> HOT 게시물
           </h3>
-          <Link href={PATH.BOARD} aria-label="커뮤니티 페이지 링크 버튼">
+          <Link href={PATH.COMMUNITY} aria-label="커뮤니티 페이지 링크 버튼">
             <ArrowIcon />
           </Link>
         </div>

@@ -1,13 +1,14 @@
-import { css, ExecutionContext, styled } from "styled-components";
+import { css, Theme } from "@emotion/react";
+import styled from "@emotion/styled";
 
 export const Container = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-contents: space-between;
+  justify-content: space-between;
   width: 100%;
-  height: 100%;
   padding: 0 16px;
+  touch-action: none;
 `;
 
 export const Box = styled.div`
@@ -45,6 +46,6 @@ export const LookAroundBtn = styled.button`
   `}
 `;
 
-export const visuallyHidden = ({ theme }: ExecutionContext) => css`
+export const visuallyHidden = (theme: Theme) => css`
   ${theme.a11y.visuallyHidden}
 `;

@@ -1,5 +1,3 @@
-"use client";
-
 import { isValidElement, Suspense as ReactSuspense, useEffect, useState } from "react";
 import type { SuspenseProps } from "react";
 

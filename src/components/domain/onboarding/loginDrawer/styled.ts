@@ -1,5 +1,6 @@
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import NextLink from "next/link";
-import { css, styled } from "styled-components";
 
 export const ContentBox = styled.div`
   display: flex;

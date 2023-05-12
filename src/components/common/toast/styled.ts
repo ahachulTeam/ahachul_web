@@ -1,6 +1,6 @@
+import styled from "@emotion/styled";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import styled from "styled-components";
 
 import { theme } from "@/styles";
 import { fonts } from "@/styles/themes/foundations";

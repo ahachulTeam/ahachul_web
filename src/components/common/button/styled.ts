@@ -1,4 +1,5 @@
-import { css, styled } from "styled-components";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 import type { ButtonSize, ButtonVariant } from "./Button";
 

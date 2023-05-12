@@ -1,5 +1,6 @@
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import * as Tabs from "@radix-ui/react-tabs";
-import { css, styled } from "styled-components";
 
 export const ToggleRoot = styled(Tabs.Root)`
   display: flex;

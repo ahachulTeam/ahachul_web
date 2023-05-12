@@ -1,13 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false,
-  swcMinify: true,
-  compiler: {
-    styledComponents: true,
-  },
-  experimental: {
-    appDir: true,
-  },
+  reactStrictMode: true,
+  compress: true,
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,

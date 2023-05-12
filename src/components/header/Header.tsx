@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import defaultUserImg from "public/illust/img/img_userDefault.png";
 
 import { LogoLink } from "@/components/common";
@@ -9,11 +6,12 @@ import { LogoLink } from "@/components/common";
 import { KenllIcon, ProfileIcon } from "@/assets/icons";
 
 import * as S from "./styled";
+import { useRouter } from "next/router";
 
 // import { useAuth } from "@/context";
 
 function Header() {
-  const pathname = usePathname();
+  const { pathname } = useRouter();
   const isAuthed = false;
   // const { isAuthed, initializing } = useAuth();
 

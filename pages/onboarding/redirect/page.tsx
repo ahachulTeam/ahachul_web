@@ -1,5 +1,3 @@
-"use client";
-
 import { RedirectPageContainer } from "@/components";
 
 function RedirectPage() {

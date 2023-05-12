@@ -1,18 +1,15 @@
-"use client";
-
 import { useRouter } from "next/navigation";
 
 import { LoginDrawer } from "../loginDrawer";
 
 import useDisclosure from "@/hooks/useDisclosure";
 
-import { Carousel } from "@/components/common";
-
 import { StaticSEO } from "@/constants/seo";
 
 import { ONBOARDING_CAROUSELS } from "@/assets/static";
 
 import * as S from "./styled";
+import { Carousel } from "../carousel";
 
 function OnboardingPageContainer() {
   const router = useRouter();
