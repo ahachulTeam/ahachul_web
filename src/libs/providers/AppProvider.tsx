@@ -8,6 +8,7 @@ import { GlobalStyle, theme } from "@/styles";
 
 import ReactQuery from "./ReactQuery";
 import Recoil from "./Recoil";
+import { AuthProvider } from "@/context";
 
 export default function AppProvider({ children }: PropsWithChildren) {
   const pathname = usePathname();
@@ -21,7 +22,9 @@ export default function AppProvider({ children }: PropsWithChildren) {
     <Recoil>
       <ReactQuery>
         <GlobalStyle />
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        <ThemeProvider theme={theme}>
+          <AuthProvider>{children}</AuthProvider>
+        </ThemeProvider>
       </ReactQuery>
     </Recoil>
   );

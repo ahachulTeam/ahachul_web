@@ -1,16 +1,16 @@
-import dynamic from "next/dynamic";
+"use client";
 
-import { MainPageContainer } from "@/components";
-
-const BottomSheetForApp = dynamic(() => import("@/components/cta/forApp/ForApp"), {
-  ssr: false,
-});
+import Link from "next/link";
 
 export default function HomePage() {
   return (
     <>
-      <MainPageContainer />
-      <BottomSheetForApp />
+      <Link href="/onboarding">
+        <button type="button">onboarding</button>
+      </Link>
+      <Link href="/samplePage">
+        <button type="button">samplePage</button>
+      </Link>
     </>
   );
 }

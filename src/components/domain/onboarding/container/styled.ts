@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-shadow */
 import { css, ExecutionContext, styled } from "styled-components";
-
-import { theme } from "@/styles";
 
 export const Container = styled.div`
   position: relative;

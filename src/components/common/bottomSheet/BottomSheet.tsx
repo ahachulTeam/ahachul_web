@@ -1,7 +1,7 @@
 "use client";
 
 import { Portal } from "../portal";
-import { ForwardedRef, forwardRef, PropsWithChildren, useEffect, useState } from "react";
+import React, { ForwardedRef, forwardRef, PropsWithChildren, useEffect, useState } from "react";
 
 import useKeyTrap from "@/hooks/useKeyTrap";
 import useOnClickOutside from "@/hooks/useOnClickOutside";
@@ -39,7 +39,7 @@ function BottomSheet(
   }: PropsWithChildren<BottomSheetProps>,
   ref: ForwardedRef<HTMLDialogElement>
 ) {
-  const [isShow, setIsShow] = useState(false);
+  const [isShow, setIsShow] = useState<boolean>(false);
 
   const handleClose = () => {
     setIsShow(false);

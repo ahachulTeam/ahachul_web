@@ -16,7 +16,7 @@ interface NavItemProps {
 export default function NavItem({ label, path, icon }: NavItemProps) {
   const pathname = usePathname();
 
-  const isCurrentPage = isMatchRoute(pathname, path);
+  const isCurrentPage = isMatchRoute(path, pathname);
 
   return (
     <S.NavItem>
