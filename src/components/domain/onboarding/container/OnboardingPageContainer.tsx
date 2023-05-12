@@ -1,16 +1,9 @@
-<<<<<<< HEAD
-=======
-"use client";
-
 import { useRouter } from "next/navigation";
 
 import { LoginDrawer } from "../loginDrawer";
 
 import useDisclosure from "@/hooks/useDisclosure";
 
-import { Carousel } from "@/components/common";
-
->>>>>>> develop
 import { StaticSEO } from "@/constants/seo";
 
 import { ONBOARDING_CAROUSELS } from "@/assets/static";

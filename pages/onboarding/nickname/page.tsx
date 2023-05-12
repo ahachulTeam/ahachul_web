@@ -1,5 +1,3 @@
-"use client";
-
 import { NicknamePageContainer } from "@/components";
 
 function NicknamePage() {

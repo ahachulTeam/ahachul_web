@@ -1,9 +1,9 @@
 import React, { ReactElement } from "react";
 
-import { Layout } from "@/components";
+import { Layout, MyPageContainer } from "@/components";
 
 export default function MyPage() {
-  return <span>MyPage</span>;
+  return <MyPageContainer />;
 }
 
 MyPage.getLayout = function getLayout(page: ReactElement) {

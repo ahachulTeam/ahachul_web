@@ -1,4 +1,5 @@
-import { css, styled } from "styled-components";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 
 export const H3 = styled.h3`
   fontsize: 18px;
@@ -14,8 +15,8 @@ export const Input = styled.input`
 
 export const flexCenter = css`
   display: flex;
-  justifycontent: center;
-  alignitems: center;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const flexColumn = css`
