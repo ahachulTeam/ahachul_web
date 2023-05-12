@@ -30,13 +30,6 @@
     "jsx-a11y/no-noninteractive-tabindex": ["off"],
     "jsx-a11y/no-noninteractive-element-interactions": ["off"],
     "react/jsx-props-no-spreading": "off",
-<<<<<<< HEAD
-    "react/no-unknown-property": "off",
-    "no-shadow": "off",
-    "@typescript-eslint/no-shadow": "off",
-    "no-underscore-dangle": "off",
-    "@typescript-eslint/no-empty-interface": "off"
-=======
     "no-shadow": "off",
     "no-underscore-dangle": "off",
     "@typescript-eslint/no-shadow": "off",
@@ -47,6 +40,5 @@
     "no-unused-vars": "off",
     "no-param-reassign": "off",
     "react/no-unknown-property": "off"
->>>>>>> develop
   }
 }

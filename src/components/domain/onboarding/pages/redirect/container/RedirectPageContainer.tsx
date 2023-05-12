@@ -1,4 +1,4 @@
-import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 import { APILoginUserProviders } from "@/types/auth";
@@ -8,9 +8,9 @@ import * as S from "./styled";
 import useLoginMutation from "@/queries/auth/useLoginMutation";
 
 function RedirectPageContainer() {
-  const searchParams = useSearchParams();
-  const providerCode = searchParams.get("code");
-  const providerType = searchParams.get("type");
+  const { query } = useRouter();
+  const providerCode = query?.code;
+  const providerType = query?.type;
 
   const { mutate: mutateLogin } = useLoginMutation();
 
@@ -21,7 +21,7 @@ function RedirectPageContainer() {
         providerType,
       } as APILoginUserProviders);
     }
-  }, []);
+  }, [query]);
 
   return <S.Redirect />;
 }
