@@ -34,8 +34,9 @@ export const tag = {
   outline: css`
     ${flexBoxCenter};
     ${tagCommon};
-    height: 36px;
-    border: 1px solid ${colors.gray_70};
+    height: 30px;
+    padding: 0 16px;
+    border: 1px solid ${colors.gray_25};
     background-color: ${colors.white};
 
     @media (hover: hover) {

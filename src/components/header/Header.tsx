@@ -7,6 +7,8 @@ import { KenllIcon, ProfileIcon, SearchIcon } from "@/assets/icons";
 
 import * as S from "./styled";
 import { useRouter } from "next/router";
+import { useDisclosure } from "@/hooks";
+import SearchDrawer from "../common/drawer/search/SearchDrawer";
 
 // import { useAuth } from "@/context";
 
@@ -14,6 +16,7 @@ function Header() {
   const { pathname } = useRouter();
   const isAuthed = false;
   // const { isAuthed, initializing } = useAuth();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const isCummunity = true;
 
@@ -24,7 +27,7 @@ function Header() {
         <S.Box>
           <S.MenuBtn aria-label="내 프로필 보기 버튼">
             {isCummunity ? (
-              <SearchIcon />
+              <SearchIcon onClick={onOpen} />
             ) : (
               <>
                 {isAuthed ? (
@@ -45,6 +48,7 @@ function Header() {
             <KenllIcon />
           </S.MenuBtn>
         </S.Box>
+        <SearchDrawer isMounted={isOpen} onClose={onClose} />
       </S.Container>
     </S.Header>
   );

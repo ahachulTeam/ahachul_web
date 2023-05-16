@@ -7,12 +7,9 @@ function HashtagList() {
   return (
     <S.HashtagList>
       {HASH_TAG_DUMMY_LIST.map((data, i) => (
-        <TagBtn
-          key={i}
-          label={`#${data}`}
-          variant="primary"
-          onClick={() => console.log("click!")}
-        />
+        <li key={i}>
+          <TagBtn label={`#${data}`} variant="primary" onClick={() => console.log("click!")} />
+        </li>
       ))}
     </S.HashtagList>
   );

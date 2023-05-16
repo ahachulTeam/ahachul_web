@@ -20,3 +20,9 @@ export const TagBtn = styled.button<TagBtnProps>`
     }
   `}
 `;
+
+export const IconBtn = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+`;

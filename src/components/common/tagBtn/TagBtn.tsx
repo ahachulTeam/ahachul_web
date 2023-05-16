@@ -10,6 +10,7 @@ interface TagBtnProps {
   variant?: TagVariant;
   disabled?: boolean;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onDelete?: () => void;
 }
 
 export default function TagBtn({
@@ -18,6 +19,7 @@ export default function TagBtn({
   variant = "primary",
   disabled = false,
   onClick,
+  onDelete,
 }: TagBtnProps) {
   return (
     <S.TagBtn
@@ -28,6 +30,11 @@ export default function TagBtn({
       onClick={onClick}
     >
       <span>{label}</span>
+      {/* {variant === "outline" && (
+        <S.IconBtn onClick={onDelete}>
+          <CloseIcon />
+        </S.IconBtn>
+      )} */}
     </S.TagBtn>
   );
 }

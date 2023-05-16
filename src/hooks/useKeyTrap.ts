@@ -1,5 +1,3 @@
-"use client";
-
 import { useCallback, useEffect, RefObject, ForwardedRef } from "react";
 
 type Listener = (e: KeyboardEvent) => void;
