@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, RefObject, ForwardedRef } from "react";
 
 const useOnClickOutside = <T extends HTMLElement>(

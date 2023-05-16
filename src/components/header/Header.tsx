@@ -7,11 +7,8 @@ import { KenllIcon, ProfileIcon, SearchIcon } from "@/assets/icons";
 
 import * as S from "./styled";
 import { useRouter } from "next/router";
-<<<<<<< HEAD
 import { useDisclosure } from "@/hooks";
 import SearchDrawer from "../common/drawer/search/SearchDrawer";
-=======
->>>>>>> develop
 
 // import { useAuth } from "@/context";
 
@@ -23,8 +20,6 @@ function Header() {
 
   const isCummunity = true;
 
-  const isCummunity = true;
-
   return (
     <S.Header data-show={pathname !== "/onboarding"}>
       <S.Container>
@@ -32,11 +27,7 @@ function Header() {
         <S.Box>
           <S.MenuBtn aria-label="내 프로필 보기 버튼">
             {isCummunity ? (
-<<<<<<< HEAD
               <SearchIcon onClick={onOpen} />
-=======
-              <SearchIcon />
->>>>>>> develop
             ) : (
               <>
                 {isAuthed ? (
@@ -57,7 +48,7 @@ function Header() {
             <KenllIcon />
           </S.MenuBtn>
         </S.Box>
-        <SearchDrawer containerId="modal-root" isMounted={isOpen} onClose={onClose} />
+        <SearchDrawer isMounted={isOpen} onClose={onClose} />
       </S.Container>
     </S.Header>
   );

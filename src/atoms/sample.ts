@@ -1,5 +1,3 @@
-"use client";
-
 import { atom, useRecoilState } from "recoil";
 
 const sampleAtom = atom({

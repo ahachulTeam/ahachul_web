@@ -19,10 +19,7 @@ interface CommunityDetailPageContainerProps {
 }
 
 function CommunityDetailPageContainer({ data }: CommunityDetailPageContainerProps) {
-<<<<<<< HEAD
   console.log(data);
-=======
->>>>>>> develop
   return (
     <S.Container>
       <S.Divider />

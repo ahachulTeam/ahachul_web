@@ -1,5 +1,3 @@
-"use client";
-
 import { Filter } from "@/components/common";
 
 import { useFilterList } from "@/hooks";

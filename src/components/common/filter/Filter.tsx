@@ -1,5 +1,3 @@
-"use client";
-
 import { BottomSheet } from "../bottomSheet";
 import { useRef, useEffect } from "react";
 

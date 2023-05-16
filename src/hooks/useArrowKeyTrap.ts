@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, RefObject } from "react";
 
 type Listener = (e: KeyboardEvent) => void;
