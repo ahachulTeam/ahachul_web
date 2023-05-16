@@ -21,7 +21,9 @@ export default function AppProvider({ children }: PropsWithChildren) {
       <ReactQuery>
         <LazyMotion features={domMax}>
           <Global styles={globalStyles} />
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+          <ThemeProvider theme={theme}>
+            <AuthProvider>{children}</AuthProvider>
+          </ThemeProvider>
         </LazyMotion>
       </ReactQuery>
     </Recoil>
