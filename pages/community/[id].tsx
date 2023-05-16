@@ -1,11 +1,10 @@
 import { ReactElement } from "react";
 
 import { Layout } from "@/components";
-import { GetStaticPaths, GetStaticProps } from "next";
 import { ARTICLE_DETAIL_DUMMY_LIST } from "@/assets/dummy/community";
-import CommunityDetailPageContainer, {
-  CommunityDetailModel,
-} from "@/components/domain/community/detail/container/CommunityDetailPageContainer";
+import { CommunityDetailModel } from "@/types/community";
+import { CommunityDetailPageContainer } from "@/components/domain/community";
+import { GetServerSideProps } from "next";
 
 interface CommunityDetailPageProps {
   data?: CommunityDetailModel;
@@ -21,18 +20,10 @@ CommunityDetailPage.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
 };
 
-const REVALIDATE_SECONDS = 1000 * 60 * 10; // 10분
-
-export const getStaticPaths: GetStaticPaths = () => ({
-  paths: [],
-  fallback: "blocking",
-});
-
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       data: ARTICLE_DETAIL_DUMMY_LIST,
     },
-    revalidate: REVALIDATE_SECONDS,
   };
 };
