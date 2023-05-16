@@ -2,19 +2,24 @@ import { colors, fonts } from "../foundations";
 import { css } from "@emotion/react";
 
 export const input = {
-  search48: css`
+  search: css`
     ${fonts.regular14};
     width: 100%;
-    height: 48px;
-    border-radius: 100px;
-    border: 1px solid ${colors.primary};
-    padding: 0 32px 0 24px;
-    background-color: ${colors.white};
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 95px;
+    padding: 2px 16px;
+    padding-right: 74px;
+    color: ${colors.black};
+    background-color: ${colors.gray_15};
     transition: 0.3s;
 
     &::placeholder {
       color: ${colors.gray_50};
     }
+
     &:focus {
       box-shadow: 0 0 0 1px inset ${colors.primary};
     }

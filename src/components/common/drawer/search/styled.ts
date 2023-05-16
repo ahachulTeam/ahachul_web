@@ -47,114 +47,94 @@ export const searchDrawerVariants: Variants = {
 };
 
 export const ModalHeader = styled.div`
-  width: 100%;
-  margin-bottom: 20px;
-`;
-
-export const SearchModalForm = styled.form`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-`;
-
-export const InputGroup = styled.div`
-  position: relative;
+  margin-bottom: 30px;
 `;
 
 export const IconBtn = styled.button`
-  ${({ theme }) => css`
-    position: absolute;
-    top: 50%;
-    left: 10px;
-    transform: translateY(-50%);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: max-content;
-    height: 100%;
-    padding: 0;
-
-    & > svg {
-      font-size: 20px;
-      color: ${theme.colors.gray_80};
-    }
-  `}
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  height: 100%;
+  margin-right: 12px;
 `;
 
-export const Input = styled.input`
-  ${({ theme }) => css`
-    ${theme.fonts.regular16};
-    display: block;
-    width: 100%;
-    height: 40px;
-    padding: 0 16px;
-    padding-left: 40px;
-    background-color: #fff;
-    border: 1px solid #e2e2e2;
-    border-radius: 4px;
-    color: ${theme.colors.gray_80};
-    transition: background-color 200ms ease-in-out;
-    appearance: none;
-
-    &:active,
-    &:focus {
-      border: 1px solid ${theme.colors.primary};
-    }
-
-    &:disabled {
-      cursor: not-allowed;
-      opacity: 0.4;
-    }
-  `}
-`;
-
-export const CancelButton = styled.button`
-  ${({ theme }) => css`
-    ${theme.fonts.regular16};
-    padding: 0 8px;
-    font-weight: 700;
-    border-radius: 4px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 56px;
-    height: 40px;
-    margin-left: 8px;
-    border: 0;
-    color: ${theme.colors.gray_80};
-    background-color: transparent;
-    transition: color 200ms ease-in-out;
-    cursor: pointer;
-
-    &:not(:disabled):hover: {
-      color: ${theme.colors.gray_90};
-    }
-
-    &:disabled: {
-      cursor: not-allowed;
-      opacity: 0.4;
-    }
-  `}
-`;
-
-export const SearchHistory = styled.section`
+export const SearchHistory = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
+  margin-bottom: 45px;
+  overflow: hidden;
 `;
 
 export const SearchHistoryHeader = styled.div`
   ${({ theme }) => css`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 14px;
 
-  & > span, & > button {
-     ${theme.fonts.regular14};
-    color: ${theme.colors.gray_80};
-    border: 0;
-    margin: 0;
-    padding: 0;
-    background-color: inherit;
-  },
+    & > span {
+      ${theme.fonts.bold16};
+      color: ${theme.colors.black};
+    }
+
+    & > button {
+      ${theme.fonts.medium14};
+      color: ${theme.colors.gray_40};
+    }
   `}
+`;
+
+export const SearchHistoryTagList = styled.ul`
+  display: flex;
+  flex-wrap: nowrap;
+  column-gap: 10px;
+  width: 100%;
+  overflow-x: overlay;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+export const Hashtag = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
+
+export const HashtagHeader = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 14px;
+
+    & > span {
+      ${theme.fonts.bold16};
+      color: ${theme.colors.black};
+      margin-right: 6px;
+    }
+
+    & > p {
+      ${theme.fonts.regular11};
+      color: ${theme.colors.gray_35};
+    }
+  `}
+`;
+
+export const HastTagList = styled.ul`
+  display: grid;
+  width: 100%;
 `;
