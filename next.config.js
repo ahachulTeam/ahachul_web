@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   compress: true,
+<<<<<<< HEAD
   compiler: {
     emotion: true,
   },
@@ -10,6 +11,8 @@ const nextConfig = {
     forceSwcTransforms: true,
   },
   swcMinify: true,
+=======
+>>>>>>> develop
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,

@@ -22,6 +22,7 @@ export { default as HomeFillIcon } from "./ic_home_fill.svg";
 
 export { default as ArrowIcon } from "./ic_arrow.svg";
 export { default as ArrowDownIcon } from "./ic_arrow_down.svg";
+export { default as ArrowDownMinIcon } from "./ic_arrow_down_min.svg";
 
 export { default as CloseIcon } from "./ic_close.svg";
 export { default as CloseFillIcon } from "./ic_close_fill.svg";

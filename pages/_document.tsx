@@ -11,6 +11,10 @@ export default class MyDocument extends Document {
       <Html lang="ko">
         <Head>
           <meta charSet="UTF-8" />
+<<<<<<< HEAD
+=======
+          <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+>>>>>>> develop
         </Head>
         <body>
           <Main />
