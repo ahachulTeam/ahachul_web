@@ -1,4 +1,98 @@
-### READ ARTICLE FIRST
-- [팀워크 향상을 위한 모노레포(Monorepo) 시스템 구축](https://blog.mathpresso.com/%ED%8C%80%EC%9B%8C%ED%81%AC-%ED%96%A5%EC%83%81%EC%9D%84-%EC%9C%84%ED%95%9C-%EB%AA%A8%EB%85%B8%EB%A0%88%ED%8F%AC-monorepo-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EA%B5%AC%EC%B6%95-3ae1b0112f1b)
-- **[모노레포의 문화적 의의](https://yeoulcoding.me/298)**
-- **[모던 프론트엔드 프로젝트 구성 기법 - 모노레포 개념 편](https://d2.naver.com/helloworld/0923884)**
+<div align="center">
+
+# 🚀 AhHachul Frontend
+
+**🧜‍♂️ 더욱 쾌적한 지하철을 위한 유저 기반 커뮤니티 플랫폼, ..아... 하철이형! 🧜**
+
+<br />
+
+<img width="1424" alt="image" src="https://github.com/ahachulTeam/ahachul_web/assets/80245801/d29c819c-6b95-4a77-838a-3bdc92a297fb">
+</div>
+
+<br />
+
+## 🤓 시작하기
+
+**Prerequisites**
+
+- Git
+- [Node](https://nodejs.org/)
+- [Yarn berry](https://yarnpkg.com/)
+
+**로컬에선 이렇게 실행해요**
+
+```
+# 로컬 환경에 Clone하기
+git clone https://github.com/ahachulTeam/ahachul_web.git
+
+# 디펜던시 설치하기
+yarn
+
+# 개발 서버 실행하기
+yarn workspace @ahhachul/web dev
+```
+
+AhHachul은 Next.js 기반으로 만들어진 프로젝트에요.  
+개발 서버가 실행되면 브라우저에서 [http://localhost:3000](http://localhost:3000/) 로 접속하실 수 있어요.
+
+<br />
+
+## 📚 Key Languages & Libraries
+
+- React & Typescript
+- Next.js
+- emotion.js
+- tanstack-query
+- recoil
+- react-hook-form
+- framer-motion
+
+<br />
+
+## 👨‍👩‍👧‍👦 Authors
+
+현재 Playground를 만들고 있는 makers에요.
+
+<table align="center">
+    <tr align="center">
+        <td style="min-width: 150px;">
+            <a href="https://github.com/createhb21">
+              <img src="https://github.com/ahachulTeam/ahachul_web/assets/80245801/5530cdd3-97d7-40c2-a58f-510c755334d1" width="200" height="150" style="object-fit :cover">
+              <br />
+              <b>Hyobum</b>
+            </a>
+        </td>
+        <td style="min-width: 150px;" background-color="white">
+            <a href="https://github.com/jtwjs">
+              <img src="https://github.com/ahachulTeam/ahachul_web/assets/80245801/56173167-4789-43fd-9c5c-ed888bbe152b" width="200" height="150" style="object-fit :cover">
+              <br />
+              <b>Taewoong</b>
+            </a> 
+        </td>
+        <td style="min-width: 150px;">
+            <a href="https://github.com/onschan">
+              <img src="https://github.com/ahachulTeam/ahachul_web/assets/80245801/67ec6a1f-83ec-4c86-b7cb-8a58bf4b1779" width="200" height="150" style="object-fit :cover">
+              <br />
+              <b>Seungchang</b>
+            </a>
+        </td>
+    </tr>
+    <tr align="center">
+        <td>
+            🧡 효범 🧡 <br/>
+            FE Developer
+      </td>
+        <td>
+            🩵 태웅 🩵 <br />
+            FE Developer
+        </td>
+        <td>
+            💚 승찬 💚<br />
+            FE Developer
+        </td>
+    </tr>
+</table>
+
+## License
+
+See [`LICENSE`](./LICENSE) and [`NOTION`](https://ahhachul.notion.site/a6702b8186e3477d8fda7db76e9f6b88)
