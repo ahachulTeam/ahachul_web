@@ -37,6 +37,12 @@ AhHachul은 Next.js 기반으로 만들어진 프로젝트에요.
 
 <br />
 
+## 🚀 Activity
+
+![Alt](https://repobeats.axiom.co/api/embed/7500b764fdf954a399530be7ba66a9366e1e8f49.svg 'Repobeats analytics image')
+
+<br />
+
 ## 📚 Key Languages & Libraries
 
 - React & Typescript
