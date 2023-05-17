@@ -1,14 +1,15 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import defaultUserImg from "public/illust/img/img_userDefault.png";
 
 import { LogoLink } from "@/components/common";
+import SearchDrawer from "@/components/common/drawer/search/SearchDrawer";
+
+import { useDisclosure } from "@/hooks";
 
 import { KenllIcon, ProfileIcon, SearchIcon } from "@/assets/icons";
 
 import * as S from "./styled";
-import { useRouter } from "next/router";
-import { useDisclosure } from "@/hooks";
-import SearchDrawer from "../common/drawer/search/SearchDrawer";
 
 // import { useAuth } from "@/context";
 
