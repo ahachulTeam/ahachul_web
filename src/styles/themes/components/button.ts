@@ -111,7 +111,7 @@ export const button = {
     outline: css`
       color: ${colors.gray_60};
       background-color: ${colors.white};
-      border: 1px solid ${colors.gray_30};
+      border: 1px solid ${colors.gray_33};
       border-radius: 10px;
     `,
     link: css`

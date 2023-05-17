@@ -30,40 +30,29 @@ export const input = {
       }
     }
   `,
-  primary: css`
+  outline: css`
     ${fonts.regular14};
-    width: 100%;
-    height: 52px;
-    border-radius: 10px;
-    border: 2px solid ${colors.gray_20};
-    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    min-height: 44px;
+    border-radius: 110px;
+    border: 1px solid ${colors.gray_19};
+    padding-left: 25px;
     transition: 0.3s;
 
     &::placeholder {
       color: ${colors.gray_50};
     }
 
-    @media (hover: hover) {
-      &:not(:disabled):hover {
-        border-color: ${colors.primary};
-      }
-    }
-
     &:focus {
-      border-color: ${colors.primary};
+      box-shadow: 0 0 0 1px inset ${colors.primary};
     }
 
-    &[aria-invalid="true"] {
-      border-color: ${colors.red_10};
-    }
-
-    &:disabled {
-      border-color: ${colors.gray_20};
-      color: ${colors.gray_70};
-      background-color: ${colors.gray_10};
-      -webkit-text-fill-color: rgba(0, 0, 0, 1);
-      opacity: 1;
-      cursor: not-allowed;
+    @media (hover: hover) {
+      &:not(:disabled):not(:focus):hover {
+        box-shadow: 0 0 0 1px inset ${colors.primary};
+      }
     }
   `,
 } as const;

@@ -5,20 +5,15 @@ export const Container = styled.article`
   width: 100%;
 `;
 
-export const MainSection = styled.section`
-  padding: 20px 16px;
+export const ContentSection = styled.section`
+  padding: 30px 16px 0 16px;
 `;
 
 export const CommentSection = styled.section`
   display: flex;
   flex-direction: column;
   row-gap: 15px;
-  padding: 13px 20px;
-`;
-
-export const h3 = (theme: Theme) => css`
-  ${theme.fonts.bold18};
-  color: ${theme.colors.black};
+  padding: 24px 16px;
 `;
 
 export const Divider = styled.div`
@@ -27,6 +22,11 @@ export const Divider = styled.div`
     height: 10px;
     background-color: ${theme.colors.gray_10};
   `}
+`;
+
+export const h3 = (theme: Theme) => css`
+  ${theme.fonts.bold18};
+  color: ${theme.colors.black};
 `;
 
 export const visuallyHidden = (theme: Theme) => css`
