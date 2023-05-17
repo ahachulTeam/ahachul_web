@@ -15,7 +15,7 @@ function CommunityDetailPageContainer({ data }: CommunityDetailPageContainerProp
       </S.ContentSection>
       <S.Divider />
       <S.CommentSection>
-        <Comments data={data} />
+        <Comments />
       </S.CommentSection>
     </S.Container>
   );

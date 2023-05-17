@@ -13,6 +13,7 @@ export const colors = {
   gray_10: "#F2F2F2",
   gray_15: "#F4F4F4",
   gray_17: "#ECECEC",
+  gray_19: "#E2E2E2",
   gray_20: "#E3E3E3",
   gray_25: "#DEDEDE",
   gray_30: "#CFCFCF",
