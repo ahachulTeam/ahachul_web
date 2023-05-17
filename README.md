@@ -51,29 +51,29 @@ AhHachul은 Next.js 기반으로 만들어진 프로젝트에요.
 
 ## 👨‍👩‍👧‍👦 Authors
 
-현재 Playground를 만들고 있는 makers에요.
+현재 AhHachul을 만들고 있는 makers에요.
 
 <table align="center">
     <tr align="center">
         <td style="min-width: 150px;">
             <a href="https://github.com/createhb21">
-              <img src="https://github.com/ahachulTeam/ahachul_web/assets/80245801/5530cdd3-97d7-40c2-a58f-510c755334d1" width="200" height="150" style="object-fit :cover">
+              <img src="https://github.com/ahachulTeam/ahachul_web/assets/80245801/5530cdd3-97d7-40c2-a58f-510c755334d1" width="200" height="150" style="object-fit: cover">
               <br />
               <b>Hyobum</b>
             </a>
         </td>
         <td style="min-width: 150px;" background-color="white">
             <a href="https://github.com/jtwjs">
-              <img src="https://github.com/ahachulTeam/ahachul_web/assets/80245801/56173167-4789-43fd-9c5c-ed888bbe152b" width="200" height="150" style="object-fit :cover">
+              <img src="https://github.com/ahachulTeam/ahachul_web/assets/80245801/56173167-4789-43fd-9c5c-ed888bbe152b" width="200" height="150" style="object-fit:cover">
               <br />
               <b>Taewoong</b>
             </a> 
         </td>
         <td style="min-width: 150px;">
             <a href="https://github.com/onschan">
-              <img src="https://github.com/ahachulTeam/ahachul_web/assets/80245801/67ec6a1f-83ec-4c86-b7cb-8a58bf4b1779" width="200" height="150" style="object-fit :cover">
+              <img src="https://github.com/ahachulTeam/ahachul_web/assets/80245801/67ec6a1f-83ec-4c86-b7cb-8a58bf4b1779" width="200" height="150" style="object-fit:cover">
               <br />
-              <b>Seungchang</b>
+              <b>Seungchan</b>
             </a>
         </td>
     </tr>
