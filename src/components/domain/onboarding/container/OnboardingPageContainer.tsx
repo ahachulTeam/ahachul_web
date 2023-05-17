@@ -1,14 +1,12 @@
+import { OnboardingCarousel } from "../carousel";
 import { LoginDrawer } from "../loginDrawer";
+import { useRouter } from "next/router";
 
 import useDisclosure from "@/hooks/useDisclosure";
 
 import { StaticSEO } from "@/constants/seo";
 
-import { ONBOARDING_CAROUSELS } from "@/assets/static";
-
 import * as S from "./styled";
-import { Carousel } from "../carousel";
-import { useRouter } from "next/router";
 
 function OnboardingPageContainer() {
   const router = useRouter();
@@ -18,7 +16,7 @@ function OnboardingPageContainer() {
   return (
     <S.Container>
       <h2 css={S.visuallyHidden}>{StaticSEO.onboarding.title}</h2>
-      <Carousel data={ONBOARDING_CAROUSELS} fade />
+      <OnboardingCarousel />
       <S.Box>
         <S.LoginBtn type="button" onClick={onOpen}>
           로그인
