@@ -1,5 +1,5 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
 export const LostFoundList = styled.ul`
   ${({ theme }) => css`
@@ -10,7 +10,7 @@ export const LostFoundList = styled.ul`
       padding: 16px;
     }
 
-    &[data-view="grid"] {
+    &[data-view='grid'] {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       column-gap: 16px;
@@ -23,4 +23,4 @@ export const LostFoundList = styled.ul`
       }
     }
   `}
-`;
+`

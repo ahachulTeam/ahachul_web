@@ -1,1 +1,1 @@
-export { default as LostDetailContainer } from "./LostDetailContainer";
+export { default as LostDetailContainer } from './LostDetailContainer'

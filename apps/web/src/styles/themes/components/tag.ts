@@ -1,19 +1,19 @@
-import { css } from "@emotion/react";
-import { fonts } from "@/styles/themes/foundations/fonts";
-import { colors } from "@/styles/themes/foundations/colors";
+import { css } from '@emotion/react'
+import { colors } from '@/styles/themes/foundations/colors'
+import { fonts } from '@/styles/themes/foundations/fonts'
 
 const flexBoxCenter = css`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+`
 
 const tagCommon = css`
   ${fonts.regular12};
   padding: 0 18px;
   border-radius: 135px;
   transition: 0.3s;
-`;
+`
 
 export const tag = {
   primary: css`
@@ -60,6 +60,6 @@ export const tag = {
       }
     }
   `,
-};
+}
 
-export type TagTheme = typeof tag;
+export type TagTheme = typeof tag

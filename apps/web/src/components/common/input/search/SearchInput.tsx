@@ -1,33 +1,27 @@
-import { CloseFillIcon, SearchIcon } from "@/assets/icons";
-import React from "react";
+import React from 'react'
 
-import * as S from "./styled";
+import * as S from './styled'
+import { CloseFillIcon, SearchIcon } from '@/assets/icons'
 
 interface SearchInputProps {
-  className?: string;
-  placeholder?: string;
-  value: string;
-  label: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onDelete: () => void;
-  onSearch: (searchText: string) => void;
+  className?: string
+  placeholder?: string
+  value: string
+  label: string
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onDelete: () => void
+  onSearch: (searchText: string) => void
 }
 
-function SearchInput({
-  className,
-  placeholder,
-  label,
-  value,
-  onChange,
-  onDelete,
-  onSearch,
-}: SearchInputProps) {
+function SearchInput({ className, placeholder, label, value, onChange, onDelete, onSearch }: SearchInputProps) {
   const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!value) return;
+    e.preventDefault()
+    if (!value) {
+      return
+    }
 
-    onSearch(value);
-  };
+    onSearch(value)
+  }
 
   return (
     <S.SearchInput
@@ -37,10 +31,10 @@ function SearchInput({
       autoComplete="off"
       onSubmit={handleSearch}
     >
-      <input aria-label={label} placeholder={placeholder ?? ""} value={value} onChange={onChange} />
+      <input aria-label={label} placeholder={placeholder ?? ''} value={value} onChange={onChange} />
       <S.IconBtn
         type="button"
-        data-isshow={!!value}
+        data-isshow={Boolean(value)}
         aria-label="검색 키워드 삭제 버튼"
         css={S.closeIconStyle}
         onClick={onDelete}
@@ -51,7 +45,7 @@ function SearchInput({
         <SearchIcon />
       </S.IconBtn>
     </S.SearchInput>
-  );
+  )
 }
 
-export default SearchInput;
+export default SearchInput

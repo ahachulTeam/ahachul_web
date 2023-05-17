@@ -1,15 +1,13 @@
-import Link from "next/link";
+import Link from 'next/link'
 
-import { StaticSEO } from "@/constants/seo";
+import * as S from './styled'
+// import { LogoIcon } from '@/assets/icons'
 
-import { LogoIcon } from "@/assets/icons";
-
-import * as S from "./styled";
-
-import { PATH } from "@/constants";
+import { PATH } from '@/constants'
+import { StaticSEO } from '@/constants/seo'
 
 interface LogoLinkProps {
-  className?: string;
+  className?: string
 }
 
 function LogoLink({ className }: LogoLinkProps) {
@@ -21,7 +19,7 @@ function LogoLink({ className }: LogoLinkProps) {
         <div css={S.visuallyHidden}>{StaticSEO.main.sitename}</div>
       </Link>
     </h1>
-  );
+  )
 }
 
-export default LogoLink;
+export default LogoLink

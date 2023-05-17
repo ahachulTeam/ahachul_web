@@ -1,5 +1,5 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
 export const Navbar = styled.nav`
   ${({ theme }) => css`
@@ -16,15 +16,15 @@ export const Navbar = styled.nav`
     overflow: hidden;
     z-index: ${theme.zIndex.sticky};
 
-    &[data-show="true"] {
+    &[data-show='true'] {
       transform: translate(-50%, 0);
     }
   `}
-`;
+`
 
 export const MenuList = styled.ul`
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 100%;
-`;
+`

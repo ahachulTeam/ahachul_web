@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled'
 
 export const HashtagList = styled.ul`
   display: flex;
@@ -11,4 +11,4 @@ export const HashtagList = styled.ul`
   ::-webkit-scrollbar {
     display: none;
   }
-`;
+`

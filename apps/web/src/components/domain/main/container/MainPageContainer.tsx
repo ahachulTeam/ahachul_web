@@ -1,20 +1,18 @@
-import Community from "../community/Community";
-import SubwayInfo from "../subwayInfo/SubwayInfo";
-import Link from "next/link";
+import Link from 'next/link'
+import Community from '../community/Community'
+import SubwayInfo from '../subwayInfo/SubwayInfo'
 
-import { StaticSEO } from "@/constants/seo";
-
-import { ArrowIcon } from "@/assets/icons";
-
-import * as S from "./styled";
-
-import { PATH } from "@/constants";
+import * as S from './styled'
+import { ArrowIcon } from '@/assets/icons'
+import { PATH } from '@/constants'
+import { StaticSEO } from '@/constants/seo'
 
 export type MainPageContainerProps = {
-  isAuthed?: boolean;
-};
+  isAuthed?: boolean
+}
 
 function MainPageContainer({ isAuthed = false }: MainPageContainerProps) {
+  console.log(isAuthed)
   return (
     <S.Container>
       <h2 css={S.visuallyHidden}>{StaticSEO.main.title}</h2>
@@ -35,7 +33,7 @@ function MainPageContainer({ isAuthed = false }: MainPageContainerProps) {
         <Community />
       </S.CommunitySection>
     </S.Container>
-  );
+  )
 }
 
-export default MainPageContainer;
+export default MainPageContainer

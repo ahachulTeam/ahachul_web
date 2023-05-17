@@ -1,6 +1,6 @@
-import { ARTICLE_DUMMY_LIST } from "@/assets/dummy/community";
-import Item from "./item/Item";
-import * as S from "./styled";
+import Item from './item/Item'
+import * as S from './styled'
+import { ARTICLE_DUMMY_LIST } from '@/assets/dummy/community'
 
 function ArticleList() {
   return (
@@ -9,7 +9,7 @@ function ArticleList() {
         <Item key={data._id} data={data} />
       ))}
     </S.ArticleList>
-  );
+  )
 }
 
-export default ArticleList;
+export default ArticleList

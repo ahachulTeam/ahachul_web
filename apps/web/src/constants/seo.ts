@@ -1,6 +1,6 @@
-export const KR_APP_NAME = "아하철";
-export const EN_APP_NAME = "AhHachul";
-export const PREFIX = "지하철 플랫폼";
+export const KR_APP_NAME = '아하철'
+export const EN_APP_NAME = 'AhHachul'
+export const PREFIX = '지하철 플랫폼'
 
 export const StaticSEO = {
   main: {
@@ -19,4 +19,4 @@ export const StaticSEO = {
   community: {
     title: `지하철 커뮤니티는 ${PREFIX} ${KR_APP_NAME}에서`,
   },
-};
+}

@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react'
 
 export const a11y = {
   visuallyHidden: css`
@@ -23,6 +23,6 @@ export const a11y = {
     clip: auto;
     overflow: auto;
   `,
-} as const;
+} as const
 
-export type A11yTheme = typeof a11y;
+export type A11yTheme = typeof a11y

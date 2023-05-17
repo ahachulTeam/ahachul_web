@@ -1,7 +1,7 @@
-import { Carousel } from "@/components/common";
+// import { Carousel } from '@/components/common'
 
-import * as S from "./styled";
+import * as S from './styled'
 
 export default function LostDetailContainer() {
-  return <S.Section>setion</S.Section>;
+  return <S.Section>setion</S.Section>
 }

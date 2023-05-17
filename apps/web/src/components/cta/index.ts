@@ -1,1 +1,1 @@
-export { default as BottomSheetForApp } from "./forApp/ForApp";
+export { default as BottomSheetForApp } from './forApp/ForApp'

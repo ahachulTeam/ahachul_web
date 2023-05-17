@@ -1,5 +1,5 @@
-import { colors, fonts } from "../foundations";
-import { css } from "@emotion/react";
+import { css } from '@emotion/react'
+import { colors, fonts } from '../foundations'
 
 export const input = {
   search: css`
@@ -55,6 +55,6 @@ export const input = {
       }
     }
   `,
-} as const;
+} as const
 
-export type InputType = typeof input;
+export type InputType = typeof input

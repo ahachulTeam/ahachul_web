@@ -1,21 +1,20 @@
-import Controller from "../controller/Controller";
-import LostFoundList from "../lostList/LostList";
-import { useState } from "react";
+import { useState } from 'react'
+import Controller from '../controller/Controller'
+import LostFoundList from '../lostList/LostList'
 
-import { Toggle } from "@/components/common";
+import * as S from './styled'
+import { Toggle } from '@/components/common'
 
-import * as S from "./styled";
+type LostFoundTab = 'lost' | 'found'
 
-type LostFoundTab = "lost" | "found";
-
-const lostFoundTabs = { lost: "습득물 조회", found: "분실물 찾기" };
+const lostFoundTabs = { lost: '습득물 조회', found: '분실물 찾기' }
 
 export default function LostContainer() {
-  const [currentTab, setCurrentTab] = useState<LostFoundTab>("lost");
+  const [currentTab, setCurrentTab] = useState<LostFoundTab>('lost')
 
   const switchTab = (tab: LostFoundTab) => {
-    setCurrentTab(tab);
-  };
+    setCurrentTab(tab)
+  }
 
   return (
     <S.Section>
@@ -27,5 +26,5 @@ export default function LostContainer() {
       </S.Head>
       <LostFoundList />
     </S.Section>
-  );
+  )
 }

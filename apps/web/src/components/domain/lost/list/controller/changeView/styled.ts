@@ -1,7 +1,7 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
-export const ChangeView = styled.div``;
+export const ChangeView = styled.div``
 export const ChangeBtn = styled.button`
   ${({ theme }) => css`
     display: flex;
@@ -21,4 +21,4 @@ export const ChangeBtn = styled.button`
       }
     }
   `}
-`;
+`

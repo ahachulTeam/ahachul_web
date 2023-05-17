@@ -1,5 +1,5 @@
-import { css, Theme } from "@emotion/react";
-import styled from "@emotion/styled";
+import { css, Theme } from '@emotion/react'
+import styled from '@emotion/styled'
 
 export const Item = styled.li`
   & > a {
@@ -9,7 +9,7 @@ export const Item = styled.li`
     column-gap: 16px;
     padding: 26px 0;
   }
-`;
+`
 
 export const Flex = styled.div`
   ${({ theme }) => css`
@@ -30,7 +30,7 @@ export const Flex = styled.div`
       font-weight: 300;
     }
   `}
-`;
+`
 
 export const Box = styled.span`
   ${({ theme }) => css`
@@ -50,7 +50,7 @@ export const Box = styled.span`
       background-color: #bc2a38;
     }
   `}
-`;
+`
 
 export const ImgBox = styled.div`
   ${({ theme }) => css`
@@ -61,8 +61,8 @@ export const ImgBox = styled.div`
     border-radius: 5px;
     background-color: ${theme.colors.gray_40};
   `}
-`;
+`
 
 export const visuallyHidden = (theme: Theme) => css`
   ${theme.a11y.visuallyHidden}
-`;
+`

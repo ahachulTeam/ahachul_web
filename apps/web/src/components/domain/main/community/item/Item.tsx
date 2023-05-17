@@ -1,22 +1,21 @@
-import Image from "next/image";
-import Link from "next/link";
-import thumbnailDefaultImg from "public/illust/img/img_thumbnailDefault.png";
+import Image from 'next/image'
+import Link from 'next/link'
+import thumbnailDefaultImg from 'public/illust/img/img_thumbnailDefault.png'
 
-import { SubwayBadge } from "@/components/common";
-
-import * as S from "./styled";
+import * as S from './styled'
+import { SubwayBadge } from '@/components/common'
 
 interface ItemProps {
   data: {
-    _id: number;
-    title: string;
-    content: string;
-    likeCnt: string;
-    commentCnt: string;
-    subwayLine: string;
-    time: string;
-    category: string;
-  };
+    _id: number
+    title: string
+    content: string
+    likeCnt: string
+    commentCnt: string
+    subwayLine: string
+    time: string
+    category: string
+  }
 }
 
 function Item({ data }: ItemProps) {
@@ -33,7 +32,7 @@ function Item({ data }: ItemProps) {
         <Image src={thumbnailDefaultImg} alt={data.title} />
       </Link>
     </S.Item>
-  );
+  )
 }
 
-export default Item;
+export default Item

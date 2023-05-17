@@ -1,4 +1,4 @@
-import { keyframes } from "@emotion/react";
+import { keyframes } from '@emotion/react'
 
 export const animations = {
   slideUpAndFade: keyframes`
@@ -11,6 +11,6 @@ export const animations = {
       transform: translate(-50%, -50%);
     }
   `,
-} as const;
+} as const
 
-export type AnimationsType = typeof animations;
+export type AnimationsType = typeof animations

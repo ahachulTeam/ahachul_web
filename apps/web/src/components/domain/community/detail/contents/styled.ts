@@ -1,18 +1,18 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
 export const Contents = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-`;
+`
 
 export const Title = styled.h3`
   ${({ theme }) => css`
     ${theme.fonts.bold20};
     margin-bottom: 10px;
   `}
-`;
+`
 
 export const FragmentInfos = styled.div`
   ${({ theme }) => css`
@@ -31,7 +31,7 @@ export const FragmentInfos = styled.div`
         color: ${theme.colors.gray_40};
 
         &:not(:last-of-type)::after {
-          content: "";
+          content: '';
           position: absolute;
           top: 48%;
           right: -6px;
@@ -43,9 +43,9 @@ export const FragmentInfos = styled.div`
       }
     }
   `}
-`;
+`
 
-export const ImageBox = styled.div``;
+export const ImageBox = styled.div``
 
 export const DetailInfo = styled.pre`
   ${({ theme }) => css`
@@ -56,7 +56,7 @@ export const DetailInfo = styled.pre`
     white-space: pre-wrap;
     word-break: break-all;
   `}
-`;
+`
 
 export const HashTagList = styled.ul`
   ${({ theme }) => css`
@@ -73,7 +73,7 @@ export const HashTagList = styled.ul`
       display: none;
     }
   `}
-`;
+`
 
 export const ContentsReactBtnGroup = styled.div`
   ${({ theme }) => css`
@@ -93,4 +93,4 @@ export const ContentsReactBtnGroup = styled.div`
       font-weight: 400;
     }
   `}
-`;
+`

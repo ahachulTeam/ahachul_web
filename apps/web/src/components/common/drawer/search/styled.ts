@@ -1,7 +1,7 @@
-import { css, Theme } from "@emotion/react";
-import { defaultEasing } from "@/constants/motions";
-import { type Variants } from "framer-motion";
-import styled from "@emotion/styled";
+import { css, Theme } from '@emotion/react'
+import styled from '@emotion/styled'
+import { type Variants } from 'framer-motion'
+import { defaultEasing } from '@/constants/motions'
 
 export const overlayCss = (theme: Theme) => css`
   position: fixed;
@@ -14,7 +14,7 @@ export const overlayCss = (theme: Theme) => css`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
+`
 
 export const contentCss = (theme: Theme) => css`
   position: absolute;
@@ -26,25 +26,25 @@ export const contentCss = (theme: Theme) => css`
   height: 100%;
   padding: 10px 20px;
   background-color: white;
-`;
+`
 
 export const searchDrawerVariants: Variants = {
   initial: {
-    x: "10%",
+    x: '10%',
     transition: { duration: 0.3, ease: defaultEasing },
-    willChange: "transform",
+    willChange: 'transform',
   },
   animate: {
     x: 0,
     transition: { duration: 0.3, ease: defaultEasing },
-    willChange: "transform",
+    willChange: 'transform',
   },
   exit: {
-    x: "10%",
+    x: '10%',
     transition: { duration: 0.3, ease: defaultEasing },
-    willChange: "transform",
+    willChange: 'transform',
   },
-};
+}
 
 export const ModalHeader = styled.div`
   position: relative;
@@ -53,7 +53,7 @@ export const ModalHeader = styled.div`
   justify-content: space-between;
   width: 100%;
   margin-bottom: 30px;
-`;
+`
 
 export const IconBtn = styled.button`
   display: inline-flex;
@@ -62,7 +62,7 @@ export const IconBtn = styled.button`
   width: max-content;
   height: 100%;
   margin-right: 12px;
-`;
+`
 
 export const SearchHistory = styled.div`
   display: flex;
@@ -71,7 +71,7 @@ export const SearchHistory = styled.div`
   width: 100%;
   margin-bottom: 45px;
   overflow: hidden;
-`;
+`
 
 export const SearchHistoryHeader = styled.div`
   ${({ theme }) => css`
@@ -91,7 +91,7 @@ export const SearchHistoryHeader = styled.div`
       color: ${theme.colors.gray_40};
     }
   `}
-`;
+`
 
 export const SearchHistoryTagList = styled.ul`
   display: flex;
@@ -105,14 +105,14 @@ export const SearchHistoryTagList = styled.ul`
   ::-webkit-scrollbar {
     display: none;
   }
-`;
+`
 
 export const Hashtag = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-`;
+`
 
 export const HashtagHeader = styled.div`
   ${({ theme }) => css`
@@ -132,9 +132,9 @@ export const HashtagHeader = styled.div`
       color: ${theme.colors.gray_35};
     }
   `}
-`;
+`
 
 export const HastTagList = styled.ul`
   display: grid;
   width: 100%;
-`;
+`

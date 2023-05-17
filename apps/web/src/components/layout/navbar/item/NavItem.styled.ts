@@ -1,5 +1,5 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
 export const NavItem = styled.li`
   ${({ theme }) => css`
@@ -26,7 +26,7 @@ export const NavItem = styled.li`
         color: ${theme.colors.gray_30};
       }
 
-      &[aria-current="page"] {
+      &[aria-current='page'] {
         & > svg {
           stroke: ${theme.colors.primary};
         }
@@ -37,4 +37,4 @@ export const NavItem = styled.li`
       }
     }
   `}
-`;
+`

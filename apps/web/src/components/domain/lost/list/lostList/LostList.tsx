@@ -1,11 +1,9 @@
-import { useViewAtom } from "@/atoms/view";
-
-import * as S from "./styled";
-
-import LostFoundItem from "./item/LostItem";
+import LostFoundItem from './item/LostItem'
+import * as S from './styled'
+import { useViewAtom } from '@/atoms/view'
 
 export default function LostFoundList() {
-  const { view } = useViewAtom();
+  const { view } = useViewAtom()
 
   return (
     <S.LostFoundList data-view={view}>
@@ -25,5 +23,5 @@ export default function LostFoundList() {
         <LostFoundItem view={view} />
       </li>
     </S.LostFoundList>
-  );
+  )
 }

@@ -1,1 +1,1 @@
-export { default as NicknamePageContainer } from "./NicknamePageContainer";
+export { default as NicknamePageContainer } from './NicknamePageContainer'

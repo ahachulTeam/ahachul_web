@@ -1,14 +1,13 @@
-import AhHachulSuperModel from "public/illust/c8.svg";
-import SubwayIllust from "public/illust/m1.svg";
+import { useRouter } from 'next/router'
+import AhHachulSuperModel from 'public/illust/c8.svg'
+import SubwayIllust from 'public/illust/m1.svg'
 
-import { ArrowIcon } from "@/assets/icons";
-
-import * as S from "./styled";
-import { useRouter } from "next/router";
+import * as S from './styled'
+import { ArrowIcon } from '@/assets/icons'
 
 function SubwayInfo() {
-  const router = useRouter();
-  const handleRouteSettingSubway = () => router.push("/onboarding");
+  const router = useRouter()
+  const handleRouteSettingSubway = () => router.push('/onboarding')
 
   return (
     <S.SubwayInfo className="temporary swipe banner">
@@ -35,7 +34,7 @@ function SubwayInfo() {
         </S.Box>
       </S.ContentArea>
     </S.SubwayInfo>
-  );
+  )
 }
 
-export default SubwayInfo;
+export default SubwayInfo

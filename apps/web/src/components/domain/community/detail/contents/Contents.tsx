@@ -1,24 +1,23 @@
-import { TagBtn } from "@/components/common";
-import { PATH } from "@/constants";
-import { CommunityDetailModel } from "@/types/community";
-import { getCurrentTime } from "@/utils/time";
-import { useRouter } from "next/router";
-
-import * as S from "./styled";
+import { useRouter } from 'next/router'
+import * as S from './styled'
+import { TagBtn } from '@/components/common'
+import { PATH } from '@/constants'
+import { CommunityDetailModel } from '@/types/community'
+import { getCurrentTime } from '@/utils/time'
 
 interface ContentsProps {
-  data: CommunityDetailModel;
+  data: CommunityDetailModel
 }
 
 function Contents({ data }: ContentsProps) {
-  const router = useRouter();
+  const router = useRouter()
 
   const searchHashTag = (value: string) => () => {
     router.push({
       pathname: PATH.COMMUNITY,
       query: { tags: value },
-    });
-  };
+    })
+  }
 
   return (
     <S.Contents>
@@ -34,9 +33,7 @@ function Contents({ data }: ContentsProps) {
           <span>좋아요 {data.likeCnt}</span>
         </div>
       </S.FragmentInfos>
-      <S.ImageBox>
-        {/* <Image src={data.img_url || thumbnailDefaultImg} alt="" priority fill /> */}
-      </S.ImageBox>
+      <S.ImageBox>{/* <Image src={data.img_url || thumbnailDefaultImg} alt="" priority fill /> */}</S.ImageBox>
       <S.DetailInfo>{data.content}</S.DetailInfo>
       <S.HashTagList>
         {data.hashtags.map((tag, i) => {
@@ -45,7 +42,7 @@ function Contents({ data }: ContentsProps) {
             <li key={i}>
               <TagBtn label={`#${tag}`} variant="primary" onClick={searchHashTag(tag)} />
             </li>
-          );
+          )
         })}
       </S.HashTagList>
       <S.ContentsReactBtnGroup>
@@ -53,7 +50,7 @@ function Contents({ data }: ContentsProps) {
         <button type="button">싫어요</button>
       </S.ContentsReactBtnGroup>
     </S.Contents>
-  );
+  )
 }
 
-export default Contents;
+export default Contents

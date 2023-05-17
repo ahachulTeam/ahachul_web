@@ -1,40 +1,38 @@
-import { BottomSheet } from "../bottomSheet";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect } from 'react'
+import { BottomSheet } from '../bottomSheet'
 
-import { useDisclosure, useArrowKeyTrap } from "@/hooks";
-
-import { ArrowDownMinIcon } from "@/assets/icons";
-
-import * as S from "./styled";
+import * as S from './styled'
+import { ArrowDownMinIcon } from '@/assets/icons'
+import { useDisclosure, useArrowKeyTrap } from '@/hooks'
 
 interface FilterItem {
-  label: string;
-  value: string;
+  label: string
+  value: string
 }
 
 interface FilterProps {
-  id: string;
-  label: string;
-  options: ReadonlyArray<FilterItem>;
-  value: string;
-  chnageValue: (option: string) => void;
+  id: string
+  label: string
+  options: readonly FilterItem[]
+  value: string
+  chnageValue: (option: string) => void
 }
 
 export default function Filter({ id, label, options, value, chnageValue }: FilterProps) {
-  const { dialoglRef, isOpen, onOpen, onClose } = useDisclosure();
-  const prevValue = useRef(value);
+  const { dialoglRef, isOpen, onOpen, onClose } = useDisclosure()
+  const prevValue = useRef(value)
 
-  const uid = `${id}-filter`;
+  const uid = `${id}-filter`
 
-  useArrowKeyTrap(dialoglRef);
+  useArrowKeyTrap(dialoglRef)
 
   const handleOptionClick = (option: string) => () => {
-    chnageValue(option);
-  };
+    chnageValue(option)
+  }
 
   useEffect(() => {
-    prevValue.current = value;
-  }, [value]);
+    prevValue.current = value
+  }, [value])
 
   return (
     <>
@@ -43,7 +41,7 @@ export default function Filter({ id, label, options, value, chnageValue }: Filte
         aria-haspopup="dialog"
         aria-controls={uid}
         aria-expanded={isOpen}
-        aria-selected={!!value}
+        aria-selected={Boolean(value)}
         onClick={onOpen}
       >
         {label}
@@ -71,5 +69,5 @@ export default function Filter({ id, label, options, value, chnageValue }: Filte
         </S.OptionContainer>
       </BottomSheet>
     </>
-  );
+  )
 }

@@ -7,7 +7,7 @@ const nextConfig = {
     forceSwcTransforms: true,
   },
   swcMinify: true,
-  transpilePackages: ['react-hotjar', '@ahhachul/ui', '@ahhachul/lib'],
+  transpilePackages: ['react-hotjar', '@ahhachul/ui'],
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,

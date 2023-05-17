@@ -1,1 +1,1 @@
-export { default as CommunityDetailPageContainer } from "./container/CommunityDetailPageContainer";
+export { default as CommunityDetailPageContainer } from './container/CommunityDetailPageContainer'

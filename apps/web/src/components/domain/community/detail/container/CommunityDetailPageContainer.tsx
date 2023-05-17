@@ -1,10 +1,10 @@
-import { CommunityDetailModel } from "@/types/community";
-import Comments from "../comments/Comments";
-import Contents from "../contents/Contents";
-import * as S from "./styled";
+import Comments from '../comments/Comments'
+import Contents from '../contents/Contents'
+import * as S from './styled'
+import { CommunityDetailModel } from '@/types/community'
 
 interface CommunityDetailPageContainerProps {
-  data: CommunityDetailModel;
+  data: CommunityDetailModel
 }
 
 function CommunityDetailPageContainer({ data }: CommunityDetailPageContainerProps) {
@@ -18,7 +18,7 @@ function CommunityDetailPageContainer({ data }: CommunityDetailPageContainerProp
         <Comments />
       </S.CommentSection>
     </S.Container>
-  );
+  )
 }
 
-export default CommunityDetailPageContainer;
+export default CommunityDetailPageContainer

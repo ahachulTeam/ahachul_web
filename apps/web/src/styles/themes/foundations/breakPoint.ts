@@ -7,6 +7,6 @@ export const breakPoint = {
     tablet: `(min-width:  767px)`,
     desktop: `(min-width: 1229px)`,
   },
-} as const;
+} as const
 
-export type BreakPointTheme = typeof breakPoint;
+export type BreakPointTheme = typeof breakPoint

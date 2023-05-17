@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react'
 
-import useTab from "./hooks/useTab";
-import * as S from "./styled";
+import useTab from './hooks/useTab'
+import * as S from './styled'
 
 interface TabProps {
-  className?: string;
-  tabList: { [key: string]: string };
+  className?: string
+  tabList: { [key: string]: string }
 }
 
 function Tab({ className, tabList }: TabProps) {
-  const { selectedTab, handleChangeTab } = useTab(tabList);
+  const { selectedTab, handleChangeTab } = useTab(tabList)
 
   return (
     <section>
@@ -29,7 +29,7 @@ function Tab({ className, tabList }: TabProps) {
         ))}
       </S.Tab>
     </section>
-  );
+  )
 }
 
-export default Tab;
+export default Tab

@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled'
 
 export const Community = styled.ul`
   display: flex;
@@ -7,4 +7,4 @@ export const Community = styled.ul`
   & > li:not(:last-of-type) {
     border-bottom: 1px solid #ececec;
   }
-`;
+`

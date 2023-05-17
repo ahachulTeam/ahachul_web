@@ -1,6 +1,6 @@
-import { useEffect, RefObject } from "react";
+import { useEffect, RefObject } from 'react'
 
-type Listener = (e: KeyboardEvent) => void;
+type Listener = (e: KeyboardEvent) => void
 
 export default function useArrowKeyTrap(ref: RefObject<HTMLElement>) {
   const getParseMenuKeyTrap = (e: KeyboardEvent) => {
@@ -8,15 +8,15 @@ export default function useArrowKeyTrap(ref: RefObject<HTMLElement>) {
       (ref.current as HTMLElement).querySelectorAll(
         "[role='menuitem'], [role='menuitemradio'], [role='menuitemcheckbox']"
       )
-    );
-    const eventTarget = e.target;
-    const firstMenuNdoe = menuNodeList[0] as HTMLElement;
-    const lastMenuNode = menuNodeList.at(-1) as HTMLElement;
-    const isFirstMenuNdoe = Object.is(eventTarget, firstMenuNdoe);
-    const isLastMenuNode = Object.is(eventTarget, lastMenuNode);
-    const index = Array.from(menuNodeList).indexOf(eventTarget as HTMLElement);
-    const prevMenuNode = menuNodeList[Math.max(index - 1, 0)] as HTMLElement;
-    const nextMenuNode = menuNodeList[Math.min(index + 1, menuNodeList.length - 1)] as HTMLElement;
+    )
+    const eventTarget = e.target
+    const firstMenuNdoe = menuNodeList[0] as HTMLElement
+    const lastMenuNode = menuNodeList.at(-1) as HTMLElement
+    const isFirstMenuNdoe = Object.is(eventTarget, firstMenuNdoe)
+    const isLastMenuNode = Object.is(eventTarget, lastMenuNode)
+    const index = Array.from(menuNodeList).indexOf(eventTarget as HTMLElement)
+    const prevMenuNode = menuNodeList[Math.max(index - 1, 0)] as HTMLElement
+    const nextMenuNode = menuNodeList[Math.min(index + 1, menuNodeList.length - 1)] as HTMLElement
 
     return {
       menuNodeList,
@@ -26,74 +26,79 @@ export default function useArrowKeyTrap(ref: RefObject<HTMLElement>) {
       isLastMenuNode,
       prevMenuNode,
       nextMenuNode,
-    };
-  };
+    }
+  }
 
   const handleSelectedToPrevMenu = (e: KeyboardEvent) => {
-    if (!ref.current) return;
-    e.preventDefault();
-    const { isFirstMenuNdoe, lastMenuNode, prevMenuNode } = getParseMenuKeyTrap(e);
+    if (!ref.current) {
+      return
+    }
+    e.preventDefault()
+    const { isFirstMenuNdoe, lastMenuNode, prevMenuNode } = getParseMenuKeyTrap(e)
     if (isFirstMenuNdoe) {
-      lastMenuNode.focus();
-      return;
+      lastMenuNode.focus()
+      return
     }
 
-    prevMenuNode.focus();
-  };
+    prevMenuNode.focus()
+  }
 
   const handleSelectedToNextMenu = (e: KeyboardEvent) => {
-    if (!ref.current) return;
-    e.preventDefault();
-    const { isLastMenuNode, firstMenuNdoe, nextMenuNode } = getParseMenuKeyTrap(e);
+    if (!ref.current) {
+      return
+    }
+    e.preventDefault()
+    const { isLastMenuNode, firstMenuNdoe, nextMenuNode } = getParseMenuKeyTrap(e)
     if (isLastMenuNode) {
-      firstMenuNdoe.focus();
-      return;
+      firstMenuNdoe.focus()
+      return
     }
 
-    nextMenuNode.focus();
-  };
+    nextMenuNode.focus()
+  }
 
   const handleFocusFirstMenu = (e: KeyboardEvent) => {
     if (!ref.current) {
-      return;
+      return
     }
-    e.preventDefault();
+    e.preventDefault()
 
-    const { firstMenuNdoe } = getParseMenuKeyTrap(e);
-    firstMenuNdoe.focus();
-  };
+    const { firstMenuNdoe } = getParseMenuKeyTrap(e)
+    firstMenuNdoe.focus()
+  }
 
   const handleFocusLastMenu = (e: KeyboardEvent) => {
     if (!ref.current) {
-      return;
+      return
     }
-    e.preventDefault();
+    e.preventDefault()
 
-    const { lastMenuNode } = getParseMenuKeyTrap(e);
-    lastMenuNode.focus();
-  };
+    const { lastMenuNode } = getParseMenuKeyTrap(e)
+    lastMenuNode.focus()
+  }
 
   useEffect(() => {
     const keyListenerMap = new Map<string, Listener>([
-      ["Up", handleSelectedToPrevMenu],
-      ["ArrowUp", handleSelectedToPrevMenu],
-      ["Down", handleSelectedToNextMenu],
-      ["ArrowDown", handleSelectedToNextMenu],
-      ["Home", handleFocusFirstMenu],
-      ["End", handleFocusLastMenu],
-    ]);
+      ['Up', handleSelectedToPrevMenu],
+      ['ArrowUp', handleSelectedToPrevMenu],
+      ['Down', handleSelectedToNextMenu],
+      ['ArrowDown', handleSelectedToNextMenu],
+      ['Home', handleFocusFirstMenu],
+      ['End', handleFocusLastMenu],
+    ])
 
     const handleKeyListener = (e: KeyboardEvent) => {
-      const listener = keyListenerMap.get(e.key);
+      const listener = keyListenerMap.get(e.key)
       if (listener) {
-        listener(e);
+        listener(e)
       }
-    };
+    }
 
-    window.addEventListener("keydown", handleKeyListener);
+    window.addEventListener('keydown', handleKeyListener)
 
     return () => {
-      window.removeEventListener("keydown", handleKeyListener);
-    };
-  }, []);
+      window.removeEventListener('keydown', handleKeyListener)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 }

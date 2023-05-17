@@ -1,11 +1,11 @@
-import styled from "@emotion/styled";
-import { css } from "@emotion/react";
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
 export const Tab = styled.ul`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(97.5px, 1fr));
-`;
+`
 
 export const TabBtn = styled.button`
   ${({ theme }) => css`
@@ -20,7 +20,7 @@ export const TabBtn = styled.button`
     color: ${theme.colors.gray_50};
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       bottom: 0px;
       opacity: 0;
@@ -31,7 +31,7 @@ export const TabBtn = styled.button`
       transition: all 0.3s ease-in-out;
     }
 
-    &[aria-selected="true"] {
+    &[aria-selected='true'] {
       ${theme.fonts.semibold16};
       color: ${theme.colors.primary};
 
@@ -40,7 +40,7 @@ export const TabBtn = styled.button`
       }
     }
 
-    &[aria-selected="false"] {
+    &[aria-selected='false'] {
       :hover {
         ${theme.fonts.semibold16};
         color: ${theme.colors.primary};
@@ -53,4 +53,4 @@ export const TabBtn = styled.button`
       }
     }
   `}
-`;
+`

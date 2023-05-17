@@ -1,1 +1,1 @@
-export type SampleType = "sample";
+export type SampleType = 'sample'

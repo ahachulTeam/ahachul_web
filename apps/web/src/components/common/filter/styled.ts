@@ -1,5 +1,5 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
 export const TriggerBtn = styled.button`
   ${({ theme }) => css`
@@ -21,8 +21,8 @@ export const TriggerBtn = styled.button`
       transition: all 0.3s ease-in-out;
     }
 
-    &[aria-expanded="true"],
-    &[aria-selected="true"] {
+    &[aria-expanded='true'],
+    &[aria-selected='true'] {
       color: ${theme.colors.primary};
       background-color: ${theme.colors.secondary};
       & > svg {
@@ -30,16 +30,16 @@ export const TriggerBtn = styled.button`
       }
     }
 
-    &[aria-expanded="true"] > svg {
+    &[aria-expanded='true'] > svg {
       transform: rotate(180deg);
     }
   `}
-`;
+`
 
 export const OptionContainer = styled.div`
   display: flex;
   flex-direction: column;
-`;
+`
 
 export const Option = styled.button`
   ${({ theme }) => css`
@@ -47,9 +47,9 @@ export const Option = styled.button`
     align-items: center;
     height: 40px;
 
-    &[aria-checked="true"] {
+    &[aria-checked='true'] {
       ${theme.fonts.bold14};
       color: ${theme.colors.primary};
     }
   `}
-`;
+`

@@ -1,7 +1,7 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
-const SEARCH_ICON_POSITION = "13.5px";
+const SEARCH_ICON_POSITION = '13.5px'
 
 export const SearchInput = styled.form`
   ${({ theme }) => css`
@@ -14,7 +14,7 @@ export const SearchInput = styled.form`
       ${theme.input.search};
     }
   `}
-`;
+`
 
 export const IconBtn = styled.button`
   ${({ theme }) => css`
@@ -29,7 +29,7 @@ export const IconBtn = styled.button`
     width: max-content;
     height: 100%;
   `}
-`;
+`
 
 export const closeIconStyle = css`
   right: calc(${SEARCH_ICON_POSITION} + 26.5px);
@@ -37,7 +37,7 @@ export const closeIconStyle = css`
   transition: opacity 0.3s ease-in-out;
   pointer-events: none;
 
-  &[data-isshow="true"] {
+  &[data-isshow='true'] {
     opacity: 1;
     pointer-events: unset;
   }
@@ -45,4 +45,4 @@ export const closeIconStyle = css`
   & > svg > circle {
     fill: #c0c0c0;
   }
-`;
+`

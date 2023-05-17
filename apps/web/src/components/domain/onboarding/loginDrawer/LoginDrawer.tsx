@@ -1,15 +1,14 @@
-import Image from "next/image";
-import { ForwardedRef, forwardRef } from "react";
+import Image from 'next/image'
+import { ForwardedRef, forwardRef } from 'react'
 
-import { BottomSheet } from "@/components/common";
+import * as S from './styled'
+import { BottomSheet } from '@/components/common'
 
-import { kakaoUrl, googleUrl } from "@/constants/auth";
-
-import * as S from "./styled";
+import { kakaoUrl, googleUrl } from '@/constants/auth'
 
 interface Props {
-  isOpen: boolean;
-  onClose: () => void;
+  isOpen: boolean
+  onClose: () => void
 }
 
 function LoginDrawer({ isOpen, onClose }: Props, ref: ForwardedRef<HTMLDialogElement>) {
@@ -30,7 +29,7 @@ function LoginDrawer({ isOpen, onClose }: Props, ref: ForwardedRef<HTMLDialogEle
         </S.Link>
       </S.ContentBox>
     </BottomSheet>
-  );
+  )
 }
 
-export default forwardRef(LoginDrawer);
+export default forwardRef(LoginDrawer)

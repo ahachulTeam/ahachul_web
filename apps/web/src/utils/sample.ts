@@ -1,3 +1,3 @@
 export const sampleUtils = () => {
-  return "sample";
-};
+  return 'sample'
+}

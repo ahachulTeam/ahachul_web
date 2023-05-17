@@ -1,13 +1,11 @@
-import { Filter } from "@/components/common";
+import * as S from './styled'
+import { LOST_FOUND_FILTERS } from '@/assets/static/loastFound'
+import { Filter } from '@/components/common'
 
-import { useFilterList } from "@/hooks";
-
-import { LOST_FOUND_FILTERS } from "@/assets/static/loastFound";
-
-import * as S from "./styled";
+import { useFilterList } from '@/hooks'
 
 export default function FilterList() {
-  const { filter, handleApplyFilter } = useFilterList("ordering", "lines", "source");
+  const { filter, handleApplyFilter } = useFilterList('ordering', 'lines', 'source')
 
   return (
     <S.FilterList>
@@ -22,5 +20,5 @@ export default function FilterList() {
         />
       ))}
     </S.FilterList>
-  );
+  )
 }

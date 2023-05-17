@@ -1,5 +1,5 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
 export const SubwayInfo = styled.div`
   ${({ theme }) => css`
@@ -12,7 +12,7 @@ export const SubwayInfo = styled.div`
     border-radius: 20px;
     background-color: ${theme.colors.white};
   `}
-`;
+`
 
 export const ThickBorderArea = styled.div`
   ${({ theme }) => css`
@@ -25,7 +25,7 @@ export const ThickBorderArea = styled.div`
     border-top-right-radius: 20px;
     background-color: ${theme.colors.primary};
   `}
-`;
+`
 
 export const AhHachulLabel = styled.label`
   ${({ theme }) => css`
@@ -43,14 +43,14 @@ export const AhHachulLabel = styled.label`
     background-color: ${theme.colors.white};
     transform: translateY(-50%);
   `}
-`;
+`
 
 export const SubwayIllustImage = styled.span`
   position: absolute;
   top: 50%;
   right: 24px;
   transform: translateY(-50%);
-`;
+`
 
 export const ContentArea = styled.div`
   position: relative;
@@ -58,13 +58,13 @@ export const ContentArea = styled.div`
   align-items: center;
   justify-content: flex-end;
   padding: 48px 24px 9px;
-`;
+`
 
 export const Box = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-`;
+`
 
 export const Desc = styled.span`
   ${({ theme }) => css`
@@ -77,13 +77,13 @@ export const Desc = styled.span`
       color: ${theme.colors.primary};
     }
   `}
-`;
+`
 
 export const AhHachulSuperModelImage = styled.div`
   position: absolute;
   top: 30px;
   left: 21px;
-`;
+`
 
 export const AddBtn = styled.button`
   ${({ theme }) => css`
@@ -106,4 +106,4 @@ export const AddBtn = styled.button`
       }
     }
   `}
-`;
+`

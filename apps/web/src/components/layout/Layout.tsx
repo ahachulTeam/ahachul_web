@@ -1,9 +1,8 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren } from 'react'
 
-import * as S from "./styled";
-
-import { Header } from "./header";
-import { Navbar } from "./navbar";
+import { Header } from './header'
+import { Navbar } from './navbar'
+import * as S from './styled'
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
@@ -12,5 +11,5 @@ export default function Layout({ children }: PropsWithChildren) {
       <S.Main>{children}</S.Main>
       <Navbar />
     </>
-  );
+  )
 }

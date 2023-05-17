@@ -1,9 +1,9 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
 export const Redirect = styled.div`
   ${({ theme }) => css`
-    background-image: url("/illust/onboding/_3.svg");
+    background-image: url('/illust/onboding/_3.svg');
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -17,4 +17,4 @@ export const Redirect = styled.div`
     animation: ${theme.animations.slideUpAndFade} 1000ms cubic-bezier(0.16, 1, 0.3, 1);
     will-change: transform, opacity;
   `}
-`;
+`

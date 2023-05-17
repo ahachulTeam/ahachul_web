@@ -1,13 +1,11 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation } from '@tanstack/react-query'
 
-import { UserModel } from "@/types/user";
-
-import userAPI from "@/apis/users";
+import userAPI from '@/apis/users'
+import { UserModel } from '@/types/user'
 
 const useMyProfileMutation = () =>
   useMutation({
-    mutationFn: ({ nickname }: { nickname: UserModel["nickname"] }) =>
-      userAPI.updateMyProfile({ nickname }),
-  });
+    mutationFn: ({ nickname }: { nickname: UserModel['nickname'] }) => userAPI.updateMyProfile({ nickname }),
+  })
 
-export default useMyProfileMutation;
+export default useMyProfileMutation

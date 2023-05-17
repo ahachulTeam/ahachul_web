@@ -1,7 +1,7 @@
-import { RedirectPageContainer } from "@/components";
+import { RedirectPageContainer } from '@/components'
 
 function RedirectPage() {
-  return <RedirectPageContainer />;
+  return <RedirectPageContainer />
 }
 
-export default RedirectPage;
+export default RedirectPage

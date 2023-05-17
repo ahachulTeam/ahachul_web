@@ -1,5 +1,5 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
 export const Main = styled.main`
   ${({ theme }) => css`
@@ -14,4 +14,4 @@ export const Main = styled.main`
     padding-bottom: ${theme.size.bottomNavbar.height};
     background-color: ${theme.colors.white};
   `}
-`;
+`

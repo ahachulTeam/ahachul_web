@@ -1,5 +1,5 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
 export const Header = styled.header`
   ${({ theme }) => css`
@@ -14,11 +14,11 @@ export const Header = styled.header`
     transition: max-height 500ms cubic-bezier(0.43, 0.03, 0.15, 0.95);
     z-index: ${theme.zIndex.header};
 
-    &[data-show="true"] {
+    &[data-show='true'] {
       max-height: ${theme.size.header.height};
     }
   `}
-`;
+`
 
 export const Container = styled.div`
   ${({ theme }) => css`
@@ -32,14 +32,14 @@ export const Container = styled.div`
     border-bottom: 1px solid ${theme.colors.gray_20};
     padding: 0 16px;
   `}
-`;
+`
 
 export const Box = styled.div`
   display: flex;
   align-items: center;
   column-gap: 6px;
   height: 100%;
-`;
+`
 
 export const MenuBtn = styled.button`
   position: relative;
@@ -55,4 +55,4 @@ export const MenuBtn = styled.button`
     height: 100%;
     object-fit: cover;
   }
-`;
+`

@@ -28,7 +28,7 @@ export const ToggleList = styled(Tabs.List)`
       border-radius: 40px;
     }
 
-    &:has(> button:first-child[data-state="active"])::before {
+    &:has(> button:first-of-type[data-state="active"])::before {
       transform: translateX(0);
     }
 

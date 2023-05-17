@@ -1,1 +1,1 @@
-export { default as TagBtn } from "./TagBtn";
+export { default as TagBtn } from './TagBtn'

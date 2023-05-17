@@ -1,12 +1,12 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import * as Tabs from "@radix-ui/react-tabs";
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
+import * as Tabs from '@radix-ui/react-tabs'
 
 export const ToggleRoot = styled(Tabs.Root)`
   display: flex;
   flex-direction: column;
   width: 300px;
-`;
+`
 
 export const ToggleList = styled(Tabs.List)`
   ${({ theme }) => css`
@@ -17,7 +17,7 @@ export const ToggleList = styled(Tabs.List)`
     background-color: ${theme.colors.gray_20};
 
     &::before {
-      content: "";
+      content: '';
       position: absolute;
       width: 50%;
       background-color: ${theme.colors.primary};
@@ -28,21 +28,21 @@ export const ToggleList = styled(Tabs.List)`
       border-radius: 40px;
     }
 
-    &:has(> button:first-child[data-state="active"])::before {
+    &:has(> button:first-of-type[data-state='active'])::before {
       transform: translateX(0);
     }
 
-    &:has(> button:last-child[data-state="active"])::before {
+    &:has(> button:last-child[data-state='active'])::before {
       transform: translateX(100%);
     }
   `}
-`;
+`
 
 export const ToggleTrigger = styled(Tabs.Trigger)`
   ${({ theme }) => css`
     ${theme.toggle.primary};
   `}
-`;
+`
 
 export const ToggleContent = styled(Tabs.Content)`
   ${({ theme }) => css`
@@ -53,4 +53,4 @@ export const ToggleContent = styled(Tabs.Content)`
     border-bottom-right-radius: 6px;
     outline: none;
   `}
-`;
+`

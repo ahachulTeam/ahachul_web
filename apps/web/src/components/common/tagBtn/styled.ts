@@ -1,17 +1,17 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
-import type { TagVariant } from "@/types/common";
+import type { TagVariant } from '@/types/common'
 
 interface TagBtnProps {
-  variant: TagVariant;
+  variant: TagVariant
 }
 
 export const TagBtn = styled.button<TagBtnProps>`
   ${({ theme, variant }) => css`
-    ${variant === "primary" && theme.tag.primary};
-    ${variant === "outline" && theme.tag.outline};
-    ${variant === "ghost" && theme.tag.ghost};
+    ${variant === 'primary' && theme.tag.primary};
+    ${variant === 'outline' && theme.tag.outline};
+    ${variant === 'ghost' && theme.tag.ghost};
 
     & > span {
       white-space: nowrap;
@@ -19,10 +19,10 @@ export const TagBtn = styled.button<TagBtnProps>`
       overflow: hidden;
     }
   `}
-`;
+`
 
 export const IconBtn = styled.button`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-`;
+`

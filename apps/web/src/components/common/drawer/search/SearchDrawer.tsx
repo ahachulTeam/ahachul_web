@@ -1,18 +1,17 @@
-import { type ComponentProps } from "react";
-import { m } from "framer-motion";
+import { m } from 'framer-motion'
+import { type ComponentProps } from 'react'
 
-import { SearchInput, TagBtn } from "@/components/common";
+import useSearchDrawer from './hooks/useSearchDrawer'
+import * as S from './styled'
+import { HASH_TAG_DUMMY_LIST } from '@/assets/dummy/community'
+import { ArrowIcon } from '@/assets/icons'
+import { SearchInput, TagBtn } from '@/components/common'
 
-import { defaultFadeInVariants } from "@/constants/motions";
-import { AnimatePortal } from "@/components/common/portal";
-import { ArrowIcon } from "@/assets/icons";
-
-import * as S from "./styled";
-import useSearchDrawer from "./hooks/useSearchDrawer";
-import { HASH_TAG_DUMMY_LIST } from "@/assets/dummy/community";
+import { AnimatePortal } from '@/components/common/portal'
+import { defaultFadeInVariants } from '@/constants/motions'
 
 interface Props extends ComponentProps<typeof AnimatePortal> {
-  onClose: () => void;
+  onClose: () => void
 }
 
 function SearchDrawer({ onClose, isMounted, mode }: Props) {
@@ -23,26 +22,16 @@ function SearchDrawer({ onClose, isMounted, mode }: Props) {
     closeDrawerAndDeleteSearchValue,
     handleChangeSearchValue,
     handleSearchHistoryValue,
-  } = useSearchDrawer(onClose);
+  } = useSearchDrawer(onClose)
 
-  const deleteSearchHistories = () => {};
+  const deleteSearchHistories = () => {}
 
   return (
     <AnimatePortal isMounted={isMounted} mode={mode}>
-      <m.div
-        css={S.overlayCss}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        variants={defaultFadeInVariants}
-      >
+      <m.div css={S.overlayCss} initial="initial" animate="animate" exit="exit" variants={defaultFadeInVariants}>
         <m.div css={S.contentCss} variants={S.searchDrawerVariants}>
           <S.ModalHeader>
-            <S.IconBtn
-              type="button"
-              aria-label="뒤로가기 버튼"
-              onClick={closeDrawerAndDeleteSearchValue}
-            >
+            <S.IconBtn type="button" aria-label="뒤로가기 버튼" onClick={closeDrawerAndDeleteSearchValue}>
               <ArrowIcon />
             </S.IconBtn>
             <SearchInput
@@ -88,7 +77,7 @@ function SearchDrawer({ onClose, isMounted, mode }: Props) {
         </m.div>
       </m.div>
     </AnimatePortal>
-  );
+  )
 }
 
-export default SearchDrawer;
+export default SearchDrawer

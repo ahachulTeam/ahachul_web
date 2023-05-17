@@ -1,2 +1,2 @@
-export * from "./nickname";
-export * from "./redirect";
+export * from './nickname'
+export * from './redirect'

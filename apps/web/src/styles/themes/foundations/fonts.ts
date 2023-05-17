@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react'
 
 export const fonts = {
   regular10: css`
@@ -108,6 +108,6 @@ export const fonts = {
     font-family: Pretendard;
     line-height: 1.16;
   `,
-} as const;
+} as const
 
-export type FontType = typeof fonts;
+export type FontType = typeof fonts

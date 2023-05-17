@@ -1,24 +1,24 @@
-import React, { useRef } from "react";
+import React, { useRef } from 'react'
 
-import * as S from "./styled";
+import * as S from './styled'
 
 interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-  className?: string;
+  label?: string
+  className?: string
 }
 
 function Checkbox({ id, label, className, ...restProps }: CheckboxProps) {
-  const checkboxRef = useRef<HTMLInputElement>(null);
-  const uuid = `checkbox-${id}`;
+  const checkboxRef = useRef<HTMLInputElement>(null)
+  const uuid = `checkbox-${id}`
   const onKeydown = (e: React.KeyboardEvent<HTMLLabelElement>) => {
-    const { key } = e;
-    if (key === " ") {
-      e.preventDefault();
+    const { key } = e
+    if (key === ' ') {
+      e.preventDefault()
       if (checkboxRef.current) {
-        checkboxRef.current.click();
+        checkboxRef.current.click()
       }
     }
-  };
+  }
 
   return (
     <S.Checkbox className={className}>
@@ -27,7 +27,7 @@ function Checkbox({ id, label, className, ...restProps }: CheckboxProps) {
         {label}
       </label>
     </S.Checkbox>
-  );
+  )
 }
 
-export default Checkbox;
+export default Checkbox

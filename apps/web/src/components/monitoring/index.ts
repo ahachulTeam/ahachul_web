@@ -1,1 +1,1 @@
-export { default as MonitoringInitializer } from "./MonitoringInitializer";
+export { default as MonitoringInitializer } from './MonitoringInitializer'

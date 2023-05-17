@@ -1,9 +1,9 @@
-import styled from "@emotion/styled";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import styled from '@emotion/styled'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-import { theme } from "@/styles";
-import { fonts } from "@/styles/themes/foundations";
+import { theme } from '@/styles'
+import { fonts } from '@/styles/themes/foundations'
 
 export const Toast = styled(ToastContainer)`
   width: calc(100% - 20px);
@@ -49,4 +49,4 @@ export const Toast = styled(ToastContainer)`
       transform: translateX(-50%);
     }
   }
-`;
+`

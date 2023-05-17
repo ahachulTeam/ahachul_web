@@ -1,11 +1,11 @@
-import dynamic from "next/dynamic";
-import { ReactElement } from "react";
+import dynamic from 'next/dynamic'
+import { ReactElement } from 'react'
 
-import { Layout, MainPageContainer } from "@/components";
+import { Layout, MainPageContainer } from '@/components'
 
-const BottomSheetForApp = dynamic(() => import("@/components/cta/forApp/ForApp"), {
+const BottomSheetForApp = dynamic(() => import('@/components/cta/forApp/ForApp'), {
   ssr: false,
-});
+})
 
 export default function HomePage() {
   return (
@@ -13,9 +13,9 @@ export default function HomePage() {
       <MainPageContainer />
       <BottomSheetForApp />
     </>
-  );
+  )
 }
 
 HomePage.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>;
-};
+  return <Layout>{page}</Layout>
+}

@@ -1,7 +1,7 @@
-import { NicknamePageContainer } from "@/components";
+import { NicknamePageContainer } from '@/components'
 
 function NicknamePage() {
-  return <NicknamePageContainer />;
+  return <NicknamePageContainer />
 }
 
-export default NicknamePage;
+export default NicknamePage

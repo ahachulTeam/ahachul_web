@@ -1,10 +1,9 @@
-import * as S from "./styled";
-
-import ChangeView from "./changeView/ChangeView";
-import FilterList from "./filterList/FilterList";
+import ChangeView from './changeView/ChangeView'
+import FilterList from './filterList/FilterList'
+import * as S from './styled'
 
 interface ControllerProps {
-  className?: string;
+  className?: string
 }
 
 export default function Controller({ className }: ControllerProps) {
@@ -13,5 +12,5 @@ export default function Controller({ className }: ControllerProps) {
       <ChangeView />
       <FilterList />
     </S.Controller>
-  );
+  )
 }

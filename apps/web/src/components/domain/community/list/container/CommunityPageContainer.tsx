@@ -1,10 +1,9 @@
-import { COMMUNITY_TABS } from "@/assets/static/tab";
-import { Tab } from "@/components/common";
-import { StaticSEO } from "@/constants/seo";
-import ArticleList from "../articleList/ArticleList";
-import HashtagList from "../hashtagList/HashtagList";
-
-import * as S from "./styled";
+import ArticleList from '../articleList/ArticleList'
+import HashtagList from '../hashtagList/HashtagList'
+import * as S from './styled'
+import { COMMUNITY_TABS } from '@/assets/static/tab'
+import { Tab } from '@/components/common'
+import { StaticSEO } from '@/constants/seo'
 
 function CommunityPageContainer() {
   return (
@@ -21,7 +20,7 @@ function CommunityPageContainer() {
         <ArticleList />
       </S.ListSection>
     </S.Container>
-  );
+  )
 }
 
-export default CommunityPageContainer;
+export default CommunityPageContainer

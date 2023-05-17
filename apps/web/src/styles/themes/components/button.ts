@@ -1,11 +1,11 @@
-import { colors, fonts } from "../foundations";
-import { css } from "@emotion/react";
+import { css } from '@emotion/react'
+import { colors, fonts } from '../foundations'
 
 const flexBoxCenter = css`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
+`
 
 export const button = {
   size: {
@@ -122,7 +122,7 @@ export const button = {
       transition: 0.3s;
 
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         bottom: 1px;
         left: 0;
@@ -143,6 +143,6 @@ export const button = {
       }
     `,
   },
-};
+}
 
-export type ButtonTheme = typeof button;
+export type ButtonTheme = typeof button

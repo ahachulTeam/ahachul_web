@@ -1,47 +1,42 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image'
+import Link from 'next/link'
 
-import { SubwayBadge } from "@/components/common";
+import * as S from './styled'
+import { CommentIcon } from '@/assets/icons'
+import { SubwayBadge } from '@/components/common'
 
-import { PATH } from "@/constants/path";
+import { PATH } from '@/constants/path'
 
-import { CommentIcon } from "@/assets/icons";
+type View = 'list' | 'grid'
 
-import * as S from "./styled";
-
-type View = "list" | "grid";
-
-type LostStatus = "PROGRESS" | "COMPLETE";
+type LostStatus = 'PROGRESS' | 'COMPLETE'
 
 type LostPost = {
-  id: string;
-  title: string;
-  content: string;
-  writer: string;
-  createdBy: string;
-  date: string;
-  subwayLine: number;
-  chats: number;
-  status: LostStatus;
-  imgUrl: string;
-};
-
-interface LostItemProps {
-  view?: View;
-  lostItem?: LostPost;
+  id: string
+  title: string
+  content: string
+  writer: string
+  createdBy: string
+  date: string
+  subwayLine: number
+  chats: number
+  status: LostStatus
+  imgUrl: string
 }
 
-export default function LostItem({ view = "list", lostItem }: LostItemProps) {
-  const handleCommentClick = (e: React.MouseEvent<HTMLButtonElement>) => {};
+interface LostItemProps {
+  view?: View
+  lostItem?: LostPost
+}
+
+export default function LostItem({ view = 'list', lostItem }: LostItemProps) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleCommentClick = (e: React.MouseEvent<HTMLButtonElement>) => {}
 
   return (
     <S.LostItem data-view={view}>
       <S.Thumbnail>
-        <Image
-          src={lostItem?.imgUrl ?? "/images/default_thumbnail.svg"}
-          fill
-          alt="lost item thumbnail"
-        />
+        <Image src={lostItem?.imgUrl ?? '/images/default_thumbnail.svg'} fill alt="lost item thumbnail" />
       </S.Thumbnail>
       <S.Contents>
         <S.Title>
@@ -49,8 +44,7 @@ export default function LostItem({ view = "list", lostItem }: LostItemProps) {
           <h3>검정색 루이비통 지갑 발견했어요</h3>
         </S.Title>
         <S.Content>
-          방금 4호선 당고개행에서 검정색 루이비통 지갑을 발견했어요. 제가 보관하고 있으니 쪽지
-          주세요.
+          방금 4호선 당고개행에서 검정색 루이비통 지갑을 발견했어요. 제가 보관하고 있으니 쪽지 주세요.
         </S.Content>
         <S.Meta>
           <S.Metadata>
@@ -67,5 +61,5 @@ export default function LostItem({ view = "list", lostItem }: LostItemProps) {
       </S.Contents>
       <Link href={`${PATH.LOST}/${lostItem?.id}`} css={S.link} />
     </S.LostItem>
-  );
+  )
 }

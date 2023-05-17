@@ -1,34 +1,28 @@
-import React from "react";
+import React from 'react'
 
-import type { TagVariant } from "@/types/common";
-
-import * as S from "./styled";
+import * as S from './styled'
+import type { TagVariant } from '@/types/common'
 
 interface TagBtnProps {
-  className?: string;
-  label: string;
-  variant?: TagVariant;
-  disabled?: boolean;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  onDelete?: () => void;
+  className?: string
+  label: string
+  variant?: TagVariant
+  disabled?: boolean
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
+  onDelete?: () => void
 }
 
 export default function TagBtn({
   className,
   label,
-  variant = "primary",
+  variant = 'primary',
   disabled = false,
   onClick,
   onDelete,
 }: TagBtnProps) {
+  console.log(onDelete)
   return (
-    <S.TagBtn
-      type="button"
-      className={className}
-      variant={variant}
-      disabled={disabled}
-      onClick={onClick}
-    >
+    <S.TagBtn type="button" className={className} variant={variant} disabled={disabled} onClick={onClick}>
       <span>{label}</span>
       {/* {variant === "outline" && (
         <S.IconBtn onClick={onDelete}>
@@ -36,5 +30,5 @@ export default function TagBtn({
         </S.IconBtn>
       )} */}
     </S.TagBtn>
-  );
+  )
 }

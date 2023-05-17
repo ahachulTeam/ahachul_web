@@ -14,12 +14,13 @@ function RedirectPageContainer() {
   const { mutate: mutateLogin } = useLoginMutation()
 
   useEffect(() => {
-    if (!!providerCode && !!providerType) {
+    if (Boolean(providerCode) && Boolean(providerType)) {
       mutateLogin({
         providerCode,
         providerType,
       } as APILoginUserProviders)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query])
 
   return <S.Redirect />

@@ -1,5 +1,5 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
 export const LostItem = styled.article`
   position: relative;
@@ -8,7 +8,7 @@ export const LostItem = styled.article`
   align-items: center;
   column-gap: 16px;
 
-  &[data-view="grid"] {
+  &[data-view='grid'] {
     grid-template-columns: none;
     grid-template-rows: max-content 81px;
     column-gap: 0;
@@ -18,7 +18,7 @@ export const LostItem = styled.article`
       border-radius: 25px;
     }
   }
-`;
+`
 
 export const link = css`
   position: absolute;
@@ -26,7 +26,7 @@ export const link = css`
   left: 0;
   width: 100%;
   height: 100%;
-`;
+`
 
 export const Thumbnail = styled.div`
   ${({ theme }) => css`
@@ -38,7 +38,7 @@ export const Thumbnail = styled.div`
     background-color: ${theme.colors.gray_18};
     overflow: hidden;
   `}
-`;
+`
 
 export const Contents = styled.div`
   position: relative;
@@ -47,7 +47,7 @@ export const Contents = styled.div`
   justify-content: space-between;
   row-gap: 3px;
   overflow: hidden;
-`;
+`
 
 export const Title = styled.div`
   ${({ theme }) => css`
@@ -62,7 +62,7 @@ export const Title = styled.div`
       overflow: hidden;
     }
   `}
-`;
+`
 
 export const Content = styled.p`
   ${({ theme }) => css`
@@ -73,7 +73,7 @@ export const Content = styled.p`
     text-overflow: ellipsis;
     overflow: hidden;
   `}
-`;
+`
 
 export const Meta = styled.div`
   ${({ theme }) => css`
@@ -82,7 +82,7 @@ export const Meta = styled.div`
     justify-content: space-between;
     color: ${theme.colors.gray_45};
   `}
-`;
+`
 
 export const Metadata = styled.div`
   ${({ theme }) => css`
@@ -96,7 +96,7 @@ export const Metadata = styled.div`
       align-items: center;
 
       &::after {
-        content: "";
+        content: '';
         position: absolute;
         right: -8px;
         display: flex;
@@ -107,7 +107,7 @@ export const Metadata = styled.div`
       }
     }
   `}
-`;
+`
 
 export const Utils = styled.div`
   ${({ theme }) => css`
@@ -115,7 +115,7 @@ export const Utils = styled.div`
     column-gap: 7px;
     z-index: ${theme.zIndex.docked};
   `}
-`;
+`
 
 export const UtilBtn = styled.button`
   ${({ theme }) => css`
@@ -139,4 +139,4 @@ export const UtilBtn = styled.button`
       }
     }
   `}
-`;
+`

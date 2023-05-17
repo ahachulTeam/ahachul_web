@@ -1,53 +1,45 @@
-import Image from "next/image";
-import LogoImg from "public/illust/img/img_favicon.png";
-import { useEffect, useState } from "react";
+import Image from 'next/image'
+import LogoImg from 'public/illust/img/img_favicon.png'
+import { useEffect, useState } from 'react'
 
-import { useDisclosure } from "@/hooks";
+import * as S from './styled'
+import { APP_CONVERSION_CTA_STORAGE_KEY } from '@/constants'
+import { useDisclosure } from '@/hooks'
 
-import handleSessionStorage from "@/utils/storage";
-
-import * as S from "./styled";
-
-import { APP_CONVERSION_CTA_STORAGE_KEY } from "@/constants";
+import handleSessionStorage from '@/utils/storage'
 
 function BottomSheetForApp() {
-  const [isMounted, setIsMounted] = useState(false);
-  const { dialoglRef, isOpen, onOpen, onClose } = useDisclosure();
+  const [isMounted, setIsMounted] = useState(false)
+  const { dialoglRef, isOpen, onOpen, onClose } = useDisclosure()
 
   useEffect(() => {
-    const storage =
-      typeof window !== "undefined"
-        ? handleSessionStorage(APP_CONVERSION_CTA_STORAGE_KEY)
-        : undefined;
+    const storage = typeof window !== 'undefined' ? handleSessionStorage(APP_CONVERSION_CTA_STORAGE_KEY) : undefined
 
     if (!storage) {
-      return;
+      return
     }
 
-    const appConversionToken = storage.get();
-    const isAlreadyInitialized = () => !!appConversionToken;
+    const appConversionToken = storage.get()
+    const isAlreadyInitialized = () => Boolean(appConversionToken)
 
     if (!isAlreadyInitialized()) {
-      storage.set(APP_CONVERSION_CTA_STORAGE_KEY);
+      storage.set(APP_CONVERSION_CTA_STORAGE_KEY)
       setTimeout(() => {
-        setIsMounted(true);
-      }, 1000);
+        setIsMounted(true)
+      }, 1000)
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
-    if (!isMounted) return;
-    onOpen();
-  }, [isMounted]);
+    if (!isMounted) {
+      return
+    }
+    onOpen()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMounted])
 
   return (
-    <S.CTABottomSheet
-      ref={dialoglRef}
-      isHeaderHidden
-      title="앱 다운로드 팝업"
-      isOpen={isOpen}
-      onClose={onClose}
-    >
+    <S.CTABottomSheet ref={dialoglRef} isHeaderHidden title="앱 다운로드 팝업" isOpen={isOpen} onClose={onClose}>
       <S.ContentBox>
         <Image src={LogoImg} alt="아하철 로고" width={94} height={94} />
         <S.Strong>
@@ -64,7 +56,7 @@ function BottomSheetForApp() {
         </S.CloseBtn>
       </S.ContentBox>
     </S.CTABottomSheet>
-  );
+  )
 }
 
-export default BottomSheetForApp;
+export default BottomSheetForApp

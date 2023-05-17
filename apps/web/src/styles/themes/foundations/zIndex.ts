@@ -1,6 +1,6 @@
 export const zIndex = {
   hide: -1,
-  auto: "auto",
+  auto: 'auto',
   base: 0,
   docked: 10,
   dropdown: 1000,
@@ -13,6 +13,6 @@ export const zIndex = {
   dialog: 1700,
   toast: 1800,
   tooltip: 1900,
-};
+}
 
-export type ZIndexType = typeof zIndex;
+export type ZIndexType = typeof zIndex

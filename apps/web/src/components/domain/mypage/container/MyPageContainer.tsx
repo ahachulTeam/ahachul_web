@@ -1,9 +1,9 @@
-import Link from "next/link";
+import Link from 'next/link'
 
-import useMyProfileQuery from "@/queries/user/useMyProfileQuery";
+import useMyProfileQuery from '@/queries/user/useMyProfileQuery'
 
 function MyPageContainer() {
-  const { data: myProfile, refetch } = useMyProfileQuery({ enabled: false });
+  const { data: myProfile, refetch } = useMyProfileQuery({ enabled: false })
 
   return (
     <div>
@@ -32,7 +32,7 @@ function MyPageContainer() {
       <br />
       <Link href="/onboarding/nickname">프로필을 수정하시겠습니까 ?</Link>
     </div>
-  );
+  )
 }
 
-export default MyPageContainer;
+export default MyPageContainer

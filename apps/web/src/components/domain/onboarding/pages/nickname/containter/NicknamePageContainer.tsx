@@ -1,32 +1,31 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-import * as S from "./styled";
+import * as S from './styled'
 
-import useMyProfileMutation from "@/queries/user/useMyProfileMutation";
-import { useVerifyNickname } from "@/queries/user/useVerifyNickname";
+import useMyProfileMutation from '@/queries/user/useMyProfileMutation'
+import { useVerifyNickname } from '@/queries/user/useVerifyNickname'
 
 function NicknamePageContainer() {
-  const [nickname, setNickname] = useState<string>("");
-  const { mutate: updateMyProfileMutate } = useMyProfileMutation();
-  const { data, mutate: verifyNicknameMutate } = useVerifyNickname();
+  const [nickname, setNickname] = useState<string>('')
+  const { mutate: updateMyProfileMutate } = useMyProfileMutation()
+  const { data, mutate: verifyNicknameMutate } = useVerifyNickname()
 
   const handleSubmitNickname = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (nickname === "") {
-      alert("닉네임을 제대로 입력해주세요.");
+    e.preventDefault()
+    if (nickname === '') {
+      alert('닉네임을 제대로 입력해주세요.')
     } else if (!data?.result.available) {
-      alert("닉네임 중복체크를 해주세요.");
+      alert('닉네임 중복체크를 해주세요.')
     } else {
-      updateMyProfileMutate({ nickname });
+      updateMyProfileMutate({ nickname })
     }
-  };
+  }
 
-  const handleNicknameInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setNickname(e.target.value);
+  const handleNicknameInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setNickname(e.target.value)
 
   const handleVerifyNickname = () => {
-    verifyNicknameMutate({ nickname });
-  };
+    verifyNicknameMutate({ nickname })
+  }
 
   return (
     <div css={S.flexCenter}>
@@ -44,7 +43,7 @@ function NicknamePageContainer() {
         </button>
       </form>
     </div>
-  );
+  )
 }
 
-export default NicknamePageContainer;
+export default NicknamePageContainer

@@ -1,38 +1,38 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react'
 
-import { theme } from "@/styles/themes";
+import { theme } from '@/styles/themes'
 
 const globalStyles = css`
   @font-face {
-    font-family: "Pretendard";
+    font-family: 'Pretendard';
     font-style: normal;
     font-weight: 400;
-    src: url("/fonts/Pretendard-Regular.otf");
-    src: local("Pretendard-Regular.otf"), url("/fonts/Pretendard-Regular.otf") format("opentype");
+    src: url('/fonts/Pretendard-Regular.otf');
+    src: local('Pretendard-Regular.otf'), url('/fonts/Pretendard-Regular.otf') format('opentype');
     font-display: swap;
   }
   @font-face {
-    font-family: "Pretendard";
+    font-family: 'Pretendard';
     font-style: normal;
     font-weight: 500;
-    src: url("/fonts/Pretendard-Medium.otf");
-    src: local("Pretendard-Medium.otf"), url("/fonts/Pretendard-Medium.otf") format("opentype");
+    src: url('/fonts/Pretendard-Medium.otf');
+    src: local('Pretendard-Medium.otf'), url('/fonts/Pretendard-Medium.otf') format('opentype');
     font-display: swap;
   }
   @font-face {
-    font-family: "Pretendard";
+    font-family: 'Pretendard';
     font-style: normal;
     font-weight: 600;
-    src: url("/fonts/Pretendard-SemiBold.otf");
-    src: local("Pretendard-SemiBold.otf"), url("/fonts/Pretendard-SemiBold.otf") format("opentype");
+    src: url('/fonts/Pretendard-SemiBold.otf');
+    src: local('Pretendard-SemiBold.otf'), url('/fonts/Pretendard-SemiBold.otf') format('opentype');
     font-display: swap;
   }
   @font-face {
-    font-family: "Pretendard";
+    font-family: 'Pretendard';
     font-style: normal;
     font-weight: 700;
-    src: url("/fonts/Pretendard-Bold.otf");
-    src: local("Pretendard-Bold.otf"), url("/fonts/Pretendard-Bold.otf") format("opentype");
+    src: url('/fonts/Pretendard-Bold.otf');
+    src: local('Pretendard-Bold.otf'), url('/fonts/Pretendard-Bold.otf') format('opentype');
     font-display: swap;
   }
 
@@ -152,7 +152,7 @@ const globalStyles = css`
   blockquote::after,
   q::before,
   q::after {
-    content: "";
+    content: '';
     content: none;
   }
   table {
@@ -214,7 +214,7 @@ const globalStyles = css`
     cursor: help;
   }
   code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
   }
   path {
     pointer-events: none;
@@ -244,6 +244,6 @@ const globalStyles = css`
   pre {
     color: ${theme.colors.black};
   }
-`;
+`
 
-export default globalStyles;
+export default globalStyles

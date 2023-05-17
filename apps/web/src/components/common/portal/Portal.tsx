@@ -1,19 +1,19 @@
-import { PropsWithChildren } from "react";
-import { createPortal } from "react-dom";
+import { PropsWithChildren } from 'react'
+import { createPortal } from 'react-dom'
 
 interface PortalProps {
-  containerId: string;
-  isMounted: boolean;
+  containerId: string
+  isMounted: boolean
 }
 
 function Portal({ children, containerId, isMounted }: PropsWithChildren<PortalProps>) {
   if (isMounted) {
-    const portal = document.getElementById(containerId);
+    const portal = document.getElementById(containerId)
 
-    return portal ? createPortal(children, portal) : null;
+    return portal ? createPortal(children, portal) : null
   }
 
-  return null;
+  return null
 }
 
-export default Portal;
+export default Portal

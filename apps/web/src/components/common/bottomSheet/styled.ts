@@ -1,7 +1,7 @@
-import { css, Theme } from "@emotion/react";
-import styled from "@emotion/styled";
+import { css, Theme } from '@emotion/react'
+import styled from '@emotion/styled'
 
-import { BOTTOM_SHEET_DURATION } from "@/constants";
+import { BOTTOM_SHEET_DURATION } from '@/constants'
 
 export const Dim = styled.div`
   ${({ theme }) => css`
@@ -18,7 +18,7 @@ export const Dim = styled.div`
     background-color: ${theme.colors.dim};
     z-index: ${theme.zIndex.dim};
   `}
-`;
+`
 
 export const BottomSheet = styled.dialog`
   ${({ theme }) => css`
@@ -34,11 +34,11 @@ export const BottomSheet = styled.dialog`
     transition: transform ${BOTTOM_SHEET_DURATION}ms ease 0s;
     z-index: ${theme.zIndex.dialog};
 
-    &[data-status="true"] {
+    &[data-status='true'] {
       transform: translateY(0);
     }
   `}
-`;
+`
 
 export const Header = styled.header`
   ${({ theme }) => css`
@@ -52,7 +52,7 @@ export const Header = styled.header`
       ${theme.fonts.semibold16};
     }
   `}
-`;
+`
 
 export const CloseBtn = styled.button`
   ${({ theme }) => css`
@@ -66,12 +66,12 @@ export const CloseBtn = styled.button`
       fill: ${theme.colors.gray_40};
     }
   `}
-`;
+`
 
 export const Content = styled.div`
   padding: 0 42px 36px 42px;
-`;
+`
 
 export const visuallyHidden = (theme: Theme) => css`
   ${theme.a11y.visuallyHidden}
-`;
+`

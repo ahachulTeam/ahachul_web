@@ -19,7 +19,7 @@ export const toggle = {
     transition: all 0.3s ease-in-out;
     z-index: 2;
 
-    &:first-child {
+    &:first-of-type {
       border-top-left-radius: 40px;
       border-bottom-left-radius: 40px;
     }

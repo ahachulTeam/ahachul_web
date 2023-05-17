@@ -3,7 +3,7 @@
 ## 개발 스택
 
 - Typescript
-- Next.js 
+- Next.js
 - React-query, recoil, axios
 - styled-components
 

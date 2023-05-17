@@ -1,5 +1,5 @@
-import { a11y, colors, fonts } from "../foundations";
-import { css } from "@emotion/react";
+import { css } from '@emotion/react'
+import { a11y, colors, fonts } from '../foundations'
 
 export const checkbox = {
   primary: css`
@@ -13,7 +13,7 @@ export const checkbox = {
     padding: 0 16px;
     transition: border 0.3s ease-in-out;
 
-    & > input[type="checkbox"] {
+    & > input[type='checkbox'] {
       ${a11y.visuallyHidden};
     }
 
@@ -57,7 +57,7 @@ export const checkbox = {
       }
     }
 
-    & > input[type="checkbox"]:checked + label {
+    & > input[type='checkbox']:checked + label {
       &::before {
         content: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.5 7.32091L2.58174 6.23088L6.64065 10.3209L13.4087 3.50098L14.5 4.59101L6.64065 12.501L1.5 7.32091Z' fill='%23fff' /%3E%3C/svg%3E%0A");
         vertical-algin: center;
@@ -71,6 +71,6 @@ export const checkbox = {
       }
     }
   `,
-} as const;
+} as const
 
-export type CheckboxType = typeof checkbox;
+export type CheckboxType = typeof checkbox

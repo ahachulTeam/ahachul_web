@@ -1,1 +1,1 @@
-export { default as RedirectPageContainer } from "./RedirectPageContainer";
+export { default as RedirectPageContainer } from './RedirectPageContainer'

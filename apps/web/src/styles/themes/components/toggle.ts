@@ -1,11 +1,11 @@
-import { colors, fonts } from "../foundations";
-import { css } from "@emotion/react";
+import { css } from '@emotion/react'
+import { colors, fonts } from '../foundations'
 
 const flexBoxCenter = css`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
+`
 
 export const toggle = {
   primary: css`
@@ -19,7 +19,7 @@ export const toggle = {
     transition: all 0.3s ease-in-out;
     z-index: 2;
 
-    &:first-child {
+    &:first-of-type {
       border-top-left-radius: 40px;
       border-bottom-left-radius: 40px;
     }
@@ -29,10 +29,10 @@ export const toggle = {
       border-bottom-right-radius: 40px;
     }
 
-    &[data-state="active"] {
+    &[data-state='active'] {
       color: ${colors.white};
     }
   `,
-} as const;
+} as const
 
-export type ToggleType = typeof toggle;
+export type ToggleType = typeof toggle

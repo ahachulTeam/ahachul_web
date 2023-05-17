@@ -1,6 +1,6 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import NextLink from "next/link";
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
+import NextLink from 'next/link'
 
 export const ContentBox = styled.div`
   display: flex;
@@ -8,11 +8,11 @@ export const ContentBox = styled.div`
   align-items: center;
   row-gap: 10px;
   width: 100%;
-`;
+`
 
 export const Link = styled(NextLink)`
   width: 100%;
-`;
+`
 
 export const KakaoBtn = styled.button`
   ${({ theme }) => css`
@@ -35,11 +35,11 @@ export const KakaoBtn = styled.button`
       transform: translateY(-50%);
     }
   `}
-`;
+`
 
 export const GoogleBtn = styled(KakaoBtn)`
   ${({ theme }) => css`
     border: 1px solid #7d839830;
     background-color: ${theme.colors.white};
   `}
-`;
+`

@@ -1,11 +1,11 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
-import { BottomSheet } from "@/components/common";
+import { BottomSheet } from '@/components/common'
 
 export const CTABottomSheet = styled(BottomSheet)`
   padding: 70px 20px 46px;
-`;
+`
 
 export const ContentBox = styled.div`
   width: 100%;
@@ -13,7 +13,7 @@ export const ContentBox = styled.div`
   & > img {
     border-radius: 20px;
   }
-`;
+`
 
 export const Strong = styled.strong`
   ${({ theme }) => css`
@@ -23,7 +23,7 @@ export const Strong = styled.strong`
     margin-top: 24px;
     color: ${theme.colors.black};
   `}
-`;
+`
 
 export const P = styled.p`
   ${({ theme }) => css`
@@ -31,7 +31,7 @@ export const P = styled.p`
     padding: 8px 0 24px;
     color: ${theme.colors.gray_80};
   `}
-`;
+`
 
 export const Link = styled.a`
   ${({ theme }) => css`
@@ -48,7 +48,7 @@ export const Link = styled.a`
     color: ${theme.colors.white};
     background-color: ${theme.colors.primary};
   `}
-`;
+`
 
 export const CloseBtn = styled.button`
   ${({ theme }) => css`
@@ -60,4 +60,4 @@ export const CloseBtn = styled.button`
     color: ${theme.colors.gray_40};
     background-color: ${theme.colors.white};
   `}
-`;
+`
