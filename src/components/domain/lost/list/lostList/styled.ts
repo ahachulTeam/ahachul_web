@@ -12,7 +12,7 @@ export const LostFoundList = styled.ul`
 
     &[data-view="grid"] {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(171px, 1fr));
       column-gap: 16px;
       row-gap: 16px;
       padding: 16px;
