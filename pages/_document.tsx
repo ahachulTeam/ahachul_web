@@ -11,7 +11,6 @@ export default class MyDocument extends Document {
       <Html lang="ko">
         <Head>
           <meta charSet="UTF-8" />
-<<<<<<< HEAD
           <link
             rel="preload"
             href="/fonts/Pretendard-Regular.otf"
@@ -31,8 +30,6 @@ export default class MyDocument extends Document {
             crossOrigin="anonymous"
           />
           <link rel="preload" href="/fonts/Pretendard-Bold.otf" as="font" crossOrigin="anonymous" />
-=======
->>>>>>> develop
         </Head>
         <body>
           <Main />

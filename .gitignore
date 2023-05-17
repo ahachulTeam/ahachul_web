@@ -25,10 +25,6 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-<<<<<<< HEAD
-
-=======
->>>>>>> develop
 # env
 .env
 .env.*
