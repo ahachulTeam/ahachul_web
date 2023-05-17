@@ -1,7 +1,11 @@
 {
-  "name": "ahachul-web",
+  "name": "AhHachul",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "author": {
+    "name": "AhHachul Team"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -18,10 +22,12 @@
     "date-fns": "^2.30.0",
     "framer-motion": "^10.12.10",
     "js-cookie": "^3.0.1",
+    "mixpanel-browser": "^2.47.0",
     "next": "13.2.3",
     "nprogress": "^0.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hotjar": "^6.1.0",
     "react-loading-skeleton": "^3.2.0",
     "react-toastify": "^9.1.2",
     "recoil": "^0.7.7",
@@ -33,7 +39,9 @@
     "@next/eslint-plugin-next": "^13.2.3",
     "@svgr/webpack": "^6.5.1",
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+    "@types/gtag.js": "^0.0.12",
     "@types/js-cookie": "^3.0.3",
+    "@types/mixpanel-browser": "^2.38.1",
     "@types/node": "18.14.6",
     "@types/nprogress": "^0.2.0",
     "@types/react": "18.0.28",
