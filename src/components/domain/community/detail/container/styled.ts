@@ -6,7 +6,7 @@ export const Container = styled.article`
 `;
 
 export const ContentSection = styled.section`
-  padding: 30px 16px 20px 16px;
+  padding: 30px 16px 0 16px;
 `;
 
 export const CommentSection = styled.section`
