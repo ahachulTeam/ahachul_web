@@ -1,7 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import React, { useMemo } from "react";
-import type { ReactNode } from "react";
+import React, { useMemo, type ReactNode } from "react";
 
 import { theme } from "@/styles";
 
@@ -48,6 +47,9 @@ const variants = {
   }),
   sin_bundang: () => ({
     background: theme.colors.subway.sin_bundang,
+  }),
+  default: () => ({
+    background: theme.colors.primary,
   }),
 } as const;
 
@@ -101,7 +103,7 @@ export default function SubwaytBadge({ label, isHottest, className, ...props }: 
       case "신분당":
         return "sin_bundang";
       default:
-        return "sin_bundang";
+        return "default";
     }
   }, [label]);
 
