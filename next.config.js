@@ -10,6 +10,7 @@ const nextConfig = {
     forceSwcTransforms: true,
   },
   swcMinify: true,
+  transpilePackages: ["react-hotjar"],
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
