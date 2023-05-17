@@ -1,0 +1,11 @@
+{
+  "name": "@ahhachul/lib",
+  "packageManager": "yarn@3.5.1",
+  "main": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --project ./tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "typescript": "^5.0.4"
+  }
+}
