@@ -18,9 +18,9 @@ interface ToggleWithChildrenProps {
   tabs: ToggleTab[];
 }
 
-interface ToggleWithActionFnProps {
-  tabs: { [key: string]: string };
-  actionFn: (select: string) => void;
+interface ToggleWithActionFnProps<T extends Record<string, string>> {
+  tabs: T;
+  actionFn: (select: keyof T) => void;
 }
 
 interface ToggleContextValue {
@@ -67,19 +67,19 @@ const ToggleWithChildren = function ToggleWithChildren({ tabs }: ToggleWithChild
   );
 };
 
-const ToggleWithActionFn = function ToggleWithActionFnProps({
+const ToggleWithActionFn = function ToggleWithActionFnProps<T extends Record<string, string>>({
   tabs,
   actionFn,
-}: ToggleWithActionFnProps) {
+}: ToggleWithActionFnProps<T>) {
   const { tabAraiLabel } = useContext(ToggleContext);
 
   const action = (tab: string) => () => actionFn(tab);
 
   return (
     <S.ToggleList aria-label={tabAraiLabel}>
-      {Object.entries(tabs).map(([k, val]) => (
-        <S.ToggleTrigger key={k} value={val} onClick={action(k)}>
-          {val}
+      {Object.entries(tabs).map(([val, label]) => (
+        <S.ToggleTrigger key={val} value={val} onClick={action(val)}>
+          {label}
         </S.ToggleTrigger>
       ))}
     </S.ToggleList>

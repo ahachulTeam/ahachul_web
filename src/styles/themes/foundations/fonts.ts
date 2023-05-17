@@ -1,6 +1,11 @@
 import { css } from "@emotion/react";
 
 export const fonts = {
+  regular10: css`
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+  `,
   regular11: css`
     font-size: 1.1rem;
     font-weight: 400;
@@ -77,7 +82,7 @@ export const fonts = {
     font-size: 1.6rem;
     font-weight: 700;
     font-family: Pretendard;
-    line-height: 1.3125;
+    line-height: 1.1875;
   `,
   bold18: css`
     font-size: 1.8rem;

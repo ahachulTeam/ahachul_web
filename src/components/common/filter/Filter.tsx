@@ -43,6 +43,7 @@ export default function Filter({ id, label, options, value, chnageValue }: Filte
         aria-haspopup="dialog"
         aria-controls={uid}
         aria-expanded={isOpen}
+        aria-selected={!!value}
         onClick={onOpen}
       >
         {label}
