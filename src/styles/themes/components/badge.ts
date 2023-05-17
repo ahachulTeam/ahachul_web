@@ -8,7 +8,7 @@ const flexBoxCenter = css`
 `;
 
 const badgeCommon = css`
-  ${fonts.regular12};
+  ${fonts.regular10};
   padding: 2px 8px;
   transition: 0.3s;
 `;
@@ -17,8 +17,7 @@ export const badge = {
   primary: css`
     ${flexBoxCenter};
     ${badgeCommon};
-    width: max-content;
-    height: 20px;
+    min-width: max-content;
     border-radius: 3px;
     color: ${colors.white};
   `,
