@@ -1,14 +1,25 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": "./src",
-    "target": "esnext",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "module": "esnext",
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
     "jsx": "react-jsx",
-    "noEmit": false,
-    "incremental": true
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
   },
-  "exclude": ["**/node_modules", "**/.*/", "dist", "build"]
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
