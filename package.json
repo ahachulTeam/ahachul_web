@@ -9,7 +9,8 @@
   "scripts": {
     "g:typecheck": "yarn workspaces foreach -pv run typecheck",
     "g:lint": "yarn workspaces foreach -pv run lint",
-    "g:test": "yarn workspaces foreach -pv run test"
+    "g:test": "yarn workspaces foreach -pv run test",
+    "storybook": "yarn workspace @ahhachul/ui storybook"
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",
