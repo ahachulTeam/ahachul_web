@@ -1,2 +1,8 @@
-addReviewers: false
-addAssignees: author
+addReviewers: true
+
+addAssignees: true
+
+reviewers:
+  - createhb21
+  - jtwjs
+  - onschan
