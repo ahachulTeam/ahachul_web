@@ -2,7 +2,7 @@ name: CI-ahhachul-app
 
 on:
   push:
-    branches: [develop]
+    branches: ['*']
     paths:
       - 'apps/web/**'
   pull_request:
@@ -56,5 +56,6 @@ jobs:
         with:
           workflow-id: ci-ahhachul-app.yml
           base-branch: develop
+          working-directory: ./apps/web
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

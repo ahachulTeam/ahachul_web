@@ -41,7 +41,7 @@ function BottomSheetForApp() {
   return (
     <S.CTABottomSheet ref={dialoglRef} isHeaderHidden title="앱 다운로드 팝업" isOpen={isOpen} onClose={onClose}>
       <S.ContentBox>
-        <Image src={LogoImg} alt="아하철 로고" width={94} height={94} />
+        <Image src={LogoImg} alt="" width={94} height={94} />
         <S.Strong>
           아하철 앱에서 제공되는 혜택을
           <br />
