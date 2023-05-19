@@ -4,7 +4,7 @@ import * as S from './styled'
 const DUMMY_LIST = [
   {
     _id: 1,
-    title: '오늘자 3호선 빌런 출현!!!',
+    title: '오늘자 3호선 빌런 출현',
     content: '언론·출판은 타인의 명예나 권리 또는 공중도덕이나 사회윤리를 침해하여서는...',
     likeCnt: '픽업 어딘가3',
     commentCnt: '서울',

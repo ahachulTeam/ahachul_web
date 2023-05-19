@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Monorepo install
+      - name: 📥 Yarn install
         uses: ./.github/actions/yarn-install
 
       - name: Build Storybook

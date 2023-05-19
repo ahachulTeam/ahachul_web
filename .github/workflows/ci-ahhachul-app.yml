@@ -11,7 +11,7 @@ on:
       - 'apps/web/**'
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: 📥 Yarn PnP install
+      - name: Install dependencies
         uses: ./.github/actions/yarn-install
 
       - name: Build web-app
@@ -32,35 +32,29 @@ jobs:
         run: |
           yarn build
 
-  # job_nextjs_bundle_analysis:
-  #   name: Nextjs bundle analysis
-  #   runs-on: ubuntu-latest
-  #   needs: [job_build]
-  #   steps:
-  #     - name: Check out current commit (${{ github.sha }})
-  #       uses: actions/checkout@v3
+  bundle_analysis:
+    name: Nextjs bundle analysis
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    needs: [build]
+    steps:
+      - name: Check out current commit (${{ github.sha }})
+        uses: actions/checkout@v3
 
-  #     - name: Set up Node
-  #       uses: actions/setup-node@v2
-  #       with:
-  #         node-version: ${{ env.DEFAULT_NODE_VERSION }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
-  #     - name: Check dependency cache
-  #       uses: actions/cache@v3
-  #       with:
-  #         path: ${{ env.CACHED_DEPENDENCY_PATHS }}
-  #         key: ${{ needs.job_build.outputs.dependency_cache_key }}
+      - name: Check dependency cache
+        uses: ./.github/actions/yarn-install
 
-  #     - name: Check build cache
-  #       uses: actions/cache@v3
-  #       with:
-  #         path: ${{ env.CACHED_BUILD_PATHS }}
-  #         key: ${{ env.BUILD_CACHE_KEY }}
-
-  #     - name: Analyze bundle sizes
-  #       uses: transferwise/actions-next-bundle-analyzer@master
-  #       with:
-  #         workflow-id: ci.yml
-  #         base-branch: main
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Analyze bundle sizes
+        uses: transferwise/actions-next-bundle-analyzer@master
+        with:
+          workflow-id: ci-ahhachul-app.yml
+          base-branch: develop
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
