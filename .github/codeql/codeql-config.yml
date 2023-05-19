@@ -1,0 +1,9 @@
+name: 'AhHachul CodeQL config'
+
+paths:
+  - 'apps/web/**'
+paths-ignore:
+  - '**/*.test.ts'
+  - '**/*.test.tsx'
+  - '**/*.spec.ts'
+  - '**/*.spec.tsx'
