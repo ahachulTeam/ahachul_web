@@ -27,15 +27,5 @@
     "types": ["@types/gtag.js", "@types/jest"]
   },
   "exclude": ["**/node_modules", "./cypress.config.js"],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.mts",
-    "**/*.js",
-    "**/*.cjs",
-    "**/*.mjs",
-    "**/*.jsx",
-    "**/*.json"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "@types"]
 }

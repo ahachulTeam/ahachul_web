@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import Community from '../community/Community'
 import SubwayInfo from '../subwayInfo/SubwayInfo'
-
 import * as S from './styled'
 import { ArrowIcon } from '@/assets/icons'
 import { PATH } from '@/constants'

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
-import * as S from './styled'
 
+import * as S from './styled'
 import useMyProfileMutation from '@/queries/user/useMyProfileMutation'
 import { useVerifyNickname } from '@/queries/user/useVerifyNickname'
 

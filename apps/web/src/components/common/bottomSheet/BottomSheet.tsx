@@ -1,6 +1,6 @@
 import React, { ForwardedRef, forwardRef, PropsWithChildren, useCallback, useEffect, useState } from 'react'
-import { Portal } from '../portal'
 
+import { Portal } from '../portal'
 import * as S from './styled'
 import { CloseIcon } from '@/assets/icons'
 import { BOTTOM_SHEET_DURATION } from '@/constants'

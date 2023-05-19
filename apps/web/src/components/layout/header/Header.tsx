@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import defaultUserImg from 'public/illust/img/img_userDefault.png'
 
+import defaultUserImg from 'public/illust/img/img_userDefault.png'
 import * as S from './styled'
 import { KenllIcon, ProfileIcon, SearchIcon } from '@/assets/icons'
 import { LogoLink } from '@/components/common'

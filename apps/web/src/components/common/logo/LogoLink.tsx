@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
-import * as S from './styled'
 // import { LogoIcon } from '@/assets/icons'
 
+import * as S from './styled'
 import { PATH } from '@/constants'
 import { StaticSEO } from '@/constants/seo'
 

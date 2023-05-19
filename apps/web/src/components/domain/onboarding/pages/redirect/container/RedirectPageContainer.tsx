@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
-import * as S from './styled'
 
+import * as S from './styled'
 import useLoginMutation from '@/queries/auth/useLoginMutation'
 import { APILoginUserProviders } from '@/types/auth'
 

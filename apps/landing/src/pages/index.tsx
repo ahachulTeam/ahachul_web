@@ -1,5 +1,4 @@
 import { sayHello } from '@ahhachul/lib'
-import { Button } from '@ahhachul/ui'
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -23,7 +22,6 @@ export default function Home() {
             <code className={styles.code}>{sayHello()}</code>
           </p>
 
-          <Button variant="contained">Hello from @ahhachul/ui</Button>
           <div>
             <a
               href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
