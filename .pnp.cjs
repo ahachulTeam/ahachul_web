@@ -53,6 +53,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
+            ["@emotion/eslint-plugin", "virtual:6199ff1cecbaee6c55dfc350ae48ce872edf6fc364b2b79566e8d8f28d587f93ab584bd0f9d30da011718e043c0515e23f9f93acd75cc46188ebc8310fa3b48b#npm:11.11.0"],\
             ["@types/jest", "npm:29.5.1"],\
             ["@typescript-eslint/eslint-plugin", "virtual:6199ff1cecbaee6c55dfc350ae48ce872edf6fc364b2b79566e8d8f28d587f93ab584bd0f9d30da011718e043c0515e23f9f93acd75cc46188ebc8310fa3b48b#npm:5.59.6"],\
             ["@typescript-eslint/parser", "virtual:6199ff1cecbaee6c55dfc350ae48ce872edf6fc364b2b79566e8d8f28d587f93ab584bd0f9d30da011718e043c0515e23f9f93acd75cc46188ebc8310fa3b48b#npm:5.59.6"],\
@@ -67,6 +68,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest-environment-jsdom", "virtual:6199ff1cecbaee6c55dfc350ae48ce872edf6fc364b2b79566e8d8f28d587f93ab584bd0f9d30da011718e043c0515e23f9f93acd75cc46188ebc8310fa3b48b#npm:29.5.0"],\
             ["lint-staged", "npm:13.2.2"],\
             ["prettier", "npm:2.8.8"],\
+            ["react", "npm:18.2.0"],\
             ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"]\
           ],\
           "linkType": "SOFT"\
@@ -218,6 +220,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-loading-skeleton", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#npm:3.3.1"],\
             ["react-toastify", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#npm:9.1.3"],\
             ["recoil", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#npm:0.7.7"],\
+            ["swiper", "npm:9.3.2"],\
             ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"],\
             ["uuid", "npm:9.0.0"],\
             ["whatwg-fetch", "npm:3.6.2"]\
@@ -3096,6 +3099,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/utils", "npm:1.2.1"],\
             ["@emotion/weak-memoize", "npm:0.3.1"],\
             ["stylis", "npm:4.2.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@emotion/eslint-plugin", [\
+        ["npm:11.11.0", {\
+          "packageLocation": "./.yarn/cache/@emotion-eslint-plugin-npm-11.11.0-27e29c96e4-2d555b6790.zip/node_modules/@emotion/eslint-plugin/",\
+          "packageDependencies": [\
+            ["@emotion/eslint-plugin", "npm:11.11.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:6199ff1cecbaee6c55dfc350ae48ce872edf6fc364b2b79566e8d8f28d587f93ab584bd0f9d30da011718e043c0515e23f9f93acd75cc46188ebc8310fa3b48b#npm:11.11.0", {\
+          "packageLocation": "./.yarn/__virtual__/@emotion-eslint-plugin-virtual-2d724aa5f5/0/cache/@emotion-eslint-plugin-npm-11.11.0-27e29c96e4-2d555b6790.zip/node_modules/@emotion/eslint-plugin/",\
+          "packageDependencies": [\
+            ["@emotion/eslint-plugin", "virtual:6199ff1cecbaee6c55dfc350ae48ce872edf6fc364b2b79566e8d8f28d587f93ab584bd0f9d30da011718e043c0515e23f9f93acd75cc46188ebc8310fa3b48b#npm:11.11.0"],\
+            ["@types/eslint", null],\
+            ["eslint", "npm:8.40.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/eslint",\
+            "eslint"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -8347,6 +8372,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["ahhachul", "workspace:."],\
+            ["@emotion/eslint-plugin", "virtual:6199ff1cecbaee6c55dfc350ae48ce872edf6fc364b2b79566e8d8f28d587f93ab584bd0f9d30da011718e043c0515e23f9f93acd75cc46188ebc8310fa3b48b#npm:11.11.0"],\
             ["@types/jest", "npm:29.5.1"],\
             ["@typescript-eslint/eslint-plugin", "virtual:6199ff1cecbaee6c55dfc350ae48ce872edf6fc364b2b79566e8d8f28d587f93ab584bd0f9d30da011718e043c0515e23f9f93acd75cc46188ebc8310fa3b48b#npm:5.59.6"],\
             ["@typescript-eslint/parser", "virtual:6199ff1cecbaee6c55dfc350ae48ce872edf6fc364b2b79566e8d8f28d587f93ab584bd0f9d30da011718e043c0515e23f9f93acd75cc46188ebc8310fa3b48b#npm:5.59.6"],\
@@ -8361,6 +8387,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest-environment-jsdom", "virtual:6199ff1cecbaee6c55dfc350ae48ce872edf6fc364b2b79566e8d8f28d587f93ab584bd0f9d30da011718e043c0515e23f9f93acd75cc46188ebc8310fa3b48b#npm:29.5.0"],\
             ["lint-staged", "npm:13.2.2"],\
             ["prettier", "npm:2.8.8"],\
+            ["react", "npm:18.2.0"],\
             ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"]\
           ],\
           "linkType": "SOFT"\
@@ -18985,6 +19012,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["ssr-window", [\
+        ["npm:4.0.2", {\
+          "packageLocation": "./.yarn/cache/ssr-window-npm-4.0.2-01f9c0151e-df18260092.zip/node_modules/ssr-window/",\
+          "packageDependencies": [\
+            ["ssr-window", "npm:4.0.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["ssri", [\
         ["npm:9.0.1", {\
           "packageLocation": "./.yarn/cache/ssri-npm-9.0.1-33ce27f4f8-fb58f5e46b.zip/node_modules/ssri/",\
@@ -19440,6 +19476,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["csso", "npm:4.2.0"],\
             ["picocolors", "npm:1.0.0"],\
             ["stable", "npm:0.1.8"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["swiper", [\
+        ["npm:9.3.2", {\
+          "packageLocation": "./.yarn/cache/swiper-npm-9.3.2-a973b47a13-9ccb6a0ef6.zip/node_modules/swiper/",\
+          "packageDependencies": [\
+            ["swiper", "npm:9.3.2"],\
+            ["ssr-window", "npm:4.0.2"]\
           ],\
           "linkType": "HARD"\
         }]\
