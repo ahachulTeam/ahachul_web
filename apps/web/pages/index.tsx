@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <>
       <MainPageContainer />
-      <Button variant="contained">Hello from @ahhachul/ui</Button>
+      <Button label="Hello from @ahhachul/ui" />
       <BottomSheetForApp />
     </>
   )

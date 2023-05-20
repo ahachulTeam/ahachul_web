@@ -1,19 +1,9 @@
-import { ButtonHTMLAttributes, MouseEventHandler, ReactNode } from 'react'
-
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  children: ReactNode
-  variant: 'contained' | 'outlined'
-  onClick?: MouseEventHandler<HTMLButtonElement>
+export type ButtonProps = {
+  label: string
 }
 
-const Button = (props: ButtonProps) => {
-  const { children, onClick, ...other } = props
-
-  return (
-    <button type="button" onClick={onClick} {...other}>
-      {children}
-    </button>
-  )
+const Button = ({ label }: ButtonProps) => {
+  return <button type="button">{label}</button>
 }
 
 export default Button
