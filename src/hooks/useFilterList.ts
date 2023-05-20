@@ -9,7 +9,7 @@ const useFilterList = <T extends string[]>(...filterKeys: T) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-
+  console.log("test");
   const filter = useMemo(
     () =>
       filterKeys.reduce(
