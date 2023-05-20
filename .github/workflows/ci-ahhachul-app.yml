@@ -5,10 +5,6 @@ on:
     paths:
       - 'apps/web/**'
 
-env:
-  CACHED_BUILD_PATHS: ${{ github.workspace }}/apps/web/.next
-  BUILD_CACHE_KEY: ${{ github.sha }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,18 +26,3 @@ jobs:
         working-directory: apps/web
         run: |
           yarn build
-
-      - name: Archive .next folder
-        uses: actions/upload-artifact@v2
-        with:
-          name: next-build
-          path: apps/web/.next
-
-      - name: Analyze bundle sizes
-        uses: transferwise/actions-next-bundle-analyzer@master
-        with:
-          workflow-id: ci-ahhachul-app.yml
-          base-branch: develop
-          working-directory: apps/web
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
