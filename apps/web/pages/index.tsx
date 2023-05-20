@@ -1,3 +1,4 @@
+import { Button } from '@ahhachul/ui'
 import dynamic from 'next/dynamic'
 import { ReactElement } from 'react'
 
@@ -11,6 +12,7 @@ export default function HomePage() {
   return (
     <>
       <MainPageContainer />
+      <Button variant="contained">Hello from @ahhachul/ui</Button>
       <BottomSheetForApp />
     </>
   )
