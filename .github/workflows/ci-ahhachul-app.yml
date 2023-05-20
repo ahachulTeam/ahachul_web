@@ -31,30 +31,11 @@ jobs:
         run: |
           yarn build
 
-  bundle_analysis:
-    name: Nextjs bundle analysis
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
-    needs: [build]
-    steps:
-      - name: Check out current commit (${{ github.sha }})
-        uses: actions/checkout@v3
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: Archive .next folder
+        uses: actions/upload-artifact@v2
         with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Check dependency cache
-        uses: ./.github/actions/yarn-install
-
-      - name: Check build cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ env.CACHED_BUILD_PATHS }}
-          key: ${{ env.BUILD_CACHE_KEY }}
+          name: next-build
+          path: apps/web/.next
 
       - name: Analyze bundle sizes
         uses: transferwise/actions-next-bundle-analyzer@master
