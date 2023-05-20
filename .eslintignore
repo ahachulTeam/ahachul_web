@@ -1,6 +1,1 @@
-node_modules
-next.config.js
-tsconfig.json
-public
-dist
-
+*.d.ts
