@@ -1,3 +1,4 @@
+import { HiddenHeading } from '@ahhachul/ui'
 import Link from 'next/link'
 import Community from '../community/Community'
 import SubwayInfo from '../subwayInfo/SubwayInfo'
@@ -14,9 +15,9 @@ function MainPageContainer({ isAuthed = false }: MainPageContainerProps) {
   console.log(isAuthed)
   return (
     <S.Container>
-      <h2 css={S.visuallyHidden}>{StaticSEO.main.title}</h2>
+      <HiddenHeading as="h2">{StaticSEO.main.title}</HiddenHeading>
       <S.SubwayInfoSection>
-        <h3 css={S.visuallyHidden}>지하철 열차정보와 혼잡도가 궁금하다면?</h3>
+        <HiddenHeading as="h3">지하철 열차정보와 혼잡도가 궁금하다면?</HiddenHeading>
         <SubwayInfo />
       </S.SubwayInfoSection>
       <S.Divider />
