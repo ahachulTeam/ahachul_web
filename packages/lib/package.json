@@ -1,11 +1,15 @@
 {
   "name": "@ahhachul/lib",
   "packageManager": "yarn@3.5.1",
-  "main": "./src/index.ts",
+  "main": "src/index.ts",
   "scripts": {
     "typecheck": "tsc --project ./tsconfig.json --noEmit"
   },
   "dependencies": {
+    "react": "^18.2.0",
     "typescript": "^5.0.4"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.6"
   }
 }
