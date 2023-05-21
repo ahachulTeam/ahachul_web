@@ -3,7 +3,7 @@ import { ComponentType, HTMLAttributes, ReactNode } from 'react'
 
 type HeadingType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
-interface Props {
+export interface Props {
   /**
    * @description 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' 중 지정할 수 있습니다.
    * @default 'h1'
@@ -14,7 +14,7 @@ interface Props {
   id?: string
 }
 
-export function HiddenHeading({ as = 'h1', id, children }: Props) {
+export default function HiddenHeading({ as = 'h1', id, children }: Props) {
   const Heading = as as unknown as ComponentType<HTMLAttributes<HTMLHeadingElement>>
 
   return (
