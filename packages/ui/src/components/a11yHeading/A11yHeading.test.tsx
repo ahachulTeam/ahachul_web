@@ -1,17 +1,17 @@
 import { render, screen } from '@testing-library/react'
 
-import HiddenHeading, { type Props } from './HiddenHeading'
+import { A11yHeading, type Props } from './A11yHeading'
 
 const context = describe
 
-describe('HiddenHeading', () => {
-  function renderHiddenHeading(props: Props = {}) {
-    return render(<HiddenHeading {...props} />)
+describe('A11yHeading', () => {
+  function renderA11yHeading(props: Props = {}) {
+    return render(<A11yHeading {...props} />)
   }
 
   context('without as props', () => {
     it('default render h1 tag', () => {
-      renderHiddenHeading()
+      renderA11yHeading()
 
       expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument()
     })
@@ -19,7 +19,7 @@ describe('HiddenHeading', () => {
 
   context('with as props', () => {
     it('rendered as tag', () => {
-      renderHiddenHeading({ as: 'h2' })
+      renderA11yHeading({ as: 'h2' })
 
       expect(screen.getByRole('heading', { level: 2 })).toBeInTheDocument()
     })
@@ -27,7 +27,7 @@ describe('HiddenHeading', () => {
 
   context('with prop children', () => {
     it('rendered children', () => {
-      renderHiddenHeading({ children: 'awesome ahhachul' })
+      renderA11yHeading({ children: 'awesome ahhachul' })
 
       expect(screen.getByText(/awesome ahhachul/)).toBeInTheDocument()
     })

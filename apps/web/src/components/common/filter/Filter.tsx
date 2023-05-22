@@ -3,7 +3,6 @@ import { useRef, useEffect } from 'react'
 import { BottomSheet } from '../bottomSheet'
 import * as S from './styled'
 import { ArrowDownMinIcon } from '@/assets/icons'
-import { useDisclosure, useArrowKeyTrap } from '@/hooks'
 
 interface FilterItem {
   label: string

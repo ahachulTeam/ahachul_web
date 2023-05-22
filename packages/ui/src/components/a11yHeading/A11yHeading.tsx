@@ -14,17 +14,17 @@ export interface Props {
   id?: string
 }
 
-export function HiddenHeading({ as = 'h1', id, children }: Props) {
+export function A11yHeading({ as = 'h1', id, children }: Props) {
   const Heading = as as unknown as ComponentType<HTMLAttributes<HTMLHeadingElement>>
 
   return (
-    <Heading css={hiddenHeadingCss} id={id}>
+    <Heading css={a11yHeadingCss} id={id}>
       {children}
     </Heading>
   )
 }
 
-const hiddenHeadingCss = css`
+const a11yHeadingCss = css`
   position: absolute;
   width: 1px;
   height: 1px;
