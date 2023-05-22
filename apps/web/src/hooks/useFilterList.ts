@@ -1,8 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+import { createHref, createQueryString, deleteQueryString } from '@ahhachul/lib'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { useCallback, useMemo } from 'react'
-
-import { createHref, createQueryString, deleteQueryString } from '@/utils/navigation'
 
 const useFilterList = <T extends string[]>(...filterKeys: T) => {
   const router = useRouter()
@@ -15,7 +13,7 @@ const useFilterList = <T extends string[]>(...filterKeys: T) => {
         (acc, key) => ({ ...acc, [key]: searchParams.get(key) ?? '' }),
         {} as Record<T[number], string>
       ),
-    [router, filterKeys]
+    [filterKeys, searchParams]
   )
 
   const handleApplyFilter = useCallback(
@@ -24,14 +22,14 @@ const useFilterList = <T extends string[]>(...filterKeys: T) => {
 
       router.replace(createHref(pathname, params))
     },
-    [router, searchParams]
+    [pathname, router, searchParams]
   )
 
   const handleResetFilter = useCallback(() => {
     const params = deleteQueryString(searchParams, ...filterKeys)
 
     router.replace(createHref(pathname, params))
-  }, [router, searchParams])
+  }, [filterKeys, pathname, router, searchParams])
 
   return {
     filter,

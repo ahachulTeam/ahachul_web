@@ -131,6 +131,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/jest", "npm:29.5.1"],\
             ["@types/react", "npm:18.2.6"],\
             ["@types/react-dom", "npm:18.2.4"],\
+            ["date-fns", "npm:2.30.0"],\
             ["jest", "virtual:6199ff1cecbaee6c55dfc350ae48ce872edf6fc364b2b79566e8d8f28d587f93ab584bd0f9d30da011718e043c0515e23f9f93acd75cc46188ebc8310fa3b48b#npm:29.5.0"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:7bd9e717c51d7a276795f546ad6287c0ba16d0bbf9ebdf334399e54d893de049936fbaa4c3c103607023e0f2ffa9bdb5f958dc116319c98e9a1aa73c68d3d499#npm:18.2.0"],\

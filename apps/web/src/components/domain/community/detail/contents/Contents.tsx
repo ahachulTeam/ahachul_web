@@ -1,9 +1,9 @@
+import { getCurrentTime } from '@ahhachul/lib'
 import { useRouter } from 'next/router'
 import * as S from './styled'
 import { TagBtn } from '@/components/common'
 import { PATH } from '@/constants'
 import { CommunityDetailModel } from '@/types/community'
-import { getCurrentTime } from '@/utils/time'
 
 interface ContentsProps {
   data: CommunityDetailModel

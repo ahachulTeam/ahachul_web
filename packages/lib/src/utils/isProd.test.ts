@@ -1,4 +1,4 @@
-import { isProd } from './common'
+import { isProd } from './device'
 
 const context = describe
 

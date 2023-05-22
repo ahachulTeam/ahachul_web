@@ -1,6 +1,6 @@
+import { isProd } from '@ahhachul/lib'
 import mixpanel from 'mixpanel-browser'
 
-import { isProd } from './common'
 import { event } from '@/libs/gtag'
 
 type GAEventProps = Parameters<typeof event>[0]

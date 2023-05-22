@@ -5,13 +5,9 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "target": "ESNext",
-    "lib": ["ESNext"],
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./src",
-    "noEmit": false,
-    "incremental": true,
-    "resolveJsonModule": true
+    "lib": ["dom", "dom.iterable", "ESNext"]
   },
   "exclude": ["**/node_modules", "**/.*/", "./dist", "./coverage"],
   "include": ["**/*.ts", "**/*.js", "**/.cjs", "**/*.mjs", "**/*.json"]
