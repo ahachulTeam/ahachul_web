@@ -1,5 +1,10 @@
 import type { Preview } from '@storybook/react'
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
+import { withThemeFromJSXProvider } from '@storybook/addon-styling'
+
+import { ThemeProvider, Global } from '@emotion/react'
+
+import { theme, GlobalStyles } from '../src/styles'
 
 const preview: Preview = {
   parameters: {
@@ -17,5 +22,16 @@ const preview: Preview = {
     margin: '-1rem',
   },
 }
+
+export const decorators = [
+  withThemeFromJSXProvider({
+    themes: {
+      light: theme,
+    },
+    defaultTheme: 'light',
+    Provider: ThemeProvider,
+    GlobalStyles,
+  }),
+]
 
 export default preview
