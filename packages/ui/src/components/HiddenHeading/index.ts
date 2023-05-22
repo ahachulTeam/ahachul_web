@@ -1,1 +1,1 @@
-export { default as HiddenHeading } from './HiddenHeading'
+export * from './HiddenHeading'

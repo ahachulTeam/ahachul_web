@@ -14,7 +14,7 @@ export interface Props {
   id?: string
 }
 
-export default function HiddenHeading({ as = 'h1', id, children }: Props) {
+export function HiddenHeading({ as = 'h1', id, children }: Props) {
   const Heading = as as unknown as ComponentType<HTMLAttributes<HTMLHeadingElement>>
 
   return (
