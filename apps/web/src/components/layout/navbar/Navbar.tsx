@@ -1,9 +1,9 @@
+import { useScrollDirection } from '@ahhachul/lib'
 import { useRouter } from 'next/router'
 
 import NavItem from './item/NavItem'
 import * as S from './Navbar.styled'
 import { NAV_MENUS } from '@/assets/static'
-import { useScrollDirection } from '@/hooks'
 
 export default function Navbar() {
   const { pathname } = useRouter()

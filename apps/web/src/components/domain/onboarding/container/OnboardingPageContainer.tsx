@@ -1,9 +1,8 @@
+import { useDisclosure } from '@ahhachul/lib'
 import { useRouter } from 'next/router'
 import { LoginDrawer } from '../loginDrawer'
 import * as S from './styled'
 import { StaticSEO } from '@/constants/seo'
-import useDisclosure from '@/hooks/useDisclosure'
-
 
 function OnboardingPageContainer() {
   const router = useRouter()

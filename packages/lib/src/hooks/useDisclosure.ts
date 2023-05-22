@@ -1,6 +1,6 @@
 import { useRef, useState, useCallback, useEffect } from 'react'
 
-const useDisclosure = () => {
+export const useDisclosure = () => {
   const dialoglRef = useRef<HTMLDialogElement>(null)
   const openerRef = useRef<HTMLElement | null>(null)
 
@@ -40,5 +40,3 @@ const useDisclosure = () => {
     onClose,
   }
 }
-
-export default useDisclosure
