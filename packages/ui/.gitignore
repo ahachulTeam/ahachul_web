@@ -25,3 +25,6 @@ dist-ssr
 
 # Storybook Build
 storybook-static
+
+# Ignore TypeScript build info
+tsconfig.tsbuildinfo
