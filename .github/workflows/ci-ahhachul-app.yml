@@ -26,31 +26,3 @@ jobs:
         working-directory: apps/web
         run: |
           yarn build
-
-  bundle_analysis:
-    name: Nextjs bundle analysis
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x]
-    needs: [build]
-    steps:
-      - name: Check out current commit (${{ github.sha }})
-        uses: actions/checkout@v3
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Check dependency cache
-        uses: ./.github/actions/yarn-install
-
-      - name: Analyze bundle sizes
-        uses: transferwise/actions-next-bundle-analyzer@master
-        with:
-          workflow-id: ci-ahhachul-app.yml
-          base-branch: develop
-          working-directory: apps/web
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
