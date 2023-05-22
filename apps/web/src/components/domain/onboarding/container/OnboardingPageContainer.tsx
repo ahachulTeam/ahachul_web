@@ -1,5 +1,6 @@
 import { useDisclosure } from '@ahhachul/lib'
 import { useRouter } from 'next/router'
+import { OnboardingCarousel } from '../carousel'
 import { LoginDrawer } from '../loginDrawer'
 import * as S from './styled'
 import { StaticSEO } from '@/constants/seo'
@@ -12,6 +13,7 @@ function OnboardingPageContainer() {
   return (
     <S.Container>
       <h2 css={S.visuallyHidden}>{StaticSEO.onboarding.title}</h2>
+      <OnboardingCarousel />
       <S.Box>
         <S.LoginBtn type="button" onClick={onOpen}>
           로그인
