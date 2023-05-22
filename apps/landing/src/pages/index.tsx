@@ -1,4 +1,3 @@
-import { sayHello } from '@ahhachul/lib'
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -19,7 +18,7 @@ export default function Home() {
         <div className={styles.description}>
           <p>
             랜딩페이지 초기 설정 페이지
-            <code className={styles.code}>{sayHello()}</code>
+            <code className={styles.code}>Hello</code>
           </p>
 
           <div>

@@ -1,3 +1,4 @@
+import { useDisclosure } from '@ahhachul/lib'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
@@ -6,8 +7,6 @@ import * as S from './styled'
 import { KenllIcon, ProfileIcon, SearchIcon } from '@/assets/icons'
 import { LogoLink } from '@/components/common'
 import SearchDrawer from '@/components/common/drawer/search/SearchDrawer'
-
-import { useDisclosure } from '@/hooks'
 
 // import { useAuth } from "@/context";
 
@@ -24,19 +23,23 @@ function Header() {
       <S.Container>
         <LogoLink />
         <S.Box>
-          <S.MenuBtn aria-label="내 프로필 보기 버튼">
+          <>
             {isCummunity ? (
-              <SearchIcon onClick={onOpen} />
+              <S.MenuBtn onClick={onOpen}>
+                <SearchIcon />
+              </S.MenuBtn>
             ) : (
               <>
                 {isAuthed ? (
-                  <ProfileIcon />
+                  <S.MenuBtn>
+                    <ProfileIcon />
+                  </S.MenuBtn>
                 ) : (
                   <Image src={defaultUserImg} alt="내 프로필 보기 버튼" width={24} height={24} priority />
                 )}
               </>
             )}
-          </S.MenuBtn>
+          </>
           <S.MenuBtn aria-label="내 알람 보기 버튼">
             <KenllIcon />
           </S.MenuBtn>

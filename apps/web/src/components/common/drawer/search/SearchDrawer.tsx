@@ -1,5 +1,6 @@
+import { useArrowKeyTrap, useMountedFocus } from '@ahhachul/lib'
 import { m } from 'framer-motion'
-import { type ComponentProps } from 'react'
+import { useRef, type ComponentProps, type RefObject } from 'react'
 
 import useSearchDrawer from './hooks/useSearchDrawer'
 import * as S from './styled'
@@ -9,12 +10,13 @@ import { SearchInput, TagBtn } from '@/components/common'
 
 import { AnimatePortal } from '@/components/common/portal'
 import { defaultFadeInVariants } from '@/constants/motions'
-
 interface Props extends ComponentProps<typeof AnimatePortal> {
   onClose: () => void
 }
 
-function SearchDrawer({ onClose, isMounted, mode }: Props) {
+function SearchDrawer({ isMounted, mode, onClose }: Props) {
+  const recentKeywordRef = useRef<HTMLUListElement>(null)
+
   const {
     searchValue,
     searchSupporting,
@@ -25,6 +27,8 @@ function SearchDrawer({ onClose, isMounted, mode }: Props) {
   } = useSearchDrawer(onClose)
 
   const deleteSearchHistories = () => {}
+  const searchInputRef = useMountedFocus(isMounted)
+  const { handleKeyListener } = useArrowKeyTrap(recentKeywordRef, 'row')
 
   return (
     <AnimatePortal isMounted={isMounted} mode={mode}>
@@ -35,6 +39,7 @@ function SearchDrawer({ onClose, isMounted, mode }: Props) {
               <ArrowIcon />
             </S.IconBtn>
             <SearchInput
+              ref={searchInputRef as RefObject<HTMLInputElement>}
               label="검색"
               value={searchValue}
               onSearch={searchSupporting}
@@ -50,11 +55,11 @@ function SearchDrawer({ onClose, isMounted, mode }: Props) {
                 모두 지우기
               </button>
             </S.SearchHistoryHeader>
-            <S.SearchHistoryTagList>
+            <S.SearchHistoryTagList ref={recentKeywordRef} role="menu" onKeyDown={handleKeyListener}>
               {HASH_TAG_DUMMY_LIST.map((data, i) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <li key={i}>
-                  <TagBtn label={data} variant="outline" onClick={handleSearchHistoryValue(data)} />
+                  <TagBtn role="menuitem" label={data} variant="outline" onClick={handleSearchHistoryValue(data)} />
                 </li>
               ))}
             </S.SearchHistoryTagList>
