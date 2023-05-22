@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 
 import * as S from './styled'
 import { CloseFillIcon, SearchIcon } from '@/assets/icons'
@@ -13,7 +13,10 @@ interface SearchInputProps {
   onSearch: (searchText: string) => void
 }
 
-function SearchInput({ className, placeholder, label, value, onChange, onDelete, onSearch }: SearchInputProps) {
+export default forwardRef<HTMLInputElement, SearchInputProps>(function SearchInput(
+  { className, placeholder, label, value, onChange, onDelete, onSearch },
+  ref
+) {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (!value) {
@@ -31,7 +34,7 @@ function SearchInput({ className, placeholder, label, value, onChange, onDelete,
       autoComplete="off"
       onSubmit={handleSearch}
     >
-      <input aria-label={label} placeholder={placeholder ?? ''} value={value} onChange={onChange} />
+      <input ref={ref} aria-label={label} placeholder={placeholder ?? ''} value={value} onChange={onChange} />
       <S.IconBtn
         type="button"
         data-isshow={Boolean(value)}
@@ -46,6 +49,4 @@ function SearchInput({ className, placeholder, label, value, onChange, onDelete,
       </S.IconBtn>
     </S.SearchInput>
   )
-}
-
-export default SearchInput
+})
