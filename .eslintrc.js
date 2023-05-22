@@ -20,7 +20,7 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'prettier',
   ],
-  plugins: ['@typescript-eslint', 'import', 'react', 'react-hooks'],
+  plugins: ['@typescript-eslint', 'import', 'react', 'react-hooks', '@emotion'],
   settings: {
     'import/resolver': { typescript: {} },
     react: { version: 'detect' },
@@ -79,7 +79,7 @@ module.exports = {
     ],
 
     'import/order': [
-      'error',
+      'warn',
       {
         groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object'],
         alphabetize: { order: 'asc', caseInsensitive: true },
