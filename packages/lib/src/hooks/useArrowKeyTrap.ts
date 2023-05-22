@@ -3,7 +3,7 @@ import { RefObject } from 'react'
 type Listener = (e: React.KeyboardEvent) => void
 type Direction = 'col' | 'row'
 
-export const useArrowKeyTrap = (ref: RefObject<HTMLElement>, direction: Direction = 'col') => {
+export default function useArrowKeyTrap(ref: RefObject<HTMLElement>, direction: Direction = 'col') {
   const getParseMenuKeyTrap = (e: React.KeyboardEvent) => {
     const menuNodeList = Array.from(
       (ref.current as HTMLElement).querySelectorAll(
