@@ -1,3 +1,4 @@
+import { useArrowKeyTrap, useMountedFocus } from '@ahhachul/lib'
 import { m } from 'framer-motion'
 import { useRef, type ComponentProps, type RefObject } from 'react'
 
@@ -9,7 +10,6 @@ import { SearchInput, TagBtn } from '@/components/common'
 
 import { AnimatePortal } from '@/components/common/portal'
 import { defaultFadeInVariants } from '@/constants/motions'
-import { useArrowKeyTrap, useMountedFocus } from '@/hooks'
 interface Props extends ComponentProps<typeof AnimatePortal> {
   onClose: () => void
 }
