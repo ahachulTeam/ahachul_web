@@ -34,7 +34,6 @@ function BottomSheet(
   }: PropsWithChildren<BottomSheetProps>,
   ref: ForwardedRef<HTMLDialogElement>
 ) {
-  console.log(id)
   const [isShow, setIsShow] = useState<boolean>(false)
 
   const handleClose = useCallback(() => {

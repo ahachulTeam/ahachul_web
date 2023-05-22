@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { HTMLAttributes } from 'react'
 
 import * as S from './styled'
 import type { TagVariant } from '@/types/common'
 
-interface TagBtnProps {
+interface TagBtnProps extends HTMLAttributes<HTMLButtonElement> {
   className?: string
   label: string
   variant?: TagVariant
@@ -19,10 +19,10 @@ export default function TagBtn({
   disabled = false,
   onClick,
   onDelete,
+  ...other
 }: TagBtnProps) {
-  console.log(onDelete)
   return (
-    <S.TagBtn type="button" className={className} variant={variant} disabled={disabled} onClick={onClick}>
+    <S.TagBtn type="button" className={className} variant={variant} disabled={disabled} onClick={onClick} {...other}>
       <span>{label}</span>
       {/* {variant === "outline" && (
         <S.IconBtn onClick={onDelete}>
