@@ -9,13 +9,7 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="ko">
-        <Head>
-          <meta charSet="UTF-8" />
-          <link rel="preload" href="/fonts/Pretendard-Regular.otf" as="font" crossOrigin="anonymous" />
-          <link rel="preload" href="/fonts/Pretendard-Medium.otf" as="font" crossOrigin="anonymous" />
-          <link rel="preload" href="/fonts/Pretendard-SemiBold.otf" as="font" crossOrigin="anonymous" />
-          <link rel="preload" href="/fonts/Pretendard-Bold.otf" as="font" crossOrigin="anonymous" />
-        </Head>
+        <Head />
         <body>
           <Main />
           <div id="modal-root" />

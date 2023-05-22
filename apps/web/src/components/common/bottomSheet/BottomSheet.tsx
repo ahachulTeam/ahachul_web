@@ -3,6 +3,7 @@ import React, { ForwardedRef, forwardRef, PropsWithChildren, useCallback, useEff
 
 import { Portal } from '../portal'
 import * as S from './styled'
+import { pretendard } from '@/assets/fonts/pretendard'
 import { CloseIcon } from '@/assets/icons'
 import { BOTTOM_SHEET_DURATION } from '@/constants'
 
@@ -61,7 +62,14 @@ function BottomSheet(
   return (
     <Portal containerId="modal-root" isMounted={isOpen}>
       <S.Dim>
-        <S.BottomSheet ref={ref} open={isOpen} data-status={isShow} aria-modal="true" tabIndex={-1}>
+        <S.BottomSheet
+          ref={ref}
+          open={isOpen}
+          data-status={isShow}
+          aria-modal="true"
+          tabIndex={-1}
+          className={pretendard.className}
+        >
           {!isHeaderHidden && (
             <S.Header>
               <h2>{title}</h2>
