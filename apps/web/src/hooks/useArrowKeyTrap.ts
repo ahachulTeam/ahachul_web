@@ -1,14 +1,16 @@
-import { useEffect, RefObject } from 'react'
+import { RefObject } from 'react'
 
-type Listener = (e: KeyboardEvent) => void
+type Listener = (e: React.KeyboardEvent) => void
+type Direction = 'col' | 'row'
 
-export default function useArrowKeyTrap(ref: RefObject<HTMLElement>) {
-  const getParseMenuKeyTrap = (e: KeyboardEvent) => {
+export default function useArrowKeyTrap(ref: RefObject<HTMLElement>, direction: Direction = 'col') {
+  const getParseMenuKeyTrap = (e: React.KeyboardEvent) => {
     const menuNodeList = Array.from(
       (ref.current as HTMLElement).querySelectorAll(
         "[role='menuitem'], [role='menuitemradio'], [role='menuitemcheckbox']"
       )
     )
+
     const eventTarget = e.target
     const firstMenuNdoe = menuNodeList[0] as HTMLElement
     const lastMenuNode = menuNodeList.at(-1) as HTMLElement
@@ -29,7 +31,7 @@ export default function useArrowKeyTrap(ref: RefObject<HTMLElement>) {
     }
   }
 
-  const handleSelectedToPrevMenu = (e: KeyboardEvent) => {
+  const handleSelectedToPrevNode = (e: React.KeyboardEvent) => {
     if (!ref.current) {
       return
     }
@@ -43,12 +45,13 @@ export default function useArrowKeyTrap(ref: RefObject<HTMLElement>) {
     prevMenuNode.focus()
   }
 
-  const handleSelectedToNextMenu = (e: KeyboardEvent) => {
+  const handleSelectedToNextNode = (e: React.KeyboardEvent) => {
     if (!ref.current) {
       return
     }
     e.preventDefault()
     const { isLastMenuNode, firstMenuNdoe, nextMenuNode } = getParseMenuKeyTrap(e)
+
     if (isLastMenuNode) {
       firstMenuNdoe.focus()
       return
@@ -57,7 +60,7 @@ export default function useArrowKeyTrap(ref: RefObject<HTMLElement>) {
     nextMenuNode.focus()
   }
 
-  const handleFocusFirstMenu = (e: KeyboardEvent) => {
+  const handleFocusFirstNode = (e: React.KeyboardEvent) => {
     if (!ref.current) {
       return
     }
@@ -67,7 +70,7 @@ export default function useArrowKeyTrap(ref: RefObject<HTMLElement>) {
     firstMenuNdoe.focus()
   }
 
-  const handleFocusLastMenu = (e: KeyboardEvent) => {
+  const handleFocusLastNode = (e: React.KeyboardEvent) => {
     if (!ref.current) {
       return
     }
@@ -77,28 +80,38 @@ export default function useArrowKeyTrap(ref: RefObject<HTMLElement>) {
     lastMenuNode.focus()
   }
 
-  useEffect(() => {
-    const keyListenerMap = new Map<string, Listener>([
-      ['Up', handleSelectedToPrevMenu],
-      ['ArrowUp', handleSelectedToPrevMenu],
-      ['Down', handleSelectedToNextMenu],
-      ['ArrowDown', handleSelectedToNextMenu],
-      ['Home', handleFocusFirstMenu],
-      ['End', handleFocusLastMenu],
+  const getKeyListenerMap = (direction: Direction) => {
+    const rowKeyListenerMap = new Map<string, Listener>([
+      ['Left', handleSelectedToPrevNode],
+      ['ArrowLeft', handleSelectedToPrevNode],
+      ['Right', handleSelectedToNextNode],
+      ['ArrowRight', handleSelectedToNextNode],
+      ['Home', handleFocusFirstNode],
+      ['End', handleFocusLastNode],
     ])
 
-    const handleKeyListener = (e: KeyboardEvent) => {
-      const listener = keyListenerMap.get(e.key)
-      if (listener) {
-        listener(e)
-      }
-    }
+    const colKeyListenerMap = new Map<string, Listener>([
+      ['Up', handleSelectedToPrevNode],
+      ['ArrowUp', handleSelectedToPrevNode],
+      ['Down', handleSelectedToNextNode],
+      ['ArrowDown', handleSelectedToNextNode],
+      ['Home', handleFocusFirstNode],
+      ['End', handleFocusLastNode],
+    ])
 
-    window.addEventListener('keydown', handleKeyListener)
+    return direction === 'col' ? colKeyListenerMap : rowKeyListenerMap
+  }
 
-    return () => {
-      window.removeEventListener('keydown', handleKeyListener)
+  const handleKeyListener = (e: React.KeyboardEvent) => {
+    const keyListenerMap = getKeyListenerMap(direction)
+
+    const listener = keyListenerMap.get(e.key)
+    if (listener) {
+      listener(e)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }
+
+  return {
+    handleKeyListener,
+  }
 }
