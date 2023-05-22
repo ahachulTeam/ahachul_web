@@ -140,6 +140,7 @@ __metadata:
     react-loading-skeleton: ^3.2.0
     react-toastify: ^9.1.2
     recoil: ^0.7.7
+    swiper: ^9.3.2
     typescript: 5.0.4
     uuid: ^9.0.0
     whatwg-fetch: ^3.6.2
@@ -1732,6 +1733,15 @@ __metadata:
     "@emotion/weak-memoize": ^0.3.1
     stylis: 4.2.0
   checksum: 8eb1dc22beaa20c21a2e04c284d5a2630a018a9d51fb190e52de348c8d27f4e8ca4bbab003d68b4f6cd9cc1c569ca747a997797e0f76d6c734a660dc29decf08
+  languageName: node
+  linkType: hard
+
+"@emotion/eslint-plugin@npm:^11.11.0":
+  version: 11.11.0
+  resolution: "@emotion/eslint-plugin@npm:11.11.0"
+  peerDependencies:
+    eslint: 6 || 7 || 8
+  checksum: 2d555b6790700e0d0c2862d4aa2fd697ea5851faa7e406ab459028e66daad2ee0dc3dec29362c2edc2656a63f826ac15629112d3e9aca64323fa40f9e5674bd4
   languageName: node
   linkType: hard
 
@@ -5571,6 +5581,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "ahhachul@workspace:."
   dependencies:
+    "@emotion/eslint-plugin": ^11.11.0
     "@types/jest": ^29.5.1
     "@typescript-eslint/eslint-plugin": ^5.59.5
     "@typescript-eslint/parser": ^5.59.5
@@ -5585,6 +5596,7 @@ __metadata:
     jest-environment-jsdom: ^29.5.0
     lint-staged: ^13.2.2
     prettier: ^2.8.8
+    react: ^18.2.0
     typescript: ^5.0.4
   languageName: unknown
   linkType: soft
@@ -14462,6 +14474,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ssr-window@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "ssr-window@npm:4.0.2"
+  checksum: df182600927f4f3225224cf8c02338ea637c9750519505bbfb9a9236741a2a7ec088386fb948bca7b447b8303d9109e7dc7672e3de041c79ac2a0e03665af7d2
+  languageName: node
+  linkType: hard
+
 "ssri@npm:^9.0.0":
   version: 9.0.1
   resolution: "ssri@npm:9.0.1"
@@ -14834,6 +14853,15 @@ __metadata:
   bin:
     svgo: bin/svgo
   checksum: b92f71a8541468ffd0b81b8cdb36b1e242eea320bf3c1a9b2c8809945853e9d8c80c19744267eb91cabf06ae9d5fff3592d677df85a31be4ed59ff78534fa420
+  languageName: node
+  linkType: hard
+
+"swiper@npm:^9.3.2":
+  version: 9.3.2
+  resolution: "swiper@npm:9.3.2"
+  dependencies:
+    ssr-window: ^4.0.2
+  checksum: 9ccb6a0ef67d71ac780d7d1f3b2c2daf6f1846d3df8810aff6dcb8501c87b7769540a869cdd83eb902e5278396e5379cb32d9ed397234f7700ef55f0209f4592
   languageName: node
   linkType: hard
 
