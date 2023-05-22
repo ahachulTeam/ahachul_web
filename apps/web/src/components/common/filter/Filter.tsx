@@ -24,7 +24,7 @@ export default function Filter({ id, label, options, value, chnageValue }: Filte
 
   const uid = `${id}-filter`
 
-  useArrowKeyTrap(dialoglRef)
+  const { handleKeyListener } = useArrowKeyTrap(dialoglRef)
 
   const handleOptionClick = (option: string) => () => {
     chnageValue(option)
@@ -48,14 +48,14 @@ export default function Filter({ id, label, options, value, chnageValue }: Filte
         <ArrowDownMinIcon />
       </S.TriggerBtn>
       <BottomSheet
-        id={uid}
         ref={dialoglRef}
+        id={uid}
         isOpen={isOpen}
         title={label}
         closedCases={[prevValue.current !== value]}
         onClose={onClose}
       >
-        <S.OptionContainer role="menu">
+        <S.OptionContainer role="menu" onKeyDown={handleKeyListener}>
           {options.map(opt => (
             <S.Option
               key={opt.value}
