@@ -36,4 +36,4 @@ export const color = {
   negative: '#D43900', // Crimson
   warning: '#A15C20', // Burnt sienna
   selected: '#0271B6', // Navy
-};
+}
