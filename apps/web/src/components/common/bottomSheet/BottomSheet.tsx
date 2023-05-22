@@ -1,7 +1,7 @@
 import { useKeyTrap, useOnClickOutside } from '@ahhachul/lib'
 import React, { ForwardedRef, forwardRef, PropsWithChildren, useCallback, useEffect, useState } from 'react'
 
-import { Portal } from '../portal'
+import { MotionPortal } from '../portal'
 import * as S from './styled'
 import { CloseIcon } from '@/assets/icons'
 import { BOTTOM_SHEET_DURATION } from '@/constants'
@@ -59,7 +59,7 @@ function BottomSheet(
   }, [closedCases, handleClose])
 
   return (
-    <Portal containerId="modal-root" isMounted={isOpen}>
+    <MotionPortal isMounted={isOpen}>
       <S.Dim>
         <S.BottomSheet ref={ref} open={isOpen} data-status={isShow} aria-modal="true" tabIndex={-1}>
           {!isHeaderHidden && (
@@ -76,7 +76,7 @@ function BottomSheet(
           <S.Content className={className}>{children}</S.Content>
         </S.BottomSheet>
       </S.Dim>
-    </Portal>
+    </MotionPortal>
   )
 }
 

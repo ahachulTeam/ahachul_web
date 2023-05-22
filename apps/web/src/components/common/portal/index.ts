@@ -1,2 +1,2 @@
 export { default as Portal } from './Portal'
-export { default as AnimatePortal } from './AnimatePortal'
+export { default as MotionPortal } from './MotionPortal'
