@@ -1,1 +1,1 @@
-export * from './HiddenHeading'
+export * from './hiddenHeading'
