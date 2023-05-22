@@ -2,10 +2,7 @@ import { useCallback, useEffect, RefObject, ForwardedRef } from 'react'
 
 type Listener = (e: KeyboardEvent) => void
 
-export default function useKeyTrap<T extends HTMLElement>(
-  ref: RefObject<T> | ForwardedRef<T>,
-  handleClose: () => void
-) {
+export const useKeyTrap = <T extends HTMLElement>(ref: RefObject<T> | ForwardedRef<T>, handleClose: () => void) => {
   const handleKeyTrap = useCallback(
     (e: KeyboardEvent) => {
       if (typeof ref === 'function' || !ref?.current) {

@@ -1,8 +1,8 @@
+import { isMatchRoute } from '@ahhachul/lib'
 import Link from 'next/link'
 
 import { useRouter } from 'next/router'
 import * as S from './NavItem.styled'
-import { isMatchRoute } from '@/utils'
 
 interface NavItemProps {
   label: string

@@ -2,7 +2,7 @@ import { toast, ToastOptions } from 'react-toastify'
 
 import { Notification } from '@/assets/icons'
 
-const useToast = () => {
+export const useToast = () => {
   const success = (content: React.ReactNode, option?: ToastOptions) => {
     toast.success(content, {
       icon: false,
@@ -19,5 +19,3 @@ const useToast = () => {
 
   return { success, error }
 }
-
-export default useToast

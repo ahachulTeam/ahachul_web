@@ -1,6 +1,6 @@
 import { useEffect, RefObject, ForwardedRef } from 'react'
 
-const useOnClickOutside = <T extends HTMLElement>(
+export const useOnClickOutside = <T extends HTMLElement>(
   ref: RefObject<T> | ForwardedRef<T>,
   handler: () => void,
   exceptEl?: HTMLElement | null
@@ -27,5 +27,3 @@ const useOnClickOutside = <T extends HTMLElement>(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handler])
 }
-
-export default useOnClickOutside

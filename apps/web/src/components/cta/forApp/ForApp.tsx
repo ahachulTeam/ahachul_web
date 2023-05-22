@@ -1,12 +1,10 @@
+import { handleSessionStorage, useDisclosure } from '@ahhachul/lib'
 import Image from 'next/image'
 import LogoImg from 'public/illust/img/img_favicon.png'
 import { useEffect, useState } from 'react'
 
 import * as S from './styled'
 import { APP_CONVERSION_CTA_STORAGE_KEY } from '@/constants'
-import { useDisclosure } from '@/hooks'
-
-import handleSessionStorage from '@/utils/storage'
 
 function BottomSheetForApp() {
   const [isMounted, setIsMounted] = useState(false)

@@ -1,9 +1,8 @@
+import { isProd } from '@ahhachul/lib'
 import mixpanel from 'mixpanel-browser'
 import Script from 'next/script'
 import { useEffect } from 'react'
 import { hotjar } from 'react-hotjar'
-
-import { isProd } from '@/utils/common'
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS
 const MIXPANEL_ID = process.env.NEXT_PUBLIC_MIXPANEL_ID

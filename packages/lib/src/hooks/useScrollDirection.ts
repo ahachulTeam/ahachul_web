@@ -5,7 +5,7 @@ export enum ScrollDirection {
   down = 'down',
 }
 
-const useScrollDirection = () => {
+export const useScrollDirection = () => {
   const threshold = 50
   const [scrollDir, setScrollDir] = useState(ScrollDirection.up)
 
@@ -39,5 +39,3 @@ const useScrollDirection = () => {
 
   return scrollDir
 }
-
-export default useScrollDirection

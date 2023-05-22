@@ -1,9 +1,9 @@
+import { getCurrentTime } from '@ahhachul/lib'
 import NextImage from 'next/image'
 import Link from 'next/link'
 import thumbnailDefaultImg from 'public/illust/img/img_thumbnailDefault.png'
 
 import * as S from './styled'
-import { getCurrentTime } from '@/utils/time'
 
 interface ItemProps {
   data: {
