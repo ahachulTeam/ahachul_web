@@ -35,6 +35,7 @@ __metadata:
   dependencies:
     "@emotion/react": ^11.11.0
     "@emotion/styled": ^11.11.0
+    typescript: ^5.0.4
   peerDependencies:
     "@emotion/react": 11.x
     "@emotion/styled": 11.x

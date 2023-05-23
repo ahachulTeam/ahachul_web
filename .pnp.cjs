@@ -115,7 +115,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/react", "virtual:2d29fa0895e101ce8ce1e532662d7ba8a8d2fd4e199dba7d997dd2a9bb7a086a1d976a108321be2bf12de5306634e24cb64ab3b0f7a518ac3d74438490c93414#npm:11.11.0"],\
             ["@emotion/styled", "virtual:2d29fa0895e101ce8ce1e532662d7ba8a8d2fd4e199dba7d997dd2a9bb7a086a1d976a108321be2bf12de5306634e24cb64ab3b0f7a518ac3d74438490c93414#npm:11.11.0"],\
             ["@types/emotion__react", null],\
-            ["@types/emotion__styled", null]\
+            ["@types/emotion__styled", null],\
+            ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"]\
           ],\
           "packagePeers": [\
             "@emotion/react",\
@@ -132,7 +133,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/react", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#npm:11.11.0"],\
             ["@emotion/styled", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#npm:11.11.0"],\
             ["@types/emotion__react", null],\
-            ["@types/emotion__styled", null]\
+            ["@types/emotion__styled", null],\
+            ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"]\
           ],\
           "packagePeers": [\
             "@emotion/react",\
@@ -147,7 +149,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@ahhachul/design-system", "workspace:packages/ds"],\
             ["@emotion/react", "virtual:004e56aeaef4a253e395220421812d5b4fd926e2e560a1c2acedb727108e6b11d3db6c6506c4b16646a37fb8261ce7abb247e0609e449532be331f76d5b125c2#npm:11.11.0"],\
-            ["@emotion/styled", "virtual:004e56aeaef4a253e395220421812d5b4fd926e2e560a1c2acedb727108e6b11d3db6c6506c4b16646a37fb8261ce7abb247e0609e449532be331f76d5b125c2#npm:11.11.0"]\
+            ["@emotion/styled", "virtual:004e56aeaef4a253e395220421812d5b4fd926e2e560a1c2acedb727108e6b11d3db6c6506c4b16646a37fb8261ce7abb247e0609e449532be331f76d5b125c2#npm:11.11.0"],\
+            ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"]\
           ],\
           "linkType": "SOFT"\
         }]\
