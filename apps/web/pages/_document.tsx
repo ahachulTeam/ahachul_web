@@ -9,7 +9,9 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="ko">
-        <Head />
+        <Head>
+          <meta charSet="UTF-8" />
+        </Head>
         <body>
           <Main />
           <div id="modal-root" />
