@@ -116,8 +116,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/styled", "virtual:2d29fa0895e101ce8ce1e532662d7ba8a8d2fd4e199dba7d997dd2a9bb7a086a1d976a108321be2bf12de5306634e24cb64ab3b0f7a518ac3d74438490c93414#npm:11.11.0"],\
             ["@types/emotion__react", null],\
             ["@types/emotion__styled", null],\
-            ["react", "npm:18.2.0"],\
-            ["react-dom", "virtual:b3853ec212e351486f34be70961ede1733dd023838490f2c2bf427e9acddb9ebac90ed0b14f2ce6e2c346b0777f23265ed6c5dd8604081c97295c3593887e661#npm:18.2.0"],\
             ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"]\
           ],\
           "packagePeers": [\
@@ -136,8 +134,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/styled", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#npm:11.11.0"],\
             ["@types/emotion__react", null],\
             ["@types/emotion__styled", null],\
-            ["react", "npm:18.2.0"],\
-            ["react-dom", "virtual:b3853ec212e351486f34be70961ede1733dd023838490f2c2bf427e9acddb9ebac90ed0b14f2ce6e2c346b0777f23265ed6c5dd8604081c97295c3593887e661#npm:18.2.0"],\
             ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"]\
           ],\
           "packagePeers": [\
@@ -154,8 +150,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@ahhachul/design-system", "workspace:packages/ds"],\
             ["@emotion/react", "virtual:004e56aeaef4a253e395220421812d5b4fd926e2e560a1c2acedb727108e6b11d3db6c6506c4b16646a37fb8261ce7abb247e0609e449532be331f76d5b125c2#npm:11.11.0"],\
             ["@emotion/styled", "virtual:004e56aeaef4a253e395220421812d5b4fd926e2e560a1c2acedb727108e6b11d3db6c6506c4b16646a37fb8261ce7abb247e0609e449532be331f76d5b125c2#npm:11.11.0"],\
-            ["react", "npm:18.2.0"],\
-            ["react-dom", "virtual:b3853ec212e351486f34be70961ede1733dd023838490f2c2bf427e9acddb9ebac90ed0b14f2ce6e2c346b0777f23265ed6c5dd8604081c97295c3593887e661#npm:18.2.0"],\
             ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"]\
           ],\
           "linkType": "SOFT"\
@@ -3402,7 +3396,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/weak-memoize", "npm:0.3.1"],\
             ["@types/react", null],\
             ["hoist-non-react-statics", "npm:3.3.2"],\
-            ["react", "npm:18.2.0"]\
+            ["react", null]\
           ],\
           "packagePeers": [\
             "@types/react",\
@@ -3497,7 +3491,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/utils", "npm:1.2.1"],\
             ["@types/emotion__react", null],\
             ["@types/react", null],\
-            ["react", "npm:18.2.0"]\
+            ["react", null]\
           ],\
           "packagePeers": [\
             "@emotion/react",\
@@ -3576,7 +3570,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@emotion/use-insertion-effect-with-fallbacks", "virtual:5d1f52bdabd2bd90c7ed7a2bf988480125ebc85c003804d0ce38f839c70701c37964309374f98092844ff114e84ad729509fffb5ada0501c1bcdcfee3c6120e8#npm:1.0.1"],\
             ["@types/react", null],\
-            ["react", "npm:18.2.0"]\
+            ["react", null]\
           ],\
           "packagePeers": [\
             "@types/react",\
@@ -19588,21 +19582,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["react-dom", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#npm:18.2.0"],\
             ["@types/react", "npm:18.0.28"],\
-            ["loose-envify", "npm:1.4.0"],\
-            ["react", "npm:18.2.0"],\
-            ["scheduler", "npm:0.23.0"]\
-          ],\
-          "packagePeers": [\
-            "@types/react",\
-            "react"\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["virtual:b3853ec212e351486f34be70961ede1733dd023838490f2c2bf427e9acddb9ebac90ed0b14f2ce6e2c346b0777f23265ed6c5dd8604081c97295c3593887e661#npm:18.2.0", {\
-          "packageLocation": "./.yarn/__virtual__/react-dom-virtual-d7d936348d/0/cache/react-dom-npm-18.2.0-dd675bca1c-7d323310be.zip/node_modules/react-dom/",\
-          "packageDependencies": [\
-            ["react-dom", "virtual:b3853ec212e351486f34be70961ede1733dd023838490f2c2bf427e9acddb9ebac90ed0b14f2ce6e2c346b0777f23265ed6c5dd8604081c97295c3593887e661#npm:18.2.0"],\
-            ["@types/react", null],\
             ["loose-envify", "npm:1.4.0"],\
             ["react", "npm:18.2.0"],\
             ["scheduler", "npm:0.23.0"]\
