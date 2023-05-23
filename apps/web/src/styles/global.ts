@@ -3,39 +3,6 @@ import { css } from '@emotion/react'
 import { theme } from '@/styles/themes'
 
 const globalStyles = css`
-  @font-face {
-    font-family: 'Pretendard';
-    font-style: normal;
-    font-weight: 400;
-    src: url('/fonts/Pretendard-Regular.otf');
-    src: local('Pretendard-Regular.otf'), url('/fonts/Pretendard-Regular.otf') format('opentype');
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Pretendard';
-    font-style: normal;
-    font-weight: 500;
-    src: url('/fonts/Pretendard-Medium.otf');
-    src: local('Pretendard-Medium.otf'), url('/fonts/Pretendard-Medium.otf') format('opentype');
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Pretendard';
-    font-style: normal;
-    font-weight: 600;
-    src: url('/fonts/Pretendard-SemiBold.otf');
-    src: local('Pretendard-SemiBold.otf'), url('/fonts/Pretendard-SemiBold.otf') format('opentype');
-    font-display: swap;
-  }
-  @font-face {
-    font-family: 'Pretendard';
-    font-style: normal;
-    font-weight: 700;
-    src: url('/fonts/Pretendard-Bold.otf');
-    src: local('Pretendard-Bold.otf'), url('/fonts/Pretendard-Bold.otf') format('opentype');
-    font-display: swap;
-  }
-
   html {
     /* 1rem = 10px */
     font-size: 62.5%;
