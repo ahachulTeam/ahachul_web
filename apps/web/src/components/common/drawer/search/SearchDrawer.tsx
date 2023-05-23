@@ -5,6 +5,7 @@ import { useRef, type ComponentProps, type RefObject } from 'react'
 import useSearchDrawer from './hooks/useSearchDrawer'
 import * as S from './styled'
 import { HASH_TAG_DUMMY_LIST } from '@/assets/dummy/community'
+import { pretendard } from '@/assets/fonts/pretendard'
 import { ArrowIcon } from '@/assets/icons'
 import { SearchInput, TagBtn } from '@/components/common'
 
@@ -32,7 +33,14 @@ function SearchDrawer({ isMounted, mode, onClose }: Props) {
 
   return (
     <MotionPortal isMounted={isMounted} mode={mode}>
-      <m.div css={S.overlayCss} initial="initial" animate="animate" exit="exit" variants={defaultFadeInVariants}>
+      <m.div
+        css={S.overlayCss}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={defaultFadeInVariants}
+        className={pretendard.className}
+      >
         <m.div css={S.contentCss} variants={S.searchDrawerVariants}>
           <S.ModalHeader>
             <S.IconBtn type="button" aria-label="뒤로가기 버튼" onClick={closeDrawerAndDeleteSearchValue}>
