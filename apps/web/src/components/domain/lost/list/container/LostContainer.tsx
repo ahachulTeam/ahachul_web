@@ -1,9 +1,9 @@
+import { Toggle } from '@ahhachul/ui'
 import { useState } from 'react'
 import Controller from '../controller/Controller'
 import LostFoundList from '../lostList/LostList'
 
 import * as S from './styled'
-import { Toggle } from '@/components/common'
 
 type LostFoundTab = 'lost' | 'found'
 
