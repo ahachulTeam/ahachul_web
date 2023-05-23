@@ -1,0 +1,14 @@
+{
+  "name": "@ahhachul/design-system",
+  "packageManager": "yarn@3.5.1",
+  "type": "module",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0"
+  },
+  "peerDependencies": {
+    "@emotion/react": "11.x",
+    "@emotion/styled": "11.x"
+  }
+}
