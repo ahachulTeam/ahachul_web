@@ -9,9 +9,9 @@ import { pretendard } from '@/assets/fonts/pretendard'
 import { ArrowIcon } from '@/assets/icons'
 import { SearchInput, TagBtn } from '@/components/common'
 
-import { AnimatePortal } from '@/components/common/portal'
+import { MotionPortal } from '@/components/common/portal'
 import { defaultFadeInVariants } from '@/constants/motions'
-interface Props extends ComponentProps<typeof AnimatePortal> {
+interface Props extends ComponentProps<typeof MotionPortal> {
   onClose: () => void
 }
 
@@ -32,7 +32,7 @@ function SearchDrawer({ isMounted, mode, onClose }: Props) {
   const { handleKeyListener } = useArrowKeyTrap(recentKeywordRef, 'row')
 
   return (
-    <AnimatePortal isMounted={isMounted} mode={mode}>
+    <MotionPortal isMounted={isMounted} mode={mode}>
       <m.div
         css={S.overlayCss}
         initial="initial"
@@ -89,7 +89,7 @@ function SearchDrawer({ isMounted, mode, onClose }: Props) {
           </S.Hashtag>
         </m.div>
       </m.div>
-    </AnimatePortal>
+    </MotionPortal>
   )
 }
 

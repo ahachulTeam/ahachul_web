@@ -14,6 +14,7 @@ export const overlayCss = (theme: Theme) => css`
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: white;
 `
 
 export const contentCss = (theme: Theme) => css`

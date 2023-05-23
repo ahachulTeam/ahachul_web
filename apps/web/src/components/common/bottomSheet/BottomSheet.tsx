@@ -1,7 +1,7 @@
 import { useKeyTrap, useOnClickOutside } from '@ahhachul/lib'
 import React, { ForwardedRef, forwardRef, PropsWithChildren, useCallback, useEffect, useState } from 'react'
 
-import { Portal } from '../portal'
+import { MotionPortal } from '../portal'
 import * as S from './styled'
 import { pretendard } from '@/assets/fonts/pretendard'
 import { CloseIcon } from '@/assets/icons'
@@ -60,7 +60,7 @@ function BottomSheet(
   }, [closedCases, handleClose])
 
   return (
-    <Portal containerId="modal-root" isMounted={isOpen}>
+    <MotionPortal isMounted={isOpen}>
       <S.Dim>
         <S.BottomSheet
           ref={ref}
@@ -84,7 +84,7 @@ function BottomSheet(
           <S.Content className={className}>{children}</S.Content>
         </S.BottomSheet>
       </S.Dim>
-    </Portal>
+    </MotionPortal>
   )
 }
 
