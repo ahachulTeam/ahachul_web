@@ -2,9 +2,10 @@ import type { Preview } from '@storybook/react'
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
 import { withThemeFromJSXProvider } from '@storybook/addon-styling'
 
-import { ThemeProvider, Global } from '@emotion/react'
+import { ThemeProvider } from '@emotion/react'
 
-import { theme, GlobalStyles } from '../src/styles'
+import { GlobalStyles } from '../src'
+import { theme } from '@ahhachul/design-system'
 
 const preview: Preview = {
   parameters: {
