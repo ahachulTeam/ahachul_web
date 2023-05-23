@@ -19,6 +19,7 @@
     "cypress": "cypress open"
   },
   "dependencies": {
+    "@ahhachul/design-system": "workspace:^",
     "@ahhachul/lib": "workspace:^",
     "@ahhachul/ui": "workspace:^",
     "@emotion/react": "^11.10.8",

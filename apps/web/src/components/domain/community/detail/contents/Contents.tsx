@@ -1,7 +1,9 @@
 import { getCurrentTime } from '@ahhachul/lib'
+import { Tag } from '@ahhachul/ui'
+import { Button } from '@ahhachul/ui'
 import { useRouter } from 'next/router'
+
 import * as S from './styled'
-import { TagBtn } from '@/components/common'
 import { PATH } from '@/constants'
 import { CommunityDetailModel } from '@/types/community'
 
@@ -40,14 +42,14 @@ function Contents({ data }: ContentsProps) {
           return (
             // eslint-disable-next-line react/no-array-index-key
             <li key={i}>
-              <TagBtn label={`#${tag}`} variant="primary" onClick={searchHashTag(tag)} />
+              <Tag label={`#${tag}`} variant="primary" onClick={searchHashTag(tag)} />
             </li>
           )
         })}
       </S.HashTagList>
       <S.ContentsReactBtnGroup>
-        <button type="button">좋아요</button>
-        <button type="button">싫어요</button>
+        {/* <Button variant="primary">좋아요</Button> */}
+        {/* <button variant>싫어요</button> */}
       </S.ContentsReactBtnGroup>
     </S.Contents>
   )

@@ -1,4 +1,6 @@
 import { useArrowKeyTrap, useMountedFocus } from '@ahhachul/lib'
+import { SearchInput } from '@ahhachul/ui'
+import { Tag } from '@ahhachul/ui'
 import { m } from 'framer-motion'
 import { useRef, type ComponentProps, type RefObject } from 'react'
 
@@ -7,7 +9,6 @@ import * as S from './styled'
 import { HASH_TAG_DUMMY_LIST } from '@/assets/dummy/community'
 import { pretendard } from '@/assets/fonts/pretendard'
 import { ArrowIcon } from '@/assets/icons'
-import { SearchInput, TagBtn } from '@/components/common'
 
 import { MotionPortal } from '@/components/common/portal'
 import { defaultFadeInVariants } from '@/constants/motions'
@@ -67,7 +68,7 @@ function SearchDrawer({ isMounted, mode, onClose }: Props) {
               {HASH_TAG_DUMMY_LIST.map((data, i) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <li key={i}>
-                  <TagBtn role="menuitem" label={data} variant="outline" onClick={handleSearchHistoryValue(data)} />
+                  <Tag role="menuitem" label={data} variant="outline" onClick={handleSearchHistoryValue(data)} />
                 </li>
               ))}
             </S.SearchHistoryTagList>
@@ -82,7 +83,7 @@ function SearchDrawer({ isMounted, mode, onClose }: Props) {
               {/* {HASH_TAG_DUMMY_LIST.map((data, i) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <li key={i}>
-                  <TagBtn label={data} variant="outline" onClick={handleSearchHistoryValue(data)} />
+                  <Tag label={data} variant="outline" onClick={handleSearchHistoryValue(data)} />
                 </li>
               ))} */}
             </S.HastTagList>

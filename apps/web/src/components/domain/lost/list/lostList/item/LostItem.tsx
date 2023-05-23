@@ -1,9 +1,9 @@
+import { Badge } from '@ahhachul/ui'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import * as S from './styled'
 import { CommentIcon } from '@/assets/icons'
-import { SubwayBadge } from '@/components/common'
 
 import { PATH } from '@/constants/path'
 
@@ -40,7 +40,7 @@ export default function LostItem({ view = 'list', lostItem }: LostItemProps) {
       </S.Thumbnail>
       <S.Contents>
         <S.Title>
-          <SubwayBadge label="찾기 완료" />
+          <Badge label="찾기 완료" />
           <h3>검정색 루이비통 지갑 발견했어요</h3>
         </S.Title>
         <S.Content>

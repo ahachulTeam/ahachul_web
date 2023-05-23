@@ -1,9 +1,8 @@
-import "@emotion/react";
+import '@emotion/react'
+import { theme } from '@ahhachul/design-system'
 
-import { theme } from "@/styles/themes";
+type CustomTheme = typeof theme
 
-type CustomTheme = typeof theme;
-
-declare module "@emotion/react" {
+declare module '@emotion/react' {
   export interface Theme extends CustomTheme {}
 }

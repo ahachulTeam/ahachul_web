@@ -1,5 +1,5 @@
 import { useKeyTrap, useOnClickOutside } from '@ahhachul/lib'
-import React, { ForwardedRef, forwardRef, PropsWithChildren, useCallback, useEffect, useState } from 'react'
+import { ForwardedRef, forwardRef, PropsWithChildren, useCallback, useEffect, useState } from 'react'
 
 import { MotionPortal } from '../portal'
 import * as S from './styled'

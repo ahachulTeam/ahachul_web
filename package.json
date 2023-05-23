@@ -12,6 +12,7 @@
     "g:lint:fix": "yarn workspaces foreach -pv run lint --fix",
     "g:typecheck": "yarn workspaces foreach -pv run typecheck",
     "g:test": "yarn workspaces foreach -pv run test",
+    "web": "yarn workspace @ahhachul/web",
     "storybook": "yarn workspace @ahhachul/ui storybook"
   },
   "dependencies": {

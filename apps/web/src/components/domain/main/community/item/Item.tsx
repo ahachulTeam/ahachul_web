@@ -1,9 +1,9 @@
+import { Badge } from '@ahhachul/ui'
 import Image from 'next/image'
 import Link from 'next/link'
 import thumbnailDefaultImg from 'public/illust/img/img_thumbnailDefault.png'
 
 import * as S from './styled'
-import { SubwayBadge } from '@/components/common'
 
 interface ItemProps {
   data: {
@@ -26,7 +26,7 @@ function Item({ data }: ItemProps) {
           <h4>{data.title}</h4>
           <p>{data.content}</p>
           <S.Box>
-            <SubwayBadge label={data.subwayLine} isHottest />
+            <Badge label={data.subwayLine} isHottest />
           </S.Box>
         </S.Flex>
         <Image src={thumbnailDefaultImg} alt={data.title} />

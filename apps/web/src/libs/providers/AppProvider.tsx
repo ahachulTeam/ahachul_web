@@ -1,4 +1,6 @@
-import { Global, ThemeProvider } from '@emotion/react'
+import { theme } from '@ahhachul/design-system'
+import { GlobalStyles } from '@ahhachul/ui'
+import { ThemeProvider } from '@emotion/react'
 import { domMax, LazyMotion } from 'framer-motion'
 import { useRouter } from 'next/router'
 import { PropsWithChildren, useEffect } from 'react'
@@ -8,7 +10,6 @@ import Recoil from './Recoil'
 import { pretendard } from '@/assets/fonts/pretendard'
 import { MonitoringInitializer } from '@/components/monitoring'
 import { AuthProvider } from '@/context'
-import { theme, globalStyles } from '@/styles'
 
 export default function AppProvider({ children }: PropsWithChildren) {
   const { pathname, query } = useRouter()
@@ -23,7 +24,7 @@ export default function AppProvider({ children }: PropsWithChildren) {
       <Recoil>
         <ReactQuery>
           <LazyMotion features={domMax}>
-            <Global styles={globalStyles} />
+            <GlobalStyles />
             <ThemeProvider theme={theme}>
               <AuthProvider>
                 <div className={pretendard.className}>{children}</div>

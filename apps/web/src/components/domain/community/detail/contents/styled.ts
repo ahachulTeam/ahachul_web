@@ -85,8 +85,6 @@ export const ContentsReactBtnGroup = styled.div`
     padding: 15px 0;
 
     & > button {
-      ${theme.button.variant.outline};
-      ${theme.button.size.md};
       width: 100%;
       border-radius: 10px;
       color: ${theme.colors.gray_65};
