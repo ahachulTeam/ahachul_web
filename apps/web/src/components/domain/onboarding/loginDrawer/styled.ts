@@ -17,7 +17,6 @@ export const Link = styled(NextLink)`
 export const KakaoBtn = styled.button`
   ${({ theme }) => css`
     ${theme.fonts.medium14};
-    ${theme.button.variant.primary};
     display: flex;
     position: relative;
     align-items: center;

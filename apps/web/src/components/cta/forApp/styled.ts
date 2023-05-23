@@ -36,7 +36,6 @@ export const P = styled.p`
 export const Link = styled.a`
   ${({ theme }) => css`
     ${theme.fonts.semibold14};
-    ${theme.button.variant.primary};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -47,6 +46,22 @@ export const Link = styled.a`
     border-radius: 25px;
     color: ${theme.colors.white};
     background-color: ${theme.colors.primary};
+    transition: all 0.3s ease-in-out;
+
+    @media (hover: hover) {
+      &:not(:disabled):hover {
+        background-color: ${theme.colors.primary_hover};
+      }
+    }
+
+    &:active {
+      background-color: ${theme.colors.primary_active};
+    }
+
+    &:disabled {
+      color: ${theme.colors.gray_30};
+      background-color: ${theme.colors.gray_20};
+    }
   `}
 `
 

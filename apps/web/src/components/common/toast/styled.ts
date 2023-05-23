@@ -1,9 +1,9 @@
+import { theme } from '@ahhachul/design-system'
 import styled from '@emotion/styled'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
-import { theme } from '@/styles'
-import { fonts } from '@/styles/themes/foundations'
+import { ToastContainer } from 'react-toastify'
+
+import 'react-toastify/dist/ReactToastify.css'
 
 export const Toast = styled(ToastContainer)`
   width: calc(100% - 20px);
@@ -36,10 +36,10 @@ export const Toast = styled(ToastContainer)`
     padding: 0;
     white-space: pre-line;
 
-    ${fonts.regular16}
+    ${theme.fonts.regular16}
 
     b, strong {
-      ${fonts.bold16}
+      ${theme.fonts.bold16}
     }
   }
 

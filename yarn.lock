@@ -29,6 +29,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@ahhachul/design-system@workspace:^, @ahhachul/design-system@workspace:packages/ds":
+  version: 0.0.0-use.local
+  resolution: "@ahhachul/design-system@workspace:packages/ds"
+  dependencies:
+    "@emotion/react": ^11.11.0
+    "@emotion/styled": ^11.11.0
+    typescript: ^5.0.4
+  peerDependencies:
+    "@emotion/react": 11.x
+    "@emotion/styled": 11.x
+  languageName: unknown
+  linkType: soft
+
 "@ahhachul/landing@workspace:apps/landing":
   version: 0.0.0-use.local
   resolution: "@ahhachul/landing@workspace:apps/landing"
@@ -68,9 +81,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ahhachul/ui@workspace:packages/ui"
   dependencies:
+    "@ahhachul/design-system": "workspace:^"
     "@ahhachul/lib": "workspace:^"
     "@emotion/react": ^11.10.8
     "@emotion/styled": ^11.10.8
+    "@radix-ui/react-tabs": ^1.0.3
     "@storybook/addon-a11y": ^7.0.9
     "@storybook/addon-actions": ^7.0.9
     "@storybook/addon-controls": ^7.0.9
@@ -113,6 +128,11 @@ __metadata:
     vite: ^4.3.2
     vite-plugin-svgr: ^3.2.0
     vite-tsconfig-paths: ^4.2.0
+  peerDependencies:
+    "@emotion/react": 11.x
+    "@emotion/styled": 11.x
+    react: 18.x
+    react-dom: 18.x
   languageName: unknown
   linkType: soft
 
@@ -120,6 +140,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ahhachul/web@workspace:apps/web"
   dependencies:
+    "@ahhachul/design-system": "workspace:^"
     "@ahhachul/lib": "workspace:^"
     "@ahhachul/ui": "workspace:^"
     "@emotion/react": ^11.10.8
@@ -1805,7 +1826,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:^11.10.8":
+"@emotion/react@npm:^11.10.8, @emotion/react@npm:^11.11.0":
   version: 11.11.0
   resolution: "@emotion/react@npm:11.11.0"
   dependencies:
@@ -1846,7 +1867,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/styled@npm:^11.10.8":
+"@emotion/styled@npm:^11.10.8, @emotion/styled@npm:^11.11.0":
   version: 11.11.0
   resolution: "@emotion/styled@npm:11.11.0"
   dependencies:

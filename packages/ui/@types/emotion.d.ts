@@ -1,6 +1,6 @@
 import '@emotion/react'
 
-import { theme } from '@/styles/themes'
+import { theme } from '@ahhachul/design-system'
 
 type CustomTheme = typeof theme
 

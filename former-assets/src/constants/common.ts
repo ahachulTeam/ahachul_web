@@ -1,2 +1,0 @@
-export const BOTTOM_SHEET_DURATION = 300;
-export const COOKIE_KEY = "AHHACHUL_USER";

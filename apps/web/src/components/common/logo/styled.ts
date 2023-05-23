@@ -1,18 +1,21 @@
-import { css, Theme } from '@emotion/react'
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 
-import { theme } from '@/styles'
+export const Logo = styled.h1`
+  ${({ theme }) => css`
+    & > a {
+      ${theme.fonts.bold14};
+      display: flex;
+      align-items: center;
+      color: ${theme.colors.black};
 
-export const anchor = css`
-  ${theme.fonts.bold14};
-  display: flex;
-  align-items: center;
-  color: ${theme.colors.black};
+      & > b {
+        color: ${theme.colors.primary};
+      }
 
-  & > b {
-    color: ${theme.colors.primary};
-  }
-`
-
-export const visuallyHidden = (theme: Theme) => css`
-  ${theme.a11y.visuallyHidden}
+      & > span {
+        ${theme.a11y.visuallyHidden}
+      }
+    }
+  `}
 `

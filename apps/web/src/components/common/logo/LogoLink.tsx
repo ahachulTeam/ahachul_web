@@ -12,13 +12,13 @@ interface LogoLinkProps {
 
 function LogoLink({ className }: LogoLinkProps) {
   return (
-    <h1>
-      <Link css={S.anchor} href={PATH.HOME} className={className} aria-label="아하철">
+    <S.Logo>
+      <Link href={PATH.HOME} className={className} aria-label="아하철">
         {/* <LogoIcon aria-hidden="true" /> */}
         <b>AhHa</b>chul
-        <div css={S.visuallyHidden}>{StaticSEO.main.sitename}</div>
+        <span>{StaticSEO.main.sitename}</span>
       </Link>
-    </h1>
+    </S.Logo>
   )
 }
 

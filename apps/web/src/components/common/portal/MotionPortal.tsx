@@ -1,6 +1,6 @@
+import { Portal } from '@ahhachul/ui'
 import { AnimatePresence } from 'framer-motion'
 import { type ComponentProps } from 'react'
-import Portal from './Portal'
 
 interface Props extends ComponentProps<typeof Portal> {
   isMounted: boolean
