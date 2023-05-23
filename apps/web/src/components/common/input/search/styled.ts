@@ -9,10 +9,6 @@ export const SearchInput = styled.form`
     display: flex;
     align-items: center;
     flex-grow: 1;
-
-    & > input {
-      ${theme.input.search};
-    }
   `}
 `
 

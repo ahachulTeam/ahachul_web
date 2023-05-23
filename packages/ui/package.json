@@ -16,6 +16,7 @@
     "@ahhachul/lib": "workspace:^",
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",
+    "@radix-ui/react-tabs": "^1.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

@@ -20,7 +20,6 @@ export const Title = styled.span`
 
 export const CommentInput = styled.input`
   ${({ theme }) => css`
-    ${theme.input.outline};
     margin-bottom: 15px;
   `}
 `
