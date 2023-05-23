@@ -1,3 +1,4 @@
+import { FullHeight } from '@ahhachul/ui'
 import { useState } from 'react'
 
 import * as S from './styled'
@@ -27,21 +28,23 @@ function NicknamePageContainer() {
   }
 
   return (
-    <div css={S.flexCenter}>
-      <form onSubmit={handleSubmitNickname} css={S.flexColumn}>
-        <S.H3>Update Your Nickname</S.H3>
-        <br />
-        <S.Input type="text" value={nickname} onChange={handleNicknameInputChange} />
-        <br />
-        <button type="button" onClick={handleVerifyNickname}>
-          중복체크
-        </button>
-        <br />
-        <button type="submit" onClick={handleSubmitNickname}>
-          닉네임 제출하기
-        </button>
-      </form>
-    </div>
+    <FullHeight>
+      <div css={S.flexCenter}>
+        <form onSubmit={handleSubmitNickname} css={S.flexColumn}>
+          <S.H3>Update Your Nickname</S.H3>
+          <br />
+          <S.Input type="text" value={nickname} onChange={handleNicknameInputChange} />
+          <br />
+          <button type="button" onClick={handleVerifyNickname}>
+            중복체크
+          </button>
+          <br />
+          <button type="submit" onClick={handleSubmitNickname}>
+            닉네임 제출하기
+          </button>
+        </form>
+      </div>
+    </FullHeight>
   )
 }
 
