@@ -8,6 +8,7 @@ import useTab from '@/hooks/useTab'
 
 function CommunityPageContainer() {
   const { selectedTab, handleChangeTab } = useTab(COMMUNITY_TABS)
+
   return (
     <S.Container>
       <Tab selectedTab={selectedTab} tabList={COMMUNITY_TABS} handleChangeTab={handleChangeTab} />
