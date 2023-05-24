@@ -11,3 +11,11 @@ export type CommunityDetailModel = {
   viewCnt: number
   hashtags: string[]
 }
+
+export interface CreateArticleQueryModel {
+  title: string
+  content: string
+  images?: File[] | []
+  categoryType: 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR'
+  subwayLineId: string
+}

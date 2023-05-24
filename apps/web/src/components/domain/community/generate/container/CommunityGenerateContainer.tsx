@@ -1,25 +1,39 @@
 import { Button } from '@ahhachul/ui'
+import { useArticleForm } from '../hooks/useArticleForm'
 import * as S from './styled'
 
 function CommunityGeneratePageContainer() {
+  const { register, handleClickSubmit } = useArticleForm()
+
   return (
     <S.Container>
       <S.PhotoSection>
         <S.FieldName>사진 업로드</S.FieldName>
-        <div></div>
       </S.PhotoSection>
       <S.FormSection>
         <S.Line>
           <S.FieldName>호선</S.FieldName>
-          <button>어디서 일어난 일인가요?</button>
+          <button type="button">어디서 일어난 일인가요?</button>
         </S.Line>
         <S.Title>
           <S.FieldName>제목</S.FieldName>
-          <input placeholder="재목을 입력하세요(40자 이내)" />
+          {/* input, textarea 컴포넌트는 추후 @ahhachul/ui에서 제작한 다음 붙이도록 할게요 ☺️ */}
+          <input
+            placeholder="재목을 입력하세요(40자 이내)"
+            {...register('title', {
+              required: '제목을 입력하세요',
+            })}
+          />
         </S.Title>
         <S.Content>
           <S.FieldName>내용</S.FieldName>
-          <textarea placeholder="게시물 내용을 작성하세요" />
+          {/* input, textarea 컴포넌트는 추후 @ahhachul/ui에서 제작한 다음 붙이도록 할게요 ☺️ */}
+          <textarea
+            placeholder="게시물 내용을 작성하세요"
+            {...register('content', {
+              required: '내용을 입력하세요',
+            })}
+          />
         </S.Content>
       </S.FormSection>
       <S.Rules>
@@ -36,7 +50,7 @@ function CommunityGeneratePageContainer() {
       </S.Rules>
 
       <S.StickyArea>
-        <Button label="작성하기" size="md" variant="primary" type="button" />
+        <Button label="작성하기" size="md" variant="primary" type="button" onClick={handleClickSubmit} />
       </S.StickyArea>
     </S.Container>
   )
