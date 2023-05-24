@@ -1,6 +1,13 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
+export const ColorGroup = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(121px, 1fr));
+  grid-auto-rows: max-content;
+  gap: 16px;
+`
+
 export const ColorBox = styled.div`
   display: grid;
   grid-template-rows: 1fr max-content;

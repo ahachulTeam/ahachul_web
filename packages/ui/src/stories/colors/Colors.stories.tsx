@@ -3,18 +3,13 @@ import styled from '@emotion/styled'
 
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { ColorBox } from './ColorBox'
+import { ColorGroup, type Color } from './ColorGroup'
 
 const meta: Meta = {
   title: 'Foundation/Colors',
 }
 
 export default meta
-
-interface Color {
-  label: string
-  hex: string
-}
 
 const palette = Object.entries(colors).reduce((acc, [key, value]) => {
   if (typeof value === 'object') {
@@ -24,21 +19,42 @@ const palette = Object.entries(colors).reduce((acc, [key, value]) => {
   return [...acc, { label: key, hex: value }]
 }, [] as Color[])
 
-const ColorPalette = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(121px, 1fr));
-  grid-auto-rows: max-content;
-  gap: 16px;
-`
+const filterGroup = (filters: string[]) =>
+  palette.filter(({ label }) => filters.some(filter => label.indexOf(filter) === 0))
 
-type Story = StoryObj<typeof ColorBox>
+type Story = StoryObj<typeof ColorGroup>
+
+const Group = styled.div`
+  &:not(:last-of-type) {
+    margin-bottom: 24px;
+  }
+
+  & > h3 {
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+`
 
 export const Default: Story = {
   render: () => (
-    <ColorPalette>
-      {palette.map(color => (
-        <ColorBox key={color.label} label={color.label} hex={color.hex} />
-      ))}
-    </ColorPalette>
+    <>
+      <Group>
+        <h3>Primary Color</h3>
+        <ColorGroup group={filterGroup(['primary'])} />
+      </Group>
+      <Group>
+        <h3>Secondary Color</h3>
+        <ColorGroup group={filterGroup(['secondary'])} />
+      </Group>
+      <Group>
+        <h3>Subway Color</h3>
+        <ColorGroup group={filterGroup(['subway'])} />
+      </Group>
+      <Group>
+        <h3>Gray Scale</h3>
+        <ColorGroup group={filterGroup(['white', 'black', 'gray'])} />
+      </Group>
+    </>
   ),
 }
