@@ -18,9 +18,7 @@ function CommunityPageContainer() {
         <HashtagList />
       </S.HashtagSection>
       <S.Divider />
-      <S.ListSection>
-        <ArticleList />
-      </S.ListSection>
+      <ArticleList />
     </S.Container>
   )
 }
