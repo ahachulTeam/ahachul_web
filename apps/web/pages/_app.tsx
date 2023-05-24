@@ -19,7 +19,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
 }: AppLayoutProps) => {
   const router = useRouter()
 
-  const getLayout = Component.getLayout ?? ((page: ReactElement) => page)
+  const useLayout = Component.useLayout ?? ((page: ReactElement) => page)
 
   useEffect(() => {
     const handleRouteStart = () => NProgress.start()
@@ -38,7 +38,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
   return (
     <AppProvider>
       <Toast />
-      {getLayout(<Component {...pageProps} />)}
+      {useLayout(<Component {...pageProps} />)}
     </AppProvider>
   )
 }

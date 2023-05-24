@@ -6,6 +6,6 @@ export default function OnBoardingPage() {
   return <OnboardingPageContainer />
 }
 
-OnBoardingPage.getLayout = function getLayout(page: ReactElement) {
+OnBoardingPage.useLayout = function useLayout(page: ReactElement) {
   return <Layout>{page}</Layout>
 }

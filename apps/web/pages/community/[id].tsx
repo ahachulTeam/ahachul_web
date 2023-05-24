@@ -1,27 +1,35 @@
-import { GetServerSideProps } from 'next'
+import { useRouter } from 'next/router'
 import { ReactElement } from 'react'
 
 import { ARTICLE_DETAIL_DUMMY_LIST } from '@/assets/dummy/community'
-import { Layout } from '@/components'
 import { CommunityDetailPageContainer } from '@/components/domain/community'
-import { CommunityDetailModel } from '@/types/community'
+import { Header, Layout } from '@/components/layout'
+import { communityDetailHeader } from '@/constants/header'
 
-interface CommunityDetailPageProps {
-  data?: CommunityDetailModel
+export default function CommunityDetailPage() {
+  return <CommunityDetailPageContainer data={ARTICLE_DETAIL_DUMMY_LIST} />
 }
 
-export default function CommunityDetailPage({ data = {} as CommunityDetailModel }: CommunityDetailPageProps) {
-  return <CommunityDetailPageContainer data={data} />
-}
+CommunityDetailPage.useLayout = function useLayout(page: ReactElement) {
+  const router = useRouter()
 
-CommunityDetailPage.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>
-}
+  const pushShallowRouter = (path: string) => router.push(path, undefined, { shallow: true })
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  return {
-    props: {
-      data: ARTICLE_DETAIL_DUMMY_LIST,
-    },
-  }
+  const onGoBackBtnClick = () => pushShallowRouter('/')
+  const onShareBtnClick = () => pushShallowRouter('/my-page')
+  const onHamburgerBtnClick = () => pushShallowRouter('/alarm')
+
+  const getHeaderProps = () => ({
+    title: '자유게시판',
+    onGoBackBtnClick,
+    onShareBtnClick,
+    onHamburgerBtnClick,
+  })
+
+  return (
+    <>
+      <Header {...communityDetailHeader({ ...getHeaderProps() })} />
+      <Layout>{page}</Layout>
+    </>
+  )
 }

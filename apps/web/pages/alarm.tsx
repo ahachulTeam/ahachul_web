@@ -1,12 +1,11 @@
 import { useRouter } from 'next/router'
 import React, { ReactElement } from 'react'
 
-import { MyPageContainer } from '@/components'
 import { Header, Layout } from '@/components/layout'
-import { myPageHeader } from '@/constants/header'
+import { alarmHeader } from '@/constants/header'
 
 export default function MyPage() {
-  return <MyPageContainer />
+  return <div>alarm page</div>
 }
 
 MyPage.useLayout = function useLayout(page: ReactElement) {
@@ -24,7 +23,7 @@ MyPage.useLayout = function useLayout(page: ReactElement) {
 
   return (
     <>
-      <Header {...myPageHeader({ ...getHeaderProps() })} />
+      <Header {...alarmHeader({ ...getHeaderProps() })} />
       <Layout>{page}</Layout>
     </>
   )

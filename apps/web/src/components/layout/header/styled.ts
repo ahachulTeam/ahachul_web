@@ -8,15 +8,10 @@ export const Header = styled.header`
     left: 0;
     width: 100%;
     height: ${theme.size.header.height};
-    max-height: 0;
     background-color: ${theme.colors.white};
     overflow: hidden;
     transition: max-height 500ms cubic-bezier(0.43, 0.03, 0.15, 0.95);
     z-index: ${theme.zIndex.header};
-
-    &[data-show='true'] {
-      max-height: ${theme.size.header.height};
-    }
   `}
 `
 
