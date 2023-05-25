@@ -16,7 +16,7 @@ interface Props extends ComponentProps<typeof MotionPortal> {
   onClose: () => void
 }
 
-function SearchDrawer({ isMounted, mode, onClose }: Props) {
+export const SearchDrawer = ({ isMounted, mode, onClose }: Props) => {
   const recentKeywordRef = useRef<HTMLUListElement>(null)
 
   const {
@@ -93,5 +93,3 @@ function SearchDrawer({ isMounted, mode, onClose }: Props) {
     </MotionPortal>
   )
 }
-
-export default SearchDrawer

@@ -1,9 +1,7 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { ReactElement } from 'react'
 
-import { Header, Layout } from '@/components/layout'
-import { notFoundHeader } from '@/constants/header'
+import { Layout } from '@/components/layout'
 
 export default function NotFound() {
   return (
@@ -14,21 +12,6 @@ export default function NotFound() {
   )
 }
 
-NotFound.useLayout = function useLayout(page: ReactElement) {
-  const router = useRouter()
-
-  const pushShallowRouter = (path: string) => router.push(path, undefined, { shallow: true })
-
-  const onGoBackBtnClick = () => pushShallowRouter('/')
-
-  const getHeaderProps = () => ({
-    onGoBackBtnClick,
-  })
-
-  return (
-    <>
-      <Header {...notFoundHeader({ ...getHeaderProps() })} />
-      <Layout>{page}</Layout>
-    </>
-  )
+NotFound.getLayout = function getLayout(page: ReactElement) {
+  return <Layout>{page}</Layout>
 }

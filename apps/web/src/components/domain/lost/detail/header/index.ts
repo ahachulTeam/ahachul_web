@@ -1,1 +1,1 @@
-export * from './LostHeader'
+export * from './LostDetailHeader'

@@ -4,7 +4,7 @@ import { Navbar } from './navbar'
 import * as S from './styled'
 
 interface LayoutProps {
-  Header: React.ReactElement
+  Header?: React.ReactElement
 }
 
 export default function Layout({ children, Header }: PropsWithChildren<LayoutProps>) {

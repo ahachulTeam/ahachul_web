@@ -29,25 +29,25 @@ export const Container = styled.div`
   `}
 `
 
-export const Box = styled.div`
+export const LeftIcon = styled.div`
+  all: unset;
+  cursor: pointer;
+`
+
+export const RightIcons = styled.div`
   display: flex;
   align-items: center;
   column-gap: 6px;
   height: 100%;
 `
 
-export const MenuBtn = styled.button`
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
+export const Title = styled.h2`
+  ${({ theme }) => css`
+    ${theme.fonts.bold20};
+  `}
+`
 
-  & > img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+export const IconBtn = styled.button`
+  all: unset;
+  cursor: pointer;
 `
