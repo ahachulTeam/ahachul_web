@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 
 import { MainPageContainer } from '@/components'
 import { HomeHeader } from '@/components/domain/home'

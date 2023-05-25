@@ -8,13 +8,14 @@ import { StaticSEO } from '@/constants'
 interface HeaderProps {
   hasGoBack?: boolean
   title?: string
+  goBackToHome?: boolean
 }
 
 interface HeaderBtnProps {
   onClick: () => void
 }
 
-function Header({ hasGoBack = false, title = '', children }: PropsWithChildren<HeaderProps>) {
+function Header({ hasGoBack = false, title = '', goBackToHome = false, children }: PropsWithChildren<HeaderProps>) {
   const router = useRouter()
   const goBack = useCallback(() => router.back(), [router])
   const goHome = useCallback(() => {
@@ -29,7 +30,7 @@ function Header({ hasGoBack = false, title = '', children }: PropsWithChildren<H
       <S.Container>
         <A11yHeading>{StaticSEO.main.sitename}</A11yHeading>
         <S.LeftIcon>
-          {hasGoBack && <Header.GoBack onClick={goBack} />}
+          {hasGoBack && <Header.GoBack onClick={goBackToHome ? goHome : goBack} />}
           {!hasGoBack && <Header.Logo onClick={goHome} />}
         </S.LeftIcon>
         {title && <S.Title>{title}</S.Title>}

@@ -2,7 +2,7 @@
 import type { AppContext, AppInitialProps, AppLayoutProps } from 'next/app'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import { NextComponentType } from 'next/types'
+import { type NextComponentType } from 'next/types'
 import NProgress from 'nprogress'
 import { ReactElement, useEffect } from 'react'
 

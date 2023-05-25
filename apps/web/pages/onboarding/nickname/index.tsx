@@ -1,5 +1,5 @@
 import { type ReactElement } from 'react'
-import { NicknamePageContainer } from '@/components'
+import { NicknameHeader, NicknamePageContainer } from '@/components'
 import { Layout } from '@/components/layout'
 
 export default function NicknamePage() {
@@ -7,5 +7,5 @@ export default function NicknamePage() {
 }
 
 NicknamePage.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>
+  return <Layout Header={<NicknameHeader />}>{page}</Layout>
 }
