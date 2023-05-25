@@ -1,7 +1,5 @@
 import { NicknamePageContainer } from '@/components'
 
-function NicknamePage() {
+export default function NicknamePage() {
   return <NicknamePageContainer />
 }
-
-export default NicknamePage
