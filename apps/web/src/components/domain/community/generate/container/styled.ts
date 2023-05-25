@@ -62,6 +62,7 @@ export const FieldName = styled.p`
     height: 30px;
   `}
 `
+
 export const StickyArea = styled.div`
   ${({ theme }) => css`
     position: sticky;
@@ -75,6 +76,45 @@ export const StickyArea = styled.div`
 
     & > button {
       width: 100%;
+    }
+  `}
+`
+
+export const Input = styled.input`
+  ${({ theme }) => css`
+    ${theme.fonts.regular14};
+    height: 44px;
+    border: 1px solid ${theme.colors.gray_19};
+    border-radius: 110px;
+    padding-left: 25px;
+
+    &::placeholder {
+      color: ${theme.colors.gray_40};
+    }
+
+    &[aria-invalid='true'] {
+      border-color: ${theme.colors.red_10};
+    }
+  `}
+`
+
+export const Textarea = styled.textarea`
+  ${({ theme }) => css`
+    ${theme.fonts.regular14};
+    display: flex;
+    align-items: center;
+    height: 44px;
+    border: 1px solid ${theme.colors.gray_19};
+    border-radius: 110px;
+    padding-left: 25px;
+    resize: none;
+
+    &::placeholder {
+      color: ${theme.colors.gray_40};
+    }
+
+    &[aria-invalid='true'] {
+      border-color: ${theme.colors.red_10};
     }
   `}
 `

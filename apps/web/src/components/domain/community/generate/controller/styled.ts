@@ -37,6 +37,10 @@ export const TriggerBtn = styled.button`
         opacity: 0;
       }
     }
+
+    &[aria-invalid='true'] {
+      border-color: ${theme.colors.red_10};
+    }
   `}
 `
 

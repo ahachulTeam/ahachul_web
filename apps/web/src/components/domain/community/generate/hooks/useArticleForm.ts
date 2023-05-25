@@ -12,9 +12,21 @@ export const useArticleForm = () => {
 
   const { mutate: createArticle } = useCreateArticle()
 
-  const { register, control, handleSubmit } = useForm<CreateArticleQueryModel>()
+  const methods = useForm<CreateArticleQueryModel>({
+    defaultValues: {
+      title: '',
+      content: '',
+      images: [],
+      subwayLineId: '',
+      categoryType: 'FREE',
+    },
+  })
 
   const handleCreate = (data: CreateArticleQueryModel) => {
+    if (!methods.getValues('subwayLineId')) {
+      return methods.setError('subwayLineId', { message: '호선을 선택해 주세요.' })
+    }
+
     createArticle(
       {
         title: data.title,
@@ -26,15 +38,22 @@ export const useArticleForm = () => {
       {
         onSuccess: () => {
           success('글을 생성했다.')
-          router.push(`${PATH.COMMUNITY}/?tab=free`, undefined, { shallow: true })
+          router.push(PATH.COMMUNITY, undefined, { shallow: true })
         },
       }
     )
   }
 
-  const handleError = (err: any) => console.error(err)
+  const handleError = (err: any) => {
+    if (!methods.getValues('subwayLineId')) {
+      console.log('asdsa')
+      return methods.setError('subwayLineId', { message: '호선을 선택해 주세요.' })
+    }
 
-  const handleClickSubmit = () => handleSubmit(handleCreate, handleError)()
+    console.error(err)
+  }
 
-  return { register, control, handleClickSubmit }
+  const handleClickSubmit = () => methods.handleSubmit(handleCreate, handleError)()
+
+  return { methods, errors: methods.formState.errors, handleClickSubmit }
 }

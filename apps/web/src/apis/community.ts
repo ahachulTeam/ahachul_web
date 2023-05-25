@@ -13,8 +13,8 @@ const communityApi = {
       return await ax.post('/v1/community-posts', {
         title: req.title,
         content: req.content,
+        subwayLineId: req.subwayLineId,
         categoryType: req.categoryType || 'FREE',
-        subwayLineId: req.subwayLineId || 64,
         // images: [],
       })
     } catch (error) {

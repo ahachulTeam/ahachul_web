@@ -1,42 +1,47 @@
 import { Button } from '@ahhachul/ui'
+import { FormProvider } from 'react-hook-form'
 import { SubwayLineFilter } from '../controller'
 import { useArticleForm } from '../hooks/useArticleForm'
 import * as S from './styled'
 
 function CommunityGeneratePageContainer() {
-  const { control, register, handleClickSubmit } = useArticleForm()
+  const { methods, errors, handleClickSubmit } = useArticleForm()
 
   return (
     <S.Container>
       <S.PhotoSection>
         <S.FieldName>사진 업로드</S.FieldName>
       </S.PhotoSection>
-      <S.FormSection>
-        <S.Line>
-          <S.FieldName>호선</S.FieldName>
-          <SubwayLineFilter control={control} />
-        </S.Line>
-        <S.Title>
-          <S.FieldName>제목</S.FieldName>
-          {/* input, textarea 컴포넌트는 추후 @ahhachul/ui에서 제작한 다음 붙이도록 할게요 ☺️ */}
-          <input
-            placeholder="재목을 입력하세요(40자 이내)"
-            {...register('title', {
-              required: '제목을 입력하세요',
-            })}
-          />
-        </S.Title>
-        <S.Content>
-          <S.FieldName>내용</S.FieldName>
-          {/* input, textarea 컴포넌트는 추후 @ahhachul/ui에서 제작한 다음 붙이도록 할게요 ☺️ */}
-          <textarea
-            placeholder="게시물 내용을 작성하세요"
-            {...register('content', {
-              required: '내용을 입력하세요',
-            })}
-          />
-        </S.Content>
-      </S.FormSection>
+
+      <FormProvider {...methods}>
+        <S.FormSection>
+          <S.Line>
+            <S.FieldName>호선</S.FieldName>
+            <SubwayLineFilter />
+          </S.Line>
+          <S.Title>
+            <S.FieldName>제목</S.FieldName>
+            <S.Input
+              placeholder="제목을 입력하세요 (40자 이내)"
+              aria-invalid={Boolean(errors?.title?.message)}
+              {...methods.register('title', {
+                required: '제목을 입력하세요',
+              })}
+            />
+          </S.Title>
+          <S.Content>
+            <S.FieldName>내용</S.FieldName>
+            <S.Textarea
+              placeholder="게시물 내용을 작성하세요"
+              aria-invalid={Boolean(errors?.content?.message)}
+              {...methods.register('content', {
+                required: '내용을 입력하세요',
+              })}
+            />
+          </S.Content>
+        </S.FormSection>
+      </FormProvider>
+
       <S.Rules>
         <Button label="게시물 이용규칙" size="xs" variant="secondary" />
         <p>

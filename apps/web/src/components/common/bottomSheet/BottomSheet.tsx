@@ -63,6 +63,7 @@ function BottomSheet(
     <MotionPortal isMounted={isOpen}>
       <S.Dim>
         <S.BottomSheet
+          id={id}
           ref={ref}
           open={isOpen}
           data-status={isShow}
