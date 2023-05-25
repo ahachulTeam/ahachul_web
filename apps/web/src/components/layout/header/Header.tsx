@@ -15,7 +15,7 @@ interface HeaderBtnProps {
   onClick: () => void
 }
 
-function Header({ hasGoBack = false, title = '', goBackToHome = false, children }: PropsWithChildren<HeaderProps>) {
+function HeaderMain({ hasGoBack = false, title = '', goBackToHome = false, children }: PropsWithChildren<HeaderProps>) {
   const router = useRouter()
   const goBack = useCallback(() => router.back(), [router])
   const goHome = useCallback(() => {
@@ -40,9 +40,7 @@ function Header({ hasGoBack = false, title = '', goBackToHome = false, children 
   )
 }
 
-export default Header
-
-Header.GoBack = function GoBack({ onClick }: HeaderBtnProps) {
+function GoBack({ onClick }: HeaderBtnProps) {
   return (
     <S.IconBtn onClick={onClick}>
       <ArrowIcon />
@@ -50,7 +48,7 @@ Header.GoBack = function GoBack({ onClick }: HeaderBtnProps) {
   )
 }
 
-Header.Logo = function Logo({ onClick }: HeaderBtnProps) {
+function Logo({ onClick }: HeaderBtnProps) {
   return (
     <S.IconBtn aria-label="아하철 홈" onClick={onClick}>
       <b>AhHa</b>chul
@@ -58,7 +56,7 @@ Header.Logo = function Logo({ onClick }: HeaderBtnProps) {
   )
 }
 
-Header.Share = function Share({ onClick }: HeaderBtnProps) {
+function Share({ onClick }: HeaderBtnProps) {
   return (
     <S.IconBtn onClick={onClick}>
       <ShareIcon />
@@ -66,7 +64,7 @@ Header.Share = function Share({ onClick }: HeaderBtnProps) {
   )
 }
 
-Header.TempSave = function TempSave({ onClick }: HeaderBtnProps) {
+function TempSave({ onClick }: HeaderBtnProps) {
   return (
     <S.IconBtn type="button" onClick={onClick}>
       임시저장
@@ -74,7 +72,7 @@ Header.TempSave = function TempSave({ onClick }: HeaderBtnProps) {
   )
 }
 
-Header.Alarm = function Alarm({ onClick }: HeaderBtnProps) {
+function Alarm({ onClick }: HeaderBtnProps) {
   return (
     <S.IconBtn onClick={onClick}>
       <KenllIcon />
@@ -82,7 +80,7 @@ Header.Alarm = function Alarm({ onClick }: HeaderBtnProps) {
   )
 }
 
-Header.Search = function Search({ onClick }: HeaderBtnProps) {
+function Search({ onClick }: HeaderBtnProps) {
   return (
     <S.IconBtn onClick={onClick}>
       <SearchIcon />
@@ -90,10 +88,20 @@ Header.Search = function Search({ onClick }: HeaderBtnProps) {
   )
 }
 
-Header.MiniHamburger = function MiniHamburger({ onClick }: HeaderBtnProps) {
+function MiniHamburger({ onClick }: HeaderBtnProps) {
   return (
     <S.IconBtn onClick={onClick}>
       <MiniHamburgerIcon />
     </S.IconBtn>
   )
 }
+
+export const Header = Object.assign(HeaderMain, {
+  GoBack,
+  Logo,
+  Share,
+  TempSave,
+  Alarm,
+  Search,
+  MiniHamburger,
+})
