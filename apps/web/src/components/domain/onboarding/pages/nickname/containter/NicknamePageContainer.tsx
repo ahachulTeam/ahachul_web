@@ -10,7 +10,7 @@ import { useVerifyNickname } from '@/queries/user/useVerifyNickname'
 function NicknamePageContainer() {
   const [checkCnt, setCheckCnt] = useState(0)
   const [nickname, setNickname] = useState<string>('')
-  const [nicknameStatus, setNicknameStatus] = useState<boolean | null>(null)
+  const [nicknameStatus, setNicknameStatus] = useState<boolean | undefined>(undefined)
 
   const { data, isLoading, mutate: verifyNicknameMutate } = useVerifyNickname()
   const { mutate: updateMyProfileMutate } = useMyProfileMutation()
@@ -41,8 +41,14 @@ function NicknamePageContainer() {
       <Stagger>
         <S.Title>닉네임을 설정해 주세요</S.Title>
         <form onSubmit={handleSubmitNickname} css={S.formCss}>
-          <S.Input type="text" value={nickname} data-isvalid={nicknameStatus} onChange={handleNicknameInputChange} />
-          <S.BtnGroup>
+          <S.Input
+            type="text"
+            value={nickname}
+            aria-invalid={nicknameStatus}
+            aria-errormessage="nickname-duplicated-error-id"
+            onChange={handleNicknameInputChange}
+          />
+          <S.FlexGroup>
             <Button
               css={S.btnCss}
               type="submit"
@@ -62,14 +68,16 @@ function NicknamePageContainer() {
                 onClick={handleSubmitNickname}
               />
             )}
-          </S.BtnGroup>
+          </S.FlexGroup>
         </form>
       </Stagger>
 
-      <S.BtnGroup>
+      <S.FlexGroup>
         {checkCnt > 0 && nicknameStatus === false && nicknameStatus !== null && (
           <Stagger>
-            <p style={{ color: 'red' }}>사용불가한 닉네임 입니다.</p>
+            <p style={{ color: 'red' }} id="nickname-duplicated-error-id" role="alert">
+              사용불가한 닉네임 입니다.
+            </p>
           </Stagger>
         )}
         {checkCnt > 0 && nicknameStatus && (
@@ -77,7 +85,7 @@ function NicknamePageContainer() {
             <p style={{ color: '#00BAF6' }}>사용가능한 닉네임 입니다.</p>
           </Stagger>
         )}
-      </S.BtnGroup>
+      </S.FlexGroup>
     </FullHeight>
   )
 }

@@ -16,16 +16,16 @@ export const Input = styled.input`
   border-radius: 8px;
   padding: 2px 16px;
 
-  &[data-isvalid='true'] {
+  &[aria-invalid='true'] {
     border-color: #00baf6;
   }
 
-  &[data-isvalid='false'] {
+  &[aria-invalid='false'] {
     border-color: red;
   }
 `
 
-export const BtnGroup = styled.div`
+export const FlexGroup = styled.div`
   display: flex;
   gap: 10px;
   width: 100%;
