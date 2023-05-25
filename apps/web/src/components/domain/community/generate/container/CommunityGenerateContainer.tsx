@@ -1,9 +1,10 @@
 import { Button } from '@ahhachul/ui'
+import { SubwayLineFilter } from '../controller'
 import { useArticleForm } from '../hooks/useArticleForm'
 import * as S from './styled'
 
 function CommunityGeneratePageContainer() {
-  const { register, handleClickSubmit } = useArticleForm()
+  const { control, register, handleClickSubmit } = useArticleForm()
 
   return (
     <S.Container>
@@ -13,7 +14,7 @@ function CommunityGeneratePageContainer() {
       <S.FormSection>
         <S.Line>
           <S.FieldName>호선</S.FieldName>
-          <button type="button">어디서 일어난 일인가요?</button>
+          <SubwayLineFilter control={control} />
         </S.Line>
         <S.Title>
           <S.FieldName>제목</S.FieldName>

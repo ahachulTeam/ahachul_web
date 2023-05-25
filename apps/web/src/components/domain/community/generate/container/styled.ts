@@ -14,16 +14,22 @@ export const FormSection = styled.form`
   margin-bottom: 15px;
 `
 export const Line = styled.div`
+  margin-bottom: 15px;
+
   & > button {
     width: 100%;
   }
 `
 export const Title = styled.div`
+  margin-bottom: 15px;
+
   & > input {
     width: 100%;
   }
 `
 export const Content = styled.div`
+  margin-bottom: 15px;
+
   & > textarea {
     width: 100%;
   }
@@ -50,9 +56,10 @@ export const Rules = styled.div`
   `}
 `
 
-export const FieldName = styled.span`
+export const FieldName = styled.p`
   ${({ theme }) => css`
-    ${theme.fonts.medium14};
+    ${theme.fonts.semibold14};
+    height: 30px;
   `}
 `
 export const StickyArea = styled.div`

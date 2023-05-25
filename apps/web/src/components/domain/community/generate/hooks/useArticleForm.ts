@@ -12,7 +12,7 @@ export const useArticleForm = () => {
 
   const { mutate: createArticle } = useCreateArticle()
 
-  const { register, handleSubmit } = useForm<CreateArticleQueryModel>()
+  const { register, control, handleSubmit } = useForm<CreateArticleQueryModel>()
 
   const handleCreate = (data: CreateArticleQueryModel) => {
     createArticle(
@@ -36,5 +36,5 @@ export const useArticleForm = () => {
 
   const handleClickSubmit = () => handleSubmit(handleCreate, handleError)()
 
-  return { register, handleClickSubmit }
+  return { register, control, handleClickSubmit }
 }
