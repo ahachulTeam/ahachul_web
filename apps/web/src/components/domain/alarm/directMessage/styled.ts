@@ -28,33 +28,38 @@ export const Alarm = styled.li`
 
   & > article {
     width: 100%;
-    padding: 18px 15px;
+    padding: 17px 15px 19px 15px;
   }
 `
-export const AlarmTitle = styled.span`
+export const Nickname = styled.span`
   ${({ theme }) => css`
     ${theme.fonts.medium16};
+    margin-bottom: 8px;
     color: ${theme.colors.black};
   `}
 `
+
+export const Content = styled.p`
+  ${({ theme }) => css`
+    ${theme.fonts.regular14};
+    max-width: 74%;
+    margin-bottom: 4px;
+    color: ${theme.colors.black};
+  `}
+`
+
 export const Flex = styled.span`
   display: flex;
 `
 export const Category = styled.span`
   ${({ theme }) => css`
-    ${theme.fonts.regular14};
+    ${theme.fonts.regular12};
     width: max-content;
-    color: ${theme.colors.black};
+    color: ${theme.colors.gray_45};
     margin-right: 2px;
   `}
 `
-export const DetailInfo = styled.span`
-  ${({ theme }) => css`
-    ${theme.fonts.regular14};
-    width: max-content;
-    color: ${theme.colors.black};
-  `}
-`
+
 export const Time = styled.span`
   ${({ theme }) => css`
     ${theme.fonts.regular12};

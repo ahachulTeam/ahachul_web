@@ -7,7 +7,7 @@ export const HomeHeader = () => {
 
   return (
     <Header>
-      <Header.Alarm onClick={pushShallowRouter(PATH.ALARM)} />
+      <Header.Alarm onClick={pushShallowRouter(`${PATH.ALARM}?category=all`)} />
     </Header>
   )
 }

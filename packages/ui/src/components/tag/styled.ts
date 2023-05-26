@@ -21,13 +21,13 @@ export const Tag = styled.button<TagBtnProps>`
     ${variant === 'outline' && outlineTag(theme)};
     ${variant === 'ghost' && ghostTag(theme)};
     ${variant === 'similarDisabledButNotDisabled' && similarDisabledButNotDisabledTag(theme)};
-
+    /* 
     &:disabled {
       color: ${theme.colors.gray_55};
       background-color: ${theme.colors.gray_18};
-    }
+    } */
 
-    &[aria-] & > span {
+    & > span {
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;

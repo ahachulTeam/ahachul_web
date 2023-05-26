@@ -10,6 +10,9 @@ export const size = {
   bottomNavbar: {
     height: '60px',
   },
+  tab: {
+    height: '40px',
+  },
   footer: {
     height_d: '322px',
     height_t: '348px',
