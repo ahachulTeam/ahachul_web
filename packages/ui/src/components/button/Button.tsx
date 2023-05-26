@@ -5,7 +5,7 @@ import * as S from './styled'
 export type ButtonSize = 'xs' | 'sm' | 'smd' | 'md' | 'lg'
 export type ButtonVariant = 'primary' | 'secondary'
 
-interface ButtonProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'dangerouslySetInnerHTML'> {
+interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   type?: 'button' | 'submit' | 'reset'
   size: ButtonSize
   variant: ButtonVariant

@@ -2,7 +2,7 @@ import React, { useRef, type InputHTMLAttributes } from 'react'
 
 import * as S from './styled'
 
-export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'dangerouslySetInnerHTML'> {
+export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
   className?: string
 }

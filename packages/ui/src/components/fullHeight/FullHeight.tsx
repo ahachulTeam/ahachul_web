@@ -4,7 +4,7 @@ import { HTMLAttributes, ReactNode, useEffect, useLayoutEffect, useState } from 
 
 const useIsomorphicLayoutEffect = isServer() ? useEffect : useLayoutEffect
 
-interface FullHeightProps extends Omit<HTMLAttributes<HTMLDivElement>, 'dangerouslySetInnerHTML'> {
+interface FullHeightProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode
 }
 

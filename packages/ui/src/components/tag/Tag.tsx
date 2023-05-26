@@ -3,7 +3,7 @@ import React, { HTMLAttributes } from 'react'
 import * as S from './styled'
 import { TagVariant } from './type'
 
-interface TagProps extends Omit<HTMLAttributes<HTMLButtonElement>, 'dangerouslySetInnerHTML'> {
+interface TagProps extends HTMLAttributes<HTMLButtonElement> {
   className?: string
   label: string
   variant?: TagVariant
