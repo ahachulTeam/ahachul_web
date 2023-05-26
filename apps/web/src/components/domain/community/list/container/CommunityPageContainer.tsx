@@ -6,7 +6,7 @@ import { COMMUNITY_TABS } from '@/assets/static/tab'
 import { StaticSEO } from '@/constants/seo'
 import useTab from '@/hooks/useTab'
 
-function CommunityPageContainer() {
+export const CommunityPageContainer = () => {
   const { selectedTab, handleChangeTab } = useTab(COMMUNITY_TABS)
   return (
     <S.Container>
@@ -24,5 +24,3 @@ function CommunityPageContainer() {
     </S.Container>
   )
 }
-
-export default CommunityPageContainer

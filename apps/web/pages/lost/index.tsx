@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 
-import { LostContainer } from '@/components/domain'
+import { LostContainer, LostHeader } from '@/components/domain'
 import { Layout } from '@/components/layout'
 
 export default function LostPage() {
@@ -8,5 +8,5 @@ export default function LostPage() {
 }
 
 LostPage.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>
+  return <Layout Header={<LostHeader />}>{page}</Layout>
 }

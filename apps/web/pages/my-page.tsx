@@ -1,6 +1,7 @@
 import React, { type ReactElement } from 'react'
 
-import { Layout, MyPageContainer } from '@/components'
+import { MyPageContainer } from '@/components'
+import { Layout } from '@/components/layout'
 
 export default function MyPage() {
   return <MyPageContainer />

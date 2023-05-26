@@ -8,7 +8,7 @@ interface CommunityDetailPageContainerProps {
   data: CommunityDetailModel
 }
 
-function CommunityDetailPageContainer({ data }: CommunityDetailPageContainerProps) {
+export const CommunityDetailPageContainer = ({ data }: CommunityDetailPageContainerProps) => {
   const [value] = useBoolean(Boolean(data))
 
   console.log('isDetailInfo ?', value)
@@ -25,5 +25,3 @@ function CommunityDetailPageContainer({ data }: CommunityDetailPageContainerProp
     </S.Container>
   )
 }
-
-export default CommunityDetailPageContainer

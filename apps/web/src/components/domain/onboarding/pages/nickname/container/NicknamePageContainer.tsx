@@ -7,7 +7,7 @@ import { useToast } from '@/hooks'
 import useMyProfileMutation from '@/queries/user/useMyProfileMutation'
 import { useVerifyNickname } from '@/queries/user/useVerifyNickname'
 
-function NicknamePageContainer() {
+export const NicknamePageContainer = () => {
   const [checkCnt, setCheckCnt] = useState(0)
   const [nickname, setNickname] = useState<string>('')
   const [nicknameStatus, setNicknameStatus] = useState<boolean | undefined>(undefined)
@@ -89,5 +89,3 @@ function NicknamePageContainer() {
     </FullHeight>
   )
 }
-
-export default NicknamePageContainer

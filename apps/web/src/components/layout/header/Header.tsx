@@ -1,53 +1,107 @@
-import { useDisclosure } from '@ahhachul/lib'
-import Image from 'next/image'
+import { A11yHeading } from '@ahhachul/ui'
 import { useRouter } from 'next/router'
-
-import defaultUserImg from 'public/illust/img/img_userDefault.png'
+import { PropsWithChildren, useCallback } from 'react'
 import * as S from './styled'
-import { KenllIcon, ProfileIcon, SearchIcon } from '@/assets/icons'
-import { LogoLink } from '@/components/common'
-import SearchDrawer from '@/components/common/drawer/search/SearchDrawer'
+import { ArrowIcon, KenllIcon, MiniHamburgerIcon, SearchIcon, ShareIcon } from '@/assets/icons'
+import { StaticSEO } from '@/constants'
 
-// import { useAuth } from "@/context";
+interface HeaderProps {
+  hasGoBack?: boolean
+  title?: string
+  goBackToHome?: boolean
+}
 
-function Header() {
-  const { pathname } = useRouter()
-  const isAuthed = false
-  // const { isAuthed, initializing } = useAuth();
-  const { isOpen, onOpen, onClose } = useDisclosure()
+interface HeaderBtnProps {
+  onClick: () => void
+}
 
-  const isCummunity = true
+function HeaderMain({ hasGoBack = false, title = '', goBackToHome = false, children }: PropsWithChildren<HeaderProps>) {
+  const router = useRouter()
+  const goBack = useCallback(() => router.back(), [router])
+  const goHome = useCallback(() => {
+    const { pathname } = router
+    if (pathname !== '/') {
+      return router.push('/', undefined, { shallow: true })
+    }
+  }, [router])
 
   return (
-    <S.Header data-show={pathname !== '/onboarding'}>
+    <S.Header>
       <S.Container>
-        <LogoLink />
-        <S.Box>
-          <>
-            {isCummunity ? (
-              <S.MenuBtn onClick={onOpen}>
-                <SearchIcon />
-              </S.MenuBtn>
-            ) : (
-              <>
-                {isAuthed ? (
-                  <S.MenuBtn>
-                    <ProfileIcon />
-                  </S.MenuBtn>
-                ) : (
-                  <Image src={defaultUserImg} alt="내 프로필 보기 버튼" width={24} height={24} priority />
-                )}
-              </>
-            )}
-          </>
-          <S.MenuBtn aria-label="내 알람 보기 버튼">
-            <KenllIcon />
-          </S.MenuBtn>
-        </S.Box>
-        <SearchDrawer isMounted={isOpen} onClose={onClose} />
+        <A11yHeading>{StaticSEO.main.sitename}</A11yHeading>
+        <S.LeftIcon>
+          {hasGoBack && <Header.GoBack onClick={goBackToHome ? goHome : goBack} />}
+          {!hasGoBack && <Header.Logo onClick={goHome} />}
+        </S.LeftIcon>
+        {title && <S.Title>{title}</S.Title>}
+        <S.RightIcons>{children}</S.RightIcons>
       </S.Container>
     </S.Header>
   )
 }
 
-export default Header
+function GoBack({ onClick }: HeaderBtnProps) {
+  return (
+    <S.IconBtn onClick={onClick}>
+      <ArrowIcon />
+    </S.IconBtn>
+  )
+}
+
+function Logo({ onClick }: HeaderBtnProps) {
+  return (
+    <S.IconBtn aria-label="아하철 홈" onClick={onClick}>
+      <b>AhHa</b>chul
+    </S.IconBtn>
+  )
+}
+
+function Share({ onClick }: HeaderBtnProps) {
+  return (
+    <S.IconBtn onClick={onClick}>
+      <ShareIcon />
+    </S.IconBtn>
+  )
+}
+
+function TempSave({ onClick }: HeaderBtnProps) {
+  return (
+    <S.IconBtn type="button" onClick={onClick}>
+      임시저장
+    </S.IconBtn>
+  )
+}
+
+function Alarm({ onClick }: HeaderBtnProps) {
+  return (
+    <S.IconBtn onClick={onClick}>
+      <KenllIcon />
+    </S.IconBtn>
+  )
+}
+
+function Search({ onClick }: HeaderBtnProps) {
+  return (
+    <S.IconBtn onClick={onClick}>
+      <SearchIcon />
+    </S.IconBtn>
+  )
+}
+
+function MiniHamburger({ onClick }: HeaderBtnProps) {
+  return (
+    <S.IconBtn onClick={onClick}>
+      <MiniHamburgerIcon />
+    </S.IconBtn>
+  )
+}
+
+export const Header = Object.assign(HeaderMain, {
+  GoBack,
+  Logo,
+  Share,
+  TempSave,
+  Alarm,
+  Search,
+  MiniHamburger,
+})

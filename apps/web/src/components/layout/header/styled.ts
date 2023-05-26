@@ -8,15 +8,10 @@ export const Header = styled.header`
     left: 0;
     width: 100%;
     height: ${theme.size.header.height};
-    max-height: 0;
     background-color: ${theme.colors.white};
     overflow: hidden;
     transition: max-height 500ms cubic-bezier(0.43, 0.03, 0.15, 0.95);
     z-index: ${theme.zIndex.header};
-
-    &[data-show='true'] {
-      max-height: ${theme.size.header.height};
-    }
   `}
 `
 
@@ -34,25 +29,25 @@ export const Container = styled.div`
   `}
 `
 
-export const Box = styled.div`
+export const LeftIcon = styled.div`
+  all: unset;
+  cursor: pointer;
+`
+
+export const RightIcons = styled.div`
   display: flex;
   align-items: center;
   column-gap: 6px;
   height: 100%;
 `
 
-export const MenuBtn = styled.button`
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
+export const Title = styled.h2`
+  ${({ theme }) => css`
+    ${theme.fonts.bold20};
+  `}
+`
 
-  & > img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+export const IconBtn = styled.button`
+  all: unset;
+  cursor: pointer;
 `

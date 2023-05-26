@@ -1,6 +1,6 @@
 import { type ReactElement } from 'react'
 
-import { LostDetailContainer } from '@/components/domain'
+import { LostDetailContainer, LostDetailHeader } from '@/components/domain'
 import { Layout } from '@/components/layout'
 
 export default function LostDetailPage() {
@@ -8,5 +8,5 @@ export default function LostDetailPage() {
 }
 
 LostDetailPage.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>
+  return <Layout Header={<LostDetailHeader />}>{page}</Layout>
 }
