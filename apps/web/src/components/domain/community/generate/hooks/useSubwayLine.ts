@@ -8,6 +8,7 @@ export const useSubwayLine = (isOpen: boolean, onOpen: VoidFunction, onClose: Vo
     formState: { errors },
     setValue,
     getValues,
+    setError,
     clearErrors,
   } = useFormContext<CreateArticleQueryModel>()
 
@@ -30,12 +31,17 @@ export const useSubwayLine = (isOpen: boolean, onOpen: VoidFunction, onClose: Vo
   const handleCloseFilter = useCallback(() => {
     if (tempSelectedLine && isFilterSubmitClicked) {
       setValue('subwayLineId', tempSelectedLine)
+    }
+
+    if (!getValues('subwayLineId')) {
+      setError('subwayLineId', { message: '호선을 입력해주세요.' })
+      setValue('subwayLineId', '')
     } else {
-      setValue('subwayLineId', getValues('subwayLineId') ? getValues('subwayLineId') : '')
+      setValue('subwayLineId', getValues('subwayLineId'))
     }
 
     onClose()
-  }, [getValues, isFilterSubmitClicked, onClose, setValue, tempSelectedLine])
+  }, [getValues, isFilterSubmitClicked, onClose, setError, setValue, tempSelectedLine])
 
   useEffect(() => setTempSelectedLine(getValues('subwayLineId')), [isOpen, getValues])
 

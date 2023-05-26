@@ -13,6 +13,7 @@ export const useArticleForm = () => {
   const { mutate: createArticle } = useCreateArticle()
 
   const methods = useForm<CreateArticleQueryModel>({
+    mode: 'onBlur',
     defaultValues: {
       title: '',
       content: '',
@@ -46,7 +47,6 @@ export const useArticleForm = () => {
 
   const handleError = (err: any) => {
     if (!methods.getValues('subwayLineId')) {
-      console.log('asdsa')
       return methods.setError('subwayLineId', { message: '호선을 선택해 주세요.' })
     }
 
