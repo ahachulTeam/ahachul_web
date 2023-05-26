@@ -12,7 +12,7 @@ const useTab = (tabList: { [key: string]: string }) => {
   const handleChangeTab = useCallback(
     (tab: string) => () => {
       const query = { ...router.query }
-      router.push({ pathname: router.pathname, query: { ...query, tab } })
+      router.push({ pathname: router.pathname, query: { ...query, tab } }, undefined, { shallow: true })
     },
     []
   )
@@ -29,6 +29,7 @@ const useTab = (tabList: { [key: string]: string }) => {
   }, [selectedTab])
 
   return {
+    query,
     selectedTab,
     handleChangeTab,
   }

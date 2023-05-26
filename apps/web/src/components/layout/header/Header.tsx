@@ -72,6 +72,14 @@ function TempSave({ onClick }: HeaderBtnProps) {
   )
 }
 
+function Delete({ onClick }: HeaderBtnProps) {
+  return (
+    <S.IconBtn type="button" onClick={onClick}>
+      삭제
+    </S.IconBtn>
+  )
+}
+
 function Alarm({ onClick }: HeaderBtnProps) {
   return (
     <S.IconBtn onClick={onClick}>
@@ -101,6 +109,7 @@ export const Header = Object.assign(HeaderMain, {
   Logo,
   Share,
   TempSave,
+  Delete,
   Alarm,
   Search,
   MiniHamburger,

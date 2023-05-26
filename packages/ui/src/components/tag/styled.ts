@@ -20,8 +20,14 @@ export const Tag = styled.button<TagBtnProps>`
     ${variant === 'primary' && primaryTag(theme)};
     ${variant === 'outline' && outlineTag(theme)};
     ${variant === 'ghost' && ghostTag(theme)};
+    ${variant === 'similarDisabledButNotDisabled' && similarDisabledButNotDisabledTag(theme)};
 
-    & > span {
+    &:disabled {
+      color: ${theme.colors.gray_55};
+      background-color: ${theme.colors.gray_18};
+    }
+
+    &[aria-] & > span {
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
@@ -68,6 +74,13 @@ const ghostTag = (theme: Theme) => css`
       }
     }
   }
+`
+
+const similarDisabledButNotDisabledTag = (theme: Theme) => css`
+  height: 30px;
+  border-radius: 135px;
+  color: ${theme.colors.gray_55};
+  background-color: ${theme.colors.gray_18};
 `
 
 export const IconBtn = styled.button`

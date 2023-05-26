@@ -6,4 +6,5 @@ export const PATH = {
   COMMUNITY: '/community',
   LABS: '/onboarding',
   COMPLAINTS: '/complaints',
+  ALARM: '/alarm?category=all',
 }
