@@ -1,7 +1,7 @@
 import { useRef, useState, useCallback, useEffect } from 'react'
 
 export const useDisclosure = () => {
-  const dialoglRef = useRef<HTMLDialogElement>(null)
+  const dialogRef = useRef<HTMLDialogElement>(null)
   const openerRef = useRef<HTMLElement | null>(null)
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -9,7 +9,7 @@ export const useDisclosure = () => {
   const onOpen = useCallback((event?: React.MouseEvent<HTMLButtonElement>) => {
     event?.stopPropagation()
     setIsOpen(true)
-    setTimeout(() => dialoglRef.current?.focus())
+    setTimeout(() => dialogRef.current?.focus())
   }, [])
 
   const onClose = useCallback(() => {
@@ -34,7 +34,7 @@ export const useDisclosure = () => {
   }, [isOpen])
 
   return {
-    dialoglRef,
+    dialogRef,
     isOpen,
     onOpen,
     onClose,

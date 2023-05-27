@@ -1,9 +1,7 @@
-import { Button as FloatingBtn } from '@ahhachul/ui'
-import { Theme, css } from '@emotion/react'
 import { useRouter } from 'next/router'
 import { ReactElement } from 'react'
 
-import { CommunityHeader, CommunityPageContainer } from '@/components'
+import { CommunityHeader, CommunityPageContainer, FloatingButton } from '@/components'
 import { Layout } from '@/components/layout'
 
 export default function CommunityPage() {
@@ -13,14 +11,7 @@ export default function CommunityPage() {
   return (
     <>
       <CommunityPageContainer />
-      <FloatingBtn
-        css={floatCss}
-        size="md"
-        type="button"
-        variant="primary"
-        label="+ 게시물작성"
-        onClick={pushToArticleGeneratePage}
-      />
+      <FloatingButton label="+ 게시물작성" onClick={pushToArticleGeneratePage} />
     </>
   )
 }
@@ -28,12 +19,3 @@ export default function CommunityPage() {
 CommunityPage.getLayout = function getLayout(page: ReactElement) {
   return <Layout Header={<CommunityHeader />}>{page}</Layout>
 }
-
-const floatCss = (theme: Theme) => css`
-  position: sticky;
-  position: -webkit-sticky;
-  bottom: calc(${theme.size.bottomNavbar.height} + 37px);
-  left: calc(100% - 16px - 132px); // fixme
-  padding: 0 30px;
-  filter: drop-shadow(0px 6px 16px rgba(91, 91, 91, 0.25));
-`

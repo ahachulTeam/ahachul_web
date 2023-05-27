@@ -1,6 +1,11 @@
 import { css } from '@emotion/react'
 
 export const fonts = {
+  thin23: css`
+    font-size: 2.3rem;
+    font-weight: 300;
+    line-height: 1.2;
+  `,
   thin29: css`
     font-size: 2.9rem;
     font-weight: 300;

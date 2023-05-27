@@ -8,7 +8,7 @@ import { APP_CONVERSION_CTA_STORAGE_KEY } from '@/constants'
 
 function BottomSheetForApp() {
   const [isMounted, setIsMounted] = useState(false)
-  const { dialoglRef, isOpen, onOpen, onClose } = useDisclosure()
+  const { dialogRef, isOpen, onOpen, onClose } = useDisclosure()
 
   useEffect(() => {
     const storage = typeof window !== 'undefined' ? handleSessionStorage(APP_CONVERSION_CTA_STORAGE_KEY) : undefined
@@ -37,7 +37,7 @@ function BottomSheetForApp() {
   }, [isMounted])
 
   return (
-    <S.CTABottomSheet ref={dialoglRef} isHeaderHidden title="앱 다운로드 팝업" isOpen={isOpen} onClose={onClose}>
+    <S.CTABottomSheet ref={dialogRef} isHeaderHidden title="앱 다운로드 팝업" isOpen={isOpen} onClose={onClose}>
       <S.ContentBox>
         <Image src={LogoImg} alt="" width={94} height={94} />
         <S.Strong>

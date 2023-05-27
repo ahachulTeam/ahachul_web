@@ -1,3 +1,4 @@
+import { theme } from '@ahhachul/design-system'
 import { A11yHeading } from '@ahhachul/ui'
 import { createContext, useCallback, useMemo, type PropsWithChildren, useContext } from 'react'
 import * as S from './styled'
@@ -8,6 +9,7 @@ import { usePushShallowRouter } from '@/hooks'
 interface HeaderProps {
   hasGoBack?: boolean
   title?: string
+  invisibleTitle?: boolean
   goBackToHome?: boolean
 }
 
@@ -21,7 +23,13 @@ interface HeaderContextValue {
 
 const HeaderContext = createContext({} as HeaderContextValue)
 
-function HeaderMain({ hasGoBack = false, title = '', goBackToHome = false, children }: PropsWithChildren<HeaderProps>) {
+function HeaderMain({
+  hasGoBack = false,
+  title = '',
+  invisibleTitle = false,
+  goBackToHome = false,
+  children,
+}: PropsWithChildren<HeaderProps>) {
   const { router, pushShallowRouter } = usePushShallowRouter()
   const goBack = useCallback(() => router.back(), [router])
   const goHome = useCallback(() => pushShallowRouter(PATH.HOME), [pushShallowRouter])
@@ -37,7 +45,7 @@ function HeaderMain({ hasGoBack = false, title = '', goBackToHome = false, child
             {hasGoBack && <Header.GoBack onClick={goBackToHome ? goHome() : goBack} />}
             {!hasGoBack && <Header.Logo onClick={goHome()} />}
           </S.LeftIcon>
-          {title && <S.Title>{title}</S.Title>}
+          <S.Title css={invisibleTitle && theme.a11y.visuallyHidden}>{title}</S.Title>
           <S.RightIcons>{children}</S.RightIcons>
         </S.Container>
       </S.Header>

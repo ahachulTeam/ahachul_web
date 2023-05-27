@@ -5,7 +5,6 @@ import SubwayInfo from '../subwayInfo/SubwayInfo'
 import * as S from './styled'
 import { ArrowIcon } from '@/assets/icons'
 import { PATH } from '@/constants'
-import { StaticSEO } from '@/constants/seo'
 
 export type MainPageContainerProps = {
   isAuthed?: boolean
@@ -14,7 +13,6 @@ export type MainPageContainerProps = {
 function MainPageContainer({ isAuthed = false }: MainPageContainerProps) {
   return (
     <S.Container>
-      <A11yHeading as="h2">{StaticSEO.main.title}</A11yHeading>
       <S.SubwayInfoSection>
         <A11yHeading as="h3">지하철 열차정보와 혼잡도가 궁금하다면?</A11yHeading>
         <SubwayInfo />

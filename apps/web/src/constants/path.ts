@@ -5,6 +5,6 @@ export const PATH = {
   LOST: '/lost',
   COMMUNITY: '/community',
   LABS: '/onboarding',
-  COMPLAINTS: '/complaints',
+  COMPLAINTS: '/complaint',
   ALARM: '/alarm',
 }

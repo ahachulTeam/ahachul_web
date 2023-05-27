@@ -12,7 +12,7 @@ const useTab = (tabList: { [key: string]: string }) => {
   const handleChangeTab = useCallback(
     (tab: string) => () => {
       const query = { ...router.query }
-      router.push({ pathname: router.pathname, query: { ...query, tab } }, undefined, { shallow: true })
+      router.replace({ pathname: router.pathname, query: { ...query, tab } }, undefined, { shallow: true })
     },
     []
   )
@@ -24,7 +24,7 @@ const useTab = (tabList: { [key: string]: string }) => {
 
     const isExistTab = Object.keys(tabList).includes(selectedTab as string)
     if (!isExistTab) {
-      router.push({ pathname: router.pathname, query: { ...query, tab: defaultTab } })
+      router.replace({ pathname: router.pathname, query: { ...query, tab: defaultTab } })
     }
   }, [selectedTab])
 

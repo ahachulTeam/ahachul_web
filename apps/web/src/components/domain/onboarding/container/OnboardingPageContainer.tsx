@@ -11,7 +11,7 @@ function OnboardingPageContainer() {
 
   const { user } = useAuth()
 
-  const { dialoglRef, isOpen, onOpen, onClose } = useDisclosure()
+  const { dialogRef, isOpen, onOpen, onClose } = useDisclosure()
 
   const handleRouteRootPage = () => router.push('/')
 
@@ -29,7 +29,7 @@ function OnboardingPageContainer() {
           둘러보기
         </S.LookAroundBtn>
       </S.Box>
-      <LoginDrawer ref={dialoglRef} isOpen={isOpen} onClose={onClose} />
+      <LoginDrawer ref={dialogRef} isOpen={isOpen} onClose={onClose} />
     </S.Container>
   )
 }
