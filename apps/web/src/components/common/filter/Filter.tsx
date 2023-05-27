@@ -18,12 +18,12 @@ interface FilterProps {
 }
 
 export default function Filter({ id, label, options, value, chnageValue }: FilterProps) {
-  const { dialoglRef, isOpen, onOpen, onClose } = useDisclosure()
+  const { dialogRef, isOpen, onOpen, onClose } = useDisclosure()
   const prevValue = useRef(value)
 
   const uid = `${id}-filter`
 
-  const { handleKeyListener } = useArrowKeyTrap(dialoglRef)
+  const { handleKeyListener } = useArrowKeyTrap(dialogRef)
 
   const handleOptionClick = (option: string) => () => {
     chnageValue(option)
@@ -47,7 +47,7 @@ export default function Filter({ id, label, options, value, chnageValue }: Filte
         <ArrowDownMinIcon />
       </S.TriggerBtn>
       <BottomSheet
-        ref={dialoglRef}
+        ref={dialogRef}
         id={uid}
         isOpen={isOpen}
         title={label}

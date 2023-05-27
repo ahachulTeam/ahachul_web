@@ -8,9 +8,9 @@ import { BottomSheet } from '@/components/common'
 import { SUBWAY_LINE_FILTER } from '@/constants/subway'
 
 export const SubwayLineFilter = () => {
-  const { dialoglRef, isOpen, onOpen, onClose } = useDisclosure()
+  const { dialogRef, isOpen, onOpen, onClose } = useDisclosure()
 
-  const { handleKeyListener } = useArrowKeyTrap(dialoglRef)
+  const { handleKeyListener } = useArrowKeyTrap(dialogRef)
 
   const {
     errors,
@@ -43,7 +43,7 @@ export const SubwayLineFilter = () => {
         <ArrowIcon />
       </S.TriggerBtn>
       <BottomSheet
-        ref={dialoglRef}
+        ref={dialogRef}
         id="lines-filter"
         title="커뮤니티 호선을 선택해주세요"
         isOpen={isOpen}

@@ -20,7 +20,7 @@ export const EmergencyCardList = styled.ul`
   row-gap: 18px;
   width: 100%;
 
-  & > li:nth-child(2) {
+  & > li:nth-of-type(2) {
     grid-column: 2 / 3;
     grid-row: 1 / 3;
   }

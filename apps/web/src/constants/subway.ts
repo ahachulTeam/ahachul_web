@@ -14,3 +14,26 @@ export const SUBWAY_LINE_FILTER = {
     { label: '9호선', value: '72' },
   ],
 } as const
+
+export const SUBWAY_CALL_CENTER = [
+  {
+    id: 0,
+    label: '수도권 1~8호선',
+    callNumber: '021234567',
+  },
+  {
+    id: 1,
+    label: '9호선',
+    callNumber: '021234567',
+  },
+  {
+    id: 2,
+    label: '신분당선',
+    callNumber: '021234567',
+  },
+  {
+    id: 3,
+    label: '공항철도, 경의중앙선, 분당선',
+    callNumber: '021234567',
+  },
+]
