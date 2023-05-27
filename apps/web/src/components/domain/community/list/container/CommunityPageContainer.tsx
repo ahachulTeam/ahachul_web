@@ -8,6 +8,7 @@ import useTab from '@/hooks/useTab'
 
 export const CommunityPageContainer = () => {
   const { selectedTab, handleChangeTab } = useTab(COMMUNITY_TABS)
+
   return (
     <S.Container>
       <Tab selectedTab={selectedTab} tabList={COMMUNITY_TABS} handleChangeTab={handleChangeTab} />
@@ -18,9 +19,7 @@ export const CommunityPageContainer = () => {
         <HashtagList />
       </S.HashtagSection>
       <S.Divider />
-      <S.ListSection>
-        <ArticleList />
-      </S.ListSection>
+      <ArticleList />
     </S.Container>
   )
 }

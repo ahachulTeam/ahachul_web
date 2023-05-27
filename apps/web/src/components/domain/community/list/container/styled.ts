@@ -1,15 +1,15 @@
 import { css, Theme } from '@emotion/react'
 import styled from '@emotion/styled'
 
-export const Container = styled.article`
+export const Container = styled.section`
   width: 100%;
 `
 
-export const ListSection = styled.section`
+export const ListSection = styled.div`
   padding: 20px 16px;
 `
 
-export const HashtagSection = styled.section`
+export const HashtagSection = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 15px;

@@ -21,19 +21,21 @@ interface ItemProps {
 function Item({ data }: ItemProps) {
   return (
     <S.Item>
-      <Link href={`community/${data._id}`}>
-        <S.Flex>
-          <h4>{data.title}</h4>
-          <p>{data.content}</p>
-          <S.Box>
-            <span>{getCurrentTime(data.time)}</span>
-            <span>{data.author}</span>
-          </S.Box>
-        </S.Flex>
-        <S.Image>
-          <NextImage src={data.img_url || thumbnailDefaultImg} alt={data.title} fill />
-        </S.Image>
-      </Link>
+      <article>
+        <Link href={`community/${data._id}`}>
+          <S.Flex>
+            <h4>{data.title}</h4>
+            <p>{data.content}</p>
+            <S.Box>
+              <span>{getCurrentTime(data.time)}</span>
+              <span>{data.author}</span>
+            </S.Box>
+          </S.Flex>
+          <S.Image>
+            <NextImage src={data.img_url || thumbnailDefaultImg} alt={data.title} fill />
+          </S.Image>
+        </Link>
+      </article>
     </S.Item>
   )
 }

@@ -26,10 +26,10 @@ export const Button = styled.button<ButtonProps>`
 const varaiants = {
   size: {
     xs: (theme: Theme) => css`
-      ${theme.fonts.regular14};
-      height: 32px;
-      border-radius: 10px;
-      padding: 0 12px;
+      ${theme.fonts.regular12};
+      height: 30px;
+      border-radius: 65px;
+      padding: 0 18px;
     `,
     sm: (theme: Theme) => css`
       ${theme.fonts.regular14};
