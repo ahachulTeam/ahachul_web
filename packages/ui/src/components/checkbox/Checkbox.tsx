@@ -1,8 +1,8 @@
-import React, { useRef } from 'react'
+import React, { useRef, type InputHTMLAttributes } from 'react'
 
 import * as S from './styled'
 
-export interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
   className?: string
 }

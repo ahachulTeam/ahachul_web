@@ -20,6 +20,12 @@ export const Tag = styled.button<TagBtnProps>`
     ${variant === 'primary' && primaryTag(theme)};
     ${variant === 'outline' && outlineTag(theme)};
     ${variant === 'ghost' && ghostTag(theme)};
+    ${variant === 'greyBackgroundOutline' && greyBackgroundOutlineTag(theme)};
+    /* 
+    &:disabled {
+      color: ${theme.colors.gray_55};
+      background-color: ${theme.colors.gray_18};
+    } */
 
     & > span {
       white-space: nowrap;
@@ -68,6 +74,13 @@ const ghostTag = (theme: Theme) => css`
       }
     }
   }
+`
+
+const greyBackgroundOutlineTag = (theme: Theme) => css`
+  height: 30px;
+  border-radius: 135px;
+  color: ${theme.colors.gray_55};
+  background-color: ${theme.colors.gray_18};
 `
 
 export const IconBtn = styled.button`
