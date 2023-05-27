@@ -20,7 +20,7 @@ export const Tag = styled.button<TagBtnProps>`
     ${variant === 'primary' && primaryTag(theme)};
     ${variant === 'outline' && outlineTag(theme)};
     ${variant === 'ghost' && ghostTag(theme)};
-    ${variant === 'similarDisabledButNotDisabled' && similarDisabledButNotDisabledTag(theme)};
+    ${variant === 'greyBackgroundOutline' && greyBackgroundOutlineTag(theme)};
     /* 
     &:disabled {
       color: ${theme.colors.gray_55};
@@ -76,7 +76,7 @@ const ghostTag = (theme: Theme) => css`
   }
 `
 
-const similarDisabledButNotDisabledTag = (theme: Theme) => css`
+const greyBackgroundOutlineTag = (theme: Theme) => css`
   height: 30px;
   border-radius: 135px;
   color: ${theme.colors.gray_55};

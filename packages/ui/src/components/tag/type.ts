@@ -1,1 +1,1 @@
-export type TagVariant = 'primary' | 'outline' | 'ghost' | 'similarDisabledButNotDisabled'
+export type TagVariant = 'primary' | 'outline' | 'ghost' | 'greyBackgroundOutline'

@@ -1,9 +1,9 @@
 import { A11yHeading } from '@ahhachul/ui'
-import { useRouter } from 'next/router'
-import { PropsWithChildren, useCallback } from 'react'
+import { createContext, useCallback, useMemo, type PropsWithChildren, useContext } from 'react'
 import * as S from './styled'
 import { ArrowIcon, KenllIcon, MiniHamburgerIcon, SearchIcon, ShareIcon } from '@/assets/icons'
-import { StaticSEO } from '@/constants'
+import { PATH, StaticSEO } from '@/constants'
+import { usePushShallowRouter } from '@/hooks'
 
 interface HeaderProps {
   hasGoBack?: boolean
@@ -15,28 +15,33 @@ interface HeaderBtnProps {
   onClick: () => void
 }
 
+interface HeaderContextValue {
+  pushShallowRouter: (path: string) => () => Promise<boolean>
+}
+
+const HeaderContext = createContext({} as HeaderContextValue)
+
 function HeaderMain({ hasGoBack = false, title = '', goBackToHome = false, children }: PropsWithChildren<HeaderProps>) {
-  const router = useRouter()
+  const { router, pushShallowRouter } = usePushShallowRouter()
   const goBack = useCallback(() => router.back(), [router])
-  const goHome = useCallback(() => {
-    const { pathname } = router
-    if (pathname !== '/') {
-      return router.push('/', undefined, { shallow: true })
-    }
-  }, [router])
+  const goHome = useCallback(() => pushShallowRouter(PATH.HOME), [pushShallowRouter])
+
+  const providerValue = useMemo(() => ({ pushShallowRouter }), [pushShallowRouter])
 
   return (
-    <S.Header>
-      <S.Container>
-        <A11yHeading>{StaticSEO.main.sitename}</A11yHeading>
-        <S.LeftIcon>
-          {hasGoBack && <Header.GoBack onClick={goBackToHome ? goHome : goBack} />}
-          {!hasGoBack && <Header.Logo onClick={goHome} />}
-        </S.LeftIcon>
-        {title && <S.Title>{title}</S.Title>}
-        <S.RightIcons>{children}</S.RightIcons>
-      </S.Container>
-    </S.Header>
+    <HeaderContext.Provider value={providerValue}>
+      <S.Header>
+        <S.Container>
+          <A11yHeading>{StaticSEO.main.sitename}</A11yHeading>
+          <S.LeftIcon>
+            {hasGoBack && <Header.GoBack onClick={goBackToHome ? goHome() : goBack} />}
+            {!hasGoBack && <Header.Logo onClick={goHome()} />}
+          </S.LeftIcon>
+          {title && <S.Title>{title}</S.Title>}
+          <S.RightIcons>{children}</S.RightIcons>
+        </S.Container>
+      </S.Header>
+    </HeaderContext.Provider>
   )
 }
 
@@ -72,20 +77,18 @@ function TempSave({ onClick }: HeaderBtnProps) {
   )
 }
 
-function Delete({ onClick }: HeaderBtnProps) {
+function Alarm() {
+  const { pushShallowRouter } = useContext(HeaderContext)
+
   return (
-    <S.IconBtn type="button" onClick={onClick}>
-      삭제
+    <S.IconBtn type="button" onClick={pushShallowRouter(`${PATH.ALARM}?category=all`)}>
+      <KenllIcon />
     </S.IconBtn>
   )
 }
 
-function Alarm({ onClick }: HeaderBtnProps) {
-  return (
-    <S.IconBtn onClick={onClick}>
-      <KenllIcon />
-    </S.IconBtn>
-  )
+function Delete({ onClick }: HeaderBtnProps) {
+  return <S.IconBtn onClick={onClick}>삭제</S.IconBtn>
 }
 
 function Search({ onClick }: HeaderBtnProps) {

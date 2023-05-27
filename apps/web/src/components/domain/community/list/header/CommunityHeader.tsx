@@ -9,7 +9,7 @@ export const CommunityHeader = () => {
     <>
       <Header>
         <Header.Search onClick={onOpen} />
-        <Header.Alarm onClick={() => console.log('Alarm')} />
+        <Header.Alarm />
       </Header>
       <SearchDrawer isMounted={isOpen} onClose={onClose} />
     </>

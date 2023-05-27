@@ -5,5 +5,5 @@ export const usePushShallowRouter = () => {
 
   const pushShallowRouter = (path: string) => () => router.push(path, undefined, { shallow: true })
 
-  return { pushShallowRouter }
+  return { router, pushShallowRouter }
 }

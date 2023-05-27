@@ -24,7 +24,7 @@ export const Notifications = () => {
           <li key={key}>
             <Tag
               label={val}
-              variant={query?.category === key ? 'primary' : 'similarDisabledButNotDisabled'}
+              variant={query?.category === key ? 'primary' : 'greyBackgroundOutline'}
               onClick={handleChangeTab(key)}
             />
           </li>
