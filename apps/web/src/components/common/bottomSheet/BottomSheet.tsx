@@ -3,7 +3,6 @@ import { ForwardedRef, forwardRef, PropsWithChildren, useCallback, useEffect, us
 
 import { MotionPortal } from '../portal'
 import * as S from './styled'
-import { pretendard } from '@/assets/fonts/pretendard'
 import { CloseIcon } from '@/assets/icons'
 import { BOTTOM_SHEET_DURATION } from '@/constants'
 
@@ -62,15 +61,7 @@ function BottomSheet(
   return (
     <MotionPortal isMounted={isOpen}>
       <S.Dim>
-        <S.BottomSheet
-          id={id}
-          ref={ref}
-          open={isOpen}
-          data-status={isShow}
-          aria-modal="true"
-          tabIndex={-1}
-          className={pretendard.className}
-        >
+        <S.BottomSheet id={id} ref={ref} open={isOpen} data-status={isShow} aria-modal="true" tabIndex={-1}>
           {!isHeaderHidden && (
             <S.Header>
               <h2>{title}</h2>

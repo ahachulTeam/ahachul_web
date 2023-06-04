@@ -8,6 +8,7 @@ import { ReactElement, useEffect } from 'react'
 
 import { AppProvider } from '@/libs'
 import '@/styles/nprogress.css'
+import '@/styles/fonts.css'
 
 const Toast = dynamic<{}>(() => import('@/components').then(module => module.Toast))
 

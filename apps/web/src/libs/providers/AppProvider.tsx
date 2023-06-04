@@ -7,7 +7,6 @@ import { PropsWithChildren, useEffect } from 'react'
 
 import ReactQuery from './ReactQuery'
 import Recoil from './Recoil'
-import { pretendard } from '@/assets/fonts/pretendard'
 import { MonitoringInitializer } from '@/components/monitoring'
 import { AuthProvider } from '@/context'
 
@@ -26,9 +25,7 @@ export default function AppProvider({ children }: PropsWithChildren) {
           <LazyMotion features={domMax}>
             <GlobalStyles />
             <ThemeProvider theme={theme}>
-              <AuthProvider>
-                <div className={pretendard.className}>{children}</div>
-              </AuthProvider>
+              <AuthProvider>{children}</AuthProvider>
             </ThemeProvider>
           </LazyMotion>
         </ReactQuery>
