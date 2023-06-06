@@ -8,7 +8,7 @@ function HashtagList() {
 
   return (
     <S.HashtagList>
-      {HASH_TAG_DUMMY_LIST.map((data, i) => (
+      {HASH_TAG_DUMMY_LIST.flat().map((data, i) => (
         <li key={i}>
           <Tag label={`#${data}`} variant="primary" onClick={pushShallowRouter(router.pathname, { tags: data })} />
         </li>
