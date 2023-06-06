@@ -11,6 +11,7 @@ const useTab = (tabList: { [key: string]: string }) => {
 
   const handleChangeTab = useCallback(
     (tab: string) => () => {
+      console.log(tab)
       const query = { ...router.query }
       router.replace({ pathname: router.pathname, query: { ...query, tab } }, undefined, { shallow: true })
     },
