@@ -69,14 +69,15 @@ export const Box = styled.span`
   `}
 `
 
-export const ImgBox = styled.div`
+export const Thumbnail = styled.div`
   ${({ theme }) => css`
     position: relative;
-    flex: 0 0;
-    min-width: 35.7%;
-    min-height: 100%;
+    display: flex;
+    width: 75px;
+    aspect-ratio: 75 / 69;
     border-radius: 5px;
-    background-color: ${theme.colors.gray_40};
+    background-color: ${theme.colors.gray_18};
+    overflow: hidden;
   `}
 `
 
