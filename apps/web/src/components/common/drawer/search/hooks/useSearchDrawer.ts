@@ -23,10 +23,14 @@ const useSearchDrawer = (onClose: () => void) => {
       onClose()
       setSearchValue('')
 
-      router.push({
-        pathname: PATH.COMMUNITY,
-        query: { title: value },
-      })
+      router.push(
+        {
+          pathname: PATH.COMMUNITY,
+          query: { title: value },
+        },
+        undefined,
+        { shallow: true }
+      )
     },
     [router]
   )
