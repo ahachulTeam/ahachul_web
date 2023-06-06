@@ -20,7 +20,7 @@ interface ToggleWithChildrenProps {
 
 interface ToggleWithActionFnProps<T extends Record<string, string>> {
   tabs: T
-  actionFn: (select: keyof T) => void
+  actionFn: (select: keyof T) => () => void
 }
 
 interface ToggleContextValue {
@@ -68,7 +68,9 @@ const ToggleWithActionFn = function ToggleWithActionFnProps<T extends Record<str
 }: ToggleWithActionFnProps<T>) {
   const { tabAraiLabel } = useContext(ToggleContext)
 
-  const action = (tab: string) => () => actionFn(tab)
+  const action = (tab: string) => () => {
+    actionFn(tab)()
+  }
 
   return (
     <S.ToggleList aria-label={tabAraiLabel}>
