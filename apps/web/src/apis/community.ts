@@ -1,7 +1,12 @@
 import { ax } from './axios'
+import { StandardResponse } from '@/types/common'
 import * as type from '@/types/community'
 
 const communityApi = {
+  getCommunity: async (req: type.CommunityListQueryModel): Promise<StandardResponse<type.CommunityOverViewModel[]>> => {
+    const res = await ax.get('/v1/community-posts', { params: req })
+    return res.data
+  },
   createArticle: async (req: type.CreateArticleQueryModel) => {
     const hasImage = req?.images && req?.images?.length > 0
 
