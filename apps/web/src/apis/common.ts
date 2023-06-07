@@ -8,7 +8,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 type RenewAccessToken = Omit<APILoginUser, 'isNeedAdditionalUserInfo'>
 
 export const renewAccessToken = async (refreshToken: string): Promise<StandardResponse<RenewAccessToken>> => {
-  const res = await axios.post(`${BASE_URL}/v1/auth/token/refresh`, {
+  const res = await axios.post(`${BASE_URL}/auth/token/refresh`, {
     refreshToken,
   })
 

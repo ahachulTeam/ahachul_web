@@ -10,7 +10,7 @@ const communityApi = {
         console.log('uploading image')
       }
 
-      return await ax.post('/v1/community-posts', {
+      return await ax.post('/community-posts', {
         title: req.title,
         content: req.content,
         subwayLineId: req.subwayLineId,
