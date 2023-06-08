@@ -1,5 +1,7 @@
+import { theme } from '@ahhachul/design-system'
 import type { SubwayLine } from '@ahhachul/lib'
-import { css, Theme } from '@emotion/react'
+
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
 interface BadgeProps {
@@ -7,7 +9,7 @@ interface BadgeProps {
 }
 
 export const Badge = styled.span<BadgeProps>`
-  ${({ theme, variant }) => css`
+  ${({ variant }) => css`
     ${theme.fonts.regular10};
     display: flex;
     justify-content: center;
@@ -17,11 +19,11 @@ export const Badge = styled.span<BadgeProps>`
     border-radius: 3px;
     padding: 2px 8px;
     color: ${theme.colors.white};
-    background-color: ${variants(theme)[variant as SubwayLine] || theme.colors.primary};
+    background-color: ${variants()[variant as SubwayLine] || theme.colors.primary};
   `}
 `
 
-const variants = (theme: Theme) => ({
+const variants = () => ({
   '1호선': theme.colors.subway._01,
   '2호선': theme.colors.subway._02,
   '3호선': theme.colors.subway._03,

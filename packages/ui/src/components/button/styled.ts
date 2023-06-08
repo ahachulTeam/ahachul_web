@@ -1,4 +1,6 @@
-import { css, type Theme } from '@emotion/react'
+import { theme } from '@ahhachul/design-system'
+
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
 import type { ButtonSize, ButtonVariant } from './Button'
@@ -9,47 +11,47 @@ interface ButtonProps {
 }
 
 export const Button = styled.button<ButtonProps>`
-  ${({ theme, size, variant }) => css`
+  ${({ size, variant }) => css`
     display: flex;
     align-items: center;
     justify-content: center;
-    ${size === 'xs' && varaiants.size.xs(theme)}
-    ${size === 'sm' && varaiants.size.sm(theme)};
-    ${size === 'smd' && varaiants.size.smd(theme)};
-    ${size === 'md' && varaiants.size.md(theme)};
-    ${size === 'lg' && varaiants.size.lg(theme)};
-    ${variant === 'primary' && varaiants.variant.primary(theme)};
-    ${variant === 'secondary' && varaiants.variant.secondary(theme)};
+    ${size === 'xs' && varaiants.size.xs()}
+    ${size === 'sm' && varaiants.size.sm()};
+    ${size === 'smd' && varaiants.size.smd()};
+    ${size === 'md' && varaiants.size.md()};
+    ${size === 'lg' && varaiants.size.lg()};
+    ${variant === 'primary' && varaiants.variant.primary()};
+    ${variant === 'secondary' && varaiants.variant.secondary()};
   `}
 `
 
 const varaiants = {
   size: {
-    xs: (theme: Theme) => css`
+    xs: () => css`
       ${theme.fonts.regular12};
       height: 30px;
       border-radius: 65px;
       padding: 0 18px;
     `,
-    sm: (theme: Theme) => css`
+    sm: () => css`
       ${theme.fonts.regular14};
       height: 36px;
       border-radius: 10px;
       padding: 0 16px;
     `,
-    smd: (theme: Theme) => css`
+    smd: () => css`
       ${theme.fonts.medium14};
       height: 40px;
       border-radius: 10px;
       padding: 0 20px;
     `,
-    md: (theme: Theme) => css`
+    md: () => css`
       ${theme.fonts.medium14};
       height: 44px;
       border-radius: 70px;
       padding: 0 20px;
     `,
-    lg: (theme: Theme) => css`
+    lg: () => css`
       ${theme.fonts.semibold16};
       height: 52px;
       border-radius: 10px;
@@ -57,7 +59,7 @@ const varaiants = {
     `,
   },
   variant: {
-    primary: (theme: Theme) => css`
+    primary: () => css`
       color: ${theme.colors.white};
       background-color: ${theme.colors.primary};
       transition: all 0.3s ease-in-out;
@@ -77,7 +79,7 @@ const varaiants = {
         background-color: ${theme.colors.gray_20};
       }
     `,
-    secondary: (theme: Theme) => css`
+    secondary: () => css`
       color: ${theme.colors.primary};
       background-color: ${theme.colors.secondary};
       transition: all 0.3s ease-in-out;
@@ -97,7 +99,7 @@ const varaiants = {
         opacity: 0.4;
       }
     `,
-    icon: (theme: Theme) => css`
+    icon: () => css`
       width: 40px;
       height: 40px;
       border-radius: 50%;
@@ -110,7 +112,7 @@ const varaiants = {
         }
       }
     `,
-    ghost: (theme: Theme) => css`
+    ghost: () => css`
       color: ${theme.colors.black};
       background-color: ${theme.colors.white};
 
@@ -118,13 +120,13 @@ const varaiants = {
         color: ${theme.colors.gray_40};
       }
     `,
-    outline: (theme: Theme) => css`
+    outline: () => css`
       color: ${theme.colors.gray_60};
       background-color: ${theme.colors.white};
       border: 1px solid ${theme.colors.gray_33};
       border-radius: 10px;
     `,
-    link: (theme: Theme) => css`
+    link: () => css`
       ${theme.fonts.regular14};
       position: relative;
       height: max-content;

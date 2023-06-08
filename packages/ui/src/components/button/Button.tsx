@@ -1,11 +1,12 @@
-import React, { type HTMLAttributes } from 'react'
+import React, { type ButtonHTMLAttributes } from 'react'
 
 import * as S from './styled'
 
 export type ButtonSize = 'xs' | 'sm' | 'smd' | 'md' | 'lg'
 export type ButtonVariant = 'primary' | 'secondary'
 
-interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  className?: string
   type?: 'button' | 'submit' | 'reset'
   size: ButtonSize
   variant: ButtonVariant
@@ -14,9 +15,9 @@ interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   onClick?: (e: React.MouseEvent) => void
 }
 
-export function Button({ type = 'button', size, variant, label, disabled, onClick, ...restProps }: ButtonProps) {
+export function Button({ className, type = 'button', size, variant, label, disabled, onClick }: ButtonProps) {
   return (
-    <S.Button {...restProps} type={type} size={size} variant={variant} disabled={disabled} onClick={onClick}>
+    <S.Button className={className} type={type} size={size} variant={variant} disabled={disabled} onClick={onClick}>
       {label}
     </S.Button>
   )
