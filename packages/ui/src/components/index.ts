@@ -1,7 +1,7 @@
 export * from './tab'
 export * from './tag'
 export * from './badge'
-export * from './button'
+// export * from './button'
 export * from './search'
 export * from './toggle'
 export * from './portal'
