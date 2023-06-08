@@ -1,15 +1,5 @@
 export const LOST_FOUND_FILTERS = [
   {
-    id: 'ordering',
-    label: '정렬',
-    options: [
-      { label: '조회순', value: '조회순' },
-      { label: '댓글순', value: '댓글순' },
-      { label: '공감순', value: '공감순' },
-      { label: '최신순', value: '최신순' },
-    ],
-  },
-  {
     id: 'lines',
     label: '호선',
     options: [
