@@ -3,11 +3,11 @@ import React, { useRef, type InputHTMLAttributes } from 'react'
 import * as S from './styled'
 
 export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string
   className?: string
+  label?: string
 }
 
-export function Checkbox({ id, label, className, ...restProps }: CheckboxProps) {
+export function Checkbox({ id, label, className }: CheckboxProps) {
   const checkboxRef = useRef<HTMLInputElement>(null)
 
   const uuid = `checkbox-${id}`
@@ -25,7 +25,7 @@ export function Checkbox({ id, label, className, ...restProps }: CheckboxProps) 
 
   return (
     <S.Checkbox className={className}>
-      <input {...restProps} id={uuid} ref={checkboxRef} tabIndex={-1} type="checkbox" />
+      <input id={uuid} ref={checkboxRef} tabIndex={-1} type="checkbox" />
       <label htmlFor={uuid} tabIndex={0} onKeyDown={onKeydown}>
         {label}
       </label>
