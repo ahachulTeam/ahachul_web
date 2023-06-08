@@ -1,4 +1,4 @@
-import { Tag } from '@ahhachul/ui'
+// import { Tag } from '@ahhachul/ui'
 import { useRouter } from 'next/router'
 import { useCallback } from 'react'
 import * as S from './styled'
@@ -22,11 +22,11 @@ export const Notifications = () => {
       <S.CategoryList>
         {Object.entries(ALARM_CATEGORY_TABS).map(([key, val]) => (
           <li key={key}>
-            <Tag
+            {/* <Tag
               label={val}
               variant={query?.category === key ? 'primary' : 'greyBackgroundOutline'}
               onClick={handleChangeTab(key)}
-            />
+            /> */}
           </li>
         ))}
       </S.CategoryList>

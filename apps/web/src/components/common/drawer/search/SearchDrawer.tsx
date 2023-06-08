@@ -1,6 +1,6 @@
 import { useArrowKeyTrap, useMountedFocus } from '@ahhachul/lib'
 import { SearchInput } from '@ahhachul/ui'
-import { Tag } from '@ahhachul/ui'
+// import { Tag } from '@ahhachul/ui'
 import { m } from 'framer-motion'
 import { useRef, type ComponentProps, type RefObject } from 'react'
 
@@ -60,7 +60,7 @@ export const SearchDrawer = ({ isMounted, mode, onClose }: Props) => {
               {HASH_TAG_DUMMY_LIST.map((data, i) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <li key={i}>
-                  <Tag role="menuitem" label={data} variant="outline" onClick={handleSearchHistoryValue(data)} />
+                  {/* <Tag role="menuitem" label={data} variant="outline" onClick={handleSearchHistoryValue(data)} /> */}
                 </li>
               ))}
             </S.SearchHistoryTagList>

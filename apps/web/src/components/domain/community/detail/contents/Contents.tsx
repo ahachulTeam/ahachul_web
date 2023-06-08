@@ -1,5 +1,5 @@
 import { getCurrentTime } from '@ahhachul/lib'
-import { Tag } from '@ahhachul/ui'
+// import { Tag } from '@ahhachul/ui'
 // import { Button } from '@ahhachul/ui'
 import { useRouter } from 'next/router'
 
@@ -41,9 +41,7 @@ function Contents({ data }: ContentsProps) {
         {data.hashtags.map((tag, i) => {
           return (
             // eslint-disable-next-line react/no-array-index-key
-            <li key={i}>
-              <Tag label={`#${tag}`} variant="primary" onClick={searchHashTag(tag)} />
-            </li>
+            <li key={i}>{/* <Tag label={`#${tag}`} variant="primary" onClick={searchHashTag(tag)} /> */}</li>
           )
         })}
       </S.HashTagList>
