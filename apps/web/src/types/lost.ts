@@ -1,4 +1,4 @@
-import { InfiniteFetch, KeyOf } from './common'
+import { InfiniteFetchResponse, KeyOf } from './common'
 
 export enum LostStatus {
   PROGRESS = 'PROGRESS',
@@ -28,6 +28,6 @@ export interface LostPostsRequest {
   origin?: string
 }
 
-export interface LostPostsResponse extends InfiniteFetch {
+export interface LostPostsResponse extends InfiniteFetchResponse {
   posts: LostPost[]
 }
