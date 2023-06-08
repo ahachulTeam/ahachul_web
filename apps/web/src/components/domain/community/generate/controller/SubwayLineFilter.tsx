@@ -1,5 +1,5 @@
 import { useArrowKeyTrap, useDisclosure } from '@ahhachul/lib'
-import { Button } from '@ahhachul/ui'
+// import { Button } from '@ahhachul/ui'
 import { Controller } from 'react-hook-form'
 import { useSubwayLine } from '../hooks/useSubwayLine'
 import * as S from './styled'
@@ -73,14 +73,14 @@ export const SubwayLineFilter = () => {
               </S.Lines>
             )}
           />
-          <Button
+          {/* <Button
             label="선택하기"
             type="button"
             size="md"
             variant="primary"
             disabled={!tempSelectedLine}
             onClick={handleFilterSubmit}
-          />
+          /> */}
         </S.OptionContainer>
       </BottomSheet>
     </>
