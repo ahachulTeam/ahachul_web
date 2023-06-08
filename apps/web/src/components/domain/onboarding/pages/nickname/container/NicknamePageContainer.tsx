@@ -1,4 +1,4 @@
-import { FullHeight } from '@ahhachul/ui'
+// import { FullHeight } from '@ahhachul/ui'
 import { useEffect, useState } from 'react'
 
 import * as S from './styled'
@@ -37,7 +37,7 @@ export const NicknamePageContainer = () => {
   }, [data?.result?.available, isLoading])
 
   return (
-    <FullHeight css={S.containerCss}>
+    <div css={S.containerCss}>
       <Stagger>
         <S.Title>닉네임을 설정해 주세요</S.Title>
         <form onSubmit={handleSubmitNickname} css={S.formCss}>
@@ -86,6 +86,6 @@ export const NicknamePageContainer = () => {
           </Stagger>
         )}
       </S.FlexGroup>
-    </FullHeight>
+    </div>
   )
 }
