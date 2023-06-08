@@ -1,4 +1,4 @@
-import { Button } from '@ahhachul/ui'
+// import { Button } from '@ahhachul/ui'
 import { FormProvider } from 'react-hook-form'
 import { SubwayLineFilter } from '../controller'
 import { useArticleForm } from '../hooks/useArticleForm'
@@ -43,7 +43,7 @@ function CommunityGeneratePageContainer() {
       </FormProvider>
 
       <S.Rules>
-        <Button label="게시물 이용규칙" size="xs" variant="secondary" />
+        {/* <Button label="게시물 이용규칙" size="xs" variant="secondary" /> */}
         <p>
           국회는 상호원조 또는 안전보장에 관한 조약, 중요한 국제조직에 관한 조약, 우호통상항해조약, 주권의 제약에 관한
           조약, 강화조약, 국가나 국민에게 중대한 재정적 부담을 지우는 조약 또는 입법사항에 관한 조약의 체결·비준에 대한
@@ -56,7 +56,7 @@ function CommunityGeneratePageContainer() {
       </S.Rules>
 
       <S.StickyArea>
-        <Button label="작성하기" size="md" variant="primary" type="button" onClick={handleClickSubmit} />
+        {/* <Button label="작성하기" size="md" variant="primary" type="button" onClick={handleClickSubmit} /> */}
       </S.StickyArea>
     </S.Container>
   )

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { ReactElement, useCallback, useMemo } from 'react'
 
-import { FloatingButton } from '@/components'
+// import { FloatingButton } from '@/components'
 import { LostContainer, LostHeader } from '@/components/domain'
 import { Layout } from '@/components/layout'
 import { PATH } from '@/constants'
@@ -23,7 +23,7 @@ export default function LostPage() {
   return (
     <>
       <LostContainer />
-      <FloatingButton label={buttonLabel} onClick={pushToArticleGeneratePage(query?.tab as string)} />
+      {/* <FloatingButton label={buttonLabel} onClick={pushToArticleGeneratePage(query?.tab as string)} /> */}
     </>
   )
 }

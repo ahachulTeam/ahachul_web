@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { ReactElement } from 'react'
 
-import { CommunityHeader, CommunityPageContainer, FloatingButton } from '@/components'
+import { CommunityHeader, CommunityPageContainer } from '@/components'
 import { Layout } from '@/components/layout'
 
 export default function CommunityPage() {
@@ -11,7 +11,7 @@ export default function CommunityPage() {
   return (
     <>
       <CommunityPageContainer />
-      <FloatingButton label="+ 게시물작성" onClick={pushToArticleGeneratePage} />
+      {/* <FloatingButton label="+ 게시물작성" onClick={pushToArticleGeneratePage} /> */}
     </>
   )
 }

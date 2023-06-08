@@ -1,6 +1,6 @@
 import { getCurrentTime } from '@ahhachul/lib'
 import { Tag } from '@ahhachul/ui'
-import { Button } from '@ahhachul/ui'
+// import { Button } from '@ahhachul/ui'
 import { useRouter } from 'next/router'
 
 import * as S from './styled'

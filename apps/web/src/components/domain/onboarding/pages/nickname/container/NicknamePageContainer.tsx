@@ -1,4 +1,4 @@
-import { FullHeight, Button } from '@ahhachul/ui'
+import { FullHeight } from '@ahhachul/ui'
 import { useEffect, useState } from 'react'
 
 import * as S from './styled'
@@ -49,7 +49,7 @@ export const NicknamePageContainer = () => {
             onChange={handleNicknameInputChange}
           />
           <S.FlexGroup>
-            <Button
+            {/* <Button
               css={S.btnCss}
               type="submit"
               size="md"
@@ -67,7 +67,7 @@ export const NicknamePageContainer = () => {
                 label="닉네임 제출하기"
                 onClick={handleSubmitNickname}
               />
-            )}
+            )} */}
           </S.FlexGroup>
         </form>
       </Stagger>
