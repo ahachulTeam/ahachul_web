@@ -10,6 +10,7 @@ import { LostContainer, LostHeader } from '@/components/domain'
 import { Layout } from '@/components/layout'
 import { PATH } from '@/constants'
 import { lostKeys } from '@/queries/lost/keys'
+import * as T from '@/utils/try'
 
 export default function LostPage() {
   const router = useRouter()
@@ -43,9 +44,11 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const lostType = query?.tab === 'ACQUIRE' ? 'LOST' : 'LOST'
   const queryClient = new QueryClient()
 
-  await queryClient.prefetchInfiniteQuery(lostKeys.list({ lostType }), ({ pageParam }) =>
-    lostAPI.fetchLostPosts({ lostType, page: pageParam, size: '10' })
-  )
+  await queryClient.prefetchInfiniteQuery(lostKeys.list({ lostType }), async ({ pageParam }) => {
+    const res = await lostAPI.fetchLostPosts({ lostType, page: pageParam, size: '10' })
+    const parsedData = T.parseResponse(res)
+    return T.getOrElse(parsedData, () => ({ posts: [], hasNext: false }))
+  })
 
   return {
     props: {
