@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import type { AppContext, AppInitialProps, AppLayoutProps } from 'next/app'
+import type { AppLayoutProps } from 'next/app'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import { type NextComponentType } from 'next/types'
 import NProgress from 'nprogress'
 import { ReactElement, useEffect } from 'react'
 
@@ -15,10 +14,7 @@ const Toast = dynamic<{}>(() => import('@/components').then(module => module.Toa
 
 NProgress.configure({ minimum: 0.1, showSpinner: false, easing: 'linear' })
 
-const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
-  Component,
-  pageProps,
-}: AppLayoutProps) => {
+const MyApp = ({ Component, pageProps }: AppLayoutProps) => {
   const router = useRouter()
 
   const getLayout = Component.getLayout ?? ((page: ReactElement) => page)
@@ -50,7 +46,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
   }, [router.events])
 
   return (
-    <AppProvider>
+    <AppProvider dehydrateState={pageProps.dehydrateState}>
       <Toast />
       {getLayout(<Component {...pageProps} />)}
     </AppProvider>
