@@ -4,8 +4,9 @@ import LostFoundList from '../lostList/LostList'
 
 import * as S from './styled'
 import useTab from '@/hooks/useTab'
+import { LostType } from '@/types/lost'
 
-const LOST_TABS = { found: '습득물 조회', lost: '분실물 찾기' }
+const LOST_TABS: Record<LostType, string> = { LOST: '습득물 조회', ACQUIRE: '분실물 찾기' }
 
 export default function LostContainer() {
   const { selectedTab, handleChangeTab } = useTab(LOST_TABS)
@@ -18,7 +19,7 @@ export default function LostContainer() {
         </Toggle>
         <Controller css={S.controller} />
       </S.Head>
-      <LostFoundList />
+      <LostFoundList lostType={selectedTab} />
     </S.Section>
   )
 }
