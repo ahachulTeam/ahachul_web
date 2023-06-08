@@ -1,8 +1,8 @@
 import axios, { AxiosError, AxiosInstance, CreateAxiosDefaults, isAxiosError } from 'axios'
 
-import { APIErrorResponse, ERROR_MESSAGE } from '@/constants/error'
-
+import { APIErrorResponse, ERROR_MESSAGE, ResponseCode } from '@/constants/error'
 import { auth } from '@/context'
+import * as O from '@/utils/option'
 import { TokenService } from '@/utils/tokenService'
 
 export const tokenService = new TokenService(auth)
@@ -19,14 +19,14 @@ const setInterceptor = (instance: AxiosInstance) => {
       }
 
       if (TokenService.isServer() && tokenService.context?.req?.cookies) {
-        accessToken = ''
-        if (tokenService.context.req.cookies[tokenService.cookieKey]) {
-          accessToken = JSON.parse(tokenService.context.req.cookies[tokenService.cookieKey]!).accessToken
+        const optionCookie = O.fromUndefined(tokenService.context.req.cookies[tokenService.cookieKey])
 
-          requestConfig.headers.Cookie = `${tokenService.cookieKey}={${encodeURIComponent(
-            tokenService.context.req.cookies[tokenService.cookieKey]!.slice(1, -1)
-          )}}`
-        }
+        accessToken = O.mapOrElse(optionCookie, cookie => JSON.parse(cookie).accessToken, '')
+        requestConfig.headers.Cookie = O.mapOrElse(
+          optionCookie,
+          cookie => `${tokenService.cookieKey}={${encodeURIComponent(cookie.slice(1, -1))}}`,
+          ''
+        )
 
         requestConfig.headers.Authorization = `Bearer ${accessToken}`
       }
@@ -47,13 +47,20 @@ const setInterceptor = (instance: AxiosInstance) => {
           const toastMessage = ERROR_MESSAGE[status]?.[code]
           console.warn(status, code, toastMessage)
 
-          if (code === '201' || code === '203' || code === '204' || code === '205') {
+          const expireSessionCases = [
+            ResponseCode.INVALID_ID_TOKEN,
+            ResponseCode.INVALID_REFRESH_TOKEN,
+            ResponseCode.EXPIRED_REFRESH_TOKEN,
+            ResponseCode.INVALID_AUTH_CODE,
+          ]
+
+          if (expireSessionCases.includes(code)) {
             // 다시 로그인
             tokenService.expireSession()
             return Promise.reject(error)
           }
 
-          if (code === '202') {
+          if (code === ResponseCode.EXPIRED_ACCESS_TOKEN) {
             // 액세스 토큰 만료
             return tokenService.resetTokenAndReAttemptRequest(error)
           }
