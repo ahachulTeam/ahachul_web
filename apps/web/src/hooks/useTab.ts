@@ -2,12 +2,12 @@
 import { useRouter } from 'next/router'
 import { useEffect, useCallback } from 'react'
 
-const useTab = (tabList: { [key: string]: string }) => {
+export default function useTab<T extends string>(tabList: Record<T, string>) {
   const router = useRouter()
   const { query } = router
 
-  const defaultTab = Object.keys(tabList)[0]
-  const selectedTab = query?.tab ?? defaultTab
+  const defaultTab = Object.keys(tabList)[0] as T
+  const selectedTab = (query?.tab ?? defaultTab) as T
 
   const handleChangeTab = useCallback(
     (tab: string) => () => {
@@ -34,5 +34,3 @@ const useTab = (tabList: { [key: string]: string }) => {
     handleChangeTab,
   }
 }
-
-export default useTab
