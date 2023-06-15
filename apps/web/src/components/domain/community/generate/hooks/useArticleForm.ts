@@ -28,8 +28,6 @@ export const useArticleForm = () => {
       return methods.setError('subwayLineId', { message: '호선을 선택해 주세요.' })
     }
 
-    console.log(data)
-
     createArticle(
       {
         title: data.title,

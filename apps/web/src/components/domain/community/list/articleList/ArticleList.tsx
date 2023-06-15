@@ -7,8 +7,6 @@ import { CommunityListQueryModel } from '@/types/community'
 function ArticleList() {
   const { data } = useCommunityQuery({} as CommunityListQueryModel)
 
-  console.log(data)
-
   return (
     <S.ArticleList>
       {ARTICLE_DUMMY_LIST.map(data => (

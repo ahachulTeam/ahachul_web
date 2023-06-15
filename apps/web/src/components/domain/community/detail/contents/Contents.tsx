@@ -26,19 +26,19 @@ function Contents({ data }: ContentsProps) {
       <S.Title>{data.title}</S.Title>
       <S.FragmentInfos>
         <div>
-          <span>{getCurrentTime(data.time)}</span>
-          <span>{data.author}</span>
+          <span>{getCurrentTime(data.createdAt)}</span>
+          <span>{data.writer}</span>
         </div>
         <div>
-          <span>조회 {data.viewCnt}</span>
-          <span>댓글 {data.commentCnt}</span>
-          <span>좋아요 {data.likeCnt}</span>
+          <span>조회 {data.views}</span>
+          {/* <span>댓글 {data.commentCnt}</span> */}
+          <span>좋아요 {data.likes}</span>
         </div>
       </S.FragmentInfos>
       <S.ImageBox>{/* <Image src={data.img_url || thumbnailDefaultImg} alt="" priority fill /> */}</S.ImageBox>
       <S.DetailInfo>{data.content}</S.DetailInfo>
       <S.HashTagList>
-        {data.hashtags.map((tag, i) => {
+        {data.hashTags.map((tag, i) => {
           return (
             // eslint-disable-next-line react/no-array-index-key
             <li key={i}>
