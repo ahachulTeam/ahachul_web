@@ -1,23 +1,15 @@
-import { useBoolean } from '@ahhachul/lib'
 import Comments from '../comments/Comments'
 import Contents from '../contents/Contents'
 import * as S from './styled'
-import { CommunityDetailModel } from '@/types/community'
+import useCommunityDetailQuery from '@/queries/community/useCommunityDetailQuery'
 
-interface CommunityDetailPageContainerProps {
-  data: CommunityDetailModel
-}
-
-export const CommunityDetailPageContainer = ({ data }: CommunityDetailPageContainerProps) => {
-  const [value] = useBoolean(Boolean(data))
-
-  console.log('isDetailInfo ?', value)
+export const CommunityDetailPageContainer = () => {
+  const { data: detailData } = useCommunityDetailQuery(1)
+  console.log(detailData)
 
   return (
     <S.Container>
-      <S.ContentSection>
-        <Contents data={data} />
-      </S.ContentSection>
+      <S.ContentSection>{/* <Contents data={detailData} /> */}</S.ContentSection>
       <S.Divider />
       <S.CommentSection>
         <Comments />

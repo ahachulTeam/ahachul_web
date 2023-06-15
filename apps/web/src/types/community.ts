@@ -20,24 +20,29 @@ export interface CommunityOverViewModel {
   createdBy: string
 }
 
+export interface CommunityDetailQueryModel {
+  postId: number
+}
+
 export interface CommunityDetailModel {
-  _id: number
+  id: number
   title: string
-  img_url: string
   content: string
-  time: string
-  author: string
-  likeCnt: number
-  hateCnt: number
-  commentCnt: number
-  viewCnt: number
-  hashtags: string[]
+  categoryType: 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR'
+  hashTags: string[]
+  views: number
+  likes: number
+  region: any // fixme
+  createdAt: string
+  createdBy: string
+  writer: string
 }
 
 export interface CreateArticleQueryModel {
   title: string
   content: string
   images?: File[] | []
+  hashTags?: string[]
   categoryType: 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR'
   subwayLineId: string
 }

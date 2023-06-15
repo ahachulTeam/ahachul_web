@@ -18,6 +18,7 @@ export const useArticleForm = () => {
       title: '',
       content: '',
       images: [],
+      hashTags: [],
       subwayLineId: '',
       categoryType: 'FREE',
     },
@@ -28,19 +29,22 @@ export const useArticleForm = () => {
       return methods.setError('subwayLineId', { message: '호선을 선택해 주세요.' })
     }
 
+    console.log(data)
+
     createArticle(
       {
         title: data.title,
         content: data.content,
         categoryType: data.categoryType,
         subwayLineId: data.subwayLineId,
+        hashTags: ['여행', '취미'],
         // images: imgFiles,
       },
       {
-        onSuccess: () => {
-          success('글을 생성했다.')
-          router.push(PATH.COMMUNITY, undefined, { shallow: true })
-        },
+        // onSuccess: () => {
+        //   success('글을 생성했다.')
+        //   router.push(PATH.COMMUNITY, undefined, { shallow: true })
+        // },
       }
     )
   }
