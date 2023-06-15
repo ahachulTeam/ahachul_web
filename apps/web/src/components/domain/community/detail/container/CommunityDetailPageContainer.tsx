@@ -1,11 +1,11 @@
 import Comments from '../comments/Comments'
 import Contents from '../contents/Contents'
 import * as S from './styled'
-import useCommunityDetailQuery from '@/queries/community/useCommunityDetailQuery'
+// import useCommunityDetailQuery from '@/queries/community/useCommunityDetailQuery'
 
 export const CommunityDetailPageContainer = () => {
-  const { data: detailData } = useCommunityDetailQuery(1)
-  console.log(detailData)
+  // const { data: detailData } = useCommunityDetailQuery(1)
+  // console.log(detailData)
 
   return (
     <S.Container>
