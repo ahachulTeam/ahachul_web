@@ -10,3 +10,8 @@ export const PATH = {
   COMPLAINTS: '/complaint',
   ALARM: '/alarm',
 }
+
+export const PATH_STORAGE_KEYS = {
+  PREV_PATH: 'prevPath',
+  CURRENT_PATH: 'currentPath',
+}
