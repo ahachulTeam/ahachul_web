@@ -1,4 +1,5 @@
-import { css } from '@emotion/react'
+import { theme } from '@ahhachul/design-system'
+
 import styled from '@emotion/styled'
 
 export const Tab = styled.ul`
@@ -8,49 +9,47 @@ export const Tab = styled.ul`
 `
 
 export const TabBtn = styled.button`
-  ${({ theme }) => css`
-    ${theme.fonts.medium16};
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 26px;
-    padding: 7px 0;
-    color: ${theme.colors.gray_50};
+  ${theme.fonts.medium16};
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 26px;
+  padding: 7px 0;
+  color: ${theme.colors.gray_50};
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    opacity: 0;
+    width: calc(100% - 24px);
+    height: 3px;
+    border-radius: 12px;
+    background: ${theme.colors.primary};
+    transition: all 0.3s ease-in-out;
+  }
+
+  &[aria-selected='true'] {
+    ${theme.fonts.semibold16};
+    color: ${theme.colors.primary};
 
     &::after {
-      content: '';
-      position: absolute;
-      bottom: 0px;
-      opacity: 0;
-      width: calc(100% - 24px);
-      height: 3px;
-      border-radius: 12px;
-      background: ${theme.colors.primary};
-      transition: all 0.3s ease-in-out;
+      opacity: 1;
     }
+  }
 
-    &[aria-selected='true'] {
+  &[aria-selected='false'] {
+    :hover {
       ${theme.fonts.semibold16};
       color: ${theme.colors.primary};
-
-      &::after {
-        opacity: 1;
-      }
     }
+  }
 
-    &[aria-selected='false'] {
-      :hover {
-        ${theme.fonts.semibold16};
-        color: ${theme.colors.primary};
-      }
+  @media ${theme.breakPoint.device.tablet} {
+    &::after {
+      width: 100%;
     }
-
-    @media ${theme.breakPoint.device.tablet} {
-      &::after {
-        width: 100%;
-      }
-    }
-  `}
+  }
 `

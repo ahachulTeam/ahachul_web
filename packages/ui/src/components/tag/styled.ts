@@ -1,4 +1,6 @@
-import { css, Theme } from '@emotion/react'
+import { theme } from '@ahhachul/design-system'
+
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
 import { TagVariant } from './type'
@@ -8,7 +10,7 @@ interface TagBtnProps {
 }
 
 export const Tag = styled.button<TagBtnProps>`
-  ${({ theme, variant }) => css`
+  ${({ variant }) => css`
     ${theme.fonts.regular12};
     display: flex;
     justify-content: center;
@@ -17,10 +19,10 @@ export const Tag = styled.button<TagBtnProps>`
     border-radius: 135px;
     transition: 0.3s;
 
-    ${variant === 'primary' && primaryTag(theme)};
-    ${variant === 'outline' && outlineTag(theme)};
-    ${variant === 'ghost' && ghostTag(theme)};
-    ${variant === 'greyBackgroundOutline' && greyBackgroundOutlineTag(theme)};
+    ${variant === 'primary' && primaryTag()};
+    ${variant === 'outline' && outlineTag()};
+    ${variant === 'ghost' && ghostTag()};
+    ${variant === 'greyBackgroundOutline' && greyBackgroundOutlineTag()};
     /* 
     &:disabled {
       color: ${theme.colors.gray_55};
@@ -35,7 +37,7 @@ export const Tag = styled.button<TagBtnProps>`
   `}
 `
 
-const primaryTag = (theme: Theme) => css`
+const primaryTag = () => css`
   height: 30px;
   border-radius: 135px;
   color: ${theme.colors.primary};
@@ -49,7 +51,7 @@ const primaryTag = (theme: Theme) => css`
   }
 `
 
-const outlineTag = (theme: Theme) => css`
+const outlineTag = () => css`
   height: 30px;
   padding: 0 16px;
   border: 1px solid ${theme.colors.gray_25};
@@ -62,7 +64,7 @@ const outlineTag = (theme: Theme) => css`
   }
 `
 
-const ghostTag = (theme: Theme) => css`
+const ghostTag = () => css`
   height: 28px;
 
   @media (hover: hover) {
@@ -76,7 +78,7 @@ const ghostTag = (theme: Theme) => css`
   }
 `
 
-const greyBackgroundOutlineTag = (theme: Theme) => css`
+const greyBackgroundOutlineTag = () => css`
   height: 30px;
   border-radius: 135px;
   color: ${theme.colors.gray_55};
