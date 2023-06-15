@@ -3,6 +3,8 @@ import { FormProvider } from 'react-hook-form'
 import { SubwayLineFilter } from '../controller'
 import { useArticleForm } from '../hooks/useArticleForm'
 import * as S from './styled'
+import { CameraIcon } from '@/assets/icons'
+import Textarea from '@/components/common/textarea/Textarea'
 
 function CommunityGeneratePageContainer() {
   const { methods, errors, handleClickSubmit } = useArticleForm()
@@ -11,6 +13,11 @@ function CommunityGeneratePageContainer() {
     <S.Container>
       <S.PhotoSection>
         <S.FieldName>사진 업로드</S.FieldName>
+        <S.Photos>
+          <S.InsertPhotoBox>
+            <CameraIcon />
+          </S.InsertPhotoBox>
+        </S.Photos>
       </S.PhotoSection>
 
       <FormProvider {...methods}>
@@ -31,10 +38,12 @@ function CommunityGeneratePageContainer() {
           </S.Title>
           <S.Content>
             <S.FieldName>내용</S.FieldName>
-            <S.Textarea
+            <Textarea
               placeholder="게시물 내용을 작성하세요"
-              aria-invalid={Boolean(errors?.content?.message)}
-              {...methods.register('content', {
+              maxLength={400}
+              hasError={Boolean(errors?.content?.message)}
+              textValue={methods.watch('content')}
+              register={methods.register('content', {
                 required: '내용을 입력하세요',
               })}
             />

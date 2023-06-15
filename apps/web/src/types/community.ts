@@ -44,5 +44,5 @@ export interface CreateArticleQueryModel {
   images?: File[] | []
   hashTags?: string[]
   categoryType: 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR'
-  subwayLineId: string
+  subwayLineId?: number
 }

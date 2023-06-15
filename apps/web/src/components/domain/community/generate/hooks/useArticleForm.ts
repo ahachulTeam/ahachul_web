@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useForm } from 'react-hook-form'
+import { useForm, ErrorOption, FieldErrors } from 'react-hook-form'
 import { PATH } from '@/constants'
 import { useToast } from '@/hooks'
 import { useCreateArticle } from '@/queries/community/useCreateArticle'
@@ -13,13 +13,12 @@ export const useArticleForm = () => {
   const { mutate: createArticle } = useCreateArticle()
 
   const methods = useForm<CreateArticleQueryModel>({
-    mode: 'onBlur',
     defaultValues: {
       title: '',
       content: '',
       images: [],
       hashTags: [],
-      subwayLineId: '',
+      subwayLineId: undefined,
       categoryType: 'FREE',
     },
   })
@@ -49,7 +48,7 @@ export const useArticleForm = () => {
     )
   }
 
-  const handleError = (err: any) => {
+  const handleError = (err: FieldErrors) => {
     if (!methods.getValues('subwayLineId')) {
       return methods.setError('subwayLineId', { message: '호선을 선택해 주세요.' })
     }

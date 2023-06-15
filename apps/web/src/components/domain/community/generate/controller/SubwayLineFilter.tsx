@@ -54,10 +54,14 @@ export const SubwayLineFilter = () => {
           <Controller
             name="subwayLineId"
             control={control}
-            // Portal을 사용하고 있어서 form 태그 내부가 아님, rules가 동작 하지 않아요
+            /**
+             * Portal을 사용하고 있어서 form 태그 내부가 아님, rules가 동작 하지 않아요
+             */
             rules={{ required: true }} // 🥹🥹
-            // 이를 위해 BottomSheet를 Portal을 사용하지 않고 사용하는 방법과
-            // useForm 훅 내부에서 직접 에러 상태 관리를 해줘야해요
+            /**
+             * 이를 위해 BottomSheet를 Portal을 사용하지 않고 사용하는 방법과
+             * useForm 훅 내부에서 직접 에러 상태 관리를 해줘야해요
+             */
             render={() => (
               <S.Lines>
                 {SUBWAY_LINE_FILTER.options.map(opt => (

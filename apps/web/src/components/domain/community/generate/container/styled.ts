@@ -86,7 +86,9 @@ export const Input = styled.input`
     height: 44px;
     border: 1px solid ${theme.colors.gray_19};
     border-radius: 110px;
+    width: 100%;
     padding-left: 25px;
+    box-sizing: border-box; // fixme
 
     &::placeholder {
       color: ${theme.colors.gray_40};
@@ -98,23 +100,20 @@ export const Input = styled.input`
   `}
 `
 
-export const Textarea = styled.textarea`
+export const Photos = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`
+
+export const InsertPhotoBox = styled.button`
   ${({ theme }) => css`
-    ${theme.fonts.regular14};
     display: flex;
     align-items: center;
-    height: 44px;
-    border: 1px solid ${theme.colors.gray_19};
-    border-radius: 110px;
-    padding-left: 25px;
-    resize: none;
-
-    &::placeholder {
-      color: ${theme.colors.gray_40};
-    }
-
-    &[aria-invalid='true'] {
-      border-color: ${theme.colors.red_10};
-    }
+    justify-content: center;
+    width: 60px;
+    aspect-ratio: 1 / 1;
+    border-radius: 15px;
+    background-color: #d0eeff;
   `}
 `
