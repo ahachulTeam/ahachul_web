@@ -14,10 +14,10 @@ interface FilterProps {
   label: string
   options: readonly FilterItem[]
   value: string
-  chnageValue: (option: string) => void
+  changeValue: (option: string) => void
 }
 
-export default function Filter({ id, label, options, value, chnageValue }: FilterProps) {
+export default function Filter({ id, label, options, value, changeValue }: FilterProps) {
   const { dialogRef, isOpen, onOpen, onClose } = useDisclosure()
   const prevValue = useRef(value)
 
@@ -26,7 +26,7 @@ export default function Filter({ id, label, options, value, chnageValue }: Filte
   const { handleKeyListener } = useArrowKeyTrap(dialogRef)
 
   const handleOptionClick = (option: string) => () => {
-    chnageValue(option)
+    changeValue(option)
   }
 
   useEffect(() => {
