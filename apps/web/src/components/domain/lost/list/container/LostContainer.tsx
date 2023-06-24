@@ -5,7 +5,7 @@ import LostFoundList from '../lostList/LostList'
 import * as S from './styled'
 import useTab from '@/hooks/useTab'
 
-const LOST_TABS = { lost: '습득물 조회', found: '분실물 찾기' }
+const LOST_TABS = { found: '습득물 조회', lost: '분실물 찾기' }
 
 export default function LostContainer() {
   const { selectedTab, handleChangeTab } = useTab(LOST_TABS)
