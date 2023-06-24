@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 
-import { Layout } from '@/components'
+import { Layout, LostGenerateContainer } from '@/components'
 
 export default function Generate() {
-  return <div>this is generate page</div>
+  return <LostGenerateContainer />
 }
 
 Generate.getLayout = function getLayout(page: ReactElement) {

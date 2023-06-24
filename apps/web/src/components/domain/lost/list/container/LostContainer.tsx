@@ -13,7 +13,7 @@ export default function LostContainer() {
   return (
     <S.Section>
       <S.Head>
-        <Toggle css={S.tabs} defaultValue={selectedTab as string} tabAraiLabel="유실물 탭 버튼">
+        <Toggle css={S.tabs} defaultValue={selectedTab as string} tabAriaLabel="유실물 탭 버튼">
           <Toggle.WithActionFn tabs={LOST_TABS} actionFn={handleChangeTab} />
         </Toggle>
         <Controller css={S.controller} />
