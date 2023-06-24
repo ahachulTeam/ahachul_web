@@ -50,4 +50,8 @@ export const Title = styled.h2`
 export const IconBtn = styled.button`
   all: unset;
   cursor: pointer;
+
+  &:disabled {
+    color: ${({ theme }) => theme.colors.gray_40};
+  }
 `
