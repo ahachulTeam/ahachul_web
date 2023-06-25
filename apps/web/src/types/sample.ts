@@ -1,1 +1,0 @@
-export type SampleType = 'sample'
