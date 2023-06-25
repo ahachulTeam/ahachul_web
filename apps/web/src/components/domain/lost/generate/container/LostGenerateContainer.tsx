@@ -6,11 +6,12 @@ import LostGenerateHeader from '../header/LostGenerateHeader'
 import { useArticleForm } from '../hooks'
 import * as S from './styled'
 import { PictureUploader } from '@/components/common'
-import { usePictureUploader } from '@/hooks'
+import { useNavigationBar, usePictureUploader } from '@/hooks'
 
 export default function LostGenerateContainer() {
   const { methods, errors, handleClickSubmit } = useArticleForm()
   const { pictures, provided } = usePictureUploader()
+  const { isOpenNavigationBar } = useNavigationBar()
 
   return (
     <S.Container>
@@ -62,7 +63,7 @@ export default function LostGenerateContainer() {
         </p>
       </S.Rules>
 
-      <S.StickyArea>
+      <S.StickyArea $isOpenNavigationBar={isOpenNavigationBar}>
         <Button label="작성하기" size="md" variant="primary" type="button" onClick={handleClickSubmit} />
       </S.StickyArea>
     </S.Container>
