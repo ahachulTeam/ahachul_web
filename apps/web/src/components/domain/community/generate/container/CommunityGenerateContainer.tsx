@@ -3,21 +3,20 @@ import { FormProvider } from 'react-hook-form'
 import { SubwayLineFilter } from '../controller'
 import { useArticleForm } from '../hooks/useArticleForm'
 import * as S from './styled'
-import { CameraIcon } from '@/assets/icons'
-import Textarea from '@/components/common/textarea/Textarea'
+import { PictureUploader } from '@/components/common/pictureUploader'
+import { useNavigationBar } from '@/hooks/useNavigationBar'
+import { usePictureUploader } from '@/hooks/usePictureUploader'
 
 function CommunityGeneratePageContainer() {
   const { methods, errors, handleClickSubmit } = useArticleForm()
+  const { pictures, provided } = usePictureUploader()
+  const { isOpenNavigationBar } = useNavigationBar()
 
   return (
     <S.Container>
       <S.PhotoSection>
         <S.FieldName>사진 업로드</S.FieldName>
-        <S.Photos>
-          <S.InsertPhotoBox>
-            <CameraIcon />
-          </S.InsertPhotoBox>
-        </S.Photos>
+        <PictureUploader {...provided} pictures={pictures} />
       </S.PhotoSection>
 
       <FormProvider {...methods}>
@@ -38,12 +37,10 @@ function CommunityGeneratePageContainer() {
           </S.Title>
           <S.Content>
             <S.FieldName>내용</S.FieldName>
-            <Textarea
+            <S.Textarea
               placeholder="게시물 내용을 작성하세요"
-              maxLength={400}
-              hasError={Boolean(errors?.content?.message)}
-              textValue={methods.watch('content')}
-              register={methods.register('content', {
+              aria-invalid={Boolean(errors?.content?.message)}
+              {...methods.register('content', {
                 required: '내용을 입력하세요',
               })}
             />
@@ -64,7 +61,7 @@ function CommunityGeneratePageContainer() {
         </p>
       </S.Rules>
 
-      <S.StickyArea>
+      <S.StickyArea $isOpenNavigationBar={isOpenNavigationBar}>
         <Button label="작성하기" size="md" variant="primary" type="button" onClick={handleClickSubmit} />
       </S.StickyArea>
     </S.Container>

@@ -15,6 +15,7 @@ interface HeaderProps {
 
 interface HeaderBtnProps {
   onClick: () => void
+  isDisabled?: boolean
 }
 
 interface HeaderContextValue {
@@ -77,9 +78,9 @@ function Share({ onClick }: HeaderBtnProps) {
   )
 }
 
-function TempSave({ onClick }: HeaderBtnProps) {
+function TempSave({ onClick, isDisabled }: HeaderBtnProps) {
   return (
-    <S.IconBtn type="button" onClick={onClick}>
+    <S.IconBtn type="button" onClick={onClick} disabled={isDisabled}>
       임시저장
     </S.IconBtn>
   )

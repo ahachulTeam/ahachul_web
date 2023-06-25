@@ -44,3 +44,4 @@ export { default as CategoryIcon } from './ic_category.svg'
 export { default as CategoryFillIcon } from './ic_category_fill.svg'
 
 export { default as Notification } from './ic_notification.svg'
+export { default as PlusIcon } from './ic_plus.svg'
