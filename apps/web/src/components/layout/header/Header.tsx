@@ -3,7 +3,7 @@ import { A11yHeading } from '@ahhachul/ui'
 import { createContext, useCallback, useMemo, type PropsWithChildren, useContext } from 'react'
 import * as S from './styled'
 import { ArrowIcon, KenllIcon, MiniHamburgerIcon, SearchIcon, ShareIcon } from '@/assets/icons'
-import { PATH, StaticSEO } from '@/constants'
+import { PATH, PATH_STORAGE_KEYS, StaticSEO } from '@/constants'
 import { usePushShallowRouter } from '@/hooks'
 
 interface HeaderProps {
@@ -30,9 +30,16 @@ function HeaderMain({
   goBackToHome = false,
   children,
 }: PropsWithChildren<HeaderProps>) {
+  const storage = globalThis?.sessionStorage
   const { router, pushShallowRouter } = usePushShallowRouter()
-  const goBack = useCallback(() => router.back(), [router])
   const goHome = useCallback(() => pushShallowRouter(PATH.HOME), [pushShallowRouter])
+  const goBack = useCallback(() => {
+    if (storage.getItem(PATH_STORAGE_KEYS.PREV_PATH) === '' || !storage.getItem(PATH_STORAGE_KEYS.PREV_PATH)) {
+      router.push(PATH.HOME)
+    } else {
+      router.back()
+    }
+  }, [router, storage])
 
   const providerValue = useMemo(() => ({ pushShallowRouter }), [pushShallowRouter])
 
