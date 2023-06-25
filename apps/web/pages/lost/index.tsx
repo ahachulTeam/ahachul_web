@@ -10,7 +10,7 @@ export default function LostPage() {
   const router = useRouter()
   const { query } = router
 
-  const buttonLabel = useMemo(() => (query?.tab === 'found' ? '+ 습득물 작성' : '+ 분실물 작성'), [query?.tab])
+  const buttonLabel = useMemo(() => (query?.tab === 'lost' ? '+ 분실물 작성' : '+ 습득물 작성'), [query?.tab])
 
   const pushToArticleGeneratePage = useCallback(
     (tab?: string) => () => {
