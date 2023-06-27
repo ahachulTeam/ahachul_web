@@ -1,3 +1,5 @@
+import { Picture } from './picture'
+
 export interface CommunityListQueryModel {
   categoryType?: 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR'
   subwayLine?: string
@@ -41,7 +43,7 @@ export interface CommunityDetailModel {
 export interface CreateArticleQueryModel {
   title: string
   content: string
-  images?: File[] | []
+  images?: Picture[] | []
   hashTags?: string[]
   categoryType: 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR'
   subwayLineId?: number

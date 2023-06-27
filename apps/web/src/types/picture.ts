@@ -1,4 +1,5 @@
 export type Picture = {
-  name: string
   imgUrl: string
+  name: string
+  file?: File
 }

@@ -38,16 +38,14 @@ export const Rules = styled.div`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
-
+    align-items: end;
     & > button {
       margin-bottom: 10px;
       width: max-content;
-
       & > svg {
         transform: rotate(180deg);
       }
     }
-
     & > p {
       ${theme.fonts.regular10};
       color: ${theme.colors.gray_40};

@@ -1,7 +1,7 @@
 export const COMMUNITY_TABS = {
-  free: '자유',
-  info: '정보',
-  fun: '유머',
+  FREE: '자유',
+  INSIGHT: '정보',
+  HUMOR: '유머',
 }
 
 export const ALARM_TABS = {

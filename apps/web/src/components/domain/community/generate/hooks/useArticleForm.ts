@@ -1,11 +1,12 @@
 import { useRouter } from 'next/router'
-import { useForm, ErrorOption, FieldErrors } from 'react-hook-form'
+import { useForm, FieldErrors } from 'react-hook-form'
 import { PATH } from '@/constants'
 import { useToast } from '@/hooks'
 import { useCreateArticle } from '@/queries/community/useCreateArticle'
+import { Picture } from '@/types'
 import { CreateArticleQueryModel } from '@/types/community'
 
-export const useArticleForm = () => {
+export const useArticleForm = (pictures: Picture[]) => {
   const router = useRouter()
 
   const { success } = useToast()
@@ -23,27 +24,27 @@ export const useArticleForm = () => {
     },
   })
 
-  const handleCreate = (data: CreateArticleQueryModel) => {
+  const handleCreate = ({ title, content, categoryType, subwayLineId, hashTags }: CreateArticleQueryModel) => {
     if (!methods.getValues('subwayLineId')) {
       return methods.setError('subwayLineId', { message: '호선을 선택해 주세요.' })
     }
 
-    createArticle(
-      {
-        title: data.title,
-        content: data.content,
-        categoryType: data.categoryType,
-        subwayLineId: data.subwayLineId,
-        hashTags: ['여행', '취미'],
-        // images: imgFiles,
-      },
-      {
-        // onSuccess: () => {
-        //   success('글을 생성했다.')
-        //   router.push(PATH.COMMUNITY, undefined, { shallow: true })
-        // },
-      }
-    )
+    // createArticle(
+    //   {
+    //     title,
+    //     content,
+    //     categoryType: 'INSIGHT',
+    //     subwayLineId,
+    //     hashTags: ['1호선'],
+    //     images: pictures,
+    //   },
+    //   {
+    //     onSuccess: () => {
+    //       success('글을 생성했다.')
+    //       router.push(PATH.COMMUNITY, undefined, { shallow: true })
+    //     },
+    //   }
+    // )
   }
 
   const handleError = (err: FieldErrors) => {

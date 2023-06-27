@@ -8,9 +8,10 @@ import { useNavigationBar } from '@/hooks/useNavigationBar'
 import { usePictureUploader } from '@/hooks/usePictureUploader'
 
 function CommunityGeneratePageContainer() {
-  const { methods, errors, handleClickSubmit } = useArticleForm()
   const { pictures, provided } = usePictureUploader()
   const { isOpenNavigationBar } = useNavigationBar()
+
+  const { methods, errors, handleClickSubmit } = useArticleForm(pictures)
 
   return (
     <S.Container>
