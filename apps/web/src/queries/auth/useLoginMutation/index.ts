@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 
 import authAPI from '@/apis/auth'
+import { PATH } from '@/constants'
 import { useAuth } from '@/context'
 import { APILoginUserProviders } from '@/types/auth'
 
@@ -17,7 +18,7 @@ const useLoginMutation = () => {
         router.replace('/onboarding/nickname')
       } else {
         auth.signIn(result)
-        router.push('/my-page')
+        router.push(PATH.HOME)
       }
     },
   })

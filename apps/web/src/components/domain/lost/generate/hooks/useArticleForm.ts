@@ -18,7 +18,7 @@ export const useArticleForm = () => {
       title: '',
       content: '',
       images: [],
-      subwayLineId: '',
+      subwayLineId: 1,
       categoryType: 'FREE',
     },
   })

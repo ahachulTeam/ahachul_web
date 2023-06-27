@@ -64,8 +64,8 @@ export const SubwayLineFilter = () => {
                   <S.Option
                     key={opt.value}
                     role="menuitemradio"
-                    aria-checked={opt.value === tempSelectedLine}
-                    onClick={handleSubwayLineChange(tempSelectedLine, opt.value)}
+                    aria-checked={opt.value === Number(tempSelectedLine)}
+                    onClick={handleSubwayLineChange(tempSelectedLine, String(opt.value))}
                   >
                     {opt.label}
                   </S.Option>

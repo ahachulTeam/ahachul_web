@@ -1,7 +1,6 @@
 import { getCurrentTime } from '@ahhachul/lib'
-import NextImage from 'next/image'
+import Image from 'next/image'
 import Link from 'next/link'
-import thumbnailDefaultImg from 'public/illust/img/img_thumbnailDefault.png'
 
 import * as S from './styled'
 
@@ -31,9 +30,9 @@ function Item({ data }: ItemProps) {
               <span>{data.author}</span>
             </S.Box>
           </S.Flex>
-          <S.Image>
-            <NextImage src={data.img_url || thumbnailDefaultImg} alt={data.title} fill />
-          </S.Image>
+          <S.Thumbnail>
+            <Image src={'/images/default_thumbnail.svg'} fill alt="community item thumbnail" />
+          </S.Thumbnail>
         </Link>
       </article>
     </S.Item>

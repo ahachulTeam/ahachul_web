@@ -1,7 +1,6 @@
 import { Badge } from '@ahhachul/ui'
 import Image from 'next/image'
 import Link from 'next/link'
-import thumbnailDefaultImg from 'public/illust/img/img_thumbnailDefault.png'
 
 import * as S from './styled'
 
@@ -29,7 +28,9 @@ function Item({ data }: ItemProps) {
             <Badge label={data.subwayLine} isHottest />
           </S.Box>
         </S.Flex>
-        <Image src={thumbnailDefaultImg} alt={data.title} />
+        <S.Thumbnail>
+          <Image src={'/images/default_thumbnail.svg'} fill alt="community item thumbnail" />
+        </S.Thumbnail>
       </Link>
     </S.Item>
   )

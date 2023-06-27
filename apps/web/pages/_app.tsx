@@ -6,6 +6,7 @@ import { type NextComponentType } from 'next/types'
 import NProgress from 'nprogress'
 import { ReactElement, useEffect } from 'react'
 
+import { PATH_STORAGE_KEYS } from '@/constants'
 import { AppProvider } from '@/libs'
 import '@/styles/nprogress.css'
 import '@/styles/fonts.css'
@@ -21,6 +22,18 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
   const router = useRouter()
 
   const getLayout = Component.getLayout ?? ((page: ReactElement) => page)
+
+  useEffect(() => storePathValues, [router.asPath])
+
+  function storePathValues() {
+    const storage = globalThis?.sessionStorage
+    if (!storage) {
+      return
+    }
+    const prevPath = storage.getItem(PATH_STORAGE_KEYS.CURRENT_PATH) || ''
+    storage.setItem(PATH_STORAGE_KEYS.PREV_PATH, prevPath)
+    storage.setItem(PATH_STORAGE_KEYS.CURRENT_PATH, globalThis.location.pathname)
+  }
 
   useEffect(() => {
     const handleRouteStart = () => NProgress.start()

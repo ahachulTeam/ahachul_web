@@ -30,12 +30,12 @@ export const useSubwayLine = (isOpen: boolean, onOpen: VoidFunction, onClose: Vo
 
   const handleCloseFilter = useCallback(() => {
     if (tempSelectedLine && isFilterSubmitClicked) {
-      setValue('subwayLineId', tempSelectedLine)
+      setValue('subwayLineId', Number(tempSelectedLine))
     }
 
     if (!getValues('subwayLineId')) {
       setError('subwayLineId', { message: '호선을 입력해주세요.' })
-      setValue('subwayLineId', '')
+      setValue('subwayLineId', 1)
     } else {
       setValue('subwayLineId', getValues('subwayLineId'))
     }
@@ -43,7 +43,7 @@ export const useSubwayLine = (isOpen: boolean, onOpen: VoidFunction, onClose: Vo
     onClose()
   }, [getValues, isFilterSubmitClicked, onClose, setError, setValue, tempSelectedLine])
 
-  useEffect(() => setTempSelectedLine(getValues('subwayLineId')), [isOpen, getValues])
+  useEffect(() => setTempSelectedLine(getValues('subwayLineId')?.toString() || '1'), [isOpen, getValues])
 
   return {
     errors,

@@ -3,8 +3,9 @@ import { A11yHeading } from '@ahhachul/ui'
 import { createContext, useCallback, useMemo, type PropsWithChildren, useContext } from 'react'
 import * as S from './styled'
 import { ArrowIcon, KenllIcon, MiniHamburgerIcon, SearchIcon, ShareIcon } from '@/assets/icons'
-import { PATH, StaticSEO } from '@/constants'
+import { PATH, PATH_STORAGE_KEYS, StaticSEO } from '@/constants'
 import { usePushShallowRouter } from '@/hooks'
+import { UrlQueryType } from '@/types/common'
 
 interface HeaderProps {
   hasGoBack?: boolean
@@ -19,7 +20,7 @@ interface HeaderBtnProps {
 }
 
 interface HeaderContextValue {
-  pushShallowRouter: (path: string) => () => Promise<boolean>
+  pushShallowRouter: (pathname: string, query?: UrlQueryType) => Promise<boolean>
 }
 
 const HeaderContext = createContext({} as HeaderContextValue)
@@ -31,9 +32,16 @@ function HeaderMain({
   goBackToHome = false,
   children,
 }: PropsWithChildren<HeaderProps>) {
+  const storage = globalThis?.sessionStorage
   const { router, pushShallowRouter } = usePushShallowRouter()
-  const goBack = useCallback(() => router.back(), [router])
   const goHome = useCallback(() => pushShallowRouter(PATH.HOME), [pushShallowRouter])
+  const goBack = useCallback(() => {
+    if (storage.getItem(PATH_STORAGE_KEYS.PREV_PATH) === '' || !storage.getItem(PATH_STORAGE_KEYS.PREV_PATH)) {
+      router.push(PATH.HOME)
+    } else {
+      router.back()
+    }
+  }, [router, storage])
 
   const providerValue = useMemo(() => ({ pushShallowRouter }), [pushShallowRouter])
 
@@ -43,8 +51,8 @@ function HeaderMain({
         <S.Container>
           <A11yHeading>{StaticSEO.main.sitename}</A11yHeading>
           <S.LeftIcon>
-            {hasGoBack && <Header.GoBack onClick={goBackToHome ? goHome() : goBack} />}
-            {!hasGoBack && <Header.Logo onClick={goHome()} />}
+            {hasGoBack && <Header.GoBack onClick={goBackToHome ? goHome : goBack} />}
+            {!hasGoBack && <Header.Logo onClick={goHome} />}
           </S.LeftIcon>
           <S.Title css={invisibleTitle && theme.a11y.visuallyHidden}>{title}</S.Title>
           <S.RightIcons>{children}</S.RightIcons>
@@ -89,8 +97,10 @@ function TempSave({ onClick, isDisabled }: HeaderBtnProps) {
 function Alarm() {
   const { pushShallowRouter } = useContext(HeaderContext)
 
+  const handleRouteToAlarmPage = () => pushShallowRouter(PATH.ALARM, { category: 'all' })
+
   return (
-    <S.IconBtn type="button" onClick={pushShallowRouter(`${PATH.ALARM}?category=all`)}>
+    <S.IconBtn type="button" onClick={handleRouteToAlarmPage}>
       <KenllIcon />
     </S.IconBtn>
   )

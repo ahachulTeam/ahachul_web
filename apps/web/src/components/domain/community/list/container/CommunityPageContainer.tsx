@@ -1,5 +1,6 @@
 import { Tab } from '@ahhachul/ui'
 import ArticleList from '../articleList/ArticleList'
+import { FilterList } from '../filterList'
 import HashtagList from '../hashtagList/HashtagList'
 import * as S from './styled'
 import { COMMUNITY_TABS } from '@/assets/static/tab'
@@ -17,6 +18,7 @@ export const CommunityPageContainer = () => {
       <S.HashtagSection>
         <h3 css={S.h3}>HOT 해쉬태그</h3>
         <HashtagList />
+        <FilterList />
       </S.HashtagSection>
       <S.Divider />
       <ArticleList />
