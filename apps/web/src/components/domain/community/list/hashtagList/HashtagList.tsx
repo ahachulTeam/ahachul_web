@@ -6,11 +6,13 @@ import { usePushShallowRouter } from '@/hooks'
 function HashtagList() {
   const { router, pushShallowRouter } = usePushShallowRouter()
 
+  const handleClickHashtag = (hashtag: string) => () => pushShallowRouter(router.pathname, { tags: hashtag })
+
   return (
     <S.HashtagList>
-      {HASH_TAG_DUMMY_LIST.flat().map((data, i) => (
+      {HASH_TAG_DUMMY_LIST.flat().map((hashtag, i) => (
         <li key={i}>
-          <Tag label={`#${data}`} variant="primary" onClick={pushShallowRouter(router.pathname, { tags: data })} />
+          <Tag label={`#${hashtag}`} variant="primary" onClick={handleClickHashtag(hashtag)} />
         </li>
       ))}
     </S.HashtagList>

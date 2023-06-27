@@ -25,3 +25,5 @@ export interface PublicPresignedServerModel {
     }
   }
 }
+
+export type UrlQueryType = Record<string, string | string[]>
