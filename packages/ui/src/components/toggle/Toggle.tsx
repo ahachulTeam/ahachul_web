@@ -5,7 +5,7 @@ import * as S from './styled'
 
 interface ToggleProps {
   defaultValue: string
-  tabAraiLabel: string
+  tabAriaLabel: string
   className?: string
 }
 
@@ -24,13 +24,13 @@ interface ToggleWithActionFnProps<T extends Record<string, string>> {
 }
 
 interface ToggleContextValue {
-  tabAraiLabel: string
+  tabAriaLabel: string
 }
 
 const ToggleContext = createContext({} as ToggleContextValue)
 
-function ToggleMain({ defaultValue, tabAraiLabel, children, className }: PropsWithChildren<ToggleProps>) {
-  const providerValue = useMemo(() => ({ tabAraiLabel }), [tabAraiLabel])
+function ToggleMain({ defaultValue, tabAriaLabel, children, className }: PropsWithChildren<ToggleProps>) {
+  const providerValue = useMemo(() => ({ tabAriaLabel }), [tabAriaLabel])
 
   return (
     <ToggleContext.Provider value={providerValue}>
@@ -42,11 +42,11 @@ function ToggleMain({ defaultValue, tabAraiLabel, children, className }: PropsWi
 }
 
 const ToggleWithChildren = function ToggleWithChildren({ tabs }: ToggleWithChildrenProps) {
-  const { tabAraiLabel } = useContext(ToggleContext)
+  const { tabAriaLabel } = useContext(ToggleContext)
 
   return (
     <>
-      <S.ToggleList aria-label={tabAraiLabel}>
+      <S.ToggleList aria-label={tabAriaLabel}>
         {tabs.map(item => (
           <S.ToggleTrigger key={item.tabLabel} value={item.tabLabel}>
             {item.tabLabel}
@@ -66,14 +66,14 @@ const ToggleWithActionFn = function ToggleWithActionFnProps<T extends Record<str
   tabs,
   actionFn,
 }: ToggleWithActionFnProps<T>) {
-  const { tabAraiLabel } = useContext(ToggleContext)
+  const { tabAriaLabel } = useContext(ToggleContext)
 
   const action = (tab: string) => () => {
     actionFn(tab)()
   }
 
   return (
-    <S.ToggleList aria-label={tabAraiLabel}>
+    <S.ToggleList aria-label={tabAriaLabel}>
       {Object.entries(tabs).map(([val, label]) => (
         <S.ToggleTrigger key={val} value={val} onClick={action(val)}>
           {label}

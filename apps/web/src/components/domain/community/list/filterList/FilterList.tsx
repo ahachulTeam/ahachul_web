@@ -16,7 +16,7 @@ export default function FilterList() {
           label={item.label}
           options={item.options}
           value={filter[item.id]}
-          chnageValue={handleApplyFilter(item.id)}
+          changeValue={handleApplyFilter(item.id)}
         />
       ))}
     </S.FilterList>

@@ -3,6 +3,9 @@ import { css } from '@emotion/react'
 import { theme } from './theme'
 
 export const globalStyles = css`
+  * {
+    box-sizing: border-box;
+  }
   html {
     /* 1rem = 10px */
     font-size: 62.5%;
