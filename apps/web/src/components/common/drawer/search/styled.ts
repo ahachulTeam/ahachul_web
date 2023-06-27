@@ -135,7 +135,57 @@ export const HashtagHeader = styled.div`
   `}
 `
 
-export const HastTagList = styled.ul`
-  display: grid;
-  width: 100%;
+export const HastTagList = styled.div`
+  ${({ theme }) => css`
+    width: 100%;
+
+    .swiper {
+      position: relative;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .swiper-slide {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      background: ${theme.colors.white};
+      padding-bottom: 32px;
+    }
+
+    .swiper-pagination-bullet {
+      background: ${theme.colors.gray_23};
+      transition: all 0.3s linear;
+
+      &-active {
+        width: 23px;
+        border-radius: 37px;
+        background: ${theme.colors.primary};
+      }
+    }
+  `}
+`
+
+export const GridItem = styled.button`
+  ${({ theme }) => css`
+    ${theme.fonts.regular14};
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 36px;
+    color: ${theme.colors.black};
+
+    & > span:first-of-type {
+      margin-right: 10px;
+    }
+
+    & > span:last-of-type {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      color: ${theme.colors.gray_23};
+    }
+  `}
 `

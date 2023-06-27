@@ -11,7 +11,7 @@ export default function Navbar() {
   const direction = useScrollDirection()
 
   return (
-    <S.Navbar data-show={!hiddenNavbarPaths.includes(pathname) && direction === 'up'}>
+    <S.Navbar id="navigation-bar" data-show={!hiddenNavbarPaths.includes(pathname) && direction === 'up'}>
       <S.MenuList>
         {NAV_MENUS.map(({ label, path, SvgIcon }) => (
           <NavItem key={label} label={label} path={path} icon={<SvgIcon />} />

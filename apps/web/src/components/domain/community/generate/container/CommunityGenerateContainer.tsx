@@ -3,14 +3,21 @@ import { FormProvider } from 'react-hook-form'
 import { SubwayLineFilter } from '../controller'
 import { useArticleForm } from '../hooks/useArticleForm'
 import * as S from './styled'
+import { PictureUploader } from '@/components/common/pictureUploader'
+import { useNavigationBar } from '@/hooks/useNavigationBar'
+import { usePictureUploader } from '@/hooks/usePictureUploader'
 
 function CommunityGeneratePageContainer() {
-  const { methods, errors, handleClickSubmit } = useArticleForm()
+  const { pictures, provided } = usePictureUploader()
+  const { isOpenNavigationBar } = useNavigationBar()
+
+  const { methods, errors, handleClickSubmit } = useArticleForm(pictures)
 
   return (
     <S.Container>
       <S.PhotoSection>
         <S.FieldName>사진 업로드</S.FieldName>
+        <PictureUploader {...provided} pictures={pictures} />
       </S.PhotoSection>
 
       <FormProvider {...methods}>
@@ -55,7 +62,7 @@ function CommunityGeneratePageContainer() {
         </p>
       </S.Rules>
 
-      <S.StickyArea>
+      <S.StickyArea $isOpenNavigationBar={isOpenNavigationBar}>
         <Button label="작성하기" size="md" variant="primary" type="button" onClick={handleClickSubmit} />
       </S.StickyArea>
     </S.Container>

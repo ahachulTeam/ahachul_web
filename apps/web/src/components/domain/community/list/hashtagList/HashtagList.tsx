@@ -1,13 +1,18 @@
 import { Tag } from '@ahhachul/ui'
 import * as S from './styled'
 import { HASH_TAG_DUMMY_LIST } from '@/assets/dummy/community'
+import { usePushShallowRouter } from '@/hooks'
 
 function HashtagList() {
+  const { router, pushShallowRouter } = usePushShallowRouter()
+
+  const handleClickHashtag = (hashtag: string) => () => pushShallowRouter(router.pathname, { tags: hashtag })
+
   return (
     <S.HashtagList>
-      {HASH_TAG_DUMMY_LIST.map((data, i) => (
+      {HASH_TAG_DUMMY_LIST.flat().map((hashtag, i) => (
         <li key={i}>
-          <Tag label={`#${data}`} variant="primary" onClick={() => console.log('click!')} />
+          <Tag label={`#${hashtag}`} variant="primary" onClick={handleClickHashtag(hashtag)} />
         </li>
       ))}
     </S.HashtagList>

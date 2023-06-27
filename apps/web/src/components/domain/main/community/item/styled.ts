@@ -7,7 +7,7 @@ export const Item = styled.li`
     align-items: center;
     justify-content: space-between;
     column-gap: 16px;
-    padding: 26px 0;
+    padding: 15px 0;
   }
 `
 
@@ -16,17 +16,17 @@ export const Flex = styled.div`
     flex: 1 0;
     display: flex;
     flex-direction: column;
-    row-gap: 8px;
+    row-gap: 3px;
     height: 100%;
 
     & > h4 {
-      ${theme.fonts.bold16};
+      ${theme.fonts.bold14};
       color: ${theme.colors.black};
     }
 
     & > p {
       ${theme.fonts.regular12};
-      color: #6e6e6e;
+      color: ${theme.colors.black};
       font-weight: 300;
     }
   `}
@@ -36,6 +36,7 @@ export const Box = styled.span`
   ${({ theme }) => css`
     display: flex;
     justify-content: space-between;
+    padding-top: 4px;
 
     & > b {
       ${theme.fonts.regular12};
@@ -65,4 +66,16 @@ export const ImgBox = styled.div`
 
 export const visuallyHidden = (theme: Theme) => css`
   ${theme.a11y.visuallyHidden}
+`
+
+export const Thumbnail = styled.div`
+  ${({ theme }) => css`
+    position: relative;
+    display: flex;
+    width: 75px;
+    aspect-ratio: 75 / 69;
+    border-radius: 5px;
+    background-color: ${theme.colors.gray_18};
+    overflow: hidden;
+  `}
 `

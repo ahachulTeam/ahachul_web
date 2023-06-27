@@ -12,7 +12,7 @@ interface TagProps extends HTMLAttributes<HTMLButtonElement> {
   onDelete?: () => void
 }
 
-export const Tag = ({ className, label, variant = 'primary', disabled = false, onClick, onDelete }: TagProps) => {
+export const Tag = ({ className, label, variant = 'primary', disabled = false, onClick }: TagProps) => {
   return (
     <S.Tag type="button" className={className} variant={variant} disabled={disabled} onClick={onClick}>
       <span>{label}</span>

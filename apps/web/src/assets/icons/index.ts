@@ -19,6 +19,7 @@ export { default as KenllIcon } from './ic_knell.svg'
 export { default as QuiltIcon } from './ic_quilt.svg'
 export { default as MenuIcon } from './ic_menu.svg'
 export { default as CommentIcon } from './ic_comment.svg'
+export { default as CameraIcon } from './ic_camera.svg'
 
 export { default as HomeIcon } from './ic_home.svg'
 export { default as HomeFillIcon } from './ic_home_fill.svg'
@@ -43,3 +44,4 @@ export { default as CategoryIcon } from './ic_category.svg'
 export { default as CategoryFillIcon } from './ic_category_fill.svg'
 
 export { default as Notification } from './ic_notification.svg'
+export { default as PlusIcon } from './ic_plus.svg'
