@@ -1,5 +1,6 @@
 import { Picture } from './picture'
 
+export type CommunityCategoryType = 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR'
 export interface CommunityListQueryModel {
   categoryType?: 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR'
   subwayLine?: string
@@ -14,12 +15,22 @@ export interface CommunityListQueryModel {
 export interface CommunityOverViewModel {
   id: number
   title: string
-  categoryType: string
+  categoryType: CommunityCategoryType
   views: number
   likes: number
   region: string
   createdAt: string
   createdBy: string
+  writer: string
+  image: {
+    imageId: number
+    imageUrl: string
+  }
+}
+
+export interface CommunityListServerModel {
+  hasNext: boolean
+  posts: CommunityOverViewModel[]
 }
 
 export interface CommunityDetailQueryModel {
@@ -27,24 +38,25 @@ export interface CommunityDetailQueryModel {
 }
 
 export interface CommunityDetailModel {
-  id: number
-  title: string
+  categoryType: CommunityCategoryType
   content: string
-  categoryType: 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR'
-  hashTags: string[]
-  views: number
-  likes: number
-  region: any // fixme
   createdAt: string
   createdBy: string
+  hashTags: string[]
+  id: number
+  images: Array<{ imageId: number; imageUrl: string }>
+  likes: number
+  region: string
+  title: string
+  views: number
   writer: string
 }
 
 export interface CreateArticleQueryModel {
   title: string
   content: string
-  images?: Picture[] | []
+  imageFiles?: Picture[] | []
   hashTags?: string[]
-  categoryType: 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR'
+  categoryType: CommunityCategoryType
   subwayLineId?: number
 }

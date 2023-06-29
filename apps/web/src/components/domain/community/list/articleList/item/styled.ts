@@ -75,6 +75,8 @@ export const Thumbnail = styled.div`
     display: flex;
     width: 75px;
     aspect-ratio: 75 / 69;
+    background-color: #f4f4f4;
+    box-shadow: 0 0 0 1px #f4f4f4 inset;
     border-radius: 5px;
     background-color: ${theme.colors.gray_18};
     overflow: hidden;

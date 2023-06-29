@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 
 export const Container = styled.section`
   width: 100%;
-  padding: 30px 16px;
+  padding: 30px 16px 84px 16px;
 `
 
 export const PhotoSection = styled.div`

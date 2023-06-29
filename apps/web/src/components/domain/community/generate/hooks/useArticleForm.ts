@@ -17,7 +17,7 @@ export const useArticleForm = (pictures: Picture[]) => {
     defaultValues: {
       title: '',
       content: '',
-      images: [],
+      imageFiles: [],
       hashTags: [],
       subwayLineId: undefined,
       categoryType: 'FREE',
@@ -29,22 +29,22 @@ export const useArticleForm = (pictures: Picture[]) => {
       return methods.setError('subwayLineId', { message: '호선을 선택해 주세요.' })
     }
 
-    // createArticle(
-    //   {
-    //     title,
-    //     content,
-    //     categoryType: 'INSIGHT',
-    //     subwayLineId,
-    //     hashTags: ['1호선'],
-    //     images: pictures,
-    //   },
-    //   {
-    //     onSuccess: () => {
-    //       success('글을 생성했다.')
-    //       router.push(PATH.COMMUNITY, undefined, { shallow: true })
-    //     },
-    //   }
-    // )
+    createArticle(
+      {
+        title,
+        content,
+        categoryType: 'INSIGHT',
+        subwayLineId,
+        hashTags: ['1호선', '빌런'],
+        imageFiles: pictures,
+      },
+      {
+        // onSuccess: () => {
+        //   success('글을 생성했다.')
+        //   router.push(PATH.COMMUNITY, undefined, { shallow: true })
+        // },
+      }
+    )
   }
 
   const handleError = (err: FieldErrors) => {

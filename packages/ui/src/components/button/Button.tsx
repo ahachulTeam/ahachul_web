@@ -9,6 +9,9 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string
   type?: 'button' | 'submit' | 'reset'
   size: ButtonSize
+  /**
+   * ButtonVariant =  'primary' | 'secondary'
+   */
   variant: ButtonVariant
   label: string
   disabled?: boolean

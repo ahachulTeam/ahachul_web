@@ -45,7 +45,22 @@ export const FragmentInfos = styled.div`
   `}
 `
 
-export const ImageBox = styled.div``
+export const ImageBox = styled.div`
+  width: 100%;
+
+  & > p {
+    position: relative;
+    width: 100%;
+    padding-bottom: 80%;
+
+    & > img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+    }
+  }
+`
 
 export const DetailInfo = styled.pre`
   ${({ theme }) => css`

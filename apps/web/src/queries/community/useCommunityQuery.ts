@@ -10,10 +10,10 @@ type Options = Pick<UseQueryOptions<Awaited<ReturnType<typeof communityAPI.getCo
 const useCommunityQuery = (
   filters: type.CommunityListQueryModel,
   options?: Options
-): UseQueryResult<Pick<StandardResponse<type.CommunityOverViewModel[]>, 'result'>> => {
+): UseQueryResult<Pick<StandardResponse<type.CommunityListServerModel>, 'result'>> => {
   const reqParams = {
     ...filters,
-    ...{ page: filters?.page || 1 },
+    ...{ page: filters?.page || 0 },
     ...{ size: filters?.size || 12 },
     ...{ sort: filters?.sort || 'createdAt' },
   }
@@ -21,11 +21,11 @@ const useCommunityQuery = (
   return useQuery({
     queryKey: communityKeys.list(reqParams),
     queryFn: () => communityAPI.getCommunity(reqParams),
-    enabled: options?.enabled,
-    suspense: false,
     select: ({ result }) => ({
       result,
     }),
+    suspense: false,
+    enabled: options?.enabled,
   })
 }
 

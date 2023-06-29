@@ -1,46 +1,59 @@
 import { getCurrentTime } from '@ahhachul/lib'
-import { Tag } from '@ahhachul/ui'
-import { Button } from '@ahhachul/ui'
+import { Button, Tag } from '@ahhachul/ui'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 
+import { useCallback } from 'react'
 import * as S from './styled'
-import { PATH } from '@/constants'
+import { ARTICLE_DEFAULT_THUMBNAIL, PATH } from '@/constants'
 import { CommunityDetailModel } from '@/types/community'
 
 interface ContentsProps {
-  data: CommunityDetailModel
+  data?: CommunityDetailModel
 }
 
 function Contents({ data }: ContentsProps) {
   const router = useRouter()
 
-  const searchHashTag = (value: string) => () => {
-    router.push({
-      pathname: PATH.COMMUNITY,
-      query: { tags: value },
-    })
-  }
+  const searchHashTag = useCallback(
+    (value: string) => () => {
+      router.push(
+        {
+          pathname: PATH.COMMUNITY,
+          query: { tags: value },
+        },
+        undefined,
+        { shallow: true }
+      )
+    },
+    [router]
+  )
 
   return (
     <S.Contents>
-      <S.Title>{data.title}</S.Title>
+      <S.Title>{data?.title}</S.Title>
       <S.FragmentInfos>
         <div>
-          <span>{getCurrentTime(data.createdAt)}</span>
-          <span>{data.writer}</span>
+          <span>{getCurrentTime(data?.createdAt)}</span>
+          <span>{data?.writer}</span>
         </div>
         <div>
-          <span>조회 {data.views}</span>
+          <span>조회 {data?.views}</span>
           {/* <span>댓글 {data.commentCnt}</span> */}
-          <span>좋아요 {data.likes}</span>
+          <span>좋아요 {data?.likes}</span>
         </div>
       </S.FragmentInfos>
-      <S.ImageBox>{/* <Image src={data.img_url || thumbnailDefaultImg} alt="" priority fill /> */}</S.ImageBox>
-      <S.DetailInfo>{data.content}</S.DetailInfo>
+      {data?.images?.map(img => (
+        <S.ImageBox key={img?.imageId}>
+          <p>
+            <Image src={img?.imageUrl || ARTICLE_DEFAULT_THUMBNAIL} alt="" priority fill />
+          </p>
+        </S.ImageBox>
+      ))}
+      <S.DetailInfo>{data?.content}</S.DetailInfo>
       <S.HashTagList>
-        {data.hashTags.map((tag, i) => {
+        {data?.hashTags.map((tag, i) => {
           return (
-            // eslint-disable-next-line react/no-array-index-key
             <li key={i}>
               <Tag label={`#${tag}`} variant="primary" onClick={searchHashTag(tag)} />
             </li>
@@ -48,8 +61,8 @@ function Contents({ data }: ContentsProps) {
         })}
       </S.HashTagList>
       <S.ContentsReactBtnGroup>
-        {/* <Button variant="primary">좋아요</Button> */}
-        {/* <button variant>싫어요</button> */}
+        <Button variant="secondary" size="smd" label="싫어요" />
+        <Button variant="primary" size="smd" label="좋아요" />
       </S.ContentsReactBtnGroup>
     </S.Contents>
   )

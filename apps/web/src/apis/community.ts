@@ -4,7 +4,7 @@ import { StandardResponse } from '@/types/common'
 import * as type from '@/types/community'
 
 const communityApi = {
-  getCommunity: async (req: type.CommunityListQueryModel): Promise<StandardResponse<type.CommunityOverViewModel[]>> => {
+  getCommunity: async (req: type.CommunityListQueryModel): Promise<StandardResponse<type.CommunityListServerModel>> => {
     const res = await ax.get('/community-posts', { params: req })
     return res.data
   },
@@ -15,24 +15,31 @@ const communityApi = {
     return res.data
   },
   createArticle: async (req: type.CreateArticleQueryModel) => {
-    // const hasImage = req?.images && req?.images?.length > 0
+    const axiosConfig = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
 
-    console.log('req :', req)
+    const hasImage = req?.imageFiles && req?.imageFiles?.length > 0
 
     try {
-      // const formData = new FormData()
-      // for (const [key, value] of Object.entries(req)) {
-      //   console.log('req key:', key)
-      //   console.log('req value:', value)
-      //   formData.append(key, value)
-      // }
-      // if (hasImage) {
-      //   req?.images?.forEach((image: Picture) => {
-      //     formData.append('imageFiles', image?.file, image.name)
-      //   })
-      // }
-      // console.log('formData :', formData)
-      // return await ax.post('/community-posts', formData)
+      const formData = new FormData()
+      for (const [key, value] of Object.entries(req)) {
+        if (key === 'hashTags') {
+          formData.append(key, JSON.stringify(value))
+        } else if (key !== 'imageFiles') {
+          formData.append(key, value)
+        }
+      }
+      if (hasImage) {
+        req?.imageFiles?.forEach((image: Picture) => {
+          if (image.file) {
+            formData.append('imageFiles', image.file)
+          }
+        })
+      }
+      return await ax.post('/community-posts', formData, axiosConfig)
     } catch (error) {
       console.error('createNotice error')
     }
