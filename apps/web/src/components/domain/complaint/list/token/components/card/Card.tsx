@@ -12,14 +12,14 @@ interface ComplaintCardProps {
   variant: ComplaintCardVariant
 }
 
-export const ComplaintCard = ({
+export default function ComplaintCard({
   className,
   title,
   content,
   variant,
   tabId,
   children,
-}: PropsWithChildren<ComplaintCardProps>) => {
+}: PropsWithChildren<ComplaintCardProps>) {
   return (
     <Link href={`${PATH.COMPLAINTS}/${tabId}`} css={{ all: 'unset' }}>
       <S.ComplaintCard variant={variant} className={className}>

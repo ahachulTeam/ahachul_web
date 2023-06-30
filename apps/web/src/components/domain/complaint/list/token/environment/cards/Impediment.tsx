@@ -1,7 +1,6 @@
 import { css } from '@emotion/react'
 import Image from 'next/image'
-import { ComplaintCard } from '../../card/Card'
-import { CardIcon } from '../../cardIcon/CardIcon'
+import { CardIcon, ComplaintCard } from '../../components'
 
 export const Impediment = () => {
   return (

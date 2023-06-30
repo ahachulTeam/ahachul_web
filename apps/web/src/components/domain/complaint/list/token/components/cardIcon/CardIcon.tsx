@@ -6,6 +6,6 @@ interface CardIconProps {
   overrideCss?: Interpolation<Theme>
 }
 
-export const CardIcon = ({ overrideCss, children }: PropsWithChildren<CardIconProps>) => {
+export default function CardIcon({ overrideCss, children }: PropsWithChildren<CardIconProps>) {
   return <S.Box css={overrideCss}>{children}</S.Box>
 }
