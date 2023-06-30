@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { useCallback } from 'react'
 import * as S from './styled'
 import { ARTICLE_DEFAULT_THUMBNAIL, PATH } from '@/constants'
+import { useCommunityPostLike, useCommunityRemoveLike } from '@/queries/community/useCommunityPostLikes'
 import { CommunityDetailModel } from '@/types/community'
 
 interface ContentsProps {
@@ -14,6 +15,9 @@ interface ContentsProps {
 
 function Contents({ data }: ContentsProps) {
   const router = useRouter()
+
+  const { mutate: likes } = useCommunityPostLike()
+  const { mutate: removes } = useCommunityRemoveLike()
 
   const searchHashTag = useCallback(
     (value: string) => () => {
@@ -61,8 +65,18 @@ function Contents({ data }: ContentsProps) {
         })}
       </S.HashTagList>
       <S.ContentsReactBtnGroup>
-        <Button variant="secondary" size="smd" label="싫어요" />
-        <Button variant="primary" size="smd" label="좋아요" />
+        <Button
+          variant="primary"
+          size="smd"
+          label="좋아요"
+          onClick={() => likes({ postId: Number(router.query?.id) })}
+        />
+        <Button
+          variant="secondary"
+          size="smd"
+          label="싫어요"
+          onClick={() => removes({ postId: Number(router.query?.id) })}
+        />
       </S.ContentsReactBtnGroup>
     </S.Contents>
   )

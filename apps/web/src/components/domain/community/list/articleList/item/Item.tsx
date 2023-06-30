@@ -30,7 +30,7 @@ function Item({ data }: ItemProps) {
         <Link href={`community/${data.id}`}>
           <S.Flex>
             <h4>{data.title}</h4>
-            {/* <p>{data.content}</p> */}
+            <p>{data.content}</p>
             <S.Box>
               <span>{getCurrentTime(data.createdAt)}</span>
               <span>{data.writer}</span>

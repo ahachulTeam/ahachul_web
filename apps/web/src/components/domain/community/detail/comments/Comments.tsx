@@ -1,32 +1,55 @@
+import { css } from '@emotion/react'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 import * as S from './styled'
+import { useCommunityPostComments } from '@/queries/community/useCommunityComments'
 
-// const DUMMY_COMMENTS = {
-//   comments: [
-//     {
-//       id: 1,
-//       content: '내용',
-//       createdAt: '2023-05-16T13:59:30.210355878',
-//       createdBy: '작성자 ID',
-//       writer: '작성자 닉네임',
-//     },
-//     {
-//       id: 2,
-//       upperCommentId: 1,
-//       content: '내용',
-//       createdAt: '2023-05-16T13:59:30.210355878',
-//       createdBy: '작성자 ID',
-//       writer: '작성자 닉네임',
-//     },
-//   ],
-// }
+const defaultInputHeight = 44
 
 function Comments() {
+  const { query } = useRouter()
+  const [text, setText] = useState('')
+  const [inputHeight, setInputHeight] = useState(defaultInputHeight)
+
+  const handleChangeSearchValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    setText(value)
+  }
+
+  const handleInputKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      setText(p => {
+        return p + '\n'
+      })
+      setInputHeight(p => p + 16)
+    }
+  }
+
+  const { mutate: createComment } = useCommunityPostComments()
+
+  const submitComment = () => {
+    const req = {
+      postId: Number(query?.id),
+      content: text,
+    }
+    createComment(req)
+  }
+
   return (
     <S.Comments>
       <S.Title>
         댓글 <b>2개</b>
       </S.Title>
-      <S.CommentInput placeholder="댓글을 입력해주세요." />
+      <S.CommentInput
+        placeholder="댓글을 입력해주세요."
+        css={css`
+          height: ${inputHeight}px;
+        `}
+        value={text}
+        onChange={handleChangeSearchValue}
+        onKeyDown={handleInputKeyDown}
+      />
+      <button onClick={submitComment}>댓글 달기</button>
     </S.Comments>
   )
 }

@@ -15,6 +15,7 @@ export interface CommunityListQueryModel {
 export interface CommunityOverViewModel {
   id: number
   title: string
+  content: string
   categoryType: CommunityCategoryType
   views: number
   likes: number
@@ -59,4 +60,9 @@ export interface CreateArticleQueryModel {
   hashTags?: string[]
   categoryType: CommunityCategoryType
   subwayLineId?: number
+}
+
+export interface CreateCommentQueryModel extends CommunityDetailQueryModel {
+  upperCommentId?: number
+  content: string
 }

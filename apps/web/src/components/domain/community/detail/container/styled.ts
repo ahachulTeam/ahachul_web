@@ -24,6 +24,24 @@ export const Divider = styled.div`
   `}
 `
 
+export const ContentsReactBtnGroup = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20px;
+    width: 100%;
+    padding: 15px 0;
+
+    & > button {
+      width: 100%;
+      border-radius: 10px;
+      color: ${theme.colors.gray_65};
+      font-weight: 400;
+    }
+  `}
+`
+
 export const h3 = (theme: Theme) => css`
   ${theme.fonts.bold18};
   color: ${theme.colors.black};

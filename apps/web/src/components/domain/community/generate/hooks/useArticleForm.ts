@@ -33,7 +33,7 @@ export const useArticleForm = (pictures: Picture[]) => {
       {
         title,
         content,
-        categoryType: 'INSIGHT',
+        categoryType: 'FREE',
         subwayLineId,
         hashTags: ['1호선', '빌런'],
         imageFiles: pictures,
