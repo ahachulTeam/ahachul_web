@@ -1,7 +1,5 @@
-import Link from 'next/link'
 import { PropsWithChildren } from 'react'
 import * as S from './styled'
-import { PATH } from '@/constants'
 import { ComplaintCardVariant } from '@/types/variants'
 
 interface ComplaintCardProps {
@@ -21,12 +19,10 @@ export default function ComplaintCard({
   children,
 }: PropsWithChildren<ComplaintCardProps>) {
   return (
-    <Link href={`${PATH.COMPLAINTS}/${tabId}`} css={{ all: 'unset' }}>
-      <S.ComplaintCard variant={variant} className={className}>
-        <h4>{title}</h4>
-        <pre>{content}</pre>
-        {children}
-      </S.ComplaintCard>
-    </Link>
+    <S.ComplaintCard variant={variant} data-tabId={tabId} className={className}>
+      <h4>{title}</h4>
+      <pre>{content}</pre>
+      {children}
+    </S.ComplaintCard>
   )
 }

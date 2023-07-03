@@ -2,6 +2,10 @@ import { Theme, css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { ComplaintCardVariant } from '@/types/variants'
 
+export const Article = styled.article`
+  all: unset;
+`
+
 interface ComplaintCardProps {
   variant: ComplaintCardVariant
 }

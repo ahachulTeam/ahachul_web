@@ -14,13 +14,13 @@ export default function ComplaintPage() {
   return (
     <>
       <ComplaintPageContainer toggleShowing={toggleShowing} />
-      <FloatingButton label="콜센터 신고" onClick={onOpen} />
-      <CallCenterDrawer ref={dialogRef} isOpen={isOpen} onClose={onClose} />
       <ComplaintDrawer
         isOpen={modalState.isOpen}
         targetSection={modalState.targetSection}
         onClose={onComplaintModalClose}
       />
+      <CallCenterDrawer ref={dialogRef} isOpen={isOpen} onClose={onClose} />
+      <FloatingButton label="콜센터 신고" onClick={onOpen} />
     </>
   )
 }
