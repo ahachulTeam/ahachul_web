@@ -1,4 +1,4 @@
-import { css } from '@emotion/react'
+import { Button } from '@ahhachul/ui'
 import { useEffect, useState } from 'react'
 import { useSwipeable } from 'react-swipeable'
 import * as S from './ComplaintDrawer.styled'
@@ -24,6 +24,13 @@ interface ComplaintDrawerProps {
 export default function ComplaintDrawer({ isOpen, targetSection, onClose }: ComplaintDrawerProps) {
   const [selectedTab, setSelectedTab] = useState(targetSection)
 
+  // const handleSubmitComplaintAction = params => {
+  //   const reqParams = {
+  //     targetSection,
+  //     ...params,
+  //   }
+  // }
+
   const swipeHandlers = useSwipeable({
     onSwipedDown: () => onClose(),
     preventScrollOnSwipe: true,
@@ -44,6 +51,9 @@ export default function ComplaintDrawer({ isOpen, targetSection, onClose }: Comp
         </S.지하철정보>
         <S.진짜콘텐츠></S.진짜콘텐츠>
       </S.Container>
+      <article css={S.fixedBottomCss}>
+        <Button type="button" label="접수하기" size="md" variant="primary" />
+      </article>
     </BottomSheetWithMotion>
   )
 }

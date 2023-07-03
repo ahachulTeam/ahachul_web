@@ -18,7 +18,7 @@ export const overlayCss = (theme: Theme) => css`
 `
 
 export const contentCss = (theme: Theme) => css`
-  position: absolute;
+  position: relative;
   z-index: ${theme.zIndex.modal};
   top: 100%;
   left: 0;
@@ -38,8 +38,6 @@ export const contentCss = (theme: Theme) => css`
   background-color: #fff;
   border-radius: 24px 24px 0 0;
 
-  position: relative;
-  z-index: 10;
   overflow: hidden;
 
   @supports not (overflow: overlay) {

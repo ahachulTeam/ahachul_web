@@ -43,3 +43,14 @@ export const 지하철정보 = styled.div`
 export const 진짜콘텐츠 = styled.article`
   border-top: 1px solid #e7e7e7;
 `
+
+export const fixedBottomCss = css`
+  position: fixed;
+  bottom: 25px;
+  right: 16px;
+
+  & > button {
+    border-radius: 60px;
+    width: 148px;
+  }
+`
