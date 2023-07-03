@@ -66,3 +66,30 @@ export interface CreateCommentQueryModel extends CommunityDetailQueryModel {
   upperCommentId?: number
   content: string
 }
+
+export interface CommentsServerModel {
+  comments: [
+    {
+      parentComment: {
+        id: number
+        upperCommentId: number | null
+        content: string
+        status: string
+        createdAt: string
+        createdBy: string
+        writer: string
+      }
+      childComments: [
+        {
+          id: number
+          upperCommentId: number | null
+          content: string
+          status: string
+          createdAt: string
+          createdBy: string
+          writer: string
+        }
+      ]
+    }
+  ]
+}

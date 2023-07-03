@@ -44,7 +44,10 @@ const communityApi = {
       console.error('createNotice error')
     }
   },
-  getComments: async (params: type.CommunityDetailQueryModel) => await ax.get(`/community-comments`, { params }),
+  getComments: async (params: type.CommunityDetailQueryModel): Promise<StandardResponse<type.CommentsServerModel>> => {
+    const res = await ax.get(`/community-comments`, { params })
+    return res.data
+  },
   addComment: async (req: type.CreateCommentQueryModel) => await ax.post(`/community-comments`, req),
   addLike: async (req: type.CommunityDetailQueryModel) => await ax.post(`/community-posts/${req.postId}/like`),
   removeLike: async (req: type.CommunityDetailQueryModel) => await ax.delete(`/community-posts/${req.postId}/like`),

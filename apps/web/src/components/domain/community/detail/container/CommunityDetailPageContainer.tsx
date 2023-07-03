@@ -15,15 +15,18 @@ export const CommunityDetailPageContainer = () => {
     enabled: Boolean(query?.id),
   })
 
+  console.log(comments)
+
   return (
     <S.Container>
       <S.ContentSection>
         <Contents data={articleDetail?.result} />
       </S.ContentSection>
       <S.Divider />
-      <S.CommentSection>
+      <S.GenerateCommentSection>
         <Comments />
-      </S.CommentSection>
+      </S.GenerateCommentSection>
+      <S.CommentListSection>{/* {comments?.map} */}</S.CommentListSection>
     </S.Container>
   )
 }
