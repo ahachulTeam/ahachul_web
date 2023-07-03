@@ -1,9 +1,14 @@
 import { Patient, Sexual, Violence } from './cards'
 import * as S from './styled'
+import { ComplaintTargets } from '@/types/complaint'
 
-export default function Emergency() {
+interface EmergencyContainer {
+  toggleShowing: (target: ComplaintTargets) => () => void
+}
+
+export default function Emergency({ toggleShowing }: EmergencyContainer) {
   return (
-    <S.Emergency>
+    <S.Emergency onClick={toggleShowing('Announcement')}>
       <S.Title>긴급상황 🚨</S.Title>
       <S.EmergencyCardList>
         <li>

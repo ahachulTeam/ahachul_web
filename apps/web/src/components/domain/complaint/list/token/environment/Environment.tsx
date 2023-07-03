@@ -1,7 +1,12 @@
 import { Announcement, Facilities, Impediment, Temperature } from './cards'
 import * as S from './styled'
+import { ComplaintTargets } from '@/types/complaint'
 
-export default function Environment() {
+interface EnvironmentContainer {
+  toggleShowing: (target: ComplaintTargets) => () => void
+}
+
+export default function Environment({ toggleShowing }: EnvironmentContainer) {
   return (
     <S.Environment>
       <S.Title>지하철 환경</S.Title>
