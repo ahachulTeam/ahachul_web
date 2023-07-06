@@ -15,8 +15,6 @@ export const CommunityDetailPageContainer = () => {
     enabled: Boolean(query?.id),
   })
 
-  console.log(comments)
-
   return (
     <S.Container>
       <S.ContentSection>

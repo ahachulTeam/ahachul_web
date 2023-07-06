@@ -1,56 +1,43 @@
-import { css } from '@emotion/react'
+import { useBoolean } from '@ahhachul/lib'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
 import * as S from './styled'
+import TextDrawer from '@/components/common/drawer/text/TextDrawer'
+import useInput from '@/hooks/useInput'
 import { useCommunityPostComments } from '@/queries/community/useCommunityComments'
-
-const defaultInputHeight = 44
 
 function Comments() {
   const { query } = useRouter()
-  const [text, setText] = useState('')
-  const [inputHeight, setInputHeight] = useState(defaultInputHeight)
 
-  const handleChangeSearchValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target
-    setText(value)
-  }
+  const [isModalOpen, _, onModalOpen, onModalClose] = useBoolean(false)
 
-  const handleInputKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      setText(p => {
-        return p + '\n'
-      })
-      setInputHeight(p => p + 16)
-    }
-  }
+  const [textValue, onChangeTextValue] = useInput()
 
-  const { mutate: createComment } = useCommunityPostComments()
-
-  const submitComment = () => {
+  const onSubmitTextValue = () => {
     const req = {
       postId: Number(query?.id),
-      content: text,
+      content: textValue,
     }
     createComment(req)
   }
 
+  const { mutate: createComment } = useCommunityPostComments()
+
   return (
-    <S.Comments>
-      <S.Title>
-        댓글 <b>2개</b>
-      </S.Title>
-      <S.CommentInput
-        placeholder="댓글을 입력해주세요."
-        css={css`
-          height: ${inputHeight}px;
-        `}
-        value={text}
-        onChange={handleChangeSearchValue}
-        onKeyDown={handleInputKeyDown}
+    <>
+      <S.Comments>
+        <S.Title>
+          댓글 <b>2개</b>
+        </S.Title>
+        <S.CommentInput onClick={onModalOpen} placeholder="댓글을 입력해주세요." />
+      </S.Comments>
+      <TextDrawer
+        isOpen={isModalOpen}
+        textValue={textValue}
+        onChangeTextValue={onChangeTextValue}
+        onSubmitTextValue={onSubmitTextValue}
+        onClose={onModalClose}
       />
-      <button onClick={submitComment}>댓글 달기</button>
-    </S.Comments>
+    </>
   )
 }
 

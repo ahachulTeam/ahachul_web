@@ -22,10 +22,10 @@ export const CommentInput = styled.input`
   ${({ theme }) => css`
     ${theme.fonts.regular14};
     box-sizing: border-box;
+    height: 44px;
     border: 1px solid ${theme.colors.gray_19};
     border-radius: 110px;
     padding-left: 25px;
-    margin-bottom: 15px;
     width: auto;
     &::placeholder {
       color: ${theme.colors.gray_40};

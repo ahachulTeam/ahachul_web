@@ -66,13 +66,13 @@ function Contents({ data }: ContentsProps) {
       </S.HashTagList>
       <S.ContentsReactBtnGroup>
         <Button
-          variant="primary"
+          variant="outline"
           size="smd"
           label="좋아요"
           onClick={() => likes({ postId: Number(router.query?.id) })}
         />
         <Button
-          variant="secondary"
+          variant="outline"
           size="smd"
           label="싫어요"
           onClick={() => removes({ postId: Number(router.query?.id) })}

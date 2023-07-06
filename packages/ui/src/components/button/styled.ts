@@ -22,6 +22,7 @@ export const Button = styled.button<ButtonProps>`
     ${size === 'lg' && varaiants.size.lg()};
     ${variant === 'primary' && varaiants.variant.primary()};
     ${variant === 'secondary' && varaiants.variant.secondary()};
+    ${variant === 'outline' && varaiants.variant.outline()};
   `}
 `
 
