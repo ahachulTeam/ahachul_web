@@ -3,9 +3,9 @@ import { StandardResponse } from '@/types/common'
 import { LostPostsRequest, LostPostsResponse } from '@/types/lost'
 
 const lostAPI = {
-  fetchLostPosts: async (params: LostPostsRequest): Promise<StandardResponse<LostPostsResponse>> => {
-    const res = await ax.get('/lost-posts', { params })
-    return res.data
+  fetchLostPosts: async (params: LostPostsRequest) => {
+    const { data } = await ax.get<StandardResponse<LostPostsResponse>>('/lost-posts', { params })
+    return data
   },
 }
 
