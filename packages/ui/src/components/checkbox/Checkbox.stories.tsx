@@ -9,7 +9,7 @@ const meta: Meta<typeof Checkbox> = {
   component: Checkbox,
   tags: ['autodocs'],
   parameters: {
-    controls: { exclude: ['className', 'onChange'] },
+    controls: { exclude: ['className', 'variant', 'onChange'] },
     componentSource: {
       language: 'typescript',
     },
@@ -28,10 +28,21 @@ const StoryCheckbox = (args: CheckboxProps) => {
   )
 }
 
-export const Default: Story = {
+export const Primary: Story = {
   args: {
     disabled: false,
     label: '아하철이형 약관 모두 동의',
+    variant: 'primary',
+    onChange: action('changed'),
+  },
+  render: args => StoryCheckbox(args),
+}
+
+export const Ghost: Story = {
+  args: {
+    disabled: false,
+    label: '찾기 완료 제외하기',
+    variant: 'ghost',
     onChange: action('changed'),
   },
   render: args => StoryCheckbox(args),
