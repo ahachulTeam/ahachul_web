@@ -9,6 +9,7 @@ function ArticleList() {
 
   const { data } = useCommunityQuery({
     categoryType: query?.tab || 'FREE',
+    title: query?.title,
   } as CommunityListQueryModel)
 
   return (

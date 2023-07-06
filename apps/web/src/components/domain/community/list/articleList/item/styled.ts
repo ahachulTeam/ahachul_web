@@ -82,7 +82,6 @@ export const Thumbnail = styled.div`
     overflow: hidden;
   `}
 `
-
 export const visuallyHidden = (theme: Theme) => css`
   ${theme.a11y.visuallyHidden}
 `

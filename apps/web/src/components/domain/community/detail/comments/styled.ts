@@ -23,10 +23,11 @@ export const CommentInput = styled.input`
     ${theme.fonts.regular14};
     box-sizing: border-box;
     height: 44px;
+    width: 100%;
     border: 1px solid ${theme.colors.gray_19};
     border-radius: 110px;
     padding-left: 25px;
-    width: auto;
+
     &::placeholder {
       color: ${theme.colors.gray_40};
     }
@@ -34,4 +35,10 @@ export const CommentInput = styled.input`
       border-color: ${theme.colors.red_10};
     }
   `}
+`
+
+export const InputCoverBtn = styled.button`
+  all: unset;
+  cursor: pointer;
+  width: 100%;
 `

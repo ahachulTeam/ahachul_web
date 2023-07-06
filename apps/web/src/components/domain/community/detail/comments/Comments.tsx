@@ -18,6 +18,8 @@ function Comments() {
       content: textValue,
     }
     createComment(req)
+
+    onModalClose()
   }
 
   const { mutate: createComment } = useCommunityPostComments()
@@ -28,7 +30,9 @@ function Comments() {
         <S.Title>
           댓글 <b>2개</b>
         </S.Title>
-        <S.CommentInput onClick={onModalOpen} placeholder="댓글을 입력해주세요." />
+        <S.InputCoverBtn onClick={onModalOpen}>
+          <S.CommentInput placeholder="댓글을 입력해주세요." disabled />
+        </S.InputCoverBtn>
       </S.Comments>
       <TextDrawer
         isOpen={isModalOpen}
