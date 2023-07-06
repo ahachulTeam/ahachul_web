@@ -2,7 +2,7 @@
 import { useRouter } from 'next/router'
 import { useEffect, useCallback } from 'react'
 
-export default function useTab<T extends string>(tabList: Record<T, string>) {
+export default function useTab<T extends string>(tabList: Record<T, string>, queryKey = 'tab') {
   const router = useRouter()
   const { query } = router
 
@@ -12,7 +12,7 @@ export default function useTab<T extends string>(tabList: Record<T, string>) {
   const handleChangeTab = useCallback(
     (tab: string) => () => {
       const query = { ...router.query }
-      router.replace({ pathname: router.pathname, query: { ...query, tab } }, undefined, { shallow: true })
+      router.replace({ pathname: router.pathname, query: { ...query, [queryKey]: tab } }, undefined, { shallow: true })
     },
     []
   )
@@ -24,7 +24,7 @@ export default function useTab<T extends string>(tabList: Record<T, string>) {
 
     const isExistTab = Object.keys(tabList).includes(selectedTab as string)
     if (!isExistTab) {
-      router.replace({ pathname: router.pathname, query: { ...query, tab: defaultTab } })
+      router.replace({ pathname: router.pathname, query: { ...query, [queryKey]: defaultTab } })
     }
   }, [selectedTab])
 

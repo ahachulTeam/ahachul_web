@@ -5,6 +5,11 @@ export enum LostStatus {
   COMPLETE = 'COMPLETE',
 }
 
+export enum LostTypes {
+  ACQUIRE = 'ACQUIRE',
+  LOST = 'LOST',
+}
+
 export interface LostPost {
   id: string
   title: string
@@ -31,3 +36,5 @@ export interface LostPostsRequest {
 export interface LostPostsResponse extends InfiniteFetchResponse {
   posts: LostPost[]
 }
+
+export type FilterKeys = KeyOf<Partial<LostPostsRequest>>

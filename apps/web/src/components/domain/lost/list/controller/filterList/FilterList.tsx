@@ -5,7 +5,7 @@ import { Filter } from '@/components/common'
 import { useFilterList } from '@/hooks'
 
 export default function FilterList() {
-  const { filter, handleApplyFilter } = useFilterList('lines', 'source')
+  const { filter, handleApplyFilter } = useFilterList('subwayLineId', 'origin')
 
   return (
     <S.FilterList>

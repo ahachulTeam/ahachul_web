@@ -1,6 +1,6 @@
 export const LOST_FOUND_FILTERS = [
   {
-    id: 'lines',
+    id: 'subwayLineId',
     label: '호선',
     options: [
       { label: '1호선', value: '1' },
@@ -10,11 +10,11 @@ export const LOST_FOUND_FILTERS = [
     ],
   },
   {
-    id: 'source',
+    id: 'origin',
     label: '출처',
     options: [
-      { label: '마음속', value: '마음속' },
-      { label: '아무거나', value: '아무거나' },
+      { label: '경찰청 유실물 종합관리시스템', value: 'LOST112' },
+      { label: '아하철', value: 'AHACHUL' },
     ],
   },
 ] as const
