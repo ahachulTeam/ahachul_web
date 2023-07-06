@@ -29,8 +29,8 @@ export default function AppProvider({ children, dehydrateState }: AppProviderPro
       <Recoil>
         <ReactQuery state={dehydrateState}>
           <LazyMotion features={domMax}>
-            <GlobalStyles />
             <ThemeProvider theme={theme}>
+              <GlobalStyles />
               <AuthProvider>{children}</AuthProvider>
             </ThemeProvider>
           </LazyMotion>
