@@ -1,26 +1,38 @@
 import { theme } from '@ahhachul/design-system'
-import type { SubwayLine } from '@ahhachul/lib'
+import type { Line } from '@ahhachul/lib'
 
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
 interface BadgeProps {
-  variant: SubwayLine | string
+  variant: Line | string
+  rounded: boolean
 }
 
 export const Badge = styled.span<BadgeProps>`
-  ${({ variant }) => css`
-    ${theme.fonts.regular10};
+  ${({ variant, rounded }) => css`
+    ${rounded ? baseBadge : hotBadge};
     display: flex;
     justify-content: center;
     align-items: center;
     max-width: max-content;
-    min-width: max-content;
-    border-radius: 3px;
-    padding: 2px 8px;
+    padding: 0 8px;
     color: ${theme.colors.white};
-    background-color: ${variants()[variant as SubwayLine] || theme.colors.primary};
+    background-color: ${variants()[variant as Line] || theme.colors.primary};
   `}
+`
+
+export const baseBadge = css`
+  ${theme.fonts.regular14};
+  min-width: 24px;
+  height: 24px;
+  border-radius: 120px;
+`
+
+export const hotBadge = css`
+  ${theme.fonts.regular10};
+  height: 19px;
+  border-radius: 3px;
 `
 
 const variants = () => ({

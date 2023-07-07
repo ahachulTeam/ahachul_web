@@ -5,9 +5,10 @@ import * as S from './styled'
 export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string
   label?: string
+  variant?: 'primary' | 'ghost'
 }
 
-export function Checkbox({ id, label, className }: CheckboxProps) {
+export function Checkbox({ className, id, label, variant = 'primary', ...other }: CheckboxProps) {
   const checkboxRef = useRef<HTMLInputElement>(null)
 
   const uuid = `checkbox-${id}`
@@ -24,8 +25,8 @@ export function Checkbox({ id, label, className }: CheckboxProps) {
   }
 
   return (
-    <S.Checkbox className={className}>
-      <input id={uuid} ref={checkboxRef} tabIndex={-1} type="checkbox" />
+    <S.Checkbox className={className} variant={variant}>
+      <input ref={checkboxRef} id={uuid} type="checkbox" tabIndex={-1} {...other} />
       <label htmlFor={uuid} tabIndex={0} onKeyDown={onKeydown}>
         {label}
       </label>

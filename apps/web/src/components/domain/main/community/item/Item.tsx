@@ -25,7 +25,7 @@ function Item({ data }: ItemProps) {
           <h4>{data.title}</h4>
           <p>{data.content}</p>
           <S.Box>
-            <Badge label={data.subwayLine} isHottest />
+            <Badge variant={data.subwayLine} isHottest />
           </S.Box>
         </S.Flex>
         <S.Thumbnail>
