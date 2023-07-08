@@ -1,7 +1,7 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
-export const LostFoundList = styled.ul`
+export const LostList = styled.ul`
   ${({ theme }) => css`
     width: 100%;
 
