@@ -35,9 +35,10 @@ const EnvironmentContents = {
     variant: 'primary',
     imgName: 'c2',
     overrideCss: css`
-      right: 10.41px;
-      width: 73.59px;
-      height: 100%;
+      bottom: 5.48px;
+      right: 12px;
+      width: 50px;
+      height: 50.52px;
     `,
   },
   impediment: {
