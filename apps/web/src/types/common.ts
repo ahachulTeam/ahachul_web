@@ -1,12 +1,15 @@
-import { CommonResponseMessages, ErrorCode } from '@/constants'
+import { ResponseCode, ResponseMessages } from '@/constants'
 
 export type KeyOf<T> = keyof T
 export type ValueOf<T> = T[keyof T]
 export type IndexOf<T, K extends KeyOf<T>> = ValueOf<T[K]>
 
-export interface StandardResponse<T> {
-  code: ErrorCode
-  message: CommonResponseMessages
+export type ResponseStatus = {
+  code: ValueOf<typeof ResponseCode>
+  message: ValueOf<typeof ResponseMessages>
+}
+
+export interface StandardResponse<T> extends ResponseStatus {
   result: T
 }
 
@@ -27,3 +30,6 @@ export interface PublicPresignedServerModel {
 }
 
 export type UrlQueryType = Record<string, string | string[]>
+export interface InfiniteFetchResponse {
+  hasNext: boolean
+}

@@ -56,8 +56,10 @@ export class TokenService {
       }
       const retryOriginalRequest = new Promise(resolve => {
         this.addSubscriber((accessToken: string) => {
-          errorResponse!.config.headers!.Authorization = `Bearer ${accessToken}`
-          resolve(axios(errorResponse!.config))
+          if (errorResponse) {
+            errorResponse.config.headers.Authorization = `Bearer ${accessToken}`
+            resolve(axios(errorResponse.config))
+          }
         })
       })
 
