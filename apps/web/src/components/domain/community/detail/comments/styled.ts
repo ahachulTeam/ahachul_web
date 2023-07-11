@@ -57,11 +57,29 @@ export const InputCoverBtn = styled.button`
 export const commentBoxCss = (theme: Theme) => css`
   position: relative;
   width: 100%;
-  padding: 20px;
+  min-height: 78px;
+  padding: 15px 0px 40px 0;
 
   & > pre {
     ${theme.fonts.regular14};
     color: #272727;
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+  }
+
+  &[data-status='delete'] {
+    & > pre {
+      color: ${theme.colors.gray_55};
+    }
+  }
+
+  &[data-type='child-comment'] {
+    padding: 15px 24px 40px 24px;
+  }
+
+  &:not(:last-of-type) {
+    border-bottom: 1px solid ${theme.colors.gray_17};
   }
 `
 
@@ -71,7 +89,33 @@ export const commentTopInfoCss = (theme: Theme) => css`
   & > b {
     ${theme.fonts.semibold14};
     color: #272727;
-    margin-right: 4px;
+    margin-right: 8px;
+    position: relative;
+
+    &[data-type='child-comment'] {
+      &::before {
+        content: 'ㄴ';
+        display: block;
+        position: absolute;
+        top: -2px;
+        left: -15px;
+        width: max-content;
+        height: 10px;
+        color: ${theme.colors.black};
+      }
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: -5px;
+      width: 1px;
+      height: 10px;
+      background-color: ${theme.colors.gray_40};
+      transform: translateY(-50%);
+    }
   }
 
   & > p {
@@ -87,11 +131,24 @@ export const commentBottomButtonGroupCss = (theme: Theme) => css`
   right: 0;
   display: flex;
   align-items: center;
-  column-gap: 4px;
+  column-gap: 6px;
   margin-bottom: 10px;
 
   & > button {
     ${theme.fonts.regular12};
     color: #676767;
+    position: relative;
+
+    &:not(:last-of-type)::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: -3.5px;
+      width: 1px;
+      height: 10px;
+      background-color: ${theme.colors.gray_40};
+      transform: translateY(-50%);
+    }
   }
 `

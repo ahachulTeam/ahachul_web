@@ -1,6 +1,11 @@
 import { type ChangeEventHandler, useCallback, useState } from 'react'
 
-type Return = readonly [string, ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>, VoidFunction]
+type Return = readonly [
+  string,
+  ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
+  VoidFunction,
+  (value: string) => void
+]
 
 /**
  * string input을 쉽게 다룰 수 있는 hook 입니다
@@ -20,7 +25,7 @@ const useInput = (initialValue = ''): Return => {
     setState(initialValue)
   }, [initialValue])
 
-  return [state, onChange, resetValue]
+  return [state, onChange, resetValue, setState]
 }
 
 export default useInput

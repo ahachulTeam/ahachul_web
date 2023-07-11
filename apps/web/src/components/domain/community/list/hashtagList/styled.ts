@@ -7,6 +7,7 @@ export const HashtagList = styled.ul`
   overflow-x: overlay;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  padding: 0 16px;
 
   ::-webkit-scrollbar {
     display: none;

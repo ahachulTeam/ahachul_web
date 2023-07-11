@@ -1,3 +1,4 @@
+import { removeEmptyProperties } from '@ahhachul/lib'
 import { useRouter } from 'next/router'
 import Item from './item/Item'
 import * as S from './styled'
@@ -7,10 +8,17 @@ import { CommunityListQueryModel } from '@/types/community'
 function ArticleList() {
   const { query } = useRouter()
 
-  const { data } = useCommunityQuery({
-    categoryType: query?.tab || 'FREE',
-    title: query?.title,
-  } as CommunityListQueryModel)
+  const { data } = useCommunityQuery(
+    removeEmptyProperties({
+      categoryType: query?.tab || 'FREE',
+      subwayLine: query?.lines,
+      title: query?.title,
+      content: query?.content,
+      sort: query?.sort,
+      page: Number(query?.page),
+      size: Number(query?.size),
+    }) as CommunityListQueryModel
+  )
 
   return (
     <S.ArticleList>

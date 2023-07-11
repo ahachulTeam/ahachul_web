@@ -13,6 +13,7 @@ export const Item = styled.li`
 
 export const Flex = styled.div`
   ${({ theme }) => css`
+    position: relative;
     flex: 1 0;
     display: flex;
     flex-direction: column;
@@ -32,18 +33,6 @@ export const Flex = styled.div`
   `}
 `
 
-export const Image = styled.div`
-  position: relative;
-  width: 80px;
-  height: 80px;
-
-  & > img {
-    object-fit: contain;
-    width: 100%;
-    height: 100%;
-  }
-`
-
 export const Box = styled.span`
   ${({ theme }) => css`
     ${theme.fonts.regular12};
@@ -51,7 +40,7 @@ export const Box = styled.span`
     width: max-content;
     padding-top: 4px;
 
-    & > span:first-of-type {
+    & > span:not(:last-of-type) {
       position: relative;
       display: inline-block;
       margin-right: 12px;
@@ -59,10 +48,11 @@ export const Box = styled.span`
       &::after {
         content: '';
         position: absolute;
-        top: 0;
+        top: 50%;
         right: -6px;
+        transform: translateY(-50%);
         width: 1px;
-        height: 12px;
+        height: 10px;
         background-color: #c3c3c3;
       }
     }
@@ -82,6 +72,40 @@ export const Thumbnail = styled.div`
     overflow: hidden;
   `}
 `
+
+export const CommentBox = styled.div`
+  ${({ theme }) => css`
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+
+    & > span {
+      ${theme.fonts.regular12};
+      color: ${theme.colors.gray_35};
+    }
+
+    & > svg {
+      fill: ${theme.colors.gray_35};
+      transition: all 0.3s ease-in-out;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        & > span {
+          color: ${theme.colors.primary};
+        }
+
+        & > svg {
+          fill: ${theme.colors.primary};
+        }
+      }
+    }
+  `}
+`
+
 export const visuallyHidden = (theme: Theme) => css`
   ${theme.a11y.visuallyHidden}
 `

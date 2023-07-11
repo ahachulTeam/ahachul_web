@@ -17,12 +17,14 @@ export interface CommunityOverViewModel {
   title: string
   content: string
   categoryType: CommunityCategoryType
-  views: number
-  likes: number
+  commentCnt: number
+  viewCnt: number
+  likeCnt: number
   region: string
   createdAt: string
   createdBy: string
   writer: string
+  regionType: string
   image: {
     imageId: number
     imageUrl: string
@@ -46,10 +48,13 @@ export interface CommunityDetailModel {
   hashTags: string[]
   id: number
   images: Array<{ imageId: number; imageUrl: string }>
-  likes: number
-  region: string
+  hateCnt: number
+  hateYn: 'Y' | 'N'
+  likeCnt: number
+  likeYn: 'Y' | 'N'
+  regionType: string
   title: string
-  views: number
+  viewCnt: number
   writer: string
 }
 
@@ -64,6 +69,11 @@ export interface CreateArticleQueryModel {
 
 export interface CreateCommentQueryModel extends CommunityDetailQueryModel {
   upperCommentId?: number
+  content: string
+}
+
+export interface PutCommentQueryModel {
+  commentId: number
   content: string
 }
 

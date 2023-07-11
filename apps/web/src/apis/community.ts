@@ -49,8 +49,14 @@ const communityApi = {
     return res.data
   },
   addComment: async (req: type.CreateCommentQueryModel) => await ax.post(`/community-comments`, req),
+  updateComment: async (req: type.PutCommentQueryModel) =>
+    await ax.patch(`/community-comments/${req.commentId}`, { content: req.content }),
+  deleteComment: async (req: Pick<type.PutCommentQueryModel, 'commentId'>) =>
+    await ax.delete(`/community-comments/${req.commentId}`),
   addLike: async (req: type.CommunityDetailQueryModel) => await ax.post(`/community-posts/${req.postId}/like`),
   removeLike: async (req: type.CommunityDetailQueryModel) => await ax.delete(`/community-posts/${req.postId}/like`),
+  addHate: async (req: type.CommunityDetailQueryModel) => await ax.post(`/community-posts/${req.postId}/hate`),
+  removeHate: async (req: type.CommunityDetailQueryModel) => await ax.delete(`/community-posts/${req.postId}/hate`),
 }
 
 export default communityApi

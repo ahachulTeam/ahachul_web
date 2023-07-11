@@ -12,15 +12,18 @@ export const CommunityPageContainer = () => {
 
   return (
     <S.Container>
-      <Tab selectedTab={selectedTab} tabList={COMMUNITY_TABS} handleChangeTab={handleChangeTab} />
+      <Tab
+        css={S.customBorderBottomCss}
+        selectedTab={selectedTab}
+        tabList={COMMUNITY_TABS}
+        handleChangeTab={handleChangeTab}
+      />
       <h2 css={S.visuallyHidden}>{StaticSEO.community.title}</h2>
-      <S.Divider />
-      <S.HashtagSection>
-        <h3 css={S.h3}>HOT 해쉬태그</h3>
+      <S.TopFilterSection>
         <HashtagList />
         <FilterList />
-      </S.HashtagSection>
-      <S.Divider />
+      </S.TopFilterSection>
+      <span css={S.dividerCss} />
       <ArticleList />
     </S.Container>
   )

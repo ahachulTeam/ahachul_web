@@ -2,11 +2,14 @@ import { useRouter } from 'next/router'
 import Comments from '../comments/Comments'
 import Contents from '../contents/Contents'
 import * as S from './styled'
+import { useAuth } from '@/context'
 import { useCommunityCommentsQuery } from '@/queries/community/useCommunityComments'
 import useCommunityDetailQuery from '@/queries/community/useCommunityDetailQuery'
 
 export const CommunityDetailPageContainer = () => {
+  const { user } = useAuth()
   const { query } = useRouter()
+
   const { data: articleDetail } = useCommunityDetailQuery(parseInt(query?.id as string), {
     enabled: Boolean(query?.id),
   })
@@ -19,7 +22,7 @@ export const CommunityDetailPageContainer = () => {
     <S.Container>
       <Contents data={articleDetail?.result} />
       <S.Divider />
-      <Comments comments={comments} />
+      <Comments comments={comments} user={user} />
     </S.Container>
   )
 }

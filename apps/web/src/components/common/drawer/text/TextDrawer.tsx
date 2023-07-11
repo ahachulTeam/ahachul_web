@@ -29,7 +29,7 @@ export default function TextDrawer({
     <BottomSheetWithMotion overrideCss={S.customModalHeightCss} isMounted={isOpen} onClickOutside={onClose}>
       <S.Container {...swipeHandlers}>
         <S.DrawerHeaderBox>
-          <S.IconBtn>
+          <S.IconBtn onClick={onClose}>
             <CloseIcon />
           </S.IconBtn>
           <S.HeadTitle>댓글 쓰기</S.HeadTitle>

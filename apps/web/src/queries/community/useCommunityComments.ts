@@ -31,3 +31,33 @@ export const useCommunityPostComments = () => {
     },
   })
 }
+
+export const useCommunityUpdateComment = () => {
+  const toast = useToast()
+
+  return useMutation({
+    mutationFn: (req: type.PutCommentQueryModel) => communityAPI.updateComment(req),
+    onSuccess: () => {
+      toast.success('댓글을 수정했다.')
+    },
+  })
+}
+
+export const useCommunityDeleteComment = () => {
+  const toast = useToast()
+
+  return useMutation({
+    mutationFn: (req: Pick<type.PutCommentQueryModel, 'commentId'>) => communityAPI.deleteComment(req),
+    onSuccess: () => {
+      toast.success('댓글을 삭제했다.')
+    },
+  })
+}
+
+export const useCommentsManagement = () => {
+  const { mutate: createComment } = useCommunityPostComments()
+  const { mutate: updateComment } = useCommunityUpdateComment()
+  const { mutate: deleteComment } = useCommunityDeleteComment()
+
+  return { createComment, updateComment, deleteComment }
+}

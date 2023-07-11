@@ -15,9 +15,10 @@ interface FilterProps {
   options: readonly FilterItem[]
   value: string
   changeValue: (option: string) => void
+  className?: string
 }
 
-export default function Filter({ id, label, options, value, changeValue }: FilterProps) {
+export default function Filter({ id, label, options, value, className, changeValue }: FilterProps) {
   const { dialogRef, isOpen, onOpen, onClose } = useDisclosure()
   const prevValue = useRef(value)
 
@@ -52,6 +53,7 @@ export default function Filter({ id, label, options, value, changeValue }: Filte
         isOpen={isOpen}
         title={label}
         closedCases={[prevValue.current !== value]}
+        className={className}
         onClose={onClose}
       >
         <S.OptionContainer role="menu" onKeyDown={handleKeyListener}>

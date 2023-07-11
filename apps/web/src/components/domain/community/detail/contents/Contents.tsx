@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useCallback } from 'react'
 import * as S from './styled'
 import { ARTICLE_DEFAULT_THUMBNAIL, PATH } from '@/constants'
-import { useCommunityPostLike, useCommunityRemoveLike } from '@/queries/community/useCommunityPostLikes'
+import { useManagementCommunityPostReacting } from '@/queries/community/useCommunityPostLikes'
 import { CommunityDetailModel } from '@/types/community'
 
 interface ContentsProps {
@@ -14,9 +14,17 @@ interface ContentsProps {
 
 function Contents({ data }: ContentsProps) {
   const router = useRouter()
+  const { likes, removeHates, removeLikes, hates } = useManagementCommunityPostReacting()
 
-  const { mutate: likes } = useCommunityPostLike()
-  const { mutate: removes } = useCommunityRemoveLike()
+  const handleLikeClick = () => {
+    const req = { postId: Number(router.query?.id) }
+    data?.likeYn === 'Y' ? removeLikes(req) : likes(req)
+  }
+
+  const handleHateClick = () => {
+    const req = { postId: Number(router.query?.id) }
+    data?.hateYn === 'Y' ? removeHates(req) : hates(req)
+  }
 
   const searchHashTag = useCallback(
     (value: string) => () => {
@@ -42,9 +50,9 @@ function Contents({ data }: ContentsProps) {
             <span>{data?.writer}</span>
           </div>
           <div>
-            <span>조회 {data?.views}</span>
+            <span>조회 {data?.viewCnt}</span>
             {/* <span>댓글 {data.commentCnt}</span> */}
-            <span>좋아요 {data?.likes}</span>
+            <span>좋아요 {data?.likeCnt}</span>
           </div>
         </S.FragmentInfos>
         <div css={S.imgCss}>
@@ -66,18 +74,22 @@ function Contents({ data }: ContentsProps) {
           })}
         </S.HashTagList>
         <S.ContentsReactBtnGroup>
-          <Button
-            variant="outline"
-            size="smd"
-            label="좋아요"
-            onClick={() => likes({ postId: Number(router.query?.id) })}
-          />
-          <Button
-            variant="outline"
-            size="smd"
-            label="싫어요"
-            onClick={() => removes({ postId: Number(router.query?.id) })}
-          />
+          {data?.hateYn !== 'Y' && (
+            <Button
+              variant="outline"
+              size="smd"
+              label={`${data?.likeCnt ? `좋아요 ${data?.likeCnt}` : '좋아요'}`}
+              onClick={handleLikeClick}
+            />
+          )}
+          {data?.likeYn !== 'Y' && (
+            <Button
+              variant="outline"
+              size="smd"
+              label={`${data?.hateCnt ? `싫어요 ${data?.likeCnt}` : '싫어요'}`}
+              onClick={handleHateClick}
+            />
+          )}
         </S.ContentsReactBtnGroup>
       </S.Contents>
     </S.ContentSection>

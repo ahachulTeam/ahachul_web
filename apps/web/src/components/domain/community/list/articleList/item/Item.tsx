@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import * as S from './styled'
+import { CommentIcon } from '@/assets/icons'
 import { ARTICLE_DEFAULT_THUMBNAIL } from '@/constants'
 import { CommunityOverViewModel } from '@/types/community'
 
@@ -34,7 +35,12 @@ function Item({ data }: ItemProps) {
             <S.Box>
               <span>{getCurrentTime(data.createdAt)}</span>
               <span>{data.writer}</span>
+              <span>좋아요 {data.likeCnt}</span>
             </S.Box>
+            <S.CommentBox>
+              <CommentIcon />
+              <span>{data.commentCnt}</span>
+            </S.CommentBox>
           </S.Flex>
           <S.Thumbnail>
             {isLoaded && (
