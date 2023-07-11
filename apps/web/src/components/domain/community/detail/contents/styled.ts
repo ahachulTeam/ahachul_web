@@ -1,6 +1,10 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
+export const ContentSection = styled.section`
+  padding: 30px 16px 0 16px;
+`
+
 export const Contents = styled.div`
   display: flex;
   flex-direction: column;
@@ -46,19 +50,14 @@ export const FragmentInfos = styled.div`
 `
 
 export const ImageBox = styled.div`
-  width: 100%;
+  max-width: 100%;
+  padding: 0 16px;
 
-  & > p {
-    position: relative;
+  & > img {
+    object-fit: cover;
     width: 100%;
-    padding-bottom: 80%;
-
-    & > img {
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      max-width: 100%;
-    }
+    height: 100%;
+    max-width: 100%;
   }
 `
 
@@ -106,4 +105,34 @@ export const ContentsReactBtnGroup = styled.div`
       font-weight: 400;
     }
   `}
+`
+
+export const imgCss = css`
+  padding-bottom: 20px;
+
+  & > figure {
+    & > img {
+      width: 100%;
+    }
+
+    & > figcaption {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 100%;
+    max-width: 768px;
+    padding-bottom: 80px;
+    margin-right: auto;
+    margin-left: auto;
+  }
 `

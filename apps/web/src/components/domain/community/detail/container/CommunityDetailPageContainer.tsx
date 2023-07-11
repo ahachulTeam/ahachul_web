@@ -17,14 +17,9 @@ export const CommunityDetailPageContainer = () => {
 
   return (
     <S.Container>
-      <S.ContentSection>
-        <Contents data={articleDetail?.result} />
-      </S.ContentSection>
+      <Contents data={articleDetail?.result} />
       <S.Divider />
-      <S.GenerateCommentSection>
-        <Comments />
-      </S.GenerateCommentSection>
-      <S.CommentListSection>{/* {comments?.map} */}</S.CommentListSection>
+      <Comments comments={comments} />
     </S.Container>
   )
 }

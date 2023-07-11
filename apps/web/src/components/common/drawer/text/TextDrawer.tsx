@@ -26,7 +26,7 @@ export default function TextDrawer({
   })
 
   return (
-    <BottomSheetWithMotion isMounted={isOpen} onClickOutside={onClose}>
+    <BottomSheetWithMotion overrideCss={S.customModalHeightCss} isMounted={isOpen} onClickOutside={onClose}>
       <S.Container {...swipeHandlers}>
         <S.DrawerHeaderBox>
           <S.IconBtn>

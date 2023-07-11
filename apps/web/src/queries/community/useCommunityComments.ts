@@ -2,6 +2,7 @@ import { UseQueryOptions, UseQueryResult, useMutation, useQuery } from '@tanstac
 
 import { communityKeys } from '../queryKeys'
 import communityAPI from '@/apis/community'
+import { useToast } from '@/hooks'
 import { StandardResponse } from '@/types/common'
 import * as type from '@/types/community'
 
@@ -21,7 +22,12 @@ export const useCommunityCommentsQuery = (
 }
 
 export const useCommunityPostComments = () => {
+  const toast = useToast()
+
   return useMutation({
     mutationFn: (req: type.CreateCommentQueryModel) => communityAPI.addComment(req),
+    onSuccess: () => {
+      toast.success('댓글을 작성했다.')
+    },
   })
 }

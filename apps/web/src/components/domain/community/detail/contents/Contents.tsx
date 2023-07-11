@@ -1,6 +1,5 @@
 import { getCurrentTime } from '@ahhachul/lib'
 import { Button, Tag } from '@ahhachul/ui'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import { useCallback } from 'react'
@@ -34,51 +33,54 @@ function Contents({ data }: ContentsProps) {
   )
 
   return (
-    <S.Contents>
-      <S.Title>{data?.title}</S.Title>
-      <S.FragmentInfos>
-        <div>
-          <span>{getCurrentTime(data?.createdAt)}</span>
-          <span>{data?.writer}</span>
+    <S.ContentSection>
+      <S.Contents>
+        <S.Title>{data?.title}</S.Title>
+        <S.FragmentInfos>
+          <div>
+            <span>{getCurrentTime(data?.createdAt)}</span>
+            <span>{data?.writer}</span>
+          </div>
+          <div>
+            <span>조회 {data?.views}</span>
+            {/* <span>댓글 {data.commentCnt}</span> */}
+            <span>좋아요 {data?.likes}</span>
+          </div>
+        </S.FragmentInfos>
+        <div css={S.imgCss}>
+          {data?.images?.map((img, idx) => (
+            <figure key={img?.imageId}>
+              <img src={img?.imageUrl || ARTICLE_DEFAULT_THUMBNAIL} alt="" />
+              <figcaption>{`${data?.title}-${idx}`}</figcaption>
+            </figure>
+          ))}
         </div>
-        <div>
-          <span>조회 {data?.views}</span>
-          {/* <span>댓글 {data.commentCnt}</span> */}
-          <span>좋아요 {data?.likes}</span>
-        </div>
-      </S.FragmentInfos>
-      {data?.images?.map(img => (
-        <S.ImageBox key={img?.imageId}>
-          <p>
-            <Image src={img?.imageUrl || ARTICLE_DEFAULT_THUMBNAIL} alt="" priority fill />
-          </p>
-        </S.ImageBox>
-      ))}
-      <S.DetailInfo>{data?.content}</S.DetailInfo>
-      <S.HashTagList>
-        {data?.hashTags.map((tag, i) => {
-          return (
-            <li key={i}>
-              <Tag label={`#${tag}`} variant="primary" onClick={searchHashTag(tag)} />
-            </li>
-          )
-        })}
-      </S.HashTagList>
-      <S.ContentsReactBtnGroup>
-        <Button
-          variant="outline"
-          size="smd"
-          label="좋아요"
-          onClick={() => likes({ postId: Number(router.query?.id) })}
-        />
-        <Button
-          variant="outline"
-          size="smd"
-          label="싫어요"
-          onClick={() => removes({ postId: Number(router.query?.id) })}
-        />
-      </S.ContentsReactBtnGroup>
-    </S.Contents>
+        <S.DetailInfo>{data?.content}</S.DetailInfo>
+        <S.HashTagList>
+          {data?.hashTags.map((tag, i) => {
+            return (
+              <li key={i}>
+                <Tag label={`#${tag}`} variant="primary" onClick={searchHashTag(tag)} />
+              </li>
+            )
+          })}
+        </S.HashTagList>
+        <S.ContentsReactBtnGroup>
+          <Button
+            variant="outline"
+            size="smd"
+            label="좋아요"
+            onClick={() => likes({ postId: Number(router.query?.id) })}
+          />
+          <Button
+            variant="outline"
+            size="smd"
+            label="싫어요"
+            onClick={() => removes({ postId: Number(router.query?.id) })}
+          />
+        </S.ContentsReactBtnGroup>
+      </S.Contents>
+    </S.ContentSection>
   )
 }
 

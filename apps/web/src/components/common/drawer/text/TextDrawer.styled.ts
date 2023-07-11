@@ -3,7 +3,9 @@ import styled from '@emotion/styled'
 
 export const Container = styled.section`
   width: 100%;
-  min-height: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
 `
 
 export const DrawerInput = styled.textarea`
@@ -11,10 +13,12 @@ export const DrawerInput = styled.textarea`
     ${theme.fonts.regular14};
     box-sizing: border-box;
     width: 100%;
-    height: 100%;
+    min-height: 320px;
     padding: 8px 16px;
     border: none;
     outline: none;
+    resize: none;
+    flex-grow: 1; //fixme
 
     &::placeholder {
       word-break: break-all;
@@ -55,4 +59,9 @@ export const SubmitBtn = styled.button`
       color: #d1d1d1;
     }
   `}
+`
+
+export const customModalHeightCss = css`
+  min-height: 85.75%;
+  max-height: 85.75%;
 `
