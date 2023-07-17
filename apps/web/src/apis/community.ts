@@ -27,7 +27,7 @@ const communityApi = {
       const formData = new FormData()
       for (const [key, value] of Object.entries(req)) {
         if (key === 'hashTags') {
-          formData.append(key, JSON.stringify(value))
+          formData.append(key, value?.join(','))
         } else if (key !== 'imageFiles') {
           formData.append(key, value)
         }

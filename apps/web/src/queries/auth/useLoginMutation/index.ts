@@ -14,10 +14,11 @@ const useLoginMutation = () => {
   return useMutation({
     mutationFn: (providers: APILoginUserProviders) => authAPI.login(providers),
     onSuccess: ({ result }) => {
+      auth.signIn(result)
+
       if (result.isNeedAdditionalUserInfo) {
-        router.replace('/onboarding/nickname')
+        router.replace(PATH.NICKNAME)
       } else {
-        auth.signIn(result)
         router.push(PATH.HOME)
       }
     },

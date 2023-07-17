@@ -1,5 +1,6 @@
-import { UseQueryOptions, UseQueryResult, useMutation, useQuery } from '@tanstack/react-query'
+import { UseQueryOptions, UseQueryResult, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
+import { useEffect } from 'react'
 import { communityKeys } from '../queryKeys'
 import communityAPI from '@/apis/community'
 import { useToast } from '@/hooks'
@@ -54,10 +55,21 @@ export const useCommunityDeleteComment = () => {
   })
 }
 
-export const useCommentsManagement = () => {
-  const { mutate: createComment } = useCommunityPostComments()
-  const { mutate: updateComment } = useCommunityUpdateComment()
-  const { mutate: deleteComment } = useCommunityDeleteComment()
+export const useCommentsManagement = (postId?: number) => {
+  const queryClient = useQueryClient()
+  const { mutate: createComment, isSuccess: createCommentSuccess } = useCommunityPostComments()
+  const { mutate: updateComment, isSuccess: updateCommentSuccess } = useCommunityUpdateComment()
+  const { mutate: deleteComment, isSuccess: deleteParentCommentSuccess } = useCommunityDeleteComment()
+
+  useEffect(() => {
+    if (!postId) {
+      return
+    }
+
+    if (createCommentSuccess || updateCommentSuccess || deleteParentCommentSuccess) {
+      queryClient.invalidateQueries(communityKeys.comments(postId))
+    }
+  }, [createCommentSuccess, deleteParentCommentSuccess, postId, queryClient, updateCommentSuccess])
 
   return { createComment, updateComment, deleteComment }
 }

@@ -22,7 +22,7 @@ interface CommentsProps {
 const Comments = ({ user, comments }: CommentsProps) => {
   const { query } = useRouter()
 
-  const { createComment, updateComment, deleteComment } = useCommentsManagement()
+  const { createComment, updateComment, deleteComment } = useCommentsManagement(Number(query?.id))
 
   const [isModalOpen, _, onModalOpen, onModalClose] = useBoolean(false)
 
@@ -60,6 +60,7 @@ const Comments = ({ user, comments }: CommentsProps) => {
   }
 
   const handleGenerateChildComment = (commentId: number) => () => {
+    resetValue()
     setIsEditMode({ isTrue: false, commentId })
     setTimeout(() => {
       onModalOpen()
@@ -132,9 +133,9 @@ const Comments = ({ user, comments }: CommentsProps) => {
                 <pre>{parentComment.content}</pre>
                 <div css={S.commentBottomButtonGroupCss}>
                   {parentComment?.createdBy !== user?.memberId && <button>신고</button>}
+                  <button onClick={handleGenerateChildComment(Number(parentComment.id))}>답글 쓰기</button>
                   {parentComment?.createdBy === user?.memberId && (
                     <>
-                      <button onClick={handleGenerateChildComment(Number(parentComment.id))}>답글 쓰기</button>
                       <button onClick={handleEditParentComment(Number(parentComment.id), parentIdx)}>수정</button>
                       <button onClick={handleDeleteComment(Number(parentComment.id))}>삭제</button>
                     </>

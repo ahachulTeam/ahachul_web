@@ -9,7 +9,7 @@ const useMyProfileQuery = (options?: Options) =>
     queryKey: ['user', 'me'],
     queryFn: () => userAPI.getMyProfile(),
     select: res => res.result,
-    enabled: options?.enabled,
+    enabled: options?.enabled || false,
   })
 
 export default useMyProfileQuery
