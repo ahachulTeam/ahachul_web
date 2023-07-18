@@ -6,7 +6,7 @@ import { usePushShallowRouter } from '@/hooks'
 function HashtagList() {
   const { router, pushShallowRouter } = usePushShallowRouter()
 
-  const handleClickHashtag = (hashtag: string) => () => pushShallowRouter(router.pathname, { tags: hashtag })
+  const handleClickHashtag = (hashtag: string) => () => pushShallowRouter(router.pathname, { hashTag: hashtag })
 
   return (
     <S.HashtagList>

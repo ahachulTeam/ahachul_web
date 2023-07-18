@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { getCurrentTime, removeEmptyProperties, useBoolean } from '@ahhachul/lib'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import * as S from './styled'
 import TextDrawer from '@/components/common/drawer/text/TextDrawer'
 import useInput from '@/hooks/useInput'
@@ -89,12 +89,25 @@ const Comments = ({ user, comments }: CommentsProps) => {
     })
   }
 
+  const totalComments = useMemo(() => {
+    let count = 0
+
+    comments?.comments?.forEach(comment => {
+      count++ // 댓글 개수 증가
+
+      // 답글 개수 추가
+      count += comment.childComments.length
+    })
+
+    return count
+  }, [comments?.comments])
+
   return (
     <>
       <S.GenerateCommentSection>
         <S.Comments>
           <S.Title>
-            댓글 <b>{comments?.comments?.length || 0}개</b>
+            댓글 <b>{totalComments || 0}개</b>
           </S.Title>
           <S.InputCoverBtn onClick={handleInputClick}>
             <S.CommentInput placeholder="댓글을 입력해주세요." disabled />

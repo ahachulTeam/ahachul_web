@@ -4,14 +4,14 @@ import { StandardResponse } from '@/types/common'
 import * as type from '@/types/community'
 
 const communityApi = {
-  getCommunity: async (req: type.CommunityListQueryModel): Promise<StandardResponse<type.CommunityListServerModel>> => {
-    const res = await ax.get('/community-posts', { params: req })
+  getCommunity: async (req: type.CommunityListQueryModel) => {
+    const res = await ax.get<StandardResponse<type.CommunityListServerModel>>('/community-posts', { params: req })
+    console.log(res.data)
     return res.data
   },
-  getCommunityDetail: async (
-    req: type.CommunityDetailQueryModel
-  ): Promise<StandardResponse<type.CommunityDetailModel>> => {
-    const res = await ax.get(`/community-posts/${req.postId}`)
+  // 커뮤니티 상페 페이지 조회
+  getCommunityDetail: async (req: type.CommunityDetailQueryModel) => {
+    const res = await ax.get<StandardResponse<type.CommunityDetailModel>>(`/community-posts/${req.postId}`)
     return res.data
   },
   createArticle: async (req: type.CreateArticleQueryModel) => {
@@ -44,8 +44,8 @@ const communityApi = {
       console.error('createNotice error')
     }
   },
-  getComments: async (params: type.CommunityDetailQueryModel): Promise<StandardResponse<type.CommentsServerModel>> => {
-    const res = await ax.get(`/community-comments`, { params })
+  getComments: async (params: type.CommunityDetailQueryModel) => {
+    const res = await ax.get<StandardResponse<type.CommentsServerModel>>(`/community-comments`, { params })
     return res.data
   },
   addComment: async (req: type.CreateCommentQueryModel) => await ax.post(`/community-comments`, req),

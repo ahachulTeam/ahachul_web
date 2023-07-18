@@ -1,15 +1,16 @@
 import { Picture } from './picture'
 
 export type CommunityCategoryType = 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR'
+export type CommunitySortType = 'likes' | 'createdAt' | 'views'
+
 export interface CommunityListQueryModel {
-  categoryType?: 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR'
+  categoryType?: CommunityCategoryType
   subwayLine?: string
-  title?: string
   content?: string
   hashTag?: string
   page: number
   size: number
-  sort: 'likes' | 'createdAt' | 'views'
+  sort: CommunitySortType
 }
 
 export interface CommunityOverViewModel {

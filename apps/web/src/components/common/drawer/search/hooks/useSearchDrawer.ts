@@ -23,7 +23,7 @@ const useSearchDrawer = (onClose: () => void) => {
       onClose()
       setSearchValue('')
 
-      pushShallowRouter(PATH.COMMUNITY, { title: value })
+      pushShallowRouter(PATH.COMMUNITY, { content: value })
     },
     [router]
   )
@@ -43,7 +43,7 @@ const useSearchDrawer = (onClose: () => void) => {
   const handleHashTagValue = useCallback(
     (value: string) => () => {
       onClose()
-      pushShallowRouter(PATH.COMMUNITY, { tags: value })
+      pushShallowRouter(PATH.COMMUNITY, { hashTag: value })
     },
     []
   )

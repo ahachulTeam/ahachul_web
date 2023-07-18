@@ -12,7 +12,7 @@ export default function useTab<T extends string>(tabList: Record<T, string>, que
   const handleChangeTab = useCallback(
     (tab: string) => () => {
       const query = { ...router.query }
-      router.replace({ pathname: router.pathname, query: { ...query, [queryKey]: tab } }, undefined, { shallow: true })
+      router.replace({ pathname: router.pathname, query: { [queryKey]: tab } }, undefined, { shallow: true })
     },
     []
   )
@@ -24,7 +24,7 @@ export default function useTab<T extends string>(tabList: Record<T, string>, que
 
     const isExistTab = Object.keys(tabList).includes(selectedTab as string)
     if (!isExistTab) {
-      router.replace({ pathname: router.pathname, query: { ...query, [queryKey]: defaultTab } })
+      router.replace({ pathname: router.pathname, query: { [queryKey]: defaultTab } })
     }
   }, [selectedTab])
 
