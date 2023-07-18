@@ -11,7 +11,7 @@ interface LostItemSkeletonProps {
 
 export default function CommunityItemSkeleton({ view = 'list', count = 12 }: LostItemSkeletonProps) {
   return (
-    <>
+    <S.ArticleList>
       {Array.from({ length: count }, (_, i) => (
         <li key={i}>
           <S.SkeletonItem data-view={view}>
@@ -39,6 +39,6 @@ export default function CommunityItemSkeleton({ view = 'list', count = 12 }: Los
           </S.SkeletonItem>
         </li>
       ))}
-    </>
+    </S.ArticleList>
   )
 }

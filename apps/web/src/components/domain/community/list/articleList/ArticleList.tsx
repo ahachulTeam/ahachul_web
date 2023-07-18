@@ -1,34 +1,21 @@
 import { Button } from '@ahhachul/ui'
-import dynamic from 'next/dynamic'
 import { useMemo } from 'react'
 import Item from './item/Item'
 import * as S from './styled'
 import { IntersectionArea, NoResult } from '@/components/common'
 import useCommunityQuery from '@/queries/community/useCommunityQuery'
 
-const CommunityItemSkeleton = dynamic(() => import('./item/CommunityItem.skeleton'), {
-  ssr: false,
-})
-
 interface ArticleListProps {
   handleResetFilter: () => void
 }
 
 function ArticleList({ handleResetFilter }: ArticleListProps) {
-  const { data: communityList, hasNextPage, fetchNextPage, isLoading } = useCommunityQuery()
+  const { data: communityList, hasNextPage, fetchNextPage } = useCommunityQuery()
 
   const articles = useMemo(
     () => (communityList ? communityList.pages.flatMap(data => data?.posts) : []),
     [communityList]
   )
-
-  if (isLoading) {
-    return (
-      <S.ArticleList>
-        <CommunityItemSkeleton />
-      </S.ArticleList>
-    )
-  }
 
   return (
     <>

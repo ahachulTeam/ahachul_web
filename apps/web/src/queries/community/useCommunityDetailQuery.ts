@@ -15,7 +15,6 @@ const useCommunityDetailQuery = (
     select: ({ result }) => ({
       result,
     }),
-    suspense: false,
     enabled: options?.enabled || false,
   })
 }

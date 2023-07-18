@@ -35,7 +35,6 @@ const useCommunityQuery = (): UseInfiniteQueryResult<type.CommunityListServerMod
       return T.getOrElse(parsedData, () => ({ posts: [], hasNext: false }))
     },
     {
-      suspense: false,
       getNextPageParam: (lastPage, page) => lastPage.hasNext && page.length,
     }
   )

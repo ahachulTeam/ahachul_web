@@ -1,4 +1,6 @@
 import { Tab } from '@ahhachul/ui'
+import dynamic from 'next/dynamic'
+import { Suspense } from 'react'
 import ArticleList from '../articleList/ArticleList'
 import { FilterList } from '../filterList'
 import HashtagList from '../hashtagList/HashtagList'
@@ -7,6 +9,10 @@ import { COMMUNITY_TABS } from '@/assets/static/tab'
 import { StaticSEO } from '@/constants/seo'
 import { useFilterList } from '@/hooks'
 import useTab from '@/hooks/useTab'
+
+const CommunityItemSkeleton = dynamic(() => import('../articleList/item/CommunityItem.skeleton'), {
+  ssr: false,
+})
 
 export const CommunityPageContainer = () => {
   const { selectedTab, handleChangeTab } = useTab(COMMUNITY_TABS)
@@ -27,7 +33,9 @@ export const CommunityPageContainer = () => {
         <FilterList filter={filter} handleApplyFilter={handleApplyFilter} />
       </S.TopFilterSection>
       <span css={S.dividerCss} />
-      <ArticleList handleResetFilter={handleResetFilter} />
+      <Suspense fallback={<CommunityItemSkeleton />}>
+        <ArticleList handleResetFilter={handleResetFilter} />
+      </Suspense>
     </S.Container>
   )
 }

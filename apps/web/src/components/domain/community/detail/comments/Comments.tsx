@@ -10,16 +10,20 @@ import TextDrawer from '@/components/common/drawer/text/TextDrawer'
 import { useToast } from '@/hooks'
 import useInput from '@/hooks/useInput'
 import { useCommentsManagement } from '@/queries/community/useCommunityComments'
+import { useCommunityCommentsQuery } from '@/queries/community/useCommunityComments'
 import { CommentsServerModel } from '@/types/community'
 import { UserModel } from '@/types/user'
 
 interface CommentsProps {
   user: UserModel | null
-  comments?: Pick<CommentsServerModel, 'comments'>
 }
 
-const Comments = ({ user, comments }: CommentsProps) => {
+const Comments = ({ user }: CommentsProps) => {
   const { query } = useRouter()
+
+  const { data: comments } = useCommunityCommentsQuery(parseInt(query?.id as string), {
+    enabled: Boolean(query?.id),
+  })
 
   const toast = useToast()
 

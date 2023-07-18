@@ -1,28 +1,21 @@
-import { useRouter } from 'next/router'
+import { Suspense } from 'react'
 import Comments from '../comments/Comments'
 import Contents from '../contents/Contents'
 import * as S from './styled'
 import { useAuth } from '@/context'
-import { useCommunityCommentsQuery } from '@/queries/community/useCommunityComments'
-import useCommunityDetailQuery from '@/queries/community/useCommunityDetailQuery'
 
 export const CommunityDetailPageContainer = () => {
   const { user } = useAuth()
-  const { query } = useRouter()
-
-  const { data: articleDetail } = useCommunityDetailQuery(parseInt(query?.id as string), {
-    enabled: Boolean(query?.id),
-  })
-
-  const { data: comments } = useCommunityCommentsQuery(parseInt(query?.id as string), {
-    enabled: Boolean(query?.id),
-  })
 
   return (
     <S.Container>
-      <Contents data={articleDetail?.result} />
+      <Suspense fallback={<div />}>
+        <Contents />
+      </Suspense>
       <S.Divider />
-      <Comments comments={comments} user={user} />
+      <Suspense fallback={<div />}>
+        <Comments user={user} />
+      </Suspense>
     </S.Container>
   )
 }

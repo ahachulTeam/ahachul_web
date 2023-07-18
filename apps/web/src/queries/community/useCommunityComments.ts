@@ -14,7 +14,6 @@ export const useCommunityCommentsQuery = (
   return useQuery({
     queryKey: communityKeys.comments(postId),
     queryFn: () => communityAPI.getComments({ postId }),
-    suspense: false,
     enabled: options?.enabled || false,
     select: ({ result: { comments } }) => ({
       comments,
