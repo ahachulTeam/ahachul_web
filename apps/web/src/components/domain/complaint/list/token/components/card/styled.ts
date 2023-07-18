@@ -36,6 +36,18 @@ export const ComplaintCard = styled.article<ComplaintCardProps>`
   `}
 `
 
+export const SubText = styled.div`
+  ${({ theme }) => css`
+    ${theme.fonts.regular14}
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 29px;
+    text-align: center;
+  `}
+`
+
 const varaiants = {
   primary: (theme: Theme) => css`
     border: none;
@@ -48,5 +60,6 @@ const varaiants = {
   inactive: (theme: Theme) => css`
     border: none;
     background-color: ${theme.colors.gray_10};
+    color: ${theme.colors.gray_22};
   `,
 }
