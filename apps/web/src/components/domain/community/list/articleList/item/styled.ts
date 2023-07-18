@@ -109,3 +109,129 @@ export const CommentBox = styled.div`
 export const visuallyHidden = (theme: Theme) => css`
   ${theme.a11y.visuallyHidden}
 `
+
+export const SkeletonItem = styled.article`
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 75px;
+  align-items: center;
+  column-gap: 16px;
+  padding: 15px 0;
+
+  &[data-view='grid'] {
+    grid-template-columns: none;
+    grid-template-rows: max-content 81px;
+    column-gap: 0;
+    row-gap: 12px;
+
+    & > div:first-of-type {
+      border-radius: 25px;
+    }
+  }
+
+  .skeleton {
+    display: flex;
+    flex: 1;
+  }
+`
+
+export const Contents = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 3px;
+  overflow: hidden;
+`
+
+export const Title = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+
+    & > h3 {
+      ${theme.fonts.bold16};
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  `}
+`
+
+export const Content = styled.p`
+  ${({ theme }) => css`
+    ${theme.fonts.regular12};
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  `}
+`
+
+export const Meta = styled.div`
+  ${({ theme }) => css`
+    ${theme.fonts.regular12};
+    display: flex;
+    justify-content: space-between;
+    color: ${theme.colors.gray_45};
+  `}
+`
+
+export const Metadata = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    column-gap: 16px;
+
+    & > span {
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      &:not(:last-of-type)::after {
+        content: '';
+        position: absolute;
+        right: -8px;
+        display: flex;
+        align-items: center;
+        width: 0.5px;
+        height: 10px;
+        background-color: ${theme.colors.gray_45};
+      }
+    }
+  `}
+`
+
+export const Utils = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    column-gap: 7px;
+    z-index: ${theme.zIndex.docked};
+  `}
+`
+
+export const UtilBtn = styled.button`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    transition: all 0.3s ease-in-out;
+
+    & > svg {
+      fill: ${theme.colors.gray_35};
+      transition: all 0.3s ease-in-out;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        color: ${theme.colors.primary};
+
+        & > svg {
+          fill: ${theme.colors.primary};
+        }
+      }
+    }
+  `}
+`
