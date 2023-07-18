@@ -34,8 +34,7 @@ export const DEFAULT_SEO_CONFIG: SEOProps = {
   description: StaticSEO.main.description,
   openGraph: {
     type: 'website',
-    //TODO: 도메인 생기면 교체
-    url: 'https://temp',
+    url: 'https://www.ahhachul.com',
     images: [{ url: ogImage.src, alt: KR_APP_NAME, width: 800, height: 400 }],
   },
   additionalMetaTags: [
