@@ -28,7 +28,7 @@ export default function Facilities() {
         >
           신고유형을 선택해주세요
         </div>
-        <Button size="lg" variant="secondary" label="신고유형" />
+        <Button size="lg" variant="secondary" label="토사물" />
       </div>
       <div>
         <div
