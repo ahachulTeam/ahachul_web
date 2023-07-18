@@ -54,6 +54,15 @@ export default function Temperature() {
     >
       <div
         css={css`
+          width: 100%;
+          padding: 10px 0;
+          text-align: end;
+        `}
+      >
+        <span>약냉방칸4,7칸</span>
+      </div>
+      <div
+        css={css`
           display: grid;
           grid-template-columns: repeat(2, 1fr);
           column-gap: 15px;
