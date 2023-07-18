@@ -6,7 +6,6 @@ import * as type from '@/types/community'
 const communityApi = {
   getCommunity: async (req: type.CommunityListQueryModel) => {
     const res = await ax.get<StandardResponse<type.CommunityListServerModel>>('/community-posts', { params: req })
-    console.log(res.data)
     return res.data
   },
   // 커뮤니티 상페 페이지 조회

@@ -13,6 +13,7 @@ const useCommunityQuery = (): UseInfiniteQueryResult<type.CommunityListServerMod
   const queryFilters = removeEmptyProperties({
     page: query?.page,
     size: query?.size,
+    hashTag: query?.hashTag as string,
     content: query?.content as string,
     subwayLine: query?.lines as string,
     sort: query?.sort as type.CommunitySortType,
