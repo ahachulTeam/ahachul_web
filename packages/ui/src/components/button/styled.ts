@@ -11,10 +11,12 @@ interface ButtonProps {
 }
 
 export const Button = styled.button<ButtonProps>`
-  ${({ size, variant }) => css`
+  ${({ theme, size, variant }) => css`
     display: flex;
     align-items: center;
     justify-content: center;
+    column-gap: 4px;
+
     ${size === 'xs' && varaiants.size.xs()}
     ${size === 'sm' && varaiants.size.sm()};
     ${size === 'smd' && varaiants.size.smd()};
@@ -23,6 +25,10 @@ export const Button = styled.button<ButtonProps>`
     ${variant === 'primary' && varaiants.variant.primary()};
     ${variant === 'secondary' && varaiants.variant.secondary()};
     ${variant === 'outline' && varaiants.variant.outline()};
+
+    & > b {
+      color: ${theme.colors.primary};
+    }
   `}
 `
 

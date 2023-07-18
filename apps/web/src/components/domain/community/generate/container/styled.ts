@@ -70,12 +70,21 @@ export const StickyArea = styled.div<{ $isOpenNavigationBar: boolean }>`
     align-items: center;
     justify-content: center;
     width: 100%;
+    max-width: 768px;
     border-top: 1px solid ${theme.colors.gray_25};
     padding: 14px 15px 25px 15px;
     background-color: ${theme.colors.white};
     transition: all 400ms cubic-bezier(0.43, 0.03, 0.15, 0.95);
+
     & > button {
       width: 100%;
+    }
+
+    @media only screen and (min-width: 480px) {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
     }
   `}
 `

@@ -23,20 +23,20 @@ const useCommunityQuery = (): UseInfiniteQueryResult<type.CommunityListServerMod
   const reqParams = {
     ...queryFilters,
     ...{ page: Number(queryFilters?.page) || 0 },
-    ...{ size: Number(queryFilters?.size) || 24 },
+    ...{ size: Number(queryFilters?.size) || 12 },
     ...{ sort: queryFilters?.sort || 'createdAt,desc' },
   }
 
   return useInfiniteQuery(
     communityKeys.list(reqParams),
     async ({ pageParam = 0 }) => {
-      const res = await communityAPI.getCommunity({ ...reqParams, page: pageParam, size: 24 })
+      const res = await communityAPI.getCommunity({ ...reqParams, page: pageParam, size: 12 })
       const parsedData = T.parseResponse(res)
       return T.getOrElse(parsedData, () => ({ posts: [], hasNext: false }))
     },
     {
       suspense: false,
-      getNextPageParam: (lastPage, page) => lastPage.hasNext && page.length - 1,
+      getNextPageParam: (lastPage, page) => lastPage.hasNext && page.length,
     }
   )
 }

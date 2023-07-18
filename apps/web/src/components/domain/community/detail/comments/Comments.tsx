@@ -1,16 +1,15 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { getCurrentTime, removeEmptyProperties, useBoolean } from '@ahhachul/lib'
+import { css } from '@emotion/react'
 import { useRouter } from 'next/router'
 import { useState, useMemo } from 'react'
 import * as S from './styled'
+import { Dialog } from '@/components/common/dialog'
 import TextDrawer from '@/components/common/drawer/text/TextDrawer'
+import { useToast } from '@/hooks'
 import useInput from '@/hooks/useInput'
-import {
-  useCommunityPostComments,
-  useCommunityUpdateComment,
-  useCommunityDeleteComment,
-  useCommentsManagement,
-} from '@/queries/community/useCommunityComments'
+import { useCommentsManagement } from '@/queries/community/useCommunityComments'
 import { CommentsServerModel } from '@/types/community'
 import { UserModel } from '@/types/user'
 
@@ -22,9 +21,12 @@ interface CommentsProps {
 const Comments = ({ user, comments }: CommentsProps) => {
   const { query } = useRouter()
 
+  const toast = useToast()
+
   const { createComment, updateComment, deleteComment } = useCommentsManagement(Number(query?.id))
 
   const [isModalOpen, _, onModalOpen, onModalClose] = useBoolean(false)
+  const [isDialogShowing, __, onDialogOpen, onDialogClose] = useBoolean(false)
 
   const [textValue, onChangeTextValue, resetValue, setTextValue] = useInput()
 
@@ -84,9 +86,19 @@ const Comments = ({ user, comments }: CommentsProps) => {
   }
 
   const handleDeleteComment = (commentId: number) => () => {
+    setIsEditMode({ isTrue: false, commentId })
+    onDialogOpen()
+  }
+
+  const handleDialogAction = () => {
     deleteComment({
-      commentId: Number(commentId),
+      commentId: Number(isEditMode.commentId),
     })
+    onDialogClose()
+  }
+
+  const handleDeclarationComment = () => {
+    toast.error('준비중이에요', { icon: '🥹' })
   }
 
   const totalComments = useMemo(() => {
@@ -124,37 +136,37 @@ const Comments = ({ user, comments }: CommentsProps) => {
 
       <S.CommentListSection>
         {comments?.comments?.map(({ parentComment, childComments }, parentIdx) => {
-          if (parentComment?.status === 'DELETED') {
-            return (
-              <div key={parentComment?.id} css={S.commentBoxCss} data-status="delete">
-                <div css={S.commentTopInfoCss}>
-                  <b>{parentComment.writer}</b>
-                  <p>{getCurrentTime(parentComment.createdAt)}</p>
-                </div>
-                <pre>삭제된 댓글입니다.</pre>
-              </div>
-            )
-          }
-
           return (
             <>
-              <div key={parentComment?.id} css={S.commentBoxCss}>
-                <div css={S.commentTopInfoCss}>
-                  <b>{parentComment.writer}</b>
-                  <p>{getCurrentTime(parentComment.createdAt)}</p>
+              {parentComment?.status === 'DELETED' ? (
+                <div key={parentComment?.id} css={S.commentBoxCss} data-status="delete">
+                  <div css={S.commentTopInfoCss}>
+                    <b>{parentComment.writer}</b>
+                    <p>{getCurrentTime(parentComment.createdAt)}</p>
+                  </div>
+                  <pre>삭제된 댓글입니다.</pre>
                 </div>
-                <pre>{parentComment.content}</pre>
-                <div css={S.commentBottomButtonGroupCss}>
-                  {parentComment?.createdBy !== user?.memberId && <button>신고</button>}
-                  <button onClick={handleGenerateChildComment(Number(parentComment.id))}>답글 쓰기</button>
-                  {parentComment?.createdBy === user?.memberId && (
-                    <>
-                      <button onClick={handleEditParentComment(Number(parentComment.id), parentIdx)}>수정</button>
-                      <button onClick={handleDeleteComment(Number(parentComment.id))}>삭제</button>
-                    </>
-                  )}
+              ) : (
+                <div key={parentComment?.id} css={S.commentBoxCss}>
+                  <div css={S.commentTopInfoCss}>
+                    <b>{parentComment.writer}</b>
+                    <p>{getCurrentTime(parentComment.createdAt)}</p>
+                  </div>
+                  <pre>{parentComment.content}</pre>
+                  <div css={S.commentBottomButtonGroupCss}>
+                    {parentComment?.createdBy !== user?.memberId && (
+                      <button onClick={handleDeclarationComment}>신고</button>
+                    )}
+                    <button onClick={handleGenerateChildComment(Number(parentComment.id))}>답글 쓰기</button>
+                    {parentComment?.createdBy === user?.memberId && (
+                      <>
+                        <button onClick={handleEditParentComment(Number(parentComment.id), parentIdx)}>수정</button>
+                        <button onClick={handleDeleteComment(Number(parentComment.id))}>삭제</button>
+                      </>
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
               {childComments &&
                 childComments.map((childComment, childIdx) => {
                   if (childComment?.status === 'DELETED') {
@@ -177,7 +189,9 @@ const Comments = ({ user, comments }: CommentsProps) => {
                       </div>
                       <pre>{childComment.content}</pre>
                       <div css={S.commentBottomButtonGroupCss}>
-                        {childComment?.createdBy !== user?.memberId && <button>신고</button>}
+                        {childComment?.createdBy !== user?.memberId && (
+                          <button onClick={handleDeclarationComment}>신고</button>
+                        )}
                         {childComment?.createdBy === user?.memberId && (
                           <>
                             <button onClick={handleEditChildComment(parentIdx, childIdx, Number(childComment.id))}>
@@ -194,6 +208,19 @@ const Comments = ({ user, comments }: CommentsProps) => {
           )
         })}
       </S.CommentListSection>
+      <Dialog
+        overrideCss={css`
+          align-items: center;
+        `}
+        hasBlur={false}
+        isMounted={isDialogShowing}
+        onClickOutside={onDialogClose}
+        title={<Dialog.Title>댓글을 삭제하시겠습니까?</Dialog.Title>}
+        confirmButton={
+          <Dialog.ConfirmButton label="삭제할게요" variant="primary" size="smd" onClick={handleDialogAction} />
+        }
+        cancelButton={<Dialog.CancelButton label="취소할게요" variant="outline" size="smd" onClick={onDialogClose} />}
+      />
     </>
   )
 }

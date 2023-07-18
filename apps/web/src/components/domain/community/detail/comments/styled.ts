@@ -152,3 +152,7 @@ export const commentBottomButtonGroupCss = (theme: Theme) => css`
     }
   }
 `
+
+export const dialogTitleCss = (theme: Theme) => css`
+  ${theme.fonts.semibold16};
+`

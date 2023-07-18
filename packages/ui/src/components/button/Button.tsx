@@ -10,7 +10,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   type?: 'button' | 'submit' | 'reset'
   size: ButtonSize
   variant: ButtonVariant
-  label: string
+  label: string | React.ReactNode
   disabled?: boolean
   onClick?: (e: React.MouseEvent) => void
 }

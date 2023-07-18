@@ -55,14 +55,16 @@ function Contents({ data }: ContentsProps) {
             <span>좋아요 {data?.likeCnt}</span>
           </div>
         </S.FragmentInfos>
-        <div css={S.imgCss}>
-          {data?.images?.map((img, idx) => (
-            <figure key={img?.imageId}>
-              <img src={img?.imageUrl || ARTICLE_DEFAULT_THUMBNAIL} alt="" />
-              <figcaption>{`${data?.title}-${idx}`}</figcaption>
-            </figure>
-          ))}
-        </div>
+        {data?.images && data?.images?.length > 0 && (
+          <div css={S.imgCss}>
+            {data.images.map((img, idx) => (
+              <figure key={img?.imageId}>
+                <img src={img?.imageUrl || ARTICLE_DEFAULT_THUMBNAIL} alt="" />
+                <figcaption>{`${data?.title}-${idx}`}</figcaption>
+              </figure>
+            ))}
+          </div>
+        )}
         <S.DetailInfo>{data?.content}</S.DetailInfo>
         <S.HashTagList>
           {data?.hashTags.map((tag, i) => {
@@ -78,7 +80,15 @@ function Contents({ data }: ContentsProps) {
             <Button
               variant="outline"
               size="smd"
-              label={`${data?.likeCnt ? `좋아요 ${data?.likeCnt}` : '좋아요'}`}
+              label={
+                data?.likeCnt ? (
+                  <>
+                    좋아요 <b>{data?.likeCnt}</b>
+                  </>
+                ) : (
+                  '좋아요'
+                )
+              }
               onClick={handleLikeClick}
             />
           )}
