@@ -9,7 +9,7 @@ export const COMMUNITY_FILTERS = [
     ],
   },
   {
-    id: 'lines',
+    id: 'subwayLineId',
     label: '호선',
     options: [
       { label: '1호선', value: '1' },

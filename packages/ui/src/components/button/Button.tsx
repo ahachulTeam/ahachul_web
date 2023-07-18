@@ -15,9 +15,26 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: (e: React.MouseEvent) => void
 }
 
-export function Button({ className, type = 'button', size, variant, label, disabled, onClick }: ButtonProps) {
+export function Button({
+  className,
+  type = 'button',
+  size,
+  variant,
+  label,
+  disabled,
+  onClick,
+  ...restProps
+}: ButtonProps) {
   return (
-    <S.Button className={className} type={type} size={size} variant={variant} disabled={disabled} onClick={onClick}>
+    <S.Button
+      className={className}
+      type={type}
+      size={size}
+      variant={variant}
+      disabled={disabled}
+      onClick={onClick}
+      {...restProps}
+    >
       {label}
     </S.Button>
   )

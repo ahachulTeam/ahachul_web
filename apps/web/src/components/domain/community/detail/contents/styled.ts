@@ -1,4 +1,4 @@
-import { css } from '@emotion/react'
+import { Theme, css } from '@emotion/react'
 import styled from '@emotion/styled'
 
 export const ContentSection = styled.section`
@@ -134,5 +134,31 @@ export const imgCss = css`
     padding-bottom: 80px;
     margin-right: auto;
     margin-left: auto;
+  }
+`
+
+export const customButtonCss = (theme: Theme) => css`
+  transition: all 0.3s ease-in-out;
+
+  &[data-status='likes'] {
+    background-color: ${theme.colors.primary};
+    color: ${theme.colors.white};
+    border: none;
+    max-width: 50%;
+
+    & > b {
+      color: ${theme.colors.secondary_active};
+    }
+  }
+
+  &[data-status='hates'] {
+    background-color: ${theme.colors.red_10};
+    color: ${theme.colors.white};
+    border: none;
+    max-width: 50%;
+
+    & > b {
+      color: ${theme.colors.white};
+    }
   }
 `

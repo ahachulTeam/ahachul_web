@@ -2,7 +2,7 @@ import { getCurrentTime } from '@ahhachul/lib'
 import { Button, Tag } from '@ahhachul/ui'
 import { useRouter } from 'next/router'
 
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import * as S from './styled'
 import { ARTICLE_DEFAULT_THUMBNAIL, PATH } from '@/constants'
 import { useManagementCommunityPostReacting } from '@/queries/community/useCommunityPostLikes'
@@ -16,12 +16,17 @@ function Contents({ data }: ContentsProps) {
   const router = useRouter()
   const { likes, removeHates, removeLikes, hates } = useManagementCommunityPostReacting()
 
+  const [tempLikesClicked, setTempLikesClicked] = useState(false)
+  const [tempHatesClicked, setTempHatesClicked] = useState(false)
+
   const handleLikeClick = () => {
+    setTempLikesClicked(true)
     const req = { postId: Number(router.query?.id) }
     data?.likeYn === 'Y' ? removeLikes(req) : likes(req)
   }
 
   const handleHateClick = () => {
+    setTempHatesClicked(true)
     const req = { postId: Number(router.query?.id) }
     data?.hateYn === 'Y' ? removeHates(req) : hates(req)
   }
@@ -78,6 +83,8 @@ function Contents({ data }: ContentsProps) {
         <S.ContentsReactBtnGroup>
           {data?.hateYn !== 'Y' && (
             <Button
+              data-status={(tempLikesClicked || data?.likeYn === 'Y') && 'likes'}
+              css={S.customButtonCss}
               variant="outline"
               size="smd"
               label={
@@ -94,6 +101,8 @@ function Contents({ data }: ContentsProps) {
           )}
           {data?.likeYn !== 'Y' && (
             <Button
+              data-status={(tempHatesClicked || data?.hateYn === 'Y') && 'hates'}
+              css={S.customButtonCss}
               variant="outline"
               size="smd"
               label={`${data?.hateCnt ? `싫어요 ${data?.likeCnt}` : '싫어요'}`}

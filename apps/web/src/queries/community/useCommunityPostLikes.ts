@@ -1,6 +1,7 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import {} from '../queryKeys'
+import { useEffect } from 'react'
+import { communityKeys } from '../queryKeys'
 import communityAPI from '@/apis/community'
 import { CommunityDetailQueryModel } from '@/types/community'
 
@@ -28,11 +29,23 @@ export const useCommunityRemoveHate = () => {
   })
 }
 
-export const useManagementCommunityPostReacting = () => {
-  const { mutate: likes } = useCommunityPostLike()
-  const { mutate: removeLikes } = useCommunityRemoveLike()
-  const { mutate: hates } = useCommunityPostHate()
-  const { mutate: removeHates } = useCommunityRemoveHate()
+export const useManagementCommunityPostReacting = (postId?: number) => {
+  const queryClient = useQueryClient()
+
+  const { mutate: likes, isSuccess: likeSuccess } = useCommunityPostLike()
+  const { mutate: removeLikes, isSuccess: removeLikesSuccess } = useCommunityRemoveLike()
+  const { mutate: hates, isSuccess: hateSuccess } = useCommunityPostHate()
+  const { mutate: removeHates, isSuccess: removeHatesSuccess } = useCommunityRemoveHate()
+
+  useEffect(() => {
+    if (!postId) {
+      return
+    }
+
+    if (likeSuccess || removeLikesSuccess || hateSuccess || removeHatesSuccess) {
+      queryClient.invalidateQueries(communityKeys.detail(postId))
+    }
+  }, [hateSuccess, likeSuccess, postId, queryClient, removeHatesSuccess, removeLikesSuccess])
 
   return {
     likes,

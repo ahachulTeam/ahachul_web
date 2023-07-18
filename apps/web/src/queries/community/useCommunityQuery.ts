@@ -15,7 +15,7 @@ const useCommunityQuery = (): UseInfiniteQueryResult<type.CommunityListServerMod
     size: query?.size,
     hashTag: query?.hashTag as string,
     content: query?.content as string,
-    subwayLine: query?.lines as string,
+    subwayLineId: query?.subwayLineId as string,
     sort: query?.sort as type.CommunitySortType,
     categoryType: (query?.tab || 'FREE') as type.CommunityCategoryType,
   })
