@@ -3,15 +3,15 @@ import { useInfiniteQuery, UseInfiniteQueryResult } from '@tanstack/react-query'
 import { lostKeys } from './keys'
 import lostAPI from '@/apis/lost'
 import { useFilterList } from '@/hooks'
-import { LostTypes, LostPostsResponse, FilterKeys } from '@/types/lost'
+import { LostPostsResponse, FilterKeys, LostType } from '@/types/lost'
 import * as T from '@/utils/try'
 
-const useFetchLostPosts = (): UseInfiniteQueryResult<LostPostsResponse> => {
-  const { filter } = useFilterList<FilterKeys>('subwayLineId', 'origin', 'lostType')
+const useFetchLostPosts = (lostType: LostType): UseInfiniteQueryResult<LostPostsResponse> => {
+  const { filter } = useFilterList<FilterKeys>('subwayLineId', 'origin')
 
   const filters = {
     ...filter,
-    lostType: filter.lostType === LostTypes.ACQUIRE ? LostTypes.ACQUIRE : LostTypes.LOST,
+    lostType,
   } as const
 
   return useInfiniteQuery(
@@ -22,7 +22,7 @@ const useFetchLostPosts = (): UseInfiniteQueryResult<LostPostsResponse> => {
       return T.getOrElse(parsedData, () => ({ posts: [], hasNext: false }))
     },
     {
-      getNextPageParam: (lastPage, page) => lastPage.hasNext && page.length + 1,
+      getNextPageParam: lastPage => lastPage.hasNext,
     }
   )
 }
