@@ -22,7 +22,7 @@ export default function LostItem({ view = 'list', post }: LostItemProps) {
   return (
     <S.LostItem data-view={view}>
       <S.Thumbnail>
-        <Image src={post.imgUrl || '/images/default_thumbnail.svg'} fill alt="lost item thumbnail" />
+        <Image src={post.image?.imageUrl || '/images/default_thumbnail.svg'} fill alt="thumbnail" />
       </S.Thumbnail>
       <S.Contents>
         <S.Title>
