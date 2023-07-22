@@ -8,6 +8,9 @@ const nextConfig = {
   },
   swcMinify: true,
   transpilePackages: ['react-hotjar', '@ahhachul/ui'],
+  images: {
+    domains: ['www.lost112.go.kr'],
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
