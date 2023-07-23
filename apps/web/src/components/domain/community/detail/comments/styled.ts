@@ -156,3 +156,8 @@ export const commentBottomButtonGroupCss = (theme: Theme) => css`
 export const dialogTitleCss = (theme: Theme) => css`
   ${theme.fonts.semibold16};
 `
+
+export const childCommentCss = css`
+  display: flex;
+  column-gap: 4px;
+`

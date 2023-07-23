@@ -191,7 +191,9 @@ const Comments = ({ user }: CommentsProps) => {
                         <b data-type="child-comment">{childComment.writer}</b>
                         <p>{getCurrentTime(childComment.createdAt)}</p>
                       </div>
-                      <pre>{childComment.content}</pre>
+                      <div css={S.childCommentCss}>
+                        <b>@{parentComment.writer}</b> <pre>{childComment.content}</pre>
+                      </div>
                       <div css={S.commentBottomButtonGroupCss}>
                         {childComment?.createdBy !== user?.memberId && (
                           <button onClick={handleDeclarationComment}>신고</button>
