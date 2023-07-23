@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react'
-import { Pagination, EffectFade, Autoplay } from 'swiper'
+import { Pagination, EffectFade, Autoplay, type SwiperOptions } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/effect-fade'
 import 'swiper/css/pagination'
@@ -8,12 +8,13 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import * as S from './styled'
 
 interface CarouselProps extends PropsWithChildren {
-  fade: boolean
+  className?: string
+  options?: SwiperOptions
 }
 
-export default function Carousel({ children, fade = false }: CarouselProps) {
+export default function Carousel({ children, className, options }: CarouselProps) {
   return (
-    <S.CarouselLayout data-fade={Boolean(fade)}>
+    <S.CarouselLayout className={className}>
       <Swiper
         loop
         pagination={{
@@ -26,6 +27,7 @@ export default function Carousel({ children, fade = false }: CarouselProps) {
           disableOnInteraction: false,
         }}
         modules={[Pagination, EffectFade, Autoplay]}
+        {...options}
       >
         {children}
       </Swiper>

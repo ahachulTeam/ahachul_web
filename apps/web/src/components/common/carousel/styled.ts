@@ -19,7 +19,6 @@ export const CarouselLayout = styled.div`
       width: 100%;
       height: max-content;
       padding: 30px 0 35px;
-      background: ${theme.colors.white};
       transform: translateX(-50%);
       z-index: ${theme.zIndex.sticky};
     }
