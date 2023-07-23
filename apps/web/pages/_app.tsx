@@ -5,8 +5,8 @@ import { useRouter } from 'next/router'
 import NProgress from 'nprogress'
 import { ReactElement, useEffect } from 'react'
 
-import { PATH_STORAGE_KEYS } from '@/constants'
-import { AppProvider } from '@/libs'
+import { DEFAULT_SEO_CONFIG, PATH_STORAGE_KEYS } from '@/constants'
+import { AppProvider, SEO } from '@/libs'
 import '@/styles/nprogress.css'
 import '@/styles/fonts.css'
 
@@ -46,10 +46,13 @@ const MyApp = ({ Component, pageProps }: AppLayoutProps) => {
   }, [router.events])
 
   return (
-    <AppProvider dehydrateState={pageProps.dehydrateState}>
-      <Toast />
-      {getLayout(<Component {...pageProps} />)}
-    </AppProvider>
+    <>
+      <SEO {...DEFAULT_SEO_CONFIG} />
+      <AppProvider dehydrateState={pageProps.dehydrateState}>
+        <Toast />
+        {getLayout(<Component {...pageProps} />)}
+      </AppProvider>
+    </>
   )
 }
 
