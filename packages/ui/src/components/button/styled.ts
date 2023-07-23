@@ -11,12 +11,13 @@ interface ButtonProps {
 }
 
 export const Button = styled.button<ButtonProps>`
-  ${({ theme, size, variant }) => css`
+  ${({ size, variant }) => css`
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
     column-gap: 4px;
-
+    min-width: max-content;
     ${size === 'xs' && varaiants.size.xs()}
     ${size === 'sm' && varaiants.size.sm()};
     ${size === 'smd' && varaiants.size.smd()};
@@ -25,6 +26,7 @@ export const Button = styled.button<ButtonProps>`
     ${variant === 'primary' && varaiants.variant.primary()};
     ${variant === 'secondary' && varaiants.variant.secondary()};
     ${variant === 'outline' && varaiants.variant.outline()};
+    ${variant === 'ghost' && varaiants.variant.ghost()};
 
     & > b {
       color: ${theme.colors.primary};
@@ -120,18 +122,28 @@ const varaiants = {
       }
     `,
     ghost: () => css`
+      border-radius: 10ox;
       color: ${theme.colors.black};
       background-color: ${theme.colors.white};
 
-      &:disabled {
-        color: ${theme.colors.gray_40};
+      @media (hover: hover) {
+        &:not(:disabled):hover {
+          background-color: ${theme.colors.gray_10};
+        }
       }
     `,
     outline: () => css`
-      color: ${theme.colors.gray_60};
-      background-color: ${theme.colors.white};
-      border: 1px solid ${theme.colors.gray_33};
       border-radius: 10px;
+      border: 1px solid ${theme.colors.gray_33};
+      color: ${theme.colors.gray_65};
+      background-color: ${theme.colors.white};
+      transition: all 0.3s ease-in-out;
+
+      @media (hover: hover) {
+        &:not(:disabled):hover {
+          background-color: ${theme.colors.gray_10};
+        }
+      }
     `,
     link: () => css`
       ${theme.fonts.regular14};

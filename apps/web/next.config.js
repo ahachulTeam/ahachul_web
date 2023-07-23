@@ -17,6 +17,7 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
+    domains: ['www.lost112.go.kr'],
   },
   webpack(config) {
     config.module.rules.push({

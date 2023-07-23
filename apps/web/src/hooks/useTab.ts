@@ -7,7 +7,7 @@ export default function useTab<T extends string>(tabList: Record<T, string>, que
   const { query } = router
 
   const defaultTab = Object.keys(tabList)[0] as T
-  const selectedTab = (query?.tab ?? defaultTab) as T
+  const selectedTab = (query[queryKey] ?? defaultTab) as T
 
   const handleChangeTab = useCallback(
     (tab: string) => () => {

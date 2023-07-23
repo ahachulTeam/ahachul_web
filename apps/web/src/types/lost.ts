@@ -20,10 +20,10 @@ export interface LostPost {
   subwayLine: number
   chats: number
   status: KeyOf<typeof LostStatus>
-  imgUrl: string
+  image: Image
 }
 
-export type LostType = 'LOST' | 'ACQUIRE'
+export type LostType = 'ACQUIRE' | 'LOST'
 
 export interface LostPostsRequest {
   page: string
@@ -38,3 +38,24 @@ export interface LostPostsResponse extends InfiniteFetchResponse {
 }
 
 export type FilterKeys = KeyOf<Partial<LostPostsRequest>>
+
+type Image = {
+  imageId: number
+  imageUrl: string
+}
+
+export interface LostDetail {
+  id: number
+  title: string
+  content: string
+  writer: string
+  createdBy: string
+  date: string
+  subwayLine: number
+  chats: number
+  status: KeyOf<typeof LostStatus>
+  storage: string
+  storageNumber: string
+  pageUrl: string
+  images: Image[]
+}
