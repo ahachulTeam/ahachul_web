@@ -1,13 +1,19 @@
 import { useBoolean } from '@ahhachul/lib'
 import { Checkbox, Toggle } from '@ahhachul/ui'
-import Controller from '../controller/Controller'
-import LostFoundList from '../lostList/LostList'
+import dynamic from 'next/dynamic'
+import { Suspense } from 'react'
 
+import Controller from '../controller/Controller'
+import { AcquireList, LostList } from '../lostFoundList'
 import * as S from './styled'
 import useTab from '@/hooks/useTab'
 import { LostType } from '@/types/lost'
 
-const LOST_TABS: Record<LostType, string> = { LOST: '습득물 조회', ACQUIRE: '분실물 찾기' }
+const LostFoundListSkeleton = dynamic(() => import('../lostFoundList/list/LostFoundList.skeleton'), {
+  ssr: false,
+})
+
+const LOST_TABS: Record<LostType, string> = { ACQUIRE: '습득물 조회', LOST: '분실물 찾기' }
 
 export default function LostContainer() {
   const { selectedTab, handleChangeTab } = useTab(LOST_TABS, 'lostType')
@@ -27,7 +33,16 @@ export default function LostContainer() {
           onChange={handleToggleFindComplete}
         />
       </S.Head>
-      <LostFoundList isExcludeFindComplete={isExcludeFindComplete} />
+      {selectedTab === 'ACQUIRE' && (
+        <Suspense fallback={<LostFoundListSkeleton />}>
+          <AcquireList isExcludeFindComplete={isExcludeFindComplete} />
+        </Suspense>
+      )}
+      {selectedTab === 'LOST' && (
+        <Suspense fallback={<LostFoundListSkeleton />}>
+          <LostList isExcludeFindComplete={isExcludeFindComplete} />
+        </Suspense>
+      )}
     </S.Section>
   )
 }

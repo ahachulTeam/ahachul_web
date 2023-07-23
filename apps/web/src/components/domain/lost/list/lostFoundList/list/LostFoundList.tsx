@@ -1,18 +1,27 @@
+import { InfiniteData } from '@tanstack/react-query'
 import { useCallback } from 'react'
 import { LostItem, LostItemSkeleton } from './item'
 import * as S from './styled'
 import { useViewAtom } from '@/atoms/view'
 import { IntersectionArea } from '@/components/common'
-import { useFetchLostPosts } from '@/queries/lost'
-import { LostPost, LostStatus } from '@/types/lost'
+import { LostPost, LostPostsResponse, LostStatus } from '@/types/lost'
 
-interface LostListProps {
+interface LostFoundListProps {
+  data?: InfiniteData<LostPostsResponse>
   isExcludeFindComplete: boolean
+  isFetching: boolean
+  hasMore: boolean
+  fetchNextPage: () => void
 }
 
-export default function LostList({ isExcludeFindComplete }: LostListProps) {
+export default function LostFoundList({
+  data,
+  isExcludeFindComplete,
+  isFetching,
+  hasMore,
+  fetchNextPage,
+}: LostFoundListProps) {
   const { view } = useViewAtom()
-  const { data, isFetchingNextPage, hasNextPage, fetchNextPage } = useFetchLostPosts()
 
   const excludeFindCompletdPosts = useCallback(
     (posts: LostPost[], isExclude: boolean) =>
@@ -22,7 +31,7 @@ export default function LostList({ isExcludeFindComplete }: LostListProps) {
 
   return (
     <>
-      <S.LostList data-view={view}>
+      <S.LostFoundList data-view={view}>
         {data?.pages.map(page =>
           excludeFindCompletdPosts(page.posts, isExcludeFindComplete).map(post => (
             <li key={post.id}>
@@ -30,9 +39,9 @@ export default function LostList({ isExcludeFindComplete }: LostListProps) {
             </li>
           ))
         )}
-        {isFetchingNextPage && <LostItemSkeleton view={view} />}
-      </S.LostList>
-      <IntersectionArea hasMore={Boolean(hasNextPage)} onImpression={fetchNextPage} />
+        {isFetching && <LostItemSkeleton view={view} />}
+      </S.LostFoundList>
+      <IntersectionArea hasMore={hasMore} onImpression={fetchNextPage} />
     </>
   )
 }
