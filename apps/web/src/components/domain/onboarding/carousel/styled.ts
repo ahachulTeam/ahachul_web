@@ -1,6 +1,12 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
+export const carousel = css`
+  .swiper-pagination {
+    background-color: white;
+  }
+`
+
 export const FadeBanner = styled.div`
   position: relative;
   width: 100%;
