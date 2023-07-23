@@ -1,11 +1,18 @@
 import { Button } from '@ahhachul/ui'
+import dynamic from 'next/dynamic'
 import { FormProvider } from 'react-hook-form'
-import { SubwayLineFilter } from '../controller'
 import { useArticleForm } from '../hooks/useArticleForm'
 import * as S from './styled'
 import { PictureUploader } from '@/components/common/pictureUploader'
 import { useNavigationBar } from '@/hooks/useNavigationBar'
 import { usePictureUploader } from '@/hooks/usePictureUploader'
+
+const CategoryFilter = dynamic(() => import('../controller/CategoryFilter'), {
+  ssr: false,
+})
+const SubwayLineFilter = dynamic(() => import('../controller/SubwayLineFilter'), {
+  ssr: false,
+})
 
 function CommunityGeneratePageContainer() {
   const { pictures, provided } = usePictureUploader()
@@ -22,6 +29,10 @@ function CommunityGeneratePageContainer() {
 
       <FormProvider {...methods}>
         <S.FormSection>
+          <S.Line>
+            <S.FieldName>게시판</S.FieldName>
+            <CategoryFilter />
+          </S.Line>
           <S.Line>
             <S.FieldName>호선</S.FieldName>
             <SubwayLineFilter />

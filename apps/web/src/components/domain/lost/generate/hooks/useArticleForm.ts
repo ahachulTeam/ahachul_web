@@ -17,7 +17,7 @@ export const useArticleForm = () => {
     defaultValues: {
       title: '',
       content: '',
-      images: [],
+      imageFiles: [],
       subwayLineId: 1,
       categoryType: 'FREE',
     },
@@ -34,7 +34,6 @@ export const useArticleForm = () => {
         content: data.content,
         categoryType: data.categoryType,
         subwayLineId: data.subwayLineId,
-        // images: imgFiles,
       },
       {
         onSuccess: () => {

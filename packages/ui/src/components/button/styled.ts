@@ -16,6 +16,7 @@ export const Button = styled.button<ButtonProps>`
     display: flex;
     align-items: center;
     justify-content: center;
+    column-gap: 4px;
     min-width: max-content;
     ${size === 'xs' && varaiants.size.xs()}
     ${size === 'sm' && varaiants.size.sm()};
@@ -26,6 +27,10 @@ export const Button = styled.button<ButtonProps>`
     ${variant === 'secondary' && varaiants.variant.secondary()};
     ${variant === 'outline' && varaiants.variant.outline()};
     ${variant === 'ghost' && varaiants.variant.ghost()};
+
+    & > b {
+      color: ${theme.colors.primary};
+    }
   `}
 `
 

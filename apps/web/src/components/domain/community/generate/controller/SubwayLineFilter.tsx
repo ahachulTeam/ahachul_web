@@ -7,7 +7,7 @@ import { ArrowIcon } from '@/assets/icons'
 import { BottomSheet } from '@/components/common'
 import { SUBWAY_LINE_FILTER } from '@/constants/subway'
 
-export const SubwayLineFilter = () => {
+export default function SubwayLineFilter() {
   const { dialogRef, isOpen, onOpen, onClose } = useDisclosure()
 
   const { handleKeyListener } = useArrowKeyTrap(dialogRef)

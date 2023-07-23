@@ -6,11 +6,7 @@ import * as S from './styled'
 import { ArrowIcon } from '@/assets/icons'
 import { PATH } from '@/constants'
 
-export type MainPageContainerProps = {
-  isAuthed?: boolean
-}
-
-function MainPageContainer({ isAuthed = false }: MainPageContainerProps) {
+function MainPageContainer() {
   return (
     <S.Container>
       <S.SubwayInfoSection>

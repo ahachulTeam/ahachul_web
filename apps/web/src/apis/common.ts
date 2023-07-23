@@ -1,8 +1,6 @@
 import axios from 'axios'
 
-import { ax } from './axios'
 import { APILoginUser } from '@/types/auth'
-import type * as type from '@/types/common'
 import { StandardResponse } from '@/types/common'
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL

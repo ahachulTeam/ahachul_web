@@ -6,6 +6,7 @@ import { usePushShallowRouter } from '@/hooks'
 
 const useSearchDrawer = (onClose: () => void) => {
   const { router, pushShallowRouter } = usePushShallowRouter()
+  const isLostPage = router.pathname === PATH.LOST
 
   const [searchValue, setSearchValue] = useState('')
 
@@ -23,7 +24,9 @@ const useSearchDrawer = (onClose: () => void) => {
       onClose()
       setSearchValue('')
 
-      pushShallowRouter(PATH.COMMUNITY, { title: value })
+      const path = isLostPage ? PATH.LOST : PATH.COMMUNITY
+
+      pushShallowRouter(path, { content: value })
     },
     [router]
   )
@@ -43,12 +46,13 @@ const useSearchDrawer = (onClose: () => void) => {
   const handleHashTagValue = useCallback(
     (value: string) => () => {
       onClose()
-      pushShallowRouter(PATH.COMMUNITY, { tags: value })
+      pushShallowRouter(PATH.COMMUNITY, { hashTag: value })
     },
     []
   )
 
   return {
+    isLostPage,
     searchValue,
     searchSupporting,
     searchValueToEmptyString,
