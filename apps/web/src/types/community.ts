@@ -64,7 +64,7 @@ export interface CreateArticleQueryModel {
   content: string
   imageFiles?: Picture[] | []
   hashTags?: string[]
-  categoryType: CommunityCategoryType
+  categoryType?: CommunityCategoryType
   subwayLineId?: number
 }
 

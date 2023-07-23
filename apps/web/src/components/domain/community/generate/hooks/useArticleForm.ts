@@ -16,7 +16,7 @@ export const useArticleForm = (pictures: Picture[]) => {
       imageFiles: [],
       hashTags: [],
       subwayLineId: undefined,
-      categoryType: 'FREE',
+      categoryType: undefined,
     },
   })
 
@@ -28,7 +28,7 @@ export const useArticleForm = (pictures: Picture[]) => {
     createArticle({
       title,
       content,
-      categoryType: 'FREE',
+      categoryType,
       subwayLineId,
       hashTags: ['1호선', '빌런'],
       imageFiles: pictures,
