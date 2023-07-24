@@ -2,7 +2,7 @@ import { theme } from '@ahhachul/design-system'
 
 import styled from '@emotion/styled'
 
-export const Tab = styled.ul`
+export const StyledTab = styled.ul`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(97.5px, 1fr));

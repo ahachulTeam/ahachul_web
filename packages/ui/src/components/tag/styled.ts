@@ -9,7 +9,7 @@ interface TagBtnProps {
   variant: TagVariant
 }
 
-export const Tag = styled.button<TagBtnProps>`
+export const StyledTag = styled.button<TagBtnProps>`
   ${({ variant }) => css`
     ${theme.fonts.regular12};
     display: flex;

@@ -47,7 +47,7 @@ const variants = {
   `,
 }
 
-export const Checkbox = styled.div<CheckboxProps>`
+export const StyledCheckbox = styled.div<CheckboxProps>`
   ${({ variant }) => css`
     ${variant === 'primary' && variants.primary()};
     ${variant === 'ghost' && variants.ghost()};

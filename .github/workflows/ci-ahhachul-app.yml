@@ -130,6 +130,4 @@ jobs:
           key: ${{ env.BUILD_CACHE_KEY }}
 
       - name: Analyze bundle sizes
-        run: cd apps/web && yarn next-bundle-analyzer
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: yarn next-bundle-analyzer

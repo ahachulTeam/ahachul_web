@@ -9,7 +9,7 @@ interface TabProps {
 
 export function Tab({ className, tabList, selectedTab, handleChangeTab }: TabProps) {
   return (
-    <S.Tab role="tablist" className={className}>
+    <S.StyledTab role="tablist" className={className}>
       {Object.entries(tabList).map(([key, label]) => (
         <li key={key} role="none">
           <S.TabBtn
@@ -23,6 +23,6 @@ export function Tab({ className, tabList, selectedTab, handleChangeTab }: TabPro
           </S.TabBtn>
         </li>
       ))}
-    </S.Tab>
+    </S.StyledTab>
   )
 }

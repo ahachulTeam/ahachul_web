@@ -26,7 +26,7 @@ export function Button({
   ...restProps
 }: ButtonProps) {
   return (
-    <S.Button
+    <S.StyledButton
       className={className}
       type={type}
       size={size}
@@ -36,6 +36,6 @@ export function Button({
       {...restProps}
     >
       {label}
-    </S.Button>
+    </S.StyledButton>
   )
 }

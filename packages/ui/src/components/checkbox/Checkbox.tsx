@@ -25,11 +25,11 @@ export function Checkbox({ className, id, label, variant = 'primary', ...other }
   }
 
   return (
-    <S.Checkbox className={className} variant={variant}>
+    <S.StyledCheckbox className={className} variant={variant}>
       <input ref={checkboxRef} id={uuid} type="checkbox" tabIndex={-1} {...other} />
       <label htmlFor={uuid} tabIndex={0} onKeyDown={onKeydown}>
         {label}
       </label>
-    </S.Checkbox>
+    </S.StyledCheckbox>
   )
 }

@@ -9,7 +9,7 @@ interface BadgeProps {
   rounded: boolean
 }
 
-export const Badge = styled.span<BadgeProps>`
+export const StyledBadge = styled.span<BadgeProps>`
   ${({ variant, rounded }) => css`
     ${rounded ? baseBadge : hotBadge};
     display: flex;

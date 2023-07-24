@@ -14,13 +14,13 @@ interface TagProps extends HTMLAttributes<HTMLButtonElement> {
 
 export const Tag = ({ className, label, variant = 'primary', disabled = false, onClick }: TagProps) => {
   return (
-    <S.Tag type="button" className={className} variant={variant} disabled={disabled} onClick={onClick}>
+    <S.StyledTag type="button" className={className} variant={variant} disabled={disabled} onClick={onClick}>
       <span>{label}</span>
       {/* {variant === "outline" && (
         <S.IconBtn onClick={onDelete}>
           <CloseIcon />
         </S.IconBtn>
       )} */}
-    </S.Tag>
+    </S.StyledTag>
   )
 }

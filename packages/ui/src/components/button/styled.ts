@@ -10,7 +10,7 @@ interface ButtonProps {
   variant: ButtonVariant
 }
 
-export const Button = styled.button<ButtonProps>`
+export const StyledButton = styled.button<ButtonProps>`
   ${({ size, variant }) => css`
     box-sizing: border-box;
     display: flex;

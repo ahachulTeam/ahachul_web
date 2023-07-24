@@ -21,8 +21,8 @@ export function Badge({ className, variant, isHottest = false }: BadgeProps) {
   }, [variant, isHottest])
 
   return (
-    <S.Badge className={className} variant={variant} rounded={isSubwayLine(variant) && !isHottest}>
+    <S.StyledBadge className={className} variant={variant} rounded={isSubwayLine(variant) && !isHottest}>
       {label}
-    </S.Badge>
+    </S.StyledBadge>
   )
 }
