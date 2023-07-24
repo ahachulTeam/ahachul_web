@@ -1,85 +1,35 @@
-import { fonts, colors } from '@ahhachul/design-system'
-import { Button } from '@ahhachul/ui'
-import { css } from '@emotion/react'
+import { RadioButton } from '@ahhachul/ui'
+
+import * as S from './styled'
 import { PictureUploader } from '@/components/common'
 import { usePictureUploader } from '@/hooks'
+
+const radioOptions = [
+  { key: '이동상인', value: '이동상인' },
+  { key: '취객', value: '취객' },
+  { key: '구걸', value: '구걸' },
+  { key: '종교행위', value: '종교행위' },
+  { key: '노숙', value: '노숙' },
+  { key: '마스크 미착용', value: '마스크 미착용' },
+]
 
 export default function Impediment() {
   const { pictures, provided } = usePictureUploader()
 
   return (
-    <div
-      css={css`
-        display: flex;
-        gap: 15px;
-        flex-direction: column;
-        padding: 20px;
-      `}
-    >
-      <div>
-        <div
-          css={css`
-            ${fonts.medium14};
-            display: flex;
-            align-items: center;
-            height: 30px;
-            width: 100%;
-          `}
-        >
-          신고유형을 선택해주세요
-        </div>
-        <Button size="lg" variant="secondary" label="이동상인" />
-      </div>
-      <div>
-        <div
-          css={css`
-            ${fonts.medium14};
-            display: flex;
-            align-items: center;
-            height: 30px;
-            width: 100%;
-          `}
-        >
-          내용
-        </div>
-        <textarea
-          css={css`
-            ${fonts.regular14};
-            display: flex;
-            align-items: center;
-            height: 85px;
-            width: 100%;
-            border: 1px solid ${colors.gray_19};
-            border-radius: 20px;
-            padding: 12px 25px;
-            resize: none;
-
-            &::placeholder {
-              ${fonts.regular14};
-              color: ${colors.gray_40};
-            }
-
-            &[aria-invalid='true'] {
-              border-color: ${colors.red_10};
-            }
-          `}
-          placeholder="신고내용을 작성해주세요"
-        />
-      </div>
-      <div>
-        <div
-          css={css`
-            ${fonts.medium14};
-            display: flex;
-            align-items: center;
-            height: 30px;
-            width: 100%;
-          `}
-        >
-          사진 업로드
-        </div>
+    <S.Container>
+      <article>
+        <S.Title>신고유형을 선택해주세요</S.Title>
+        <RadioButton options={radioOptions} />
+      </article>
+      <article>
+        <S.Title>내용</S.Title>
+        <S.TextArea placeholder="신고내용을 작성해주세요" />
+      </article>
+      <article>
+        <S.Title>사진 업로드</S.Title>
         <PictureUploader {...provided} pictures={pictures} maxCount={10} />
-      </div>
-    </div>
+      </article>
+    </S.Container>
   )
 }

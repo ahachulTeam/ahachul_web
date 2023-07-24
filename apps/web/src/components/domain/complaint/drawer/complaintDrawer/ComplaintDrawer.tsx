@@ -1,11 +1,21 @@
-import { Button } from '@ahhachul/ui'
+import { Button, SwitchCase } from '@ahhachul/ui'
 import { useEffect, useState } from 'react'
 import { useSwipeable } from 'react-swipeable'
 import * as S from './ComplaintDrawer.styled'
-import ComplaintDrawerContents, { ComplaintContentsKeys } from './contents'
+
+import { Announcement, Facilities, Impediment, Patient, Sexual, Temperature, Violence } from './contents'
 import { BottomSheetWithMotion } from '@/components/common'
 import { ComplaintTargets } from '@/types/complaint'
 
+const ComplaintContentsKeys = {
+  facilities: '시설 · 환경민원',
+  temperature: '온도조절',
+  announcement: '안내방송',
+  impediment: '질서저해',
+  patient: '응급환자',
+  sexual: '성추행',
+  violence: '폭력',
+}
 interface ComplaintDrawerProps {
   isOpen: boolean
   targetSection: ComplaintTargets
@@ -41,7 +51,18 @@ export default function ComplaintDrawer({ isOpen, targetSection, onClose }: Comp
           <p>대화행</p>
         </S.지하철정보>
         <S.진짜콘텐츠>
-          <ComplaintDrawerContents selectedTab={selectedTab} />
+          <SwitchCase
+            value={selectedTab}
+            caseBy={{
+              facilities: <Facilities />,
+              temperature: <Temperature />,
+              announcement: <Announcement />,
+              impediment: <Impediment />,
+              patient: <Patient />,
+              sexual: <Sexual />,
+              violence: <Violence />,
+            }}
+          />
         </S.진짜콘텐츠>
       </S.Container>
       <article css={S.fixedBottomCss}>

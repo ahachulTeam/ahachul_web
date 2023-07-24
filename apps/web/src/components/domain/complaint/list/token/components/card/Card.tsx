@@ -11,7 +11,6 @@ interface ComplaintCardProps {
   subText?: string
   tabId: string
   variant: ComplaintCardVariant
-  customCSS?: ReturnType<typeof css>
 }
 
 export default function ComplaintCard({
@@ -22,11 +21,10 @@ export default function ComplaintCard({
   variant,
   tabId,
   children,
-  customCSS,
 }: PropsWithChildren<ComplaintCardProps>) {
   return (
     <>
-      <S.ComplaintCard variant={variant} data-tabId={tabId} className={className} css={customCSS}>
+      <S.ComplaintCard variant={variant} data-tabId={tabId} className={className}>
         <h4>{title}</h4>
         <pre>{content}</pre>
         {children}

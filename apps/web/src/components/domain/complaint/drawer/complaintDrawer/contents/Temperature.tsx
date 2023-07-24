@@ -2,6 +2,7 @@ import { css } from '@emotion/react'
 import Image from 'next/image'
 import { CardIcon, ComplaintCard } from '../../../list'
 
+import * as S from './styled'
 import { ComplaintCardVariant } from '@/types/variants'
 
 const TemperatureContents: Record<
@@ -45,31 +46,8 @@ const TemperatureContents: Record<
 
 export default function Temperature() {
   return (
-    <div
-      css={css`
-        display: flex;
-        flex-direction: column;
-        padding: 20px;
-      `}
-    >
-      <div
-        css={css`
-          width: 100%;
-          padding: 10px 0;
-          text-align: end;
-        `}
-      >
-        <span>약냉방칸4,7칸</span>
-      </div>
-      <div
-        css={css`
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          column-gap: 15px;
-          row-gap: 18px;
-          width: 100%;
-        `}
-      >
+    <S.Container>
+      <S.TemperatureSection>
         {Object.entries(TemperatureContents).map(([key, content]) => (
           <li key={key} onClick={() => void 0}>
             <ComplaintCard
@@ -78,16 +56,7 @@ export default function Temperature() {
               variant={content.variant}
               subText={content.subText}
               tabId={key}
-              css={css`
-                padding: 22px 23px;
-
-                ${key === 'hot' &&
-                css`
-                  & > h4 {
-                    text-align: right;
-                  }
-                `}
-              `}
+              css={S.TemperatureCardStyle(key)}
             >
               <CardIcon overrideCss={content.overrideCss}>
                 <Image fill priority src={`illust/${content.imgName}.svg`} alt="" />
@@ -95,7 +64,7 @@ export default function Temperature() {
             </ComplaintCard>
           </li>
         ))}
-      </div>
-    </div>
+      </S.TemperatureSection>
+    </S.Container>
   )
 }
