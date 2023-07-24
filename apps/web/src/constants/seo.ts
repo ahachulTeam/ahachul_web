@@ -1,3 +1,9 @@
+import favicon from 'public/favicon.ico'
+//TODO: 오픈그래프 이미지 생기면 교체
+import ogImage from 'public/favicon.ico'
+
+import type { SEOProps } from '@/libs/SEO'
+
 export const KR_APP_NAME = '아하철'
 export const EN_APP_NAME = 'AhHachul'
 export const PREFIX = '지하철 플랫폼'
@@ -19,4 +25,32 @@ export const StaticSEO = {
   community: {
     title: `지하철 커뮤니티는 ${PREFIX} ${KR_APP_NAME}에서`,
   },
+}
+
+export const TITLE_TEMPLATE = ` | ${StaticSEO.main.sitename}`
+
+export const DEFAULT_SEO_CONFIG: SEOProps = {
+  title: StaticSEO.main.title,
+  description: StaticSEO.main.description,
+  openGraph: {
+    type: 'website',
+    url: 'https://www.ahhachul.com',
+    images: [{ url: ogImage.src, alt: KR_APP_NAME, width: 800, height: 400 }],
+  },
+  additionalMetaTags: [
+    {
+      name: 'viewport',
+      content: 'width=device-width, initial-scale=1.0 minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover',
+    },
+    {
+      httpEquiv: 'x-ua-compatible',
+      content: 'IE=edge',
+    },
+  ],
+  additionalLinkTags: [
+    {
+      rel: 'icon',
+      href: favicon.src,
+    },
+  ],
 }

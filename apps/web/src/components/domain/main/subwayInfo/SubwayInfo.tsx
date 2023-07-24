@@ -4,10 +4,18 @@ import SubwayIllust from 'public/illust/m1.svg'
 
 import * as S from './styled'
 import { ArrowIcon } from '@/assets/icons'
+import { useAuth } from '@/context'
+import useMyProfileQuery from '@/queries/user/useMyProfileQuery'
 
 function SubwayInfo() {
   const router = useRouter()
   const handleRouteSettingSubway = () => router.push('/onboarding')
+
+  const {
+    auth: { isAuth },
+  } = useAuth()
+
+  const { data: me } = useMyProfileQuery({ enabled: isAuth })
 
   return (
     <S.SubwayInfo className="temporary swipe banner">
@@ -23,7 +31,7 @@ function SubwayInfo() {
         </S.AhHachulSuperModelImage>
         <S.Box>
           <S.Desc>
-            <strong>아하철</strong>님 <br />
+            <strong>{me ? me.nickname : '아하철'}</strong>님 <br />
             열차정보와 혼잡도가 <br />
             궁금하다면?
           </S.Desc>

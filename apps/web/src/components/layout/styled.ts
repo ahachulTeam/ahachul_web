@@ -8,7 +8,7 @@ export const Main = styled.main`
     width: 100%;
     max-width: ${theme.size.layout.width};
     height: 100%;
-    min-height: ${`calc(100vh - ${theme.size.header.height}) - ${theme.size.bottomNavbar.height})`};
+    min-height: ${`calc(100vh - ${theme.size.bottomNavbar.height})`};
     max-height: 100%;
     padding-top: ${theme.size.header.height};
     padding-bottom: ${theme.size.bottomNavbar.height};

@@ -18,6 +18,11 @@ export const LostItem = styled.article`
       border-radius: 25px;
     }
   }
+
+  .skeleton {
+    display: flex;
+    flex: 1;
+  }
 `
 
 export const link = css`
@@ -95,7 +100,7 @@ export const Metadata = styled.div`
       display: flex;
       align-items: center;
 
-      &::after {
+      &:first-of-type::after {
         content: '';
         position: absolute;
         right: -8px;

@@ -5,7 +5,9 @@ import * as S from './styled'
 import { ArrowIcon, KenllIcon, MiniHamburgerIcon, SearchIcon, ShareIcon } from '@/assets/icons'
 import { PATH, PATH_STORAGE_KEYS, StaticSEO } from '@/constants'
 import { usePushShallowRouter } from '@/hooks'
+import { useToast } from '@/hooks'
 import { UrlQueryType } from '@/types/common'
+import { copyToClipboard } from '@/utils/common'
 
 interface HeaderProps {
   hasGoBack?: boolean
@@ -78,9 +80,11 @@ function Logo({ onClick }: HeaderBtnProps) {
   )
 }
 
-function Share({ onClick }: HeaderBtnProps) {
+function Share() {
+  const toast = useToast()
+
   return (
-    <S.IconBtn onClick={onClick}>
+    <S.IconBtn onClick={() => copyToClipboard(toast, window.location.href)}>
       <ShareIcon />
     </S.IconBtn>
   )

@@ -1,19 +1,28 @@
-import type { SubwayLine } from '@ahhachul/lib'
+import { SubwayLine, Line, isSubwayLine } from '@ahhachul/lib'
 
+import { useMemo } from 'react'
 import * as S from './styled'
+
+type BadgeVariant = Line | (string & {})
 
 export interface BadgeProps {
   className?: string
-  label: BadgeVariant
+  variant: BadgeVariant
   isHottest?: boolean
 }
 
-type BadgeVariant = SubwayLine | string
+export function Badge({ className, variant, isHottest = false }: BadgeProps) {
+  const label = useMemo(() => {
+    if (isSubwayLine(variant)) {
+      return isHottest ? `${variant} HOT` : SubwayLine[variant]
+    }
 
-export function Badge({ className, label, isHottest }: BadgeProps) {
+    return variant
+  }, [variant, isHottest])
+
   return (
-    <S.Badge variant={label} className={className}>
-      {label} {isHottest && 'HOT'}
+    <S.Badge className={className} variant={variant} rounded={isSubwayLine(variant) && !isHottest}>
+      {label}
     </S.Badge>
   )
 }

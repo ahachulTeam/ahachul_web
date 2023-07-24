@@ -12,12 +12,10 @@ export const NicknamePageContainer = () => {
   const [nickname, setNickname] = useState<string>('')
   const [nicknameStatus, setNicknameStatus] = useState<boolean | undefined>(undefined)
 
-  const { data, isLoading, mutate: verifyNicknameMutate } = useVerifyNickname()
+  const { data: isNicknameSuccess, isLoading, mutate: verifyNicknameMutate } = useVerifyNickname()
   const { mutate: updateMyProfileMutate } = useMyProfileMutation()
 
   const { success } = useToast()
-
-  const handleNicknameInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setNickname(e.target.value)
 
   const handleVerifyNickname = (e: React.FormEvent) => {
     e.preventDefault()
@@ -33,8 +31,8 @@ export const NicknamePageContainer = () => {
   }
 
   useEffect(() => {
-    !isLoading && setNicknameStatus(data?.result?.available as boolean)
-  }, [data?.result?.available, isLoading])
+    !isLoading && setNicknameStatus(isNicknameSuccess?.result?.available as boolean)
+  }, [isNicknameSuccess?.result?.available, isLoading])
 
   return (
     <FullHeight css={S.containerCss}>
@@ -46,7 +44,7 @@ export const NicknamePageContainer = () => {
             value={nickname}
             aria-invalid={nicknameStatus}
             aria-errormessage="nickname-duplicated-error-id"
-            onChange={handleNicknameInputChange}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNickname(e.target.value)}
           />
           <S.FlexGroup>
             <Button

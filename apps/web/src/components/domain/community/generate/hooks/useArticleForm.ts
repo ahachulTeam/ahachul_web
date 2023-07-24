@@ -7,20 +7,16 @@ import { Picture } from '@/types'
 import { CreateArticleQueryModel } from '@/types/community'
 
 export const useArticleForm = (pictures: Picture[]) => {
-  const router = useRouter()
-
-  const { success } = useToast()
-
   const { mutate: createArticle } = useCreateArticle()
 
   const methods = useForm<CreateArticleQueryModel>({
     defaultValues: {
       title: '',
       content: '',
-      images: [],
+      imageFiles: [],
       hashTags: [],
       subwayLineId: undefined,
-      categoryType: 'FREE',
+      categoryType: undefined,
     },
   })
 
@@ -29,22 +25,14 @@ export const useArticleForm = (pictures: Picture[]) => {
       return methods.setError('subwayLineId', { message: '호선을 선택해 주세요.' })
     }
 
-    // createArticle(
-    //   {
-    //     title,
-    //     content,
-    //     categoryType: 'INSIGHT',
-    //     subwayLineId,
-    //     hashTags: ['1호선'],
-    //     images: pictures,
-    //   },
-    //   {
-    //     onSuccess: () => {
-    //       success('글을 생성했다.')
-    //       router.push(PATH.COMMUNITY, undefined, { shallow: true })
-    //     },
-    //   }
-    // )
+    createArticle({
+      title,
+      content,
+      categoryType,
+      subwayLineId,
+      hashTags: ['1호선', '빌런'],
+      imageFiles: pictures,
+    })
   }
 
   const handleError = (err: FieldErrors) => {

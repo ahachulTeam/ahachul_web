@@ -1,3 +1,4 @@
+import { SubwayLine } from '@ahhachul/lib'
 import styled from '@emotion/styled'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -20,23 +21,6 @@ export default meta
 
 type Story = StoryObj<typeof Badge>
 
-const subwayLine = [
-  '1호선',
-  '2호선',
-  '3호선',
-  '4호선',
-  '5호선',
-  '6호선',
-  '7호선',
-  '8호선',
-  '9호선',
-  '공항',
-  '경의중앙',
-  '경춘',
-  '수인분당',
-  '신분당',
-]
-
 const Container = styled(StoryLayout)`
   display: flex;
   flex-wrap: wrap;
@@ -46,8 +30,8 @@ const Container = styled(StoryLayout)`
 const StoryBadgeGroup = (args: BadgeProps) => {
   return (
     <Container>
-      {subwayLine.map(line => (
-        <Badge {...args} key={line} label={line} />
+      {Object.keys(SubwayLine).map(line => (
+        <Badge {...args} key={line} variant={line} />
       ))}
     </Container>
   )
@@ -62,6 +46,7 @@ export const SubwayBadge: Story = {
 
 export const FoundBadge: Story = {
   args: {
-    label: '찾기완료',
+    variant: '찾기완료',
+    isHottest: false,
   },
 }

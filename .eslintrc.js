@@ -77,7 +77,16 @@ module.exports = {
         ],
       },
     ],
-
+    '@typescript-eslint/ban-types': [
+      'error',
+      {
+        types: {
+          // un-ban a type that's banned by default
+          '{}': false,
+        },
+        extendDefaults: true,
+      },
+    ],
     'import/order': [
       'warn',
       {
@@ -89,7 +98,7 @@ module.exports = {
     'react/prop-types': 'off',
     // React.memo, React.forwardRef에서 사용하는 경우도 막고 있어서
     'react/display-name': 'off',
-    'react-hooks/exhaustive-deps': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
     'react/react-in-jsx-scope': 'off',
     'react/no-unknown-property': ['error', { ignore: ['css'] }],
   },

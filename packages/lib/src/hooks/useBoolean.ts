@@ -9,7 +9,7 @@ type Return = readonly [boolean, VoidFunction, VoidFunction, VoidFunction]
  * @param initialValue - boolean
  * @returns [boolean state, toggle func, set true func, set false func]
  */
-export const useBoolean = (initialValue: boolean): Return => {
+export const useBoolean = (initialValue = false): Return => {
   const [value, setValue] = useState(initialValue)
 
   const setTrue = useCallback(() => {

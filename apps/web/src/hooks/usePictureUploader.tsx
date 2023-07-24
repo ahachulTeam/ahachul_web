@@ -22,6 +22,7 @@ export const usePictureUploader = () => {
     const uploadPictures = files.map(file => ({
       name: file.name,
       imgUrl: URL.createObjectURL(file),
+      file: file,
     }))
 
     setPictures(prev => [...prev, ...uploadPictures])
