@@ -1,4 +1,4 @@
-name: CI
+name: CI-ahhachul-app
 
 on:
   pull_request:
@@ -80,7 +80,7 @@ jobs:
 
       - name: Build
         if: steps.cache_built_packages.outputs.cache-hit == false
-        run: yarn workspace @ahhachul/web build:prod # 모노레포에서 web 앱 빌드
+        run: yarn workspace @ahhachul/web build # 모노레포에서 web 앱 빌드
 
     outputs:
       dependency_cache_key: ${{ needs.job_install_dependencies.outputs.dependency_cache_key }}
