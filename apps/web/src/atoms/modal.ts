@@ -14,7 +14,7 @@ export const isFilterModalOpenState = atom<FilterModalState>({
   key: `isFilterModalOpenState/${v1()}`,
   default: {
     isOpen: false,
-    targetSection: 'Patient',
+    targetSection: 'patient',
   },
 })
 
