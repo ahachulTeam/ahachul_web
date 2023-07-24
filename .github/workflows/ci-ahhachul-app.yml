@@ -73,10 +73,10 @@ jobs:
           path: ${{ env.CACHED_BUILD_PATHS }}
           key: ${{ env.BUILD_CACHE_KEY }}
 
-      - name: Set up environment variables for .env.prod
+      - name: Set up environment variables for .env.production
         env:
           ENV_PROD_CONTENT: ${{ secrets.ENV_PROD_CONTENT }}
-        run: echo "$ENV_PROD_CONTENT" > .env.prod
+        run: echo "$ENV_PROD_CONTENT" > .env.production
 
       - name: Build
         if: steps.cache_built_packages.outputs.cache-hit == false
