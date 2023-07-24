@@ -130,9 +130,6 @@ jobs:
           key: ${{ env.BUILD_CACHE_KEY }}
 
       - name: Analyze bundle sizes
-        uses: transferwise/actions-next-bundle-analyzer@master
-        with:
-          workflow-id: ci-ahhachul-app.yml
-          base-branch: develop
+        run: cd apps/web && yarn next-bundle-analyzer
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
