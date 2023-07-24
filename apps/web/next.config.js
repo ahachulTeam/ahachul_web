@@ -10,7 +10,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   swcMinify: true,
-  transpilePackages: ['react-hotjar', '@ahhachul/ui'],
+  transpilePackages: ['react-hotjar', '@ahhachul/ui', '@ahhachul/lib', '@ahhachul/ds'],
   images: {
     remotePatterns: [
       {
