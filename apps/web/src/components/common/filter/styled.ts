@@ -53,3 +53,27 @@ export const Option = styled.button`
     }
   `}
 `
+
+export const Lines = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+`
+
+export const SubwayOption = styled.button`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    border-radius: 20px;
+    color: ${theme.colors.gray_53};
+    background-color: ${theme.colors.gray_07};
+    transition: all 0.3s ease-in-out;
+
+    &[aria-checked='true'] {
+      color: ${theme.colors.primary};
+      background-color: ${theme.colors.secondary};
+    }
+  `}
+`

@@ -1,25 +1,40 @@
 import { Picture } from './picture'
 
+export type CommunityCategoryType = 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR'
+export type CommunitySortType = 'likes' | 'createdAt' | 'views'
+
 export interface CommunityListQueryModel {
-  categoryType?: 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR'
+  categoryType?: CommunityCategoryType
   subwayLine?: string
-  title?: string
   content?: string
   hashTag?: string
   page: number
   size: number
-  sort: 'likes' | 'createdAt' | 'views'
+  sort: CommunitySortType
 }
 
 export interface CommunityOverViewModel {
   id: number
   title: string
-  categoryType: string
-  views: number
-  likes: number
+  content: string
+  categoryType: CommunityCategoryType
+  commentCnt: number
+  viewCnt: number
+  likeCnt: number
   region: string
   createdAt: string
   createdBy: string
+  writer: string
+  regionType: string
+  image: {
+    imageId: number
+    imageUrl: string
+  }
+}
+
+export interface CommunityListServerModel {
+  hasNext: boolean
+  posts: CommunityOverViewModel[]
 }
 
 export interface CommunityDetailQueryModel {
@@ -27,24 +42,65 @@ export interface CommunityDetailQueryModel {
 }
 
 export interface CommunityDetailModel {
-  id: number
-  title: string
+  categoryType: CommunityCategoryType
   content: string
-  categoryType: 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR'
-  hashTags: string[]
-  views: number
-  likes: number
-  region: any // fixme
   createdAt: string
   createdBy: string
+  hashTags: string[]
+  id: number
+  images: Array<{ imageId: number; imageUrl: string }>
+  hateCnt: number
+  hateYn: 'Y' | 'N'
+  likeCnt: number
+  likeYn: 'Y' | 'N'
+  regionType: string
+  title: string
+  viewCnt: number
   writer: string
 }
 
 export interface CreateArticleQueryModel {
   title: string
   content: string
-  images?: Picture[] | []
+  imageFiles?: Picture[] | []
   hashTags?: string[]
-  categoryType: 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR'
+  categoryType?: CommunityCategoryType
   subwayLineId?: number
+}
+
+export interface CreateCommentQueryModel extends CommunityDetailQueryModel {
+  upperCommentId?: number
+  content: string
+}
+
+export interface PutCommentQueryModel {
+  commentId: number
+  content: string
+}
+
+export interface CommentsServerModel {
+  comments: [
+    {
+      parentComment: {
+        id: number
+        upperCommentId: number | null
+        content: string
+        status: string
+        createdAt: string
+        createdBy: string
+        writer: string
+      }
+      childComments: [
+        {
+          id: number
+          upperCommentId: number | null
+          content: string
+          status: string
+          createdAt: string
+          createdBy: string
+          writer: string
+        }
+      ]
+    }
+  ]
 }

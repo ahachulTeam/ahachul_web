@@ -9,7 +9,15 @@ const nextConfig = {
   swcMinify: true,
   transpilePackages: ['react-hotjar', '@ahhachul/ui'],
   images: {
-    domains: ['ahachul-image.s3.ap-northeast-2.amazonaws.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ahachul-bucket.s3.ap-northeast-2.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+    domains: ['www.lost112.go.kr'],
   },
   webpack(config) {
     config.module.rules.push({

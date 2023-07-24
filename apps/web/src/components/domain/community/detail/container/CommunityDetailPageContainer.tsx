@@ -1,14 +1,21 @@
+import { Suspense } from 'react'
 import Comments from '../comments/Comments'
+import Contents from '../contents/Contents'
 import * as S from './styled'
+import { useAuth } from '@/context'
 
 export const CommunityDetailPageContainer = () => {
+  const { user } = useAuth()
+
   return (
     <S.Container>
-      <S.ContentSection>{/* <Contents data={detailData} /> */}</S.ContentSection>
+      <Suspense fallback={<div />}>
+        <Contents />
+      </Suspense>
       <S.Divider />
-      <S.CommentSection>
-        <Comments />
-      </S.CommentSection>
+      <Suspense fallback={<div />}>
+        <Comments user={user} />
+      </Suspense>
     </S.Container>
   )
 }

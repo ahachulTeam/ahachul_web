@@ -1,5 +1,6 @@
 export const PATH = {
   LOGIN: '/onboarding',
+  NICKNAME: '/onboarding/nickname',
   SIGN_UP: '/signup',
   HOME: '/',
   LOST: '/lost',

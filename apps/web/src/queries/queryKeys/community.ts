@@ -6,4 +6,5 @@ export const communityKeys = {
   list: (filters: type.CommunityListQueryModel) => [...communityKeys.lists(), { filters }] as const,
   details: () => [...communityKeys.all, 'detail'] as const,
   detail: (postId: number) => [...communityKeys.details(), postId] as const,
+  comments: (postId: number) => [...communityKeys.all, 'comments', postId] as const,
 }

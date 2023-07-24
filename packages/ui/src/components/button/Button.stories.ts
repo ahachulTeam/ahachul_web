@@ -8,7 +8,7 @@ const meta: Meta<typeof Button> = {
   component: Button,
   tags: ['autodocs'],
   parameters: {
-    controls: { exclude: ['className', 'variant', 'onClick'] },
+    controls: { exclude: ['className', 'type', 'variant', 'onClick'] },
     componentSource: {
       language: 'typescript',
     },
@@ -34,5 +34,21 @@ export const Secondary: Story = {
     ...Pirmary.args,
     variant: 'secondary',
     label: 'Secondary Button',
+  },
+}
+
+export const Outline: Story = {
+  args: {
+    ...Pirmary.args,
+    variant: 'outline',
+    label: 'Outline Button',
+  },
+}
+
+export const Ghost: Story = {
+  args: {
+    ...Pirmary.args,
+    variant: 'ghost',
+    label: 'Ghost Button',
   },
 }

@@ -81,7 +81,6 @@ const options: CreateAxiosDefaults = {
     Accept: '*/*',
     'Content-Type': 'application/json',
   },
-  timeout: 3000,
   baseURL: BASE_URL,
 }
 
