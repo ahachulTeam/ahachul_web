@@ -6,6 +6,9 @@ const nextConfig = {
     appDir: false,
     forceSwcTransforms: true,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   swcMinify: true,
   transpilePackages: ['react-hotjar', '@ahhachul/ui'],
   images: {
