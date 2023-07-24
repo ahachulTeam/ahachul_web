@@ -133,6 +133,6 @@ jobs:
         uses: transferwise/actions-next-bundle-analyzer@master
         with:
           workflow-id: ci.yml
-          base-branch: main
+          base-branch: develop
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
