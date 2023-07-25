@@ -1,3 +1,4 @@
+import { YesNo } from './common'
 import { Picture } from './picture'
 
 export type CommunityCategoryType = 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR'
@@ -50,9 +51,9 @@ export interface CommunityDetailModel {
   id: number
   images: Array<{ imageId: number; imageUrl: string }>
   hateCnt: number
-  hateYn: 'Y' | 'N'
+  hateYn: YesNo
   likeCnt: number
-  likeYn: 'Y' | 'N'
+  likeYn: YesNo
   regionType: string
   title: string
   viewCnt: number

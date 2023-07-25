@@ -11,7 +11,6 @@ import { useToast } from '@/hooks'
 import useInput from '@/hooks/useInput'
 import { useCommentsManagement } from '@/queries/community/useCommunityComments'
 import { useCommunityCommentsQuery } from '@/queries/community/useCommunityComments'
-import { CommentsServerModel } from '@/types/community'
 import { UserModel } from '@/types/user'
 
 interface CommentsProps {

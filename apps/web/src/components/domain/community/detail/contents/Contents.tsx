@@ -2,7 +2,7 @@ import { getCurrentTime } from '@ahhachul/lib'
 import { Button, Tag } from '@ahhachul/ui'
 import { useRouter } from 'next/router'
 
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import * as S from './styled'
 import { ARTICLE_DEFAULT_THUMBNAIL, PATH } from '@/constants'
 import useCommunityDetailQuery from '@/queries/community/useCommunityDetailQuery'
@@ -19,17 +19,12 @@ function Contents() {
 
   const { likes, removeHates, removeLikes, hates } = useManagementCommunityPostReacting()
 
-  const [tempLikesClicked, setTempLikesClicked] = useState(false)
-  const [tempHatesClicked, setTempHatesClicked] = useState(false)
-
   const handleLikeClick = () => {
-    setTempLikesClicked(true)
     const req = { postId: Number(router.query?.id) }
     articleDetail?.result?.likeYn === 'Y' ? removeLikes(req) : likes(req)
   }
 
   const handleHateClick = () => {
-    setTempHatesClicked(true)
     const req = { postId: Number(router.query?.id) }
     articleDetail?.result?.hateYn === 'Y' ? removeHates(req) : hates(req)
   }
@@ -84,34 +79,30 @@ function Contents() {
           })}
         </S.HashTagList>
         <S.ContentsReactBtnGroup>
-          {articleDetail?.result?.hateYn !== 'Y' && (
-            <Button
-              data-status={(tempLikesClicked || articleDetail?.result?.likeYn === 'Y') && 'likes'}
-              css={S.customButtonCss}
-              variant="outline"
-              size="smd"
-              label={
-                articleDetail?.result?.likeCnt ? (
-                  <>
-                    좋아요 <b>{articleDetail?.result?.likeCnt}</b>
-                  </>
-                ) : (
-                  '좋아요'
-                )
-              }
-              onClick={handleLikeClick}
-            />
-          )}
-          {articleDetail?.result?.likeYn !== 'Y' && (
-            <Button
-              data-status={(tempHatesClicked || articleDetail?.result?.hateYn === 'Y') && 'hates'}
-              css={S.customButtonCss}
-              variant="outline"
-              size="smd"
-              label={`${articleDetail?.result?.hateCnt ? `싫어요 ${articleDetail?.result?.hateCnt}` : '싫어요'}`}
-              onClick={handleHateClick}
-            />
-          )}
+          <Button
+            data-status={articleDetail?.result?.likeYn === 'Y' && 'likes'}
+            css={S.customButtonCss}
+            variant="outline"
+            size="smd"
+            label={
+              articleDetail?.result?.likeCnt ? (
+                <>
+                  좋아요 <b>{articleDetail?.result?.likeCnt}</b>
+                </>
+              ) : (
+                '좋아요'
+              )
+            }
+            onClick={handleLikeClick}
+          />
+          <Button
+            data-status={articleDetail?.result?.hateYn === 'Y' && 'hates'}
+            css={S.customButtonCss}
+            variant="outline"
+            size="smd"
+            label={`${articleDetail?.result?.hateCnt ? `싫어요 ${articleDetail?.result?.hateCnt}` : '싫어요'}`}
+            onClick={handleHateClick}
+          />
         </S.ContentsReactBtnGroup>
       </S.Contents>
     </S.ContentSection>
