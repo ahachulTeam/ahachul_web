@@ -23,6 +23,17 @@ export const PictureCount = (theme: Theme) => css`
   }
 `
 
+export const ThumbnailWrapper = css`
+  position: relative;
+
+  > svg {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    cursor: pointer;
+  }
+`
+
 export const Thumbnail = (theme: Theme) => css`
   position: relative;
   width: 60px;
