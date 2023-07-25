@@ -74,5 +74,10 @@ export const usePictureUploader = () => {
       setPictures(prev => [...prev, ...item])
     })
   }
-  return { pictures, isLoading, provided: { onUpload } }
+
+  const deletePicture = (targetIndex: number) => {
+    setPictures(prev => prev.filter((_, index) => index !== targetIndex))
+  }
+
+  return { pictures, isLoading, provided: { onUpload, deletePicture } }
 }
