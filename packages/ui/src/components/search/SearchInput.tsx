@@ -13,38 +13,39 @@ export interface SearchInputProps {
   onSearch: (searchText: string) => void
 }
 
-export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
-  ({ className, placeholder, label, value, onChange, onDelete, onSearch }, ref) => {
-    const handleSearch = (e: React.FormEvent) => {
-      e.preventDefault()
-      if (!value) {
-        return
-      }
-
-      onSearch(value)
+export default forwardRef<HTMLInputElement, SearchInputProps>(function SearchInput(
+  { className, placeholder, label, value, onChange, onDelete, onSearch },
+  ref
+) {
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!value) {
+      return
     }
 
-    return (
-      <S.SearchForm
-        className={className}
-        role="search"
-        aria-label="지원사업 검색"
-        autoComplete="off"
-        onSubmit={handleSearch}
-      >
-        <input ref={ref} aria-label={label} placeholder={placeholder ?? ''} value={value} onChange={onChange} />
-        <S.RemoveKeywordBtn
-          type="button"
-          data-isshow={Boolean(value)}
-          aria-label="검색 키워드 삭제 버튼"
-          onClick={onDelete}
-        >
-          <CloseFillIcon />
-        </S.RemoveKeywordBtn>
-        <S.SearchBtn type="button" aria-label="검색 버튼" onClick={handleSearch}>
-          <SearchIcon />
-        </S.SearchBtn>
-      </S.SearchForm>
-    )
+    onSearch(value)
   }
-)
+
+  return (
+    <S.SearchForm
+      className={className}
+      role="search"
+      aria-label="지원사업 검색"
+      autoComplete="off"
+      onSubmit={handleSearch}
+    >
+      <input ref={ref} aria-label={label} placeholder={placeholder ?? ''} value={value} onChange={onChange} />
+      <S.RemoveKeywordBtn
+        type="button"
+        data-isshow={Boolean(value)}
+        aria-label="검색 키워드 삭제 버튼"
+        onClick={onDelete}
+      >
+        <CloseFillIcon />
+      </S.RemoveKeywordBtn>
+      <S.SearchBtn type="button" aria-label="검색 버튼" onClick={handleSearch}>
+        <SearchIcon />
+      </S.SearchBtn>
+    </S.SearchForm>
+  )
+})
