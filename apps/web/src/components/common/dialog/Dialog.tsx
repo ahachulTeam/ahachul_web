@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { css, Interpolation, useTheme, type Theme } from '@emotion/react'
 import { m } from 'framer-motion'
-import { type ComponentProps, type MouseEvent, type ReactElement } from 'react'
+import { ReactNode, type ComponentProps, type MouseEvent, type ReactElement } from 'react'
 
 import { MotionPortal } from '../portal'
 import { CancelButton, ConfirmButton } from './DialogButton'
@@ -31,6 +31,10 @@ interface Props {
    * blur가 존재할지 안할지 boolean 값으로 전달해주세요.
    */
   hasBlur?: boolean
+  /**
+   * 아이콘이 존재한다면 아이콘을 전달해주세요.
+   */
+  centerIcon?: ReactNode
   /**
    * overrideCss
    */
@@ -120,12 +124,19 @@ const blurCss = (theme: Theme, hasBlur: boolean) => css`
   backdrop-filter: ${hasBlur ? 'blur(1.5px)' : 'unset'};
 `
 
-const DialogContent = ({ title, description, cancelButton, confirmButton }: Omit<Props, 'onClickOutside'>) => {
+const DialogContent = ({
+  title,
+  description,
+  centerIcon,
+  cancelButton,
+  confirmButton,
+}: Omit<Props, 'onClickOutside'>) => {
   return (
     <m.div css={containerCss} variants={defaultFadeInUpVariants} initial="initial" animate="animate" exit="exit">
-      <div css={textWrapperCss} className="dialog-text-contents">
+      <div css={textWrapperCss(Boolean(description), Boolean(centerIcon))} className="dialog-text-contents">
         {title && (typeof title === 'string' ? <Title>{title}</Title> : title)}
         {description && (typeof description === 'string' ? <Description>{description}</Description> : description)}
+        {centerIcon && centerIcon}
       </div>
       <div css={buttonWrapperCss} className="dialog-buttons">
         {cancelButton}
@@ -141,7 +152,6 @@ const containerCss = (theme: Theme) => css`
 
   display: flex;
   flex-direction: column;
-  gap: 12px;
 
   width: calc(100% - 32px);
   max-width: 400px;
@@ -153,10 +163,11 @@ const containerCss = (theme: Theme) => css`
   box-shadow: 0px 6px 16px 0px rgba(91, 91, 91, 0.25);
 `
 
-const textWrapperCss = css`
+const textWrapperCss = (hasDescription: boolean, hasIcon: boolean) => css`
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  align-items: center;
+  gap: ${hasDescription && hasIcon ? '4px' : hasDescription && !hasIcon ? '12px' : '16px'};
 
   padding: 8px 20px;
 

@@ -1,4 +1,5 @@
 import { useBoolean } from '@ahhachul/lib'
+import { LogoIcon } from '@/assets/icons'
 import { Dialog } from '@/components/common/dialog'
 import { Header } from '@/components/layout'
 
@@ -17,6 +18,7 @@ export const CommunityGenerateHeader = () => {
       <Dialog
         isMounted={isDialogShowing}
         onClickOutside={onDialogClose}
+        centerIcon={<LogoIcon />}
         title={<Dialog.Title>게시물을 임시 저장</Dialog.Title>}
         description={
           <Dialog.Description>{`수정한 내용을 임시 저장하고\n나중에 완료할 수 있습니다`}</Dialog.Description>

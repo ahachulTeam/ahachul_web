@@ -17,7 +17,7 @@ const dialogCancelButtonCss = (theme: Theme) => css`
 `
 
 const dialogConfirmButtonCss = (theme: Theme) => css`
-  ${theme.fonts.regular16};
+  ${theme.fonts.medium16};
   color: ${theme.colors.primary};
   background-color: ${theme.colors.white};
 `
