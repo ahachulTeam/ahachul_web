@@ -2,7 +2,7 @@ import { action } from '@storybook/addon-actions'
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
-import { SearchInput, type SearchInputProps } from './SearchInput'
+import SearchInput, { type SearchInputProps } from './SearchInput'
 import { StoryLayout } from '@/components/storyLayout'
 
 const meta: Meta<typeof SearchInput> = {

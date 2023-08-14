@@ -3,6 +3,7 @@ import { theme } from '@ahhachul/design-system'
 import styled from '@emotion/styled'
 
 export const SearchForm = styled.form`
+  box-sizing: border-box;
   position: relative;
   display: flex;
   align-items: center;

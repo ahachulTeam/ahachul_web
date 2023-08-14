@@ -30,7 +30,6 @@ const StoryCheckbox = (args: CheckboxProps) => {
 
 export const Primary: Story = {
   args: {
-    disabled: false,
     label: '아하철이형 약관 모두 동의',
     variant: 'primary',
     onChange: action('changed'),
@@ -40,7 +39,6 @@ export const Primary: Story = {
 
 export const Ghost: Story = {
   args: {
-    disabled: false,
     label: '찾기 완료 제외하기',
     variant: 'ghost',
     onChange: action('changed'),

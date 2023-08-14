@@ -23,7 +23,7 @@ export function Button({
   label,
   disabled,
   onClick,
-  ...restProps
+  ...props
 }: ButtonProps) {
   return (
     <S.Button
@@ -33,7 +33,7 @@ export function Button({
       variant={variant}
       disabled={disabled}
       onClick={onClick}
-      {...restProps}
+      {...props}
     >
       {label}
     </S.Button>
