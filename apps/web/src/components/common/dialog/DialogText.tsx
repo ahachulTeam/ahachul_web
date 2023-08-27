@@ -31,7 +31,7 @@ const titleBaseCss = (theme: Theme) => css`
 const descriptionBaseCss = (theme: Theme) => css`
   ${theme.fonts.regular14};
 
-  color: #6b7180;
-  text-align: left;
+  color: ${theme.colors.gray_40};
+  text-align: center;
   white-space: pre-wrap;
 `

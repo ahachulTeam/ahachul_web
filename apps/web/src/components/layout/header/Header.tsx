@@ -96,9 +96,11 @@ function Share() {
 
 function TempSave({ onClick, isDisabled }: HeaderBtnProps) {
   return (
-    <S.IconBtn type="button" onClick={onClick} disabled={isDisabled}>
-      임시저장
-    </S.IconBtn>
+    <>
+      <S.IconBtn type="button" onClick={onClick} disabled={isDisabled}>
+        임시저장
+      </S.IconBtn>
+    </>
   )
 }
 
