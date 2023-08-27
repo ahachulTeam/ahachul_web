@@ -11,6 +11,7 @@ export default class MyDocument extends Document {
       <Html lang="ko">
         <Head>
           <meta charSet="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         </Head>
         <body>
           <Main />

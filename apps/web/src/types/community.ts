@@ -1,3 +1,4 @@
+import { SubwayLine } from '@ahhachul/lib'
 import { YesNo } from './common'
 import { Picture } from './picture'
 
@@ -9,6 +10,7 @@ export interface CommunityListQueryModel {
   subwayLine?: string
   content?: string
   hashTag?: string
+  hotPostYn?: YesNo
   page: number
   size: number
   sort: CommunitySortType
@@ -27,6 +29,7 @@ export interface CommunityOverViewModel {
   createdBy: string
   writer: string
   regionType: string
+  subwayLineId: SubwayLine
   image: {
     imageId: number
     imageUrl: string

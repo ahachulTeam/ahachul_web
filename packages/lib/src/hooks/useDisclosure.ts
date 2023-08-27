@@ -9,7 +9,7 @@ export const useDisclosure = () => {
   const onOpen = useCallback((event?: React.MouseEvent<HTMLButtonElement>) => {
     event?.stopPropagation()
     setIsOpen(true)
-    setTimeout(() => dialogRef.current?.focus())
+    setTimeout(() => dialogRef.current && dialogRef.current.focus())
   }, [])
 
   const onClose = useCallback(() => {

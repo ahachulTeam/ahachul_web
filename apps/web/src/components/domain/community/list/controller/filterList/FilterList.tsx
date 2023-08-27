@@ -1,15 +1,19 @@
 import * as S from './styled'
+import { RefetchIcon } from '@/assets/icons'
 import { COMMUNITY_FILTERS } from '@/assets/static/community'
 import { Filter } from '@/components/common'
+import { useFilterList } from '@/hooks'
 
-interface FilterListProps {
-  filter: Record<'sort' | 'subwayLineId', string>
-  handleApplyFilter: (key: string) => (value: string) => void
-}
+export default function FilterList() {
+  const { filter, handleApplyFilter, handleResetFilter } = useFilterList('sort', 'subwayLineId')
 
-export default function FilterList({ filter, handleApplyFilter }: FilterListProps) {
   return (
     <S.FilterList>
+      {(filter?.sort || filter?.subwayLineId) && (
+        <button css={S.resetCss} onClick={handleResetFilter}>
+          <RefetchIcon />
+        </button>
+      )}
       {COMMUNITY_FILTERS.map(item => (
         <Filter
           key={item.id}

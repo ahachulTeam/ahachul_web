@@ -10,10 +10,12 @@ import { UrlQueryType } from '@/types/common'
 import { copyToClipboard } from '@/utils/common'
 
 interface HeaderProps {
+  hasLogo?: boolean
   hasGoBack?: boolean
   title?: string
   invisibleTitle?: boolean
   goBackToHome?: boolean
+  hasBorder?: boolean
 }
 
 interface HeaderBtnProps {
@@ -28,10 +30,12 @@ interface HeaderContextValue {
 const HeaderContext = createContext({} as HeaderContextValue)
 
 function HeaderMain({
+  hasLogo = true,
   hasGoBack = false,
   title = '',
   invisibleTitle = false,
   goBackToHome = false,
+  hasBorder = true,
   children,
 }: PropsWithChildren<HeaderProps>) {
   const storage = globalThis?.sessionStorage
@@ -50,11 +54,11 @@ function HeaderMain({
   return (
     <HeaderContext.Provider value={providerValue}>
       <S.Header>
-        <S.Container>
+        <S.Container hasBorder={hasBorder}>
           <A11yHeading>{StaticSEO.main.sitename}</A11yHeading>
           <S.LeftIcon>
             {hasGoBack && <Header.GoBack onClick={goBackToHome ? goHome : goBack} />}
-            {!hasGoBack && <Header.Logo onClick={goHome} />}
+            {!hasGoBack && hasLogo && <Header.Logo onClick={goHome} />}
           </S.LeftIcon>
           <S.Title css={invisibleTitle && theme.a11y.visuallyHidden}>{title}</S.Title>
           <S.RightIcons>{children}</S.RightIcons>
@@ -122,6 +126,8 @@ function Search({ onClick }: HeaderBtnProps) {
   )
 }
 
+function SearchBarWithRankingHashtags({ onClick }: HeaderBtnProps) {}
+
 function MiniHamburger({ onClick }: HeaderBtnProps) {
   return (
     <S.IconBtn onClick={onClick}>
@@ -138,5 +144,6 @@ export const Header = Object.assign(HeaderMain, {
   Delete,
   Alarm,
   Search,
+  SearchBarWithRankingHashtags,
   MiniHamburger,
 })

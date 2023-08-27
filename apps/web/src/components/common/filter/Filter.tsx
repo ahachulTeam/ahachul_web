@@ -50,7 +50,7 @@ export default function Filter({ id, label, options, value, className, changeVal
         type="button"
         aria-haspopup="dialog"
         aria-controls={uid}
-        aria-expanded={isOpen}
+        // aria-expanded={isOpen}
         aria-selected={Boolean(value)}
         onClick={onOpen}
       >

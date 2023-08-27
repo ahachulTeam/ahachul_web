@@ -3,13 +3,12 @@ import { useMemo } from 'react'
 import Item from './item/Item'
 import * as S from './styled'
 import { IntersectionArea, NoResult } from '@/components/common'
+import { useFilterList } from '@/hooks'
 import useCommunityQuery from '@/queries/community/useCommunityQuery'
 
-interface ArticleListProps {
-  handleResetFilter: () => void
-}
+function ArticleList() {
+  const { handleResetFilter } = useFilterList('sort', 'subwayLineId')
 
-function ArticleList({ handleResetFilter }: ArticleListProps) {
   const { data: communityList, hasNextPage, fetchNextPage } = useCommunityQuery()
 
   const articles = useMemo(
@@ -18,18 +17,16 @@ function ArticleList({ handleResetFilter }: ArticleListProps) {
   )
 
   return (
-    <>
-      <S.ArticleList>
-        {articles?.length > 0 ? (
-          articles?.map(item => <Item key={item?.id} data={item} />)
-        ) : (
-          <NoResult title="찾고 있는 검색 결과가 없어요.">
-            <Button size="md" label="필터 초기화" variant="secondary" onClick={handleResetFilter} />
-          </NoResult>
-        )}
-      </S.ArticleList>
+    <S.ArticleList>
+      {articles?.length > 0 ? (
+        articles?.map(item => <Item key={item?.id} data={item} />)
+      ) : (
+        <NoResult title="찾고 있는 검색 결과가 없어요.">
+          <Button size="md" label="필터 초기화" variant="secondary" onClick={handleResetFilter} />
+        </NoResult>
+      )}
       <IntersectionArea hasMore={Boolean(hasNextPage)} onImpression={fetchNextPage} />
-    </>
+    </S.ArticleList>
   )
 }
 

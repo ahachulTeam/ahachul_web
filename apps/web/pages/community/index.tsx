@@ -11,7 +11,7 @@ export default function CommunityPage() {
   return (
     <>
       <CommunityPageContainer />
-      <FloatingButton label="+ 게시물작성" onClick={pushToArticleGeneratePage} />
+      <FloatingButton label="글쓰기" onClick={pushToArticleGeneratePage} />
     </>
   )
 }

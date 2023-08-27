@@ -9,6 +9,7 @@ import { PATH_STORAGE_KEYS } from '@/constants'
 import { AppProvider } from '@/libs'
 import '@/styles/nprogress.css'
 import '@/styles/fonts.css'
+import 'react-lazy-load-image-component/src/effects/opacity.css'
 
 const Toast = dynamic<{}>(() => import('@/components').then(module => module.Toast))
 

@@ -1,7 +1,4 @@
-import { useRouter } from 'next/router'
 import { useForm, FieldErrors } from 'react-hook-form'
-import { PATH } from '@/constants'
-import { useToast } from '@/hooks'
 import { useCreateArticle } from '@/queries/community/useCreateArticle'
 import { Picture } from '@/types'
 import { CreateArticleQueryModel } from '@/types/community'

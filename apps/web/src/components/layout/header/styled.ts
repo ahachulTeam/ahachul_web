@@ -15,8 +15,11 @@ export const Header = styled.header`
   `}
 `
 
-export const Container = styled.div`
-  ${({ theme }) => css`
+interface HeaderContainerProps {
+  hasBorder?: boolean
+}
+export const Container = styled.div<HeaderContainerProps>`
+  ${({ theme, hasBorder }) => css`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -24,7 +27,7 @@ export const Container = styled.div`
     max-width: ${theme.size.layout.width};
     height: 100%;
     margin: 0 auto;
-    border-bottom: 1px solid ${theme.colors.gray_20};
+    border-bottom: ${hasBorder ? `1px solid ${theme.colors.gray_20}` : 'none'};
     padding: 0 16px;
   `}
 `

@@ -161,19 +161,12 @@ export const useCommunityRemoveHate = () => {
 export const useManagementCommunityPostReacting = () => {
   const { mutate: likes } = useCommunityPostLike()
   const { mutate: removeLikes } = useCommunityRemoveLike()
-  const { mutate: hates } = useCommunityPostHate()
-  const { mutate: removeHates } = useCommunityRemoveHate()
 
   const getToggleLike = (likeYn?: YesNo) => {
     return likeYn === 'Y' ? removeLikes : likes
   }
 
-  const getToggleHate = (hateYn?: YesNo) => {
-    return hateYn === 'Y' ? removeHates : hates
-  }
-
   return {
     getToggleLike,
-    getToggleHate,
   }
 }
