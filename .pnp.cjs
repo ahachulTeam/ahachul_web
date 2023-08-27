@@ -388,6 +388,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/gtag.js", "npm:0.0.12"],\
             ["@types/jest", "npm:29.5.1"],\
             ["@types/js-cookie", "npm:3.0.3"],\
+            ["@types/lodash-es", "npm:4.17.8"],\
             ["@types/mixpanel-browser", "npm:2.38.1"],\
             ["@types/node", "npm:18.14.6"],\
             ["@types/nprogress", "npm:0.2.0"],\
@@ -405,6 +406,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "virtual:6199ff1cecbaee6c55dfc350ae48ce872edf6fc364b2b79566e8d8f28d587f93ab584bd0f9d30da011718e043c0515e23f9f93acd75cc46188ebc8310fa3b48b#npm:29.5.0"],\
             ["js-cookie", "npm:3.0.5"],\
             ["jsdom", "virtual:2d29fa0895e101ce8ce1e532662d7ba8a8d2fd4e199dba7d997dd2a9bb7a086a1d976a108321be2bf12de5306634e24cb64ab3b0f7a518ac3d74438490c93414#npm:22.0.0"],\
+            ["lodash-es", "npm:4.17.21"],\
             ["mixpanel-browser", "npm:2.47.0"],\
             ["msw", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#npm:1.2.1"],\
             ["next", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#npm:13.2.3"],\
@@ -11093,6 +11095,23 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/lodash", "npm:4.14.194"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:4.14.197", {\
+          "packageLocation": "./.yarn/cache/@types-lodash-npm-4.14.197-8db1555bb5-53d7567d17.zip/node_modules/@types/lodash/",\
+          "packageDependencies": [\
+            ["@types/lodash", "npm:4.14.197"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/lodash-es", [\
+        ["npm:4.17.8", {\
+          "packageLocation": "./.yarn/cache/@types-lodash-es-npm-4.17.8-0aba51d605-36356169a1.zip/node_modules/@types/lodash-es/",\
+          "packageDependencies": [\
+            ["@types/lodash-es", "npm:4.17.8"],\
+            ["@types/lodash", "npm:4.14.197"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["@types/mdast", [\
@@ -19663,6 +19682,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/lodash-npm-4.17.21-6382451519-eb835a2e51.zip/node_modules/lodash/",\
           "packageDependencies": [\
             ["lodash", "npm:4.17.21"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["lodash-es", [\
+        ["npm:4.17.21", {\
+          "packageLocation": "./.yarn/cache/lodash-es-npm-4.17.21-b45832dfce-05cbffad6e.zip/node_modules/lodash-es/",\
+          "packageDependencies": [\
+            ["lodash-es", "npm:4.17.21"]\
           ],\
           "linkType": "HARD"\
         }]\

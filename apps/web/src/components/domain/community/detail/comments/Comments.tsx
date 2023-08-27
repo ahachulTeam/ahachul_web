@@ -16,9 +16,11 @@ import { UserModel } from '@/types/user'
 
 interface CommentsProps {
   user: UserModel | null
+  isAuth: boolean
+  onLoginBottomSheetOpen: VoidFunction
 }
 
-const Comments = ({ user }: CommentsProps) => {
+const Comments = ({ user, isAuth, onLoginBottomSheetOpen }: CommentsProps) => {
   const { query } = useRouter()
 
   const { data: comments } = useCommunityCommentsQuery(parseInt(query?.id as string), {
@@ -40,7 +42,11 @@ const Comments = ({ user }: CommentsProps) => {
   })
 
   const handleInputClick = () => {
-    console.log('first')
+    if (!isAuth) {
+      onLoginBottomSheetOpen()
+      return
+    }
+
     resetValue()
     setIsEditMode({ isTrue: false, commentId: null })
     setTimeout(() => {
@@ -67,6 +73,11 @@ const Comments = ({ user }: CommentsProps) => {
   }
 
   const handleGenerateChildComment = (commentId: number) => () => {
+    if (!isAuth) {
+      onLoginBottomSheetOpen()
+      return
+    }
+
     resetValue()
     setIsEditMode({ isTrue: false, commentId })
     setTimeout(() => {
@@ -75,6 +86,11 @@ const Comments = ({ user }: CommentsProps) => {
   }
 
   const handleEditParentComment = (commentId: number, idx: number) => () => {
+    if (!isAuth) {
+      onLoginBottomSheetOpen()
+      return
+    }
+
     setIsEditMode({ isTrue: true, commentId })
     setTextValue(comments?.comments?.[idx]?.parentComment?.content as string)
     setTimeout(() => {
@@ -83,6 +99,11 @@ const Comments = ({ user }: CommentsProps) => {
   }
 
   const handleEditChildComment = (parentIdx: number, childIdx: number, commentId: number) => () => {
+    if (!isAuth) {
+      onLoginBottomSheetOpen()
+      return
+    }
+
     setIsEditMode({ isTrue: true, commentId })
     setTextValue(comments?.comments?.[parentIdx]?.childComments?.[childIdx]?.content as string)
     setTimeout(() => {

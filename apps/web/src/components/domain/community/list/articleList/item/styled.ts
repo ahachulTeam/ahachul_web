@@ -54,22 +54,11 @@ export const Box = styled.span`
     width: max-content;
     padding-top: 4px;
 
-    & > span:not(:last-of-type) {
+    & > span {
       position: relative;
       display: inline-block;
       margin-right: 12px;
       color: #bebebe;
-
-      &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        right: -6px;
-        transform: translateY(-50%);
-        width: 1px;
-        height: 10px;
-        background-color: #c3c3c3;
-      }
     }
   `}
 `

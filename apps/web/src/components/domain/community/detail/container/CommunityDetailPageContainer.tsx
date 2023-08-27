@@ -1,24 +1,40 @@
+import { useDisclosure } from '@ahhachul/lib'
 import { keyframes } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Suspense } from 'react'
 import Comments from '../comments/Comments'
 import Contents from '../contents/Contents'
 import * as S from './styled'
+import BottomSheetForLogin from '@/components/cta/forLogin/ForLogin'
 import { useAuth } from '@/context'
 
 export const CommunityDetailPageContainer = () => {
-  const { user } = useAuth()
+  const {
+    user,
+    auth: { isAuth },
+  } = useAuth()
+
+  // fixme : isLoginBottomSheetOpen, LoginBottomSheet Component 상태를 전역 atom으로 갖기
+  const {
+    dialogRef,
+    isOpen: isLoginBottomSheetOpen,
+    onOpen: onLoginBottomSheetOpen,
+    onClose: onLoginBottomSheetsClose,
+  } = useDisclosure()
 
   return (
-    <S.Container>
-      <Suspense fallback={<LoadingSpinner />}>
-        <Contents />
-      </Suspense>
-      <S.Divider />
-      <Suspense fallback={<div />}>
-        <Comments user={user} />
-      </Suspense>
-    </S.Container>
+    <>
+      <S.Container>
+        <Suspense fallback={<LoadingSpinner />}>
+          <Contents isAuth={isAuth} onLoginBottomSheetOpen={onLoginBottomSheetOpen} />
+        </Suspense>
+        <S.Divider />
+        <Suspense fallback={<div />}>
+          <Comments user={user} isAuth={isAuth} onLoginBottomSheetOpen={onLoginBottomSheetOpen} />
+        </Suspense>
+      </S.Container>
+      <BottomSheetForLogin ref={dialogRef} isOpen={isLoginBottomSheetOpen} onClose={onLoginBottomSheetsClose} />
+    </>
   )
 }
 

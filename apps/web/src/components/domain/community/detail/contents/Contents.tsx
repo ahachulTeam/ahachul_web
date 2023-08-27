@@ -9,7 +9,12 @@ import { ARTICLE_DEFAULT_THUMBNAIL, PATH } from '@/constants'
 import useCommunityDetailQuery from '@/queries/community/useCommunityDetailQuery'
 import { useManagementCommunityPostReacting } from '@/queries/community/useCommunityPostLikes'
 
-function Contents() {
+interface ContentsProps {
+  isAuth: boolean
+  onLoginBottomSheetOpen: VoidFunction
+}
+
+function Contents({ isAuth, onLoginBottomSheetOpen }: ContentsProps) {
   const router = useRouter()
   const { query } = router
 
@@ -20,6 +25,10 @@ function Contents() {
   const { getToggleLike } = useManagementCommunityPostReacting()
 
   const handleLikeClick = () => {
+    if (!isAuth) {
+      onLoginBottomSheetOpen()
+      return
+    }
     const toggleLike = getToggleLike(articleDetail?.likeYn)
     const req = { postId: Number(router.query?.id) }
 
