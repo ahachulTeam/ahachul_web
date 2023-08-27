@@ -89,7 +89,7 @@ export const commentBoxCss = (theme: Theme) => css`
   }
 
   &[data-type='child-comment'] {
-    padding: 15px 24px 40px 24px;
+    padding: 16px 24px 16px 24px;
   }
 
   &:not(:last-of-type) {
