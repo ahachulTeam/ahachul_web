@@ -120,7 +120,14 @@ const Comments = ({ user }: CommentsProps) => {
 
   return (
     <>
-      <S.GenerateCommentSection>
+      <TextDrawer
+        isOpen={isModalOpen}
+        textValue={textValue}
+        onChangeTextValue={onChangeTextValue}
+        onSubmitTextValue={onSubmitTextValue}
+        onClose={onModalClose}
+      />
+      {/* <S.GenerateCommentSection>
         <S.Comments>
           <S.Title>
             댓글 <b>{totalComments || 0}개</b>
@@ -129,14 +136,7 @@ const Comments = ({ user }: CommentsProps) => {
             <S.CommentInput placeholder="댓글을 입력해주세요." />
           </S.InputCoverBtn>
         </S.Comments>
-        <TextDrawer
-          isOpen={isModalOpen}
-          textValue={textValue}
-          onChangeTextValue={onChangeTextValue}
-          onSubmitTextValue={onSubmitTextValue}
-          onClose={onModalClose}
-        />
-      </S.GenerateCommentSection>
+      </S.GenerateCommentSection> */}
 
       <S.CommentListSection>
         {comments?.comments?.map(({ parentComment, childComments }, parentIdx) => {
@@ -158,16 +158,16 @@ const Comments = ({ user }: CommentsProps) => {
                   </div>
                   <pre>{parentComment.content}</pre>
                   <div css={S.commentBottomButtonGroupCss}>
-                    {parentComment?.createdBy !== user?.memberId && (
+                    {/* {parentComment?.createdBy !== user?.memberId && (
                       <button onClick={handleDeclarationComment}>신고</button>
-                    )}
-                    <button onClick={handleGenerateChildComment(Number(parentComment.id))}>답글 쓰기</button>
-                    {parentComment?.createdBy === user?.memberId && (
+                    )} */}
+                    {/* <button onClick={handleGenerateChildComment(Number(parentComment.id))}>답글 쓰기</button> */}
+                    {/* {parentComment?.createdBy === user?.memberId && (
                       <>
                         <button onClick={handleEditParentComment(Number(parentComment.id), parentIdx)}>수정</button>
                         <button onClick={handleDeleteComment(Number(parentComment.id))}>삭제</button>
                       </>
-                    )}
+                    )} */}
                   </div>
                 </div>
               )}

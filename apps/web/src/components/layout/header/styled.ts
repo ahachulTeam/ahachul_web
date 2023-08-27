@@ -27,7 +27,7 @@ export const Container = styled.div<HeaderContainerProps>`
     max-width: ${theme.size.layout.width};
     height: 100%;
     margin: 0 auto;
-    border-bottom: ${hasBorder ? '1px solid ${theme.colors.gray_20}' : 'none'};
+    border-bottom: ${hasBorder ? `1px solid ${theme.colors.gray_20}` : 'none'};
     padding: 0 16px;
   `}
 `

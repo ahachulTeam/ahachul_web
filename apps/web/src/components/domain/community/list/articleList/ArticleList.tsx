@@ -16,18 +16,16 @@ function ArticleList() {
   console.log('articles :', articles)
 
   return (
-    <>
-      <S.ArticleList>
-        {articles?.length > 0 ? (
-          articles?.map(item => <Item key={item?.id} data={item} />)
-        ) : (
-          <NoResult title="찾고 있는 검색 결과가 없어요.">
-            <Button size="md" label="필터 초기화" variant="secondary" onClick={() => console.log('first')} />
-          </NoResult>
-        )}
-      </S.ArticleList>
+    <S.ArticleList>
+      {articles?.length > 0 ? (
+        articles?.map(item => <Item key={item?.id} data={item} />)
+      ) : (
+        <NoResult title="찾고 있는 검색 결과가 없어요.">
+          <Button size="md" label="필터 초기화" variant="secondary" onClick={() => console.log('first')} />
+        </NoResult>
+      )}
       <IntersectionArea hasMore={Boolean(hasNextPage)} onImpression={fetchNextPage} />
-    </>
+    </S.ArticleList>
   )
 }
 

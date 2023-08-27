@@ -6,14 +6,14 @@ export const Container = styled.section`
 `
 
 export const ListSection = styled.div`
-  padding: 20px 16px;
+  padding: 20px;
 `
 
 export const TopFilterSection = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 15px;
-  padding: 13px 16px;
+  padding: 13px 20px;
 `
 
 export const h3 = (theme: Theme) => css`

@@ -33,7 +33,7 @@ function Item({ data }: ItemProps) {
         <S.ColumnFlex css={S.gapCss}>
           <S.RowFlex>
             <S.ColumnFlex>
-              <Badge variant={`${data.subwayLineId}호선`} lineUnit css={S.customBadgeCss} />
+              <Badge variant={`${data.subwayLineId}호선`} css={S.customBadgeCss} />
               <h4>{data.title}</h4>
               <p>{data.content}</p>
             </S.ColumnFlex>

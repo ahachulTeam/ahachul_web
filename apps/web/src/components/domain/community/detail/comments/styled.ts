@@ -9,7 +9,7 @@ export const GenerateCommentSection = styled.section`
 `
 
 export const CommentListSection = styled.section`
-  padding: 0 16px;
+  padding: 16px 20px;
 `
 
 export const Comments = styled.div`
@@ -59,7 +59,6 @@ export const commentBoxCss = (theme: Theme) => css`
   position: relative;
   width: 100%;
   min-height: 78px;
-  padding: 15px 0px 40px 0;
 
   & > pre {
     ${theme.fonts.regular14};
