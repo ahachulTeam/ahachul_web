@@ -1,6 +1,6 @@
-import { getCurrentTime, useLazyLoading } from '@ahhachul/lib'
-import Image from 'next/image'
+import { getCurrentTime } from '@ahhachul/lib'
 import Link from 'next/link'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 import * as S from './styled'
 import { CommentIcon } from '@/assets/icons'
@@ -12,8 +12,6 @@ interface ItemProps {
 }
 
 function Item({ data }: ItemProps) {
-  const { isLoaded, targetRef } = useLazyLoading()
-
   const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     e.currentTarget.srcset = ARTICLE_DEFAULT_THUMBNAIL
   }
@@ -27,7 +25,7 @@ function Item({ data }: ItemProps) {
 
   return (
     <S.Item>
-      <article ref={targetRef}>
+      <article>
         <Link href={`community/${data.id}`}>
           <S.Flex>
             <h4>{data.title}</h4>
@@ -43,15 +41,15 @@ function Item({ data }: ItemProps) {
             </S.CommentBox>
           </S.Flex>
           <S.Thumbnail>
-            {isLoaded && (
-              <Image
-                fill
-                alt=""
-                src={data?.image?.imageUrl || ARTICLE_DEFAULT_THUMBNAIL}
-                onError={handleImgError}
-                onLoad={handleImgLoad}
-              />
-            )}
+            <LazyLoadImage
+              src={data?.image?.imageUrl || ARTICLE_DEFAULT_THUMBNAIL}
+              alt=""
+              width="100%"
+              height="100%"
+              effect="opacity"
+              onError={handleImgError}
+              onLoad={handleImgLoad}
+            />
           </S.Thumbnail>
         </Link>
       </article>
