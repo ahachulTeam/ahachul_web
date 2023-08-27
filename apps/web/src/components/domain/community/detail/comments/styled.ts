@@ -38,6 +38,7 @@ export const CommentInput = styled.input`
     border: 1px solid ${theme.colors.gray_19};
     border-radius: 110px;
     padding-left: 25px;
+    caret-color: rgba(0, 0, 0, 0);
 
     &::placeholder {
       color: ${theme.colors.gray_40};
