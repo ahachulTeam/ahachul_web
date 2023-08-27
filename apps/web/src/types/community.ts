@@ -1,3 +1,4 @@
+import { SubwayLine } from '@ahhachul/lib'
 import { Picture } from './picture'
 
 export type CommunityCategoryType = 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR'
@@ -8,6 +9,7 @@ export interface CommunityListQueryModel {
   subwayLine?: string
   content?: string
   hashTag?: string
+  hotPostYn?: 'Y' | 'N'
   page: number
   size: number
   sort: CommunitySortType
@@ -26,6 +28,7 @@ export interface CommunityOverViewModel {
   createdBy: string
   writer: string
   regionType: string
+  subwayLineId: SubwayLine
   image: {
     imageId: number
     imageUrl: string

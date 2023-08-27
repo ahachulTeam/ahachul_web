@@ -12,7 +12,8 @@ export const TriggerBtn = styled.button`
     height: 29px;
     border-radius: 65px;
     color: ${theme.colors.gray_55};
-    background-color: ${theme.colors.gray_20};
+    border: 1px solid ${theme.colors.gray_22};
+    background-color: ${theme.colors.white};
     transition: all 0.3s ease-in-out;
 
     & > svg {

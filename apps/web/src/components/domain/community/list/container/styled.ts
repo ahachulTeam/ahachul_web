@@ -23,7 +23,7 @@ export const h3 = (theme: Theme) => css`
 
 export const dividerCss = (theme: Theme) => css`
   min-width: 100%;
-  height: 10px;
+  height: 8px;
   background-color: ${theme.colors.gray_10};
 `
 

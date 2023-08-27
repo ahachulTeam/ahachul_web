@@ -13,6 +13,8 @@ function ArticleList() {
     [communityList]
   )
 
+  console.log('articles :', articles)
+
   return (
     <>
       <S.ArticleList>

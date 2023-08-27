@@ -4,7 +4,7 @@ import { Filter } from '@/components/common'
 import { useFilterList } from '@/hooks'
 
 export default function FilterList() {
-  const { filter, handleApplyFilter, handleResetFilter } = useFilterList('sort', 'subwayLineId')
+  const { filter, handleApplyFilter } = useFilterList('sort', 'subwayLineId')
 
   return (
     <S.FilterList>
