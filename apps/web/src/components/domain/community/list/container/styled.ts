@@ -13,7 +13,7 @@ export const TopFilterSection = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 15px;
-  padding: 13px 0;
+  padding: 13px 16px;
 `
 
 export const h3 = (theme: Theme) => css`

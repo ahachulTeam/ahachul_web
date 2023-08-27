@@ -5,11 +5,7 @@ import * as S from './styled'
 import { IntersectionArea, NoResult } from '@/components/common'
 import useCommunityQuery from '@/queries/community/useCommunityQuery'
 
-interface ArticleListProps {
-  handleResetFilter: () => void
-}
-
-function ArticleList({ handleResetFilter }: ArticleListProps) {
+function ArticleList() {
   const { data: communityList, hasNextPage, fetchNextPage } = useCommunityQuery()
 
   const articles = useMemo(
@@ -24,7 +20,7 @@ function ArticleList({ handleResetFilter }: ArticleListProps) {
           articles?.map(item => <Item key={item?.id} data={item} />)
         ) : (
           <NoResult title="찾고 있는 검색 결과가 없어요.">
-            <Button size="md" label="필터 초기화" variant="secondary" onClick={handleResetFilter} />
+            <Button size="md" label="필터 초기화" variant="secondary" onClick={() => console.log('first')} />
           </NoResult>
         )}
       </S.ArticleList>
