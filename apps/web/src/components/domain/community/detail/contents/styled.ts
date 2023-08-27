@@ -120,27 +120,32 @@ export const imgCss = css`
 `
 
 export const customButtonCss = (theme: Theme) => css`
+  display: flex;
+  gap: 4px;
+  align-items: center;
   transition: all 0.3s ease-in-out;
+
+  & > svg > path {
+    transition: all 0.3s ease-in-out;
+  }
 
   &[data-status='likes'] {
     background-color: ${theme.colors.white};
     color: ${theme.colors.primary};
-    border: none;
     max-width: 50%;
+
+    & > svg > path {
+      stroke: ${theme.colors.primary};
+    }
 
     & > b {
       color: ${theme.colors.secondary_active};
     }
   }
+`
 
-  &[data-status='hates'] {
-    background-color: ${theme.colors.red_10};
-    color: ${theme.colors.white};
-    border: none;
-    max-width: 50%;
-
-    & > b {
-      color: ${theme.colors.white};
-    }
-  }
+export const customTagCss = (theme: Theme) => css`
+  ${theme.fonts.regular14};
+  color: ${theme.colors.primary};
+  padding: 0;
 `
