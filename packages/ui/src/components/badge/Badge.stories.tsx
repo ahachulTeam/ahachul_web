@@ -10,7 +10,7 @@ const meta: Meta<typeof Badge> = {
   component: Badge,
   tags: ['autodocs'],
   parameters: {
-    controls: { exclude: ['className', 'label'] },
+    controls: { exclude: ['className', 'label', 'variant'] },
     componentSource: {
       language: 'typescript',
     },
@@ -28,6 +28,7 @@ const Container = styled(StoryLayout)`
 `
 
 const StoryBadgeGroup = (args: BadgeProps) => {
+  console.log(Object.keys(SubwayLine))
   return (
     <Container>
       {Object.keys(SubwayLine).map(line => (

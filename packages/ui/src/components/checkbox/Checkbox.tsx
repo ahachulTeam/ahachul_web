@@ -8,7 +8,7 @@ export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   variant?: 'primary' | 'ghost'
 }
 
-export function Checkbox({ className, id, label, variant = 'primary', ...other }: CheckboxProps) {
+export function Checkbox({ className, id, label, variant = 'primary', ...props }: CheckboxProps) {
   const checkboxRef = useRef<HTMLInputElement>(null)
 
   const uuid = `checkbox-${id}`
@@ -26,7 +26,7 @@ export function Checkbox({ className, id, label, variant = 'primary', ...other }
 
   return (
     <S.Checkbox className={className} variant={variant}>
-      <input ref={checkboxRef} id={uuid} type="checkbox" tabIndex={-1} {...other} />
+      <input ref={checkboxRef} id={uuid} type="checkbox" tabIndex={-1} {...props} />
       <label htmlFor={uuid} tabIndex={0} onKeyDown={onKeydown}>
         {label}
       </label>

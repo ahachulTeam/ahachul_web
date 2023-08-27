@@ -2,7 +2,7 @@ import { getCurrentTime } from '@ahhachul/lib'
 import { Button, Tag } from '@ahhachul/ui'
 import { useRouter } from 'next/router'
 
-import { useCallback, useState } from 'react'
+import { useCallback } from 'react'
 import * as S from './styled'
 import { ARTICLE_DEFAULT_THUMBNAIL, PATH } from '@/constants'
 import useCommunityDetailQuery from '@/queries/community/useCommunityDetailQuery'
@@ -10,28 +10,26 @@ import { useManagementCommunityPostReacting } from '@/queries/community/useCommu
 
 function Contents() {
   const router = useRouter()
-
-  const { query } = useRouter()
+  const { query } = router
 
   const { data: articleDetail } = useCommunityDetailQuery(parseInt(query?.id as string), {
     enabled: Boolean(query?.id),
   })
 
-  const { likes, removeHates, removeLikes, hates } = useManagementCommunityPostReacting()
-
-  const [tempLikesClicked, setTempLikesClicked] = useState(false)
-  const [tempHatesClicked, setTempHatesClicked] = useState(false)
+  const { getToggleLike, getToggleHate } = useManagementCommunityPostReacting()
 
   const handleLikeClick = () => {
-    setTempLikesClicked(true)
+    const toggleLike = getToggleLike(articleDetail?.likeYn)
     const req = { postId: Number(router.query?.id) }
-    articleDetail?.result?.likeYn === 'Y' ? removeLikes(req) : likes(req)
+
+    toggleLike(req)
   }
 
   const handleHateClick = () => {
-    setTempHatesClicked(true)
+    const toggleHate = getToggleHate(articleDetail?.hateYn)
     const req = { postId: Number(router.query?.id) }
-    articleDetail?.result?.hateYn === 'Y' ? removeHates(req) : hates(req)
+
+    toggleHate(req)
   }
 
   const searchHashTag = useCallback(
@@ -51,31 +49,31 @@ function Contents() {
   return (
     <S.ContentSection>
       <S.Contents>
-        <S.Title>{articleDetail?.result?.title}</S.Title>
+        <S.Title>{articleDetail?.title}</S.Title>
         <S.FragmentInfos>
           <div>
-            <span>{getCurrentTime(articleDetail?.result?.createdAt)}</span>
-            <span>{articleDetail?.result?.writer}</span>
+            <span>{getCurrentTime(articleDetail?.createdAt)}</span>
+            <span>{articleDetail?.writer}</span>
           </div>
           <div>
-            <span>조회 {articleDetail?.result?.viewCnt}</span>
-            {/* <span>댓글 {articleDetail?.result.commentCnt}</span> */}
-            <span>좋아요 {articleDetail?.result?.likeCnt}</span>
+            <span>조회 {articleDetail?.viewCnt}</span>
+            {/* <span>댓글 {articleDetail?commentCnt}</span> */}
+            <span>좋아요 {articleDetail?.likeCnt}</span>
           </div>
         </S.FragmentInfos>
-        {articleDetail?.result?.images && articleDetail?.result?.images?.length > 0 && (
+        {articleDetail?.images && articleDetail?.images?.length > 0 && (
           <div css={S.imgCss}>
-            {articleDetail?.result.images.map((img, idx) => (
+            {articleDetail?.images.map((img, idx) => (
               <figure key={img?.imageId}>
                 <img src={img?.imageUrl || ARTICLE_DEFAULT_THUMBNAIL} alt="" />
-                <figcaption>{`${articleDetail?.result?.title}-${idx}`}</figcaption>
+                <figcaption>{`${articleDetail?.title}-${idx}`}</figcaption>
               </figure>
             ))}
           </div>
         )}
-        <S.DetailInfo>{articleDetail?.result?.content}</S.DetailInfo>
+        <S.DetailInfo>{articleDetail?.content}</S.DetailInfo>
         <S.HashTagList>
-          {articleDetail?.result?.hashTags.map((tag, i) => {
+          {articleDetail?.hashTags.map((tag, i) => {
             return (
               <li key={i}>
                 <Tag label={`#${tag}`} variant="primary" onClick={searchHashTag(tag)} />
@@ -84,34 +82,22 @@ function Contents() {
           })}
         </S.HashTagList>
         <S.ContentsReactBtnGroup>
-          {articleDetail?.result?.hateYn !== 'Y' && (
-            <Button
-              data-status={(tempLikesClicked || articleDetail?.result?.likeYn === 'Y') && 'likes'}
-              css={S.customButtonCss}
-              variant="outline"
-              size="smd"
-              label={
-                articleDetail?.result?.likeCnt ? (
-                  <>
-                    좋아요 <b>{articleDetail?.result?.likeCnt}</b>
-                  </>
-                ) : (
-                  '좋아요'
-                )
-              }
-              onClick={handleLikeClick}
-            />
-          )}
-          {articleDetail?.result?.likeYn !== 'Y' && (
-            <Button
-              data-status={(tempHatesClicked || articleDetail?.result?.hateYn === 'Y') && 'hates'}
-              css={S.customButtonCss}
-              variant="outline"
-              size="smd"
-              label={`${articleDetail?.result?.hateCnt ? `싫어요 ${articleDetail?.result?.hateCnt}` : '싫어요'}`}
-              onClick={handleHateClick}
-            />
-          )}
+          <Button
+            data-status={articleDetail?.likeYn === 'Y' && 'likes'}
+            css={S.customButtonCss}
+            variant="outline"
+            size="smd"
+            label={<>좋아요 {articleDetail?.likeCnt !== 0 && <b>{articleDetail?.likeCnt}</b>}</>}
+            onClick={handleLikeClick}
+          />
+          <Button
+            data-status={articleDetail?.hateYn === 'Y' && 'hates'}
+            css={S.customButtonCss}
+            variant="outline"
+            size="smd"
+            label={`${articleDetail?.hateCnt ? `싫어요 ${articleDetail?.hateCnt}` : '싫어요'}`}
+            onClick={handleHateClick}
+          />
         </S.ContentsReactBtnGroup>
       </S.Contents>
     </S.ContentSection>

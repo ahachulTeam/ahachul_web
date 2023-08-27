@@ -11,7 +11,6 @@ import { useToast } from '@/hooks'
 import useInput from '@/hooks/useInput'
 import { useCommentsManagement } from '@/queries/community/useCommunityComments'
 import { useCommunityCommentsQuery } from '@/queries/community/useCommunityComments'
-import { CommentsServerModel } from '@/types/community'
 import { UserModel } from '@/types/user'
 
 interface CommentsProps {
@@ -40,6 +39,7 @@ const Comments = ({ user }: CommentsProps) => {
   })
 
   const handleInputClick = () => {
+    console.log('first')
     resetValue()
     setIsEditMode({ isTrue: false, commentId: null })
     setTimeout(() => {
@@ -126,7 +126,7 @@ const Comments = ({ user }: CommentsProps) => {
             댓글 <b>{totalComments || 0}개</b>
           </S.Title>
           <S.InputCoverBtn onClick={handleInputClick}>
-            <S.CommentInput placeholder="댓글을 입력해주세요." disabled />
+            <S.CommentInput placeholder="댓글을 입력해주세요." />
           </S.InputCoverBtn>
         </S.Comments>
         <TextDrawer
