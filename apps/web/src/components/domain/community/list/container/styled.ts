@@ -6,14 +6,14 @@ export const Container = styled.section`
 `
 
 export const ListSection = styled.div`
-  padding: 20px 16px;
+  padding: 20px;
 `
 
 export const TopFilterSection = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 15px;
-  padding: 13px 0;
+  padding: 13px 20px;
 `
 
 export const h3 = (theme: Theme) => css`
@@ -23,7 +23,7 @@ export const h3 = (theme: Theme) => css`
 
 export const dividerCss = (theme: Theme) => css`
   min-width: 100%;
-  height: 10px;
+  height: 8px;
   background-color: ${theme.colors.gray_10};
 `
 

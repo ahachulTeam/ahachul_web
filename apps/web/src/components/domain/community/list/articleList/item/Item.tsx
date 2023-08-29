@@ -1,9 +1,10 @@
-import { getCurrentTime, useLazyLoading } from '@ahhachul/lib'
-import Image from 'next/image'
+import { getCurrentTime } from '@ahhachul/lib'
+import { Badge } from '@ahhachul/ui'
 import Link from 'next/link'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 import * as S from './styled'
-import { CommentIcon } from '@/assets/icons'
+import { MessageCircleIcon, ThumbsUpIcon } from '@/assets/icons'
 import { ARTICLE_DEFAULT_THUMBNAIL } from '@/constants'
 import { CommunityOverViewModel } from '@/types/community'
 
@@ -12,7 +13,7 @@ interface ItemProps {
 }
 
 function Item({ data }: ItemProps) {
-  const { isLoaded, targetRef } = useLazyLoading()
+  const hasImage = data?.image
 
   const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     e.currentTarget.srcset = ARTICLE_DEFAULT_THUMBNAIL
@@ -27,33 +28,39 @@ function Item({ data }: ItemProps) {
 
   return (
     <S.Item>
-      <article ref={targetRef}>
-        <Link href={`community/${data.id}`}>
-          <S.Flex>
-            <h4>{data.title}</h4>
-            <p>{data.content}</p>
-            <S.Box>
-              <span>{getCurrentTime(data.createdAt)}</span>
-              <span>{data.writer}</span>
-              <span>좋아요 {data.likeCnt}</span>
-            </S.Box>
+      <article>
+        <Link href={`community/${data.id}`} css={S.linkCss} />
+        <S.ColumnFlex css={S.gapCss}>
+          <S.RowFlex>
+            <S.ColumnFlex>
+              <Badge variant={`${data.subwayLineId}호선`} css={S.customBadgeCss} />
+              <h4>{data.title}</h4>
+              <p>{data.content}</p>
+            </S.ColumnFlex>
+            {hasImage && (
+              <S.Thumbnail>
+                <LazyLoadImage
+                  src={data?.image?.imageUrl || ARTICLE_DEFAULT_THUMBNAIL}
+                  alt=""
+                  width="100%"
+                  height="100%"
+                  effect="opacity"
+                  onError={handleImgError}
+                  onLoad={handleImgLoad}
+                />
+              </S.Thumbnail>
+            )}
+          </S.RowFlex>
+          <S.Box>
+            <span>{getCurrentTime(data.createdAt)}</span>
             <S.CommentBox>
-              <CommentIcon />
+              <ThumbsUpIcon />
+              <span>{data.likeCnt}</span>
+              <MessageCircleIcon />
               <span>{data.commentCnt}</span>
             </S.CommentBox>
-          </S.Flex>
-          <S.Thumbnail>
-            {isLoaded && (
-              <Image
-                fill
-                alt=""
-                src={data?.image?.imageUrl || ARTICLE_DEFAULT_THUMBNAIL}
-                onError={handleImgError}
-                onLoad={handleImgLoad}
-              />
-            )}
-          </S.Thumbnail>
-        </Link>
+          </S.Box>
+        </S.ColumnFlex>
       </article>
     </S.Item>
   )

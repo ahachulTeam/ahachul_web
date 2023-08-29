@@ -7,8 +7,8 @@ export const CommunityHeader = () => {
 
   return (
     <>
-      <Header title="지하철 커뮤니티 아하철" invisibleTitle>
-        <Header.Search onClick={onOpen} />
+      <Header title="지하철 커뮤니티 아하철" invisibleTitle hasLogo={false} hasBorder={false}>
+        {/* <Header.Search onClick={onOpen} /> */}
         <Header.Alarm />
       </Header>
       <SearchDrawer isMounted={isOpen} onClose={onClose} />

@@ -19,7 +19,7 @@ export default function ReactQuery({ children, state }: ReactQueryProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={state}>
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
         {children}
       </Hydrate>
     </QueryClientProvider>

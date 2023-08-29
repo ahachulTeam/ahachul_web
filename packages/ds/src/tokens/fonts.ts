@@ -34,7 +34,7 @@ export const fonts = {
   regular14: css`
     font-size: 1.4rem;
     font-weight: 400;
-    line-height: 1.35714;
+    line-height: 1.5714;
     font-family: Pretendard;
   `,
   regular20: css`

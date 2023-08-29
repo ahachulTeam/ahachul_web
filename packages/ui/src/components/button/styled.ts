@@ -122,7 +122,7 @@ const varaiants = {
       }
     `,
     ghost: () => css`
-      border-radius: 10ox;
+      border-radius: 10px;
       color: ${theme.colors.black};
       background-color: ${theme.colors.white};
 

@@ -1,36 +1,50 @@
 import { css, Theme } from '@emotion/react'
 import styled from '@emotion/styled'
 
+export const linkCss = css`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+`
+
 export const Item = styled.li`
-  & > article > a {
+  & > article {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    column-gap: 16px;
-    padding: 15px 0;
+    padding: 16px 0;
   }
 `
 
-export const Flex = styled.div`
+export const ColumnFlex = styled.div`
   ${({ theme }) => css`
     position: relative;
     flex: 1 0;
     display: flex;
     flex-direction: column;
-    row-gap: 3px;
-    height: 100%;
 
     & > h4 {
-      ${theme.fonts.bold14};
+      ${theme.fonts.bold16};
       color: ${theme.colors.black};
+      margin-bottom: 8px;
     }
 
     & > p {
-      ${theme.fonts.regular12};
-      color: #272727;
+      ${theme.fonts.regular14};
+      color: #808080;
       font-weight: 300;
     }
   `}
+`
+
+export const RowFlex = styled.div`
+  display: flex;
+  flex-grow: 0;
+  gap: 20px;
 `
 
 export const Box = styled.span`
@@ -40,21 +54,11 @@ export const Box = styled.span`
     width: max-content;
     padding-top: 4px;
 
-    & > span:not(:last-of-type) {
+    & > span {
       position: relative;
       display: inline-block;
       margin-right: 12px;
-
-      &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        right: -6px;
-        transform: translateY(-50%);
-        width: 1px;
-        height: 10px;
-        background-color: #c3c3c3;
-      }
+      color: #bebebe;
     }
   `}
 `
@@ -63,13 +67,17 @@ export const Thumbnail = styled.div`
   ${({ theme }) => css`
     position: relative;
     display: flex;
-    width: 75px;
-    aspect-ratio: 75 / 69;
-    background-color: #f4f4f4;
+    align-self: center;
+    width: 36.54%;
+    aspect-ratio: 1 / 1;
     box-shadow: 0 0 0 1px #f4f4f4 inset;
     border-radius: 5px;
     background-color: ${theme.colors.gray_18};
     overflow: hidden;
+
+    & > img {
+      border-radius: 5px;
+    }
   `}
 `
 
@@ -85,23 +93,6 @@ export const CommentBox = styled.div`
     & > span {
       ${theme.fonts.regular12};
       color: ${theme.colors.gray_35};
-    }
-
-    & > svg {
-      fill: ${theme.colors.gray_35};
-      transition: all 0.3s ease-in-out;
-    }
-
-    @media (hover: hover) {
-      &:hover {
-        & > span {
-          color: ${theme.colors.primary};
-        }
-
-        & > svg {
-          fill: ${theme.colors.primary};
-        }
-      }
     }
   `}
 `
@@ -244,4 +235,12 @@ export const ArticleList = styled.ul`
   & > li:not(:last-of-type) {
     border-bottom: 1px solid #ececec;
   }
+`
+
+export const customBadgeCss = css`
+  margin-bottom: 12px;
+`
+
+export const gapCss = css`
+  row-gap: 12px;
 `

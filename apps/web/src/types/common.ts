@@ -33,3 +33,5 @@ export type UrlQueryType = Record<string, string | string[]>
 export interface InfiniteFetchResponse {
   hasNext: boolean
 }
+
+export type YesNo = 'Y' | 'N'

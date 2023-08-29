@@ -1,16 +1,17 @@
 import Image from 'next/image'
 import { ChangeEvent, useRef } from 'react'
 import * as S from './styled'
-import { CameraIcon, PlusIcon } from '@/assets/icons'
+import { CancelCircle, CameraIcon, PlusIcon } from '@/assets/icons'
 import { Picture } from '@/types'
 
 interface PictureUploaderProps {
   pictures: Picture[]
   onUpload: (e: ChangeEvent<HTMLInputElement>, maxCount: number) => void
+  deletePicture: (index: number) => void
   maxCount?: number
 }
 
-export default function PictureUploader({ pictures, onUpload, maxCount = 3 }: PictureUploaderProps) {
+export default function PictureUploader({ pictures, onUpload, deletePicture, maxCount = 3 }: PictureUploaderProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleUploadButtonClick = () => {
@@ -32,8 +33,11 @@ export default function PictureUploader({ pictures, onUpload, maxCount = 3 }: Pi
         </span>
       </div>
       {pictures.map((picture, index) => (
-        <div key={index} css={S.Thumbnail}>
-          <Image src={picture.imgUrl} alt={picture.name} fill priority />
+        <div key={index} css={S.ThumbnailWrapper}>
+          <div css={S.Thumbnail}>
+            <Image src={picture.imgUrl} alt={picture.name} fill priority />
+          </div>
+          <CancelCircle onClick={() => deletePicture(index)} />
         </div>
       ))}
       {pictures.length < maxCount && (

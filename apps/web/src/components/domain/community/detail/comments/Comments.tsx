@@ -5,20 +5,22 @@ import { css } from '@emotion/react'
 import { useRouter } from 'next/router'
 import { useState, useMemo } from 'react'
 import * as S from './styled'
+import { MessageCircleIcon, MiniHamburgerIcon, ThumbsUpIcon } from '@/assets/icons'
 import { Dialog } from '@/components/common/dialog'
 import TextDrawer from '@/components/common/drawer/text/TextDrawer'
 import { useToast } from '@/hooks'
 import useInput from '@/hooks/useInput'
 import { useCommentsManagement } from '@/queries/community/useCommunityComments'
 import { useCommunityCommentsQuery } from '@/queries/community/useCommunityComments'
-import { CommentsServerModel } from '@/types/community'
 import { UserModel } from '@/types/user'
 
 interface CommentsProps {
   user: UserModel | null
+  isAuth: boolean
+  onLoginBottomSheetOpen: VoidFunction
 }
 
-const Comments = ({ user }: CommentsProps) => {
+const Comments = ({ user, isAuth, onLoginBottomSheetOpen }: CommentsProps) => {
   const { query } = useRouter()
 
   const { data: comments } = useCommunityCommentsQuery(parseInt(query?.id as string), {
@@ -40,6 +42,11 @@ const Comments = ({ user }: CommentsProps) => {
   })
 
   const handleInputClick = () => {
+    if (!isAuth) {
+      onLoginBottomSheetOpen()
+      return
+    }
+
     resetValue()
     setIsEditMode({ isTrue: false, commentId: null })
     setTimeout(() => {
@@ -66,6 +73,11 @@ const Comments = ({ user }: CommentsProps) => {
   }
 
   const handleGenerateChildComment = (commentId: number) => () => {
+    if (!isAuth) {
+      onLoginBottomSheetOpen()
+      return
+    }
+
     resetValue()
     setIsEditMode({ isTrue: false, commentId })
     setTimeout(() => {
@@ -74,6 +86,11 @@ const Comments = ({ user }: CommentsProps) => {
   }
 
   const handleEditParentComment = (commentId: number, idx: number) => () => {
+    if (!isAuth) {
+      onLoginBottomSheetOpen()
+      return
+    }
+
     setIsEditMode({ isTrue: true, commentId })
     setTextValue(comments?.comments?.[idx]?.parentComment?.content as string)
     setTimeout(() => {
@@ -82,6 +99,11 @@ const Comments = ({ user }: CommentsProps) => {
   }
 
   const handleEditChildComment = (parentIdx: number, childIdx: number, commentId: number) => () => {
+    if (!isAuth) {
+      onLoginBottomSheetOpen()
+      return
+    }
+
     setIsEditMode({ isTrue: true, commentId })
     setTextValue(comments?.comments?.[parentIdx]?.childComments?.[childIdx]?.content as string)
     setTimeout(() => {
@@ -120,22 +142,22 @@ const Comments = ({ user }: CommentsProps) => {
 
   return (
     <>
+      <TextDrawer
+        isOpen={isModalOpen}
+        textValue={textValue}
+        onChangeTextValue={onChangeTextValue}
+        onSubmitTextValue={onSubmitTextValue}
+        onClose={onModalClose}
+      />
       <S.GenerateCommentSection>
         <S.Comments>
-          <S.Title>
+          {/* <S.Title>
             댓글 <b>{totalComments || 0}개</b>
-          </S.Title>
+          </S.Title> */}
           <S.InputCoverBtn onClick={handleInputClick}>
-            <S.CommentInput placeholder="댓글을 입력해주세요." disabled />
+            <S.CommentInput placeholder="댓글을 입력해주세요." />
           </S.InputCoverBtn>
         </S.Comments>
-        <TextDrawer
-          isOpen={isModalOpen}
-          textValue={textValue}
-          onChangeTextValue={onChangeTextValue}
-          onSubmitTextValue={onSubmitTextValue}
-          onClose={onModalClose}
-        />
       </S.GenerateCommentSection>
 
       <S.CommentListSection>
@@ -144,6 +166,9 @@ const Comments = ({ user }: CommentsProps) => {
             <>
               {parentComment?.status === 'DELETED' ? (
                 <div key={parentComment?.id} css={S.commentBoxCss} data-status="delete">
+                  <S.MiniHamburgerIconButton>
+                    <MiniHamburgerIcon />
+                  </S.MiniHamburgerIconButton>
                   <div css={S.commentTopInfoCss}>
                     <b>{parentComment.writer}</b>
                     <p>{getCurrentTime(parentComment.createdAt)}</p>
@@ -152,22 +177,33 @@ const Comments = ({ user }: CommentsProps) => {
                 </div>
               ) : (
                 <div key={parentComment?.id} css={S.commentBoxCss}>
+                  <S.MiniHamburgerIconButton>
+                    <MiniHamburgerIcon />
+                  </S.MiniHamburgerIconButton>
                   <div css={S.commentTopInfoCss}>
                     <b>{parentComment.writer}</b>
                     <p>{getCurrentTime(parentComment.createdAt)}</p>
                   </div>
                   <pre>{parentComment.content}</pre>
                   <div css={S.commentBottomButtonGroupCss}>
-                    {parentComment?.createdBy !== user?.memberId && (
+                    <button onClick={handleDeclarationComment}>
+                      <ThumbsUpIcon />
+                      <span>{Math.floor(Math.random() * 101).toFixed()}</span>
+                    </button>
+                    <button onClick={handleGenerateChildComment(Number(parentComment.id))}>
+                      <MessageCircleIcon />
+                      <span>답글 달기</span>
+                    </button>
+                    {/* {parentComment?.createdBy !== user?.memberId && (
                       <button onClick={handleDeclarationComment}>신고</button>
-                    )}
-                    <button onClick={handleGenerateChildComment(Number(parentComment.id))}>답글 쓰기</button>
-                    {parentComment?.createdBy === user?.memberId && (
+                    )} */}
+                    {/* <button onClick={handleGenerateChildComment(Number(parentComment.id))}>답글 쓰기</button> */}
+                    {/* {parentComment?.createdBy === user?.memberId && (
                       <>
                         <button onClick={handleEditParentComment(Number(parentComment.id), parentIdx)}>수정</button>
                         <button onClick={handleDeleteComment(Number(parentComment.id))}>삭제</button>
                       </>
-                    )}
+                    )} */}
                   </div>
                 </div>
               )}
@@ -176,6 +212,9 @@ const Comments = ({ user }: CommentsProps) => {
                   if (childComment?.status === 'DELETED') {
                     return (
                       <div key={childComment?.id} css={S.commentBoxCss} data-status="delete" data-type="child-comment">
+                        <S.MiniHamburgerIconButton>
+                          <MiniHamburgerIcon />
+                        </S.MiniHamburgerIconButton>
                         <div css={S.commentTopInfoCss}>
                           <b data-type="child-comment">{childComment.writer}</b>
                           <p>{getCurrentTime(childComment.createdAt)}</p>
@@ -187,6 +226,9 @@ const Comments = ({ user }: CommentsProps) => {
 
                   return (
                     <div key={childComment?.id} css={S.commentBoxCss} data-type="child-comment">
+                      <S.MiniHamburgerIconButton>
+                        <MiniHamburgerIcon />
+                      </S.MiniHamburgerIconButton>
                       <div css={S.commentTopInfoCss}>
                         <b data-type="child-comment">{childComment.writer}</b>
                         <p>{getCurrentTime(childComment.createdAt)}</p>
@@ -195,17 +237,21 @@ const Comments = ({ user }: CommentsProps) => {
                         <b>@{parentComment.writer}</b> <pre>{childComment.content}</pre>
                       </div>
                       <div css={S.commentBottomButtonGroupCss}>
-                        {childComment?.createdBy !== user?.memberId && (
+                        <button onClick={handleDeclarationComment}>
+                          <ThumbsUpIcon />
+                          <span>{Math.floor(Math.random() * 101).toFixed()}</span>
+                        </button>
+                        {/* {childComment?.createdBy !== user?.memberId && (
                           <button onClick={handleDeclarationComment}>신고</button>
-                        )}
-                        {childComment?.createdBy === user?.memberId && (
+                        )} */}
+                        {/* {childComment?.createdBy === user?.memberId && (
                           <>
                             <button onClick={handleEditChildComment(parentIdx, childIdx, Number(childComment.id))}>
                               수정
                             </button>
                             <button onClick={handleDeleteComment(Number(childComment.id))}>삭제</button>
                           </>
-                        )}
+                        )} */}
                       </div>
                     </div>
                   )

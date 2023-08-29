@@ -17,7 +17,8 @@ const useCommunityQuery = (): UseInfiniteQueryResult<type.CommunityListServerMod
     content: query?.content as string,
     subwayLineId: query?.subwayLineId as string,
     sort: query?.sort as type.CommunitySortType,
-    categoryType: (query?.tab || 'FREE') as type.CommunityCategoryType,
+    hotPostYn: ((!query?.tab || query?.tab === 'HOT') && 'Y') as 'Y' | 'N',
+    categoryType: (!query?.tab || query?.tab === 'HOT' ? '' : query?.tab) as type.CommunityCategoryType,
   })
 
   const reqParams = {

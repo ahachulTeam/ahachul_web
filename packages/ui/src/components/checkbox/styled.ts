@@ -49,9 +49,8 @@ const variants = {
 
 export const Checkbox = styled.div<CheckboxProps>`
   ${({ variant }) => css`
-    ${variant === 'primary' && variants.primary()};
-    ${variant === 'ghost' && variants.ghost()};
-    /* ${variants[variant]()}; */
+    ${variants[variant]()};
+    box-sizing: border-box;
     position: relative;
     display: flex;
     align-items: center;

@@ -9,7 +9,7 @@ export const GenerateCommentSection = styled.section`
 `
 
 export const CommentListSection = styled.section`
-  padding: 0 16px;
+  padding: 16px 20px;
 `
 
 export const Comments = styled.div`
@@ -38,6 +38,7 @@ export const CommentInput = styled.input`
     border: 1px solid ${theme.colors.gray_19};
     border-radius: 110px;
     padding-left: 25px;
+    caret-color: rgba(0, 0, 0, 0);
 
     &::placeholder {
       color: ${theme.colors.gray_40};
@@ -54,18 +55,31 @@ export const InputCoverBtn = styled.button`
   width: 100%;
 `
 
+export const MiniHamburgerIconButton = styled.button`
+  all: unset;
+  cursor: pointer;
+  position: absolute;
+  top: 16px;
+  right: 0;
+
+  & > svg > g > path {
+    fill: #667080;
+  }
+`
+
 export const commentBoxCss = (theme: Theme) => css`
   position: relative;
   width: 100%;
   min-height: 78px;
-  padding: 15px 0px 40px 0;
+  padding: 16px 0;
 
   & > pre {
     ${theme.fonts.regular14};
-    color: #272727;
+    color: ${theme.colors.black};
     white-space: pre-wrap;
     word-break: break-all;
     word-wrap: break-word;
+    margin-bottom: 8px;
   }
 
   &[data-status='delete'] {
@@ -75,7 +89,7 @@ export const commentBoxCss = (theme: Theme) => css`
   }
 
   &[data-type='child-comment'] {
-    padding: 15px 24px 40px 24px;
+    padding: 16px 24px 16px 24px;
   }
 
   &:not(:last-of-type) {
@@ -104,31 +118,16 @@ export const commentTopInfoCss = (theme: Theme) => css`
         color: ${theme.colors.black};
       }
     }
-
-    &::after {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 50%;
-      right: -5px;
-      width: 1px;
-      height: 10px;
-      background-color: ${theme.colors.gray_40};
-      transform: translateY(-50%);
-    }
   }
 
   & > p {
-    ${theme.fonts.regular14};
+    ${theme.fonts.regular10};
     color: #c3c3c3;
     display: inline-block;
   }
 `
 
 export const commentBottomButtonGroupCss = (theme: Theme) => css`
-  position: absolute;
-  bottom: 0;
-  right: 0;
   display: flex;
   align-items: center;
   column-gap: 6px;
@@ -136,20 +135,10 @@ export const commentBottomButtonGroupCss = (theme: Theme) => css`
 
   & > button {
     ${theme.fonts.regular12};
-    color: #676767;
-    position: relative;
-
-    &:not(:last-of-type)::after {
-      content: '';
-      display: block;
-      position: absolute;
-      top: 50%;
-      right: -3.5px;
-      width: 1px;
-      height: 10px;
-      background-color: ${theme.colors.gray_40};
-      transform: translateY(-50%);
-    }
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #c3c3c3;
   }
 `
 
@@ -160,4 +149,5 @@ export const dialogTitleCss = (theme: Theme) => css`
 export const childCommentCss = css`
   display: flex;
   column-gap: 4px;
+  margin-bottom: 8px;
 `

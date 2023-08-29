@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { css, Interpolation, useTheme, type Theme } from '@emotion/react'
 import { m } from 'framer-motion'
-import { type ComponentProps, type MouseEvent, type ReactElement } from 'react'
+import { ReactNode, type ComponentProps, type MouseEvent, type ReactElement } from 'react'
 
 import { MotionPortal } from '../portal'
 import { CancelButton, ConfirmButton } from './DialogButton'
@@ -32,6 +32,10 @@ interface Props {
    */
   hasBlur?: boolean
   /**
+   * 아이콘이 존재한다면 아이콘을 전달해주세요.
+   */
+  centerIcon?: ReactNode
+  /**
    * overrideCss
    */
   overrideCss?: Interpolation<Theme>
@@ -54,7 +58,7 @@ interface Props {
 const Dialog = ({
   isMounted,
   mode,
-  hasBlur = true,
+  hasBlur = false,
   overrideCss,
   onClickOutside,
   ...props
@@ -77,12 +81,12 @@ const dialogPositionCss = css`
   left: 0;
 
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
 
   width: 100%;
   height: 100%;
-  padding-bottom: 24px;
+  padding-bottom: 12px;
 `
 
 const DialogBlur = ({ hasBlur, onClickOutside }: Pick<Props, 'hasBlur' | 'onClickOutside'>) => {
@@ -117,17 +121,22 @@ const blurCss = (theme: Theme, hasBlur: boolean) => css`
 
   width: 100%;
   height: 100%;
-
-  background-color: #d8e3ff99;
   backdrop-filter: ${hasBlur ? 'blur(1.5px)' : 'unset'};
 `
 
-const DialogContent = ({ title, description, cancelButton, confirmButton }: Omit<Props, 'onClickOutside'>) => {
+const DialogContent = ({
+  title,
+  description,
+  centerIcon,
+  cancelButton,
+  confirmButton,
+}: Omit<Props, 'onClickOutside'>) => {
   return (
     <m.div css={containerCss} variants={defaultFadeInUpVariants} initial="initial" animate="animate" exit="exit">
-      <div css={textWrapperCss} className="dialog-text-contents">
+      <div css={textWrapperCss(Boolean(description), Boolean(centerIcon))} className="dialog-text-contents">
         {title && (typeof title === 'string' ? <Title>{title}</Title> : title)}
         {description && (typeof description === 'string' ? <Description>{description}</Description> : description)}
+        {centerIcon && centerIcon}
       </div>
       <div css={buttonWrapperCss} className="dialog-buttons">
         {cancelButton}
@@ -143,7 +152,6 @@ const containerCss = (theme: Theme) => css`
 
   display: flex;
   flex-direction: column;
-  gap: 16px;
 
   width: calc(100% - 32px);
   max-width: 400px;
@@ -152,13 +160,14 @@ const containerCss = (theme: Theme) => css`
 
   background-color: white;
   border-radius: 16px;
-  box-shadow: 0 0 40px #638fff4d;
+  box-shadow: 0px 6px 16px 0px rgba(91, 91, 91, 0.25);
 `
 
-const textWrapperCss = css`
+const textWrapperCss = (hasDescription: boolean, hasIcon: boolean) => css`
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  align-items: center;
+  gap: ${hasDescription && hasIcon ? '4px' : hasDescription && !hasIcon ? '12px' : '16px'};
 
   padding: 8px 20px;
 
@@ -168,12 +177,10 @@ const textWrapperCss = css`
 `
 
 const buttonWrapperCss = css`
-  display: flex;
-  gap: 9px;
-
-  & > button:last-of-type {
-    flex-grow: 1;
-  }
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  width: 100%;
 `
 
 Dialog.Title = Title
