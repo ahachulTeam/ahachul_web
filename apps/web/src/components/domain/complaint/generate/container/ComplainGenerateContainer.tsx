@@ -10,6 +10,9 @@ import { css } from '@emotion/react'
 import { QuestionIcon } from '@/assets/icons'
 
 import { fonts, colors } from '@ahhachul/design-system'
+import { useGetTrainMetaData } from '@/queries/train/useGetTrainMetaData'
+import { TrainMetaData } from '@/types/train'
+import { useToast } from '@/hooks'
 
 const ComplaintContentsKeys = {
   facilities: '시설 · 환경민원',
@@ -22,11 +25,13 @@ const ComplaintContentsKeys = {
 }
 
 export const ComplainGenerateContainer = () => {
+  const toast = useToast()
   const router = useRouter()
 
   const { isOpenNavigationBar } = useNavigationBar()
 
-  const [trainNumber, setTrainNumber] = useState<string | null>(null)
+  const [trainNumber, setTrainNumber] = useState<TrainMetaData | null>(null)
+  const [isEnabledFetch, setIsEnabledFetch] = useState(false)
 
   const [inputValues, setInputValues] = useState(['', '', '', ''])
   const inputRefs = useRef<null | HTMLInputElement[]>(new Array(inputValues.length))
@@ -41,6 +46,11 @@ export const ComplainGenerateContainer = () => {
   const selectedComplaint = useMemo(() => {
     return router.query.id as keyof typeof ComplaintContentsKeys
   }, [router.query])
+
+  const { data: trainMetaData, isError } = useGetTrainMetaData(trainsNumberInputResult || '', {
+    enabled: !!trainsNumberInputResult && trainsNumberInputResult.length === inputValues.length && isEnabledFetch,
+    suspense: false,
+  })
 
   const handleKeyDownTrainNumber = (e: KeyboardEvent, index: number) => {
     if (!inputRefs.current) return
@@ -114,6 +124,18 @@ export const ComplainGenerateContainer = () => {
     }
   }, [router])
 
+  useEffect(() => {
+    if (isError && isEnabledFetch) {
+      setIsEnabledFetch(false)
+      toast.error('열차번호를 확인해주세요.')
+      return
+    }
+
+    if (trainMetaData) {
+      setTrainNumber(trainMetaData)
+    }
+  }, [trainMetaData, isError])
+
   if (trainNumber === null) {
     return (
       <S.Container
@@ -179,7 +201,7 @@ export const ComplainGenerateContainer = () => {
             type="button"
             disabled={trainsNumberInputResult.length !== inputValues.length}
             onClick={() => {
-              setTrainNumber(trainsNumberInputResult)
+              setIsEnabledFetch(true)
             }}
           />
         </S.StickyArea>
