@@ -4,6 +4,7 @@ import { CardIcon, ComplaintCard } from '../components'
 import * as S from './styled'
 import { ComplaintTargets } from '@/types/complaint'
 import { ComplaintCardVariant } from '@/types/variants'
+import { useRouter } from 'next/router'
 
 const EmergencyContents = {
   patient: {
@@ -46,18 +47,21 @@ const EmergencyContents = {
   },
 }
 
-interface EmergencyContainer {
-  toggleShowing: (target: ComplaintTargets) => () => void
-}
+export default function Emergency() {
+  const router = useRouter()
 
-export default function Emergency({ toggleShowing }: EmergencyContainer) {
   return (
     <S.Emergency>
       <S.Title>긴급상황 🚨</S.Title>
       <S.EmergencyCardList>
         {Object.entries(EmergencyContents).map(([key, content]) => {
           return (
-            <li key={key} onClick={toggleShowing(key as ComplaintTargets)}>
+            <li
+              key={key}
+              onClick={() => {
+                router.push({ pathname: `${router.pathname}/${key}` })
+              }}
+            >
               <ComplaintCard
                 css={css`
                   min-height: ${content?.fullHeight && '100%'};
@@ -65,7 +69,6 @@ export default function Emergency({ toggleShowing }: EmergencyContainer) {
                 title={content.title}
                 content={content.content}
                 variant={content.variant as ComplaintCardVariant}
-                tabId={key}
               >
                 <CardIcon overrideCss={content.overrideCss}>
                   <Image fill priority src={`illust/${content.imgName}.svg`} alt="" />

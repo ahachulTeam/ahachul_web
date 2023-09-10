@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 import Image from 'next/image'
-import { CardIcon, ComplaintCard } from '../../../list'
+import { CardIcon, ComplaintCard } from '../../list'
 
 import * as S from './styled'
 import { ComplaintCardVariant } from '@/types/variants'
@@ -55,7 +55,6 @@ export default function Temperature() {
               content={content.content}
               variant={content.variant}
               subText={content.subText}
-              tabId={key}
               css={S.TemperatureCardStyle(key)}
             >
               <CardIcon overrideCss={content.overrideCss}>

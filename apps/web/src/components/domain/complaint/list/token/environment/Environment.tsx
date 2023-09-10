@@ -4,6 +4,7 @@ import { CardIcon, ComplaintCard } from '../components'
 import * as S from './styled'
 import { ComplaintTargets } from '@/types/complaint'
 import { ComplaintCardVariant } from '@/types/variants'
+import { useRouter } from 'next/router'
 
 const EnvironmentContents = {
   facilities: {
@@ -54,11 +55,8 @@ const EnvironmentContents = {
   },
 }
 
-interface EnvironmentContainer {
-  toggleShowing: (target: ComplaintTargets) => () => void
-}
-
-export default function Environment({ toggleShowing }: EnvironmentContainer) {
+export default function Environment() {
+  const router = useRouter()
   return (
     <S.Environment>
       <S.Title>지하철 환경</S.Title>
@@ -66,12 +64,15 @@ export default function Environment({ toggleShowing }: EnvironmentContainer) {
         {Object.entries(EnvironmentContents).map(([key, content]) => {
           return (
             <li key={key}>
-              <article onClick={toggleShowing(key as ComplaintTargets)}>
+              <article
+                onClick={() => {
+                  router.push({ pathname: `${router.pathname}/${key}` })
+                }}
+              >
                 <ComplaintCard
                   title={content.title}
                   content={content.content}
                   variant={content.variant as ComplaintCardVariant}
-                  tabId={key}
                 >
                   <CardIcon overrideCss={content.overrideCss}>
                     <Image fill priority src={`illust/${content.imgName}.svg`} alt="" />

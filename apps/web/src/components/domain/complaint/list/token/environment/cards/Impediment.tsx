@@ -4,12 +4,7 @@ import { CardIcon, ComplaintCard } from '../../components'
 
 export const Impediment = () => {
   return (
-    <ComplaintCard
-      title="질서저해"
-      content={`취객, 노숙, 구걸, 소란\n열차 내 질서저해`}
-      variant="secondary"
-      tabId="impediment"
-    >
+    <ComplaintCard title="질서저해" content={`취객, 노숙, 구걸, 소란\n열차 내 질서저해`} variant="secondary">
       <CardIcon overrideCss={overrideCss}>
         <Image fill priority src="illust/c6.svg" alt="" />
       </CardIcon>

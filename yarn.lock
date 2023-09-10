@@ -163,7 +163,7 @@ __metadata:
     "@types/mixpanel-browser": ^2.38.1
     "@types/node": 18.14.6
     "@types/nprogress": ^0.2.0
-    "@types/react": 18.2.6
+    "@types/react": 18.2.21
     "@types/react-dom": 18.2.4
     "@types/react-lazy-load-image-component": 1.5.0
     "@types/uuid": ^9.0.1
@@ -7416,6 +7416,17 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: dea9d232d8df7ac357367a69dcb557711ab3d5501807ffa77cebeee73d49ee94d095f298e36853c63ed47cce097eee4c7eae2aaa8c02fac3f0171ec1b523a819
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:18.2.21":
+  version: 18.2.21
+  resolution: "@types/react@npm:18.2.21"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: ffed203bfe7aad772b8286f7953305c9181ac3a8f27d3f5400fbbc2a8e27ca8e5bbff818ee014f39ca0d19d2b3bb154e5bdbec7e232c6f80b59069375aa78349
   languageName: node
   linkType: hard
 

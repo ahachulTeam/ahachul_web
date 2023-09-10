@@ -5,7 +5,7 @@ import { CardIcon, ComplaintCard } from '../../components'
 
 export const Patient = () => {
   return (
-    <ComplaintCard title="응급환자" content={`열차 내 응급환자\n긴급 신고하기`} variant="secondary" tabId="patient">
+    <ComplaintCard title="응급환자" content={`열차 내 응급환자\n긴급 신고하기`} variant="secondary">
       <CardIcon overrideCss={overrideCss}>
         <Image fill priority src="illust/c3.svg" alt="" />
       </CardIcon>

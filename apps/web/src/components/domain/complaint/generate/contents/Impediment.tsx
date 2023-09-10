@@ -1,8 +1,6 @@
 import { RadioButton } from '@ahhachul/ui'
 
 import * as S from './styled'
-import { PictureUploader } from '@/components/common'
-import { usePictureUploader } from '@/hooks'
 
 const radioOptions = [
   { key: '이동상인', value: '이동상인' },
@@ -14,8 +12,6 @@ const radioOptions = [
 ]
 
 export default function Impediment() {
-  const { pictures, provided } = usePictureUploader()
-
   return (
     <S.Container>
       <article>
@@ -25,10 +21,6 @@ export default function Impediment() {
       <article>
         <S.Title>내용</S.Title>
         <S.TextArea placeholder="신고내용을 작성해주세요" />
-      </article>
-      <article>
-        <S.Title>사진 업로드</S.Title>
-        <PictureUploader {...provided} pictures={pictures} maxCount={10} />
       </article>
     </S.Container>
   )

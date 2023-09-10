@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useSwipeable } from 'react-swipeable'
 import * as S from './ComplaintDrawer.styled'
 
-import { Announcement, Facilities, Impediment, Patient, Sexual, Temperature, Violence } from './contents'
+import { Announcement, Facilities, Impediment, Patient, Sexual, Temperature, Violence } from '../contents'
 import { BottomSheetWithMotion } from '@/components/common'
 import { ComplaintTargets } from '@/types/complaint'
 

@@ -9,7 +9,6 @@ export const Sexual = () => {
       title="성추행"
       content={`열차 내 성폭력, 몰래카메라 등 \n발생시 신고하기`}
       variant="primary"
-      tabId="sexual"
       css={{ minHeight: '100%' }}
     >
       <CardIcon overrideCss={overrideCss}>

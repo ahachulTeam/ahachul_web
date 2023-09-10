@@ -9,7 +9,6 @@ interface ComplaintCardProps {
   title: string
   content: string
   subText?: string
-  tabId: string
   variant: ComplaintCardVariant
 }
 
@@ -19,12 +18,11 @@ export default function ComplaintCard({
   content,
   subText,
   variant,
-  tabId,
   children,
 }: PropsWithChildren<ComplaintCardProps>) {
   return (
     <>
-      <S.ComplaintCard variant={variant} data-tabId={tabId} className={className}>
+      <S.ComplaintCard variant={variant} className={className}>
         <h4>{title}</h4>
         <pre>{content}</pre>
         {children}
