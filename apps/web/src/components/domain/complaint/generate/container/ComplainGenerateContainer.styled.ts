@@ -1,6 +1,8 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
+import { fonts, colors } from '@ahhachul/design-system'
+
 export const Container = styled.section`
   width: 100%;
   min-height: 100%;
@@ -70,4 +72,31 @@ export const StickyArea = styled.div<{ $isOpenNavigationBar: boolean }>`
       transform: translateX(-50%);
     }
   `}
+`
+
+export const InputWrapper = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 40px 0 32px;
+`
+
+export const TrainNumberInput = styled.input`
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  background-color: ${colors.gray_10};
+  text-align: center;
+  font-size: 40px;
+  font-weight: 700;
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  ::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `

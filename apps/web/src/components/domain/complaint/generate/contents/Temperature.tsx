@@ -58,7 +58,7 @@ export default function Temperature() {
               css={S.TemperatureCardStyle(key)}
             >
               <CardIcon overrideCss={content.overrideCss}>
-                <Image fill priority src={`illust/${content.imgName}.svg`} alt="" />
+                <Image fill priority src={`/illust/${content.imgName}.svg`} alt="" />
               </CardIcon>
             </ComplaintCard>
           </li>
