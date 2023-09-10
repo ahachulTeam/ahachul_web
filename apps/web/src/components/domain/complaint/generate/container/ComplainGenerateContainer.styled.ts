@@ -100,3 +100,28 @@ export const TrainNumberInput = styled.input`
     margin: 0;
   }
 `
+
+export const TrainNumberInfo = styled.p`
+  display: flex;
+  flex-direction: column;
+
+  span {
+    ${fonts.regular24};
+    line-height: 36px;
+  }
+
+  b {
+    ${fonts.bold24};
+    line-height: 36px;
+    color: ${colors.primary};
+  }
+`
+
+export const Question = styled.div`
+  ${fonts.regular14}
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: start;
+  color: ${colors.gray_60};
+`

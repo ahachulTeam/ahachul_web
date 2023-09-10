@@ -7,7 +7,10 @@ import * as T from '@/utils/try'
 
 export const useGetTrainMetaData = (
   trainNumber: string,
-  options?: Pick<UseQueryOptions<Awaited<ReturnType<typeof trainAPI.fetchGetTrains>>>, 'enabled' | 'suspense'>
+  options?: Pick<
+    UseQueryOptions<Awaited<ReturnType<typeof trainAPI.fetchGetTrains>>>,
+    'enabled' | 'suspense' | 'staleTime'
+  >
 ) => {
   return useQuery({
     queryKey: trainKeys.metaData(trainNumber),
@@ -19,5 +22,6 @@ export const useGetTrainMetaData = (
     },
     enabled: options?.enabled || false,
     suspense: options?.suspense,
+    staleTime: options?.staleTime,
   })
 }

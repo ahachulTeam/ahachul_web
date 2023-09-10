@@ -9,7 +9,6 @@ import { useNavigationBar } from '@/hooks'
 import { css } from '@emotion/react'
 import { QuestionIcon } from '@/assets/icons'
 
-import { fonts, colors } from '@ahhachul/design-system'
 import { useGetTrainMetaData } from '@/queries/train/useGetTrainMetaData'
 import { TrainMetaData } from '@/types/train'
 import { useToast } from '@/hooks'
@@ -47,9 +46,14 @@ export const ComplainGenerateContainer = () => {
     return router.query.id as keyof typeof ComplaintContentsKeys
   }, [router.query])
 
-  const { data: trainMetaData, isError } = useGetTrainMetaData(trainsNumberInputResult || '', {
+  const {
+    data: trainMetaData,
+    isError,
+    isFetched,
+  } = useGetTrainMetaData(trainsNumberInputResult || '', {
     enabled: !!trainsNumberInputResult && trainsNumberInputResult.length === inputValues.length && isEnabledFetch,
     suspense: false,
+    staleTime: 0,
   })
 
   const handleKeyDownTrainNumber = (e: KeyboardEvent, index: number) => {
@@ -124,17 +128,32 @@ export const ComplainGenerateContainer = () => {
     }
   }, [router])
 
-  useEffect(() => {
-    if (isError && isEnabledFetch) {
-      setIsEnabledFetch(false)
-      toast.error('열차번호를 확인해주세요.')
-      return
-    }
+  // useEffect(() => {
+  //     setIsEnabledFetch(false)
+  //   if (isError && isEnabledFetch) {
+  //     toast.error('열차번호를 확인해주세요.')
+  //     return
+  //   }
 
-    if (trainMetaData) {
-      setTrainNumber(trainMetaData)
+  //   if (trainMetaData) {
+  //     setTrainNumber(trainMetaData)
+  //   }
+  // }, [trainMetaData, isError])
+
+  useEffect(() => {
+    setIsEnabledFetch(false)
+    if (isFetched) {
+      setTrainNumber({
+        id: 1,
+        subwayLine: {
+          id: 1,
+          name: '1호선',
+        },
+        location: 3,
+        organizationTrainNo: '52',
+      })
     }
-  }, [trainMetaData, isError])
+  }, [trainMetaData, isError, isFetched])
 
   if (trainNumber === null) {
     return (
@@ -143,28 +162,12 @@ export const ComplainGenerateContainer = () => {
           padding: 32px 15px;
         `}
       >
-        <p
-          css={css`
-            display: flex;
-            flex-direction: column;
-
-            span {
-              ${fonts.regular24};
-              line-height: 36px;
-            }
-
-            b {
-              ${fonts.bold24};
-              line-height: 36px;
-              color: ${colors.primary};
-            }
-          `}
-        >
+        <S.TrainNumberInfo>
           <span>정확한 민원 접수를 위해</span>
           <span>
             <b> 열차번호</b>를 입력해주세요.
           </span>
-        </p>
+        </S.TrainNumberInfo>
         <S.InputWrapper>
           {inputValues.map((value, index) => (
             <S.TrainNumberInput
@@ -180,19 +183,10 @@ export const ComplainGenerateContainer = () => {
             />
           ))}
         </S.InputWrapper>
-        <div
-          css={css`
-            ${fonts.regular14}
-            display: flex;
-            gap: 4px;
-            align-items: center;
-            justify-content: start;
-            color: ${colors.gray_60};
-          `}
-        >
+        <S.Question>
           <QuestionIcon />
           <span>열차번호는 어디에 있나요?</span>
-        </div>
+        </S.Question>
         <S.StickyArea $isOpenNavigationBar={isOpenNavigationBar}>
           <Button
             label="다음"
@@ -214,21 +208,22 @@ export const ComplainGenerateContainer = () => {
       <S.Container>
         <S.지하철정보>
           <span>
-            <b>3호선</b> 1192열차 311227호차
+            <b>{trainNumber.subwayLine.name}</b> {trainNumber.id}열차
+            {trainNumber.organizationTrainNo}호차
           </span>
-          <p>대화행</p>
+          {/* <p>대화행</p> */}
         </S.지하철정보>
         <S.진짜콘텐츠>
           <SwitchCase
             value={selectedComplaint}
             caseBy={{
-              facilities: <Facilities />,
-              temperature: <Temperature />,
-              announcement: <Announcement />,
-              impediment: <Impediment />,
-              patient: <Patient />,
-              sexual: <Sexual />,
-              violence: <Violence />,
+              facilities: <Facilities trainNumber={trainsNumberInputResult} />,
+              temperature: <Temperature trainNumber={trainsNumberInputResult} />,
+              announcement: <Announcement trainNumber={trainsNumberInputResult} />,
+              impediment: <Impediment trainNumber={trainsNumberInputResult} />,
+              patient: <Patient trainNumber={trainsNumberInputResult} />,
+              sexual: <Sexual trainNumber={trainsNumberInputResult} />,
+              violence: <Violence trainNumber={trainsNumberInputResult} />,
             }}
           />
         </S.진짜콘텐츠>

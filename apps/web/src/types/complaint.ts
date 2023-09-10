@@ -6,3 +6,10 @@ export type ComplaintTargets =
   | 'facilities'
   | 'impediment'
   | 'temperature'
+
+export interface ComplaintMessageRequest {
+  content: string
+  phoneNumber: string
+  trainNo: string
+  subwayLineId: number
+}
