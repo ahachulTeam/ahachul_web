@@ -4,7 +4,7 @@ import * as S from './styled'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string
-  className: string
+  className?: string
   label: string
   hideLabel?: boolean
 }
