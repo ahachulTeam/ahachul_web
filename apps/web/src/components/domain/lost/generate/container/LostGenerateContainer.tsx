@@ -1,4 +1,6 @@
+import { useScrollDirection } from '@ahhachul/lib'
 import { Button } from '@ahhachul/ui'
+
 import { FormProvider } from 'react-hook-form'
 import { SubwayLineFilter } from '../controller'
 import LostGenerateHeader from '../header/LostGenerateHeader'
@@ -6,12 +8,12 @@ import LostGenerateHeader from '../header/LostGenerateHeader'
 import { useArticleForm } from '../hooks'
 import * as S from './styled'
 import { PictureUploader } from '@/components/common'
-import { useNavigationBar, usePictureUploader } from '@/hooks'
+import { usePictureUploader } from '@/hooks'
 
 export default function LostGenerateContainer() {
   const { methods, errors, handleClickSubmit } = useArticleForm()
   const { pictures, provided } = usePictureUploader()
-  const { isOpenNavigationBar } = useNavigationBar()
+  const { isScrollUp } = useScrollDirection()
 
   return (
     <S.Container>
@@ -63,7 +65,7 @@ export default function LostGenerateContainer() {
         </p>
       </S.Rules>
 
-      <S.StickyArea $isOpenNavigationBar={isOpenNavigationBar}>
+      <S.StickyArea $isOpenNavigationBar={isScrollUp}>
         <Button label="작성하기" size="md" variant="primary" type="button" onClick={handleClickSubmit} />
       </S.StickyArea>
     </S.Container>
