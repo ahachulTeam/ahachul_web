@@ -1,6 +1,7 @@
 import { A11yHeading } from '@ahhachul/ui'
 import Link from 'next/link'
 import Community from '../community/Community'
+import SubwayInformation from '../subway/SubwayInformation'
 import SubwayOverview from '../subwayOverview/SubwayOverview'
 import * as S from './styled'
 import { ArrowIcon } from '@/assets/icons'
@@ -12,13 +13,13 @@ function MainPageContainer() {
 
   return (
     <S.Container>
-      {isLoggedIn() && <></>}
-      {!isLoggedIn() && (
+      {!isLoggedIn() && <SubwayInformation />}
+      {/* {!isLoggedIn() && (
         <S.SubwayInfoSection>
           <A11yHeading as="h3">지하철 열차정보와 혼잡도가 궁금하다면?</A11yHeading>
           <SubwayOverview />
         </S.SubwayInfoSection>
-      )}
+      )} */}
       <S.Divider />
       <S.CommunitySection>
         <div>
