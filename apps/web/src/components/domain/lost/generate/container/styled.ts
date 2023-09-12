@@ -12,28 +12,12 @@ export const PhotoSection = styled.div`
 
 export const FormSection = styled.form`
   margin-bottom: 15px;
-`
-export const Line = styled.div`
-  margin-bottom: 15px;
 
-  & > button {
-    width: 100%;
+  & > div {
+    margin-bottom: 15px;
   }
 `
-export const Title = styled.div`
-  margin-bottom: 15px;
 
-  & > input {
-    width: 100%;
-  }
-`
-export const Content = styled.div`
-  margin-bottom: 15px;
-
-  & > textarea {
-    width: 100%;
-  }
-`
 export const Rules = styled.div`
   ${({ theme }) => css`
     display: flex;
@@ -59,7 +43,7 @@ export const Rules = styled.div`
 
 export const FieldName = styled.p`
   ${({ theme }) => css`
-    ${theme.fonts.semibold14};
+    ${theme.fonts.medium14};
     height: 30px;
     width: 100%;
   `}
