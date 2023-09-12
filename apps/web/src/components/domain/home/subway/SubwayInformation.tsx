@@ -3,6 +3,7 @@ import { Theme, css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { useCallback, useState } from 'react'
 import { ArrowDownIcon, RefetchIcon } from '@/assets/icons'
+import Train from '@/components/public/Train'
 
 function SubwayInformation() {
   const dummyUserSelection = {
@@ -44,7 +45,7 @@ function SubwayInformation() {
                 <RefetchIcon />
               </button>
             </TopInfo>
-            <div css={dummyTrainCss} />
+            <Train />
             <BottomInfo>
               <li>
                 <b>곧 도착</b>
@@ -226,7 +227,7 @@ const BottomInfo = styled.ul`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     column-gap: 24px;
-    margin-bottom: 16px;
+    margin: 16px 0;
 
     & > li {
       ${theme.common.flexAlignCenter};
@@ -248,14 +249,6 @@ const BottomInfo = styled.ul`
       }
     }
   `}
-`
-
-const dummyTrainCss = css`
-  width: 100%;
-  height: 60px;
-  border-radius: 16px;
-  background-color: #d1d1d1;
-  margin-bottom: 16px;
 `
 
 const allTrainsBtnCss = (theme: Theme) => css`

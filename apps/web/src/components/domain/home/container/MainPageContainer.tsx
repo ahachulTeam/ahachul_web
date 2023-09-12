@@ -13,8 +13,9 @@ function MainPageContainer() {
 
   return (
     <S.Container>
-      {!isLoggedIn() && <SubwayInformation />}
-      {/* {!isLoggedIn() && (
+      {/* {isLoggedIn() ? ( */}
+      <SubwayInformation />
+      {/* ) : (
         <S.SubwayInfoSection>
           <A11yHeading as="h3">지하철 열차정보와 혼잡도가 궁금하다면?</A11yHeading>
           <SubwayOverview />
