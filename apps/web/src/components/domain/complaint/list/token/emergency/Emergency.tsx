@@ -81,15 +81,3 @@ export default function Emergency() {
     </S.Emergency>
   )
 }
-
-{
-  /* <li>
-<Patient />
-</li>
-<li>
-<Sexual />
-</li>
-<li>
-<Violence />
-</li> */
-}

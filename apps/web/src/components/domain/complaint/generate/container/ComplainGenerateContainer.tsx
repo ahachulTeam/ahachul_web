@@ -150,6 +150,7 @@ export const ComplainGenerateContainer = () => {
     }
   }, [router])
 
+  // [MEMO] 열차 메타 데이터 API 작동이 되면 해당 주석 로직 활성화
   // useEffect(() => {
   //   setIsEnabledFetch(false)
   //   if (isError && isEnabledFetch) {
@@ -162,6 +163,8 @@ export const ComplainGenerateContainer = () => {
   //   }
   // }, [trainMetaData, isError, isFetched])
 
+  // [MEMO] 열차 메타 데이터 API 작동이 되면 해당 useEffect 로직 제거
+  // -- start
   useEffect(() => {
     setIsEnabledFetch(false)
     if (isFetched) {
@@ -176,6 +179,7 @@ export const ComplainGenerateContainer = () => {
       })
     }
   }, [trainMetaData, isError, isFetched])
+  // -- end
 
   useEffect(() => {
     if (inputRefs.current) {
