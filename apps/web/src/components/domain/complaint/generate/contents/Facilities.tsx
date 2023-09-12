@@ -18,6 +18,10 @@ export default function Facilities() {
   const [contents, setContents] = useState('')
 
   useEffect(() => {
+    if (!type || !contents) {
+      setMessage('')
+      return
+    }
     setMessage(`신고유형: ${type}/ 신고내용: ${contents}`)
   }, [type, contents])
 

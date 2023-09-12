@@ -264,6 +264,7 @@ export const ComplainGenerateContainer = () => {
           size="md"
           variant="primary"
           type="button"
+          disabled={message === ''}
           onClick={() => {
             mutateAsync({
               params: {
