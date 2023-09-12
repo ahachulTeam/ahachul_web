@@ -1,11 +1,14 @@
+import { useState, useEffect } from 'react'
+
 import { css } from '@emotion/react'
 import Image from 'next/image'
 import { CardIcon, ComplaintCard } from '../../list'
 
 import * as S from './styled'
 import { ComplaintCardVariant } from '@/types/variants'
+import { useComplaintContext } from '../container'
 
-const TemperatureContents: Record<
+const TemperatureContents: (target: 'cold' | 'hot') => Record<
   string,
   {
     title: string
@@ -15,11 +18,11 @@ const TemperatureContents: Record<
     overrideCss: ReturnType<typeof css>
     subText: string
   }
-> = {
+> = target => ({
   cold: {
     title: '추워요',
     content: '',
-    variant: 'primary',
+    variant: target === 'cold' ? 'primary' : 'inactive',
     imgName: 'c9',
     overrideCss: css`
       top: 11px;
@@ -32,7 +35,7 @@ const TemperatureContents: Record<
   hot: {
     title: '더워요',
     content: '',
-    variant: 'inactive',
+    variant: target === 'hot' ? 'primary' : 'inactive',
     imgName: 'c5',
     overrideCss: css`
       top: 4px;
@@ -42,14 +45,31 @@ const TemperatureContents: Record<
     `,
     subText: '최대한 빠르게 처리해드릴게요!',
   },
-}
+})
 
 export default function Temperature() {
+  const { setMessage } = useComplaintContext()
+
+  const [target, setTarget] = useState<'cold' | 'hot'>('cold')
+
+  useEffect(() => {
+    if (target === 'cold') {
+      setMessage('너무 추워요!')
+      return
+    }
+    setMessage('너무 더워요!')
+  }, [target])
+
   return (
     <S.Container>
       <S.TemperatureSection>
-        {Object.entries(TemperatureContents).map(([key, content]) => (
-          <li key={key} onClick={() => void 0}>
+        {Object.entries(TemperatureContents(target)).map(([key, content]) => (
+          <li
+            key={key}
+            onClick={() => {
+              setTarget(key as 'hot' | 'cold')
+            }}
+          >
             <ComplaintCard
               title={content.title}
               content={content.content}

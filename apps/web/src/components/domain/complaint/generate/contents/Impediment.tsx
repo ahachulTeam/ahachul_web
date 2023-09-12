@@ -1,6 +1,9 @@
+import { useState, useEffect } from 'react'
+
 import { RadioButton } from '@ahhachul/ui'
 
 import * as S from './styled'
+import { useComplaintContext } from '../container'
 
 const radioOptions = [
   { key: '이동상인', value: '이동상인' },
@@ -12,15 +15,34 @@ const radioOptions = [
 ]
 
 export default function Impediment() {
+  const { setMessage } = useComplaintContext()
+
+  const [type, setType] = useState('')
+  const [contents, setContents] = useState('')
+
+  useEffect(() => {
+    setMessage(`신고유형: ${type}/ 신고내용: ${contents}`)
+  }, [type, contents])
+
   return (
     <S.Container>
       <article>
         <S.Title>신고유형을 선택해주세요</S.Title>
-        <RadioButton options={radioOptions} />
+        <RadioButton
+          options={radioOptions}
+          onOptionChange={e => {
+            setType(e)
+          }}
+        />
       </article>
       <article>
         <S.Title>내용</S.Title>
-        <S.TextArea placeholder="신고내용을 작성해주세요" />
+        <S.TextArea
+          placeholder="신고내용을 작성해주세요"
+          onChange={e => {
+            setContents(e.target.value)
+          }}
+        />
       </article>
     </S.Container>
   )

@@ -1,4 +1,15 @@
-import { useEffect, useMemo, useState, useRef, ChangeEvent, KeyboardEvent } from 'react'
+import {
+  useEffect,
+  useMemo,
+  useState,
+  useRef,
+  ChangeEvent,
+  KeyboardEvent,
+  createContext,
+  useContext,
+  Dispatch,
+  SetStateAction,
+} from 'react'
 
 import { useRouter } from 'next/router'
 import * as S from './ComplainGenerateContainer.styled'
@@ -12,6 +23,7 @@ import { QuestionIcon } from '@/assets/icons'
 import { useGetTrainMetaData } from '@/queries/train/useGetTrainMetaData'
 import { TrainMetaData } from '@/types/train'
 import { useToast } from '@/hooks'
+import { usePostComplaintMessage } from '@/queries/complaint/usePostComplaintMessage'
 
 const ComplaintContentsKeys = {
   facilities: '시설 · 환경민원',
@@ -23,11 +35,19 @@ const ComplaintContentsKeys = {
   violence: '폭력',
 }
 
+const ComplaintContext = createContext({} as { message: string; setMessage: Dispatch<SetStateAction<string>> })
+
+export const useComplaintContext = () => {
+  return useContext(ComplaintContext)
+}
+
 export const ComplainGenerateContainer = () => {
   const toast = useToast()
   const router = useRouter()
 
   const { isOpenNavigationBar } = useNavigationBar()
+
+  const [message, setMessage] = useState('')
 
   const [trainNumber, setTrainNumber] = useState<TrainMetaData | null>(null)
   const [isEnabledFetch, setIsEnabledFetch] = useState(false)
@@ -55,6 +75,8 @@ export const ComplainGenerateContainer = () => {
     suspense: false,
     staleTime: 0,
   })
+
+  const { mutateAsync } = usePostComplaintMessage()
 
   const handleKeyDownTrainNumber = (e: KeyboardEvent, index: number) => {
     if (!inputRefs.current) return
@@ -129,7 +151,7 @@ export const ComplainGenerateContainer = () => {
   }, [router])
 
   // useEffect(() => {
-  //     setIsEnabledFetch(false)
+  //   setIsEnabledFetch(false)
   //   if (isError && isEnabledFetch) {
   //     toast.error('열차번호를 확인해주세요.')
   //     return
@@ -138,7 +160,7 @@ export const ComplainGenerateContainer = () => {
   //   if (trainMetaData) {
   //     setTrainNumber(trainMetaData)
   //   }
-  // }, [trainMetaData, isError])
+  // }, [trainMetaData, isError, isFetched])
 
   useEffect(() => {
     setIsEnabledFetch(false)
@@ -154,6 +176,12 @@ export const ComplainGenerateContainer = () => {
       })
     }
   }, [trainMetaData, isError, isFetched])
+
+  useEffect(() => {
+    if (inputRefs.current) {
+      inputRefs.current[0].focus()
+    }
+  }, [inputRefs.current])
 
   if (trainNumber === null) {
     return (
@@ -214,22 +242,39 @@ export const ComplainGenerateContainer = () => {
           {/* <p>대화행</p> */}
         </S.지하철정보>
         <S.진짜콘텐츠>
-          <SwitchCase
-            value={selectedComplaint}
-            caseBy={{
-              facilities: <Facilities trainNumber={trainsNumberInputResult} />,
-              temperature: <Temperature trainNumber={trainsNumberInputResult} />,
-              announcement: <Announcement trainNumber={trainsNumberInputResult} />,
-              impediment: <Impediment trainNumber={trainsNumberInputResult} />,
-              patient: <Patient trainNumber={trainsNumberInputResult} />,
-              sexual: <Sexual trainNumber={trainsNumberInputResult} />,
-              violence: <Violence trainNumber={trainsNumberInputResult} />,
-            }}
-          />
+          <ComplaintContext.Provider value={{ message, setMessage }}>
+            <SwitchCase
+              value={selectedComplaint}
+              caseBy={{
+                facilities: <Facilities />,
+                temperature: <Temperature />,
+                announcement: <Announcement />,
+                impediment: <Impediment />,
+                patient: <Patient />,
+                sexual: <Sexual />,
+                violence: <Violence />,
+              }}
+            />
+          </ComplaintContext.Provider>
         </S.진짜콘텐츠>
       </S.Container>
       <S.StickyArea $isOpenNavigationBar={isOpenNavigationBar}>
-        <Button label="접수하기" size="md" variant="primary" type="button" />
+        <Button
+          label="접수하기"
+          size="md"
+          variant="primary"
+          type="button"
+          onClick={() => {
+            mutateAsync({
+              params: {
+                content: message,
+                phoneNumber: '010-0000-0000', // 필수?
+                subwayLineId: trainMetaData?.subwayLine.id ?? 1,
+                trainNo: trainsNumberInputResult,
+              },
+            })
+          }}
+        />
       </S.StickyArea>
     </>
   )
