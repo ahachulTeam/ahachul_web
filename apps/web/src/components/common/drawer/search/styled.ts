@@ -54,6 +54,10 @@ export const ModalHeader = styled.div`
   justify-content: space-between;
   width: 100%;
   margin-bottom: 30px;
+
+  & > form > input {
+    height: 40px;
+  }
 `
 
 export const IconBtn = styled.button`

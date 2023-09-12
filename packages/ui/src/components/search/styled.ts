@@ -3,13 +3,13 @@ import { theme } from '@ahhachul/design-system'
 import styled from '@emotion/styled'
 
 export const SearchForm = styled.form`
-  box-sizing: border-box;
   position: relative;
   display: flex;
   align-items: center;
   flex-grow: 1;
 
   & > input {
+    box-sizing: border-box !important; // input 왜 이런지 체크 필요
     width: 100%;
     height: 30px;
     display: flex;

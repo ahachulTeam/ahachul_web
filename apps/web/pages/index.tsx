@@ -1,9 +1,9 @@
 import { handleSessionStorage, useDisclosure } from '@ahhachul/lib'
 import { useEffect, type ReactElement, useState } from 'react'
 
-import { MainPageContainer } from '@/components'
 import BottomSheetForLogin from '@/components/cta/forLogin/ForLogin'
-import { HomeHeader } from '@/components/domain/home'
+import { MainPageContainer } from '@/components/domain/home'
+import { HomeHeader } from '@/components/domain/home/header'
 import { Layout } from '@/components/layout'
 import { APP_CONVERSION_CTA_STORAGE_KEY } from '@/constants'
 
