@@ -10,9 +10,9 @@ export const common = {
     align-items: center;
     justify-content: center;
   `,
-  flexRowAlignCenter: css`
+  flexColumn: css`
     display: flex;
-    align-items: center;
+    flex-direction: column;
   `,
   flexColumnAlignCenter: css`
     display: flex;

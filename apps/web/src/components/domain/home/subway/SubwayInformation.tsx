@@ -2,7 +2,7 @@ import { Tab, Toggle } from '@ahhachul/ui'
 import { Theme, css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { useCallback, useState } from 'react'
-import { ArrowDownIcon, RefetchIcon } from '@/assets/icons'
+import { ArrowDownIcon, InfoFillIcon, RefetchIcon } from '@/assets/icons'
 import Train from '@/components/public/Train'
 
 function SubwayInformation() {
@@ -45,7 +45,23 @@ function SubwayInformation() {
                 <RefetchIcon />
               </button>
             </TopInfo>
-            <Train />
+            <TrainInfoContainer>
+              <TrainInfoTop>
+                <span>전동차 5035</span>
+                <div>
+                  <span>여유</span>
+                  <ul>
+                    <li />
+                    <li />
+                    <li />
+                    <li />
+                  </ul>
+                  <span>혼잡</span>
+                  <button>i</button>
+                </div>
+              </TrainInfoTop>
+              <Train />
+            </TrainInfoContainer>
             <BottomInfo>
               <li>
                 <b>곧 도착</b>
@@ -142,16 +158,14 @@ const SubwayInfo = styled.div`
 `
 
 const ThickBorderArea = styled.div`
-  ${({ theme }) => css`
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 25px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    background-color: #fd8938;
-  `}
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 25px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: #fd8938;
 `
 
 const StationLabel = styled.span`
@@ -189,6 +203,82 @@ const ContentArea = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   padding: 54px 20px 24px 20px;
+`
+
+const TrainInfoContainer = styled.div`
+  ${({ theme }) => css`
+    ${theme.common.flexColumn};
+    row-gap: 4px;
+
+    & > div {
+    }
+  `}
+`
+
+const TrainInfoTop = styled.div`
+  ${({ theme }) => css`
+    ${theme.common.flexAlignCenter};
+    justify-content: space-between;
+    width: 100%;
+
+    & > span {
+      ${theme.fonts.regular11};
+      color: ${theme.colors.gray_35};
+    }
+
+    & > div {
+      ${theme.common.flexAlignCenter};
+      column-gap: 4px;
+
+      & > ul {
+        display: grid;
+        min-width: 40px;
+        grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
+        gap: 2px;
+
+        & > li {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+
+          &:first-of-type {
+            background-color: #a2d471;
+          }
+
+          &:nth-of-type(2) {
+            background-color: #ffc44d;
+          }
+
+          &:nth-of-type(3) {
+            background-color: #ff884d;
+          }
+
+          &:last-of-type {
+            background-color: #ee4d4d;
+          }
+        }
+      }
+
+      & > span {
+        ${theme.fonts.regular11};
+        color: ${theme.colors.gray_35};
+      }
+
+      & > button {
+        ${theme.common.flexCenter};
+        ${theme.fonts.regular10};
+        width: 10px;
+        height: 10px;
+        padding: 2px;
+        border-radius: 50%;
+        position: relative;
+        top: 1px;
+
+        color: ${theme.colors.white};
+        background-color: ${theme.colors.black};
+      }
+    }
+  `}
 `
 
 const TopInfo = styled.div`
