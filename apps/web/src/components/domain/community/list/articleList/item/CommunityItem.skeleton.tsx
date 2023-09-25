@@ -1,5 +1,4 @@
 import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
 
 import * as S from './styled'
 import { View } from '@/atoms/view'

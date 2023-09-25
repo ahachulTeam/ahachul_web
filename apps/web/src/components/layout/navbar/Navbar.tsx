@@ -8,10 +8,10 @@ import { hiddenNavbarPaths } from '@/constants/navbar'
 
 export default function Navbar() {
   const { pathname } = useRouter()
-  const direction = useScrollDirection()
+  const { isScrollUp } = useScrollDirection()
 
   return (
-    <S.Navbar id="navigation-bar" data-show={!hiddenNavbarPaths.includes(pathname) && direction === 'up'}>
+    <S.Navbar id="navigation-bar" data-show={!hiddenNavbarPaths.includes(pathname) && isScrollUp}>
       <S.MenuList>
         {NAV_MENUS.map(({ label, path, SvgIcon }) => (
           <NavItem key={label} label={label} path={path} icon={<SvgIcon />} />

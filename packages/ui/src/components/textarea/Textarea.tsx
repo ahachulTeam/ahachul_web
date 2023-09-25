@@ -4,7 +4,7 @@ import * as S from './styled'
 
 export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   id: string
-  className: string
+  className?: string
   label: string
   hideLabel?: boolean
   size?: 'sm' | 'md'

@@ -11,3 +11,5 @@ export interface APILoginUser {
   refreshTokenExpiresIn: string
   isNeedAdditionalUserInfo: boolean
 }
+
+export type RenewAccessToken = Omit<APILoginUser, 'isNeedAdditionalUserInfo'>

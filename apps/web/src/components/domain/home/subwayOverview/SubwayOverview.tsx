@@ -7,7 +7,7 @@ import { ArrowIcon } from '@/assets/icons'
 import { useAuth } from '@/context'
 import useMyProfileQuery from '@/queries/user/useMyProfileQuery'
 
-function SubwayInfo() {
+function SubwayOverview() {
   const router = useRouter()
   const handleRouteSettingSubway = () => router.push('/onboarding')
 
@@ -45,4 +45,4 @@ function SubwayInfo() {
   )
 }
 
-export default SubwayInfo
+export default SubwayOverview

@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 
-import authAPI from '@/apis/auth'
+import { login } from '@/apis/auth'
 import { PATH } from '@/constants'
 import { useAuth } from '@/context'
 import { APILoginUserProviders } from '@/types/auth'
@@ -12,7 +12,7 @@ const useLoginMutation = () => {
   const { auth } = useAuth()
 
   return useMutation({
-    mutationFn: (providers: APILoginUserProviders) => authAPI.login(providers),
+    mutationFn: (providers: APILoginUserProviders) => login(providers),
     onSuccess: ({ result }) => {
       auth.signIn(result)
 

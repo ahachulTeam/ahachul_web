@@ -1,13 +1,12 @@
-import { useQuery, UseQueryOptions } from '@tanstack/react-query'
+import { useQuery, UseQueryOptions, UseQueryResult } from '@tanstack/react-query'
 
-import userAPI from '@/apis/users'
+import { getMyProfile } from '@/apis/users'
+import { UserModel } from '@/types/user'
 
-type Options = Pick<UseQueryOptions<Awaited<ReturnType<typeof userAPI.getMyProfile>>['result']>, 'enabled'>
-
-const useMyProfileQuery = (options?: Options) =>
+const useMyProfileQuery = (options?: UseQueryOptions<UserModel>): UseQueryResult<UserModel> =>
   useQuery({
     queryKey: ['user', 'me'],
-    queryFn: () => userAPI.getMyProfile(),
+    queryFn: getMyProfile,
     select: res => res.result,
     enabled: options?.enabled || false,
   })

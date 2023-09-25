@@ -3,7 +3,6 @@ import { type ReactElement } from 'react'
 
 import { FloatingButton, Layout } from '@/components'
 import { CallCenterDrawer, ComplaintHeader, ComplaintPageContainer } from '@/components/domain/complaint'
-import ComplaintDrawer from '@/components/domain/complaint/generate/complaintDrawer/ComplaintDrawer'
 
 export default function ComplaintPage() {
   const { dialogRef, isOpen, onOpen, onClose } = useDisclosure()

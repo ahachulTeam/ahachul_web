@@ -1,3 +1,6 @@
+import { SwitchCase, Button } from '@ahhachul/ui'
+import { css } from '@emotion/react'
+import { useRouter } from 'next/router'
 import {
   useEffect,
   useMemo,
@@ -11,19 +14,15 @@ import {
   SetStateAction,
 } from 'react'
 
-import { useRouter } from 'next/router'
-import * as S from './ComplainGenerateContainer.styled'
 import { Announcement, Facilities, Impediment, Patient, Sexual, Temperature, Violence } from '../contents'
+import * as S from './ComplainGenerateContainer.styled'
 
-import { SwitchCase, Button } from '@ahhachul/ui'
-import { useNavigationBar } from '@/hooks'
-import { css } from '@emotion/react'
 import { QuestionIcon } from '@/assets/icons'
 
-import { useGetTrainMetaData } from '@/queries/train/useGetTrainMetaData'
-import { TrainMetaData } from '@/types/train'
 import { useToast } from '@/hooks'
 import { usePostComplaintMessage } from '@/queries/complaint/usePostComplaintMessage'
+import { useGetTrainMetaData } from '@/queries/train/useGetTrainMetaData'
+import { TrainMetaData } from '@/types/train'
 
 const ComplaintContentsKeys = {
   facilities: '시설 · 환경민원',
@@ -42,10 +41,7 @@ export const useComplaintContext = () => {
 }
 
 export const ComplainGenerateContainer = () => {
-  const toast = useToast()
   const router = useRouter()
-
-  const { isOpenNavigationBar } = useNavigationBar()
 
   const [message, setMessage] = useState('')
 
@@ -71,7 +67,8 @@ export const ComplainGenerateContainer = () => {
     isError,
     isFetched,
   } = useGetTrainMetaData(trainsNumberInputResult || '', {
-    enabled: !!trainsNumberInputResult && trainsNumberInputResult.length === inputValues.length && isEnabledFetch,
+    enabled:
+      Boolean(trainsNumberInputResult) && trainsNumberInputResult.length === inputValues.length && isEnabledFetch,
     suspense: false,
     staleTime: 0,
   })
@@ -79,7 +76,9 @@ export const ComplainGenerateContainer = () => {
   const { mutateAsync } = usePostComplaintMessage()
 
   const handleKeyDownTrainNumber = (e: KeyboardEvent, index: number) => {
-    if (!inputRefs.current) return
+    if (!inputRefs.current) {
+      return
+    }
 
     if (e.key === '-' || e.key === '+' || e.key === '.') {
       setInputValues(prev => {
@@ -99,7 +98,9 @@ export const ComplainGenerateContainer = () => {
   }
 
   const handleChangeTrainNumber = (e: ChangeEvent<HTMLInputElement>, index: number) => {
-    if (!inputRefs.current) return
+    if (!inputRefs.current) {
+      return
+    }
 
     const { value } = e.target
     const { inputType } = e.nativeEvent as InputEvent
@@ -209,7 +210,9 @@ export const ComplainGenerateContainer = () => {
               onKeyDown={e => handleKeyDownTrainNumber(e, index)}
               onChange={e => handleChangeTrainNumber(e, index)}
               ref={element => {
-                if (!inputRefs.current || !element) return
+                if (!inputRefs.current || !element) {
+                  return
+                }
                 inputRefs.current[index] = element
               }}
             />
@@ -219,7 +222,7 @@ export const ComplainGenerateContainer = () => {
           <QuestionIcon />
           <span>열차번호는 어디에 있나요?</span>
         </S.Question>
-        <S.StickyArea $isOpenNavigationBar={isOpenNavigationBar}>
+        {/* <S.StickyArea>
           <Button
             label="다음"
             size="md"
@@ -230,7 +233,7 @@ export const ComplainGenerateContainer = () => {
               setIsEnabledFetch(true)
             }}
           />
-        </S.StickyArea>
+        </S.StickyArea> */}
       </S.Container>
     )
   }
@@ -262,7 +265,7 @@ export const ComplainGenerateContainer = () => {
           </ComplaintContext.Provider>
         </S.진짜콘텐츠>
       </S.Container>
-      <S.StickyArea $isOpenNavigationBar={isOpenNavigationBar}>
+      {/* <S.StickyArea>
         <Button
           label="접수하기"
           size="md"
@@ -280,7 +283,7 @@ export const ComplainGenerateContainer = () => {
             })
           }}
         />
-      </S.StickyArea>
+      </S.StickyArea> */}
     </>
   )
 }
