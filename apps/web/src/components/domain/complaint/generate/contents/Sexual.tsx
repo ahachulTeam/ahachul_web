@@ -1,9 +1,9 @@
+import { RadioButton } from '@ahhachul/ui'
 import { useState, useEffect } from 'react'
 
-import { RadioButton } from '@ahhachul/ui'
 
-import * as S from './styled'
 import { useComplaintContext } from '../container'
+import * as S from './styled'
 
 const radioOptions = [
   { key: '피해자', value: '피해자' },

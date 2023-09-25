@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react'
-
 import { css } from '@emotion/react'
 import Image from 'next/image'
+import { useState, useEffect } from 'react'
+
 import { CardIcon, ComplaintCard } from '../../list'
 
+import { useComplaintContext } from '../container'
 import * as S from './styled'
 import { ComplaintCardVariant } from '@/types/variants'
-import { useComplaintContext } from '../container'
 
 const TemperatureContents: (target: 'cold' | 'hot') => Record<
   string,

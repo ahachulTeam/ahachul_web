@@ -8,4 +8,5 @@ export const floatCss = (theme: Theme) => css`
   padding: 0 24px;
   z-index: ${theme.zIndex.sticky};
   filter: drop-shadow(0px 6px 16px rgba(91, 91, 91, 0.25));
+  z-index: ${theme.zIndex.sticky};
 `

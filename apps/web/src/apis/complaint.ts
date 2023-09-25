@@ -1,6 +1,6 @@
-import { ComplaintMessageRequest } from '@/types/complaint'
 import { ax } from './axios'
 import { StandardResponse } from '@/types/common'
+import { ComplaintMessageRequest } from '@/types/complaint'
 
 const complaintAPI = {
   fetchPostComplaintMessage: async (params: ComplaintMessageRequest) => {

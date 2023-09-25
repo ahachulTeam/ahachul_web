@@ -6,7 +6,7 @@ import { Carousel } from '@/components/common'
 
 export default function OnboardingCarousel() {
   return (
-    <Carousel fade>
+    <Carousel css={S.carousel}>
       {ONBOARDING_CAROUSELS.map(result => {
         const { id, title, overview, backdropPath } = result
         return (

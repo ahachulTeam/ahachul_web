@@ -1,7 +1,7 @@
+import { fonts, colors } from '@ahhachul/design-system'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
-import { fonts, colors } from '@ahhachul/design-system'
 
 export const Container = styled.section`
   width: 100%;

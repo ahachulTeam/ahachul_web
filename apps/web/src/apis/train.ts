@@ -1,6 +1,6 @@
-import { TrainMetaData } from '@/types/train'
 import { ax } from './axios'
 import { StandardResponse } from '@/types/common'
+import { TrainMetaData } from '@/types/train'
 
 const trainAPI = {
   fetchGetTrains: async (trainId: string) => {

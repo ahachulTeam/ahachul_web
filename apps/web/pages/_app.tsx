@@ -1,9 +1,11 @@
 import type { AppLayoutProps } from 'next/app'
 import Head from 'next/head'
 import { ReactElement } from 'react'
-import AppInner from '@/components/public/AppInner'
-import { AppProvider } from '@/libs'
 
+import AppInner from '@/components/public/AppInner'
+import { DEFAULT_SEO_CONFIG } from '@/constants'
+import { AppProvider, SEO } from '@/libs'
+import '@/styles/nprogress.css'
 import '@/styles/fonts.css'
 import '@/styles/nprogress.css'
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -14,6 +16,7 @@ const MyApp = ({ Component, pageProps }: AppLayoutProps) => {
 
   return (
     <>
+      <SEO {...DEFAULT_SEO_CONFIG} />
       <Head>
         <meta
           name="viewport"

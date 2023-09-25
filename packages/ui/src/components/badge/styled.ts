@@ -24,7 +24,7 @@ export const Badge = styled.span<BadgeProps>`
 `
 
 export const baseBadge = css`
-  ${theme.fonts.regular14};
+  ${theme.fonts.regular16};
   min-width: 24px;
   height: 24px;
   border-radius: 120px;
