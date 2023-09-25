@@ -31,6 +31,7 @@ export const contentCss = (theme: Theme) => css`
   background-color: #fff;
   border-radius: 24px 24px 0 0;
   overflow: hidden;
+
   @supports not (overflow: overlay) {
     overflow: auto;
   }

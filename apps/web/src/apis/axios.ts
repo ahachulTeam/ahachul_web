@@ -6,7 +6,7 @@ import * as O from '@/utils/option'
 import { TokenService } from '@/utils/tokenService'
 
 export const tokenService = new TokenService(auth)
-export const BASE_URL = process.env.NEXT_PUBLIC_API_URL
+export const BASE_URL = 'http://13.209.145.241:8080/v1'
 
 const setInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
