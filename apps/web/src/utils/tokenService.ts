@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios'
 import type { GetServerSidePropsContext } from 'next'
 
-import { renewAccessToken } from '@/apis/common'
+import { renewAccessToken } from '@/apis/auth'
 import { PATH, COOKIE_KEY } from '@/constants'
 import { Auth } from '@/utils/auth'
 

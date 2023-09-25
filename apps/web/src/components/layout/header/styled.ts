@@ -58,3 +58,32 @@ export const IconBtn = styled.button`
     color: ${({ theme }) => theme.colors.gray_40};
   }
 `
+
+export const HashTagInput = styled.div`
+  ${({ theme }) => css`
+    ${theme.fonts.regular14};
+    ${theme.common.flexAlignCenter};
+    ${theme.common.flexGrowOne};
+    position: relative;
+    width: 100%;
+    height: 40px;
+    color: ${theme.colors.primary};
+    border: 1px solid ${theme.colors.primary};
+    border-radius: 110px;
+    padding-left: 20px;
+    overflow: hidden;
+
+    .swiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-slide {
+      font-size: 14px;
+      background: #fff;
+
+      display: flex;
+      align-items: center;
+    }
+  `}
+`
