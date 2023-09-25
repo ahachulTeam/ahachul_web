@@ -12,6 +12,7 @@ interface BadgeProps {
 export const Badge = styled.span<BadgeProps>`
   ${({ variant, rounded }) => css`
     ${rounded ? baseBadge : hotBadge};
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;

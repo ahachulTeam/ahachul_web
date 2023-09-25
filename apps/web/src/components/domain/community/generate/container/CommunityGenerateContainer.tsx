@@ -1,15 +1,23 @@
+import { useScrollDirection } from '@ahhachul/lib'
 import { Button } from '@ahhachul/ui'
+
+import dynamic from 'next/dynamic'
 import { FormProvider } from 'react-hook-form'
-import { SubwayLineFilter } from '../controller'
 import { useArticleForm } from '../hooks/useArticleForm'
 import * as S from './styled'
 import { PictureUploader } from '@/components/common/pictureUploader'
-import { useNavigationBar } from '@/hooks/useNavigationBar'
 import { usePictureUploader } from '@/hooks/usePictureUploader'
+
+const CategoryFilter = dynamic(() => import('../controller/CategoryFilter'), {
+  ssr: false,
+})
+const SubwayLineFilter = dynamic(() => import('../controller/SubwayLineFilter'), {
+  ssr: false,
+})
 
 function CommunityGeneratePageContainer() {
   const { pictures, provided } = usePictureUploader()
-  const { isOpenNavigationBar } = useNavigationBar()
+  const { isScrollUp } = useScrollDirection()
 
   const { methods, errors, handleClickSubmit } = useArticleForm(pictures)
 
@@ -22,6 +30,10 @@ function CommunityGeneratePageContainer() {
 
       <FormProvider {...methods}>
         <S.FormSection>
+          <S.Line>
+            <S.FieldName>게시판</S.FieldName>
+            <CategoryFilter />
+          </S.Line>
           <S.Line>
             <S.FieldName>호선</S.FieldName>
             <SubwayLineFilter />
@@ -62,7 +74,7 @@ function CommunityGeneratePageContainer() {
         </p>
       </S.Rules>
 
-      <S.StickyArea $isOpenNavigationBar={isOpenNavigationBar}>
+      <S.StickyArea $isOpenNavigationBar={isScrollUp}>
         <Button label="작성하기" size="md" variant="primary" type="button" onClick={handleClickSubmit} />
       </S.StickyArea>
     </S.Container>

@@ -21,6 +21,8 @@ export const colors = {
   gray_19: '#E2E2E2',
   gray_19_05: '#E0E0E0',
   gray_20: '#E3E3E3',
+  gray_21: '#E6E6E6',
+  gray_22: '#E7E7E7',
   gray_23: '#D9D9D9',
   gray_25: '#DEDEDE',
   gray_30: '#CFCFCF',

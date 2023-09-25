@@ -38,7 +38,7 @@ export const SubwayLineFilter = () => {
         {selectedSubwayLine ? (
           <span>{SUBWAY_LINE_FILTER.options.filter(item => item.value === selectedSubwayLine)[0].label}</span>
         ) : (
-          <span>어디서 일어난 일인가요?</span>
+          <span>습득하신 호선을 추가하세요</span>
         )}
         <ArrowIcon />
       </S.TriggerBtn>

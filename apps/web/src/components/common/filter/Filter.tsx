@@ -1,5 +1,5 @@
 import { useDisclosure, useArrowKeyTrap } from '@ahhachul/lib'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useMemo } from 'react'
 import { BottomSheet } from '../bottomSheet'
 import * as S from './styled'
 import { ArrowDownMinIcon } from '@/assets/icons'
@@ -15,11 +15,22 @@ interface FilterProps {
   options: readonly FilterItem[]
   value: string
   changeValue: (option: string) => void
+  className?: string
 }
 
-export default function Filter({ id, label, options, value, changeValue }: FilterProps) {
+export default function Filter({ id, label, options, value, className, changeValue }: FilterProps) {
   const { dialogRef, isOpen, onOpen, onClose } = useDisclosure()
   const prevValue = useRef(value)
+
+  const selectedOptionLabel = useMemo(() => {
+    const selectedOption = options.find(option => option.value === value)
+
+    if (selectedOption) {
+      return selectedOption.label
+    } else {
+      return label
+    }
+  }, [label, options, value])
 
   const uid = `${id}-filter`
 
@@ -39,11 +50,11 @@ export default function Filter({ id, label, options, value, changeValue }: Filte
         type="button"
         aria-haspopup="dialog"
         aria-controls={uid}
-        aria-expanded={isOpen}
+        // aria-expanded={isOpen}
         aria-selected={Boolean(value)}
         onClick={onOpen}
       >
-        {label}
+        {selectedOptionLabel}
         <ArrowDownMinIcon />
       </S.TriggerBtn>
       <BottomSheet
@@ -52,19 +63,39 @@ export default function Filter({ id, label, options, value, changeValue }: Filte
         isOpen={isOpen}
         title={label}
         closedCases={[prevValue.current !== value]}
+        className={className}
         onClose={onClose}
       >
         <S.OptionContainer role="menu" onKeyDown={handleKeyListener}>
-          {options.map(opt => (
-            <S.Option
-              key={opt.value}
-              role="menuitemradio"
-              aria-checked={opt.value === value}
-              onClick={handleOptionClick(opt.value)}
-            >
-              {opt.label}
-            </S.Option>
-          ))}
+          <>
+            {id === 'subwayLineId' ? (
+              <S.Lines>
+                {options.map(opt => (
+                  <S.SubwayOption
+                    key={opt.value}
+                    role="menuitemradio"
+                    aria-checked={opt.value === value}
+                    onClick={handleOptionClick(opt.value)}
+                  >
+                    {opt.label}
+                  </S.SubwayOption>
+                ))}
+              </S.Lines>
+            ) : (
+              <>
+                {options.map(opt => (
+                  <S.Option
+                    key={opt.value}
+                    role="menuitemradio"
+                    aria-checked={opt.value === value}
+                    onClick={handleOptionClick(opt.value)}
+                  >
+                    {opt.label}
+                  </S.Option>
+                ))}
+              </>
+            )}
+          </>
         </S.OptionContainer>
       </BottomSheet>
     </>

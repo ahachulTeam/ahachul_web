@@ -12,7 +12,8 @@ export const TriggerBtn = styled.button`
     height: 29px;
     border-radius: 65px;
     color: ${theme.colors.gray_55};
-    background-color: ${theme.colors.gray_20};
+    border: 1px solid ${theme.colors.gray_22};
+    background-color: ${theme.colors.white};
     transition: all 0.3s ease-in-out;
 
     & > svg {
@@ -50,6 +51,30 @@ export const Option = styled.button`
     &[aria-checked='true'] {
       ${theme.fonts.bold14};
       color: ${theme.colors.primary};
+    }
+  `}
+`
+
+export const Lines = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+`
+
+export const SubwayOption = styled.button`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    border-radius: 20px;
+    color: ${theme.colors.gray_53};
+    background-color: ${theme.colors.gray_07};
+    transition: all 0.3s ease-in-out;
+
+    &[aria-checked='true'] {
+      color: ${theme.colors.primary};
+      background-color: ${theme.colors.secondary};
     }
   `}
 `

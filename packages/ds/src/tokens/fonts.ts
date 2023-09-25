@@ -34,7 +34,7 @@ export const fonts = {
   regular14: css`
     font-size: 1.4rem;
     font-weight: 400;
-    line-height: 1.35714;
+    line-height: 1.5714;
     font-family: Pretendard;
   `,
   regular20: css`
@@ -47,6 +47,12 @@ export const fonts = {
     font-size: 1.6rem;
     font-weight: 400;
     line-height: 1.3125;
+    font-family: Pretendard;
+  `,
+  regular24: css`
+    font-size: 2.4rem;
+    font-weight: 400;
+    line-height: 1.875;
     font-family: Pretendard;
   `,
   medium10: css`
@@ -77,6 +83,12 @@ export const fonts = {
     font-size: 1.6rem;
     font-weight: 600;
     line-height: 1.3125;
+    font-family: Pretendard;
+  `,
+  semibold18: css`
+    font-size: 1.8rem;
+    font-weight: 600;
+    line-height: 1.2;
     font-family: Pretendard;
   `,
   semibold20: css`

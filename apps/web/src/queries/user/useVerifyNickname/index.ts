@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query'
 
-import { userAPI } from '@/apis'
+import { verifyMyNickname } from '@/apis/users'
 import { UserModel } from '@/types/user'
 
 export const useVerifyNickname = () =>
   useMutation({
-    mutationFn: ({ nickname }: { nickname: UserModel['nickname'] }) => userAPI.verifyMyNickname({ nickname }),
+    mutationFn: ({ nickname }: { nickname: UserModel['nickname'] }) => verifyMyNickname({ nickname }),
   })

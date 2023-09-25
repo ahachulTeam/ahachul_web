@@ -1,56 +1,36 @@
-/* eslint-disable @typescript-eslint/ban-types */
 import type { AppLayoutProps } from 'next/app'
-import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
-import NProgress from 'nprogress'
-import { ReactElement, useEffect } from 'react'
+import Head from 'next/head'
+import { ReactElement } from 'react'
 
-import { DEFAULT_SEO_CONFIG, PATH_STORAGE_KEYS } from '@/constants'
+import AppInner from '@/components/public/AppInner'
+import { DEFAULT_SEO_CONFIG } from '@/constants'
 import { AppProvider, SEO } from '@/libs'
 import '@/styles/nprogress.css'
 import '@/styles/fonts.css'
-
-const Toast = dynamic<{}>(() => import('@/components').then(module => module.Toast))
-
-NProgress.configure({ minimum: 0.1, showSpinner: false, easing: 'linear' })
+import '@/styles/nprogress.css'
+import 'react-loading-skeleton/dist/skeleton.css'
+import 'react-lazy-load-image-component/src/effects/opacity.css'
 
 const MyApp = ({ Component, pageProps }: AppLayoutProps) => {
-  const router = useRouter()
-
   const getLayout = Component.getLayout ?? ((page: ReactElement) => page)
-
-  useEffect(() => storePathValues, [router.asPath])
-
-  function storePathValues() {
-    const storage = globalThis?.sessionStorage
-    if (!storage) {
-      return
-    }
-    const prevPath = storage.getItem(PATH_STORAGE_KEYS.CURRENT_PATH) || ''
-    storage.setItem(PATH_STORAGE_KEYS.PREV_PATH, prevPath)
-    storage.setItem(PATH_STORAGE_KEYS.CURRENT_PATH, globalThis.location.pathname)
-  }
-
-  useEffect(() => {
-    const handleRouteStart = () => NProgress.start()
-    const handleRouteDone = () => NProgress.done()
-    router.events.on('routeChangeStart', handleRouteStart)
-    router.events.on('routeChangeComplete', handleRouteDone)
-    router.events.on('routeChangeError', handleRouteDone)
-
-    return () => {
-      router.events.off('routeChangeStart', handleRouteStart)
-      router.events.off('routeChangeComplete', handleRouteDone)
-      router.events.off('routeChangeError', handleRouteDone)
-    }
-  }, [router.events])
 
   return (
     <>
       <SEO {...DEFAULT_SEO_CONFIG} />
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1, viewport-fit=cover"
+          key="viewport"
+        />
+        <meta name="description" content="" />
+        <meta property="og:title" content="피둥피둥" />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content={'/og_image.png'} />
+        <link rel="shortcut icon" href="/logo-desktop.svg" />
+      </Head>
       <AppProvider dehydrateState={pageProps.dehydrateState}>
-        <Toast />
-        {getLayout(<Component {...pageProps} />)}
+        <AppInner>{getLayout(<Component {...pageProps} />)}</AppInner>
       </AppProvider>
     </>
   )

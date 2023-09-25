@@ -7,6 +7,7 @@ export const TriggerBtn = styled.button`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     height: 44px;
     border: 1px solid ${theme.colors.gray_19};
     border-radius: 110px;
@@ -29,17 +30,9 @@ export const TriggerBtn = styled.button`
     }
 
     &[aria-selected='true'] {
+      ${theme.fonts.semibold14};
       color: ${theme.colors.primary};
-      background-color: ${theme.colors.secondary};
-      border-color: white;
-
-      & > svg {
-        opacity: 0;
-      }
-    }
-
-    &[aria-invalid='true'] {
-      border-color: ${theme.colors.red_10};
+      border-color: ${theme.colors.gray_21};
     }
   `}
 `

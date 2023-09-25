@@ -6,10 +6,10 @@ export const Container = styled.section`
 `
 
 export const ListSection = styled.div`
-  padding: 20px 16px;
+  padding: 20px;
 `
 
-export const HashtagSection = styled.div`
+export const TopFilterSection = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 15px;
@@ -21,14 +21,16 @@ export const h3 = (theme: Theme) => css`
   color: ${theme.colors.black};
 `
 
-export const Divider = styled.div`
-  ${({ theme }) => css`
-    min-width: 100%;
-    height: 10px;
-    background-color: ${theme.colors.gray_10};
-  `}
+export const dividerCss = (theme: Theme) => css`
+  min-width: 100%;
+  height: 8px;
+  background-color: ${theme.colors.gray_10};
 `
 
 export const visuallyHidden = (theme: Theme) => css`
   ${theme.a11y.visuallyHidden}
+`
+
+export const customBorderBottomCss = css`
+  border-bottom: 0.5px solid #e3e3e3;
 `

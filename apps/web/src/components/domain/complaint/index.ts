@@ -1,3 +1,3 @@
-export * from './detail'
+export * from './drawer'
+export * from './generate'
 export * from './list'
-export * from './callCenterDrawer'

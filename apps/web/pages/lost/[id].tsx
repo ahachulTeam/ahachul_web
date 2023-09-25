@@ -48,7 +48,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
   const parseData = T.parseResponse(res)
 
   if (T.isFailed(parseData)) {
-    // TODO: 에러처리
     return {
       redirect: {
         destination: PATH.HOME,

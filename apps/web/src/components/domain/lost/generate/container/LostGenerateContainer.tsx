@@ -1,4 +1,6 @@
-import { Button } from '@ahhachul/ui'
+import { useScrollDirection } from '@ahhachul/lib'
+import { Button, Input, Textarea } from '@ahhachul/ui'
+
 import { FormProvider } from 'react-hook-form'
 import { SubwayLineFilter } from '../controller'
 import LostGenerateHeader from '../header/LostGenerateHeader'
@@ -6,12 +8,12 @@ import LostGenerateHeader from '../header/LostGenerateHeader'
 import { useArticleForm } from '../hooks'
 import * as S from './styled'
 import { PictureUploader } from '@/components/common'
-import { useNavigationBar, usePictureUploader } from '@/hooks'
+import { usePictureUploader } from '@/hooks'
 
 export default function LostGenerateContainer() {
   const { methods, errors, handleClickSubmit } = useArticleForm()
   const { pictures, provided } = usePictureUploader()
-  const { isOpenNavigationBar } = useNavigationBar()
+  const { isScrollUp } = useScrollDirection()
 
   return (
     <S.Container>
@@ -23,30 +25,28 @@ export default function LostGenerateContainer() {
 
       <FormProvider {...methods}>
         <S.FormSection>
-          <S.Line>
-            <S.FieldName>호선</S.FieldName>
+          <div>
+            <S.FieldName>습득 호선</S.FieldName>
             <SubwayLineFilter />
-          </S.Line>
-          <S.Title>
-            <S.FieldName>제목</S.FieldName>
-            <S.Input
-              placeholder="제목을 입력하세요 (40자 이내)"
-              aria-invalid={Boolean(errors?.title?.message)}
-              {...methods.register('title', {
-                required: '제목을 입력하세요',
-              })}
-            />
-          </S.Title>
-          <S.Content>
-            <S.FieldName>내용</S.FieldName>
-            <S.Textarea
-              placeholder="게시물 내용을 작성하세요"
-              aria-invalid={Boolean(errors?.content?.message)}
-              {...methods.register('content', {
-                required: '내용을 입력하세요',
-              })}
-            />
-          </S.Content>
+          </div>
+          <Input
+            id="title"
+            label="제목"
+            placeholder="제목을 입력하세요(40자 이내)"
+            aria-invalid={Boolean(errors?.title?.message)}
+            {...methods.register('title', {
+              required: '제목을 입력하세요',
+            })}
+          />
+          <Textarea
+            id="contents"
+            label="내용"
+            placeholder="게시물 내용을 작성하세요"
+            aria-invalid={Boolean(errors?.content?.message)}
+            {...methods.register('content', {
+              required: '내용을 입력하세요',
+            })}
+          />
         </S.FormSection>
       </FormProvider>
 
@@ -63,7 +63,7 @@ export default function LostGenerateContainer() {
         </p>
       </S.Rules>
 
-      <S.StickyArea $isOpenNavigationBar={isOpenNavigationBar}>
+      <S.StickyArea $isOpenNavigationBar={isScrollUp}>
         <Button label="작성하기" size="md" variant="primary" type="button" onClick={handleClickSubmit} />
       </S.StickyArea>
     </S.Container>

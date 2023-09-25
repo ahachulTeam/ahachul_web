@@ -1,22 +1,29 @@
 import { theme } from '@ahhachul/design-system'
 import { A11yHeading } from '@ahhachul/ui'
 import { createContext, useCallback, useMemo, type PropsWithChildren, useContext } from 'react'
+
 import * as S from './styled'
 import { ArrowIcon, KenllIcon, MiniHamburgerIcon, SearchIcon, ShareIcon } from '@/assets/icons'
 import { PATH, PATH_STORAGE_KEYS, StaticSEO } from '@/constants'
 import { usePushShallowRouter } from '@/hooks'
+import { useToast } from '@/hooks'
 import { UrlQueryType } from '@/types/common'
+import { copyToClipboard } from '@/utils/common'
 
 interface HeaderProps {
+  hasLogo?: boolean
   hasGoBack?: boolean
   title?: string
   invisibleTitle?: boolean
+  invisibleLeftIcon?: boolean
   goBackToHome?: boolean
+  hasBorder?: boolean
+  className?: string
 }
 
 interface HeaderBtnProps {
-  onClick: () => void
   isDisabled?: boolean
+  onClick: () => void
 }
 
 interface HeaderContextValue {
@@ -26,11 +33,15 @@ interface HeaderContextValue {
 const HeaderContext = createContext({} as HeaderContextValue)
 
 function HeaderMain({
+  hasLogo = true,
   hasGoBack = false,
   title = '',
   invisibleTitle = false,
+  invisibleLeftIcon = false,
   goBackToHome = false,
+  hasBorder = true,
   children,
+  className,
 }: PropsWithChildren<HeaderProps>) {
   const storage = globalThis?.sessionStorage
   const { router, pushShallowRouter } = usePushShallowRouter()
@@ -47,12 +58,12 @@ function HeaderMain({
 
   return (
     <HeaderContext.Provider value={providerValue}>
-      <S.Header>
-        <S.Container>
+      <S.Header className={className}>
+        <S.Container hasBorder={hasBorder}>
           <A11yHeading>{StaticSEO.main.sitename}</A11yHeading>
-          <S.LeftIcon>
+          <S.LeftIcon css={invisibleLeftIcon && theme.a11y.visuallyHidden}>
             {hasGoBack && <Header.GoBack onClick={goBackToHome ? goHome : goBack} />}
-            {!hasGoBack && <Header.Logo onClick={goHome} />}
+            {!hasGoBack && hasLogo && <Header.Logo onClick={goHome} />}
           </S.LeftIcon>
           <S.Title css={invisibleTitle && theme.a11y.visuallyHidden}>{title}</S.Title>
           <S.RightIcons>{children}</S.RightIcons>
@@ -78,9 +89,11 @@ function Logo({ onClick }: HeaderBtnProps) {
   )
 }
 
-function Share({ onClick }: HeaderBtnProps) {
+function Share() {
+  const toast = useToast()
+
   return (
-    <S.IconBtn onClick={onClick}>
+    <S.IconBtn onClick={() => copyToClipboard(toast, window.location.href)}>
       <ShareIcon />
     </S.IconBtn>
   )
@@ -88,9 +101,11 @@ function Share({ onClick }: HeaderBtnProps) {
 
 function TempSave({ onClick, isDisabled }: HeaderBtnProps) {
   return (
-    <S.IconBtn type="button" onClick={onClick} disabled={isDisabled}>
-      임시저장
-    </S.IconBtn>
+    <>
+      <S.IconBtn type="button" onClick={onClick} disabled={isDisabled}>
+        임시저장
+      </S.IconBtn>
+    </>
   )
 }
 
@@ -118,6 +133,10 @@ function Search({ onClick }: HeaderBtnProps) {
   )
 }
 
+function SearchBarWithRankingHashtags({ children, onClick }: PropsWithChildren<HeaderBtnProps>) {
+  return <S.HashTagInput onClick={onClick}>{children}</S.HashTagInput>
+}
+
 function MiniHamburger({ onClick }: HeaderBtnProps) {
   return (
     <S.IconBtn onClick={onClick}>
@@ -135,4 +154,5 @@ export const Header = Object.assign(HeaderMain, {
   Alarm,
   Search,
   MiniHamburger,
+  SearchBarWithRankingHashtags,
 })

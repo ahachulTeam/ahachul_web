@@ -25,6 +25,7 @@ export const SearchDrawer = ({ isMounted, mode, onClose }: Props) => {
   const recentKeywordRef = useRef<HTMLUListElement>(null)
 
   const {
+    isLostPage,
     searchValue,
     searchSupporting,
     searchValueToEmptyString,
@@ -73,39 +74,41 @@ export const SearchDrawer = ({ isMounted, mode, onClose }: Props) => {
             </S.SearchHistoryTagList>
           </S.SearchHistory>
 
-          <S.Hashtag>
-            <S.HashtagHeader>
-              <span>인기 해쉬태그</span>
-              <p>20:43 기준</p>
-            </S.HashtagHeader>
-            <S.HastTagList>
-              <Swiper
-                slidesPerView={1}
-                slidesPerGroup={1}
-                spaceBetween={30}
-                pagination={{
-                  clickable: true,
-                }}
-                autoplay={{
-                  delay: 4000,
-                  disableOnInteraction: false,
-                }}
-                modules={[Pagination, Autoplay]}
-              >
-                {HASH_TAG_DUMMY_LIST.map((tags, idx) => (
-                  <SwiperSlide key={idx}>
-                    {tags.map((tag, i) => (
-                      <S.GridItem key={i} onClick={handleHashTagValue(tag)}>
-                        <span>{idx === 0 ? i + 1 : i + 7}</span>
-                        <span>{`#${tag}`}</span>
-                        <span>{'-'}</span>
-                      </S.GridItem>
-                    ))}
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </S.HastTagList>
-          </S.Hashtag>
+          {!isLostPage && (
+            <S.Hashtag>
+              <S.HashtagHeader>
+                <span>인기 해쉬태그</span>
+                <p>20:43 기준</p>
+              </S.HashtagHeader>
+              <S.HastTagList>
+                <Swiper
+                  slidesPerView={1}
+                  slidesPerGroup={1}
+                  spaceBetween={30}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  autoplay={{
+                    delay: 4000,
+                    disableOnInteraction: false,
+                  }}
+                  modules={[Pagination, Autoplay]}
+                >
+                  {HASH_TAG_DUMMY_LIST.map((tags, idx) => (
+                    <SwiperSlide key={idx}>
+                      {tags.map((tag, i) => (
+                        <S.GridItem key={i} onClick={handleHashTagValue(tag)}>
+                          <span>{idx === 0 ? i + 1 : i + 7}</span>
+                          <span>{`#${tag}`}</span>
+                          <span>{'-'}</span>
+                        </S.GridItem>
+                      ))}
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </S.HastTagList>
+            </S.Hashtag>
+          )}
         </m.div>
       </m.div>
     </MotionPortal>

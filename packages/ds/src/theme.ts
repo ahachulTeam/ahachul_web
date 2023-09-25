@@ -1,4 +1,4 @@
-import { a11y, animations, boxShadows, breakPoint, colors, fonts, size, zIndex } from './tokens'
+import { a11y, animations, boxShadows, breakPoint, colors, fonts, size, zIndex, common } from './tokens'
 
 export const theme = {
   a11y,
@@ -9,4 +9,5 @@ export const theme = {
   fonts,
   zIndex,
   size,
+  common,
 }

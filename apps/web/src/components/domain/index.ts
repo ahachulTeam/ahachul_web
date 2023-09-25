@@ -1,5 +1,5 @@
 export * from './mypage'
-export * from './main'
+export * from './home'
 export * from './community/list'
 export * from './onboarding'
 export * from './lost'

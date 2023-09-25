@@ -1,22 +1,31 @@
-import { useRouter } from 'next/router'
+import { Button } from '@ahhachul/ui'
+import { useMemo } from 'react'
 import Item from './item/Item'
 import * as S from './styled'
-import { ARTICLE_DUMMY_LIST } from '@/assets/dummy/community'
+import { IntersectionArea, NoResult } from '@/components/common'
+import { useFilterList } from '@/hooks'
 import useCommunityQuery from '@/queries/community/useCommunityQuery'
-import { CommunityListQueryModel } from '@/types/community'
 
 function ArticleList() {
-  const { query } = useRouter()
+  const { handleResetFilter } = useFilterList('sort', 'subwayLineId')
 
-  const { data } = useCommunityQuery({
-    categoryType: query?.tab || 'FREE',
-  } as CommunityListQueryModel)
+  const { data: communityList, hasNextPage, fetchNextPage } = useCommunityQuery()
+
+  const articles = useMemo(
+    () => (communityList ? communityList.pages.flatMap(data => data?.posts) : []),
+    [communityList]
+  )
 
   return (
     <S.ArticleList>
-      {ARTICLE_DUMMY_LIST.map(data => (
-        <Item key={data._id} data={data} />
-      ))}
+      {articles?.length > 0 ? (
+        articles?.map(item => <Item key={item?.id} data={item} />)
+      ) : (
+        <NoResult title="찾고 있는 검색 결과가 없어요.">
+          <Button size="md" label="필터 초기화" variant="secondary" onClick={handleResetFilter} />
+        </NoResult>
+      )}
+      <IntersectionArea hasMore={Boolean(hasNextPage)} onImpression={fetchNextPage} />
     </S.ArticleList>
   )
 }

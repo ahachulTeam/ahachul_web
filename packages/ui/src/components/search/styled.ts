@@ -9,6 +9,7 @@ export const SearchForm = styled.form`
   flex-grow: 1;
 
   & > input {
+    box-sizing: border-box !important; // input 왜 이런지 체크 필요
     width: 100%;
     height: 30px;
     display: flex;

@@ -1,6 +1,6 @@
-import { Emergency } from '../emergency/Emergency'
-import { Environment } from '../environment/Environment'
+import { Emergency, Environment } from '../token'
 import * as S from './styled'
+import { ComplaintTargets } from '@/types/complaint'
 
 export const ComplaintPageContainer = () => {
   return (
