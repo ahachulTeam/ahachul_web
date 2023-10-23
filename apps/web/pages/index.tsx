@@ -1,10 +1,10 @@
 import { handleSessionStorage, useDisclosure } from '@ahhachul/lib'
 import { useEffect, type ReactElement, useState } from 'react'
 
-import { MainPageContainer } from '@/components/domain/home'
 import { HomeHeader } from '@/components/domain/home/header'
 import BottomSheetForLogin from '@/components/public/cta/forLogin/ForLogin'
 import { Layout } from '@/components/public/layout'
+import HomeMainScreen from '@/components/screens/MainHome'
 import { APP_CONVERSION_CTA_STORAGE_KEY } from '@/constants'
 
 export default function HomePage() {
@@ -38,7 +38,7 @@ export default function HomePage() {
 
   return (
     <>
-      <MainPageContainer />
+      <HomeMainScreen />
       <BottomSheetForLogin ref={dialogRef} isOpen={isOpen} onClose={onClose} />
     </>
   )

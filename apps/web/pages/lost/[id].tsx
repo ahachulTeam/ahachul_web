@@ -3,8 +3,9 @@ import { GetServerSideProps } from 'next'
 import { type ReactElement } from 'react'
 
 import lostAPI from '@/apis/lost'
-import { LostDetailContainer, LostDetailHeader } from '@/components/domain'
+import { LostDetailHeader } from '@/components/domain'
 import { Layout } from '@/components/public/layout'
+import LostDetailScreen from '@/components/screens/ScreenLostDetail'
 import { PATH } from '@/constants'
 import { SEO } from '@/libs'
 import { lostKeys } from '@/queries/lost/keys'
@@ -20,7 +21,7 @@ export default function LostDetailPage({ title, content, createdBy, subwayLine }
   return (
     <>
       <SEO title={title} description={content} />
-      <LostDetailContainer createdBy={createdBy} subwayLine={subwayLine} />
+      <LostDetailScreen createdBy={createdBy} subwayLine={subwayLine} />
     </>
   )
 }

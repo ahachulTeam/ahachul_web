@@ -1,10 +1,11 @@
 import { ReactElement } from 'react'
 
-import { LostGenerateContainer, LostGenerateHeader } from '@/components'
+import { LostGenerateHeader } from '@/components'
 import Layout from '@/components/public/layout/Layout'
+import LostPostGenerateScreen from '@/components/screens/ScreenLostPostGenerate'
 
 export default function Generate() {
-  return <LostGenerateContainer />
+  return <LostPostGenerateScreen />
 }
 
 Generate.getLayout = function getLayout(page: ReactElement) {

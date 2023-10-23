@@ -1,1 +1,1 @@
-export { default as MainPageContainer } from './container/MainPageContainer'
+export * from './header'

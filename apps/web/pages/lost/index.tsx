@@ -1,31 +1,10 @@
-import { useRouter } from 'next/router'
-import { ReactElement, useCallback, useMemo } from 'react'
-
-import { FloatingButton } from '@/components'
-import { LostContainer, LostHeader } from '@/components/domain'
+import { ReactElement } from 'react'
+import { LostHeader } from '@/components/domain'
 import { Layout } from '@/components/public/layout'
-import { PATH } from '@/constants'
+import LostMainScreen from '@/components/screens/MainLost'
 
 export default function LostPage() {
-  const router = useRouter()
-  const { query } = router
-
-  const buttonLabel = useMemo(() => (query?.tab === 'lost' ? '+ 분실물 작성' : '+ 습득물 작성'), [query?.tab])
-
-  const pushToArticleGeneratePage = useCallback(
-    (tab?: string) => () => {
-      const routesUrl = tab ? `${PATH.LOST}/generate?tab=${tab}` : `${PATH.LOST}/generate`
-      router.push(routesUrl, undefined, { shallow: true })
-    },
-    [router]
-  )
-
-  return (
-    <>
-      <LostContainer />
-      <FloatingButton label={buttonLabel} onClick={pushToArticleGeneratePage(query?.tab as string)} />
-    </>
-  )
+  return <LostMainScreen />
 }
 
 LostPage.getLayout = function getLayout(page: ReactElement) {

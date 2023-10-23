@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react'
 
 import { CardIcon, ComplaintCard } from '../../list'
 
-import { useComplaintContext } from '../container'
 import * as S from './styled'
+import { useComplaintContext } from '@/components/screens/ScreenComplaintDetail'
 import { ComplaintCardVariant } from '@/types/variants'
 
 const TemperatureContents: (target: 'cold' | 'hot') => Record<

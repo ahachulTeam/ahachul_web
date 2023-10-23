@@ -1,1 +1,1 @@
-export { default as CommunityGeneratePageContainer } from './container/CommunityGenerateContainer'
+export * from './header'

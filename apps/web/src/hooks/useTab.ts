@@ -29,6 +29,7 @@ export default function useTab<T extends string>(tabList: Record<T, string>, que
   }, [selectedTab])
 
   return {
+    router,
     query,
     selectedTab,
     handleChangeTab,

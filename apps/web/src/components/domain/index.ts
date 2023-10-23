@@ -1,4 +1,3 @@
-export * from './mypage'
 export * from './home'
 export * from './community/list'
 export * from './onboarding'
