@@ -1,6 +1,7 @@
 import { ReactElement } from 'react'
 
-import { Layout, LostGenerateContainer, LostGenerateHeader } from '@/components'
+import { LostGenerateContainer, LostGenerateHeader } from '@/components'
+import Layout from '@/components/public/layout/Layout'
 
 export default function Generate() {
   return <LostGenerateContainer />

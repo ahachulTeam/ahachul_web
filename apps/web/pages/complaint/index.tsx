@@ -1,8 +1,9 @@
 import { useDisclosure } from '@ahhachul/lib'
 import { type ReactElement } from 'react'
 
-import { FloatingButton, Layout } from '@/components'
+import { FloatingButton } from '@/components'
 import { CallCenterDrawer, ComplaintHeader, ComplaintPageContainer } from '@/components/domain/complaint'
+import Layout from '@/components/public/layout/Layout'
 
 export default function ComplaintPage() {
   const { dialogRef, isOpen, onOpen, onClose } = useDisclosure()

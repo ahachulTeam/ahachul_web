@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { ReactElement } from 'react'
 
 import { CommunityHeader, CommunityPageContainer, FloatingButton } from '@/components'
-import { Layout } from '@/components/layout'
+import { Layout } from '@/components/public/layout'
 
 export default function CommunityPage() {
   const router = useRouter()

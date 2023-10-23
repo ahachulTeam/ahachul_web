@@ -5,7 +5,7 @@ import { Suspense } from 'react'
 import Comments from '../comments/Comments'
 import Contents from '../contents/Contents'
 import * as S from './styled'
-import BottomSheetForLogin from '@/components/cta/forLogin/ForLogin'
+import BottomSheetForLogin from '@/components/public/cta/forLogin/ForLogin'
 import { useAuth } from '@/context'
 
 export const CommunityDetailPageContainer = () => {

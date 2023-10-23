@@ -2,8 +2,8 @@ import { Tab, Toggle } from '@ahhachul/ui'
 import { Theme, css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { useCallback, useState } from 'react'
-import { ArrowDownIcon, InfoFillIcon, RefetchIcon } from '@/assets/icons'
-import Train from '@/components/public/Train'
+import { ArrowDownIcon, RefetchIcon } from '@/assets/icons'
+import Train from '@/components/public/train/Train'
 
 function SubwayInformation() {
   const dummyUserSelection = {

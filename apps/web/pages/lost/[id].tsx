@@ -4,7 +4,7 @@ import { type ReactElement } from 'react'
 
 import lostAPI from '@/apis/lost'
 import { LostDetailContainer, LostDetailHeader } from '@/components/domain'
-import { Layout } from '@/components/layout'
+import { Layout } from '@/components/public/layout'
 import { PATH } from '@/constants'
 import { SEO } from '@/libs'
 import { lostKeys } from '@/queries/lost/keys'

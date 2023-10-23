@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react'
 
-import { Layout } from '@/components'
 import { CommunityGeneratePageContainer } from '@/components/domain/community'
 import { CommunityGenerateHeader } from '@/components/domain/community/generate/header'
+import Layout from '@/components/public/layout/Layout'
 
 export default function Generate() {
   return <CommunityGeneratePageContainer />

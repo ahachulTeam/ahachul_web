@@ -1,6 +1,6 @@
 import { type ReactElement } from 'react'
 import { NicknameHeader, NicknamePageContainer } from '@/components'
-import { Layout } from '@/components/layout'
+import { Layout } from '@/components/public/layout'
 
 export default function NicknamePage() {
   return <NicknamePageContainer />

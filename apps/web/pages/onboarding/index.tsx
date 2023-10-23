@@ -1,6 +1,7 @@
 import { type ReactElement } from 'react'
 
-import { Layout, OnboardingPageContainer } from '@/components'
+import { OnboardingPageContainer } from '@/components'
+import Layout from '@/components/public/layout/Layout'
 
 export default function OnBoardingPage() {
   return <OnboardingPageContainer />

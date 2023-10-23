@@ -3,7 +3,7 @@ import { ReactElement, useCallback, useMemo } from 'react'
 
 import { FloatingButton } from '@/components'
 import { LostContainer, LostHeader } from '@/components/domain'
-import { Layout } from '@/components/layout'
+import { Layout } from '@/components/public/layout'
 import { PATH } from '@/constants'
 
 export default function LostPage() {
