@@ -1,6 +1,6 @@
 import { UseQueryOptions, useQuery } from '@tanstack/react-query'
 
-import { trainKeys } from '../queryKeys/train'
+import { trainKeys } from './keys'
 import trainAPI from '@/apis/train'
 
 import * as T from '@/utils/try'

@@ -1,6 +1,6 @@
 import { UseQueryOptions, UseQueryResult, useQuery } from '@tanstack/react-query'
 
-import { communityKeys } from '../queryKeys'
+import { communityKeys } from './keys'
 import communityAPI from '@/apis/community'
 import { StandardResponse } from '@/types/common'
 import * as type from '@/types/community'

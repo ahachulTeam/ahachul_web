@@ -3,7 +3,7 @@ import { Picture } from '@/types'
 import { StandardResponse } from '@/types/common'
 import * as type from '@/types/community'
 
-const communityApi = {
+const communityAPI = {
   getCommunity: async (req: type.CommunityListQueryModel) => {
     const res = await ax.get<StandardResponse<type.CommunityListServerModel>>('/community-posts', { params: req })
     return res.data
@@ -58,4 +58,4 @@ const communityApi = {
   removeHate: async (req: type.CommunityDetailQueryModel) => await ax.delete(`/community-posts/${req.postId}/hate`),
 }
 
-export default communityApi
+export default communityAPI

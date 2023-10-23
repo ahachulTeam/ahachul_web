@@ -2,7 +2,7 @@ import { removeEmptyProperties } from '@ahhachul/lib'
 import { useInfiniteQuery, UseInfiniteQueryResult } from '@tanstack/react-query'
 
 import { useRouter } from 'next/router'
-import { communityKeys } from '../queryKeys'
+import { communityKeys } from './keys'
 import communityAPI from '@/apis/community'
 import * as type from '@/types/community'
 import * as T from '@/utils/try'

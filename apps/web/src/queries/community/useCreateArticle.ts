@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
-import { communityKeys } from '../queryKeys'
-import communityApi from '@/apis/community'
+import { communityKeys } from './keys'
+import communityAPI from '@/apis/community'
 import { PATH } from '@/constants'
 import { useToast } from '@/hooks'
 import { CreateArticleQueryModel } from '@/types/community'
@@ -14,7 +14,7 @@ export const useCreateArticle = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (req: CreateArticleQueryModel) => communityApi.createArticle(req),
+    mutationFn: (req: CreateArticleQueryModel) => communityAPI.createArticle(req),
     onSuccess: () => {
       success('글을 생성했다.')
       queryClient.invalidateQueries(communityKeys.lists())
