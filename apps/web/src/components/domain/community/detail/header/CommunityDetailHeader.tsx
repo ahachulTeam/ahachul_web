@@ -1,4 +1,4 @@
-import { Header } from '@/components/layout'
+import { Header } from '@/components/public/layout'
 
 export const CommunityDetailHeader = () => {
   return (

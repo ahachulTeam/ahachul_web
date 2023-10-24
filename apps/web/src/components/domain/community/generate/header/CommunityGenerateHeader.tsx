@@ -1,6 +1,6 @@
 import { useBoolean } from '@ahhachul/lib'
 import { Dialog } from '@/components/common/dialog'
-import { Header } from '@/components/layout'
+import { Header } from '@/components/public/layout'
 
 export const CommunityGenerateHeader = () => {
   const [isDialogShowing, _, onDialogOpen, onDialogClose] = useBoolean(false)

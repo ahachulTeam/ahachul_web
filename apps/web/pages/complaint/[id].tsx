@@ -1,10 +1,11 @@
 import { type ReactElement } from 'react'
 
-import { ComplainGenerateContainer, ComplaintGenerateHeader } from '@/components/domain/complaint'
-import { Layout } from '@/components/layout'
+import { ComplaintGenerateHeader } from '@/components/domain/complaint'
+import { Layout } from '@/components/public/layout'
+import ComplaintDetailScreen from '@/components/screens/ScreenComplaintDetail'
 
 export default function LostDetailPage() {
-  return <ComplainGenerateContainer />
+  return <ComplaintDetailScreen />
 }
 
 LostDetailPage.getLayout = function getLayout(page: ReactElement) {

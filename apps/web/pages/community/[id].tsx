@@ -1,10 +1,11 @@
 import { ReactElement } from 'react'
 
-import { CommunityDetailHeader, CommunityDetailPageContainer } from '@/components/domain/community'
-import { Layout } from '@/components/layout'
+import { CommunityDetailHeader } from '@/components/domain/community'
+import { Layout } from '@/components/public/layout'
+import CommunityDetailScreen from '@/components/screens/ScreenCommunityDetail'
 
 export default function CommunityDetailPage() {
-  return <CommunityDetailPageContainer />
+  return <CommunityDetailScreen />
 }
 
 CommunityDetailPage.getLayout = function getLayout(page: ReactElement) {

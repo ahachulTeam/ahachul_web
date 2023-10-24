@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react'
 
-import { Layout } from '@/components'
-import { CommunityGeneratePageContainer } from '@/components/domain/community'
 import { CommunityGenerateHeader } from '@/components/domain/community/generate/header'
+import Layout from '@/components/public/layout/Layout'
+import CommunityPostGenerateScreen from '@/components/screens/ScreenCommunityPostGenerate'
 
 export default function Generate() {
-  return <CommunityGeneratePageContainer />
+  return <CommunityPostGenerateScreen />
 }
 
 Generate.getLayout = function getLayout(page: ReactElement) {

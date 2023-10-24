@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { useRouter } from 'next/router'
-import { communityKeys } from '../queryKeys'
+import { communityKeys } from './keys'
 import communityAPI from '@/apis/community'
 import { YesNo } from '@/types/common'
 import type { CommunityDetailQueryModel, CommunityDetailModel } from '@/types/community'

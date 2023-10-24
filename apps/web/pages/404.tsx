@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { ReactElement } from 'react'
 
-import { Layout } from '@/components/layout'
+import { Layout } from '@/components/public/layout'
 
 export default function NotFound() {
   return (

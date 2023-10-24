@@ -1,9 +1,8 @@
 import { RadioButton } from '@ahhachul/ui'
 import { useState, useEffect } from 'react'
 
-
-import { useComplaintContext } from '../container'
 import * as S from './styled'
+import { useComplaintContext } from '@/components/screens/ScreenComplaintDetail'
 
 const radioOptions = [
   { key: '토사물', value: '토사물' },

@@ -1,6 +1,6 @@
 import { useDisclosure } from '@ahhachul/lib'
 import { SearchDrawer } from '@/components/common'
-import { Header } from '@/components/layout'
+import { Header } from '@/components/public/layout'
 
 export const LostHeader = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()

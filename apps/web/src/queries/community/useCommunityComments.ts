@@ -1,7 +1,7 @@
 import { UseQueryOptions, UseQueryResult, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { useEffect } from 'react'
-import { communityKeys } from '../queryKeys'
+import { communityKeys } from './keys'
 import communityAPI from '@/apis/community'
 import { useToast } from '@/hooks'
 import { StandardResponse } from '@/types/common'

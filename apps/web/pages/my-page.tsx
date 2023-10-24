@@ -1,10 +1,10 @@
-import React, { type ReactElement } from 'react'
+import { type ReactElement } from 'react'
 
-import { MyPageContainer } from '@/components'
-import { Layout } from '@/components/layout'
+import { Layout } from '@/components/public/layout'
+import MyPageMainScreen from '@/components/screens/MainMyPage'
 
 export default function MyPage() {
-  return <MyPageContainer />
+  return <MyPageMainScreen />
 }
 
 MyPage.getLayout = function getLayout(page: ReactElement) {
