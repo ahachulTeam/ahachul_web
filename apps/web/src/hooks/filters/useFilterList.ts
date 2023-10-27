@@ -2,7 +2,7 @@ import { createHref, createQueryString, deleteQueryString } from '@ahhachul/lib'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { useCallback, useMemo } from 'react'
 
-const useFilterList = <T extends string>(...filterKeys: T[]) => {
+export const useFilterList = <T extends string>(...filterKeys: T[]) => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
@@ -33,5 +33,3 @@ const useFilterList = <T extends string>(...filterKeys: T[]) => {
     handleResetFilter,
   }
 }
-
-export default useFilterList

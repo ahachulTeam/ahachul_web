@@ -1,6 +1,6 @@
 import { Button } from '@ahhachul/ui'
 import * as S from './StickyArea.styled'
-import { useNavigationBar } from '@/hooks'
+import { useNavigationBar } from '@/hooks/global'
 
 export default function StickyArea() {
   const { isOpenNavigationBar } = useNavigationBar()

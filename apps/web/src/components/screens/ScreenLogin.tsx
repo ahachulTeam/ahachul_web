@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
-import useLoginMutation from '@/queries/auth/useLoginMutation'
+import { useLoginMutation } from '@/services'
 import { APILoginUserProviders } from '@/types/auth'
 
 function RedirectForLoginScreen() {

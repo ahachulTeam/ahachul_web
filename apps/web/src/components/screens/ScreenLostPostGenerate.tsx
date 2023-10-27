@@ -8,10 +8,10 @@ import { SubwayLineFilter } from '../domain/lost/generate/controller'
 import { useLostPostGanerate } from '../domain/lost/generate/hooks'
 
 import { PictureUploader } from '@/components/common'
-import { usePictureUploader } from '@/hooks'
+import { usePictureUploader } from '@/hooks/global'
 
 function LostPostGenerateScreen() {
-  const { methods, errors, handleClickSubmit } = useLostPostGanerate()
+  // const { methods, errors, handleClickSubmit } = useLostPostGanerate()
   const { pictures, provided } = usePictureUploader()
   const { isScrollUp } = useScrollDirection()
 
@@ -23,7 +23,7 @@ function LostPostGenerateScreen() {
         <PictureUploader {...provided} pictures={pictures} />
       </PhotoSection>
 
-      <FormProvider {...methods}>
+      {/* <FormProvider {...methods}>
         <FormSection>
           <div>
             <FieldName>습득 호선</FieldName>
@@ -48,7 +48,7 @@ function LostPostGenerateScreen() {
             })}
           />
         </FormSection>
-      </FormProvider>
+      </FormProvider> */}
 
       <Rules>
         <Button label="게시물 이용규칙" size="xs" variant="secondary" />
@@ -64,7 +64,7 @@ function LostPostGenerateScreen() {
       </Rules>
 
       <StickyArea $isOpenNavigationBar={isScrollUp}>
-        <Button label="작성하기" size="md" variant="primary" type="button" onClick={handleClickSubmit} />
+        <Button label="작성하기" size="md" variant="primary" type="button" />
       </StickyArea>
     </Container>
   )

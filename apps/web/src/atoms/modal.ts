@@ -18,14 +18,14 @@ export const isFilterModalOpenState = atom<FilterModalState>({
   },
 })
 
-type Return = readonly [
+type FilterModalBooleanReturnTypes = readonly [
   FilterModalState,
   (target: FilterModalState['targetSection']) => () => void,
   VoidFunction,
   VoidFunction
 ]
 
-export const useFilterModalBoolean = (): Return => {
+export const useFilterModalBoolean = (): FilterModalBooleanReturnTypes => {
   const [value, setValue] = useRecoilState(isFilterModalOpenState)
 
   const setTrue = useCallback(() => {

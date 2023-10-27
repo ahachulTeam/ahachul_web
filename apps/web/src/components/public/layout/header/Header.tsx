@@ -1,14 +1,13 @@
 import { theme } from '@ahhachul/design-system'
 import { A11yHeading } from '@ahhachul/ui'
+import { NextRouter, useRouter } from 'next/router'
 import { createContext, useCallback, useMemo, type PropsWithChildren, useContext } from 'react'
 
 import * as S from './styled'
 import { ArrowIcon, KenllIcon, MiniHamburgerIcon, SearchIcon, ShareIcon } from '@/assets/icons'
 import { PATH, PATH_STORAGE_KEYS, StaticSEO } from '@/constants'
-import { usePushShallowRouter } from '@/hooks'
-import { useToast } from '@/hooks'
-import { UrlQueryType } from '@/types/common'
-import { copyToClipboard } from '@/utils/common'
+import { useToast } from '@/hooks/global'
+import { copyToClipboard } from '@/utils/global'
 
 interface HeaderProps {
   hasLogo?: boolean
@@ -27,7 +26,7 @@ interface HeaderBtnProps {
 }
 
 interface HeaderContextValue {
-  pushShallowRouter: (pathname: string, query?: UrlQueryType) => Promise<boolean>
+  router: NextRouter
 }
 
 const HeaderContext = createContext({} as HeaderContextValue)
@@ -44,8 +43,8 @@ function HeaderMain({
   className,
 }: PropsWithChildren<HeaderProps>) {
   const storage = globalThis?.sessionStorage
-  const { router, pushShallowRouter } = usePushShallowRouter()
-  const goHome = useCallback(() => pushShallowRouter(PATH.HOME), [pushShallowRouter])
+  const router = useRouter()
+  const goHome = useCallback(() => router.push(PATH.HOME), [router])
   const goBack = useCallback(() => {
     if (storage.getItem(PATH_STORAGE_KEYS.PREV_PATH) === '' || !storage.getItem(PATH_STORAGE_KEYS.PREV_PATH)) {
       router.push(PATH.HOME)
@@ -54,7 +53,7 @@ function HeaderMain({
     }
   }, [router, storage])
 
-  const providerValue = useMemo(() => ({ pushShallowRouter }), [pushShallowRouter])
+  const providerValue = useMemo(() => ({ router }), [router])
 
   return (
     <HeaderContext.Provider value={providerValue}>
@@ -110,9 +109,9 @@ function TempSave({ onClick, isDisabled }: HeaderBtnProps) {
 }
 
 function Alarm() {
-  const { pushShallowRouter } = useContext(HeaderContext)
+  const { router } = useContext(HeaderContext)
 
-  const handleRouteToAlarmPage = () => pushShallowRouter(PATH.ALARM, { category: 'all' })
+  const handleRouteToAlarmPage = () => router.push({ pathname: PATH.ALARM, query: { category: 'all' } })
 
   return (
     <S.IconBtn type="button" onClick={handleRouteToAlarmPage}>

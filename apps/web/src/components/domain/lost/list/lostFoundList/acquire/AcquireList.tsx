@@ -1,5 +1,5 @@
 import LostFoundList from '../list/LostFoundList'
-import { useFetchLostPosts } from '@/queries/lost'
+import { useFetchLostPosts } from '@/services'
 
 interface AcquireListProps {
   isExcludeFindComplete: boolean

@@ -8,7 +8,7 @@ import CommunityCategoryFilter from '../domain/community/generate/controller/Com
 import CommunitySubwayLineFilter from '../domain/community/generate/controller/CommunitySubwayLineFilter'
 import { useCommunityPostGenerate } from '../domain/community/generate/hooks/useCommunityPostGenerate'
 import { PictureUploader } from '@/components/common/pictureUploader'
-import { usePictureUploader } from '@/hooks/usePictureUploader'
+import { usePictureUploader } from '@/hooks/global/usePictureUploader'
 
 function CommunityPostGenerateScreen() {
   const { pictures, provided } = usePictureUploader()

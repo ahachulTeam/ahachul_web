@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import { DM } from '../domain/alarm/directMessage/DM'
 import { Notifications } from '../domain/alarm/notifications/Notifications'
 import { ALARM_TABS } from '@/assets/static/tab'
-import useTab from '@/hooks/useTab'
+import { useTab } from '@/hooks/global'
 
 const AlarmScreen = () => {
   const { query, selectedTab, handleChangeTab } = useTab(ALARM_TABS)

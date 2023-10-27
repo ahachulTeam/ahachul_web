@@ -2,13 +2,13 @@ import { QueryClient } from '@tanstack/react-query'
 import { GetServerSideProps } from 'next'
 import { type ReactElement } from 'react'
 
-import lostAPI from '@/apis/lost'
+import * as lostAPI from '@/apis/lost'
 import { LostDetailHeader } from '@/components/domain'
 import { Layout } from '@/components/public/layout'
 import LostDetailScreen from '@/components/screens/ScreenLostDetail'
 import { PATH } from '@/constants'
 import { SEO } from '@/libs'
-import { lostKeys } from '@/queries/lost/keys'
+import { lostKeys } from '@/services'
 import * as T from '@/utils/try'
 
 interface LostDetailPageProps {

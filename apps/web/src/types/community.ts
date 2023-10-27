@@ -1,6 +1,5 @@
 import { SubwayLine } from '@ahhachul/lib'
-import { YesNo } from './common'
-import { Picture } from './picture'
+import { Picture, YesNo } from './global'
 
 export type CommunityCategoryType = 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR'
 export type CommunitySortType = 'likes' | 'createdAt' | 'views'
@@ -72,14 +71,19 @@ export interface CreateArticleQueryModel {
   subwayLineId?: number
 }
 
-export interface CreateCommentQueryModel extends CommunityDetailQueryModel {
-  upperCommentId?: number
+export interface CreateCommentQueryModel {
+  id: number
+  upperCommentId: number
   content: string
 }
 
 export interface PutCommentQueryModel {
   commentId: number
   content: string
+}
+
+export interface DeleteCommentQueryModel {
+  id: number
 }
 
 export interface CommentsServerModel {

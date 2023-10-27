@@ -1,6 +1,5 @@
 import Link from 'next/link'
-
-import useMyProfileQuery from '@/queries/user/useMyProfileQuery'
+import { useMyProfileQuery } from '@/services'
 
 function MyPageMainScreen() {
   const { data: myProfile, refetch } = useMyProfileQuery({ enabled: false })

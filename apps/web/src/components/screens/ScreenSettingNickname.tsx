@@ -5,9 +5,8 @@ import styled from '@emotion/styled'
 import { useEffect, useState } from 'react'
 
 import { Stagger } from '@/components/common'
-import { useToast } from '@/hooks'
-import useMyProfileMutation from '@/queries/user/useMyProfileMutation'
-import { useVerifyNickname } from '@/queries/user/useVerifyNickname'
+import { useToast } from '@/hooks/global'
+import { useMyProfileMutation, useVerifyNickname } from '@/services'
 
 const SettingNicknameScreen = () => {
   const [checkCnt, setCheckCnt] = useState(0)

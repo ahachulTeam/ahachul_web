@@ -1,12 +1,13 @@
 import { Tag } from '@ahhachul/ui'
+import { useRouter } from 'next/router'
 import * as S from './styled'
 import { HASH_TAG_DUMMY_LIST } from '@/assets/dummy/community'
-import { usePushShallowRouter } from '@/hooks'
 
 function HashtagList() {
-  const { router, pushShallowRouter } = usePushShallowRouter()
+  const router = useRouter()
 
-  const handleClickHashtag = (hashtag: string) => () => pushShallowRouter(router.pathname, { hashTag: hashtag })
+  const handleClickHashtag = (hashtag: string) => () =>
+    router.push({ pathname: router.pathname, query: { hashTag: hashtag } })
 
   return (
     <S.HashtagList>

@@ -1,5 +1,5 @@
 import { ResponseCode } from '@/constants'
-import { StandardResponse, ResponseStatus } from '@/types/common'
+import { StandardResponse, ResponseStatus } from '@/types/global'
 
 type Success<R> = {
   readonly tag: 'success'

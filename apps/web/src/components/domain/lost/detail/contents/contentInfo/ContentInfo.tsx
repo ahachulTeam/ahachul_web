@@ -1,6 +1,6 @@
 import ContentDetail from './contentDetail/ContentDetail'
 import * as S from './ContentInfo.styled'
-import { useOwnArticle } from '@/hooks'
+import { useOwnArticle } from '@/hooks/domains/user/useOwnArticle'
 import { LostDetail } from '@/types/lost'
 
 interface ContentInfoProps {

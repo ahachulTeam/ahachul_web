@@ -8,10 +8,9 @@ import * as S from './styled'
 import { MessageCircleIcon, MiniHamburgerIcon, ThumbsUpIcon } from '@/assets/icons'
 import { Dialog } from '@/components/common/dialog'
 import TextDrawer from '@/components/common/drawer/text/TextDrawer'
-import { useToast } from '@/hooks'
-import useInput from '@/hooks/useInput'
-import { useCommentsManagement } from '@/queries/community/useCommunityComments'
-import { useCommunityCommentsQuery } from '@/queries/community/useCommunityComments'
+import { useInput } from '@/hooks/global/useInput'
+import { useToast } from '@/hooks/global/useToast'
+import { useCommentsManagement, useCommunityCommentsQuery } from '@/services'
 import { UserModel } from '@/types/user'
 
 interface CommentsProps {
@@ -62,9 +61,9 @@ const CommunityDetailComments = ({ user, isAuth, onLoginBottomSheetOpen }: Comme
         })
       : createComment(
           removeEmptyProperties({
-            postId: Number(query?.id),
+            id: Number(query?.id as string),
             content: textValue,
-            upperCommentId: isEditMode.commentId ?? undefined,
+            upperCommentId: isEditMode.commentId as number,
           })
         )
 

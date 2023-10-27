@@ -4,7 +4,7 @@ import { type ComponentProps, type MouseEventHandler } from 'react'
 import { MotionPortal } from '../../portal'
 import * as S from './BottomSheetWithMotion.styled'
 import { defaultFadeInVariants } from '@/constants/motions'
-import { useScrollLock } from '@/hooks'
+import { useScrollLock } from '@/hooks/scrolls/useScrollLock'
 
 interface Props extends ComponentProps<typeof MotionPortal> {
   onClickOutside?: VoidFunction

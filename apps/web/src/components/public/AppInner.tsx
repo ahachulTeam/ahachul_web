@@ -1,7 +1,6 @@
 import React, { PropsWithChildren } from 'react'
 import { useAuth } from '@/context'
-import { useGetHottestHashtagsQuery } from '@/queries/global/hot-hashtags'
-import useMyProfileQuery from '@/queries/user/useMyProfileQuery'
+import { useGetHottestHashtagsQuery, useMyProfileQuery } from '@/services'
 
 function AppInner({ children }: PropsWithChildren) {
   const { isLoggedIn } = useAuth()

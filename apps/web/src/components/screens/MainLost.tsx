@@ -7,7 +7,7 @@ import { FloatingButton } from '../common'
 import LostController from '../domain/lost/list/controller/LostController'
 import { AcquireList, LostFoundListSkeleton, LostList } from '../domain/lost/list/lostFoundList'
 import { PATH } from '@/constants'
-import useTab from '@/hooks/useTab'
+import { useTab } from '@/hooks/global'
 import { LostType } from '@/types/lost'
 
 const LOST_TABS: Record<LostType, string> = { ACQUIRE: '습득물 조회', LOST: '분실물 찾기' }

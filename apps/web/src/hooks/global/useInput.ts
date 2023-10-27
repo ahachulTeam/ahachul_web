@@ -13,7 +13,7 @@ type Return = readonly [
  * @param initialValue - 기본 string 값
  * @returns [string state, on change handler, state reset func]
  */
-const useInput = (initialValue = ''): Return => {
+export const useInput = (initialValue = ''): Return => {
   const [state, setState] = useState(initialValue)
 
   const onChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = useCallback(({ target }) => {
@@ -27,5 +27,3 @@ const useInput = (initialValue = ''): Return => {
 
   return [state, onChange, resetValue, setState]
 }
-
-export default useInput

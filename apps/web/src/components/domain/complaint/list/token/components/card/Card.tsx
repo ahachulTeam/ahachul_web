@@ -2,7 +2,7 @@ import { colors } from '@ahhachul/design-system'
 import { css } from '@emotion/react'
 import { PropsWithChildren } from 'react'
 import * as S from './styled'
-import { ComplaintCardVariant } from '@/types/variants'
+import { ComplaintCardVariant } from '@/types/complaint'
 
 interface ComplaintCardProps {
   className?: string

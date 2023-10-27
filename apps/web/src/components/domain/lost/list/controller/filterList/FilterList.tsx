@@ -2,7 +2,7 @@ import * as S from './styled'
 import { LOST_FOUND_FILTERS } from '@/assets/static/loastFound'
 import { Filter } from '@/components/common'
 
-import { useFilterList } from '@/hooks'
+import { useFilterList } from '@/hooks/filters'
 
 export default function FilterList() {
   const { filter, handleApplyFilter } = useFilterList('subwayLineId', 'origin')

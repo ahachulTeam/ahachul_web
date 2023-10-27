@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import { LostDetailContents } from '../domain/lost/detail/contents'
 import { OtherLostFounds } from '../domain/lost/detail/otherLostFounds'
 import { StickyArea } from '../domain/lost/detail/stickyArea'
-import { useOwnArticle } from '@/hooks'
+import { useOwnArticle } from '@/hooks/domains'
 
 interface LostDetailContainerProps {
   createdBy: string

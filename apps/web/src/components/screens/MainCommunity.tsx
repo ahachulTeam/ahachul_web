@@ -8,7 +8,7 @@ import CommunityController from '../domain/community/list/controller/CommunityCo
 import { COMMUNITY_TABS } from '@/assets/static/tab'
 import { FloatingButton } from '@/components'
 import { StaticSEO } from '@/constants/seo'
-import useTab from '@/hooks/useTab'
+import { useTab } from '@/hooks/global'
 
 const CommunityMainScreen = () => {
   const { router, selectedTab, handleChangeTab } = useTab(COMMUNITY_TABS)

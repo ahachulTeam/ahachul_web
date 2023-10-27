@@ -1,3 +1,7 @@
 export * from './axios'
 export * from './auth'
-export { default as communityAPI } from './community'
+export * from './community'
+export * from './complaint'
+export * from './lost'
+export * from './train'
+export * from './users'

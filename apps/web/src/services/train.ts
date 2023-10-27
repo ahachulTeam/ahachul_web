@@ -1,9 +1,12 @@
 import { UseQueryOptions, useQuery } from '@tanstack/react-query'
-
-import { trainKeys } from './keys'
-import trainAPI from '@/apis/train'
-
+import * as trainAPI from '@/apis/train'
 import * as T from '@/utils/try'
+
+export const trainKeys = {
+  all: ['train'] as const,
+  metaDataList: () => [...trainKeys.all, 'metaData'] as const,
+  metaData: (trainNumber: string) => [...trainKeys.metaDataList(), trainNumber] as const,
+}
 
 export const useGetTrainMetaData = (
   trainNumber: string,
@@ -17,7 +20,6 @@ export const useGetTrainMetaData = (
     queryFn: async () => {
       const res = await trainAPI.fetchGetTrains(trainNumber)
       const parsedData = T.parseResponse(res)
-      console.log(parsedData)
       return T.getOrElse(parsedData, () => null)
     },
     enabled: options?.enabled || false,

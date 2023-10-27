@@ -27,8 +27,7 @@ import {
   Violence,
 } from '@/components/domain/complaint'
 
-import { usePostComplaintMessage } from '@/queries/complaint/usePostComplaintMessage'
-import { useGetTrainMetaData } from '@/queries/train/useGetTrainMetaData'
+import { usePostComplaintMessage, useGetTrainMetaData } from '@/services'
 import { TrainMetaData } from '@/types/train'
 
 const ComplaintContentsKeys = {

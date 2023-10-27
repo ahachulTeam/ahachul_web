@@ -1,18 +1,17 @@
 import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
-
-import { login } from '@/apis/auth'
+import * as authApi from '@/apis/auth'
 import { PATH } from '@/constants'
 import { useAuth } from '@/context'
-import { APILoginUserProviders } from '@/types/auth'
+import * as type from '@/types/auth'
 
-const useLoginMutation = () => {
+export const useLoginMutation = () => {
   const router = useRouter()
 
   const { auth } = useAuth()
 
   return useMutation({
-    mutationFn: (providers: APILoginUserProviders) => login(providers),
+    mutationFn: (providers: type.APILoginUserProviders) => authApi.login(providers),
     onSuccess: ({ result }) => {
       auth.signIn(result)
 
@@ -24,5 +23,3 @@ const useLoginMutation = () => {
     },
   })
 }
-
-export default useLoginMutation

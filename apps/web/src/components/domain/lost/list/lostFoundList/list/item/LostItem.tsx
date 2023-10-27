@@ -6,12 +6,12 @@ import Link from 'next/link'
 import * as S from './styled'
 import { CommentIcon } from '@/assets/icons'
 
-import type { View } from '@/atoms/view'
+import type { ViewStatusType } from '@/atoms/view'
 import { PATH } from '@/constants/path'
 import { LostPost, LostStatus } from '@/types/lost'
 
 interface LostItemProps {
-  view?: View
+  view?: ViewStatusType
   post: LostPost
 }
 
