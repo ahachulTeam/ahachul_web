@@ -2,8 +2,8 @@ import { useBoolean } from '@ahhachul/lib'
 import { Checkbox, Toggle } from '@ahhachul/ui'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
+import dynamic from 'next/dynamic'
 import { Suspense, useCallback, useMemo } from 'react'
-import { FloatingButton } from '../common'
 import LostController from '../domain/lost/list/controller/LostController'
 import { AcquireList, LostFoundListSkeleton, LostList } from '../domain/lost/list/lostFoundList'
 import PageTemplate from '../public/PageTemplate'
@@ -12,6 +12,9 @@ import { useTab } from '@/hooks/global'
 import { SEOProps } from '@/libs/SEO'
 import { LostType } from '@/types/lost'
 
+const FloatingButton = dynamic(() => import('@/components/public/floats/FloatingBtn'), {
+  ssr: false,
+})
 interface LostMainScreenProps {
   metaData?: Partial<SEOProps>
 }

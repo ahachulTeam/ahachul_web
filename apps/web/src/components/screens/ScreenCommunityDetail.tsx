@@ -1,13 +1,15 @@
 import { useDisclosure } from '@ahhachul/lib'
 import { css, keyframes } from '@emotion/react'
 import styled from '@emotion/styled'
+import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
 import CommunityDetailComments from '../domain/community/detail/comments/CommunityDetailComments'
 import CommunityDetailContents from '../domain/community/detail/contents/CommunityDetailContents'
 import PageTemplate from '../public/PageTemplate'
-import BottomSheetForLogin from '@/components/public/cta/BottomSheetForLogin'
 import { useAuth } from '@/context'
 import { SEOProps } from '@/libs/SEO'
+
+const BottomSheetForLogin = dynamic(() => import('@/components/public/cta/BottomSheetForLogin'), { ssr: false })
 
 interface CommunityDetailScreenProps {
   metaData?: Partial<SEOProps>

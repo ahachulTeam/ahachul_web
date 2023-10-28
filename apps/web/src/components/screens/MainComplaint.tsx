@@ -1,9 +1,18 @@
 import { useDisclosure } from '@ahhachul/lib'
 import styled from '@emotion/styled'
+import dynamic from 'next/dynamic'
 import { Emergency, Environment } from '../domain/complaint'
 import PageTemplate from '../public/PageTemplate'
-import { FloatingButton } from '@/components'
-import { CallCenterDrawer } from '@/components/domain/complaint'
+
+const FloatingButton = dynamic(() => import('@/components/public/floats/FloatingBtn'), {
+  ssr: false,
+})
+const CallCenterDrawer = dynamic(
+  () => import('@/components/domain/complaint/drawer/callCenterDrawer/CallCenterDrawer'),
+  {
+    ssr: false,
+  }
+)
 
 const ComplaintMainScreen = () => {
   const { dialogRef, isOpen, onOpen, onClose } = useDisclosure()

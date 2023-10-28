@@ -1,12 +1,14 @@
 import { useDisclosure } from '@ahhachul/lib'
 import { Theme, css } from '@emotion/react'
 import styled from '@emotion/styled'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import { LoginDrawer } from '../domain'
 import { OnboardingCarousel } from '../domain/onboarding/carousel'
 import PageTemplate from '../public/PageTemplate'
 import { StaticSEO } from '@/constants/seo'
 import { useAuth } from '@/context'
+
+const LoginDrawer = dynamic(() => import('@/components/domain/onboarding/loginDrawer/LoginDrawer'), { ssr: false })
 
 function OnboardingMainScreen() {
   const router = useRouter()

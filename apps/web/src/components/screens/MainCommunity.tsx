@@ -1,15 +1,19 @@
 import { Tab } from '@ahhachul/ui'
 import { Theme, css } from '@emotion/react'
 import styled from '@emotion/styled'
+import dynamic from 'next/dynamic'
 import { Suspense, useCallback } from 'react'
 import CommunityArticleList from '../domain/community/list/articleList/CommunityArticleList'
 import CommunityItemSkeleton from '../domain/community/list/articleList/item/CommunityItem.skeleton'
 import CommunityController from '../domain/community/list/controller/CommunityController'
 import PageTemplate from '../public/PageTemplate'
 import { COMMUNITY_TABS } from '@/assets/static/tab'
-import { FloatingButton } from '@/components'
 import { useTab } from '@/hooks/global'
 import { SEOProps } from '@/libs/SEO'
+
+const FloatingButton = dynamic(() => import('@/components/public/floats/FloatingBtn'), {
+  ssr: false,
+})
 
 interface CommunityMainScreenProps {
   metaData?: Partial<SEOProps>
