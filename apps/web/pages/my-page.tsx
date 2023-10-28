@@ -1,6 +1,6 @@
 import { type ReactElement } from 'react'
 
-import { Layout } from '@/components/public/layout'
+import Layout from '@/components/public/Layout'
 import MyPageMainScreen from '@/components/screens/MainMyPage'
 
 export default function MyPage() {

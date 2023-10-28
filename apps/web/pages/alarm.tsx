@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 
 import { AlarmHeader } from '@/components/domain/alarm'
-import { Layout } from '@/components/public/layout'
+import Layout from '@/components/public/Layout'
 import AlarmScreen from '@/components/screens/ScreenAlarm'
 
 export default function Alarm() {

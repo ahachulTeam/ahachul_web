@@ -1,7 +1,32 @@
+import { isMatchRoute } from '@ahhachul/lib'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
+import Link from 'next/link'
 
-export const NavItem = styled.li`
+import { useRouter } from 'next/router'
+
+interface NavItemProps {
+  label: string
+  path: string
+  icon: React.ReactElement
+}
+
+const NavItem = ({ label, path, icon }: NavItemProps) => {
+  const { pathname } = useRouter()
+
+  const isCurrentPage = isMatchRoute(path, pathname)
+
+  return (
+    <BottomNavItem>
+      <Link href={path} aria-current={isCurrentPage ? 'page' : 'false'}>
+        {icon}
+        <span>{label}</span>
+      </Link>
+    </BottomNavItem>
+  )
+}
+
+const BottomNavItem = styled.li`
   ${({ theme }) => css`
     width: 78px;
     height: 100%;
@@ -38,3 +63,5 @@ export const NavItem = styled.li`
     }
   `}
 `
+
+export default NavItem

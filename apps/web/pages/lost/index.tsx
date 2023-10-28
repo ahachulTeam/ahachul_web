@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { LostHeader } from '@/components/domain'
-import { Layout } from '@/components/public/layout'
+import Layout from '@/components/public/Layout'
 import LostMainScreen from '@/components/screens/MainLost'
 
 export default function LostPage() {

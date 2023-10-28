@@ -13,8 +13,8 @@ const ComplaintMainScreen = () => {
         <Environment />
         <Emergency />
       </Container>
-      <CallCenterDrawer ref={dialogRef} isOpen={isOpen} onClose={onClose} />
       <FloatingButton label="콜센터 신고" onClick={onOpen} />
+      <CallCenterDrawer ref={dialogRef} isOpen={isOpen} onClose={onClose} />
     </>
   )
 }

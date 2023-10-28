@@ -21,7 +21,7 @@ function LostMainScreen() {
   const pushToArticleGeneratePage = useCallback(
     (tab?: string) => () => {
       const routesUrl = tab ? `${PATH.LOST}/generate?tab=${tab}` : `${PATH.LOST}/generate`
-      router.push(routesUrl, undefined, { shallow: true })
+      router.push(routesUrl)
     },
     [router]
   )

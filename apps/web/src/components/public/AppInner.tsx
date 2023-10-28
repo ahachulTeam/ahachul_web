@@ -2,7 +2,7 @@ import { handleSessionStorage, useDisclosure } from '@ahhachul/lib'
 import React, { PropsWithChildren } from 'react'
 import { useEffect, useState } from 'react'
 
-import BottomSheetForLogin from '@/components/public/cta/forLogin/ForLogin'
+import BottomSheetForLogin from '@/components/public/cta/BottomSheetForLogin'
 import { APP_CONVERSION_CTA_STORAGE_KEY } from '@/constants'
 import { useAuth } from '@/context'
 import { useGetHottestHashtagsQuery, useMyProfileQuery } from '@/services'

@@ -1,6 +1,6 @@
 import { type ReactElement } from 'react'
 import SettingNicknameHeader from '@/components/domain/setting/nickname/header/NicknameHeader'
-import { Layout } from '@/components/public/layout'
+import Layout from '@/components/public/Layout'
 import SettingNicknameScreen from '@/components/screens/ScreenSettingNickname'
 
 export default function NicknamePage() {

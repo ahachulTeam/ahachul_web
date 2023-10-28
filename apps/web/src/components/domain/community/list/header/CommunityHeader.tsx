@@ -3,7 +3,7 @@ import { css } from '@emotion/react'
 import { Autoplay, EffectFade, Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { SearchDrawer } from '@/components/common'
-import { Header } from '@/components/public/layout'
+import { Header } from '@/components/public/header'
 
 import 'swiper/css'
 import 'swiper/css/effect-fade'

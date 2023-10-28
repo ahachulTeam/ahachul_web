@@ -7,7 +7,6 @@ import CommunityItemSkeleton from '../domain/community/list/articleList/item/Com
 import CommunityController from '../domain/community/list/controller/CommunityController'
 import { COMMUNITY_TABS } from '@/assets/static/tab'
 import { FloatingButton } from '@/components'
-import { StaticSEO } from '@/constants/seo'
 import { useTab } from '@/hooks/global'
 
 const CommunityMainScreen = () => {
@@ -23,7 +22,6 @@ const CommunityMainScreen = () => {
           tabList={COMMUNITY_TABS}
           handleChangeTab={handleChangeTab}
         />
-        <h2 css={visuallyHidden}>{StaticSEO.community.title}</h2>
         <TopFilterSection>
           <CommunityController />
         </TopFilterSection>
@@ -52,10 +50,6 @@ const dividerCss = (theme: Theme) => css`
   min-width: 100%;
   height: 8px;
   background-color: ${theme.colors.gray_10};
-`
-
-const visuallyHidden = (theme: Theme) => css`
-  ${theme.a11y.visuallyHidden}
 `
 
 const customBorderBottomCss = css`

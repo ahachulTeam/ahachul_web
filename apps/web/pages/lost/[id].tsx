@@ -4,7 +4,7 @@ import { type ReactElement } from 'react'
 
 import * as lostAPI from '@/apis/lost'
 import { LostDetailHeader } from '@/components/domain'
-import { Layout } from '@/components/public/layout'
+import Layout from '@/components/public/Layout'
 import LostDetailScreen from '@/components/screens/ScreenLostDetail'
 import { PATH } from '@/constants'
 import { SEO } from '@/libs'

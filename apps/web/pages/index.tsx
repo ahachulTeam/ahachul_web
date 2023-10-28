@@ -1,7 +1,7 @@
 import { type ReactElement } from 'react'
 
 import { HomeHeader } from '@/components/domain/home/header'
-import { Layout } from '@/components/public/layout'
+import Layout from '@/components/public/Layout'
 import HomeMainScreen from '@/components/screens/MainHome'
 
 export default function HomePage() {

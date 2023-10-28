@@ -1,7 +1,23 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
+import { PropsWithChildren } from 'react'
+import Navbar from './gnb/Navbar'
 
-export const Main = styled.main`
+interface LayoutProps {
+  Header?: React.ReactElement
+}
+
+const Layout = ({ children, Header }: PropsWithChildren<LayoutProps>) => {
+  return (
+    <>
+      {Header}
+      <Main>{children}</Main>
+      <Navbar />
+    </>
+  )
+}
+
+const Main = styled.main`
   ${({ theme }) => css`
     position: relative;
     margin: 0 auto;
@@ -15,3 +31,5 @@ export const Main = styled.main`
     background-color: ${theme.colors.white};
   `}
 `
+
+export default Layout

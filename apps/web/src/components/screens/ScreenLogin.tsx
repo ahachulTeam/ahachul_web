@@ -20,8 +20,7 @@ function RedirectForLoginScreen() {
         providerType,
       } as APILoginUserProviders)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query])
+  }, [providerCode, providerType, mutateLogin])
 
   return <Redirect />
 }

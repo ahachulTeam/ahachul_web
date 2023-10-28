@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import { Suspense } from 'react'
 import CommunityDetailComments from '../domain/community/detail/comments/CommunityDetailComments'
 import CommunityDetailContents from '../domain/community/detail/contents/CommunityDetailContents'
-import BottomSheetForLogin from '@/components/public/cta/forLogin/ForLogin'
+import BottomSheetForLogin from '@/components/public/cta/BottomSheetForLogin'
 import { useAuth } from '@/context'
 
 const CommunityDetailScreen = () => {

@@ -10,7 +10,7 @@ import { type PropsWithChildren } from 'react'
 import Progress from './NProgress'
 import ReactQuery from './ReactQuery'
 import Recoil from './Recoil'
-import { MonitoringInitializer } from '@/components/public/monitoring'
+import { MonitoringInitializer } from '@/components/public'
 import { AuthProvider } from '@/context'
 
 const Toast = dynamic<{}>(() => import('@/components').then(module => module.Toast))

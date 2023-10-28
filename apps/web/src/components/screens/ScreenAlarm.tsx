@@ -1,8 +1,7 @@
 import { Tab } from '@ahhachul/ui'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { DM } from '../domain/alarm/directMessage/DM'
-import { Notifications } from '../domain/alarm/notifications/Notifications'
+import { DirectMessages, Notifications } from '../domain/alarm'
 import { ALARM_TABS } from '@/assets/static/tab'
 import { useTab } from '@/hooks/global'
 
@@ -15,8 +14,8 @@ const AlarmScreen = () => {
         <Tab selectedTab={selectedTab} tabList={ALARM_TABS} handleChangeTab={handleChangeTab} />
       </Fixed>
       <Container>
-        {(query?.tab === 'notice' || !query?.tab) && <Notifications />}
-        {query?.tab === 'dm' && <DM />}
+        {(!query?.tab || query?.tab === 'notice') && <Notifications />}
+        {query?.tab === 'dm' && <DirectMessages />}
       </Container>
     </Section>
   )

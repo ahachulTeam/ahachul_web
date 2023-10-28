@@ -1,4 +1,4 @@
-import { Header } from '@/components/public/layout'
+import { Header } from '@/components/public/header'
 import { StaticSEO } from '@/constants'
 
 export const HomeHeader = () => {
