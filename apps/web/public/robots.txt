@@ -1,0 +1,9 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+Disallow: /alarm
+Disallow: /my-page
+Disallow: /setting/nickname
+Disallow: /onboarding/redirect
+
+Sitemap: https://ahhachul.com/sitemap.xml

@@ -4,6 +4,7 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { useEffect, useState } from 'react'
 
+import PageTemplate from '../public/PageTemplate'
 import { Stagger } from '@/components/common'
 import { useToast } from '@/hooks/global'
 import { useMyProfileMutation, useVerifyNickname } from '@/services'
@@ -36,56 +37,60 @@ const SettingNicknameScreen = () => {
   }, [isNicknameSuccess?.result?.available, isLoading])
 
   return (
-    <FullHeight css={containerCss}>
-      <Stagger>
-        <Title>닉네임을 설정해 주세요</Title>
-        <form onSubmit={handleSubmitNickname} css={formCss}>
-          <Input
-            type="text"
-            value={nickname}
-            aria-invalid={nicknameStatus}
-            aria-errormessage="nickname-duplicated-error-id"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNickname(e.target.value)}
-          />
-          <FlexGroup>
-            <Button
-              css={btnCss}
-              type="submit"
-              size="md"
-              label="중복체크"
-              variant="primary"
-              disabled={Boolean(nickname === '')}
-              onClick={handleVerifyNickname}
-            />
-            {nicknameStatus && (
-              <Button
-                css={btnCss}
-                type="button"
-                size="md"
-                variant="secondary"
-                label="닉네임 제출하기"
-                onClick={handleSubmitNickname}
+    <PageTemplate isPrivatePage>
+      <PageTemplate.ContentsSection>
+        <FullHeight css={containerCss}>
+          <Stagger>
+            <Title>닉네임을 설정해 주세요</Title>
+            <form onSubmit={handleSubmitNickname} css={formCss}>
+              <Input
+                type="text"
+                value={nickname}
+                aria-invalid={nicknameStatus}
+                aria-errormessage="nickname-duplicated-error-id"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNickname(e.target.value)}
               />
+              <FlexGroup>
+                <Button
+                  css={btnCss}
+                  type="submit"
+                  size="md"
+                  label="중복체크"
+                  variant="primary"
+                  disabled={Boolean(nickname === '')}
+                  onClick={handleVerifyNickname}
+                />
+                {nicknameStatus && (
+                  <Button
+                    css={btnCss}
+                    type="button"
+                    size="md"
+                    variant="secondary"
+                    label="닉네임 제출하기"
+                    onClick={handleSubmitNickname}
+                  />
+                )}
+              </FlexGroup>
+            </form>
+          </Stagger>
+
+          <FlexGroup>
+            {checkCnt > 0 && nicknameStatus === false && nicknameStatus !== null && (
+              <Stagger>
+                <p style={{ color: 'red' }} id="nickname-duplicated-error-id" role="alert">
+                  사용불가한 닉네임 입니다.
+                </p>
+              </Stagger>
+            )}
+            {checkCnt > 0 && nicknameStatus && (
+              <Stagger>
+                <p style={{ color: '#00BAF6' }}>사용가능한 닉네임 입니다.</p>
+              </Stagger>
             )}
           </FlexGroup>
-        </form>
-      </Stagger>
-
-      <FlexGroup>
-        {checkCnt > 0 && nicknameStatus === false && nicknameStatus !== null && (
-          <Stagger>
-            <p style={{ color: 'red' }} id="nickname-duplicated-error-id" role="alert">
-              사용불가한 닉네임 입니다.
-            </p>
-          </Stagger>
-        )}
-        {checkCnt > 0 && nicknameStatus && (
-          <Stagger>
-            <p style={{ color: '#00BAF6' }}>사용가능한 닉네임 입니다.</p>
-          </Stagger>
-        )}
-      </FlexGroup>
-    </FullHeight>
+        </FullHeight>
+      </PageTemplate.ContentsSection>
+    </PageTemplate>
   )
 }
 

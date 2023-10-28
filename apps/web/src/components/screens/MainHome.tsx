@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import Link from 'next/link'
 import CommunitySummary from '../domain/home/community/CommunitySummary'
 import SubwayInformation from '../domain/home/subway/SubwayInformation'
+import PageTemplate from '../public/PageTemplate'
 import { ArrowIcon } from '@/assets/icons'
 import { PATH } from '@/constants'
 // import { useAuth } from '@/context'
@@ -11,28 +12,32 @@ function HomeMainScreen() {
   //   const { isLoggedIn } = useAuth()
 
   return (
-    <Container>
-      {/* {isLoggedIn() ? ( */}
-      <SubwayInformation />
-      {/* ) : (
+    <PageTemplate>
+      <PageTemplate.ContentsSection>
+        <Container>
+          {/* {isLoggedIn() ? ( */}
+          <SubwayInformation />
+          {/* ) : (
         <SubwayInfoSection>
           <A11yHeading as="h3">지하철 열차정보와 혼잡도가 궁금하다면?</A11yHeading>
           <SubwayOverview />
         </SubwayInfoSection>
       )} */}
-      <Divider />
-      <CommunitySection>
-        <div>
-          <h3 css={h3}>
-            <b>실시간</b> HOT 게시물
-          </h3>
-          <Link href={PATH.COMMUNITY} aria-label="커뮤니티 페이지 링크 버튼">
-            <ArrowIcon />
-          </Link>
-        </div>
-        <CommunitySummary />
-      </CommunitySection>
-    </Container>
+          <Divider />
+          <CommunitySection>
+            <div>
+              <h3 css={h3}>
+                <b>실시간</b> HOT 게시물
+              </h3>
+              <Link href={PATH.COMMUNITY} aria-label="커뮤니티 페이지 링크 버튼">
+                <ArrowIcon />
+              </Link>
+            </div>
+            <CommunitySummary />
+          </CommunitySection>
+        </Container>
+      </PageTemplate.ContentsSection>
+    </PageTemplate>
   )
 }
 

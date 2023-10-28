@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
+import PageTemplate from '../public/PageTemplate'
 import { useLoginMutation } from '@/services'
 import { APILoginUserProviders } from '@/types/auth'
 
@@ -22,7 +23,13 @@ function RedirectForLoginScreen() {
     }
   }, [providerCode, providerType, mutateLogin])
 
-  return <Redirect />
+  return (
+    <PageTemplate isPrivatePage>
+      <PageTemplate.ContentsSection>
+        <Redirect />
+      </PageTemplate.ContentsSection>
+    </PageTemplate>
+  )
 }
 
 const Redirect = styled.div`

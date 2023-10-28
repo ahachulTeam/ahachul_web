@@ -2,6 +2,7 @@ import { Tab } from '@ahhachul/ui'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { DirectMessages, Notifications } from '../domain/alarm'
+import PageTemplate from '../public/PageTemplate'
 import { ALARM_TABS } from '@/assets/static/tab'
 import { useTab } from '@/hooks/global'
 
@@ -9,19 +10,23 @@ const AlarmScreen = () => {
   const { query, selectedTab, handleChangeTab } = useTab(ALARM_TABS)
 
   return (
-    <Section>
-      <Fixed>
-        <Tab selectedTab={selectedTab} tabList={ALARM_TABS} handleChangeTab={handleChangeTab} />
-      </Fixed>
-      <Container>
-        {(!query?.tab || query?.tab === 'notice') && <Notifications />}
-        {query?.tab === 'dm' && <DirectMessages />}
-      </Container>
-    </Section>
+    <PageTemplate isPrivatePage>
+      <PageTemplate.ContentsSection>
+        <Section>
+          <Fixed>
+            <Tab selectedTab={selectedTab} tabList={ALARM_TABS} handleChangeTab={handleChangeTab} />
+          </Fixed>
+          <Container>
+            {(!query?.tab || query?.tab === 'notice') && <Notifications />}
+            {query?.tab === 'dm' && <DirectMessages />}
+          </Container>
+        </Section>
+      </PageTemplate.ContentsSection>
+    </PageTemplate>
   )
 }
 
-const Section = styled.section`
+const Section = styled.article`
   width: 100%;
 `
 

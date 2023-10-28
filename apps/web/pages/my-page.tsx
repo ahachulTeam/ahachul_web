@@ -1,7 +1,11 @@
+import { GetServerSideProps } from 'next'
+import { parseCookies } from 'nookies'
 import { type ReactElement } from 'react'
 
 import Layout from '@/components/public/Layout'
 import MyPageMainScreen from '@/components/screens/MainMyPage'
+import { PATH } from '@/constants'
+import { AccessToken } from '@/constants/token'
 
 export default function MyPage() {
   return <MyPageMainScreen />
@@ -9,4 +13,21 @@ export default function MyPage() {
 
 MyPage.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>
+}
+
+export const getServerSideProps: GetServerSideProps = async context => {
+  const cookies = parseCookies(context as (typeof parseCookies)['arguments'])
+
+  if (!cookies[AccessToken]) {
+    return {
+      redirect: {
+        destination: PATH.LOGIN,
+        permanent: true,
+      },
+    }
+  }
+
+  return {
+    props: {},
+  }
 }

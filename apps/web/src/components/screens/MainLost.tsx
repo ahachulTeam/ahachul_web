@@ -6,13 +6,19 @@ import { Suspense, useCallback, useMemo } from 'react'
 import { FloatingButton } from '../common'
 import LostController from '../domain/lost/list/controller/LostController'
 import { AcquireList, LostFoundListSkeleton, LostList } from '../domain/lost/list/lostFoundList'
+import PageTemplate from '../public/PageTemplate'
 import { PATH } from '@/constants'
 import { useTab } from '@/hooks/global'
+import { SEOProps } from '@/libs/SEO'
 import { LostType } from '@/types/lost'
+
+interface LostMainScreenProps {
+  metaData?: Partial<SEOProps>
+}
 
 const LOST_TABS: Record<LostType, string> = { ACQUIRE: '습득물 조회', LOST: '분실물 찾기' }
 
-function LostMainScreen() {
+function LostMainScreen({ metaData }: LostMainScreenProps) {
   const { router, query, selectedTab, handleChangeTab } = useTab(LOST_TABS, 'lostType')
   const [isExcludeFindComplete, handleToggleFindComplete] = useBoolean()
 
@@ -27,33 +33,38 @@ function LostMainScreen() {
   )
 
   return (
-    <>
-      <Section>
-        <Head>
-          <Toggle css={tabs} defaultValue={selectedTab as string} tabAriaLabel="유실물 탭 버튼">
-            <Toggle.WithActionFn tabs={LOST_TABS} actionFn={handleChangeTab} />
-          </Toggle>
-          <LostController css={controller} />
-          <Checkbox
-            label="찾기 완료 제외하기"
-            variant="ghost"
-            checked={isExcludeFindComplete}
-            onChange={handleToggleFindComplete}
-          />
-        </Head>
-        {selectedTab === 'ACQUIRE' && (
-          <Suspense fallback={<LostFoundListSkeleton />}>
-            <AcquireList isExcludeFindComplete={isExcludeFindComplete} />
-          </Suspense>
-        )}
-        {selectedTab === 'LOST' && (
-          <Suspense fallback={<LostFoundListSkeleton />}>
-            <LostList isExcludeFindComplete={isExcludeFindComplete} />
-          </Suspense>
-        )}
-      </Section>
-      <FloatingButton label={buttonLabel} onClick={pushToArticleGeneratePage(query?.tab as string)} />
-    </>
+    <PageTemplate metaData={metaData}>
+      <PageTemplate.ContentsSection>
+        <Section>
+          <Head>
+            <Toggle css={tabs} defaultValue={selectedTab as string} tabAriaLabel="유실물 탭 버튼">
+              <Toggle.WithActionFn tabs={LOST_TABS} actionFn={handleChangeTab} />
+            </Toggle>
+            <LostController css={controller} />
+            <Checkbox
+              label="찾기 완료 제외하기"
+              variant="ghost"
+              checked={isExcludeFindComplete}
+              onChange={handleToggleFindComplete}
+            />
+          </Head>
+          {selectedTab === 'ACQUIRE' && (
+            <Suspense fallback={<LostFoundListSkeleton />}>
+              <AcquireList isExcludeFindComplete={isExcludeFindComplete} />
+            </Suspense>
+          )}
+          {selectedTab === 'LOST' && (
+            <Suspense fallback={<LostFoundListSkeleton />}>
+              <LostList isExcludeFindComplete={isExcludeFindComplete} />
+            </Suspense>
+          )}
+        </Section>
+      </PageTemplate.ContentsSection>
+
+      <PageTemplate.ModalOrFloatingContents>
+        <FloatingButton label={buttonLabel} onClick={pushToArticleGeneratePage(query?.tab as string)} />
+      </PageTemplate.ModalOrFloatingContents>
+    </PageTemplate>
   )
 }
 

@@ -428,6 +428,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["mixpanel-browser", "npm:2.47.0"],\
             ["msw", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#npm:1.2.1"],\
             ["next", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#npm:13.2.3"],\
+            ["nookies", "npm:2.5.2"],\
             ["nprogress", "npm:0.2.0"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#npm:18.2.0"],\
@@ -22829,6 +22830,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["node.extend", "npm:2.0.2"],\
             ["has", "npm:1.0.3"],\
             ["is", "npm:3.3.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["nookies", [\
+        ["npm:2.5.2", {\
+          "packageLocation": "./.yarn/cache/nookies-npm-2.5.2-691fdd44ab-4cc6fd8d0a.zip/node_modules/nookies/",\
+          "packageDependencies": [\
+            ["nookies", "npm:2.5.2"],\
+            ["cookie", "npm:0.4.2"],\
+            ["set-cookie-parser", "npm:2.6.0"]\
           ],\
           "linkType": "HARD"\
         }]\

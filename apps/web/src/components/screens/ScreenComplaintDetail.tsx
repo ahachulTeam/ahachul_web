@@ -16,6 +16,7 @@ import {
   SetStateAction,
 } from 'react'
 
+import PageTemplate from '../public/PageTemplate'
 import { QuestionIcon } from '@/assets/icons'
 import {
   Announcement,
@@ -245,33 +246,37 @@ const ComplaintDetailScreen = () => {
   }
 
   return (
-    <>
-      <Container>
-        <지하철정보>
-          <span>
-            <b>{trainNumber.subwayLine.name}</b> {trainNumber.id}열차
-            {trainNumber.organizationTrainNo}호차
-          </span>
-          {/* <p>대화행</p> */}
-        </지하철정보>
-        <진짜콘텐츠>
-          <ComplaintContext.Provider value={{ message, setMessage }}>
-            <SwitchCase
-              value={selectedComplaint}
-              caseBy={{
-                facilities: <Facilities />,
-                temperature: <Temperature />,
-                announcement: <Announcement />,
-                impediment: <Impediment />,
-                patient: <Patient />,
-                sexual: <Sexual />,
-                violence: <Violence />,
-              }}
-            />
-          </ComplaintContext.Provider>
-        </진짜콘텐츠>
-      </Container>
-      {/* <StickyArea>
+    <PageTemplate>
+      <PageTemplate.ContentsSection>
+        <Container>
+          <지하철정보>
+            <span>
+              <b>{trainNumber.subwayLine.name}</b> {trainNumber.id}열차
+              {trainNumber.organizationTrainNo}호차
+            </span>
+            {/* <p>대화행</p> */}
+          </지하철정보>
+          <진짜콘텐츠>
+            <ComplaintContext.Provider value={{ message, setMessage }}>
+              <SwitchCase
+                value={selectedComplaint}
+                caseBy={{
+                  facilities: <Facilities />,
+                  temperature: <Temperature />,
+                  announcement: <Announcement />,
+                  impediment: <Impediment />,
+                  patient: <Patient />,
+                  sexual: <Sexual />,
+                  violence: <Violence />,
+                }}
+              />
+            </ComplaintContext.Provider>
+          </진짜콘텐츠>
+        </Container>
+      </PageTemplate.ContentsSection>
+
+      <PageTemplate.ModalOrFloatingContents>
+        {/* <StickyArea>
         <Button
           label="접수하기"
           size="md"
@@ -290,7 +295,8 @@ const ComplaintDetailScreen = () => {
           }}
         />
       </StickyArea> */}
-    </>
+      </PageTemplate.ModalOrFloatingContents>
+    </PageTemplate>
   )
 }
 
