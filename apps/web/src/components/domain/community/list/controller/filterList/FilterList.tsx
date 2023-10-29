@@ -2,7 +2,7 @@ import * as S from './styled'
 import { RefetchIcon } from '@/assets/icons'
 import { COMMUNITY_FILTERS } from '@/assets/static/community'
 import { Filter } from '@/components/common'
-import { useFilterList } from '@/hooks'
+import { useFilterList } from '@/hooks/filters/useFilterList'
 
 export default function FilterList() {
   const { filter, handleApplyFilter, handleResetFilter } = useFilterList('sort', 'subwayLineId')

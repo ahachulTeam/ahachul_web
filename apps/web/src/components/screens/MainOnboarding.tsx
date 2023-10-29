@@ -1,37 +1,43 @@
 import { useDisclosure } from '@ahhachul/lib'
 import { Theme, css } from '@emotion/react'
 import styled from '@emotion/styled'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import { LoginDrawer } from '../domain'
 import { OnboardingCarousel } from '../domain/onboarding/carousel'
+import PageTemplate from '../public/PageTemplate'
 import { StaticSEO } from '@/constants/seo'
 import { useAuth } from '@/context'
 
+const LoginDrawer = dynamic(() => import('@/components/domain/onboarding/loginDrawer/LoginDrawer'), { ssr: false })
+
 function OnboardingMainScreen() {
   const router = useRouter()
-
   const { user } = useAuth()
-
   const { dialogRef, isOpen, onOpen, onClose } = useDisclosure()
-
   const handleRouteRootPage = () => router.push('/')
 
   return (
-    <Container>
-      <h2 css={visuallyHidden}>{StaticSEO.onboarding.title}</h2>
-      <OnboardingCarousel />
-      <Box>
-        {!user && (
-          <LoginBtn type="button" onClick={onOpen}>
-            로그인
-          </LoginBtn>
-        )}
-        <LookAroundBtn type="button" onClick={handleRouteRootPage}>
-          둘러보기
-        </LookAroundBtn>
-      </Box>
-      <LoginDrawer ref={dialogRef} isOpen={isOpen} onClose={onClose} />
-    </Container>
+    <PageTemplate>
+      <PageTemplate.ContentsSection>
+        <Container>
+          <h2 css={visuallyHidden}>{StaticSEO.onboarding.title}</h2>
+          <OnboardingCarousel />
+          <Box>
+            {!user && (
+              <LoginBtn type="button" onClick={onOpen}>
+                로그인
+              </LoginBtn>
+            )}
+            <LookAroundBtn type="button" onClick={handleRouteRootPage}>
+              둘러보기
+            </LookAroundBtn>
+          </Box>
+        </Container>
+      </PageTemplate.ContentsSection>
+      <PageTemplate.ModalOrFloatingContents>
+        <LoginDrawer ref={dialogRef} isOpen={isOpen} onClose={onClose} />
+      </PageTemplate.ModalOrFloatingContents>
+    </PageTemplate>
   )
 }
 

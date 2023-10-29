@@ -5,7 +5,7 @@ import SubwayIllust from 'public/illust/m1.svg'
 import * as S from './styled'
 import { ArrowIcon } from '@/assets/icons'
 import { useAuth } from '@/context'
-import useMyProfileQuery from '@/queries/user/useMyProfileQuery'
+import { useMyProfileQuery } from '@/services'
 
 function SubwayOverview() {
   const router = useRouter()

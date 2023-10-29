@@ -3,22 +3,29 @@ import styled from '@emotion/styled'
 import { LostDetailContents } from '../domain/lost/detail/contents'
 import { OtherLostFounds } from '../domain/lost/detail/otherLostFounds'
 import { StickyArea } from '../domain/lost/detail/stickyArea'
-import { useOwnArticle } from '@/hooks'
+import PageTemplate from '../public/PageTemplate'
+import { useOwnArticle } from '@/hooks/domains'
+import { SEOProps } from '@/libs/SEO'
 
 interface LostDetailContainerProps {
-  createdBy: string
-  subwayLine: number
+  metaData?: Partial<SEOProps>
 }
 
-function LostDetailScreen({ createdBy, subwayLine }: LostDetailContainerProps) {
+function LostDetailScreen({ metaData }: LostDetailContainerProps) {
+  const createdBy = ''
+  const subwayLine = 1
   const isOwner = useOwnArticle(createdBy)
 
   return (
-    <Section>
-      <LostDetailContents />
-      <OtherLostFounds lostType="ACQUIRE" subwayLine={subwayLine} />
-      {!isOwner && <StickyArea />}
-    </Section>
+    <PageTemplate metaData={metaData}>
+      <PageTemplate.ContentsSection>
+        <Section>
+          <LostDetailContents />
+          <OtherLostFounds lostType="ACQUIRE" subwayLine={subwayLine} />
+        </Section>
+      </PageTemplate.ContentsSection>
+      <PageTemplate.ModalOrFloatingContents>{!isOwner && <StickyArea />}</PageTemplate.ModalOrFloatingContents>
+    </PageTemplate>
   )
 }
 

@@ -1,4 +1,4 @@
-import { InfiniteFetchResponse, KeyOf } from './common'
+import { InfiniteFetchResponse, KeyOf } from './global'
 
 export enum LostStatus {
   PROGRESS = 'PROGRESS',

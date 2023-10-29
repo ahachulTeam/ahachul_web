@@ -1,12 +1,8 @@
 import { ax } from './axios'
-import { StandardResponse } from '@/types/common'
+import { StandardResponse } from '@/types/global'
 import { TrainMetaData } from '@/types/train'
 
-const trainAPI = {
-  fetchGetTrains: async (trainId: string) => {
-    const { data } = await ax.get<StandardResponse<TrainMetaData>>(`/trains/${trainId}`)
-    return data
-  },
+export const fetchGetTrains = async (trainId: string) => {
+  const { data } = await ax.get<StandardResponse<TrainMetaData>>(`/trains/${trainId}`)
+  return data
 }
-
-export default trainAPI

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
-import { Header } from '@/components/public/layout'
+import { Header } from '@/components/public/header'
 
 export default function LostGenerateHeader() {
   const router = useRouter()

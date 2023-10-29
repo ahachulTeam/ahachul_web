@@ -6,7 +6,7 @@ import { CardIcon, ComplaintCard } from '../../list'
 
 import * as S from './styled'
 import { useComplaintContext } from '@/components/screens/ScreenComplaintDetail'
-import { ComplaintCardVariant } from '@/types/variants'
+import { ComplaintCardVariant } from '@/types/complaint'
 
 const TemperatureContents: (target: 'cold' | 'hot') => Record<
   string,

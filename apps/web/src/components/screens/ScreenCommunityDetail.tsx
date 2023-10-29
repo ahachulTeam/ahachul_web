@@ -1,13 +1,21 @@
 import { useDisclosure } from '@ahhachul/lib'
 import { css, keyframes } from '@emotion/react'
 import styled from '@emotion/styled'
+import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
 import CommunityDetailComments from '../domain/community/detail/comments/CommunityDetailComments'
 import CommunityDetailContents from '../domain/community/detail/contents/CommunityDetailContents'
-import BottomSheetForLogin from '@/components/public/cta/forLogin/ForLogin'
+import PageTemplate from '../public/PageTemplate'
 import { useAuth } from '@/context'
+import { SEOProps } from '@/libs/SEO'
 
-const CommunityDetailScreen = () => {
+const BottomSheetForLogin = dynamic(() => import('@/components/public/cta/BottomSheetForLogin'), { ssr: false })
+
+interface CommunityDetailScreenProps {
+  metaData?: Partial<SEOProps>
+}
+
+const CommunityDetailScreen = ({ metaData }: CommunityDetailScreenProps) => {
   const {
     user,
     auth: { isAuth },
@@ -23,18 +31,23 @@ const CommunityDetailScreen = () => {
   } = useDisclosure()
 
   return (
-    <>
-      <Container>
-        <Suspense fallback={<LoadingSpinner />}>
-          <CommunityDetailContents isAuth={isAuth} onLoginBottomSheetOpen={onLoginBottomSheetOpen} />
-        </Suspense>
-        <Divider />
-        <Suspense fallback={<div />}>
-          <CommunityDetailComments user={user} isAuth={isAuth} onLoginBottomSheetOpen={onLoginBottomSheetOpen} />
-        </Suspense>
-      </Container>
-      <BottomSheetForLogin ref={dialogRef} isOpen={isLoginBottomSheetOpen} onClose={onLoginBottomSheetsClose} />
-    </>
+    <PageTemplate metaData={metaData}>
+      <PageTemplate.ContentsSection>
+        <Container>
+          <Suspense fallback={<LoadingSpinner />}>
+            <CommunityDetailContents isAuth={isAuth} onLoginBottomSheetOpen={onLoginBottomSheetOpen} />
+          </Suspense>
+          <Divider />
+          <Suspense fallback={<div />}>
+            <CommunityDetailComments user={user} isAuth={isAuth} onLoginBottomSheetOpen={onLoginBottomSheetOpen} />
+          </Suspense>
+        </Container>
+      </PageTemplate.ContentsSection>
+
+      <PageTemplate.ModalOrFloatingContents>
+        <BottomSheetForLogin ref={dialogRef} isOpen={isLoginBottomSheetOpen} onClose={onLoginBottomSheetsClose} />
+      </PageTemplate.ModalOrFloatingContents>
+    </PageTemplate>
   )
 }
 

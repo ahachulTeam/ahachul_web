@@ -1,6 +1,6 @@
 import { Theme, css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { ComplaintCardVariant } from '@/types/variants'
+import { ComplaintCardVariant } from '@/types/complaint'
 
 export const Article = styled.article`
   all: unset;

@@ -3,14 +3,13 @@ import LostCarousel from './carousel/LostCarousel'
 import ContentHeader from './contentHeader/ContentHeader'
 import ContentInfo from './contentInfo/ContentInfo'
 import * as S from './LostDetailContents.styled'
-
-import { useFetchLostDetail } from '@/queries/lost'
+import { useFetchLostPostDetail } from '@/services'
 
 export default function LostDetailContents() {
   const router = useRouter()
   const lostId = router.query.id as string
 
-  const { data } = useFetchLostDetail(lostId)
+  const { data } = useFetchLostPostDetail(lostId)
 
   return (
     <article>

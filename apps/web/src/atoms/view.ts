@@ -1,9 +1,9 @@
 import { atom, useRecoilState } from 'recoil'
 import { v4 as uuid } from 'uuid'
 
-export type View = 'list' | 'grid'
+export type ViewStatusType = 'list' | 'grid'
 
-const viewAtom = atom<View>({
+const viewAtom = atom<ViewStatusType>({
   key: `viewAtom/${uuid()}`,
   default: 'grid',
 })

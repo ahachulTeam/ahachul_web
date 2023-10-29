@@ -3,8 +3,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { CardIcon, ComplaintCard } from '../components'
 import * as S from './styled'
-import { ComplaintTargets } from '@/types/complaint'
-import { ComplaintCardVariant } from '@/types/variants'
+import { ComplaintCardVariant } from '@/types/complaint'
 
 const EnvironmentContents = {
   facilities: {

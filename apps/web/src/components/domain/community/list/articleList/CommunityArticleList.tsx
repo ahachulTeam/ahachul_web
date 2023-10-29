@@ -3,8 +3,8 @@ import { useMemo } from 'react'
 import Item from './item/Item'
 import * as S from './styled'
 import { IntersectionArea, NoResult } from '@/components/common'
-import { useFilterList } from '@/hooks'
-import useCommunityQuery from '@/queries/community/useCommunityQuery'
+import { useFilterList } from '@/hooks/filters/useFilterList'
+import { useCommunityQuery } from '@/services'
 
 function CommunityArticleList() {
   const { handleResetFilter } = useFilterList('sort', 'subwayLineId')

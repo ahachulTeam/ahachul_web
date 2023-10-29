@@ -1,5 +1,5 @@
 import { ax } from './axios'
-import { StandardResponse } from '@/types/common'
+import { StandardResponse } from '@/types/global'
 import { HashTagsServerModel } from '@/types/global'
 
 export const getHottestHashtags = async () => {

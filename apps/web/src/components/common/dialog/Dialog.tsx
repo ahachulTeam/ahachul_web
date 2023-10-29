@@ -7,7 +7,7 @@ import { MotionPortal } from '../portal'
 import { CancelButton, ConfirmButton } from './DialogButton'
 import { Description, Title } from './DialogText'
 import { defaultFadeInUpVariants, defaultFadeInVariants } from '@/constants/motions'
-import { useScrollLock } from '@/hooks'
+import { useScrollLock } from '@/hooks/scrolls/useScrollLock'
 
 interface Props {
   isMounted?: boolean

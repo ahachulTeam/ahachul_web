@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 
-import { Header } from '@/components/public/layout'
+import { Header } from '@/components/public/header'
 
 const ComplaintContentsKeys = {
   facilities: '시설 · 환경민원',

@@ -1,10 +1,10 @@
 import Skeleton from 'react-loading-skeleton'
 
 import * as S from './styled'
-import { View } from '@/atoms/view'
+import { ViewStatusType } from '@/atoms/view'
 
 interface LostItemSkeletonProps {
-  view?: View
+  view?: ViewStatusType
   count?: number
 }
 

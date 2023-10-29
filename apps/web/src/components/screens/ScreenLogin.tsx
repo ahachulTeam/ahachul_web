@@ -3,7 +3,8 @@ import styled from '@emotion/styled'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
-import useLoginMutation from '@/queries/auth/useLoginMutation'
+import PageTemplate from '../public/PageTemplate'
+import { useLoginMutation } from '@/services'
 import { APILoginUserProviders } from '@/types/auth'
 
 function RedirectForLoginScreen() {
@@ -20,10 +21,15 @@ function RedirectForLoginScreen() {
         providerType,
       } as APILoginUserProviders)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query])
+  }, [providerCode, providerType, mutateLogin])
 
-  return <Redirect />
+  return (
+    <PageTemplate isPrivatePage>
+      <PageTemplate.ContentsSection>
+        <Redirect />
+      </PageTemplate.ContentsSection>
+    </PageTemplate>
+  )
 }
 
 const Redirect = styled.div`

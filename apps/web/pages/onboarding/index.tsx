@@ -1,6 +1,6 @@
 import { type ReactElement } from 'react'
 
-import Layout from '@/components/public/layout/Layout'
+import Layout from '@/components/public/Layout'
 import OnboardingMainScreen from '@/components/screens/MainOnboarding'
 
 export default function OnBoardingPage() {

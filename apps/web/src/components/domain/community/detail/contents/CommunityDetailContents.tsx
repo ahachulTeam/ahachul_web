@@ -6,8 +6,7 @@ import { useCallback } from 'react'
 import * as S from './styled'
 import { MessageCircleIcon, ThumbsUpIcon } from '@/assets/icons'
 import { ARTICLE_DEFAULT_THUMBNAIL, PATH } from '@/constants'
-import useCommunityDetailQuery from '@/queries/community/useCommunityDetailQuery'
-import { useManagementCommunityPostReacting } from '@/queries/community/useCommunityPostLikes'
+import { useCommunityDetailQuery, useManagementCommunityPostReacting } from '@/services'
 
 interface DetailContentsProps {
   isAuth: boolean

@@ -1,7 +1,7 @@
 import { type ReactElement } from 'react'
 
 import { ComplaintHeader } from '@/components/domain/complaint'
-import Layout from '@/components/public/layout/Layout'
+import Layout from '@/components/public/Layout'
 import ComplaintMainScreen from '@/components/screens/MainComplaint'
 
 export default function ComplaintPage() {

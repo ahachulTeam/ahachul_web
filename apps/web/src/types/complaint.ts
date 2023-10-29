@@ -13,3 +13,5 @@ export interface ComplaintMessageRequest {
   trainNo: string
   subwayLineId: number
 }
+
+export type ComplaintCardVariant = 'primary' | 'secondary' | 'inactive'

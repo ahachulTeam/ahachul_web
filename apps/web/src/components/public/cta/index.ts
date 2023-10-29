@@ -1,1 +1,1 @@
-export { default as BottomSheetForApp } from './forLogin/ForLogin'
+export { default as BottomSheetForLogin } from './BottomSheetForLogin'

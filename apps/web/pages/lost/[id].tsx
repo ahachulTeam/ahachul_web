@@ -1,29 +1,16 @@
-import { QueryClient } from '@tanstack/react-query'
 import { GetServerSideProps } from 'next'
 import { type ReactElement } from 'react'
 
-import lostAPI from '@/apis/lost'
 import { LostDetailHeader } from '@/components/domain'
-import { Layout } from '@/components/public/layout'
+import Layout from '@/components/public/Layout'
 import LostDetailScreen from '@/components/screens/ScreenLostDetail'
-import { PATH } from '@/constants'
-import { SEO } from '@/libs'
-import { lostKeys } from '@/queries/lost/keys'
-import * as T from '@/utils/try'
+import { SEOProps } from '@/libs/SEO'
 
 interface LostDetailPageProps {
-  title: string
-  content: string
-  createdBy: string
-  subwayLine: number
+  metaData?: Partial<SEOProps>
 }
-export default function LostDetailPage({ title, content, createdBy, subwayLine }: LostDetailPageProps) {
-  return (
-    <>
-      <SEO title={title} description={content} />
-      <LostDetailScreen createdBy={createdBy} subwayLine={subwayLine} />
-    </>
-  )
+export default function LostDetailPage({ metaData }: LostDetailPageProps) {
+  return <LostDetailScreen metaData={metaData} />
 }
 
 LostDetailPage.getLayout = function getLayout(page: ReactElement) {
@@ -31,39 +18,22 @@ LostDetailPage.getLayout = function getLayout(page: ReactElement) {
 }
 
 export const getServerSideProps: GetServerSideProps = async context => {
-  const { params } = context
-  const lostId = params?.id as string
+  const postId = context?.params?.id as string
 
-  if (!lostId) {
+  try {
+    // TODO: 백엔드 준비되면 구현
+    // const metaData = await getLostDetailSEO(postId)
+
     return {
-      redirect: {
-        destination: PATH.HOME,
-        permanent: true,
+      props: {
+        // metaData,
       },
     }
-  }
+  } catch (err) {
+    console.log(err)
 
-  const queryClient = new QueryClient()
-
-  const res = await queryClient.fetchQuery(lostKeys.detail(lostId), () => lostAPI.fetchLostDetail(lostId))
-  const parseData = T.parseResponse(res)
-
-  if (T.isFailed(parseData)) {
     return {
-      redirect: {
-        destination: PATH.HOME,
-        permanent: true,
-      },
+      props: {},
     }
-  }
-  const { title, content, createdBy, subwayLine } = parseData.result
-
-  return {
-    props: {
-      title,
-      content,
-      createdBy,
-      subwayLine,
-    },
   }
 }

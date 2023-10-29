@@ -1,28 +1,32 @@
 import { Tab } from '@ahhachul/ui'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { DM } from '../domain/alarm/directMessage/DM'
-import { Notifications } from '../domain/alarm/notifications/Notifications'
+import { DirectMessages, Notifications } from '../domain/alarm'
+import PageTemplate from '../public/PageTemplate'
 import { ALARM_TABS } from '@/assets/static/tab'
-import useTab from '@/hooks/useTab'
+import { useTab } from '@/hooks/global'
 
 const AlarmScreen = () => {
   const { query, selectedTab, handleChangeTab } = useTab(ALARM_TABS)
 
   return (
-    <Section>
-      <Fixed>
-        <Tab selectedTab={selectedTab} tabList={ALARM_TABS} handleChangeTab={handleChangeTab} />
-      </Fixed>
-      <Container>
-        {(query?.tab === 'notice' || !query?.tab) && <Notifications />}
-        {query?.tab === 'dm' && <DM />}
-      </Container>
-    </Section>
+    <PageTemplate isPrivatePage>
+      <PageTemplate.ContentsSection>
+        <Section>
+          <Fixed>
+            <Tab selectedTab={selectedTab} tabList={ALARM_TABS} handleChangeTab={handleChangeTab} />
+          </Fixed>
+          <Container>
+            {(!query?.tab || query?.tab === 'notice') && <Notifications />}
+            {query?.tab === 'dm' && <DirectMessages />}
+          </Container>
+        </Section>
+      </PageTemplate.ContentsSection>
+    </PageTemplate>
   )
 }
 
-const Section = styled.section`
+const Section = styled.article`
   width: 100%;
 `
 

@@ -1,5 +1,5 @@
 import { useForm, FieldErrors } from 'react-hook-form'
-import { useCreateArticle } from '@/queries/community/useCreateArticle'
+import { useCreateArticle } from '@/services'
 import { Picture } from '@/types'
 import { CreateArticleQueryModel } from '@/types/community'
 

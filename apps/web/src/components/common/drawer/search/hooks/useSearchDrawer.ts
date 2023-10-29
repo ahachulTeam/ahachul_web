@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useRouter } from 'next/router'
 import { useState, useCallback } from 'react'
 
 import { PATH } from '@/constants'
-import { usePushShallowRouter } from '@/hooks'
 
 const useSearchDrawer = (onClose: () => void) => {
-  const { router, pushShallowRouter } = usePushShallowRouter()
+  const router = useRouter()
   const isLostPage = router.pathname === PATH.LOST
 
   const [searchValue, setSearchValue] = useState('')
@@ -26,7 +26,10 @@ const useSearchDrawer = (onClose: () => void) => {
 
       const path = isLostPage ? PATH.LOST : PATH.COMMUNITY
 
-      pushShallowRouter(path, { content: value })
+      router.push({
+        pathname: path,
+        query: { content: value },
+      })
     },
     [router]
   )
@@ -46,7 +49,10 @@ const useSearchDrawer = (onClose: () => void) => {
   const handleHashTagValue = useCallback(
     (value: string) => () => {
       onClose()
-      pushShallowRouter(PATH.COMMUNITY, { hashTag: value })
+      router.push({
+        pathname: PATH.COMMUNITY,
+        query: { hashTag: value },
+      })
     },
     []
   )

@@ -1,6 +1,6 @@
 import { HttpStatusCode } from 'axios'
 
-import type { ValueOf } from '@/types/common'
+import type { ValueOf } from '@/types/global'
 
 export enum ResponseCode {
   SUCCESS = '100',
