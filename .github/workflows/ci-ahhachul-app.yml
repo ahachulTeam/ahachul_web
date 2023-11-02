@@ -103,7 +103,7 @@ jobs:
 
       - name: Check Lint
         if: github.event_name != 'push'
-        run: yarn lint
+        run: yarn run ahhachul:lint
 
   job_nextjs_bundle_analysis:
     name: Nextjs bundle analysis
