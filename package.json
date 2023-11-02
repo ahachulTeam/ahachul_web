@@ -13,6 +13,7 @@
     "g:typecheck": "yarn workspaces foreach -pv run typecheck",
     "g:test": "yarn workspaces foreach -pv run test",
     "ahhachul": "yarn workspace @ahhachul/web dev",
+    "ahhachul:build": "yarn workspace @ahhachul/web build",
     "storybook": "yarn workspace @ahhachul/ui storybook"
   },
   "dependencies": {
