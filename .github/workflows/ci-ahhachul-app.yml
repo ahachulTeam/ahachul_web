@@ -9,7 +9,7 @@ on:
 
 env:
   CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/.yarn/unplugged
-  CACHED_BUILD_PATHS: ${{ github.workspace }}/.next
+  CACHED_BUILD_PATHS: ${{ github.workspace }}/apps/web/.next
   BUILD_CACHE_KEY: ${{ github.sha }}
   DEFAULT_NODE_VERSION: '16'
 
