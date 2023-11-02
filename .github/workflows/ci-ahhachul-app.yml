@@ -7,7 +7,7 @@ on:
       - 'apps/web/**'
     branches: [main]
 
-permissions: write
+permissions: write-all
 
 env:
   CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/.yarn/unplugged
