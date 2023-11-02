@@ -15,6 +15,7 @@
     "ahhachul": "yarn workspace @ahhachul/web dev",
     "ahhachul:lint": "yarn workspace @ahhachul/web lint",
     "ahhachul:build": "yarn workspace @ahhachul/web build",
+    "ahhachul:analyze": "yarn workspace @ahhachul/web analyze",
     "storybook": "yarn workspace @ahhachul/ui storybook"
   },
   "dependencies": {
