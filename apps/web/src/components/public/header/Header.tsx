@@ -4,7 +4,7 @@ import { NextRouter, useRouter } from 'next/router'
 import { createContext, useCallback, useMemo, type PropsWithChildren, useContext } from 'react'
 
 import * as S from './styled'
-import { ArrowIcon, KenllIcon, MiniHamburgerIcon, SearchIcon, SettingIcon, ShareIcon } from '@/assets/icons'
+import { ArrowIcon, KenllIcon, MiniHamburgerIcon, PencilIcon, SearchIcon, SettingIcon, ShareIcon } from '@/assets/icons'
 import { PATH, PATH_STORAGE_KEYS, StaticSEO } from '@/constants'
 import { useToast } from '@/hooks/global'
 import { copyToClipboard } from '@/utils/global'
@@ -144,6 +144,14 @@ function SearchBarWithRankingHashtags({ children, onClick }: PropsWithChildren<H
   return <S.HashTagInput onClick={onClick}>{children}</S.HashTagInput>
 }
 
+function Pencil({ onClick }: HeaderBtnProps) {
+  return (
+    <S.IconBtn onClick={onClick}>
+      <PencilIcon />
+    </S.IconBtn>
+  )
+}
+
 function MiniHamburger({ onClick }: HeaderBtnProps) {
   return (
     <S.IconBtn onClick={onClick}>
@@ -161,6 +169,7 @@ export const Header = Object.assign(HeaderMain, {
   Alarm,
   Search,
   Setting,
+  Pencil,
   MiniHamburger,
   SearchBarWithRankingHashtags,
 })

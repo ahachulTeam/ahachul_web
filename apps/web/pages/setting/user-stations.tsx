@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
 import { type ReactElement } from 'react'
-import SettingNicknameHeader from '@/components/domain/setting/nickname/header/NicknameHeader'
+import SettingUserStationsHeader from '@/components/domain/setting/user/stations/header/NicknameHeader'
 import Layout from '@/components/public/Layout'
 import ScreenSettingUserStations from '@/components/screens/ScreenSettingUserStations'
 import { COOKIE_KEY, PATH } from '@/constants'
@@ -11,7 +11,7 @@ const SettingUserStationsPage = () => {
 }
 
 SettingUserStationsPage.getLayout = function getLayout(page: ReactElement) {
-  return <Layout Header={<SettingNicknameHeader />}>{page}</Layout>
+  return <Layout Header={<SettingUserStationsHeader />}>{page}</Layout>
 }
 
 export const getServerSideProps: GetServerSideProps = async context => {

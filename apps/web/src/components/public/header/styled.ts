@@ -47,6 +47,10 @@ export const RightIcons = styled.div`
 export const Title = styled.h2`
   ${({ theme }) => css`
     ${theme.fonts.bold20};
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   `}
 `
 

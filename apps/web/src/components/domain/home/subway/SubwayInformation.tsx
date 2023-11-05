@@ -2,10 +2,11 @@ import { Tab, Toggle } from '@ahhachul/ui'
 import { Theme, css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { AnimatePresence, m } from 'framer-motion'
+import { useRouter } from 'next/router'
 import { useCallback, useState } from 'react'
 import { ArrowDownIcon, RefetchIcon } from '@/assets/icons'
 import Train from '@/components/public/train/Train'
-import { ITEM_FOCUS_ID } from '@/constants'
+import { ITEM_FOCUS_ID, PATH } from '@/constants'
 import { defaultFadeInDownVariants } from '@/constants/motions'
 import useDialog from '@/hooks/filters/useDialog'
 import { useGetTrainMetaData } from '@/services'
@@ -15,6 +16,7 @@ interface FilterDropboxProps {
 }
 
 function SubwayInformation() {
+  const router = useRouter()
   const dummyUserSelection = {
     one: '1',
     two: '7',
@@ -32,8 +34,14 @@ function SubwayInformation() {
 
   console.log('trainData: ', trainData)
 
-  const { isOpen: isDialogOpen, dialogRef, handleToggleDialog } = useDialog()
+  const { isOpen: isDialogOpen, dialogRef, handleDialogClose, handleToggleDialog } = useDialog()
   const SUBWAY_SELECT_UUID = 'ahhachulsubwaydialog'
+  const routeToSettingStations = () => {
+    handleDialogClose()
+    setTimeout(() => {
+      router.push(PATH.SETTING_USER_STATIONS)
+    }, 500)
+  }
 
   return (
     <Container>
@@ -67,7 +75,7 @@ function SubwayInformation() {
               <span>고속터미널역</span>
               <span>잠원역</span>
               <span>사평역</span>
-              <button>+ 전철역 설정하기</button>
+              <button onClick={routeToSettingStations}>+ 전철역 설정하기</button>
             </SubwaySelectDropbox>
           )}
         </AnimatePresence>
