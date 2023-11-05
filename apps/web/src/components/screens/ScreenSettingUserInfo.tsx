@@ -1,5 +1,11 @@
+import PageTemplate from '../public/PageTemplate'
+
 const SettingUserInfoScreen = () => {
-  return <div />
+  return (
+    <PageTemplate isPrivatePage>
+      <PageTemplate.ContentsSection></PageTemplate.ContentsSection>
+    </PageTemplate>
+  )
 }
 
 export default SettingUserInfoScreen

@@ -4,8 +4,7 @@ import { type ReactElement } from 'react'
 import SettingNicknameHeader from '@/components/domain/setting/nickname/header/NicknameHeader'
 import Layout from '@/components/public/Layout'
 import SettingUserInfoScreen from '@/components/screens/ScreenSettingUserInfo'
-import { PATH } from '@/constants'
-import { AccessToken } from '@/constants/token'
+import { COOKIE_KEY, PATH } from '@/constants'
 
 const SettingUserInfoPage = () => {
   return <SettingUserInfoScreen />
@@ -18,7 +17,7 @@ SettingUserInfoPage.getLayout = function getLayout(page: ReactElement) {
 export const getServerSideProps: GetServerSideProps = async context => {
   const cookies = parseCookies(context as (typeof parseCookies)['arguments'])
 
-  if (!cookies[AccessToken]) {
+  if (!cookies[COOKIE_KEY]) {
     return {
       redirect: {
         destination: PATH.LOGIN,

@@ -10,6 +10,8 @@ function MyPageMainScreen() {
   const router = useRouter()
   const { data: user } = useMyProfileQuery({ enabled: false })
 
+  console.log('user :', user)
+
   const handleRouteSettingUserStations = () => {
     router.push(PATH.SETTING_USER_STATIONS)
   }

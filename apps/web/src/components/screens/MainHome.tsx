@@ -12,13 +12,14 @@ import { useAuth } from '@/context'
 
 function HomeMainScreen() {
   const { isLoggedIn } = useAuth()
+  console.log('isLoggedIn: ', isLoggedIn())
 
   return (
     <PageTemplate>
       <PageTemplate.ContentsSection>
         <A11yHeading as="h3">지하철 열차정보와 혼잡도가 궁금하다면?</A11yHeading>
         <Container>
-          {isLoggedIn() ? <SubwayInformation /> : <SubwayOverview />}
+          {!isLoggedIn() ? <SubwayInformation /> : <SubwayOverview />}
           <Divider />
           <CommunitySection>
             <div>

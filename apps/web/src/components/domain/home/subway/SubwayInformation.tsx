@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 import { useCallback, useState } from 'react'
 import { ArrowDownIcon, RefetchIcon } from '@/assets/icons'
 import Train from '@/components/public/train/Train'
+import { useGetTrainMetaData } from '@/services'
 
 function SubwayInformation() {
   const dummyUserSelection = {
@@ -15,8 +16,13 @@ function SubwayInformation() {
   const dummuDirections = { HELLO: '잠원방면', WORDL: '교대방면' }
   const [selectedTab, setSelectedTab] = useState('one')
   const [selectedDirection, setSelectedDirection] = useState('HELLO')
+  // 전체 노선도를 클릭 시, 어떻게 노선도를 보여줄까. 모달 ? 페이지 ?
   const handleChangeTab = useCallback((line: string) => () => setSelectedTab(line), [])
   const handleChangeDirection = useCallback((direction: string) => () => setSelectedDirection(direction), [])
+
+  const { data: trainData } = useGetTrainMetaData('1', { enabled: true })
+
+  console.log('trainData: ', trainData)
 
   return (
     <Container>
