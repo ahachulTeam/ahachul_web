@@ -4,7 +4,13 @@ import styled from '@emotion/styled'
 import { useCallback, useState } from 'react'
 import { ArrowDownIcon, RefetchIcon } from '@/assets/icons'
 import Train from '@/components/public/train/Train'
+import { ITEM_FOCUS_ID } from '@/constants'
+import useDialog from '@/hooks/filters/useDialog'
 import { useGetTrainMetaData } from '@/services'
+
+interface FilterDropboxProps {
+  isOpen: boolean
+}
 
 function SubwayInformation() {
   const dummyUserSelection = {
@@ -24,11 +30,32 @@ function SubwayInformation() {
 
   console.log('trainData: ', trainData)
 
+  const { isOpen: isDialogOpen, dialogRef, handleToggleDialog } = useDialog()
+  const SUBWAY_SELECT_UUID = 'ahhachulsubwaydialog'
+
   return (
     <Container>
-      <HeadingTriggerButton>
+      <HeadingTriggerButton
+        type="button"
+        aria-controls={SUBWAY_SELECT_UUID}
+        aria-expanded={isDialogOpen}
+        aria-label={'오늘의 고속터미널역'}
+        aria-haspopup="listbox"
+        onClick={handleToggleDialog}
+      >
         오늘의 <b>고속터미널역</b>
         <ArrowDownIcon />
+        <SubwaySelectDropbox
+          ref={dialogRef}
+          id={SUBWAY_SELECT_UUID}
+          tabIndex={0}
+          isOpen={isDialogOpen}
+          role="listbox"
+          aria-label={'오늘의 고속터미널역'}
+          aria-hidden={!isDialogOpen}
+          aria-multiselectable="true"
+          aria-activedescendant={isDialogOpen ? ITEM_FOCUS_ID : ''}
+        ></SubwaySelectDropbox>
       </HeadingTriggerButton>
       <UserSelectedSubwayLineBox>
         <Tab selectedTab={selectedTab} tabList={dummyUserSelection} handleChangeTab={handleChangeTab} />
@@ -103,6 +130,7 @@ const HeadingTriggerButton = styled.button`
   ${({ theme }) => css`
     ${theme.fonts.regular20};
     ${theme.common.flexAlignCenter};
+    position: relative;
     color: ${theme.colors.black};
     padding-left: 16px;
     margin-bottom: 20px;
@@ -116,6 +144,22 @@ const HeadingTriggerButton = styled.button`
     & > svg > path {
       stroke: ${theme.colors.primary};
     }
+  `}
+`
+
+const SubwaySelectDropbox = styled.div<FilterDropboxProps>`
+  ${({ theme, isOpen }) => css`
+    position: absolute;
+    top: calc(100% + 4px);
+    display: ${isOpen ? 'grid' : 'none'};
+    grid-template-columns: 38.0952% 1fr;
+    width: 448px;
+    height: 272px;
+    border-radius: 10px;
+    box-shadow: ${theme.boxShadows.filter};
+    background-color: ${theme.colors.white};
+    z-index: ${theme.zIndex.dialog};
+    overflow: hidden;
   `}
 `
 
