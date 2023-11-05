@@ -1,7 +1,11 @@
-import { PropsWithChildren } from 'react'
+import { ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 
-export function Portal({ children }: PropsWithChildren) {
+interface PortalPrpps {
+  children: ReactNode
+}
+
+export function Portal({ children }: PortalPrpps) {
   const container = typeof window !== 'undefined' && document.body
 
   return container ? createPortal(children, container) : null
