@@ -1,28 +1,24 @@
+import { A11yHeading } from '@ahhachul/ui'
 import { Theme, css } from '@emotion/react'
 import styled from '@emotion/styled'
 import Link from 'next/link'
 import CommunitySummary from '../domain/home/community/CommunitySummary'
 import SubwayInformation from '../domain/home/subway/SubwayInformation'
+import SubwayOverview from '../domain/home/subwayOverview/SubwayOverview'
 import PageTemplate from '../public/PageTemplate'
 import { ArrowIcon } from '@/assets/icons'
 import { PATH } from '@/constants'
-// import { useAuth } from '@/context'
+import { useAuth } from '@/context'
 
 function HomeMainScreen() {
-  //   const { isLoggedIn } = useAuth()
+  const { isLoggedIn } = useAuth()
 
   return (
     <PageTemplate>
       <PageTemplate.ContentsSection>
+        <A11yHeading as="h3">지하철 열차정보와 혼잡도가 궁금하다면?</A11yHeading>
         <Container>
-          {/* {isLoggedIn() ? ( */}
-          <SubwayInformation />
-          {/* ) : (
-        <SubwayInfoSection>
-          <A11yHeading as="h3">지하철 열차정보와 혼잡도가 궁금하다면?</A11yHeading>
-          <SubwayOverview />
-        </SubwayInfoSection>
-      )} */}
+          {isLoggedIn() ? <SubwayInformation /> : <SubwayOverview />}
           <Divider />
           <CommunitySection>
             <div>

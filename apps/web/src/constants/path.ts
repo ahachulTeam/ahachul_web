@@ -1,6 +1,5 @@
 export const PATH = {
   LOGIN: '/onboarding',
-  NICKNAME: '/setting/nickname',
   SIGN_UP: '/signup',
   HOME: '/',
   LOST: '/lost',
@@ -10,6 +9,10 @@ export const PATH = {
   LABS: '/onboarding',
   COMPLAINTS: '/complaint',
   ALARM: '/alarm',
+  MY_PAGE: '/my-page',
+  SETTING_NICKNAME: '/setting/nickname',
+  SETTING_USER_INFO: '/setting/user-info',
+  SETTING_USER_STATIONS: '/setting/user-stations',
 }
 
 export const PATH_STORAGE_KEYS = {

@@ -2,32 +2,31 @@ import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
 import { type ReactElement } from 'react'
 
+import MyPageHeader from '@/components/domain/my-page/header/MyPageHeader'
 import Layout from '@/components/public/Layout'
 import MyPageMainScreen from '@/components/screens/MainMyPage'
-import { PATH } from '@/constants'
-import { AccessToken } from '@/constants/token'
 
 export default function MyPage() {
   return <MyPageMainScreen />
 }
 
 MyPage.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>
+  return <Layout Header={<MyPageHeader />}>{page}</Layout>
 }
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  const cookies = parseCookies(context as (typeof parseCookies)['arguments'])
+// export const getServerSideProps: GetServerSideProps = async context => {
+//   const cookies = parseCookies(context as (typeof parseCookies)['arguments'])
 
-  if (!cookies[AccessToken]) {
-    return {
-      redirect: {
-        destination: PATH.LOGIN,
-        permanent: true,
-      },
-    }
-  }
+//   if (!cookies[AccessToken]) {
+//     return {
+//       redirect: {
+//         destination: PATH.LOGIN,
+//         permanent: true,
+//       },
+//     }
+//   }
 
-  return {
-    props: {},
-  }
-}
+//   return {
+//     props: {},
+//   }
+// }

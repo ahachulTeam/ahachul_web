@@ -65,7 +65,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       error,
       auth,
       initializing,
-      isLoggedIn: () => Boolean(user?.refreshToken),
+      isLoggedIn: () => Boolean(user?.accessToken),
     }),
     [error, initializing, user]
   )

@@ -4,7 +4,7 @@ import { NextRouter, useRouter } from 'next/router'
 import { createContext, useCallback, useMemo, type PropsWithChildren, useContext } from 'react'
 
 import * as S from './styled'
-import { ArrowIcon, KenllIcon, MiniHamburgerIcon, SearchIcon, ShareIcon } from '@/assets/icons'
+import { ArrowIcon, KenllIcon, MiniHamburgerIcon, SearchIcon, SettingIcon, ShareIcon } from '@/assets/icons'
 import { PATH, PATH_STORAGE_KEYS, StaticSEO } from '@/constants'
 import { useToast } from '@/hooks/global'
 import { copyToClipboard } from '@/utils/global'
@@ -124,6 +124,14 @@ function Delete({ onClick }: HeaderBtnProps) {
   return <S.IconBtn onClick={onClick}>삭제</S.IconBtn>
 }
 
+function Setting({ onClick }: HeaderBtnProps) {
+  return (
+    <S.IconBtn onClick={onClick}>
+      <SettingIcon />
+    </S.IconBtn>
+  )
+}
+
 function Search({ onClick }: HeaderBtnProps) {
   return (
     <S.IconBtn onClick={onClick}>
@@ -152,6 +160,7 @@ export const Header = Object.assign(HeaderMain, {
   Delete,
   Alarm,
   Search,
+  Setting,
   MiniHamburger,
   SearchBarWithRankingHashtags,
 })

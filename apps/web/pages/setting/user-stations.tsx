@@ -3,15 +3,15 @@ import { parseCookies } from 'nookies'
 import { type ReactElement } from 'react'
 import SettingNicknameHeader from '@/components/domain/setting/nickname/header/NicknameHeader'
 import Layout from '@/components/public/Layout'
-import SettingNicknameScreen from '@/components/screens/ScreenSettingNickname'
+import ScreenSettingUserStations from '@/components/screens/ScreenSettingUserStations'
 import { PATH } from '@/constants'
 import { AccessToken } from '@/constants/token'
 
-const SettingNicknamePage = () => {
-  return <SettingNicknameScreen />
+const SettingUserStationsPage = () => {
+  return <ScreenSettingUserStations />
 }
 
-SettingNicknamePage.getLayout = function getLayout(page: ReactElement) {
+SettingUserStationsPage.getLayout = function getLayout(page: ReactElement) {
   return <Layout Header={<SettingNicknameHeader />}>{page}</Layout>
 }
 
@@ -32,4 +32,4 @@ export const getServerSideProps: GetServerSideProps = async context => {
   }
 }
 
-export default SettingNicknamePage
+export default SettingUserStationsPage

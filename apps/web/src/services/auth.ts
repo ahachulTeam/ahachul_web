@@ -16,7 +16,7 @@ export const useLoginMutation = () => {
       auth.signIn(result)
 
       if (result.isNeedAdditionalUserInfo) {
-        router.replace(PATH.NICKNAME)
+        router.replace(PATH.SETTING_NICKNAME)
       } else {
         router.push(PATH.HOME)
       }
