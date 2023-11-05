@@ -1,10 +1,12 @@
 import { Tab, Toggle } from '@ahhachul/ui'
 import { Theme, css } from '@emotion/react'
 import styled from '@emotion/styled'
+import { AnimatePresence, m } from 'framer-motion'
 import { useCallback, useState } from 'react'
 import { ArrowDownIcon, RefetchIcon } from '@/assets/icons'
 import Train from '@/components/public/train/Train'
 import { ITEM_FOCUS_ID } from '@/constants'
+import { defaultFadeInDownVariants } from '@/constants/motions'
 import useDialog from '@/hooks/filters/useDialog'
 import { useGetTrainMetaData } from '@/services'
 
@@ -45,17 +47,30 @@ function SubwayInformation() {
       >
         오늘의 <b>고속터미널역</b>
         <ArrowDownIcon />
-        <SubwaySelectDropbox
-          ref={dialogRef}
-          id={SUBWAY_SELECT_UUID}
-          tabIndex={0}
-          isOpen={isDialogOpen}
-          role="listbox"
-          aria-label={'오늘의 고속터미널역'}
-          aria-hidden={!isDialogOpen}
-          aria-multiselectable="true"
-          aria-activedescendant={isDialogOpen ? ITEM_FOCUS_ID : ''}
-        ></SubwaySelectDropbox>
+        <AnimatePresence mode="wait">
+          {isDialogOpen && (
+            <SubwaySelectDropbox
+              ref={dialogRef}
+              id={SUBWAY_SELECT_UUID}
+              tabIndex={0}
+              isOpen={isDialogOpen}
+              variants={defaultFadeInDownVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              role="listbox"
+              aria-label={'오늘의 고속터미널역'}
+              aria-hidden={!isDialogOpen}
+              aria-multiselectable="true"
+              aria-activedescendant={isDialogOpen ? ITEM_FOCUS_ID : ''}
+            >
+              <span>고속터미널역</span>
+              <span>잠원역</span>
+              <span>사평역</span>
+              <button>+ 전철역 설정하기</button>
+            </SubwaySelectDropbox>
+          )}
+        </AnimatePresence>
       </HeadingTriggerButton>
       <UserSelectedSubwayLineBox>
         <Tab selectedTab={selectedTab} tabList={dummyUserSelection} handleChangeTab={handleChangeTab} />
@@ -147,19 +162,37 @@ const HeadingTriggerButton = styled.button`
   `}
 `
 
-const SubwaySelectDropbox = styled.div<FilterDropboxProps>`
+const SubwaySelectDropbox = styled(m.div)<FilterDropboxProps>`
   ${({ theme, isOpen }) => css`
     position: absolute;
     top: calc(100% + 4px);
-    display: ${isOpen ? 'grid' : 'none'};
-    grid-template-columns: 38.0952% 1fr;
-    width: 448px;
-    height: 272px;
-    border-radius: 10px;
+    display: ${isOpen ? 'flex' : 'none'};
+    flex-direction: column;
+    gap: 16px;
+    min-width: 191px;
+    width: max-content;
+    height: max-content;
+    border-radius: 16px;
+    padding: 24px 18px;
     box-shadow: ${theme.boxShadows.filter};
     background-color: ${theme.colors.white};
     z-index: ${theme.zIndex.dialog};
     overflow: hidden;
+
+    & > span {
+      ${theme.fonts.regular16};
+      color: #c8c8c8;
+
+      &:first-of-type {
+        ${theme.fonts.bold16};
+        color: ${theme.colors.primary};
+      }
+    }
+
+    & > button {
+      ${theme.fonts.regular16};
+      color: #909090;
+    }
   `}
 `
 
