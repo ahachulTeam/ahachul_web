@@ -2,10 +2,22 @@ import { UseQueryOptions, useQuery } from '@tanstack/react-query'
 import * as trainAPI from '@/apis/train'
 import * as T from '@/utils/try'
 
+export const subwayKeys = {
+  all: ['subway'] as const,
+  subwayList: ['subway', 'list'] as const,
+}
+
 export const trainKeys = {
   all: ['train'] as const,
   metaDataList: () => [...trainKeys.all, 'metaData'] as const,
   metaData: (trainNumber: string) => [...trainKeys.metaDataList(), trainNumber] as const,
+}
+
+export const useGetSubwayList = () => {
+  return useQuery({
+    queryKey: subwayKeys.subwayList,
+    queryFn: trainAPI.getSubwayLines,
+  })
 }
 
 export const useGetTrainMetaData = (
@@ -22,8 +34,8 @@ export const useGetTrainMetaData = (
       const parsedData = T.parseResponse(res)
       return T.getOrElse(parsedData, () => null)
     },
-    enabled: options?.enabled || false,
     suspense: options?.suspense,
     staleTime: options?.staleTime,
+    enabled: options?.enabled || false,
   })
 }
