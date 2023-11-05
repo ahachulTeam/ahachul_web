@@ -20,7 +20,7 @@ function SubwayInformation() {
   const handleChangeTab = useCallback((line: string) => () => setSelectedTab(line), [])
   const handleChangeDirection = useCallback((direction: string) => () => setSelectedDirection(direction), [])
 
-  const { data: trainData } = useGetTrainMetaData('1', { enabled: true })
+  const { data: trainData } = useGetTrainMetaData('1', { enabled: false })
 
   console.log('trainData: ', trainData)
 
