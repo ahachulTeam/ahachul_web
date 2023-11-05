@@ -20,7 +20,7 @@ function MyPageMainScreen() {
     <PageTemplate isPrivatePage>
       <PageTemplate.ContentsSection>
         <UserOverviewInfos>
-          <Nickname>chan님의 아하철 🚉</Nickname>
+          <Nickname>{user?.nickname}님의 아하철 🚉</Nickname>
           <SmallInfos>
             <span>20대</span>
             <span>남성</span>

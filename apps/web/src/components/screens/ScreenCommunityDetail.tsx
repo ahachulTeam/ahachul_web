@@ -1,15 +1,11 @@
-import { useDisclosure } from '@ahhachul/lib'
 import { css, keyframes } from '@emotion/react'
 import styled from '@emotion/styled'
-import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
 import CommunityDetailComments from '../domain/community/detail/comments/CommunityDetailComments'
 import CommunityDetailContents from '../domain/community/detail/contents/CommunityDetailContents'
 import PageTemplate from '../public/PageTemplate'
 import { useAuth } from '@/context'
 import { SEOProps } from '@/libs/SEO'
-
-const BottomSheetForLogin = dynamic(() => import('@/components/public/cta/BottomSheetForLogin'), { ssr: false })
 
 interface CommunityDetailScreenProps {
   metaData?: Partial<SEOProps>
@@ -21,32 +17,19 @@ const CommunityDetailScreen = ({ metaData }: CommunityDetailScreenProps) => {
     auth: { isAuth },
   } = useAuth()
 
-  // eslint-disable-next-line no-warning-comments
-  // fixme : isLoginBottomSheetOpen, LoginBottomSheet Component 상태를 전역 atom으로 갖기
-  const {
-    dialogRef,
-    isOpen: isLoginBottomSheetOpen,
-    onOpen: onLoginBottomSheetOpen,
-    onClose: onLoginBottomSheetsClose,
-  } = useDisclosure()
-
   return (
     <PageTemplate metaData={metaData}>
       <PageTemplate.ContentsSection>
         <Container>
           <Suspense fallback={<LoadingSpinner />}>
-            <CommunityDetailContents isAuth={isAuth} onLoginBottomSheetOpen={onLoginBottomSheetOpen} />
+            <CommunityDetailContents isAuth={isAuth} />
           </Suspense>
           <Divider />
           <Suspense fallback={<div />}>
-            <CommunityDetailComments user={user} isAuth={isAuth} onLoginBottomSheetOpen={onLoginBottomSheetOpen} />
+            <CommunityDetailComments user={user} isAuth={isAuth} />
           </Suspense>
         </Container>
       </PageTemplate.ContentsSection>
-
-      <PageTemplate.ModalOrFloatingContents>
-        <BottomSheetForLogin ref={dialogRef} isOpen={isLoginBottomSheetOpen} onClose={onLoginBottomSheetsClose} />
-      </PageTemplate.ModalOrFloatingContents>
     </PageTemplate>
   )
 }

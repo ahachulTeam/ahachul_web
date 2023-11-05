@@ -16,10 +16,9 @@ import { UserModel } from '@/types/user'
 interface CommentsProps {
   user: UserModel | null
   isAuth: boolean
-  onLoginBottomSheetOpen: VoidFunction
 }
 
-const CommunityDetailComments = ({ user, isAuth, onLoginBottomSheetOpen }: CommentsProps) => {
+const CommunityDetailComments = ({ user, isAuth }: CommentsProps) => {
   const { query } = useRouter()
 
   const { data: comments } = useCommunityCommentsQuery(parseInt(query?.id as string), {
@@ -42,7 +41,6 @@ const CommunityDetailComments = ({ user, isAuth, onLoginBottomSheetOpen }: Comme
 
   const handleInputClick = () => {
     if (!isAuth) {
-      onLoginBottomSheetOpen()
       return
     }
 
@@ -73,7 +71,6 @@ const CommunityDetailComments = ({ user, isAuth, onLoginBottomSheetOpen }: Comme
 
   const handleGenerateChildComment = (commentId: number) => () => {
     if (!isAuth) {
-      onLoginBottomSheetOpen()
       return
     }
 
@@ -86,7 +83,6 @@ const CommunityDetailComments = ({ user, isAuth, onLoginBottomSheetOpen }: Comme
 
   const handleEditParentComment = (commentId: number, idx: number) => () => {
     if (!isAuth) {
-      onLoginBottomSheetOpen()
       return
     }
 
@@ -99,7 +95,6 @@ const CommunityDetailComments = ({ user, isAuth, onLoginBottomSheetOpen }: Comme
 
   const handleEditChildComment = (parentIdx: number, childIdx: number, commentId: number) => () => {
     if (!isAuth) {
-      onLoginBottomSheetOpen()
       return
     }
 

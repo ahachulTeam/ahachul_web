@@ -10,10 +10,9 @@ import { useCommunityDetailQuery, useManagementCommunityPostReacting } from '@/s
 
 interface DetailContentsProps {
   isAuth: boolean
-  onLoginBottomSheetOpen: VoidFunction
 }
 
-function CommunityDetailContents({ isAuth, onLoginBottomSheetOpen }: DetailContentsProps) {
+function CommunityDetailContents({ isAuth }: DetailContentsProps) {
   const router = useRouter()
   const { query } = router
 
@@ -25,7 +24,6 @@ function CommunityDetailContents({ isAuth, onLoginBottomSheetOpen }: DetailConte
 
   const handleLikeClick = () => {
     if (!isAuth) {
-      onLoginBottomSheetOpen()
       return
     }
     const toggleLike = getToggleLike(articleDetail?.likeYn)

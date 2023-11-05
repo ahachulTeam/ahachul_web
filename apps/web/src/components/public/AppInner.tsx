@@ -6,7 +6,8 @@ import { useGetHottestHashtagsQuery, useGetSubwayList } from '@/services'
 
 function AppInner({ children }: PropsWithChildren) {
   const { isLoggedIn } = useAuth()
-  useGetSubwayList()
+  const { data } = useGetSubwayList()
+  console.log('data: ', data)
   useGetHottestHashtagsQuery()
 
   // TODO: 추후 fcm 연동하기
