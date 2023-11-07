@@ -4,13 +4,15 @@ import { useRouter } from 'next/router'
 import PageTemplate from '../public/PageTemplate'
 import { ProfilePrimaryIcon, StarIcon } from '@/assets/icons'
 import { PATH } from '@/constants'
+import { UserGender } from '@/constants/format'
+import { useAuth } from '@/context'
 import { useMyProfileQuery } from '@/services'
+import { KeyOf } from '@/types'
 
 function MyPageMainScreen() {
   const router = useRouter()
-  const { data: user } = useMyProfileQuery({ enabled: false })
-
-  console.log('user :', user)
+  const { isLoggedIn } = useAuth()
+  const { data: user } = useMyProfileQuery({ enabled: isLoggedIn })
 
   const handleRouteSettingUserStations = () => {
     router.push(PATH.SETTING_USER_STATIONS)
@@ -22,8 +24,8 @@ function MyPageMainScreen() {
         <UserOverviewInfos>
           <Nickname>{user?.nickname}님의 아하철 🚉</Nickname>
           <SmallInfos>
-            <span>20대</span>
-            <span>남성</span>
+            <span>{user?.ageRange}</span>
+            <span>{UserGender[user?.gender as KeyOf<typeof UserGender>]}</span>
           </SmallInfos>
           <Stations>
             <Button color={'#60B157'}>신도림역</Button>

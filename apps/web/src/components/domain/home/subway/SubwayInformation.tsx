@@ -27,7 +27,14 @@ function SubwayInformation() {
   const [selectedTab, setSelectedTab] = useState('one')
   const [selectedDirection, setSelectedDirection] = useState('HELLO')
   // 전체 노선도를 클릭 시, 어떻게 노선도를 보여줄까. 모달 ? 페이지 ?
-  const handleChangeTab = useCallback((line: string) => () => setSelectedTab(line), [])
+  const handleChangeTab = useCallback(
+    (line: string) => () => {
+      // line === 'all' 일 때 전체 노선도 보여주기
+      console.log('line:', line)
+      setSelectedTab(line)
+    },
+    []
+  )
   const handleChangeDirection = useCallback((direction: string) => () => setSelectedDirection(direction), [])
 
   const { data: trainData } = useGetTrainMetaData('1', { enabled: false })

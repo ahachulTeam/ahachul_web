@@ -108,7 +108,7 @@ export class TokenService {
   expireSession() {
     if (!TokenService.isServer()) {
       this._auth.signOut()
-      window.location.replace(PATH.LOGIN)
+      window.location.replace(PATH.HOME)
     }
   }
 }

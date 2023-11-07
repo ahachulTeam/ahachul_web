@@ -1,3 +1,4 @@
+import { SerializedStyles, css } from '@emotion/react'
 import React from 'react'
 import { ToastType } from '@/types'
 
@@ -10,7 +11,7 @@ export const copyToClipboard = async (toast: ToastType, linkUrl: string) => {
   }
 }
 
-export const highlightMatchKeyword = (keyword: string, suggestion: string) => {
+export const highlightMatchKeyword = (keyword: string, suggestion: string, highlightCss: SerializedStyles) => {
   const index = suggestion.indexOf(keyword)
 
   if (index !== -1) {
@@ -21,7 +22,7 @@ export const highlightMatchKeyword = (keyword: string, suggestion: string) => {
     return (
       <React.Fragment>
         {start}
-        <span className="highlight">{match}</span>
+        <span css={highlightCss}>{match}</span>
         {end}
       </React.Fragment>
     )

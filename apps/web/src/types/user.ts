@@ -1,5 +1,7 @@
 import { APILoginUser } from '@/types/auth'
 
+export type UserGenderType = 'MALE' | 'FEMALE'
+
 export interface UserModel extends APILoginUser {
   nickname?: string | null
   email?: string | null

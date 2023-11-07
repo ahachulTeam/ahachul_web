@@ -1,3 +1,13 @@
+export interface StationClientModel {
+  stationId: number
+  parentStationLineNames: string
+  parentStationLineIds: number
+}
+
+export interface StationsClientModel {
+  [key: string]: StationClientModel
+}
+
 export interface Station {
   id: number
   name: string
