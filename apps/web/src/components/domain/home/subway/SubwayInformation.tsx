@@ -3,26 +3,61 @@ import { Theme, css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { AnimatePresence, m } from 'framer-motion'
 import { useRouter } from 'next/router'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useRecoilValue } from 'recoil'
 import { ArrowDownIcon, RefetchIcon } from '@/assets/icons'
+import { subwayStationsAtom } from '@/atoms/train'
 import Train from '@/components/public/train/Train'
 import { ITEM_FOCUS_ID, PATH } from '@/constants'
 import { defaultFadeInDownVariants } from '@/constants/motions'
 import useDialog from '@/hooks/filters/useDialog'
-import { useGetTrainMetaData } from '@/services'
+import { StationClientModel, Stations } from '@/types'
 
-interface FilterDropboxProps {
-  isOpen: boolean
+// 유저가 즐겨찾기한 역 설정 api 나오면 새롭게 연동하기
+
+interface SubwayInformationProps {
+  dummyUserSelectedStation: string[]
 }
 
-function SubwayInformation() {
+interface FilterDropboxProps {
+  open: boolean
+}
+
+function SubwayInformation({ dummyUserSelectedStation }: SubwayInformationProps) {
   const router = useRouter()
+  const subwayInfo = useRecoilValue(subwayStationsAtom)
+  const stationsInfo = useMemo(() => {
+    return dummyUserSelectedStation.reduce((acc, station) => {
+      acc[station] = subwayInfo[station]
+      return acc
+    }, {} as Stations)
+  }, [dummyUserSelectedStation, subwayInfo])
+  const [selectedStation, setSelectedStation] = useState<[string, StationClientModel[]] | null>(null)
+  useEffect(() => {
+    setSelectedStation(Object.entries(stationsInfo)?.[0])
+  }, [stationsInfo])
+  console.log('selectedStation:', selectedStation)
+  // const selectedStationLines = useMemo(() => {
+  //   const [_, val] = selectedStation as [string, StationClientModel[]]
+  //   return val.reduce((acc, curr, index) => {
+  //     acc[index.toString()] = curr?.parentLineNames
+  //     return acc
+  //   }, {} as { [key: string]: string })
+  // }, [selectedStation])
+  // console.log('selectedStationLines:', selectedStationLines)
+
+  const handleChangeDefaultStation = (station: string) => () => {
+    // stationsInfo를 복제하여 새로운 객체를 만듭니다.
+    // setStationsInfo(prev => ({ ...prev }))
+  }
+
   const dummyUserSelection = {
     one: '1',
     two: '7',
     three: '9',
     all: '전체 노선도',
   }
+
   const dummuDirections = { HELLO: '잠원방면', WORDL: '교대방면' }
   const [selectedTab, setSelectedTab] = useState('one')
   const [selectedDirection, setSelectedDirection] = useState('HELLO')
@@ -30,16 +65,13 @@ function SubwayInformation() {
   const handleChangeTab = useCallback(
     (line: string) => () => {
       // line === 'all' 일 때 전체 노선도 보여주기
-      console.log('line:', line)
       setSelectedTab(line)
     },
     []
   )
   const handleChangeDirection = useCallback((direction: string) => () => setSelectedDirection(direction), [])
 
-  const { data: trainData } = useGetTrainMetaData('1', { enabled: false })
-
-  console.log('trainData: ', trainData)
+  // const { data: trainData } = useGetTrainRealTimeMetaData('582', { enabled: true })
 
   const { isOpen: isDialogOpen, dialogRef, handleDialogClose, handleToggleDialog } = useDialog()
   const SUBWAY_SELECT_UUID = 'ahhachulsubwaydialog'
@@ -60,7 +92,7 @@ function SubwayInformation() {
         aria-haspopup="listbox"
         onClick={handleToggleDialog}
       >
-        오늘의 <b>고속터미널역</b>
+        오늘의 <b>{Object.keys(stationsInfo)[0]}역</b>
         <ArrowDownIcon />
         <AnimatePresence mode="wait">
           {isDialogOpen && (
@@ -68,7 +100,7 @@ function SubwayInformation() {
               ref={dialogRef}
               id={SUBWAY_SELECT_UUID}
               tabIndex={0}
-              isOpen={isDialogOpen}
+              open={isDialogOpen}
               variants={defaultFadeInDownVariants}
               initial="initial"
               animate="animate"
@@ -79,10 +111,14 @@ function SubwayInformation() {
               aria-multiselectable="true"
               aria-activedescendant={isDialogOpen ? ITEM_FOCUS_ID : ''}
             >
-              <span>고속터미널역</span>
-              <span>잠원역</span>
-              <span>사평역</span>
-              <button onClick={routeToSettingStations}>+ 전철역 설정하기</button>
+              {Object.entries(stationsInfo).map(([key], idx) => {
+                return (
+                  <span key={idx} onClick={handleChangeDefaultStation(key)}>
+                    {key}
+                  </span>
+                )
+              })}
+              <span onClick={routeToSettingStations}>+ 전철역 설정하기</span>
             </SubwaySelectDropbox>
           )}
         </AnimatePresence>
@@ -178,10 +214,10 @@ const HeadingTriggerButton = styled.button`
 `
 
 const SubwaySelectDropbox = styled(m.div)<FilterDropboxProps>`
-  ${({ theme, isOpen }) => css`
+  ${({ theme, open }) => css`
     position: absolute;
     top: calc(100% + 4px);
-    display: ${isOpen ? 'flex' : 'none'};
+    display: ${open ? 'flex' : 'none'};
     flex-direction: column;
     gap: 16px;
     min-width: 191px;
@@ -202,11 +238,11 @@ const SubwaySelectDropbox = styled(m.div)<FilterDropboxProps>`
         ${theme.fonts.bold16};
         color: ${theme.colors.primary};
       }
-    }
 
-    & > button {
-      ${theme.fonts.regular16};
-      color: #909090;
+      &:last-of-type {
+        ${theme.fonts.regular16};
+        color: #909090;
+      }
     }
   `}
 `

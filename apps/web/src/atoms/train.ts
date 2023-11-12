@@ -1,8 +1,8 @@
 import { atom } from 'recoil'
 import { v1 } from 'uuid'
-import { StationsClientModel } from '@/types'
+import { Stations } from '@/types'
 
-export const subwayStationsAtom = atom<StationsClientModel>({
+export const subwayStationsAtom = atom<Stations>({
   key: `global/subwayStations/${v1()}`,
   default: {},
 })

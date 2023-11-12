@@ -1,3 +1,4 @@
+import { AxiosInstance } from 'axios'
 import { ax } from './axios'
 import { StandardResponse } from '@/types/global'
 import { UserModel, VerifyNicknameModel } from '@/types/user'
@@ -21,5 +22,10 @@ export const verifyMyNickname = async ({ nickname }: { nickname: UserModel['nick
 
 export const getUserProfile = async ({ memberId }: { memberId: UserModel['memberId'] }) => {
   const res = await ax.get<StandardResponse<UserModel>>(`/users/${memberId}/profile`)
+  return res.data
+}
+
+export const getMyProfileServerSide = (_api: AxiosInstance) => async () => {
+  const res = await _api.get<Promise<StandardResponse<UserModel>>>('/members')
   return res.data
 }

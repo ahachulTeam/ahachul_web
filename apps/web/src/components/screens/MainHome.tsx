@@ -8,17 +8,19 @@ import SubwayOverview from '../domain/home/subwayOverview/SubwayOverview'
 import PageTemplate from '../public/PageTemplate'
 import { ArrowIcon } from '@/assets/icons'
 import { PATH } from '@/constants'
-import { useAuth } from '@/context'
 
-function HomeMainScreen() {
-  const { isLoggedIn } = useAuth()
+interface HomeMainScreenProps {
+  isLoggedIn: boolean
+  dummyUserSelectedStation: string[]
+}
 
+function HomeMainScreen({ isLoggedIn, dummyUserSelectedStation }: HomeMainScreenProps) {
   return (
     <PageTemplate>
       <PageTemplate.ContentsSection>
         <A11yHeading as="h3">지하철 열차정보와 혼잡도가 궁금하다면?</A11yHeading>
         <Container>
-          {isLoggedIn ? <SubwayInformation /> : <SubwayOverview />}
+          {isLoggedIn ? <SubwayInformation dummyUserSelectedStation={dummyUserSelectedStation} /> : <SubwayOverview />}
           <Divider />
           <CommunitySection>
             <div>

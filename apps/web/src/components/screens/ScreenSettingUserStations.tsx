@@ -7,6 +7,7 @@ import { useRecoilValue } from 'recoil'
 import PageTemplate from '../public/PageTemplate'
 import { WaffleIcon } from '@/assets/icons'
 import { subwayStationsAtom } from '@/atoms/train'
+import { StationClientModel } from '@/types'
 import { highlightMatchKeyword } from '@/utils'
 
 const ScreenSettingUserStations = () => {
@@ -18,7 +19,14 @@ const ScreenSettingUserStations = () => {
 
   const getStationInfo = (station: string) => {
     const filteredStations = Object.keys(stationInfos)?.filter(s => s?.includes(station))
-    console.log('filterdStations: ', filteredStations)
+    // const filteredStations = []
+    // const filteredStationNames = Object.entries(stationInfos)?.forEach(([key, val]) => {
+    //   if (key.includes(station)) {
+    //     filteredStations.push(val)
+    //   }
+    // })
+
+    // console.log('filteredStationNames: ', filteredStationNames)
     setRefinedStationFromSearchKeyword(filteredStations)
   }
 
