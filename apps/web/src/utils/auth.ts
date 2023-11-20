@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/member-ordering */
+import { AxiosInstance } from 'axios'
 import Cookies from 'js-cookie'
 
 import { COOKIE_KEY } from '@/constants'
@@ -105,4 +106,14 @@ export class Auth {
 
     return this
   }
+}
+
+export const setAuthorizationHeader = (
+  api: AxiosInstance,
+  token: string,
+  options?: {
+    type: 'Bearer' | 'Basic'
+  }
+) => {
+  api.defaults.headers.common['Authorization'] = options?.type ? `${options.type} ${token}` : token
 }

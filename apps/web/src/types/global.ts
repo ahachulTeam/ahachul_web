@@ -1,4 +1,11 @@
+import { ReactNode } from 'react'
+import { ToastOptions } from 'react-toastify'
 import { ResponseCode, ResponseMessages } from '@/constants'
+
+export type ToastType = {
+  success: (content: ReactNode, option?: ToastOptions<{}> | undefined) => void
+  error: (content: ReactNode, option?: ToastOptions<{}> | undefined) => void
+}
 
 export type KeyOf<T> = keyof T
 export type ValueOf<T> = T[keyof T]

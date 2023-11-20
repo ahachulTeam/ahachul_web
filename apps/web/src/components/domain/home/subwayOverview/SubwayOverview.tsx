@@ -18,30 +18,32 @@ function SubwayOverview() {
   const { data: me } = useMyProfileQuery({ enabled: isAuth })
 
   return (
-    <S.SubwayInfo className="temporary swipe banner">
-      <S.ThickBorderArea tabIndex={-1}>
-        <S.AhHachulLabel>아하철역</S.AhHachulLabel>
-        <S.SubwayIllustImage>
-          <SubwayIllust />
-        </S.SubwayIllustImage>
-      </S.ThickBorderArea>
-      <S.ContentArea>
-        <S.AhHachulSuperModelImage>
-          <AhHachulSuperModel />
-        </S.AhHachulSuperModelImage>
-        <S.Box>
-          <S.Desc>
-            <strong>{me ? me.nickname : '아하철'}</strong>님 <br />
-            열차정보와 혼잡도가 <br />
-            궁금하다면?
-          </S.Desc>
-          <S.AddBtn type="button" onClick={handleRouteSettingSubway}>
-            전철역 추가하기
-            <ArrowIcon />
-          </S.AddBtn>
-        </S.Box>
-      </S.ContentArea>
-    </S.SubwayInfo>
+    <S.Container>
+      <S.SubwayInfo className="temporary swipe banner">
+        <S.ThickBorderArea tabIndex={-1}>
+          <S.AhHachulLabel>아하철역</S.AhHachulLabel>
+          <S.SubwayIllustImage>
+            <SubwayIllust />
+          </S.SubwayIllustImage>
+        </S.ThickBorderArea>
+        <S.ContentArea>
+          <S.AhHachulSuperModelImage>
+            <AhHachulSuperModel />
+          </S.AhHachulSuperModelImage>
+          <S.Box>
+            <S.Desc>
+              <strong>{me ? me.nickname : '아하철'}</strong>님 <br />
+              열차정보와 혼잡도가 <br />
+              궁금하다면?
+            </S.Desc>
+            <S.AddBtn type="button" onClick={handleRouteSettingSubway}>
+              전철역 추가하기
+              <ArrowIcon />
+            </S.AddBtn>
+          </S.Box>
+        </S.ContentArea>
+      </S.SubwayInfo>
+    </S.Container>
   )
 }
 

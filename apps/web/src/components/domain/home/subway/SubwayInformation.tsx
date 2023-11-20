@@ -1,28 +1,128 @@
 import { Tab, Toggle } from '@ahhachul/ui'
 import { Theme, css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { useCallback, useState } from 'react'
+import { AnimatePresence, m } from 'framer-motion'
+import { useRouter } from 'next/router'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useRecoilValue } from 'recoil'
 import { ArrowDownIcon, RefetchIcon } from '@/assets/icons'
+import { subwayStationsAtom } from '@/atoms/train'
 import Train from '@/components/public/train/Train'
+import { ITEM_FOCUS_ID, PATH } from '@/constants'
+import { defaultFadeInDownVariants } from '@/constants/motions'
+import useDialog from '@/hooks/filters/useDialog'
+import { StationClientModel, Stations } from '@/types'
 
-function SubwayInformation() {
+// 유저가 즐겨찾기한 역 설정 api 나오면 새롭게 연동하기
+
+interface SubwayInformationProps {
+  dummyUserSelectedStation: string[]
+}
+
+interface FilterDropboxProps {
+  open: boolean
+}
+
+function SubwayInformation({ dummyUserSelectedStation }: SubwayInformationProps) {
+  const router = useRouter()
+  const subwayInfo = useRecoilValue(subwayStationsAtom)
+  const stationsInfo = useMemo(() => {
+    return dummyUserSelectedStation.reduce((acc, station) => {
+      acc[station] = subwayInfo[station]
+      return acc
+    }, {} as Stations)
+  }, [dummyUserSelectedStation, subwayInfo])
+  const [selectedStation, setSelectedStation] = useState<[string, StationClientModel[]] | null>(null)
+  useEffect(() => {
+    setSelectedStation(Object.entries(stationsInfo)?.[0])
+  }, [stationsInfo])
+  console.log('selectedStation:', selectedStation)
+  // 백엔드 API 명세 확정되면 개발하기
+  // const selectedStationLines = useMemo(() => {
+  //   const [_, val] = selectedStation as [string, StationClientModel[]]
+  //   return val.reduce((acc, curr, index) => {
+  //     acc[index.toString()] = curr?.parentLineNames
+  //     return acc
+  //   }, {} as { [key: string]: string })
+  // }, [selectedStation])
+  // console.log('selectedStationLines:', selectedStationLines)
+
+  const handleChangeDefaultStation = (station: string) => () => {
+    // stationsInfo를 복제하여 새로운 객체를 만듭니다.
+    // setStationsInfo(prev => ({ ...prev }))
+  }
+
   const dummyUserSelection = {
     one: '1',
     two: '7',
     three: '9',
     all: '전체 노선도',
   }
+
   const dummuDirections = { HELLO: '잠원방면', WORDL: '교대방면' }
   const [selectedTab, setSelectedTab] = useState('one')
   const [selectedDirection, setSelectedDirection] = useState('HELLO')
-  const handleChangeTab = useCallback((line: string) => () => setSelectedTab(line), [])
+  // 전체 노선도를 클릭 시, 어떻게 노선도를 보여줄까. 모달 ? 페이지 ?
+  const handleChangeTab = useCallback(
+    (line: string) => () => {
+      // line === 'all' 일 때 전체 노선도 보여주기
+      setSelectedTab(line)
+    },
+    []
+  )
   const handleChangeDirection = useCallback((direction: string) => () => setSelectedDirection(direction), [])
+
+  // const { data: trainData } = useGetTrainRealTimeMetaData('582', { enabled: true })
+
+  const { isOpen: isDialogOpen, dialogRef, handleDialogClose, handleToggleDialog } = useDialog()
+  const SUBWAY_SELECT_UUID = 'ahhachulsubwaydialog'
+  const routeToSettingStations = () => {
+    handleDialogClose()
+    setTimeout(() => {
+      router.push(PATH.SETTING_USER_STATIONS)
+    }, 500)
+  }
 
   return (
     <Container>
-      <HeadingTriggerButton>
-        오늘의 <b>고속터미널역</b>
+      <HeadingTriggerButton
+        type="button"
+        aria-controls={SUBWAY_SELECT_UUID}
+        aria-expanded={isDialogOpen}
+        aria-label={'오늘의 고속터미널역'}
+        aria-haspopup="listbox"
+        onClick={handleToggleDialog}
+      >
+        오늘의 <b>{Object.keys(stationsInfo)[0]}역</b>
         <ArrowDownIcon />
+        <AnimatePresence mode="wait">
+          {isDialogOpen && (
+            <SubwaySelectDropbox
+              ref={dialogRef}
+              id={SUBWAY_SELECT_UUID}
+              tabIndex={0}
+              open={isDialogOpen}
+              variants={defaultFadeInDownVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              role="listbox"
+              aria-label={'오늘의 고속터미널역'}
+              aria-hidden={!isDialogOpen}
+              aria-multiselectable="true"
+              aria-activedescendant={isDialogOpen ? ITEM_FOCUS_ID : ''}
+            >
+              {Object.entries(stationsInfo).map(([key], idx) => {
+                return (
+                  <span key={idx} onClick={handleChangeDefaultStation(key)}>
+                    {key}
+                  </span>
+                )
+              })}
+              <span onClick={routeToSettingStations}>+ 전철역 설정하기</span>
+            </SubwaySelectDropbox>
+          )}
+        </AnimatePresence>
       </HeadingTriggerButton>
       <UserSelectedSubwayLineBox>
         <Tab selectedTab={selectedTab} tabList={dummyUserSelection} handleChangeTab={handleChangeTab} />
@@ -97,6 +197,7 @@ const HeadingTriggerButton = styled.button`
   ${({ theme }) => css`
     ${theme.fonts.regular20};
     ${theme.common.flexAlignCenter};
+    position: relative;
     color: ${theme.colors.black};
     padding-left: 16px;
     margin-bottom: 20px;
@@ -109,6 +210,40 @@ const HeadingTriggerButton = styled.button`
 
     & > svg > path {
       stroke: ${theme.colors.primary};
+    }
+  `}
+`
+
+const SubwaySelectDropbox = styled(m.div)<FilterDropboxProps>`
+  ${({ theme, open }) => css`
+    position: absolute;
+    top: calc(100% + 4px);
+    display: ${open ? 'flex' : 'none'};
+    flex-direction: column;
+    gap: 16px;
+    min-width: 191px;
+    width: max-content;
+    height: max-content;
+    border-radius: 16px;
+    padding: 24px 18px;
+    box-shadow: ${theme.boxShadows.filter};
+    background-color: ${theme.colors.white};
+    z-index: ${theme.zIndex.dialog};
+    overflow: hidden;
+
+    & > span {
+      ${theme.fonts.regular16};
+      color: #c8c8c8;
+
+      &:first-of-type {
+        ${theme.fonts.bold16};
+        color: ${theme.colors.primary};
+      }
+
+      &:last-of-type {
+        ${theme.fonts.regular16};
+        color: #909090;
+      }
     }
   `}
 `

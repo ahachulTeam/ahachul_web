@@ -4,21 +4,20 @@ import { type ReactElement } from 'react'
 import SettingNicknameHeader from '@/components/domain/setting/nickname/header/NicknameHeader'
 import Layout from '@/components/public/Layout'
 import SettingNicknameScreen from '@/components/screens/ScreenSettingNickname'
-import { PATH } from '@/constants'
-import { AccessToken } from '@/constants/token'
+import { COOKIE_KEY, PATH } from '@/constants'
 
-export default function NicknamePage() {
+const SettingNicknamePage = () => {
   return <SettingNicknameScreen />
 }
 
-NicknamePage.getLayout = function getLayout(page: ReactElement) {
+SettingNicknamePage.getLayout = function getLayout(page: ReactElement) {
   return <Layout Header={<SettingNicknameHeader />}>{page}</Layout>
 }
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const cookies = parseCookies(context as (typeof parseCookies)['arguments'])
 
-  if (!cookies[AccessToken]) {
+  if (!cookies[COOKIE_KEY]) {
     return {
       redirect: {
         destination: PATH.LOGIN,
@@ -31,3 +30,5 @@ export const getServerSideProps: GetServerSideProps = async context => {
     props: {},
   }
 }
+
+export default SettingNicknamePage

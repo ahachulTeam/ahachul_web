@@ -5,8 +5,7 @@ import React, { ReactElement } from 'react'
 import { AlarmHeader } from '@/components/domain/alarm'
 import Layout from '@/components/public/Layout'
 import AlarmScreen from '@/components/screens/ScreenAlarm'
-import { PATH } from '@/constants'
-import { AccessToken } from '@/constants/token'
+import { COOKIE_KEY, PATH } from '@/constants'
 
 // 알람 관련 스크린을 페이지로 ? 혹은 모달로 ? 기획 논의 필요
 export default function Alarm() {
@@ -20,7 +19,7 @@ Alarm.getLayout = function getLayout(page: ReactElement) {
 export const getServerSideProps: GetServerSideProps = async context => {
   const cookies = parseCookies(context as (typeof parseCookies)['arguments'])
 
-  if (!cookies[AccessToken]) {
+  if (!cookies[COOKIE_KEY]) {
     return {
       redirect: {
         destination: PATH.LOGIN,

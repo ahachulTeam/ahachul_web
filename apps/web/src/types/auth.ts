@@ -3,6 +3,10 @@ export interface APILoginUserProviders {
   providerCode: string
 }
 
+export interface OAuthRedirectServerModel {
+  redirectUrl: string
+}
+
 export interface APILoginUser {
   memberId: string
   accessToken: string

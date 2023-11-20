@@ -12,7 +12,7 @@ interface AuthContextValue {
   initializing: boolean
   user: UserModel | null
   error: { message: string } | null
-  isLoggedIn: () => boolean
+  isLoggedIn: boolean
 }
 
 export const AuthContext = createContext({} as AuthContextValue)
@@ -65,7 +65,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       error,
       auth,
       initializing,
-      isLoggedIn: () => Boolean(user?.refreshToken),
+      isLoggedIn: Boolean(user?.accessToken),
     }),
     [error, initializing, user]
   )

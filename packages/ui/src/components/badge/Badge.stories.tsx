@@ -28,7 +28,6 @@ const Container = styled(StoryLayout)`
 `
 
 const StoryBadgeGroup = (args: BadgeProps) => {
-  console.log(Object.keys(SubwayLine))
   return (
     <Container>
       {Object.keys(SubwayLine).map(line => (

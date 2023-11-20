@@ -3,6 +3,13 @@ import { BASE_URL, ax } from './axios'
 import * as type from '@/types/auth'
 import { StandardResponse } from '@/types/global'
 
+export const getOAuthRedirectUrl = async (providers: type.APILoginUserProviders['providerType']) => {
+  const res = await ax.get<StandardResponse<type.OAuthRedirectServerModel>>('/auth/redirect-url', {
+    params: { providerType: providers },
+  })
+  return res.data
+}
+
 export const login = async (providers: type.APILoginUserProviders) => {
   const res = await ax.post<StandardResponse<type.APILoginUser>>('/auth/login', providers)
   return res.data

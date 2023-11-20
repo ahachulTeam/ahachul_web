@@ -1,6 +1,10 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
+export const Container = styled.div`
+  padding: 16px;
+`
+
 export const SubwayInfo = styled.div`
   ${({ theme }) => css`
     position: relative;

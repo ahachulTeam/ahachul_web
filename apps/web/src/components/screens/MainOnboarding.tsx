@@ -3,18 +3,28 @@ import { Theme, css } from '@emotion/react'
 import styled from '@emotion/styled'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import { useMemo } from 'react'
 import { OnboardingCarousel } from '../domain/onboarding/carousel'
 import PageTemplate from '../public/PageTemplate'
 import { StaticSEO } from '@/constants/seo'
 import { useAuth } from '@/context'
+import { useGetOauthUrls } from '@/services'
 
 const LoginDrawer = dynamic(() => import('@/components/domain/onboarding/loginDrawer/LoginDrawer'), { ssr: false })
 
-function OnboardingMainScreen() {
+interface OnboardingMainScreenProps {
+  oAuthUrls: {
+    kakao: string
+    google: string
+  } | null
+}
+
+function OnboardingMainScreen({ oAuthUrls }: OnboardingMainScreenProps) {
   const router = useRouter()
   const { user } = useAuth()
   const { dialogRef, isOpen, onOpen, onClose } = useDisclosure()
   const handleRouteRootPage = () => router.push('/')
+  const oAuthUrlResponseWhenServerSideFetchFailed = useGetOauthUrls(!oAuthUrls)
 
   return (
     <PageTemplate>
@@ -35,7 +45,12 @@ function OnboardingMainScreen() {
         </Container>
       </PageTemplate.ContentsSection>
       <PageTemplate.ModalOrFloatingContents>
-        <LoginDrawer ref={dialogRef} isOpen={isOpen} onClose={onClose} />
+        <LoginDrawer
+          ref={dialogRef}
+          isOpen={isOpen}
+          oAuthUrls={oAuthUrls || oAuthUrlResponseWhenServerSideFetchFailed}
+          onClose={onClose}
+        />
       </PageTemplate.ModalOrFloatingContents>
     </PageTemplate>
   )

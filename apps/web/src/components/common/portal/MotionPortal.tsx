@@ -10,7 +10,7 @@ interface Props extends ComponentProps<typeof Portal> {
 function MotionPortal({ children, isMounted, mode = 'wait' }: Props) {
   return (
     <Portal>
-      <AnimatePresence mode={mode}>{isMounted && children}</AnimatePresence>
+      <AnimatePresence mode={mode}>{isMounted ? children : <></>}</AnimatePresence>
     </Portal>
   )
 }

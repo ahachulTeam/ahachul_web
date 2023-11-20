@@ -1,20 +1,35 @@
+import { handleSessionStorage, useDisclosure } from '@ahhachul/lib'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import Image from 'next/image'
 import LogoImg from 'public/illust/img/img_favicon.png'
-import { forwardRef } from 'react'
 
+import { useEffect } from 'react'
 import { BottomSheet } from '@/components/common'
+import { APP_CONVERSION_CTA_STORAGE_KEY } from '@/constants'
 import { PATH } from '@/constants'
 
-interface BottomSheetForLoginProps {
-  isOpen: boolean
-  onClose: () => void
-}
+const BottomSheetForLogin = () => {
+  const { dialogRef, isOpen, onOpen, onClose } = useDisclosure()
 
-const BottomSheetForLogin = forwardRef<HTMLDialogElement, BottomSheetForLoginProps>(({ isOpen, onClose }, ref) => {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storage = handleSessionStorage(APP_CONVERSION_CTA_STORAGE_KEY)
+
+      const appConversionToken = storage.get()
+      const isAlreadyInitialized = () => Boolean(appConversionToken)
+
+      if (!isAlreadyInitialized()) {
+        storage.set(APP_CONVERSION_CTA_STORAGE_KEY)
+        setTimeout(() => {
+          onOpen()
+        }, 2500)
+      }
+    }
+  }, [onOpen])
+
   return (
-    <CTABottomSheet ref={ref} isHeaderHidden title="앱 다운로드 팝업" isOpen={isOpen} onClose={onClose}>
+    <CTABottomSheet ref={dialogRef} isHeaderHidden title="앱 다운로드 팝업" isOpen={isOpen} onClose={onClose}>
       <ContentBox>
         <Image src={LogoImg} alt="" width={94} height={94} />
         <Strong>
@@ -30,7 +45,7 @@ const BottomSheetForLogin = forwardRef<HTMLDialogElement, BottomSheetForLoginPro
       </ContentBox>
     </CTABottomSheet>
   )
-})
+}
 
 const CTABottomSheet = styled(BottomSheet)`
   padding: 70px 20px 46px;
