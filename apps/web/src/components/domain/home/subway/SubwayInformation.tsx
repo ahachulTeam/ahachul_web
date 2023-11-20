@@ -37,6 +37,7 @@ function SubwayInformation({ dummyUserSelectedStation }: SubwayInformationProps)
     setSelectedStation(Object.entries(stationsInfo)?.[0])
   }, [stationsInfo])
   console.log('selectedStation:', selectedStation)
+  // 백엔드 API 명세 확정되면 개발하기
   // const selectedStationLines = useMemo(() => {
   //   const [_, val] = selectedStation as [string, StationClientModel[]]
   //   return val.reduce((acc, curr, index) => {

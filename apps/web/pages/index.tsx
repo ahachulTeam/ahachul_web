@@ -5,7 +5,7 @@ import { getSubwayLinesServerSide } from '@/apis'
 import {
   GetServerSidePropsContextWithAuthClient,
   withAuthQueryServerSideProps,
-} from '@/apis/ssr/withAuthTrainQueryServerSideProps'
+} from '@/apis/ssr/withAuthQueryServerSideProps'
 import { HomeHeader } from '@/components/domain/home/header'
 import Layout from '@/components/public/Layout'
 import HomeMainScreen from '@/components/screens/MainHome'
@@ -18,8 +18,7 @@ interface HomePageProps {
 }
 
 const HomePage = ({ isLoggedIn, dummyUserSelectedStation }: HomePageProps) => {
-  console.log('isLoggedIn:', isLoggedIn)
-  useMyProfileQuery()
+  useMyProfileQuery({ enabled: isLoggedIn })
   useGetSubwayList()
 
   return <HomeMainScreen isLoggedIn={isLoggedIn} dummyUserSelectedStation={dummyUserSelectedStation} />

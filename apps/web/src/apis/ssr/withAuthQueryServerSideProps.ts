@@ -19,13 +19,15 @@ export const withAuthQueryServerSideProps = (getServerSidePropsFunc?: GetServerS
       const api = ax
       context.api = api
       const optionCookie = O.fromUndefined(context.req.cookies[COOKIE_KEY])
-
       const accessToken = O.mapOrElse(optionCookie, cookie => JSON.parse(cookie).accessToken, '')
-      setAuthorizationHeader(api, accessToken, { type: 'Bearer' })
 
       const queryClient = new QueryClient()
       context.queryClient = queryClient
-      await queryClient.prefetchQuery(['user', 'me'], getMyProfileServerSide(api))
+
+      if (accessToken) {
+        setAuthorizationHeader(api, accessToken, { type: 'Bearer' })
+        await queryClient.prefetchQuery(['user', 'me'], getMyProfileServerSide(api))
+      }
 
       if (!getServerSidePropsFunc) {
         const dehydratedState = JSON.parse(JSON.stringify(dehydrate(queryClient)))
