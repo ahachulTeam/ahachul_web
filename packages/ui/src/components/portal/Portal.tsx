@@ -1,9 +1,19 @@
-import { PropsWithChildren } from 'react'
+import { useDidMount } from '@ahhachul/lib'
+import { PropsWithChildren, useState } from 'react'
 import { createPortal } from 'react-dom'
 
-
 export function Portal({ children }: PropsWithChildren) {
-  const container = typeof window !== 'undefined' && document.body
+  const [container, setContainer] = useState<Element | null>(null)
 
-  return container ? createPortal(children, container) : null
+  useDidMount(() => {
+    if (document) {
+      setContainer(document.body)
+    }
+  })
+
+  if (!container) {
+    return null
+  }
+
+  return createPortal(children, container)
 }

@@ -26,6 +26,6 @@
     "paths": { "@/*": ["src/*"] },
     "types": ["@types/gtag.js", "@types/jest"]
   },
-  "exclude": ["**/node_modules", "./cypress.config.js", "./src/utils/getSubwayInfoOnBuild.ts"],
+  "exclude": ["**/node_modules", "./cypress.config.js"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "@types"]
 }

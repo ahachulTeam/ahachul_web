@@ -1,5 +1,6 @@
 export * from './useBoolean'
 export * from './useKeyTrap'
+export * from './useDidMount'
 export * from './useDisclosure'
 export * from './useLazyLoading'
 export * from './useMountedFocus'
