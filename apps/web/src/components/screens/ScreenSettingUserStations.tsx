@@ -2,12 +2,12 @@ import { Input } from '@ahhachul/ui'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { throttle } from 'lodash-es'
-import { useRef, useState } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import PageTemplate from '../public/PageTemplate'
 import { WaffleIcon } from '@/assets/icons'
 import { subwayStationsAtom } from '@/atoms/train'
-import { StationClientModel } from '@/types'
+import { useMyStationsMutation } from '@/services'
 import { highlightMatchKeyword } from '@/utils'
 
 const ScreenSettingUserStations = () => {
@@ -15,20 +15,16 @@ const ScreenSettingUserStations = () => {
   const [isUserTyped, setIsUserTyped] = useState(false)
   const [searchKeyword, setSearchKeyword] = useState('')
 
+  const { mutate: updateUserStations } = useMyStationsMutation()
+
   const [refinedStationFromSearchKeyword, setRefinedStationFromSearchKeyword] = useState<string[]>([])
-
-  const getStationInfo = (station: string) => {
-    const filteredStations = Object.keys(stationInfos)?.filter(s => s?.includes(station))
-    // const filteredStations = []
-    // const filteredStationNames = Object.entries(stationInfos)?.forEach(([key, val]) => {
-    //   if (key.includes(station)) {
-    //     filteredStations.push(val)
-    //   }
-    // })
-
-    // console.log('filteredStationNames: ', filteredStationNames)
-    setRefinedStationFromSearchKeyword(filteredStations)
-  }
+  const getStationInfo = useCallback(
+    (station: string) => {
+      const filteredStations = Object.keys(stationInfos)?.filter(s => s?.includes(station))
+      setRefinedStationFromSearchKeyword(filteredStations)
+    },
+    [stationInfos]
+  )
 
   const searchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
@@ -44,6 +40,10 @@ const ScreenSettingUserStations = () => {
   const delayedFoundStationInfo = useRef(
     throttle((searchKeyword: string) => getStationInfo(searchKeyword), 100)
   ).current
+
+  const handleClickStation = (stationNames: string) => () => {
+    updateUserStations({ stationNames })
+  }
 
   return (
     <PageTemplate isPrivatePage>
@@ -86,7 +86,9 @@ const ScreenSettingUserStations = () => {
             <SuggestionStationKeywordsContainer>
               {refinedStationFromSearchKeyword?.map((station, idx) => (
                 <li key={idx}>
-                  <button>{highlightMatchKeyword(searchKeyword, station, textHightCss)}</button>
+                  <button onClick={handleClickStation(station)}>
+                    {highlightMatchKeyword(searchKeyword, station, textHightCss)}
+                  </button>
                 </li>
               ))}
             </SuggestionStationKeywordsContainer>

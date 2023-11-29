@@ -2,6 +2,7 @@ import { UseQueryOptions, UseQueryResult, useMutation, useQuery } from '@tanstac
 import * as userApi from '@/apis/users'
 import { useAuth } from '@/context'
 import * as type from '@/types/user'
+import * as T from '@/utils/try'
 
 export const useMyProfileQuery = (options?: UseQueryOptions<type.UserModel>): UseQueryResult<type.UserModel> =>
   useQuery({
@@ -37,4 +38,23 @@ export const useUserProfileQuery = (
 export const useVerifyNickname = () =>
   useMutation({
     mutationFn: ({ nickname }: { nickname: type.UserModel['nickname'] }) => userApi.verifyMyNickname({ nickname }),
+  })
+
+export const useMyStationsMutation = () => {
+  return useMutation({
+    mutationFn: ({ stationNames }: { stationNames: string }) => userApi.updateMyStations({ stationNames }),
+  })
+}
+
+export const useMyStationsQuery = (
+  options?: UseQueryOptions<type.UserStationsModel>
+): UseQueryResult<type.UserStationsModel> =>
+  useQuery({
+    queryKey: ['user', 'me', 'stations'],
+    queryFn: async () => {
+      const res = await userApi.getMyStations()
+      const parsedData = T.parseResponse(res)
+      return T.getOrElse(parsedData, () => ({ stationInfoList: [] }))
+    },
+    enabled: options?.enabled || false,
   })

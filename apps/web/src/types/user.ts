@@ -12,3 +12,18 @@ export interface UserModel extends APILoginUser {
 export interface VerifyNicknameModel {
   available: boolean
 }
+
+export interface UserStationsModel {
+  stationInfoList: Array<{
+    stationId: number
+    stationName: string
+    subwayLineInfoList: Array<{
+      subwayLineId: number
+      subwayLineName: string
+    }>
+  }>
+}
+
+export interface UserUpdateStationsModelResponse {
+  memberStationIds: number[]
+}

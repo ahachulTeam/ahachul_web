@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios'
 import { ax } from './axios'
 import { StandardResponse } from '@/types/global'
-import { UserModel, VerifyNicknameModel } from '@/types/user'
+import { UserModel, UserStationsModel, UserUpdateStationsModelResponse, VerifyNicknameModel } from '@/types/user'
 
 export const getMyProfile = async () => {
   const res = await ax.get<StandardResponse<UserModel>>('/members')
@@ -27,5 +27,22 @@ export const getUserProfile = async ({ memberId }: { memberId: UserModel['member
 
 export const getMyProfileServerSide = (_api: AxiosInstance) => async () => {
   const res = await _api.get<Promise<StandardResponse<UserModel>>>('/members')
+  return res.data
+}
+
+export const getMyStations = async () => {
+  const res = await ax.get<StandardResponse<UserStationsModel>>('/members/bookmarks/stations')
+  return res.data
+}
+
+export const updateMyStations = async ({ stationNames }: { stationNames: string }) => {
+  const res = await ax.post<StandardResponse<UserUpdateStationsModelResponse>>('/members/bookmarks/stations', {
+    stationNames: [stationNames],
+  })
+  return res.data
+}
+
+export const getMyStationsServerSide = async (_api: AxiosInstance) => {
+  const res = await _api.get<Promise<StandardResponse<UserStationsModel>>>('/members/bookmarks/stations')
   return res.data
 }

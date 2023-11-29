@@ -13,8 +13,10 @@ export const fetchGetTrains = async (trainId: string) => {
   return data
 }
 
-export const fetchGetTrainRealTimeData = async (stationId: string) => {
-  const { data } = await ax.get<StandardResponse<TrainMetaData>>(`/trains/real-times?stationId=${stationId}`)
+export const fetchGetTrainRealTimeData = async (stationInfo: { stationId?: number; subwayLineId?: number }) => {
+  const { data } = await ax.get<StandardResponse<TrainMetaData>>(
+    `/trains/real-times?stationId=${stationInfo?.stationId}&subwayLineId=${stationInfo?.subwayLineId}`
+  )
   return data
 }
 

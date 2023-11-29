@@ -13,7 +13,8 @@ export const SUBWAY_KEYS = {
 export const trainKeys = {
   all: ['train'] as const,
   metaDataList: () => [...trainKeys.all, 'metaData'] as const,
-  metaData: (trainNumber: string) => [...trainKeys.metaDataList(), trainNumber] as const,
+  realTimeData: (stationId?: number, subwayLineId?: number) =>
+    [...trainKeys.metaDataList(), stationId, subwayLineId] as const,
 }
 
 export const useGetSubwayList = (): UseQueryResult<StandardResponse<SubwayLineServerModel>> => {
@@ -54,22 +55,21 @@ export const useGetSubwayList = (): UseQueryResult<StandardResponse<SubwayLineSe
   })
 }
 
-export const useGetTrainMetaData = (
-  trainNumber: string,
+export const useGetTrainRealTimeData = (
+  stationInfo: { stationId?: number; subwayLineId?: number },
   options?: Pick<
     UseQueryOptions<Awaited<ReturnType<typeof trainAPI.fetchGetTrains>>>,
     'enabled' | 'suspense' | 'staleTime'
   >
 ) => {
   return useQuery({
-    queryKey: trainKeys.metaData(trainNumber),
+    queryKey: trainKeys.realTimeData(stationInfo?.stationId, stationInfo?.subwayLineId),
     queryFn: async () => {
-      const res = await trainAPI.fetchGetTrainRealTimeData(trainNumber)
+      const res = await trainAPI.fetchGetTrainRealTimeData(stationInfo)
       const parsedData = T.parseResponse(res)
       return T.getOrElse(parsedData, () => null)
     },
-    suspense: options?.suspense,
-    staleTime: options?.staleTime,
+    suspense: options?.suspense || false,
     enabled: options?.enabled || false,
   })
 }

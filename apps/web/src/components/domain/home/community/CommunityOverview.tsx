@@ -1,5 +1,8 @@
+import Link from 'next/link'
 import Item from './item/Item'
 import * as S from './styled'
+import { ArrowIcon } from '@/assets/icons'
+import { PATH } from '@/constants'
 
 const DUMMY_LIST = [
   {
@@ -54,14 +57,24 @@ const DUMMY_LIST = [
   },
 ]
 
-function CommunitySummary() {
+function CommunityOverview() {
   return (
-    <S.Community>
-      {DUMMY_LIST.map(data => (
-        <Item key={data._id} data={data} />
-      ))}
-    </S.Community>
+    <S.CommunitySection>
+      <div>
+        <h3 css={S.h3}>
+          <b>실시간</b> HOT 게시물
+        </h3>
+        <Link href={PATH.COMMUNITY} aria-label="커뮤니티 페이지 링크 버튼">
+          <ArrowIcon />
+        </Link>
+      </div>
+      <S.Community>
+        {DUMMY_LIST.map(data => (
+          <Item key={data._id} data={data} />
+        ))}
+      </S.Community>
+    </S.CommunitySection>
   )
 }
 
-export default CommunitySummary
+export default CommunityOverview

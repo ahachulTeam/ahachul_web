@@ -2,65 +2,49 @@ import { Tab, Toggle } from '@ahhachul/ui'
 import { Theme, css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { AnimatePresence, m } from 'framer-motion'
+import { isEmpty } from 'lodash-es'
 import { useRouter } from 'next/router'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useRecoilValue } from 'recoil'
+import { useCallback, useState } from 'react'
 import { ArrowDownIcon, RefetchIcon } from '@/assets/icons'
-import { subwayStationsAtom } from '@/atoms/train'
 import Train from '@/components/public/train/Train'
 import { ITEM_FOCUS_ID, PATH } from '@/constants'
 import { defaultFadeInDownVariants } from '@/constants/motions'
 import useDialog from '@/hooks/filters/useDialog'
-import { StationClientModel, Stations } from '@/types'
-
-// 유저가 즐겨찾기한 역 설정 api 나오면 새롭게 연동하기
+import { useGetTrainRealTimeData } from '@/services'
+import { UserStationsModel } from '@/types'
 
 interface SubwayInformationProps {
-  dummyUserSelectedStation: string[]
+  userStations?: UserStationsModel
 }
 
 interface FilterDropboxProps {
   open: boolean
 }
 
-function SubwayInformation({ dummyUserSelectedStation }: SubwayInformationProps) {
+function SubwayInformation({ userStations }: SubwayInformationProps) {
   const router = useRouter()
-  const subwayInfo = useRecoilValue(subwayStationsAtom)
-  const stationsInfo = useMemo(() => {
-    return dummyUserSelectedStation.reduce((acc, station) => {
-      acc[station] = subwayInfo[station]
-      return acc
-    }, {} as Stations)
-  }, [dummyUserSelectedStation, subwayInfo])
-  const [selectedStation, setSelectedStation] = useState<[string, StationClientModel[]] | null>(null)
-  useEffect(() => {
-    setSelectedStation(Object.entries(stationsInfo)?.[0])
-  }, [stationsInfo])
-  console.log('selectedStation:', selectedStation)
-  // 백엔드 API 명세 확정되면 개발하기
-  // const selectedStationLines = useMemo(() => {
-  //   const [_, val] = selectedStation as [string, StationClientModel[]]
-  //   return val.reduce((acc, curr, index) => {
-  //     acc[index.toString()] = curr?.parentLineNames
-  //     return acc
-  //   }, {} as { [key: string]: string })
-  // }, [selectedStation])
-  // console.log('selectedStationLines:', selectedStationLines)
+
+  const { data: stationRealTimeData } = useGetTrainRealTimeData(
+    {
+      stationId: userStations?.stationInfoList?.[0]?.stationId,
+      subwayLineId: userStations?.stationInfoList?.[0]?.subwayLineInfoList?.[0]?.subwayLineId,
+    },
+    {
+      enabled: !isEmpty(userStations),
+    }
+  )
+
+  console.log('stationRealTimeData:', stationRealTimeData)
 
   const handleChangeDefaultStation = (station: string) => () => {
     // stationsInfo를 복제하여 새로운 객체를 만듭니다.
     // setStationsInfo(prev => ({ ...prev }))
   }
 
-  const dummyUserSelection = {
-    one: '1',
-    two: '7',
-    three: '9',
-    all: '전체 노선도',
-  }
-
   const dummuDirections = { HELLO: '잠원방면', WORDL: '교대방면' }
-  const [selectedTab, setSelectedTab] = useState('one')
+  const [selectedTab, setSelectedTab] = useState(
+    userStations?.stationInfoList[0]?.subwayLineInfoList?.[0]?.subwayLineName
+  )
   const [selectedDirection, setSelectedDirection] = useState('HELLO')
   // 전체 노선도를 클릭 시, 어떻게 노선도를 보여줄까. 모달 ? 페이지 ?
   const handleChangeTab = useCallback(
@@ -71,8 +55,6 @@ function SubwayInformation({ dummyUserSelectedStation }: SubwayInformationProps)
     []
   )
   const handleChangeDirection = useCallback((direction: string) => () => setSelectedDirection(direction), [])
-
-  // const { data: trainData } = useGetTrainRealTimeMetaData('582', { enabled: true })
 
   const { isOpen: isDialogOpen, dialogRef, handleDialogClose, handleToggleDialog } = useDialog()
   const SUBWAY_SELECT_UUID = 'ahhachulsubwaydialog'
@@ -93,7 +75,7 @@ function SubwayInformation({ dummyUserSelectedStation }: SubwayInformationProps)
         aria-haspopup="listbox"
         onClick={handleToggleDialog}
       >
-        오늘의 <b>{Object.keys(stationsInfo)[0]}역</b>
+        오늘의 <b>{userStations?.stationInfoList[0]?.stationName}역</b>
         <ArrowDownIcon />
         <AnimatePresence mode="wait">
           {isDialogOpen && (
@@ -112,10 +94,10 @@ function SubwayInformation({ dummyUserSelectedStation }: SubwayInformationProps)
               aria-multiselectable="true"
               aria-activedescendant={isDialogOpen ? ITEM_FOCUS_ID : ''}
             >
-              {Object.entries(stationsInfo).map(([key], idx) => {
+              {userStations?.stationInfoList?.map(({ stationName }, idx) => {
                 return (
-                  <span key={idx} onClick={handleChangeDefaultStation(key)}>
-                    {key}
+                  <span key={idx} onClick={handleChangeDefaultStation(stationName)}>
+                    {stationName}
                   </span>
                 )
               })}
@@ -125,7 +107,11 @@ function SubwayInformation({ dummyUserSelectedStation }: SubwayInformationProps)
         </AnimatePresence>
       </HeadingTriggerButton>
       <UserSelectedSubwayLineBox>
-        <Tab selectedTab={selectedTab} tabList={dummyUserSelection} handleChangeTab={handleChangeTab} />
+        {/* <Tab
+          selectedTab={selectedTab}
+          tabList={userStations?.stationInfoList[0]?.subwayLineInfoList?.map(item => item.subwayLineName)}
+          handleChangeTab={handleChangeTab}
+        /> */}
       </UserSelectedSubwayLineBox>
 
       <InfoWrapper>
@@ -496,3 +482,23 @@ const tabs = css`
 `
 
 export default SubwayInformation
+
+// const stationsInfo = useMemo(() => {
+//   return dummyUserSelectedStation.reduce((acc, station) => {
+//     acc[station] = subwayInfo[station]
+//     return acc
+//   }, {} as Stations)
+// }, [dummyUserSelectedStation, subwayInfo])
+// const [selectedStation, setSelectedStation] = useState<[string, StationClientModel[]] | null>(null)
+// useEffect(() => {
+//   setSelectedStation(Object.entries(stationsInfo)?.[0])
+// }, [stationsInfo])
+// 백엔드 API 명세 확정되면 개발하기
+// const selectedStationLines = useMemo(() => {
+//   const [_, val] = selectedStation as [string, StationClientModel[]]
+//   return val.reduce((acc, curr, index) => {
+//     acc[index.toString()] = curr?.parentLineNames
+//     return acc
+//   }, {} as { [key: string]: string })
+// }, [selectedStation])
+// console.log('selectedStationLines:', selectedStationLines)

@@ -28,7 +28,7 @@ import {
   Violence,
 } from '@/components/domain/complaint'
 
-import { usePostComplaintMessage, useGetTrainMetaData } from '@/services'
+import { usePostComplaintMessage, useGetTrainRealTimeData } from '@/services'
 import { TrainMetaData } from '@/types/train'
 
 const ComplaintContentsKeys = {
@@ -69,16 +69,16 @@ const ComplaintDetailScreen = () => {
     return router.query.id as keyof typeof ComplaintContentsKeys
   }, [router.query])
 
-  const {
-    data: trainMetaData,
-    isError,
-    isFetched,
-  } = useGetTrainMetaData(trainsNumberInputResult || '', {
-    enabled:
-      Boolean(trainsNumberInputResult) && trainsNumberInputResult.length === inputValues.length && isEnabledFetch,
-    suspense: false,
-    staleTime: 0,
-  })
+  // const {
+  //   data: trainMetaData,
+  //   isError,
+  //   isFetched,
+  // } = useGetTrainRealTimeData(trainsNumberInputResult || '', {
+  //   enabled:
+  //     Boolean(trainsNumberInputResult) && trainsNumberInputResult.length === inputValues.length && isEnabledFetch,
+  //   suspense: false,
+  //   staleTime: 0,
+  // })
 
   const { mutateAsync } = usePostComplaintMessage()
 
@@ -173,20 +173,20 @@ const ComplaintDetailScreen = () => {
 
   // [MEMO] 열차 메타 데이터 API 작동이 되면 해당 useEffect 로직 제거
   // -- start
-  useEffect(() => {
-    setIsEnabledFetch(false)
-    if (isFetched) {
-      setTrainNumber({
-        id: 1,
-        subwayLine: {
-          id: 1,
-          name: '1호선',
-        },
-        location: 3,
-        organizationTrainNo: '52',
-      })
-    }
-  }, [trainMetaData, isError, isFetched])
+  // useEffect(() => {
+  //   setIsEnabledFetch(false)
+  //   if (isFetched) {
+  //     setTrainNumber({
+  //       id: 1,
+  //       subwayLine: {
+  //         id: 1,
+  //         name: '1호선',
+  //       },
+  //       location: 3,
+  //       organizationTrainNo: '52',
+  //     })
+  //   }
+  // }, [trainMetaData, isError, isFetched])
   // -- end
 
   useEffect(() => {

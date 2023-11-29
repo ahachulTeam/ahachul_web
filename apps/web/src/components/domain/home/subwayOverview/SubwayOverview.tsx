@@ -1,3 +1,4 @@
+import { A11yHeading } from '@ahhachul/ui'
 import { useRouter } from 'next/router'
 import AhHachulSuperModel from 'public/illust/c8.svg'
 import SubwayIllust from 'public/illust/m1.svg'
@@ -19,6 +20,7 @@ function SubwayOverview() {
 
   return (
     <S.Container>
+      <A11yHeading as="h3">지하철 열차정보와 혼잡도가 궁금하다면?</A11yHeading>
       <S.SubwayInfo className="temporary swipe banner">
         <S.ThickBorderArea tabIndex={-1}>
           <S.AhHachulLabel>아하철역</S.AhHachulLabel>
@@ -37,7 +39,7 @@ function SubwayOverview() {
               궁금하다면?
             </S.Desc>
             <S.AddBtn type="button" onClick={handleRouteSettingSubway}>
-              전철역 추가하기
+              로그인
               <ArrowIcon />
             </S.AddBtn>
           </S.Box>
