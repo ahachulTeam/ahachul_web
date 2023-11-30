@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios'
 import { ax } from './axios'
 import { StandardResponse } from '@/types/global'
-import { SubwayLineServerModel, TrainMetaData, TrainRealTimeData } from '@/types/train'
+import { SubwayLineServerModel, TrainCongestionData, TrainMetaData, TrainRealTimeData } from '@/types/train'
 
 export const getSubwayLines = async () => {
   const { data } = await ax.get<StandardResponse<SubwayLineServerModel>>('/subway-lines')
@@ -20,8 +20,14 @@ export const fetchGetTrainRealTimeData = async (stationInfo: { stationId?: numbe
   return data
 }
 
-export const getTrainRealTimeCongestionData = async (stationId: string) => {
-  const { data } = await ax.get<StandardResponse<TrainMetaData>>(`/trains/real-times/congestion?stationId=${stationId}`)
+export const getTrainRealTimeCongestionData = async (
+  stationId?: number,
+  upDownType?: 'UP' | 'DOWN',
+  subwayLineId?: number
+) => {
+  const { data } = await ax.get<StandardResponse<TrainCongestionData>>(
+    `/trains/real-times/congestion?stationId=${stationId}&upDownType=${upDownType}&subwayLineId=${subwayLineId}`
+  )
   return data
 }
 

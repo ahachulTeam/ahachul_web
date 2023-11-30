@@ -32,14 +32,31 @@ export interface TrainMetaData {
   organizationTrainNo: string
 }
 
+export interface TrainInfo {
+  upDownType: 'UP' | 'DOWN'
+  nextStationDirection: string
+  destinationStationDirection: string
+  trainNum: string
+  currentLocation: string
+  currentTrainArrivalCode:
+    | 'ENTER'
+    | 'ARRIVE'
+    | 'DEPARTURE'
+    | 'BEFORE_STATION_DEPARTURE'
+    | 'BEFORE_STATION_ENTER'
+    | 'BEFORE_STATION_ARRIVE'
+    | 'RUNNING'
+}
+
 export interface TrainRealTimeData {
-  trainRealTimes: Array<{
-    upDownType: 'UP' | 'DOWN'
-    nextStationDirection: string
-    destinationStationDirection: string
-    trainNum: string
-    currentLocation: string
-    currentTrainArrivalCode: string
-  }>
+  trainRealTimes: TrainInfo[]
   upDownData?: Record<string, string>
+}
+
+export interface TrainCongestionData {
+  trainNo: number
+  congestions: Array<{
+    sectionNo: number
+    congestionColor: 'SMOOTH' | 'MODERATE' | 'CONGESTED' | 'VERY_CONGESTED'
+  }>
 }

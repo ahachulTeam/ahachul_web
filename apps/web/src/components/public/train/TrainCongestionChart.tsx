@@ -1,28 +1,31 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { useIsomorphicLayoutEffect } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { isEmpty } from 'lodash-es'
+import { memo, useRef, useState } from 'react'
 import TrainEachSvg from './TrainEachBox'
 import TrainSvg from './TrainSvg'
+import { useGetTrainCongestionData } from '@/services/train'
+import { UserStationsModel } from '@/types'
 
-interface TrainProps {
-  calculatedCrowdRatings?: string[]
+interface TrainCongestionChartProps {
+  userStations?: UserStationsModel
+  upDownType?: 'UP' | 'DOWN'
 }
 
-function Train({
-  calculatedCrowdRatings = [
-    '#EE4D4D',
-    '#FFC44D',
-    '#A2D471',
-    '#FF884D',
-    '#EE4D4D',
-    '#FF884D',
-    '#FFC44D',
-    '#A2D471',
-    '#A2D471',
-    '#EE4D4D',
-  ],
-}: TrainProps) {
+function TrainCongestionChart({ userStations, upDownType }: TrainCongestionChartProps) {
+  const { data: stationCongestionData } = useGetTrainCongestionData(
+    {
+      upDownType,
+      stationId: userStations?.stationInfoList?.[0]?.stationId,
+      subwayLineId: userStations?.stationInfoList?.[0]?.subwayLineInfoList?.[0]?.subwayLineId,
+    },
+    {
+      suspense: true,
+      enabled: !isEmpty(userStations) && Boolean(upDownType),
+    }
+  )
+
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [containerWidth, setContainerWidth] = useState(0)
   useIsomorphicLayoutEffect(() => {
@@ -35,9 +38,12 @@ function Train({
       <TrainSvg width={containerWidth} />
       {containerWidth && (
         <ul>
-          {calculatedCrowdRatings?.map((item, i) => (
+          {stationCongestionData?.congestions?.map((item, i) => (
             <li key={i}>
-              <TrainEachSvg color={item} roomNumber={i + 1} />
+              <TrainEachSvg
+                color={item as unknown as 'SMOOTH' | 'MODERATE' | 'CONGESTED' | 'VERY_CONGESTED'}
+                roomNumber={i + 1}
+              />
             </li>
           ))}
         </ul>
@@ -69,4 +75,4 @@ const Container = styled.div`
   `}
 `
 
-export default Train
+export default memo(TrainCongestionChart)

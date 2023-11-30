@@ -9,7 +9,6 @@ import { PATH } from '@/constants'
 import { defaultFadeInDownVariants } from '@/constants/motions'
 import { SUBWAY_SELECT_UUID } from '@/constants/subway'
 import useDialog from '@/hooks/filters/useDialog'
-import { useGetTrainRealTimeData } from '@/services'
 import { UserStationsModel } from '@/types'
 
 interface StationDialogProps {
@@ -22,17 +21,6 @@ interface FilterDropboxProps {
 
 const StationDialog = ({ userStations }: StationDialogProps) => {
   const router = useRouter()
-
-  const { data: stationRealTimeData, isLoading } = useGetTrainRealTimeData(
-    {
-      stationId: userStations?.stationInfoList?.[0]?.stationId,
-      subwayLineId: userStations?.stationInfoList?.[0]?.subwayLineInfoList?.[0]?.subwayLineId,
-    },
-    {
-      suspense: true,
-      enabled: !isEmpty(userStations),
-    }
-  )
 
   const handleChangeDefaultStation = (station: string) => () => {}
 

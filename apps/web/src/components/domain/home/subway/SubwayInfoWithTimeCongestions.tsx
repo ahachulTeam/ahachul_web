@@ -1,17 +1,20 @@
 import { Theme, css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { isEmpty } from 'lodash-es'
+import dynamic from 'next/dynamic'
+import { Suspense, useState } from 'react'
 import { RefetchIcon } from '@/assets/icons'
-import Train from '@/components/public/train/Train'
 import { useGetTrainRealTimeData } from '@/services'
-import { UserStationsModel } from '@/types'
+import { TrainInfo, UserStationsModel } from '@/types'
+
+const TrainCongestionChart = dynamic(() => import('@/components/public/train/TrainCongestionChart'), { ssr: false })
 
 interface SubwayInfoWithTimeCongestionsProps {
   userStations?: UserStationsModel
 }
 
 const SubwayInfoWithTimeCongestions = ({ userStations }: SubwayInfoWithTimeCongestionsProps) => {
-  const { data: stationRealTimeData, isLoading } = useGetTrainRealTimeData(
+  const { data: stationRealTimeData } = useGetTrainRealTimeData(
     {
       stationId: userStations?.stationInfoList?.[0]?.stationId,
       subwayLineId: userStations?.stationInfoList?.[0]?.subwayLineInfoList?.[0]?.subwayLineId,
@@ -22,23 +25,33 @@ const SubwayInfoWithTimeCongestions = ({ userStations }: SubwayInfoWithTimeConge
     }
   )
 
+  console.log('stationRealTimeData:', stationRealTimeData)
+
+  const [selectedTrain, setSelectedTrain] = useState<TrainInfo>(
+    stationRealTimeData?.trainRealTimes?.[0] || ({} as TrainInfo)
+  )
+
+  const handleChangeSelectedTrain = (train: TrainInfo) => () => {
+    setSelectedTrain(train)
+  }
+
   return (
     <SubwayInfo>
       <ThickBorderArea tabIndex={-1}>
         <StationLabel>{userStations?.stationInfoList?.[0]?.stationName}역</StationLabel>
-        <DirectionLabel>잠원방면</DirectionLabel>
+        <DirectionLabel>{stationRealTimeData?.trainRealTimes?.[0]?.nextStationDirection}</DirectionLabel>
       </ThickBorderArea>
       <ContentArea>
         <TopInfo>
-          <b>곧 도착</b>
-          <span>대화행</span>
+          <b>{selectedTrain?.currentLocation}</b>
+          <span>{selectedTrain?.destinationStationDirection}</span>
           <button>
             <RefetchIcon />
           </button>
         </TopInfo>
         <TrainInfoContainer>
           <TrainInfoTop>
-            <span>전동차 5035</span>
+            <span>전동차 {selectedTrain?.trainNum}</span>
             <div>
               <span>여유</span>
               <ul>
@@ -51,25 +64,25 @@ const SubwayInfoWithTimeCongestions = ({ userStations }: SubwayInfoWithTimeConge
               <button>i</button>
             </div>
           </TrainInfoTop>
-          <Train />
+
+          <Suspense fallback={<div />}>
+            <TrainCongestionChart
+              userStations={userStations}
+              upDownType={stationRealTimeData?.trainRealTimes?.[0]?.upDownType}
+            />
+          </Suspense>
         </TrainInfoContainer>
         <BottomInfo>
-          <li>
-            <b>곧 도착</b>
-            <span>대화행</span>
-          </li>
-          <li>
-            <b>2분 26초</b>
-            <span>대화행</span>
-          </li>
-          <li>
-            <b>10분 28초</b>
-            <span>대화행</span>
-          </li>
-          <li>
-            <b>12분 05초</b>
-            <span>대화행</span>
-          </li>
+          {stationRealTimeData?.trainRealTimes?.map((item, index) => {
+            return (
+              <li key={index}>
+                <button onClick={handleChangeSelectedTrain(item)}>
+                  <b>{item?.currentLocation}</b>
+                  <span>{item?.destinationStationDirection}</span>
+                </button>
+              </li>
+            )
+          })}
         </BottomInfo>
         <button css={allTrainsBtnCss}>지하철 전체 시간표</button>
       </ContentArea>
@@ -252,7 +265,7 @@ const BottomInfo = styled.ul`
     column-gap: 24px;
     margin: 16px 0;
 
-    & > li {
+    & > li > button {
       ${theme.common.flexAlignCenter};
       justify-content: space-between;
       width: 100%;

@@ -15,19 +15,13 @@ function HomeMainScreen({ isLoggedIn, userStations }: HomeMainScreenProps) {
   return (
     <PageTemplate>
       <PageTemplate.ContentsSection>
-        <Container>
-          {isLoggedIn ? <SubwayInformation userStations={userStations} /> : <SubwayOverview />}
-          <Divider />
-          <CommunityOverview />
-        </Container>
+        {isLoggedIn ? <SubwayInformation userStations={userStations} /> : <SubwayOverview />}
+        <Divider />
+        <CommunityOverview />
       </PageTemplate.ContentsSection>
     </PageTemplate>
   )
 }
-
-const Container = styled.article`
-  width: 100%;
-`
 
 const Divider = styled.div`
   ${({ theme }) => css`

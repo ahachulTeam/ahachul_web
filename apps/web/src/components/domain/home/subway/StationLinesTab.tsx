@@ -1,9 +1,7 @@
 import { Tab } from '@ahhachul/ui'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { isEmpty } from 'lodash-es'
-import { useCallback, useState } from 'react'
-import { useGetTrainRealTimeData } from '@/services'
+import { useCallback, useMemo, useState } from 'react'
 import { UserStationsModel } from '@/types'
 
 interface StationLinesTabProps {
@@ -11,40 +9,35 @@ interface StationLinesTabProps {
 }
 
 const StationLinesTab = ({ userStations }: StationLinesTabProps) => {
-  const { data: stationRealTimeData, isLoading } = useGetTrainRealTimeData(
-    {
-      stationId: userStations?.stationInfoList?.[0]?.stationId,
-      subwayLineId: userStations?.stationInfoList?.[0]?.subwayLineInfoList?.[0]?.subwayLineId,
-    },
-    {
-      suspense: true,
-      enabled: !isEmpty(userStations),
-    }
-  )
-
   const [selectedTab, setSelectedTab] = useState<string>(
     userStations?.stationInfoList[0]?.subwayLineInfoList?.[0]?.subwayLineName as string
   )
-  const tabList = userStations?.stationInfoList[0]?.subwayLineInfoList?.map(item => item.subwayLineName)
+
+  const tabList = useMemo(
+    () =>
+      userStations?.stationInfoList[0]?.subwayLineInfoList?.reduce((acc, curr) => {
+        acc[curr?.subwayLineName] = curr?.subwayLineName
+        return acc
+      }, {} as { [key: string]: string }),
+    [userStations?.stationInfoList]
+  )
+
   const handleChangeTab = useCallback(
     (line: string) => () => {
-      // line === 'all' 일 때 전체 노선도 보여주기
-      setSelectedTab(line)
+      if (line === 'all') {
+        // line === 'all' 일 때 전체 노선도 보여주기
+        alert('is all')
+        return
+      } else {
+        setSelectedTab(line)
+      }
     },
     [setSelectedTab]
   )
 
   return (
     <UserSelectedSubwayLineBox>
-      <Tab
-        selectedTab={selectedTab}
-        tabList={
-          tabList as unknown as {
-            [key: string]: string
-          }
-        }
-        handleChangeTab={handleChangeTab}
-      />
+      <Tab selectedTab={selectedTab} tabList={{ ...tabList, all: '전체노선도' }} handleChangeTab={handleChangeTab} />
     </UserSelectedSubwayLineBox>
   )
 }
