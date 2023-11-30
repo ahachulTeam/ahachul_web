@@ -31,3 +31,15 @@ export interface TrainMetaData {
   location: number
   organizationTrainNo: string
 }
+
+export interface TrainRealTimeData {
+  trainRealTimes: Array<{
+    upDownType: 'UP' | 'DOWN'
+    nextStationDirection: string
+    destinationStationDirection: string
+    trainNum: string
+    currentLocation: string
+    currentTrainArrivalCode: string
+  }>
+  upDownData?: Record<string, string>
+}

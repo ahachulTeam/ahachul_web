@@ -67,9 +67,20 @@ export const useGetTrainRealTimeData = (
     queryFn: async () => {
       const res = await trainAPI.fetchGetTrainRealTimeData(stationInfo)
       const parsedData = T.parseResponse(res)
-      return T.getOrElse(parsedData, () => null)
+      return T.getOrElse(parsedData, () => ({ trainRealTimes: [] }))
     },
     suspense: options?.suspense || false,
     enabled: options?.enabled || false,
+    select: v => {
+      const selectedUpDownData = v.trainRealTimes?.reduce((acc, curr) => {
+        if (!acc[curr?.nextStationDirection]) {
+          acc[curr?.nextStationDirection] = curr?.nextStationDirection
+        }
+
+        return acc
+      }, {} as Record<string, string>)
+      v.upDownData = selectedUpDownData
+      return v
+    },
   })
 }
