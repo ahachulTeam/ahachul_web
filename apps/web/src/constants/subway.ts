@@ -37,3 +37,5 @@ export const SUBWAY_CALL_CENTER = [
     callNumber: '021234567',
   },
 ]
+
+export const SUBWAY_SELECT_UUID = 'ahhachulsubwaydialog'

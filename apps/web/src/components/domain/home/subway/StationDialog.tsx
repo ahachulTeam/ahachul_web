@@ -7,6 +7,7 @@ import { ArrowDownIcon } from '@/assets/icons'
 import { ITEM_FOCUS_ID } from '@/constants'
 import { PATH } from '@/constants'
 import { defaultFadeInDownVariants } from '@/constants/motions'
+import { SUBWAY_SELECT_UUID } from '@/constants/subway'
 import useDialog from '@/hooks/filters/useDialog'
 import { useGetTrainRealTimeData } from '@/services'
 import { UserStationsModel } from '@/types'
@@ -34,8 +35,6 @@ const StationDialog = ({ userStations }: StationDialogProps) => {
   )
 
   const handleChangeDefaultStation = (station: string) => () => {}
-
-  const SUBWAY_SELECT_UUID = 'ahhachulsubwaydialog'
 
   const { isOpen: isDialogOpen, dialogRef, handleDialogClose, handleToggleDialog } = useDialog()
   const routeToSettingStations = () => {
