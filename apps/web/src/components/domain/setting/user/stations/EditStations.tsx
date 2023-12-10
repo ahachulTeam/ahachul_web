@@ -22,6 +22,7 @@ export type TItems = {
 }
 
 const EditStations = ({ userStations }: EditStationsProps) => {
+  console.log('userStations:', userStations)
   const [items, setItems] = useState<TItems>({
     todo: userStations.stationInfoList.map(station => ({
       id: `${station.stationId}`,

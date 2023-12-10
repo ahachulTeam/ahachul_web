@@ -19,12 +19,12 @@ function SubwayInformation({ userStations }: SubwayInformationProps) {
       <StationLinesTab userStations={userStations} />
 
       <InfoWrapper>
-        <Suspense fallback={<div />}>
+        {/* <Suspense fallback={<div />}>
           <StationDirectionToggle userStations={userStations} />
         </Suspense>
         <Suspense fallback={<div />}>
           <SubwayInfoWithTimeCongestions userStations={userStations} />
-        </Suspense>
+        </Suspense> */}
       </InfoWrapper>
     </Container>
   )

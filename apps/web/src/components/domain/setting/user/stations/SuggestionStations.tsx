@@ -12,7 +12,7 @@ const SuggestionStations = ({ searchKeyword, refinedStationFromSearchKeyword }: 
   const { mutate: updateUserStations } = useMyStationsMutation()
 
   const handleClickStation = (stationNames: string) => () => {
-    updateUserStations({ stationNames })
+    updateUserStations({ stations: [stationNames] })
   }
 
   return (

@@ -35,9 +35,9 @@ export const getMyStations = async () => {
   return res.data
 }
 
-export const updateMyStations = async ({ stationNames }: { stationNames: string }) => {
+export const updateMyStations = async ({ stations }: { stations: string[] }) => {
   const res = await ax.post<StandardResponse<UserUpdateStationsModelResponse>>('/members/bookmarks/stations', {
-    stationNames: ['강남'],
+    stationNames: stations,
   })
   return res.data
 }

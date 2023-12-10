@@ -1,4 +1,4 @@
-import { UseQueryOptions, UseQueryResult, useMutation, useQuery } from '@tanstack/react-query'
+import { UseQueryOptions, UseQueryResult, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import * as userApi from '@/apis/users'
 import { useAuth } from '@/context'
 import * as type from '@/types/user'
@@ -41,8 +41,13 @@ export const useVerifyNickname = () =>
   })
 
 export const useMyStationsMutation = () => {
+  const queryClient = useQueryClient()
+
   return useMutation({
-    mutationFn: ({ stationNames }: { stationNames: string }) => userApi.updateMyStations({ stationNames }),
+    mutationFn: ({ stations }: { stations: string[] }) => userApi.updateMyStations({ stations }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(['user', 'me', 'stations'])
+    },
   })
 }
 

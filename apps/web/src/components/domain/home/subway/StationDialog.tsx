@@ -1,7 +1,6 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { AnimatePresence, m } from 'framer-motion'
-import { isEmpty } from 'lodash-es'
 import { useRouter } from 'next/router'
 import { ArrowDownIcon } from '@/assets/icons'
 import { ITEM_FOCUS_ID } from '@/constants'
@@ -9,6 +8,7 @@ import { PATH } from '@/constants'
 import { defaultFadeInDownVariants } from '@/constants/motions'
 import { SUBWAY_SELECT_UUID } from '@/constants/subway'
 import useDialog from '@/hooks/filters/useDialog'
+import { useMyStationsMutation } from '@/services'
 import { UserStationsModel } from '@/types'
 
 interface StationDialogProps {
@@ -21,8 +21,15 @@ interface FilterDropboxProps {
 
 const StationDialog = ({ userStations }: StationDialogProps) => {
   const router = useRouter()
+  const { mutate: updateUserStations } = useMyStationsMutation()
 
-  const handleChangeDefaultStation = (station: string) => () => {}
+  const handleChangeDefaultStation = (station: string) => () => {
+    const stationNames = userStations?.stationInfoList?.map(item => item.stationName) || []
+
+    const setArray = new Set([station, ...stationNames])
+    const updatedUserStations = Array.from(setArray)
+    updateUserStations({ stations: updatedUserStations })
+  }
 
   const { isOpen: isDialogOpen, dialogRef, handleDialogClose, handleToggleDialog } = useDialog()
   const routeToSettingStations = () => {
