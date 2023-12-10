@@ -11,6 +11,7 @@ export default function ReactQuery({ children, state }: ReactQueryProps) {
       new QueryClient({
         defaultOptions: {
           queries: {
+            retry: 0,
             retryOnMount: false,
             refetchOnWindowFocus: false,
             refetchOnReconnect: false,

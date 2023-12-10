@@ -15,7 +15,11 @@ function HomeMainScreen({ isLoggedIn, userStations }: HomeMainScreenProps) {
   return (
     <PageTemplate>
       <PageTemplate.ContentsSection>
-        {isLoggedIn ? <SubwayInformation userStations={userStations} /> : <SubwayOverview />}
+        {isLoggedIn && userStations && userStations?.stationInfoList?.length > 0 ? (
+          <SubwayInformation userStations={userStations} />
+        ) : (
+          <SubwayOverview isLoggedIn={isLoggedIn} />
+        )}
         <Divider />
         <CommunityOverview />
       </PageTemplate.ContentsSection>

@@ -17,7 +17,7 @@ const StationDirectionToggle = ({ userStations }: StationDirectionToggleProps) =
     },
     {
       suspense: true,
-      enabled: !isEmpty(userStations),
+      enabled: Boolean(userStations),
     }
   )
 
@@ -28,10 +28,7 @@ const StationDirectionToggle = ({ userStations }: StationDirectionToggleProps) =
 
   return (
     <Toggle css={tabs} defaultValue={selectedDirection} tabAriaLabel="방면 탭 버튼">
-      <Toggle.WithActionFn
-        tabs={stationRealTimeData?.upDownData as Record<string, string>}
-        actionFn={handleChangeDirection}
-      />
+      <Toggle.WithActionFn tabs={stationRealTimeData?.upDownData || {}} actionFn={handleChangeDirection} />
     </Toggle>
   )
 }

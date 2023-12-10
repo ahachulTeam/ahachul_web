@@ -1,6 +1,6 @@
 import { Theme, css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { isEmpty } from 'lodash-es'
+import { QueryErrorResetBoundary } from '@tanstack/react-query'
 import dynamic from 'next/dynamic'
 import { Suspense, useState } from 'react'
 import { RefetchIcon } from '@/assets/icons'
@@ -21,11 +21,9 @@ const SubwayInfoWithTimeCongestions = ({ userStations }: SubwayInfoWithTimeConge
     },
     {
       suspense: true,
-      enabled: !isEmpty(userStations),
+      enabled: Boolean(userStations),
     }
   )
-
-  console.log('stationRealTimeData:', stationRealTimeData)
 
   const [selectedTrain, setSelectedTrain] = useState<TrainInfo>(
     stationRealTimeData?.trainRealTimes?.[0] || ({} as TrainInfo)
@@ -77,7 +75,7 @@ const SubwayInfoWithTimeCongestions = ({ userStations }: SubwayInfoWithTimeConge
             return (
               <li key={index}>
                 <button onClick={handleChangeSelectedTrain(item)}>
-                  <b>{item?.currentLocation}</b>
+                  <b>{item?.currentArrivalTime.toString()}분후</b>
                   <span>{item?.destinationStationDirection}</span>
                 </button>
               </li>

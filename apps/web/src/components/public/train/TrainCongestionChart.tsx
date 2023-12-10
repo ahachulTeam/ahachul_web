@@ -22,7 +22,7 @@ function TrainCongestionChart({ userStations, upDownType }: TrainCongestionChart
     },
     {
       suspense: true,
-      enabled: !isEmpty(userStations) && Boolean(upDownType),
+      enabled: Boolean(userStations) && Boolean(upDownType),
     }
   )
 

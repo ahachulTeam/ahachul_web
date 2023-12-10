@@ -1,5 +1,6 @@
 import { theme } from '@ahhachul/design-system'
 import { A11yHeading } from '@ahhachul/ui'
+import { css } from '@emotion/react'
 import { NextRouter, useRouter } from 'next/router'
 import { createContext, useCallback, useMemo, type PropsWithChildren, useContext } from 'react'
 
@@ -22,6 +23,7 @@ interface HeaderProps {
 
 interface HeaderBtnProps {
   isDisabled?: boolean
+  isEditMode?: boolean
   onClick: () => void
 }
 
@@ -144,10 +146,16 @@ function SearchBarWithRankingHashtags({ children, onClick }: PropsWithChildren<H
   return <S.HashTagInput onClick={onClick}>{children}</S.HashTagInput>
 }
 
-function Pencil({ onClick }: HeaderBtnProps) {
+function Pencil({ isEditMode, onClick }: HeaderBtnProps) {
   return (
-    <S.IconBtn onClick={onClick}>
-      <PencilIcon />
+    <S.IconBtn
+      onClick={onClick}
+      css={css`
+        font-weight: 700;
+        color: #00baf6;
+      `}
+    >
+      {isEditMode ? '완료' : <PencilIcon />}
     </S.IconBtn>
   )
 }

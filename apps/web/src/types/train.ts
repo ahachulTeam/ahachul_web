@@ -38,6 +38,7 @@ export interface TrainInfo {
   destinationStationDirection: string
   trainNum: string
   currentLocation: string
+  currentArrivalTime: number
   currentTrainArrivalCode:
     | 'ENTER'
     | 'ARRIVE'
