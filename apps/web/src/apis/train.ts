@@ -20,13 +20,9 @@ export const fetchGetTrainRealTimeData = async (stationInfo: { stationId?: numbe
   return data
 }
 
-export const getTrainRealTimeCongestionData = async (
-  stationId?: number,
-  upDownType?: 'UP' | 'DOWN',
-  subwayLineId?: number
-) => {
+export const getTrainRealTimeCongestionData = async (subwayLineId?: number, trainNo?: number) => {
   const { data } = await ax.get<StandardResponse<TrainCongestionData>>(
-    `/trains/real-times/congestion?stationId=${stationId}&upDownType=${upDownType}&subwayLineId=${subwayLineId}`
+    `/trains/real-times/congestion?subwayLineId=${subwayLineId}&trainNo=${trainNo}`
   )
   return data
 }

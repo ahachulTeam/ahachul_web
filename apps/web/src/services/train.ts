@@ -15,8 +15,8 @@ export const trainKeys = {
   metaDataList: () => [...trainKeys.all, 'metaData'] as const,
   realTimeData: (stationId?: number, subwayLineId?: number) =>
     [...trainKeys.metaDataList(), stationId, subwayLineId] as const,
-  congestionData: (stationId?: number, upDownType?: 'UP' | 'DOWN', subwayLineId?: number) =>
-    [...trainKeys.metaDataList(), stationId, upDownType, subwayLineId] as const,
+  congestionData: (subwayLineId?: number, trainNo?: number) =>
+    [...trainKeys.metaDataList(), subwayLineId, trainNo] as const,
 }
 
 export const useGetSubwayList = (): UseQueryResult<StandardResponse<SubwayLineServerModel>> => {
@@ -88,20 +88,16 @@ export const useGetTrainRealTimeData = (
 }
 
 export const useGetTrainCongestionData = (
-  stationInfo: { stationId?: number; upDownType?: 'UP' | 'DOWN'; subwayLineId?: number },
+  stationInfo: { subwayLineId?: number; trainNo?: number },
   options?: Pick<
     UseQueryOptions<Awaited<ReturnType<typeof trainAPI.getTrainRealTimeCongestionData>>>,
     'enabled' | 'suspense' | 'staleTime'
   >
 ) => {
   return useQuery({
-    queryKey: trainKeys.congestionData(stationInfo.stationId, stationInfo.upDownType, stationInfo.subwayLineId),
+    queryKey: trainKeys.congestionData(stationInfo.subwayLineId, stationInfo.trainNo),
     queryFn: async () => {
-      const res = await trainAPI.getTrainRealTimeCongestionData(
-        stationInfo.stationId,
-        stationInfo.upDownType,
-        stationInfo.subwayLineId
-      )
+      const res = await trainAPI.getTrainRealTimeCongestionData(stationInfo.subwayLineId, stationInfo.trainNo)
       const parsedData = T.parseResponse(res)
       return T.getOrElse(parsedData, () => ({} as TrainCongestionData))
     },

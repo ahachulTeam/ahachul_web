@@ -1,7 +1,6 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { useIsomorphicLayoutEffect } from 'framer-motion'
-import { isEmpty } from 'lodash-es'
 import { memo, useRef, useState } from 'react'
 import TrainEachSvg from './TrainEachBox'
 import TrainSvg from './TrainSvg'
@@ -10,19 +9,18 @@ import { UserStationsModel } from '@/types'
 
 interface TrainCongestionChartProps {
   userStations?: UserStationsModel
-  upDownType?: 'UP' | 'DOWN'
+  trainNo?: number
 }
 
-function TrainCongestionChart({ userStations, upDownType }: TrainCongestionChartProps) {
+function TrainCongestionChart({ userStations, trainNo }: TrainCongestionChartProps) {
   const { data: stationCongestionData } = useGetTrainCongestionData(
     {
-      upDownType,
-      stationId: userStations?.stationInfoList?.[0]?.stationId,
       subwayLineId: userStations?.stationInfoList?.[0]?.subwayLineInfoList?.[0]?.subwayLineId,
+      trainNo,
     },
     {
       suspense: true,
-      enabled: Boolean(userStations) && Boolean(upDownType),
+      enabled: Boolean(userStations) && Boolean(trainNo),
     }
   )
 

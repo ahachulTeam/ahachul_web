@@ -37,7 +37,7 @@ export const getMyStations = async () => {
 
 export const updateMyStations = async ({ stationNames }: { stationNames: string }) => {
   const res = await ax.post<StandardResponse<UserUpdateStationsModelResponse>>('/members/bookmarks/stations', {
-    stationNames: ['시청'],
+    stationNames: ['강남'],
   })
   return res.data
 }

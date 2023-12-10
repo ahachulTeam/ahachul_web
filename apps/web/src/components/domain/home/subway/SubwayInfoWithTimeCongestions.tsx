@@ -1,6 +1,5 @@
 import { Theme, css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { QueryErrorResetBoundary } from '@tanstack/react-query'
 import dynamic from 'next/dynamic'
 import { Suspense, useState } from 'react'
 import { RefetchIcon } from '@/assets/icons'
@@ -64,10 +63,7 @@ const SubwayInfoWithTimeCongestions = ({ userStations }: SubwayInfoWithTimeConge
           </TrainInfoTop>
 
           <Suspense fallback={<div />}>
-            <TrainCongestionChart
-              userStations={userStations}
-              upDownType={stationRealTimeData?.trainRealTimes?.[0]?.upDownType}
-            />
+            <TrainCongestionChart userStations={userStations} trainNo={Number(selectedTrain?.trainNum)} />
           </Suspense>
         </TrainInfoContainer>
         <BottomInfo>

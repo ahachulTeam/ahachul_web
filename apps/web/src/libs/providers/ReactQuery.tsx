@@ -1,12 +1,13 @@
 import { Hydrate, QueryClient, QueryClientProvider, type DehydratedState } from '@tanstack/react-query'
 import { PropsWithChildren, useState } from 'react'
+import { globalQueryErrorHandler } from '@/utils/globalQueryErrorHandler'
 
 interface ReactQueryProps extends PropsWithChildren {
   state: DehydratedState
 }
 
 export default function ReactQuery({ children, state }: ReactQueryProps) {
-  const [queryClient] = useState<QueryClient>(
+  const [queryClient] = useState<QueryClient | any>(
     () =>
       new QueryClient({
         defaultOptions: {
@@ -15,6 +16,8 @@ export default function ReactQuery({ children, state }: ReactQueryProps) {
             retryOnMount: false,
             refetchOnWindowFocus: false,
             refetchOnReconnect: false,
+
+            onError: (err: unknown) => globalQueryErrorHandler(err, queryClient),
           },
         },
       })
