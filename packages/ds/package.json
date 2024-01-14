@@ -1,17 +1,25 @@
 {
   "name": "@ahhachul/design-system",
-  "packageManager": "yarn@3.5.1",
+  "version": "0.0.1",
   "type": "module",
-  "main": "src/index.ts",
-  "dependencies": {
-    "@emotion/react": "^11.11.0",
-    "@emotion/styled": "^11.11.0"
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./themes.css": "./dist/themes.css"
   },
-  "peerDependencies": {
-    "@emotion/react": "11.x",
-    "@emotion/styled": "11.x"
+  "scripts": {
+    "build": "yarn clean && yarn build:js && yarn build:type && yarn build:css",
+    "build:js": "node build.js",
+    "build:type": "yarn tsc --emitDeclarationOnly",
+    "build:css": "node ./scripts/build-css-module.js",
+    "clean": "rm -rf dist"
   },
   "devDependencies": {
-    "typescript": "^5.0.4"
+    "@ahhachul/esbuild-config": "workspace:^",
+    "typescript": "^5.2.2"
   }
 }
