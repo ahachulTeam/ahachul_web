@@ -2,7 +2,7 @@ import { UseQueryOptions, UseQueryResult, useQuery } from '@tanstack/react-query
 import { useSetRecoilState } from 'recoil'
 import * as trainAPI from '@/apis/train'
 import { subwayStationsAtom } from '@/atoms/train'
-import { StandardResponse, Stations, SubwayLineServerModel } from '@/types'
+import { StandardResponse, Stations, SubwayLineServerModel, TrainCongestionData } from '@/types'
 import * as T from '@/utils/try'
 
 export const SUBWAY_KEYS = {
@@ -13,7 +13,10 @@ export const SUBWAY_KEYS = {
 export const trainKeys = {
   all: ['train'] as const,
   metaDataList: () => [...trainKeys.all, 'metaData'] as const,
-  metaData: (trainNumber: string) => [...trainKeys.metaDataList(), trainNumber] as const,
+  realTimeData: (stationId?: number, subwayLineId?: number) =>
+    [...trainKeys.metaDataList(), stationId, subwayLineId] as const,
+  congestionData: (subwayLineId?: number, trainNo?: number) =>
+    [...trainKeys.metaDataList(), subwayLineId, trainNo] as const,
 }
 
 export const useGetSubwayList = (): UseQueryResult<StandardResponse<SubwayLineServerModel>> => {
@@ -54,22 +57,51 @@ export const useGetSubwayList = (): UseQueryResult<StandardResponse<SubwayLineSe
   })
 }
 
-export const useGetTrainMetaData = (
-  trainNumber: string,
+export const useGetTrainRealTimeData = (
+  stationInfo: { stationId?: number; subwayLineId?: number },
   options?: Pick<
-    UseQueryOptions<Awaited<ReturnType<typeof trainAPI.fetchGetTrains>>>,
+    UseQueryOptions<Awaited<ReturnType<typeof trainAPI.fetchGetTrainRealTimeData>>>,
     'enabled' | 'suspense' | 'staleTime'
   >
 ) => {
   return useQuery({
-    queryKey: trainKeys.metaData(trainNumber),
+    queryKey: trainKeys.realTimeData(stationInfo?.stationId, stationInfo?.subwayLineId),
     queryFn: async () => {
-      const res = await trainAPI.fetchGetTrainRealTimeData(trainNumber)
+      const res = await trainAPI.fetchGetTrainRealTimeData(stationInfo)
       const parsedData = T.parseResponse(res)
-      return T.getOrElse(parsedData, () => null)
+      return T.getOrElse(parsedData, () => ({ trainRealTimes: [] }))
     },
-    suspense: options?.suspense,
-    staleTime: options?.staleTime,
+    suspense: options?.suspense || false,
+    enabled: options?.enabled || false,
+    select: v => {
+      const selectedUpDownData = v.trainRealTimes?.reduce((acc, curr) => {
+        if (!acc[curr?.nextStationDirection]) {
+          acc[curr?.nextStationDirection] = curr?.nextStationDirection
+        }
+
+        return acc
+      }, {} as Record<string, string>)
+      v.upDownData = selectedUpDownData
+      return v
+    },
+  })
+}
+
+export const useGetTrainCongestionData = (
+  stationInfo: { subwayLineId?: number; trainNo?: number },
+  options?: Pick<
+    UseQueryOptions<Awaited<ReturnType<typeof trainAPI.getTrainRealTimeCongestionData>>>,
+    'enabled' | 'suspense' | 'staleTime'
+  >
+) => {
+  return useQuery({
+    queryKey: trainKeys.congestionData(stationInfo.subwayLineId, stationInfo.trainNo),
+    queryFn: async () => {
+      const res = await trainAPI.getTrainRealTimeCongestionData(stationInfo.subwayLineId, stationInfo.trainNo)
+      const parsedData = T.parseResponse(res)
+      return T.getOrElse(parsedData, () => ({} as TrainCongestionData))
+    },
+    suspense: options?.suspense || false,
     enabled: options?.enabled || false,
   })
 }

@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios'
 import { ax } from './axios'
 import { StandardResponse } from '@/types/global'
-import { SubwayLineServerModel, TrainMetaData } from '@/types/train'
+import { SubwayLineServerModel, TrainCongestionData, TrainMetaData, TrainRealTimeData } from '@/types/train'
 
 export const getSubwayLines = async () => {
   const { data } = await ax.get<StandardResponse<SubwayLineServerModel>>('/subway-lines')
@@ -13,13 +13,17 @@ export const fetchGetTrains = async (trainId: string) => {
   return data
 }
 
-export const fetchGetTrainRealTimeData = async (stationId: string) => {
-  const { data } = await ax.get<StandardResponse<TrainMetaData>>(`/trains/real-times?stationId=${stationId}`)
+export const fetchGetTrainRealTimeData = async (stationInfo: { stationId?: number; subwayLineId?: number }) => {
+  const { data } = await ax.get<StandardResponse<TrainRealTimeData>>(
+    `/trains/real-times?stationId=${stationInfo?.stationId}&subwayLineId=${stationInfo?.subwayLineId}`
+  )
   return data
 }
 
-export const getTrainRealTimeCongestionData = async (stationId: string) => {
-  const { data } = await ax.get<StandardResponse<TrainMetaData>>(`/trains/real-times/congestion?stationId=${stationId}`)
+export const getTrainRealTimeCongestionData = async (subwayLineId?: number, trainNo?: number) => {
+  const { data } = await ax.get<StandardResponse<TrainCongestionData>>(
+    `/trains/real-times/congestion?subwayLineId=${subwayLineId}&trainNo=${trainNo}`
+  )
   return data
 }
 

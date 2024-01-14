@@ -37,3 +37,15 @@ export const SUBWAY_CALL_CENTER = [
     callNumber: '021234567',
   },
 ]
+
+export const SUBWAY_SELECT_UUID = 'ahhachulsubwaydialog'
+
+export const SUBWAY_TRAIN_ARRIVAL_CODE = {
+  ENTER: '진입',
+  ARRIVE: '도착',
+  DEPARTURE: '출발',
+  BEFORE_STATION_DEPARTURE: '전역출발',
+  BEFORE_STATION_ENTER: '전역진입',
+  BEFORE_STATION_ARRIVE: '전역도착',
+  RUNNING: '운행중',
+}

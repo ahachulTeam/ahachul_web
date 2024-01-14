@@ -55,6 +55,7 @@ export const useCommunityQuery = (): UseInfiniteQueryResult<type.CommunityListSe
       return T.getOrElse(parsedData, () => ({ posts: [], hasNext: false }))
     },
     {
+      suspense: true,
       getNextPageParam: (lastPage, page) => lastPage.hasNext && page.length,
     }
   )

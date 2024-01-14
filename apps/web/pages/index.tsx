@@ -1,7 +1,7 @@
 import { parseCookies } from 'nookies'
 import { type ReactElement } from 'react'
 
-import { getSubwayLinesServerSide } from '@/apis'
+import { getMyStationsServerSide, getSubwayLinesServerSide } from '@/apis'
 import {
   GetServerSidePropsContextWithAuthClient,
   withAuthQueryServerSideProps,
@@ -10,18 +10,27 @@ import { HomeHeader } from '@/components/domain/home/header'
 import Layout from '@/components/public/Layout'
 import HomeMainScreen from '@/components/screens/MainHome'
 import { COOKIE_KEY } from '@/constants'
-import { SUBWAY_KEYS, useGetSubwayList, useMyProfileQuery } from '@/services'
+import { SUBWAY_KEYS, useGetSubwayList, useMyProfileQuery, useMyStationsQuery } from '@/services'
+import { UserStationsModel } from '@/types'
 
 interface HomePageProps {
   isLoggedIn: boolean
-  dummyUserSelectedStation: string[]
+  userStations?: UserStationsModel | null
 }
 
-const HomePage = ({ isLoggedIn, dummyUserSelectedStation }: HomePageProps) => {
-  useMyProfileQuery({ enabled: isLoggedIn })
+const HomePage = ({ isLoggedIn, userStations }: HomePageProps) => {
   useGetSubwayList()
+  useMyProfileQuery({ enabled: isLoggedIn })
+  const { data: userStationsResponseWhenServerSideFetchFailed } = useMyStationsQuery({
+    enabled: isLoggedIn && !userStations,
+  })
 
-  return <HomeMainScreen isLoggedIn={isLoggedIn} dummyUserSelectedStation={dummyUserSelectedStation} />
+  return (
+    <HomeMainScreen
+      isLoggedIn={isLoggedIn}
+      userStations={userStations || userStationsResponseWhenServerSideFetchFailed}
+    />
+  )
 }
 
 HomePage.getLayout = function getLayout(page: ReactElement) {
@@ -33,8 +42,24 @@ export default HomePage
 export const getServerSideProps = withAuthQueryServerSideProps(async context => {
   const _context = context as GetServerSidePropsContextWithAuthClient
   const cookies = parseCookies(_context as (typeof parseCookies)['arguments'])
+  const hasCookieKey = Boolean(cookies[COOKIE_KEY])
 
-  await _context.queryClient.prefetchQuery(SUBWAY_KEYS.subwayList, () => getSubwayLinesServerSide(_context.api))
+  try {
+    await _context.queryClient.prefetchQuery(SUBWAY_KEYS.subwayList, () => getSubwayLinesServerSide(_context.api))
+  } catch (err) {
+    console.log('failed fetch getSubwayLinesServerSide', err)
+  }
 
-  return { props: { isLoggedIn: Boolean(cookies[COOKIE_KEY]), dummyUserSelectedStation: ['양재', '가능'] } }
+  if (hasCookieKey) {
+    try {
+      const userStations = await _context.queryClient.fetchQuery(['user', 'me', 'stations'], () =>
+        getMyStationsServerSide(_context.api)
+      )
+      return { props: { isLoggedIn: true, userStations: userStations?.result } }
+    } catch (err) {
+      console.log('failed fetch getMyStationsServerSide', err)
+    }
+  }
+
+  return { props: { isLoggedIn: false, userStations: null } }
 })

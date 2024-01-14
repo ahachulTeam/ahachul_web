@@ -1,28 +1,29 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { useIsomorphicLayoutEffect } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { memo, useRef, useState } from 'react'
 import TrainEachSvg from './TrainEachBox'
 import TrainSvg from './TrainSvg'
+import { useGetTrainCongestionData } from '@/services/train'
+import { UserStationsModel } from '@/types'
 
-interface TrainProps {
-  calculatedCrowdRatings?: string[]
+interface TrainCongestionChartProps {
+  userStations?: UserStationsModel
+  trainNo?: number
 }
 
-function Train({
-  calculatedCrowdRatings = [
-    '#EE4D4D',
-    '#FFC44D',
-    '#A2D471',
-    '#FF884D',
-    '#EE4D4D',
-    '#FF884D',
-    '#FFC44D',
-    '#A2D471',
-    '#A2D471',
-    '#EE4D4D',
-  ],
-}: TrainProps) {
+function TrainCongestionChart({ userStations, trainNo }: TrainCongestionChartProps) {
+  const { data: stationCongestionData } = useGetTrainCongestionData(
+    {
+      subwayLineId: userStations?.stationInfoList?.[0]?.subwayLineInfoList?.[0]?.subwayLineId,
+      trainNo,
+    },
+    {
+      suspense: true,
+      enabled: Boolean(userStations) && Boolean(trainNo),
+    }
+  )
+
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [containerWidth, setContainerWidth] = useState(0)
   useIsomorphicLayoutEffect(() => {
@@ -35,9 +36,12 @@ function Train({
       <TrainSvg width={containerWidth} />
       {containerWidth && (
         <ul>
-          {calculatedCrowdRatings?.map((item, i) => (
+          {stationCongestionData?.congestions?.map((item, i) => (
             <li key={i}>
-              <TrainEachSvg color={item} roomNumber={i + 1} />
+              <TrainEachSvg
+                color={item as unknown as 'SMOOTH' | 'MODERATE' | 'CONGESTED' | 'VERY_CONGESTED'}
+                roomNumber={i + 1}
+              />
             </li>
           ))}
         </ul>
@@ -69,4 +73,4 @@ const Container = styled.div`
   `}
 `
 
-export default Train
+export default memo(TrainCongestionChart)

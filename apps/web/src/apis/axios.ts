@@ -57,18 +57,17 @@ const setInterceptor = (instance: AxiosInstance) => {
           if (expireSessionCases.includes(code)) {
             // 다시 로그인
             tokenService.expireSession()
-            return Promise.reject(error)
           }
 
           if (code === ResponseCode.EXPIRED_ACCESS_TOKEN) {
             // 액세스 토큰 만료
             return tokenService.resetTokenAndReAttemptRequest(error)
           }
-          return Promise.reject(error)
         }
       }
 
       console.error(error)
+      // 여기서 에러처리가 되면 react-query의 전역 onError로 빠짐
       return Promise.reject(error)
     }
   )
