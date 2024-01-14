@@ -1,66 +1,33 @@
-<div align="center">
+<div >
 
-# 🚀 AhHachul Frontend
+# 🆘 AhHachul
 
-**🧜‍♂️ 더욱 쾌적한 지하철을 위한 유저 기반 커뮤니티 플랫폼, ..아... 하철이형! 🧜**
+**더욱 쾌적한 지하철을 위해서, 아! 하철이형 서비스의 Frontend 레포입니다**
 
-<br />
-
-<img width="1424" alt="image" src="https://github.com/ahachulTeam/ahachul_web/assets/80245801/d29c819c-6b95-4a77-838a-3bdc92a297fb">
+<img width="480" alt="image" src="https://github.com/ahachulTeam/ahachul_web/assets/80245801/d29c819c-6b95-4a77-838a-3bdc92a297fb">
 </div>
 
 <br />
 
-## 🤓 시작하기
-
-**Prerequisites**
-
-- Git
-- [Node](https://nodejs.org/)
-- [Yarn berry](https://yarnpkg.com/)
-
-**로컬에선 이렇게 실행해요**
+## 시작하기
 
 ```
-# 로컬 환경에 Clone하기
+# 로컬 환경으로 클론
 git clone https://github.com/ahachulTeam/ahachul_web.git
 
-# 디펜던시 설치하기
+# 디펜던시 설치
 yarn
 
-# 개발 서버 실행하기
-yarn workspace @ahhachul/web dev
+# 개발 서버 실행
+yarn ahhachul
 ```
 
-AhHachul은 Next.js 기반으로 만들어진 프로젝트에요.  
 개발 서버가 실행되면 브라우저에서 [http://localhost:3000](http://localhost:3000/) 로 접속하실 수 있어요.
-
-<br />
-
-## 🚀 Activity
-
-![Alt](https://repobeats.axiom.co/api/embed/7500b764fdf954a399530be7ba66a9366e1e8f49.svg 'Repobeats analytics image')
-
-<br />
-
-## 📚 Key Languages & Libraries
-
-- React & Typescript
-- Next.js
-- emotion.js
-- tanstack-query
-- recoil
-- react-hook-form
-- framer-motion
-
-<br />
 
 ## 👨‍👩‍👧‍👦 Authors
 
-현재 AhHachul을 만들고 있는 makers에요.
-
-<table align="center">
-    <tr align="center">
+<table>
+    <tr>
         <td style="min-width: 150px;">
             <a href="https://github.com/createhb21">
               <img src="https://github.com/ahachulTeam/ahachul_web/assets/80245801/5530cdd3-97d7-40c2-a58f-510c755334d1" width="200" height="150" style="object-fit: cover">
@@ -83,21 +50,11 @@ AhHachul은 Next.js 기반으로 만들어진 프로젝트에요.
             </a>
         </td>
     </tr>
-    <tr align="center">
-        <td>
-            🧡 효범 🧡 <br/>
-            FE Developer
-      </td>
-        <td>
-            🩵 태웅 🩵 <br />
-            FE Developer
-        </td>
-        <td>
-            💚 승찬 💚<br />
-            FE Developer
-        </td>
-    </tr>
 </table>
+
+## 🚀 Activity
+
+![Alt](https://repobeats.axiom.co/api/embed/7500b764fdf954a399530be7ba66a9366e1e8f49.svg 'Repobeats analytics image')
 
 ## License
 
