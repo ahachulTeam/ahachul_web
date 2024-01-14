@@ -1,3 +1,2 @@
-export * from './global'
-export * from './tokens'
-export * from './theme'
+export * as vars from './variables'
+export * as classes from './classes'
