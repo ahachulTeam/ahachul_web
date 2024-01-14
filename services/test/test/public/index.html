@@ -27,6 +27,29 @@
     <title>React App</title>
   </head>
   <body>
+    <script>
+      // window.localStorage.getItem("@ahhachul-theme");
+
+      const isDarkMode = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
+
+      if (isDarkMode) {
+        document.body.classList.add("theme-dark");
+      }
+
+      const mediaQueryList = window.matchMedia("(prefers-color-scheme: dark)");
+
+      mediaQueryList.addEventListener("change", (e) => {
+        const isDarkMode = e.matches;
+
+        if (isDarkMode) {
+          document.body.classList.add("theme-dark");
+        } else {
+          document.body.classList.remove("theme-dark");
+        }
+      });
+    </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
