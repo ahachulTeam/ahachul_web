@@ -32,6 +32,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:packages/ds"\
       },\
       {\
+        "name": "@ahhachul/esbuild-config",\
+        "reference": "workspace:packages/esbuild-config"\
+      },\
+      {\
         "name": "@ahhachul/lib",\
         "reference": "workspace:packages/lib"\
       },\
@@ -44,7 +48,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
     "ignorePatternData": "(^(?:\\\\.yarn\\\\/sdks(?:\\\\/(?!\\\\.{1,2}(?:\\\\/|$))(?:(?:(?!(?:^|\\\\/)\\\\.{1,2}(?:\\\\/|$)).)*?)|$))$)",\
     "fallbackExclusionList": [\
       ["@ahhachul/admin", ["workspace:apps/admin"]],\
-      ["@ahhachul/design-system", ["virtual:2d29fa0895e101ce8ce1e532662d7ba8a8d2fd4e199dba7d997dd2a9bb7a086a1d976a108321be2bf12de5306634e24cb64ab3b0f7a518ac3d74438490c93414#workspace:packages/ds", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#workspace:packages/ds", "workspace:packages/ds"]],\
+      ["@ahhachul/design-system", ["workspace:packages/ds"]],\
+      ["@ahhachul/esbuild-config", ["workspace:packages/esbuild-config"]],\
       ["@ahhachul/landing", ["workspace:apps/landing"]],\
       ["@ahhachul/lib", ["workspace:packages/lib"]],\
       ["@ahhachul/ui", ["virtual:43b15f5bf56958bdba2c869b0631c1302dcb758909982f60ee94c0a7d9ba053a2666881535c852eb9c7c07775b7c0168614d8d63cfc0cdaee9fd02c784017d05#workspace:packages/ui", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#workspace:packages/ui", "workspace:packages/ui"]],\
@@ -108,49 +113,22 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@ahhachul/design-system", [\
-        ["virtual:2d29fa0895e101ce8ce1e532662d7ba8a8d2fd4e199dba7d997dd2a9bb7a086a1d976a108321be2bf12de5306634e24cb64ab3b0f7a518ac3d74438490c93414#workspace:packages/ds", {\
-          "packageLocation": "./.yarn/__virtual__/@ahhachul-design-system-virtual-b3853ec212/1/packages/ds/",\
-          "packageDependencies": [\
-            ["@ahhachul/design-system", "virtual:2d29fa0895e101ce8ce1e532662d7ba8a8d2fd4e199dba7d997dd2a9bb7a086a1d976a108321be2bf12de5306634e24cb64ab3b0f7a518ac3d74438490c93414#workspace:packages/ds"],\
-            ["@emotion/react", "virtual:2d29fa0895e101ce8ce1e532662d7ba8a8d2fd4e199dba7d997dd2a9bb7a086a1d976a108321be2bf12de5306634e24cb64ab3b0f7a518ac3d74438490c93414#npm:11.11.0"],\
-            ["@emotion/styled", "virtual:2d29fa0895e101ce8ce1e532662d7ba8a8d2fd4e199dba7d997dd2a9bb7a086a1d976a108321be2bf12de5306634e24cb64ab3b0f7a518ac3d74438490c93414#npm:11.11.0"],\
-            ["@types/emotion__react", null],\
-            ["@types/emotion__styled", null],\
-            ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"]\
-          ],\
-          "packagePeers": [\
-            "@emotion/react",\
-            "@emotion/styled",\
-            "@types/emotion__react",\
-            "@types/emotion__styled"\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#workspace:packages/ds", {\
-          "packageLocation": "./.yarn/__virtual__/@ahhachul-design-system-virtual-0a02c05fa5/1/packages/ds/",\
-          "packageDependencies": [\
-            ["@ahhachul/design-system", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#workspace:packages/ds"],\
-            ["@emotion/react", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#npm:11.11.0"],\
-            ["@emotion/styled", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#npm:11.11.0"],\
-            ["@types/emotion__react", null],\
-            ["@types/emotion__styled", null],\
-            ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"]\
-          ],\
-          "packagePeers": [\
-            "@emotion/react",\
-            "@emotion/styled",\
-            "@types/emotion__react",\
-            "@types/emotion__styled"\
-          ],\
-          "linkType": "SOFT"\
-        }],\
         ["workspace:packages/ds", {\
           "packageLocation": "./packages/ds/",\
           "packageDependencies": [\
             ["@ahhachul/design-system", "workspace:packages/ds"],\
-            ["@emotion/react", "virtual:004e56aeaef4a253e395220421812d5b4fd926e2e560a1c2acedb727108e6b11d3db6c6506c4b16646a37fb8261ce7abb247e0609e449532be331f76d5b125c2#npm:11.11.0"],\
-            ["@emotion/styled", "virtual:004e56aeaef4a253e395220421812d5b4fd926e2e560a1c2acedb727108e6b11d3db6c6506c4b16646a37fb8261ce7abb247e0609e449532be331f76d5b125c2#npm:11.11.0"],\
-            ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"]\
+            ["@ahhachul/esbuild-config", "workspace:packages/esbuild-config"],\
+            ["typescript", "patch:typescript@npm%3A5.3.3#~builtin<compat/typescript>::version=5.3.3&hash=77c9e2"]\
+          ],\
+          "linkType": "SOFT"\
+        }]\
+      ]],\
+      ["@ahhachul/esbuild-config", [\
+        ["workspace:packages/esbuild-config", {\
+          "packageLocation": "./packages/esbuild-config/",\
+          "packageDependencies": [\
+            ["@ahhachul/esbuild-config", "workspace:packages/esbuild-config"],\
+            ["esbuild", "npm:0.16.17"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -199,7 +177,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@ahhachul-ui-virtual-2d29fa0895/1/packages/ui/",\
           "packageDependencies": [\
             ["@ahhachul/ui", "virtual:43b15f5bf56958bdba2c869b0631c1302dcb758909982f60ee94c0a7d9ba053a2666881535c852eb9c7c07775b7c0168614d8d63cfc0cdaee9fd02c784017d05#workspace:packages/ui"],\
-            ["@ahhachul/design-system", "virtual:2d29fa0895e101ce8ce1e532662d7ba8a8d2fd4e199dba7d997dd2a9bb7a086a1d976a108321be2bf12de5306634e24cb64ab3b0f7a518ac3d74438490c93414#workspace:packages/ds"],\
+            ["@ahhachul/design-system", "workspace:packages/ds"],\
             ["@ahhachul/lib", "workspace:packages/lib"],\
             ["@emotion/react", "virtual:2d29fa0895e101ce8ce1e532662d7ba8a8d2fd4e199dba7d997dd2a9bb7a086a1d976a108321be2bf12de5306634e24cb64ab3b0f7a518ac3d74438490c93414#npm:11.11.0"],\
             ["@emotion/styled", "virtual:2d29fa0895e101ce8ce1e532662d7ba8a8d2fd4e199dba7d997dd2a9bb7a086a1d976a108321be2bf12de5306634e24cb64ab3b0f7a518ac3d74438490c93414#npm:11.11.0"],\
@@ -264,7 +242,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@ahhachul-ui-virtual-7a0f74e9d7/1/packages/ui/",\
           "packageDependencies": [\
             ["@ahhachul/ui", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#workspace:packages/ui"],\
-            ["@ahhachul/design-system", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#workspace:packages/ds"],\
+            ["@ahhachul/design-system", "workspace:packages/ds"],\
             ["@ahhachul/lib", "workspace:packages/lib"],\
             ["@emotion/react", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#npm:11.11.0"],\
             ["@emotion/styled", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#npm:11.11.0"],\
@@ -331,7 +309,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/ui/",\
           "packageDependencies": [\
             ["@ahhachul/ui", "workspace:packages/ui"],\
-            ["@ahhachul/design-system", "virtual:2d29fa0895e101ce8ce1e532662d7ba8a8d2fd4e199dba7d997dd2a9bb7a086a1d976a108321be2bf12de5306634e24cb64ab3b0f7a518ac3d74438490c93414#workspace:packages/ds"],\
+            ["@ahhachul/design-system", "workspace:packages/ds"],\
             ["@ahhachul/lib", "workspace:packages/lib"],\
             ["@emotion/react", "virtual:2d29fa0895e101ce8ce1e532662d7ba8a8d2fd4e199dba7d997dd2a9bb7a086a1d976a108321be2bf12de5306634e24cb64ab3b0f7a518ac3d74438490c93414#npm:11.11.0"],\
             ["@emotion/styled", "virtual:2d29fa0895e101ce8ce1e532662d7ba8a8d2fd4e199dba7d997dd2a9bb7a086a1d976a108321be2bf12de5306634e24cb64ab3b0f7a518ac3d74438490c93414#npm:11.11.0"],\
@@ -388,7 +366,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./apps/web/",\
           "packageDependencies": [\
             ["@ahhachul/web", "workspace:apps/web"],\
-            ["@ahhachul/design-system", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#workspace:packages/ds"],\
+            ["@ahhachul/design-system", "workspace:packages/ds"],\
             ["@ahhachul/lib", "workspace:packages/lib"],\
             ["@ahhachul/ui", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#workspace:packages/ui"],\
             ["@emotion/react", "virtual:b20d44989894a1c8ff91a7035224055197f17af5ed592caa0027b23576d808e00983857666dfd4f5fafd48df42df3d857add3917d6a2331c1c11153a36828ca2#npm:11.11.0"],\
@@ -5416,27 +5394,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:004e56aeaef4a253e395220421812d5b4fd926e2e560a1c2acedb727108e6b11d3db6c6506c4b16646a37fb8261ce7abb247e0609e449532be331f76d5b125c2#npm:11.11.0", {\
-          "packageLocation": "./.yarn/__virtual__/@emotion-react-virtual-5d1f52bdab/0/cache/@emotion-react-npm-11.11.0-fda75c579c-2653e7c3de.zip/node_modules/@emotion/react/",\
-          "packageDependencies": [\
-            ["@emotion/react", "virtual:004e56aeaef4a253e395220421812d5b4fd926e2e560a1c2acedb727108e6b11d3db6c6506c4b16646a37fb8261ce7abb247e0609e449532be331f76d5b125c2#npm:11.11.0"],\
-            ["@babel/runtime", "npm:7.21.5"],\
-            ["@emotion/babel-plugin", "npm:11.11.0"],\
-            ["@emotion/cache", "npm:11.11.0"],\
-            ["@emotion/serialize", "npm:1.1.2"],\
-            ["@emotion/use-insertion-effect-with-fallbacks", "virtual:5d1f52bdabd2bd90c7ed7a2bf988480125ebc85c003804d0ce38f839c70701c37964309374f98092844ff114e84ad729509fffb5ada0501c1bcdcfee3c6120e8#npm:1.0.1"],\
-            ["@emotion/utils", "npm:1.2.1"],\
-            ["@emotion/weak-memoize", "npm:0.3.1"],\
-            ["@types/react", null],\
-            ["hoist-non-react-statics", "npm:3.3.2"],\
-            ["react", null]\
-          ],\
-          "packagePeers": [\
-            "@types/react",\
-            "react"\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["virtual:2d29fa0895e101ce8ce1e532662d7ba8a8d2fd4e199dba7d997dd2a9bb7a086a1d976a108321be2bf12de5306634e24cb64ab3b0f7a518ac3d74438490c93414#npm:11.11.0", {\
           "packageLocation": "./.yarn/__virtual__/@emotion-react-virtual-89cce5b8e3/0/cache/@emotion-react-npm-11.11.0-fda75c579c-2653e7c3de.zip/node_modules/@emotion/react/",\
           "packageDependencies": [\
@@ -5511,29 +5468,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:004e56aeaef4a253e395220421812d5b4fd926e2e560a1c2acedb727108e6b11d3db6c6506c4b16646a37fb8261ce7abb247e0609e449532be331f76d5b125c2#npm:11.11.0", {\
-          "packageLocation": "./.yarn/__virtual__/@emotion-styled-virtual-25fada6b67/0/cache/@emotion-styled-npm-11.11.0-9a95c8527d-904f641aad.zip/node_modules/@emotion/styled/",\
-          "packageDependencies": [\
-            ["@emotion/styled", "virtual:004e56aeaef4a253e395220421812d5b4fd926e2e560a1c2acedb727108e6b11d3db6c6506c4b16646a37fb8261ce7abb247e0609e449532be331f76d5b125c2#npm:11.11.0"],\
-            ["@babel/runtime", "npm:7.21.5"],\
-            ["@emotion/babel-plugin", "npm:11.11.0"],\
-            ["@emotion/is-prop-valid", "npm:1.2.1"],\
-            ["@emotion/react", "virtual:004e56aeaef4a253e395220421812d5b4fd926e2e560a1c2acedb727108e6b11d3db6c6506c4b16646a37fb8261ce7abb247e0609e449532be331f76d5b125c2#npm:11.11.0"],\
-            ["@emotion/serialize", "npm:1.1.2"],\
-            ["@emotion/use-insertion-effect-with-fallbacks", "virtual:5d1f52bdabd2bd90c7ed7a2bf988480125ebc85c003804d0ce38f839c70701c37964309374f98092844ff114e84ad729509fffb5ada0501c1bcdcfee3c6120e8#npm:1.0.1"],\
-            ["@emotion/utils", "npm:1.2.1"],\
-            ["@types/emotion__react", null],\
-            ["@types/react", null],\
-            ["react", null]\
-          ],\
-          "packagePeers": [\
-            "@emotion/react",\
-            "@types/emotion__react",\
-            "@types/react",\
-            "react"\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["virtual:2d29fa0895e101ce8ce1e532662d7ba8a8d2fd4e199dba7d997dd2a9bb7a086a1d976a108321be2bf12de5306634e24cb64ab3b0f7a518ac3d74438490c93414#npm:11.11.0", {\
           "packageLocation": "./.yarn/__virtual__/@emotion-styled-virtual-5d80b2e553/0/cache/@emotion-styled-npm-11.11.0-9a95c8527d-904f641aad.zip/node_modules/@emotion/styled/",\
           "packageDependencies": [\
@@ -5598,19 +5532,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:5d1f52bdabd2bd90c7ed7a2bf988480125ebc85c003804d0ce38f839c70701c37964309374f98092844ff114e84ad729509fffb5ada0501c1bcdcfee3c6120e8#npm:1.0.1", {\
-          "packageLocation": "./.yarn/__virtual__/@emotion-use-insertion-effect-with-fallbacks-virtual-738f16331e/0/cache/@emotion-use-insertion-effect-with-fallbacks-npm-1.0.1-730758c66c-700b6e5bbb.zip/node_modules/@emotion/use-insertion-effect-with-fallbacks/",\
-          "packageDependencies": [\
-            ["@emotion/use-insertion-effect-with-fallbacks", "virtual:5d1f52bdabd2bd90c7ed7a2bf988480125ebc85c003804d0ce38f839c70701c37964309374f98092844ff114e84ad729509fffb5ada0501c1bcdcfee3c6120e8#npm:1.0.1"],\
-            ["@types/react", null],\
-            ["react", null]\
-          ],\
-          "packagePeers": [\
-            "@types/react",\
-            "react"\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["virtual:800afdfcee84498045b761f572b25eceb66dfbcbab88aac6eae56b4962e89957cf70654328d4d9c14d30980238e4b008d834e4b92dac978af27f4fdacb2c76e9#npm:1.0.1", {\
           "packageLocation": "./.yarn/__virtual__/@emotion-use-insertion-effect-with-fallbacks-virtual-4d063eb0ca/0/cache/@emotion-use-insertion-effect-with-fallbacks-npm-1.0.1-730758c66c-700b6e5bbb.zip/node_modules/@emotion/use-insertion-effect-with-fallbacks/",\
           "packageDependencies": [\
@@ -5657,6 +5578,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/android-arm", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-android-arm-npm-0.16.17-7506d3fa7b/node_modules/@esbuild/android-arm/",\
+          "packageDependencies": [\
+            ["@esbuild/android-arm", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-android-arm-npm-0.17.19-3aea6162a7/node_modules/@esbuild/android-arm/",\
           "packageDependencies": [\
@@ -5673,6 +5601,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/android-arm64", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-android-arm64-npm-0.16.17-e75e6f6f91/node_modules/@esbuild/android-arm64/",\
+          "packageDependencies": [\
+            ["@esbuild/android-arm64", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-android-arm64-npm-0.17.19-94c6dd7e3e/node_modules/@esbuild/android-arm64/",\
           "packageDependencies": [\
@@ -5689,6 +5624,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/android-x64", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-android-x64-npm-0.16.17-0e9a1f53d4/node_modules/@esbuild/android-x64/",\
+          "packageDependencies": [\
+            ["@esbuild/android-x64", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-android-x64-npm-0.17.19-8d87d9a9ce/node_modules/@esbuild/android-x64/",\
           "packageDependencies": [\
@@ -5705,6 +5647,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/darwin-arm64", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-darwin-arm64-npm-0.16.17-96c7a38090/node_modules/@esbuild/darwin-arm64/",\
+          "packageDependencies": [\
+            ["@esbuild/darwin-arm64", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-darwin-arm64-npm-0.17.19-64d69299ed/node_modules/@esbuild/darwin-arm64/",\
           "packageDependencies": [\
@@ -5721,6 +5670,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/darwin-x64", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-darwin-x64-npm-0.16.17-5d19b3753f/node_modules/@esbuild/darwin-x64/",\
+          "packageDependencies": [\
+            ["@esbuild/darwin-x64", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-darwin-x64-npm-0.17.19-30afb0190b/node_modules/@esbuild/darwin-x64/",\
           "packageDependencies": [\
@@ -5737,6 +5693,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/freebsd-arm64", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-freebsd-arm64-npm-0.16.17-a81b3beba2/node_modules/@esbuild/freebsd-arm64/",\
+          "packageDependencies": [\
+            ["@esbuild/freebsd-arm64", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-freebsd-arm64-npm-0.17.19-2e77807f45/node_modules/@esbuild/freebsd-arm64/",\
           "packageDependencies": [\
@@ -5753,6 +5716,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/freebsd-x64", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-freebsd-x64-npm-0.16.17-ec9cabd41c/node_modules/@esbuild/freebsd-x64/",\
+          "packageDependencies": [\
+            ["@esbuild/freebsd-x64", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-freebsd-x64-npm-0.17.19-a16bac3266/node_modules/@esbuild/freebsd-x64/",\
           "packageDependencies": [\
@@ -5769,6 +5739,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/linux-arm", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-linux-arm-npm-0.16.17-324f103417/node_modules/@esbuild/linux-arm/",\
+          "packageDependencies": [\
+            ["@esbuild/linux-arm", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-linux-arm-npm-0.17.19-f0fceae0f5/node_modules/@esbuild/linux-arm/",\
           "packageDependencies": [\
@@ -5785,6 +5762,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/linux-arm64", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-linux-arm64-npm-0.16.17-2d25b25b7e/node_modules/@esbuild/linux-arm64/",\
+          "packageDependencies": [\
+            ["@esbuild/linux-arm64", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-linux-arm64-npm-0.17.19-6f31af48bb/node_modules/@esbuild/linux-arm64/",\
           "packageDependencies": [\
@@ -5801,6 +5785,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/linux-ia32", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-linux-ia32-npm-0.16.17-8cd112faa3/node_modules/@esbuild/linux-ia32/",\
+          "packageDependencies": [\
+            ["@esbuild/linux-ia32", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-linux-ia32-npm-0.17.19-aa1e14cf46/node_modules/@esbuild/linux-ia32/",\
           "packageDependencies": [\
@@ -5817,6 +5808,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/linux-loong64", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-linux-loong64-npm-0.16.17-c9456d6097/node_modules/@esbuild/linux-loong64/",\
+          "packageDependencies": [\
+            ["@esbuild/linux-loong64", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-linux-loong64-npm-0.17.19-feefccc143/node_modules/@esbuild/linux-loong64/",\
           "packageDependencies": [\
@@ -5833,6 +5831,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/linux-mips64el", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-linux-mips64el-npm-0.16.17-a5d66047f4/node_modules/@esbuild/linux-mips64el/",\
+          "packageDependencies": [\
+            ["@esbuild/linux-mips64el", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-linux-mips64el-npm-0.17.19-e6efd172d9/node_modules/@esbuild/linux-mips64el/",\
           "packageDependencies": [\
@@ -5849,6 +5854,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/linux-ppc64", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-linux-ppc64-npm-0.16.17-c51a9cb8f4/node_modules/@esbuild/linux-ppc64/",\
+          "packageDependencies": [\
+            ["@esbuild/linux-ppc64", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-linux-ppc64-npm-0.17.19-76cb83484b/node_modules/@esbuild/linux-ppc64/",\
           "packageDependencies": [\
@@ -5865,6 +5877,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/linux-riscv64", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-linux-riscv64-npm-0.16.17-c9f5d02180/node_modules/@esbuild/linux-riscv64/",\
+          "packageDependencies": [\
+            ["@esbuild/linux-riscv64", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-linux-riscv64-npm-0.17.19-4fd4703fbe/node_modules/@esbuild/linux-riscv64/",\
           "packageDependencies": [\
@@ -5881,6 +5900,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/linux-s390x", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-linux-s390x-npm-0.16.17-0d7018c8b7/node_modules/@esbuild/linux-s390x/",\
+          "packageDependencies": [\
+            ["@esbuild/linux-s390x", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-linux-s390x-npm-0.17.19-597d86d851/node_modules/@esbuild/linux-s390x/",\
           "packageDependencies": [\
@@ -5897,6 +5923,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/linux-x64", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-linux-x64-npm-0.16.17-05d9fa63ae/node_modules/@esbuild/linux-x64/",\
+          "packageDependencies": [\
+            ["@esbuild/linux-x64", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-linux-x64-npm-0.17.19-08a7136aa6/node_modules/@esbuild/linux-x64/",\
           "packageDependencies": [\
@@ -5913,6 +5946,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/netbsd-x64", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-netbsd-x64-npm-0.16.17-db210e96d0/node_modules/@esbuild/netbsd-x64/",\
+          "packageDependencies": [\
+            ["@esbuild/netbsd-x64", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-netbsd-x64-npm-0.17.19-b6f41ae611/node_modules/@esbuild/netbsd-x64/",\
           "packageDependencies": [\
@@ -5929,6 +5969,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/openbsd-x64", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-openbsd-x64-npm-0.16.17-7f840a38f8/node_modules/@esbuild/openbsd-x64/",\
+          "packageDependencies": [\
+            ["@esbuild/openbsd-x64", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-openbsd-x64-npm-0.17.19-8f52389f18/node_modules/@esbuild/openbsd-x64/",\
           "packageDependencies": [\
@@ -5945,6 +5992,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/sunos-x64", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-sunos-x64-npm-0.16.17-03a541803e/node_modules/@esbuild/sunos-x64/",\
+          "packageDependencies": [\
+            ["@esbuild/sunos-x64", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-sunos-x64-npm-0.17.19-4c2c040bf9/node_modules/@esbuild/sunos-x64/",\
           "packageDependencies": [\
@@ -5961,6 +6015,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/win32-arm64", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-win32-arm64-npm-0.16.17-a63062e4ac/node_modules/@esbuild/win32-arm64/",\
+          "packageDependencies": [\
+            ["@esbuild/win32-arm64", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-win32-arm64-npm-0.17.19-8006d17388/node_modules/@esbuild/win32-arm64/",\
           "packageDependencies": [\
@@ -5977,6 +6038,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/win32-ia32", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-win32-ia32-npm-0.16.17-7e7ed04204/node_modules/@esbuild/win32-ia32/",\
+          "packageDependencies": [\
+            ["@esbuild/win32-ia32", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-win32-ia32-npm-0.17.19-5add6d7e21/node_modules/@esbuild/win32-ia32/",\
           "packageDependencies": [\
@@ -5993,6 +6061,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@esbuild/win32-x64", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/@esbuild-win32-x64-npm-0.16.17-25af261435/node_modules/@esbuild/win32-x64/",\
+          "packageDependencies": [\
+            ["@esbuild/win32-x64", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/@esbuild-win32-x64-npm-0.17.19-619fae7839/node_modules/@esbuild/win32-x64/",\
           "packageDependencies": [\
@@ -16787,6 +16862,35 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["esbuild", [\
+        ["npm:0.16.17", {\
+          "packageLocation": "./.yarn/unplugged/esbuild-npm-0.16.17-89fa4ab0dd/node_modules/esbuild/",\
+          "packageDependencies": [\
+            ["esbuild", "npm:0.16.17"],\
+            ["@esbuild/android-arm", "npm:0.16.17"],\
+            ["@esbuild/android-arm64", "npm:0.16.17"],\
+            ["@esbuild/android-x64", "npm:0.16.17"],\
+            ["@esbuild/darwin-arm64", "npm:0.16.17"],\
+            ["@esbuild/darwin-x64", "npm:0.16.17"],\
+            ["@esbuild/freebsd-arm64", "npm:0.16.17"],\
+            ["@esbuild/freebsd-x64", "npm:0.16.17"],\
+            ["@esbuild/linux-arm", "npm:0.16.17"],\
+            ["@esbuild/linux-arm64", "npm:0.16.17"],\
+            ["@esbuild/linux-ia32", "npm:0.16.17"],\
+            ["@esbuild/linux-loong64", "npm:0.16.17"],\
+            ["@esbuild/linux-mips64el", "npm:0.16.17"],\
+            ["@esbuild/linux-ppc64", "npm:0.16.17"],\
+            ["@esbuild/linux-riscv64", "npm:0.16.17"],\
+            ["@esbuild/linux-s390x", "npm:0.16.17"],\
+            ["@esbuild/linux-x64", "npm:0.16.17"],\
+            ["@esbuild/netbsd-x64", "npm:0.16.17"],\
+            ["@esbuild/openbsd-x64", "npm:0.16.17"],\
+            ["@esbuild/sunos-x64", "npm:0.16.17"],\
+            ["@esbuild/win32-arm64", "npm:0.16.17"],\
+            ["@esbuild/win32-ia32", "npm:0.16.17"],\
+            ["@esbuild/win32-x64", "npm:0.16.17"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.17.19", {\
           "packageLocation": "./.yarn/unplugged/esbuild-npm-0.17.19-f690397756/node_modules/esbuild/",\
           "packageDependencies": [\
@@ -27098,6 +27202,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/typescript-patch-ecf29fafbd-d26b6ba97b.zip/node_modules/typescript/",\
           "packageDependencies": [\
             ["typescript", "patch:typescript@npm%3A5.0.4#~builtin<compat/typescript>::version=5.0.4&hash=b5f058"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["patch:typescript@npm%3A5.3.3#~builtin<compat/typescript>::version=5.3.3&hash=77c9e2", {\
+          "packageLocation": "./.yarn/cache/typescript-patch-f10a7e06e5-f61375590b.zip/node_modules/typescript/",\
+          "packageDependencies": [\
+            ["typescript", "patch:typescript@npm%3A5.3.3#~builtin<compat/typescript>::version=5.3.3&hash=77c9e2"]\
           ],\
           "linkType": "HARD"\
         }]\

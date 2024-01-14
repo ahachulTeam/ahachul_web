@@ -1,22 +1,22 @@
 module.exports = {
-  testEnvironment: 'jsdom',
+  testEnvironment: "jsdom",
   transform: {
-    '^.+\\.(t|j)sx?$': [
-      '@swc/jest',
+    "^.+\\.(t|j)sx?$": [
+      "@swc/jest",
       {
         jsc: {
           parser: {
-            syntax: 'typescript',
+            syntax: "typescript",
             jsx: true,
             decorators: true,
           },
           transform: {
             react: {
-              runtime: 'automatic',
+              runtime: "automatic",
             },
           },
         },
       },
     ],
   },
-}
+};

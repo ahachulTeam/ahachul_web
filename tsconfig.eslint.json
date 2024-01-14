@@ -1,0 +1,4 @@
+{
+  "extends": "./tsconfig.base.json",
+  "include": ["packages", "services", "apps", ".storybook/*.js", ".eslintrc.js"]
+}

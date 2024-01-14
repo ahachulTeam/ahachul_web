@@ -54,7 +54,7 @@ yarn ahhachul
 
 ## 🚀 Activity
 
-![Alt](https://repobeats.axiom.co/api/embed/7500b764fdf954a399530be7ba66a9366e1e8f49.svg 'Repobeats analytics image')
+![Alt](https://repobeats.axiom.co/api/embed/7500b764fdf954a399530be7ba66a9366e1e8f49.svg "Repobeats analytics image")
 
 ## License
 
