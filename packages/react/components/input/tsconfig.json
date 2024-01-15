@@ -1,0 +1,6 @@
+{
+  "extends": "../../../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist" // 컴파일 된 파일이 생성될 디렉토리
+  }
+}
