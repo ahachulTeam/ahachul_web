@@ -35,15 +35,9 @@
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
     "storybook": "storybook dev -p 6006",
-<<<<<<< HEAD
     "build": "npx chromatic --project-token=chpt_dec24dddac3576c",
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic --project-token=chpt_dec24dddac3576c"
-=======
-    "build": "npx chromatic --project-token=chpt_45b926ae3ec9cff",
-    "build-storybook": "storybook build",
-    "chromatic": "npx chromatic --project-token=chpt_45b926ae3ec9cff"
->>>>>>> main
   },
   "dependencies": {
     "@ahhachul/react-components-accordion": "workspace:^",
