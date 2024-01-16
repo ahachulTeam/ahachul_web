@@ -1,18 +1,20 @@
-import { isProd } from '@ahhachul/lib'
-import mixpanel from 'mixpanel-browser'
+// import { isProd } from '@ahhachul/lib'
+// import mixpanel from 'mixpanel-browser'
 
-import { event } from '@/libs/gtag'
+// import { event } from '@/libs/gtag'
 
-type GAEventProps = Parameters<typeof event>[0]
-type Props = Omit<GAEventProps, 'category'>
+// type GAEventProps = Parameters<typeof event>[0]
+// type Props = Omit<GAEventProps, 'category'>
 
-const recordEvent = ({ action, label, value }: Props) => {
-  if (!isProd(process.env.NODE_ENV)) {
-    return
-  }
+// const recordEvent = ({ action, label, value }: Props) => {
+//   if (!isProd(process.env.NODE_ENV)) {
+//     return
+//   }
 
-  event({ action, category: process.env.WEB_VERSION, label, value })
-  mixpanel.track(action, { category: process.env.WEB_VERSION, label, value })
-}
+//   event({ action, category: process.env.WEB_VERSION, label, value })
+//   mixpanel.track(action, { category: process.env.WEB_VERSION, label, value })
+// }
 
-export default recordEvent
+// export default recordEvent
+
+export {};

@@ -1,13 +1,15 @@
-import { LostItemSkeleton } from './item'
-import * as S from './styled'
-import { useViewAtom } from '@/atoms/view'
+// import { LostItemSkeleton } from './item'
+// import * as S from './styled'
+// import { useViewAtom } from '@/atoms/view'
 
-export default function LostFoundListSkeleton() {
-  const { view } = useViewAtom()
+// export default function LostFoundListSkeleton() {
+//   const { view } = useViewAtom()
 
-  return (
-    <S.LostFoundList data-view={view}>
-      <LostItemSkeleton view={view} />
-    </S.LostFoundList>
-  )
-}
+//   return (
+//     <S.LostFoundList data-view={view}>
+//       <LostItemSkeleton view={view} />
+//     </S.LostFoundList>
+//   )
+// }
+
+export {};

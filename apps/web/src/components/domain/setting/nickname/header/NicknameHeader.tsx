@@ -1,7 +1,9 @@
-import { Header } from '@/components/public/header'
+// import { Header } from '@/components/public/header'
 
-const SettingNicknameHeader = () => {
-  return <Header title="로그인" hasGoBack goBackToHome />
-}
+// const SettingNicknameHeader = () => {
+//   return <Header title="로그인" hasGoBack goBackToHome />
+// }
 
-export default SettingNicknameHeader
+// export default SettingNicknameHeader
+
+export {};
