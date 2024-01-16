@@ -31,10 +31,10 @@ describe("Accordion 컴포넌트 기능 테스트", () => {
     );
 
     await screen.getByTestId("button-0").click();
-     expect(screen.getByTestId("panel-0")).toHaveAttribute(
-       "data-action-item",
-       "true",
-     );
+    expect(screen.getByTestId("panel-0")).toHaveAttribute(
+      "data-action-item",
+      "true",
+    );
   });
 
   it("두번째 Accordion 버튼 클릭 시 두번째 AccordionPanel만 펼쳐지는지 확인", async () => {
