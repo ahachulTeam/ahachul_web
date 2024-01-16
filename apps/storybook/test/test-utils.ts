@@ -10,6 +10,10 @@ import { setProjectAnnotations } from "@storybook/react";
 // @ts-ignore
 setProjectAnnotations(globalStorybookConfig);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 afterEach(() => {
   cleanup();
 });

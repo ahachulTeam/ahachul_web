@@ -17,6 +17,7 @@ const preview = {
         root: "body",
         attribute: "class",
         defaultState: {
+<<<<<<< HEAD
           name: "dark",
           value: "theme-dark",
         },
@@ -24,6 +25,15 @@ const preview = {
           {
             name: "light",
             value: "theme-light",
+=======
+          name: "light",
+          value: "theme-light",
+        },
+        states: [
+          {
+            name: "dark",
+            value: "theme-dark",
+>>>>>>> main
           },
         ],
       },
@@ -49,6 +59,10 @@ const initTheme = () => {
   });
 };
 
+<<<<<<< HEAD
 initTheme();
+=======
+// initTheme();
+>>>>>>> main
 
 export default preview;
