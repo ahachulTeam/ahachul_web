@@ -21,6 +21,11 @@
   },
   "dependencies": {
     "@ahhachul/design-system": "workspace:^",
+    "@ahhachul/react-components-accordion": "workspace:^",
+    "@ahhachul/react-components-input": "workspace:^",
+    "@ahhachul/react-components-select": "workspace:^",
+    "@ahhachul/react-components-toast": "workspace:^",
+    "@ahhachul/react-hooks-button": "workspace:^",
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",
     "@next/bundle-analyzer": "^14.0.1",
