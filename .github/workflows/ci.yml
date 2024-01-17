@@ -30,7 +30,7 @@ jobs:
         run: yarn install --immutable
 
       - name: Test
-        run: yarn affected:test
+        run: yarn affected:test --parallel=5
 
       - name: Build
-        run: yarn affected:build
+        run: yarn affected:build --parallel=5
