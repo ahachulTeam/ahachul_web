@@ -17,13 +17,13 @@ const preview = {
         root: "body",
         attribute: "class",
         defaultState: {
-          name: "dark",
-          value: "theme-dark",
+          name: "light",
+          value: "theme-light",
         },
         states: [
           {
-            name: "light",
-            value: "theme-light",
+            name: "dark",
+            value: "theme-dark",
           },
         ],
       },
@@ -49,6 +49,6 @@ const initTheme = () => {
   });
 };
 
-initTheme();
+// initTheme();
 
 export default preview;
