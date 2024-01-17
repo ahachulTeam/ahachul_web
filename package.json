@@ -13,7 +13,8 @@
     "graph": "nx run-many --target=build --graph",
     "dev:all": "yarn dev:storybook & yarn dev:packages",
     "dev:storybook": "nx storybook @ahhachul/storybook",
-    "dev:packages": "nx run-many --target=dev --projects='@ahhachul/react-hooks-*,@ahhachul/react-components-*'"
+    "dev:packages": "nx run-many --target=dev --projects='@ahhachul/react-hooks-*,@ahhachul/react-components-*'",
+    "ahhachul": "yarn workspace @ahhachul/web"
   },
   "devDependencies": {
     "@storybook/addon-docs": "^7.4.0",

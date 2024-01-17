@@ -7,22 +7,22 @@ const nextConfig = {
     forceSwcTransforms: true,
   },
   swcMinify: true,
-  transpilePackages: ['react-hotjar', '@ahhachul/ui'],
+  // transpilePackages: ["@ahhachul/ui"],
   images: {
     domains: [
-      'www.lost112.go.kr',
-      'ahachul-image.s3.ap-northeast-2.amazonaws.com',
-      'ahachul-bucket.s3.ap-northeast-2.amazonaws.com',
+      "www.lost112.go.kr",
+      "ahachul-image.s3.ap-northeast-2.amazonaws.com",
+      "ahachul-bucket.s3.ap-northeast-2.amazonaws.com",
     ],
   },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    })
+      use: ["@svgr/webpack"],
+    });
 
-    return config
+    return config;
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

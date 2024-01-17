@@ -1,1 +1,3 @@
-export { default as LostGenerateHeader } from './LostGenerateHeader'
+// export { default as LostGenerateHeader } from './LostGenerateHeader'
+
+export {};

@@ -1,1 +1,3 @@
-export { default as StickyArea } from './StickyArea'
+// export { default as StickyArea } from './StickyArea'
+
+export {};

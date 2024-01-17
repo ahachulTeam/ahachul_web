@@ -1,10 +1,9 @@
-name: CI-ahhachul-app
-
+name: CI
 on:
   pull_request:
   push:
     paths:
-      - 'apps/web/**'
+      - "apps/web/**"
     branches: [main]
 
 permissions: write-all
@@ -13,7 +12,7 @@ env:
   CACHED_DEPENDENCY_PATHS: ${{ github.workspace }}/.yarn/unplugged
   CACHED_BUILD_PATHS: ${{ github.workspace }}/apps/web/.next
   BUILD_CACHE_KEY: ${{ github.sha }}
-  DEFAULT_NODE_VERSION: '16'
+  DEFAULT_NODE_VERSION: "16"
 
 jobs:
   job_install_dependencies:
@@ -79,7 +78,7 @@ jobs:
 
       - name: Build
         if: steps.cache_built_packages.outputs.cache-hit == false
-        run: yarn run ahhachul:build
+        run: yarn run ahhachul build
 
     outputs:
       dependency_cache_key: ${{ needs.job_install_dependencies.outputs.dependency_cache_key }}
@@ -105,7 +104,7 @@ jobs:
 
       - name: Check Lint
         if: github.event_name != 'push'
-        run: yarn run ahhachul:lint
+        run: yarn run ahhachul lint
 
   job_nextjs_bundle_analysis:
     name: Nextjs bundle analysis
@@ -135,7 +134,7 @@ jobs:
       - name: Analyze bundle sizes
         uses: transferwise/actions-next-bundle-analyzer@master
         with:
-          workflow-id: ci-ahhachul-app.yml
+          workflow-id: ci.yml
           base-branch: main
           working-directory: apps/web
         env:

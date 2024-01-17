@@ -1,5 +1,5 @@
-import RedirectForLoginScreen from '@/components/screens/ScreenLogin'
+import RedirectForLoginScreen from "@/components/screens/ScreenLogin";
 
 export default function RedirectPage() {
-  return <RedirectForLoginScreen />
+  return <RedirectForLoginScreen />;
 }

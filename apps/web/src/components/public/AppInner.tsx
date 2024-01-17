@@ -1,21 +1,20 @@
-import React, { PropsWithChildren } from 'react'
+import React, { PropsWithChildren } from "react";
 
-import BottomSheetForLogin from '@/components/public/cta/BottomSheetForLogin'
-import { useAuth } from '@/context'
-import { useGetHottestHashtagsQuery, useGetSubwayList } from '@/services'
+// import BottomSheetForLogin from "@/components/public/cta/BottomSheetForLogin";
+// import { useAuth } from "@/context";
+import { useGetHottestHashtagsQuery, useGetSubwayList } from "@/services";
 
 function AppInner({ children }: PropsWithChildren) {
-  const { isLoggedIn } = useAuth()
-  useGetSubwayList()
-  useGetHottestHashtagsQuery()
+  // const { isLoggedIn } = useAuth();
+  useGetSubwayList();
+  useGetHottestHashtagsQuery();
 
-  // TODO: 추후 fcm 연동하기
   return (
     <React.Fragment>
       {children}
-      {!isLoggedIn && <BottomSheetForLogin />}
+      {/* {!isLoggedIn && <BottomSheetForLogin />} */}
     </React.Fragment>
-  )
+  );
 }
 
-export default AppInner
+export default AppInner;

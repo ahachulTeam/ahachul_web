@@ -1,1 +1,3 @@
-export { default as LostDetailContents } from './LostDetailContents'
+// export { default as LostDetailContents } from './LostDetailContents'
+
+export {};
