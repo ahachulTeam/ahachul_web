@@ -27,7 +27,7 @@ jobs:
           cache: yarn
 
       - name: Install dependencies
-        run: yarn install --immutable
+        uses: ./.github/actions/yarn-install
 
       - name: Test
         run: yarn affected:test --parallel=5
