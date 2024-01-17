@@ -78,7 +78,7 @@ jobs:
 
       - name: Build
         if: steps.cache_built_packages.outputs.cache-hit == false
-        run: yarn run ahhachul:build
+        run: yarn run ahhachul build
 
     outputs:
       dependency_cache_key: ${{ needs.job_install_dependencies.outputs.dependency_cache_key }}
@@ -104,7 +104,7 @@ jobs:
 
       - name: Check Lint
         if: github.event_name != 'push'
-        run: yarn run ahhachul:lint
+        run: yarn run ahhachul lint
 
   job_nextjs_bundle_analysis:
     name: Nextjs bundle analysis
@@ -134,7 +134,7 @@ jobs:
       - name: Analyze bundle sizes
         uses: transferwise/actions-next-bundle-analyzer@master
         with:
-          workflow-id: ci-ahhachul-app.yml
+          workflow-id: ci.yml
           base-branch: main
           working-directory: apps/web
         env:
