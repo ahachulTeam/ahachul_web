@@ -1,4 +1,4 @@
-import { vars } from "@ahhachul/design-system";
+import { vars } from "@ahhachul/themes";
 import * as React from "react";
 import { forwardRef, Ref } from "react";
 import { textStyle } from "./style.css";

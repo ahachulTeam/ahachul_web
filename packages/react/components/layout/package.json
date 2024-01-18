@@ -19,8 +19,8 @@
     "dev": "yarn build:js --watch && yarn build:type --watch"
   },
   "devDependencies": {
-    "@ahhachul/design-system": "workspace:^",
     "@ahhachul/esbuild-config": "workspace:^",
+    "@ahhachul/themes": "workspace:^",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@vanilla-extract/css": "^1.13.0",
@@ -34,7 +34,7 @@
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
-    "@ahhachul/design-system": "workspace:^",
+    "@ahhachul/themes": "workspace:^",
     "react": "*"
   },
   "dependencies": {

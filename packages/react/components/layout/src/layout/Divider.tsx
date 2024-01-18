@@ -1,6 +1,6 @@
 import * as React from "react";
 import { DividerProps } from "./types";
-import { vars } from "@ahhachul/design-system";
+import { vars } from "@ahhachul/themes";
 
 const Divider = (props: DividerProps, ref: React.Ref<HTMLHRElement>) => {
   const {

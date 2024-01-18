@@ -1,7 +1,7 @@
 import * as React from "react";
 import { TextProps } from "./types";
 import { BaseStyle, StyleSprinkles } from "../core/style.css";
-import { vars } from "@ahhachul/design-system";
+import { vars } from "@ahhachul/themes";
 import { clsx } from "clsx";
 import { extractSprinkleProps } from "../utils/properties";
 import { textStyle } from "./style.css";

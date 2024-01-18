@@ -1,4 +1,4 @@
-import { vars } from "@ahhachul/design-system";
+import { vars } from "@ahhachul/themes";
 
 export type ButtonProps = {
   color?: keyof typeof vars.colors.$scale;

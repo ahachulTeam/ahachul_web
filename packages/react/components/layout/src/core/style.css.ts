@@ -1,4 +1,4 @@
-import { vars } from "@ahhachul/design-system";
+import { vars } from "@ahhachul/themes";
 import { style } from "@vanilla-extract/css";
 import { defineProperties, createSprinkles } from "@vanilla-extract/sprinkles";
 

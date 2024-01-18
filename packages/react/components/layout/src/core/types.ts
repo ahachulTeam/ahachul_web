@@ -1,4 +1,4 @@
-import { vars } from "@ahhachul/design-system";
+import { vars } from "@ahhachul/themes";
 import { StyleSprinkles } from "./style.css";
 
 type AsProps = {

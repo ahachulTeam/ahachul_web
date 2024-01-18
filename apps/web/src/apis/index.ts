@@ -1,7 +1,0 @@
-export * from './axios'
-export * from './auth'
-export * from './community'
-export * from './complaint'
-export * from './lost'
-export * from './train'
-export * from './users'

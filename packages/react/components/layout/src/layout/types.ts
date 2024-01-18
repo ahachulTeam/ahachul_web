@@ -1,4 +1,4 @@
-import { vars } from "@ahhachul/design-system";
+import { vars } from "@ahhachul/themes";
 import { AsElementProps, StyleProps } from "../core/types";
 import { CSSProperties } from "@vanilla-extract/css";
 import { TextProps } from "../typography";

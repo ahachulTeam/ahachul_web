@@ -10,7 +10,7 @@ import {
   spanStyle,
   spinnerStyle,
 } from "./style.css";
-import { vars } from "@ahhachul/design-system";
+import { vars } from "@ahhachul/themes";
 import { useButton } from "@ahhachul/react-hooks-button";
 
 const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {

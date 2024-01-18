@@ -1,6 +1,8 @@
 import { BaseButtonProps, OverloadedButtonFunction } from "./types";
 
-export const useButton: OverloadedButtonFunction = (props: any): any => {
+export const useButton: OverloadedButtonFunction = (
+  props: any,
+): any => {
   const {
     elementType = "button",
     isDisabled,
@@ -12,38 +14,40 @@ export const useButton: OverloadedButtonFunction = (props: any): any => {
 
   const disabled = isDisabled || isLoading;
 
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    onKeyDown?.(event);
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+      onKeyDown?.(event);
 
-    if (event.key === " " || event.key === "Spacebar" || event.key === "32") {
-      if (disabled) return;
-      if (event.defaultPrevented) return;
-      if (elementType === "button") return;
+      if (event.key === " " || event.key === "Spacebar" || event.key === "32") {
+        if (disabled) return;
+        if (event.defaultPrevented) return;
+        if (elementType === "button") return;
 
-      event.preventDefault();
-      (event.currentTarget as HTMLElement).click();
+        event.preventDefault();
+        (event.currentTarget as HTMLElement).click();
 
-      return;
-    }
+        return;
+      };
 
-    if (event.key === "Enter" || event.key === "13") {
-      if (disabled) return;
-      if (event.defaultPrevented) return;
-      if (elementType === "input" && type !== "button") return;
+      if (event.key === "Enter" || event.key === "13") {
+        if (disabled) return;
+        if (event.defaultPrevented) return;
+        if (elementType === 'input' && type !== "button") return; 
 
-      event.preventDefault();
-      (event.currentTarget as HTMLElement).click();
+        event.preventDefault();
+        (event.currentTarget as HTMLElement).click();
 
-      return;
-    }
-  };
+        return;
+      }
+    };
 
-  const baseProps = {
-    ...props,
-    "data-loading": isLoading,
-    tabIndex: disabled ? undefined : tabIndex ?? 0,
-    onKeyDown: handleKeyDown,
-  };
+
+    const baseProps = {
+      ...props,
+      "data-loading": isLoading,
+      tabIndex: disabled ? undefined : tabIndex ?? 0,
+      onKeyDown: handleKeyDown,
+    };
+
 
   let additionalProps = {};
 
@@ -89,9 +93,9 @@ export const useButton: OverloadedButtonFunction = (props: any): any => {
   const buttonProps = {
     ...baseProps,
     ...additionalProps,
-  };
+  }
 
   return {
     buttonProps,
-  };
-};
+  }
+}

@@ -1,5 +1,5 @@
 import { UseSelectProps } from "@ahhachul/react-hooks-select";
-import { vars } from "@ahhachul/design-system";
+import { vars } from "@ahhachul/themes";
 
 type Size = "lg" | "md" | "sm" | "xs";
 type Color = keyof typeof vars.colors.$scale;

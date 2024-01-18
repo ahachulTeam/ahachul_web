@@ -3,7 +3,7 @@ import { GridItemProps } from "./types";
 import { clsx } from "clsx";
 import { BaseStyle, StyleSprinkles } from "../core/style.css";
 import { extractSprinkleProps } from "../utils/properties";
-import { vars } from "@ahhachul/design-system";
+import { vars } from "@ahhachul/themes";
 
 const GridItem = (props: GridItemProps, ref: React.Ref<HTMLElement>) => {
   const {
