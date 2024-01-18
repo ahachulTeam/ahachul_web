@@ -1,0 +1,25 @@
+{
+  "name": "@ahhachul/themes",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./themes.css": "./dist/themes.css"
+  },
+  "scripts": {
+    "build": "yarn clean && yarn build:js && yarn build:type && yarn build:css",
+    "build:js": "node build.js",
+    "build:type": "yarn tsc --emitDeclarationOnly",
+    "build:css": "node ./scripts/build-css-module.js",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@ahhachul/esbuild-config": "workspace:^",
+    "typescript": "^5.2.2"
+  }
+}

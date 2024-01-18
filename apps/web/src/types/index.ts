@@ -1,7 +1,0 @@
-export * from './auth'
-export * from './community'
-export * from './complaint'
-export * from './global'
-export * from './lost'
-export * from './train'
-export * from './user'

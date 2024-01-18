@@ -1,4 +1,4 @@
-import { vars } from "@ahhachul/design-system";
+import { vars } from "@ahhachul/themes";
 import { inputLeftAddonStyle } from "./style.css";
 import { InputLeftAddonProps } from "./types";
 import { clsx } from "clsx";

@@ -10,7 +10,7 @@ import {
   focusBorderColorVariant,
   inputStyle,
 } from "./style.css";
-import { vars } from "@ahhachul/design-system";
+import { vars } from "@ahhachul/themes";
 
 const Input = (props: InputProps, ref: React.Ref<HTMLInputElement>) => {
   const {

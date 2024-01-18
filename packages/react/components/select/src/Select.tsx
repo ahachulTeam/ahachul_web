@@ -9,7 +9,7 @@ import {
   focusBorderColorVariant,
   selectStyle,
 } from "./style.css";
-import { vars } from "@ahhachul/design-system";
+import { vars } from "@ahhachul/themes";
 import { useSelect } from "@ahhachul/react-hooks-select";
 
 const Select = (props: SelectProps, ref: React.Ref<HTMLSelectElement>) => {

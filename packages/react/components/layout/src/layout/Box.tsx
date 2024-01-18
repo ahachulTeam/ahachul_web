@@ -3,7 +3,7 @@ import { BoxProps } from "./types";
 import { clsx } from "clsx";
 import { BaseStyle, StyleSprinkles } from "../core/style.css";
 import { extractSprinkleProps } from "../utils/properties";
-import { vars } from "@ahhachul/design-system";
+import { vars } from "@ahhachul/themes";
 
 const Box = (props: BoxProps, ref: React.Ref<HTMLElement>) => {
   const { as = "div", color, background, children } = props;

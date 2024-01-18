@@ -1,6 +1,6 @@
 import { recipe } from "@vanilla-extract/recipes";
 import { createVar, keyframes } from "@vanilla-extract/css";
-import { classes, vars } from "@ahhachul/design-system";
+import { classes, vars } from "@ahhachul/themes";
 
 export const enableColorVariant = createVar(); // 500
 export const hoverColorVariant = createVar(); // 600 outline 50 ghost 50

@@ -1,4 +1,4 @@
-import { classes } from "@ahhachul/design-system";
+import { classes } from "@ahhachul/themes";
 import { recipe } from "@vanilla-extract/recipes";
 
 export const textStyle = recipe({

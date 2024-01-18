@@ -1,4 +1,4 @@
-import { vars } from "@ahhachul/design-system";
+import { vars } from "@ahhachul/themes";
 import { createVar, style } from "@vanilla-extract/css";
 
 const resetStyle = style({

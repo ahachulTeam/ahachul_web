@@ -1,6 +1,6 @@
 import * as React from "react";
 import { OrderListProps } from "./types";
-import { vars } from "@ahhachul/design-system";
+import { vars } from "@ahhachul/themes";
 import { Flex } from "./Flex";
 
 const OrderedList = (

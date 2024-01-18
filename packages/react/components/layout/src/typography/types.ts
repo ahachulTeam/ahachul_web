@@ -1,4 +1,4 @@
-import { classes } from "@ahhachul/design-system";
+import { classes } from "@ahhachul/themes";
 import { AsElementProps, StyleProps } from "../core/types";
 import { CSSProperties } from "@vanilla-extract/css";
 
