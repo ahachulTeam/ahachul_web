@@ -38,29 +38,27 @@ export const ToastItem = styled.div<ToastItemProps>`
 `;
 
 export const Item = styled.div`
-  ${({ theme }) => css`
-    display: flex;
-    column-gap: 14px;
-    align-items: center;
-    width: 320px;
-    border-radius: 5px;
-    padding: 20px 24px;
-    background-color: ${theme.color.white};
-    box-shadow: 0 4px 16px 0 rgba(25, 31, 40, 0.12);
+  display: flex;
+  column-gap: 14px;
+  align-items: center;
+  width: 320px;
+  border-radius: 5px;
+  padding: 20px 24px;
+  background-color: white;
+  box-shadow: 0 4px 16px 0 rgba(25, 31, 40, 0.12);
 
-    & > svg {
-      width: 40px;
-    }
+  & > svg {
+    width: 40px;
+  }
 
-    & > p {
-      ${theme.font.medium_14};
-      color: ${theme.color.gray_70};
-    }
+  & > p {
+    font-size: 14px;
+    color: #000;
+  }
 
-    &[data-type="warning"] {
-      svg {
-        fill: ${theme.color.red_20};
-      }
+  &[data-type="warning"] {
+    svg {
+      fill: red;
     }
-  `}
+  }
 `;

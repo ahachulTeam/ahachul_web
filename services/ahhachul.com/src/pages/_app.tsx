@@ -15,7 +15,7 @@ import globalStyles from "@/styles/globalStyles";
 import ErrorBoundary from "@/components/shared/ErrorBoundary";
 import { AlertContextProvider } from "@contexts/AlertContext";
 
-const Toast = dynamic(() => import("@shared/toast/Toast", { ssr: false }));
+const Toast = dynamic(() => import("@shared/toast/Toast"), { ssr: false });
 
 const client = new QueryClient({});
 
