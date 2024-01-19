@@ -12,6 +12,12 @@ export type DividerProps = {
   variant?: "solid" | "dashed";
 } & React.HTMLAttributes<HTMLHRElement>;
 
+export type SpacingProps = {
+  orientation?: "horizontal" | "vertical";
+  size: number;
+  backgroundColor?: keyof typeof vars.colors.$scale;
+} & React.HTMLAttributes<HTMLHRElement>;
+
 export type FlexProps = {
   align?: CSSProperties["alignItems"];
   basis?: CSSProperties["flexBasis"];

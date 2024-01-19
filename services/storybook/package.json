@@ -1,6 +1,15 @@
 {
   "name": "@ahhachul/storybook",
   "packageManager": "yarn@3.6.3",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "storybook": "storybook dev -p 6006",
+    "build": "npx chromatic --project-token=chpt_dec24dddac3576c",
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=chpt_dec24dddac3576c"
+  },
   "devDependencies": {
     "@ahhachul/react-components-button": "workspace:^",
     "@ahhachul/react-components-layout": "workspace:^",
@@ -29,15 +38,6 @@
     "storybook-addon-root-attributes": "^2.0.3",
     "vite": "^4.4.9",
     "vitest": "^0.34.6"
-  },
-  "scripts": {
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:ui": "vitest --ui",
-    "storybook": "storybook dev -p 6006",
-    "build": "npx chromatic --project-token=chpt_dec24dddac3576c",
-    "build-storybook": "storybook build",
-    "chromatic": "npx chromatic --project-token=chpt_dec24dddac3576c"
   },
   "dependencies": {
     "@ahhachul/react-components-accordion": "workspace:^",

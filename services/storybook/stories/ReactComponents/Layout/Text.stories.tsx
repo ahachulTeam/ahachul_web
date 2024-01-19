@@ -8,7 +8,6 @@ export default {
   parameters: {
     layout: "centered",
   },
-  tags: ["autodocs"],
   argTypes: {
     as: {
       options: ["p", "span", "div", "b", "i", "u", "strong", "em"],
