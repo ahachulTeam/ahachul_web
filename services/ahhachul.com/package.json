@@ -14,6 +14,7 @@
     "@types/node": "20.8.0",
     "@types/react": "^18.2",
     "@types/react-dom": "^18",
+    "@types/uuid": "^9.0.7",
     "eslint": "^8.48.0",
     "typescript": "^5.2.2"
   },
@@ -31,6 +32,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.3",
-    "swiper": "^11.0.5"
+    "recoil": "^0.7.7",
+    "swiper": "^11.0.5",
+    "uuid": "^9.0.1"
   }
 }

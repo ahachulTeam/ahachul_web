@@ -33,8 +33,9 @@ function Alert({
         {description ? <Text fontSize="sm">{description}</Text> : null}
         <Flex justify="flex-end">
           <Button
+            variant="ghost"
             onClick={onButtonClick}
-            style={{ marginTop: 12, border: "none" }}
+            style={{ marginTop: 12 }}
           >
             {buttonLabel}
           </Button>

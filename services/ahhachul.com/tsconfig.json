@@ -27,7 +27,8 @@
       "@models/*": ["src/models/*"],
       "@utils/*": ["src/utils/*"],
       "@contexts/*": ["src/contexts/*"],
-      "@hooks/*": ["src/hooks/*"]
+      "@hooks/*": ["src/hooks/*"],
+      "@stores/*": ["src/stores/*"]
     },
     "jsxImportSource": "@emotion/react",
     "forceConsistentCasingInFileNames": true
