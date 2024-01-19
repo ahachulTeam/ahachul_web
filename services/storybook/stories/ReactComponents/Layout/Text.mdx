@@ -1,0 +1,88 @@
+{/* Typography.mdx */}
+
+import { Meta, Typeset } from "@storybook/blocks";
+
+<Meta title="React Components/Layout/Typography/Text" />
+
+export const typography = {
+  weight: {
+    regular: "400",
+    medium: "500",
+    semibold: "600",
+    bold: "700",
+    extrabold: "800",
+  },
+  size: {
+    s1: 10,
+    s2: 11,
+    s3: 12,
+    m1: 14,
+    m2: 16,
+    m3: 18,
+    l1: 20,
+    l2: 24,
+    l3: 28,
+  },
+};
+
+export const SampleText = "11Aa한글 11Aa한글";
+
+### Regular
+
+<Typeset
+  fontSizes={[
+    Number(typography.size.s1),
+    Number(typography.size.s2),
+    Number(typography.size.s3),
+    Number(typography.size.m1),
+    Number(typography.size.m2),
+    Number(typography.size.l1),
+  ]}
+  fontWeight={typography.weight.regular}
+  sampleText={SampleText}
+/>
+
+### Medium
+
+<Typeset
+  fontSizes={[
+    Number(typography.size.s1),
+    Number(typography.size.m1),
+    Number(typography.size.m2),
+  ]}
+  fontWeight={typography.weight.medium}
+  sampleText={SampleText}
+/>
+
+### Semi Bold
+
+<Typeset
+  fontSizes={[
+    Number(typography.size.m1),
+    Number(typography.size.m2),
+    Number(typography.size.l1),
+  ]}
+  fontWeight={typography.weight.semibold}
+  sampleText={SampleText}
+/>
+
+## Bold
+
+<Typeset
+  fontSizes={[
+    Number(typography.size.m1),
+    Number(typography.size.m2),
+    Number(typography.size.l1),
+    Number(typography.size.l2),
+  ]}
+  fontWeight={typography.weight.semibold}
+  sampleText={SampleText}
+/>
+
+## Extra Bold
+
+<Typeset
+  fontSizes={[Number(typography.size.l3)]}
+  fontWeight={typography.weight.extrabold}
+  sampleText={SampleText}
+/>
