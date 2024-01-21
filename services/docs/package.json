@@ -1,6 +1,6 @@
 {
   "name": "@ahhachul/docs",
-  "packageManager": "yarn@3.6.3",
+  "packageManager": "yarn@4.0.2",
   "dependencies": {
     "next": "^13.5.3",
     "nextra": "^2.13.1",
