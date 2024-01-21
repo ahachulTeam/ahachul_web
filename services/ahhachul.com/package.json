@@ -1,22 +1,37 @@
 {
   "name": "ahhachul.com",
   "packageManager": "yarn@3.6.3",
+  "version": "0.0.1",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "cypress open",
+    "type:coverage": "typescript-coverage-report"
   },
   "devDependencies": {
     "@ahhachul/react-components-button": "workspace:^",
     "@ahhachul/react-components-layout": "workspace:^",
     "@ahhachul/themes": "workspace:^",
+    "@testing-library/jest-dom": "^6.2.0",
+    "@testing-library/react": "^14.1.2",
+    "@testing-library/react-hooks": "^8.0.1",
     "@types/axios": "^0.14.0",
     "@types/node": "20.8.0",
     "@types/react": "^18.2",
     "@types/react-dom": "^18",
+    "@types/testing-library__jest-dom": "^6.0.0",
     "@types/uuid": "^9.0.7",
+    "@vitejs/plugin-react": "^4.2.1",
+    "@vitest/coverage-istanbul": "^1.2.1",
     "eslint": "^8.48.0",
-    "typescript": "^5.2.2"
+    "jsdom": "^23.2.0",
+    "msw": "^2.1.2",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.12",
+    "vitest": "^1.2.1"
   },
   "dependencies": {
     "@ahhachul/react-components-input": "workspace:^",
@@ -28,7 +43,9 @@
     "@tanstack/react-query": "^4.29.5",
     "@tanstack/react-query-devtools": "^5.17.0",
     "axios": "^1.6.5",
+    "framer-motion": "^10.18.0",
     "next": "14.0.4",
+    "next-auth": "^4.24.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.3",

@@ -2,16 +2,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { css } from "@emotion/react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Flex, Text } from "@ahhachul/react-components-layout";
 import { withSuspense } from "@ahhachul/react-hooks-utility";
 
-import Skeleton from "@shared/Skeleton";
-import ErrorBoundary from "@shared/ErrorBoundary";
-import { Flex, Text } from "@ahhachul/react-components-layout";
-
-// import Text from "@shared/Text";
-// import ErrorBoundary from "@shared/ErrorBoundary";
-
-// import useEventBanners from "./hooks/useEventBanners";
+import Skeleton from "~/components/shared/Skeleton";
+import ErrorBoundary from "~/components/shared/ErrorBoundary";
 
 function EventBanners() {
   // @ts-ignore

@@ -1,14 +1,14 @@
 import { useSetRecoilState } from "recoil";
-import { v4 as uuidv4 } from "uuid";
+import { v4 as _v4 } from "uuid";
 
-import { toastState } from "@/stores/common";
+import { toastState } from "~/stores/common";
 import type { Toast } from "../core/types";
 
 export const useToast = () => {
   const setToastCompo = useSetRecoilState(toastState);
 
   const addToast = (toast: Omit<Toast, "id">) => {
-    const id = uuidv4();
+    const id = _v4();
 
     setToastCompo((prev) => [{ id, ...toast }, ...prev]);
   };

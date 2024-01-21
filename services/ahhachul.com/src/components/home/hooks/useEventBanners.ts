@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getEventBanners } from "@remotes/banner";
-import useAccount from "@hooks/useAccount";
+import { getEventBanners } from "~/remotes/banner";
+import useAccount from "~/hooks/useAccount";
 
 function useEventBanners() {
   const { data: account } = useAccount();
@@ -10,7 +10,7 @@ function useEventBanners() {
     ["event-banners"],
     () =>
       getEventBanners({
-        hasAccount: account != null && account.status === "DONE",
+        hasAccount: account != null,
       }),
     {
       suspense: true,

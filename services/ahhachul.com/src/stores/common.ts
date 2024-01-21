@@ -2,7 +2,7 @@ import React from "react";
 import { atom } from "recoil";
 import { v4 as uuidv4 } from "uuid";
 
-import type { Toast } from "@shared/toast/core/types";
+import type { Toast } from "~/components/shared/toast/core/types";
 
 const modalCompoState = atom<React.ReactNode[] | []>({
   key: `modalCompoState/${uuidv4()}`,

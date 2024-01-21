@@ -9,7 +9,7 @@ import {
 
 import { createPortal } from "react-dom";
 
-import Alert from "@shared/Alert";
+import Alert from "~/components/shared/Alert";
 
 type AlertProps = ComponentProps<typeof Alert>;
 type AlertOptions = Omit<AlertProps, "open">;
