@@ -56,6 +56,7 @@ const AlertContainer = styled.div`
   width: 320px;
   padding: 24px;
   box-sizing: border-box;
+  z-index: var(--z-indexes-alert);
 `;
 
 export default Alert;

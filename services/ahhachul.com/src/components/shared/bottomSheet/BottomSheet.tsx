@@ -40,7 +40,7 @@ export default BottomSheet;
 
 const scrimCss = css`
   position: fixed;
-  z-index: 99999;
+  z-index: var(--z-indexes-dimmed);
   top: 0;
   left: 0;
 
@@ -54,7 +54,7 @@ const scrimCss = css`
 
 const contentCss = () => css`
   position: absolute;
-  z-index: 9999999;
+  z-index: var(--z-indexes-bottom-sheet);
   top: 100%;
   left: 0;
 

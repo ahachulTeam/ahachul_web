@@ -11,7 +11,7 @@ const Container = styled.div`
   bottom: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.7);
-  z-index: var(--dimmed-zindex);
+  z-index: var(--z-indexes-dimmed);
 `;
 
 export default Dimmed;
