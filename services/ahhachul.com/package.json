@@ -35,6 +35,7 @@
     "vitest": "^1.2.1"
   },
   "dependencies": {
+    "@ahhachul/react-components-accordion": "workspace:^",
     "@ahhachul/react-components-input": "workspace:^",
     "@ahhachul/react-components-utility": "workspace:^",
     "@ahhachul/react-hooks-button": "workspace:^",

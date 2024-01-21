@@ -6,6 +6,7 @@ import { vars } from "@ahhachul/themes";
 
 import { Button } from "@ahhachul/react-components-button";
 import { useEffect, useState } from "react";
+import { Flex } from "@ahhachul/react-components-layout";
 
 interface FixedBottomButtonProps {
   label: string;
@@ -37,13 +38,13 @@ function FixedBottomButton({
 
   return $portal_root
     ? createPortal(
-        <Container>
+        <Container align="center" justify="center">
           <Button
-            size="md"
+            size="sm"
             color="whiteAlpha"
             disabled={disabled}
             onClick={onClick}
-            style={{ width: "100%", color: "white" }}
+            style={{ backgroundColor: "inherit" }}
           >
             {label}
           </Button>
@@ -59,7 +60,7 @@ const slideup = keyframes`
   }
 `;
 
-const Container = styled.div`
+const Container = styled(Flex)`
   position: fixed;
   left: 0;
   right: 0;

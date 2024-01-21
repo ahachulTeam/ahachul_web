@@ -1,6 +1,20 @@
 import Head from "next/head";
 
-function Layout({ children }: { children: React.ReactNode }) {
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+} from "@ahhachul/react-components-accordion";
+import { Text, Heading, Flex } from "@ahhachul/react-components-layout";
+
+function Layout({
+  children,
+  footer = true,
+}: {
+  children: React.ReactNode;
+  footer?: boolean;
+}) {
   return (
     <>
       <Head>
@@ -9,6 +23,29 @@ function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       {children}
+      {footer && (
+        <footer>
+          <Accordion>
+            <AccordionItem
+              itemName="ahhachul-footer"
+              style={{ borderTop: "none", borderBottom: "none" }}
+            >
+              <AccordionButton>
+                <Heading color="gray" fontSize="xs">
+                  (주)아하철 사업자 정보
+                </Heading>
+              </AccordionButton>
+              <AccordionPanel>
+                <Flex direction="column">
+                  <Text color="gray" fontSize="md">
+                    내용입니다.
+                  </Text>
+                </Flex>
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
+        </footer>
+      )}
     </>
   );
 }

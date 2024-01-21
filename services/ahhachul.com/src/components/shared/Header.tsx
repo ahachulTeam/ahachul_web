@@ -1,10 +1,18 @@
 import { Flex, Heading } from "@ahhachul/react-components-layout";
 
+import ResetButton from "~/components/shared/ResetButton";
+import { BackSVG, CloseSVG } from "~/assets/icons";
+
 interface HeaderProps {
   left: React.ReactNode;
   centerTitle?: string;
   right?: React.ReactNode;
   className?: string;
+}
+
+interface HeaderLeftComponentProps {
+  contentsType: "go-back" | "close";
+  onClick: VoidFunction;
 }
 
 function Header({ left, centerTitle, right, className }: HeaderProps) {
@@ -25,7 +33,7 @@ function Header({ left, centerTitle, right, className }: HeaderProps) {
             left: "50%",
             transform: "translate(-50%,-50%)",
           }}
-          fontSize="lg"
+          fontSize="sm"
           color="blackAlpha"
         >
           {centerTitle}
@@ -35,5 +43,15 @@ function Header({ left, centerTitle, right, className }: HeaderProps) {
     </Flex>
   );
 }
+
+Header.HeaderLeft = function HeaderLeftComponent(
+  props: HeaderLeftComponentProps,
+) {
+  const { contentsType, onClick } = props;
+
+  const ItemComponent = contentsType === "go-back" ? <BackSVG /> : <CloseSVG />;
+
+  return <ResetButton ItemComponent={ItemComponent} onClick={onClick} />;
+};
 
 export default Header;

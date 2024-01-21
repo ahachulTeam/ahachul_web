@@ -6640,6 +6640,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "ahhachul.com@workspace:services/ahhachul.com"
   dependencies:
+    "@ahhachul/react-components-accordion": "workspace:^"
     "@ahhachul/react-components-button": "workspace:^"
     "@ahhachul/react-components-input": "workspace:^"
     "@ahhachul/react-components-layout": "workspace:^"
