@@ -37,7 +37,6 @@ export default function App({
 
   return (
     <RecoilRoot>
-      <Toast />
       <Global styles={globalStyles} />
       {/* <SessionProvider session={session}> */}
       <QueryClientProvider client={client}>
@@ -52,6 +51,7 @@ export default function App({
         </Hydrate>
       </QueryClientProvider>
       {/* </SessionProvider> */}
+      <Toast />
     </RecoilRoot>
   );
 }

@@ -15,6 +15,7 @@
     "@ahhachul/react-components-button": "workspace:^",
     "@ahhachul/react-components-layout": "workspace:^",
     "@ahhachul/themes": "workspace:^",
+    "@svgr/webpack": "^8.1.0",
     "@testing-library/jest-dom": "^6.2.0",
     "@testing-library/react": "^14.1.2",
     "@testing-library/react-hooks": "^8.0.1",
