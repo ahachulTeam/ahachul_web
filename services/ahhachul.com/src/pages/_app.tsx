@@ -1,3 +1,4 @@
+import "~/styles/pretendard.css";
 import "@ahhachul/themes/themes.css";
 
 import dynamic from "next/dynamic";
