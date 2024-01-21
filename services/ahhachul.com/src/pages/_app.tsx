@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { RecoilRoot } from "recoil";
 import { Global } from "@emotion/react";
 import type { AppProps } from "next/app";
-import { SessionProvider } from "next-auth/react";
+// import { SessionProvider } from "next-auth/react";
 import { useReportWebVitals } from "next/web-vitals";
 import {
   QueryClient,
@@ -25,7 +25,11 @@ const client = new QueryClient({});
 
 export default function App({
   Component,
-  pageProps: { dehydratedState, session, ...pageProps },
+  pageProps: {
+    dehydratedState,
+    // session,
+    ...pageProps
+  },
 }: AppProps) {
   useReportWebVitals((metric) => {
     console.log(metric);
@@ -35,19 +39,19 @@ export default function App({
     <RecoilRoot>
       <Toast />
       <Global styles={globalStyles} />
-      <SessionProvider session={session}>
-        <QueryClientProvider client={client}>
-          <Hydrate state={dehydratedState}>
-            <ErrorBoundary>
-              <LazyMotion features={domMax}>
-                <AlertContextProvider>
-                  <Component {...pageProps} />
-                </AlertContextProvider>
-              </LazyMotion>
-            </ErrorBoundary>
-          </Hydrate>
-        </QueryClientProvider>
-      </SessionProvider>
+      {/* <SessionProvider session={session}> */}
+      <QueryClientProvider client={client}>
+        <Hydrate state={dehydratedState}>
+          <ErrorBoundary>
+            <LazyMotion features={domMax}>
+              <AlertContextProvider>
+                <Component {...pageProps} />
+              </AlertContextProvider>
+            </LazyMotion>
+          </ErrorBoundary>
+        </Hydrate>
+      </QueryClientProvider>
+      {/* </SessionProvider> */}
     </RecoilRoot>
   );
 }
