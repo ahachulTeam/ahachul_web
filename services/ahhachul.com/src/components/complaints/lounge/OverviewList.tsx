@@ -11,6 +11,7 @@ const PADDING_BOTTOM = "48px";
 function ComplaintOverviewList() {
   return (
     <Flex
+      as="main"
       direction="column"
       justify="space-between"
       style={{
@@ -61,7 +62,6 @@ function ComplaintOverviewList() {
 const FiveGrids = styled.ul`
   display: grid;
   gap: 9px;
-  height: 53%;
   background-color: black;
 
   & > li {
@@ -90,7 +90,6 @@ const FiveGrids = styled.ul`
 const ThreeGrids = styled.ul`
   display: grid;
   gap: 9px;
-  height: 35%;
   background-color: black;
 
   & > li {

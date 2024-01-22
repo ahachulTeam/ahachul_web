@@ -18,9 +18,7 @@ export default function ComplaintsLoungePage() {
         }
         centerTitle="민원"
       />
-      <main>
-        <ComplaintOverviewList />
-      </main>
+      <ComplaintOverviewList />
     </Layout>
   );
 }

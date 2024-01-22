@@ -4,10 +4,16 @@ interface ComplaintOverviewCardProps {
   title: string;
   description: string;
   isTitleUpperDescription?: boolean;
+  IconComponent?: React.ReactNode;
 }
 
 function ComplaintOverviewCard(props: ComplaintOverviewCardProps) {
-  const { title, description, isTitleUpperDescription = false } = props;
+  const {
+    title,
+    description,
+    isTitleUpperDescription = false,
+    IconComponent,
+  } = props;
 
   return (
     <Flex
@@ -33,6 +39,7 @@ function ComplaintOverviewCard(props: ComplaintOverviewCardProps) {
           {description}
         </Text>
       )}
+      {IconComponent && IconComponent}
     </Flex>
   );
 }

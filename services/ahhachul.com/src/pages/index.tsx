@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { useRouter } from "next/router";
 
 import Header from "~/components/shared/Header";
 import Layout from "~/components/shared/Layout";
@@ -6,9 +7,10 @@ import FixedBottomButton from "~/components/shared/FixedBottomButton";
 
 import { useToast } from "~/components/shared/toast/hooks/useToast";
 import { useAlertContext } from "~/contexts/AlertContext";
-import { BackSVG } from "~/assets/icons";
 
 export default function Home() {
+  const router = useRouter();
+
   const { addToast } = useToast();
   const { open } = useAlertContext();
 
@@ -25,7 +27,15 @@ export default function Home() {
 
   return (
     <Layout>
-      <Header left={<BackSVG />} centerTitle="민원" />
+      <Header
+        left={
+          <Header.HeaderLeft
+            contentsType="go-back"
+            onClick={() => router.back()}
+          />
+        }
+        centerTitle="민원"
+      />
       <main>
         <FixedBottomButton
           label={"민원접수"}
