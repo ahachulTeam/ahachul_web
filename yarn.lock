@@ -6676,7 +6676,7 @@ __metadata:
     react-dom: "npm:^18.2.0"
     react-hook-form: "npm:^7.49.3"
     recoil: "npm:^0.7.7"
-    swiper: "npm:^11.0.5"
+    swiper: "npm:^9.3.2"
     typescript: "npm:^5.2.2"
     uuid: "npm:^9.0.1"
     vite: "npm:^5.0.12"
@@ -16648,6 +16648,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ssr-window@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "ssr-window@npm:4.0.2"
+  checksum: 075b67794be868103d73299be948cd559be7b40499fe4247c7a28702f9f1588c53ca8de64520ae8e36214caa6ff728b222101d7e75d5df39e7ff12e148d6a517
+  languageName: node
+  linkType: hard
+
 "ssri@npm:^10.0.0":
   version: 10.0.5
   resolution: "ssri@npm:10.0.5"
@@ -17068,10 +17075,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swiper@npm:^11.0.5":
-  version: 11.0.5
-  resolution: "swiper@npm:11.0.5"
-  checksum: 4a544e9551336ddbdd5f45ebdde0de5086f855e08b48eaa2bed7f5c16a27dd28ef9accdbb232de8639dea0c2588a3139f9865fdb6342e82850a62cdea69cdc4d
+"swiper@npm:^9.3.2":
+  version: 9.4.1
+  resolution: "swiper@npm:9.4.1"
+  dependencies:
+    ssr-window: "npm:^4.0.2"
+  checksum: 900db2e4d9a812ada9c4261cc5cba335bd137e98211b5a072c64b71d0d4df213933ccd9da62e4719a3547d51d3d50d1247afe2aa6fe00bfa525de4e3c1e4c33f
   languageName: node
   linkType: hard
 

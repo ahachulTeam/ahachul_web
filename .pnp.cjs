@@ -10528,7 +10528,7 @@ const RAW_RUNTIME_STATE =
           ["react-dom", "virtual:54503ab75b2c2cd48eda3c4f96d939a7a44427df14fcb908ea5749edb333a4e3575a444ee6b7ac1b4b40f2a8551fc6c2ed7e41a4aad45321b1b5712ba3dcd63b#npm:18.2.0"],\
           ["react-hook-form", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:7.49.3"],\
           ["recoil", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:0.7.7"],\
-          ["swiper", "npm:11.0.5"],\
+          ["swiper", "npm:9.4.1"],\
           ["typescript", "patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=e012d7"],\
           ["uuid", "npm:9.0.1"],\
           ["vite", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:5.0.12"],\
@@ -21882,6 +21882,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["ssr-window", [\
+      ["npm:4.0.2", {\
+        "packageLocation": "./.yarn/cache/ssr-window-npm-4.0.2-01f9c0151e-075b67794b.zip/node_modules/ssr-window/",\
+        "packageDependencies": [\
+          ["ssr-window", "npm:4.0.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["ssri", [\
       ["npm:10.0.5", {\
         "packageLocation": "./.yarn/cache/ssri-npm-10.0.5-1a7557d04d-453f9a1c24.zip/node_modules/ssri/",\
@@ -22410,10 +22419,12 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["swiper", [\
-      ["npm:11.0.5", {\
-        "packageLocation": "./.yarn/cache/swiper-npm-11.0.5-152220df64-4a544e9551.zip/node_modules/swiper/",\
+      ["npm:9.4.1", {\
+        "packageLocation": "./.yarn/cache/swiper-npm-9.4.1-38d46d35a3-900db2e4d9.zip/node_modules/swiper/",\
         "packageDependencies": [\
-          ["swiper", "npm:11.0.5"]\
+          ["swiper", "npm:9.4.1"],\
+          ["react", "npm:18.2.0"],\
+          ["ssr-window", "npm:4.0.2"]\
         ],\
         "linkType": "HARD"\
       }]\
