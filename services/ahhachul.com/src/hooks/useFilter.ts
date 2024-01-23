@@ -28,7 +28,7 @@ export const useFilter = <T extends string>(...filterKeys: T[]) => {
     (key: string) => (value: string) => {
       const params = createQueryString(searchParams, { key, value });
 
-      router.replace(createHref(pathname, params));
+      router.push(createHref(pathname, params));
     },
     [pathname, router, searchParams],
   );
@@ -36,7 +36,7 @@ export const useFilter = <T extends string>(...filterKeys: T[]) => {
   const handleResetFilter = useCallback(() => {
     const params = deleteQueryString(searchParams, ...filterKeys);
 
-    router.replace(createHref(pathname, params));
+    router.push(createHref(pathname, params));
   }, [filterKeys, pathname, router, searchParams]);
 
   return {

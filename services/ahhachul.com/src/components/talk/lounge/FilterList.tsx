@@ -7,9 +7,13 @@ import { Box, Flex } from "@ahhachul/react-components-layout";
 import { useFilter } from "~/hooks/useFilter";
 import useBoolean from "~/hooks/common/useBoolean";
 import { TalkLoungeFilterType } from "~/models/talk";
-import { KeyOf } from "~/models/common";
+import { SubwayLineIdType } from "~/models/subway";
+import { KeyOf, SortFilterType } from "~/models/common";
+import { SUBWAY_LINE_FILTER_TYPE, SORT_FILTER_TYPE } from "~/constants/filter";
 import { ChevronSVG } from "~/assets/icons";
+
 import { TALK_LOUNGE_FILTER_LIST } from "./static/filter";
+import { TALK_LOUNGE_FILTER_TYPES } from "./types/filter";
 
 const SubwayLineFilter = dynamic(
   () => import("~/components/shared/filter/SubwayLineFilter"),
@@ -26,20 +30,37 @@ function TalkLoungeFilterList() {
     "sort",
   );
 
-  console.log("filter:", filter);
+  const getFilterButtonLabel: (
+    type: TALK_LOUNGE_FILTER_TYPES,
+  ) => React.ReactNode = useCallback(
+    (type: TALK_LOUNGE_FILTER_TYPES) => {
+      if (filter?.subwayLineId && type === "subwayLineId") {
+        return SUBWAY_LINE_FILTER_TYPE[filter.subwayLineId as SubwayLineIdType];
+      }
 
-  const [isShowing, , openHandler, closeHandler] = useBoolean(false);
+      if (filter?.sort && type === "sort") {
+        return SORT_FILTER_TYPE[filter.sort as SortFilterType];
+      }
+
+      return TALK_LOUNGE_FILTER_LIST[type];
+    },
+    [filter],
+  );
+
+  const [isModalShowing, , openHandler, closeHandler] = useBoolean(false);
 
   const [selectedFilter, setSelectedFilter] =
-    useState<KeyOf<typeof TALK_LOUNGE_FILTER_LIST>>("subwayLineId");
+    useState<TALK_LOUNGE_FILTER_TYPES>("subwayLineId");
 
   const onOpenFilterModal = useCallback(
-    (type: KeyOf<typeof TALK_LOUNGE_FILTER_LIST>) => () => {
+    (type: TALK_LOUNGE_FILTER_TYPES) => () => {
       setSelectedFilter(type);
       openHandler();
     },
     [openHandler],
   );
+
+  const UUID = (type: TALK_LOUNGE_FILTER_TYPES) => `${type}-filter`;
 
   let ModalComponent = SubwayLineFilter;
   switch (selectedFilter) {
@@ -70,18 +91,26 @@ function TalkLoungeFilterList() {
         {Object.entries(TALK_LOUNGE_FILTER_LIST).map(([key, label]) => (
           <li key={key}>
             <Button
+              size="sm"
               variant="ghost"
               rightIcon={<ChevronSVG />}
-              style={{ padding: 0, gap: 0, fontSize: "14px" }}
-              onClick={onOpenFilterModal(key as "subwayLineId" | "sort")}
+              aria-label={label}
+              aria-haspopup="listbox"
+              aria-expanded={isModalShowing}
+              aria-controls={UUID(key as TALK_LOUNGE_FILTER_TYPES)}
+              onClick={onOpenFilterModal(key as TALK_LOUNGE_FILTER_TYPES)}
+              style={{
+                padding: 0,
+                gap: 0,
+              }}
             >
-              {label}
+              {getFilterButtonLabel(key as TALK_LOUNGE_FILTER_TYPES)}
             </Button>
           </li>
         ))}
       </Flex>
       <ModalComponent
-        isShowing={isShowing}
+        isShowing={isModalShowing}
         onClose={closeHandler}
         handleApplyFilter={handleApplyFilter}
       />

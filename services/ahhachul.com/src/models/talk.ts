@@ -1,8 +1,9 @@
 import { YesNoLiteralType } from "./common";
+import { SubwayLineIdType } from "./subway";
 
 export type TalkLoungeFilterType = {
   categoryType: TalkCategoryType;
-  subwayLineId: number;
+  subwayLineId: SubwayLineIdType;
   content: string;
   hashTag: string;
   hotPostYn: YesNoLiteralType;
@@ -22,7 +23,7 @@ export interface TalkLoungeOverview {
   likeCnt: number;
   hotPostYn: YesNoLiteralType;
   regionType: string; // TODO: 타입 구체화
-  subwayLineId: number;
+  subwayLineId: SubwayLineIdType;
   createdAt: string;
   createdBy: string;
   writer: string;
@@ -52,7 +53,7 @@ export interface TalkRoomDetails {
   hateYn: YesNoLiteralType;
   hotPostYn: YesNoLiteralType;
   regionType: string; // TODO: 타입 구체화
-  subwayLineId: number;
+  subwayLineId: SubwayLineIdType;
   createdAt: string;
   createdBy: string;
   writer: string;

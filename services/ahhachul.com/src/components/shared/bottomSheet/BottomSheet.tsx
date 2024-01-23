@@ -63,9 +63,7 @@ const contentCss = () => css`
   align-items: center;
 
   width: 100%;
-
   min-height: 300px;
-  padding-top: 6px;
 
   background-color: #fff;
   border-radius: 16px 16px 0 0;

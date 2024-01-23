@@ -118,6 +118,10 @@ export default css`
   ol,
   ul {
     list-style: none;
+    box-sizing: border-box;
+  }
+  li {
+    box-sizing: border-box;
   }
   blockquote,
   q {
