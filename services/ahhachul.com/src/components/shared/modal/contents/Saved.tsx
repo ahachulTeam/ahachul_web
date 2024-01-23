@@ -6,6 +6,10 @@ import { defaultFadeInVariants } from "~/constants/motions";
 
 import Header from "../../Header";
 import useModal from "../hooks/useModal";
+import { MODAL_PRESET_SLUGS } from "~/constants/modal";
+import SerchModal from "./Search";
+import ResetButton from "../../ResetButton";
+import { SearchSVG } from "~/assets/icons";
 
 interface SavedModalProps {
   className?: string;
@@ -16,7 +20,13 @@ const SavedModal = React.forwardRef(
     { className }: SavedModalProps,
     ref: React.ForwardedRef<HTMLDialogElement>,
   ) => {
-    const { handleModalClose } = useModal();
+    const { handleModalOpen, handleModalClose } = useModal(
+      MODAL_PRESET_SLUGS.search,
+    );
+
+    const handleHamburger = () => {
+      handleModalOpen(<SerchModal />)();
+    };
 
     return (
       <Base
@@ -39,6 +49,12 @@ const SavedModal = React.forwardRef(
             />
           }
           centerTitle="저장"
+          right={
+            <ResetButton
+              ItemComponent={<SearchSVG />}
+              onClick={handleHamburger}
+            />
+          }
         />
       </Base>
     );

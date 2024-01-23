@@ -4,7 +4,7 @@ import React, { useRef, useCallback } from "react";
 import { useRecoilState } from "recoil";
 
 import { modalCompoState } from "~/stores/common";
-import { createHref, deleteQueryString } from "~/utils/navigation";
+import { createHref, deleteQueryString } from "~/utils/helper/navigation";
 import { MODAL_SLUG } from "~/constants/modal";
 
 const useModal = (queryPreset?: string) => {

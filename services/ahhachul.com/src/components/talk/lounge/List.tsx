@@ -1,13 +1,17 @@
 import { css } from "@emotion/react";
 
-import { Box, OrderedList } from "@ahhachul/react-components-layout";
 import { withSuspense } from "@ahhachul/react-hooks-utility";
+import { Box, OrderedList } from "@ahhachul/react-components-layout";
 
 import Skeleton from "~/components/shared/Skeleton";
 import ErrorBoundary from "~/components/shared/ErrorBoundary";
 import TalkLoungeCard from "./Card";
+// import useTalkLounge from "./hooks/useTalkLounge";
 
-function TalkLoungeList() {
+function TalkLounge() {
+  // const { data } = useTalkLounge();
+  // console.log("data :", data);
+
   return (
     <Box as="section" background="gray" style={{ padding: "22px 20px" }}>
       <OrderedList spacing={5}>
@@ -28,7 +32,7 @@ function TalkLoungeList() {
 function WrapErrorBoundary() {
   return (
     <ErrorBoundary>
-      <TalkLoungeList />
+      <TalkLounge />
     </ErrorBoundary>
   );
 }

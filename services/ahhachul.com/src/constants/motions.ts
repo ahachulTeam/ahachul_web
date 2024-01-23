@@ -1,6 +1,7 @@
 import { type Variants } from "framer-motion";
 
 export const defaultEasing = [0.6, -0.05, 0.01, 0.99];
+export const defaultEasing2 = [0.3, -0.05, 0.05, 0.5];
 
 export const stagger = (delay = 0.3): Variants => ({
   animate: { transition: { staggerChildren: delay } },
@@ -89,5 +90,26 @@ export const defaultScaleVariants: Variants = {
     opacity: 0,
     scale: 0.8,
     transition: { duration: 0.3, ease: defaultEasing },
+  },
+};
+
+export const fullPageLoadingVariants: Variants = {
+  initial: {
+    opacity: 1,
+    x: "10%",
+    transition: { duration: 0.3, ease: defaultEasing2 },
+    willChange: "transform, opacity",
+  },
+  animate: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.3, ease: defaultEasing2 },
+    willChange: "transform, opacity",
+  },
+  exit: {
+    opacity: 0,
+    x: 0,
+    transition: { duration: 0.3, ease: defaultEasing2 },
+    willChange: "transform, opacity",
   },
 };

@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { m } from "framer-motion";
-import { InputGroup, Input } from "@ahhachul/react-components-input";
 
 import { defaultFadeInVariants } from "~/constants/motions";
 
@@ -41,10 +40,7 @@ const ServiceModal = React.forwardRef(
           }
           centerTitle="전체 서비스"
         />
-        <InputGroup style={{ padding: "15px 20px" }}>
-          <Input variant="filled" placeholder="검색어를 입력해주세요." />
-          <div />
-        </InputGroup>
+        hello ? this is service 화면
       </Base>
     );
   },

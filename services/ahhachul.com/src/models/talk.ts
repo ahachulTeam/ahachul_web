@@ -2,14 +2,14 @@ import { YesNoLiteralType } from "./common";
 import { SubwayLineIdType } from "./subway";
 
 export type TalkLoungeFilterType = {
-  categoryType: TalkCategoryType;
-  subwayLineId: SubwayLineIdType;
-  content: string;
-  hashTag: string;
-  hotPostYn: YesNoLiteralType;
+  content?: string;
+  hashTag?: string;
+  hotPostYn?: YesNoLiteralType;
+  subwayLineId?: SubwayLineIdType;
+  categoryType?: TalkCategoryType;
+  sort: string;
   page: number;
   size: number;
-  sort: string;
 };
 
 export interface TalkLoungeOverview {
@@ -30,17 +30,17 @@ export interface TalkLoungeOverview {
   image: TalkRoomImage;
 }
 
-export interface TalkLoungeListDto {
+export interface TalkLoungeDto {
   hasNext: boolean;
   nextPageNum: number;
   posts: TalkLoungeOverview[];
 }
 
-export type TalkRoomDetailIdType = {
-  talkRoomDetailId: string;
+export type TalkRoomIdType = {
+  talkRoomId: string;
 };
 
-export interface TalkRoomDetails {
+export interface TalkRoomDto {
   id: number;
   title: string;
   content: string;

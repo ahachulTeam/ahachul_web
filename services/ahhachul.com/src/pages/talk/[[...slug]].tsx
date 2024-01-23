@@ -6,7 +6,6 @@ import { Flex } from "@ahhachul/react-components-layout";
 import Header from "~/components/shared/Header";
 import Layout from "~/components/shared/Layout";
 import ResetButton from "~/components/shared/ResetButton";
-import { Nullable } from "~/models/common";
 import {
   SearchSVG,
   BookmarkSVG,
@@ -16,6 +15,7 @@ import {
 
 import TalkRoom from "~/components/talk/room/TalkRoom";
 import TalkLounge from "~/components/talk/lounge/TalkLounge";
+
 import useModal from "~/components/shared/modal/hooks/useModal";
 import { MODAL_PRESET_SLUGS } from "~/constants/modal";
 
@@ -44,19 +44,14 @@ const SavedModal = dynamic(
 // ----------------------------------------------------------------
 
 export interface TalkPageProps {
-  slug: Nullable<string | string[]>;
   isRoomService: boolean;
 }
 
 export default function TalkPage(props: TalkPageProps) {
-  const { slug, isRoomService } = props;
+  const { isRoomService } = props;
   const router = useRouter();
 
-  const RenderComponent = isRoomService ? (
-    <TalkRoom slug={slug} />
-  ) : (
-    <TalkLounge slug={slug} />
-  );
+  const RenderComponent = isRoomService ? <TalkRoom /> : <TalkLounge />;
 
   return (
     <Layout>
@@ -106,12 +101,10 @@ const HeaderRightComponent = ({ type }: { type: "lounge" | "room" }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const slug = context?.query?.slug ?? null;
-
   const isRoomService = slug && slug?.length >= 2;
 
   return {
     props: {
-      slug,
       isRoomService,
     },
   };

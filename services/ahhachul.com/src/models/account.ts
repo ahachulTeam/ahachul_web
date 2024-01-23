@@ -26,8 +26,9 @@ export type AccountForm = TextFieldForm | SelectFieldForm;
 type AccountStatus = "READY" | "DONE";
 
 export interface Account {
-  accountName: string;
-  accountNumber: number;
+  accessToken: string;
+  refreshToken: string;
+  nickname: string;
   balance: number;
   email: string;
   name: string;

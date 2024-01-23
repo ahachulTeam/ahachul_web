@@ -1,14 +1,12 @@
-import { TalkPageProps } from "~/pages/talk/[[...slug]]";
-
 import TalkLoungeTab from "~/components/talk/lounge/Tab";
 import TalkLoungeFilterList from "~/components/talk/lounge/FilterList";
-import TalkLoungeList from "~/components/talk/lounge/List";
+import dynamic from "next/dynamic";
 
-export default function TalkLounge(props: Pick<TalkPageProps, "slug">) {
-  const slug = props.slug;
+const TalkLoungeList = dynamic(() => import("~/components/talk/lounge/List"), {
+  ssr: false,
+});
 
-  console.log("slug:", slug);
-
+export default function TalkLounge() {
   return (
     <main>
       <TalkLoungeTab />

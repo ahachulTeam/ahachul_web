@@ -1,9 +1,13 @@
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Box, Flex, Text } from "@ahhachul/react-components-layout";
 
 import ResetButton from "~/components/shared/ResetButton";
-import { BookmarkSVG, CommentSVG, EyeSVG, HeartSVG } from "~/assets/icons";
+import { BookmarkFillSVG, CommentSVG, EyeSVG, HeartSVG } from "~/assets/icons";
 
 function TalkLoungeCard() {
+  const pathname = usePathname();
+
   return (
     <Box
       as="article"
@@ -14,10 +18,15 @@ function TalkLoungeCard() {
         borderRadius: "8px",
       }}
     >
-      <Flex
-        direction="column"
-        gap="22px"
-        style={{ padding: "22px", borderBottom: "1px solid #F4F5F8" }}
+      <Link
+        href={`${pathname}/1`}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "22px",
+          padding: "22px",
+          borderBottom: "1px solid #F4F5F8",
+        }}
       >
         <Flex align="center">
           <Text
@@ -54,7 +63,7 @@ function TalkLoungeCard() {
             00시간전
           </Text>
         </Flex>
-      </Flex>
+      </Link>
       <Flex
         align="center"
         justify="space-between"
@@ -89,10 +98,7 @@ function TalkLoungeCard() {
             onClick={() => {}}
           />
         </Flex>
-        <ResetButton
-          ItemComponent={<BookmarkSVG width={20} height={20} />}
-          onClick={() => {}}
-        />
+        <ResetButton ItemComponent={<BookmarkFillSVG />} onClick={() => {}} />
       </Flex>
     </Box>
   );
