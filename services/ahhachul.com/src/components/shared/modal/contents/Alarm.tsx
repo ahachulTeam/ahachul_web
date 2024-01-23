@@ -1,7 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { m } from "framer-motion";
+
+import { defaultFadeInVariants } from "~/constants/motions";
+
+import Header from "../../Header";
 import useModal from "../hooks/useModal";
-import { MODAL_PRESET_SLUGS } from "~/constants/modal";
 
 interface AlarmModalProps {
   className?: string;
@@ -12,7 +16,7 @@ const AlarmModal = React.forwardRef(
     { className }: AlarmModalProps,
     ref: React.ForwardedRef<HTMLDialogElement>,
   ) => {
-    const { handleModalClose } = useModal(MODAL_PRESET_SLUGS.alarm);
+    const { handleModalClose } = useModal();
 
     return (
       <Base
@@ -22,11 +26,20 @@ const AlarmModal = React.forwardRef(
         aria-labelledby="modal"
         aria-modal="true"
         tabIndex={0}
+        variants={defaultFadeInVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
       >
-        <div>hello this is Alarm modal</div>
-        <br />
-        <br />
-        <button onClick={handleModalClose}>close</button>
+        <Header
+          left={
+            <Header.HeaderLeft
+              contentsType="go-back"
+              onClick={handleModalClose}
+            />
+          }
+          centerTitle="알림"
+        />
       </Base>
     );
   },
@@ -34,9 +47,10 @@ const AlarmModal = React.forwardRef(
 
 AlarmModal.displayName = "AlarmModal";
 
-const Base = styled.dialog`
+const Base = styled(m.dialog)`
   position: relative;
   display: block;
+  padding: 0;
   border: 0;
   width: 100%;
   height: 100%;
