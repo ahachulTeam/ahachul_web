@@ -39,6 +39,7 @@
     "@ahhachul/react-components-input": "workspace:^",
     "@ahhachul/react-components-utility": "workspace:^",
     "@ahhachul/react-hooks-button": "workspace:^",
+    "@ahhachul/react-hooks-input": "workspace:^",
     "@ahhachul/react-hooks-utility": "workspace:^",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",

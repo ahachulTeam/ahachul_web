@@ -4,9 +4,14 @@ import { useRouter } from "next/router";
 import Header from "~/components/shared/Header";
 import Layout from "~/components/shared/Layout";
 import FixedBottomButton from "~/components/shared/FixedBottomButton";
+import ResetButton from "~/components/shared/ResetButton";
 
 import { useToast } from "~/components/shared/toast/hooks/useToast";
 import { useAlertContext } from "~/contexts/AlertContext";
+import useModal from "~/components/shared/modal/hooks/useModal";
+import SearchModal from "~/components/shared/modal/contents/Search";
+import { MODAL_PRESET_SLUGS } from "~/constants/modal";
+import { SearchSVG } from "~/assets/icons";
 
 export default function Home() {
   const router = useRouter();
@@ -35,6 +40,7 @@ export default function Home() {
           />
         }
         centerTitle="민원"
+        right={<HeaderRightComponent />}
       />
       <main>
         <FixedBottomButton
@@ -45,3 +51,15 @@ export default function Home() {
     </Layout>
   );
 }
+
+const HeaderRightComponent = () => {
+  const { handleModalOpen } = useModal(MODAL_PRESET_SLUGS.search);
+
+  const openSearchModal = () => {
+    handleModalOpen(<SearchModal />)();
+  };
+
+  return (
+    <ResetButton ItemComponent={<SearchSVG />} onClick={openSearchModal} />
+  );
+};

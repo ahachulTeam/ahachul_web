@@ -4,6 +4,7 @@ import "@ahhachul/react-components-layout/style.css";
 import "@ahhachul/react-components-button/style.css";
 import "@ahhachul/react-components-input/style.css";
 import "@ahhachul/react-components-accordion/style.css";
+import "@ahhachul/react-components-input/style.css";
 
 export default css`
   html,
@@ -120,7 +121,8 @@ export default css`
     list-style: none;
     box-sizing: border-box;
   }
-  li {
+  li,
+  dialog {
     box-sizing: border-box;
   }
   blockquote,
