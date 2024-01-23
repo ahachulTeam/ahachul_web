@@ -1,7 +1,7 @@
 // @ts-ignore
 import { useSession } from "next-auth/react";
 
-import { User } from "@/models/user";
+import { User } from "~/models/user";
 
 function useUser() {
   const { data } = useSession();

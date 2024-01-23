@@ -1,7 +1,7 @@
 import { vars } from "@ahhachul/themes";
 import * as React from "react";
 import { forwardRef, Ref } from "react";
-import { textStyle } from "./style.css";
+import { headingStyle } from "./style.css";
 import { HeadingProps } from "./types";
 import { clsx } from "clsx";
 import { BaseStyle, StyleSprinkles } from "../core/style.css";
@@ -20,7 +20,7 @@ const Heading = (props: HeadingProps, ref: Ref<HTMLElement>) => {
         StyleSprinkles(
           extractSprinkleProps(props, Array.from(StyleSprinkles.properties)),
         ),
-        textStyle({
+        headingStyle({
           fontSize,
         }),
         props.className,

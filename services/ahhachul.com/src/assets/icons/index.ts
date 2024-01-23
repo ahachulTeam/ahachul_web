@@ -1,0 +1,12 @@
+export { default as EyeSVG } from "./ic_eye.svg";
+export { default as BackSVG } from "./ic_back.svg";
+export { default as CheckSVG } from "./ic_check.svg";
+export { default as CloseSVG } from "./ic_close.svg";
+export { default as ShareSVG } from "./ic_share.svg";
+export { default as HeartSVG } from "./ic_heart.svg";
+export { default as SearchSVG } from "./ic_search.svg";
+export { default as CommentSVG } from "./ic_comment.svg";
+export { default as ChevronSVG } from "./ic_chevron.svg";
+export { default as BookmarkSVG } from "./ic_bookmark.svg";
+export { default as HamburgerSVG } from "./ic_hamburger.svg";
+export { default as EllipsisVerticalSVG } from "./ic_ellipsis-vertical.svg";

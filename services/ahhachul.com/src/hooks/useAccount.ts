@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getAccount } from "@remotes/account";
+import { getAccount } from "~/remotes/account";
 import useUser from "./useUser";
 
 function useAccount() {
