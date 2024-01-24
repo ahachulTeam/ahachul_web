@@ -24,7 +24,13 @@ const Modal = dynamic(() => import("~/components/shared/modal/Modal"), {
   ssr: false,
 });
 
-const client = new QueryClient({});
+const client = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 0,
+    },
+  },
+});
 
 export default function App({
   Component,

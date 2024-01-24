@@ -1,4 +1,15 @@
-function formatTime(ms: number) {
+export const removeEmptyProperties = <T extends { [K in keyof T]: unknown }>(
+  obj: T,
+): T => {
+  for (const key in obj) {
+    if (obj[key] !== 0 && !obj[key]) {
+      delete obj[key];
+    }
+  }
+  return obj;
+};
+
+export const formatTime = (ms: number) => {
   const minute = 60 * 1000;
   const hour = 60 * minute;
   const day = 24 * hour;
@@ -21,6 +32,4 @@ function formatTime(ms: number) {
   const SS = `${남은초}`.padStart(2, "0");
 
   return days > 0 ? `${days}일 ${HH}:${mm}:${SS}` : `${HH}:${mm}:${SS}`;
-}
-
-export default formatTime;
+};

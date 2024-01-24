@@ -1,9 +1,13 @@
+import { ResponseCode, ResponseMessages } from "~/constants/error";
 import { SORT_FILTER_TYPE } from "~/constants/filter";
 
-export interface ResponseDto<T> {
-  code: number;
-  message: string;
-  payload: T;
+export type ResponseStatus = {
+  code: ValueOf<typeof ResponseCode>;
+  message: ValueOf<typeof ResponseMessages>;
+};
+
+export interface ResponseDto<T> extends ResponseStatus {
+  result: T;
 }
 
 export type YesNoLiteralType = "Y" | "N";

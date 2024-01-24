@@ -41,7 +41,7 @@ function SortingFilter(props: SortingFilterProps) {
         >
           정렬
         </Heading>
-        <UnorderedList>
+        <UnorderedList spacing={0}>
           {Object.entries(SORT_FILTER_TYPE).map(([value, label]) => (
             <li
               key={value}
@@ -65,6 +65,8 @@ function SortingFilter(props: SortingFilterProps) {
                 type="button"
                 onClick={applyFilter(value)}
                 css={css`
+                  width: 100%;
+                  text-align: left;
                   font-size: 14px;
                   font-weight: 500;
 

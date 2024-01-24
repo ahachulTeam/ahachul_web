@@ -1,61 +1,47 @@
-import React from "react";
-import styled from "@emotion/styled";
-import { m } from "framer-motion";
-
-import { defaultFadeInVariants } from "~/constants/motions";
+import { useState, useCallback } from "react";
+import { Box } from "@ahhachul/react-components-layout";
 
 import Header from "../../Header";
+import Toggle from "../../Toggle";
+
 import useModal from "../hooks/useModal";
 
-interface AlarmModalProps {
-  className?: string;
-}
+export type AlarmType = "Activity Notification" | "Direct Message";
 
-const AlarmModal = React.forwardRef(
-  (
-    { className }: AlarmModalProps,
-    ref: React.ForwardedRef<HTMLDialogElement>,
-  ) => {
-    const { handleModalClose } = useModal();
+const ALARM_TABS: Record<AlarmType, string> = {
+  "Activity Notification": "활동알림",
+  "Direct Message": "쪽지",
+};
 
-    return (
-      <Base
-        ref={ref}
-        className={className}
-        aria-haspopup="true"
-        aria-labelledby="modal"
-        aria-modal="true"
-        tabIndex={0}
-        variants={defaultFadeInVariants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-      >
-        <Header
-          left={
-            <Header.HeaderLeft
-              contentsType="go-back"
-              onClick={handleModalClose}
-            />
-          }
-          centerTitle="알림"
+const AlarmModal = () => {
+  const { handleModalClose } = useModal();
+
+  const [tab, setTab] = useState(Object.keys(ALARM_TABS)[0]);
+  const handleChangeTab = useCallback((t: string) => {
+    setTab(t);
+  }, []);
+
+  return (
+    <>
+      <Header
+        left={
+          <Header.HeaderLeft
+            contentsType="go-back"
+            onClick={handleModalClose}
+          />
+        }
+        centerTitle="알림"
+      />
+      <Box style={{ padding: "15px 20px" }}>
+        <Toggle
+          tabs={ALARM_TABS}
+          defaultValue={tab as string}
+          actionFn={handleChangeTab}
+          name="유실물 탭 버튼"
         />
-      </Base>
-    );
-  },
-);
-
-AlarmModal.displayName = "AlarmModal";
-
-const Base = styled(m.dialog)`
-  position: relative;
-  display: block;
-  padding: 0;
-  border: 0;
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  z-index: var(--z-indexes-dialog);
-`;
+      </Box>
+    </>
+  );
+};
 
 export default AlarmModal;

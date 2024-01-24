@@ -1,9 +1,35 @@
-import { TalkPageProps } from "~/pages/talk/[[...slug]]";
+import ErrorBoundary from "~/components/shared/ErrorBoundary";
+import LoadingModal from "~/components/shared/FullPageLoading";
 
-export default function TalkRoom(props: Pick<TalkPageProps, "slug">) {
-  const slug = props.slug;
+import Layout from "~/components/shared/Layout";
+import { useEffect, useState } from "react";
+import useTalkRoom from "./hooks/useTalkRoom";
 
-  console.log("slug:", slug);
+function TalkRoom() {
+  const { data: roomService } = useTalkRoom();
+  console.log("roomService:", roomService);
+  const [isLoading, setIsLoading] = useState(true);
 
-  return <main>detailPage {JSON.stringify(slug)}</main>;
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+  }, []);
+
+  return (
+    <Layout>
+      <LoadingModal show={isLoading} />
+      <main>detailPage</main>
+    </Layout>
+  );
 }
+
+function WrapErrorBoundary() {
+  return (
+    <ErrorBoundary>
+      <TalkRoom />
+    </ErrorBoundary>
+  );
+}
+
+export default WrapErrorBoundary;

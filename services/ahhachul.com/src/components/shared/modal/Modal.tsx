@@ -3,10 +3,12 @@ import { useRecoilState } from "recoil";
 
 import Dimmed from "~/components/shared/Dimmed";
 import AnimatePortal from "~/components/shared/portal/AnimatePortal";
-import { MODAL_PRESET_SLUGS, MODAL_SLUG } from "~/constants/modal";
-import { modalCompoState } from "~/stores/common";
-import SearchModal from "./contents/Search";
+import ModalBase from "~/components/shared/modal/ModalBase";
+import SearchModal from "~/components/shared/modal/contents/search/SearchModal";
+
 import useDidMount from "~/hooks/lifeCycle/useDidMount";
+import { modalCompoState } from "~/stores/common";
+import { MODAL_PRESET_SLUGS, MODAL_SLUG } from "~/constants/modal";
 
 const Modal = () => {
   const router = useRouter();
@@ -29,7 +31,7 @@ const Modal = () => {
     <AnimatePortal isShowing={ModalComponent.length > 0} mode="sync">
       {ModalComponent?.map((compo, idx) => (
         <Dimmed key={idx} backColor="unset" depth={idx + 1}>
-          {compo}
+          <ModalBase>{compo}</ModalBase>
         </Dimmed>
       ))}
     </AnimatePortal>

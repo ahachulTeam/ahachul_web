@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import { useCallback } from "react";
 import { useRouter } from "next/router";
 
@@ -9,9 +10,13 @@ import ResetButton from "~/components/shared/ResetButton";
 import { useToast } from "~/components/shared/toast/hooks/useToast";
 import { useAlertContext } from "~/contexts/AlertContext";
 import useModal from "~/components/shared/modal/hooks/useModal";
-import SearchModal from "~/components/shared/modal/contents/Search";
-import { MODAL_PRESET_SLUGS } from "~/constants/modal";
 import { SearchSVG } from "~/assets/icons";
+import { MODAL_PRESET_SLUGS } from "~/constants/modal";
+
+const SearchModal = dynamic(
+  () => import("~/components/shared/modal/contents/search/SearchModal"),
+  { ssr: false },
+);
 
 export default function Home() {
   const router = useRouter();

@@ -1,11 +1,11 @@
-import { GetServerSideProps } from "next";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
 import { Flex } from "@ahhachul/react-components-layout";
 
 import Header from "~/components/shared/Header";
 import Layout from "~/components/shared/Layout";
 import ResetButton from "~/components/shared/ResetButton";
-import { Nullable } from "~/models/common";
 import {
   SearchSVG,
   BookmarkSVG,
@@ -15,6 +15,18 @@ import {
 
 import TalkRoom from "~/components/talk/room/TalkRoom";
 import TalkLounge from "~/components/talk/lounge/TalkLounge";
+
+import useModal from "~/components/shared/modal/hooks/useModal";
+import { MODAL_PRESET_SLUGS } from "~/constants/modal";
+
+const SearchModal = dynamic(
+  () => import("~/components/shared/modal/contents/search/SearchModal"),
+  { ssr: false },
+);
+const SavedModal = dynamic(
+  () => import("~/components/shared/modal/contents/Saved"),
+  { ssr: false },
+);
 
 // NOTE!! * Talk Page Structure * //
 // ----------------------------------------------------------------
@@ -32,19 +44,14 @@ import TalkLounge from "~/components/talk/lounge/TalkLounge";
 // ----------------------------------------------------------------
 
 export interface TalkPageProps {
-  slug: Nullable<string | string[]>;
   isRoomService: boolean;
 }
 
 export default function TalkPage(props: TalkPageProps) {
-  const { slug, isRoomService } = props;
+  const { isRoomService } = props;
   const router = useRouter();
 
-  const RenderComponent = isRoomService ? (
-    <TalkRoom slug={slug} />
-  ) : (
-    <TalkLounge slug={slug} />
-  );
+  const RenderComponent = isRoomService ? <TalkRoom /> : <TalkLounge />;
 
   return (
     <Layout>
@@ -64,29 +71,40 @@ export default function TalkPage(props: TalkPageProps) {
   );
 }
 
-const HeaderRightComponent = ({ type }: { type: "lounge" | "room" }) => (
-  <Flex align="center" gap="15px">
-    <ResetButton
-      ItemComponent={type === "lounge" ? <SearchSVG /> : <ShareSVG />}
-      onClick={() => {}}
-    />
-    <ResetButton
-      ItemComponent={
-        type === "lounge" ? <BookmarkSVG /> : <EllipsisVerticalSVG />
-      }
-      onClick={() => {}}
-    />
-  </Flex>
-);
+const HeaderRightComponent = ({ type }: { type: "lounge" | "room" }) => {
+  // TOOD: MODAL_PRESET_SLUGS 분기 처리
+  const { handleModalOpen } = useModal(MODAL_PRESET_SLUGS.search);
+
+  const openSearchModal = () => {
+    handleModalOpen(<SearchModal />)();
+  };
+
+  const openSavedModal = () => {
+    handleModalOpen(<SavedModal />)();
+  };
+
+  return (
+    <Flex align="center" gap="15px">
+      <ResetButton
+        ItemComponent={type === "lounge" ? <SearchSVG /> : <ShareSVG />}
+        onClick={openSearchModal}
+      />
+      <ResetButton
+        ItemComponent={
+          type === "lounge" ? <BookmarkSVG /> : <EllipsisVerticalSVG />
+        }
+        onClick={openSavedModal}
+      />
+    </Flex>
+  );
+};
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const slug = context?.query?.slug ?? null;
-
   const isRoomService = slug && slug?.length >= 2;
 
   return {
     props: {
-      slug,
       isRoomService,
     },
   };

@@ -5,8 +5,8 @@ import {
   createHref,
   createQueryString,
   deleteQueryString,
-} from "~/utils/navigation";
-import { removeEmptyProperties } from "~/utils/format";
+} from "~/utils/helper/navigation";
+import { removeEmptyProperties } from "~/utils/helper/format";
 
 export const useFilter = <T extends string>(...filterKeys: T[]) => {
   const router = useRouter();
