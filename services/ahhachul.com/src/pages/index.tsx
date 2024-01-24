@@ -14,7 +14,7 @@ import { SearchSVG } from "~/assets/icons";
 import { MODAL_PRESET_SLUGS } from "~/constants/modal";
 
 const SearchModal = dynamic(
-  () => import("~/components/shared/modal/contents/Search"),
+  () => import("~/components/shared/modal/contents/search/SearchModal"),
   { ssr: false },
 );
 

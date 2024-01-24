@@ -20,7 +20,7 @@ import useModal from "~/components/shared/modal/hooks/useModal";
 import { MODAL_PRESET_SLUGS } from "~/constants/modal";
 
 const SearchModal = dynamic(
-  () => import("~/components/shared/modal/contents/Search"),
+  () => import("~/components/shared/modal/contents/search/SearchModal"),
   { ssr: false },
 );
 const SavedModal = dynamic(

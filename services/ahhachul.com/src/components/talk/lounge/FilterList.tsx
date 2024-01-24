@@ -60,7 +60,7 @@ function TalkLoungeFilterList() {
     [openHandler],
   );
 
-  const UUID = (type: TALK_LOUNGE_FILTER_TYPES) => `${type}-filter`;
+  const uuid = (type: TALK_LOUNGE_FILTER_TYPES) => `${type}-filter`;
 
   let ModalComponent = SubwayLineFilter;
   switch (selectedFilter) {
@@ -97,7 +97,7 @@ function TalkLoungeFilterList() {
               aria-label={label}
               aria-haspopup="listbox"
               aria-expanded={isModalShowing}
-              aria-controls={UUID(key as TALK_LOUNGE_FILTER_TYPES)}
+              aria-controls={uuid(key as TALK_LOUNGE_FILTER_TYPES)}
               onClick={onOpenFilterModal(key as TALK_LOUNGE_FILTER_TYPES)}
               style={{
                 padding: 0,

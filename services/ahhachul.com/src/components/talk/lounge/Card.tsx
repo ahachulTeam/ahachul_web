@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { usePathname } from "next/navigation";
 import { Box, Flex, Text } from "@ahhachul/react-components-layout";
 
@@ -6,6 +7,8 @@ import ResetButton from "~/components/shared/ResetButton";
 import { BookmarkFillSVG, CommentSVG, EyeSVG, HeartSVG } from "~/assets/icons";
 
 function TalkLoungeCard() {
+  const router = useRouter();
+  const slug = router.query.slug;
   const pathname = usePathname();
 
   return (
@@ -19,7 +22,7 @@ function TalkLoungeCard() {
       }}
     >
       <Link
-        href={`${pathname}/1`}
+        href={!slug ? `${pathname}/rank/1` : `${pathname}/1`}
         style={{
           display: "flex",
           flexDirection: "column",
