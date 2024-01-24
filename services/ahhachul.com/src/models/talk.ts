@@ -1,4 +1,4 @@
-import { YesNoLiteralType } from "./common";
+import { Nullable, YesNoLiteralType } from "./common";
 import { SubwayLineIdType } from "./subway";
 
 export type TalkLoungeFilterType = {
@@ -32,7 +32,7 @@ export interface TalkLoungeOverview {
 
 export interface TalkLoungeDto {
   hasNext: boolean;
-  nextPageNum: number;
+  nextPageNum: Nullable<number>;
   posts: TalkLoungeOverview[];
 }
 

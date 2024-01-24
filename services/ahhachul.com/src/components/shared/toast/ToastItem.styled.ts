@@ -41,7 +41,7 @@ export const Item = styled.div`
   display: flex;
   column-gap: 14px;
   align-items: center;
-  width: 320px;
+  width: 300px;
   border-radius: 5px;
   padding: 20px 24px;
   background-color: white;

@@ -11,7 +11,6 @@ import { useToast } from "~/components/shared/toast/hooks/useToast";
 import { useAlertContext } from "~/contexts/AlertContext";
 import useModal from "~/components/shared/modal/hooks/useModal";
 import { SearchSVG } from "~/assets/icons";
-import { MODAL_PRESET_SLUGS } from "~/constants/modal";
 
 const SearchModal = dynamic(
   () => import("~/components/shared/modal/contents/search/SearchModal"),
@@ -58,7 +57,7 @@ export default function Home() {
 }
 
 const HeaderRightComponent = () => {
-  const { handleModalOpen } = useModal(MODAL_PRESET_SLUGS.search);
+  const { handleModalOpen } = useModal();
 
   const openSearchModal = () => {
     handleModalOpen(<SearchModal />)();

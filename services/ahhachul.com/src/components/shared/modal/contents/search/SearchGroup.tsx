@@ -14,7 +14,7 @@ function SearchGroup() {
       <InputLeftAddon>
         <ResetButton ItemComponent={<SearchSVG />} onClick={() => {}} />
       </InputLeftAddon>
-      <Input variant="filled" placeholder="검색어를 입력해주세요." />
+      <Input placeholder="검색어를 입력해주세요." />
     </InputGroup>
   );
 }
