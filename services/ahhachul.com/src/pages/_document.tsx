@@ -4,6 +4,7 @@ export default function Document() {
   return (
     <Html>
       <Head>
+        <meta charSet="utf-8" />
         <link
           rel="preload"
           href="/fonts/Pretendard-Regular.subset.woff2"
