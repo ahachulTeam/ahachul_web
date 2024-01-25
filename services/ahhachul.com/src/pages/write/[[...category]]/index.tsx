@@ -3,11 +3,11 @@ import { Button } from "@ahhachul/react-components-button";
 
 import Header from "~/components/shared/Header";
 import Layout from "~/components/shared/Layout";
+import Editor from "~/components/shared/editor/Editor";
 
 export default function PublicationPage() {
   const router = useRouter();
-
-  const HeaderRightComponent = <Button size="xs">등록</Button>;
+  console.log(router.query.category);
 
   return (
     <Layout>
@@ -19,8 +19,15 @@ export default function PublicationPage() {
           />
         }
         centerTitle="글 작성"
-        right={HeaderRightComponent}
+        right={<HeaderRightComponent />}
       />
+      <Editor />
     </Layout>
   );
 }
+
+const HeaderRightComponent = () => (
+  <Button size="xs" variant="solid" isDisabled>
+    등록
+  </Button>
+);

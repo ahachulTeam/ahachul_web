@@ -9215,6 +9215,17 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@types/draft-js", [\
+      ["npm:0.11.17", {\
+        "packageLocation": "./.yarn/cache/@types-draft-js-npm-0.11.17-feb51d27ba-18559cb66e.zip/node_modules/@types/draft-js/",\
+        "packageDependencies": [\
+          ["@types/draft-js", "npm:0.11.17"],\
+          ["@types/react", "npm:18.2.48"],\
+          ["immutable", "npm:3.7.6"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@types/ejs", [\
       ["npm:3.1.5", {\
         "packageLocation": "./.yarn/cache/@types-ejs-npm-3.1.5-b9db7fa2d7-918898fd27.zip/node_modules/@types/ejs/",\
@@ -10680,6 +10691,7 @@ const RAW_RUNTIME_STATE =
           ["@testing-library/react", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:14.1.2"],\
           ["@testing-library/react-hooks", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:8.0.1"],\
           ["@types/axios", "npm:0.14.0"],\
+          ["@types/draft-js", "npm:0.11.17"],\
           ["@types/js-cookie", "npm:3.0.6"],\
           ["@types/node", "npm:20.8.0"],\
           ["@types/react", "npm:18.2.48"],\
@@ -10688,6 +10700,7 @@ const RAW_RUNTIME_STATE =
           ["@vitejs/plugin-react", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:4.2.1"],\
           ["@vitest/coverage-istanbul", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:1.2.1"],\
           ["axios", "npm:1.6.5"],\
+          ["draft-js", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:0.11.7"],\
           ["eslint", "npm:8.56.0"],\
           ["framer-motion", "virtual:3657ec0c4e66b63443826b82e1d1efad61f0f19529825c322dfe4f29d3337390023966ee5cc9e52ba10301e32af0e095d650a27198f2140fe71ef53f2ae2f32b#npm:10.18.0"],\
           ["js-cookie", "npm:3.0.5"],\
@@ -10989,6 +11002,15 @@ const RAW_RUNTIME_STATE =
           ["get-intrinsic", "npm:1.2.2"],\
           ["is-array-buffer", "npm:3.0.2"],\
           ["is-shared-array-buffer", "npm:1.0.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["asap", [\
+      ["npm:2.0.6", {\
+        "packageLocation": "./.yarn/cache/asap-npm-2.0.6-36714d439d-b244c0458c.zip/node_modules/asap/",\
+        "packageDependencies": [\
+          ["asap", "npm:2.0.6"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -12097,6 +12119,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["core-js", [\
+      ["npm:3.35.1", {\
+        "packageLocation": "./.yarn/unplugged/core-js-npm-3.35.1-faf977464a/node_modules/core-js/",\
+        "packageDependencies": [\
+          ["core-js", "npm:3.35.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["core-js-compat", [\
       ["npm:3.35.0", {\
         "packageLocation": "./.yarn/cache/core-js-compat-npm-3.35.0-17feb82aca-aa21ad2f0c.zip/node_modules/core-js-compat/",\
@@ -12168,6 +12199,16 @@ const RAW_RUNTIME_STATE =
         "packagePeers": [\
           "@types/typescript",\
           "typescript"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["cross-fetch", [\
+      ["npm:3.1.8", {\
+        "packageLocation": "./.yarn/cache/cross-fetch-npm-3.1.8-71c3c05709-ac8c4ca87d.zip/node_modules/cross-fetch/",\
+        "packageDependencies": [\
+          ["cross-fetch", "npm:3.1.8"],\
+          ["node-fetch", "virtual:7f43bbe375b9fcd31deccb9ab1b0e7099879682f69cd232cbd9e6edab05c7497ebe470795e1a112961e644d161dea07521f4adc67cc5075d649a07db964aec7d#npm:2.7.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -13266,6 +13307,35 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/dotenv-expand-npm-10.0.0-fa5b032ad9-b41eb278bc.zip/node_modules/dotenv-expand/",\
         "packageDependencies": [\
           ["dotenv-expand", "npm:10.0.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["draft-js", [\
+      ["npm:0.11.7", {\
+        "packageLocation": "./.yarn/cache/draft-js-npm-0.11.7-ea66f83002-4f3e2cc6cc.zip/node_modules/draft-js/",\
+        "packageDependencies": [\
+          ["draft-js", "npm:0.11.7"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:0.11.7", {\
+        "packageLocation": "./.yarn/__virtual__/draft-js-virtual-0dc9fc0a51/0/cache/draft-js-npm-0.11.7-ea66f83002-4f3e2cc6cc.zip/node_modules/draft-js/",\
+        "packageDependencies": [\
+          ["draft-js", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:0.11.7"],\
+          ["@types/react", "npm:18.2.48"],\
+          ["@types/react-dom", "npm:18.2.18"],\
+          ["fbjs", "npm:2.0.0"],\
+          ["immutable", "npm:3.7.6"],\
+          ["object-assign", "npm:4.1.1"],\
+          ["react", "npm:18.2.0"],\
+          ["react-dom", "virtual:54503ab75b2c2cd48eda3c4f96d939a7a44427df14fcb908ea5749edb333a4e3575a444ee6b7ac1b4b40f2a8551fc6c2ed7e41a4aad45321b1b5712ba3dcd63b#npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
         ],\
         "linkType": "HARD"\
       }]\
@@ -14509,6 +14579,32 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["fb-watchman", "npm:2.0.2"],\
           ["bser", "npm:2.1.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["fbjs", [\
+      ["npm:2.0.0", {\
+        "packageLocation": "./.yarn/cache/fbjs-npm-2.0.0-2574cfbe40-3c11306566.zip/node_modules/fbjs/",\
+        "packageDependencies": [\
+          ["fbjs", "npm:2.0.0"],\
+          ["core-js", "npm:3.35.1"],\
+          ["cross-fetch", "npm:3.1.8"],\
+          ["fbjs-css-vars", "npm:1.0.2"],\
+          ["loose-envify", "npm:1.4.0"],\
+          ["object-assign", "npm:4.1.1"],\
+          ["promise", "npm:7.3.1"],\
+          ["setimmediate", "npm:1.0.5"],\
+          ["ua-parser-js", "npm:0.7.37"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["fbjs-css-vars", [\
+      ["npm:1.0.2", {\
+        "packageLocation": "./.yarn/cache/fbjs-css-vars-npm-1.0.2-c233f16598-72baf6d22c.zip/node_modules/fbjs-css-vars/",\
+        "packageDependencies": [\
+          ["fbjs-css-vars", "npm:1.0.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -15797,6 +15893,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/ignore-npm-5.3.0-fb0f5fa062-51594355ce.zip/node_modules/ignore/",\
         "packageDependencies": [\
           ["ignore", "npm:5.3.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["immutable", [\
+      ["npm:3.7.6", {\
+        "packageLocation": "./.yarn/cache/immutable-npm-3.7.6-1c13b39359-4f2cc2e0b6.zip/node_modules/immutable/",\
+        "packageDependencies": [\
+          ["immutable", "npm:3.7.6"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -20297,6 +20402,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["promise", [\
+      ["npm:7.3.1", {\
+        "packageLocation": "./.yarn/cache/promise-npm-7.3.1-5d81d474c0-37dbe58ca7.zip/node_modules/promise/",\
+        "packageDependencies": [\
+          ["promise", "npm:7.3.1"],\
+          ["asap", "npm:2.0.6"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["promise-retry", [\
       ["npm:2.0.1", {\
         "packageLocation": "./.yarn/cache/promise-retry-npm-2.0.1-871f0b01b7-96e1a82453.zip/node_modules/promise-retry/",\
@@ -21740,6 +21855,15 @@ const RAW_RUNTIME_STATE =
           ["define-data-property", "npm:1.1.1"],\
           ["functions-have-names", "npm:1.2.3"],\
           ["has-property-descriptors", "npm:1.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["setimmediate", [\
+      ["npm:1.0.5", {\
+        "packageLocation": "./.yarn/cache/setimmediate-npm-1.0.5-54587459b6-76e3f5d7f4.zip/node_modules/setimmediate/",\
+        "packageDependencies": [\
+          ["setimmediate", "npm:1.0.5"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -23207,6 +23331,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/typescript-patch-4778c7998b-c93786fcc9.zip/node_modules/typescript/",\
         "packageDependencies": [\
           ["typescript", "patch:typescript@npm%3A5.3.3#optional!builtin<compat/typescript>::version=5.3.3&hash=e012d7"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["ua-parser-js", [\
+      ["npm:0.7.37", {\
+        "packageLocation": "./.yarn/cache/ua-parser-js-npm-0.7.37-caddca0606-a50e8f7ee5.zip/node_modules/ua-parser-js/",\
+        "packageDependencies": [\
+          ["ua-parser-js", "npm:0.7.37"]\
         ],\
         "linkType": "HARD"\
       }]\
