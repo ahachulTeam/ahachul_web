@@ -1,12 +1,18 @@
-import { css } from "@emotion/react";
-
 import { withSuspense } from "@ahhachul/react-hooks-utility";
-import { Box, OrderedList } from "@ahhachul/react-components-layout";
+import { Box, Flex } from "@ahhachul/react-components-layout";
 
 import Skeleton from "~/components/shared/Skeleton";
 import ErrorBoundary from "~/components/shared/ErrorBoundary";
 import TalkLoungeCard from "./Card";
 // import useTalkLounge from "./hooks/useTalkLounge";
+
+import DUMMY_IMG_1 from "public/dummy-img-1.png";
+
+import DUMMY_IMG_2 from "public/dummy-img-2.png";
+
+import DUMMY_IMG_3 from "public/dummy-img-3.png";
+
+import DUMMY_IMG_4 from "public/dummy-img-4.png";
 
 function TalkLounge() {
   // const { data } = useTalkLounge();
@@ -14,17 +20,20 @@ function TalkLounge() {
 
   return (
     <Box as="section" background="gray" style={{ padding: "22px 20px" }}>
-      <OrderedList spacing={5}>
-        <li
-          css={css`
-            &::marker {
-              color: #edf2f7;
-            }
-          `}
-        >
-          <TalkLoungeCard />
+      <Flex as="ul" direction="column" gap="20px">
+        <li>
+          <TalkLoungeCard imgSrc={DUMMY_IMG_1.src} />
         </li>
-      </OrderedList>
+        <li>
+          <TalkLoungeCard imgSrc={DUMMY_IMG_4.src} />
+        </li>
+        <li>
+          <TalkLoungeCard imgSrc={DUMMY_IMG_2.src} />
+        </li>
+        <li>
+          <TalkLoungeCard imgSrc={DUMMY_IMG_3.src} />
+        </li>
+      </Flex>
     </Box>
   );
 }

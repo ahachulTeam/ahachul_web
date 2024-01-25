@@ -13,3 +13,4 @@ export { default as CircleCloseSVG } from "./ic_circle-close.svg";
 export { default as BookmarkFillSVG } from "./ic_bookmark-fill.svg";
 export { default as CircleWarningSVG } from "./ic_circle-warning.svg";
 export { default as EllipsisVerticalSVG } from "./ic_ellipsis-vertical.svg";
+export { default as EllipsisHorizontalSVG } from "./ic_ellipsis-horizontal.svg";
