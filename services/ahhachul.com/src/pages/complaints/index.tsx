@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 
 import Header from "~/components/shared/Header";
@@ -8,7 +9,10 @@ export default function ComplaintsLoungePage() {
   const router = useRouter();
 
   return (
-    <Layout footer={false}>
+    <Layout
+      footer={false}
+      css={{ width: "100vw", height: "100vh", backgroundColor: "#242424" }}
+    >
       <Header
         left={
           <Header.HeaderLeft
@@ -17,6 +21,17 @@ export default function ComplaintsLoungePage() {
           />
         }
         centerTitle="민원"
+        css={css`
+          background-color: #242424;
+
+          & > h1 {
+            color: #fff !important;
+          }
+
+          & > button > svg > path {
+            stroke: #fff;
+          }
+        `}
       />
       <ComplaintOverviewList />
     </Layout>

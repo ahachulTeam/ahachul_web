@@ -1,25 +1,47 @@
-import { Flex } from "@ahhachul/react-components-layout";
+import { css } from "@emotion/react";
+import { Flex, UnorderedList } from "@ahhachul/react-components-layout";
 
 import useModal from "~/components/shared/modal/hooks/useModal";
 
 import 열차번호여부스텝 from "../room/열차번호여부스텝";
+import ComplaintOverviewCard from "./OverviewCard";
+import { COMPLAINTS_CONTENTS } from "../static/contents";
+import { COMPLAINTS_CONTENTS_TYPES } from "../types/contents";
 
 function ComplaintOverviewList() {
   const { handleModalOpen } = useModal();
 
-  const open열차번호여부스텝 = () => {
-    handleModalOpen(<열차번호여부스텝 slug={"온도조절"} />)();
+  const open열차번호여부스텝 = (slug: COMPLAINTS_CONTENTS_TYPES) => () => {
+    handleModalOpen(<열차번호여부스텝 slug={slug} />)();
   };
 
   return (
     <Flex
       as="main"
-      onClick={open열차번호여부스텝}
-      justify={"center"}
-      align={"center"}
-      style={{ width: "100vw", height: "calc(100vh - 48px)" }}
+      style={{
+        padding: "26px 20px",
+      }}
     >
-      open
+      <UnorderedList>
+        {Object.entries(COMPLAINTS_CONTENTS).map(([key, value]) => (
+          <li
+            key={key}
+            css={css`
+              &::marker {
+                display: none;
+              }
+            `}
+          >
+            <ComplaintOverviewCard
+              title={value.label}
+              description={value.description}
+              onCardClick={open열차번호여부스텝(
+                key as COMPLAINTS_CONTENTS_TYPES,
+              )}
+            />
+          </li>
+        ))}
+      </UnorderedList>
     </Flex>
   );
 }

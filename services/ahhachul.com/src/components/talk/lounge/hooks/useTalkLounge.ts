@@ -43,7 +43,7 @@ function useTalkLounge(): UseInfiniteQueryResult<ResponseDto<TalkLoungeDto>> {
       return T.getOrElse(parsedData, () => ({
         posts: [],
         hasNext: false,
-        nextPageNum: 0,
+        nextPageNum: null,
       }));
     },
     {

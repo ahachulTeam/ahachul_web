@@ -1,25 +1,34 @@
+import dynamic from "next/dynamic";
 import styled from "@emotion/styled";
+import { vars } from "@ahhachul/themes";
 import { Button } from "@ahhachul/react-components-button";
 import { Box, Flex, Heading } from "@ahhachul/react-components-layout";
+import { InputGroup, Input } from "@ahhachul/react-components-input";
 
 import Header from "~/components/shared/Header";
 import useModal from "~/components/shared/modal/hooks/useModal";
-import { vars } from "@ahhachul/themes";
-import 신고유형선택스텝 from "./신고유형선택스텝";
 import useBoolean from "~/hooks/common/useBoolean";
-import dynamic from "next/dynamic";
+import { CircleWarningSVG } from "~/assets/icons";
 
-const ModalComponent = dynamic(
-  () => import("~/components/shared/filter/SortingFilter"),
+import 신고유형선택스텝 from "./신고유형선택스텝";
+import { COMPLAINTS_CONTENTS_TYPES } from "../types/contents";
+
+const 열차번호어딨는지알려주는모달 = dynamic(
+  () => import("./열차번호어딨는지알려주는모달"),
   { ssr: false },
 );
 
-function 열차번호여부스텝({ slug }: { slug: string }) {
+const SubwayLineFilter = dynamic(
+  () => import("~/components/shared/filter/SubwayLineFilter"),
+  { ssr: false },
+);
+
+function 열차번호여부스텝({ slug }: { slug: COMPLAINTS_CONTENTS_TYPES }) {
   console.log("slug", slug);
   const { handleModalOpen, handleModalClose } = useModal();
 
   const 신고유형선택으로가기 = () => {
-    handleModalOpen(<신고유형선택스텝 />)();
+    handleModalOpen(<신고유형선택스텝 slug={slug} />)();
   };
 
   const [isModalShowing, , openHandler, closeHandler] = useBoolean(false);
@@ -47,6 +56,15 @@ function 열차번호여부스텝({ slug }: { slug: string }) {
           </Heading>
         </Flex>
       </Box>
+      <InputGroup style={{ padding: "0 20px" }}>
+        <Input variant="filled" placeholder="열차번호" />
+        <Tooltip as="button" align="center" gap="6px" onClick={() => {}}>
+          <CircleWarningSVG />
+          <span style={{ color: "#67696F" }} onClick={openHandler}>
+            열차번호는 어디에 있나요?
+          </span>
+        </Tooltip>
+      </InputGroup>
       <ButtonGroup
         direction="column"
         align="center"
@@ -86,7 +104,11 @@ function 열차번호여부스텝({ slug }: { slug: string }) {
           열차번호 없이 민원신고 하기
         </Button>
       </ButtonGroup>
-      <ModalComponent
+      <열차번호어딨는지알려주는모달
+        isShowing={isModalShowing}
+        onClose={closeHandler}
+      />
+      <SubwayLineFilter
         isShowing={isModalShowing}
         onClose={closeHandler}
         handleApplyFilter={handleApplyFilter}
@@ -103,6 +125,12 @@ const ButtonGroup = styled(Flex)`
   border-radius: 8px;
   padding: 0;
   margin: 0 20px 58px 20px;
+`;
+
+const Tooltip = styled(Flex)`
+  position: absolute;
+  left: 20px;
+  bottom: -32px;
 `;
 
 export default 열차번호여부스텝;

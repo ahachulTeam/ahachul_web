@@ -10,4 +10,5 @@ export { default as ChevronSVG } from "./ic_chevron.svg";
 export { default as BookmarkSVG } from "./ic_bookmark.svg";
 export { default as HamburgerSVG } from "./ic_hamburger.svg";
 export { default as BookmarkFillSVG } from "./ic_bookmark-fill.svg";
+export { default as CircleWarningSVG } from "./ic_circle-warning.svg";
 export { default as EllipsisVerticalSVG } from "./ic_ellipsis-vertical.svg";

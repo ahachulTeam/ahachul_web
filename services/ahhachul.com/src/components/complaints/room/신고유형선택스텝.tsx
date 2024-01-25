@@ -1,16 +1,21 @@
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
+import { vars } from "@ahhachul/themes";
+import { Flex, Box, Text } from "@ahhachul/react-components-layout";
 import { Button } from "@ahhachul/react-components-button";
 
 import Header from "~/components/shared/Header";
 import useModal from "~/components/shared/modal/hooks/useModal";
-import { vars } from "@ahhachul/themes";
-import { Flex } from "@ahhachul/react-components-layout";
-import 완료스텝 from "./완료스텝";
 
-function 신고유형선택스텝() {
+import 완료스텝 from "./완료스텝";
+import { COMPLAINTS_CONTENTS_TYPES } from "../types/contents";
+
+function 신고유형선택스텝({ slug }: { slug: COMPLAINTS_CONTENTS_TYPES }) {
   const { handleModalOpen, handleModalClose } = useModal();
 
-  const 신청을문자로하기 = () => {};
+  const 신청을문자로하기 = () => {
+    console.log("ㅎㅎ");
+  };
 
   const 신고유형선택완료_완료스텝으로가기 = () => {
     handleModalOpen(<완료스텝 신청={신청을문자로하기} />)();
@@ -25,8 +30,47 @@ function 신고유형선택스텝() {
             onClick={handleModalClose}
           />
         }
-        centerTitle="온도조절"
+        centerTitle={slug}
+        css={css`
+          background-color: #242424;
+
+          & > h1 {
+            color: #fff !important;
+          }
+
+          & > button > svg > path {
+            stroke: #fff;
+          }
+        `}
       />
+      <Flex
+        justify="center"
+        align="center"
+        gap="12px"
+        style={{
+          height: "85px",
+          backgroundColor: "#242424",
+        }}
+      >
+        <Flex
+          justify="center"
+          align="center"
+          style={{
+            width: "40px",
+            height: "40px",
+            borderRadius: "50%",
+            backgroundColor: "#01A9E6",
+          }}
+        >
+          <Text fontSize="xs" style={{ color: "white", fontWeight: 600 }}>
+            1192
+          </Text>
+        </Flex>
+        <Text fontSize="lg" style={{ color: "white", fontWeight: 600 }}>
+          대화행
+        </Text>
+      </Flex>
+      <Box style={{ backgroundColor: "white", minHeight: "500px" }}></Box>
       <ButtonWrap align="center" justify="center">
         <Button
           size="md"
@@ -42,7 +86,7 @@ function 신고유형선택스텝() {
             backgroundColor: vars.colors.$static.dark.color.black,
           }}
         >
-          다음
+          민원접수
         </Button>
       </ButtonWrap>
     </>
