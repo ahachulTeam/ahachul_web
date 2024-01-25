@@ -48,27 +48,32 @@ const Image = (props: BlockComponentProps) => {
   const [editable, setEditable] = useState(false);
 
   const handleEditable = () => {
+    if (alreadyDeleted) {
+      setEditable(false);
+      return;
+    }
+
     if (pathname === PATH.WRITE) {
       setEditable((prev) => !prev);
     }
   };
 
+  const [alreadyDeleted, setAlreadyDeleted] = useState(false);
   const handleDeleteImage = () => {
-    console.log(contentState.getEntity(block.getEntityAt(0)).getType());
-    contentState.delete(contentState.getEntity(block.getEntityAt(0)).getData());
+    contentState.replaceEntityData(block.getEntityAt(0), {});
+    setEditable(false);
+    setAlreadyDeleted(true);
   };
 
   return (
     <div css={imgWrapStyle} onClick={handleEditable}>
       <img src={src} alt={src} role="presentation" />
       {editable && (
-        <>
-          <div css={scrimCss} />
-          <button onClick={handleDeleteImage}>
-            <CircleCloseSVG />
-          </button>
-        </>
+        <button onClick={handleDeleteImage}>
+          <CircleCloseSVG />
+        </button>
       )}
+      {editable && !alreadyDeleted && <div css={scrimCss} />}
     </div>
   );
 };

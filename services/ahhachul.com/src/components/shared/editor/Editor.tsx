@@ -14,7 +14,7 @@ import "draft-js/dist/Draft.css";
 
 import { imageBlockRenderer } from "./InnerImage";
 
-const emptyContentState = convertFromRaw({
+export const emptyContentState = convertFromRaw({
   entityMap: {},
   blocks: [
     {
