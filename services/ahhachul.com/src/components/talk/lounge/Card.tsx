@@ -1,15 +1,19 @@
 import Link from "next/link";
+import NextImage from "next/image";
 import { useRouter } from "next/router";
 import { usePathname } from "next/navigation";
 import { Box, Flex, Text } from "@ahhachul/react-components-layout";
 
 import ResetButton from "~/components/shared/ResetButton";
 import { BookmarkFillSVG, CommentSVG, EyeSVG, HeartSVG } from "~/assets/icons";
+import DUMMY_IMG_1 from "public/dummy-img-1.png";
 
 function TalkLoungeCard() {
   const router = useRouter();
-  const slug = router.query.slug;
   const pathname = usePathname();
+
+  const hasImage = true;
+  const slug = router.query.slug;
 
   return (
     <Box
@@ -41,30 +45,50 @@ function TalkLoungeCard() {
             🔥 자유
           </Text>
         </Flex>
-        <Flex direction="column">
-          <Text
-            fontSize="sm"
-            as="p"
-            style={{ fontWeight: 700, marginBottom: "6px" }}
-          >
-            고졸로 1년만에 개발자고졸로 1년만에 개발자고졸로 ...
-          </Text>
-          <Text fontSize="sm" as="pre" style={{ marginBottom: "8px" }}>
-            {
-              "개발자 취준은 대학을 안 가는 것이 더 낫다고 생각해요\n개발자 취준은 대학을 안 가는 것이 더 낫다고 생각해요"
-            }
-          </Text>
-          <Text fontSize="sm" as="p">
-            ...더보기
-          </Text>
-        </Flex>
-        <Flex align="center" justify="space-between">
-          <Text fontSize="sm" as="span" color="gray">
-            #해시태그
-          </Text>
-          <Text fontSize="sm" as="span" color="gray">
-            00시간전
-          </Text>
+        {hasImage && (
+          <NextImage
+            src={DUMMY_IMG_1.src}
+            alt=""
+            width={0}
+            height={0}
+            sizes="100vw"
+            priority
+            style={{
+              width: "100%",
+              height: "auto",
+              maxHeight: "172px",
+              overflow: "hidden",
+              objectFit: "contain",
+              borderRadius: "8px",
+            }}
+          />
+        )}
+        <Flex direction="column" gap="14px">
+          <Flex direction="column">
+            <Text
+              fontSize="sm"
+              as="p"
+              style={{ fontWeight: 700, marginBottom: "6px" }}
+            >
+              고졸로 1년만에 개발자고졸로 1년만에 개발자고졸로 ...
+            </Text>
+            <Text fontSize="sm" as="pre" style={{ marginBottom: "8px" }}>
+              {
+                "개발자 취준은 대학을 안 가는 것이 더 낫다고 생각해요\n개발자 취준은 대학을 안 가는 것이 더 낫다고 생각해요"
+              }
+            </Text>
+            <Text fontSize="sm" as="p">
+              ...더보기
+            </Text>
+          </Flex>
+          <Flex align="center" justify="space-between">
+            <Text fontSize="sm" as="span" color="gray">
+              #해시태그
+            </Text>
+            <Text fontSize="sm" as="span" color="gray">
+              00시간전
+            </Text>
+          </Flex>
         </Flex>
       </Link>
       <Flex
