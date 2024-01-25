@@ -1,6 +1,5 @@
 import React from "react";
 
-import { MODAL_PRESET_SLUGS } from "~/constants/modal";
 import { HamburgerSVG } from "~/assets/icons";
 
 import HistoryList from "./History";
@@ -14,9 +13,7 @@ import Header from "../../../Header";
 import ResetButton from "../../../ResetButton";
 
 const SearchModal = () => {
-  const { handleModalOpen, handleModalClose } = useModal(
-    MODAL_PRESET_SLUGS.search,
-  );
+  const { handleModalOpen, handleModalClose } = useModal();
 
   const handleHamburger = () => {
     handleModalOpen(<ServiceModal />)();

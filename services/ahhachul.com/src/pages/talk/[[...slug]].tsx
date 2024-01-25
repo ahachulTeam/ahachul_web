@@ -17,7 +17,6 @@ import TalkRoom from "~/components/talk/room/TalkRoom";
 import TalkLounge from "~/components/talk/lounge/TalkLounge";
 
 import useModal from "~/components/shared/modal/hooks/useModal";
-import { MODAL_PRESET_SLUGS } from "~/constants/modal";
 
 const SearchModal = dynamic(
   () => import("~/components/shared/modal/contents/search/SearchModal"),
@@ -73,7 +72,7 @@ export default function TalkPage(props: TalkPageProps) {
 
 const HeaderRightComponent = ({ type }: { type: "lounge" | "room" }) => {
   // TOOD: MODAL_PRESET_SLUGS 분기 처리
-  const { handleModalOpen } = useModal(MODAL_PRESET_SLUGS.search);
+  const { handleModalOpen } = useModal();
 
   const openSearchModal = () => {
     handleModalOpen(<SearchModal />)();

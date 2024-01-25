@@ -4,12 +4,9 @@ import ResetButton from "../../ResetButton";
 
 import useModal from "../hooks/useModal";
 import { SearchSVG } from "~/assets/icons";
-import { MODAL_PRESET_SLUGS } from "~/constants/modal";
 
 const SavedModal = () => {
-  const { handleModalOpen, handleModalClose } = useModal(
-    MODAL_PRESET_SLUGS.search,
-  );
+  const { handleModalOpen, handleModalClose } = useModal();
 
   const handleHamburger = () => {
     handleModalOpen(<SerchModal />)();

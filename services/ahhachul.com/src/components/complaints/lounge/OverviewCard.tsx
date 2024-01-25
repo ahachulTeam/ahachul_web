@@ -3,43 +3,34 @@ import { Flex, Text } from "@ahhachul/react-components-layout";
 interface ComplaintOverviewCardProps {
   title: string;
   description: string;
-  isTitleUpperDescription?: boolean;
-  IconComponent?: React.ReactNode;
+  onCardClick: VoidFunction;
+  children?: React.ReactNode;
 }
 
 function ComplaintOverviewCard(props: ComplaintOverviewCardProps) {
-  const {
-    title,
-    description,
-    isTitleUpperDescription = false,
-    IconComponent,
-  } = props;
+  const { title, description, onCardClick, children } = props;
 
   return (
     <Flex
-      as="li"
+      as="article"
       direction="column"
       gap="8px"
       style={{
         padding: "16px",
         borderRadius: "22px",
-        backgroundColor: "white",
+        border: "1px solid #D6D6D6",
+        backgroundColor: "rgba(255, 255, 255, 0.94)",
+        backdropFilter: "blur(2px)",
       }}
+      onClick={onCardClick}
     >
-      {isTitleUpperDescription && (
-        <Text fontSize="sm" as="pre">
-          {description}
-        </Text>
-      )}
-      <Text fontSize="md" as="strong">
+      <Text fontSize="xl" as="strong" style={{ fontWeight: 700 }}>
         {title}
       </Text>
-      {!isTitleUpperDescription && (
-        <Text fontSize="sm" as="pre">
-          {description}
-        </Text>
-      )}
-      {IconComponent && IconComponent}
+      <Text fontSize="xs" as="pre">
+        {description}
+      </Text>
+      {children}
     </Flex>
   );
 }

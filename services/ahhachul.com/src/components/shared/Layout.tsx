@@ -1,5 +1,7 @@
 import Head from "next/head";
 
+import { Box } from "@ahhachul/react-components-layout";
+
 // import {
 //   Accordion,
 //   AccordionItem,
@@ -11,12 +13,14 @@ import Head from "next/head";
 function Layout({
   children,
   footer = true,
+  className,
 }: {
   children: React.ReactNode;
   footer?: boolean;
+  className?: string;
 }) {
   return (
-    <>
+    <Box className={className}>
       <Head>
         <title>아하철</title>
         <meta name="description" content="지하철에서 내 자신을 편하게" />
@@ -46,7 +50,7 @@ function Layout({
           </Accordion> */}
         </footer>
       )}
-    </>
+    </Box>
   );
 }
 
