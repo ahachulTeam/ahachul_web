@@ -7,29 +7,15 @@ import {
   AtomicBlockUtils,
   DraftEditorCommand,
   getDefaultKeyBinding,
-  convertFromRaw,
   convertToRaw,
 } from "draft-js";
 import "draft-js/dist/Draft.css";
 
 import { imageBlockRenderer } from "./InnerImage";
-
-export const emptyContentState = convertFromRaw({
-  entityMap: {},
-  blocks: [
-    {
-      text: "",
-      key: "foo",
-      type: "unstyled",
-      entityRanges: [],
-      depth: 0,
-      inlineStyleRanges: [],
-    },
-  ],
-});
+import { linkDecorator } from "./decorators/link";
 
 const TextEditor = () => {
-  const initialState = EditorState.createWithContent(emptyContentState);
+  const initialState = EditorState.createEmpty(linkDecorator);
   const [editorState, setEditorState] =
     React.useState<EditorState>(initialState);
 
@@ -110,22 +96,6 @@ const TextEditor = () => {
           >
             save
           </button>
-          <div style={{ opacity: 0 }}>
-            <button
-              className="toolbar-inner"
-              disabled={editorState.getUndoStack().size <= 0}
-              onMouseDown={() => setEditorState(EditorState.undo(editorState))}
-            >
-              ⏪
-            </button>
-            <button
-              className="toolbar-inner"
-              disabled={editorState.getRedoStack().size <= 0}
-              onMouseDown={() => setEditorState(EditorState.redo(editorState))}
-            >
-              ⏩
-            </button>
-          </div>
         </div>
       </div>
     </div>

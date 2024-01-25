@@ -1,9 +1,15 @@
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { Button } from "@ahhachul/react-components-button";
 
 import Header from "~/components/shared/Header";
 import Layout from "~/components/shared/Layout";
-import Editor from "~/components/shared/editor/Editor";
+import LoadingModal from "~/components/shared/FullPageLoading";
+
+const Editor = dynamic(() => import("~/components/shared/editor/Editor"), {
+  ssr: false,
+  loading: ({ isLoading }) => <LoadingModal show={isLoading as boolean} />,
+});
 
 export default function PublicationPage() {
   const router = useRouter();
