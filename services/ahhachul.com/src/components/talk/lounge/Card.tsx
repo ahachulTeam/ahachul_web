@@ -6,9 +6,8 @@ import { Box, Flex, Text } from "@ahhachul/react-components-layout";
 
 import ResetButton from "~/components/shared/ResetButton";
 import { BookmarkFillSVG, CommentSVG, EyeSVG, HeartSVG } from "~/assets/icons";
-import DUMMY_IMG_1 from "public/dummy-img-1.png";
 
-function TalkLoungeCard() {
+function TalkLoungeCard(props: { imgSrc: string }) {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -47,7 +46,7 @@ function TalkLoungeCard() {
         </Flex>
         {hasImage && (
           <NextImage
-            src={DUMMY_IMG_1.src}
+            src={props.imgSrc}
             alt=""
             width={0}
             height={0}
