@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import NextImage from "next/image";
 import { Box, Flex, Text, Divider } from "@ahhachul/react-components-layout";
 
@@ -202,6 +203,10 @@ function HangGangViewRoom() {
       </Flex>
     </>
   );
+=======
+function HangGangViewRoom() {
+  return <div>HangGangViewRoom</div>;
+>>>>>>> main
 }
 
 export default HangGangViewRoom;

@@ -12,7 +12,11 @@ function TalkRoom() {
   console.log("roomService:", roomService);
   const [isLoading, setIsLoading] = useState(true);
 
+<<<<<<< HEAD
   const hasImage = true;
+=======
+  const hasImage = false;
+>>>>>>> main
 
   useEffect(() => {
     setTimeout(() => {
