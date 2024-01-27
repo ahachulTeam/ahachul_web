@@ -1863,6 +1863,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.7.7":
+  version: 7.23.9
+  resolution: "@babel/runtime@npm:7.23.9"
+  dependencies:
+    regenerator-runtime: "npm:^0.14.0"
+  checksum: 9a520fe1bf72249f7dd60ff726434251858de15cccfca7aa831bd19d0d3fb17702e116ead82724659b8da3844977e5e13de2bae01eb8a798f2823a669f122be6
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.22.15":
   version: 7.22.15
   resolution: "@babel/template@npm:7.22.15"
@@ -3025,6 +3034,19 @@ __metadata:
   version: 3.4.0
   resolution: "@juggle/resize-observer@npm:3.4.0"
   checksum: 73d1d00ee9132fb6f0aea0531940a6b93603e935590bd450fc6285a328d906102eeeb95dea77b2edac0e779031a9708aa8c82502bd298ee4dd26e7dff48f397a
+  languageName: node
+  linkType: hard
+
+"@loadable/component@npm:^5.16.3":
+  version: 5.16.3
+  resolution: "@loadable/component@npm:5.16.3"
+  dependencies:
+    "@babel/runtime": "npm:^7.7.7"
+    hoist-non-react-statics: "npm:^3.3.1"
+    react-is: "npm:^16.12.0"
+  peerDependencies:
+    react: ^16.3.0 || ^17.0.0 || ^18.0.0
+  checksum: 4e176b927c002ad6ec1494f229e822335de48cfe429ddd1e16dfc29e0f1f938c2aad9d187edc14114e29898806583b156ee9923df7b200a9d106fe11b524c024
   languageName: node
   linkType: hard
 
@@ -5776,6 +5798,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/loadable__component@npm:^5.13.8":
+  version: 5.13.8
+  resolution: "@types/loadable__component@npm:5.13.8"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 19b3a6a12fed291ef8f75bfb2206461ccadac6ba6b51f2a8bc27ab10e883fe57922997765fc3d69efd3920498654e2d03f10201fa8576a2bba812043fe49876c
+  languageName: node
+  linkType: hard
+
 "@types/lodash@npm:^4.14.167":
   version: 4.14.202
   resolution: "@types/lodash@npm:4.14.202"
@@ -6707,6 +6738,7 @@ __metadata:
     "@ahhachul/themes": "workspace:^"
     "@emotion/react": "npm:^11.11.3"
     "@emotion/styled": "npm:^11.11.0"
+    "@loadable/component": "npm:^5.16.3"
     "@radix-ui/react-tabs": "npm:^1.0.4"
     "@svgr/webpack": "npm:^8.1.0"
     "@tanstack/react-query": "npm:^4.29.5"
@@ -6717,6 +6749,7 @@ __metadata:
     "@types/axios": "npm:^0.14.0"
     "@types/draft-js": "npm:^0.11.17"
     "@types/js-cookie": "npm:^3.0.6"
+    "@types/loadable__component": "npm:^5.13.8"
     "@types/node": "npm:20.8.0"
     "@types/react": "npm:^18.2"
     "@types/react-dom": "npm:^18"
@@ -15638,7 +15671,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^16.13.1, react-is@npm:^16.7.0":
+"react-is@npm:^16.12.0, react-is@npm:^16.13.1, react-is@npm:^16.7.0":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: 5aa564a1cde7d391ac980bedee21202fc90bdea3b399952117f54fb71a932af1e5902020144fb354b4690b2414a0c7aafe798eb617b76a3d441d956db7726fdf

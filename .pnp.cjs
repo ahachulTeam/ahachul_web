@@ -3489,6 +3489,14 @@ const RAW_RUNTIME_STATE =
           ["regenerator-runtime", "npm:0.14.1"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:7.23.9", {\
+        "packageLocation": "./.yarn/cache/@babel-runtime-npm-7.23.9-3b96e23cc2-9a520fe1bf.zip/node_modules/@babel/runtime/",\
+        "packageDependencies": [\
+          ["@babel/runtime", "npm:7.23.9"],\
+          ["regenerator-runtime", "npm:0.14.1"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["@babel/template", [\
@@ -4900,6 +4908,31 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/cache/@juggle-resize-observer-npm-3.4.0-659544c6b5-73d1d00ee9.zip/node_modules/@juggle/resize-observer/",\
         "packageDependencies": [\
           ["@juggle/resize-observer", "npm:3.4.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@loadable/component", [\
+      ["npm:5.16.3", {\
+        "packageLocation": "./.yarn/cache/@loadable-component-npm-5.16.3-3fcda9d843-4e176b927c.zip/node_modules/@loadable/component/",\
+        "packageDependencies": [\
+          ["@loadable/component", "npm:5.16.3"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:5.16.3", {\
+        "packageLocation": "./.yarn/__virtual__/@loadable-component-virtual-ade0deb32f/0/cache/@loadable-component-npm-5.16.3-3fcda9d843-4e176b927c.zip/node_modules/@loadable/component/",\
+        "packageDependencies": [\
+          ["@loadable/component", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:5.16.3"],\
+          ["@babel/runtime", "npm:7.23.9"],\
+          ["@types/react", "npm:18.2.48"],\
+          ["hoist-non-react-statics", "npm:3.3.2"],\
+          ["react", "npm:18.2.0"],\
+          ["react-is", "npm:16.13.1"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
         ],\
         "linkType": "HARD"\
       }]\
@@ -9445,6 +9478,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@types/loadable__component", [\
+      ["npm:5.13.8", {\
+        "packageLocation": "./.yarn/cache/@types-loadable__component-npm-5.13.8-af2e688cd0-19b3a6a12f.zip/node_modules/@types/loadable__component/",\
+        "packageDependencies": [\
+          ["@types/loadable__component", "npm:5.13.8"],\
+          ["@types/react", "npm:18.2.48"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@types/lodash", [\
       ["npm:4.14.202", {\
         "packageLocation": "./.yarn/cache/@types-lodash-npm-4.14.202-76de3e302b-1bb9760a5b.zip/node_modules/@types/lodash/",\
@@ -10683,6 +10726,7 @@ const RAW_RUNTIME_STATE =
           ["@ahhachul/themes", "workspace:packages/themes"],\
           ["@emotion/react", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:11.11.3"],\
           ["@emotion/styled", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:11.11.0"],\
+          ["@loadable/component", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:5.16.3"],\
           ["@radix-ui/react-tabs", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:1.0.4"],\
           ["@svgr/webpack", "npm:8.1.0"],\
           ["@tanstack/react-query", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:4.36.1"],\
@@ -10693,6 +10737,7 @@ const RAW_RUNTIME_STATE =
           ["@types/axios", "npm:0.14.0"],\
           ["@types/draft-js", "npm:0.11.17"],\
           ["@types/js-cookie", "npm:3.0.6"],\
+          ["@types/loadable__component", "npm:5.13.8"],\
           ["@types/node", "npm:20.8.0"],\
           ["@types/react", "npm:18.2.48"],\
           ["@types/react-dom", "npm:18.2.18"],\
