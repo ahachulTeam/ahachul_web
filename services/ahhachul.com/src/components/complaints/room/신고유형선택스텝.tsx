@@ -1,7 +1,9 @@
+import loadable from "@loadable/component";
+
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { vars } from "@ahhachul/themes";
-import { Flex, Box, Text } from "@ahhachul/react-components-layout";
+import { Flex, Text } from "@ahhachul/react-components-layout";
 import { Button } from "@ahhachul/react-components-button";
 
 import Header from "~/components/shared/Header";
@@ -9,6 +11,13 @@ import useModal from "~/components/shared/modal/hooks/useModal";
 
 import 완료스텝 from "./완료스텝";
 import { COMPLAINTS_CONTENTS_TYPES } from "../types/contents";
+
+const AsyncRoomService = loadable(
+  (props: { page: string }) => import(`../room/services/${props.page}`),
+  {
+    cacheKey: (props) => props.page,
+  },
+);
 
 function 신고유형선택스텝({ slug }: { slug: COMPLAINTS_CONTENTS_TYPES }) {
   const { handleModalOpen, handleModalClose } = useModal();
@@ -20,6 +29,32 @@ function 신고유형선택스텝({ slug }: { slug: COMPLAINTS_CONTENTS_TYPES })
   const 신고유형선택완료_완료스텝으로가기 = () => {
     handleModalOpen(<완료스텝 신청={신청을문자로하기} />)();
   };
+
+  let RoomService;
+  switch (slug) {
+    case "환경민원":
+      RoomService = <AsyncRoomService page={slug} />;
+      break;
+    case "안내방송":
+      RoomService = <AsyncRoomService page={slug} />;
+      break;
+    case "온도조절":
+      RoomService = <AsyncRoomService page={slug} />;
+      break;
+    case "질서저해":
+      RoomService = <AsyncRoomService page={slug} />;
+      break;
+    case "응급환자":
+      RoomService = <AsyncRoomService page={slug} />;
+      break;
+    case "폭력":
+      RoomService = <AsyncRoomService page={slug} />;
+      break;
+    case "성추행":
+      RoomService = <AsyncRoomService page={slug} />;
+      break;
+    default:
+  }
 
   return (
     <>
@@ -70,7 +105,7 @@ function 신고유형선택스텝({ slug }: { slug: COMPLAINTS_CONTENTS_TYPES })
           대화행
         </Text>
       </Flex>
-      <Box style={{ backgroundColor: "white", minHeight: "500px" }}></Box>
+      {RoomService}
       <ButtonWrap align="center" justify="center">
         <Button
           size="md"
