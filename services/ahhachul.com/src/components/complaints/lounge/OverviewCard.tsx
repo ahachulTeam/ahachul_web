@@ -3,12 +3,11 @@ import { Flex, Text } from "@ahhachul/react-components-layout";
 interface ComplaintOverviewCardProps {
   title: string;
   description: string;
-  onCardClick: VoidFunction;
   children?: React.ReactNode;
 }
 
 function ComplaintOverviewCard(props: ComplaintOverviewCardProps) {
-  const { title, description, onCardClick, children } = props;
+  const { title, description, children } = props;
 
   return (
     <Flex
@@ -22,7 +21,6 @@ function ComplaintOverviewCard(props: ComplaintOverviewCardProps) {
         backgroundColor: "rgba(255, 255, 255, 0.94)",
         backdropFilter: "blur(2px)",
       }}
-      onClick={onCardClick}
     >
       <Text fontSize="xl" as="strong" style={{ fontWeight: 700 }}>
         {title}

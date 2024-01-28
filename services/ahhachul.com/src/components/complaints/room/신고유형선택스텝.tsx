@@ -1,7 +1,9 @@
+import loadable from "@loadable/component";
+
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { vars } from "@ahhachul/themes";
-import { Flex, Box, Text } from "@ahhachul/react-components-layout";
+import { Flex, Text } from "@ahhachul/react-components-layout";
 import { Button } from "@ahhachul/react-components-button";
 
 import Header from "~/components/shared/Header";
@@ -9,6 +11,13 @@ import useModal from "~/components/shared/modal/hooks/useModal";
 
 import 완료스텝 from "./완료스텝";
 import { COMPLAINTS_CONTENTS_TYPES } from "../types/contents";
+
+const AsyncRoomService = loadable(
+  (props: { page: string }) => import(`../room/services/${props.page}`),
+  {
+    cacheKey: (props) => props.page,
+  },
+);
 
 function 신고유형선택스텝({ slug }: { slug: COMPLAINTS_CONTENTS_TYPES }) {
   const { handleModalOpen, handleModalClose } = useModal();
@@ -70,7 +79,7 @@ function 신고유형선택스텝({ slug }: { slug: COMPLAINTS_CONTENTS_TYPES })
           대화행
         </Text>
       </Flex>
-      <Box style={{ backgroundColor: "white", minHeight: "500px" }}></Box>
+      <AsyncRoomService page={slug} />
       <ButtonWrap align="center" justify="center">
         <Button
           size="md"
@@ -98,9 +107,8 @@ const ButtonWrap = styled(Flex)`
   left: 0;
   right: 0;
   bottom: 0;
-  border-radius: 8px;
-  padding: 0;
-  margin: 0 20px 30px 20px;
+  padding: 20px 20px 36px 20px;
+  background-color: #fff;
 `;
 
 export default 신고유형선택스텝;
