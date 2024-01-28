@@ -1,7 +1,6 @@
-import Image from "next/image";
-
 import { COMPLAINTS_ROOM_SERVICE_INFO_TYPES } from "../types/contents";
 
+import SelectButtonImage from "../room/SelectButtonImage";
 import 오물 from "../room/icons/오물.png";
 import 토사물 from "../room/icons/토사물.png";
 import 환기요청 from "../room/icons/환기요청.png";
@@ -53,30 +52,9 @@ export const COMPLAINTS_ROOM_SERVICE_INFO: COMPLAINTS_ROOM_SERVICE_INFO_TYPES =
         환기요청: "환기요청",
       },
       iconList: {
-        오물: (
-          <Image
-            alt=""
-            src={오물.src}
-            width={오물.width / 3}
-            height={오물.height / 3}
-          />
-        ),
-        토사물: (
-          <Image
-            alt=""
-            src={토사물.src}
-            width={토사물.width / 3}
-            height={토사물.height / 3}
-          />
-        ),
-        환기요청: (
-          <Image
-            alt=""
-            src={환기요청.src}
-            width={환기요청.width / 3}
-            height={환기요청.height / 3}
-          />
-        ),
+        오물: <SelectButtonImage image={오물} />,
+        토사물: <SelectButtonImage image={토사물} />,
+        환기요청: <SelectButtonImage image={환기요청} />,
       },
     },
     안내방송: {
@@ -91,38 +69,10 @@ export const COMPLAINTS_ROOM_SERVICE_INFO: COMPLAINTS_ROOM_SERVICE_INFO_TYPES =
         "임산부 배려석": "임산부 배려석",
       },
       iconList: {
-        시끄러워요: (
-          <Image
-            alt=""
-            src={시끄러워요.src}
-            width={시끄러워요.width / 3}
-            height={시끄러워요.height / 3}
-          />
-        ),
-        "잘 안들려요": (
-          <Image
-            alt=""
-            src={잘안들려요.src}
-            width={잘안들려요.width / 3}
-            height={잘안들려요.height / 3}
-          />
-        ),
-        "행선 안내방송": (
-          <Image
-            alt=""
-            src={행선.src}
-            width={행선.width / 3}
-            height={행선.height / 3}
-          />
-        ),
-        "임산부 배려석": (
-          <Image
-            alt=""
-            src={임산부.src}
-            width={임산부.width / 3}
-            height={임산부.height / 3}
-          />
-        ),
+        시끄러워요: <SelectButtonImage image={시끄러워요} />,
+        "잘 안들려요": <SelectButtonImage image={잘안들려요} />,
+        "행선 안내방송": <SelectButtonImage image={행선} />,
+        "임산부 배려석": <SelectButtonImage image={임산부} />,
       },
       activeColor: {
         시끄러워요: {
@@ -155,22 +105,8 @@ export const COMPLAINTS_ROOM_SERVICE_INFO: COMPLAINTS_ROOM_SERVICE_INFO_TYPES =
         추워요: "토사물/온도를 올려주세요",
       },
       iconList: {
-        더워요: (
-          <Image
-            alt=""
-            src={더워요.src}
-            width={더워요.width / 3}
-            height={더워요.height / 3}
-          />
-        ),
-        추워요: (
-          <Image
-            alt=""
-            src={추워요.src}
-            width={추워요.width / 3}
-            height={추워요.height / 3}
-          />
-        ),
+        더워요: <SelectButtonImage image={더워요} />,
+        추워요: <SelectButtonImage image={추워요} />,
       },
       activeColor: {
         더워요: {
@@ -196,46 +132,11 @@ export const COMPLAINTS_ROOM_SERVICE_INFO: COMPLAINTS_ROOM_SERVICE_INFO_TYPES =
         종교행위: "종교행위",
       },
       iconList: {
-        이동상인: (
-          <Image
-            alt=""
-            src={이동상인.src}
-            width={이동상인.width / 3}
-            height={이동상인.height / 3}
-          />
-        ),
-        취객: (
-          <Image
-            alt=""
-            src={취객.src}
-            width={취객.width / 3}
-            height={취객.height / 3}
-          />
-        ),
-        노숙: (
-          <Image
-            alt=""
-            src={노숙.src}
-            width={노숙.width / 3}
-            height={노숙.height / 3}
-          />
-        ),
-        구걸: (
-          <Image
-            alt=""
-            src={구걸.src}
-            width={구걸.width / 3}
-            height={구걸.height / 3}
-          />
-        ),
-        종교행위: (
-          <Image
-            alt=""
-            src={종교행위.src}
-            width={종교행위.width / 3}
-            height={종교행위.height / 3}
-          />
-        ),
+        이동상인: <SelectButtonImage image={이동상인} />,
+        취객: <SelectButtonImage image={취객} />,
+        노숙: <SelectButtonImage image={노숙} />,
+        구걸: <SelectButtonImage image={구걸} />,
+        종교행위: <SelectButtonImage image={종교행위} />,
       },
     },
     응급환자: {
