@@ -1,5 +1,194 @@
-function 안내방송() {
-  return <div>안내방송</div>;
+import { Flex, Text } from "@ahhachul/react-components-layout";
+import { Button } from "@ahhachul/react-components-button";
+
+import ResetButton from "~/components/shared/ResetButton";
+
+import ServiceBase from "./ServiceBase";
+import { COMPLAINTS_CONTENTS_TYPES } from "../../types/contents";
+import { COMPLAINTS_ROOM_SERVICE_INFO } from "../../static/contents";
+
+function 안내방송(props: { page: COMPLAINTS_CONTENTS_TYPES }) {
+  const { page } = props;
+
+  const isActiveSelected = "시끄러워요";
+  const isActiveSecondarySelected = "임산부 배려석";
+
+  return (
+    <ServiceBase page={page}>
+      <Flex align="center" style={{ width: "100%" }}>
+        <Flex direction="column" style={{ width: "100%" }}>
+          <Flex align="center" gap="12px" style={{ width: "100%" }}>
+            {Object.entries(COMPLAINTS_ROOM_SERVICE_INFO[page].selectList).map(
+              ([key, val]) => {
+                return (
+                  <Flex
+                    key={key}
+                    direction="column"
+                    justify="center"
+                    gap="20px"
+                    style={{
+                      padding: "22px 0",
+                      width: "calc(50% - 5px)",
+                      borderRadius: "27px",
+                      backgroundColor:
+                        key === isActiveSelected
+                          ? COMPLAINTS_ROOM_SERVICE_INFO[page]?.activeColor?.[
+                              key
+                            ].backgroundColor
+                          : "#F0F2F5",
+                      border:
+                        key === isActiveSelected
+                          ? `2px solid ${COMPLAINTS_ROOM_SERVICE_INFO[page]?.activeColor?.[key].borderColor}`
+                          : "none",
+                    }}
+                  >
+                    <ResetButton
+                      ItemComponent={
+                        COMPLAINTS_ROOM_SERVICE_INFO[page]?.iconList?.[key]
+                      }
+                      onClick={() => {}}
+                    />
+                    <Flex direction="column" justify="center" gap="4px">
+                      <Text
+                        fontSize="md"
+                        style={{
+                          fontWeight: 600,
+                          color:
+                            COMPLAINTS_ROOM_SERVICE_INFO[page]?.activeColor?.[
+                              key
+                            ].pointColor,
+                        }}
+                      >
+                        {key}
+                      </Text>
+                      <Text
+                        fontSize="xs"
+                        style={{
+                          color:
+                            COMPLAINTS_ROOM_SERVICE_INFO[page]?.activeColor?.[
+                              key
+                            ].pointColor,
+                          opacity: 0.6,
+                        }}
+                      >
+                        {val.split("/")[val.split("/").length - 1]}
+                      </Text>
+                    </Flex>
+                    <Button
+                      style={{
+                        width: "max-content",
+                        margin: "0 auto",
+                        borderRadius: "100px",
+                        backgroundColor:
+                          COMPLAINTS_ROOM_SERVICE_INFO[page]?.activeColor?.[key]
+                            .pointColor,
+                      }}
+                    >
+                      선택
+                    </Button>
+                  </Flex>
+                );
+              },
+            )}
+          </Flex>
+          <Flex direction="column" style={{ width: "100%", marginTop: "52px" }}>
+            <Flex direction="column" gap="4px" style={{ marginBottom: "16px" }}>
+              <Text
+                fontSize="md"
+                style={{
+                  width: "max-content",
+                  color: "#171717",
+                  fontWeight: 600,
+                }}
+              >
+                {COMPLAINTS_ROOM_SERVICE_INFO[page].title}
+              </Text>
+              <Text
+                fontSize="sm"
+                style={{ width: "max-content", color: "#7B7B7B" }}
+              >
+                {COMPLAINTS_ROOM_SERVICE_INFO[page].subTitle}
+              </Text>
+            </Flex>
+            <Flex align="center" gap="12px" style={{ width: "100%" }}>
+              {Object.entries(
+                COMPLAINTS_ROOM_SERVICE_INFO[page].secondarySelectList!,
+              ).map(([key, val]) => {
+                return (
+                  <Flex
+                    key={key}
+                    direction="column"
+                    justify="center"
+                    gap="20px"
+                    style={{
+                      padding: "22px 0",
+                      width: "calc(50% - 5px)",
+                      borderRadius: "27px",
+                      backgroundColor:
+                        key === isActiveSecondarySelected
+                          ? COMPLAINTS_ROOM_SERVICE_INFO[page]?.activeColor?.[
+                              key
+                            ].backgroundColor
+                          : "#F0F2F5",
+                      border:
+                        key === isActiveSecondarySelected
+                          ? `2px solid ${COMPLAINTS_ROOM_SERVICE_INFO[page]?.activeColor?.[key].borderColor}`
+                          : "none",
+                    }}
+                  >
+                    <ResetButton
+                      ItemComponent={
+                        COMPLAINTS_ROOM_SERVICE_INFO[page]?.iconList?.[key]
+                      }
+                      onClick={() => {}}
+                    />
+                    <Flex direction="column" justify="center" gap="4px">
+                      <Text
+                        fontSize="lg"
+                        style={{
+                          fontWeight: 600,
+                          color:
+                            COMPLAINTS_ROOM_SERVICE_INFO[page]?.activeColor?.[
+                              key
+                            ].pointColor,
+                        }}
+                      >
+                        {key}
+                      </Text>
+                      <Text
+                        fontSize="xs"
+                        style={{
+                          color:
+                            COMPLAINTS_ROOM_SERVICE_INFO[page]?.activeColor?.[
+                              key
+                            ].pointColor,
+                          opacity: 0.6,
+                        }}
+                      >
+                        {val.split("/")[val.split("/").length - 1]}
+                      </Text>
+                    </Flex>
+                    <Button
+                      style={{
+                        width: "max-content",
+                        margin: "0 auto",
+                        borderRadius: "100px",
+                        backgroundColor:
+                          COMPLAINTS_ROOM_SERVICE_INFO[page]?.activeColor?.[key]
+                            .pointColor,
+                      }}
+                    >
+                      선택
+                    </Button>
+                  </Flex>
+                );
+              })}
+            </Flex>
+          </Flex>
+        </Flex>
+      </Flex>
+    </ServiceBase>
+  );
 }
 
 export default 안내방송;

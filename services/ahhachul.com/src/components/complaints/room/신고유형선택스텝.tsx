@@ -30,32 +30,6 @@ function 신고유형선택스텝({ slug }: { slug: COMPLAINTS_CONTENTS_TYPES })
     handleModalOpen(<완료스텝 신청={신청을문자로하기} />)();
   };
 
-  let RoomService;
-  switch (slug) {
-    case "환경민원":
-      RoomService = <AsyncRoomService page={slug} />;
-      break;
-    case "안내방송":
-      RoomService = <AsyncRoomService page={slug} />;
-      break;
-    case "온도조절":
-      RoomService = <AsyncRoomService page={slug} />;
-      break;
-    case "질서저해":
-      RoomService = <AsyncRoomService page={slug} />;
-      break;
-    case "응급환자":
-      RoomService = <AsyncRoomService page={slug} />;
-      break;
-    case "폭력":
-      RoomService = <AsyncRoomService page={slug} />;
-      break;
-    case "성추행":
-      RoomService = <AsyncRoomService page={slug} />;
-      break;
-    default:
-  }
-
   return (
     <>
       <Header
@@ -105,7 +79,7 @@ function 신고유형선택스텝({ slug }: { slug: COMPLAINTS_CONTENTS_TYPES })
           대화행
         </Text>
       </Flex>
-      {RoomService}
+      <AsyncRoomService page={slug} />
       <ButtonWrap align="center" justify="center">
         <Button
           size="md"
@@ -133,9 +107,8 @@ const ButtonWrap = styled(Flex)`
   left: 0;
   right: 0;
   bottom: 0;
-  border-radius: 8px;
-  padding: 0;
-  margin: 0 20px 30px 20px;
+  padding: 20px 20px 36px 20px;
+  background-color: #fff;
 `;
 
 export default 신고유형선택스텝;
