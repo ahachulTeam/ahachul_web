@@ -1,6 +1,6 @@
-import { Flex, Text } from "@ahhachul/react-components-layout";
+import { useState } from "react";
 
-import ResetButton from "~/components/shared/ResetButton";
+import { Flex, Text } from "@ahhachul/react-components-layout";
 
 import ServiceBase from "./ServiceBase";
 import { COMPLAINTS_CONTENTS_TYPES } from "../../types/contents";
@@ -10,7 +10,9 @@ import { CheckboxActiveSVG, CheckboxDefaultSVG } from "../icons";
 function 폭력(props: { page: COMPLAINTS_CONTENTS_TYPES }) {
   const { page } = props;
 
-  const isActiveSelected = "피해자";
+  const [isActiveSelected, setIsActiveSelected] = useState<string>();
+
+  const handleSelect = (s: string) => () => setIsActiveSelected(s);
 
   return (
     <ServiceBase page={page}>
@@ -31,17 +33,13 @@ function 폭력(props: { page: COMPLAINTS_CONTENTS_TYPES }) {
                       ? "linear-gradient(92deg, #2EE477 11.32%, #4BB4FF 99.85%, #50BEFD 99.85%)"
                       : "#EDEFF3",
                 }}
+                onClick={handleSelect(key)}
               >
-                <ResetButton
-                  ItemComponent={
-                    key === isActiveSelected ? (
-                      <CheckboxActiveSVG />
-                    ) : (
-                      <CheckboxDefaultSVG />
-                    )
-                  }
-                  onClick={() => {}}
-                />
+                {key === isActiveSelected ? (
+                  <CheckboxActiveSVG />
+                ) : (
+                  <CheckboxDefaultSVG />
+                )}
                 <Text
                   fontSize="lg"
                   style={{

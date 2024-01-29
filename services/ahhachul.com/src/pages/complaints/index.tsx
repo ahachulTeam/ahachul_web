@@ -32,10 +32,7 @@ export default function ComplaintsLoungePage() {
   );
 
   return (
-    <Layout
-      footer={false}
-      css={{ width: "100vw", height: "100vh", backgroundColor: "#242424" }}
-    >
+    <Layout footer={false}>
       <Header
         left={
           <Header.HeaderLeft

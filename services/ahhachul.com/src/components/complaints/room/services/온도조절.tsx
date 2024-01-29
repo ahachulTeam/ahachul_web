@@ -1,7 +1,7 @@
+import { useState } from "react";
+
 import { Flex, Text } from "@ahhachul/react-components-layout";
 import { Button } from "@ahhachul/react-components-button";
-
-import ResetButton from "~/components/shared/ResetButton";
 
 import ServiceBase from "./ServiceBase";
 import { COMPLAINTS_CONTENTS_TYPES } from "../../types/contents";
@@ -10,7 +10,9 @@ import { COMPLAINTS_ROOM_SERVICE_INFO } from "../../static/contents";
 function 온도조절(props: { page: COMPLAINTS_CONTENTS_TYPES }) {
   const { page } = props;
 
-  const isActiveSelected = "더워요";
+  const [isActiveSelected, setIsActiveSelected] = useState<string>();
+
+  const handleSelect = (s: string) => () => setIsActiveSelected(s);
 
   return (
     <ServiceBase page={page}>
@@ -23,6 +25,7 @@ function 온도조절(props: { page: COMPLAINTS_CONTENTS_TYPES }) {
                 key={key}
                 direction="column"
                 justify="center"
+                align="center"
                 gap="20px"
                 style={{
                   padding: "22px 0",
@@ -33,18 +36,16 @@ function 온도조절(props: { page: COMPLAINTS_CONTENTS_TYPES }) {
                       ? COMPLAINTS_ROOM_SERVICE_INFO[page]?.activeColor?.[key]
                           .backgroundColor
                       : "#F0F2F5",
-                  border:
+                  boxShadow:
                     key === isActiveSelected
-                      ? `2px solid ${COMPLAINTS_ROOM_SERVICE_INFO[page]?.activeColor?.[key].borderColor}`
+                      ? `inset 0px 0px 2px ${COMPLAINTS_ROOM_SERVICE_INFO[page]?.activeColor?.[key].borderColor}`
                       : "none",
+                  transition:
+                    "background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out",
                 }}
+                onClick={handleSelect(key)}
               >
-                <ResetButton
-                  ItemComponent={
-                    COMPLAINTS_ROOM_SERVICE_INFO[page]?.iconList?.[key]
-                  }
-                  onClick={() => {}}
-                />
+                {COMPLAINTS_ROOM_SERVICE_INFO[page]?.iconList?.[key]}
                 <Flex direction="column" justify="center" gap="4px">
                   <Text
                     fontSize="md"

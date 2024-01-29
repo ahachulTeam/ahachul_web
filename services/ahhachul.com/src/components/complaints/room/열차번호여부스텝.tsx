@@ -24,14 +24,20 @@ const SubwayLineFilter = dynamic(
 );
 
 function 열차번호여부스텝({ slug }: { slug: COMPLAINTS_CONTENTS_TYPES }) {
-  console.log("slug", slug);
   const { handleModalOpen, handleModalClose } = useModal();
 
   const 신고유형선택으로가기 = () => {
     handleModalOpen(<신고유형선택스텝 slug={slug} />)();
   };
 
-  const [isModalShowing, , openHandler, closeHandler] = useBoolean(false);
+  const [
+    is열차번호어딨는지알려주는모달Showing,
+    ,
+    open열차번호어딨는지알려주는모달,
+    close열차번호어딨는지알려주는모달,
+  ] = useBoolean(false);
+  const [isSubwayLine모달Showing, , openSubwayLine모달, closeSubwayLine모달] =
+    useBoolean(false);
 
   const handleApplyFilter = (key: string) => (value: string) => {
     console.log(key, value);
@@ -60,7 +66,10 @@ function 열차번호여부스텝({ slug }: { slug: COMPLAINTS_CONTENTS_TYPES })
         <Input variant="filled" placeholder="열차번호" />
         <Tooltip as="button" align="center" gap="6px" onClick={() => {}}>
           <CircleWarningSVG />
-          <span style={{ color: "#67696F" }} onClick={openHandler}>
+          <span
+            style={{ color: "#67696F" }}
+            onClick={open열차번호어딨는지알려주는모달}
+          >
             열차번호는 어디에 있나요?
           </span>
         </Tooltip>
@@ -91,7 +100,7 @@ function 열차번호여부스텝({ slug }: { slug: COMPLAINTS_CONTENTS_TYPES })
           variant="ghost"
           size="sm"
           color="blackAlpha"
-          onClick={openHandler}
+          onClick={openSubwayLine모달}
           style={{
             width: "100%",
             display: "flex",
@@ -105,12 +114,12 @@ function 열차번호여부스텝({ slug }: { slug: COMPLAINTS_CONTENTS_TYPES })
         </Button>
       </ButtonGroup>
       <열차번호어딨는지알려주는모달
-        isShowing={isModalShowing}
-        onClose={closeHandler}
+        isShowing={is열차번호어딨는지알려주는모달Showing}
+        onClose={close열차번호어딨는지알려주는모달}
       />
       <SubwayLineFilter
-        isShowing={isModalShowing}
-        onClose={closeHandler}
+        isShowing={isSubwayLine모달Showing}
+        onClose={closeSubwayLine모달}
         handleApplyFilter={handleApplyFilter}
       />
     </>

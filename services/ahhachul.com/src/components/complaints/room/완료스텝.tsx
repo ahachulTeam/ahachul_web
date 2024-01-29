@@ -1,8 +1,12 @@
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { Button } from "@ahhachul/react-components-button";
-import { Box, Flex } from "@ahhachul/react-components-layout";
 
+import { Button } from "@ahhachul/react-components-button";
+import { Box, Flex, Text } from "@ahhachul/react-components-layout";
+
+import LoadingModal from "~/components/shared/FullPageLoading";
 import useModal from "~/components/shared/modal/hooks/useModal";
+import { defaultFadeInVariants } from "~/constants/motions";
 
 function 완료스텝(props: { 신청: VoidFunction }) {
   const { 신청 } = props;
@@ -16,49 +20,97 @@ function 완료스텝(props: { 신청: VoidFunction }) {
     handleResetModal();
   };
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 700);
+  }, []);
+
   return (
-    <Box style={{ backgroundColor: "#000", width: "100vw", height: "100vh" }}>
-      <ButtonGroup
-        direction="column"
-        align="center"
-        justify="center"
-        gap="16px"
+    <>
+      <LoadingModal show={isLoading} variants={defaultFadeInVariants} />
+      <Box
+        style={{
+          backgroundColor: "#000",
+          width: "100vw",
+          height: "100vh",
+          position: "relative",
+        }}
       >
-        <Button
-          size="md"
-          color="blackAlpha"
-          onClick={접수내역확인페이지가기}
-          style={{
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "48px",
-            borderRadius: "8px",
-            color: "black",
-            backgroundColor: "#EDEFF3",
-          }}
+        {!isLoading && (
+          <Flex
+            direction="column"
+            gap="30px"
+            align="center"
+            justify="center"
+            style={{
+              position: "absolute",
+              top: "140px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "100%",
+            }}
+          >
+            <video
+              autoPlay
+              loop
+              muted
+              style={{ width: "auto", height: "184px" }}
+            >
+              <source src="/videos/process-complete.mp4" />
+            </video>
+            <Text
+              fontSize="2xl"
+              style={{ color: "#fff", fontWeight: 600, width: "100%" }}
+            >
+              민원이 접수되었어요!
+            </Text>
+          </Flex>
+        )}
+        <ButtonGroup
+          direction="column"
+          align="center"
+          justify="center"
+          gap="16px"
         >
-          접수내역 확인
-        </Button>
-        <Button
-          size="md"
-          color="whiteAlpha"
-          onClick={돌아가기}
-          style={{
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "48px",
-            borderRadius: "8px",
-            backgroundColor: "#2EE477",
-          }}
-        >
-          돌아가기
-        </Button>
-      </ButtonGroup>
-    </Box>
+          <Button
+            size="md"
+            color="blackAlpha"
+            onClick={접수내역확인페이지가기}
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "48px",
+              borderRadius: "8px",
+              color: "black",
+              backgroundColor: "#EDEFF3",
+            }}
+          >
+            접수내역 확인
+          </Button>
+          <Button
+            size="md"
+            color="whiteAlpha"
+            onClick={돌아가기}
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "48px",
+              borderRadius: "8px",
+              backgroundColor: "#2EE477",
+            }}
+          >
+            돌아가기
+          </Button>
+        </ButtonGroup>
+      </Box>
+    </>
   );
 }
 
