@@ -1,6 +1,5 @@
+import { useState } from "react";
 import { Flex, Grid, Text } from "@ahhachul/react-components-layout";
-
-import ResetButton from "~/components/shared/ResetButton";
 
 import ServiceBase from "./ServiceBase";
 import { COMPLAINTS_CONTENTS_TYPES } from "../../types/contents";
@@ -9,7 +8,9 @@ import { COMPLAINTS_ROOM_SERVICE_INFO } from "../../static/contents";
 function 질서저해(props: { page: COMPLAINTS_CONTENTS_TYPES }) {
   const { page } = props;
 
-  const isActiveSelected = "이동상인";
+  const [isActiveSelected, setIsActiveSelected] = useState<string>();
+
+  const handleSelect = (s: string) => () => setIsActiveSelected(s);
 
   return (
     <ServiceBase page={page}>
@@ -32,6 +33,7 @@ function 질서저해(props: { page: COMPLAINTS_CONTENTS_TYPES }) {
                   }}
                 >
                   <Flex
+                    as="button"
                     direction="column"
                     justify="center"
                     align="center"
@@ -41,14 +43,11 @@ function 질서저해(props: { page: COMPLAINTS_CONTENTS_TYPES }) {
                       borderRadius: "8px",
                       backgroundColor:
                         key === isActiveSelected ? "#EDFFF4" : "#FAFAFA",
+                      transition: "all 0.3s ease-in-out",
                     }}
+                    onClick={handleSelect(key)}
                   >
-                    <ResetButton
-                      ItemComponent={
-                        COMPLAINTS_ROOM_SERVICE_INFO[page]?.iconList?.[key]
-                      }
-                      onClick={() => {}}
-                    />
+                    {COMPLAINTS_ROOM_SERVICE_INFO[page]?.iconList?.[key]}
                   </Flex>
                   <Text fontSize="md" style={{ fontWeight: 600 }}>
                     {key}
