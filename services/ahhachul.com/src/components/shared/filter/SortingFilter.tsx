@@ -6,9 +6,9 @@ import {
   UnorderedList,
 } from "@ahhachul/react-components-layout";
 
+import { CheckSVG } from "~/assets/icons";
 import { SORT_FILTER_TYPE } from "~/constants/filter";
 import BottomSheet from "../bottomSheet/BottomSheet";
-import { CheckSVG } from "~/assets/icons";
 
 interface SortingFilterProps {
   isShowing: boolean;

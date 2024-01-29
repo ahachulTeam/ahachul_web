@@ -164,3 +164,10 @@ export const COMPLAINTS_ROOM_SERVICE_INFO: COMPLAINTS_ROOM_SERVICE_INFO_TYPES =
       },
     },
   };
+
+export const CALL_CENTER_FILTER_TYPE = {
+  "수도권 1-8호선": "수도권 1-8호선",
+  "9호선": "9호선",
+  신분당선: "신분당선",
+  "공항철도 · 경의중앙선 · 분당선": "공항철도 · 경의중앙선 · 분당선",
+};

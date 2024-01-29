@@ -37,7 +37,6 @@ function 열차번호어딨는지알려주는모달({
             src={열차번호어딨는지알려주는모달이미지.src}
             fill
             priority
-            quality={100}
             style={{
               position: "absolute",
               top: 0,
