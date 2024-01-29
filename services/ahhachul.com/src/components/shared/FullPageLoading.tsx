@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { AnimatePresence, m } from "framer-motion";
+import { keyframes } from "@emotion/react";
+import { AnimatePresence, Variants, m } from "framer-motion";
 import { Flex, Text } from "@ahhachul/react-components-layout";
 
 import Dimmed from "~/components/shared/Dimmed";
@@ -10,12 +11,18 @@ import { fullPageLoadingVariants } from "~/constants/motions";
 interface FullPageLoadingProps {
   show: boolean;
   message?: string;
+  variants?: Variants;
   className?: string;
 }
 
 const FullPageLoading = React.forwardRef(
   (
-    { show = true, message, className }: FullPageLoadingProps,
+    {
+      show = true,
+      message,
+      variants = fullPageLoadingVariants,
+      className,
+    }: FullPageLoadingProps,
     ref: React.ForwardedRef<HTMLDialogElement>,
   ) => {
     return (
@@ -29,7 +36,7 @@ const FullPageLoading = React.forwardRef(
               aria-labelledby="modal"
               aria-modal="true"
               tabIndex={0}
-              variants={fullPageLoadingVariants}
+              variants={variants}
               initial="initial"
               animate="animate"
               exit="exit"
@@ -40,11 +47,7 @@ const FullPageLoading = React.forwardRef(
                 style={{ width: "100%", height: "100%" }}
               >
                 <Flex direction="column" align="center">
-                  <img
-                    width={120}
-                    src="https://cdn.pixabay.com/animation/2023/06/13/15/12/15-12-47-323_512.gif"
-                    alt=""
-                  />
+                  <LoadingSpinner />
                   {message != null ? (
                     <>
                       <Spacing size={120} />
@@ -61,6 +64,15 @@ const FullPageLoading = React.forwardRef(
   },
 );
 
+const spin = keyframes`
+0% {
+  transform: rotate(0deg);
+}
+100% {
+  transform: rotate(360deg);
+}
+`;
+
 const Base = styled(m.dialog)`
   position: relative;
   display: block;
@@ -70,6 +82,15 @@ const Base = styled(m.dialog)`
   height: 100%;
   background-color: white;
   z-index: var(--z-indexes-dialog);
+`;
+
+const LoadingSpinner = styled.span`
+  width: 1rem;
+  height: 1rem;
+  border: 3px solid #f4f5f8;
+  border-top: 3px solid #bec1cb;
+  border-radius: 50%;
+  animation: ${spin} 2s linear infinite;
 `;
 
 export default FullPageLoading;

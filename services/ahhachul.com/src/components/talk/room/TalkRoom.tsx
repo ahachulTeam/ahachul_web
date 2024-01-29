@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+
 import ErrorBoundary from "~/components/shared/ErrorBoundary";
 import LoadingModal from "~/components/shared/FullPageLoading";
 
-// import TextRenderer from "~/components/shared/editor/Renderer";
 import useTalkRoom from "./hooks/useTalkRoom";
 import HangGangViewRoom from "./HangGangViewRoom";
 import JustRoom from "./JustRoom";
@@ -12,19 +12,18 @@ function TalkRoom() {
   console.log("roomService:", roomService);
   const [isLoading, setIsLoading] = useState(true);
 
-  const hasImage = false;
+  const hasImage = true;
 
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 500);
+    }, 200);
   }, []);
 
   return (
     <main>
       <LoadingModal show={isLoading} />
       {hasImage ? <HangGangViewRoom /> : <JustRoom />}
-      {/* <TextRenderer article={article} /> */}
     </main>
   );
 }

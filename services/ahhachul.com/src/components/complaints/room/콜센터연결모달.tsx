@@ -65,7 +65,7 @@ function 콜센터연결모달({ isShowing, onClose }: 콜센터연결모달Prop
                 fontSize="sm"
                 css={css`
                   width: 100%;
-                  font-weight: 500;
+                  font-weight: 600;
 
                   &:active,
                   &:focus {
@@ -76,7 +76,7 @@ function 콜센터연결모달({ isShowing, onClose }: 콜센터연결모달Prop
                 {label}
               </Text>
               <Flex align="center" gap="6px" style={{ width: "max-content" }}>
-                <Text fontSize="md" style={{ width: "max-content" }}>
+                <Text fontSize="sm" style={{ width: "max-content" }}>
                   바로 연결
                 </Text>
                 <ChevronSVG style={{ transform: "rotate(270deg)" }} />
@@ -89,7 +89,7 @@ function 콜센터연결모달({ isShowing, onClose }: 콜센터연결모달Prop
           justify="center"
           style={{
             width: "100%",
-            padding: "20px 30px",
+            padding: "30px 20px",
             boxSizing: "border-box",
           }}
         >
