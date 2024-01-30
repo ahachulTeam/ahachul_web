@@ -24,7 +24,8 @@ const SortingFilter = dynamic(
   { ssr: false },
 );
 
-function TalkLoungeFilterList() {
+function TalkLoungeFilterList(props: { className?: string }) {
+  const { className } = props;
   const { filter, handleApplyFilter } = useFilter<KeyOf<TalkLoungeFilterType>>(
     "subwayLineId",
     "sort",
@@ -74,7 +75,7 @@ function TalkLoungeFilterList() {
   }
 
   return (
-    <Box as="section">
+    <Box as="section" className={className}>
       <Flex
         as="ul"
         gap="10px"

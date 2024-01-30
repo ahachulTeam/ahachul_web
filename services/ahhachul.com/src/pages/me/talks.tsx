@@ -1,7 +1,10 @@
+import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 
 import Header from "~/components/shared/Header";
 import Layout from "~/components/shared/Layout";
+import FilterList from "~/components/talk/lounge/FilterList";
+import TalkLoungeList from "~/components/talk/lounge/List";
 
 export default function MeTalksPage() {
   const router = useRouter();
@@ -17,7 +20,16 @@ export default function MeTalksPage() {
         }
         centerTitle="작성 내역"
       />
-      <main>글 작성 내역</main>
+      <main>
+        <FilterList
+          css={css`
+            & > ul:first-of-type {
+              border: none !important;
+            }
+          `}
+        />
+        <TalkLoungeList />
+      </main>
     </Layout>
   );
 }

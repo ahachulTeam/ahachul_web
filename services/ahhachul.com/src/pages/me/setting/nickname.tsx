@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Text } from "@ahhachul/react-components-layout";
+import { Flex, Text } from "@ahhachul/react-components-layout";
 
 import Header from "~/components/shared/Header";
 import Layout from "~/components/shared/Layout";
@@ -29,7 +29,9 @@ export default function NicknameSettingPage() {
           />
         }
       />
-      <main>설정</main>
+      <main>
+        <Flex style={{ padding: "24px 20px" }}>닉네임 설정 페이지</Flex>
+      </main>
     </Layout>
   );
 }

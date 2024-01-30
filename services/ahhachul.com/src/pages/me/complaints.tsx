@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 
 import Header from "~/components/shared/Header";
 import Layout from "~/components/shared/Layout";
+import ComplaintsCard from "~/components/me/ComplaintsCard";
 
 export default function MeComplaintsPage() {
   const router = useRouter();
@@ -17,7 +18,14 @@ export default function MeComplaintsPage() {
         }
         centerTitle="접수 민원"
       />
-      <main>접수 민원</main>
+      <main>
+        <ComplaintsCard />
+        <ComplaintsCard />
+        <ComplaintsCard />
+        <ComplaintsCard />
+        <ComplaintsCard />
+        <ComplaintsCard />
+      </main>
     </Layout>
   );
 }

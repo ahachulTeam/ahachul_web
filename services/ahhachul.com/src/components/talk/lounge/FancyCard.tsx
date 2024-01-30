@@ -19,7 +19,7 @@ function TalkLoungeFancyCard() {
         }}
       >
         <Link
-          href={!slug ? `talk/rank/1` : `talk/1`}
+          href={!slug ? `/talk/rank/1` : `/talk/1`}
           style={{
             display: "flex",
             flexDirection: "column",

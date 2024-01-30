@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { Flex } from "@ahhachul/react-components-layout";
 import { Button } from "@ahhachul/react-components-button";
 
 import Header from "~/components/shared/Header";
@@ -29,7 +30,9 @@ export default function StationSettingPage() {
           />
         }
       />
-      <main>MY 지하철</main>
+      <main>
+        <Flex style={{ padding: "24px 20px" }}>지하철 설정 페이지</Flex>
+      </main>
     </Layout>
   );
 }
