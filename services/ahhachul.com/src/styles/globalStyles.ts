@@ -155,7 +155,4 @@ export default css`
     color: inherit;
     text-decoration: inherit;
   }
-  div {
-    box-sizing: border-box !important;
-  }
 `;

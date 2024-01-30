@@ -11,8 +11,8 @@ import { KeyOf, SortFilterType } from "~/models/common";
 import { SUBWAY_LINE_FILTER_TYPE, SORT_FILTER_TYPE } from "~/constants/filter";
 import { ChevronSVG } from "~/assets/icons";
 
-import { TALK_LOUNGE_FILTER_LIST } from "./static/filter";
-import { TALK_LOUNGE_FILTER_TYPES } from "./types/filter";
+import { LOST_AND_FOUND_LOUNGE_FILTER_LIST } from "./static/filter";
+import { LOST_AND_FOUND_LOUNGE_FILTER_TYPES } from "./types/filter";
 
 const SubwayLineFilter = dynamic(
   () => import("~/components/shared/filter/SubwayLineFilter"),
@@ -23,7 +23,7 @@ const SortingFilter = dynamic(
   { ssr: false },
 );
 
-function TalkLoungeFilterList(props: { className?: string }) {
+function LoastAndFoundLoungeFilterList(props: { className?: string }) {
   const { className } = props;
   const { filter, handleApplyFilter } = useFilter<KeyOf<TalkLoungeFilterType>>(
     "subwayLineId",
@@ -31,9 +31,9 @@ function TalkLoungeFilterList(props: { className?: string }) {
   );
 
   const getFilterButtonLabel: (
-    type: TALK_LOUNGE_FILTER_TYPES,
+    type: LOST_AND_FOUND_LOUNGE_FILTER_TYPES,
   ) => React.ReactNode = useCallback(
-    (type: TALK_LOUNGE_FILTER_TYPES) => {
+    (type: LOST_AND_FOUND_LOUNGE_FILTER_TYPES) => {
       if (filter?.subwayLineId && type === "subwayLineId") {
         return SUBWAY_LINE_FILTER_TYPE[filter.subwayLineId as SubwayLineIdType];
       }
@@ -42,7 +42,7 @@ function TalkLoungeFilterList(props: { className?: string }) {
         return SORT_FILTER_TYPE[filter.sort as SortFilterType];
       }
 
-      return TALK_LOUNGE_FILTER_LIST[type];
+      return LOST_AND_FOUND_LOUNGE_FILTER_LIST[type];
     },
     [filter],
   );
@@ -50,17 +50,17 @@ function TalkLoungeFilterList(props: { className?: string }) {
   const [isModalShowing, , openHandler, closeHandler] = useBoolean(false);
 
   const [selectedFilter, setSelectedFilter] =
-    useState<TALK_LOUNGE_FILTER_TYPES>("subwayLineId");
+    useState<LOST_AND_FOUND_LOUNGE_FILTER_TYPES>("subwayLineId");
 
   const onOpenFilterModal = useCallback(
-    (type: TALK_LOUNGE_FILTER_TYPES) => () => {
+    (type: LOST_AND_FOUND_LOUNGE_FILTER_TYPES) => () => {
       setSelectedFilter(type);
       openHandler();
     },
     [openHandler],
   );
 
-  const uuid = (type: TALK_LOUNGE_FILTER_TYPES) => `${type}-filter`;
+  const uuid = (type: LOST_AND_FOUND_LOUNGE_FILTER_TYPES) => `${type}-filter`;
 
   let ModalComponent = SubwayLineFilter;
   switch (selectedFilter) {
@@ -86,26 +86,32 @@ function TalkLoungeFilterList(props: { className?: string }) {
           zIndex: 1,
         }}
       >
-        {Object.entries(TALK_LOUNGE_FILTER_LIST).map(([key, label]) => (
-          <li key={key}>
-            <Button
-              size="sm"
-              variant="ghost"
-              rightIcon={<ChevronSVG />}
-              aria-label={label}
-              aria-haspopup="listbox"
-              aria-expanded={isModalShowing}
-              aria-controls={uuid(key as TALK_LOUNGE_FILTER_TYPES)}
-              onClick={onOpenFilterModal(key as TALK_LOUNGE_FILTER_TYPES)}
-              style={{
-                padding: 0,
-                gap: 0,
-              }}
-            >
-              {getFilterButtonLabel(key as TALK_LOUNGE_FILTER_TYPES)}
-            </Button>
-          </li>
-        ))}
+        {Object.entries(LOST_AND_FOUND_LOUNGE_FILTER_LIST).map(
+          ([key, label]) => (
+            <li key={key}>
+              <Button
+                size="sm"
+                variant="ghost"
+                rightIcon={<ChevronSVG />}
+                aria-label={label}
+                aria-haspopup="listbox"
+                aria-expanded={isModalShowing}
+                aria-controls={uuid(key as LOST_AND_FOUND_LOUNGE_FILTER_TYPES)}
+                onClick={onOpenFilterModal(
+                  key as LOST_AND_FOUND_LOUNGE_FILTER_TYPES,
+                )}
+                style={{
+                  padding: 0,
+                  gap: 0,
+                }}
+              >
+                {getFilterButtonLabel(
+                  key as LOST_AND_FOUND_LOUNGE_FILTER_TYPES,
+                )}
+              </Button>
+            </li>
+          ),
+        )}
       </Flex>
       <ModalComponent
         isShowing={isModalShowing}
@@ -116,4 +122,4 @@ function TalkLoungeFilterList(props: { className?: string }) {
   );
 }
 
-export default TalkLoungeFilterList;
+export default LoastAndFoundLoungeFilterList;

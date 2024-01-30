@@ -1,5 +1,6 @@
 export { default as EyeSVG } from "./ic_eye.svg";
 export { default as BackSVG } from "./ic_back.svg";
+export { default as ChatSVG } from "./ic_chat.svg";
 export { default as EditSVG } from "./ic_edit.svg";
 export { default as CheckSVG } from "./ic_check.svg";
 export { default as CloseSVG } from "./ic_close.svg";

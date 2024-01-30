@@ -3,35 +3,29 @@ import { Box, Flex } from "@ahhachul/react-components-layout";
 
 import Skeleton from "~/components/shared/Skeleton";
 import ErrorBoundary from "~/components/shared/ErrorBoundary";
-import TalkLoungeCard from "./Card";
+import LostAndFoundCard from "./Card";
 // import useTalkLounge from "./hooks/useTalkLounge";
 
-import DUMMY_IMG_1 from "public/dummy-img-1.png";
+import DUMMY_IMG from "public/dummy-img-6.png";
 
-import DUMMY_IMG_2 from "public/dummy-img-2.png";
-
-import DUMMY_IMG_3 from "public/dummy-img-3.png";
-
-import DUMMY_IMG_4 from "public/dummy-img-4.png";
-
-function TalkList() {
+function LostAndFoundList() {
   // const { data } = useTalkLounge();
   // console.log("data :", data);
 
   return (
-    <Box as="section" background="gray" style={{ padding: "22px 20px" }}>
-      <Flex as="ul" direction="column" gap="20px">
+    <Box as="section" style={{ padding: "10px 20px" }}>
+      <Flex as="ul" direction="column">
         <li>
-          <TalkLoungeCard imgSrc={DUMMY_IMG_1.src} />
+          <LostAndFoundCard imgSrc={DUMMY_IMG.src} />
         </li>
         <li>
-          <TalkLoungeCard imgSrc={DUMMY_IMG_4.src} />
+          <LostAndFoundCard imgSrc={DUMMY_IMG.src} />
         </li>
         <li>
-          <TalkLoungeCard imgSrc={DUMMY_IMG_2.src} />
+          <LostAndFoundCard imgSrc={DUMMY_IMG.src} />
         </li>
         <li>
-          <TalkLoungeCard imgSrc={DUMMY_IMG_3.src} />
+          <LostAndFoundCard imgSrc={DUMMY_IMG.src} />
         </li>
       </Flex>
     </Box>
@@ -41,7 +35,7 @@ function TalkList() {
 function WrapErrorBoundary() {
   return (
     <ErrorBoundary>
-      <TalkList />
+      <LostAndFoundList />
     </ErrorBoundary>
   );
 }
