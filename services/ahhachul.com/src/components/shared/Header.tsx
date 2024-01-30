@@ -32,6 +32,7 @@ function Header({ left, centerTitle, right, className }: HeaderProps) {
             top: "50%",
             left: "50%",
             transform: "translate(-50%,-50%)",
+            fontWeight: 600,
           }}
           fontSize="sm"
           color="blackAlpha"

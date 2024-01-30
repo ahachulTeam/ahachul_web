@@ -86,13 +86,25 @@ const HeaderRightComponent = ({ type }: { type: "lounge" | "room" }) => {
     <Flex align="center" gap="15px">
       <ResetButton
         ItemComponent={type === "lounge" ? <SearchSVG /> : <ShareSVG />}
-        onClick={openSearchModal}
+        onClick={
+          type === "lounge"
+            ? openSearchModal
+            : () => {
+                alert("hello share world");
+              }
+        }
       />
       <ResetButton
         ItemComponent={
           type === "lounge" ? <BookmarkSVG /> : <EllipsisVerticalSVG />
         }
-        onClick={openSavedModal}
+        onClick={
+          type === "lounge"
+            ? openSavedModal
+            : () => {
+                alert("hello ellipsis world");
+              }
+        }
       />
     </Flex>
   );

@@ -1,12 +1,10 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { usePathname } from "next/navigation";
 import { Box, Flex, Text, Heading } from "@ahhachul/react-components-layout";
 
 function TalkLoungeFancyCard() {
   const router = useRouter();
   const slug = router.query.slug;
-  const pathname = usePathname();
 
   return (
     <Box as="section" padding={5}>
@@ -21,7 +19,7 @@ function TalkLoungeFancyCard() {
         }}
       >
         <Link
-          href={!slug ? `${pathname}/rank/1` : `${pathname}/1`}
+          href={!slug ? `/talk/rank/1` : `/talk/1`}
           style={{
             display: "flex",
             flexDirection: "column",
