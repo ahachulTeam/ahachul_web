@@ -1,7 +1,6 @@
 import Link from "next/link";
 import NextImage from "next/image";
 import { useRouter } from "next/router";
-import { usePathname } from "next/navigation";
 import { Box, Flex, Text } from "@ahhachul/react-components-layout";
 
 import ResetButton from "~/components/shared/ResetButton";
@@ -9,9 +8,8 @@ import { BookmarkFillSVG, CommentSVG, EyeSVG, HeartSVG } from "~/assets/icons";
 
 function TalkLoungeCard(props: { imgSrc: string }) {
   const router = useRouter();
-  const pathname = usePathname();
 
-  const hasImage = true;
+  const hasImage = false;
   const slug = router.query.slug;
 
   return (
@@ -25,7 +23,7 @@ function TalkLoungeCard(props: { imgSrc: string }) {
       }}
     >
       <Link
-        href={!slug ? `${pathname}/rank/1` : `${pathname}/1`}
+        href={!slug ? `talk/rank/1` : `talk/1`}
         style={{
           display: "flex",
           flexDirection: "column",
@@ -35,12 +33,7 @@ function TalkLoungeCard(props: { imgSrc: string }) {
         }}
       >
         <Flex align="center">
-          <Text
-            fontSize="sm"
-            as="p"
-            color="gray"
-            style={{ fontWeight: 700, marginBottom: "6px" }}
-          >
+          <Text fontSize="sm" as="p" color="gray" style={{ fontWeight: 700 }}>
             🔥 자유
           </Text>
         </Flex>
