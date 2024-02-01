@@ -8,7 +8,7 @@ function 활동AlarmCard(props: { type: "talk" | "complaints" }) {
     <Flex
       direction="column"
       gap="12px"
-      style={{ padding: "24px 20px", borderBottom: "1px solid #F5F5F5" }}
+      style={{ padding: "30px 20px", borderBottom: "1px solid #F5F5F5" }}
     >
       <Flex align="center" gap="8px" style={{ position: "relative" }}>
         {type === "talk" ? <AlarmTalkSVG /> : <AlarmComplaintsSVG />}

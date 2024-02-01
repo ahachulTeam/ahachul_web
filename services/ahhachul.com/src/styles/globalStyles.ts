@@ -155,4 +155,8 @@ export default css`
     color: inherit;
     text-decoration: inherit;
   }
+  hr {
+    margin: 0;
+    height: 0;
+  }
 `;

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { Flex, Text } from "@ahhachul/react-components-layout";
+import { Divider, Flex, Text } from "@ahhachul/react-components-layout";
 
 import Header from "~/components/shared/Header";
 import Layout from "~/components/shared/Layout";
@@ -16,7 +16,7 @@ export default function MePage() {
   const router = useRouter();
 
   return (
-    <Layout>
+    <Layout background="var(--gray-100)">
       <Header
         left={
           <Header.HeaderLeft
@@ -31,7 +31,7 @@ export default function MePage() {
           />
         }
       />
-      <main>
+      <main style={{ background: "white" }}>
         <Flex
           align="center"
           justify="space-between"
@@ -39,6 +39,7 @@ export default function MePage() {
             width: "100%",
             height: "74px",
             padding: "0 20px",
+            boxSizing: "border-box",
           }}
         >
           <Text fontSize="md" style={{ fontWeight: 600 }}>
@@ -57,6 +58,7 @@ export default function MePage() {
             width: "100%",
             height: "76px",
             padding: "0 20px",
+            boxSizing: "border-box",
           }}
           onClick={() => router.push("/me/complaints")}
         >
@@ -73,6 +75,7 @@ export default function MePage() {
                 "linear-gradient(#fff, #fff), linear-gradient(263deg, #50BEFD 0%, #2EE477 100%)",
               backgroundOrigin: "border-box",
               backgroundClip: "content-box, border-box",
+              boxSizing: "border-box",
             }}
           >
             <Text
@@ -108,11 +111,12 @@ export default function MePage() {
             />
           </Flex>
         </Flex>
+        <Divider size={16} style={{ borderColor: "#fff" }} />
         <Flex
           direction="column"
           style={{
-            marginTop: "16px",
             width: "100%",
+            boxSizing: "border-box",
           }}
         >
           <Flex
@@ -122,6 +126,7 @@ export default function MePage() {
               height: "40px",
               padding: "0 20px",
               width: "100%",
+              boxSizing: "border-box",
             }}
           >
             <Text
@@ -152,6 +157,7 @@ export default function MePage() {
             style={{
               height: "94px",
               width: "100%",
+              boxSizing: "border-box",
             }}
             onClick={() => router.push("/me/setting/station")}
           >
@@ -171,13 +177,14 @@ export default function MePage() {
             </Text>
           </Flex>
         </Flex>
+        <Divider size={30} style={{ borderColor: "#fff" }} />
         <Flex
           align="center"
           style={{
-            marginTop: "30px",
             height: "40px",
             padding: "0 20px",
             width: "100%",
+            boxSizing: "border-box",
           }}
         >
           <Text

@@ -36,6 +36,8 @@ function MyActivityTab() {
         style={{
           height: "60px",
           padding: "0 20px",
+          boxSizing: "border-box",
+          background: "white",
         }}
       >
         {Object.entries(MY_ACTIVITY_TAB).map(([key, label]) => {

@@ -5,7 +5,7 @@ function 쪽지AlarmCard() {
     <Flex
       direction="column"
       gap="12px"
-      style={{ padding: "24px 20px", borderBottom: "1px solid #F5F5F5" }}
+      style={{ padding: "20px", borderBottom: "1px solid #F5F5F5" }}
     >
       <Flex align="center" gap="8px" style={{ position: "relative" }}>
         <Text fontSize="md" style={{ color: "#242424", fontWeight: 600 }}>

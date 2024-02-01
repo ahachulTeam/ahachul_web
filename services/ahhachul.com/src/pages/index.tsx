@@ -57,6 +57,7 @@ export default function Home() {
           label={"민원접수"}
           onClick={handleBottomButtonClick}
         />
+        <div>홈이에요</div>
       </main>
     </Layout>
   );

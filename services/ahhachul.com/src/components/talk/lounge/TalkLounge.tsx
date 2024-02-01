@@ -5,7 +5,7 @@ import FancyCard from "~/components/talk/lounge/FancyCard";
 
 export default function TalkLounge() {
   return (
-    <main>
+    <main style={{ background: "white" }}>
       <Tab />
       <FancyCard />
       <FilterList />
