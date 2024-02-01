@@ -42,6 +42,7 @@ const ToggleList = styled(Tabs.List)`
   flex-shrink: 0;
   display: flex;
   background-color: #f6f7f9;
+  border-radius: 6px;
 
   &::before {
     content: "";

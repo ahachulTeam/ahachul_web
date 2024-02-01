@@ -45,7 +45,16 @@ function TalkLoungeCard(props: { imgSrc: string }) {
             <Text fontSize="sm" as="p" style={{ fontWeight: 600 }}>
               초록생 지갑을 발견
             </Text>
-            <Text fontSize="sm" style={{ color: "#393A3E" }}>
+            <Text
+              fontSize="sm"
+              style={{
+                color: "#393A3E",
+                overflow: "hidden",
+                display: "-webkit-box",
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: "vertical",
+              }}
+            >
               {
                 "개발자 취준은 대학을 안 가는 것이 더 낫다고 생각해요\n개발자 취준은 대학을 안 가는 것이 더 낫다고 생각해요"
               }
