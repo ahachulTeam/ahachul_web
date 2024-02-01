@@ -155,7 +155,8 @@ export default css`
     color: inherit;
     text-decoration: inherit;
   }
-  div {
-    box-sizing: border-box !important;
+  hr {
+    margin: 0;
+    height: 0;
   }
 `;

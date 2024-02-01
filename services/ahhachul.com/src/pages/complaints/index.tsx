@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import { css } from "@emotion/react";
 import { useRouter } from "next/router";
+import { useCallback } from "react";
 
 import Header from "~/components/shared/Header";
 import Layout from "~/components/shared/Layout";
@@ -9,7 +10,6 @@ import ComplaintOverviewList from "~/components/complaints/lounge/OverviewList";
 
 import useModal from "~/components/shared/modal/hooks/useModal";
 import { COMPLAINTS_CONTENTS_TYPES } from "~/components/complaints/types/contents";
-import { useCallback } from "react";
 
 const 열차번호여부스텝 = dynamic(
   () => import("~/components/complaints/room/열차번호여부스텝"),
@@ -32,7 +32,7 @@ export default function ComplaintsLoungePage() {
   );
 
   return (
-    <Layout footer={false}>
+    <Layout footer={false} background="rgb(36, 36, 36)">
       <Header
         left={
           <Header.HeaderLeft

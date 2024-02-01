@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 
 import { Button } from "@ahhachul/react-components-button";
@@ -7,18 +7,23 @@ import { Box, Flex, Text } from "@ahhachul/react-components-layout";
 import LoadingModal from "~/components/shared/FullPageLoading";
 import useModal from "~/components/shared/modal/hooks/useModal";
 import { defaultFadeInVariants } from "~/constants/motions";
+import { useRouter } from "next/router";
 
 function 완료스텝(props: { 신청: VoidFunction }) {
   const { 신청 } = props;
   console.log("신청:", 신청);
 
+  const router = useRouter();
   const { handleResetModal } = useModal();
 
-  const 접수내역확인페이지가기 = () => {};
+  const 돌아가기 = useCallback(() => handleResetModal(), []);
 
-  const 돌아가기 = () => {
-    handleResetModal();
-  };
+  const 접수내역확인페이지가기 = useCallback(() => {
+    돌아가기();
+    setTimeout(() => {
+      router.push("/me/complaints");
+    }, 500);
+  }, []);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -57,7 +62,7 @@ function 완료스텝(props: { 신청: VoidFunction }) {
               autoPlay
               loop
               muted
-              style={{ width: "auto", height: "184px" }}
+              style={{ width: "100%", height: "184px" }}
             >
               <source src="/videos/process-complete.mp4" />
             </video>

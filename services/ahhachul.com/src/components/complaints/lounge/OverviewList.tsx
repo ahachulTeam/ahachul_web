@@ -22,7 +22,7 @@ function ComplaintOverviewList(props: {
     <Flex
       as="main"
       style={{
-        height: "calc(100vh - 26px - 48px - 48px)",
+        height: "calc(100vh - 26px - 48px - 48px - 99px)",
         padding: "26px 20px 48px 20px",
         backgroundColor: "#242424",
       }}

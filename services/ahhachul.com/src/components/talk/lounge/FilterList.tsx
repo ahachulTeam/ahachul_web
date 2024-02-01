@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react";
 import dynamic from "next/dynamic";
-import { vars } from "@ahhachul/themes";
 import { Button } from "@ahhachul/react-components-button";
 import { Box, Flex } from "@ahhachul/react-components-layout";
 
@@ -84,8 +83,6 @@ function TalkLoungeFilterList(props: { className?: string }) {
         style={{
           height: "48px",
           padding: "0 20px",
-          borderTop: `1px solid ${vars.colors.$scale.gray[300]}`,
-          borderBottom: `1px solid ${vars.colors.$scale.gray[300]}`,
           zIndex: 1,
         }}
       >

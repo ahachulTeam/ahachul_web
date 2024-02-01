@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { css } from "@emotion/react";
 import { Flex } from "@ahhachul/react-components-layout";
 
 import Header from "~/components/shared/Header";
@@ -21,13 +20,7 @@ export default function MeLostAndFoundPage() {
         centerTitle="유실물 내역"
       />
       <main>
-        <FilterList
-          css={css`
-            & > ul:first-of-type {
-              border: none !important;
-            }
-          `}
-        />
+        <FilterList />
         <Flex style={{ padding: "0 20px" }}>유실물 글 내역 페이지</Flex>
       </main>
     </Layout>

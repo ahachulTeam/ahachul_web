@@ -10,7 +10,6 @@ function TalkLoungeCard(props: { imgSrc: string }) {
   const router = useRouter();
 
   const hasImage = false;
-  const slug = router.query.slug;
 
   return (
     <Box
@@ -23,7 +22,7 @@ function TalkLoungeCard(props: { imgSrc: string }) {
       }}
     >
       <Link
-        href={!slug ? `/talk/rank/1` : `/talk/1`}
+        href={!router.query.slug ? `/talk/rank/1` : `/talk/1`}
         style={{
           display: "flex",
           flexDirection: "column",

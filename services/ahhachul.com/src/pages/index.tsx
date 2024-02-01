@@ -1,19 +1,25 @@
 import dynamic from "next/dynamic";
 import { useCallback } from "react";
 import { useRouter } from "next/router";
+import { Flex } from "@ahhachul/react-components-layout";
 
 import Header from "~/components/shared/Header";
 import Layout from "~/components/shared/Layout";
-import FixedBottomButton from "~/components/shared/FixedBottomButton";
 import ResetButton from "~/components/shared/ResetButton";
+import FixedBottomButton from "~/components/shared/FixedBottomButton";
 
-import { useToast } from "~/components/shared/toast/hooks/useToast";
-import { useAlertContext } from "~/contexts/AlertContext";
 import useModal from "~/components/shared/modal/hooks/useModal";
-import { SearchSVG } from "~/assets/icons";
+import { useAlertContext } from "~/contexts/AlertContext";
+import { useToast } from "~/components/shared/toast/hooks/useToast";
+import { BellSVG, SearchSVG } from "~/assets/icons";
 
 const SearchModal = dynamic(
   () => import("~/components/shared/modal/contents/search/SearchModal"),
+  { ssr: false },
+);
+
+const AlarmModal = dynamic(
+  () => import("~/components/shared/modal/contents/alarm/AlarmModal"),
   { ssr: false },
 );
 
@@ -51,6 +57,7 @@ export default function Home() {
           label={"민원접수"}
           onClick={handleBottomButtonClick}
         />
+        <div>홈이에요</div>
       </main>
     </Layout>
   );
@@ -63,7 +70,14 @@ const HeaderRightComponent = () => {
     handleModalOpen(<SearchModal />)();
   };
 
+  const openAlarmModal = () => {
+    handleModalOpen(<AlarmModal />)();
+  };
+
   return (
-    <ResetButton ItemComponent={<SearchSVG />} onClick={openSearchModal} />
+    <Flex align="center" gap="15px">
+      <ResetButton ItemComponent={<SearchSVG />} onClick={openSearchModal} />
+      <ResetButton ItemComponent={<BellSVG />} onClick={openAlarmModal} />
+    </Flex>
   );
 };

@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 
 import Header from "~/components/shared/Header";
@@ -21,13 +20,7 @@ export default function MeTalksPage() {
         centerTitle="작성 내역"
       />
       <main>
-        <FilterList
-          css={css`
-            & > ul:first-of-type {
-              border: none !important;
-            }
-          `}
-        />
+        <FilterList />
         <TalkLoungeList />
       </main>
     </Layout>

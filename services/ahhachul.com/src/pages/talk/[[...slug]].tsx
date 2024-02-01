@@ -1,6 +1,8 @@
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
+import { css } from "@emotion/react";
+
 import { Flex } from "@ahhachul/react-components-layout";
 
 import Header from "~/components/shared/Header";
@@ -22,6 +24,7 @@ const SearchModal = dynamic(
   () => import("~/components/shared/modal/contents/search/SearchModal"),
   { ssr: false },
 );
+
 const SavedModal = dynamic(
   () => import("~/components/shared/modal/contents/Saved"),
   { ssr: false },
@@ -53,7 +56,7 @@ export default function TalkPage(props: TalkPageProps) {
   const RenderComponent = isRoomService ? <TalkRoom /> : <TalkLounge />;
 
   return (
-    <Layout>
+    <Layout background="var(--gray-100)">
       <Header
         left={
           <Header.HeaderLeft
@@ -64,6 +67,9 @@ export default function TalkPage(props: TalkPageProps) {
         right={
           <HeaderRightComponent type={isRoomService ? "room" : "lounge"} />
         }
+        css={css`
+          background-color: #fff;
+        `}
       />
       {RenderComponent}
     </Layout>

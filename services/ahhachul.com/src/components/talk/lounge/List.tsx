@@ -14,7 +14,7 @@ import DUMMY_IMG_3 from "public/dummy-img-3.png";
 
 import DUMMY_IMG_4 from "public/dummy-img-4.png";
 
-function TalkLounge() {
+function TalkList() {
   // const { data } = useTalkLounge();
   // console.log("data :", data);
 
@@ -41,7 +41,7 @@ function TalkLounge() {
 function WrapErrorBoundary() {
   return (
     <ErrorBoundary>
-      <TalkLounge />
+      <TalkList />
     </ErrorBoundary>
   );
 }
