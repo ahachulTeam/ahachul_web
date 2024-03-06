@@ -34,7 +34,6 @@ const ToastItem = ({ type, id, content }: ToastItemProps) => {
   return (
     <S.ToastItem isClosing={isClosing}>
       <S.Item data-type={type}>
-        {/* {type === "success" ? <SuccessIcon /> : <WarningIcon />} */}
         <p>{content}</p>
       </S.Item>
     </S.ToastItem>
