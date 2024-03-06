@@ -2,50 +2,33 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    node: true,
   },
-  root: true,
-  parser: "@typescript-eslint/parser",
-  parserOptions: {
-    project: "./tsconfig.eslint.json",
-    tsconfigRootDir: __dirname,
+  settings: {
+    react: {
+      version: 'detect',
+    },
   },
   extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:storybook/recommended",
-    "prettier",
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
   ],
-  plugins: ["react", "@typescript-eslint", "react-hooks", "jsx-a11y"],
-  rules: {
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
-    "react/react-in-jsx-scope": "off",
-    "comma-dangle": "off",
-    "react/display-name": "off",
-    "no-empty-function": "off",
-    "@typescript-eslint/no-empty-function": ["off"],
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      {
-        argsIgnorePattern: "^_",
-      },
-    ],
-    "storybook/prefer-pascal-case": "off",
-    "react/no-unknown-property": ["error", { ignore: ["css"] }],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 'latest',
+    sourceType: 'module',
   },
-  overrides: [
-    {
-      files: ["*.ts", "*.tsx"],
-      rules: {
-        "no-undef": "off",
-      },
-    },
-  ],
-  ignorePatterns: ["**/dist/**/*", ".eslintrc.js"],
-  settings: {
-    "import/resolver": {
-      typescript: {},
-    },
+  plugins: ['react', '@typescript-eslint', 'unused-imports', 'prettier'],
+  rules: {
+    'no-undef': 'off',
+    'react/no-unknown-property': 0,
+    '@typescript-eslint/no-var-requires': 'off',
+    'no-unused-vars': 'off',
+    'unused-imports/no-unused-imports': 'error',
+    semi: ['error', 'always'],
   },
 };
