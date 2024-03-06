@@ -30,7 +30,7 @@ const BottomNavbar = styled.nav`
   padding-bottom: 34px;
   border-top: 1px solid #dde1e5;
   background-color: ${vars.colors.$static.dark.color.white};
-  z-index: ${vars.zIndex.zIndexes.toast + 1};
+  z-index: ${vars.zIndex.zIndexes.nav};
   border-radius: 28px 28px 0 0;
   overflow: hidden;
 `;
