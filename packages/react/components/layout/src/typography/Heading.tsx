@@ -1,14 +1,14 @@
-import { vars } from "@ahhachul/themes";
-import * as React from "react";
-import { forwardRef, Ref } from "react";
-import { headingStyle } from "./style.css";
-import { HeadingProps } from "./types";
-import { clsx } from "clsx";
-import { BaseStyle, StyleSprinkles } from "../core/style.css";
-import { extractSprinkleProps } from "../utils/properties";
+import { vars } from '@ahhachul/themes';
+import * as React from 'react';
+import { forwardRef, Ref } from 'react';
+import { headingStyle } from './style.css';
+import { HeadingProps } from './types';
+import { clsx } from 'clsx';
+import { BaseStyle, StyleSprinkles } from '../core/style.css';
+import { extractSprinkleProps } from '../utils/properties';
 
 const Heading = (props: HeadingProps, ref: Ref<HTMLElement>) => {
-  const { as = "h1", fontSize, background, color = "gray", children } = props;
+  const { as = 'h1', fontSize, background, color = 'gray', children } = props;
 
   return React.createElement(
     as,
@@ -17,9 +17,7 @@ const Heading = (props: HeadingProps, ref: Ref<HTMLElement>) => {
       ref,
       className: clsx([
         BaseStyle,
-        StyleSprinkles(
-          extractSprinkleProps(props, Array.from(StyleSprinkles.properties)),
-        ),
+        StyleSprinkles(extractSprinkleProps(props, Array.from(StyleSprinkles.properties))),
         headingStyle({
           fontSize,
         }),

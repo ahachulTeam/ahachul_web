@@ -29,6 +29,7 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'off',
     'no-unused-vars': 'off',
     'unused-imports/no-unused-imports': 'error',
+    'react/prop-types':'off',
     semi: ['error', 'always'],
   },
 };

@@ -5,7 +5,7 @@ import { historySyncPlugin } from '@stackflow/plugin-history-sync';
 import { basicRendererPlugin } from '@stackflow/plugin-renderer-basic';
 
 import { Complaints, Home, Lost, Community } from 'pages';
-import { HomeComponent, SharedComponent } from 'components';
+import { ComplaintsComponent, HomeComponent, SharedComponent } from 'components';
 import { PATH } from 'data';
 
 export const { Stack, activities, useFlow } = stackflow({
@@ -19,6 +19,7 @@ export const { Stack, activities, useFlow } = stackflow({
     PurchaseTicket: HomeComponent.PurchaseTicket,
     RegisterCenter: HomeComponent.RegisterCenter,
     Complaints,
+    AskTrainNumber: ComplaintsComponent.AskTrainNumber,
     Lost,
     Community,
   },
@@ -41,6 +42,7 @@ export const { Stack, activities, useFlow } = stackflow({
         MyProfile: PATH.me,
         RegisterCenter: PATH.registerCenter,
         Complaints: PATH.complaints,
+        AskTrainNumber: PATH.askTrainNumber,
         Lost: PATH.lost,
         Community: PATH.community,
       },
