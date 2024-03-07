@@ -27,7 +27,6 @@
     "@ahhachul/react-components-button": "workspace:^",
     "@ahhachul/react-components-input": "workspace:^",
     "@ahhachul/react-components-layout": "workspace:^",
-    "@ahhachul/react-components-utility": "workspace:^",
     "@ahhachul/react-hooks-button": "workspace:^",
     "@ahhachul/react-hooks-input": "workspace:^",
     "@ahhachul/react-hooks-utility": "workspace:^",

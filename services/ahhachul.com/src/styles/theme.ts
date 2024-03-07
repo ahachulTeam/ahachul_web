@@ -1,10 +1,70 @@
 import { CSSObject } from '@emotion/react';
+import { vars } from '@ahhachul/themes';
 
 const layout: CSSObject = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   margin: '0 auto',
+};
+
+const color = {
+  static: {
+    light: Object.entries(vars.colors.$static.light).reduce(
+      (acc, [key, value]) => {
+        const color = Object.entries(value).reduce((acc, [key, value]) => {
+          return {
+            ...acc,
+            [key]: { color: value },
+          };
+        }, {});
+
+        return {
+          ...acc,
+          [key]: color,
+        };
+      },
+      {} as {
+        [key in keyof (typeof vars)['colors']['$static']['light']]: string;
+      },
+    ),
+    dark: Object.entries(vars.colors.$static.dark).reduce(
+      (acc, [key, value]) => {
+        const color = Object.entries(value).reduce((acc, [key, value]) => {
+          return {
+            ...acc,
+            [key]: { color: value },
+          };
+        }, {});
+
+        return {
+          ...acc,
+          [key]: color,
+        };
+      },
+      {} as {
+        [key in keyof (typeof vars)['colors']['$static']['dark']]: string;
+      },
+    ),
+  },
+  scale: Object.entries(vars.colors.$scale).reduce(
+    (acc, [key, value]) => {
+      const color = Object.entries(value).reduce((acc, [key, value]) => {
+        return {
+          ...acc,
+          [key]: { color: value },
+        };
+      }, {});
+
+      return {
+        ...acc,
+        [key]: color,
+      };
+    },
+    {} as {
+      [key in keyof (typeof vars)['colors']['$scale']]: string;
+    },
+  ),
 };
 
 const theme = {
@@ -67,6 +127,7 @@ const theme = {
       gray_f6f7fa: '#F6F7FA',
       gray_f0f0f0: '#F0F0F0',
     },
+    color2: color,
     background: {
       toast: 'rgba(32, 36, 43, 0.96)',
     },

@@ -13,22 +13,22 @@ const BOTTOM_NAVBAR_LIST = [
   {
     href: 'Reservation',
     Icon: Reservation,
-    label: '예약',
+    label: '커뮤니티',
   },
   {
     href: 'BPay',
     Icon: BPay,
-    label: '비페이',
+    label: '유실물',
   },
   {
     href: 'Community',
     Icon: Community,
-    label: '커뮤니티',
+    label: '민원',
   },
   {
     href: 'Schedule',
     Icon: Schedule,
-    label: '스케줄',
+    label: '마이',
   },
 ] as const;
 
