@@ -185,4 +185,11 @@ const bpay = [
   }),
 ];
 
-export { wrap, title, card_wrap, info_wrap, payment_info, resson_info, bpay };
+const paymentIcon = {
+  '& > svg': {
+    width: '24px',
+    height: '24px',
+  },
+};
+
+export { wrap, title, card_wrap, info_wrap, payment_info, resson_info, bpay, paymentIcon };

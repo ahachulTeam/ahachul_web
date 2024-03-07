@@ -42,7 +42,7 @@ const MyTicket = () => {
       <div css={tickets_wrap}>
         <div css={info_wrap}>
           <IconGoto />
-          <span>아하철 피트니스</span>
+          <span>아하철 고투 피트니스</span>
           <p>이용중</p>
         </div>
         <div css={card_wrap}>

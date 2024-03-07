@@ -4,8 +4,8 @@ import { useFlow } from 'stackflow';
 import { theme } from 'styles';
 import IconRequestPayment from 'static/icons/system/IconRequestPayment';
 import { Divider } from 'components/ui';
-import { wrap, title, card_wrap, info_wrap, payment_info, resson_info, bpay } from './style';
-import IconBpay from 'static/icons/system/IconBPay';
+import { wrap, title, card_wrap, info_wrap, payment_info, resson_info, bpay, paymentIcon } from './style';
+import IconPayment from 'static/icons/system/IconPayment';
 import mockProfile from 'static/img/mocks/photo.png';
 
 const RequestPayment = () => {
@@ -37,7 +37,7 @@ const RequestPayment = () => {
         </div>
 
         <button css={bpay} onClick={onClickToRegister}>
-          <IconBpay />
+          <IconPayment css={paymentIcon} />
           <span>아하철에서 바로 결제</span>
         </button>
       </div>
