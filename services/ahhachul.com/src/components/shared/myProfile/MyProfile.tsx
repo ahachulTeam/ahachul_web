@@ -7,7 +7,7 @@ const MyProfile: ActivityComponentType = () => {
   return (
     <Layout
       appBar={{
-        title: '마이 바디코디',
+        title: '마이 프로필',
       }}
       activeTab={false}
     >

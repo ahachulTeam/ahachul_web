@@ -11,7 +11,7 @@ import mockProfile from 'static/img/mocks/photo.png';
 const RequestPayment = () => {
   const { replace } = useFlow();
 
-  const onClickToRegister = () => replace('BPay', {}, { animate: false });
+  const onClickToRegister = () => replace('Lost', {}, { animate: false });
 
   return (
     <div css={wrap}>
@@ -38,7 +38,7 @@ const RequestPayment = () => {
 
         <button css={bpay} onClick={onClickToRegister}>
           <IconBpay />
-          <span>비페이로 바로 결제</span>
+          <span>아하철에서 바로 결제</span>
         </button>
       </div>
     </div>

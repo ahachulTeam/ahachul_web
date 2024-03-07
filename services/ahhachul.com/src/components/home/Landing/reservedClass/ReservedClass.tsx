@@ -7,7 +7,7 @@ import { wrap, headSection, title, ul, card_wrap, info_wrap, times, lesson_name,
 const ReservedClass = () => {
   const { replace } = useFlow();
 
-  const onClickToReservation = () => replace('Reservation', {}, { animate: false });
+  const onClickToReservation = () => replace('Complaints', {}, { animate: false });
 
   return (
     <div css={[wrap, { cursor: 'pointer' }]}>
@@ -37,7 +37,7 @@ const ReservedClass = () => {
             <div css={package_info}>
               <span>그룹</span>
               <span>·</span>
-              <span>바디코디 교대점</span>
+              <span>아하철 교대점</span>
             </div>
           </div>
           <button css={btn}>예약취소</button>
@@ -58,7 +58,7 @@ const ReservedClass = () => {
             <div css={package_info}>
               <span>그룹</span>
               <span>·</span>
-              <span>바디코디 교대점</span>
+              <span>아하철 교대점</span>
             </div>
           </div>
           <button css={btn}>예약취소</button>
@@ -79,7 +79,7 @@ const ReservedClass = () => {
             <div css={package_info}>
               <span>그룹</span>
               <span>·</span>
-              <span>바디코디 교대점</span>
+              <span>아하철 교대점</span>
             </div>
           </div>
           <button css={btn}>예약취소</button>

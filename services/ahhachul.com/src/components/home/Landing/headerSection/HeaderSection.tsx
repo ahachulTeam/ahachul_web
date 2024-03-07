@@ -34,7 +34,7 @@ const HeaderSection = () => {
         }}
       >
         <div css={bannerTextGroup}>
-          <p>바디필라테스</p>
+          <p>아하철 블랙 필라테스</p>
           <p>블랙라벨 블랙블랙 레깅스 1+1 반값특가!</p>
         </div>
         <IconBack css={bannerIcon} />
