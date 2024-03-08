@@ -8,6 +8,7 @@ const useDidMount = (callback: EffectCallback) => {
     didMountRef.current = true;
 
     callback();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
 

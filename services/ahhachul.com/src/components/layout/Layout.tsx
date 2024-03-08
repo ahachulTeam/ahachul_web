@@ -18,6 +18,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ isDarkMode = false, activeTab = 'Home', appBar, children }) => {
   const { replace, defaultAppBar } = withDefaultAppBar();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const navigate = React.useCallback((tab: KeyOf<TypeActivities>) => replace(tab, {}, { animate: false }), []);
 
   const topEl = React.useRef<Nullable<HTMLDivElement>>(null);
