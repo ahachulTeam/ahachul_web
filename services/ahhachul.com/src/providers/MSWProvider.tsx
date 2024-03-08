@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import { initMocking } from '../mocks';
 import { isMocking } from '../mocks/constants';
 
-export const MSWProvider = ({ children }: { children: React.ReactNode }) => {
+const MSWProvider = ({ children }: PropsWithChildren) => {
   const [isReady, setIsReady] = useState(!isMocking());
 
   useEffect(() => {
@@ -19,3 +19,5 @@ export const MSWProvider = ({ children }: { children: React.ReactNode }) => {
 
   return children;
 };
+
+export default MSWProvider;

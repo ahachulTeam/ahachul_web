@@ -12,7 +12,7 @@ type AskTrainNumberProps = {
 
 const AskTrainNumber: ActivityComponentType<AskTrainNumberProps> = ({ params }) => {
   return (
-    <Layout appBar={{ title: params.slug }} isDarkMode>
+    <Layout activeTab={false} appBar={{ title: params.slug }} isDarkMode>
       <Box css={{ padding: '20px' }}>
         <Flex direction="column" gap="6px" css={{ marginBottom: '50px' }}>
           <Text fontSize="lg" css={{ color: '#ffffff !important' }}>
