@@ -2,33 +2,49 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    node: true,
   },
-  settings: {
-    react: {
-      version: 'detect',
-    },
-  },
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-  ],
+  root: true,
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 'latest',
-    sourceType: 'module',
+    project: './tsconfig.eslint.json',
+    tsconfigRootDir: __dirname,
   },
-  plugins: ['react', '@typescript-eslint', 'unused-imports', 'prettier'],
+  extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:storybook/recommended', 'prettier'],
+  plugins: ['react', '@typescript-eslint', 'react-hooks', 'jsx-a11y'],
   rules: {
-    'no-undef': 'off',
-    'react/no-unknown-property': 0,
-    '@typescript-eslint/no-var-requires': 'off',
-    'no-unused-vars': 'off',
-    'unused-imports/no-unused-imports': 'error',
-    semi: ['error', 'always'],
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+    'react/react-in-jsx-scope': 'off',
+    'comma-dangle': 'off',
+    'react/display-name': 'off',
+    'no-empty-function': 'off',
+    '@typescript-eslint/no-empty-function': ['off'],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      {
+        argsIgnorePattern: '^_',
+      },
+    ],
+    'storybook/prefer-pascal-case': 'off',
+  },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        'no-undef': 'off',
+        'react/no-unknown-property': 0,
+        '@typescript-eslint/no-var-requires': 'off',
+        'no-unused-vars': 'off',
+        'react/prop-types': 'off',
+        semi: ['error', 'always'],
+      },
+    },
+  ],
+  ignorePatterns: ['**/dist/**/*', '.eslintrc.js'],
+  settings: {
+    'import/resolver': {
+      typescript: {},
+    },
   },
 };

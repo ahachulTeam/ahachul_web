@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   useQuery,
   QueryKey,
@@ -7,11 +8,11 @@ import {
   MutationFunction,
   UseMutationOptions,
 } from '@tanstack/react-query';
-import { useAppSelector } from 'stores';
-import { base } from 'api';
 import { AxiosError } from 'axios';
+
+import { base } from 'api';
 import { AuthQuery } from 'queries';
-import { useEffect } from 'react';
+import { useAppSelector } from 'stores';
 
 function useAuthQuery<
   TQueryFnData = unknown,

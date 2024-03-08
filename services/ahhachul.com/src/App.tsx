@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Stack } from 'stackflow';
+import { Stack } from './stackflow';
 
 function App() {
   return (

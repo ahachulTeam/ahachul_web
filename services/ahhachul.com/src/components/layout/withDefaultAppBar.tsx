@@ -1,12 +1,13 @@
 import React from 'react';
-import { useFlow } from 'stackflow';
 
+import { useFlow } from 'stackflow';
 import IconBellActive from 'static/icons/system/IconBellActive';
 import IconLogo from 'static/icons/system/IconLogo';
 import mockProfile from 'static/img/mocks/mock3.png';
 import { left, right } from './style';
 
 const withDefaultAppBar = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { push, replace } = useFlow();
 
   const appBarLeft = () => (

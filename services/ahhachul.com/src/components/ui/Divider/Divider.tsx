@@ -11,7 +11,7 @@ import { borderStyle } from './style';
 
 export interface DividerProps extends React.HTMLAttributes<HTMLHRElement> {
   orientation?: DividerOrientationType;
-  variant?: React.CSSProperties['borderColor'];
+  variant?: React.CSSProperties['borderStyle'];
   thickness?: DividerThicknessType;
   color?: ColorValueType;
   size?: SizeWithPxType | SizeWithPercentType;

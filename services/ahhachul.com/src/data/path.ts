@@ -2,6 +2,7 @@ const PATH = {
   home: '/',
   lost: '/lost',
   complaints: '/complaints',
+  askTrainNumber: '/complaints/askTrainNumber',
   community: '/community',
   myProfile: '/myProfile',
   me: '/me',

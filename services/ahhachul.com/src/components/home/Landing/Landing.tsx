@@ -1,16 +1,16 @@
 import React, { useReducer } from 'react';
-import { useCheckSignin } from 'hooks';
-import { UiComponent } from 'components';
+
+import useDidMount from 'hooks/useDidMount';
+
 import { HeaderSection } from './headerSection';
 import { RequestPayment } from './requestPayment';
 import { RecommendTicket } from './recommendTicket';
 import { ReservedClass } from './reservedClass';
 import { MyTicket } from './myTicket';
 import { BeginningBottomSheet } from './bottomSheet';
-import useDidMount from 'hooks/useDidMount';
 
 const Landing = () => {
-  const { isLoading } = useCheckSignin();
+  // const { isLoading } = useCheckSignin();
   const [show, toggle] = useReducer((c) => !c, false);
 
   useDidMount(() => {
@@ -30,7 +30,7 @@ const Landing = () => {
         <ReservedClass />
         <MyTicket />
       </main>
-      {isLoading && <UiComponent.Loading isWhite opacity={1} />}
+      {/* {isLoading && <UiComponent.Loading isWhite opacity={1} />} */}
       <BeginningBottomSheet isShowing={show} onClose={toggle} />
     </>
   );

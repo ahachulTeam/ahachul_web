@@ -6,9 +6,7 @@
   "eslint.nodePath": ".yarn/sdks",
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "cSpell.words": [
-    "ahhachul"
-  ],
+  "cSpell.words": ["ahhachul", "ahachul"],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
@@ -17,5 +15,6 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "git.openRepositoryInParentFolders": "never",
-  "git.autofetch": true
+  "git.autofetch": true,
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.cjs"
 }

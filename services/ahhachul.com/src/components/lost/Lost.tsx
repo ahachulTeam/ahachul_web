@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { UiComponent } from 'components';
-import { title } from './style';
 import { useCheckSignin } from 'hooks';
+import { title } from './style';
 
 const Lost = () => {
   const { isLoading } = useCheckSignin();
