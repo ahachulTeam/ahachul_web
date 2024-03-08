@@ -1,6 +1,6 @@
 import React from 'react';
-import { useFlow } from 'stackflow';
 
+import { useFlow } from 'stackflow';
 import IconReservedClass from 'static/icons/system/IconReservedClass';
 import { wrap, headSection, title, ul, card_wrap, info_wrap, times, lesson_name, package_info, btn } from './style';
 

@@ -1,5 +1,5 @@
-import { base } from 'api';
 import { IRefreshTokenParams } from 'types';
+import { base } from '..';
 
 const PATH = '/auth';
 

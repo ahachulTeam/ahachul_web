@@ -1,10 +1,10 @@
 import React from 'react';
+import { ActivityComponentType } from '@stackflow/react';
 import { Box, Flex, Text } from '@ahhachul/react-components-layout';
 
 import { COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
 import { Layout } from 'components/layout';
 import { tooltip } from './style';
-import { ActivityComponentType } from '@stackflow/react';
 
 type AskTrainNumberProps = {
   slug: COMPLAINTS_CONTENTS_TYPES;

@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { KeyOf } from 'types/utility-types';
 import SelectButtonImage from 'components/complaints/room/SelectButtonImage';
 
 import 오물 from 'static/img/complaints/오물.png';
@@ -15,7 +17,6 @@ import 종교행위 from 'static/img/complaints/종교행위.png';
 import 노숙 from 'static/img/complaints/노숙.png';
 import 행선 from 'static/img/complaints/행선.png';
 import 임산부 from 'static/img/complaints/임산부.png';
-import { KeyOf } from 'types/utility-types';
 
 export const COMPLAINTS_CONTENTS = {
   환경민원: {

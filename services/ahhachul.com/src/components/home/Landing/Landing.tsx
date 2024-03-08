@@ -1,11 +1,13 @@
 import React, { useReducer } from 'react';
+
+import useDidMount from 'hooks/useDidMount';
+
 import { HeaderSection } from './headerSection';
 import { RequestPayment } from './requestPayment';
 import { RecommendTicket } from './recommendTicket';
 import { ReservedClass } from './reservedClass';
 import { MyTicket } from './myTicket';
 import { BeginningBottomSheet } from './bottomSheet';
-import useDidMount from 'hooks/useDidMount';
 
 const Landing = () => {
   // const { isLoading } = useCheckSignin();

@@ -1,7 +1,8 @@
 import React from 'react';
+import { ActivityComponentType } from '@stackflow/react';
+
 import { Layout } from 'components/layout';
 import { title } from './style';
-import { ActivityComponentType } from '@stackflow/react';
 
 const MyTicket: ActivityComponentType = () => {
   return (

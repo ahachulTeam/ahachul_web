@@ -1,4 +1,4 @@
-import { useTimeout } from 'hooks';
+import { useTimeout } from '.';
 import { useState } from 'react';
 
 function useCheckSignin() {

@@ -1,8 +1,8 @@
 import React from 'react';
-import { useFlow } from 'stackflow';
 import loadable from '@loadable/component';
 import { Box, Grid, Text } from '@ahhachul/react-components-layout';
 
+import { useFlow } from 'stackflow';
 import { ComplaintsComponent } from 'components';
 import { COMPLAINTS_CONTENTS, COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
 import { grid, wrap, sectionLabel } from './style';

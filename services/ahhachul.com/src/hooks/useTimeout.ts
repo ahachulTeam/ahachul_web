@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useIsomorphicLayoutEffect } from 'hooks';
+import { useIsomorphicLayoutEffect } from '.';
 
 const useTimeout = (fn: () => void, ms: number) => {
   const fnRef = useRef(fn);
