@@ -27,6 +27,7 @@ module.exports = {
       },
     ],
     'storybook/prefer-pascal-case': 'off',
+    'react-hooks/exhaustive-deps': 'off',
   },
   overrides: [
     {
