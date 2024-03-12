@@ -3,19 +3,22 @@ import { Flex, Grid, Text } from '@ahhachul/react-components-layout';
 
 import ServiceBase from './ServiceBase';
 import { COMPLAINTS_CONTENTS_TYPES, COMPLAINTS_ROOM_SERVICE_INFO } from 'data/complaints';
+import { ActivityComponentType } from '@stackflow/react';
 
-function 환경민원(props: { page: COMPLAINTS_CONTENTS_TYPES }) {
-  const { page } = props;
+type AskTrainNumberProps = {
+  slug: COMPLAINTS_CONTENTS_TYPES;
+};
 
+const 환경민원: ActivityComponentType<AskTrainNumberProps> = ({ params }) => {
   const [isActiveSelected, setIsActiveSelected] = useState<string>();
 
   const handleSelect = (s: string) => () => setIsActiveSelected(s);
 
   return (
-    <ServiceBase page={page}>
+    <ServiceBase page={params.slug}>
       <Flex align="center" style={{ width: '100%' }}>
         <Grid templateColumns="repeat(3, 1fr)" gap="6px" style={{ width: '100%' }}>
-          {Object.entries(COMPLAINTS_ROOM_SERVICE_INFO[page].selectList).map(([key]) => {
+          {Object.entries(COMPLAINTS_ROOM_SERVICE_INFO[params.slug].selectList).map(([key]) => {
             return (
               <Flex
                 key={key}
@@ -40,7 +43,7 @@ function 환경민원(props: { page: COMPLAINTS_CONTENTS_TYPES }) {
                   }}
                   onClick={handleSelect(key)}
                 >
-                  {COMPLAINTS_ROOM_SERVICE_INFO[page]?.iconList?.[key]}
+                  {COMPLAINTS_ROOM_SERVICE_INFO[params.slug]?.iconList?.[key]}
                 </Flex>
                 <Text fontSize="md" style={{ fontWeight: 600 }}>
                   {key}
@@ -52,6 +55,6 @@ function 환경민원(props: { page: COMPLAINTS_CONTENTS_TYPES }) {
       </Flex>
     </ServiceBase>
   );
-}
+};
 
 export default 환경민원;

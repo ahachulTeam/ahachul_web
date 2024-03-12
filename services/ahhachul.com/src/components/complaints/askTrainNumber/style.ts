@@ -1,19 +1,18 @@
 import { CSSObject } from '@emotion/react';
 import { f } from 'styles';
 
-const buttonWrapper: [CSSObject[], CSSObject] = [
+const buttonWrapper: [CSSObject, CSSObject[], CSSObject] = [
+  f.fullWidth,
   f.flexColumn,
   {
-    alignItems: 'center',
     justifyContent: 'center',
-    gap: '32px',
+    gap: '16px',
     position: 'fixed',
     left: 0,
     right: 0,
     bottom: 0,
     borderRadius: '8px',
-    padding: 0,
-    margin: '0 20px 58px 84px',
+    padding: '20px 24px',
   },
 ];
 

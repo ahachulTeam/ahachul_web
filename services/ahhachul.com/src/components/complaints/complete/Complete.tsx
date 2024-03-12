@@ -3,15 +3,25 @@ import styled from '@emotion/styled';
 
 import { Button } from '@ahhachul/react-components-button';
 import { Box, Flex, Text } from '@ahhachul/react-components-layout';
+import { useFlow } from 'stackflow';
+import { Layout } from 'components/layout';
+import { ActivityComponentType } from '@stackflow/react';
+import { COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
+import completeVideo from 'static/videos/process-complete.mp4';
 
-function 완료스텝(props: { 신청: VoidFunction }) {
-  const { 신청 } = props;
-  console.log('신청:', 신청);
+type ComplaintsCompleteProps = {
+  slug: COMPLAINTS_CONTENTS_TYPES;
+};
 
-  const 돌아가기 = useCallback(() => {}, []);
+const ComplaintsComplete: ActivityComponentType<ComplaintsCompleteProps> = ({ params }) => {
+  console.log('params:', params);
+  const 돌아가기 = useCallback(() => {
+    pop(3);
+  }, []);
 
+  const { pop } = useFlow();
   const 접수내역확인페이지가기 = useCallback(() => {
-    돌아가기();
+    pop(3);
   }, []);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -23,7 +33,7 @@ function 완료스텝(props: { 신청: VoidFunction }) {
   }, []);
 
   return (
-    <>
+    <Layout activeTab={false} appBar={{ title: '' }} isDarkMode>
       {/* <LoadingModal show={isLoading} variants={defaultFadeInVariants} /> */}
       <Box
         style={{
@@ -48,7 +58,7 @@ function 완료스텝(props: { 신청: VoidFunction }) {
             }}
           >
             <video autoPlay loop muted style={{ width: '100%', height: '184px' }}>
-              <source src="/videos/process-complete.mp4" />
+              <source src={completeVideo} />
             </video>
             <Text fontSize="2xl" style={{ color: '#fff', fontWeight: 600, width: '100%' }}>
               민원이 접수되었어요!
@@ -91,9 +101,9 @@ function 완료스텝(props: { 신청: VoidFunction }) {
           </Button>
         </ButtonGroup>
       </Box>
-    </>
+    </Layout>
   );
-}
+};
 
 const ButtonGroup = styled(Flex)`
   position: fixed;
@@ -105,4 +115,4 @@ const ButtonGroup = styled(Flex)`
   margin: 0 20px 50px 20px;
 `;
 
-export default 완료스텝;
+export default ComplaintsComplete;

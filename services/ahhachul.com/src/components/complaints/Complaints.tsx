@@ -7,7 +7,7 @@ import { ComplaintsComponent } from 'components';
 import { COMPLAINTS_CONTENTS, COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
 import { grid, wrap, sectionLabel } from './style';
 
-const getRoomService = (serviceName: string) => {
+const Room = (serviceName: string) => {
   return loadable(() => import(`./room/services/${serviceName}`), {
     cacheKey: () => serviceName,
   });
@@ -15,7 +15,7 @@ const getRoomService = (serviceName: string) => {
 
 const Complaints = () => {
   const { push } = useFlow();
-  const handleClickCard = (slug: string) => {
+  const next = (slug: string) => {
     push('AskTrainNumber', { slug: slug as COMPLAINTS_CONTENTS_TYPES });
   };
 
@@ -29,7 +29,7 @@ const Complaints = () => {
           {Object.entries(COMPLAINTS_CONTENTS)
             .slice(0, 4)
             .map(([key, value]) => (
-              <article key={key} onMouseOver={() => getRoomService(key).preload()} onClick={() => handleClickCard(key)}>
+              <article key={key} onMouseOver={() => Room(key).preload()} onClick={() => next(key)}>
                 <ComplaintsComponent.ComplaintCard title={value.label} description={value.description} />
               </article>
             ))}
@@ -43,7 +43,7 @@ const Complaints = () => {
           {Object.entries(COMPLAINTS_CONTENTS)
             .slice(4, 7)
             .map(([key, value]) => (
-              <article key={key} onMouseOver={() => getRoomService(key).preload()} onClick={() => handleClickCard(key)}>
+              <article key={key} onMouseOver={() => Room(key).preload()} onClick={() => next(key)}>
                 <ComplaintsComponent.ComplaintCard title={value.label} description={value.description} />
               </article>
             ))}

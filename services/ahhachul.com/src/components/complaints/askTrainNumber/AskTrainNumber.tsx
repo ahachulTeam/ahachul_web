@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import { ActivityComponentType } from '@stackflow/react';
 import { Box, Flex, Text } from '@ahhachul/react-components-layout';
+import { Button } from '@ahhachul/react-components-button';
 
 import { COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
 import { Layout } from 'components/layout';
-import { tooltip } from './style';
+import { WhereIsTrainNumberBottomSheet } from './bottomSheet';
+import { vars } from '@ahhachul/themes';
+import { tooltip, buttonWrapper } from './style';
+import { useFlow } from 'stackflow';
 
 type AskTrainNumberProps = {
   slug: COMPLAINTS_CONTENTS_TYPES;
 };
 
 const AskTrainNumber: ActivityComponentType<AskTrainNumberProps> = ({ params }) => {
+  const { push } = useFlow();
+  const [show, toggle] = useReducer((c) => !c, false);
+
+  const next = () => {
+    push('ComplaintsSubmission', { slug: params.slug });
+  };
+
   return (
     <Layout activeTab={false} appBar={{ title: params.slug }} isDarkMode>
       <Box css={{ padding: '20px' }}>
@@ -25,18 +36,17 @@ const AskTrainNumber: ActivityComponentType<AskTrainNumberProps> = ({ params }) 
       </Box>
       <div style={{ padding: '0 20px' }}>
         {/* <Input variant="filled" placeholder="열차번호" /> */}
-        <span css={tooltip} onClick={() => {}}>
+        <span css={tooltip} onClick={toggle}>
           {/* <CircleWarningSVG /> */}
-          <span style={{ color: '#ffffff' }} onClick={() => {}}>
-            열차번호는 어디에 있나요?
-          </span>
+          <span style={{ color: '#ffffff' }}>열차번호는 어디에 있나요?</span>
         </span>
       </div>
-      {/* <div css={buttonWrapper}>
+      <WhereIsTrainNumberBottomSheet isShowing={show} onClose={toggle} />
+      <div css={buttonWrapper}>
         <Button
           size="md"
           color="whiteAlpha"
-          onClick={신고유형선택으로가기}
+          onClick={next}
           style={{
             width: '100%',
             display: 'flex',
@@ -44,7 +54,7 @@ const AskTrainNumber: ActivityComponentType<AskTrainNumberProps> = ({ params }) 
             justifyContent: 'center',
             height: '48px',
             borderRadius: '8px',
-            backgroundColor: vars.colors.$static.dark.color.black,
+            backgroundColor: vars.colors.$static.dark.color.white,
           }}
         >
           다음
@@ -53,19 +63,20 @@ const AskTrainNumber: ActivityComponentType<AskTrainNumberProps> = ({ params }) 
           variant="ghost"
           size="sm"
           color="blackAlpha"
-          // onClick={openSubwayLine모달}
+          onClick={() => {}}
           style={{
             width: '100%',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            height: 'max-content',
+            height: '48px',
+            borderRadius: '8px',
             backgroundColor: vars.colors.$static.dark.color.white,
           }}
         >
           열차번호 없이 민원신고 하기
         </Button>
-      </div> */}
+      </div>
     </Layout>
   );
 };

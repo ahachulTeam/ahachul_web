@@ -1,20 +1,30 @@
 import React from 'react';
-import loadable from '@loadable/component';
+import { ActivityComponentType } from '@stackflow/react';
+import { Layout } from 'components/layout';
+// import loadable from '@loadable/component';
 import styled from '@emotion/styled';
 import { vars } from '@ahhachul/themes';
 import { Button } from '@ahhachul/react-components-button';
 import { Flex, Text } from '@ahhachul/react-components-layout';
 import { COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
+import { useFlow } from 'stackflow';
 
-const AsyncRoomService = loadable((props: { page: unknown }) => import(`./services/${props.page}`), {
-  cacheKey: (props) => props.page,
-});
+type ComplaintsSubmissionProps = {
+  slug: COMPLAINTS_CONTENTS_TYPES;
+};
 
-function 신고유형선택스텝({ slug }: { slug: COMPLAINTS_CONTENTS_TYPES }) {
-  const 신고유형선택완료_완료스텝으로가기 = () => {};
+// const AsyncRoomService = loadable((props: { page: unknown }) => import(`../room/services/${props.page}`), {
+//   cacheKey: (props) => props.page,
+// });
+
+const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = ({ params }) => {
+  const { push } = useFlow();
+  const next = () => {
+    push('ComplaintsComplete', { slug: params.slug });
+  };
 
   return (
-    <>
+    <Layout activeTab={false} appBar={{ title: params.slug }} isDarkMode>
       <Flex
         justify="center"
         align="center"
@@ -42,12 +52,12 @@ function 신고유형선택스텝({ slug }: { slug: COMPLAINTS_CONTENTS_TYPES })
           대화행
         </Text>
       </Flex>
-      <AsyncRoomService page={slug} />
+      {/* <AsyncRoomService page={params.slug} /> */}
       <ButtonWrap align="center" justify="center">
         <Button
           size="md"
           color="whiteAlpha"
-          onClick={신고유형선택완료_완료스텝으로가기}
+          onClick={next}
           style={{
             width: '100%',
             display: 'flex',
@@ -55,15 +65,15 @@ function 신고유형선택스텝({ slug }: { slug: COMPLAINTS_CONTENTS_TYPES })
             justifyContent: 'center',
             height: '48px',
             borderRadius: '8px',
-            backgroundColor: vars.colors.$static.dark.color.black,
+            backgroundColor: vars.colors.$static.dark.color.white,
           }}
         >
           민원접수
         </Button>
       </ButtonWrap>
-    </>
+    </Layout>
   );
-}
+};
 
 const ButtonWrap = styled(Flex)`
   position: fixed;
@@ -71,7 +81,6 @@ const ButtonWrap = styled(Flex)`
   right: 0;
   bottom: 0;
   padding: 20px 20px 36px 20px;
-  background-color: #fff;
 `;
 
-export default 신고유형선택스텝;
+export default ComplaintsSubmission;

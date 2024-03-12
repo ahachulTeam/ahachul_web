@@ -8,7 +8,7 @@ import { Complaints, Home, Lost, Community } from 'pages';
 import { ComplaintsComponent, HomeComponent, SharedComponent } from 'components';
 import { PATH } from 'data';
 
-export const { Stack, activities, useFlow } = stackflow({
+export const { Stack, activities, useFlow, useStepFlow } = stackflow({
   transitionDuration: 350,
   activities: {
     Home,
@@ -20,6 +20,9 @@ export const { Stack, activities, useFlow } = stackflow({
     RegisterCenter: HomeComponent.RegisterCenter,
     Complaints,
     AskTrainNumber: ComplaintsComponent.AskTrainNumber,
+    ComplaintsSubmission: ComplaintsComponent.ComplaintsSubmission,
+    ComplaintsComplete: ComplaintsComponent.ComplaintsComplete,
+    환경민원: ComplaintsComponent.환경민원,
     Lost,
     Community,
   },
@@ -42,7 +45,9 @@ export const { Stack, activities, useFlow } = stackflow({
         MyProfile: PATH.me,
         RegisterCenter: PATH.registerCenter,
         Complaints: PATH.complaints,
-        AskTrainNumber: PATH.askTrainNumber,
+        AskTrainNumber: PATH.complaintsAskTrainNumber,
+        ComplaintsSubmission: PATH.complaintsSubmission,
+        ComplaintsComplete: PATH.complaintsComplete,
         Lost: PATH.lost,
         Community: PATH.community,
       },
