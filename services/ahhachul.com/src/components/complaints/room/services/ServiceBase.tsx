@@ -13,12 +13,6 @@ function ServiceBase(props: { page: COMPLAINTS_CONTENTS_TYPES; children: React.R
       <Box
         css={css`
           padding: 68px 20px 24px;
-          max-height: calc(100vh - 48px - 85px - 92px - 104px);
-          overflow-y: scroll;
-
-          ::-webkit-scrollbar {
-            display: none;
-          }
         `}
       >
         <Flex direction="column" gap="4px" style={{ marginBottom: '24px' }}>

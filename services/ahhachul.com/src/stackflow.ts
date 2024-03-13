@@ -22,7 +22,6 @@ export const { Stack, activities, useFlow, useStepFlow } = stackflow({
     AskTrainNumber: ComplaintsComponent.AskTrainNumber,
     ComplaintsSubmission: ComplaintsComponent.ComplaintsSubmission,
     ComplaintsComplete: ComplaintsComponent.ComplaintsComplete,
-    환경민원: ComplaintsComponent.환경민원,
     Lost,
     Community,
   },

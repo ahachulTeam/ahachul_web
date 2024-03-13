@@ -8,14 +8,18 @@ import { Button } from '@ahhachul/react-components-button';
 import { Flex, Text } from '@ahhachul/react-components-layout';
 import { COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
 import { useFlow } from 'stackflow';
+import loadable from '@loadable/component';
 
 type ComplaintsSubmissionProps = {
   slug: COMPLAINTS_CONTENTS_TYPES;
 };
 
-// const AsyncRoomService = loadable((props: { page: unknown }) => import(`../room/services/${props.page}`), {
-//   cacheKey: (props) => props.page,
-// });
+const AsyncRoomService = loadable(
+  (props: { page: COMPLAINTS_CONTENTS_TYPES }) => import(`../room/services/${props.page}`),
+  {
+    cacheKey: (props) => props.page,
+  },
+);
 
 const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = ({ params }) => {
   const { push } = useFlow();
@@ -26,6 +30,7 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
   return (
     <Layout activeTab={false} appBar={{ title: params.slug }} isDarkMode>
       <Flex
+        as="main"
         justify="center"
         align="center"
         gap="12px"
@@ -52,8 +57,8 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
           대화행
         </Text>
       </Flex>
-      {/* <AsyncRoomService page={params.slug} /> */}
-      <ButtonWrap align="center" justify="center">
+      <AsyncRoomService page={params.slug} />
+      <ButtonWrap align="center" justify="center" style={{ backgroundColor: vars.colors.$static.dark.color.black }}>
         <Button
           size="md"
           color="whiteAlpha"
@@ -65,6 +70,7 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
             justifyContent: 'center',
             height: '48px',
             borderRadius: '8px',
+            color: vars.colors.$static.dark.color.black,
             backgroundColor: vars.colors.$static.dark.color.white,
           }}
         >
