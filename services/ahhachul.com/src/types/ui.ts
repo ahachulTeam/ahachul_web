@@ -1,6 +1,18 @@
 import { Interpolation, Theme } from '@emotion/react';
+import { ReactNode } from 'react';
 import { theme } from 'styles';
 import { ValueOf } from 'types/utility-types/ValueOf';
+
+export interface IUiStore {
+  loading: boolean;
+  isOpenAlert: boolean;
+  alertTitle: string;
+  alertContent: ReactNode;
+  snackBars: {
+    list: ISnackBarPayload[];
+    posBottom: SnackBarPosBottomType;
+  };
+}
 
 export type PrimaryColorValuesType = ValueOf<typeof theme.color.primary>;
 export type SubColorValuesType = ValueOf<typeof theme.color.sub>;
@@ -31,3 +43,11 @@ export type IconType = React.FC<{
   onClick?: VoidFunction;
   css?: Interpolation<Theme>;
 }>;
+
+export type SnackBarPosBottomType = 60 | 120;
+
+export interface ISnackBarPayload {
+  id: string;
+  message: string;
+  posBottom?: SnackBarPosBottomType;
+}

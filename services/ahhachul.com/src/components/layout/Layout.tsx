@@ -6,6 +6,7 @@ import { TypeActivities } from 'stackflow';
 import { KeyOf, Nullable } from 'types/utility-types';
 import withDefaultAppBar from './withDefaultAppBar';
 import { scrollable, wrapper } from './style';
+import { useAppSelector } from 'stores';
 
 type PropOf<T> = T extends React.ComponentType<infer U> ? U : never;
 
@@ -17,6 +18,7 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ isDarkMode = false, activeTab = 'Home', appBar, children }) => {
+  const { loading } = useAppSelector((state) => state.ui);
   const { replace, defaultAppBar } = withDefaultAppBar();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const navigate = React.useCallback((tab: KeyOf<TypeActivities>) => replace(tab, {}, { animate: false }), []);
@@ -38,6 +40,8 @@ const Layout: React.FC<LayoutProps> = ({ isDarkMode = false, activeTab = 'Home',
           {children}
         </div>
       </div>
+      <UiComponent.SnackBar />
+      {loading && <UiComponent.Loading />}
       {activeTab && <UiComponent.NavBar activeTab={activeTab} replace={navigate} scrollToTop={scrollToTop} />}
     </AppScreen>
   );

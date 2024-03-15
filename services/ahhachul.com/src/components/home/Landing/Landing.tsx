@@ -10,7 +10,6 @@ import { MyTicket } from './myTicket';
 import { BeginningBottomSheet } from './bottomSheet';
 
 const Landing = () => {
-  // const { isLoading } = useCheckSignin();
   const [show, toggle] = useReducer((c) => !c, false);
 
   useDidMount(() => {
