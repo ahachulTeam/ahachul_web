@@ -8,7 +8,7 @@ interface Props {
   isWhite?: boolean;
 }
 
-function Background({ css = {}, opacity = 0, isWhite = false, children }: PropsWithChildren<Props>) {
+function Background({ css = {}, opacity = 0.45, isWhite = false, children }: PropsWithChildren<Props>) {
   return (
     <div css={wrap}>
       <div css={backgroundCover(opacity, isWhite)} />

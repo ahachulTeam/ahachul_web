@@ -1,10 +1,1 @@
-export {
-  default as uiReducer,
-  loaded,
-  loading,
-  openAlert,
-  closeAlert,
-  clearAll,
-  addSnackBar,
-  removeSnackBar,
-} from './reducer';
+export { default as uiReducer, loaded, loading, clearAll, addSnackBar, removeSnackBar } from './reducer';

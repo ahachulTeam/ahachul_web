@@ -6,17 +6,27 @@ import IconQRCode from 'static/icons/system/IconQRCode';
 import IconBack from 'static/icons/system/IconBack';
 import { wrap, title, btn_wrap, registCenter, mobileTicket, banner, bannerTextGroup, bannerIcon } from './style';
 import { MobileTicketBottomSheet } from '../bottomSheet';
-import { useDispatch } from 'react-redux';
-import { addSnackBar } from 'stores/ui';
+import { useModal } from 'hooks';
+import { UiComponent } from 'components';
 
 const HeaderSection = () => {
   const { push } = useFlow();
   const [show, toggle] = useReducer((c) => !c, false);
   const onClickToRegister = () => push('RegisterCenter', {});
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const { isOpen, openModal, closeModal } = useModal();
   const openSnackbar = () => {
-    dispatch(addSnackBar({ message: 'hello' }));
+    openModal();
+    // dispatch(addSnackBar({ message: 'hello' }));
+  };
+
+  const onFinish = () => {
+    console.log('onFinish');
+  };
+
+  const onCancel = () => {
+    console.log('onCancel');
   };
 
   return (
@@ -42,6 +52,16 @@ const HeaderSection = () => {
         <IconBack css={bannerIcon} />
       </div>
       <MobileTicketBottomSheet isShowing={show} onClose={toggle} />
+      <UiComponent.Dialog
+        title="타이틀입니다"
+        content="내용입니다"
+        confirmText="끝내기"
+        cancelText="취소"
+        isOpen={isOpen}
+        onClose={closeModal}
+        onCancel={onCancel}
+        onConfirm={onFinish}
+      />
     </div>
   );
 };

@@ -45,4 +45,66 @@ const background = ({
   height: `calc(100vh - ${header} - ${navbar})`,
 });
 
-export { wrap, background, backgroundCover };
+const dialogTitleCss = ({
+  color: {
+    primary: { black },
+  },
+  typography: {
+    size: { heading4 },
+    weight: { bold },
+  },
+}: Theme): CSSObject => ({
+  fontSize: heading4,
+  fontWeight: bold,
+  color: black,
+});
+
+const dialogContentCss = ({
+  color: {
+    primary: { black },
+  },
+  typography: {
+    size: { paragraph2 },
+  },
+}: Theme): CSSObject => ({
+  fontSize: paragraph2,
+  color: black,
+});
+
+const dialogWrapperCss: CSSObject = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '16px',
+};
+
+const textWrapperCss: CSSObject = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '12px',
+};
+
+const buttonWrapperCss: CSSObject = {
+  display: 'flex',
+  justifyContent: 'flex-end',
+  gap: '4px',
+};
+
+const dialogButtonTextCss = ({
+  color: {
+    primary: { black },
+  },
+}: Theme) => ({
+  color: black,
+});
+
+export {
+  wrap,
+  background,
+  backgroundCover,
+  dialogTitleCss,
+  dialogContentCss,
+  dialogWrapperCss,
+  textWrapperCss,
+  buttonWrapperCss,
+  dialogButtonTextCss,
+};

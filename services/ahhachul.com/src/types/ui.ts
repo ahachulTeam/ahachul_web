@@ -1,13 +1,9 @@
 import { Interpolation, Theme } from '@emotion/react';
-import { ReactNode } from 'react';
 import { theme } from 'styles';
 import { ValueOf } from 'types/utility-types/ValueOf';
 
 export interface IUiStore {
   loading: boolean;
-  isOpenAlert: boolean;
-  alertTitle: string;
-  alertContent: ReactNode;
   snackBars: {
     list: ISnackBarPayload[];
     posBottom: SnackBarPosBottomType;
@@ -50,4 +46,21 @@ export interface ISnackBarPayload {
   id: string;
   message: string;
   posBottom?: SnackBarPosBottomType;
+}
+
+export interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+interface DialogButtonGroupProps {
+  confirmText: string;
+  onConfirm?: () => void;
+  cancelText?: string;
+  onCancel?: () => void;
+}
+
+export interface DialogProps extends DialogButtonGroupProps, ModalProps {
+  title?: string;
+  content?: string;
 }
