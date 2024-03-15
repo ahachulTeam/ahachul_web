@@ -18,13 +18,15 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ isDarkMode = false, activeTab = 'Home', appBar, children }) => {
-  const { loading } = useAppSelector((state) => state.ui);
+  const { loading, snackBars } = useAppSelector((state) => state.ui);
   const { replace, defaultAppBar } = withDefaultAppBar();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const navigate = React.useCallback((tab: KeyOf<TypeActivities>) => replace(tab, {}, { animate: false }), []);
 
   const topEl = React.useRef<Nullable<HTMLDivElement>>(null);
   const scrollToTop = () => topEl?.current?.scrollTo({ top: 0, behavior: 'smooth' });
+
+  const showSnackBar = !!snackBars.list.length;
 
   return (
     <AppScreen
@@ -40,8 +42,8 @@ const Layout: React.FC<LayoutProps> = ({ isDarkMode = false, activeTab = 'Home',
           {children}
         </div>
       </div>
-      <UiComponent.SnackBar />
       {loading && <UiComponent.Loading />}
+      {showSnackBar && <UiComponent.SnackBar {...snackBars} />}
       {activeTab && <UiComponent.NavBar activeTab={activeTab} replace={navigate} scrollToTop={scrollToTop} />}
     </AppScreen>
   );

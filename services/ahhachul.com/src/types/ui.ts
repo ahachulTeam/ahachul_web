@@ -4,10 +4,7 @@ import { ValueOf } from 'types/utility-types/ValueOf';
 
 export interface IUiStore {
   loading: boolean;
-  snackBars: {
-    list: ISnackBarPayload[];
-    posBottom: SnackBarPosBottomType;
-  };
+  snackBars: ISnackBar;
 }
 
 export type PrimaryColorValuesType = ValueOf<typeof theme.color.primary>;
@@ -40,7 +37,12 @@ export type IconType = React.FC<{
   css?: Interpolation<Theme>;
 }>;
 
-export type SnackBarPosBottomType = 60 | 120;
+export type SnackBarPosBottomType = 72 | 120;
+
+export interface ISnackBar {
+  list: ISnackBarPayload[];
+  posBottom: SnackBarPosBottomType;
+}
 
 export interface ISnackBarPayload {
   id: string;

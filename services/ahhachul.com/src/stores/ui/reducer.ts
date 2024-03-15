@@ -5,7 +5,7 @@ const initialState: IUiStore = {
   loading: false,
   snackBars: {
     list: [],
-    posBottom: 60,
+    posBottom: 72,
   },
 };
 
@@ -28,7 +28,7 @@ const {
     addSnackBar: (state, action: PayloadAction<Omit<ISnackBarPayload, 'id'>>) => {
       const id = new Date().getTime().toString();
       state.snackBars = {
-        posBottom: action.payload?.posBottom || 60,
+        posBottom: action.payload?.posBottom || 72,
         list: [{ id, ...action.payload }, ...state.snackBars.list],
       };
     },

@@ -1,13 +1,9 @@
 import React from 'react';
 import { container } from './style';
-import { useAppSelector } from 'stores';
 import SnackBar from './SnackBar';
+import { ISnackBar } from 'types';
 
-function SnackBarContainer() {
-  const {
-    snackBars: { posBottom, list },
-  } = useAppSelector((state) => state.ui);
-
+function SnackBarContainer({ list, posBottom }: ISnackBar) {
   return (
     <div css={container(posBottom)}>
       {list.map((snackBar) => (
