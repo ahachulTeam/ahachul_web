@@ -8,3 +8,4 @@ export { default as useOutsideClick } from './useOutsideClick';
 export { default as useDisableScroll } from './useDisableScroll';
 export { default as useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
 export { default as useVisibilityStateVisible } from './useVisibilityStateVisible';
+export * from './useIsChanged';
