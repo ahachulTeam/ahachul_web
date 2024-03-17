@@ -25,7 +25,7 @@ const ComplaintsComplete: ActivityComponentType<ComplaintsCompleteProps> = ({ pa
   }, []);
 
   return (
-    <Layout activeTab={false} appBar={{ title: '' }} isDarkMode>
+    <Layout activeTab={false} appBar={{ title: '' }}>
       <Box
         as="main"
         style={{

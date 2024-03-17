@@ -33,7 +33,6 @@ function 응급환자(props: { page: COMPLAINTS_CONTENTS_TYPES }) {
               onClick={handleSelect(key)}
             >
               {/* {key === isActiveSelected ? <CheckboxActiveSVG /> : <CheckboxDefaultSVG />} */}
-
               <Text
                 fontSize="lg"
                 style={{

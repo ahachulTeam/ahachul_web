@@ -1,24 +1,24 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 
-import useDidMount from 'hooks/useDidMount';
+// import useDidMount from 'hooks/useDidMount';
 
 import { HeaderSection } from './headerSection';
 import { RequestPayment } from './requestPayment';
 import { RecommendTicket } from './recommendTicket';
 import { ReservedClass } from './reservedClass';
 import { MyTicket } from './myTicket';
-import { BeginningBottomSheet } from './bottomSheet';
+// import { BeginningBottomSheet } from './bottomSheet';
 
 const Landing = () => {
-  const [show, toggle] = useReducer((c) => !c, false);
+  // const [show, toggle] = useReducer((c) => !c, false);
 
-  useDidMount(() => {
-    const timer = setTimeout(() => {
-      toggle();
-    }, 1200);
+  // useDidMount(() => {
+  //   const timer = setTimeout(() => {
+  //     toggle();
+  //   }, 1200);
 
-    return () => clearTimeout(timer);
-  });
+  //   return () => clearTimeout(timer);
+  // });
 
   return (
     <>
@@ -30,7 +30,7 @@ const Landing = () => {
         <MyTicket />
       </main>
       {/* {isLoading && <UiComponent.Loading isWhite opacity={1} />} */}
-      <BeginningBottomSheet isShowing={show} onClose={toggle} />
+      {/* <BeginningBottomSheet isShowing={show} onClose={toggle} /> */}
     </>
   );
 };

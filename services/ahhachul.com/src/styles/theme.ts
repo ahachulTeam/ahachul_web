@@ -71,7 +71,7 @@ const theme = {
   color: {
     primary: {
       white: '#ffffff',
-      black: '#202020',
+      black: '#0B0B0B',
       black_all: '#000000',
       blue: '#004FEC',
       red: '#FF4848',

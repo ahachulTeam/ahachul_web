@@ -68,6 +68,7 @@ function 안내방송(props: { page: COMPLAINTS_CONTENTS_TYPES }) {
                     </Text>
                   </Flex>
                   <Button
+                    size="md"
                     style={{
                       width: 'max-content',
                       margin: '0 auto',
@@ -144,6 +145,7 @@ function 안내방송(props: { page: COMPLAINTS_CONTENTS_TYPES }) {
                       </Text>
                     </Flex>
                     <Button
+                      size="md"
                       style={{
                         width: 'max-content',
                         margin: '0 auto',

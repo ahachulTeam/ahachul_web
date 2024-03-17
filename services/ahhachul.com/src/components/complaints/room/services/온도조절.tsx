@@ -15,7 +15,6 @@ function 온도조절(props: { page: COMPLAINTS_CONTENTS_TYPES }) {
 
   return (
     <ServiceBase page={page}>
-      {' '}
       <Flex align="center" gap="12px" style={{ width: '100%' }}>
         {Object.entries(COMPLAINTS_ROOM_SERVICE_INFO[page].selectList).map(([key, val]) => {
           return (
@@ -63,6 +62,7 @@ function 온도조절(props: { page: COMPLAINTS_CONTENTS_TYPES }) {
                 </Text>
               </Flex>
               <Button
+                size="md"
                 style={{
                   width: 'max-content',
                   margin: '0 auto',

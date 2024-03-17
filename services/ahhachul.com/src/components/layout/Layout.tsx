@@ -11,13 +11,12 @@ import { useAppSelector } from 'stores';
 type PropOf<T> = T extends React.ComponentType<infer U> ? U : never;
 
 interface LayoutProps {
-  isDarkMode?: boolean;
   activeTab?: KeyOf<TypeActivities> | false;
   appBar?: PropOf<typeof AppScreen>['appBar'];
   children: React.ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ isDarkMode = false, activeTab = 'Home', appBar, children }) => {
+const Layout: React.FC<LayoutProps> = ({ activeTab = 'Home', appBar, children }) => {
   const { loading, snackBars } = useAppSelector((state) => state.ui);
   const { replace, defaultAppBar } = withDefaultAppBar();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -32,10 +31,10 @@ const Layout: React.FC<LayoutProps> = ({ isDarkMode = false, activeTab = 'Home',
     <AppScreen
       appBar={{
         ...(appBar || defaultAppBar),
-        textColor: isDarkMode ? '#FFFFFF' : '#0B0B0B',
-        iconColor: isDarkMode ? '#FFFFFF' : '#0B0B0B',
+        textColor: '#FFFFFF',
+        iconColor: '#FFFFFF',
       }}
-      backgroundColor={isDarkMode ? '#0B0B0B' : '#FFFFFF'}
+      backgroundColor={'#0B0B0B'}
     >
       <div css={wrapper}>
         <div ref={topEl} css={scrollable(Boolean(activeTab))}>

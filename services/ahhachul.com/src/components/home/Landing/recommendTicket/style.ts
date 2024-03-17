@@ -7,12 +7,12 @@ const wrap = [
   f.flexColumn,
   ({
     color: {
-      primary: { white },
+      primary: { black },
     },
   }: Theme) => ({
     paddingTop: '16px',
     paddingBottom: '24px',
-    backgroundColor: white,
+    backgroundColor: black,
   }),
 ];
 

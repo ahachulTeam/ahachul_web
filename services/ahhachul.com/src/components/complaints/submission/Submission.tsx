@@ -28,7 +28,7 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
   };
 
   return (
-    <Layout activeTab={false} appBar={{ title: params.slug }} isDarkMode>
+    <Layout activeTab={false} appBar={{ title: params.slug }}>
       <Flex
         as="main"
         justify="center"

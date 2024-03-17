@@ -6,17 +6,17 @@ import SelectButtonImage from 'components/complaints/room/SelectButtonImage';
 import 오물 from 'static/img/complaints/오물.png';
 import 토사물 from 'static/img/complaints/토사물.png';
 import 환기요청 from 'static/img/complaints/환기요청.png';
-import 더워요 from 'static/img/complaints/더워요.png';
-import 추워요 from 'static/img/complaints/추워요.png';
-import 시끄러워요 from 'static/img/complaints/시끄러워요.png';
-import 잘안들려요 from 'static/img/complaints/잘안들려요.png';
 import 이동상인 from 'static/img/complaints/이동상인.png';
 import 취객 from 'static/img/complaints/취객.png';
 import 구걸 from 'static/img/complaints/구걸.png';
 import 종교행위 from 'static/img/complaints/종교행위.png';
 import 노숙 from 'static/img/complaints/노숙.png';
-import 행선 from 'static/img/complaints/행선.png';
-import 임산부 from 'static/img/complaints/임산부.png';
+import Icon시끄러워요 from 'static/icons/complaints/Icon시끄러워요';
+import Icon잘안들려요 from 'static/icons/complaints/Icon잘안들려요';
+import Icon행선 from 'static/icons/complaints/Icon행선';
+import Icon임산부 from 'static/icons/complaints/Icon임산부';
+import Icon더워요 from 'static/icons/complaints/Icon더워요';
+import Icon추워요 from 'static/icons/complaints/Icon추워요';
 
 export const COMPLAINTS_CONTENTS = {
   환경민원: {
@@ -89,10 +89,10 @@ export const COMPLAINTS_ROOM_SERVICE_INFO: COMPLAINTS_ROOM_SERVICE_INFO_TYPES = 
       '임산부 배려석': '임산부 배려석',
     },
     iconList: {
-      시끄러워요: <SelectButtonImage image={시끄러워요} />,
-      '잘 안들려요': <SelectButtonImage image={잘안들려요} />,
-      '행선 안내방송': <SelectButtonImage image={행선} />,
-      '임산부 배려석': <SelectButtonImage image={임산부} />,
+      시끄러워요: <Icon시끄러워요 />,
+      '잘 안들려요': <Icon잘안들려요 />,
+      '행선 안내방송': <Icon행선 />,
+      '임산부 배려석': <Icon임산부 />,
     },
     activeColor: {
       시끄러워요: {
@@ -125,8 +125,8 @@ export const COMPLAINTS_ROOM_SERVICE_INFO: COMPLAINTS_ROOM_SERVICE_INFO_TYPES = 
       추워요: '토사물/온도를 올려주세요',
     },
     iconList: {
-      더워요: <SelectButtonImage image={더워요} />,
-      추워요: <SelectButtonImage image={추워요} />,
+      더워요: <Icon더워요 />,
+      추워요: <Icon추워요 />,
     },
     activeColor: {
       더워요: {

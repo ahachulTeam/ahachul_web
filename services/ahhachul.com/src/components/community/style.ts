@@ -1,13 +1,5 @@
-import { CSSObject, Theme } from '@emotion/react';
+import { f } from 'styles';
 
-const title = ({
-  typography: {
-    size: { paragraph1 },
-    weight: { semibold },
-  },
-}: Theme): CSSObject => ({
-  fontSize: paragraph1,
-  fontWeight: semibold,
-});
+const wrap = [f.fullWidth, f.fullHeight, f.flexColumn, { padding: '26px 20px 48px 20px' }];
 
-export { title };
+export { wrap };
