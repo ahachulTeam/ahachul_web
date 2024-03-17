@@ -51,7 +51,7 @@ function Footer() {
             </span>
           </div>
           <div>
-            <span className="bold">주소</span> 경기 의정부시 녹양로34번길 47 106동
+            <span className="bold">주소</span> 경기 의정부시 녹양로34번길 47
           </div>
         </div>
       </div>
@@ -83,8 +83,8 @@ function Footer() {
           책임이 제한될 수 있으므로, 각 이용권 페이지에서 구체적인 내용은 확인하시기 바랍니다.
         </div>
         <div className="ahhachul-info-ctnt" style={{ marginTop: '10px' }}>
-          본 사이트 및 앱내의 상품/판매자/센터/이용권/강사 정보, 콘텐츠, UI 등에 대한 무단 복제, 전송, 배포, 스크래핑
-          등의 행위는 저작권법, 콘텐츠사업 진흥법 등에 의하여 엄격히 금지됩니다.
+          본 사이트 및 앱내의 상품/판매자 정보, 콘텐츠, UI 등에 대한 무단 복제, 전송, 배포, 스크래핑 등의 행위는
+          저작권법, 콘텐츠사업 진흥법 등에 의하여 엄격히 금지됩니다.
         </div>
       </div>
       <div className="ahhachul-info-logo-wrap">

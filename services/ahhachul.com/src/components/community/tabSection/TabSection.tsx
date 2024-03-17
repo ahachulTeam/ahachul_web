@@ -1,4 +1,4 @@
-import { Heading, Box, Flex, Text } from '@ahhachul/react-components-layout';
+import { Box, Flex, Text } from '@ahhachul/react-components-layout';
 import IconCategoryFree from 'static/icons/community/IconCategoryFree';
 import IconCategoryInsight from 'static/icons/community/IconCategoryInsight';
 import IconCategoryRank from 'static/icons/community/IconCategoryRank';
@@ -22,9 +22,6 @@ const COMMUNITY_TABS = {
 function TabSection() {
   return (
     <Box as="section" padding={5}>
-      <Heading fontSize="sm" style={{ marginBottom: '20px', color: 'white' }}>
-        커뮤니티
-      </Heading>
       <Flex as="ul" align="center" gap="25px">
         {Object.entries(COMMUNITY_TABS).map(([key, { label, icon }], idx) => (
           <li key={key} role="none">

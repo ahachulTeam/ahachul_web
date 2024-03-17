@@ -14,7 +14,7 @@ const RecommendTicket = () => {
   return (
     <div css={[wrap, { cursor: 'pointer' }]} onClick={onClickToRegister}>
       <h1 css={title}>
-        <IconRecommendTicket /> <b>추천 이용권</b>
+        <IconRecommendTicket /> <b>추천 아하철 티켓</b>
       </h1>
       <div css={card_wrap}>
         <img src={mockProfile} alt="" />
@@ -23,10 +23,10 @@ const RecommendTicket = () => {
             <IconPackage />
             <p>패키지</p>
           </div>
-          <span css={package_name}>패키지 상품 이름 이용권 테스트 영역 2줄</span>
+          <span css={package_name}>아하철 + 코레일 패키지</span>
           <div css={package_price}>
-            <span>600,000원</span>
-            <span>1,200,000원</span>
+            <span>60,000원</span>
+            <span>100,000원</span>
           </div>
         </div>
       </div>

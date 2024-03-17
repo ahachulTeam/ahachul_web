@@ -53,7 +53,7 @@ const title = [
   ({
     color: {
       primary: { purple },
-      bluegray: { bluegray90 },
+      bluegray: { bluegray20 },
     },
     typography: {
       size: { heading5 },
@@ -61,7 +61,7 @@ const title = [
     },
   }: Theme): CSSObject => ({
     span: {
-      color: bluegray90,
+      color: bluegray20,
       fontSize: heading5,
       fontWeight: bold,
       lineHeight: '28px',

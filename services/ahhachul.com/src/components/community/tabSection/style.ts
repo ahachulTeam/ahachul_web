@@ -8,16 +8,15 @@ const TabBtn = styled(Flex)`
     width: max-content;
     border-radius: 50%;
     aspect-ratio: 1 / 1;
-    background-color: #fff;
     padding: 6px;
     transition: background-color 0.2s ease;
 
     & > svg {
-      fill: black;
+      fill: white;
 
       & > path {
-        fill: black;
-        stroke: black;
+        fill: white;
+        stroke: white;
       }
     }
   }

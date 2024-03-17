@@ -39,17 +39,17 @@ const HeaderSection = () => {
       <div css={btn_wrap}>
         <button css={registCenter} onClick={onClickToRegister}>
           <IconSearch />
-          <span>센터등록</span>
+          <span>나만의 역 등록</span>
         </button>
         <button css={mobileTicket} onClick={toggle}>
           <IconQRCode />
-          <span>모바일 회원증</span>
+          <span>노선도 보기</span>
         </button>
       </div>
       <div css={[banner, { cursor: 'pointer' }]} onClick={openSnackbar}>
         <div css={bannerTextGroup}>
-          <p>아하철 블랙 필라테스</p>
-          <p>블랙라벨 블랙블랙 레깅스 1+1 반값특가!</p>
+          <p>아하철 블랙 티켓</p>
+          <p>블랙 티켓 등록하고 아하철 이용하자!</p>
         </div>
         <IconBack css={bannerIcon} />
       </div>

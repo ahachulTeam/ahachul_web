@@ -20,7 +20,7 @@ const title = [
   f.flexAlignCenter,
   ({
     color: {
-      bluegray: { bluegray90 },
+      bluegray: { bluegray20 },
     },
     typography: {
       size: { heading5 },
@@ -30,7 +30,7 @@ const title = [
     marginBottom: '12px',
 
     b: {
-      color: bluegray90,
+      color: bluegray20,
       fontSize: heading5,
       fontWeight: bold,
       lineHeight: '28px',
@@ -45,12 +45,12 @@ const card_wrap = [
   f.flexColumn,
   ({
     color: {
-      sub: { gray_eaeaea },
+      bluegray: { bluegray40 },
     },
     shadows,
   }: Theme): CSSObject => ({
     padding: '24px',
-    border: `1px solid ${gray_eaeaea}`,
+    border: `2px solid ${bluegray40}`,
     borderRadius: '8px',
     boxShadow: shadows[3],
   }),
@@ -138,7 +138,6 @@ const resson_info = [
   f.flexAlignCenter,
   ({
     color: {
-      primary: { white },
       bluegray: { bluegray80 },
     },
     typography: {
@@ -148,7 +147,6 @@ const resson_info = [
   }: Theme): CSSObject => ({
     marginTop: '12px',
     color: bluegray80,
-    backgroundColor: white,
     fontSize: paragraph1,
     fontWeight: medium,
     lineHeight: '24px',

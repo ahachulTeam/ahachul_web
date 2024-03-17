@@ -19,14 +19,14 @@ const wrap = [
 const title = ({
   color: {
     primary: { blue },
-    sub: { gray_2b395d },
+    bluegray: { bluegray20 },
   },
   typography: {
     size: { heading2 },
     weight: { bold },
   },
 }: Theme): CSSObject => ({
-  color: gray_2b395d,
+  color: bluegray20,
   fontSize: heading2,
   fontWeight: bold,
   lineHeight: '32px',
@@ -47,8 +47,8 @@ const registCenter = [
   f.flexJustifyCenter,
   ({
     color: {
-      primary: { black },
-      sub: { gray_f0f0f0 },
+      primary: { white },
+      bluegray: { bluegray40 },
     },
     typography: {
       size: { element4 },
@@ -59,9 +59,9 @@ const registCenter = [
     marginRight: '10px',
     padding: '0 12px',
     borderRadius: '8px',
-    border: `1px solid ${gray_f0f0f0}`,
+    border: `1px solid ${bluegray40}`,
 
-    color: black,
+    color: white,
     fontSize: element4,
     fontWeight: medium,
     lineHeight: '14px',

@@ -20,7 +20,7 @@ const title = [
   f.flexAlignCenter,
   ({
     color: {
-      bluegray: { bluegray90 },
+      bluegray: { bluegray20 },
     },
     typography: {
       size: { heading5 },
@@ -30,7 +30,7 @@ const title = [
     marginBottom: '12px',
 
     b: {
-      color: bluegray90,
+      color: bluegray20,
       fontSize: heading5,
       fontWeight: bold,
       lineHeight: '28px',
@@ -45,12 +45,12 @@ const card_wrap = [
   f.flexAlignCenter,
   ({
     color: {
-      sub: { gray_eaeaea },
+      bluegray: { bluegray40 },
     },
     shadows,
   }: Theme): CSSObject => ({
     padding: '16px',
-    border: `1px solid ${gray_eaeaea}`,
+    border: `2px solid ${bluegray40}`,
     borderRadius: '8px',
     boxShadow: shadows[3],
 
@@ -100,7 +100,7 @@ const package_badge = [
 
 const package_name = ({
   color: {
-    primary: { black },
+    primary: { white },
   },
   typography: {
     size: { paragraph1 },
@@ -109,7 +109,7 @@ const package_name = ({
 }: Theme): CSSObject => ({
   marginBottom: '24px',
 
-  color: black,
+  color: white,
   fontSize: paragraph1,
   fontWeight: medium,
   lineHeight: '20px',
