@@ -7,11 +7,11 @@ import { Layout } from 'components/layout';
 import { ActivityComponentType } from '@stackflow/react';
 import { useLoading } from 'hooks';
 
-type CommunityDetailProps = {
+type LostDetailProps = {
   articleId: string;
 };
 
-const CommunityDetail: ActivityComponentType<CommunityDetailProps> = ({ params: { articleId } }) => {
+const LostDetail: ActivityComponentType<LostDetailProps> = ({ params: { articleId } }) => {
   useLoading();
 
   const hasImage = getRandomBoolean();
@@ -32,4 +32,4 @@ const CommunityDetail: ActivityComponentType<CommunityDetailProps> = ({ params: 
   );
 };
 
-export default CommunityDetail;
+export default LostDetail;

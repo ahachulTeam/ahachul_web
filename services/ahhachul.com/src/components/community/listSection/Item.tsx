@@ -7,7 +7,7 @@ import IconHeart from 'static/icons/system/IconHeart';
 
 function Item() {
   const { push } = useFlow();
-  const navigateToDetail = () => push('CommunityDetail', {});
+  const navigateToDetail = () => push('CommunityDetail', { articleId: '123' });
 
   return (
     <li onClick={navigateToDetail}>

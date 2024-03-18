@@ -1,9 +1,13 @@
 import { Box, Flex, Text } from '@ahhachul/react-components-layout';
+import { useFlow } from 'stackflow';
 import IconChat from 'static/icons/system/IconChat';
 
 function Item() {
+  const { push } = useFlow();
+  const navigateToDetail = () => push('LostDetail', { articleId: '123' });
+
   return (
-    <li>
+    <li onClick={navigateToDetail}>
       <Box
         as="article"
         style={{
