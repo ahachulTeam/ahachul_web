@@ -32,6 +32,7 @@ const Layout: React.FC<LayoutProps> = ({ activeTab = 'Home', appBar, children })
         ...(appBar || defaultAppBar),
         textColor: '#FFFFFF',
         iconColor: '#FFFFFF',
+        onTopClick: scrollToTop,
       }}
       backgroundColor={'#0B0B0B'}
     >
