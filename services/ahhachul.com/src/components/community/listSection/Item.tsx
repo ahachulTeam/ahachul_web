@@ -1,12 +1,16 @@
 import { Box, Flex, Text } from '@ahhachul/react-components-layout';
+import { useFlow } from 'stackflow';
 import IconBookmark from 'static/icons/system/IconBookmark';
 import IconComment from 'static/icons/system/IconComment';
 import IconEye from 'static/icons/system/IconEye';
 import IconHeart from 'static/icons/system/IconHeart';
 
 function Item() {
+  const { push } = useFlow();
+  const navigateToDetail = () => push('CommunityDetail', {});
+
   return (
-    <li>
+    <li onClick={navigateToDetail}>
       <Box
         as="article"
         background="gray"

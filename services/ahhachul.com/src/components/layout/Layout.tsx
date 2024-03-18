@@ -19,8 +19,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ activeTab = 'Home', appBar, children }) => {
   const { loading, snackBars } = useAppSelector((state) => state.ui);
   const { replace, defaultAppBar } = withDefaultAppBar();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const navigate = React.useCallback((tab: KeyOf<TypeActivities>) => replace(tab, {}, { animate: false }), []);
+  const navigate = React.useCallback((tab: KeyOf<TypeActivities>) => replace(tab, {}, { animate: false }), [replace]);
 
   const topEl = React.useRef<Nullable<HTMLDivElement>>(null);
   const scrollToTop = () => topEl?.current?.scrollTo({ top: 0, behavior: 'smooth' });

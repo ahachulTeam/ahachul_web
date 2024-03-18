@@ -6,30 +6,11 @@ import IconQRCode from 'static/icons/system/IconQRCode';
 import IconBack from 'static/icons/system/IconBack';
 import { wrap, title, btn_wrap, registCenter, mobileTicket, banner, bannerTextGroup, bannerIcon } from './style';
 import { MobileTicketBottomSheet } from '../bottomSheet';
-// import { useModal } from 'hooks';
-// import { UiComponent } from 'components';
-import { useDispatch } from 'react-redux';
-import { addSnackBar } from 'stores/ui';
 
 const HeaderSection = () => {
   const { push } = useFlow();
   const [show, toggle] = useReducer((c) => !c, false);
   const onClickToRegister = () => push('RegisterCenter', {});
-
-  const dispatch = useDispatch();
-  // const { isOpen, openModal, closeModal } = useModal();
-  const openSnackbar = () => {
-    // openModal();
-    dispatch(addSnackBar({ message: 'hello' }));
-  };
-
-  // const onFinish = () => {
-  //   console.log('onFinish');
-  // };
-
-  // const onCancel = () => {
-  //   console.log('onCancel');
-  // };
 
   return (
     <div css={wrap}>
@@ -46,7 +27,7 @@ const HeaderSection = () => {
           <span>노선도 보기</span>
         </button>
       </div>
-      <div css={[banner, { cursor: 'pointer' }]} onClick={openSnackbar}>
+      <div css={[banner, { cursor: 'pointer' }]}>
         <div css={bannerTextGroup}>
           <p>아하철 블랙 티켓</p>
           <p>블랙 티켓 등록하고 아하철 이용하자!</p>
@@ -54,16 +35,6 @@ const HeaderSection = () => {
         <IconBack css={bannerIcon} />
       </div>
       <MobileTicketBottomSheet isShowing={show} onClose={toggle} />
-      {/* <UiComponent.Dialog
-        title="타이틀입니다"
-        content="내용입니다"
-        confirmText="끝내기"
-        cancelText="취소"
-        isOpen={isOpen}
-        onClose={closeModal}
-        onCancel={onCancel}
-        onConfirm={onFinish}
-      /> */}
     </div>
   );
 };
