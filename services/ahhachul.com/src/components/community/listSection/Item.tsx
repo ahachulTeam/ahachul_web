@@ -37,10 +37,10 @@ function Item() {
           </Flex>
           <Flex direction="column" gap="14px">
             <Flex direction="column">
-              <Text fontSize="sm" as="p" style={{ fontWeight: 700, marginBottom: '6px' }}>
+              <Text fontSize="sm" as="p" style={{ fontWeight: 700, marginBottom: '6px', textAlign: 'left' }}>
                 고졸로 1년만에 개발자고졸로 1년만에 개발자고졸로 ...
               </Text>
-              <Text fontSize="sm" as="pre" style={{ marginBottom: '8px' }}>
+              <Text fontSize="sm" style={{ marginBottom: '8px', textAlign: 'left' }}>
                 {`개발자 취준은 대학을 안 가는 것이 더 낫다고 생각해요\n개발자 취준은 대학을 안 가는 것이 더 낫다고 생각해요`}
               </Text>
             </Flex>
