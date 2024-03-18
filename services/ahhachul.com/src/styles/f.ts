@@ -119,6 +119,28 @@ const visuallyHidden: CSSObject = {
   overflow: 'hidden',
 };
 
+const truncate = {
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  wordBreak: 'break-all',
+};
+
+const truncate1 = [
+  truncate,
+  {
+    WebkitLineClamp: 1,
+  },
+];
+
+const truncate2 = [
+  truncate,
+  {
+    WebkitLineClamp: 2,
+  },
+];
+
 const sideGutter: CSSObject = {
   paddingLeft: theme.size.gutter,
   paddingRight: theme.size.gutter,
@@ -145,6 +167,8 @@ export {
   overflowScroll,
   rootLineHeight,
   visuallyHidden,
+  truncate1,
+  truncate2,
   sideGutter,
   resetButton,
 };

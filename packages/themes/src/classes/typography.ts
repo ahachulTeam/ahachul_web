@@ -94,4 +94,9 @@ export const text = {
     fontWeight: typography.fontWeight[400],
     lineHeight: typography.lineHeight[150],
   },
+  xxs: {
+    fontSize: typography.fontSize[11],
+    fontWeight: typography.fontWeight[400],
+    lineHeight: typography.lineHeight[150],
+  },
 };

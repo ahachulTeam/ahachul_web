@@ -3,6 +3,7 @@ export const fontSize = {
   60: '3.75rem',
   48: '3rem',
   36: '2.25rem',
+  32: '2rem',
   30: '1.875rem',
   24: '1.5rem',
   20: '1.25rem',
@@ -10,6 +11,7 @@ export const fontSize = {
   16: '1rem',
   14: '0.875rem',
   12: '0.75rem',
+  11: '0.6875rem',
 };
 
 export const fontWeight = {

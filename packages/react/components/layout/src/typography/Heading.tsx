@@ -1,4 +1,3 @@
-import { vars } from '@ahhachul/themes';
 import * as React from 'react';
 import { forwardRef, Ref } from 'react';
 import { headingStyle } from './style.css';
@@ -8,7 +7,7 @@ import { BaseStyle, StyleSprinkles } from '../core/style.css';
 import { extractSprinkleProps } from '../utils/properties';
 
 const Heading = (props: HeadingProps, ref: Ref<HTMLElement>) => {
-  const { as = 'h1', fontSize, background, color = 'gray', children } = props;
+  const { as = 'h1', fontSize, background = 'inherit', color = 'gray', children } = props;
 
   return React.createElement(
     as,
@@ -24,8 +23,8 @@ const Heading = (props: HeadingProps, ref: Ref<HTMLElement>) => {
         props.className,
       ]),
       style: {
-        color: color && vars.colors.$scale?.[color]?.[700],
-        background: background && vars.colors.$scale?.[background]?.[100],
+        color,
+        backgroundColor: background,
         ...props.style,
       },
     },
