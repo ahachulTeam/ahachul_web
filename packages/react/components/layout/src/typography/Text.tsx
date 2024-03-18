@@ -6,7 +6,7 @@ import { extractSprinkleProps } from '../utils/properties';
 import { textStyle } from './style.css';
 
 const Text = (props: TextProps, ref: React.Ref<HTMLElement>) => {
-  const { as = 'p', color = 'gray', background = 'inherit', children, fontSize } = props;
+  const { as = 'p', color = 'gray', background = 'inherit', children, fontSize, fontWeight = 400 } = props;
 
   return React.createElement(
     as,
@@ -24,6 +24,7 @@ const Text = (props: TextProps, ref: React.Ref<HTMLElement>) => {
       style: {
         color,
         backgroundColor: background,
+        fontWeight,
         ...props.style,
       },
     },
