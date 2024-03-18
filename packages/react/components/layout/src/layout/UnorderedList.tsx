@@ -1,13 +1,10 @@
-import * as React from "react";
-import { UnorderedListProps } from "./types";
-import { vars } from "@ahhachul/themes";
-import { Flex } from "./Flex";
+import * as React from 'react';
+import { UnorderedListProps } from './types';
+import { vars } from '@ahhachul/themes';
+import { Flex } from './Flex';
 
-const UnorderedList = (
-  props: UnorderedListProps,
-  ref: React.Ref<HTMLOListElement>,
-) => {
-  const { listStyleType = "disc", spacing = 3, children, ...rest } = props;
+const UnorderedList = (props: UnorderedListProps, ref: React.Ref<HTMLOListElement>) => {
+  const { listStyleType = 'disc', spacing = 3, children, ...rest } = props;
 
   return (
     <Flex

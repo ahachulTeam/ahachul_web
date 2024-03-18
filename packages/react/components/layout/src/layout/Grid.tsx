@@ -1,13 +1,12 @@
-import * as React from "react";
-import { GridProps } from "./types";
-import { clsx } from "clsx";
-import { BaseStyle, StyleSprinkles } from "../core/style.css";
-import { extractSprinkleProps } from "../utils/properties";
-import { vars } from "@ahhachul/themes";
+import * as React from 'react';
+import { GridProps } from './types';
+import { clsx } from 'clsx';
+import { BaseStyle, StyleSprinkles } from '../core/style.css';
+import { extractSprinkleProps } from '../utils/properties';
 
 const Grid = (props: GridProps, ref: React.Ref<HTMLElement>) => {
   const {
-    as = "div",
+    as = 'div',
     color,
     background,
     children,
@@ -31,13 +30,11 @@ const Grid = (props: GridProps, ref: React.Ref<HTMLElement>) => {
       ref,
       className: clsx([
         BaseStyle,
-        StyleSprinkles(
-          extractSprinkleProps(props, Array.from(StyleSprinkles.properties)),
-        ),
+        StyleSprinkles(extractSprinkleProps(props, Array.from(StyleSprinkles.properties))),
         props.className,
       ]),
       style: {
-        display: "grid",
+        display: 'grid',
         gridAutoColumns: autoColumns,
         gridAutoFlow: autoFlow,
         gridAutoRows: autoRows,
@@ -49,8 +46,8 @@ const Grid = (props: GridProps, ref: React.Ref<HTMLElement>) => {
         gridTemplateAreas: templateAreas,
         gridColumn: column,
         gridRow: row,
-        color: color && vars.colors.$scale?.[color]?.[700],
-        background: background && vars.colors.$scale?.[background]?.[100],
+        color,
+        backgroundColor: background,
         ...props.style,
       },
     },

@@ -1,14 +1,14 @@
-import { vars } from "@ahhachul/themes";
-import { style } from "@vanilla-extract/css";
-import { defineProperties, createSprinkles } from "@vanilla-extract/sprinkles";
+import { vars } from '@ahhachul/themes';
+import { style } from '@vanilla-extract/css';
+import { defineProperties, createSprinkles } from '@vanilla-extract/sprinkles';
 
 export const BaseStyle = style({
   padding: 0,
   margin: 0,
 
   // @ts-ignore
-  "&:focus-visible": {
-    outline: "none",
+  '&:focus-visible': {
+    outline: 'none',
 
     boxShadow: vars.box.shadows.outline,
   },
@@ -26,12 +26,12 @@ const MarginAndPaddingProperties = defineProperties({
     paddingLeft: vars.box.spacing,
   },
   shorthands: {
-    margin: ["marginTop", "marginRight", "marginBottom", "marginLeft"],
-    padding: ["paddingTop", "paddingRight", "paddingBottom", "paddingLeft"],
-    marginX: ["marginLeft", "marginRight"],
-    marginY: ["marginTop", "marginBottom"],
-    paddingX: ["paddingLeft", "paddingRight"],
-    paddingY: ["paddingTop", "paddingBottom"],
+    margin: ['marginTop', 'marginRight', 'marginBottom', 'marginLeft'],
+    padding: ['paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft'],
+    marginX: ['marginLeft', 'marginRight'],
+    marginY: ['marginTop', 'marginBottom'],
+    paddingX: ['paddingLeft', 'paddingRight'],
+    paddingY: ['paddingTop', 'paddingBottom'],
   },
 });
 
@@ -47,8 +47,4 @@ const BoxShadowStyleProps = defineProperties({
   },
 });
 
-export const StyleSprinkles = createSprinkles(
-  MarginAndPaddingProperties,
-  BorderStyleProperties,
-  BoxShadowStyleProps,
-);
+export const StyleSprinkles = createSprinkles(MarginAndPaddingProperties, BorderStyleProperties, BoxShadowStyleProps);

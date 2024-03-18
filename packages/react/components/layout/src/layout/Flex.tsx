@@ -1,25 +1,11 @@
-import * as React from "react";
-import { FlexProps } from "./types";
-import { clsx } from "clsx";
-import { BaseStyle, StyleSprinkles } from "../core/style.css";
-import { extractSprinkleProps } from "../utils/properties";
-import { vars } from "@ahhachul/themes";
+import * as React from 'react';
+import { FlexProps } from './types';
+import { clsx } from 'clsx';
+import { BaseStyle, StyleSprinkles } from '../core/style.css';
+import { extractSprinkleProps } from '../utils/properties';
 
 const Flex = (props: FlexProps, ref: React.Ref<HTMLElement>) => {
-  const {
-    as = "div",
-    color,
-    background,
-    align,
-    basis,
-    direction,
-    grow,
-    justify,
-    shrink,
-    wrap,
-    gap,
-    children,
-  } = props;
+  const { as = 'div', color, background, align, basis, direction, grow, justify, shrink, wrap, gap, children } = props;
 
   return React.createElement(
     as,
@@ -28,13 +14,11 @@ const Flex = (props: FlexProps, ref: React.Ref<HTMLElement>) => {
       ref,
       className: clsx([
         BaseStyle,
-        StyleSprinkles(
-          extractSprinkleProps(props, Array.from(StyleSprinkles.properties)),
-        ),
+        StyleSprinkles(extractSprinkleProps(props, Array.from(StyleSprinkles.properties))),
         props.className,
       ]),
       style: {
-        display: "flex",
+        display: 'flex',
         alignItems: align,
         justifyContent: justify,
         flexDirection: direction,
@@ -43,8 +27,8 @@ const Flex = (props: FlexProps, ref: React.Ref<HTMLElement>) => {
         flexShrink: shrink,
         flexBasis: basis,
         gap,
-        color: color && vars.colors.$scale?.[color]?.[700],
-        background: background && vars.colors.$scale?.[background]?.[100],
+        color,
+        backgroundColor: background,
         ...props.style,
       },
     },
