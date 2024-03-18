@@ -9,6 +9,7 @@ const layout: CSSObject = {
 };
 
 const theme = {
+  color2: color,
   color: {
     primary: {
       white: '#ffffff',
@@ -68,7 +69,6 @@ const theme = {
       gray_f6f7fa: '#F6F7FA',
       gray_f0f0f0: '#F0F0F0',
     },
-    color2: color,
     background: {
       toast: 'rgba(32, 36, 43, 0.96)',
     },

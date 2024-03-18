@@ -10,32 +10,35 @@ const wrap = [
       primary: { black },
     },
   }: Theme) => ({
-    paddingTop: '8px',
+    paddingTop: '28px',
     paddingBottom: '24px',
     backgroundColor: black,
   }),
 ];
 
 const title = ({
-  color: {
-    primary: { blue },
-    bluegray: { bluegray20 },
+  color2: {
+    scale: { gray },
   },
   typography: {
-    size: { heading2 },
-    weight: { bold },
+    size: { heading5 },
+    weight: { medium, bold },
+    letterSpacing,
   },
 }: Theme): CSSObject => ({
-  color: bluegray20,
-  fontSize: heading2,
-  fontWeight: bold,
+  color: gray[1000],
+  fontSize: heading5,
+  fontWeight: medium,
   lineHeight: '32px',
-  letterSpacing: '-0.4px',
-  marginBottom: '16px',
+  letterSpacing: letterSpacing[4],
+  marginBottom: '40px',
 
   b: {
+    fontWeight: bold,
+  },
+
+  'b:first-of-type': {
     display: 'block',
-    color: blue,
   },
 });
 

@@ -7,7 +7,7 @@ const color = {
         const color = Object.entries(value).reduce((acc, [key, value]) => {
           return {
             ...acc,
-            [key]: { color: value },
+            [key]: value,
           };
         }, {});
 
@@ -25,7 +25,7 @@ const color = {
         const color = Object.entries(value).reduce((acc, [key, value]) => {
           return {
             ...acc,
-            [key]: { color: value },
+            [key]: value,
           };
         }, {});
 
@@ -44,7 +44,7 @@ const color = {
       const color = Object.entries(value).reduce((acc, [key, value]) => {
         return {
           ...acc,
-          [key]: { color: value },
+          [key]: value,
         };
       }, {});
 

@@ -7,7 +7,7 @@ import TalkLoungeCard from './Item';
 
 function ListSection() {
   return (
-    <Box as="section" background="gray" style={{ padding: '22px 0' }}>
+    <Box as="section" style={{ padding: '22px 0' }}>
       <Flex as="ul" direction="column" gap="20px">
         <TalkLoungeCard />
         <TalkLoungeCard />
