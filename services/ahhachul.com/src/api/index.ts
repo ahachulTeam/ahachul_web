@@ -7,3 +7,4 @@ const base = axios.create({
 export { base };
 
 export * as AuthApi from './auth';
+export * as MemberApi from './member';
