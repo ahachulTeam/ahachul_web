@@ -2,16 +2,13 @@ import { CSSObject, Theme } from '@emotion/react';
 
 const title = ({
   color: {
-    primary: { white },
+    scale: { gray },
   },
-  typography: {
-    size: { paragraph1 },
-    weight: { semibold },
-  },
+  typography: { fontSize, fontWeight },
 }: Theme): CSSObject => ({
-  color: white,
-  fontSize: paragraph1,
-  fontWeight: semibold,
+  color: gray[1000],
+  fontSize: fontSize[16],
+  fontWeight: fontWeight[600],
 });
 
 export { title };

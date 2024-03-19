@@ -2,11 +2,9 @@ import { CSSObject, Theme } from '@emotion/react';
 
 const errWrap = ({
   color: {
-    primary: { white, black },
+    scale: { gray },
   },
-  typography: {
-    weight: { medium, bold },
-  },
+  typography: { fontWeight },
 }: Theme): CSSObject => ({
   display: 'flex',
   flexDirection: 'column',
@@ -18,25 +16,25 @@ const errWrap = ({
   },
 
   '& > span': {
-    color: black,
+    color: gray[0],
     fontSize: '18px',
-    fontWeight: bold,
+    fontWeight: fontWeight[700],
     marginBottom: '6px',
   },
 
   '& > p': {
     color: '#777777',
     fontSize: '14px',
-    fontWeight: medium,
+    fontWeight: fontWeight[500],
     marginBottom: '24px',
   },
 
   '& > button': {
     padding: '12px 22px',
-    color: white,
+    color: gray[1000],
     background: '#27CDC8',
     fontSize: '14px',
-    fontWeight: bold,
+    fontWeight: fontWeight[700],
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

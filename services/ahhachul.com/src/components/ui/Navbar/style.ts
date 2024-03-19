@@ -11,18 +11,18 @@ const wrap: CSSObject = {
 
 const shadowWrap = ({
   color: {
-    primary: { white },
+    scale: { gray },
   },
-  shadows,
+  layout: { shadows },
 }: Theme): CSSObject => ({
   position: 'relative',
   height: '100%',
   margin: 'auto',
   alignItems: 'center',
   maxWidth: '768px',
-  backgroundColor: white,
+  backgroundColor: gray[1000],
   borderRadius: '24px 24px 0 0',
-  boxShadow: shadows[2],
+  boxShadow: shadows.md,
 });
 
 const content: CSSObject = {
@@ -33,24 +33,15 @@ const content: CSSObject = {
 
 const itemWrap =
   (isActive: boolean) =>
-  ({
-    color: {
-      sub: { gray_b2bfd1 },
-      primary: { blue },
-    },
-    typography: {
-      size: { element2 },
-      weight: { semibold },
-    },
-  }: Theme): CSSObject => ({
+  ({ typography: { fontWeight } }: Theme): CSSObject => ({
     display: 'flex',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     height: '100%',
     textAlign: 'center',
-    fontSize: element2,
-    color: gray_b2bfd1,
+    fontSize: '13px',
+    color: '#B2BFD1',
     boxShadow: 'none',
 
     '& > button': {
@@ -61,18 +52,18 @@ const itemWrap =
       padding: '2px',
       width: '60px',
       textDecoration: 'none',
-      fontWeight: semibold,
-      color: isActive ? blue : 'inherit',
+      fontWeight: fontWeight[500],
+      color: isActive ? '#004FEC' : 'inherit',
       transition: 'color 0.4s',
 
       '& > div > svg': {
         '& > path, & > rect': {
-          fill: isActive ? blue : gray_b2bfd1,
+          fill: isActive ? '#004FEC' : '#B2BFD1',
         },
       },
 
       '&:focus': {
-        color: blue,
+        color: '#004FEC',
         boxShadow: 'none',
       },
       '& span': {

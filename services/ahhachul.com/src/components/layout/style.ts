@@ -3,14 +3,9 @@ import { f } from 'styles';
 
 const wrapper = [f.posAbsFull, f.flexColumn, f.rootLineHeight];
 
-const left = ({
-  typography: {
-    size: { paragraph1 },
-    weight: { semibold },
-  },
-}: Theme): CSSObject => ({
-  fontSize: paragraph1,
-  fontWeight: semibold,
+const left = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
+  fontSize: fontSize[16],
+  fontWeight: fontWeight[600],
   paddingLeft: '16px',
 });
 

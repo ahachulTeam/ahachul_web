@@ -1,21 +1,23 @@
-import "@ahhachul/react-components-layout/style.css";
-import { Box as _Box } from "@ahhachul/react-components-layout";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React from 'react';
+import '@ahhachul/react-components-layout/style.css';
+import { Box as _Box } from '@ahhachul/react-components-layout';
 
 export default {
-  title: "React Components/Layout/Box",
+  title: 'React Components/Layout/Box',
   component: _Box,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 };
 
 export const BoxStory = {
   args: {
-    as: "button",
-    padding: "5",
-    background: "pink",
-    boxShadow: "xl",
-    borderRadius: "md",
+    as: 'button',
+    padding: '5',
+    background: 'pink',
+    boxShadow: 'xl',
+    borderRadius: 'md',
   },
 };

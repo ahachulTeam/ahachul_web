@@ -49,7 +49,7 @@ const wrap = (isClosing: boolean): CSSObject => ({
 
 const toast = ({
   color: {
-    primary: { tertiary },
+    scale: { gray },
   },
 }: Theme): CSSObject => ({
   width: '100%',
@@ -57,23 +57,20 @@ const toast = ({
   alignItems: 'center',
   justifyContent: 'space-between',
   gap: '30px',
-  background: tertiary,
+  background: gray[700],
   padding: '20px 24px',
   borderRadius: '20px',
 });
 
 const text = ({
   color: {
-    primary: { white },
+    scale: { gray },
   },
-  typography: {
-    size: { element3 },
-    weight: { bold },
-  },
+  typography: { fontSize, fontWeight },
 }: Theme): CSSObject => ({
-  color: white,
-  fontSize: element3,
-  fontWeight: bold,
+  color: gray[1000],
+  fontSize: fontSize[16],
+  fontWeight: fontWeight[700],
   lineHeight: 1.5,
   display: '-webkit-box',
   WebkitLineClamp: 2,
@@ -83,14 +80,14 @@ const text = ({
 
 const closeBtn = ({
   color: {
-    primary: { white },
+    scale: { gray },
   },
 }: Theme): CSSObject => ({
   width: '24px',
   height: '24px',
 
   '& > svg > path': {
-    fill: white,
+    fill: gray[1000],
   },
 });
 

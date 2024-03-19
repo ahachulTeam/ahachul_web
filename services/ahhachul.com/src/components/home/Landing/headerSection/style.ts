@@ -7,34 +7,30 @@ const wrap = [
   f.flexColumn,
   ({
     color: {
-      primary: { black },
+      scale: { gray },
     },
   }: Theme) => ({
     paddingTop: '28px',
     paddingBottom: '24px',
-    backgroundColor: black,
+    backgroundColor: gray[0],
   }),
 ];
 
 const title = ({
-  color2: {
+  color: {
     scale: { gray },
   },
-  typography: {
-    size: { heading5 },
-    weight: { medium, bold },
-    letterSpacing,
-  },
+  typography: { fontSize, fontWeight },
 }: Theme): CSSObject => ({
   color: gray[1000],
-  fontSize: heading5,
-  fontWeight: medium,
+  fontSize: fontSize[18],
+  fontWeight: fontWeight[500],
   lineHeight: '32px',
-  letterSpacing: letterSpacing[4],
+  letterSpacing: '-0.4px',
   marginBottom: '40px',
 
   b: {
-    fontWeight: bold,
+    fontWeight: fontWeight[700],
   },
 
   'b:first-of-type': {
@@ -50,23 +46,19 @@ const registCenter = [
   f.flexJustifyCenter,
   ({
     color: {
-      primary: { white },
-      bluegray: { bluegray40 },
+      scale: { gray },
     },
-    typography: {
-      size: { element4 },
-      weight: { medium },
-    },
+    typography: { fontSize, fontWeight },
   }: Theme): CSSObject => ({
     height: '48px',
     marginRight: '10px',
     padding: '0 12px',
     borderRadius: '8px',
-    border: `1px solid ${bluegray40}`,
+    border: `1px solid #949DB2`,
 
-    color: white,
-    fontSize: element4,
-    fontWeight: medium,
+    color: gray[1000],
+    fontSize: fontSize[11],
+    fontWeight: fontWeight[500],
     lineHeight: '14px',
     letterSpacing: '-0.2px',
 
@@ -82,21 +74,18 @@ const mobileTicket = [
   f.flexJustifyCenter,
   ({
     color: {
-      primary: { white, blue },
+      scale: { gray, purple },
     },
-    typography: {
-      size: { element1 },
-      weight: { semibold },
-    },
+    typography: { fontSize, fontWeight },
   }: Theme): CSSObject => ({
     height: '48px',
     borderRadius: '8px',
-    backgroundColor: blue,
+    backgroundColor: purple[900],
 
     span: {
-      color: white,
-      fontSize: element1,
-      fontWeight: semibold,
+      color: gray[1000],
+      fontSize: fontSize[14],
+      fontWeight: fontWeight[600],
       lineHeight: '20px',
       letterSpacing: '-0.2px',
       marginLeft: '8px',
@@ -107,34 +96,21 @@ const mobileTicket = [
 const banner = [
   f.fullWidth,
   f.flexAlignCenter,
-  ({
-    color: {
-      sub: { gray_eef4ff },
-    },
-  }: Theme): CSSObject => ({
+  {
     justifyContent: 'space-between',
 
     height: '58px',
     padding: '0 20px',
-    backgroundColor: gray_eef4ff,
+    backgroundColor: '#eef4ff',
     borderRadius: '8px',
-  }),
+  },
 ];
 
-const bannerTextGroup = ({
-  color: {
-    sub: { blue_2f5fdc },
-    bluegray: { bluegray50 },
-  },
-  typography: {
-    size: { element2, element3 },
-    weight: { medium },
-  },
-}: Theme): CSSObject => ({
+const bannerTextGroup = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
   'p:first-of-type': {
-    color: bluegray50,
-    fontSize: element3,
-    fontWeight: medium,
+    color: '#727B8E',
+    fontSize: fontSize[12],
+    fontWeight: fontWeight[500],
     lineHeight: '14px',
     letterSpacing: '-0.2px',
   },
@@ -142,20 +118,16 @@ const bannerTextGroup = ({
   'p:last-of-type': {
     marginTop: '2px',
 
-    color: blue_2f5fdc,
-    fontSize: element2,
-    fontWeight: medium,
+    color: '#2f5fdc ',
+    fontSize: fontSize[11],
+    fontWeight: fontWeight[500],
     lineHeight: '18px',
     letterSpacing: '-0.2px',
   },
 });
 
-const bannerIcon = ({
-  color: {
-    sub: { blue_4a93ff },
-  },
-}: Theme): CSSObject => ({
-  '& svg': { width: '16px', height: '16px', transform: 'rotate(180deg)', '& path': { stroke: blue_4a93ff } },
-});
+const bannerIcon = {
+  '& svg': { width: '16px', height: '16px', transform: 'rotate(180deg)', '& path': { stroke: '#4a93ff' } },
+};
 
 export { wrap, title, btn_wrap, registCenter, mobileTicket, banner, bannerTextGroup, bannerIcon };

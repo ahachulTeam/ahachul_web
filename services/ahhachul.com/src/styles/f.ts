@@ -1,5 +1,4 @@
 import { CSSObject, Theme } from '@emotion/react';
-import theme from './theme';
 
 const grid: CSSObject = {
   display: 'grid',
@@ -73,14 +72,14 @@ const nowrap: CSSObject = {
 
 const resetButton = ({
   color: {
-    primary: { black },
+    scale: { gray },
   },
 }: Theme): CSSObject => ({
   appearance: 'none',
   border: 0,
   padding: 0,
   background: 'none',
-  color: black,
+  color: gray[0],
   textAlign: 'left',
 });
 
@@ -142,8 +141,8 @@ const truncate2 = [
 ];
 
 const sideGutter: CSSObject = {
-  paddingLeft: theme.size.gutter,
-  paddingRight: theme.size.gutter,
+  paddingLeft: '20px',
+  paddingRight: '20px',
 };
 
 export {

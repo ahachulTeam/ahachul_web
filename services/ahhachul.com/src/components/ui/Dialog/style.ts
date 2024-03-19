@@ -17,13 +17,13 @@ const backgroundCover =
   (opacity: number, isWhite: boolean) =>
   ({
     color: {
-      primary: { white, black_all },
+      scale: { gray },
     },
     size: {
       height: { header, navbar },
     },
   }: Theme): CSSObject => ({
-    background: isWhite ? white : black_all,
+    background: isWhite ? gray[1000] : gray[0],
     opacity,
     height: `calc(100vh - ${header} - ${navbar})`,
   });
@@ -47,28 +47,23 @@ const background = ({
 
 const dialogTitleCss = ({
   color: {
-    primary: { black },
+    scale: { gray },
   },
-  typography: {
-    size: { heading4 },
-    weight: { bold },
-  },
+  typography: { fontSize, fontWeight },
 }: Theme): CSSObject => ({
-  fontSize: heading4,
-  fontWeight: bold,
-  color: black,
+  fontSize: fontSize[20],
+  fontWeight: fontWeight[700],
+  color: gray[0],
 });
 
 const dialogContentCss = ({
   color: {
-    primary: { black },
+    scale: { gray },
   },
-  typography: {
-    size: { paragraph2 },
-  },
+  typography: { fontSize },
 }: Theme): CSSObject => ({
-  fontSize: paragraph2,
-  color: black,
+  fontSize: fontSize[14],
+  color: gray[0],
 });
 
 const dialogWrapperCss: CSSObject = {
@@ -91,10 +86,10 @@ const buttonWrapperCss: CSSObject = {
 
 const dialogButtonTextCss = ({
   color: {
-    primary: { black },
+    scale: { gray },
   },
 }: Theme) => ({
-  color: black,
+  color: gray[0],
 });
 
 export {

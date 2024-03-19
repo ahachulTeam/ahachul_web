@@ -7,28 +7,25 @@ const top = [
   f.posRel,
   ({
     color: {
-      primary: { white, black },
+      scale: { gray },
     },
-    typography: {
-      size: { heading5 },
-      weight: { bold },
-    },
+    typography: { fontSize, fontWeight },
   }: Theme): CSSObject => ({
     height: '55px',
-    backgroundColor: white,
+    backgroundColor: gray[1000],
     justifyContent: 'space-between',
     padding: '0 24px',
 
     '& > span': {
-      color: black,
-      fontSize: heading5,
-      fontWeight: bold,
+      color: gray[0],
+      fontSize: fontSize[18],
+      fontWeight: fontWeight[700],
       lineHeight: '22.54px',
       letterSpacing: '-1%',
     },
 
     '& > div > svg > g > path': {
-      fill: black,
+      fill: gray[0],
     },
   }),
 ];
@@ -36,15 +33,11 @@ const top = [
 const content = [
   f.fullWidth,
   f.flexColumn,
-  ({
-    color: {
-      sub: { blue_3477fe },
-    },
-  }: Theme): CSSObject => ({
+  {
     height: '375px',
-    backgroundColor: blue_3477fe,
+    backgroundColor: '#3477fe',
     padding: '0 34px',
-  }),
+  },
 ];
 
 export { top, content };

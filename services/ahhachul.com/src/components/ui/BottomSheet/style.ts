@@ -21,14 +21,14 @@ const contentCss = (isFullHeight: boolean) => ({
 
 const bottomSheetCss = ({
   color: {
-    primary: { white },
+    scale: { gray },
   },
 }: Theme): CSSObject => ({
   '--rsbs-backdrop-bg': 'rgba(0, 0, 0, 0.60)',
   '--rsbs-max-w': '475px',
   '--rsbs-ml': 'auto',
   '--rsbs-mr': 'auto',
-  '--rsbs-bg': white,
+  '--rsbs-bg': gray[1000],
   '--rsbs-overlay-rounded': '28px',
   '--rsbs-handle-bg': '#3C3D47',
 
