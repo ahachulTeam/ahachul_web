@@ -1,10 +1,17 @@
+import { Theme } from '@emotion/react';
 import { f } from 'styles';
 
 const wrap = [
   f.fullWidth,
   f.fullHeight,
   f.flexColumn,
-  { gap: '36px', padding: '26px 20px 48px 20px', backgroundColor: '#0B0B0B' },
+  ({
+    color: {
+      static: {
+        dark: { gray },
+      },
+    },
+  }: Theme) => ({ gap: '36px', padding: '26px 20px 48px 20px', backgroundColor: gray[200] }),
 ];
 
 const sectionLabel = {

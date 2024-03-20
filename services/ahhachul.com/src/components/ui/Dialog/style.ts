@@ -1,8 +1,10 @@
 import { CSSObject, Theme } from '@emotion/react';
 
 const wrap = ({
-  size: {
-    height: { header, navbar },
+  layout: {
+    size: {
+      height: { header, navbar },
+    },
   },
 }: Theme): CSSObject => ({
   position: 'fixed',
@@ -19,8 +21,10 @@ const backgroundCover =
     color: {
       scale: { gray },
     },
-    size: {
-      height: { header, navbar },
+    layout: {
+      size: {
+        height: { header, navbar },
+      },
     },
   }: Theme): CSSObject => ({
     background: isWhite ? gray[1000] : gray[0],
@@ -29,8 +33,10 @@ const backgroundCover =
   });
 
 const background = ({
-  size: {
-    height: { header, navbar },
+  layout: {
+    size: {
+      height: { header, navbar },
+    },
   },
 }: Theme): CSSObject => ({
   position: 'fixed',

@@ -5,10 +5,12 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from 'stores';
 import { theme, global } from 'styles';
 import QueryProvider from './QueryProvider';
+import ThemeScript from './ThemeScript';
 
 function AppProvider({ children }: PropsWithChildren) {
   return (
     <>
+      <ThemeScript />
       <Global styles={global} />
       <ThemeProvider theme={theme}>
         <Provider store={store}>

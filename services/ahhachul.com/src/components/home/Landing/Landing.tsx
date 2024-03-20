@@ -1,22 +1,18 @@
 import React from 'react';
 
 import { HeaderSection } from './headerSection';
-import { RequestPayment } from './requestPayment';
-import { RecommendTicket } from './recommendTicket';
-import { ReservedClass } from './reservedClass';
-import { MyTicket } from './myTicket';
+import Subway from './subway/Subway';
 
 const Landing = () => {
   return (
-    <>
-      <main>
-        <HeaderSection />
-        <RequestPayment />
-        <RecommendTicket />
-        <ReservedClass />
-        <MyTicket />
-      </main>
-    </>
+    <main>
+      <HeaderSection />
+      <Subway />
+      {/* <RequestPayment /> */}
+      {/* <RecommendTicket /> */}
+      {/* <ReservedClass /> */}
+      {/* <MyTicket /> */}
+    </main>
   );
 };
 

@@ -82,47 +82,49 @@ const theme = {
       [key in keyof (typeof vars)['typography']]: (typeof vars)['typography'][key];
     },
   ),
-  zIndexes: Object.entries(vars.zIndex).reduce(
-    (acc, [key, value]) => {
-      const zIndex = Object.entries(value).reduce((acc, [key, value]) => {
+  layout: {
+    ...Object.entries(vars.box).reduce(
+      (acc, [key, value]) => {
+        const layout = Object.entries(value).reduce((acc, [key, value]) => {
+          return {
+            ...acc,
+            [key]: value,
+          };
+        }, {});
+
         return {
           ...acc,
-          [key]: value,
+          [key]: layout,
         };
-      }, {});
+      },
+      {} as {
+        [key in keyof (typeof vars)['box']]: (typeof vars)['box'][key];
+      },
+    ),
+    dimensions: Object.entries(vars.zIndex).reduce(
+      (acc, [key, value]) => {
+        const zIndex = Object.entries(value).reduce((acc, [key, value]) => {
+          return {
+            ...acc,
+            [key]: value,
+          };
+        }, {});
 
-      return {
-        ...acc,
-        [key]: zIndex,
-      };
-    },
-    {} as {
-      [key in keyof (typeof vars)['zIndex']]: (typeof vars)['zIndex'][key];
-    },
-  ),
-  layout: Object.entries(vars.box).reduce(
-    (acc, [key, value]) => {
-      const layout = Object.entries(value).reduce((acc, [key, value]) => {
         return {
           ...acc,
-          [key]: value,
+          [key]: zIndex,
         };
-      }, {});
-
-      return {
-        ...acc,
-        [key]: layout,
-      };
-    },
-    {} as {
-      [key in keyof (typeof vars)['box']]: (typeof vars)['box'][key];
-    },
-  ),
-  size: {
-    gutter: GUTTER,
-    height: {
-      header: HEADER_HEIGHT,
-      navbar: NAVBAR_HEIGHT,
+      },
+      {} as {
+        [key in keyof (typeof vars)['zIndex']]: (typeof vars)['zIndex'][key];
+      },
+    ),
+    size: {
+      gutter: GUTTER,
+      height: {
+        header: HEADER_HEIGHT,
+        navbar: NAVBAR_HEIGHT,
+      },
     },
   },
 } as const;

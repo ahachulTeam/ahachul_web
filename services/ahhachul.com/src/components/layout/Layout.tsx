@@ -7,6 +7,7 @@ import { KeyOf, Nullable } from 'types/utility-types';
 import withDefaultAppBar from './withDefaultAppBar';
 import { scrollable, wrapper } from './style';
 import { useAppSelector } from 'stores';
+import { theme } from 'styles';
 
 type PropOf<T> = T extends React.ComponentType<infer U> ? U : never;
 
@@ -30,11 +31,11 @@ const Layout: React.FC<LayoutProps> = ({ activeTab = 'Home', appBar, children })
     <AppScreen
       appBar={{
         ...(appBar || defaultAppBar),
-        textColor: '#FFFFFF',
-        iconColor: '#FFFFFF',
+        textColor: theme.color.scale.gray[1000],
+        iconColor: theme.color.scale.gray[1000],
         onTopClick: scrollToTop,
       }}
-      backgroundColor={'#0B0B0B'}
+      backgroundColor={theme.color.static.dark.gray[200]}
     >
       <div css={wrapper}>
         <div ref={topEl} css={scrollable(Boolean(activeTab))}>

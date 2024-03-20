@@ -7,22 +7,29 @@ const wrap = [
   f.flexColumn,
   ({
     color: {
-      scale: { gray },
+      static: {
+        dark: { gray },
+      },
     },
   }: Theme) => ({
     paddingTop: '16px',
     paddingBottom: '24px',
-    backgroundColor: gray[0],
+    backgroundColor: gray[200],
   }),
 ];
 
 const title = [
   f.flexAlignCenter,
-  ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
+  ({
+    color: {
+      scale: { gray },
+    },
+    typography: { fontSize, fontWeight },
+  }: Theme): CSSObject => ({
     marginBottom: '12px',
 
     b: {
-      color: '#C8CDD9',
+      color: gray[1000],
       fontSize: fontSize[18],
       fontWeight: fontWeight[700],
       lineHeight: '28px',

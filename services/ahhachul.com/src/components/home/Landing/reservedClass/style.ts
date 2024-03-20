@@ -6,11 +6,17 @@ const wrap = [
   f.sideGutter,
   f.fullWidth,
   f.flexColumn,
-  {
+  ({
+    color: {
+      static: {
+        dark: { gray },
+      },
+    },
+  }: Theme) => ({
     paddingTop: '32px',
     paddingBottom: '24px',
-    backgroundColor: '#f3f7ff',
-  },
+    backgroundColor: gray[200],
+  }),
 ];
 
 const headSection = [
@@ -38,9 +44,14 @@ const headSection = [
 
 const title = [
   f.flexAlignCenter,
-  ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
+  ({
+    color: {
+      scale: { gray },
+    },
+    typography: { fontSize, fontWeight },
+  }: Theme): CSSObject => ({
     span: {
-      color: '#363E52',
+      color: gray[1000],
       fontSize: fontSize[18],
       fontWeight: fontWeight[700],
       lineHeight: '28px',

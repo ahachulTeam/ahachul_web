@@ -2,6 +2,7 @@ import { Box, Flex, Text } from '@ahhachul/react-components-layout';
 import IconCategoryFree from 'static/icons/community/IconCategoryFree';
 import IconCategoryInsight from 'static/icons/community/IconCategoryInsight';
 import IconCategoryRank from 'static/icons/community/IconCategoryRank';
+import { theme } from 'styles';
 import { TabBtn } from './style';
 
 const COMMUNITY_TABS = {
@@ -21,7 +22,7 @@ const COMMUNITY_TABS = {
 
 function TabSection() {
   return (
-    <Box as="section" padding={5}>
+    <Box as="section" padding={5} background={theme.color.static.dark.gray[200]}>
       <Flex as="ul" align="center" gap="25px">
         {Object.entries(COMMUNITY_TABS).map(([key, { label, icon }], idx) => (
           <li key={key} role="none">

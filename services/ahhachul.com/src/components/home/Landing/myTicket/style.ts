@@ -6,12 +6,14 @@ const wrap = [
   f.flexColumn,
   ({
     color: {
-      scale: { gray },
+      static: {
+        dark: { gray },
+      },
     },
   }: Theme): CSSObject => ({
     paddingTop: '32px',
     paddingBottom: '24px',
-    backgroundColor: gray[0],
+    backgroundColor: gray[200],
   }),
 ];
 
@@ -44,12 +46,12 @@ const title = [
   f.flexAlignCenter,
   ({
     color: {
-      scale: { purple },
+      scale: { gray, purple },
     },
     typography: { fontSize, fontWeight },
   }: Theme): CSSObject => ({
     span: {
-      color: '#C8CDD9',
+      color: gray[200],
       fontSize: fontSize[18],
       fontWeight: fontWeight[700],
       lineHeight: '28px',
@@ -69,11 +71,13 @@ const tickets_wrap = [
   f.flexColumn,
   ({
     color: {
-      scale: { purple },
+      static: {
+        dark: { gray },
+      },
     },
   }: Theme): CSSObject => ({
     padding: '24px',
-    backgroundColor: purple[900],
+    backgroundColor: gray[200],
   }),
 ];
 

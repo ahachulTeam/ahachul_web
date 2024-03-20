@@ -6,9 +6,9 @@ import { Button } from '@ahhachul/react-components-button';
 import { COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
 import { Layout } from 'components/layout';
 import { WhereIsTrainNumberBottomSheet } from './bottomSheet';
-import { vars } from '@ahhachul/themes';
 import { tooltip, buttonWrapper } from './style';
 import { useFlow } from 'stackflow';
+import { f, theme } from 'styles';
 
 type AskTrainNumberProps = {
   slug: COMPLAINTS_CONTENTS_TYPES;
@@ -34,47 +34,46 @@ const AskTrainNumber: ActivityComponentType<AskTrainNumberProps> = ({ params }) 
           </Text>
         </Flex>
       </Box>
-      <div style={{ padding: '0 20px' }}>
+      <div css={{ padding: '0 20px' }}>
         {/* <Input variant="filled" placeholder="열차번호" /> */}
         <span css={tooltip} onClick={toggle}>
           {/* <CircleWarningSVG /> */}
-          <span style={{ color: '#ffffff' }}>열차번호는 어디에 있나요?</span>
+          <span css={{ color: theme.color.scale.gray[1000], cursor: 'pointer' }}>열차번호는 어디에 있나요?</span>
         </span>
       </div>
       <WhereIsTrainNumberBottomSheet isShowing={show} onClose={toggle} />
       <div css={buttonWrapper}>
         <Button
           size="md"
-          color="whiteAlpha"
+          color={theme.color.scale.gray[1000]}
           onClick={next}
-          style={{
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '48px',
-            borderRadius: '8px',
-            color: vars.colors.$static.dark.color.black,
-            backgroundColor: vars.colors.$static.dark.color.white,
-          }}
+          css={[
+            f.fullWidth,
+            f.flexAlignCenter,
+            f.flexJustifyCenter,
+            {
+              height: '48px',
+              borderRadius: theme.layout.radii.lg,
+              backgroundColor: theme.color.scale.gray[0],
+            },
+          ]}
         >
           다음
         </Button>
         <Button
-          variant="ghost"
           size="sm"
-          color="blackAlpha"
-          onClick={() => {}}
-          style={{
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '48px',
-            borderRadius: '8px',
-            color: vars.colors.$static.dark.color.black,
-            backgroundColor: vars.colors.$static.dark.color.white,
-          }}
+          variant="ghost"
+          color={theme.color.scale.gray[1000]}
+          css={[
+            f.fullWidth,
+            f.flexAlignCenter,
+            f.flexJustifyCenter,
+            {
+              height: '48px',
+              borderRadius: theme.layout.radii.lg,
+              backgroundColor: theme.color.scale.gray[0],
+            },
+          ]}
         >
           열차번호 없이 민원신고 하기
         </Button>

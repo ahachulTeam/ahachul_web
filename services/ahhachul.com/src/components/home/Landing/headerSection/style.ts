@@ -7,12 +7,14 @@ const wrap = [
   f.flexColumn,
   ({
     color: {
-      scale: { gray },
+      static: {
+        dark: { gray },
+      },
     },
   }: Theme) => ({
     paddingTop: '28px',
-    paddingBottom: '24px',
-    backgroundColor: gray[0],
+    marginBottom: '40px',
+    backgroundColor: gray[200],
   }),
 ];
 
@@ -27,7 +29,6 @@ const title = ({
   fontWeight: fontWeight[500],
   lineHeight: '32px',
   letterSpacing: '-0.4px',
-  marginBottom: '40px',
 
   b: {
     fontWeight: fontWeight[700],

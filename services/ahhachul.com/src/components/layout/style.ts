@@ -27,8 +27,10 @@ const scrollable = (hasNavbar: boolean) => [
   f.flex1,
   f.overflowScroll,
   ({
-    size: {
-      height: { header, navbar },
+    layout: {
+      size: {
+        height: { header, navbar },
+      },
     },
   }: Theme): CSSObject => ({
     paddingTop: header,
