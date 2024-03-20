@@ -72,8 +72,9 @@ function 안내방송(props: { page: COMPLAINTS_CONTENTS_TYPES }) {
                     style={{
                       width: 'max-content',
                       margin: '0 auto',
-                      borderRadius: '100px',
+                      borderRadius: '24px',
                       backgroundColor: COMPLAINTS_ROOM_SERVICE_INFO[page]?.activeColor?.[key].pointColor,
+                      padding: '8px',
                     }}
                   >
                     선택
@@ -149,8 +150,9 @@ function 안내방송(props: { page: COMPLAINTS_CONTENTS_TYPES }) {
                       style={{
                         width: 'max-content',
                         margin: '0 auto',
-                        borderRadius: '100px',
+                        borderRadius: '24px',
                         backgroundColor: COMPLAINTS_ROOM_SERVICE_INFO[page]?.activeColor?.[key].pointColor,
+                        padding: '8px',
                       }}
                     >
                       선택

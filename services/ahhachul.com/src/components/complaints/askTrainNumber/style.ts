@@ -20,6 +20,7 @@ const tooltip: [CSSObject[], CSSObject] = [
   f.flexAlignCenter,
   {
     gap: '6px',
+    marginTop: '16px',
   },
 ];
 
