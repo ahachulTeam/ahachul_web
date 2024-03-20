@@ -1,11 +1,11 @@
 import React from 'react';
 import loadable from '@loadable/component';
-import { Box, Grid, Text } from '@ahhachul/react-components-layout';
+import { Box } from '@ahhachul/react-components-layout';
 
 import { useFlow } from 'stackflow';
 import { ComplaintsComponent } from 'components';
 import { COMPLAINTS_CONTENTS, COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
-import { grid, wrap, sectionLabel } from './style';
+import { grid, grid2, wrap, sectionLabel } from './style';
 
 const Room = (serviceName: string) => {
   return loadable(() => import(`./room/services/${serviceName}`), {
@@ -22,32 +22,36 @@ const Complaints = () => {
   return (
     <main css={wrap}>
       <Box>
-        <Text fontSize="md" css={sectionLabel}>
-          지하철 환경
-        </Text>
-        <Grid templateColumns="repeat(2, 1fr)" css={grid}>
+        <h2 css={sectionLabel}>지하철 환경</h2>
+        <ul css={grid}>
           {Object.entries(COMPLAINTS_CONTENTS)
             .slice(0, 4)
             .map(([key, value]) => (
-              <article key={key} onMouseOver={() => Room(key).preload()} onClick={() => next(key)}>
-                <ComplaintsComponent.ComplaintCard title={value.label} description={value.description} />
-              </article>
+              <li key={key} onMouseOver={() => Room(key).preload()} onClick={() => next(key)}>
+                <ComplaintsComponent.ComplaintCard
+                  title={value.label}
+                  description={value.description}
+                  icon={value?.icon}
+                />
+              </li>
             ))}
-        </Grid>
+        </ul>
       </Box>
       <Box>
-        <Text fontSize="xl" css={sectionLabel}>
-          긴급민원 요청
-        </Text>
-        <Grid templateColumns="repeat(2, 1fr)" css={grid}>
+        <h2 css={sectionLabel}>긴급민원 요청</h2>
+        <ul css={grid2}>
           {Object.entries(COMPLAINTS_CONTENTS)
             .slice(4, 7)
             .map(([key, value]) => (
-              <article key={key} onMouseOver={() => Room(key).preload()} onClick={() => next(key)}>
-                <ComplaintsComponent.ComplaintCard title={value.label} description={value.description} />
-              </article>
+              <li key={key} onMouseOver={() => Room(key).preload()} onClick={() => next(key)}>
+                <ComplaintsComponent.ComplaintCard
+                  title={value.label}
+                  description={value.description}
+                  icon={value?.icon}
+                />
+              </li>
             ))}
-        </Grid>
+        </ul>
       </Box>
     </main>
   );

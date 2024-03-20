@@ -20,7 +20,7 @@ const Subway = () => {
             <b>곧 도착</b>
             <span>성수행</span>
             <button>
-              <IconFetch />
+              <IconFetch css={{ position: 'relative', top: '1px' }} />
             </button>
           </TopInfo>
           <TrainInfoContainer>
@@ -35,7 +35,7 @@ const Subway = () => {
                   <li />
                 </ul>
                 <span>혼잡</span>
-                <IconInfo />
+                <IconInfo css={{ position: 'relative', top: '1px' }} />
               </div>
             </TrainInfoTop>
             <Train />

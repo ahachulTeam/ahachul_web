@@ -17,29 +17,39 @@ import Icon행선 from 'static/icons/complaints/Icon행선';
 import Icon임산부 from 'static/icons/complaints/Icon임산부';
 import Icon더워요 from 'static/icons/complaints/Icon더워요';
 import Icon추워요 from 'static/icons/complaints/Icon추워요';
+import Icon환경 from 'static/icons/complaints/Icon환경';
+import Icon질서 from 'static/icons/complaints/Icon질서';
+import Icon응급 from 'static/icons/complaints/Icon응급';
+import Icon폭력 from 'static/icons/complaints/Icon폭력';
+import Icon화살표 from 'static/icons/complaints/Icon화살표';
 
 export const COMPLAINTS_CONTENTS = {
   환경민원: {
     label: '환경민원',
-    description: '토사물, 오물, 환기\n각종 환경민원',
+    description: '토사물, 오물, 환기',
+    icon: <Icon환경 />,
   },
-  안내방송: { label: '안내방송', description: '방송불량, 음량문제' },
-  온도조절: { label: '온도조절', description: '너무 덥거나 추울 때' },
+  온도조절: { label: '온도조절', description: '덥거나 추울 때', icon: null },
   질서저해: {
     label: '질서저해',
-    description: '취객, 노숙, 구걸, 소란 열차 내 질서저해',
+    description: '취객, 노숙, 구걸 등',
+    icon: <Icon질서 />,
   },
+  안내방송: { label: '안내방송', description: '방송불량, 음량 조절까지 한 번에', icon: <Icon화살표 /> },
   응급환자: {
     label: '응급환자',
-    description: '열차 내 응급환자\n긴급 신고하기',
+    description: '환자 긴급 신고',
+    icon: <Icon응급 />,
   },
   폭력: {
     label: '폭력',
-    description: '열차 내 폭행 (싸움)\n발생시 신고하기',
+    description: '열차 내 폭행신고',
+    icon: <Icon폭력 />,
   },
   성추행: {
     label: '성추행',
     description: '열차 내 성폭력, 몰래카메라',
+    icon: <Icon화살표 />,
   },
 } as const;
 

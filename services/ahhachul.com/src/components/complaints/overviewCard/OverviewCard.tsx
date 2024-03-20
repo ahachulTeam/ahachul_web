@@ -1,21 +1,28 @@
 import React from 'react';
-import { Text } from '@ahhachul/react-components-layout';
 import { wrap } from './style';
 
 interface ComplaintOverviewCardProps {
   title: string;
   description: string;
+  icon?: React.ReactNode;
 }
 
 function ComplaintOverviewCard(props: ComplaintOverviewCardProps) {
-  const { title } = props;
+  const { title, description } = props;
 
   return (
-    <div css={wrap}>
-      <Text fontSize="xl" as="strong" style={{ fontWeight: 700 }}>
-        {title}
-      </Text>
-    </div>
+    <article css={wrap}>
+      <span>{title}</span>
+      <p>{description}</p>
+      {props.icon}
+      {title === '온도조절' && (
+        <article>
+          <span>현재 온도</span>
+          <p>3월 20일 오후 6:30</p>
+          <div>-3.9°</div>
+        </article>
+      )}
+    </article>
   );
 }
 
