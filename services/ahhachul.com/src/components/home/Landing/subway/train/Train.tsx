@@ -66,7 +66,7 @@ const Container = styled.div`
 
   & > ul {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(28px, 1fr));
+    grid-template-columns: repeat(10, 1fr);
     column-gap: 4px;
     width: calc(100% - 32px);
     position: absolute;
