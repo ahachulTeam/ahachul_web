@@ -35,7 +35,7 @@ const Subway = () => {
                   <li />
                 </ul>
                 <span>혼잡</span>
-                <IconInfo css={{ position: 'relative', top: '1px' }} />
+                <IconInfo css={{ position: 'relative', top: '1px', marginLeft: '4px' }} />
               </div>
             </TrainInfoTop>
             <Train />
@@ -140,7 +140,6 @@ const TrainInfoTop = styled.div`
   & > div {
     display: flex;
     align-items: center;
-    column-gap: 4px;
 
     & > ul {
       display: grid;
@@ -233,7 +232,7 @@ const BottomInfo = styled.ul`
   grid-template-columns: repeat(2, 1fr);
   column-gap: 24px;
   row-gap: 12px;
-  margin: 48px 0 16px;
+  margin: 72px 0 16px;
   padding-top: 24px;
   border-top: 1px solid rgba(210, 210, 210, 0.09);
 
@@ -262,7 +261,7 @@ const BottomInfo = styled.ul`
 
 const allTrainsBtnCss = css`
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 600;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -271,7 +270,7 @@ const allTrainsBtnCss = css`
   width: 100%;
   height: 44px;
   border-radius: 10px;
-  background: #808080;
+  background: #434343;
 `;
 
 export default Subway;

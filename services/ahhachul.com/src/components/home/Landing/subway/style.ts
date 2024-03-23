@@ -12,7 +12,6 @@ const wrap = [
       },
     },
   }: Theme) => ({
-    paddingTop: '16px',
     paddingBottom: '24px',
     backgroundColor: gray[200],
   }),

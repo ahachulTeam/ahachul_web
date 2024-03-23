@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled, { CSSObject } from '@emotion/styled';
 import { useIsomorphicLayoutEffect } from 'framer-motion';
 import { useRef, useState } from 'react';
 import throttle from 'lodash-es/throttle';
@@ -49,6 +49,24 @@ function Train({
           {calculatedCrowdRatings?.map((item, i) => (
             <li key={i}>
               <TrainEachBox color={item} roomNumber={i + 1} />
+              {item === '#6FDA74' && (
+                <div css={tooltip}>
+                  <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M11.5 20.125C16.2635 20.125 20.125 16.2635 20.125 11.5C20.125 6.73654 16.2635 2.875 11.5 2.875C6.73654 2.875 2.875 6.73654 2.875 11.5C2.875 16.2635 6.73654 20.125 11.5 20.125Z"
+                      fill="#6FDA74"
+                    />
+                    <path
+                      d="M14.375 9.58333L10.5417 13.4167L8.625 11.5"
+                      stroke="white"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <span>추천</span>
+                </div>
+              )}
             </li>
           ))}
         </ul>
@@ -80,5 +98,16 @@ const Container = styled.div`
     }
   }
 `;
+
+const tooltip: CSSObject = {
+  marginTop: '10px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  gap: '4px',
+  color: '#ffffff',
+  fontSize: '12px',
+  letterSpacing: '-0.2px',
+};
 
 export default Train;
