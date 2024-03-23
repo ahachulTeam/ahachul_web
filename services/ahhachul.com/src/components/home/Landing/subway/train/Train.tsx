@@ -25,6 +25,7 @@ function Train({
 }: TrainProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [containerWidth, setContainerWidth] = useState(0);
+
   useIsomorphicLayoutEffect(() => {
     const detectionViewport = () => {
       const fullWidth = (containerRef.current as HTMLElement)?.getBoundingClientRect().width;
@@ -59,9 +60,9 @@ function Train({
                     <path
                       d="M14.375 9.58333L10.5417 13.4167L8.625 11.5"
                       stroke="white"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                   </svg>
                   <span>추천</span>

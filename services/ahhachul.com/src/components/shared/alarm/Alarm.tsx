@@ -33,17 +33,30 @@ const Alarm: ActivityComponentType = () => {
           defaultValue={tab as string}
           actionFn={handleChangeTab}
           name="유실물 탭 버튼"
-          css={{ padding: '0 20px' }}
+          css={{ padding: '0 20px 20px' }}
         />
         {tab === 'activityNotification' ? (
           <>
             <ActivityNotification type="talk" />
             <ActivityNotification type="complaints" />
             <ActivityNotification type="complaints" />
+            <ActivityNotification type="talk" />
+            <ActivityNotification type="talk" />
             <ActivityNotification type="complaints" />
+            <ActivityNotification type="talk" />
+            <ActivityNotification type="talk" />
+            <ActivityNotification type="complaints" />
+            <ActivityNotification type="complaints" />
+            <ActivityNotification type="talk" />
           </>
         ) : (
           <>
+            <DirectMessage />
+            <DirectMessage />
+            <DirectMessage />
+            <DirectMessage />
+            <DirectMessage />
+            <DirectMessage />
             <DirectMessage />
             <DirectMessage />
             <DirectMessage />

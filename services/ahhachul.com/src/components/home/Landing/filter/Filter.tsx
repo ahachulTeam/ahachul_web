@@ -7,7 +7,7 @@ const Filter = () => {
   return (
     <div css={wrap}>
       <ul>
-        <li>4</li>
+        <li>2</li>
         <li>1</li>
         <li>9</li>
       </ul>
