@@ -6,11 +6,11 @@ const buttonWrapper: [CSSObject, CSSObject[], CSSObject] = [
   f.flexColumn,
   {
     justifyContent: 'center',
-    gap: '16px',
+    gap: '24px',
     position: 'fixed',
     left: 0,
     right: 0,
-    bottom: 0,
+    bottom: '16px',
     borderRadius: '8px',
     padding: '20px 24px',
   },

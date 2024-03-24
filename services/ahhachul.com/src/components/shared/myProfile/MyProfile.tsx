@@ -5,7 +5,6 @@ import { ActivityComponentType } from '@stackflow/react';
 import { Layout } from 'components/layout';
 import IconEdit from 'static/icons/system/IconEdit';
 import IconFancyArrow from 'static/icons/system/IconFancyArrow';
-import IconCirclePlus from 'static/icons/system/IconCirclePlus';
 import { wrap } from './style';
 
 const MyProfile: ActivityComponentType = () => {
@@ -22,11 +21,11 @@ const MyProfile: ActivityComponentType = () => {
           justify="space-between"
           style={{
             width: '100%',
-            height: '74px',
+            marginBottom: '6px',
           }}
         >
           <Text fontSize="md" style={{ fontWeight: 600, color: 'white' }}>
-            createhb21
+            이효범
           </Text>
           <IconEdit />
         </Flex>
@@ -37,6 +36,7 @@ const MyProfile: ActivityComponentType = () => {
           style={{
             width: '100%',
             height: '76px',
+            marginBottom: '12px',
           }}
         >
           <Flex
@@ -48,7 +48,7 @@ const MyProfile: ActivityComponentType = () => {
               height: '46px',
               borderRadius: '15px',
               border: '1.5px solid transparent',
-              backgroundImage: 'linear-gradient(#fff, #fff), linear-gradient(263deg, #50BEFD 0%, #2EE477 100%)',
+              backgroundImage: 'linear-gradient(#697183, #697183), linear-gradient(263deg, #50BEFD 0%, #2EE477 100%)',
               backgroundOrigin: 'border-box',
               backgroundClip: 'content-box, border-box',
             }}
@@ -68,7 +68,7 @@ const MyProfile: ActivityComponentType = () => {
             <Text
               fontSize="sm"
               style={{
-                color: '#ffffff',
+                color: '#697183',
                 fontWeight: 600,
                 lineHeight: '130%',
                 letterSpacing: '-0.98px',
@@ -86,7 +86,7 @@ const MyProfile: ActivityComponentType = () => {
             />
           </Flex>
         </Flex>
-        <Divider size={16} style={{ borderColor: '#fff' }} />
+        <Divider size={1} style={{ borderColor: '#9da5b6' }} />
         <Flex
           direction="column"
           style={{
@@ -97,9 +97,10 @@ const MyProfile: ActivityComponentType = () => {
             align="center"
             justify="space-between"
             style={{
+              marginTop: '12px',
               height: '40px',
-              padding: '0 20px',
               width: '100%',
+              marginBottom: '12px',
             }}
           >
             <Text
@@ -110,51 +111,29 @@ const MyProfile: ActivityComponentType = () => {
                 width: 'max-content',
               }}
             >
-              MY 지하철
+              즐겨찾는 역
             </Text>
-            <Text fontSize="sm" style={{ color: '#ffffff', fontWeight: 500 }}>
+            <Text fontSize="xs" style={{ color: '#9da5b6', fontWeight: 500 }}>
               추가하기
             </Text>
           </Flex>
           <Flex
-            justify="center"
             align="center"
             gap="8px"
             style={{
-              height: '94px',
               width: '100%',
             }}
           >
-            <IconCirclePlus />
             <Text
               fontSize="md"
               style={{
                 fontWeight: 400,
-                color: '#ffffff',
+                color: '#697183',
               }}
             >
               자주 방문하는 <b style={{ color: '#ffffff', fontWeight: 600 }}>역과 호선을 선택</b> 해주세요.
             </Text>
           </Flex>
-        </Flex>
-        <Divider size={30} style={{ borderColor: '#fff' }} />
-        <Flex
-          align="center"
-          style={{
-            height: '40px',
-            padding: '0 20px',
-            width: '100%',
-          }}
-        >
-          <Text
-            fontSize="md"
-            style={{
-              fontWeight: 600,
-              color: '#ffffff',
-            }}
-          >
-            내 활동
-          </Text>
         </Flex>
       </main>
     </Layout>

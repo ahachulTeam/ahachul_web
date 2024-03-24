@@ -1,18 +1,13 @@
 import { Box, Flex, Text } from '@ahhachul/react-components-layout';
 import IconCategoryFree from 'static/icons/community/IconCategoryFree';
 import IconCategoryInsight from 'static/icons/community/IconCategoryInsight';
-import IconCategoryRank from 'static/icons/community/IconCategoryRank';
 import { theme } from 'styles';
 import { TabBtn } from './style';
 
 const COMMUNITY_TABS = {
-  rank: {
-    icon: <IconCategoryRank />,
-    label: '인기글',
-  },
   free: {
     icon: <IconCategoryFree />,
-    label: '자유게시판',
+    label: '자유',
   },
   insight: {
     icon: <IconCategoryInsight />,
@@ -38,7 +33,11 @@ function TabSection() {
               <Flex as="span" justify="center" align="center">
                 {icon}
               </Flex>
-              <Text as="p" fontSize="sm" css={{ color: 'white !important' }}>
+              <Text
+                as="p"
+                fontSize="sm"
+                css={{ color: idx === 0 ? '#c9cedc !important' : '#697183 !important', marginTop: '8px' }}
+              >
                 {label}
               </Text>
             </TabBtn>

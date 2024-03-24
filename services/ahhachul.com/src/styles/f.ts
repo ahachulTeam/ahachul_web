@@ -140,6 +140,20 @@ const truncate2 = [
   },
 ];
 
+const truncate3 = [
+  truncate,
+  {
+    WebkitLineClamp: 2,
+  },
+];
+
+const truncate4 = [
+  truncate,
+  {
+    WebkitLineClamp: 2,
+  },
+];
+
 const sideGutter: CSSObject = {
   paddingLeft: '20px',
   paddingRight: '20px',
@@ -168,6 +182,8 @@ export {
   visuallyHidden,
   truncate1,
   truncate2,
+  truncate3,
+  truncate4,
   sideGutter,
   resetButton,
 };

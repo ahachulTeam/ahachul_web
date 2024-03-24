@@ -7,14 +7,8 @@ import TalkLoungeCard from './Item';
 
 function ListSection() {
   return (
-    <Box as="section" style={{ padding: '22px 0' }}>
-      <Flex as="ul" direction="column" gap="20px">
-        <TalkLoungeCard />
-        <TalkLoungeCard />
-        <TalkLoungeCard />
-        <TalkLoungeCard />
-        <TalkLoungeCard />
-        <TalkLoungeCard />
+    <Box as="section" style={{ padding: '24px 0' }}>
+      <Flex as="ul" direction="column" css={ul}>
         <TalkLoungeCard />
         <TalkLoungeCard />
         <TalkLoungeCard />
@@ -56,5 +50,11 @@ const Skeleton = styled.div<{
   backgroundColor: vars.colors.$scale.gray[100],
   animation: `${opacity} 2s ease-in-out 0.5s infinite`,
 }));
+
+const ul = {
+  '& > li:not(:last-of-type)': {
+    borderBottom: '1px solid hsla(0, 0%, 100%, .06)',
+  },
+};
 
 export default ListSection;

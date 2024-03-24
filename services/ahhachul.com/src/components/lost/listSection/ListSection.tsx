@@ -7,17 +7,8 @@ import LostAndFoundCard from './Item';
 
 function ListSection() {
   return (
-    <Box as="section" style={{ padding: '10px 0' }}>
+    <Box as="section" style={{ padding: '24px 0' }}>
       <Flex as="ul" direction="column">
-        <LostAndFoundCard />
-        <LostAndFoundCard />
-        <LostAndFoundCard />
-        <LostAndFoundCard />
-        <LostAndFoundCard />
-        <LostAndFoundCard />
-        <LostAndFoundCard />
-        <LostAndFoundCard />
-        <LostAndFoundCard />
         <LostAndFoundCard />
         <LostAndFoundCard />
         <LostAndFoundCard />

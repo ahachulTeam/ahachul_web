@@ -38,10 +38,10 @@ const AskTrainNumber: ActivityComponentType<AskTrainNumberProps> = ({ params }) 
       </Box>
       <div css={{ padding: '0 20px' }}>
         <Input
-          variant="filled"
+          variant="outline"
           placeholder="열차번호"
-          placeholderColor="#C3C3C3"
-          style={{ borderBottom: '1px solid #ffffff', width: '100%', paddingBottom: '12px' }}
+          placeholderColor="#ffffff"
+          style={{ width: '100%', paddingBottom: '12px' }}
         />
         <span css={tooltip} onClick={toggle}>
           <IconInfo
