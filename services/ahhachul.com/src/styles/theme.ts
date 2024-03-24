@@ -3,7 +3,7 @@ import { vars } from '@ahhachul/themes';
 const GUTTER = '20px';
 
 const HEADER_HEIGHT = '58px';
-const NAVBAR_HEIGHT = '64px';
+const NAVBAR_HEIGHT = '109px';
 
 const theme = {
   color: {

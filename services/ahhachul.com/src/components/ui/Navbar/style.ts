@@ -1,47 +1,31 @@
 import { CSSObject, Theme } from '@emotion/react';
 
 const wrap: CSSObject = {
+  padding: '12px 16px 14px',
+  backdropFilter: 'blur(20px)',
+  width: 'fit-content',
+  borderRadius: '24px',
   position: 'fixed',
-  bottom: 0,
+  bottom: '12px', // indicator(34px)
   left: 0,
   right: 0,
-  height: '64px',
+  margin: '16px auto',
   zIndex: 4000,
-};
-
-const shadowWrap = ({
-  color: {
-    scale: { gray },
-  },
-  layout: { shadows },
-}: Theme): CSSObject => ({
-  position: 'relative',
-  height: '100%',
-  margin: 'auto',
-  alignItems: 'center',
-  maxWidth: '768px',
-  backgroundColor: gray[1000],
-  borderRadius: '24px 24px 0 0',
-  boxShadow: shadows.md,
-});
-
-const content: CSSObject = {
+  background: 'linear-gradient(91deg, rgba(35, 40, 52, 0.70) 0%, rgba(39, 40, 62, 0.70) 100%)',
   display: 'flex',
   alignItems: 'center',
-  height: '100%',
 };
 
 const itemWrap =
   (isActive: boolean) =>
-  ({ typography: { fontWeight } }: Theme): CSSObject => ({
+  ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
     display: 'flex',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     height: '100%',
     textAlign: 'center',
-    fontSize: '13px',
-    color: '#B2BFD1',
+    color: 'rgb(65, 66, 89)',
     boxShadow: 'none',
 
     '& > button': {
@@ -52,18 +36,22 @@ const itemWrap =
       padding: '2px',
       width: '60px',
       textDecoration: 'none',
+      fontSize: fontSize[11],
       fontWeight: fontWeight[500],
-      color: isActive ? '#004FEC' : 'inherit',
+      color: isActive ? 'rgb(196, 212, 252)' : 'inherit',
       transition: 'color 0.4s',
 
       '& > div > svg': {
+        width: '20px',
+        height: '20px',
+
         '& > path, & > rect': {
-          fill: isActive ? '#004FEC' : '#B2BFD1',
+          fill: isActive ? 'rgb(196, 212, 252)' : 'rgb(65, 66, 89)',
         },
       },
 
       '&:focus': {
-        color: '#004FEC',
+        color: 'rgb(196, 212, 252)',
         boxShadow: 'none',
       },
       '& span': {
@@ -75,7 +63,7 @@ const itemWrap =
     },
   });
 
-export { wrap, shadowWrap, content, itemWrap };
+export { wrap, itemWrap };
 
 // css={css`
 // & > svg > path {
