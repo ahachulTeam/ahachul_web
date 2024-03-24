@@ -34,7 +34,7 @@ const itemWrap =
       alignItems: 'center',
       justifyContent: 'center',
       padding: '2px',
-      width: '60px',
+      width: '48px',
       textDecoration: 'none',
       fontSize: fontSize[11],
       fontWeight: fontWeight[500],

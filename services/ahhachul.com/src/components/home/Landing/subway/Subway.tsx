@@ -239,6 +239,7 @@ const BottomInfo = styled.ul`
   & > li {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 100%;
 
     &:first-of-type {
@@ -266,7 +267,7 @@ const allTrainsBtnCss = css`
   justify-content: center;
   align-items: center;
   color: #ffffff;
-  margin-top: 24px;
+  margin-top: 12px;
   width: 100%;
   height: 44px;
   border-radius: 10px;

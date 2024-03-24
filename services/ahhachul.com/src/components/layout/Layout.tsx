@@ -45,7 +45,7 @@ const Layout: React.FC<LayoutProps> = ({ activeTab = 'Home', appBar, children })
       {loading && <UiComponent.Loading opacity={1} />}
       {showSnackBar && <UiComponent.SnackBar {...snackBars} />}
       {activeTab && <UiComponent.NavBar activeTab={activeTab} replace={navigate} scrollToTop={scrollToTop} />}
-      <UiComponent.BottomDim />
+      {activeTab && <UiComponent.BottomDim />}
     </AppScreen>
   );
 };
