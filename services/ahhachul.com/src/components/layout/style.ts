@@ -9,9 +9,9 @@ const left = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
   paddingLeft: '16px',
 });
 
-const right: CSSObject = {
+const right = (hasSearch: boolean): CSSObject => ({
   display: 'grid',
-  gridTemplateColumns: '24px',
+  gridTemplateColumns: hasSearch ? '24px 24px 24px' : '24px 24px',
   alignItems: 'center',
   gap: '16px',
   paddingRight: '16px',
@@ -21,7 +21,7 @@ const right: CSSObject = {
     height: '24px',
     borderRadius: '50%',
   },
-};
+});
 
 const scrollable = (hasNavbar: boolean) => [
   f.flex1,

@@ -1,8 +1,6 @@
 import { Box, Flex, Text } from '@ahhachul/react-components-layout';
-import { useDispatch } from 'react-redux';
 import IconCategoryFree from 'static/icons/community/IconCategoryFree';
 import IconCategoryInsight from 'static/icons/community/IconCategoryInsight';
-import { showModal } from 'stores/ui/reducer';
 import { theme } from 'styles';
 import { TabBtn } from './style';
 
@@ -18,9 +16,6 @@ const COMMUNITY_TABS = {
 };
 
 function TabSection() {
-  const dispatch = useDispatch();
-  const handleModalOpen = () => dispatch(showModal());
-
   return (
     <Box as="section" padding={5} background={theme.color.static.dark.gray[200]}>
       <Flex as="ul" align="center" gap="25px">
@@ -34,7 +29,6 @@ function TabSection() {
               direction="column"
               aria-controls={label}
               aria-selected={idx === 0}
-              onClick={handleModalOpen}
             >
               <Flex as="span" justify="center" align="center">
                 {icon}

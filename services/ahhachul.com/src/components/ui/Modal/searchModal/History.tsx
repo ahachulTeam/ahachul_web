@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { Flex, Text } from '@ahhachul/react-components-layout';
+import { Flex } from '@ahhachul/react-components-layout';
 import { Button } from '@ahhachul/react-components-button';
+import { Theme } from '@emotion/react';
 
 function HistoryList() {
   return (
@@ -16,12 +17,8 @@ function HistoryList() {
           boxSizing: 'border-box',
         }}
       >
-        <Text fontSize="xs" style={{ color: '#C1C1C1', fontWeight: 600 }}>
-          최근 검색어
-        </Text>
-        <Text fontSize="xs" style={{ color: '#4D4D4D', fontWeight: 500 }}>
-          지우기
-        </Text>
+        <span css={recentWord}>최근 검색어</span>
+        <button css={deleteAll}>모두 지우기</button>
       </Flex>
       <Flex
         gap="6px"
@@ -29,7 +26,7 @@ function HistoryList() {
         align="center"
         css={{
           width: '100%',
-          height: '40px',
+          height: '32px',
           padding: '0 20px',
           overflowX: 'scroll',
           boxSizing: 'border-box',
@@ -46,10 +43,13 @@ function HistoryList() {
             borderRadius: '24px',
             background: '#F2F6F9',
             color: '#3D3D3D',
-            fontWeight: 400,
+            fontWeight: 500,
+            padding: '4px 8px',
+            fontSize: '12px',
+            border: '1px solid #141517',
           }}
         >
-          검색어 1
+          코레일
         </Button>
         <Button
           size="sm"
@@ -58,10 +58,13 @@ function HistoryList() {
             borderRadius: '24px',
             background: '#F2F6F9',
             color: '#3D3D3D',
-            fontWeight: 400,
+            fontWeight: 500,
+            padding: '4px 8px',
+            fontSize: '12px',
+            border: '1px solid #141517',
           }}
         >
-          검색어 2
+          인스타그램
         </Button>
         <Button
           size="sm"
@@ -70,10 +73,13 @@ function HistoryList() {
             borderRadius: '24px',
             background: '#F2F6F9',
             color: '#3D3D3D',
-            fontWeight: 400,
+            fontWeight: 500,
+            padding: '4px 8px',
+            fontSize: '12px',
+            border: '1px solid #141517',
           }}
         >
-          검색어 3
+          이강인
         </Button>
         <Button
           size="sm"
@@ -82,10 +88,13 @@ function HistoryList() {
             borderRadius: '24px',
             background: '#F2F6F9',
             color: '#3D3D3D',
-            fontWeight: 400,
+            fontWeight: 500,
+            padding: '4px 8px',
+            fontSize: '12px',
+            border: '1px solid #141517',
           }}
         >
-          검색어 4
+          K리그 개막
         </Button>
         <Button
           size="sm"
@@ -94,10 +103,13 @@ function HistoryList() {
             borderRadius: '24px',
             background: '#F2F6F9',
             color: '#3D3D3D',
-            fontWeight: 400,
+            fontWeight: 500,
+            padding: '4px 8px',
+            fontSize: '12px',
+            border: '1px solid #141517',
           }}
         >
-          검색어 5
+          아이유
         </Button>
         <Button
           size="sm"
@@ -106,10 +118,13 @@ function HistoryList() {
             borderRadius: '24px',
             background: '#F2F6F9',
             color: '#3D3D3D',
-            fontWeight: 400,
+            fontWeight: 500,
+            padding: '4px 8px',
+            fontSize: '12px',
+            border: '1px solid #141517',
           }}
         >
-          검색어 6
+          오당기 아이유
         </Button>
         <Button
           size="sm"
@@ -118,10 +133,13 @@ function HistoryList() {
             borderRadius: '24px',
             background: '#F2F6F9',
             color: '#3D3D3D',
-            fontWeight: 400,
+            fontWeight: 500,
+            padding: '4px 8px',
+            fontSize: '12px',
+            border: '1px solid #141517',
           }}
         >
-          검색어 7
+          벚꽃
         </Button>
         <Button
           size="sm"
@@ -130,10 +148,13 @@ function HistoryList() {
             borderRadius: '24px',
             background: '#F2F6F9',
             color: '#3D3D3D',
-            fontWeight: 400,
+            fontWeight: 500,
+            padding: '4px 8px',
+            fontSize: '12px',
+            border: '1px solid #141517',
           }}
         >
-          검색어 8
+          4호선 연착
         </Button>
         <Button
           size="sm"
@@ -142,10 +163,13 @@ function HistoryList() {
             borderRadius: '24px',
             background: '#F2F6F9',
             color: '#3D3D3D',
-            fontWeight: 400,
+            fontWeight: 500,
+            padding: '4px 8px',
+            fontSize: '12px',
+            border: '1px solid #141517',
           }}
         >
-          검색어 9
+          분실물 신고
         </Button>
         <Button
           size="sm"
@@ -154,14 +178,29 @@ function HistoryList() {
             borderRadius: '24px',
             background: '#F2F6F9',
             color: '#3D3D3D',
-            fontWeight: 400,
+            fontWeight: 500,
+            padding: '4px 8px',
+            fontSize: '12px',
+            border: '1px solid #141517',
           }}
         >
-          검색어 910
+          1호선
         </Button>
       </Flex>
     </Flex>
   );
 }
+
+const recentWord = ({ typography: { fontSize, fontWeight } }: Theme) => ({
+  fontSize: fontSize[16],
+  fontWeight: fontWeight[600],
+  color: '#c1c1c1',
+});
+
+const deleteAll = ({ typography: { fontSize, fontWeight } }: Theme) => ({
+  fontSize: fontSize[12],
+  fontWeight: fontWeight[500],
+  color: '#9da5b6',
+});
 
 export default HistoryList;

@@ -17,7 +17,7 @@ export type InputGroupProps = {
   children: React.ReactNode[];
 } & Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>;
 
-export type InputLeftAddonProps = {
+export type InputAddonProps = {
   color?: string;
   size?: Size;
   children: React.ReactNode;

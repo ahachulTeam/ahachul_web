@@ -1,14 +1,14 @@
-import { inputLeftAddonStyle } from './style.css';
-import { InputLeftAddonProps } from './types';
+import { inputAddonStyle } from './style.css';
+import { InputAddonProps } from './types';
 import { clsx } from 'clsx';
 
-const InputLeftAddon = (props: InputLeftAddonProps) => {
+const InputLeftAddon = (props: InputAddonProps) => {
   const { size = 'md', color = 'gray', children } = props;
 
   return (
     <div
       className={clsx([
-        inputLeftAddonStyle({
+        inputAddonStyle({
           size,
         }),
       ])}

@@ -14,7 +14,7 @@ import {
 
 const Input = (props: InputProps, ref: React.Ref<HTMLInputElement>) => {
   const {
-    color = 'gray',
+    color = '#ffffff',
     placeholderColor = 'gray',
     size = 'lg',
     variant = 'outline',

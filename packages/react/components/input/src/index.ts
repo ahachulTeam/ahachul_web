@@ -1,4 +1,4 @@
-export type { InputProps, InputGroupProps, InputLeftAddonProps } from './types';
+export type { InputProps, InputGroupProps, InputAddonProps } from './types';
 
 export { Input } from './Input';
 

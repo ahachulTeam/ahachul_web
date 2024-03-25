@@ -5,7 +5,7 @@ import { motion, type Variants } from 'framer-motion';
 
 import { AnimatePortal } from '../Portal';
 
-const OpacityModal = ({ children }: { children: React.ReactNode }) => {
+const FadeInModal = ({ children }: { children: React.ReactNode }) => {
   const { showModal } = useAppSelector((state) => state.ui);
 
   return (
@@ -72,4 +72,4 @@ const dialog: CSSObject = {
   zIndex: 10000000,
 };
 
-export default OpacityModal;
+export default FadeInModal;

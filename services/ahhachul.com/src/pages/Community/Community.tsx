@@ -3,15 +3,14 @@ import { type ActivityComponentType } from '@stackflow/react';
 
 import { Layout } from 'components/layout';
 import { CommunityComponent, UiComponent } from 'components';
-import SearchModal from 'components/community/modal/SearchModal';
 
 const Community: ActivityComponentType = () => {
   return (
-    <Layout activeTab={'Community'}>
+    <Layout activeTab={'Community'} hasSearch>
       <CommunityComponent.CommunityMain />
-      <UiComponent.OpacityModal>
-        <SearchModal />
-      </UiComponent.OpacityModal>
+      <UiComponent.FadeInModal>
+        <UiComponent.SearchModal />
+      </UiComponent.FadeInModal>
     </Layout>
   );
 };

@@ -9,7 +9,7 @@ function SearchGroup() {
       <InputLeftAddon>
         <IconSearch />
       </InputLeftAddon>
-      <Input placeholder="검색어를 입력해주세요." />
+      <Input placeholder="검색어를 입력해주세요." color="#fff" variant="filled" />
     </InputGroup>
   );
 }

@@ -4,7 +4,7 @@ import { AppScreen } from '@stackflow/plugin-basic-ui';
 import { UiComponent } from 'components';
 import { TypeActivities } from 'stackflow';
 import { KeyOf, Nullable } from 'types/utility-types';
-import withDefaultAppBar from './withDefaultAppBar';
+import useDefaultAppBar from './useDefaultAppBar';
 import { scrollable, wrapper } from './style';
 import { useAppSelector } from 'stores';
 import { theme } from 'styles';
@@ -15,11 +15,12 @@ interface LayoutProps {
   activeTab?: KeyOf<TypeActivities> | false;
   appBar?: PropOf<typeof AppScreen>['appBar'];
   children: React.ReactNode;
+  hasSearch?: boolean;
 }
 
-const Layout: React.FC<LayoutProps> = ({ activeTab = 'Home', appBar, children }) => {
+const Layout: React.FC<LayoutProps> = ({ activeTab = 'Home', appBar, hasSearch = false, children }) => {
   const { loading, snackBars } = useAppSelector((state) => state.ui);
-  const { replace, defaultAppBar } = withDefaultAppBar();
+  const { replace, defaultAppBar } = useDefaultAppBar(hasSearch);
   const navigate = React.useCallback((tab: KeyOf<TypeActivities>) => replace(tab, {}, { animate: false }), [replace]);
 
   const topEl = React.useRef<Nullable<HTMLDivElement>>(null);

@@ -27,6 +27,8 @@ export const inputStyle = recipe({
 
     transition: 'background-color 0.2s, color 0.2s, border-color 0.2s',
 
+    caretColor: 'rgba(0, 255, 163, .5)',
+
     // @ts-ignore
     '&::placeholder': {
       color: placeholderColorVariant,
@@ -98,7 +100,7 @@ export const inputGroupStyle = style({
   position: 'relative',
 });
 
-export const inputLeftAddonStyle = recipe({
+export const inputAddonStyle = recipe({
   base: {
     margin: 0,
     border: 0,
