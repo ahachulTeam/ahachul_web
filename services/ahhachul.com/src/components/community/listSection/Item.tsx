@@ -76,7 +76,14 @@ function Item() {
         <Flex justify="space-between">
           <p css={content as unknown as CSSObject}>{getRandomContent()}</p>
           <div css={img}>
-            <LazyLoadImage src={getRandomImg()} alt="" />
+            <LazyLoadImage
+              effect="opacity"
+              src={getRandomImg()}
+              alt=""
+              width="100%"
+              height="100%"
+              css={{ objectFit: 'cover' }}
+            />
           </div>
         </Flex>
         <Flex align="center">
