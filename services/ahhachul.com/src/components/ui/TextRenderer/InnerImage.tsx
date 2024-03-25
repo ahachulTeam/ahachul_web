@@ -27,14 +27,14 @@ const imgWrapStyle = css`
   }
 `;
 
-const scrimCss = css`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: calc(100% - 1px);
-  background-color: rgb(0 0 0 / 45%);
-`;
+// const scrimCss = css`
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: calc(100% - 1px);
+//   background-color: rgb(0 0 0 / 45%);
+// `;
 
 const Image = (props: BlockComponentProps) => {
   const { block, contentState } = props;
@@ -43,7 +43,6 @@ const Image = (props: BlockComponentProps) => {
   return (
     <div css={imgWrapStyle}>
       <img src={src} alt={src} role="presentation" />
-      <div css={scrimCss} />
     </div>
   );
 };
