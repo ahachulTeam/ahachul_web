@@ -62,14 +62,14 @@ const wrapperStyle = css`
   }
 
   .content-container blockquote {
-    font-size: 1rem;
+    font-size: 15px;
     line-height: 1.625;
   }
 
   .editor-container .editor-inner .content-container pre {
     color: ffffff;
     padding: 7px;
-    font-size: 0.875rem;
+    font-size: 15px;
     background-color: #f7f6f3;
     -webkit-box-shadow: 0px 1px 10px rgba(19, 24, 48, 0.35);
     box-shadow: 0px 1px 10px rgba(19, 24, 48, 0.35);
@@ -107,10 +107,10 @@ const wrapperStyle = css`
 
   @media (max-width: 768px) {
     .public-DraftEditor-content {
-      color: #ffffff;
-      font-size: 16px;
+      color: #c9cedc;
+      font-size: 15px;
       font-style: normal;
-      font-weight: 500;
+      font-weight: 400;
       line-height: 155%; /* 24.8px */
       letter-spacing: 0.16px;
     }
@@ -120,14 +120,14 @@ const wrapperStyle = css`
     }
 
     .content-container blockquote {
-      font-size: 0.8rem;
+      font-size: 15px;
       line-height: 1.1rem;
       word-break: break-all;
       white-space: pre-wrap;
     }
 
     .editor-container .editor-inner .content-container pre {
-      font-size: 0.6rem;
+      font-size: 15px;
     }
 
     .editor-container .editor-inner .content-container pre pre::before {
