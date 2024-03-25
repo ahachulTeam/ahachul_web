@@ -82,7 +82,7 @@ function Item() {
               alt=""
               width="100%"
               height="100%"
-              css={{ objectFit: 'cover' }}
+              css={{ objectFit: 'cover', borderRadius: '6px' }}
             />
           </div>
         </Flex>
