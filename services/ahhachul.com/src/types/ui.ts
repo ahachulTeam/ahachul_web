@@ -2,6 +2,7 @@ import { Interpolation, Theme } from '@emotion/react';
 
 export interface IUiStore {
   loading: boolean;
+  showModal: boolean;
   snackBars: ISnackBar;
 }
 

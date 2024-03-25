@@ -1,14 +1,15 @@
 import React from 'react';
 
 import { useFlow } from 'stackflow';
-import IconBellActive from 'static/icons/system/IconBellActive';
+// import IconBellActive from 'static/icons/system/IconBellActive';
 import IconLogo from 'static/icons/system/IconLogo';
-import mockProfile from 'static/img/mocks/mock3.png';
+import IconSearch from 'static/icons/system/IconSearch';
+// import mockProfile from 'static/img/mocks/mock3.png';
 import { left, right } from './style';
 
 const withDefaultAppBar = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { push, replace } = useFlow();
+  const { replace } = useFlow();
 
   const appBarLeft = () => (
     <div css={left}>
@@ -18,8 +19,9 @@ const withDefaultAppBar = () => {
 
   const appBarRight = () => (
     <div css={right}>
-      <IconBellActive onClick={() => push('Alarm', {})} />
-      <img src={mockProfile} alt="" onClick={() => push('MyProfile', {})} />
+      <IconSearch />
+      {/* <IconBellActive onClick={() => push('Alarm', {})} /> */}
+      {/* <img src={mockProfile} alt="" onClick={() => push('MyProfile', {})} /> */}
     </div>
   );
 

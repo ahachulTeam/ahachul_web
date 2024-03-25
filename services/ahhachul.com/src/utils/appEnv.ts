@@ -14,3 +14,5 @@ export const isAndroid = () => RegExp(ANDROID).test(getUserAgent());
 export const isIOS = () => RegExp(IOS).test(getUserAgent());
 
 export const isProd = () => process.env.NODE_ENV === 'production';
+
+export const getDomainUrl = () => (isProd() ? process.env.REACT_APP_URL : 'http://localhost:3000');

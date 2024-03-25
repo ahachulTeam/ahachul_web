@@ -8,4 +8,5 @@ export { default as Toggle } from './Toggle';
 export { default as TextRenderer } from './TextRenderer';
 export { default as BottomDim } from './BottomDim';
 
+export * from './Modal';
 export * from './Dialog';

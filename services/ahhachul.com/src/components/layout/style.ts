@@ -11,7 +11,7 @@ const left = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
 
 const right: CSSObject = {
   display: 'grid',
-  gridTemplateColumns: '24px 24px',
+  gridTemplateColumns: '24px',
   alignItems: 'center',
   gap: '16px',
   paddingRight: '16px',
