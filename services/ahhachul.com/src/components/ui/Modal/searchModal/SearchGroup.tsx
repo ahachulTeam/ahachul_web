@@ -24,6 +24,7 @@ function SearchGroup() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (inputRef.current) inputRef.current?.blur();
 
     const pastHistory = !history ? [] : history;
     dispatch(setHistory([inputRef.current.value, ...pastHistory]));
@@ -57,6 +58,7 @@ const group: CSSObject = {
   '& > input': {
     width: '100%',
     color: '#ffffff !important',
+    caretColor: 'rgba(0, 255, 163, .5) !important',
   },
 };
 

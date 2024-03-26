@@ -28,8 +28,6 @@ const Layout: React.FC<LayoutProps> = ({ activeTab = 'Home', appBar, hasSearch =
 
   const showSnackBar = !!snackBars.list.length;
 
-  const hasWarning = true;
-
   return (
     <AppScreen
       appBar={{
@@ -42,7 +40,6 @@ const Layout: React.FC<LayoutProps> = ({ activeTab = 'Home', appBar, hasSearch =
     >
       <div css={wrapper}>
         <div ref={topEl} css={scrollable(Boolean(activeTab))}>
-          {hasWarning && <UiComponent.FixedWarning />}
           {children}
         </div>
       </div>

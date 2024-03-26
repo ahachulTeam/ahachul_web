@@ -10,10 +10,12 @@ const Home: ActivityComponentType = () => {
   const { auth } = useAppSelector((state) => state.auth);
 
   const t = theme;
+  const hasWarning = true;
   console.log('t :', t);
 
   return (
     <Layout activeTab={'Home'}>
+      {hasWarning && <UiComponent.FixedWarning />}
       {auth?.token.accessToken ? <HomeComponent.Dashboard /> : <HomeComponent.Landing />}
       <UiComponent.Footer />
     </Layout>
