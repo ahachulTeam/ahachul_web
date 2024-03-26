@@ -41,12 +41,11 @@ function HistoryList() {
           style={{
             flexShrink: 0,
             borderRadius: '24px',
-            background: '#F2F6F9',
-            color: '#3D3D3D',
+            border: '1px solid hsla(0, 0%, 100%, .2)',
+            color: '#c9cedc',
             fontWeight: 500,
             padding: '4px 8px',
             fontSize: '12px',
-            border: '1px solid #141517',
           }}
         >
           코레일
@@ -56,12 +55,11 @@ function HistoryList() {
           style={{
             flexShrink: 0,
             borderRadius: '24px',
-            background: '#F2F6F9',
-            color: '#3D3D3D',
+            border: '1px solid hsla(0, 0%, 100%, .2)',
+            color: '#c9cedc',
             fontWeight: 500,
             padding: '4px 8px',
             fontSize: '12px',
-            border: '1px solid #141517',
           }}
         >
           인스타그램
@@ -71,12 +69,11 @@ function HistoryList() {
           style={{
             flexShrink: 0,
             borderRadius: '24px',
-            background: '#F2F6F9',
-            color: '#3D3D3D',
+            border: '1px solid hsla(0, 0%, 100%, .2)',
+            color: '#c9cedc',
             fontWeight: 500,
             padding: '4px 8px',
             fontSize: '12px',
-            border: '1px solid #141517',
           }}
         >
           이강인
@@ -86,12 +83,11 @@ function HistoryList() {
           style={{
             flexShrink: 0,
             borderRadius: '24px',
-            background: '#F2F6F9',
-            color: '#3D3D3D',
+            border: '1px solid hsla(0, 0%, 100%, .2)',
+            color: '#c9cedc',
             fontWeight: 500,
             padding: '4px 8px',
             fontSize: '12px',
-            border: '1px solid #141517',
           }}
         >
           K리그 개막
@@ -101,12 +97,11 @@ function HistoryList() {
           style={{
             flexShrink: 0,
             borderRadius: '24px',
-            background: '#F2F6F9',
-            color: '#3D3D3D',
+            border: '1px solid hsla(0, 0%, 100%, .2)',
+            color: '#c9cedc',
             fontWeight: 500,
             padding: '4px 8px',
             fontSize: '12px',
-            border: '1px solid #141517',
           }}
         >
           아이유
@@ -116,12 +111,11 @@ function HistoryList() {
           style={{
             flexShrink: 0,
             borderRadius: '24px',
-            background: '#F2F6F9',
-            color: '#3D3D3D',
+            border: '1px solid hsla(0, 0%, 100%, .2)',
+            color: '#c9cedc',
             fontWeight: 500,
             padding: '4px 8px',
             fontSize: '12px',
-            border: '1px solid #141517',
           }}
         >
           오당기 아이유
@@ -131,12 +125,11 @@ function HistoryList() {
           style={{
             flexShrink: 0,
             borderRadius: '24px',
-            background: '#F2F6F9',
-            color: '#3D3D3D',
+            border: '1px solid hsla(0, 0%, 100%, .2)',
+            color: '#c9cedc',
             fontWeight: 500,
             padding: '4px 8px',
             fontSize: '12px',
-            border: '1px solid #141517',
           }}
         >
           벚꽃
@@ -146,12 +139,11 @@ function HistoryList() {
           style={{
             flexShrink: 0,
             borderRadius: '24px',
-            background: '#F2F6F9',
-            color: '#3D3D3D',
+            border: '1px solid hsla(0, 0%, 100%, .2)',
+            color: '#c9cedc',
             fontWeight: 500,
             padding: '4px 8px',
             fontSize: '12px',
-            border: '1px solid #141517',
           }}
         >
           4호선 연착
@@ -161,12 +153,11 @@ function HistoryList() {
           style={{
             flexShrink: 0,
             borderRadius: '24px',
-            background: '#F2F6F9',
-            color: '#3D3D3D',
+            border: '1px solid hsla(0, 0%, 100%, .2)',
+            color: '#c9cedc',
             fontWeight: 500,
             padding: '4px 8px',
             fontSize: '12px',
-            border: '1px solid #141517',
           }}
         >
           분실물 신고
@@ -176,12 +167,11 @@ function HistoryList() {
           style={{
             flexShrink: 0,
             borderRadius: '24px',
-            background: '#F2F6F9',
-            color: '#3D3D3D',
+            border: '1px solid hsla(0, 0%, 100%, .2)',
+            color: '#c9cedc',
             fontWeight: 500,
             padding: '4px 8px',
             fontSize: '12px',
-            border: '1px solid #141517',
           }}
         >
           1호선
@@ -194,7 +184,7 @@ function HistoryList() {
 const recentWord = ({ typography: { fontSize, fontWeight } }: Theme) => ({
   fontSize: fontSize[16],
   fontWeight: fontWeight[600],
-  color: '#c1c1c1',
+  color: '#c9cedc',
 });
 
 const deleteAll = ({ typography: { fontSize, fontWeight } }: Theme) => ({

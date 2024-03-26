@@ -6,7 +6,7 @@ import IconBellActive from 'static/icons/system/IconBellActive';
 import IconLogo from 'static/icons/system/IconLogo';
 import IconSearch from 'static/icons/system/IconSearch';
 import mockProfile from 'static/img/mocks/mock3.png';
-import { showModal } from 'stores/ui/reducer';
+import { showModal } from 'stores/search/reducer';
 import { left, right } from './style';
 
 const useDefaultAppBar = (hasSearch: boolean) => {
@@ -24,7 +24,7 @@ const useDefaultAppBar = (hasSearch: boolean) => {
   const appBarRight = () => (
     <div css={right(hasSearch)}>
       <IconBellActive onClick={() => push('Alarm', {})} />
-      {hasSearch && <IconSearch onClick={handleModalOpen} />}
+      {hasSearch && <IconSearch onClick={handleModalOpen} css={{ position: 'relative', top: '-1px' }} />}
       <img src={mockProfile} alt="" onClick={() => push('MyProfile', {})} />
     </div>
   );

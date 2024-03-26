@@ -9,9 +9,10 @@ const Lost: ActivityComponentType = () => {
   return (
     <Layout activeTab={'Lost'} hasSearch>
       <LostComponent.LostMain />
-      <UiComponent.FadeInModal>
-        <UiComponent.SearchModal />
-      </UiComponent.FadeInModal>
+      <UiComponent.SearchModal>
+        <UiComponent.SearchBase />
+        <UiComponent.AutoKeywords />
+      </UiComponent.SearchModal>
     </Layout>
   );
 };

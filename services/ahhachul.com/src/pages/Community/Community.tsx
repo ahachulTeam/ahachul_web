@@ -8,9 +8,10 @@ const Community: ActivityComponentType = () => {
   return (
     <Layout activeTab={'Community'} hasSearch>
       <CommunityComponent.CommunityMain />
-      <UiComponent.FadeInModal>
-        <UiComponent.SearchModal />
-      </UiComponent.FadeInModal>
+      <UiComponent.SearchModal>
+        <UiComponent.SearchBase />
+        <UiComponent.AutoKeywords />
+      </UiComponent.SearchModal>
     </Layout>
   );
 };

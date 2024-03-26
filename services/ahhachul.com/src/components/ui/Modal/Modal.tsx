@@ -23,7 +23,7 @@ function Modal({ isOpen, children, onClose }: PropsWithChildren<ModalProps>) {
   });
 
   return (
-    <AnimatePortal isShowing={isOpen} mode={'popLayout'}>
+    <AnimatePortal isShowing={isOpen} mode="popLayout">
       <div css={modalOverlayCss}>
         <motion.div
           key="modal"

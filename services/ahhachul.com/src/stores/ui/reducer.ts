@@ -3,7 +3,6 @@ import { ISnackBarPayload, IUiStore } from 'types';
 
 const initialState: IUiStore = {
   loading: false,
-  showModal: false,
   snackBars: {
     list: [],
     posBottom: 72,
@@ -12,7 +11,7 @@ const initialState: IUiStore = {
 
 const {
   reducer,
-  actions: { loaded, loading, clearAll, showModal, hideModal, addSnackBar, removeSnackBar },
+  actions: { loaded, loading, clearAll, addSnackBar, removeSnackBar },
 } = createSlice({
   name: 'ui',
   initialState,
@@ -25,12 +24,6 @@ const {
     },
     clearAll: (state) => {
       state.loading = false;
-    },
-    showModal: (state) => {
-      state.showModal = true;
-    },
-    hideModal: (state) => {
-      state.showModal = false;
     },
     addSnackBar: (state, action: PayloadAction<Omit<ISnackBarPayload, 'id'>>) => {
       const id = new Date().getTime().toString();
@@ -46,5 +39,5 @@ const {
   },
 });
 
-export { initialState, loaded, loading, clearAll, showModal, hideModal, addSnackBar, removeSnackBar };
+export { initialState, loaded, loading, clearAll, addSnackBar, removeSnackBar };
 export default reducer;

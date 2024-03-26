@@ -116,13 +116,13 @@ function HashTagList() {
 const recentWord = ({ typography: { fontSize, fontWeight } }: Theme) => ({
   fontSize: fontSize[16],
   fontWeight: fontWeight[600],
-  color: '#c1c1c1',
+  color: '#c9cedc',
 });
 
 const text = ({ typography: { fontSize, fontWeight } }: Theme) => ({
   fontSize: fontSize[14],
-  fontWeight: fontWeight[600],
-  color: '#c9cedc',
+  fontWeight: fontWeight[400],
+  color: '#9da5b6',
 });
 
 export default HashTagList;
