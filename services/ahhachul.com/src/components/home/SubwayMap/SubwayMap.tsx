@@ -1,6 +1,6 @@
 import { Layout } from 'components/layout';
 import React from 'react';
-import MapSvg from './MapSvg';
+// import MapSvg from './MapSvg';
 
 const SubwayMap = () => {
   return (
@@ -22,7 +22,7 @@ const SubwayMap = () => {
         }}
       >
         {/* LICENSE:https://github.com/Sinseiki/opensource-seoul-subway-map/blob/master/mapimage.svg?short_path=aad1e39 */}
-        <MapSvg css={{ width: '100%', position: 'absolute', top: '50%', transform: 'translateY(-50%)' }} />
+        {/* <MapSvg css={{ width: '100%', position: 'absolute', top: '50%', transform: 'translateY(-50%)' }} /> */}
       </main>
     </Layout>
   );
