@@ -10,14 +10,14 @@ const BOTTOM_NAVBAR_LIST = [
     label: '홈',
   },
   {
-    href: 'Lost',
-    Icon: Reservation,
-    label: '유실물',
-  },
-  {
     href: 'Complaints',
     Icon: BPay,
     label: '민원',
+  },
+  {
+    href: 'Lost',
+    Icon: Reservation,
+    label: '유실물',
   },
   {
     href: 'Community',

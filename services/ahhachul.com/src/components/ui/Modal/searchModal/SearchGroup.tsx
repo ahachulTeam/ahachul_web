@@ -8,6 +8,7 @@ import { setKeyword } from 'stores/search';
 import { f } from 'styles';
 import { useAppSelector } from 'stores';
 import { hideModal, setHistory } from 'stores/search/reducer';
+import { useDebounce } from 'hooks';
 
 // TODO: rxjs 사용해서 최적화하기
 function SearchGroup() {
@@ -17,9 +18,9 @@ function SearchGroup() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length === 0) dispatch(setKeyword(null));
-    else if (e.target.value.length === 1) dispatch(setKeyword(e.target.value));
-    else return;
+    else dispatch(setKeyword(e.target.value));
   }, []);
+  const debounced = useDebounce(handleChange, 250);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,7 +36,7 @@ function SearchGroup() {
 
   return (
     <form css={form} onSubmit={handleSubmit}>
-      <InputGroup css={group} onChange={handleChange}>
+      <InputGroup css={group} onChange={debounced}>
         <Input ref={inputRef} placeholder="검색어를 입력해주세요." color="#fff" variant="filled" />
         <button css={rightAddon} type="submit">
           <IconSearch />
