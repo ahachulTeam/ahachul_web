@@ -19,7 +19,9 @@ const backgroundCover =
   (opacity: number, isWhite: boolean) =>
   ({
     color: {
-      scale: { gray },
+      static: {
+        dark: { gray },
+      },
     },
     layout: {
       size: {
@@ -27,7 +29,7 @@ const backgroundCover =
       },
     },
   }: Theme): CSSObject => ({
-    background: isWhite ? gray[1000] : gray[0],
+    background: isWhite ? gray[1000] : gray[200],
     opacity,
     height: `calc(100vh - ${header} - ${navbar})`,
   });

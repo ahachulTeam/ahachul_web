@@ -1,9 +1,12 @@
 import React from 'react';
+import { useFlow } from 'stackflow';
 import IconChevron from 'static/icons/system/IconChevron';
 
 import { wrap } from './style';
 
 const Filter = () => {
+  const { push } = useFlow();
+
   return (
     <div css={wrap}>
       <ul>
@@ -11,7 +14,7 @@ const Filter = () => {
         <li>1</li>
         <li>9</li>
       </ul>
-      <button>
+      <button onClick={() => push('SubwayMap', { params: {} })}>
         <span>전체 노선도 보기</span>
         <IconChevron />
       </button>

@@ -1,5 +1,6 @@
 const PATH = {
   home: '/',
+  subwayMap: '/subwayMap',
   lost: '/lost',
   lostDetail: '/lost/:articleId',
   complaints: '/complaints',
