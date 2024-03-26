@@ -1,8 +1,8 @@
-import { PropsWithChildren, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { initMocking } from '../mocks';
 import { isMocking } from '../mocks/constants';
 
-const MSWProvider = ({ children }: PropsWithChildren) => {
+const MSWProvider = ({ children }: { children: React.ReactElement }) => {
   const [isReady, setIsReady] = useState(!isMocking());
 
   useEffect(() => {

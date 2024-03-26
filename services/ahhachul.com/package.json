@@ -5,6 +5,7 @@
   "scripts": {
     "lint": "eslint --ext js,jsx,ts,tsx src",
     "start": "env-cmd -f .env yarn react-app-rewired start",
+    "start:mocking": "REACT_APP_PUBLIC_MOCKING=true react-app-rewired start",
     "build": "env-cmd -f .env yarn react-app-rewired build",
     "test": "vitest",
     "test:watch": "vitest",
@@ -85,7 +86,7 @@
     "customize-cra": "^1.0.0",
     "env-cmd": "^10.1.0",
     "happy-dom": "^12.10.3",
-    "msw": "^2.0.9",
+    "msw": "^2.0.11",
     "react-app-rewired": "^2.2.1",
     "react-scripts": "5.0.1",
     "rxjs": "^7.8.1",
@@ -93,5 +94,8 @@
     "vitest": "^0.34.6",
     "web-vitals": "^2.1.0",
     "webpack-font-preload-plugin": "^1.5.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
