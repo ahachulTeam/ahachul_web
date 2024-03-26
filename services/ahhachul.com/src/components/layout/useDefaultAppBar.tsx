@@ -10,7 +10,6 @@ import { showModal } from 'stores/search/reducer';
 import { left, right } from './style';
 
 const useDefaultAppBar = (hasSearch: boolean) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { push, replace } = useFlow();
   const dispatch = useDispatch();
   const handleModalOpen = () => dispatch(showModal());
