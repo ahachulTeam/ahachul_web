@@ -6,3 +6,4 @@ export * as LostComponent from './lost';
 export * as OnboardingComponent from './onboarding/login';
 export * as UiComponent from './ui';
 export * as SharedComponent from './shared';
+export * as ErrorComponent from './error-management';

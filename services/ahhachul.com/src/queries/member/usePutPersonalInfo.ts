@@ -8,12 +8,13 @@ function usePutPersonalInfo() {
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
 
-  return useMutation(MemberApi.putPersonalInfo, {
+  return useMutation({
+    mutationFn: MemberApi.putPersonalInfo,
     onSettled() {
       dispatch(loaded());
     },
     onSuccess() {
-      queryClient.invalidateQueries(PERSONAL_INFO_KEY);
+      queryClient.invalidateQueries({ queryKey: PERSONAL_INFO_KEY });
     },
     onMutate() {
       dispatch(loading());

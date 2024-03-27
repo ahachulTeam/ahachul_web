@@ -32,25 +32,26 @@ function useAuthQuery<
   }
 
   const enabled = options?.enabled === undefined ? true : options.enabled;
-  const { refetch, ...rest } = useQuery(queryKey, queryFn, {
-    ...options,
+  const { error, refetch, ...rest } = useQuery({
+    queryKey,
+    queryFn,
     enabled: enabled && !!auth?.token.accessToken,
-    onError(err) {
-      if ((err as AxiosError)?.response?.status === 401 && auth) {
+    ...options,
+  });
+
+  useEffect(() => {
+    if (status === 'success') {
+      refetch();
+    }
+
+    if (status === 'error') {
+      if ((error as AxiosError)?.response?.status === 401 && auth) {
         auth?.token.refreshToken &&
           mutate({
             memberId: auth.memberId,
             refreshToken: auth.token.refreshToken,
           });
       }
-
-      options?.onError?.(err);
-    },
-  });
-
-  useEffect(() => {
-    if (status === 'success') {
-      refetch();
     }
   }, [status]);
 
@@ -66,7 +67,10 @@ function useAuthMutation<TData = unknown, TError = unknown, TVariables = void, T
     base.defaults.headers.common['authorization'] = `Bearer ${auth?.token.accessToken}`;
   }
 
-  return useMutation(mutationFn, options);
+  return useMutation({
+    mutationFn,
+    ...options,
+  });
 }
 
 export * from '@tanstack/react-query';

@@ -12,25 +12,18 @@ const errWrap = ({
   width: '100%',
 
   '& > img': {
-    marginBottom: '10px',
-  },
-
-  '& > span': {
-    color: gray[0],
-    fontSize: '18px',
-    fontWeight: fontWeight[700],
-    marginBottom: '6px',
+    marginBottom: '24px',
   },
 
   '& > p': {
-    color: '#777777',
+    color: '#c9cedc',
     fontSize: '14px',
     fontWeight: fontWeight[500],
     marginBottom: '24px',
   },
 
   '& > button': {
-    padding: '12px 22px',
+    padding: '10px 18px',
     color: gray[1000],
     background: '#27CDC8',
     fontSize: '14px',

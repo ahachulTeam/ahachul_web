@@ -13,18 +13,18 @@ interface Props {
 
 function useCheckNickname({ nickname, originNickname = '' }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { mutateAsync, isLoading } = MemberQuery.useCheckNickname();
+  const { mutateAsync, status } = MemberQuery.useCheckNickname();
   const subjectRef = useRef(new Subject<string>());
 
   const [invalidMsg, setInvalidMsg] = useState('');
 
   const disabled = useMemo(() => {
     if (invalidMsg !== '') return true;
-    if (isLoading) return true;
+    if (status === 'pending') return true;
     if (nickname.length < MIN_LEN || nickname.length > MAX_LEN) return true;
 
     return false;
-  }, [nickname, invalidMsg, isLoading]);
+  }, [nickname, invalidMsg, status]);
 
   useEffect(() => {
     subjectRef.current

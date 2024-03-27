@@ -1,8 +1,10 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation } from 'queries/query';
 import { MemberApi } from 'api';
 
 function useCheckNickName() {
-  return useMutation(MemberApi.checkNickname);
+  return useMutation({
+    mutationFn: MemberApi.checkNickname,
+  });
 }
 
 export default useCheckNickName;

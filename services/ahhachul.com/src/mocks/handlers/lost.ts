@@ -1,20 +1,21 @@
 import { http, delay, HttpResponse } from 'msw';
+import { API_BASE_URL } from 'data/api';
 
-const BASE_URL = process.env.REACT_APP_SERVER_API;
-
-const getFeedResponse = {
-  success: true,
-  status: 200,
-  data: [],
-  timestamp: '2024-02-05T10:14:08.636259',
+const getLostListResponse = {
+  code: '100',
+  message: 'SUCCESS',
+  result: {
+    hasNext: false,
+    posts: [],
+  },
 };
 
-const getFeeds = http.get(BASE_URL + '/feed/me', async () => {
+const getLostList = http.get(API_BASE_URL + '/lost-posts', async () => {
   await delay(750);
 
-  return HttpResponse.json(getFeedResponse);
+  return HttpResponse.json(getLostListResponse);
 });
 
-const feedHandlers = [getFeeds];
+const lostHandlers = [getLostList];
 
-export default feedHandlers;
+export default lostHandlers;

@@ -1,20 +1,21 @@
 import { http, delay, HttpResponse } from 'msw';
+import { API_BASE_URL } from 'data/api';
 
-const BASE_URL = process.env.REACT_APP_SERVER_API;
-
-const getFeedResponse = {
-  success: true,
-  status: 200,
-  data: [],
-  timestamp: '2024-02-05T10:14:08.636259',
+const getCommunityListResponse = {
+  code: '100',
+  message: 'SUCCESS',
+  result: {
+    hasNext: false,
+    posts: [],
+  },
 };
 
-const getFeeds = http.get(BASE_URL + '/feed/me', async () => {
+const getCommunityList = http.get(API_BASE_URL + '/community-posts', async () => {
   await delay(750);
 
-  return HttpResponse.json(getFeedResponse);
+  return HttpResponse.json(getCommunityListResponse);
 });
 
-const feedHandlers = [getFeeds];
+const communityHandlers = [getCommunityList];
 
-export default feedHandlers;
+export default communityHandlers;

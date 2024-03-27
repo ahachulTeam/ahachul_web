@@ -132,7 +132,6 @@ class BaseErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState
         childrenOrFallback = (
           <div css={errWrap}>
             <img src={errIcon} alt="" />
-            <span>다시 시도해 주세요.</span>
             <p>{`네트워크 오류가 발생했습니다.\n다시 시도해 주세요.`}</p>
             <button onClick={this.reset}>새로고침</button>
           </div>
