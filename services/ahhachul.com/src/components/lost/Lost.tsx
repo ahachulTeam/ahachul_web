@@ -1,16 +1,17 @@
 import React, { Suspense } from 'react';
 
+import { ErrorComponent, UiComponent } from 'components';
+import ErrorDefault from 'components/error-management/ErrorDefault';
 import { TabSection } from './tabSection';
-import { wrap } from './style';
 import ListSection from './listSection/ListSection';
-import { ErrorComponent } from 'components';
+import { wrap, err } from './style';
 
 const Lost = () => {
   return (
     <main css={wrap}>
       <TabSection />
-      <ErrorComponent.QueryErrorBoundary>
-        <Suspense fallback={<div>loading</div>}>
+      <ErrorComponent.QueryErrorBoundary fallback={(props) => <ErrorDefault {...props} />} fallbackCss={err}>
+        <Suspense fallback={<UiComponent.Loading />}>
           <ListSection />
         </Suspense>
       </ErrorComponent.QueryErrorBoundary>

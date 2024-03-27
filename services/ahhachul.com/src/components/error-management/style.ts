@@ -4,22 +4,21 @@ const errWrap = ({
   color: {
     scale: { gray },
   },
-  typography: { fontWeight },
+  typography: { fontSize, fontWeight, lineHeight },
 }: Theme): CSSObject => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  justifyContent: 'center',
   width: '100%',
-
-  '& > img': {
-    marginBottom: '24px',
-  },
 
   '& > p': {
     color: '#c9cedc',
-    fontSize: '14px',
+    fontSize: fontSize[14],
     fontWeight: fontWeight[500],
+    lineHeight: lineHeight[150],
     marginBottom: '24px',
+    textAlign: 'center',
   },
 
   '& > button': {

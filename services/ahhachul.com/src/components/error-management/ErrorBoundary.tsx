@@ -1,3 +1,4 @@
+import { Interpolation, Theme } from '@emotion/react';
 import React, {
   Component,
   type ErrorInfo,
@@ -14,14 +15,13 @@ import React, {
 } from 'react';
 
 import type { ConstructorType, Nullable } from 'types';
-import errIcon from 'static/icons/system/ic_error.svg';
 import {
   AssertionError,
   useErrorBoundary_this_hook_should_be_called_in_ErrorBoundary_props_children,
 } from './AssertionError';
 import { ErrorBoundaryGroupContext } from './ErrorBoundaryGroup';
+import ErrorDefault from './ErrorDefault';
 import { hasResetKeysChanged } from './utils';
-import { errWrap } from './style';
 
 export interface ErrorBoundaryFallbackProps<TError extends Error = Error> {
   /**
@@ -32,6 +32,8 @@ export interface ErrorBoundaryFallbackProps<TError extends Error = Error> {
    * when you want to reset caught error, you can use this reset
    */
   reset: () => void;
+
+  fallbackCss?: Interpolation<Theme>;
 }
 
 type ShouldCatchCallback = (error: Error) => boolean;
@@ -67,6 +69,10 @@ export type ErrorBoundaryProps = PropsWithChildren<{
    * @experimental This is experimental feature.
    * @default true
    */
+  /**
+   * when ErrorBoundary catch error, fallback will be render instead of children
+   */
+  fallbackCss?: Interpolation<Theme>;
   shouldCatch?: ShouldCatch | [ShouldCatch, ...ShouldCatch[]];
 }>;
 
@@ -113,7 +119,7 @@ class BaseErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState
   };
 
   render() {
-    const { children, fallback } = this.props;
+    const { children, fallback, fallbackCss } = this.props;
     const { isError, error } = this.state;
 
     let childrenOrFallback = children;
@@ -127,15 +133,9 @@ class BaseErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState
 
       if (typeof fallback === 'function') {
         const FallbackComponent = fallback;
-        childrenOrFallback = <FallbackComponent error={error} reset={this.reset} />;
+        childrenOrFallback = <FallbackComponent error={error} reset={this.reset} fallbackCss={fallbackCss} />;
       } else {
-        childrenOrFallback = (
-          <div css={errWrap}>
-            <img src={errIcon} alt="" />
-            <p>{`네트워크 오류가 발생했습니다.\n다시 시도해 주세요.`}</p>
-            <button onClick={this.reset}>새로고침</button>
-          </div>
-        );
+        childrenOrFallback = <ErrorDefault error={error} reset={this.reset} />;
       }
     }
 
@@ -150,7 +150,7 @@ class BaseErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState
 export const ErrorBoundary = Object.assign(
   (() => {
     const ErrorBoundary = forwardRef<{ reset(): void }, ErrorBoundaryProps>(
-      ({ fallback, children, onError, onReset, resetKeys, ...props }, ref) => {
+      ({ fallback, fallbackCss, children, onError, onReset, resetKeys, ...props }, ref) => {
         const group = useContext(ErrorBoundaryGroupContext) ?? { resetKey: 0 };
         const baseErrorBoundaryRef = useRef<BaseErrorBoundary>(null);
         useImperativeHandle(ref, () => ({
@@ -165,6 +165,7 @@ export const ErrorBoundary = Object.assign(
             onReset={onReset}
             resetKeys={[group.resetKey, ...(resetKeys || [])]}
             ref={baseErrorBoundaryRef}
+            fallbackCss={fallbackCss}
           >
             {children}
           </BaseErrorBoundary>

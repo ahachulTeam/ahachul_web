@@ -6,7 +6,7 @@ import { store, persistor } from 'stores';
 import { theme, global } from 'styles';
 import QueryProvider from './QueryProvider';
 import ThemeScript from './ThemeScript';
-import MSWProvider from './MSWProvider';
+import MSWInitializer from './MSWInitializer';
 
 function AppProvider({ children }: PropsWithChildren) {
   return (
@@ -14,13 +14,12 @@ function AppProvider({ children }: PropsWithChildren) {
       <ThemeScript />
       <Global styles={global} />
       <ThemeProvider theme={theme}>
-        <MSWProvider>
-          <Provider store={store}>
-            <PersistGate persistor={persistor}>
-              <QueryProvider>{children}</QueryProvider>
-            </PersistGate>
-          </Provider>
-        </MSWProvider>
+        <MSWInitializer />
+        <Provider store={store}>
+          <PersistGate persistor={persistor}>
+            <QueryProvider>{children}</QueryProvider>
+          </PersistGate>
+        </Provider>
       </ThemeProvider>
     </>
   );
