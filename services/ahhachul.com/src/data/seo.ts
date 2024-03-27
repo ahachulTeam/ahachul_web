@@ -4,9 +4,9 @@ import type {
   LocationInfoLdJson,
   CarouselListLdJsonProps,
 } from 'types/seo';
-import { getDomainUrl } from 'utils/appEnv';
+import { getDomainName } from 'utils/appEnv';
 
-const url = getDomainUrl();
+const url = getDomainName();
 
 export const metadata = {
   type: 'website',
