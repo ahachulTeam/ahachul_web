@@ -4,6 +4,7 @@ const GUTTER = '20px';
 
 const HEADER_HEIGHT = '58px';
 const NAVBAR_HEIGHT = '109px';
+const BOTTOM_DIM_HEIGHT = '200px';
 
 const theme = {
   color: {
@@ -124,6 +125,7 @@ const theme = {
       height: {
         header: HEADER_HEIGHT,
         navbar: NAVBAR_HEIGHT,
+        bottomDim: BOTTOM_DIM_HEIGHT,
       },
     },
   },

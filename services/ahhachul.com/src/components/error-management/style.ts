@@ -17,7 +17,7 @@ const errWrap = ({
     fontSize: fontSize[14],
     fontWeight: fontWeight[500],
     lineHeight: lineHeight[150],
-    marginBottom: '24px',
+    marginBottom: '16px',
     textAlign: 'center',
   },
 

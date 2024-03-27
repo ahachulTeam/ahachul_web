@@ -1,31 +1,26 @@
 import { f } from 'styles';
-import { CSSObject } from '@emotion/react';
+import { CSSObject, Theme } from '@emotion/react';
 
 const tabHeight = '68.4px';
 const paddingTopHeight = '26px';
 
-const wrap = [
-  f.posRel,
-  f.fullHeight,
-  f.fullWidth,
-  f.flexColumn,
-  f.overflowScroll,
-  { padding: `${paddingTopHeight} 20px 48px 20px` },
-];
+const wrap = [f.fullWidth, f.flexColumn, { padding: `${paddingTopHeight} 20px 48px 20px` }];
 
-const err: [CSSObject, CSSObject] = [
+const err = [
   f.posAbs,
-  {
-    bottom: 0,
+  ({
+    layout: {
+      size: {
+        height: { header, navbar },
+      },
+    },
+  }: Theme): CSSObject => ({
+    bottom: navbar,
     left: '50%',
     transform: 'translateX(-50%)',
-    height: `calc(100% - ${tabHeight} - ${paddingTopHeight})`,
+    height: `calc(100% - ${header} - ${navbar} - ${tabHeight} - ${paddingTopHeight})`,
     boxSizing: 'border-box',
-  },
+  }),
 ];
 
-const loading = {
-  paddingTop: tabHeight,
-};
-
-export { wrap, err, loading };
+export { wrap, err };

@@ -3,7 +3,10 @@ import { CSSObject, Theme } from '@emotion/react';
 const wrap = ({
   layout: {
     size: {
-      height: { header, navbar },
+      height: { header },
+    },
+    dimensions: {
+      zIndexes: { dimmed },
     },
   },
 }: Theme): CSSObject => ({
@@ -11,8 +14,8 @@ const wrap = ({
   top: header,
   left: 0,
   right: 0,
-  bottom: navbar,
-  zIndex: 1000,
+  bottom: 0,
+  zIndex: dimmed,
 });
 
 const backgroundCover =
@@ -25,19 +28,22 @@ const backgroundCover =
     },
     layout: {
       size: {
-        height: { header, navbar },
+        height: { header },
       },
     },
   }: Theme): CSSObject => ({
     background: isWhite ? gray[1000] : gray[200],
     opacity,
-    height: `calc(100vh - ${header} - ${navbar})`,
+    height: `calc(100vh - ${header})`,
   });
 
 const background = ({
   layout: {
     size: {
-      height: { header, navbar },
+      height: { header },
+    },
+    dimensions: {
+      zIndexes: { dialog },
     },
   },
 }: Theme): CSSObject => ({
@@ -45,12 +51,13 @@ const background = ({
   left: 0,
   top: header,
   right: 0,
-  bottom: navbar,
+  bottom: 0,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignContent: 'center',
-  height: `calc(100vh - ${header} - ${navbar})`,
+  height: `calc(100vh - ${header})`,
+  zIndex: dialog,
 });
 
 const dialogTitleCss = ({
@@ -100,6 +107,18 @@ const dialogButtonTextCss = ({
   color: gray[0],
 });
 
+const loader = ({
+  layout: {
+    size: {
+      height: { header },
+    },
+  },
+}: Theme): CSSObject => ({
+  width: '130px',
+  position: 'relative',
+  top: `-${header}`,
+});
+
 export {
   wrap,
   background,
@@ -110,4 +129,5 @@ export {
   textWrapperCss,
   buttonWrapperCss,
   dialogButtonTextCss,
+  loader,
 };
