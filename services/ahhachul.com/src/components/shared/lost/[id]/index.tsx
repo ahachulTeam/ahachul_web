@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
-import { getRandomBoolean } from 'utils/helper';
+import { getRandomBoolean } from 'mocks/utils';
 
 import DetailWithImage from './DetailWithImage';
 import DetailOnlyText from './DetailOnlyText';
-import { Layout } from 'components/layout';
-import { ActivityComponentType } from '@stackflow/react';
+import { useGetCommunityDetail } from 'queries/community/useGetCommunityDetail';
 
-type LostDetailProps = {
-  articleId: string;
+type LostDetailMainProps = {
+  postId: string;
 };
 
-const LostDetail: ActivityComponentType<LostDetailProps> = ({ params: { articleId } }) => {
+const LostDetailMain = ({ postId }: LostDetailMainProps) => {
+  const { data } = useGetCommunityDetail(postId);
   const hasImage = getRandomBoolean();
   const [nickname, setNickname] = useState('');
+
+  console.log('data:', data);
 
   useEffect(() => {
     const getRandomNickname = () => {
@@ -38,19 +40,9 @@ const LostDetail: ActivityComponentType<LostDetailProps> = ({ params: { articleI
       return list[randomIdx];
     };
     setNickname(getRandomNickname());
-    console.log('articleId:', articleId);
   }, []);
 
-  return (
-    <Layout
-      appBar={{
-        title: nickname,
-      }}
-      activeTab={false}
-    >
-      <main>{hasImage ? <DetailWithImage nickname={nickname} /> : <DetailOnlyText nickname={nickname} />}</main>
-    </Layout>
-  );
+  return <main>{hasImage ? <DetailWithImage nickname={nickname} /> : <DetailOnlyText nickname={nickname} />}</main>;
 };
 
-export default LostDetail;
+export default LostDetailMain;

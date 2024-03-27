@@ -1,6 +1,6 @@
 import { Flex } from '@ahhachul/react-components-layout';
 import { CSSObject, Theme } from '@emotion/react';
-import { getRandomBoolean } from 'utils/helper';
+import { getRandomBoolean } from 'mocks/utils';
 
 function DirectMessage() {
   const getRandomNickname = () => {

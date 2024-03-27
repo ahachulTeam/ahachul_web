@@ -12,7 +12,7 @@ import { f } from 'styles';
 
 function Item() {
   const { push } = useFlow();
-  const navigateToDetail = () => push('LostDetail', { articleId: '123' });
+  const navigateToDetail = () => push('LostDetail', { articleId: (Math.floor(Math.random() * 1000) + 1).toString() });
 
   const getRandomNickname = () => {
     const list = [

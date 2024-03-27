@@ -12,7 +12,8 @@ import { f } from 'styles';
 
 function Item() {
   const { push } = useFlow();
-  const navigateToDetail = () => push('CommunityDetail', { articleId: '123' });
+  const navigateToDetail = () =>
+    push('CommunityDetail', { articleId: (Math.floor(Math.random() * 1000) + 1).toString() });
 
   const getRandomNickname = () => {
     const list = [
@@ -77,7 +78,6 @@ function Item() {
           <p css={content as unknown as CSSObject}>{getRandomContent()}</p>
           <div css={img}>
             <LazyLoadImage
-              effect="opacity"
               src={getRandomImg()}
               alt=""
               width="100%"

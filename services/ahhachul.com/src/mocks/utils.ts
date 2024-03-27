@@ -54,4 +54,9 @@ const getRandomImg = () => {
   return list[randomIdx];
 };
 
-export { getRandomNickname, getRandomContent, getRandomImg };
+const getRandomBoolean = (): boolean => {
+  const number = Math.floor(Math.random() * 10) + 1;
+  return Boolean(number % 2);
+};
+
+export { getRandomNickname, getRandomContent, getRandomImg, getRandomBoolean };

@@ -3,7 +3,7 @@ import { CSSObject, Theme } from '@emotion/react';
 
 import IconAlarmTalk from 'static/icons/system/IconAlarmTalk';
 import IconAlarmComplaint from 'static/icons/system/IconAlarmComplaint';
-import { getRandomBoolean } from 'utils/helper';
+import { getRandomBoolean } from 'mocks/utils';
 
 function ActivityNotification(props: { type: 'talk' | 'complaints' }) {
   const { type } = props;

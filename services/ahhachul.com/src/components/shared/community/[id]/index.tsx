@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
-import { getRandomBoolean } from 'utils/helper';
+import { getRandomBoolean } from 'mocks/utils';
 
 import DetailWithImage from './DetailWithImage';
 import DetailOnlyText from './DetailOnlyText';
-import { Layout } from 'components/layout';
-import { ActivityComponentType } from '@stackflow/react';
+import { useGetCommunityDetail } from 'queries/community/useGetCommunityDetail';
 
-type CommunityDetailProps = {
-  articleId: string;
+type CommunityDetailMainProps = {
+  postId: string;
 };
 
-const CommunityDetail: ActivityComponentType<CommunityDetailProps> = ({ params: { articleId } }) => {
+const CommunityDetailMain = ({ postId }: CommunityDetailMainProps) => {
+  const { data } = useGetCommunityDetail(postId);
   const hasImage = getRandomBoolean();
   const [nickname, setNickname] = useState('');
+
+  console.log('data:', data);
 
   useEffect(() => {
     const getRandomNickname = () => {
@@ -38,19 +40,9 @@ const CommunityDetail: ActivityComponentType<CommunityDetailProps> = ({ params: 
       return list[randomIdx];
     };
     setNickname(getRandomNickname());
-    console.log('articleId:', articleId);
   }, []);
 
-  return (
-    <Layout
-      appBar={{
-        title: nickname,
-      }}
-      activeTab={false}
-    >
-      <main>{hasImage ? <DetailWithImage nickname={nickname} /> : <DetailOnlyText nickname={nickname} />}</main>
-    </Layout>
-  );
+  return <main>{hasImage ? <DetailWithImage nickname={nickname} /> : <DetailOnlyText nickname={nickname} />}</main>;
 };
 
-export default CommunityDetail;
+export default CommunityDetailMain;

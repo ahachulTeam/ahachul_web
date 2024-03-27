@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, Flex, Text } from '@ahhachul/react-components-layout';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { UiComponent } from 'components';
 import IconBookmark from 'static/icons/system/IconBookmark';
 import IconHeart from 'static/icons/system/IconHeart';
@@ -21,7 +20,7 @@ function DetailWithImage({ nickname }: { nickname: string }) {
           aspectRatio: '1 / 0.882667',
         }}
       >
-        <LazyLoadImage
+        <img
           src={DUMMY_IMG_5}
           alt=""
           sizes="100vw"

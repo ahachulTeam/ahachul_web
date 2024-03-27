@@ -3,5 +3,5 @@ export * from './alarm';
 export * from './myTicket';
 export * from './myProfile';
 
-export { default as LostDetail } from './lost/[id]';
-export { default as CommunityDetail } from './community/[id]';
+export { default as LostDetailMain } from './lost/[id]';
+export { default as CommunityDetailMain } from './community/[id]';

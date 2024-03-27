@@ -42,6 +42,11 @@ export interface ICommunity {
 
 export type ICommunityList = ListResponse<ICommunity>;
 
+export type ICommunityDetail = Omit<ICommunity, 'commentCnt' | 'image'> & {
+  hateCnt: number;
+  images: CommunityImageType[];
+};
+
 export type CommunityListFilterParamType = 'favor' | 'answeredAt';
 export type CommunityListOrderParamType = 'desc' | 'asc';
 export type CommunityListSortParamType = `${CommunityListFilterParamType},${CommunityListOrderParamType}`;

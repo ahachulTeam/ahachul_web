@@ -4,7 +4,7 @@ import { createLinkComponent } from '@stackflow/link';
 import { historySyncPlugin } from '@stackflow/plugin-history-sync';
 import { basicRendererPlugin } from '@stackflow/plugin-renderer-basic';
 
-import { Complaints, Home, Lost, Community } from 'pages';
+import { Complaints, Home, Lost, LostDetail, Community, CommunityDetail } from 'pages';
 import { ComplaintsComponent, HomeComponent, SharedComponent } from 'components';
 import { PATH } from 'data';
 
@@ -15,8 +15,6 @@ export const { Stack, activities, useFlow, useStepFlow } = stackflow({
     Alarm: SharedComponent.Alarm,
     MyTicket: SharedComponent.MyTicket,
     MyProfile: SharedComponent.MyProfile,
-    LostDetail: SharedComponent.LostDetail,
-    CommunityDetail: SharedComponent.CommunityDetail,
     Home,
     SubwayMap: HomeComponent.SubwayMap,
     RegisterCenter: HomeComponent.RegisterCenter,
@@ -25,7 +23,9 @@ export const { Stack, activities, useFlow, useStepFlow } = stackflow({
     ComplaintsSubmission: ComplaintsComponent.ComplaintsSubmission,
     ComplaintsComplete: ComplaintsComponent.ComplaintsComplete,
     Lost,
+    LostDetail: LostDetail,
     Community,
+    CommunityDetail,
   },
   plugins: [
     basicRendererPlugin(),
