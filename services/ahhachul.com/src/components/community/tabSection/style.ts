@@ -22,7 +22,7 @@ const TabBtn = styled(Flex)`
   }
 
   & > p {
-    transition: font-weight 0.2s ease;
+    transition: color 0.2s ease;
   }
 
   &[aria-selected='true'] {
