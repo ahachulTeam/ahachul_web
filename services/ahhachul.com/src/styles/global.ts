@@ -534,7 +534,7 @@ const global = css`
     font-size: 12px;
   }
 
-  .debug-timetravel-panel-button:hover {
+  .debug-timetravel-panel-button:active {
     text-decoration: underline;
   }
 
@@ -550,7 +550,7 @@ const global = css`
     color: #fff;
   }
 
-  .debug-timetravel-button:hover {
+  .debug-timetravel-button:active {
     text-decoration: underline;
   }
 
@@ -633,7 +633,7 @@ const global = css`
     opacity: 1;
   }
 
-  .toolbar .toolbar-item:hover:not([disabled]) {
+  .toolbar .toolbar-item:active:not([disabled]) {
     background-color: #eee;
   }
 
@@ -713,7 +713,7 @@ const global = css`
     background-image: url(images/icons/chevron-down.svg);
   }
 
-  #block-controls button:hover {
+  #block-controls button:active {
     background-color: #efefef;
   }
 
@@ -804,7 +804,7 @@ const global = css`
     margin-bottom: 8px;
   }
 
-  .dropdown .item:hover {
+  .dropdown .item:active {
     background-color: #eee;
   }
 
@@ -880,7 +880,7 @@ const global = css`
     text-overflow: ellipsis;
   }
 
-  .link-editor .link-input a:hover {
+  .link-editor .link-input a:active {
     text-decoration: underline;
   }
 
@@ -894,7 +894,7 @@ const global = css`
     margin: 0 2px;
   }
 
-  .link-editor .button.hovered {
+  .link-editor .button.activeed {
     width: 20px;
     height: 20px;
     display: inline-block;
