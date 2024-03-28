@@ -9,16 +9,15 @@ import {
   FORMAT_ELEMENT_COMMAND,
   $getSelection,
   $isRangeSelection,
-  $createParagraphNode,
 } from 'lexical';
 import { AutoLinkPlugin, createLinkMatcherWithRegExp } from '@lexical/react/LexicalAutoLinkPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link';
-import { $isParentElementRTL, $wrapNodes, $isAtNodeEnd } from '@lexical/selection';
+import { $isParentElementRTL, $isAtNodeEnd } from '@lexical/selection';
 import { mergeRegister } from '@lexical/utils';
 import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 import { createPortal } from 'react-dom';
-import { $createHeadingNode, $createQuoteNode, $isHeadingNode } from '@lexical/rich-text';
+import { $isHeadingNode } from '@lexical/rich-text';
 import { TreeView } from '@lexical/react/LexicalTreeView';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
@@ -104,7 +103,7 @@ const editorConfig = {
   // The editor theme
   theme: exampleTheme,
   // Handling of errors during update
-  onError(error) {
+  onError(error: Error) {
     throw error;
   },
   // Any custom nodes go here
@@ -127,21 +126,6 @@ const MATCHERS = [
 ];
 
 const LowPriority = 1;
-
-const supportedBlockTypes = new Set(['paragraph', 'quote', 'code', 'h1', 'h2', 'ul', 'ol']);
-
-const blockTypeToBlockName = {
-  code: 'Code Block',
-  h1: 'Large Heading',
-  h2: 'Small Heading',
-  h3: 'Heading',
-  h4: 'Heading',
-  h5: 'Heading',
-  ol: 'Numbered List',
-  paragraph: 'Normal',
-  quote: 'Quote',
-  ul: 'Bulleted List',
-};
 
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
@@ -183,7 +167,8 @@ function positionEditorElement(editor, rect) {
   } else {
     editor.style.opacity = '1';
     editor.style.top = `${rect.top + rect.height + window.pageYOffset + 10}px`;
-    editor.style.left = `${rect.left + window.pageXOffset - editor.offsetWidth / 2 + rect.width / 2}px`;
+    editor.style.left = '50%';
+    editor.style.transform = 'translate(-50%)';
   }
 }
 
@@ -343,126 +328,13 @@ function getSelectedNode(selection) {
   }
 }
 
-function BlockOptionsDropdownList({ editor, blockType, toolbarRef, setShowBlockOptionsDropDown }) {
-  const dropDownRef = useRef(null);
-
-  useEffect(() => {
-    const toolbar = toolbarRef.current;
-    const dropDown = dropDownRef.current;
-
-    if (toolbar !== null && dropDown !== null) {
-      const { top, left } = toolbar.getBoundingClientRect();
-      dropDown.style.top = `${top + 40}px`;
-      dropDown.style.left = `${left}px`;
-    }
-  }, [dropDownRef, toolbarRef]);
-
-  useEffect(() => {
-    const dropDown = dropDownRef.current;
-    const toolbar = toolbarRef.current;
-
-    if (dropDown !== null && toolbar !== null) {
-      const handle = (event) => {
-        const target = event.target;
-
-        if (!dropDown.contains(target) && !toolbar.contains(target)) {
-          setShowBlockOptionsDropDown(false);
-        }
-      };
-      document.addEventListener('click', handle);
-
-      return () => {
-        document.removeEventListener('click', handle);
-      };
-    }
-  }, [dropDownRef, setShowBlockOptionsDropDown, toolbarRef]);
-
-  const formatParagraph = () => {
-    if (blockType !== 'paragraph') {
-      editor.update(() => {
-        const selection = $getSelection();
-
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createParagraphNode());
-        }
-      });
-    }
-    setShowBlockOptionsDropDown(false);
-  };
-
-  const formatLargeHeading = () => {
-    if (blockType !== 'h1') {
-      editor.update(() => {
-        const selection = $getSelection();
-
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createHeadingNode('h1'));
-        }
-      });
-    }
-    setShowBlockOptionsDropDown(false);
-  };
-
-  const formatSmallHeading = () => {
-    if (blockType !== 'h2') {
-      editor.update(() => {
-        const selection = $getSelection();
-
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createHeadingNode('h2'));
-        }
-      });
-    }
-    setShowBlockOptionsDropDown(false);
-  };
-
-  const formatQuote = () => {
-    if (blockType !== 'quote') {
-      editor.update(() => {
-        const selection = $getSelection();
-
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createQuoteNode());
-        }
-      });
-    }
-    setShowBlockOptionsDropDown(false);
-  };
-
-  return (
-    <div className="dropdown" ref={dropDownRef}>
-      <button className="item" onClick={formatParagraph}>
-        <span className="icon paragraph" />
-        <span className="text">Normal</span>
-        {blockType === 'paragraph' && <span className="active" />}
-      </button>
-      <button className="item" onClick={formatLargeHeading}>
-        <span className="icon large-heading" />
-        <span className="text">Large Heading</span>
-        {blockType === 'h1' && <span className="active" />}
-      </button>
-      <button className="item" onClick={formatSmallHeading}>
-        <span className="icon small-heading" />
-        <span className="text">Small Heading</span>
-        {blockType === 'h2' && <span className="active" />}
-      </button>
-      <button className="item" onClick={formatQuote}>
-        <span className="icon quote" />
-        <span className="text">Quote</span>
-        {blockType === 'quote' && <span className="active" />}
-      </button>
-    </div>
-  );
-}
-
 function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext();
   const toolbarRef = useRef(null);
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
-  const [blockType, setBlockType] = useState('paragraph');
+  const [, setBlockType] = useState('paragraph');
   const [, setSelectedElementKey] = useState(null);
-  const [showBlockOptionsDropDown, setShowBlockOptionsDropDown] = useState(false);
   const [, setIsRTL] = useState(false);
   const [isLink, setIsLink] = useState(false);
   const [isBold, setIsBold] = useState(false);
@@ -536,14 +408,6 @@ function ToolbarPlugin() {
     );
   }, [editor, updateToolbar]);
 
-  const insertLink = useCallback(() => {
-    if (!isLink) {
-      editor.dispatchCommand(TOGGLE_LINK_COMMAND, 'https://');
-    } else {
-      editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
-    }
-  }, [editor, isLink]);
-
   return (
     <div className="toolbar" ref={toolbarRef}>
       <button
@@ -567,30 +431,6 @@ function ToolbarPlugin() {
         <i className="format redo" />
       </button>
       <Divider />
-      {supportedBlockTypes.has(blockType) && (
-        <>
-          <button
-            className="toolbar-item block-controls"
-            onClick={() => setShowBlockOptionsDropDown(!showBlockOptionsDropDown)}
-            aria-label="Formatting Options"
-          >
-            <span className={'icon block-type ' + blockType} />
-            <span className="text">{blockTypeToBlockName[blockType]}</span>
-            <i className="chevron-down" />
-          </button>
-          {showBlockOptionsDropDown &&
-            createPortal(
-              <BlockOptionsDropdownList
-                editor={editor}
-                blockType={blockType}
-                toolbarRef={toolbarRef}
-                setShowBlockOptionsDropDown={setShowBlockOptionsDropDown}
-              />,
-              document.body,
-            )}
-          <Divider />
-        </>
-      )}
       <button
         onClick={() => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
@@ -636,13 +476,6 @@ function ToolbarPlugin() {
       >
         <i className="format code" />
       </button>
-      <button
-        onClick={insertLink}
-        className={'toolbar-item spaced ' + (isLink ? 'active' : '')}
-        aria-label="Insert Link"
-      >
-        <i className="format link" />
-      </button>
       {isLink && createPortal(<FloatingLinkEditor editor={editor} />, document.body)}
       <Divider />
       <button
@@ -662,24 +495,6 @@ function ToolbarPlugin() {
         aria-label="Center Align"
       >
         <i className="format center-align" />
-      </button>
-      <button
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
-        }}
-        className="toolbar-item spaced"
-        aria-label="Right Align"
-      >
-        <i className="format right-align" />
-      </button>
-      <button
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify');
-        }}
-        className="toolbar-item"
-        aria-label="Justify Align"
-      >
-        <i className="format justify-align" />
       </button>
     </div>
   );
