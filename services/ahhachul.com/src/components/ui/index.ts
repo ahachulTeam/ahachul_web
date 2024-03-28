@@ -4,6 +4,7 @@ export { default as Divider } from './Divider';
 export { default as NavBar } from './Navbar';
 export { default as SnackBar } from './SnackBar';
 export { default as Toggle } from './Toggle';
+export { default as Editor } from './Editor';
 export { default as BottomDim } from './BottomDim';
 export { default as BottomSheet } from './BottomSheet';
 export { default as TextRenderer } from './TextRenderer';

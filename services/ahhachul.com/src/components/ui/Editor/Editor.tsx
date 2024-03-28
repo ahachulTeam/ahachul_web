@@ -27,8 +27,8 @@ import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
-
-import { wrap } from './style';
+import YouTubePlugin from './plugins/YouTubePlugin';
+import { YouTubeNode } from './nodes/YouTubeNode';
 
 const exampleTheme = {
   ltr: 'ltr',
@@ -107,7 +107,7 @@ const editorConfig = {
     throw error;
   },
   // Any custom nodes go here
-  nodes: [HeadingNode, QuoteNode, AutoLinkNode, LinkNode],
+  nodes: [HeadingNode, QuoteNode, AutoLinkNode, LinkNode, YouTubeNode],
 };
 
 const URL_REGEX =
@@ -133,25 +133,24 @@ function Placeholder() {
 
 const CommunityEditor = () => {
   return (
-    <main css={wrap}>
-      <LexicalComposer initialConfig={editorConfig}>
-        <div className="editor-container">
-          <ToolbarPlugin />
-          <div className="editor-inner">
-            <RichTextPlugin
-              contentEditable={<ContentEditable className="editor-input" />}
-              placeholder={<Placeholder />}
-              ErrorBoundary={LexicalErrorBoundary}
-            />
-            <HistoryPlugin />
-            <TreeViewPlugin />
-            <AutoFocusPlugin />
-            <LinkPlugin />
-            <AutoLinkPlugin matchers={MATCHERS} />
-          </div>
+    <LexicalComposer initialConfig={editorConfig}>
+      <div className="editor-container">
+        <ToolbarPlugin />
+        <div className="editor-inner">
+          <RichTextPlugin
+            contentEditable={<ContentEditable className="editor-input" />}
+            placeholder={<Placeholder />}
+            ErrorBoundary={LexicalErrorBoundary}
+          />
+          <HistoryPlugin />
+          <TreeViewPlugin />
+          <AutoFocusPlugin />
+          <LinkPlugin />
+          <YouTubePlugin />
+          <AutoLinkPlugin matchers={MATCHERS} />
         </div>
-      </LexicalComposer>
-    </main>
+      </div>
+    </LexicalComposer>
   );
 };
 

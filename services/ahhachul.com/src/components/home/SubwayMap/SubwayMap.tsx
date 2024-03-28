@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout } from 'components/layout';
-
-import CommunityEditor from 'components/community/Editor';
+import { UiComponent } from 'components';
+import { wrap } from './style';
 
 const SubwayMap = () => {
   return (
@@ -11,8 +11,8 @@ const SubwayMap = () => {
       }}
       activeTab={false}
     >
-      <main>
-        <CommunityEditor />
+      <main css={wrap}>
+        <UiComponent.Editor />
       </main>
     </Layout>
   );
