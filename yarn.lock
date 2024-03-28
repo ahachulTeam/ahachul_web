@@ -3514,7 +3514,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lexical/hashtag@npm:0.14.2":
+"@lexical/hashtag@npm:0.14.2, @lexical/hashtag@npm:^0.14.2":
   version: 0.14.2
   resolution: "@lexical/hashtag@npm:0.14.2"
   dependencies:
@@ -8111,6 +8111,7 @@ __metadata:
     "@emotion/react": "npm:^11.11.3"
     "@emotion/styled": "npm:^11.11.0"
     "@lexical/clipboard": "npm:^0.14.2"
+    "@lexical/hashtag": "npm:^0.14.2"
     "@lexical/link": "npm:^0.14.2"
     "@lexical/markdown": "npm:^0.14.2"
     "@lexical/react": "npm:^0.14.2"

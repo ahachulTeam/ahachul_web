@@ -350,6 +350,11 @@ const global = css`
     text-decoration: none;
   }
 
+  .editor-hashtag {
+    background-color: rgba(88, 144, 255, 0.15);
+    border-bottom: 1px solid rgba(88, 144, 255, 0.3);
+  }
+
   .tree-view-output {
     display: block;
     background: #141517;

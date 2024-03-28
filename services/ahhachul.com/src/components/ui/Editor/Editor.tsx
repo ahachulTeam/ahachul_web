@@ -29,6 +29,12 @@ import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
 import YouTubePlugin from './plugins/YouTubePlugin';
 import { YouTubeNode } from './nodes/YouTubeNode';
+import { HashtagNode } from '@lexical/hashtag';
+import AutoEmbedPlugin from './plugins/AutoEmbedPlugin';
+import SpeechToTextPlugin from './plugins/SpeechToTextPlugin';
+import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
+
+//  { SPEECH_TO_TEXT_COMMAND, SUPPORT_SPEECH_RECOGNITION }
 
 const exampleTheme = {
   ltr: 'ltr',
@@ -64,6 +70,7 @@ const exampleTheme = {
     code: 'editor-text-code',
   },
   code: 'editor-code',
+  hashtag: 'editor-hashtag',
   codeHighlight: {
     atrule: 'editor-tokenAttr',
     attr: 'editor-tokenAttr',
@@ -107,7 +114,7 @@ const editorConfig = {
     throw error;
   },
   // Any custom nodes go here
-  nodes: [HeadingNode, QuoteNode, AutoLinkNode, LinkNode, YouTubeNode],
+  nodes: [HeadingNode, QuoteNode, AutoLinkNode, LinkNode, YouTubeNode, HashtagNode],
 };
 
 const URL_REGEX =
@@ -145,14 +152,32 @@ const CommunityEditor = () => {
           <HistoryPlugin />
           <TreeViewPlugin />
           <AutoFocusPlugin />
+          <AutoEmbedPlugin />
           <LinkPlugin />
+          <HashtagPlugin />
           <YouTubePlugin />
+          <SpeechToTextPlugin />
           <AutoLinkPlugin matchers={MATCHERS} />
         </div>
       </div>
     </LexicalComposer>
   );
 };
+
+// Text to Speech
+// {SUPPORT_SPEECH_RECOGNITION && (
+//   <button
+//     onClick={() => {
+//       editor.dispatchCommand(SPEECH_TO_TEXT_COMMAND, !isSpeechToText);
+//       setIsSpeechToText(!isSpeechToText);
+//     }}
+//     className={'action-button action-button-mic ' + (isSpeechToText ? 'active' : '')}
+//     title="Speech To Text"
+//     aria-label={`${isSpeechToText ? 'Enable' : 'Disable'} speech to text`}
+//   >
+//     <i className="mic" />
+//   </button>
+// )}
 
 function Divider() {
   return <div className="divider" />;
@@ -340,7 +365,7 @@ function ToolbarPlugin() {
   const [isItalic, setIsItalic] = useState(false);
   const [isUnderline, setIsUnderline] = useState(false);
   const [isStrikethrough, setIsStrikethrough] = useState(false);
-  const [isCode, setIsCode] = useState(false);
+  const [, setIsCode] = useState(false);
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -465,15 +490,6 @@ function ToolbarPlugin() {
         aria-label="Format Strikethrough"
       >
         <i className="format strikethrough" />
-      </button>
-      <button
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
-        }}
-        className={'toolbar-item spaced ' + (isCode ? 'active' : '')}
-        aria-label="Insert Code"
-      >
-        <i className="format code" />
       </button>
       {isLink && createPortal(<FloatingLinkEditor editor={editor} />, document.body)}
       <Divider />

@@ -5975,10 +5975,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:4b6b616dc7cea595e2b2b5645cd89cc2b6ccfe5b55aaabf8c9634241b7755bc77efed207cd9c98209a531dd32996928c1f5e48b06b53746a8bcb24af721204ff#npm:0.14.2", {\
-        "packageLocation": "./.yarn/__virtual__/@lexical-hashtag-virtual-143a298187/4/.yarn/berry/cache/@lexical-hashtag-npm-0.14.2-64ca662cef-10c0.zip/node_modules/@lexical/hashtag/",\
+      ["virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:0.14.2", {\
+        "packageLocation": "./.yarn/__virtual__/@lexical-hashtag-virtual-fe743308d5/4/.yarn/berry/cache/@lexical-hashtag-npm-0.14.2-64ca662cef-10c0.zip/node_modules/@lexical/hashtag/",\
         "packageDependencies": [\
-          ["@lexical/hashtag", "virtual:4b6b616dc7cea595e2b2b5645cd89cc2b6ccfe5b55aaabf8c9634241b7755bc77efed207cd9c98209a531dd32996928c1f5e48b06b53746a8bcb24af721204ff#npm:0.14.2"],\
+          ["@lexical/hashtag", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:0.14.2"],\
           ["@lexical/utils", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:0.14.2"],\
           ["@types/lexical", null],\
           ["lexical", "npm:0.14.2"]\
@@ -6227,7 +6227,7 @@ const RAW_RUNTIME_STATE =
           ["@lexical/clipboard", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:0.14.2"],\
           ["@lexical/code", "virtual:4e6602322ed22f94590f8f2a11c6daa2efe8c411e744da1c2ac4832c29fcdd8d96e9a90f566d6de0bee085908e05857628e17e5c3b8eb121068d55a434cfb6cd#npm:0.14.2"],\
           ["@lexical/dragon", "virtual:4b6b616dc7cea595e2b2b5645cd89cc2b6ccfe5b55aaabf8c9634241b7755bc77efed207cd9c98209a531dd32996928c1f5e48b06b53746a8bcb24af721204ff#npm:0.14.2"],\
-          ["@lexical/hashtag", "virtual:4b6b616dc7cea595e2b2b5645cd89cc2b6ccfe5b55aaabf8c9634241b7755bc77efed207cd9c98209a531dd32996928c1f5e48b06b53746a8bcb24af721204ff#npm:0.14.2"],\
+          ["@lexical/hashtag", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:0.14.2"],\
           ["@lexical/history", "virtual:4b6b616dc7cea595e2b2b5645cd89cc2b6ccfe5b55aaabf8c9634241b7755bc77efed207cd9c98209a531dd32996928c1f5e48b06b53746a8bcb24af721204ff#npm:0.14.2"],\
           ["@lexical/html", "virtual:3b904d67e7f4b01be08674ac2bdf2bb268464c17cf28b42d54b80c40331409031609b8502433df9be4c9f24a69ff52aeddde4639199580eb6624abbd68f98240#npm:0.14.2"],\
           ["@lexical/link", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:0.14.2"],\
@@ -13180,6 +13180,7 @@ const RAW_RUNTIME_STATE =
           ["@emotion/react", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:11.11.4"],\
           ["@emotion/styled", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:11.11.0"],\
           ["@lexical/clipboard", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:0.14.2"],\
+          ["@lexical/hashtag", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:0.14.2"],\
           ["@lexical/link", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:0.14.2"],\
           ["@lexical/markdown", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:0.14.2"],\
           ["@lexical/react", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:0.14.2"],\
