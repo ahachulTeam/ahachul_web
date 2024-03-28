@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
   CAN_REDO_COMMAND,
   CAN_UNDO_COMMAND,
@@ -12,6 +11,8 @@ import {
   $isRangeSelection,
   $createParagraphNode,
 } from 'lexical';
+import { AutoLinkPlugin, createLinkMatcherWithRegExp } from '@lexical/react/LexicalAutoLinkPlugin';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link';
 import { $isParentElementRTL, $wrapNodes, $isAtNodeEnd } from '@lexical/selection';
 import { mergeRegister } from '@lexical/utils';
@@ -110,6 +111,38 @@ const editorConfig = {
   nodes: [HeadingNode, QuoteNode, AutoLinkNode, LinkNode],
 };
 
+const URL_REGEX =
+  /((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
+
+const EMAIL_REGEX =
+  /(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
+
+const MATCHERS = [
+  createLinkMatcherWithRegExp(URL_REGEX, (text) => {
+    return text.startsWith('http') ? text : `https://${text}`;
+  }),
+  createLinkMatcherWithRegExp(EMAIL_REGEX, (text) => {
+    return `mailto:${text}`;
+  }),
+];
+
+const LowPriority = 1;
+
+const supportedBlockTypes = new Set(['paragraph', 'quote', 'code', 'h1', 'h2', 'ul', 'ol']);
+
+const blockTypeToBlockName = {
+  code: 'Code Block',
+  h1: 'Large Heading',
+  h2: 'Small Heading',
+  h3: 'Heading',
+  h4: 'Heading',
+  h5: 'Heading',
+  ol: 'Numbered List',
+  paragraph: 'Normal',
+  quote: 'Quote',
+  ul: 'Bulleted List',
+};
+
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
 }
@@ -130,66 +163,12 @@ const CommunityEditor = () => {
             <TreeViewPlugin />
             <AutoFocusPlugin />
             <LinkPlugin />
-            <PlaygroundAutoLinkPlugin />
+            <AutoLinkPlugin matchers={MATCHERS} />
           </div>
         </div>
       </LexicalComposer>
     </main>
   );
-};
-
-import { AutoLinkPlugin } from '@lexical/react/LexicalAutoLinkPlugin';
-
-const URL_MATCHER =
-  /((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
-
-const EMAIL_MATCHER =
-  /(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
-
-const MATCHERS = [
-  (text) => {
-    const match = URL_MATCHER.exec(text);
-    return (
-      match && {
-        index: match.index,
-        length: match[0].length,
-        text: match[0],
-        url: match[0],
-      }
-    );
-  },
-  (text) => {
-    const match = EMAIL_MATCHER.exec(text);
-    return (
-      match && {
-        index: match.index,
-        length: match[0].length,
-        text: match[0],
-        url: `mailto:${match[0]}`,
-      }
-    );
-  },
-];
-
-function PlaygroundAutoLinkPlugin() {
-  return <AutoLinkPlugin matchers={MATCHERS} />;
-}
-
-const LowPriority = 1;
-
-const supportedBlockTypes = new Set(['paragraph', 'quote', 'code', 'h1', 'h2', 'ul', 'ol']);
-
-const blockTypeToBlockName = {
-  code: 'Code Block',
-  h1: 'Large Heading',
-  h2: 'Small Heading',
-  h3: 'Heading',
-  h4: 'Heading',
-  h5: 'Heading',
-  ol: 'Numbered List',
-  paragraph: 'Normal',
-  quote: 'Quote',
-  ul: 'Bulleted List',
 };
 
 function Divider() {
