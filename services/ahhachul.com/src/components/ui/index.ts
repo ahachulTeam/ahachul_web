@@ -8,6 +8,7 @@ export { default as BottomDim } from './BottomDim';
 export { default as BottomSheet } from './BottomSheet';
 export { default as TextRenderer } from './TextRenderer';
 export { default as FixedWarning } from './FixedWarning';
+export { default as PartialLoading } from './PartialLoading';
 
 export * from './Modal';
 export * from './Dialog';

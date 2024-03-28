@@ -13,7 +13,7 @@ import { useDebounce } from 'hooks';
 // TODO: rxjs 사용해서 최적화하기
 function SearchGroup() {
   const dispatch = useDispatch();
-  const { history } = useAppSelector((state) => state.search);
+  const { showModal, history } = useAppSelector((state) => state.search);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -32,8 +32,9 @@ function SearchGroup() {
   };
 
   useEffect(() => {
-    inputRef.current?.focus?.();
-  }, []);
+    if (!showModal) return;
+    else inputRef.current?.focus?.();
+  }, [showModal]);
 
   return (
     <form css={form} onSubmit={handleSubmit}>

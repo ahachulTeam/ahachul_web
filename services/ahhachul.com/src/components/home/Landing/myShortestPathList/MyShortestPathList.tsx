@@ -35,6 +35,7 @@ const MyShortestPathList = () => {
   if (!enabled) return null;
 
   return (
+    // 오늘의 최단 경로 zip
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
         {(provided) => (
