@@ -7,8 +7,47 @@ export const lostContentMock = {
     children: [
       {
         children: [
-          { detail: 0, format: 0, mode: 'normal', style: '', text: '오늘 아침 7기 30분에', type: 'text', version: 1 },
+          {
+            detail: 0,
+            format: 0,
+            mode: 'normal',
+            style: '',
+            text: '구찌 지갑을 잃어버렸어요..',
+            type: 'text',
+            version: 1,
+          },
         ],
+        direction: 'ltr',
+        format: '',
+        indent: 0,
+        type: 'paragraph',
+        version: 1,
+      },
+      {
+        children: [
+          { detail: 0, format: 0, mode: 'normal', style: '', text: '4월 1일 오전 8시 30분 ', type: 'text', version: 1 },
+          { detail: 0, format: 0, mode: 'normal', style: '', text: '#서초역에서', type: 'hashtag', version: 1 },
+          { detail: 0, format: 0, mode: 'normal', style: '', text: ' 내릴 때 실수로', type: 'text', version: 1 },
+        ],
+        direction: 'ltr',
+        format: '',
+        indent: 0,
+        type: 'paragraph',
+        version: 1,
+      },
+      {
+        children: [
+          { detail: 0, format: 0, mode: 'normal', style: '', text: '의자에 두고 왔습니다.', type: 'text', version: 1 },
+        ],
+        direction: 'ltr',
+        format: '',
+        indent: 0,
+        type: 'paragraph',
+        version: 1,
+      },
+      { children: [], direction: null, format: '', indent: 0, type: 'paragraph', version: 1 },
+      {
+        children: [{ detail: 0, format: 0, mode: 'normal', style: '', text: '흠 ㅠㅠ. ', type: 'text', version: 1 }],
         direction: 'ltr',
         format: '',
         indent: 0,
@@ -22,7 +61,7 @@ export const lostContentMock = {
             format: 0,
             mode: 'normal',
             style: '',
-            text: '누가 구찌 지갑 흘리셨는데',
+            text: '혹시 주우신 분 계시면 연락 부탁드릴게요..!!',
             type: 'text',
             version: 1,
           },
@@ -33,9 +72,11 @@ export const lostContentMock = {
         type: 'paragraph',
         version: 1,
       },
+      { children: [], direction: null, format: '', indent: 0, type: 'paragraph', version: 1 },
       {
         children: [
-          { detail: 0, format: 0, mode: 'normal', style: '', text: '이거 주워놨습니다.', type: 'text', version: 1 },
+          { detail: 0, format: 0, mode: 'normal', style: '', text: '#사례', type: 'hashtag', version: 1 },
+          { detail: 0, format: 0, mode: 'normal', style: '', text: ' 있습니다!!', type: 'text', version: 1 },
         ],
         direction: 'ltr',
         format: '',
@@ -45,7 +86,7 @@ export const lostContentMock = {
       },
       { children: [], direction: null, format: '', indent: 0, type: 'paragraph', version: 1 },
       {
-        children: [{ detail: 0, format: 0, mode: 'normal', style: '', text: '연락주세요!!', type: 'text', version: 1 }],
+        children: [{ detail: 0, format: 0, mode: 'normal', style: '', text: '🙇‍♂️🙇‍♂️', type: 'text', version: 1 }],
         direction: 'ltr',
         format: '',
         indent: 0,

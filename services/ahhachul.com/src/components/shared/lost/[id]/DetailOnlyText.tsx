@@ -18,8 +18,8 @@ function DetailOnlyText({ nickname }: { nickname: string }) {
       </Flex>
       <UiComponent.TextRenderer article={article} />
       <Flex align="center" gap="6px" style={{ padding: '0 20px 20px' }}>
-        <span css={tag}>#1호선</span>
-        <span css={tag}>#단소</span>
+        <span css={tag}>#서초역</span>
+        <span css={tag}>#사례</span>
       </Flex>
       <Flex align="center" justify="space-between" style={{ padding: '10px 20px' }}>
         <Flex align="center" gap="30px">

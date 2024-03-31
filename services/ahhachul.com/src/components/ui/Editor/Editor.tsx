@@ -183,12 +183,12 @@ const Editor = ({ isRich = false, hasError = false, readonly = false, initialSta
             placeholder={readonly ? null : <Placeholder />}
             ErrorBoundary={LexicalErrorBoundary}
           />
+          <HashtagPlugin />
           <OnChangePlugin readonly={readonly} initialState={initialState} onChange={onChange} />
           {isRich && (
             <>
               <LinkPlugin />
               <YouTubePlugin />
-              <HashtagPlugin />
               <HistoryPlugin />
               <ToolbarPlugin />
               <AutoEmbedPlugin />
