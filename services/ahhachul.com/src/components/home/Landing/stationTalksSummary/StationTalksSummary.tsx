@@ -44,7 +44,7 @@ const StationTalksSummary = () => {
       <Swiper css={ul as unknown as CSSObject} slidesPerView={1} spaceBetween={12}>
         {new Array(7).fill('').map((_, i) => (
           <SwiperSlide key={i}>
-            <SlideItem navigateToDetail={navigateToDetail} />
+            <SlideItem navigateToDetail={navigateToDetail} index={i} />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -52,7 +52,7 @@ const StationTalksSummary = () => {
   );
 };
 
-const SlideItem = ({ navigateToDetail }) => {
+const SlideItem = ({ navigateToDetail, index }) => {
   const getRandomNickname = () => {
     const list = [
       '갯나리',
@@ -116,6 +116,8 @@ const SlideItem = ({ navigateToDetail }) => {
           <p css={content as unknown as CSSObject}>{getRandomContent()}</p>
           <div css={img}>
             <LazyLoadImage
+              visibleByDefault={index !== 0}
+              useIntersectionObserver={index === 0}
               src={getRandomImg()}
               alt=""
               width="100%"

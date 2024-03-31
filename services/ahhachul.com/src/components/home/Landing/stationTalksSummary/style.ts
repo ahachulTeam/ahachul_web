@@ -66,7 +66,7 @@ const ul = [
   f.flexAlignCenter,
   {
     padding: '32px 20px',
-    backgroundColor: '#2e2e2e',
+    backgroundColor: '#1A191A',
   },
 ];
 
@@ -82,9 +82,9 @@ const card_wrap = [
   }: Theme): CSSObject => ({
     justifyContent: 'space-between',
     padding: '20px 16px',
-    backgroundColor: gray[200],
+    backgroundColor: gray[0],
     borderRadius: '12px',
-    border: '1px solid hsla(0, 0%, 100%, .3)',
+    border: '1px solid #242524',
   }),
 ];
 
