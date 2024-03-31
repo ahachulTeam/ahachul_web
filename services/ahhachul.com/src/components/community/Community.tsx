@@ -1,21 +1,21 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense } from 'react';
 
 import { ErrorComponent, UiComponent } from 'components';
 import TabSection from './tabSection';
 import ListSection from './listSection';
 import { wrap, err } from './style';
 import ErrorDefault from 'components/error-management/ErrorDefault';
-import { useDispatch } from 'react-redux';
-import { setTab } from 'stores/community';
+// import { useDispatch } from 'react-redux';
+// import { setTab } from 'stores/community';
 
 const Community = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log('Community Page mounted successfully');
+  // useEffect(() => {
+  //   console.log('Community Page mounted successfully');
 
-    return () => dispatch(setTab('FREE'));
-  }, []);
+  //   return () => dispatch(setTab('FREE'));
+  // }, []);
 
   return (
     <main css={wrap}>

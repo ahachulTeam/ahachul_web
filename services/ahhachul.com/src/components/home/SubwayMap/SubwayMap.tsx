@@ -1,7 +1,6 @@
 import React from 'react';
 import { Layout } from 'components/layout';
-import { UiComponent } from 'components';
-import { wrap } from './style';
+import { title, wrap } from './style';
 
 const SubwayMap = () => {
   return (
@@ -12,7 +11,7 @@ const SubwayMap = () => {
       activeTab={false}
     >
       <main css={wrap}>
-        <UiComponent.Editor />
+        <h1 css={title}>this is 노선도 보기 page</h1>
       </main>
     </Layout>
   );

@@ -4,7 +4,7 @@ import { createLinkComponent } from '@stackflow/link';
 import { historySyncPlugin } from '@stackflow/plugin-history-sync';
 import { basicRendererPlugin } from '@stackflow/plugin-renderer-basic';
 
-import { Complaints, Home, Lost, LostDetail, Community, CommunityDetail } from 'pages';
+import { Complaints, Home, Lost, LostDetail, LostEditor, Community, CommunityDetail, CommunityEditor } from 'pages';
 import { ComplaintsComponent, HomeComponent, SharedComponent } from 'components';
 import { PATH } from 'data';
 
@@ -29,9 +29,11 @@ export const { Stack, activities, useFlow, useStepFlow } = stackflow({
     ComplaintsSubmission: ComplaintsComponent.ComplaintsSubmission,
     ComplaintsComplete: ComplaintsComponent.ComplaintsComplete,
     Lost,
-    LostDetail: LostDetail,
+    LostDetail,
+    LostEditor,
     Community,
     CommunityDetail,
+    CommunityEditor,
   },
   plugins: [
     basicRendererPlugin(),
@@ -64,8 +66,10 @@ export const { Stack, activities, useFlow, useStepFlow } = stackflow({
         ComplaintsComplete: PATH.complaintsComplete,
         Lost: PATH.lost,
         LostDetail: PATH.lostDetail,
+        LostEditor: PATH.lostEditor,
         Community: PATH.community,
         CommunityDetail: PATH.communityDetail,
+        CommunityEditor: PATH.communityEditor,
       },
       fallbackActivity: () => 'Home',
     }),

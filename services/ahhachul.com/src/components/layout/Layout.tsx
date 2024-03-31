@@ -20,8 +20,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ activeTab = 'Home', appBar, hasSearch = false, children }) => {
   const { loading, snackBars } = useAppSelector((state) => state.ui);
-  const { replace, defaultAppBar } = useDefaultAppBar(hasSearch);
-  const navigate = React.useCallback((tab: KeyOf<TypeActivities>) => replace(tab, {}, { animate: false }), [replace]);
+  const { push, replace, defaultAppBar } = useDefaultAppBar(hasSearch);
 
   const topEl = React.useRef<Nullable<HTMLDivElement>>(null);
   const scrollToTop = () => topEl?.current?.scrollTo({ top: 0, behavior: 'smooth' });
@@ -45,7 +44,9 @@ const Layout: React.FC<LayoutProps> = ({ activeTab = 'Home', appBar, hasSearch =
       </div>
       {loading && <UiComponent.Loading opacity={1} />}
       {showSnackBar && <UiComponent.SnackBar {...snackBars} />}
-      {activeTab && <UiComponent.NavBar activeTab={activeTab} replace={navigate} scrollToTop={scrollToTop} />}
+      {activeTab && (
+        <UiComponent.NavBar activeTab={activeTab} push={push} replace={replace} scrollToTop={scrollToTop} />
+      )}
       {activeTab && <UiComponent.BottomDim />}
     </AppScreen>
   );

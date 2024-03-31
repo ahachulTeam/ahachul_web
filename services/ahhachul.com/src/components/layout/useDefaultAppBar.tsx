@@ -1,12 +1,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useFlow } from 'stackflow';
+import { TypeActivities, useFlow } from 'stackflow';
 import IconBellActive from 'static/icons/system/IconBellActive';
 import IconLogo from 'static/icons/system/IconLogo';
 import IconSearch from 'static/icons/system/IconSearch';
 import mockProfile from 'static/img/mocks/mock3.png';
 import { showModal } from 'stores/search/reducer';
+import { KeyOf } from 'types';
 import { left, right } from './style';
 
 const useDefaultAppBar = (hasSearch: boolean) => {
@@ -28,8 +29,12 @@ const useDefaultAppBar = (hasSearch: boolean) => {
     </div>
   );
 
+  const pushTo = React.useCallback((tab: KeyOf<TypeActivities>) => push(tab, {}), [push]);
+  const navigate = React.useCallback((tab: KeyOf<TypeActivities>) => replace(tab, {}, { animate: false }), [replace]);
+
   return {
-    replace,
+    push: pushTo,
+    replace: navigate,
     defaultAppBar: {
       renderLeft: appBarLeft,
       renderRight: appBarRight,
