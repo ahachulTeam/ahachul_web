@@ -36,7 +36,7 @@ import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
 // import { TreeView } from '@lexical/react/LexicalTreeView';
 //  { SPEECH_TO_TEXT_COMMAND, SUPPORT_SPEECH_RECOGNITION }
 
-const exampleTheme = {
+const editorTheme = {
   ltr: 'ltr',
   rtl: 'rtl',
   placeholder: 'editor-placeholder',
@@ -108,7 +108,7 @@ const exampleTheme = {
 const editorConfig = {
   namespace: 'editor',
   // The editor theme
-  theme: exampleTheme,
+  theme: editorTheme,
   // Handling of errors during update
   onError(error: Error) {
     throw error;
@@ -139,41 +139,64 @@ function Placeholder() {
 }
 
 interface EditorProps {
-  hasToolbar?: boolean;
+  isRich?: boolean;
   hasError?: boolean;
-  onChange: (content: EditorState) => void;
+  readonly?: boolean;
+  initialState?: string;
+  onChange?: (content: EditorState) => void;
 }
 
-function OnChangePlugin({ onChange }) {
+function OnChangePlugin({ readonly, initialState, onChange }) {
   const [editor] = useLexicalComposerContext();
+
+  useEffect(() => {
+    if (readonly) {
+      editor.setEditable(false);
+    }
+
+    if (initialState) {
+      const content = editor.parseEditorState(JSON.parse(initialState));
+      editor.setEditorState(content);
+    }
+  }, [readonly, initialState]);
+
   useEffect(() => {
     return editor.registerUpdateListener(({ editorState }) => {
-      onChange(editorState);
+      onChange?.(editorState);
     });
   }, [editor, onChange]);
   return null;
 }
 
-const Editor = ({ hasToolbar = false, hasError = false, onChange }: EditorProps) => {
+const Editor = ({ isRich = false, hasError = false, readonly = false, initialState, onChange }: EditorProps) => {
   return (
     <LexicalComposer initialConfig={editorConfig}>
-      <div className="editor-container" css={{ borderColor: hasError ? '#E02020' : 'rgb(196, 212, 252, 0.37)' }}>
+      <div
+        className="editor-container"
+        css={{ borderColor: readonly ? 'rgba(0, 0, 0, 0)' : hasError ? '#E02020' : 'rgb(196, 212, 252, 0.37)' }}
+      >
         <div className="editor-inner">
           <RichTextPlugin
-            contentEditable={<ContentEditable className="editor-input" id="content" />}
-            placeholder={<Placeholder />}
+            contentEditable={
+              <ContentEditable className="editor-input" id="content" css={{ padding: readonly ? 0 : '15px 10px' }} />
+            }
+            placeholder={readonly ? null : <Placeholder />}
             ErrorBoundary={LexicalErrorBoundary}
           />
-          <HistoryPlugin />
-          <AutoEmbedPlugin />
-          <LinkPlugin />
-          <HashtagPlugin />
-          <YouTubePlugin />
-          <SpeechToTextPlugin />
-          <AutoLinkPlugin matchers={MATCHERS} />
-          <OnChangePlugin onChange={onChange} />
+          <OnChangePlugin readonly={readonly} initialState={initialState} onChange={onChange} />
+          {isRich && (
+            <>
+              <LinkPlugin />
+              <YouTubePlugin />
+              <HashtagPlugin />
+              <HistoryPlugin />
+              <ToolbarPlugin />
+              <AutoEmbedPlugin />
+              <SpeechToTextPlugin />
+              <AutoLinkPlugin matchers={MATCHERS} />
+            </>
+          )}
         </div>
-        {hasToolbar && <ToolbarPlugin />}
       </div>
     </LexicalComposer>
   );

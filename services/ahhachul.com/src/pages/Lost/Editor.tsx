@@ -64,29 +64,28 @@ const LostEditor = () => {
 
     const isEmptyTitle = !formRef.current.title;
     const isEmptyContent = JSON.parse(formRef.current.content)?.root?.children?.[0]?.children?.length <= 0;
-    console.log('isEmptyContent:', isEmptyContent);
 
-    const input = document?.getElementById('title');
+    const titleInput = document?.getElementById('title');
 
     if (isEmptyTitle && isEmptyContent) {
-      input?.focus?.();
+      titleInput?.focus?.();
       setError((prev) => ({ ...prev, title: '제목을 적어주세요', content: '내용을 적어주세요' }));
       return;
     } else {
       if (isEmptyTitle) {
-        input?.focus?.();
+        titleInput?.focus?.();
         setError((prev) => ({ ...prev, title: '제목을 적어주세요' }));
         return;
       }
       if (isEmptyContent) {
-        const content = document?.getElementById('content');
-        console.log('content :', content);
-        content?.focus?.();
+        const contentInput = document?.getElementById('content');
+        contentInput?.focus?.();
         setError((prev) => ({ ...prev, content: '내용을 적어주세요' }));
         return;
       }
-      return;
     }
+
+    console.log('content :', formRef.current.content);
   };
 
   let lostInfo: Nullable<LostArticleForm> = null;
