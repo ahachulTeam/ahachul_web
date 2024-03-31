@@ -9,7 +9,7 @@ const CommunityEditor = () => {
   const handleChangeContent = useCallback((targetValue: EditorState) => {
     let value = targetValue;
 
-    console.log('value :', value);
+    console.log('value :', JSON.stringify(value.toJSON()));
   }, []);
 
   return (

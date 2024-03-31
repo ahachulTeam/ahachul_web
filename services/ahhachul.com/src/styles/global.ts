@@ -299,7 +299,7 @@ const global = css`
     tab-size: 1;
     outline: 0;
     padding: 15px 10px;
-    color: #9da5b6;
+    color: #ffffff;
     caret-color: rgba(0, 255, 163, 0.5);
   }
 
