@@ -12,6 +12,8 @@ const Lost = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('Lost Page mounted successfully');
+
     return () => dispatch(setTab('LOST'));
   }, []);
 

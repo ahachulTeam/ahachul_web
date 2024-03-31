@@ -12,6 +12,8 @@ const Community = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('Community Page mounted successfully');
+
     return () => dispatch(setTab('FREE'));
   }, []);
 
