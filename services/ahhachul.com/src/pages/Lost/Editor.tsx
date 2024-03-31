@@ -62,8 +62,9 @@ const LostEditor = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const isEmptyTitle = !formRef.current.title;
-    const isEmptyContent = JSON.parse(formRef.current.content)?.root?.children?.[0]?.children?.length <= 0;
+    const isEmptyTitle = formRef.current.title === '';
+    const isEmptyContent =
+      formRef.current.content === '' || JSON.parse(formRef.current.content)?.root?.children?.[0]?.children?.length <= 0;
 
     const titleInput = document?.getElementById('title');
 
@@ -85,7 +86,7 @@ const LostEditor = () => {
       }
     }
 
-    console.log('content :', formRef.current.content);
+    console.log('formRef.current :', formRef.current);
   };
 
   let lostInfo: Nullable<LostArticleForm> = null;
@@ -94,7 +95,12 @@ const LostEditor = () => {
       formRef.current.title = lostInfo.title;
       formRef.current.content = lostInfo.content;
       formRef.current.lostType = lostInfo.lostType;
-      // formRef.current.desiredLocation = lostInfo.desiredLocation;
+      formRef.current.desiredLocation = lostInfo.desiredLocation;
+    } else {
+      formRef.current.title = '';
+      formRef.current.content = '';
+      formRef.current.lostType = 'LOST';
+      formRef.current.desiredLocation = '';
     }
   }, [lostInfo]);
 
