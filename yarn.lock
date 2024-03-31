@@ -8153,6 +8153,7 @@ __metadata:
     env-cmd: "npm:^10.1.0"
     framer-motion: "npm:^10.16.16"
     happy-dom: "npm:^12.10.3"
+    immer: "npm:^10.0.4"
     lexical: "npm:^0.14.2"
     lodash-es: "npm:^4.17.21"
     msw: "npm:^2.0.11"
@@ -8172,6 +8173,7 @@ __metadata:
     rxjs: "npm:^7.8.1"
     swiper: "npm:^9.3.2"
     typescript: "npm:^4.4.2"
+    use-immer: "npm:^0.9.0"
     vitest: "npm:^0.34.6"
     web-vitals: "npm:^2.1.0"
     webpack-font-preload-plugin: "npm:^1.5.0"
@@ -14315,6 +14317,13 @@ __metadata:
   version: 10.0.3
   resolution: "immer@npm:10.0.3"
   checksum: 10c0/282a4f8479a40f7d12b2b3243c095e3e892bf99058e2ffcdd6b8e9fd143e6a90f2717ab9b6c8b97c927ffb8054465c8f647056f41660dbfd672e240cf1063503
+  languageName: node
+  linkType: hard
+
+"immer@npm:^10.0.4":
+  version: 10.0.4
+  resolution: "immer@npm:10.0.4"
+  checksum: 10c0/da9da59d6e71cf3f2875024b5cfb58874baef3eefec6425483e53163e31ed0ab24bae85cd2829cb7812acb9723075eedb5946654f8bd47ecf38663388e04d3bd
   languageName: node
   linkType: hard
 
@@ -24127,6 +24136,16 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10c0/6666cd62e13053d03e453b5199037cb8f6475a8f55afd664ff488bd8f2ee2ede4da3b220dd7e60f5ecd4926133364fbf4b1aed463eeb8203e7c5be3b1533b59b
+  languageName: node
+  linkType: hard
+
+"use-immer@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "use-immer@npm:0.9.0"
+  peerDependencies:
+    immer: ">=2.0.0"
+    react: ^16.8.0 || ^17.0.1 || ^18.0.0
+  checksum: 10c0/f8309eec0fe493a4a79588cd9c7ed4b54e5d8fe96883543296aa3613c8b91f37c6055129c3578db0f598ebff22e020adf324cd12082a8d0d3dc81c3953dd61e8
   languageName: node
   linkType: hard
 

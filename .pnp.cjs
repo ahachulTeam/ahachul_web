@@ -13222,6 +13222,7 @@ const RAW_RUNTIME_STATE =
           ["env-cmd", "npm:10.1.0"],\
           ["framer-motion", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:10.18.0"],\
           ["happy-dom", "npm:12.10.3"],\
+          ["immer", "npm:10.0.4"],\
           ["lexical", "npm:0.14.2"],\
           ["lodash-es", "npm:4.17.21"],\
           ["msw", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:2.2.11"],\
@@ -13241,6 +13242,7 @@ const RAW_RUNTIME_STATE =
           ["rxjs", "npm:7.8.1"],\
           ["swiper", "npm:9.4.1"],\
           ["typescript", "patch:typescript@npm%3A4.9.5#optional!builtin<compat/typescript>::version=4.9.5&hash=289587"],\
+          ["use-immer", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:0.9.0"],\
           ["vitest", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:0.34.6"],\
           ["web-vitals", "npm:2.1.4"],\
           ["webpack-font-preload-plugin", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:1.5.0"]\
@@ -20520,6 +20522,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../.yarn/berry/cache/immer-npm-10.0.3-174ab52899-10c0.zip/node_modules/immer/",\
         "packageDependencies": [\
           ["immer", "npm:10.0.3"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:10.0.4", {\
+        "packageLocation": "../../.yarn/berry/cache/immer-npm-10.0.4-61b3c15a3a-10c0.zip/node_modules/immer/",\
+        "packageDependencies": [\
+          ["immer", "npm:10.0.4"]\
         ],\
         "linkType": "HARD"\
       }],\
@@ -32674,6 +32683,32 @@ const RAW_RUNTIME_STATE =
         ],\
         "packagePeers": [\
           "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["use-immer", [\
+      ["npm:0.9.0", {\
+        "packageLocation": "../../.yarn/berry/cache/use-immer-npm-0.9.0-7e7d7bf502-10c0.zip/node_modules/use-immer/",\
+        "packageDependencies": [\
+          ["use-immer", "npm:0.9.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:0.9.0", {\
+        "packageLocation": "./.yarn/__virtual__/use-immer-virtual-dd1cc004d9/3/.yarn/berry/cache/use-immer-npm-0.9.0-7e7d7bf502-10c0.zip/node_modules/use-immer/",\
+        "packageDependencies": [\
+          ["use-immer", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:0.9.0"],\
+          ["@types/immer", null],\
+          ["@types/react", "npm:18.2.64"],\
+          ["immer", "npm:10.0.4"],\
+          ["react", "npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/immer",\
+          "@types/react",\
+          "immer",\
           "react"\
         ],\
         "linkType": "HARD"\

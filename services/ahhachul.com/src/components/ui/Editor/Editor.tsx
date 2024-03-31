@@ -9,6 +9,7 @@ import {
   FORMAT_ELEMENT_COMMAND,
   $getSelection,
   $isRangeSelection,
+  EditorState,
 } from 'lexical';
 import { AutoLinkPlugin, createLinkMatcherWithRegExp } from '@lexical/react/LexicalAutoLinkPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -18,12 +19,10 @@ import { mergeRegister } from '@lexical/utils';
 import { HeadingNode, QuoteNode } from '@lexical/rich-text';
 import { createPortal } from 'react-dom';
 import { $isHeadingNode } from '@lexical/rich-text';
-import { TreeView } from '@lexical/react/LexicalTreeView';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
-import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
@@ -34,6 +33,7 @@ import AutoEmbedPlugin from './plugins/AutoEmbedPlugin';
 import SpeechToTextPlugin from './plugins/SpeechToTextPlugin';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
 
+// import { TreeView } from '@lexical/react/LexicalTreeView';
 //  { SPEECH_TO_TEXT_COMMAND, SUPPORT_SPEECH_RECOGNITION }
 
 const exampleTheme = {
@@ -135,14 +135,28 @@ const MATCHERS = [
 const LowPriority = 1;
 
 function Placeholder() {
-  return <div className="editor-placeholder">Enter some rich text...</div>;
+  return <div className="editor-placeholder">게시글 내용을 작성해 주세요.</div>;
 }
 
-const CommunityEditor = () => {
+interface EditorProps {
+  hasToolbar?: boolean;
+  onChange: (content: EditorState) => void;
+}
+
+function OnChangePlugin({ onChange }) {
+  const [editor] = useLexicalComposerContext();
+  useEffect(() => {
+    return editor.registerUpdateListener(({ editorState }) => {
+      onChange(editorState);
+    });
+  }, [editor, onChange]);
+  return null;
+}
+
+const Editor = ({ hasToolbar = false, onChange }: EditorProps) => {
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className="editor-container">
-        <ToolbarPlugin />
         <div className="editor-inner">
           <RichTextPlugin
             contentEditable={<ContentEditable className="editor-input" />}
@@ -150,15 +164,15 @@ const CommunityEditor = () => {
             ErrorBoundary={LexicalErrorBoundary}
           />
           <HistoryPlugin />
-          <TreeViewPlugin />
-          <AutoFocusPlugin />
           <AutoEmbedPlugin />
           <LinkPlugin />
           <HashtagPlugin />
           <YouTubePlugin />
           <SpeechToTextPlugin />
           <AutoLinkPlugin matchers={MATCHERS} />
+          <OnChangePlugin onChange={onChange} />
         </div>
+        {hasToolbar && <ToolbarPlugin />}
       </div>
     </LexicalComposer>
   );
@@ -515,19 +529,19 @@ function ToolbarPlugin() {
   );
 }
 
-function TreeViewPlugin() {
-  const [editor] = useLexicalComposerContext();
-  return (
-    <TreeView
-      treeTypeButtonClassName="tree-view-type-button"
-      viewClassName="tree-view-output"
-      timeTravelPanelClassName="debug-timetravel-panel"
-      timeTravelButtonClassName="debug-timetravel-button"
-      timeTravelPanelSliderClassName="debug-timetravel-panel-slider"
-      timeTravelPanelButtonClassName="debug-timetravel-panel-button"
-      editor={editor}
-    />
-  );
-}
+// function TreeViewPlugin() {
+//   const [editor] = useLexicalComposerContext();
+//   return (
+//     <TreeView
+//       treeTypeButtonClassName="tree-view-type-button"
+//       viewClassName="tree-view-output"
+//       timeTravelPanelClassName="debug-timetravel-panel"
+//       timeTravelButtonClassName="debug-timetravel-button"
+//       timeTravelPanelSliderClassName="debug-timetravel-panel-slider"
+//       timeTravelPanelButtonClassName="debug-timetravel-panel-button"
+//       editor={editor}
+//     />
+//   );
+// }
 
-export default CommunityEditor;
+export default Editor;

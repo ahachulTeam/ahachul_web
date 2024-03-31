@@ -277,16 +277,14 @@ const global = css`
   }
 
   .editor-container {
-    margin: 20px auto 20px auto;
     border-radius: 2px;
     width: 100%;
-    color: #000;
     position: relative;
     line-height: 20px;
     font-weight: 400;
     text-align: left;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-radius: 6px;
+    border: 1px solid rgb(196, 212, 252, 0.37);
   }
 
   .editor-inner {
@@ -301,7 +299,7 @@ const global = css`
     tab-size: 1;
     outline: 0;
     padding: 15px 10px;
-    color: #c9cedc;
+    color: #9da5b6;
     caret-color: rgba(0, 255, 163, 0.5);
   }
 
@@ -591,10 +589,12 @@ const global = css`
     margin-bottom: 1px;
     background: #c9cedc;
     padding: 4px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
     vertical-align: middle;
     overflow-x: scroll;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
   }
 
   .toolbar button.toolbar-item {
