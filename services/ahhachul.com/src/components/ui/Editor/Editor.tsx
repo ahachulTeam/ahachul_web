@@ -157,13 +157,10 @@ function OnChangePlugin({ onChange }) {
 const Editor = ({ hasToolbar = false, hasError = false, onChange }: EditorProps) => {
   return (
     <LexicalComposer initialConfig={editorConfig}>
-      <div
-        className="editor-container"
-        css={{ border: hasError ? '1px solid #E02020' : '1px solid rgb(196, 212, 252, 0.37)' }}
-      >
+      <div className="editor-container" css={{ borderColor: hasError ? '#E02020' : 'rgb(196, 212, 252, 0.37)' }}>
         <div className="editor-inner">
           <RichTextPlugin
-            contentEditable={<ContentEditable className="editor-input" />}
+            contentEditable={<ContentEditable className="editor-input" id="content" />}
             placeholder={<Placeholder />}
             ErrorBoundary={LexicalErrorBoundary}
           />

@@ -62,17 +62,30 @@ const LostEditor = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const isEmptyTitle = !formRef.current.title;
     const isEmptyContent = JSON.parse(formRef.current.content)?.root?.children?.[0]?.children?.length <= 0;
     console.log('isEmptyContent:', isEmptyContent);
 
-    if (!formRef.current.title && isEmptyContent) {
+    const input = document?.getElementById('title');
+
+    if (isEmptyTitle && isEmptyContent) {
+      input?.focus?.();
       setError((prev) => ({ ...prev, title: '제목을 적어주세요', content: '내용을 적어주세요' }));
       return;
     } else {
-      if (!formRef.current.title) setError((prev) => ({ ...prev, title: '제목을 적어주세요' }));
-      if (isEmptyContent) setError((prev) => ({ ...prev, content: '내용을 적어주세요' }));
-
-      console.log('submit form values :', formRef.current);
+      if (isEmptyTitle) {
+        input?.focus?.();
+        setError((prev) => ({ ...prev, title: '제목을 적어주세요' }));
+        return;
+      }
+      if (isEmptyContent) {
+        const content = document?.getElementById('content');
+        console.log('content :', content);
+        content?.focus?.();
+        setError((prev) => ({ ...prev, content: '내용을 적어주세요' }));
+        return;
+      }
+      return;
     }
   };
 
@@ -98,6 +111,7 @@ const LostEditor = () => {
           <div css={section}>
             <span>제목</span>
             <input
+              id="title"
               placeholder="제목"
               aria-invalid={!!errors.title}
               onChange={handleChangeTitle}
@@ -106,9 +120,9 @@ const LostEditor = () => {
               }}
             />
             {errors.title && (
-              <p>
+              <b>
                 <IconInfo /> {errors.title}
-              </p>
+              </b>
             )}
           </div>
           <div css={section}>
@@ -119,9 +133,9 @@ const LostEditor = () => {
             <span>자세한 설명</span>
             <UiComponent.Editor hasError={!!errors.content} onChange={handleChangeContent} />
             {errors.content && (
-              <p>
+              <b>
                 <IconInfo /> {errors.content}
-              </p>
+              </b>
             )}
           </div>
           <div css={section}>
@@ -204,12 +218,12 @@ const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] = 
       },
     },
 
-    '& > p': {
+    '& > b': {
       display: 'inline-flex',
       alignItems: 'center',
       color: '#E02020',
       fontSize: fontSize[14],
-      fontWeight: fontWeight[600],
+      fontWeight: fontWeight[400],
       marginTop: '12px',
       gap: '6px',
 
