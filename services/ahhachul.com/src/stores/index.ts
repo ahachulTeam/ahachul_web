@@ -3,6 +3,8 @@ import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { authReducer } from './auth';
+import { communityReducer } from './community';
+import { lostReducer } from './lost';
 import { searchReducer } from './search';
 import { uiReducer } from './ui';
 
@@ -19,6 +21,8 @@ const reducers = combineReducers({
   auth: authReducer,
   search: searchReducer,
   ui: uiReducer,
+  community: communityReducer,
+  lost: lostReducer,
 });
 const reducer = persistReducer(persistConfig, reducers);
 

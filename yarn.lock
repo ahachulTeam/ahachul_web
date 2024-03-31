@@ -8170,7 +8170,7 @@ __metadata:
     react-spring-bottom-sheet: "npm:^3.4.1"
     redux-persist: "npm:^6.0.0"
     rxjs: "npm:^7.8.1"
-    swiper: "npm:^11.0.5"
+    swiper: "npm:^9.3.2"
     typescript: "npm:^4.4.2"
     vitest: "npm:^0.34.6"
     web-vitals: "npm:^2.1.0"
@@ -22342,6 +22342,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ssr-window@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "ssr-window@npm:4.0.2"
+  checksum: 10c0/e91f690f42ab2d4e36577a631a9d7b9bd20864ab99c1394481f64c5a0ae6922165ac0a06228560c2ccdd4f68338e795f2fd3cc16fbf9bfcc9c561bb89eb237cd
+  languageName: node
+  linkType: hard
+
 "ssri@npm:^10.0.0":
   version: 10.0.5
   resolution: "ssri@npm:10.0.5"
@@ -22943,10 +22950,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swiper@npm:^11.0.5":
-  version: 11.0.7
-  resolution: "swiper@npm:11.0.7"
-  checksum: 10c0/d27b8c3b5deccde730317c2fe868350fad039e9776c8c6dfd11a89d9e732a66c1292292ca635141a7e0bbb363fcac1291c9fd716bf7a8e3b85d320e58ff94eba
+"swiper@npm:^9.3.2":
+  version: 9.4.1
+  resolution: "swiper@npm:9.4.1"
+  dependencies:
+    ssr-window: "npm:^4.0.2"
+  checksum: 10c0/29feb1e92c344c32d24d7c852577b8b167816ec65bb486418816abbc8e1d6f50b3fb339780392ffa8ba91582508f804bab1e1ab3bd80d9d9b66fc323b6055445
   languageName: node
   linkType: hard
 

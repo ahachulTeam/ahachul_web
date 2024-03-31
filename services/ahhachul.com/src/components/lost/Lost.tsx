@@ -1,12 +1,20 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 
 import { ErrorComponent, UiComponent } from 'components';
 import ErrorDefault from 'components/error-management/ErrorDefault';
 import { TabSection } from './tabSection';
 import ListSection from './listSection/ListSection';
 import { wrap, err } from './style';
+import { useDispatch } from 'react-redux';
+import { setTab } from 'stores/lost';
 
 const Lost = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => dispatch(setTab('LOST'));
+  }, []);
+
   return (
     <main css={wrap}>
       <TabSection />

@@ -1,67 +1,92 @@
 import React from 'react';
 
-import { wrap } from './style';
+import { filterWrap, sectionWrap, title, wrap } from './style';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Train from './train/Train';
 import IconFetch from 'static/icons/system/IconFetch';
 import IconInfo from 'static/icons/system/IconInfo';
+import { useFlow } from 'stackflow';
+import IconChevron from 'static/icons/system/IconChevron';
 
 const Subway = () => {
+  const { push } = useFlow();
+  const routeToSubwayMap = () => push('SubwayMap', {});
+  const routeToSubwayTimeTable = () => push('SubwayTimeTable', {});
+
   return (
-    <div css={wrap}>
-      <SubwayInfo>
-        <ThickBorderArea tabIndex={-1}>
-          <StationLabel>건대입구</StationLabel>
-          <DirectionLabel>신당 방향</DirectionLabel>
-        </ThickBorderArea>
-        <ContentArea>
-          <TopInfo>
-            <b>곧 도착</b>
-            <span>성수행</span>
-            <button>
-              <IconFetch css={{ position: 'relative', top: '1px' }} />
+    <section css={sectionWrap}>
+      <h1 css={title}>
+        <b>이효범님,</b>
+        현재 <b>열차정보와 혼잡도</b>를 알려드려요!
+      </h1>
+      <div css={filterWrap}>
+        <ul>
+          <li>2</li>
+          <li>1</li>
+          <li>9</li>
+        </ul>
+        <button onClick={routeToSubwayMap}>
+          <span>전체 노선도 보기</span>
+          <IconChevron />
+        </button>
+      </div>
+      <div css={wrap}>
+        <SubwayInfo>
+          <ThickBorderArea tabIndex={-1}>
+            <StationLabel>건대입구</StationLabel>
+            <DirectionLabel>신당 방향</DirectionLabel>
+          </ThickBorderArea>
+          <ContentArea>
+            <TopInfo>
+              <b>곧 도착</b>
+              <span>성수행</span>
+              <button>
+                <IconFetch css={{ position: 'relative', top: '1px' }} />
+              </button>
+            </TopInfo>
+            <TrainInfoContainer>
+              <TrainInfoTop>
+                <span>전동차 5035</span>
+                <div>
+                  <span>여유</span>
+                  <ul>
+                    <li />
+                    <li />
+                    <li />
+                    <li />
+                  </ul>
+                  <span>혼잡</span>
+                  <IconInfo css={{ position: 'relative', top: '1px', marginLeft: '4px' }} />
+                </div>
+              </TrainInfoTop>
+              <Train />
+            </TrainInfoContainer>
+            <BottomInfo>
+              <li>
+                <b css={{ fontWeight: '700 !important' }}>성수행</b>
+                <span>곧 도착</span>
+              </li>
+              <li>
+                <b>성수행</b>
+                <span>2분 26초</span>
+              </li>
+              <li>
+                <b>성수행</b>
+                <span>10분 28초</span>
+              </li>
+              <li>
+                <b>성수행</b>
+                <span>14분 32초</span>
+              </li>
+            </BottomInfo>
+            <button css={allTrainsBtnCss} onClick={routeToSubwayTimeTable}>
+              전체 시간표
             </button>
-          </TopInfo>
-          <TrainInfoContainer>
-            <TrainInfoTop>
-              <span>전동차 5035</span>
-              <div>
-                <span>여유</span>
-                <ul>
-                  <li />
-                  <li />
-                  <li />
-                  <li />
-                </ul>
-                <span>혼잡</span>
-                <IconInfo css={{ position: 'relative', top: '1px', marginLeft: '4px' }} />
-              </div>
-            </TrainInfoTop>
-            <Train />
-          </TrainInfoContainer>
-          <BottomInfo>
-            <li>
-              <b css={{ fontWeight: '700 !important' }}>성수행</b>
-              <span>곧 도착</span>
-            </li>
-            <li>
-              <b>성수행</b>
-              <span>2분 26초</span>
-            </li>
-            <li>
-              <b>성수행</b>
-              <span>10분 28초</span>
-            </li>
-            <li>
-              <b>성수행</b>
-              <span>14분 32초</span>
-            </li>
-          </BottomInfo>
-          <button css={allTrainsBtnCss}>전체 시간표</button>
-        </ContentArea>
-      </SubwayInfo>
-    </div>
+          </ContentArea>
+        </SubwayInfo>
+      </div>
+    </section>
   );
 };
 

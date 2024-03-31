@@ -3,9 +3,11 @@ import { Box, Flex } from '@ahhachul/react-components-layout';
 import LostAndFoundCard from './Item';
 import { useGetLostList } from 'queries/lost/useGetLostList';
 import { flattenInfinityListData } from 'utils/response';
+import { useAppSelector } from 'stores';
 
 function ListSection() {
-  const { data } = useGetLostList({ page: 1, size: 20, lostType: 'LOST' });
+  const { activeTab } = useAppSelector((state) => state.lost);
+  const { data } = useGetLostList({ page: 1, size: 20, lostType: activeTab });
 
   const flatData = flattenInfinityListData(data);
 

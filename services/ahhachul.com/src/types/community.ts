@@ -1,6 +1,10 @@
 import { ListResponse, RegionType, YNType } from 'types';
 import { IPageParams } from 'types/request';
 
+export type ICommunityStore = {
+  activeTab: CommunityCategoryType;
+};
+
 export type CommunityCategoryType = 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR';
 export type CommunityImageType = {
   imageId: number;

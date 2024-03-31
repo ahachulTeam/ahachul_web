@@ -1,6 +1,10 @@
 import { ListResponse } from 'types';
 import { IPageParams } from 'types/request';
 
+export type ILostStore = {
+  activeTab: LostType;
+};
+
 export type LostType = 'LOST' | 'ACQUIRE';
 export type LostOriginType = 'LOST112' | 'APP';
 export type LostStatusType = 'PROGRESS' | 'COMPLETE';

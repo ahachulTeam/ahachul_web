@@ -1,20 +1,58 @@
-import { Flex } from '@ahhachul/react-components-layout';
-import { CSSObject, Theme } from '@emotion/react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'swiper/css/bundle';
+import 'swiper/css/free-mode';
+import 'swiper/css/navigation';
+
+import React from 'react';
+import {
+  Swiper,
+  SwiperSlide,
+  // type SwiperClass,
+} from 'swiper/react';
 
 import { useFlow } from 'stackflow';
-import IconComment from 'static/icons/system/IconComment';
-import IconHeart from 'static/icons/system/IconHeart';
+import { Flex } from '@ahhachul/react-components-layout';
+
+import { wrap, title, headSection, ul, card_wrap, nickname, time, content, img, label } from './style';
+
 import mockImg1 from 'static/img/mocks/mock2.png';
 import mockImg2 from 'static/img/mocks/mock4.png';
 import mockImg3 from 'static/img/mocks/mock5.jpg';
-import { f } from 'styles';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import IconHeart from 'static/icons/system/IconHeart';
+import IconComment from 'static/icons/system/IconComment';
+import { CSSObject } from '@emotion/react';
 
-function Item() {
+const SubwayLineTalksSummary = () => {
   const { push } = useFlow();
+
+  const routeToStationTalks = () => push('SubwayLineTalks', {});
   const navigateToDetail = () =>
     push('CommunityDetail', { articleId: (Math.floor(Math.random() * 1000) + 1).toString() });
 
+  // const [swiperInstance, setSwiper] = useState<SwiperClass | undefined>(undefined);
+  // const [isBeginning, setIsBeginning] = useState(true);
+  // const [isEnd, setIsEnd] = useState(false);
+
+  return (
+    <div css={wrap}>
+      <div css={headSection}>
+        <h1 css={title}>
+          <span>2호선 게시판</span>
+        </h1>
+        <button onClick={routeToStationTalks}>더보기</button>
+      </div>
+      <Swiper css={ul as unknown as CSSObject} slidesPerView={1} spaceBetween={12}>
+        {new Array(7).fill('').map((_, i) => (
+          <SwiperSlide key={i}>
+            <SlideItem navigateToDetail={navigateToDetail} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
+};
+
+const SlideItem = ({ navigateToDetail }) => {
   const getRandomNickname = () => {
     const list = [
       '갯나리',
@@ -68,9 +106,9 @@ function Item() {
   };
 
   return (
-    <li onClick={navigateToDetail}>
-      <Flex as="article" direction="column" gap="12px" css={wrap}>
-        <Flex align="center">
+    <li css={{ width: '100%' }} onClick={navigateToDetail}>
+      <article css={card_wrap}>
+        <Flex align="center" css={{ marginBottom: '8px' }}>
           <span css={nickname}>{getRandomNickname()}</span>
           <time css={time}>오후 3:00</time>
         </Flex>
@@ -95,70 +133,8 @@ function Item() {
             <IconComment /> <span>10</span>
           </div>
         </Flex>
-      </Flex>
+      </article>
     </li>
   );
-}
-
-const wrap = {
-  padding: '24px 0',
 };
-
-const nickname = ({ typography: { fontSize, fontWeight } }: Theme) => ({
-  fontSize: fontSize[14],
-  fontWeight: fontWeight[600],
-  color: '#c9cedc',
-});
-
-const time = ({ typography: { fontSize } }: Theme): CSSObject => ({
-  fontSize: fontSize[12],
-  color: '#9da5b6',
-  marginLeft: '6px',
-});
-
-const content = [
-  f.truncate4,
-  ({ typography: { fontSize } }: Theme) => ({
-    fontSize: fontSize[14],
-    color: '#c9cedc',
-    letterSpacing: '-0.3px',
-    lineHeight: '19px',
-  }),
-];
-
-const img: CSSObject = {
-  width: '80px',
-  minWidth: '80px',
-  height: '80px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  position: 'relative',
-  marginLeft: '16px',
-
-  '& > img': {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    borderRadius: '6px',
-  },
-};
-
-const label = ({ typography: { fontSize } }: Theme): CSSObject => ({
-  display: 'flex',
-  alignItems: 'center',
-  marginRight: '8px',
-
-  '& > span': {
-    fontSize: fontSize[12],
-    color: '#c9cedc',
-    letterSpacing: '-0.3px',
-    lineHeight: '19px',
-    marginLeft: '4px',
-  },
-});
-
-export default Item;
+export default SubwayLineTalksSummary;

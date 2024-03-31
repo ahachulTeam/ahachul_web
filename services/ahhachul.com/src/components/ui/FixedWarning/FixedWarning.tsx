@@ -4,10 +4,13 @@ import { CSSObject, keyframes, Theme } from '@emotion/react';
 import { f } from 'styles';
 import IconBell from 'static/icons/system/IconBell';
 import IconChevron from 'static/icons/system/IconChevron';
+import { useFlow } from 'stackflow';
 // import { addSwipeLeftListener, addSwipeRightListener } from 'utils/swipe';
 // import IconClose from 'static/icons/system/IconClose';
 
 const FixedWarning = () => {
+  const { push } = useFlow();
+  const routeToSubwayWarning = () => push('SubwayWarning', {});
   // const wrapRef = useRef<HTMLElement | null>(null);
   // const [buttonClicked, setButtonClicked] = useState(false);
 
@@ -32,6 +35,7 @@ const FixedWarning = () => {
     <article
       // ref={wrapRef} css={wrap(swipedPosX)} onTouchCancel={() => setSwipedPosX(0)}>
       css={wrap}
+      onClick={routeToSubwayWarning}
     >
       <IconBell />
       <p>

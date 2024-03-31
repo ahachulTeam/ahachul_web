@@ -1,12 +1,14 @@
 import { Box, Flex } from '@ahhachul/react-components-layout';
 
 import { useGetCommunityList } from 'queries/community/useGetCommunityList';
+import { useAppSelector } from 'stores';
 import { flattenInfinityListData } from 'utils/response';
 import TalkLoungeCard from './Item';
 import { ul } from './style';
 
 function ListSection() {
-  const { data } = useGetCommunityList({ page: 1, size: 20, sort: 'answeredAt,asc' });
+  const { activeTab } = useAppSelector((state) => state.community);
+  const { data } = useGetCommunityList({ page: 1, size: 20, sort: 'answeredAt,asc', categoryType: activeTab });
 
   const flatData = flattenInfinityListData(data);
 

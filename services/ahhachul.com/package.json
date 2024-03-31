@@ -73,7 +73,7 @@
     "react-router-dom": "^6.21.3",
     "react-spring-bottom-sheet": "^3.4.1",
     "redux-persist": "^6.0.0",
-    "swiper": "^11.0.5"
+    "swiper": "^9.3.2"
   },
   "devDependencies": {
     "@testing-library/dom": "^9.3.3",

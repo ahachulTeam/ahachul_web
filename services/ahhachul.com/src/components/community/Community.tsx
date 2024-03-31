@@ -1,12 +1,20 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 
 import { ErrorComponent, UiComponent } from 'components';
 import TabSection from './tabSection';
 import ListSection from './listSection';
 import { wrap, err } from './style';
 import ErrorDefault from 'components/error-management/ErrorDefault';
+import { useDispatch } from 'react-redux';
+import { setTab } from 'stores/community';
 
 const Community = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => dispatch(setTab('FREE'));
+  }, []);
+
   return (
     <main css={wrap}>
       <TabSection />
