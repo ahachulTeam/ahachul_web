@@ -29,3 +29,8 @@ export type ListResponse<T> = {
 export type YNType = 'Y' | 'N';
 
 export type RegionType = 'METROPOLITAN';
+
+export type ImageType = {
+  imageId: number;
+  imageUrl: string;
+};

@@ -1,7 +1,12 @@
 import queryString from 'query-string';
 
 import { base } from 'api';
-import { IResponse, type ILostParams as GetLostListRequestParams, type ILostList as GetLostListResponse } from 'types';
+import {
+  IResponse,
+  type ILostParams as GetLostListRequestParams,
+  type ILostList as GetLostListResponse,
+  type ILostDetail as GetLostDetailResponse,
+} from 'types';
 import { API_BASE_URL } from 'data/api';
 
 export const getLostListURL = `${API_BASE_URL}/lost-posts`;
@@ -13,4 +18,11 @@ export const getLostList = async (params: GetLostListRequestParams) => {
   const url = `${getLostListURL}?${queryParams}`;
 
   return await base.get<IResponse<GetLostListResponse>>(url);
+};
+
+/**  커뮤니티 포스트 상세 조회 */
+export const getLostDetail = async (postId: string) => {
+  const url = `${getLostListURL}/${postId}`;
+
+  return await base.get<IResponse<GetLostDetailResponse>>(url);
 };

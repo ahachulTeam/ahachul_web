@@ -14,7 +14,6 @@ export const useGetCommunityDetail = (
     },
     select: (res) => {
       const hasImage = res.data.result.images.length > 0;
-      console.log('hasImage:', hasImage);
       return { ...res.data.result, hasImage };
     },
   });

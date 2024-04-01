@@ -1,4 +1,4 @@
-import { ListResponse } from 'types';
+import { ImageType, ListResponse } from 'types';
 import { IPageParams } from 'types/request';
 
 export type ILostStore = {
@@ -36,6 +36,15 @@ export interface ILost {
 
 export type ILostList = ListResponse<ILost>;
 
+export type ILostDetail = Omit<ILost, 'imageUrl'> & {
+  hateCnt: number;
+  images: ImageType[];
+  storage: string;
+  pageUrl: string;
+  externalSourceImageUrl: string;
+  recommendPosts: ILostRecommendPost[];
+};
+
 export interface ILostParams extends IPageParams {
   /** 유실물 카테고리  - LOST(유실물) / ACQUIRE(습득물 + Lost112) */
   lostType: LostType;
@@ -55,4 +64,12 @@ export interface ILostArticleForm {
   content: string;
   lostType: LostType;
   desiredLocation?: string;
+}
+
+export interface ILostRecommendPost {
+  id: number;
+  title: string;
+  writer: string;
+  imageUrl: string;
+  date: string;
 }

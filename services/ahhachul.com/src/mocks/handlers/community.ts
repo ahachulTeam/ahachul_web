@@ -1,6 +1,6 @@
 import { http, delay, HttpResponse } from 'msw';
 import { API_BASE_URL } from 'data/api';
-import { lostContentMock } from './community.mock';
+import { communityContentMock } from './community.mock';
 import { getRandomBoolean } from 'mocks/utils';
 
 const getCommunityListResponse = {
@@ -18,7 +18,7 @@ const getCommunityDetailResponse = (postId: string, randomBoolean: boolean) => (
   result: {
     id: postId,
     title: '모든 일본 청춘을 울린 한 애니메이션 명대사',
-    content: JSON.stringify(lostContentMock),
+    content: JSON.stringify(communityContentMock),
     categoryType: 'FREE',
     hashTags: [],
     viewCnt: 103,

@@ -7,9 +7,9 @@ import IconHeart from 'static/icons/system/IconHeart';
 
 import Comment from './Comment';
 import { userName, time, btn, commentTitle, category, commentList } from './style';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function DetailWithImage({ data }: { data: ICommunityDetail }) {
-  console.log('data', data);
   return (
     <>
       <Box
@@ -17,10 +17,11 @@ function DetailWithImage({ data }: { data: ICommunityDetail }) {
           position: 'relative',
           width: '100vw',
           minWidth: '100vw',
-          aspectRatio: '1 / 0.882667',
+          aspectRatio: '1 / 0.925667',
         }}
       >
-        <img
+        <LazyLoadImage
+          effect="opacity"
           src={data.images[0].imageUrl}
           alt=""
           sizes="100vw"

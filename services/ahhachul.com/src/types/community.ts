@@ -1,4 +1,4 @@
-import { ListResponse, RegionType, YNType } from 'types';
+import { ImageType, ListResponse, RegionType, YNType } from 'types';
 import { IPageParams } from 'types/request';
 
 export type ICommunityStore = {
@@ -6,10 +6,6 @@ export type ICommunityStore = {
 };
 
 export type CommunityCategoryType = 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR';
-export type CommunityImageType = {
-  imageId: number;
-  imageUrl: string;
-};
 
 export interface ICommunity {
   /** 커뮤니티 포스트 아이디 */
@@ -41,14 +37,14 @@ export interface ICommunity {
   /** 커뮤니티 포스트 작성자 닉네임 */
   writer: string;
   /** 커뮤니티 포스트 이미지 URL */
-  image: CommunityImageType;
+  image: ImageType;
 }
 
 export type ICommunityList = ListResponse<ICommunity>;
 
 export type ICommunityDetail = Omit<ICommunity, 'commentCnt' | 'image'> & {
   hateCnt: number;
-  images: CommunityImageType[];
+  images: ImageType[];
 };
 
 export type CommunityListFilterParamType = 'favor' | 'answeredAt';

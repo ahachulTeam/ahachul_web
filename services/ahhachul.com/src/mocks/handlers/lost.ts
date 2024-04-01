@@ -1,5 +1,7 @@
 import { http, delay, HttpResponse } from 'msw';
 import { API_BASE_URL } from 'data/api';
+import { getRandomBoolean } from 'mocks/utils';
+import { lostContentMock } from './lost.mock';
 
 const getLostListResponse = {
   code: '100',
@@ -10,73 +12,42 @@ const getLostListResponse = {
   },
 };
 
-const lostContentMock = {
-  root: {
-    children: [
-      {
-        children: [
-          { detail: 0, format: 0, mode: 'normal', style: '', text: '오늘 아침 7기 30분에', type: 'text', version: 1 },
-        ],
-        direction: 'ltr',
-        format: '',
-        indent: 0,
-        type: 'paragraph',
-        version: 1,
-      },
-      {
-        children: [
-          {
-            detail: 0,
-            format: 0,
-            mode: 'normal',
-            style: '',
-            text: '누가 구찌 지갑 흘리셨는데',
-            type: 'text',
-            version: 1,
-          },
-        ],
-        direction: 'ltr',
-        format: '',
-        indent: 0,
-        type: 'paragraph',
-        version: 1,
-      },
-      {
-        children: [
-          { detail: 0, format: 0, mode: 'normal', style: '', text: '이거 주워놨습니다.', type: 'text', version: 1 },
-        ],
-        direction: 'ltr',
-        format: '',
-        indent: 0,
-        type: 'paragraph',
-        version: 1,
-      },
-      { children: [], direction: null, format: '', indent: 0, type: 'paragraph', version: 1 },
-      {
-        children: [{ detail: 0, format: 0, mode: 'normal', style: '', text: '연락주세요!!', type: 'text', version: 1 }],
-        direction: 'ltr',
-        format: '',
-        indent: 0,
-        type: 'paragraph',
-        version: 1,
-      },
-    ],
-    direction: 'ltr',
-    format: '',
-    indent: 0,
-    type: 'root',
-    version: 1,
-  },
-};
-
-const getLostDetailResponse = {
+const getLostDetailResponse = (postId: string, randomBoolean: boolean) => ({
   code: '100',
   message: 'SUCCESS',
   result: {
+    id: postId,
     title: '구찌 지갑 분실하신분',
     content: JSON.stringify(lostContentMock),
+    writer: '뚜밥뚜밥',
+    createdBy: 'dieo21',
+    date: '2024-01-21T13:07:35.387616228',
+    subwayLine: 1,
+    chats: 1,
+    status: 'PROGRESS',
+    categoryName: '휴대폰',
+    storage: '우리집',
+    pageUrl: 'http://lost112',
+    images: randomBoolean
+      ? []
+      : [
+          {
+            imageId: 1,
+            imageUrl: 'https://source.unsplash.com/random',
+          },
+        ],
+    externalSourceImageUrl: 'https://source.unsplash.com/random',
+    recommendPosts: [
+      {
+        id: 2,
+        title: 'title',
+        writer: 'writer',
+        imageUrl: 'https://img.png',
+        date: '2023/01/23',
+      },
+    ],
   },
-};
+});
 
 const getLostList = http.get(API_BASE_URL + '/lost-posts', async () => {
   await delay(750);
@@ -84,10 +55,14 @@ const getLostList = http.get(API_BASE_URL + '/lost-posts', async () => {
   return HttpResponse.json(getLostListResponse);
 });
 
-const getLostDetail = http.get(API_BASE_URL + '/lost-detail', async () => {
-  await delay(750);
+const getLostDetail = http.get(API_BASE_URL + '/lost-posts/:postId', async (req) => {
+  const { postId } = req.params;
 
-  return HttpResponse.json(getLostDetailResponse);
+  await delay(400);
+
+  const randomBoolean = getRandomBoolean();
+
+  return HttpResponse.json(getLostDetailResponse(postId as string, randomBoolean));
 });
 
 const lostHandlers = [getLostList, getLostDetail];

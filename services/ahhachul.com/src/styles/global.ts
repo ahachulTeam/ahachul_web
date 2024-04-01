@@ -933,11 +933,11 @@ const global = css`
     background-size: contain;
   }
 
-  .typeahead-popover li:first-child {
+  .typeahead-popover li:first-of-type {
     border-radius: 8px 8px 0px 0px;
   }
 
-  .typeahead-popover li:last-child {
+  .typeahead-popover li:last-of-type {
     border-radius: 0px 0px 8px 8px;
   }
 
