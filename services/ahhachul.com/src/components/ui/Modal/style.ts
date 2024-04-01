@@ -15,8 +15,8 @@ const modalOverlayCss = css({
 });
 
 const modalContentCss = css({
-  background: '#ffffff',
-  borderRadius: '30px',
+  background: '#141517',
+  borderRadius: '14px',
   maxWidth: '300px',
   width: '100%',
   padding: '20px 24px',

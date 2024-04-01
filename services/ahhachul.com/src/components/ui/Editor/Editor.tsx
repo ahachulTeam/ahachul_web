@@ -11,6 +11,7 @@ import {
   $isRangeSelection,
   EditorState,
 } from 'lexical';
+import { INSERT_EMBED_COMMAND } from '@lexical/react/LexicalAutoEmbedPlugin';
 import { AutoLinkPlugin, createLinkMatcherWithRegExp } from '@lexical/react/LexicalAutoLinkPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link';
@@ -401,6 +402,7 @@ function getSelectedNode(selection) {
 function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext();
   const toolbarRef = useRef(null);
+  const [activeEditor] = useState(editor);
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
   const [, setBlockType] = useState('paragraph');
@@ -567,7 +569,13 @@ function ToolbarPlugin() {
         <IconRightAlign className="format" />
       </button>
       <Divider />
-      <button className="toolbar-item spaced" aria-label="Youtube Video">
+      <button
+        className="toolbar-item spaced"
+        aria-label="Youtube Video"
+        onClick={() => {
+          activeEditor.dispatchCommand(INSERT_EMBED_COMMAND, 'youtube-video');
+        }}
+      >
         <IconYoutube className="format" />
       </button>
       {SUPPORT_SPEECH_RECOGNITION && (

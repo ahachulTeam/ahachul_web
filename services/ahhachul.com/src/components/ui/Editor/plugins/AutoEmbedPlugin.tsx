@@ -21,21 +21,15 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import { INSERT_YOUTUBE_COMMAND } from './YouTubePlugin';
+import { UiComponent } from 'components';
+import useBoolean from 'hooks/useBoolean';
+import IconYoutube from 'static/icons/editor/IconYoutube';
 
 interface PlaygroundEmbedConfig extends EmbedConfig {
-  // Human readable name of the embeded content e.g. Tweet or Google Map.
   contentName: string;
-
-  // Icon for display.
   icon?: JSX.Element;
-
-  // An example of a matching url https://twitter.com/jack/status/20
   exampleUrl: string;
-
-  // For extra searching.
   keywords: Array<string>;
-
-  // Embed a Figma Project.
   description?: string;
 }
 
@@ -44,8 +38,7 @@ export const YoutubeEmbedConfig: PlaygroundEmbedConfig = {
 
   exampleUrl: 'https://www.youtube.com/watch?v=jNQXAC9IVRw',
 
-  // Icon for display.
-  icon: <i className="icon youtube" />,
+  icon: <IconYoutube />,
 
   insertNode: (editor: LexicalEditor, result: EmbedMatchResult) => {
     editor.dispatchCommand(INSERT_YOUTUBE_COMMAND, result.id);
@@ -181,7 +174,7 @@ export function AutoEmbedDialog({
   };
 
   return (
-    <div style={{ width: '600px' }}>
+    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', backgroundColor: '#141517' }}>
       <div className="Input__wrapper">
         <input
           type="text"
@@ -196,22 +189,25 @@ export function AutoEmbedDialog({
           }}
         />
       </div>
-      <button disabled={!embedResult} onClick={onClick} data-test-id={`${embedConfig.type}-embed-modal-submit-btn`}>
-        Embed
+      <button
+        className="Input__button"
+        disabled={!embedResult}
+        onClick={onClick}
+        data-test-id={`${embedConfig.type}-embed-modal-submit-btn`}
+      >
+        유튜브 붙여넣기
       </button>
     </div>
   );
 }
 
 export default function AutoEmbedPlugin(): JSX.Element {
-  //   const [modal, showModal] = useModal();
+  const [showModal, toggle] = useBoolean(false);
+  const [embedConfig, setEmbedConfig] = useState<PlaygroundEmbedConfig>({} as PlaygroundEmbedConfig);
 
   const openEmbedModal = (embedConfig: PlaygroundEmbedConfig) => {
-    //   showModal(`Embed ${embedConfig.contentName}`, (onClose) => (
-    //     <AutoEmbedDialog embedConfig={embedConfig} onClose={onClose} />
-    //   ));
-
-    console.log('embedConfig:', embedConfig);
+    toggle();
+    setEmbedConfig(embedConfig);
   };
 
   const getMenuOptions = (activeEmbedConfig: PlaygroundEmbedConfig, embedFn: () => void, dismissFn: () => void) => {
@@ -227,7 +223,9 @@ export default function AutoEmbedPlugin(): JSX.Element {
 
   return (
     <>
-      {/* {modal} */}
+      <UiComponent.Modal isOpen={showModal} onClose={toggle}>
+        <AutoEmbedDialog embedConfig={embedConfig} onClose={toggle} />
+      </UiComponent.Modal>
       <LexicalAutoEmbedPlugin<PlaygroundEmbedConfig>
         embedConfigs={EmbedConfigs}
         onOpenEmbedModalForConfig={openEmbedModal}

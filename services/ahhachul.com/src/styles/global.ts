@@ -943,6 +943,148 @@ const global = css`
     width: 20px;
     vertical-align: -0.25em;
   }
+
+  .typeahead-popover {
+    background: #fff;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    position: fixed;
+  }
+
+  .typeahead-popover ul {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+    border-radius: 8px;
+    max-height: 200px;
+    overflow-y: scroll;
+  }
+
+  .typeahead-popover ul::-webkit-scrollbar {
+    display: none;
+  }
+
+  .typeahead-popover ul {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .typeahead-popover ul li {
+    margin: 0;
+    min-width: 180px;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+
+  .typeahead-popover ul li.selected {
+    background: #eee;
+  }
+
+  .typeahead-popover li {
+    margin: 0 8px 0 8px;
+    padding: 8px;
+    color: #050505;
+    cursor: pointer;
+    line-height: 16px;
+    font-size: 15px;
+    display: flex;
+    align-content: center;
+    flex-direction: row;
+    flex-shrink: 0;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 0;
+  }
+
+  .typeahead-popover li.active {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+  }
+
+  .typeahead-popover li:first-child {
+    border-radius: 8px 8px 0px 0px;
+  }
+
+  .typeahead-popover li:last-child {
+    border-radius: 0px 0px 8px 8px;
+  }
+
+  .typeahead-popover li:hover {
+    background-color: #eee;
+  }
+
+  .typeahead-popover li .text {
+    display: flex;
+    line-height: 20px;
+    flex-grow: 1;
+    min-width: 150px;
+  }
+
+  .typeahead-popover li .icon {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    user-select: none;
+    margin-right: 8px;
+    line-height: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .auto-embed-menu {
+    width: calc(100vw - 40px);
+  }
+
+  .Input__wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .Input__label {
+    display: flex;
+    flex: 1;
+  }
+  .Input__input {
+    display: flex;
+    flex: 2;
+    border: 1px solid rgb(196, 212, 252, 0.37);
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    min-width: 0;
+
+    color: #ffffff;
+    font-size: 14px;
+
+    &::placeholder {
+      font-size: 14px;
+      color: '#9da5b6';
+    }
+  }
+  .Input__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 40px);
+    margin: 0 auto;
+    height: 32px;
+    background: rgb(196, 212, 252);
+    color: #141517;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    min-width: 0;
+  }
 `;
 
 export default global;
