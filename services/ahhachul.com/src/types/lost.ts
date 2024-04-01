@@ -48,3 +48,11 @@ export interface ILostParams extends IPageParams {
   /** 마지막으로 조회한 유실물 데이터의 ID */
   lostPostId?: number;
 }
+
+export interface ILostArticleForm {
+  // lostImages: Array<File | undefined>;
+  title: string;
+  content: string;
+  lostType: LostType;
+  desiredLocation?: string;
+}

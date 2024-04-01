@@ -5,31 +5,24 @@ import { f } from 'styles';
 import { CSSObject, Theme } from '@emotion/react';
 import { EditorState } from 'lexical';
 import { ErrorForm } from 'types/form';
-import { CommunityCategoryType, Nullable } from 'types';
+import { CommunityCategoryType, ICommunityArticleForm, Nullable } from 'types';
 import IconInfo from 'static/icons/system/IconInfo';
 
-interface CommunityArticleForm {
-  // communityImages: Array<File | undefined>;
-  title: string;
-  content: string;
-  communityType: CommunityCategoryType;
-}
-
-const INIT_STATE: CommunityArticleForm = {
+const INIT_STATE: ICommunityArticleForm = {
   title: '',
   content: '',
   communityType: 'FREE',
 };
 
-const ERROR_INIT_STATE: ErrorForm<CommunityArticleForm> = {
+const ERROR_INIT_STATE: ErrorForm<ICommunityArticleForm> = {
   title: '',
   content: '',
   communityType: '',
 };
 
 const CommunityEditor = () => {
-  const formRef = useRef<CommunityArticleForm>(INIT_STATE);
-  const [errors, setError] = useState<ErrorForm<CommunityArticleForm>>(ERROR_INIT_STATE);
+  const formRef = useRef<ICommunityArticleForm>(INIT_STATE);
+  const [errors, setError] = useState<ErrorForm<ICommunityArticleForm>>(ERROR_INIT_STATE);
 
   const handleChangeTitle = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -83,7 +76,7 @@ const CommunityEditor = () => {
     console.log('formRef.current :', formRef.current);
   };
 
-  let communityInfo: Nullable<CommunityArticleForm> = null;
+  let communityInfo: Nullable<ICommunityArticleForm> = null;
   useEffect(() => {
     if (communityInfo) {
       formRef.current.title = communityInfo.title;

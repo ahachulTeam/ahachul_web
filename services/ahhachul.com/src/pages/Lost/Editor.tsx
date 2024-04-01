@@ -6,27 +6,18 @@ import { CSSObject, Theme } from '@emotion/react';
 import IconChevron from 'static/icons/system/IconChevron';
 import { EditorState } from 'lexical';
 
-// TODO: form 관리 어떻게 할까~?
-import { LostType, Nullable } from 'types';
+import { ILostArticleForm, LostType, Nullable } from 'types';
 import { ErrorForm } from 'types/form';
 import IconInfo from 'static/icons/system/IconInfo';
 
-interface LostArticleForm {
-  // lostImages: Array<File | undefined>;
-  title: string;
-  content: string;
-  lostType: LostType;
-  desiredLocation?: string;
-}
-
-const INIT_STATE: LostArticleForm = {
+const INIT_STATE: ILostArticleForm = {
   title: '',
   content: '',
   lostType: 'LOST',
   desiredLocation: '',
 };
 
-const ERROR_INIT_STATE: ErrorForm<LostArticleForm> = {
+const ERROR_INIT_STATE: ErrorForm<ILostArticleForm> = {
   title: '',
   content: '',
   lostType: '',
@@ -34,8 +25,8 @@ const ERROR_INIT_STATE: ErrorForm<LostArticleForm> = {
 };
 
 const LostEditor = () => {
-  const formRef = useRef<LostArticleForm>(INIT_STATE);
-  const [errors, setError] = useState<ErrorForm<LostArticleForm>>(ERROR_INIT_STATE);
+  const formRef = useRef<ILostArticleForm>(INIT_STATE);
+  const [errors, setError] = useState<ErrorForm<ILostArticleForm>>(ERROR_INIT_STATE);
 
   const handleChangeTitle = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +81,7 @@ const LostEditor = () => {
     console.log('formRef.current :', formRef.current);
   };
 
-  let lostInfo: Nullable<LostArticleForm> = null;
+  let lostInfo: Nullable<ILostArticleForm> = null;
   useEffect(() => {
     if (lostInfo) {
       formRef.current.title = lostInfo.title;

@@ -498,6 +498,7 @@ function ToolbarPlugin() {
     <article className="toolbar-wrapper">
       <div className="toolbar" ref={toolbarRef}>
         <button
+          type="button"
           disabled={!canUndo}
           onClick={() => {
             editor.dispatchCommand(UNDO_COMMAND, null);
@@ -508,6 +509,7 @@ function ToolbarPlugin() {
           <IconUndo className="format" />
         </button>
         <button
+          type="button"
           disabled={!canRedo}
           onClick={() => {
             editor.dispatchCommand(REDO_COMMAND, null);
@@ -519,6 +521,7 @@ function ToolbarPlugin() {
         </button>
         <Divider />
         <button
+          type="button"
           className="toolbar-item spaced"
           aria-label="Insert Image"
           onClick={() => {
@@ -536,6 +539,7 @@ function ToolbarPlugin() {
         </button>
         {SUPPORT_SPEECH_RECOGNITION && (
           <button
+            type="button"
             className={'toolbar-item spaced mic ' + (isSpeechToText ? 'active' : '')}
             title="Speech To Text"
             aria-label={`${isSpeechToText ? 'Enable' : 'Disable'} speech to text`}
@@ -548,6 +552,7 @@ function ToolbarPlugin() {
           </button>
         )}
         <button
+          type="button"
           className="toolbar-item spaced"
           aria-label="Youtube Video"
           onClick={() => {
@@ -558,6 +563,7 @@ function ToolbarPlugin() {
         </button>
         <Divider />
         <button
+          type="button"
           onClick={() => {
             editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
           }}
@@ -567,6 +573,7 @@ function ToolbarPlugin() {
           <IconBold className="format" />
         </button>
         <button
+          type="button"
           onClick={() => {
             editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
           }}
@@ -576,6 +583,7 @@ function ToolbarPlugin() {
           <IconItalic className="format" />
         </button>
         <button
+          type="button"
           onClick={() => {
             editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline');
           }}
@@ -585,6 +593,7 @@ function ToolbarPlugin() {
           <IconUnderline className="format" />
         </button>
         <button
+          type="button"
           onClick={() => {
             editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough');
           }}
@@ -596,6 +605,7 @@ function ToolbarPlugin() {
         {isLink && createPortal(<FloatingLinkEditor editor={editor} />, document.body)}
         <Divider />
         <button
+          type="button"
           onClick={() => {
             editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left');
           }}
@@ -605,6 +615,7 @@ function ToolbarPlugin() {
           <IconLeftAlign className="format" />
         </button>
         <button
+          type="button"
           onClick={() => {
             editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center');
           }}
@@ -614,6 +625,7 @@ function ToolbarPlugin() {
           <IconCenterAlign className="format" />
         </button>
         <button
+          type="button"
           onClick={() => {
             editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
           }}

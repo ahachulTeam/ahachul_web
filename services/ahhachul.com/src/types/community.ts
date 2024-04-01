@@ -69,3 +69,10 @@ export interface ICommunityParams extends IPageParams {
   /** 정렬 조건 */
   sort: CommunityListSortParamType;
 }
+
+export interface ICommunityArticleForm {
+  // communityImages: Array<File | undefined>;
+  title: string;
+  content: string;
+  communityType: CommunityCategoryType;
+}
