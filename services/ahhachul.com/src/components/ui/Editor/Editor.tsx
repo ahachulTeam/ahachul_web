@@ -428,9 +428,15 @@ function ToolbarPlugin() {
     const isDisabled = src === '';
 
     if (src && !isDisabled) {
+      onFocus?.();
       activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, { altText: '', src });
     }
   }, [src]);
+
+  const onFocus = () => {
+    const contentInput = document?.getElementById('content');
+    contentInput?.focus?.();
+  };
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -546,6 +552,7 @@ function ToolbarPlugin() {
             title="Speech To Text"
             aria-label={`${isSpeechToText ? 'Enable' : 'Disable'} speech to text`}
             onClick={() => {
+              onFocus?.();
               editor.dispatchCommand(SPEECH_TO_TEXT_COMMAND, !isSpeechToText);
               setIsSpeechToText(!isSpeechToText);
             }}
@@ -558,6 +565,7 @@ function ToolbarPlugin() {
           className="toolbar-item spaced"
           aria-label="Youtube Video"
           onClick={() => {
+            onFocus?.();
             activeEditor.dispatchCommand(INSERT_EMBED_COMMAND, 'youtube-video');
           }}
         >
@@ -567,6 +575,7 @@ function ToolbarPlugin() {
         <button
           type="button"
           onClick={() => {
+            onFocus?.();
             editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
           }}
           className={'toolbar-item spaced ' + (isBold ? 'active' : '')}
@@ -577,6 +586,7 @@ function ToolbarPlugin() {
         <button
           type="button"
           onClick={() => {
+            onFocus?.();
             editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
           }}
           className={'toolbar-item spaced ' + (isItalic ? 'active' : '')}
@@ -587,6 +597,7 @@ function ToolbarPlugin() {
         <button
           type="button"
           onClick={() => {
+            onFocus?.();
             editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline');
           }}
           className={'toolbar-item spaced ' + (isUnderline ? 'active' : '')}
@@ -597,6 +608,7 @@ function ToolbarPlugin() {
         <button
           type="button"
           onClick={() => {
+            onFocus?.();
             editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough');
           }}
           className={'toolbar-item spaced ' + (isStrikethrough ? 'active' : '')}
@@ -609,6 +621,7 @@ function ToolbarPlugin() {
         <button
           type="button"
           onClick={() => {
+            onFocus?.();
             editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left');
           }}
           className="toolbar-item spaced"
@@ -619,6 +632,7 @@ function ToolbarPlugin() {
         <button
           type="button"
           onClick={() => {
+            onFocus?.();
             editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center');
           }}
           className="toolbar-item spaced"
@@ -629,6 +643,7 @@ function ToolbarPlugin() {
         <button
           type="button"
           onClick={() => {
+            onFocus?.();
             editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
           }}
           className="toolbar-item spaced"
