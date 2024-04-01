@@ -200,9 +200,9 @@ const Editor = ({ isRich = false, hasError = false, readonly = false, initialSta
           <LinkPlugin />
           <HashtagPlugin />
           <SpeechToTextPlugin />
-          <SpeechToTextToolbarPlugin />
           <AutoLinkPlugin matchers={MATCHERS} />
           <OnChangePlugin readonly={readonly} initialState={initialState} onChange={onChange} />
+          {!isRich && <SpeechToTextToolbarPlugin />}
           {isRich && (
             <>
               <ImagesPlugin />

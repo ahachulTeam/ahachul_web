@@ -55,22 +55,22 @@ const CommunityEditor = () => {
 
     const titleInput = document?.getElementById('title');
 
-    if (isEmptyTitle && isEmptyContent) {
-      titleInput?.focus?.();
-      setError((prev) => ({ ...prev, title: '제목을 적어주세요', content: '내용을 적어주세요' }));
-      return;
-    } else {
-      if (isEmptyTitle) {
+    if (isEmptyTitle || isEmptyContent) {
+      if (isEmptyTitle && isEmptyContent) {
         titleInput?.focus?.();
-        setError((prev) => ({ ...prev, title: '제목을 적어주세요' }));
-        return;
+        setError((prev) => ({ ...prev, title: '제목을 적어주세요', content: '내용을 적어주세요' }));
+      } else {
+        if (isEmptyTitle) {
+          titleInput?.focus?.();
+          setError((prev) => ({ ...prev, title: '제목을 적어주세요' }));
+        }
+        if (isEmptyContent) {
+          const contentInput = document?.getElementById('content');
+          contentInput?.focus?.();
+          setError((prev) => ({ ...prev, content: '내용을 적어주세요' }));
+        }
       }
-      if (isEmptyContent) {
-        const contentInput = document?.getElementById('content');
-        contentInput?.focus?.();
-        setError((prev) => ({ ...prev, content: '내용을 적어주세요' }));
-        return;
-      }
+      return;
     }
 
     console.log('formRef.current :', formRef.current);
