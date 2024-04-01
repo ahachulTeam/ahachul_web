@@ -516,6 +516,16 @@ const global = css`
     animation: toolbar-fade-in 0.3s forwards; */
   }
 
+  .toolbar.right-align {
+    padding: 0 !important;
+    justify-content: flex-end;
+  }
+
+  .toolbar.right-align button {
+    padding: 6px 8px !important;
+    margin-right: 0 !important;
+  }
+
   @keyframes toolbar-fade-in {
     0% {
       opacity: 0;

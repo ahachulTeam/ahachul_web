@@ -47,6 +47,7 @@ import IconMic from 'static/icons/editor/IconMic';
 import ImagesPlugin, { FileInput, INSERT_IMAGE_COMMAND } from './plugins/ImagesPlugin';
 import { ImageNode } from './nodes/ImageNode';
 import IconUploadImage from 'static/icons/editor/IconUploadImage';
+import SpeechToTextToolbarPlugin from './plugins/SpeechToTextToolbarPlugin';
 
 const editorTheme = {
   ltr: 'ltr',
@@ -198,6 +199,8 @@ const Editor = ({ isRich = false, hasError = false, readonly = false, initialSta
           />
           <LinkPlugin />
           <HashtagPlugin />
+          <SpeechToTextPlugin />
+          <SpeechToTextToolbarPlugin />
           <AutoLinkPlugin matchers={MATCHERS} />
           <OnChangePlugin readonly={readonly} initialState={initialState} onChange={onChange} />
           {isRich && (
@@ -207,7 +210,6 @@ const Editor = ({ isRich = false, hasError = false, readonly = false, initialSta
               <YouTubePlugin />
               <HistoryPlugin />
               <AutoEmbedPlugin />
-              <SpeechToTextPlugin />
             </>
           )}
         </div>
