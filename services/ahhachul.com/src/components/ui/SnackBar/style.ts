@@ -1,76 +1,44 @@
-import { keyframes, type CSSObject, type Theme } from '@emotion/react';
-
-const scaleUp = keyframes`
-  from { max-height: 0;}
-  to {max-height: 64px;}
-`;
-
-const scaleDown = keyframes`
-  from { max-height: 64px;}
-  to { max-height: 0;}
-`;
-
-const fadeIn = keyframes`
-  from { opacity: 0; transform: translateY(-50%);}
-  to { opacity: 1; transform: translateY(0)}
-`;
-
-const fadeOut = keyframes`
-  from { opacity: 1; transform: translateY(0)}
-  to { opacity: 0; transform: translateY(50%)}
-`;
+import { type CSSObject, type Theme } from '@emotion/react';
 
 const container = (posBottom: number): CSSObject => ({
   position: 'fixed',
   bottom: `${posBottom}px`,
-  left: '50%',
+  left: 0,
   height: 'max-content',
-  transform: 'translateX(-50%)',
-  zIndex: 4000,
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  zIndex: 900,
 
   '& > div:not(:first-of-type)': {
     marginTop: '12px',
   },
 });
 
-const wrap = (isClosing: boolean): CSSObject => ({
-  minWidth: '300px',
+const wrap = {
+  minWidth: 'max-content',
   maxWidth: '608px',
-  maxHeight: 0,
-  overflow: 'visible',
-  animation: `0.6s forwards ${isClosing ? scaleDown : scaleUp}`,
-  willChange: 'max-height',
+};
 
-  '& > div': {
-    animation: `0.3s forwards ${isClosing ? fadeOut : fadeIn}`,
-    willChange: 'opacity, transform',
-  },
-});
-
-const toast = ({
-  color: {
-    scale: { gray },
-  },
-}: Theme): CSSObject => ({
+const toast: CSSObject = {
   width: '100%',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
   gap: '30px',
-  background: gray[700],
-  padding: '20px 24px',
-  borderRadius: '20px',
-});
+  background: 'linear-gradient(91deg, rgba(35, 40, 52, 0.70) 0%, rgba(39, 40, 62, 0.70) 100%)',
+  padding: '8px 36px',
+  borderRadius: '10px',
+  position: 'relative',
+};
 
-const text = ({
-  color: {
-    scale: { gray },
-  },
-  typography: { fontSize, fontWeight },
-}: Theme): CSSObject => ({
-  color: gray[1000],
-  fontSize: fontSize[16],
-  fontWeight: fontWeight[700],
+const text = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
+  width: '100%',
+  textAlign: 'center',
+  color: 'rgb(196, 212, 252, 0.87)',
+  fontSize: fontSize[12],
+  fontWeight: fontWeight[400],
   lineHeight: 1.5,
   display: '-webkit-box',
   WebkitLineClamp: 2,
@@ -78,17 +46,18 @@ const text = ({
   overflow: 'hidden',
 });
 
-const closeBtn = ({
-  color: {
-    scale: { gray },
-  },
-}: Theme): CSSObject => ({
-  width: '24px',
-  height: '24px',
+const closeBtn: CSSObject = {
+  width: '16px',
+  height: '16px',
+  position: 'absolute',
+  top: '50%',
+  right: '12px',
+  transform: 'translateY(-50%)',
+  alignItems: 'center',
 
   '& > svg > path': {
-    fill: gray[1000],
+    fill: 'rgb(196, 212, 252, 0.87)',
   },
-});
+};
 
 export { container, wrap, toast, text, closeBtn };

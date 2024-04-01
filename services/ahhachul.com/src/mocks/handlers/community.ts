@@ -44,7 +44,7 @@ const getCommunityDetailResponse = (postId: string, randomBoolean: boolean) => (
 });
 
 const getCommunityList = http.get(API_BASE_URL + '/community-posts', async () => {
-  await delay(750);
+  await delay(400);
 
   return HttpResponse.json(getCommunityListResponse);
 });
@@ -52,13 +52,48 @@ const getCommunityList = http.get(API_BASE_URL + '/community-posts', async () =>
 const getCommunityDetail = http.get(API_BASE_URL + '/community-posts/:postId', async (req) => {
   const { postId } = req.params;
 
-  await delay(750);
+  await delay(400);
 
   const randomBoolean = getRandomBoolean();
 
   return HttpResponse.json(getCommunityDetailResponse(postId as string, randomBoolean));
 });
 
-const communityHandlers = [getCommunityList, getCommunityDetail];
+const postCommunityArticle = http.post(API_BASE_URL + '/community-posts', async (req) => {
+  console.log('req was :', req);
+
+  await delay(800);
+
+  const tOrF = getRandomBoolean();
+
+  if (tOrF) {
+    return HttpResponse.json({
+      code: '100',
+      message: 'SUCCESS',
+      result: {
+        id: 1,
+        title: '생성된 제목',
+        content: '생성된 내용',
+        categoryType: 'ISSUE',
+        region: 'METROPOLITAN',
+        subwayLineId: 1,
+        images: [
+          {
+            imageId: 1,
+            imageUrl: 'url1',
+          },
+          {
+            imageId: 2,
+            imageUrl: 'url2',
+          },
+        ],
+      },
+    });
+  }
+
+  throw new Error();
+});
+
+const communityHandlers = [getCommunityList, getCommunityDetail, postCommunityArticle];
 
 export default communityHandlers;

@@ -1,43 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 
-import { wrap, toast, text, closeBtn } from './style';
-import { delay, fromEvent, interval, merge, take, tap } from 'rxjs';
-import { removeSnackBar } from 'stores/ui';
-import IconClose from 'static/icons/system/IconClose';
+import { wrap, toast, text } from './style';
 import { ISnackBarPayload } from 'types';
-
-const TOAST_DURATION = 3000;
-const TRANSITION_DURATION = 1000;
-const timer = interval(TOAST_DURATION).pipe(take(1));
+import { useDispatch } from 'react-redux';
+import { removeSnackBar } from 'stores/ui';
+import { useTimeout } from 'hooks';
 
 function SnackBar({ id, message }: ISnackBarPayload) {
   const dispatch = useDispatch();
-  const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const [isClosing, setIsClosing] = useState<boolean>(false);
-
-  useEffect(() => {
-    const subscription = merge(timer, fromEvent(buttonRef.current as HTMLButtonElement, 'click'))
-      .pipe(
-        take(1),
-        tap(() => setIsClosing(true)),
-        delay(TRANSITION_DURATION),
-      )
-      .subscribe(() => {
-        dispatch(removeSnackBar({ id }));
-      });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  useTimeout(() => {
+    dispatch(removeSnackBar({ id }));
+  }, 2000);
 
   return (
-    <div css={wrap(isClosing)}>
+    <div css={wrap}>
       <div css={toast}>
-        <p css={text}>{message}</p>
-        <button ref={buttonRef} type="button">
-          <IconClose css={closeBtn} />
-        </button>
+        <pre css={text}>{message}</pre>
       </div>
     </div>
   );

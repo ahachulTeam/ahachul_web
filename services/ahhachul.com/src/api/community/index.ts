@@ -6,6 +6,7 @@ import {
   type ICommunityParams as GetCommunityListRequestParams,
   type ICommunityList as GetCommunityListResponse,
   type ICommunityDetail as GetCommunityDetailResponse,
+  ICommunityArticleForm,
 } from 'types';
 import { API_BASE_URL } from 'data/api';
 
@@ -25,4 +26,9 @@ export const getCommunityDetail = async (postId: string) => {
   const url = `${getCommunityListURL}/${postId}`;
 
   return await base.get<IResponse<GetCommunityDetailResponse>>(url);
+};
+
+/**  커뮤니티 포스트 생성  */
+export const post = async (body: ICommunityArticleForm) => {
+  return await base.post<IResponse<Partial<GetCommunityDetailResponse>>>(getCommunityListURL, body);
 };

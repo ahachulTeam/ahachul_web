@@ -6,6 +6,7 @@ import {
   type ILostParams as GetLostListRequestParams,
   type ILostList as GetLostListResponse,
   type ILostDetail as GetLostDetailResponse,
+  ILostArticleForm,
 } from 'types';
 import { API_BASE_URL } from 'data/api';
 
@@ -25,4 +26,9 @@ export const getLostDetail = async (postId: string) => {
   const url = `${getLostListURL}/${postId}`;
 
   return await base.get<IResponse<GetLostDetailResponse>>(url);
+};
+
+/**  유실물 포스트 생성  */
+export const post = async (body: ILostArticleForm) => {
+  return await base.post<IResponse<Partial<GetLostDetailResponse>>>(getLostListURL, body);
 };

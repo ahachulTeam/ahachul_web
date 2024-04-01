@@ -9,6 +9,7 @@ import { EditorState } from 'lexical';
 import { ILostArticleForm, LostType, Nullable } from 'types';
 import { ErrorForm } from 'types/form';
 import IconInfo from 'static/icons/system/IconInfo';
+import { LostQuery } from 'queries';
 
 const INIT_STATE: ILostArticleForm = {
   title: '',
@@ -27,6 +28,8 @@ const ERROR_INIT_STATE: ErrorForm<ILostArticleForm> = {
 const LostEditor = () => {
   const formRef = useRef<ILostArticleForm>(INIT_STATE);
   const [errors, setError] = useState<ErrorForm<ILostArticleForm>>(ERROR_INIT_STATE);
+
+  const { mutate, status } = LostQuery.useLostArticle();
 
   const handleChangeTitle = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -78,7 +81,7 @@ const LostEditor = () => {
       return;
     }
 
-    console.log('formRef.current :', formRef.current);
+    mutate(formRef.current);
   };
 
   let lostInfo: Nullable<ILostArticleForm> = null;
@@ -150,10 +153,10 @@ const LostEditor = () => {
             </div>
           </div>
           <div css={submitWrap}>
-            <button css={submitBtn} type="submit">
+            <button css={submitBtn} type="submit" disabled={status === 'pending'}>
               작성 완료
             </button>
-            <div css={indicatorAreaCss} />
+            {/* <div css={indicatorAreaCss} /> */}
           </div>
         </form>
       </main>
@@ -283,7 +286,7 @@ const submitWrap: CSSObject[] = [
     left: '50%',
     transform: 'translateX(-50%)',
     background: '#141517',
-    padding: '16px 20px',
+    padding: '16px 20px 24px',
   },
 ];
 
@@ -298,9 +301,9 @@ const submitBtn = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject =
   borderRadius: '8px',
 });
 
-const indicatorAreaCss = {
-  height: '34px',
-  width: '100%',
-};
+// const indicatorAreaCss = {
+//   height: '34px',
+//   width: '100%',
+// };
 
 export default LostEditor;

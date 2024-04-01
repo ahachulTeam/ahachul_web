@@ -50,7 +50,7 @@ const getLostDetailResponse = (postId: string, randomBoolean: boolean) => ({
 });
 
 const getLostList = http.get(API_BASE_URL + '/lost-posts', async () => {
-  await delay(750);
+  await delay(400);
 
   return HttpResponse.json(getLostListResponse);
 });
@@ -65,6 +65,32 @@ const getLostDetail = http.get(API_BASE_URL + '/lost-posts/:postId', async (req)
   return HttpResponse.json(getLostDetailResponse(postId as string, randomBoolean));
 });
 
-const lostHandlers = [getLostList, getLostDetail];
+const postLostArticle = http.post(API_BASE_URL + '/lost-posts', async (req) => {
+  console.log('req was :', req);
+
+  await delay(400);
+
+  const tOrF = getRandomBoolean();
+
+  if (tOrF) {
+    return HttpResponse.json({
+      code: '100',
+      message: 'SUCCESS',
+      result: {
+        id: 1,
+        images: [
+          {
+            imageId: 1,
+            imageUrl: 'url1',
+          },
+        ],
+      },
+    });
+  }
+
+  throw new Error();
+});
+
+const lostHandlers = [getLostList, getLostDetail, postLostArticle];
 
 export default lostHandlers;

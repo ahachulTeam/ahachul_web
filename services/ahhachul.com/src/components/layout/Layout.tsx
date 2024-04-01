@@ -25,8 +25,6 @@ const Layout: React.FC<LayoutProps> = ({ activeTab = 'Home', appBar, hasSearch =
   const topEl = React.useRef<Nullable<HTMLDivElement>>(null);
   const scrollToTop = () => topEl?.current?.scrollTo({ top: 0, behavior: 'smooth' });
 
-  const showSnackBar = !!snackBars.list.length;
-
   return (
     <AppScreen
       appBar={{
@@ -42,8 +40,8 @@ const Layout: React.FC<LayoutProps> = ({ activeTab = 'Home', appBar, hasSearch =
           {children}
         </div>
       </div>
-      {loading && <UiComponent.Loading opacity={1} />}
-      {showSnackBar && <UiComponent.SnackBar {...snackBars} />}
+      <UiComponent.SnackBar {...snackBars} />
+      {loading && <UiComponent.Loading opacity={0.45} />}
       {activeTab && (
         <UiComponent.NavBar activeTab={activeTab} push={push} replace={replace} scrollToTop={scrollToTop} />
       )}

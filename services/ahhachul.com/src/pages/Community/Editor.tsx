@@ -7,6 +7,8 @@ import { EditorState } from 'lexical';
 import { ErrorForm } from 'types/form';
 import { CommunityCategoryType, ICommunityArticleForm, Nullable } from 'types';
 import IconInfo from 'static/icons/system/IconInfo';
+import { CommunityQuery } from 'queries';
+import { useAppSelector } from 'stores';
 
 const INIT_STATE: ICommunityArticleForm = {
   title: '',
@@ -23,6 +25,9 @@ const ERROR_INIT_STATE: ErrorForm<ICommunityArticleForm> = {
 const CommunityEditor = () => {
   const formRef = useRef<ICommunityArticleForm>(INIT_STATE);
   const [errors, setError] = useState<ErrorForm<ICommunityArticleForm>>(ERROR_INIT_STATE);
+
+  const { loading } = useAppSelector((state) => state.ui);
+  const { mutate, status } = CommunityQuery.useCommunityArticle();
 
   const handleChangeTitle = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -73,7 +78,7 @@ const CommunityEditor = () => {
       return;
     }
 
-    console.log('formRef.current :', formRef.current);
+    mutate(formRef.current);
   };
 
   let communityInfo: Nullable<ICommunityArticleForm> = null;
@@ -129,10 +134,10 @@ const CommunityEditor = () => {
             )}
           </div>
           <div css={submitWrap}>
-            <button css={submitBtn} type="submit">
+            <button css={submitBtn} type="submit" disabled={loading || status === 'pending'}>
               작성 완료
             </button>
-            <div css={indicatorAreaCss} />
+            {/* <div css={indicatorAreaCss} /> */}
           </div>
         </form>
       </main>
@@ -246,7 +251,7 @@ const submitWrap: CSSObject[] = [
     left: '50%',
     transform: 'translateX(-50%)',
     background: '#141517',
-    padding: '16px 20px',
+    padding: '16px 20px 24px',
   },
 ];
 
@@ -261,9 +266,9 @@ const submitBtn = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject =
   borderRadius: '8px',
 });
 
-const indicatorAreaCss = {
-  height: '34px',
-  width: '100%',
-};
+// const indicatorAreaCss = {
+//   height: '34px',
+//   width: '100%',
+// };
 
 export default CommunityEditor;
