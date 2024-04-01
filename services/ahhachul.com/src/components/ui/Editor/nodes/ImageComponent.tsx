@@ -61,7 +61,6 @@ function LazyImage({
   className: string | null;
   height: 'inherit' | number;
   imageRef: { current: null | HTMLImageElement };
-  maxWidth: number;
   src: string;
   width: 'inherit' | number;
 }): JSX.Element {
@@ -88,12 +87,10 @@ export default function ImageComponent({
   nodeKey,
   width,
   height,
-  maxWidth,
   resizable,
 }: {
   altText: string;
   height: 'inherit' | number;
-  maxWidth: number;
   nodeKey: NodeKey;
   resizable: boolean;
   src: string;
@@ -249,8 +246,6 @@ export default function ImageComponent({
   const draggable = isSelected && $isNodeSelection(selection) && !isResizing;
   const isFocused = isSelected || isResizing;
 
-  console.log('resizable:', resizable);
-
   return (
     <Suspense fallback={null}>
       <>
@@ -262,17 +257,10 @@ export default function ImageComponent({
             imageRef={imageRef}
             width={width}
             height={height}
-            maxWidth={maxWidth}
           />
         </div>
         {resizable && $isNodeSelection(selection) && isFocused && (
-          <ImageResizer
-            editor={editor}
-            imageRef={imageRef}
-            maxWidth={maxWidth}
-            onResizeStart={onResizeStart}
-            onResizeEnd={onResizeEnd}
-          />
+          <ImageResizer editor={editor} imageRef={imageRef} onResizeStart={onResizeStart} onResizeEnd={onResizeEnd} />
         )}
       </>
     </Suspense>

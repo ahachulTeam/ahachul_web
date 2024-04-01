@@ -27,7 +27,6 @@ export interface ImagePayload {
   altText: string;
   height?: number;
   key?: NodeKey;
-  maxWidth?: number;
   src: string;
   width?: number;
 }
@@ -46,7 +45,6 @@ export type SerializedImageNode = Spread<
   {
     altText: string;
     height?: number;
-    maxWidth: number;
     src: string;
     width?: number;
   },
@@ -58,14 +56,13 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
   __altText: string;
   __width: 'inherit' | number;
   __height: 'inherit' | number;
-  __maxWidth: number;
 
   static getType(): string {
     return 'image';
   }
 
   static clone(node: ImageNode): ImageNode {
-    return new ImageNode(node.__src, node.__altText, node.__maxWidth, node.__width, node.__height, node.__key);
+    return new ImageNode(node.__src, node.__altText, node.__width, node.__height, node.__key);
   }
 
   exportDOM(): DOMExportOutput {
@@ -86,18 +83,10 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
     };
   }
 
-  constructor(
-    src: string,
-    altText: string,
-    maxWidth: number,
-    width?: 'inherit' | number,
-    height?: 'inherit' | number,
-    key?: NodeKey,
-  ) {
+  constructor(src: string, altText: string, width?: 'inherit' | number, height?: 'inherit' | number, key?: NodeKey) {
     super(key);
     this.__src = src;
     this.__altText = altText;
-    this.__maxWidth = maxWidth;
     this.__width = width || 'inherit';
     this.__height = height || 'inherit';
   }
@@ -106,12 +95,19 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
     return {
       altText: this.getAltText(),
       height: this.__height === 'inherit' ? 0 : this.__height,
-      maxWidth: this.__maxWidth,
       src: this.getSrc(),
       type: 'image',
       version: 1,
       width: this.__width === 'inherit' ? 0 : this.__width,
     };
+  }
+
+  // This will be used for JSON import ('parse initial state')
+  static importJSON(serializedNode: SerializedImageNode): ImageNode {
+    const { src } = serializedNode;
+    const node = $createImageWithCaptionNode({ src });
+
+    return node;
   }
 
   setWidthAndHeight(width: 'inherit' | number, height: 'inherit' | number): void {
@@ -150,7 +146,6 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
           altText={this.__altText}
           width={this.__width}
           height={this.__height}
-          maxWidth={this.__maxWidth}
           nodeKey={this.getKey()}
           resizable={true}
         />
@@ -159,10 +154,17 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
   }
 }
 
-export function $createImageNode({ altText, height, maxWidth = 500, src, width, key }: ImagePayload): ImageNode {
-  return $applyNodeReplacement(new ImageNode(src, altText, maxWidth, width, height, key));
+export function $createImageNode({ altText, height, src, width, key }: ImagePayload): ImageNode {
+  return $applyNodeReplacement(new ImageNode(src, altText, width, height, key));
 }
 
 export function $isImageNode(node: LexicalNode | null | undefined): node is ImageNode {
   return node instanceof ImageNode;
+}
+
+export function $createImageWithCaptionNode(props?: { src: string }): ImageNode {
+  // NOTE: When you will try to clone existing editor we will need to create a new one
+  // Without this we will just pass a reference to the previous editor
+
+  return new ImageNode(props?.src, '');
 }
