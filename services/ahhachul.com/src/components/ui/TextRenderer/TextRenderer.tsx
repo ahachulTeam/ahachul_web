@@ -97,8 +97,6 @@ export type AwesomeRendererProps = {
 };
 
 function TextRenderer({ article }: AwesomeRendererProps) {
-  console.log('article:', article);
-
   return (
     <div css={wrapperStyle}>
       <UiComponent.Editor readonly initialState={article ?? JSON.stringify(lostContentMock)} />

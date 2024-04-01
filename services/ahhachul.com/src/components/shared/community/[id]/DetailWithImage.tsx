@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Flex, Text } from '@ahhachul/react-components-layout';
 import { UiComponent } from 'components';
 import { type ICommunityDetail } from 'types';
-import DUMMY_IMG_5 from 'static/img/mocks/mock5.jpg';
 import IconBookmark from 'static/icons/system/IconBookmark';
 import IconHeart from 'static/icons/system/IconHeart';
 
@@ -10,6 +9,7 @@ import Comment from './Comment';
 import { userName, time, btn, commentTitle, category, commentList } from './style';
 
 function DetailWithImage({ data }: { data: ICommunityDetail }) {
+  console.log('data', data);
   return (
     <>
       <Box
@@ -17,11 +17,11 @@ function DetailWithImage({ data }: { data: ICommunityDetail }) {
           position: 'relative',
           width: '100vw',
           minWidth: '100vw',
-          aspectRatio: '1 / 1',
+          aspectRatio: '1 / 0.882667',
         }}
       >
         <img
-          src={DUMMY_IMG_5}
+          src={data.images[0].imageUrl}
           alt=""
           sizes="100vw"
           width={0}
@@ -32,6 +32,7 @@ function DetailWithImage({ data }: { data: ICommunityDetail }) {
             left: 0,
             width: '100%',
             height: '100%',
+            objectFit: 'cover',
           }}
         />
       </Box>

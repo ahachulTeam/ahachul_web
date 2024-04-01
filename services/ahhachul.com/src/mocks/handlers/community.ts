@@ -1,6 +1,7 @@
 import { http, delay, HttpResponse } from 'msw';
 import { API_BASE_URL } from 'data/api';
 import { lostContentMock } from './community.mock';
+import { getRandomBoolean } from 'mocks/utils';
 
 const getCommunityListResponse = {
   code: '100',
@@ -11,7 +12,7 @@ const getCommunityListResponse = {
   },
 };
 
-const getCommunityDetailResponse = (postId: string) => ({
+const getCommunityDetailResponse = (postId: string, randomBoolean: boolean) => ({
   code: '100',
   message: 'SUCCESS',
   result: {
@@ -31,7 +32,14 @@ const getCommunityDetailResponse = (postId: string) => ({
     createdAt: '2024-01-21T13:07:35.387616228',
     createdBy: 'dieo21',
     writer: '뚜밥뚜밥',
-    images: [],
+    images: randomBoolean
+      ? []
+      : [
+          {
+            imageId: 1,
+            imageUrl: 'https://source.unsplash.com/random',
+          },
+        ],
   },
 });
 
@@ -46,7 +54,9 @@ const getCommunityDetail = http.get(API_BASE_URL + '/community-posts/:postId', a
 
   await delay(750);
 
-  return HttpResponse.json(getCommunityDetailResponse(postId as string));
+  const randomBoolean = getRandomBoolean();
+
+  return HttpResponse.json(getCommunityDetailResponse(postId as string, randomBoolean));
 });
 
 const communityHandlers = [getCommunityList, getCommunityDetail];

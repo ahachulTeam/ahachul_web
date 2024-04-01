@@ -4,12 +4,18 @@ import { getQueryKeys } from 'queries/query-key';
 import { type ICommunityDetail as GetCommunityDetailResponse } from 'types';
 import { COMMUNITY_DETAIL_KEY } from './keys';
 
-export const useGetCommunityDetail = (postId: string): UseSuspenseQueryResult<GetCommunityDetailResponse> => {
+export const useGetCommunityDetail = (
+  postId: string,
+): UseSuspenseQueryResult<GetCommunityDetailResponse & { hasImage: boolean }> => {
   return useSuspenseQuery({
     queryKey: getQueryKeys(COMMUNITY_DETAIL_KEY).detail(postId),
     queryFn: async () => {
       return await getCommunityDetail(postId);
     },
-    select: (res) => res.data.result,
+    select: (res) => {
+      const hasImage = res.data.result.images.length > 0;
+      console.log('hasImage:', hasImage);
+      return { ...res.data.result, hasImage };
+    },
   });
 };
