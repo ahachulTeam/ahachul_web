@@ -202,7 +202,6 @@ const Editor = ({ isRich = false, hasError = false, readonly = false, initialSta
           <SpeechToTextPlugin />
           <AutoLinkPlugin matchers={MATCHERS} />
           <OnChangePlugin readonly={readonly} initialState={initialState} onChange={onChange} />
-          {!isRich && <SpeechToTextToolbarPlugin />}
           {isRich && (
             <>
               <ImagesPlugin />
@@ -212,6 +211,7 @@ const Editor = ({ isRich = false, hasError = false, readonly = false, initialSta
               <AutoEmbedPlugin />
             </>
           )}
+          {!readonly && !isRich && <SpeechToTextToolbarPlugin />}
         </div>
       </div>
     </LexicalComposer>
@@ -410,12 +410,12 @@ function ToolbarPlugin() {
   const [isSpeechToText, setIsSpeechToText] = useState(false);
 
   // IMAGE
-  const [src, setSrc] = useState('');
   const loadImage = (files: FileList | null) => {
     const reader = new FileReader();
     reader.onload = function () {
       if (typeof reader.result === 'string') {
-        setSrc(reader.result);
+        onFocus?.();
+        activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, { altText: '', src: reader.result });
       }
       return '';
     };
@@ -423,15 +423,6 @@ function ToolbarPlugin() {
       reader.readAsDataURL(files[0]);
     }
   };
-
-  useEffect(() => {
-    const isDisabled = src === '';
-
-    if (src && !isDisabled) {
-      onFocus?.();
-      activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, { altText: '', src });
-    }
-  }, [src]);
 
   const onFocus = () => {
     const contentInput = document?.getElementById('content');
