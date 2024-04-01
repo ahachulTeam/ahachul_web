@@ -16,7 +16,6 @@ import {
   $getSelection,
   $isNodeSelection,
   $isRangeSelection,
-  $setSelection,
   CLICK_COMMAND,
   COMMAND_PRIORITY_LOW,
   createCommand,
@@ -91,23 +90,16 @@ export default function ImageComponent({
   height,
   maxWidth,
   resizable,
-  showCaption,
-  caption,
-  captionsEnabled,
 }: {
   altText: string;
-  caption: LexicalEditor;
   height: 'inherit' | number;
   maxWidth: number;
   nodeKey: NodeKey;
   resizable: boolean;
-  showCaption: boolean;
   src: string;
   width: 'inherit' | number;
-  captionsEnabled: boolean;
 }): JSX.Element {
   const imageRef = useRef<null | HTMLImageElement>(null);
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
   const [isSelected, setSelected, clearSelection] = useLexicalNodeSelection(nodeKey);
   const [isResizing, setIsResizing] = useState<boolean>(false);
   const [editor] = useLexicalComposerContext();
@@ -130,45 +122,13 @@ export default function ImageComponent({
     [isSelected, nodeKey],
   );
 
-  const onEnter = useCallback(
-    (event: KeyboardEvent) => {
-      const latestSelection = $getSelection();
-      const buttonElem = buttonRef.current;
-      if (isSelected && $isNodeSelection(latestSelection) && latestSelection.getNodes().length === 1) {
-        if (showCaption) {
-          // Move focus into nested editor
-          $setSelection(null);
-          event.preventDefault();
-          caption.focus();
-          return true;
-        } else if (buttonElem !== null && buttonElem !== document.activeElement) {
-          event.preventDefault();
-          buttonElem.focus();
-          return true;
-        }
-      }
-      return false;
-    },
-    [caption, isSelected, showCaption],
-  );
+  const onEnter = useCallback(() => {
+    return false;
+  }, [isSelected]);
 
-  const onEscape = useCallback(
-    (event: KeyboardEvent) => {
-      if (activeEditorRef.current === caption || buttonRef.current === event.target) {
-        $setSelection(null);
-        editor.update(() => {
-          setSelected(true);
-          const parentRootElement = editor.getRootElement();
-          if (parentRootElement !== null) {
-            parentRootElement.focus();
-          }
-        });
-        return true;
-      }
-      return false;
-    },
-    [caption, editor, setSelected],
-  );
+  const onEscape = useCallback(() => {
+    return false;
+  }, [editor, setSelected]);
 
   const onClick = useCallback(
     (payload: MouseEvent) => {
@@ -268,15 +228,6 @@ export default function ImageComponent({
     setSelected,
   ]);
 
-  const setShowCaption = () => {
-    editor.update(() => {
-      const node = $getNodeByKey(nodeKey);
-      if ($isImageNode(node)) {
-        node.setShowCaption(true);
-      }
-    });
-  };
-
   const onResizeEnd = (nextWidth: 'inherit' | number, nextHeight: 'inherit' | number) => {
     // Delay hiding the resize bars for click case
     setTimeout(() => {
@@ -297,6 +248,9 @@ export default function ImageComponent({
 
   const draggable = isSelected && $isNodeSelection(selection) && !isResizing;
   const isFocused = isSelected || isResizing;
+
+  console.log('resizable:', resizable);
+
   return (
     <Suspense fallback={null}>
       <>
@@ -313,15 +267,11 @@ export default function ImageComponent({
         </div>
         {resizable && $isNodeSelection(selection) && isFocused && (
           <ImageResizer
-            showCaption={showCaption}
-            setShowCaption={setShowCaption}
             editor={editor}
-            buttonRef={buttonRef}
             imageRef={imageRef}
             maxWidth={maxWidth}
             onResizeStart={onResizeStart}
             onResizeEnd={onResizeEnd}
-            captionsEnabled={captionsEnabled}
           />
         )}
       </>
