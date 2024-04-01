@@ -288,6 +288,7 @@ const global = css`
 
   .editor-inner {
     position: relative;
+    overflow: hidden;
   }
 
   .editor-input {
@@ -496,11 +497,12 @@ const global = css`
   .toolbar-wrapper {
     width: 100%;
     position: sticky;
-    bottom: -72px;
+    bottom: 0;
     left: 0;
     background: #141517;
-    padding: 16px 20px;
-    /* border: 1px solid hsla(0, 0%, 100%, 0.39); */
+    padding: 6px 8px;
+    border-radius: 6px;
+    overflow: hidden;
   }
 
   .toolbar {

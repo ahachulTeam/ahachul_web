@@ -203,6 +203,7 @@ const Editor = ({ isRich = false, hasError = false, readonly = false, initialSta
           {isRich && (
             <>
               <ImagesPlugin />
+              <ToolbarPlugin />
               <YouTubePlugin />
               <HistoryPlugin />
               <AutoEmbedPlugin />
@@ -211,7 +212,6 @@ const Editor = ({ isRich = false, hasError = false, readonly = false, initialSta
           )}
         </div>
       </div>
-      <ToolbarPlugin />
     </LexicalComposer>
   );
 };
@@ -519,6 +519,45 @@ function ToolbarPlugin() {
         </button>
         <Divider />
         <button
+          className="toolbar-item spaced"
+          aria-label="Insert Image"
+          onClick={() => {
+            const input = document.getElementById('file-input');
+            input?.click();
+          }}
+        >
+          <IconUploadImage className="format" />
+          <FileInput
+            label="Image Upload"
+            onChange={loadImage}
+            accept="image/*"
+            data-test-id="image-modal-file-upload"
+          />
+        </button>
+        {SUPPORT_SPEECH_RECOGNITION && (
+          <button
+            className={'toolbar-item spaced mic ' + (isSpeechToText ? 'active' : '')}
+            title="Speech To Text"
+            aria-label={`${isSpeechToText ? 'Enable' : 'Disable'} speech to text`}
+            onClick={() => {
+              editor.dispatchCommand(SPEECH_TO_TEXT_COMMAND, !isSpeechToText);
+              setIsSpeechToText(!isSpeechToText);
+            }}
+          >
+            <IconMic className="format" />
+          </button>
+        )}
+        <button
+          className="toolbar-item spaced"
+          aria-label="Youtube Video"
+          onClick={() => {
+            activeEditor.dispatchCommand(INSERT_EMBED_COMMAND, 'youtube-video');
+          }}
+        >
+          <IconYoutube className="format" />
+        </button>
+        <Divider />
+        <button
           onClick={() => {
             editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
           }}
@@ -584,44 +623,6 @@ function ToolbarPlugin() {
           <IconRightAlign className="format" />
         </button>
         <Divider />
-        <button
-          className="toolbar-item spaced"
-          aria-label="Insert Image"
-          onClick={() => {
-            const input = document.getElementById('file-input');
-            input?.click();
-          }}
-        >
-          <IconUploadImage className="format" />
-          <FileInput
-            label="Image Upload"
-            onChange={loadImage}
-            accept="image/*"
-            data-test-id="image-modal-file-upload"
-          />
-        </button>
-        <button
-          className="toolbar-item spaced"
-          aria-label="Youtube Video"
-          onClick={() => {
-            activeEditor.dispatchCommand(INSERT_EMBED_COMMAND, 'youtube-video');
-          }}
-        >
-          <IconYoutube className="format" />
-        </button>
-        {SUPPORT_SPEECH_RECOGNITION && (
-          <button
-            className={'toolbar-item spaced mic ' + (isSpeechToText ? 'active' : '')}
-            title="Speech To Text"
-            aria-label={`${isSpeechToText ? 'Enable' : 'Disable'} speech to text`}
-            onClick={() => {
-              editor.dispatchCommand(SPEECH_TO_TEXT_COMMAND, !isSpeechToText);
-              setIsSpeechToText(!isSpeechToText);
-            }}
-          >
-            <IconMic className="format" />
-          </button>
-        )}
       </div>
     </article>
   );

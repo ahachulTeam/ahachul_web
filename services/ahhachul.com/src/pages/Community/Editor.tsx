@@ -1,16 +1,100 @@
-import React, { useCallback } from 'react';
+import React, { ChangeEvent, FormEvent, memo, useCallback, useEffect, useRef, useState } from 'react';
 import { Layout } from 'components/layout';
 import { UiComponent } from 'components';
 import { f } from 'styles';
-import { Theme } from '@emotion/react';
+import { CSSObject, Theme } from '@emotion/react';
 import { EditorState } from 'lexical';
+import { ErrorForm } from 'types/form';
+import { CommunityCategoryType, Nullable } from 'types';
+import IconInfo from 'static/icons/system/IconInfo';
+
+interface CommunityArticleForm {
+  // communityImages: Array<File | undefined>;
+  title: string;
+  content: string;
+  communityType: CommunityCategoryType;
+}
+
+const INIT_STATE: CommunityArticleForm = {
+  title: '',
+  content: '',
+  communityType: 'FREE',
+};
+
+const ERROR_INIT_STATE: ErrorForm<CommunityArticleForm> = {
+  title: '',
+  content: '',
+  communityType: '',
+};
 
 const CommunityEditor = () => {
-  const handleChangeContent = useCallback((targetValue: EditorState) => {
-    let value = targetValue;
+  const formRef = useRef<CommunityArticleForm>(INIT_STATE);
+  const [errors, setError] = useState<ErrorForm<CommunityArticleForm>>(ERROR_INIT_STATE);
 
-    console.log('value :', JSON.stringify(value.toJSON()));
-  }, []);
+  const handleChangeTitle = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      if (errors.title) setError((prev) => ({ ...prev, title: '' }));
+      formRef.current.title = e.target.value;
+    },
+    [errors],
+  );
+
+  const handleChangeContent = useCallback(
+    (targetValue: EditorState) => {
+      if (errors.content) setError((prev) => ({ ...prev, content: '' }));
+      formRef.current.content = JSON.stringify(targetValue.toJSON());
+    },
+    [errors],
+  );
+
+  const handleChangeLostType = useCallback(
+    (type: CommunityCategoryType) => () => {
+      formRef.current.communityType = type;
+    },
+    [],
+  );
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const isEmptyTitle = formRef.current.title === '';
+    const isEmptyContent =
+      formRef.current.content === '' || JSON.parse(formRef.current.content)?.root?.children?.[0]?.children?.length <= 0;
+
+    const titleInput = document?.getElementById('title');
+
+    if (isEmptyTitle && isEmptyContent) {
+      titleInput?.focus?.();
+      setError((prev) => ({ ...prev, title: '제목을 적어주세요', content: '내용을 적어주세요' }));
+      return;
+    } else {
+      if (isEmptyTitle) {
+        titleInput?.focus?.();
+        setError((prev) => ({ ...prev, title: '제목을 적어주세요' }));
+        return;
+      }
+      if (isEmptyContent) {
+        const contentInput = document?.getElementById('content');
+        contentInput?.focus?.();
+        setError((prev) => ({ ...prev, content: '내용을 적어주세요' }));
+        return;
+      }
+    }
+
+    console.log('formRef.current :', formRef.current);
+  };
+
+  let communityInfo: Nullable<CommunityArticleForm> = null;
+  useEffect(() => {
+    if (communityInfo) {
+      formRef.current.title = communityInfo.title;
+      formRef.current.content = communityInfo.content;
+      formRef.current.communityType = communityInfo.communityType;
+    } else {
+      formRef.current.title = '';
+      formRef.current.content = '';
+      formRef.current.communityType = 'FREE';
+    }
+  }, [communityInfo]);
 
   return (
     <Layout
@@ -20,26 +104,82 @@ const CommunityEditor = () => {
       activeTab={false}
     >
       <main css={wrap}>
-        <div css={inputGroup}>
-          <span>제목</span>
-          <input placeholder="제목" />
-        </div>
-        <div css={inputGroup}>
-          <span>자세한 설명</span>
-          <UiComponent.Editor isRich onChange={handleChangeContent} />
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div css={section}>
+            <span>제목</span>
+            <input
+              id="title"
+              placeholder="제목"
+              aria-invalid={!!errors.title}
+              onChange={handleChangeTitle}
+              onClick={() => {
+                if (errors.title) setError((prev) => ({ ...prev, title: '' }));
+              }}
+            />
+            {errors.title && (
+              <b>
+                <IconInfo /> {errors.title}
+              </b>
+            )}
+          </div>
+          <div css={section}>
+            <span>카테고리</span>
+            <SelectComponent handleChangeLostType={handleChangeLostType} />
+          </div>
+          <div css={section}>
+            <span>자세한 설명</span>
+            <UiComponent.Editor isRich hasError={!!errors.content} onChange={handleChangeContent} />
+            {errors.content && (
+              <b>
+                <IconInfo /> {errors.content}
+              </b>
+            )}
+          </div>
+          <div css={submitWrap}>
+            <button css={submitBtn} type="submit">
+              작성 완료
+            </button>
+            <div css={indicatorAreaCss} />
+          </div>
+        </form>
       </main>
     </Layout>
   );
 };
 
-const wrap = [f.fullWidth, f.flexColumn, { padding: '26px 0 48px 0' }];
+const SelectComponent = memo(
+  ({ handleChangeLostType }: { handleChangeLostType: (type: CommunityCategoryType) => () => void }) => {
+    const [currentLostType, setCurrentLostType] = useState('FREE');
 
-const inputGroup = [
+    const handleToggle = (type: CommunityCategoryType) => () => {
+      setCurrentLostType(type);
+      handleChangeLostType(type)();
+    };
+
+    return (
+      <div css={buttonGroup}>
+        <button type="button" css={toggleBtn(currentLostType === 'FREE')} onClick={handleToggle('FREE')}>
+          자유
+        </button>
+        <button type="button" css={toggleBtn(currentLostType === 'INSIGHT')} onClick={handleToggle('INSIGHT')}>
+          정보
+        </button>
+        <button type="button" css={toggleBtn(currentLostType === 'ISSUE')} onClick={handleToggle('ISSUE')}>
+          질문
+        </button>
+      </div>
+    );
+  },
+);
+
+const wrap = [f.fullWidth, f.flexColumn, { padding: '26px 0 120px 0' }];
+
+const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] = [
   f.sideGutter,
   f.flexColumn,
   ({ typography: { fontSize, fontWeight } }: Theme) => ({
-    marginBottom: '24px',
+    position: 'relative',
+    marginBottom: '32px',
 
     '& > span': {
       color: '#ffffff',
@@ -61,8 +201,76 @@ const inputGroup = [
         fontSize: fontSize[14],
         color: '#9da5b6',
       },
+
+      '&[aria-invalid="true"]': {
+        borderColor: '#E02020',
+      },
+    },
+
+    '& > b': {
+      display: 'inline-flex',
+      alignItems: 'center',
+      color: '#E02020',
+      fontSize: fontSize[14],
+      fontWeight: fontWeight[400],
+      marginTop: '12px',
+      gap: '6px',
+
+      '& > div > svg > path': {
+        fill: '#E02020',
+        stroke: '#ffffff',
+
+        '&:first-of-type': {
+          stroke: '#E02020',
+        },
+      },
     },
   }),
 ];
+
+const buttonGroup = [f.flexAlignCenter];
+
+const toggleBtn =
+  (isActive: boolean) =>
+  ({ typography: { fontSize, fontWeight } }: Theme) => ({
+    border: isActive ? 'none' : '1px solid rgb(196, 212, 252, 0.37)',
+    height: '32px',
+    borderRadius: '124px',
+    padding: '0 14px',
+    fontSize: fontSize[14],
+    width: 'max-content',
+    marginRight: '8px',
+    background: isActive ? 'rgb(196, 212, 252)' : 'inherit',
+    color: isActive ? '#141517' : '#9da5b6',
+    fontWeight: isActive ? fontWeight[600] : fontWeight[400],
+  });
+
+const submitWrap: CSSObject[] = [
+  f.fullWidth,
+  {
+    position: 'fixed',
+    bottom: 0,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    background: '#141517',
+    padding: '16px 20px',
+  },
+];
+
+const submitBtn = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
+  padding: '0 14px',
+  fontSize: fontSize[14],
+  width: '100%',
+  height: '48px',
+  background: 'rgb(196, 212, 252)',
+  color: '#141517',
+  fontWeight: fontWeight[600],
+  borderRadius: '8px',
+});
+
+const indicatorAreaCss = {
+  height: '34px',
+  width: '100%',
+};
 
 export default CommunityEditor;

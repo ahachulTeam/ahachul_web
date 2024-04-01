@@ -44,6 +44,7 @@ const LostEditor = () => {
     },
     [errors],
   );
+
   const handleChangeContent = useCallback(
     (targetValue: EditorState) => {
       if (errors.content) setError((prev) => ({ ...prev, content: '' }));
@@ -161,6 +162,7 @@ const LostEditor = () => {
             <button css={submitBtn} type="submit">
               작성 완료
             </button>
+            <div css={indicatorAreaCss} />
           </div>
         </form>
       </main>
@@ -188,7 +190,7 @@ const SelectComponent = memo(({ handleChangeLostType }: { handleChangeLostType: 
   );
 });
 
-const wrap = [f.fullWidth, f.flexColumn, { padding: '26px 0 80px 0' }];
+const wrap = [f.fullWidth, f.flexColumn, { padding: '26px 0 120px 0' }];
 
 const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] = [
   f.sideGutter,
@@ -304,5 +306,10 @@ const submitBtn = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject =
   fontWeight: fontWeight[600],
   borderRadius: '8px',
 });
+
+const indicatorAreaCss = {
+  height: '34px',
+  width: '100%',
+};
 
 export default LostEditor;
