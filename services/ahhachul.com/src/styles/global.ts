@@ -580,14 +580,9 @@ const global = css`
     background-color: rgba(150, 150, 150, 0.4);
   }
 
-  .emoji.happysmile {
-    background-image: url(./images/emoji/1F642.png);
-  }
-
   .toolbar {
     display: flex;
-    margin-bottom: 1px;
-    background: #c9cedc;
+    background: inherit;
     padding: 4px;
     vertical-align: middle;
     overflow-x: scroll;
@@ -595,6 +590,22 @@ const global = css`
     bottom: 0;
     left: 0;
     width: 100%;
+    border: 1px solid hsla(0, 0%, 100%, 0.39);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    opacity: 0;
+    will-change: opacity;
+    animation: toolbar-fade-in 0.3s forwards;
+  }
+
+  @keyframes toolbar-fade-in {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
   }
 
   .toolbar button.toolbar-item {
@@ -615,7 +626,25 @@ const global = css`
     margin-right: 2px;
   }
 
-  .toolbar button.toolbar-item i.format {
+  .toolbar button.toolbar-item.spaced.mic.active {
+    animation: mic-pulsate-color 3s infinite;
+  }
+
+  @keyframes mic-pulsate-color {
+    0% {
+      background-color: #ffdcdc;
+    }
+
+    50% {
+      background-color: #ff8585;
+    }
+
+    100% {
+      background-color: #ffdcdc;
+    }
+  }
+
+  .toolbar button.toolbar-item .format {
     background-size: contain;
     display: inline-block;
     height: 18px;
@@ -626,7 +655,7 @@ const global = css`
     opacity: 0.6;
   }
 
-  .toolbar button.toolbar-item:disabled i.format {
+  .toolbar button.toolbar-item:disabled .format {
     opacity: 0.2;
   }
 
@@ -634,7 +663,7 @@ const global = css`
     background-color: rgba(223, 232, 250, 0.3);
   }
 
-  .toolbar button.toolbar-item.active i {
+  .toolbar button.toolbar-item.active .format {
     opacity: 1;
   }
 
@@ -644,7 +673,7 @@ const global = css`
 
   .toolbar .divider {
     width: 1px;
-    background-color: #eee;
+    background-color: rgba(223, 232, 250, 0.3) !important;
     margin: 0 4px;
   }
 
@@ -906,93 +935,13 @@ const global = css`
     background-color: #eee;
   }
 
-  .link-editor .button i,
-  .actions i {
+  .link-editor .button .format,
+  .actions .format {
     background-size: contain;
     display: inline-block;
     height: 20px;
     width: 20px;
     vertical-align: -0.25em;
-  }
-
-  i.undo {
-    background-image: url(images/icons/arrow-counterclockwise.svg);
-  }
-
-  i.redo {
-    background-image: url(images/icons/arrow-clockwise.svg);
-  }
-
-  .icon.paragraph {
-    background-image: url(images/icons/text-paragraph.svg);
-  }
-
-  .icon.large-heading,
-  .icon.h1 {
-    background-image: url(images/icons/type-h1.svg);
-  }
-
-  .icon.small-heading,
-  .icon.h2 {
-    background-image: url(images/icons/type-h2.svg);
-  }
-
-  .icon.bullet-list,
-  .icon.ul {
-    background-image: url(images/icons/list-ul.svg);
-  }
-
-  .icon.numbered-list,
-  .icon.ol {
-    background-image: url(images/icons/list-ol.svg);
-  }
-
-  .icon.quote {
-    background-image: url(images/icons/chat-square-quote.svg);
-  }
-
-  .icon.code {
-    background-image: url(images/icons/code.svg);
-  }
-
-  i.bold {
-    background-image: url(images/icons/type-bold.svg);
-  }
-
-  i.italic {
-    background-image: url(images/icons/type-italic.svg);
-  }
-
-  i.underline {
-    background-image: url(images/icons/type-underline.svg);
-  }
-
-  i.strikethrough {
-    background-image: url(images/icons/type-strikethrough.svg);
-  }
-
-  i.code {
-    background-image: url(images/icons/code.svg);
-  }
-
-  i.link {
-    background-image: url(images/icons/link.svg);
-  }
-
-  i.left-align {
-    background-image: url(images/icons/text-left.svg);
-  }
-
-  i.center-align {
-    background-image: url(images/icons/text-center.svg);
-  }
-
-  i.right-align {
-    background-image: url(images/icons/text-right.svg);
-  }
-
-  i.justify-align {
-    background-image: url(images/icons/justify.svg);
   }
 `;
 

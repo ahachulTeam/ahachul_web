@@ -26,7 +26,7 @@ const CommunityEditor = () => {
         </div>
         <div css={inputGroup}>
           <span>자세한 설명</span>
-          <UiComponent.Editor onChange={handleChangeContent} />
+          <UiComponent.Editor isRich onChange={handleChangeContent} />
         </div>
       </main>
     </Layout>

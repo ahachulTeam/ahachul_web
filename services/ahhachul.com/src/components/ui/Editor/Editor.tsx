@@ -30,11 +30,19 @@ import YouTubePlugin from './plugins/YouTubePlugin';
 import { YouTubeNode } from './nodes/YouTubeNode';
 import { HashtagNode } from '@lexical/hashtag';
 import AutoEmbedPlugin from './plugins/AutoEmbedPlugin';
-import SpeechToTextPlugin from './plugins/SpeechToTextPlugin';
+import SpeechToTextPlugin, { SPEECH_TO_TEXT_COMMAND, SUPPORT_SPEECH_RECOGNITION } from './plugins/SpeechToTextPlugin';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
-
-// import { TreeView } from '@lexical/react/LexicalTreeView';
-//  { SPEECH_TO_TEXT_COMMAND, SUPPORT_SPEECH_RECOGNITION }
+import IconUndo from 'static/icons/editor/IconUndo';
+import IconRedo from 'static/icons/editor/IconRedo';
+import IconBold from 'static/icons/editor/IconBold';
+import IconItalic from 'static/icons/editor/IconItalic';
+import IconUnderline from 'static/icons/editor/IconUnderline';
+import IconStrikethrough from 'static/icons/editor/IconStrikethrough';
+import IconLeftAlign from 'static/icons/editor/IconLeftAlign';
+import IconCenterAlign from 'static/icons/editor/IconCenterAlign';
+import IconRightAlign from 'static/icons/editor/IconRightAlign';
+import IconYoutube from 'static/icons/editor/IconYoutube';
+import IconMic from 'static/icons/editor/IconMic';
 
 const editorTheme = {
   ltr: 'ltr',
@@ -183,17 +191,17 @@ const Editor = ({ isRich = false, hasError = false, readonly = false, initialSta
             placeholder={readonly ? null : <Placeholder />}
             ErrorBoundary={LexicalErrorBoundary}
           />
+          <LinkPlugin />
           <HashtagPlugin />
+          <AutoLinkPlugin matchers={MATCHERS} />
           <OnChangePlugin readonly={readonly} initialState={initialState} onChange={onChange} />
           {isRich && (
             <>
-              <LinkPlugin />
               <YouTubePlugin />
               <HistoryPlugin />
               <ToolbarPlugin />
               <AutoEmbedPlugin />
               <SpeechToTextPlugin />
-              <AutoLinkPlugin matchers={MATCHERS} />
             </>
           )}
         </div>
@@ -403,7 +411,8 @@ function ToolbarPlugin() {
   const [isItalic, setIsItalic] = useState(false);
   const [isUnderline, setIsUnderline] = useState(false);
   const [isStrikethrough, setIsStrikethrough] = useState(false);
-  const [, setIsCode] = useState(false);
+
+  const [isSpeechToText, setIsSpeechToText] = useState(false);
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -422,7 +431,6 @@ function ToolbarPlugin() {
       setIsItalic(selection.hasFormat('italic'));
       setIsUnderline(selection.hasFormat('underline'));
       setIsStrikethrough(selection.hasFormat('strikethrough'));
-      setIsCode(selection.hasFormat('code'));
       setIsRTL($isParentElementRTL(selection));
 
       // Update links
@@ -480,7 +488,7 @@ function ToolbarPlugin() {
         className="toolbar-item spaced"
         aria-label="Undo"
       >
-        <i className="format undo" />
+        <IconUndo className="format" />
       </button>
       <button
         disabled={!canRedo}
@@ -490,7 +498,7 @@ function ToolbarPlugin() {
         className="toolbar-item"
         aria-label="Redo"
       >
-        <i className="format redo" />
+        <IconRedo className="format" />
       </button>
       <Divider />
       <button
@@ -500,7 +508,7 @@ function ToolbarPlugin() {
         className={'toolbar-item spaced ' + (isBold ? 'active' : '')}
         aria-label="Format Bold"
       >
-        <i className="format bold" />
+        <IconBold className="format" />
       </button>
       <button
         onClick={() => {
@@ -509,7 +517,7 @@ function ToolbarPlugin() {
         className={'toolbar-item spaced ' + (isItalic ? 'active' : '')}
         aria-label="Format Italics"
       >
-        <i className="format italic" />
+        <IconItalic className="format" />
       </button>
       <button
         onClick={() => {
@@ -518,7 +526,7 @@ function ToolbarPlugin() {
         className={'toolbar-item spaced ' + (isUnderline ? 'active' : '')}
         aria-label="Format Underline"
       >
-        <i className="format underline" />
+        <IconUnderline className="format" />
       </button>
       <button
         onClick={() => {
@@ -527,7 +535,7 @@ function ToolbarPlugin() {
         className={'toolbar-item spaced ' + (isStrikethrough ? 'active' : '')}
         aria-label="Format Strikethrough"
       >
-        <i className="format strikethrough" />
+        <IconStrikethrough className="format" />
       </button>
       {isLink && createPortal(<FloatingLinkEditor editor={editor} />, document.body)}
       <Divider />
@@ -538,7 +546,7 @@ function ToolbarPlugin() {
         className="toolbar-item spaced"
         aria-label="Left Align"
       >
-        <i className="format left-align" />
+        <IconLeftAlign className="format" />
       </button>
       <button
         onClick={() => {
@@ -547,8 +555,34 @@ function ToolbarPlugin() {
         className="toolbar-item spaced"
         aria-label="Center Align"
       >
-        <i className="format center-align" />
+        <IconCenterAlign className="format" />
       </button>
+      <button
+        onClick={() => {
+          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
+        }}
+        className="toolbar-item spaced"
+        aria-label="Right Align"
+      >
+        <IconRightAlign className="format" />
+      </button>
+      <Divider />
+      <button className="toolbar-item spaced" aria-label="Youtube Video">
+        <IconYoutube className="format" />
+      </button>
+      {SUPPORT_SPEECH_RECOGNITION && (
+        <button
+          className={'toolbar-item spaced mic ' + (isSpeechToText ? 'active' : '')}
+          title="Speech To Text"
+          aria-label={`${isSpeechToText ? 'Enable' : 'Disable'} speech to text`}
+          onClick={() => {
+            editor.dispatchCommand(SPEECH_TO_TEXT_COMMAND, !isSpeechToText);
+            setIsSpeechToText(!isSpeechToText);
+          }}
+        >
+          <IconMic className="format" />
+        </button>
+      )}
     </div>
   );
 }
