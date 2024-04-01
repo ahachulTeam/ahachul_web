@@ -23,6 +23,9 @@ export default function YouTubePlugin(): JSX.Element | null {
       throw new Error('YouTubePlugin: YouTubeNode not registered on editor');
     }
 
+    const contentInput = document?.getElementById('content');
+    contentInput?.focus?.();
+
     return editor.registerCommand<string>(
       INSERT_YOUTUBE_COMMAND,
       (payload) => {

@@ -60,6 +60,9 @@ function SpeechToTextPlugin(): null {
           return;
         }
 
+        const contentInput = document?.getElementById('content');
+        contentInput?.focus?.();
+
         editor.update(() => {
           const selection = $getSelection();
 

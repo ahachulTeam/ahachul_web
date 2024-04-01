@@ -19,8 +19,6 @@ const SpeechToTextToolbarPlugin = () => {
             title="Speech To Text"
             aria-label={`${isSpeechToText ? 'Enable' : 'Disable'} speech to text`}
             onClick={() => {
-              const contentInput = document?.getElementById('content');
-              contentInput?.focus?.();
               editor.dispatchCommand(SPEECH_TO_TEXT_COMMAND, !isSpeechToText);
               setIsSpeechToText(!isSpeechToText);
             }}
