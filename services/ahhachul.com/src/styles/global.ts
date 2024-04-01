@@ -267,7 +267,6 @@ const global = css`
   }
 
   /** EDITOR */
-
   .ltr {
     text-align: left;
   }
@@ -351,22 +350,6 @@ const global = css`
   .editor-hashtag {
     background-color: rgba(88, 144, 255, 0.15);
     border-bottom: 1px solid rgba(88, 144, 255, 0.3);
-  }
-
-  .tree-view-output {
-    display: block;
-    background: #141517;
-    color: #fff;
-    padding: 5px;
-    font-size: 12px;
-    white-space: pre-wrap;
-    margin: 1px auto 10px auto;
-    max-height: 250px;
-    position: relative;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    overflow: auto;
-    line-height: 14px;
   }
 
   .editor-code {
@@ -510,92 +493,25 @@ const global = css`
     background: #999;
   }
 
-  .tree-view-type-button {
-  }
-
-  .debug-timetravel-panel {
-    display: none;
-    overflow: hidden;
-    padding: 0 0 10px 0;
-    margin: auto;
-    display: flex;
-  }
-
-  .debug-timetravel-panel-slider {
-    display: none;
-    padding: 0;
-    flex: 8;
-  }
-
-  .debug-timetravel-panel-button {
-    display: none;
-    padding: 0;
-    border: 0;
-    background: none;
-    flex: 1;
-    color: #fff;
-    font-size: 12px;
-  }
-
-  .debug-timetravel-panel-button:active {
-    text-decoration: underline;
-  }
-
-  .debug-timetravel-button {
-    display: none;
-    border: 0;
-    padding: 0;
-    font-size: 12px;
-    top: 10px;
-    right: 15px;
-    position: absolute;
-    background: none;
-    color: #fff;
-  }
-
-  .debug-timetravel-button:active {
-    text-decoration: underline;
-  }
-
-  .emoji {
-    color: transparent;
-    background-size: 16px 16px;
-    background-position: center;
-    background-repeat: no-repeat;
-    vertical-align: middle;
-    margin: 0 -1px;
-  }
-
-  .emoji-inner {
-    padding: 0 0.15em;
-  }
-
-  .emoji-inner::selection {
-    color: transparent;
-    background-color: rgba(150, 150, 150, 0.4);
-  }
-
-  .emoji-inner::moz-selection {
-    color: transparent;
-    background-color: rgba(150, 150, 150, 0.4);
+  .toolbar-wrapper {
+    width: 100%;
+    position: sticky;
+    bottom: -72px;
+    left: 0;
+    background: #141517;
+    padding: 16px 20px;
+    /* border: 1px solid hsla(0, 0%, 100%, 0.39); */
   }
 
   .toolbar {
     display: flex;
     background: inherit;
-    padding: 4px;
     vertical-align: middle;
     overflow-x: scroll;
-    position: fixed;
-    bottom: 0;
-    left: 0;
     width: 100%;
-    border: 1px solid hsla(0, 0%, 100%, 0.39);
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    opacity: 0;
+    /* opacity: 0;
     will-change: opacity;
-    animation: toolbar-fade-in 0.3s forwards;
+    animation: toolbar-fade-in 0.3s forwards; */
   }
 
   @keyframes toolbar-fade-in {
@@ -1046,6 +962,9 @@ const global = css`
     align-items: center;
     margin-bottom: 20px;
   }
+  .Input__wrapper.hidden {
+    display: none;
+  }
   .Input__label {
     display: flex;
     flex: 1;
@@ -1084,6 +1003,41 @@ const global = css`
     font-weight: 600;
     border-radius: 6px;
     min-width: 0;
+  }
+
+  .ImageNode__contentEditable {
+    min-height: 20px;
+    border: 0px;
+    resize: none;
+    cursor: text;
+    caret-color: rgb(5, 5, 5);
+    display: block;
+    position: relative;
+    outline: 0px;
+    padding: 10px;
+    user-select: text;
+    font-size: 12px;
+    width: calc(100% - 20px);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .ImageNode__placeholder {
+    font-size: 12px;
+    color: #888;
+    overflow: hidden;
+    position: absolute;
+    text-overflow: ellipsis;
+    top: 10px;
+    left: 10px;
+    user-select: none;
+    white-space: nowrap;
+    display: inline-block;
+    pointer-events: none;
+  }
+
+  .image-control-wrapper--resizing {
+    touch-action: none;
   }
 `;
 

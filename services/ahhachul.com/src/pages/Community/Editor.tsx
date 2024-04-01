@@ -53,7 +53,7 @@ const inputGroup = [
       height: '44px',
       borderRadius: '6px',
       padding: '0 12px',
-      color: '#9da5b6',
+      color: '#ffffff',
       fontSize: fontSize[14],
       caretColor: 'rgba(0, 255, 163, 0.5)',
 

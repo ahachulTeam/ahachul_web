@@ -44,6 +44,9 @@ import IconCenterAlign from 'static/icons/editor/IconCenterAlign';
 import IconRightAlign from 'static/icons/editor/IconRightAlign';
 import IconYoutube from 'static/icons/editor/IconYoutube';
 import IconMic from 'static/icons/editor/IconMic';
+import ImagesPlugin, { FileInput, INSERT_IMAGE_COMMAND } from './plugins/ImagesPlugin';
+import { ImageNode } from './nodes/ImageNode';
+import IconUploadImage from 'static/icons/editor/IconUploadImage';
 
 const editorTheme = {
   ltr: 'ltr',
@@ -123,7 +126,8 @@ const editorConfig = {
     throw error;
   },
   // Any custom nodes go here
-  nodes: [HeadingNode, QuoteNode, AutoLinkNode, LinkNode, YouTubeNode, HashtagNode],
+
+  nodes: [HeadingNode, QuoteNode, AutoLinkNode, LinkNode, YouTubeNode, HashtagNode, ImageNode],
 };
 
 const URL_REGEX =
@@ -198,33 +202,19 @@ const Editor = ({ isRich = false, hasError = false, readonly = false, initialSta
           <OnChangePlugin readonly={readonly} initialState={initialState} onChange={onChange} />
           {isRich && (
             <>
+              <ImagesPlugin />
               <YouTubePlugin />
               <HistoryPlugin />
-              <ToolbarPlugin />
               <AutoEmbedPlugin />
               <SpeechToTextPlugin />
             </>
           )}
         </div>
       </div>
+      <ToolbarPlugin />
     </LexicalComposer>
   );
 };
-
-// Text to Speech
-// {SUPPORT_SPEECH_RECOGNITION && (
-//   <button
-//     onClick={() => {
-//       editor.dispatchCommand(SPEECH_TO_TEXT_COMMAND, !isSpeechToText);
-//       setIsSpeechToText(!isSpeechToText);
-//     }}
-//     className={'action-button action-button-mic ' + (isSpeechToText ? 'active' : '')}
-//     title="Speech To Text"
-//     aria-label={`${isSpeechToText ? 'Enable' : 'Disable'} speech to text`}
-//   >
-//     <i className="mic" />
-//   </button>
-// )}
 
 function Divider() {
   return <div className="divider" />;
@@ -414,7 +404,31 @@ function ToolbarPlugin() {
   const [isUnderline, setIsUnderline] = useState(false);
   const [isStrikethrough, setIsStrikethrough] = useState(false);
 
+  // SPEECH to TEXT
   const [isSpeechToText, setIsSpeechToText] = useState(false);
+
+  // IMAGE
+  const [src, setSrc] = useState('');
+  const loadImage = (files: FileList | null) => {
+    const reader = new FileReader();
+    reader.onload = function () {
+      if (typeof reader.result === 'string') {
+        setSrc(reader.result);
+      }
+      return '';
+    };
+    if (files !== null) {
+      reader.readAsDataURL(files[0]);
+    }
+  };
+
+  useEffect(() => {
+    const isDisabled = src === '';
+
+    if (src && !isDisabled) {
+      activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, { altText: '', src });
+    }
+  }, [src]);
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -481,133 +495,136 @@ function ToolbarPlugin() {
   }, [editor, updateToolbar]);
 
   return (
-    <div className="toolbar" ref={toolbarRef}>
-      <button
-        disabled={!canUndo}
-        onClick={() => {
-          editor.dispatchCommand(UNDO_COMMAND, null);
-        }}
-        className="toolbar-item spaced"
-        aria-label="Undo"
-      >
-        <IconUndo className="format" />
-      </button>
-      <button
-        disabled={!canRedo}
-        onClick={() => {
-          editor.dispatchCommand(REDO_COMMAND, null);
-        }}
-        className="toolbar-item"
-        aria-label="Redo"
-      >
-        <IconRedo className="format" />
-      </button>
-      <Divider />
-      <button
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
-        }}
-        className={'toolbar-item spaced ' + (isBold ? 'active' : '')}
-        aria-label="Format Bold"
-      >
-        <IconBold className="format" />
-      </button>
-      <button
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
-        }}
-        className={'toolbar-item spaced ' + (isItalic ? 'active' : '')}
-        aria-label="Format Italics"
-      >
-        <IconItalic className="format" />
-      </button>
-      <button
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline');
-        }}
-        className={'toolbar-item spaced ' + (isUnderline ? 'active' : '')}
-        aria-label="Format Underline"
-      >
-        <IconUnderline className="format" />
-      </button>
-      <button
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough');
-        }}
-        className={'toolbar-item spaced ' + (isStrikethrough ? 'active' : '')}
-        aria-label="Format Strikethrough"
-      >
-        <IconStrikethrough className="format" />
-      </button>
-      {isLink && createPortal(<FloatingLinkEditor editor={editor} />, document.body)}
-      <Divider />
-      <button
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left');
-        }}
-        className="toolbar-item spaced"
-        aria-label="Left Align"
-      >
-        <IconLeftAlign className="format" />
-      </button>
-      <button
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center');
-        }}
-        className="toolbar-item spaced"
-        aria-label="Center Align"
-      >
-        <IconCenterAlign className="format" />
-      </button>
-      <button
-        onClick={() => {
-          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
-        }}
-        className="toolbar-item spaced"
-        aria-label="Right Align"
-      >
-        <IconRightAlign className="format" />
-      </button>
-      <Divider />
-      <button
-        className="toolbar-item spaced"
-        aria-label="Youtube Video"
-        onClick={() => {
-          activeEditor.dispatchCommand(INSERT_EMBED_COMMAND, 'youtube-video');
-        }}
-      >
-        <IconYoutube className="format" />
-      </button>
-      {SUPPORT_SPEECH_RECOGNITION && (
+    <article className="toolbar-wrapper">
+      <div className="toolbar" ref={toolbarRef}>
         <button
-          className={'toolbar-item spaced mic ' + (isSpeechToText ? 'active' : '')}
-          title="Speech To Text"
-          aria-label={`${isSpeechToText ? 'Enable' : 'Disable'} speech to text`}
+          disabled={!canUndo}
           onClick={() => {
-            editor.dispatchCommand(SPEECH_TO_TEXT_COMMAND, !isSpeechToText);
-            setIsSpeechToText(!isSpeechToText);
+            editor.dispatchCommand(UNDO_COMMAND, null);
+          }}
+          className="toolbar-item spaced"
+          aria-label="Undo"
+        >
+          <IconUndo className="format" />
+        </button>
+        <button
+          disabled={!canRedo}
+          onClick={() => {
+            editor.dispatchCommand(REDO_COMMAND, null);
+          }}
+          className="toolbar-item"
+          aria-label="Redo"
+        >
+          <IconRedo className="format" />
+        </button>
+        <Divider />
+        <button
+          onClick={() => {
+            editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
+          }}
+          className={'toolbar-item spaced ' + (isBold ? 'active' : '')}
+          aria-label="Format Bold"
+        >
+          <IconBold className="format" />
+        </button>
+        <button
+          onClick={() => {
+            editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
+          }}
+          className={'toolbar-item spaced ' + (isItalic ? 'active' : '')}
+          aria-label="Format Italics"
+        >
+          <IconItalic className="format" />
+        </button>
+        <button
+          onClick={() => {
+            editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline');
+          }}
+          className={'toolbar-item spaced ' + (isUnderline ? 'active' : '')}
+          aria-label="Format Underline"
+        >
+          <IconUnderline className="format" />
+        </button>
+        <button
+          onClick={() => {
+            editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough');
+          }}
+          className={'toolbar-item spaced ' + (isStrikethrough ? 'active' : '')}
+          aria-label="Format Strikethrough"
+        >
+          <IconStrikethrough className="format" />
+        </button>
+        {isLink && createPortal(<FloatingLinkEditor editor={editor} />, document.body)}
+        <Divider />
+        <button
+          onClick={() => {
+            editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left');
+          }}
+          className="toolbar-item spaced"
+          aria-label="Left Align"
+        >
+          <IconLeftAlign className="format" />
+        </button>
+        <button
+          onClick={() => {
+            editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center');
+          }}
+          className="toolbar-item spaced"
+          aria-label="Center Align"
+        >
+          <IconCenterAlign className="format" />
+        </button>
+        <button
+          onClick={() => {
+            editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
+          }}
+          className="toolbar-item spaced"
+          aria-label="Right Align"
+        >
+          <IconRightAlign className="format" />
+        </button>
+        <Divider />
+        <button
+          className="toolbar-item spaced"
+          aria-label="Insert Image"
+          onClick={() => {
+            const input = document.getElementById('file-input');
+            input?.click();
           }}
         >
-          <IconMic className="format" />
+          <IconUploadImage className="format" />
+          <FileInput
+            label="Image Upload"
+            onChange={loadImage}
+            accept="image/*"
+            data-test-id="image-modal-file-upload"
+          />
         </button>
-      )}
-    </div>
+        <button
+          className="toolbar-item spaced"
+          aria-label="Youtube Video"
+          onClick={() => {
+            activeEditor.dispatchCommand(INSERT_EMBED_COMMAND, 'youtube-video');
+          }}
+        >
+          <IconYoutube className="format" />
+        </button>
+        {SUPPORT_SPEECH_RECOGNITION && (
+          <button
+            className={'toolbar-item spaced mic ' + (isSpeechToText ? 'active' : '')}
+            title="Speech To Text"
+            aria-label={`${isSpeechToText ? 'Enable' : 'Disable'} speech to text`}
+            onClick={() => {
+              editor.dispatchCommand(SPEECH_TO_TEXT_COMMAND, !isSpeechToText);
+              setIsSpeechToText(!isSpeechToText);
+            }}
+          >
+            <IconMic className="format" />
+          </button>
+        )}
+      </div>
+    </article>
   );
 }
-
-// function TreeViewPlugin() {
-//   const [editor] = useLexicalComposerContext();
-//   return (
-//     <TreeView
-//       treeTypeButtonClassName="tree-view-type-button"
-//       viewClassName="tree-view-output"
-//       timeTravelPanelClassName="debug-timetravel-panel"
-//       timeTravelButtonClassName="debug-timetravel-button"
-//       timeTravelPanelSliderClassName="debug-timetravel-panel-slider"
-//       timeTravelPanelButtonClassName="debug-timetravel-panel-button"
-//       editor={editor}
-//     />
-//   );
-// }
 
 export default Editor;
