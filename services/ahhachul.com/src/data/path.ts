@@ -7,7 +7,6 @@ const PATH = {
   complaints: '/complaints',
   complaintsAskTrainNumber: '/complaints/askTrainNumber',
   complaintsSubmission: '/complaints/complaintsSubmission',
-  complaintsComplete: '/complaints/complaintsComplete',
   community: '/community',
   communityDetail: '/community/:articleId',
   communityEditor: '/community/editor',
