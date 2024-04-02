@@ -8,12 +8,12 @@ const StationTalks: ActivityComponentType = () => {
   return (
     <Layout
       appBar={{
-        title: '건대입구역 이모저모',
+        title: '건대입구 이모저모',
       }}
       activeTab={false}
     >
       <main css={{ padding: '20px' }}>
-        <h1 css={title}>건대입구역 이모저모</h1>
+        <h1 css={title}>건대입구 이모저모</h1>
       </main>
     </Layout>
   );

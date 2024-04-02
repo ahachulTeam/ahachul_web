@@ -12,6 +12,7 @@ import { CSSObject, Theme } from '@emotion/react';
 import IconChevron from 'static/icons/system/IconChevron';
 import { useDispatch } from 'react-redux';
 import { addSnackBar } from 'stores/ui';
+import { exportSubwayInfoFromTrainNumber } from 'utils/export';
 
 type AskTrainNumberProps = {
   slug: COMPLAINTS_CONTENTS_TYPES;
@@ -25,8 +26,12 @@ const AskTrainNumber: ActivityComponentType<AskTrainNumberProps> = ({ params }) 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const next = () => {
+    const trainInfo = exportSubwayInfoFromTrainNumber(inputRef.current.value);
+
     if (!inputRef.current.value) {
       dispatch(addSnackBar({ message: '열차번호를 입력해주세요', posBottom: 115 }));
+    } else if (trainInfo.error) {
+      dispatch(addSnackBar({ message: '올바른 열차번호를 입력해주세요', posBottom: 115 }));
     } else {
       push('ComplaintsSubmission', { slug: params.slug, trainNumber: inputRef.current.value });
     }

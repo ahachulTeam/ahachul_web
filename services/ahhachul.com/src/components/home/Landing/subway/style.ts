@@ -71,21 +71,16 @@ const filterWrap = [
       height: '32px',
       borderRadius: full,
       marginRight: '12px',
-      color: gray[1000],
-      fontSize: fontSize[16],
-      fontWeight: fontWeight[600],
-      letterSpacing: '-0.2px',
+
+      '& > button': {
+        color: gray[1000],
+        fontSize: fontSize[16],
+        fontWeight: fontWeight[600],
+        letterSpacing: '-0.2px',
+      },
 
       '&:first-of-type': {
         background: 'linear-gradient(263deg, #2EE477 0%, #50BEFD 100%)',
-      },
-
-      '&:nth-of-type(2)': {
-        backgroundColor: '#025FAC',
-      },
-
-      '&:last-of-type': {
-        backgroundColor: '#B3A58A',
       },
     },
 
@@ -114,4 +109,13 @@ const wrap = [
   }),
 ];
 
-export { sectionWrap, title, filterWrap, wrap };
+const loading: CSSObject = {
+  position: 'absolute',
+  left: '50%',
+  top: '50%',
+  transform: 'translate(-50%, -50%)',
+  paddingTop: '36px',
+  opacity: 0.1,
+};
+
+export { sectionWrap, title, filterWrap, wrap, loading };

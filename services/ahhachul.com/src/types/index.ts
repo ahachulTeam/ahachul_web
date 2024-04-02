@@ -1,5 +1,6 @@
 export * from './ui';
 export * from './lost';
+export * from './train';
 export * from './appEnv';
 export * from './search';
 export * from './response';

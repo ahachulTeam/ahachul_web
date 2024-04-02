@@ -4,27 +4,22 @@ import { useRef, useState } from 'react';
 import throttle from 'lodash-es/throttle';
 import TrainEachBox from './Box';
 import TrainSvg from './SVG';
+import { useGetTrainCongestionInfo } from 'queries/train/useGetTrainCongestionInfo';
+import { formatCongestionColorToHexColor } from 'utils/export';
 
 interface TrainProps {
+  trainNo: string;
+  subwayLineId: string;
   calculatedCrowdRatings?: string[];
 }
 
-function Train({
-  calculatedCrowdRatings = [
-    '#EE6161',
-    '#FFC44D',
-    '#6FDA74',
-    '#FF884D',
-    '#EE6161',
-    '#FF884D',
-    '#FFC44D',
-    '#6FDA74',
-    '#6FDA74',
-    '#EE6161',
-  ],
-}: TrainProps) {
+function Train({ trainNo, subwayLineId }: TrainProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [containerWidth, setContainerWidth] = useState(0);
+
+  console.log('trainNo:', trainNo);
+
+  const { data } = useGetTrainCongestionInfo({ trainNo, subwayLineId });
 
   useIsomorphicLayoutEffect(() => {
     const detectionViewport = () => {
@@ -47,10 +42,10 @@ function Train({
       <TrainSvg width={containerWidth} />
       {containerWidth && (
         <ul>
-          {calculatedCrowdRatings?.map((item, i) => (
+          {data?.congestions?.map((item, i) => (
             <li key={i}>
-              <TrainEachBox color={item} roomNumber={i + 1} />
-              {item === '#6FDA74' && (
+              <TrainEachBox color={formatCongestionColorToHexColor(item?.congestionColor)} roomNumber={i + 1} />
+              {item?.congestionColor === 'SMOOTH' && (
                 <div css={tooltip}>
                   <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path

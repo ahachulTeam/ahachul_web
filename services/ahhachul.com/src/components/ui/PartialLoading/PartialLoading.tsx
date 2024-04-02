@@ -1,25 +1,25 @@
 import React from 'react';
-import { Interpolation, Theme } from '@emotion/react';
 import { Player } from '@lottiefiles/react-lottie-player';
 
 import animationData from 'static/lottie/loading.json';
 import { SizeWithPercentType, SizeWithPxType } from 'types';
 
 interface PartialLoadingProps {
-  css?: Interpolation<Theme>;
+  className?: string;
   size?: SizeWithPercentType | SizeWithPxType;
 }
 
-function PartialLoading({ css = {}, size = '130px' }: PartialLoadingProps) {
+function PartialLoading({ size = '130px', className }: PartialLoadingProps) {
   return (
     <Player
-      autoplay
       loop
+      autoplay
       src={animationData}
       rendererSettings={{
         preserveAspectRatio: 'xMidYMid slice',
       }}
-      css={[css, { width: size }]}
+      css={{ width: size }}
+      className={className}
     />
   );
 }

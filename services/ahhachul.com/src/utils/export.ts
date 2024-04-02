@@ -11,6 +11,7 @@
  * 김포골드
  */
 
+import { CongestionColorType, CurrentTrainArrivalType } from 'types';
 import { removeEmptyProperties } from './object';
 
 export const exportHexColorWidthLineName = (lineName: string) => {
@@ -83,6 +84,8 @@ export const exportSubwayInfoFromTrainNumber = (
     }
   } else if (startsWithNumber) {
     const isLengthFour = trainNumber.length === 4;
+    const isLengthSix = trainNumber.length === 6;
+
     if (isLengthFour) {
       const firstDigitIs0Or1 = trainNumber[0] === '0' || trainNumber[0] === '1';
 
@@ -93,7 +96,7 @@ export const exportSubwayInfoFromTrainNumber = (
         lineName = `${trainNumber[0]}호선`;
         roomNumber = trainNumber[1];
       }
-    } else {
+    } else if (isLengthSix) {
       const startsWith3 = trainNumber[0] === '3';
 
       if (startsWith3) {
@@ -136,7 +139,11 @@ export const exportSubwayInfoFromTrainNumber = (
             roomNumber = trainNumber[3];
           }
         }
+      } else {
+        error = '올바르지 않은 열차 번호입니다.';
       }
+    } else {
+      error = '올바르지 않은 열차 번호입니다.';
     }
   } else {
     error = '올바르지 않은 열차 번호입니다.';
@@ -147,4 +154,42 @@ export const exportSubwayInfoFromTrainNumber = (
     roomNumber,
     error,
   });
+};
+
+export const formatCurrentTrainArrivalTypeToKo = (trainArrivalType?: CurrentTrainArrivalType) => {
+  if (!trainArrivalType) return;
+
+  switch (trainArrivalType) {
+    case 'ENTER':
+      return '진입';
+    case 'ARRIVE':
+      return '도착';
+    case 'DEPARTURE':
+      return '출발';
+    case 'BEFORE_STATION_DEPARTURE':
+      return '전역출발';
+    case 'BEFORE_STATION_ARRIVE':
+      return '전역도착';
+    case 'BEFORE_STATION_ENTER':
+      return '전역진입';
+    case 'RUNNING':
+      return '운행중';
+  }
+};
+
+export const formatCongestionColorToHexColor = (congestionColor?: CongestionColorType) => {
+  if (!congestionColor) return;
+
+  switch (congestionColor) {
+    case 'SMOOTH':
+      return '#6FDA74';
+    case 'MODERATE':
+      return '#FFC44D';
+    case 'CONGESTED':
+      return '#FF884D';
+    case 'VERY_CONGESTED':
+      return '#EE6161';
+    default:
+      return 'rgba(0, 0, 0, 0)';
+  }
 };

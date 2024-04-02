@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 
-import { filterWrap, sectionWrap, title, wrap } from './style';
+import { filterWrap, loading, sectionWrap, title, wrap } from './style';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Train from './train/Train';
@@ -8,11 +8,65 @@ import IconFetch from 'static/icons/system/IconFetch';
 import IconInfo from 'static/icons/system/IconInfo';
 import { useFlow } from 'stackflow';
 import IconChevron from 'static/icons/system/IconChevron';
+import { ErrorComponent, UiComponent } from 'components';
+import { useGetTrainsRealTimeInfo } from 'queries/train/useGetTrainsRealTimeInfo';
+import { exportHexColorWidthLineName, formatCurrentTrainArrivalTypeToKo } from 'utils/export';
+import { ITrain, Nullable } from 'types';
+import { AnimatePresence, motion, Variants } from 'framer-motion';
+
+const defaultEasing = [0.6, -0.05, 0.01, 0.99];
+
+const defaultFadeInVariants: Variants = {
+  initial: {
+    opacity: 0,
+    transition: { duration: 0.3, ease: defaultEasing },
+    willChange: 'opacity',
+  },
+  animate: {
+    opacity: 1,
+    transition: { duration: 0.3, ease: defaultEasing },
+    willChange: 'opacity',
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.3, ease: defaultEasing },
+    willChange: 'opacity',
+  },
+};
 
 const Subway = () => {
   const { push } = useFlow();
   const routeToSubwayMap = () => push('SubwayMap', {});
   const routeToSubwayTimeTable = () => push('SubwayTimeTable', {});
+
+  const [subwayLineIds, setSubwayLineIds] = useState(['2', '7']);
+  const initialSelectedData = {
+    // 건대입구 stationId
+    stationId: '121',
+    subwayLineId: subwayLineIds[0],
+  };
+
+  const [selectedTrain, setSelectedTrain] = useState<Nullable<ITrain>>(null);
+  const swapArrayElements = () => {
+    let copy = [...subwayLineIds];
+    let temp = copy[0];
+    copy[0] = copy[1];
+    copy[1] = temp;
+    setSelectedTrain(null);
+    setSubwayLineIds(copy);
+  };
+
+  const swapSelectedTrain = (train: ITrain) => () => {
+    setSelectedTrain(train);
+  };
+
+  const { data, isSuccess, isLoading, refetch } = useGetTrainsRealTimeInfo(initialSelectedData);
+
+  useEffect(() => {
+    if (isSuccess || subwayLineIds) {
+      setSelectedTrain(data?.trainRealTimes?.[0]);
+    }
+  }, [isSuccess, subwayLineIds]);
 
   return (
     <section css={sectionWrap}>
@@ -22,9 +76,12 @@ const Subway = () => {
       </h1>
       <div css={filterWrap}>
         <ul>
-          <li>2</li>
-          <li>1</li>
-          <li>9</li>
+          <li>
+            <button>{subwayLineIds[0]}</button>
+          </li>
+          <li css={{ backgroundColor: exportHexColorWidthLineName(subwayLineIds[1]) }}>
+            <button onClick={swapArrayElements}>{subwayLineIds[1]}</button>
+          </li>
         </ul>
         <button onClick={routeToSubwayMap}>
           <span>전체 노선도 보기</span>
@@ -33,21 +90,41 @@ const Subway = () => {
       </div>
       <div css={wrap}>
         <SubwayInfo>
-          <ThickBorderArea tabIndex={-1}>
-            <StationLabel>건대입구</StationLabel>
-            <DirectionLabel>신당 방향</DirectionLabel>
+          <ThickBorderArea tabIndex={-1} css={{ backgroundColor: exportHexColorWidthLineName(subwayLineIds[0]) }}>
+            <StationLabel css={{ borderColor: exportHexColorWidthLineName(subwayLineIds[0]) }}>건대입구</StationLabel>
+            <AnimatePresence mode="wait">
+              <DirectionLabel variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
+                {!isLoading && selectedTrain && selectedTrain?.nextStationDirection}
+              </DirectionLabel>
+            </AnimatePresence>
           </ThickBorderArea>
           <ContentArea>
-            <TopInfo>
-              <b>곧 도착</b>
-              <span>성수행</span>
-              <button>
-                <IconFetch css={{ position: 'relative', top: '1px' }} />
-              </button>
-            </TopInfo>
+            <AnimatePresence mode="wait">
+              <TopInfo
+                css={{ minHeight: '18.4px' }}
+                variants={defaultFadeInVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+              >
+                {!isLoading && selectedTrain && (
+                  <>
+                    <b>{formatCurrentTrainArrivalTypeToKo(selectedTrain?.currentTrainArrivalCode)}</b>
+                    <span>{selectedTrain?.destinationStationDirection}</span>
+                    <button onClick={() => refetch()}>
+                      <IconFetch css={{ position: 'relative', top: '1px' }} />
+                    </button>
+                  </>
+                )}
+              </TopInfo>
+            </AnimatePresence>
             <TrainInfoContainer>
               <TrainInfoTop>
-                <span>전동차 5035</span>
+                <AnimatePresence mode="wait">
+                  <motion.span variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
+                    {!isLoading && selectedTrain?.trainNum !== undefined && `전동차 ${selectedTrain?.trainNum}`}
+                  </motion.span>
+                </AnimatePresence>
                 <div>
                   <span>여유</span>
                   <ul>
@@ -60,26 +137,44 @@ const Subway = () => {
                   <IconInfo css={{ position: 'relative', top: '1px', marginLeft: '4px' }} />
                 </div>
               </TrainInfoTop>
-              <Train />
+              <div css={{ position: 'relative', minHeight: '31px' }}>
+                <ErrorComponent.QueryErrorBoundary>
+                  <Suspense fallback={<UiComponent.PartialLoading css={loading} size={'98px'} />}>
+                    {/* 이게 맞나 ? */}
+                    {selectedTrain?.trainNum ? (
+                      <Train trainNo={selectedTrain.trainNum} subwayLineId={subwayLineIds[0]} />
+                    ) : (
+                      <UiComponent.PartialLoading css={loading} size={'98px'} />
+                    )}
+                  </Suspense>
+                </ErrorComponent.QueryErrorBoundary>
+              </div>
             </TrainInfoContainer>
-            <BottomInfo>
-              <li>
-                <b css={{ fontWeight: '700 !important' }}>성수행</b>
-                <span>곧 도착</span>
-              </li>
-              <li>
-                <b>성수행</b>
-                <span>2분 26초</span>
-              </li>
-              <li>
-                <b>성수행</b>
-                <span>10분 28초</span>
-              </li>
-              <li>
-                <b>성수행</b>
-                <span>14분 32초</span>
-              </li>
-            </BottomInfo>
+            <AnimatePresence mode="wait">
+              <BottomInfo
+                css={{ minHeight: '72.2px', position: 'relative' }}
+                variants={defaultFadeInVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+              >
+                {isLoading ? (
+                  <UiComponent.PartialLoading css={loading} size={'78px'} />
+                ) : (
+                  data?.trainRealTimes?.map((item, idx) => (
+                    <li key={item.currentArrivalTime} onClick={swapSelectedTrain(item)}>
+                      <b css={{ fontWeight: idx === 0 ? '700 !important' : '400' }}>
+                        {item.destinationStationDirection}
+                      </b>
+                      <span css={{ fontWeight: idx === 0 ? '700 !important' : '400' }}>
+                        {idx === 0 ? '진입' : idx === 1 ? '2분' : idx === 2 ? '7분 37초' : '11분 32초'}
+                      </span>
+                      {/* <span>{!item.currentArrivalTime ? '진입' : `${item.currentArrivalTime}분전`}</span> */}
+                    </li>
+                  ))
+                )}
+              </BottomInfo>
+            </AnimatePresence>
             <button css={allTrainsBtnCss} onClick={routeToSubwayTimeTable}>
               전체 시간표
             </button>
@@ -96,6 +191,7 @@ const SubwayInfo = styled.div`
   min-height: 180px;
   border-radius: 20px;
   background-color: #2e2e2e;
+  min-height: 390.586px;
 `;
 
 const ThickBorderArea = styled.div`
@@ -106,7 +202,6 @@ const ThickBorderArea = styled.div`
   height: 25px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  background-color: #20b154;
 `;
 
 const StationLabel = styled.span`
@@ -126,7 +221,7 @@ const StationLabel = styled.span`
   transform: translateY(-50%);
 `;
 
-const DirectionLabel = styled.span`
+const DirectionLabel = styled(motion.span)`
   font-size: 14px;
   font-weight: 600;
   position: absolute;
@@ -220,7 +315,7 @@ const TrainInfoTop = styled.div`
   }
 `;
 
-const TopInfo = styled.div`
+const TopInfo = styled(motion.div)`
   display: flex;
   align-items: center;
   position: relative;
@@ -251,13 +346,14 @@ const TopInfo = styled.div`
   }
 `;
 
-const BottomInfo = styled.ul`
+const BottomInfo = styled(motion.ul)`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
   column-gap: 24px;
   row-gap: 12px;
-  margin: 72px 0 16px;
+  margin: 72px 0 28px;
   padding-top: 24px;
   border-top: 1px solid rgba(210, 210, 210, 0.09);
 
@@ -265,17 +361,16 @@ const BottomInfo = styled.ul`
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
     width: 100%;
 
-    &:first-of-type {
+    & > li > b:first-of-type {
       font-weight: bold;
     }
 
     & > b {
-      font-weight: 400;
       color: #ffffff;
       font-size: 14px;
-      margin-right: 8px;
     }
 
     & > span {
@@ -292,7 +387,6 @@ const allTrainsBtnCss = css`
   justify-content: center;
   align-items: center;
   color: #ffffff;
-  margin-top: 12px;
   width: 100%;
   height: 44px;
   border-radius: 10px;

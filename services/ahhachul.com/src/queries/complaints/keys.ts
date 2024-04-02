@@ -1,4 +1,4 @@
-const KEY = ['LOST'];
+const KEY = ['COMPLAINTS'];
 
 const COMPLAINTS_LIST_KEY = [...KEY, 'LIST'];
 

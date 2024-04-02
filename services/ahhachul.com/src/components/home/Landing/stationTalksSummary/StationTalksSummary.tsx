@@ -37,7 +37,7 @@ const StationTalksSummary = () => {
     <div css={wrap}>
       <div css={headSection}>
         <h1 css={title}>
-          <span>건대입구역 이모저모</span>
+          <span>건대입구 이모저모</span>
         </h1>
         <button onClick={routeToStationTalks}>더보기</button>
       </div>
