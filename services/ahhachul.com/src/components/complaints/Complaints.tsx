@@ -5,7 +5,7 @@ import { Box } from '@ahhachul/react-components-layout';
 import { useFlow } from 'stackflow';
 import { ComplaintsComponent } from 'components';
 import { COMPLAINTS_CONTENTS, COMPLAINTS_CONTENTS_TYPES, COMPLAINTS_CONTENTS_VALUE_TYPES } from 'data/complaints';
-import { grid, grid2, wrap, sectionLabel } from './style';
+import { grid1, grid2, wrap, sectionLabel } from './style';
 
 const Room = (serviceName: string) => {
   return loadable(() => import(`./room/services/${serviceName}`), {
@@ -16,14 +16,14 @@ const Room = (serviceName: string) => {
 const Complaints = () => {
   const { push } = useFlow();
   const next = (slug: COMPLAINTS_CONTENTS_TYPES) => {
-    push('AskTrainNumber', { slug: slug });
+    push('AskTrainNumber', { slug });
   };
 
   return (
     <main css={wrap}>
       <Box>
         <h2 css={sectionLabel}>지하철 환경</h2>
-        <ul css={grid}>
+        <ul css={grid1}>
           {Object.entries(COMPLAINTS_CONTENTS)
             .slice(0, 4)
             .map(([key, value]: [COMPLAINTS_CONTENTS_TYPES, COMPLAINTS_CONTENTS_VALUE_TYPES]) => (

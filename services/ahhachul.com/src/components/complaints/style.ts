@@ -25,7 +25,7 @@ const sectionLabel = ({
   color: gray[1000],
 });
 
-const grid = {
+const grid1 = {
   display: 'grid',
   gridTemplateColumns: 'repeat(2, 1fr)',
   gap: '10px',
@@ -73,4 +73,4 @@ const grid2 = {
   },
 };
 
-export { wrap, sectionLabel, grid, grid2 };
+export { wrap, sectionLabel, grid1, grid2 };

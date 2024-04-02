@@ -1,60 +1,111 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, FormEvent, useCallback, useRef } from 'react';
 import { ActivityComponentType } from '@stackflow/react';
 import { Layout } from 'components/layout';
 import { COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
-import loadable from '@loadable/component';
 import { exportHexColorWidthLineName, exportSubwayInfoFromTrainNumber } from 'utils/export';
 import { CSSObject, Theme } from '@emotion/react';
 import { f } from 'styles';
 import { useComplaintsArticle } from 'queries/complaints';
+import { UiComponent } from 'components';
+import { EditorState } from 'lexical';
+import { IComplaintForm } from 'types/complaints';
+import { useAppSelector } from 'stores';
 
 type ComplaintsSubmissionProps = {
   slug: COMPLAINTS_CONTENTS_TYPES;
   trainNumber: string;
 };
 
-const AsyncRoomService = loadable(
-  (props: { page: COMPLAINTS_CONTENTS_TYPES }) => import(`../room/services/${props.page}`),
-  {
-    cacheKey: (props) => props.page,
-  },
-);
+const INIT_STATE: IComplaintForm = {
+  trainNo: '',
+  subwayLineId: '',
+  content: '',
+  complaintType: '',
+  shortContent: '',
+};
 
 const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = ({ params }) => {
-  const { mutate } = useComplaintsArticle();
   const trainNo = params.trainNumber;
   const trainInfo = exportSubwayInfoFromTrainNumber(trainNo);
 
-  const handleSubmit = () => {
+  const formRef = useRef<IComplaintForm>(INIT_STATE);
+  const { mutate } = useComplaintsArticle();
+  const { loading } = useAppSelector((state) => state.ui);
+
+  const handleChangeContent = useCallback((targetValue: EditorState) => {
+    formRef.current.content = JSON.stringify(targetValue.toJSON());
+  }, []);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     mutate({
+      ...formRef.current,
       trainNo,
       subwayLineId: '',
-      content: '',
-      complaintType: params.slug,
       shortContent: '',
+      complaintType: params.slug,
     });
   };
 
   return (
     <Layout activeTab={false} appBar={{ title: params.slug }}>
       <main css={wrap}>
-        <div css={trainLabelsWrap(exportHexColorWidthLineName(trainInfo.lineName))}>
-          <span>
-            {trainInfo.lineName} / {trainNo} / {trainInfo.roomNumber}번째 칸
-          </span>
-        </div>
-        <AsyncRoomService page={params.slug} />
-        <div css={submitWrap}>
-          <button css={submitBtn} onClick={handleSubmit}>
-            민원접수
-          </button>
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div css={section}>
+            <span>지하철 정보</span>
+            <div css={trainLabelsWrap(exportHexColorWidthLineName(trainInfo.lineName))}>
+              <span>
+                {trainNo} / {trainInfo.lineName} / {trainInfo.roomNumber}번째 칸
+              </span>
+            </div>
+          </div>
+          <div css={section}>
+            <span>자세한 설명</span>
+            <UiComponent.Editor onChange={handleChangeContent} />
+          </div>
+          <div css={submitWrap}>
+            <button type="submit" css={submitBtn} disabled={loading || status === 'pending'}>
+              민원접수
+            </button>
+          </div>
+        </form>
       </main>
     </Layout>
   );
 };
 
 const wrap = [f.fullWidth, f.flexColumn, { padding: '26px 0 120px 0' }];
+
+const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] = [
+  f.sideGutter,
+  f.flexColumn,
+  ({ typography: { fontSize, fontWeight } }: Theme) => ({
+    position: 'relative',
+    marginBottom: '32px',
+
+    '& > span': {
+      color: '#ffffff',
+      fontSize: fontSize[14],
+      fontWeight: fontWeight[600],
+      marginBottom: '14px',
+    },
+
+    '& > input': {
+      border: '1px solid rgb(196, 212, 252, 0.37)',
+      height: '44px',
+      borderRadius: '6px',
+      padding: '0 12px',
+      color: '#ffffff',
+      fontSize: fontSize[14],
+      caretColor: 'rgba(0, 255, 163, 0.5)',
+
+      '&::placeholder': {
+        fontSize: fontSize[14],
+        color: '#9da5b6',
+      },
+    },
+  }),
+];
 
 const trainLabelsWrap =
   (pointColor: CSSProperties['color']) =>
@@ -69,15 +120,14 @@ const trainLabelsWrap =
     display: 'flex',
     alignItems: 'center',
     width: '100%',
-    padding: '0 20px',
 
     '& > span': {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: '12px',
+      borderRadius: '6px',
       padding: '0 12px',
-      height: '32px',
+      height: '30px',
       color: gray[1000],
       fontSize: fontSize[12],
       fontWeight: fontWeight[500],

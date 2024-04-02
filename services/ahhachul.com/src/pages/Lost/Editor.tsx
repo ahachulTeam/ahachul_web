@@ -10,6 +10,7 @@ import { ILostArticleForm, LostType, Nullable } from 'types';
 import { ErrorForm } from 'types/form';
 import IconInfo from 'static/icons/system/IconInfo';
 import { LostQuery } from 'queries';
+import { useAppSelector } from 'stores';
 
 const INIT_STATE: ILostArticleForm = {
   title: '',
@@ -29,6 +30,7 @@ const LostEditor = () => {
   const formRef = useRef<ILostArticleForm>(INIT_STATE);
   const [errors, setError] = useState<ErrorForm<ILostArticleForm>>(ERROR_INIT_STATE);
 
+  const { loading } = useAppSelector((state) => state.ui);
   const { mutate, status } = LostQuery.useLostArticle();
 
   const handleChangeTitle = useCallback(
@@ -153,7 +155,7 @@ const LostEditor = () => {
             </div>
           </div>
           <div css={submitWrap}>
-            <button css={submitBtn} type="submit" disabled={status === 'pending'}>
+            <button css={submitBtn} type="submit" disabled={loading || status === 'pending'}>
               작성 완료
             </button>
             {/* <div css={indicatorAreaCss} /> */}
