@@ -1,27 +1,27 @@
-import { CSSObject } from '@emotion/react';
+import { CSSObject, Theme } from '@emotion/react';
 import { f } from 'styles';
 
-const buttonWrapper: [CSSObject, CSSObject[], CSSObject] = [
+const submitWrap: CSSObject[] = [
   f.fullWidth,
-  f.flexColumn,
   {
-    justifyContent: 'center',
-    gap: '24px',
     position: 'fixed',
-    left: 0,
-    right: 0,
-    bottom: '16px',
-    borderRadius: '8px',
-    padding: '20px 24px',
+    bottom: 0,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    background: '#141517',
+    padding: '16px 20px 24px',
   },
 ];
 
-const tooltip: [CSSObject[], CSSObject] = [
-  f.flexAlignCenter,
-  {
-    gap: '6px',
-    marginTop: '16px',
-  },
-];
+const submitBtn = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
+  padding: '0 14px',
+  fontSize: fontSize[14],
+  width: '100%',
+  height: '48px',
+  background: 'rgb(196, 212, 252)',
+  color: '#141517',
+  fontWeight: fontWeight[600],
+  borderRadius: '8px',
+});
 
-export { buttonWrapper, tooltip };
+export { submitWrap, submitBtn };

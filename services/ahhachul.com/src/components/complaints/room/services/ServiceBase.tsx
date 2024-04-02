@@ -1,27 +1,14 @@
 import React from 'react';
 import { Box, Flex } from '@ahhachul/react-components-layout';
-import { css } from '@emotion/react';
-import { COMPLAINTS_CONTENTS_TYPES, COMPLAINTS_ROOM_SERVICE_INFO } from 'data/complaints';
+import { COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
 import { Text } from '@ahhachul/react-components-layout';
 import styled from '@emotion/styled';
 
 function ServiceBase(props: { page: COMPLAINTS_CONTENTS_TYPES; children: React.ReactNode }) {
-  const { page, children } = props;
+  const { children } = props;
 
   return (
-    <Box
-      css={css`
-        padding: 48px 20px 128px;
-      `}
-    >
-      <Flex direction="column" gap="4px" style={{ marginBottom: '24px' }}>
-        <Text fontSize="md" style={{ color: '#ffffff', fontWeight: 600 }}>
-          {COMPLAINTS_ROOM_SERVICE_INFO[page].title}
-        </Text>
-        <Text fontSize="sm" style={{ color: '#f7f7f7' }}>
-          {COMPLAINTS_ROOM_SERVICE_INFO[page].subTitle}
-        </Text>
-      </Flex>
+    <Box css={{ padding: '48px 20px' }}>
       {children}
       <Flex direction="column" gap="4px" style={{ marginTop: '40px' }}>
         <Text fontSize="md" fontWeight={600} style={{ color: '#ffffff' }}>
@@ -33,7 +20,9 @@ function ServiceBase(props: { page: COMPLAINTS_CONTENTS_TYPES; children: React.R
       </Flex>
       <TextareaWrapper>
         <Textarea
-          placeholder={'내용을 입력해주세요 (500자 이내)\n*서비스 정책에 맞지 않을 경우 자동으로 처리 될 수 있습니다.'}
+          placeholder={
+            '내용을 입력해주세요 (500자 이내)\n*서비스 정책에 맞지 않을 경우 자동으로 삭제 처리 될 수 있습니다.'
+          }
         />
       </TextareaWrapper>
     </Box>

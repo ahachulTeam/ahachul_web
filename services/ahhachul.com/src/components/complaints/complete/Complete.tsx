@@ -25,13 +25,22 @@ const ComplaintsComplete: ActivityComponentType<ComplaintsCompleteProps> = ({ pa
   }, []);
 
   return (
-    <Layout activeTab={false} appBar={{ title: '' }}>
+    <Layout
+      isAllBlack
+      activeTab={false}
+      appBar={{
+        backgroundColorTransitionDuration: '0',
+        title: '',
+        iconColor: '#000',
+        height: '0',
+        backButton: undefined,
+      }}
+    >
       <Box
         as="main"
         style={{
           backgroundColor: '#000',
           width: '100vw',
-          height: '100vh',
           position: 'relative',
         }}
       >
@@ -48,7 +57,7 @@ const ComplaintsComplete: ActivityComponentType<ComplaintsCompleteProps> = ({ pa
             width: '100%',
           }}
         >
-          <video autoPlay loop muted style={{ width: '100%', height: '184px' }}>
+          <video playsInline autoPlay loop muted width={'100%'} height={184} style={{ maxWidth: '100%' }}>
             <source src={completeVideo} />
           </video>
           <Text fontSize="2xl" style={{ color: '#fff', fontWeight: 600, width: '100%' }}>

@@ -16,9 +16,16 @@ interface LayoutProps {
   appBar?: PropOf<typeof AppScreen>['appBar'];
   children: React.ReactNode;
   hasSearch?: boolean;
+  isAllBlack?: boolean;
 }
 
-const Layout: React.FC<LayoutProps> = ({ activeTab = 'Home', appBar, hasSearch = false, children }) => {
+const Layout: React.FC<LayoutProps> = ({
+  activeTab = 'Home',
+  appBar,
+  hasSearch = false,
+  isAllBlack = false,
+  children,
+}) => {
   const { loading, snackBars } = useAppSelector((state) => state.ui);
   const { push, replace, defaultAppBar } = useDefaultAppBar(hasSearch);
 
@@ -33,7 +40,7 @@ const Layout: React.FC<LayoutProps> = ({ activeTab = 'Home', appBar, hasSearch =
         iconColor: theme.color.scale.gray[1000],
         onTopClick: scrollToTop,
       }}
-      backgroundColor={theme.color.static.dark.gray[200]}
+      backgroundColor={isAllBlack ? theme.color.static.dark.gray[0] : theme.color.static.dark.gray[200]}
     >
       <div css={wrapper}>
         <div ref={topEl} css={scrollable(Boolean(activeTab))}>

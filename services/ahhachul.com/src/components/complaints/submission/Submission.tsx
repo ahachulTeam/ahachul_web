@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { ActivityComponentType } from '@stackflow/react';
 import { Layout } from 'components/layout';
-// import loadable from '@loadable/component';
-import styled from '@emotion/styled';
-import { vars } from '@ahhachul/themes';
-import { Button } from '@ahhachul/react-components-button';
-import { Flex, Text } from '@ahhachul/react-components-layout';
 import { COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
 import { useFlow } from 'stackflow';
 import loadable from '@loadable/component';
+import { exportHexColorWidthLineName, exportSubwayInfoFromTrainNumber } from 'utils/export';
+import { CSSObject, Theme } from '@emotion/react';
+import { f } from 'styles';
 
 type ComplaintsSubmissionProps = {
   slug: COMPLAINTS_CONTENTS_TYPES;
+  trainNumber: string;
 };
 
 const AsyncRoomService = loadable(
@@ -27,66 +26,80 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
     push('ComplaintsComplete', { slug: params.slug });
   };
 
+  const trainNumber = params.trainNumber;
+  const trainInfo = exportSubwayInfoFromTrainNumber(trainNumber);
+
   return (
     <Layout activeTab={false} appBar={{ title: params.slug }}>
-      <Flex
-        as="main"
-        justify="center"
-        align="center"
-        gap="12px"
-        style={{
-          height: '85px',
-          backgroundColor: '#242424',
-        }}
-      >
-        <Flex
-          justify="center"
-          align="center"
-          style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '50%',
-            backgroundColor: '#01A9E6',
-          }}
-        >
-          <Text fontSize="xs" style={{ color: 'white', fontWeight: 600 }}>
-            1192
-          </Text>
-        </Flex>
-        <Text fontSize="lg" style={{ color: 'white', fontWeight: 600 }}>
-          대화행
-        </Text>
-      </Flex>
-      <AsyncRoomService page={params.slug} />
-      <ButtonWrap align="center" justify="center" style={{ backgroundColor: vars.colors.$static.dark.color.black }}>
-        <Button
-          size="md"
-          color="whiteAlpha"
-          onClick={next}
-          style={{
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '48px',
-            borderRadius: '8px',
-            color: vars.colors.$static.dark.color.black,
-            backgroundColor: vars.colors.$static.dark.color.white,
-          }}
-        >
-          민원접수
-        </Button>
-      </ButtonWrap>
+      <main css={wrap}>
+        <div css={trainLabelsWrap(exportHexColorWidthLineName(trainInfo.lineName))}>
+          <span>
+            {trainInfo.lineName} / {trainNumber} / {trainInfo.roomNumber}번째 칸
+          </span>
+        </div>
+        <AsyncRoomService page={params.slug} />
+        <div css={submitWrap}>
+          <button css={submitBtn} onClick={next}>
+            민원접수
+          </button>
+        </div>
+      </main>
     </Layout>
   );
 };
 
-const ButtonWrap = styled(Flex)`
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 20px 20px 36px 20px;
-`;
+const wrap = [f.fullWidth, f.flexColumn, { padding: '26px 0 120px 0' }];
+
+const trainLabelsWrap =
+  (pointColor: CSSProperties['color']) =>
+  ({
+    color: {
+      static: {
+        dark: { gray },
+      },
+    },
+    typography: { fontSize, fontWeight },
+  }: Theme) => ({
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    padding: '0 20px',
+
+    '& > span': {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: '12px',
+      padding: '0 12px',
+      height: '32px',
+      color: gray[1000],
+      fontSize: fontSize[12],
+      fontWeight: fontWeight[500],
+      background: pointColor,
+    },
+  });
+
+const submitWrap: CSSObject[] = [
+  f.fullWidth,
+  {
+    position: 'fixed',
+    bottom: 0,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    background: '#141517',
+    padding: '16px 20px 24px',
+  },
+];
+
+const submitBtn = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
+  padding: '0 14px',
+  fontSize: fontSize[14],
+  width: '100%',
+  height: '48px',
+  background: 'rgb(196, 212, 252)',
+  color: '#141517',
+  fontWeight: fontWeight[600],
+  borderRadius: '8px',
+});
 
 export default ComplaintsSubmission;
