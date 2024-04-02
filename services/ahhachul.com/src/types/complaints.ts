@@ -10,3 +10,5 @@ export interface IComplaint {
   /** 민원 요약 정보 */
   shortContent: string;
 }
+
+export interface IComplaintForm extends IComplaint {}

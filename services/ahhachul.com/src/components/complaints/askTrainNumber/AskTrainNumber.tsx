@@ -98,7 +98,7 @@ const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] = 
       color: 'rgb(196, 212, 252, 0.7)',
       fontSize: fontSize[14],
       fontWeight: fontWeight[400],
-      marginTop: '24px',
+      marginTop: '16px',
 
       '& > div > svg > path': {
         '&:first-of-type': {

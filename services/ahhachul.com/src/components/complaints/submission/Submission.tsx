@@ -2,11 +2,11 @@ import React, { CSSProperties } from 'react';
 import { ActivityComponentType } from '@stackflow/react';
 import { Layout } from 'components/layout';
 import { COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
-import { useFlow } from 'stackflow';
 import loadable from '@loadable/component';
 import { exportHexColorWidthLineName, exportSubwayInfoFromTrainNumber } from 'utils/export';
 import { CSSObject, Theme } from '@emotion/react';
 import { f } from 'styles';
+import { useComplaintsArticle } from 'queries/complaints';
 
 type ComplaintsSubmissionProps = {
   slug: COMPLAINTS_CONTENTS_TYPES;
@@ -21,25 +21,31 @@ const AsyncRoomService = loadable(
 );
 
 const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = ({ params }) => {
-  const { push } = useFlow();
-  const next = () => {
-    push('ComplaintsComplete', { slug: params.slug });
-  };
+  const { mutate } = useComplaintsArticle();
+  const trainNo = params.trainNumber;
+  const trainInfo = exportSubwayInfoFromTrainNumber(trainNo);
 
-  const trainNumber = params.trainNumber;
-  const trainInfo = exportSubwayInfoFromTrainNumber(trainNumber);
+  const handleSubmit = () => {
+    mutate({
+      trainNo,
+      subwayLineId: '',
+      content: '',
+      complaintType: params.slug,
+      shortContent: '',
+    });
+  };
 
   return (
     <Layout activeTab={false} appBar={{ title: params.slug }}>
       <main css={wrap}>
         <div css={trainLabelsWrap(exportHexColorWidthLineName(trainInfo.lineName))}>
           <span>
-            {trainInfo.lineName} / {trainNumber} / {trainInfo.roomNumber}번째 칸
+            {trainInfo.lineName} / {trainNo} / {trainInfo.roomNumber}번째 칸
           </span>
         </div>
         <AsyncRoomService page={params.slug} />
         <div css={submitWrap}>
-          <button css={submitBtn} onClick={next}>
+          <button css={submitBtn} onClick={handleSubmit}>
             민원접수
           </button>
         </div>

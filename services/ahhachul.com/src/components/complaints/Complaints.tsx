@@ -4,7 +4,7 @@ import { Box } from '@ahhachul/react-components-layout';
 
 import { useFlow } from 'stackflow';
 import { ComplaintsComponent } from 'components';
-import { COMPLAINTS_CONTENTS, COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
+import { COMPLAINTS_CONTENTS, COMPLAINTS_CONTENTS_TYPES, COMPLAINTS_CONTENTS_VALUE_TYPES } from 'data/complaints';
 import { grid, grid2, wrap, sectionLabel } from './style';
 
 const Room = (serviceName: string) => {
@@ -15,8 +15,8 @@ const Room = (serviceName: string) => {
 
 const Complaints = () => {
   const { push } = useFlow();
-  const next = (slug: string) => {
-    push('AskTrainNumber', { slug: slug as COMPLAINTS_CONTENTS_TYPES });
+  const next = (slug: COMPLAINTS_CONTENTS_TYPES) => {
+    push('AskTrainNumber', { slug: slug });
   };
 
   return (
@@ -26,7 +26,7 @@ const Complaints = () => {
         <ul css={grid}>
           {Object.entries(COMPLAINTS_CONTENTS)
             .slice(0, 4)
-            .map(([key, value]) => (
+            .map(([key, value]: [COMPLAINTS_CONTENTS_TYPES, COMPLAINTS_CONTENTS_VALUE_TYPES]) => (
               <li key={key} onMouseOver={() => Room(key).preload()} onClick={() => next(key)}>
                 <ComplaintsComponent.ComplaintCard
                   title={value.label}
@@ -42,7 +42,7 @@ const Complaints = () => {
         <ul css={grid2}>
           {Object.entries(COMPLAINTS_CONTENTS)
             .slice(4, 7)
-            .map(([key, value]) => (
+            .map(([key, value]: [COMPLAINTS_CONTENTS_TYPES, COMPLAINTS_CONTENTS_VALUE_TYPES]) => (
               <li key={key} onMouseOver={() => Room(key).preload()} onClick={() => next(key)}>
                 <ComplaintsComponent.ComplaintCard
                   title={value.label}

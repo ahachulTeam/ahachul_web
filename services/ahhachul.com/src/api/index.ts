@@ -11,3 +11,4 @@ export * as AuthApi from './auth';
 export * as LostApi from './lost';
 export * as MemberApi from './member';
 export * as CommunityApi from './community';
+export * as ComplaintsApi from './complaints';

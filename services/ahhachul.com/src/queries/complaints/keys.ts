@@ -1,0 +1,7 @@
+const KEY = ['LOST'];
+
+const COMPLAINTS_LIST_KEY = [...KEY, 'LIST'];
+
+const COMPLAINTS_DETAIL_KEY = [...KEY, 'DETAIL'];
+
+export { KEY, COMPLAINTS_LIST_KEY, COMPLAINTS_DETAIL_KEY };

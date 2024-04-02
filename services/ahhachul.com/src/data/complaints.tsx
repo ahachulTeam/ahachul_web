@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { KeyOf } from 'types/utility-types';
+import { KeyOf, ValueOf } from 'types/utility-types';
 import SelectButtonImage from 'components/complaints/room/SelectButtonImage';
 
 import 오물 from 'static/img/complaints/오물.png';
@@ -54,6 +54,7 @@ export const COMPLAINTS_CONTENTS = {
 } as const;
 
 export type COMPLAINTS_CONTENTS_TYPES = KeyOf<typeof COMPLAINTS_CONTENTS>;
+export type COMPLAINTS_CONTENTS_VALUE_TYPES = ValueOf<typeof COMPLAINTS_CONTENTS>;
 
 export type COMPLAINTS_ROOM_SERVICE_INFO_TYPES = {
   [key in COMPLAINTS_CONTENTS_TYPES]: {
