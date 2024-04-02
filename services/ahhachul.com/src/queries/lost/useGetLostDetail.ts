@@ -14,7 +14,6 @@ export const useGetLostDetail = (
     },
     select: (res) => {
       const hasImage = res.data.result.images.length > 0;
-      console.log('res.data.result.images:', res.data.result.images);
       return { ...res.data.result, hasImage };
     },
   });

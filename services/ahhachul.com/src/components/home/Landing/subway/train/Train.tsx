@@ -17,8 +17,6 @@ function Train({ trainNo, subwayLineId }: TrainProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [containerWidth, setContainerWidth] = useState(0);
 
-  console.log('trainNo:', trainNo);
-
   const { data } = useGetTrainCongestionInfo({ trainNo, subwayLineId });
 
   useIsomorphicLayoutEffect(() => {
