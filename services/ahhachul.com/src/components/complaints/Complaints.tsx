@@ -1,24 +1,12 @@
 import React from 'react';
-import loadable from '@loadable/component';
 import { Box } from '@ahhachul/react-components-layout';
 
-import { useFlow } from 'stackflow';
+import { Link } from 'stackflow';
 import { ComplaintsComponent } from 'components';
 import { COMPLAINTS_CONTENTS, COMPLAINTS_CONTENTS_TYPES, COMPLAINTS_CONTENTS_VALUE_TYPES } from 'data/complaints';
 import { grid1, grid2, wrap, sectionLabel } from './style';
 
-const Room = (serviceName: string) => {
-  return loadable(() => import(`./room/services/${serviceName}`), {
-    cacheKey: () => serviceName,
-  });
-};
-
 const Complaints = () => {
-  const { push } = useFlow();
-  const next = (slug: COMPLAINTS_CONTENTS_TYPES) => {
-    push('AskTrainNumber', { slug });
-  };
-
   return (
     <main css={wrap}>
       <Box>
@@ -27,12 +15,14 @@ const Complaints = () => {
           {Object.entries(COMPLAINTS_CONTENTS)
             .slice(0, 4)
             .map(([key, value]: [COMPLAINTS_CONTENTS_TYPES, COMPLAINTS_CONTENTS_VALUE_TYPES]) => (
-              <li key={key} onMouseOver={() => Room(key).preload()} onClick={() => next(key)}>
-                <ComplaintsComponent.ComplaintCard
-                  title={value.label}
-                  description={value.description}
-                  icon={value?.icon}
-                />
+              <li key={key}>
+                <Link activityName="AskTrainNumber" activityParams={{ slug: key }}>
+                  <ComplaintsComponent.ComplaintCard
+                    title={value.label}
+                    description={value.description}
+                    icon={value?.icon}
+                  />
+                </Link>
               </li>
             ))}
         </ul>
@@ -43,12 +33,14 @@ const Complaints = () => {
           {Object.entries(COMPLAINTS_CONTENTS)
             .slice(4, 7)
             .map(([key, value]: [COMPLAINTS_CONTENTS_TYPES, COMPLAINTS_CONTENTS_VALUE_TYPES]) => (
-              <li key={key} onMouseOver={() => Room(key).preload()} onClick={() => next(key)}>
-                <ComplaintsComponent.ComplaintCard
-                  title={value.label}
-                  description={value.description}
-                  icon={value?.icon}
-                />
+              <li key={key}>
+                <Link activityName="AskTrainNumber" activityParams={{ slug: key }}>
+                  <ComplaintsComponent.ComplaintCard
+                    title={value.label}
+                    description={value.description}
+                    icon={value?.icon}
+                  />
+                </Link>
               </li>
             ))}
         </ul>

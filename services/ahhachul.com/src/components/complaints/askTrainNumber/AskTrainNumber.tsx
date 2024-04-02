@@ -23,6 +23,7 @@ const AskTrainNumber: ActivityComponentType<AskTrainNumberProps> = ({ params }) 
 
   const dispatch = useDispatch();
   const inputRef = useRef<HTMLInputElement | null>(null);
+
   const next = () => {
     if (!inputRef.current.value) {
       dispatch(addSnackBar({ message: '열차번호를 입력해주세요', posBottom: 115 }));
