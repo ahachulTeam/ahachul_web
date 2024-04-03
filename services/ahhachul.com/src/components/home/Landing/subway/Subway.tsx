@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useState } from 'react';
 
 import { filterWrap, loading, sectionWrap, title, wrap } from './style';
-import { css } from '@emotion/react';
+import { css, CSSObject, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import Train from './train/Train';
 import IconFetch from 'static/icons/system/IconFetch';
@@ -13,6 +13,7 @@ import { useGetTrainsRealTimeInfo } from 'queries/train/useGetTrainsRealTimeInfo
 import { exportHexColorWidthLineName, formatCurrentTrainArrivalTypeToKo } from 'utils/export';
 import { ITrain, Nullable } from 'types';
 import { AnimatePresence, motion, Variants } from 'framer-motion';
+import TrainError from './train/TrainError';
 
 const defaultEasing = [0.6, -0.05, 0.01, 0.99];
 
@@ -59,6 +60,8 @@ const Subway = () => {
   const swapSelectedTrain = (train: ITrain) => () => {
     setSelectedTrain(train);
   };
+
+  const [refetchBtnClicked, setRefetchBtnClicked] = useState(false);
 
   const { data, isSuccess, isLoading, refetch } = useGetTrainsRealTimeInfo(initialSelectedData);
 
@@ -125,7 +128,17 @@ const Subway = () => {
                   <TopInfo variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
                     <b>{formatCurrentTrainArrivalTypeToKo(selectedTrain?.currentTrainArrivalCode)}</b>
                     <span>{selectedTrain?.destinationStationDirection}</span>
-                    <button onClick={() => refetch()}>
+                    <button
+                      onClick={() => {
+                        setRefetchBtnClicked(true);
+                        refetch();
+
+                        setTimeout(() => {
+                          setRefetchBtnClicked(false);
+                        }, 1000);
+                      }}
+                      css={refetchBtnCss(refetchBtnClicked)}
+                    >
                       <IconFetch css={{ position: 'relative', top: '1px' }} />
                     </button>
                   </TopInfo>
@@ -155,7 +168,7 @@ const Subway = () => {
                 </div>
               </TrainInfoTop>
               <div css={{ position: 'relative', minHeight: '31px' }}>
-                <ErrorComponent.QueryErrorBoundary>
+                <ErrorComponent.QueryErrorBoundary fallback={(props) => <TrainError {...props} />}>
                   <Suspense fallback={<UiComponent.PartialLoading css={loading} size={'98px'} />}>
                     {/* 이게 맞나 ? */}
                     {selectedTrain?.trainNum ? (
@@ -177,10 +190,18 @@ const Subway = () => {
                       <BottomInfo variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
                         {data?.trainRealTimes?.map((item, idx) => (
                           <li key={item.currentArrivalTime} onClick={swapSelectedTrain(item)}>
-                            <b css={{ fontWeight: idx === 0 ? '700 !important' : '400' }}>
+                            <b
+                              css={{
+                                fontWeight: item?.trainNum === selectedTrain?.trainNum ? '700 !important' : '400',
+                              }}
+                            >
                               {item.destinationStationDirection}
                             </b>
-                            <span css={{ fontWeight: idx === 0 ? '700 !important' : '400' }}>
+                            <span
+                              css={{
+                                fontWeight: item?.trainNum === selectedTrain?.trainNum ? '700 !important' : '400',
+                              }}
+                            >
                               {idx === 0 ? '진입' : idx === 1 ? '2분' : idx === 2 ? '7분 37초' : '11분 32초'}
                             </span>
                             {/* <span>{!item.currentArrivalTime ? '진입' : `${item.currentArrivalTime}분전`}</span> */}
@@ -348,18 +369,6 @@ const TopInfo = styled(motion.div)`
     font-size: 14px;
     color: #ffffff;
   }
-
-  & > button {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-
-    & > div > svg {
-      width: 18px;
-      height: 18px;
-    }
-  }
 `;
 
 const BottomInfo = styled(motion.ul)`
@@ -378,6 +387,11 @@ const BottomInfo = styled(motion.ul)`
     justify-content: center;
     gap: 8px;
     width: 100%;
+    transition: opacity 0.2s ease;
+
+    &:active {
+      opacity: 0.7;
+    }
 
     & > li > b:first-of-type {
       font-weight: bold;
@@ -408,5 +422,23 @@ const allTrainsBtnCss = css`
   background: #434343;
   margin-top: 28px;
 `;
+
+const rotateAni = keyframes`
+  0% { transform: translateY(-50%) rotate(0deg); }
+  100% { transform: translateY(-50%) rotate(360deg); }
+`;
+
+const refetchBtnCss = (isClicked: boolean): CSSObject => ({
+  position: 'absolute',
+  top: '50%',
+  right: 0,
+  transform: 'translateY(-50%)',
+  animation: isClicked && `${rotateAni} 0.8s forwards`,
+
+  '& > div > svg': {
+    width: '18px',
+    height: '18px',
+  },
+});
 
 export default Subway;

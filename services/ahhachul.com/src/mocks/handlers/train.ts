@@ -1,5 +1,6 @@
 import { http, delay, HttpResponse } from 'msw';
 import { API_BASE_URL } from 'data/api';
+import { getRandomBoolean } from 'mocks/utils';
 
 const fotTwo = [
   {
@@ -179,7 +180,7 @@ const getTrainsRealTimeInfo = http.get(API_BASE_URL + '/trains/real-times', asyn
   const params = new URLSearchParams(url.split('?')[1]);
   const subwayLineId = params.get('subwayLineId');
 
-  await delay(400);
+  await delay(200);
 
   if (subwayLineId === '2') {
     return HttpResponse.json(getTrainsRealTimeInfoResponse(true));
@@ -194,10 +195,16 @@ const getTrainCongestion = http.get(API_BASE_URL + '/trains/real-times/congestio
   const subwayLineId = params.get('subwayLineId');
   await delay(400);
 
-  if (subwayLineId === '2') {
-    return HttpResponse.json(getTrainCongestionResponse(true));
+  const bool = getRandomBoolean();
+
+  if (bool) {
+    if (subwayLineId === '2') {
+      return HttpResponse.json(getTrainCongestionResponse(true));
+    } else {
+      return HttpResponse.json(getTrainCongestionResponse(false));
+    }
   } else {
-    return HttpResponse.json(getTrainCongestionResponse(false));
+    throw new Error();
   }
 });
 
