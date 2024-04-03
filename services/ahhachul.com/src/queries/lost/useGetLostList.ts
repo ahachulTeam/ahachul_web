@@ -3,6 +3,7 @@ import { getLostList, getLostListURL } from 'api/lost';
 import { getQueryKeys } from 'queries/query-key';
 import { type ILostParams as GetLostListRequestParams, type ILostList as GetLostListResponse } from 'types/lost';
 import { LOST_LIST_KEY } from './keys';
+import { IResponse } from 'types';
 
 type Params = GetLostListRequestParams & {
   initPageToken?: number;
@@ -10,7 +11,7 @@ type Params = GetLostListRequestParams & {
 
 export const useGetLostList = (
   params: Params,
-): UseSuspenseInfiniteQueryResult<InfiniteData<GetLostListResponse, Error>> => {
+): UseSuspenseInfiniteQueryResult<InfiniteData<IResponse<GetLostListResponse>, Error>> => {
   return useSuspenseInfiniteQuery({
     queryKey: getQueryKeys(LOST_LIST_KEY).list({ params, getLostListURL }),
     queryFn: async ({ pageParam = params?.initPageToken }) => {

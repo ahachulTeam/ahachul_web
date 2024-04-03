@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ILostStore, LostType } from 'types';
 
 const initialState: ILostStore = {
-  activeTab: 'LOST',
+  activeTab: 'ACQUIRE',
 };
 
 const {

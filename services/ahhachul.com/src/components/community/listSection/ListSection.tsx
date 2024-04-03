@@ -1,8 +1,11 @@
 import { Box, Flex } from '@ahhachul/react-components-layout';
 
 import { useGetCommunityList } from 'queries/community/useGetCommunityList';
+// import { useMemo } from 'react';
 import { useAppSelector } from 'stores';
-import { flattenInfinityListData } from 'utils/response';
+// import { ILostList } from 'types';
+// import { flattenInfinityListData } from 'utils/response';
+// import { flattenInfinityListData } from 'utils/response';
 import TalkLoungeCard from './Item';
 import { ul } from './style';
 
@@ -10,9 +13,15 @@ function ListSection() {
   const { activeTab } = useAppSelector((state) => state.community);
   const { data } = useGetCommunityList({ page: 1, size: 20, sort: 'answeredAt,asc', categoryType: activeTab });
 
-  const flatData = flattenInfinityListData(data);
+  console.log('data:', data);
 
-  console.log('flatData :', flatData);
+  // const flatData = flattenInfinityListData<ILostList>(data);
+
+  // console.log('flatData :', flatData);
+
+  // const flatData = useMemo(() => (data ? data.pages.flatMap((data) => data.result.posts) : []), [data]);
+
+  // console.log('flatData :', flatData);
 
   return (
     <Box as="section" css={{ padding: '24px 0' }}>

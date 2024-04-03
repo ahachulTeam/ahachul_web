@@ -16,7 +16,7 @@ export const getLostListURL = `${API_BASE_URL}/lost-posts`;
 export const getLostList = async (params: GetLostListRequestParams) => {
   const queryParams = queryString.stringify(params);
 
-  const url = `${getLostListURL}?${queryParams}`;
+  const url = `http://13.209.145.241:8080/v1/lost-posts?${queryParams}`;
 
   return await base.get<IResponse<GetLostListResponse>>(url);
 };

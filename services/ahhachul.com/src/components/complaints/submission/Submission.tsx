@@ -18,7 +18,6 @@ type ComplaintsSubmissionProps = {
 
 const INIT_STATE: IComplaintForm = {
   trainNo: '',
-  subwayLineId: '',
   content: '',
   complaintType: '',
   shortContent: '',
@@ -43,14 +42,11 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
     [],
   );
 
-  console.log('formRef.current:', formRef.current);
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutate({
       ...formRef.current,
       trainNo,
-      subwayLineId: '',
-      shortContent: '',
       complaintType: params.slug,
     });
   };
@@ -63,7 +59,7 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
             <span>지하철 정보</span>
             <div css={trainLabelsWrap(exportHexColorWidthLineName(trainInfo.lineName))}>
               <span>
-                {trainNo} / {trainInfo.lineName} / {trainInfo.roomNumber}번째 칸
+                {trainNo} / {trainInfo.lineName} {trainInfo.roomNumber && `/ ${trainInfo.roomNumber}번째 칸`}
               </span>
             </div>
           </div>

@@ -4,6 +4,7 @@ import { getQueryKeys } from 'queries/query-key';
 import {
   type ICommunityParams as GetCommunityListRequestParams,
   type ICommunityList as GetCommunityListResponse,
+  IResponse,
 } from 'types';
 import { COMMUNITY_LIST_KEY } from './keys';
 
@@ -13,7 +14,7 @@ type Params = GetCommunityListRequestParams & {
 
 export const useGetCommunityList = (
   params: Params,
-): UseSuspenseInfiniteQueryResult<InfiniteData<GetCommunityListResponse, Error>> => {
+): UseSuspenseInfiniteQueryResult<InfiniteData<IResponse<GetCommunityListResponse>, Error>> => {
   return useSuspenseInfiniteQuery({
     queryKey: getQueryKeys(COMMUNITY_LIST_KEY).list({ params, getCommunityListURL }),
     queryFn: async ({ pageParam = params?.initPageToken }) => {

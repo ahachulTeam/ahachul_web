@@ -9,14 +9,14 @@ import { setTab } from 'stores/lost';
 
 const LOST_AND_FOUND_TABS = {
   acquire: {
-    icon: <IconCircleDown />,
+    icon: <IconCircleUp />,
     label: '습득물',
-    value: 'LOST',
+    value: 'ACQUIRE',
   },
   lost: {
-    icon: <IconCircleUp />,
+    icon: <IconCircleDown />,
     label: '분실물',
-    value: 'ACQUIRE',
+    value: 'LOST',
   },
 } as const;
 
@@ -49,7 +49,11 @@ function TabSection() {
               <Text
                 as="p"
                 fontSize="sm"
-                css={{ color: value === activeTab ? '#c9cedc !important' : '#697183 !important', marginTop: '8px' }}
+                css={{
+                  color: value === activeTab ? '#c9cedc !important' : '#697183 !important',
+                  marginTop: '8px',
+                  fontWeight: value === activeTab ? '600 !important' : 400,
+                }}
               >
                 {label}
               </Text>

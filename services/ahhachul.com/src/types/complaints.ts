@@ -1,8 +1,6 @@
 export interface IComplaint {
   /** 열차 번호 */
   trainNo: string;
-  /**  지하철 호선 아이디 */
-  subwayLineId: string;
   /** 민원 세부 내용 */
   content: string;
   /** 민원 타입 */

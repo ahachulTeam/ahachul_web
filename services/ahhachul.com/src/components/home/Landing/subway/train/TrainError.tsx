@@ -23,6 +23,7 @@ const errWrap = ({
   alignItems: 'center',
   justifyContent: 'center',
   position: 'absolute',
+  width: '100%',
   top: '20px',
   left: '50%',
   transform: 'translateX(-50%)',
