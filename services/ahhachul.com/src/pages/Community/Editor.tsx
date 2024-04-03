@@ -51,6 +51,7 @@ const CommunityEditor = () => {
     },
     [],
   );
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 

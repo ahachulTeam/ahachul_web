@@ -1,7 +1,7 @@
-import React, { CSSProperties, FormEvent, useCallback, useRef } from 'react';
+import React, { CSSProperties, FormEvent, memo, useCallback, useRef, useState } from 'react';
 import { ActivityComponentType } from '@stackflow/react';
 import { Layout } from 'components/layout';
-import { COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
+import { COMPLAINTS_CONTENTS_TYPES, COMPLAINTS_ROOM_SERVICE_INFO } from 'data/complaints';
 import { exportHexColorWidthLineName, exportSubwayInfoFromTrainNumber } from 'utils/export';
 import { CSSObject, Theme } from '@emotion/react';
 import { f } from 'styles';
@@ -36,6 +36,14 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
     formRef.current.content = JSON.stringify(targetValue.toJSON());
   }, []);
 
+  const handleChangeSelect = useCallback(
+    (type: string) => () => {
+      formRef.current.shortContent = type;
+    },
+    [],
+  );
+
+  console.log('formRef.current:', formRef.current);
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutate({
@@ -60,6 +68,13 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
             </div>
           </div>
           <div css={section}>
+            <span>{COMPLAINTS_ROOM_SERVICE_INFO[params.slug].title}</span>
+            <SelectComponent
+              selectList={COMPLAINTS_ROOM_SERVICE_INFO[params.slug].selectList}
+              handleChangeSelect={handleChangeSelect}
+            />
+          </div>
+          <div css={section}>
             <span>자세한 설명</span>
             <UiComponent.Editor onChange={handleChangeContent} />
           </div>
@@ -73,6 +88,33 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
     </Layout>
   );
 };
+
+const SelectComponent = memo(
+  ({
+    selectList,
+    handleChangeSelect,
+  }: {
+    selectList: Record<string, string>;
+    handleChangeSelect: (type: string) => () => void;
+  }) => {
+    const [current, setCurrent] = useState('');
+
+    const handleToggle = (type: any) => () => {
+      setCurrent(type);
+      handleChangeSelect(type)();
+    };
+
+    return (
+      <div css={buttonGroup}>
+        {Object.entries(selectList).map(([key, val]) => (
+          <button key={key} type="button" css={toggleBtn(current === key)} onClick={handleToggle(key)}>
+            {val}
+          </button>
+        ))}
+      </div>
+    );
+  },
+);
 
 const wrap = [f.fullWidth, f.flexColumn, { padding: '26px 0 120px 0' }];
 
@@ -106,6 +148,23 @@ const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] = 
     },
   }),
 ];
+
+const buttonGroup = [f.flexAlignCenter];
+
+const toggleBtn =
+  (isActive: boolean) =>
+  ({ typography: { fontSize, fontWeight } }: Theme) => ({
+    border: '1px solid rgb(196, 212, 252, 0.37)',
+    height: '32px',
+    borderRadius: '124px',
+    padding: '0 14px',
+    fontSize: fontSize[14],
+    width: 'max-content',
+    marginRight: '8px',
+    background: isActive ? 'rgb(196, 212, 252)' : 'inherit',
+    color: isActive ? '#141517' : '#9da5b6',
+    fontWeight: isActive ? fontWeight[600] : fontWeight[400],
+  });
 
 const trainLabelsWrap =
   (pointColor: CSSProperties['color']) =>

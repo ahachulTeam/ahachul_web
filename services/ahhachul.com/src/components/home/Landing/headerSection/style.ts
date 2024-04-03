@@ -22,10 +22,10 @@ const btn_wrap = [
   f.flexAlignCenter,
   ({ typography: { fontSize, fontWeight, lineHeight } }: Theme) => ({
     '& > button': {
-      height: '32px',
-      border: '1.5px solid hsla(0, 0%, 100%, .39)',
+      height: '36px',
+      backgroundColor: 'hsla(0, 0%, 100%, .19)',
       borderRadius: '8px',
-      padding: '0 8px',
+      padding: '0 12px',
       display: 'flex',
       alignItems: 'center',
       color: '#e6e6e6',

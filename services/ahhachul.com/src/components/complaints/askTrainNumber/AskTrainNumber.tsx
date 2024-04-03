@@ -37,6 +37,10 @@ const AskTrainNumber: ActivityComponentType<AskTrainNumberProps> = ({ params }) 
     }
   };
 
+  const clickNoTrainNumber = () => {
+    dispatch(addSnackBar({ message: '준비중이에요', posBottom: 115 }));
+  };
+
   return (
     <Layout activeTab={false} appBar={{ title: params.slug }}>
       <Box as="main" css={{ padding: '20px' }}>
@@ -52,7 +56,7 @@ const AskTrainNumber: ActivityComponentType<AskTrainNumberProps> = ({ params }) 
       <div css={section}>
         <span>열차번호</span>
         <input ref={inputRef} placeholder="열차번호" />
-        <button>
+        <button onClick={clickNoTrainNumber}>
           <span>열차번호 없이 민원신고 하기</span>
           <IconChevron />
         </button>
@@ -100,7 +104,7 @@ const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] = 
       width: '100%',
       display: 'inline-flex',
       alignItems: 'center',
-      justifyContent: 'space-between',
+      justifyContent: 'flex-end',
       color: 'rgb(196, 212, 252, 0.7)',
       fontSize: fontSize[14],
       fontWeight: fontWeight[400],
