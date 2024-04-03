@@ -1,11 +1,12 @@
 import styled, { CSSObject } from '@emotion/styled';
-import { useIsomorphicLayoutEffect } from 'framer-motion';
+import { AnimatePresence, useIsomorphicLayoutEffect, motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 import throttle from 'lodash-es/throttle';
 import TrainEachBox from './Box';
 import TrainSvg from './SVG';
 import { useGetTrainCongestionInfo } from 'queries/train/useGetTrainCongestionInfo';
 import { formatCongestionColorToHexColor } from 'utils/export';
+import { defaultFadeInVariants } from '../Subway';
 
 interface TrainProps {
   trainNo: string;
@@ -43,24 +44,32 @@ function Train({ trainNo, subwayLineId }: TrainProps) {
           {data?.congestions?.map((item, i) => (
             <li key={i}>
               <TrainEachBox color={formatCongestionColorToHexColor(item?.congestionColor)} roomNumber={i + 1} />
-              {item?.congestionColor === 'SMOOTH' && (
-                <div css={tooltip}>
-                  <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M11.5 20.125C16.2635 20.125 20.125 16.2635 20.125 11.5C20.125 6.73654 16.2635 2.875 11.5 2.875C6.73654 2.875 2.875 6.73654 2.875 11.5C2.875 16.2635 6.73654 20.125 11.5 20.125Z"
-                      fill="#6FDA74"
-                    />
-                    <path
-                      d="M14.375 9.58333L10.5417 13.4167L8.625 11.5"
-                      stroke="white"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <span>추천</span>
-                </div>
-              )}
+              <AnimatePresence mode="wait">
+                {item?.congestionColor === 'SMOOTH' && (
+                  <motion.div
+                    css={tooltip}
+                    variants={defaultFadeInVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                  >
+                    <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M11.5 20.125C16.2635 20.125 20.125 16.2635 20.125 11.5C20.125 6.73654 16.2635 2.875 11.5 2.875C6.73654 2.875 2.875 6.73654 2.875 11.5C2.875 16.2635 6.73654 20.125 11.5 20.125Z"
+                        fill="#6FDA74"
+                      />
+                      <path
+                        d="M14.375 9.58333L10.5417 13.4167L8.625 11.5"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <span>추천</span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </li>
           ))}
         </ul>

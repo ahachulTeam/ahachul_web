@@ -179,7 +179,7 @@ const getTrainsRealTimeInfo = http.get(API_BASE_URL + '/trains/real-times', asyn
   const params = new URLSearchParams(url.split('?')[1]);
   const subwayLineId = params.get('subwayLineId');
 
-  await delay(1200);
+  await delay(400);
 
   if (subwayLineId === '2') {
     return HttpResponse.json(getTrainsRealTimeInfoResponse(true));
