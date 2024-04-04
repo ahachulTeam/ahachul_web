@@ -3,9 +3,9 @@ import { ActivityComponentType } from '@stackflow/react';
 import { Box } from '@ahhachul/react-components-layout';
 
 import { Layout } from 'components/layout';
-import { Toggle } from 'components/ui';
 import { ActivityNotification } from './activityNotifications';
 import { DirectMessage } from './directMessage';
+import { UiComponent } from 'components';
 
 export type AlarmType = 'activityNotification' | 'directMessage';
 
@@ -28,7 +28,7 @@ const Alarm: ActivityComponentType = () => {
       activeTab={false}
     >
       <Box as="main" css={{ padding: '16px 0' }}>
-        <Toggle
+        <UiComponent.Toggle
           tabs={ALARM_TABS}
           defaultValue={tab as string}
           actionFn={handleChangeTab}

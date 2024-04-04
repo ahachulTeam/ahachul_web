@@ -1,6 +1,6 @@
 import { ToggleList, ToggleRoot, ToggleTrigger } from './styled';
 
-interface ToggleProps<T extends Record<string, string>> {
+interface ToggleProps<T extends Record<string, string | React.ReactNode>> {
   tabs: T;
   defaultValue: string;
   name: string;
@@ -8,7 +8,13 @@ interface ToggleProps<T extends Record<string, string>> {
   actionFn: (select: keyof T) => void;
 }
 
-function Toggle<T extends Record<string, string>>({ tabs, defaultValue, name, className, actionFn }: ToggleProps<T>) {
+function Toggle<T extends Record<string, string | React.ReactNode>>({
+  tabs,
+  defaultValue,
+  name,
+  className,
+  actionFn,
+}: ToggleProps<T>) {
   const action = (tab: string) => () => actionFn(tab);
 
   return (

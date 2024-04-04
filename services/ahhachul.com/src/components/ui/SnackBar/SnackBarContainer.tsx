@@ -3,6 +3,7 @@ import { container } from './style';
 import SnackBar from './SnackBar';
 import { ISnackBar } from 'types';
 import { AnimatePresence, motion } from 'framer-motion';
+import { snackBarMotionVariants } from 'data/motion';
 
 function SnackBarContainer({ list, posBottom }: ISnackBar) {
   return (
@@ -22,26 +23,5 @@ function SnackBarContainer({ list, posBottom }: ISnackBar) {
     </AnimatePresence>
   );
 }
-
-const snackBarMotionVariants = {
-  initial: {
-    opacity: 0,
-    y: 40,
-    transition: {
-      duration: 0.3,
-    },
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-  },
-  exit: {
-    opacity: 0,
-    y: 40,
-    transition: {
-      duration: 0.3,
-    },
-  },
-};
 
 export default SnackBarContainer;

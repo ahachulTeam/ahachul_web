@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import { authReducer } from './auth';
 import { communityReducer } from './community';
 import { lostReducer } from './lost';
+import { complaintReducer } from './complaints';
 import { searchReducer } from './search';
 import { uiReducer } from './ui';
 
@@ -22,6 +23,7 @@ const reducers = combineReducers({
   search: searchReducer,
   ui: uiReducer,
   community: communityReducer,
+  complaint: complaintReducer,
   lost: lostReducer,
 });
 const reducer = persistReducer(persistConfig, reducers);

@@ -6,7 +6,7 @@ import TrainEachBox from './Box';
 import TrainSvg from './SVG';
 import { useGetTrainCongestionInfo } from 'queries/train/useGetTrainCongestionInfo';
 import { formatCongestionColorToHexColor } from 'utils/export';
-import { defaultFadeInVariants } from '../Subway';
+import { defaultFadeInVariants } from 'data/motion';
 
 interface TrainProps {
   trainNo: string;

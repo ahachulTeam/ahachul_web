@@ -47,8 +47,23 @@ const ToggleTrigger = styled(Tabs.Trigger)`
   z-index: 2;
   font-weight: 500;
 
+  & > div {
+    width: 16px;
+    height: 16px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  & > div > svg {
+    stroke: #999999;
+  }
+
   &[data-state='active'] {
     color: #fff;
+
+    & > div > svg {
+      stroke: #fff;
+    }
   }
 `;
 

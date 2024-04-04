@@ -1,3 +1,9 @@
+export interface IComplaintStore {
+  activeView: ComplaintViewType;
+}
+
+export type ComplaintViewType = 'SUBMISSION' | 'LIST';
+
 export interface IComplaint {
   /** 열차 번호 */
   trainNo: string;

@@ -7,7 +7,9 @@ import { ComplaintsComponent } from 'components';
 const Complaints: ActivityComponentType = () => {
   return (
     <Layout activeTab={'Complaints'}>
+      <ComplaintsComponent.ComplaintViewToggle />
       <ComplaintsComponent.ComplaintsMain />
+      <ComplaintsComponent.ComplaintList />
     </Layout>
   );
 };

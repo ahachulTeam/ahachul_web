@@ -1,9 +1,10 @@
 import React from 'react';
 import { CSSObject } from '@emotion/react';
 import { useAppSelector } from 'stores';
-import { motion, type Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import { AnimatePortal } from '../../Portal';
+import { defaultFadeInVariants } from 'data/motion';
 
 const FadeInModal = ({ children }: { children: React.ReactNode[] }) => {
   const { showModal, keyword } = useAppSelector((state) => state.search);
@@ -23,7 +24,7 @@ const FadeInModal = ({ children }: { children: React.ReactNode[] }) => {
             initial="initial"
             animate="animate"
             exit="exit"
-            variants={fadeInVariants}
+            variants={defaultFadeInVariants}
           >
             {base}
           </motion.dialog>
@@ -40,7 +41,7 @@ const FadeInModal = ({ children }: { children: React.ReactNode[] }) => {
             initial="initial"
             animate="animate"
             exit="exit"
-            variants={fadeInVariants}
+            variants={defaultFadeInVariants}
           >
             {auto}
           </motion.dialog>
@@ -48,26 +49,6 @@ const FadeInModal = ({ children }: { children: React.ReactNode[] }) => {
       </AnimatePortal>
     </>
   );
-};
-
-const easing = [0.6, -0.05, 0.01, 0.99];
-
-const fadeInVariants: Variants = {
-  initial: {
-    opacity: 0,
-    transition: { duration: 0.3, ease: easing },
-    willChange: 'opacity',
-  },
-  animate: {
-    opacity: 1,
-    transition: { duration: 0.3, ease: easing },
-    willChange: 'opacity',
-  },
-  exit: {
-    opacity: 0,
-    transition: { duration: 0.3, ease: easing },
-    willChange: 'opacity',
-  },
 };
 
 const dim: CSSObject = {

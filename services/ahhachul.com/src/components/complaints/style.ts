@@ -1,5 +1,7 @@
-import { Theme } from '@emotion/react';
+import { CSSObject, Theme } from '@emotion/react';
 import { f } from 'styles';
+
+const paddingTopHeight = '26px';
 
 const wrap = [
   f.fullWidth,
@@ -10,7 +12,7 @@ const wrap = [
         dark: { gray },
       },
     },
-  }: Theme) => ({ gap: '36px', padding: '32px 20px 48px 20px', backgroundColor: gray[200] }),
+  }: Theme) => ({ gap: '36px', padding: `${paddingTopHeight} 20px 48px 20px`, backgroundColor: gray[200] }),
 ];
 
 const sectionLabel = ({
@@ -73,4 +75,21 @@ const grid2 = {
   },
 };
 
-export { wrap, sectionLabel, grid1, grid2 };
+const err = [
+  f.posAbs,
+  ({
+    layout: {
+      size: {
+        height: { header, navbar },
+      },
+    },
+  }: Theme): CSSObject => ({
+    bottom: navbar,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    height: `calc(100% - ${header} - ${navbar} - ${paddingTopHeight})`,
+    boxSizing: 'border-box',
+  }),
+];
+
+export { wrap, sectionLabel, grid1, grid2, err };

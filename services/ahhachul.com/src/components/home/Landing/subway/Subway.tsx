@@ -12,28 +12,9 @@ import { ErrorComponent, UiComponent } from 'components';
 import { useGetTrainsRealTimeInfo } from 'queries/train/useGetTrainsRealTimeInfo';
 import { exportHexColorWidthLineName, formatCurrentTrainArrivalTypeToKo } from 'utils/export';
 import { ITrain, Nullable } from 'types';
-import { AnimatePresence, motion, Variants } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import TrainError from './train/TrainError';
-
-const defaultEasing = [0.6, -0.05, 0.01, 0.99];
-
-export const defaultFadeInVariants: Variants = {
-  initial: {
-    opacity: 0,
-    transition: { duration: 0.3, ease: defaultEasing },
-    willChange: 'opacity',
-  },
-  animate: {
-    opacity: 1,
-    transition: { duration: 0.3, ease: defaultEasing },
-    willChange: 'opacity',
-  },
-  exit: {
-    opacity: 0,
-    transition: { duration: 0.3, ease: defaultEasing },
-    willChange: 'opacity',
-  },
-};
+import { defaultFadeInVariants } from 'data/motion';
 
 const Subway = () => {
   const { push } = useFlow();
