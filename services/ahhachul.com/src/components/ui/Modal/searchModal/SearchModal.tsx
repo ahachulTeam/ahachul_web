@@ -9,7 +9,7 @@ import { defaultFadeInVariants } from 'data/motion';
 const FadeInModal = ({ children }: { children: React.ReactNode[] }) => {
   const { showModal, keyword } = useAppSelector((state) => state.search);
 
-  const [base, auto] = children;
+  const [base, searchList] = children;
 
   return (
     <>
@@ -43,7 +43,7 @@ const FadeInModal = ({ children }: { children: React.ReactNode[] }) => {
             exit="exit"
             variants={defaultFadeInVariants}
           >
-            {auto}
+            {searchList}
           </motion.dialog>
         </div>
       </AnimatePortal>

@@ -4,7 +4,7 @@ import { Flex } from '@ahhachul/react-components-layout';
 import IconPolygon from 'static/icons/system/IconPolygon';
 import { Theme } from '@emotion/react';
 
-function HashTagList() {
+function RankKeywords() {
   return (
     <>
       <Flex
@@ -125,4 +125,4 @@ const text = ({ typography: { fontSize, fontWeight } }: Theme) => ({
   color: '#9da5b6',
 });
 
-export default HashTagList;
+export default RankKeywords;

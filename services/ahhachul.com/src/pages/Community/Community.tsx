@@ -10,7 +10,7 @@ const Community: ActivityComponentType = () => {
       <CommunityComponent.CommunityMain />
       <UiComponent.SearchModal>
         <UiComponent.SearchBase />
-        <UiComponent.AutoKeywords />
+        <UiComponent.SearchList />
       </UiComponent.SearchModal>
     </Layout>
   );

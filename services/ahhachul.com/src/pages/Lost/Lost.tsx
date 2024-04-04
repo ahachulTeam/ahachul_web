@@ -11,7 +11,7 @@ const Lost: ActivityComponentType = () => {
       <LostComponent.LostMain />
       <UiComponent.SearchModal>
         <UiComponent.SearchBase />
-        <UiComponent.AutoKeywords />
+        <UiComponent.SearchList />
       </UiComponent.SearchModal>
     </Layout>
   );

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
 import HistoryList from './History';
-import HashTagList from './Hashtag';
+import RankKeywords from './RankKeywords';
 import SearchGroup from './SearchGroup';
 
 import { CSSObject } from '@emotion/react';
@@ -24,7 +24,7 @@ const SearchBase = () => {
         <SearchGroup />
       </div>
       <HistoryList />
-      <HashTagList />
+      <RankKeywords />
     </article>
   );
 };

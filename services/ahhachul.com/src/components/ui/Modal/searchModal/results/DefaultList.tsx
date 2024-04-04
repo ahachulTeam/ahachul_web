@@ -1,6 +1,4 @@
-import React from 'react';
-
-const AutoKeywords = () => {
+const DefaultSearchList = () => {
   return <article css={wrap}></article>;
 };
 
@@ -10,4 +8,4 @@ const wrap = {
   backgroundColor: '#141517',
 };
 
-export default AutoKeywords;
+export default DefaultSearchList;
