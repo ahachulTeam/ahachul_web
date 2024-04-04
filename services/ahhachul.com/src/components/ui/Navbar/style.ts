@@ -106,4 +106,19 @@ const plusBtn: CSSObject = {
   },
 };
 
-export { wrap, itemWrap, plusBtn };
+const complaintToggle = {
+  ...plusBtn,
+  ...{
+    '& > div > svg': {
+      width: '20px !important',
+      height: '20px !important',
+
+      '& > path, & > rect': {
+        fill: 'rgb(196, 212, 252) !important',
+        stroke: 'rgb(196, 212, 252) !important',
+      },
+    },
+  },
+};
+
+export { wrap, itemWrap, plusBtn, complaintToggle };

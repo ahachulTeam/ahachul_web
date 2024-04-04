@@ -1,9 +1,14 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { TypeActivities } from 'stackflow';
+import IconListView from 'static/icons/complaints/IconListView';
+import IconSubmissionView from 'static/icons/complaints/IconSubmissionView';
 import IconCirclePlus from 'static/icons/system/IconCirclePlus';
+import { useAppSelector } from 'stores';
+import { setView } from 'stores/complaints';
 import { IconType } from 'types';
 import { KeyOf } from 'types/utility-types/KeyOf';
-import { itemWrap, plusBtn } from './style';
+import { itemWrap, plusBtn, complaintToggle } from './style';
 
 interface TabItemProps {
   activeTab: KeyOf<TypeActivities>;
@@ -37,7 +42,20 @@ const TabItem: React.FC<TabItemProps> = ({ activeTab, href, Icon, label, push, r
           <IconCirclePlus />
         </button>
       )}
+      {isActive && activeTab === 'Complaints' && <ComplaintViewToggle />}
     </div>
+  );
+};
+
+const ComplaintViewToggle = () => {
+  const dispatch = useDispatch();
+  const { activeView } = useAppSelector((state) => state.complaint);
+  const handleToggle = () => dispatch(setView(activeView === 'SUBMISSION' ? 'LIST' : 'SUBMISSION'));
+
+  return (
+    <button css={complaintToggle} onClick={handleToggle}>
+      {activeView === 'SUBMISSION' ? <IconListView /> : <IconSubmissionView />}
+    </button>
   );
 };
 
