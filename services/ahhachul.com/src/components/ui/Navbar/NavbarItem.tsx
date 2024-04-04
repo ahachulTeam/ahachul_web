@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { TypeActivities } from 'stackflow';
+import { TypeActivities, useFlow } from 'stackflow';
 import IconListView from 'static/icons/complaints/IconListView';
 import IconSubmissionView from 'static/icons/complaints/IconSubmissionView';
 import IconCirclePlus from 'static/icons/system/IconCirclePlus';
@@ -15,20 +15,19 @@ interface TabItemProps {
   href: KeyOf<TypeActivities>;
   label: string;
   Icon: IconType;
-  push: (tab: KeyOf<TypeActivities>) => void;
-  replace: (tab: KeyOf<TypeActivities>) => void;
   scrollToTop: VoidFunction;
 }
 
-const TabItem: React.FC<TabItemProps> = ({ activeTab, href, Icon, label, push, replace, scrollToTop }) => {
+const TabItem: React.FC<TabItemProps> = ({ activeTab, href, Icon, label, scrollToTop }) => {
+  const { push, replace } = useFlow();
   const isActive = activeTab === href;
   const handleTabClick = () => {
     if (isActive) scrollToTop();
-    else replace(href);
+    else replace(href, {}, { animate: false });
   };
   const routeToEditor = () => {
-    if (activeTab === 'Lost') push('LostEditor');
-    else push('CommunityEditor');
+    if (activeTab === 'Lost') push('LostEditor', {});
+    else push('CommunityEditor', {});
   };
 
   return (
@@ -50,7 +49,9 @@ const TabItem: React.FC<TabItemProps> = ({ activeTab, href, Icon, label, push, r
 const ComplaintViewToggle = () => {
   const dispatch = useDispatch();
   const { activeView } = useAppSelector((state) => state.complaint);
-  const handleToggle = () => dispatch(setView(activeView === 'SUBMISSION' ? 'LIST' : 'SUBMISSION'));
+  const handleToggle = () => {
+    dispatch(setView(activeView === 'SUBMISSION' ? 'LIST' : 'SUBMISSION'));
+  };
 
   return (
     <button css={complaintToggle} onClick={handleToggle}>

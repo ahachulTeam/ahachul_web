@@ -8,16 +8,22 @@ import { setKeyword } from 'stores/search';
 import { f } from 'styles';
 import { useAppSelector } from 'stores';
 import { hideModal, setHistory } from 'stores/search/reducer';
+import { debounce } from 'lodash-es';
 
 // TODO: rxjs 사용해서 최적화하기
 function SearchGroup() {
   const dispatch = useDispatch();
   const { showModal, history } = useAppSelector((state) => state.search);
 
+  const closeModal = () => dispatch(hideModal());
+  const handleKeyword = (keyword: string) => dispatch(setKeyword(keyword));
+  const debouncedChange = debounce(handleKeyword, 150);
+  const debouncedHide = debounce(closeModal, 200);
+
   const inputRef = useRef<HTMLInputElement | null>(null);
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length === 0) dispatch(setKeyword(null));
-    else dispatch(setKeyword(e.target.value));
+    if (e.target.value.length === 0) debouncedChange(null);
+    else debouncedChange(e.target.value);
   }, []);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -26,7 +32,7 @@ function SearchGroup() {
 
     const pastHistory = !history ? [] : history;
     dispatch(setHistory([inputRef.current.value, ...pastHistory]));
-    dispatch(hideModal());
+    debouncedHide();
   };
 
   useEffect(() => {

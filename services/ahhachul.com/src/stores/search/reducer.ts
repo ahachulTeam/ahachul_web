@@ -18,7 +18,6 @@ const {
       state.showModal = true;
     },
     hideModal: (state) => {
-      state.keyword = null;
       state.showModal = false;
     },
     setKeyword: (state, action: PayloadAction<string>) => {

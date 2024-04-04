@@ -15,7 +15,7 @@ import { useAppSelector } from 'stores';
 const INIT_STATE: ILostArticleForm = {
   title: '',
   content: '',
-  lostType: 'LOST',
+  lostType: 'ACQUIRE',
   desiredLocation: '',
 };
 
@@ -128,7 +128,7 @@ const LostEditor = () => {
             )}
           </div>
           <div css={section}>
-            <span>분실물 타입</span>
+            <span>유실물 타입</span>
             <SelectComponent handleChangeLostType={handleChangeLostType} />
           </div>
           <div css={section}>
@@ -173,7 +173,7 @@ const LostEditor = () => {
 };
 
 const SelectComponent = memo(({ handleChangeLostType }: { handleChangeLostType: (type: LostType) => () => void }) => {
-  const [currentLostType, setCurrentLostType] = useState('LOST');
+  const [currentLostType, setCurrentLostType] = useState('ACQUIRE');
 
   const handleToggle = (type: LostType) => () => {
     setCurrentLostType(type);
@@ -182,11 +182,11 @@ const SelectComponent = memo(({ handleChangeLostType }: { handleChangeLostType: 
 
   return (
     <div css={buttonGroup}>
-      <button type="button" css={toggleBtn(currentLostType === 'LOST')} onClick={handleToggle('LOST')}>
-        유실물
-      </button>
       <button type="button" css={toggleBtn(currentLostType === 'ACQUIRE')} onClick={handleToggle('ACQUIRE')}>
         습득물
+      </button>
+      <button type="button" css={toggleBtn(currentLostType === 'LOST')} onClick={handleToggle('LOST')}>
+        분실물
       </button>
     </div>
   );

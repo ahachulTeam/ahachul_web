@@ -15,7 +15,7 @@ type AppDispatch = typeof store.dispatch;
 const persistConfig = {
   key: process.env.REACT_APP_NAME as string,
   storage,
-  whitelist: ['auth', 'search'],
+  whitelist: ['auth'],
 };
 
 const reducers = combineReducers({
