@@ -8,7 +8,9 @@ import { useDispatch } from 'react-redux';
 
 function HistoryList() {
   const dispatch = useDispatch();
-  const close = () => dispatch(hideModal());
+  const close = () => {
+    dispatch(hideModal());
+  };
 
   return (
     <Flex direction="column" style={{ width: '100%' }}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppSelector } from 'stores';
-import DefaultSearchList from './results/DefaultList';
+import DefaultList from './results/DefaultList';
 import HashTagList from './results/HashTagList';
 import MentionList from './results/MentionList';
 
@@ -12,8 +12,10 @@ const SearchList = () => {
       return <MentionList />;
     case /^#/.test(keyword):
       return <HashTagList />;
+    case typeof keyword === 'string':
+      return <DefaultList />;
     default:
-      return <DefaultSearchList />;
+      return null;
   }
 };
 

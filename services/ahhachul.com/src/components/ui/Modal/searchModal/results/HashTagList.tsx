@@ -1,12 +1,21 @@
 import { CSSObject } from '@emotion/react';
+import { useDispatch } from 'react-redux';
+import { hideModal } from 'stores/search/reducer';
 import { f } from 'styles';
 
 const HashTagList = () => {
+  const dispatch = useDispatch();
+  const close = () => {
+    dispatch(hideModal());
+  };
+
   return (
     <section css={wrap}>
       <ul css={ul}>
         {new Array(32).fill('').map((_, idx) => (
-          <Item key={idx} />
+          <li key={idx} onClick={close}>
+            <Item />
+          </li>
         ))}
       </ul>
     </section>

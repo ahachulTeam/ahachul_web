@@ -8,7 +8,9 @@ import { hideModal } from 'stores/search/reducer';
 
 function RankKeywords() {
   const dispatch = useDispatch();
-  const close = () => dispatch(hideModal());
+  const close = () => {
+    dispatch(hideModal());
+  };
 
   return (
     <>
