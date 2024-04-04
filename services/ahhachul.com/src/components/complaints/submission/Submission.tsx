@@ -10,6 +10,8 @@ import { UiComponent } from 'components';
 import { EditorState } from 'lexical';
 import { IComplaintForm } from 'types/complaints';
 import { useAppSelector } from 'stores';
+import { addSnackBar } from 'stores/ui';
+import { useDispatch } from 'react-redux';
 
 type ComplaintsSubmissionProps = {
   slug: COMPLAINTS_CONTENTS_TYPES;
@@ -26,6 +28,8 @@ const INIT_STATE: IComplaintForm = {
 const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = ({ params }) => {
   const trainNo = params.trainNumber;
   const trainInfo = exportSubwayInfoFromTrainNumber(trainNo);
+
+  const dispatch = useDispatch();
 
   const formRef = useRef<IComplaintForm>(INIT_STATE);
   const { mutate } = useComplaintsArticle();
@@ -44,6 +48,12 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!formRef.current.shortContent) {
+      dispatch(addSnackBar({ message: `민원 유형을 선택해주세요.`, posBottom: 115 }));
+      return;
+    }
+
     mutate({
       ...formRef.current,
       trainNo,
@@ -72,7 +82,12 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
           </div>
           <div css={section}>
             <span>자세한 설명</span>
-            <UiComponent.Editor onChange={handleChangeContent} />
+            <UiComponent.Editor
+              onChange={handleChangeContent}
+              placeholder={
+                '민원 내용을 입력해 주세요.\n\n서비스 정책에 맞지 않을 경우\n자동으로 삭제 처리 될 수 있습니다.'
+              }
+            />
           </div>
           <div css={submitWrap}>
             <button type="submit" css={submitBtn} disabled={loading || status === 'pending'}>

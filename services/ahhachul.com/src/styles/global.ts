@@ -305,12 +305,14 @@ const global = css`
 
   .editor-placeholder {
     color: #9da5b6;
-    overflow: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
     position: absolute;
-    text-overflow: ellipsis;
     top: 15px;
     left: 10px;
     font-size: 14px;
+    line-height: 20px;
     user-select: none;
     display: inline-block;
     pointer-events: none;

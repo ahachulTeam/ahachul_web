@@ -133,7 +133,13 @@ const LostEditor = () => {
           </div>
           <div css={section}>
             <span>자세한 설명</span>
-            <UiComponent.Editor hasError={!!errors.content} onChange={handleChangeContent} />
+            <UiComponent.Editor
+              hasError={!!errors.content}
+              onChange={handleChangeContent}
+              placeholder={
+                '게시글 내용을 작성해 주세요.\n\n보상이나 사례가 포함된경우\n#보상 혹은\n#사례\n해시태그를 입력해주세요.'
+              }
+            />
             {errors.content && (
               <b>
                 <IconInfo /> {errors.content}

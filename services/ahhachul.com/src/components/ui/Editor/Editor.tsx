@@ -148,8 +148,8 @@ const MATCHERS = [
 
 const LowPriority = 1;
 
-function Placeholder() {
-  return <div className="editor-placeholder">게시글 내용을 작성해 주세요.</div>;
+function Placeholder({ placeholder = '게시글 내용을 작성해 주세요.' }: { placeholder?: string }) {
+  return <pre className="editor-placeholder">{placeholder}</pre>;
 }
 
 interface EditorProps {
@@ -157,6 +157,7 @@ interface EditorProps {
   hasError?: boolean;
   readonly?: boolean;
   initialState?: string;
+  placeholder?: string;
   onChange?: (content: EditorState) => void;
 }
 
@@ -182,7 +183,14 @@ function OnChangePlugin({ readonly, initialState, onChange }) {
   return null;
 }
 
-const Editor = ({ isRich = false, hasError = false, readonly = false, initialState, onChange }: EditorProps) => {
+const Editor = ({
+  isRich = false,
+  hasError = false,
+  readonly = false,
+  initialState,
+  placeholder,
+  onChange,
+}: EditorProps) => {
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div
@@ -194,7 +202,7 @@ const Editor = ({ isRich = false, hasError = false, readonly = false, initialSta
             contentEditable={
               <ContentEditable className="editor-input" id="content" css={{ padding: readonly ? 0 : '15px 10px' }} />
             }
-            placeholder={readonly ? null : <Placeholder />}
+            placeholder={readonly ? null : <Placeholder placeholder={placeholder} />}
             ErrorBoundary={LexicalErrorBoundary}
           />
           <LinkPlugin />
