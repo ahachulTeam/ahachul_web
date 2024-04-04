@@ -23,12 +23,12 @@ const btn_wrap = [
   ({ typography: { fontSize, fontWeight, lineHeight } }: Theme) => ({
     '& > button': {
       height: '36px',
-      backgroundColor: 'hsla(0, 0%, 100%, .19)',
+      backgroundColor: '#2E3033',
       borderRadius: '8px',
       padding: '0 12px',
       display: 'flex',
       alignItems: 'center',
-      color: '#e6e6e6',
+      color: '#C9CEDC',
       fontSize: fontSize[14],
       fontWeight: fontWeight[500],
       lineHeight: lineHeight[133],
@@ -38,7 +38,7 @@ const btn_wrap = [
         marginLeft: '4px',
       },
 
-      marginRight: '8px',
+      marginRight: '12px',
     },
   }),
 ];

@@ -3,8 +3,13 @@ import React from 'react';
 import { Flex } from '@ahhachul/react-components-layout';
 import { Button } from '@ahhachul/react-components-button';
 import { Theme } from '@emotion/react';
+import { hideModal } from 'stores/search/reducer';
+import { useDispatch } from 'react-redux';
 
 function HistoryList() {
+  const dispatch = useDispatch();
+  const close = () => dispatch(hideModal());
+
   return (
     <Flex direction="column" style={{ width: '100%' }}>
       <Flex
@@ -37,6 +42,7 @@ function HistoryList() {
         }}
       >
         <Button
+          onClick={close}
           size="sm"
           style={{
             flexShrink: 0,
@@ -44,13 +50,14 @@ function HistoryList() {
             border: '1px solid hsla(0, 0%, 100%, .2)',
             color: '#c9cedc',
             fontWeight: 500,
-            padding: '4px 8px',
+            padding: '8px 10px',
             fontSize: '12px',
           }}
         >
           코레일
         </Button>
         <Button
+          onClick={close}
           size="sm"
           style={{
             flexShrink: 0,
@@ -58,13 +65,14 @@ function HistoryList() {
             border: '1px solid hsla(0, 0%, 100%, .2)',
             color: '#c9cedc',
             fontWeight: 500,
-            padding: '4px 8px',
+            padding: '8px 10px',
             fontSize: '12px',
           }}
         >
           인스타그램
         </Button>
         <Button
+          onClick={close}
           size="sm"
           style={{
             flexShrink: 0,
@@ -72,13 +80,14 @@ function HistoryList() {
             border: '1px solid hsla(0, 0%, 100%, .2)',
             color: '#c9cedc',
             fontWeight: 500,
-            padding: '4px 8px',
+            padding: '8px 10px',
             fontSize: '12px',
           }}
         >
           이강인
         </Button>
         <Button
+          onClick={close}
           size="sm"
           style={{
             flexShrink: 0,
@@ -86,13 +95,14 @@ function HistoryList() {
             border: '1px solid hsla(0, 0%, 100%, .2)',
             color: '#c9cedc',
             fontWeight: 500,
-            padding: '4px 8px',
+            padding: '8px 10px',
             fontSize: '12px',
           }}
         >
           K리그 개막
         </Button>
         <Button
+          onClick={close}
           size="sm"
           style={{
             flexShrink: 0,
@@ -100,13 +110,14 @@ function HistoryList() {
             border: '1px solid hsla(0, 0%, 100%, .2)',
             color: '#c9cedc',
             fontWeight: 500,
-            padding: '4px 8px',
+            padding: '8px 10px',
             fontSize: '12px',
           }}
         >
           아이유
         </Button>
         <Button
+          onClick={close}
           size="sm"
           style={{
             flexShrink: 0,
@@ -114,13 +125,14 @@ function HistoryList() {
             border: '1px solid hsla(0, 0%, 100%, .2)',
             color: '#c9cedc',
             fontWeight: 500,
-            padding: '4px 8px',
+            padding: '8px 10px',
             fontSize: '12px',
           }}
         >
           오당기 아이유
         </Button>
         <Button
+          onClick={close}
           size="sm"
           style={{
             flexShrink: 0,
@@ -128,13 +140,14 @@ function HistoryList() {
             border: '1px solid hsla(0, 0%, 100%, .2)',
             color: '#c9cedc',
             fontWeight: 500,
-            padding: '4px 8px',
+            padding: '8px 10px',
             fontSize: '12px',
           }}
         >
           벚꽃
         </Button>
         <Button
+          onClick={close}
           size="sm"
           style={{
             flexShrink: 0,
@@ -142,13 +155,14 @@ function HistoryList() {
             border: '1px solid hsla(0, 0%, 100%, .2)',
             color: '#c9cedc',
             fontWeight: 500,
-            padding: '4px 8px',
+            padding: '8px 10px',
             fontSize: '12px',
           }}
         >
           4호선 연착
         </Button>
         <Button
+          onClick={close}
           size="sm"
           style={{
             flexShrink: 0,
@@ -156,13 +170,14 @@ function HistoryList() {
             border: '1px solid hsla(0, 0%, 100%, .2)',
             color: '#c9cedc',
             fontWeight: 500,
-            padding: '4px 8px',
+            padding: '8px 10px',
             fontSize: '12px',
           }}
         >
           분실물 신고
         </Button>
         <Button
+          onClick={close}
           size="sm"
           style={{
             flexShrink: 0,
@@ -170,7 +185,7 @@ function HistoryList() {
             border: '1px solid hsla(0, 0%, 100%, .2)',
             color: '#c9cedc',
             fontWeight: 500,
-            padding: '4px 8px',
+            padding: '8px 10px',
             fontSize: '12px',
           }}
         >
