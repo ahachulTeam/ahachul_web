@@ -13232,6 +13232,7 @@ const RAW_RUNTIME_STATE =
           ["react-hook-form", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:7.51.0"],\
           ["react-intersection-observer", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:9.8.1"],\
           ["react-lazy-load-image-component", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:1.6.0"],\
+          ["react-loading-skeleton", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:3.4.0"],\
           ["react-redux", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:9.1.0"],\
           ["react-router-dom", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:6.22.3"],\
           ["react-scripts", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:5.0.1"],\
@@ -28460,6 +28461,28 @@ const RAW_RUNTIME_STATE =
           "@types/react-dom",\
           "@types/react",\
           "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["react-loading-skeleton", [\
+      ["npm:3.4.0", {\
+        "packageLocation": "../../.yarn/berry/cache/react-loading-skeleton-npm-3.4.0-556e2dc1f3-10c0.zip/node_modules/react-loading-skeleton/",\
+        "packageDependencies": [\
+          ["react-loading-skeleton", "npm:3.4.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:3.4.0", {\
+        "packageLocation": "./.yarn/__virtual__/react-loading-skeleton-virtual-8eae187a41/3/.yarn/berry/cache/react-loading-skeleton-npm-3.4.0-556e2dc1f3-10c0.zip/node_modules/react-loading-skeleton/",\
+        "packageDependencies": [\
+          ["react-loading-skeleton", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:3.4.0"],\
+          ["@types/react", "npm:18.2.64"],\
+          ["react", "npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
           "react"\
         ],\
         "linkType": "HARD"\

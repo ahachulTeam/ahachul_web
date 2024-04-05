@@ -115,7 +115,7 @@ const loading: CSSObject = {
   top: '50%',
   transform: 'translate(-50%, -50%)',
   paddingTop: '36px',
-  opacity: 0.1,
+  opacity: 0.07,
 };
 
 export { sectionWrap, title, filterWrap, wrap, loading };
