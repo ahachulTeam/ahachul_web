@@ -11,7 +11,7 @@ export type AlarmType = 'activityNotification' | 'directMessage';
 
 const ALARM_TABS: Record<AlarmType, string> = {
   activityNotification: '활동알림',
-  directMessage: '쪽지',
+  directMessage: '채팅',
 };
 
 const Alarm: ActivityComponentType = () => {
@@ -35,34 +35,36 @@ const Alarm: ActivityComponentType = () => {
           name="유실물 탭 버튼"
           css={{ padding: '0 20px 20px' }}
         />
-        {tab === 'activityNotification' ? (
-          <>
-            <ActivityNotification type="talk" />
-            <ActivityNotification type="complaints" />
-            <ActivityNotification type="complaints" />
-            <ActivityNotification type="talk" />
-            <ActivityNotification type="talk" />
-            <ActivityNotification type="complaints" />
-            <ActivityNotification type="talk" />
-            <ActivityNotification type="talk" />
-            <ActivityNotification type="complaints" />
-            <ActivityNotification type="complaints" />
-            <ActivityNotification type="talk" />
-          </>
-        ) : (
-          <>
-            <DirectMessage />
-            <DirectMessage />
-            <DirectMessage />
-            <DirectMessage />
-            <DirectMessage />
-            <DirectMessage />
-            <DirectMessage />
-            <DirectMessage />
-            <DirectMessage />
-            <DirectMessage />
-          </>
-        )}
+        <ul>
+          {tab === 'activityNotification' ? (
+            <>
+              <ActivityNotification type="talk" />
+              <ActivityNotification type="complaints" />
+              <ActivityNotification type="complaints" />
+              <ActivityNotification type="talk" />
+              <ActivityNotification type="talk" />
+              <ActivityNotification type="complaints" />
+              <ActivityNotification type="talk" />
+              <ActivityNotification type="talk" />
+              <ActivityNotification type="complaints" />
+              <ActivityNotification type="complaints" />
+              <ActivityNotification type="talk" />
+            </>
+          ) : (
+            <>
+              <DirectMessage />
+              <DirectMessage />
+              <DirectMessage />
+              <DirectMessage />
+              <DirectMessage />
+              <DirectMessage />
+              <DirectMessage />
+              <DirectMessage />
+              <DirectMessage />
+              <DirectMessage />
+            </>
+          )}
+        </ul>
       </Box>
     </Layout>
   );

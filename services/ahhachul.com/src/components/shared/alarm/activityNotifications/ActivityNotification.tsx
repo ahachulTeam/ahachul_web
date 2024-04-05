@@ -3,58 +3,69 @@ import { CSSObject, Theme } from '@emotion/react';
 
 import IconAlarmTalk from 'static/icons/system/IconAlarmTalk';
 import IconAlarmComplaint from 'static/icons/system/IconAlarmComplaint';
-import { getRandomBoolean } from 'mocks/utils';
+import { useFlow } from 'stackflow';
+import { useState } from 'react';
+
+const getRandomContent = (type: 'talk' | 'complaints') => {
+  const list = [
+    '2호선 게시판: 일주일에 충치치료, 사랑니(매복)2개나 뺄려하다니 내가 미쳤지 근데 원래 이렇게 멍한 느낌이 드나? 아파서 말을 못하겠다',
+    '7호선 게시판: 뷰뷰이 오늘 아침 8시에 퇴근하고 갤에 솔 공략 올리고 킬게용 아마 21:00~23:00 이시간쯤에 뱅종 할듯 상태 별로면 근말 할수도 있음..',
+    '9호선 게시판: [광고] 약탈폭풍  wow+배틀로얄   신규출시',
+    '1호선 게시판: 몬스터 꺼버렸자나 한잔해',
+    '1호선 게시판: 토요일에 볼래요?',
+    '2호선 게시판: 정규 1등 찍은 효신좌 근황',
+    '2호선 게시판: 반갑습니다',
+    '7호선 게시판: 치과에서 이빨을 조지고 온 나',
+    '1호선 게시판: 광운대행 진짜 화난다',
+    '1호선 게시판: 늦은 밤엔 공룡의 광증이 깊어집니다.',
+    '6호선 게시판: zzzㅋㅋㅋㅋㅋㅋㅋㅋ오 오랜만이누 ㅎㅇㅎㅇㅋㅋㅋㅋㅋㅋ',
+    '1호선 게시판: 정말 오랜만이야',
+    '3호선 게시판: 나락쇼',
+    '3호선 게시판: 롤체 시즌11 에메 간다',
+    '1호선 게시판: 나랑 영화볼래요?',
+    '9호선 게시판: 출근하다가 빵사가는데...',
+  ];
+  const randomIdx = Math.floor(Math.random() * list.length - 1) + 1;
+  return type === 'complaints' ? list[randomIdx]?.replace('게시판', '민원') : list[randomIdx];
+};
 
 function ActivityNotification(props: { type: 'talk' | 'complaints' }) {
   const { type } = props;
+  const [notiCount, minus] = useState(1);
+  const isActive = notiCount >= 1;
 
-  const getRandomContent = () => {
-    const list = [
-      '2호선 게시판: 일주일에 충치치료, 사랑니(매복)2개나 뺄려하다니 내가 미쳤지 근데 원래 이렇게 멍한 느낌이 드나? 아파서 말을 못하겠다',
-      '7호선 게시판: 뷰뷰이 오늘 아침 8시에 퇴근하고 갤에 솔 공략 올리고 킬게용 아마 21:00~23:00 이시간쯤에 뱅종 할듯 상태 별로면 근말 할수도 있음..',
-      '9호선 게시판: [광고] 약탈폭풍  wow+배틀로얄   신규출시',
-      '1호선 게시판: 몬스터 꺼버렸자나 한잔해',
-      '1호선 게시판: 토요일에 볼래요?',
-      '2호선 게시판: 정규 1등 찍은 효신좌 근황',
-      '2호선 게시판: 반갑습니다',
-      '7호선 게시판: 치과에서 이빨을 조지고 온 나',
-      '1호선 게시판: 광운대행 진짜 화난다',
-      '1호선 게시판: 늦은 밤엔 공룡의 광증이 깊어집니다.',
-      '6호선 게시판: zzzㅋㅋㅋㅋㅋㅋㅋㅋ오 오랜만이누 ㅎㅇㅎㅇㅋㅋㅋㅋㅋㅋ',
-      '1호선 게시판: 정말 오랜만이야',
-      '3호선 게시판: 나락쇼',
-      '3호선 게시판: 롤체 시즌11 에메 간다',
-      '1호선 게시판: 나랑 영화볼래요?',
-      '9호선 게시판: 출근하다가 빵사가는데...',
-    ];
-    const randomIdx = Math.floor(Math.random() * list.length - 1) + 1;
-    return type === 'complaints' ? list[randomIdx]?.replace('게시판', '민원') : list[randomIdx];
+  const { push } = useFlow();
+  const pushTo = () => {
+    type === 'talk' ? push('CommunityDetail', { articleId: '1' }) : push('ComplaintDetail', { articleId: '1' });
+    setTimeout(() => {
+      minus(0);
+    }, 750);
   };
 
-  const isActive = getRandomBoolean();
-
   return (
-    <Flex direction="column" gap="12px" css={wrap(isActive)}>
-      <Flex align="center" style={{ position: 'relative' }}>
-        {type === 'talk' ? <IconAlarmTalk /> : <IconAlarmComplaint />}
-        <span css={category}>{type === 'talk' ? '커뮤니티' : '민원신청'}</span>
-        <time css={time}>1시간전</time>
-        {isActive && <span css={cnt}>1</span>}
-      </Flex>
-      <Flex direction="column" gap="30px" style={{ paddingLeft: '24px' }}>
-        <Flex
-          direction="column"
-          gap="6px"
-          style={{
-            borderRadius: '6px',
-            position: 'relative',
-          }}
-        >
-          <span css={tooltip}>작성하신 {type === 'talk' ? '게시물' : '민원'}에 댓글이 달렸어요</span>
-          <p css={content}>{getRandomContent()}</p>
+    <li onClick={pushTo}>
+      <Flex as="article" direction="column" gap="12px" css={wrap(isActive)}>
+        <Flex align="center" style={{ position: 'relative' }}>
+          {type === 'talk' ? <IconAlarmTalk /> : <IconAlarmComplaint />}
+          <span css={category}>{type === 'talk' ? '커뮤니티' : '민원신청'}</span>
+          <time css={time}>1시간전</time>
+          {isActive && <span css={cnt}>{notiCount}</span>}
+        </Flex>
+        <Flex direction="column" gap="30px" style={{ paddingLeft: '24px' }}>
+          <Flex
+            direction="column"
+            gap="6px"
+            style={{
+              borderRadius: '6px',
+              position: 'relative',
+            }}
+          >
+            <span css={tooltip}>작성하신 {type === 'talk' ? '게시물' : '민원'}에 댓글이 달렸어요</span>
+            <p css={content}>{getRandomContent(type)}</p>
+          </Flex>
         </Flex>
       </Flex>
-    </Flex>
+    </li>
   );
 }
 

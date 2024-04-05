@@ -1,52 +1,64 @@
 import { Flex } from '@ahhachul/react-components-layout';
 import { CSSObject, Theme } from '@emotion/react';
-import { getRandomBoolean } from 'mocks/utils';
+import { useState } from 'react';
+import { useFlow } from 'stackflow';
+
+const getRandomNickname = () => {
+  const list = [
+    '갯나리',
+    '특삼',
+    '미호밍',
+    '플락',
+    '도롱뇽',
+    '큐이',
+    '선바',
+    '김츠유',
+    '수련수련',
+    '한동숙',
+    '짬바',
+    '리끼',
+    '따효니',
+    '아리사',
+    '녹두로',
+    '룩삼',
+  ];
+  const randomIdx = Math.floor(Math.random() * list.length - 1) + 1;
+  return list[randomIdx];
+};
 
 function DirectMessage() {
-  const getRandomNickname = () => {
-    const list = [
-      '갯나리',
-      '특삼',
-      '미호밍',
-      '플락',
-      '도롱뇽',
-      '큐이',
-      '선바',
-      '김츠유',
-      '수련수련',
-      '한동숙',
-      '짬바',
-      '리끼',
-      '따효니',
-      '아리사',
-      '녹두로',
-      '룩삼',
-    ];
-    const randomIdx = Math.floor(Math.random() * list.length - 1) + 1;
-    return list[randomIdx];
+  const { push } = useFlow();
+  const pushTo = () => {
+    push('Chat', { slug: getRandomNickname() });
+    setTimeout(() => {
+      minus(0);
+    }, 750);
   };
 
-  const isActive = getRandomBoolean();
+  const [notiCount, minus] = useState(1);
+  const isActive = notiCount >= 1;
 
   return (
-    <Flex direction="column" gap="12px" css={wrap(isActive)}>
-      <Flex align="center">
-        <span css={nickname}>{getRandomNickname()}</span>
-        <time css={time}>오후 3:00</time>
+    <li onClick={pushTo}>
+      <Flex as="article" direction="column" gap="12px" css={wrap(isActive)}>
+        <Flex align="center">
+          <span css={nickname}>{getRandomNickname()}</span>
+          <time css={time}>오후 3:00</time>
+        </Flex>
+        <Flex
+          direction="column"
+          gap="6px"
+          style={{
+            borderRadius: '6px',
+            position: 'relative',
+            paddingRight: '50px',
+          }}
+        >
+          <p css={content}>안녕하세요. 올려주신 지갑 제가 4호선에서 분실한 것 같은데 혹시 어디 거주하시나요?</p>
+          {isActive && <span css={cnt}>1</span>}
+        </Flex>
       </Flex>
-      <Flex
-        direction="column"
-        gap="6px"
-        style={{
-          borderRadius: '6px',
-          position: 'relative',
-          paddingRight: '50px',
-        }}
-      >
-        <p css={content}>안녕하세요. 올려주신 지갑 제가 4호선에서 분실한 것 같은데 혹시 어디 거주하시나요?</p>
-        {isActive && <span css={cnt}>1</span>}
-      </Flex>
-    </Flex>
+    </li>
   );
 }
 

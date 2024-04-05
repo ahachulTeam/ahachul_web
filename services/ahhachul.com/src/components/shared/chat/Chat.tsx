@@ -3,11 +3,15 @@ import { ActivityComponentType } from '@stackflow/react';
 
 import { Layout } from 'components/layout';
 
-const Chat: ActivityComponentType = () => {
+type ChatProps = {
+  slug: string;
+};
+
+const Chat: ActivityComponentType<ChatProps> = ({ params }) => {
   return (
     <Layout
       appBar={{
-        title: '채팅 목록',
+        title: params.slug,
       }}
       activeTab={false}
     >
