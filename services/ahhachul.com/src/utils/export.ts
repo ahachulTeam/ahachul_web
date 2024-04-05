@@ -246,11 +246,11 @@ export const formatComplaintShortContentToKoSentence = (complaintShortContent?: 
     case '종교행위':
       return '지하철에서 종교행위하고 계신 분이 있어요!';
     case '본인':
-      return '본인이 환자입니다.';
+      return '제가 응급 환자에요.';
     case '목격자':
-      return '본인은 목격자입니다.';
+      return '저는 목격자에요.';
     case '피해자':
-      return '본인이 피해자입니다.';
+      return '제가 피해자에요.';
     default:
       return '민원이 발생했어요';
   }

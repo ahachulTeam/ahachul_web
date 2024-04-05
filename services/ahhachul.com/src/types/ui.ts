@@ -20,7 +20,7 @@ export type IconType = React.FC<{
   css?: Interpolation<Theme>;
 }>;
 
-export type SnackBarPosBottomType = 72 | 115;
+export type SnackBarPosBottomType = 115 | 155;
 
 export interface ISnackBar {
   list: ISnackBarPayload[];

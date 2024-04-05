@@ -12,10 +12,10 @@ const wrap = [
         dark: { gray },
       },
     },
-  }: Theme) => ({ gap: '36px', padding: `${paddingTopHeight} 20px 48px 20px`, backgroundColor: gray[200] }),
+  }: Theme) => ({ gap: '36px', padding: `${paddingTopHeight} 0 48px`, backgroundColor: gray[200] }),
 ];
 
-const sectionLabel = ({
+const pageTitle = ({
   color: {
     scale: { gray },
   },
@@ -25,55 +25,62 @@ const sectionLabel = ({
   fontSize: fontSize[16],
   fontWeight: fontWeight[600],
   color: gray[1000],
+  paddingLeft: '20px',
 });
 
-const grid1 = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(2, 1fr)',
-  gap: '10px',
+const grid1 = [
+  f.sideGutter,
+  {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gap: '10px',
 
-  '& > li:nth-of-type(1)': {
-    gridColumn: '1 / 2',
-    gridRow: '1 / 2',
-    height: '100px',
+    '& > li:nth-of-type(1)': {
+      gridColumn: '1 / 2',
+      gridRow: '1 / 2',
+      height: '100px',
+    },
+    '& > li:nth-of-type(2)': {
+      gridColumn: '2 / 3',
+      gridRow: '1 / 3',
+    },
+    '& > li:nth-of-type(3)': {
+      gridColumn: '1 / 2',
+      gridRow: '2 / 3',
+      height: '100px',
+    },
+    '& > li:nth-of-type(4)': {
+      gridColumn: '1 / 3',
+      gridRow: '3 / 4',
+      height: '84px',
+    },
   },
-  '& > li:nth-of-type(2)': {
-    gridColumn: '2 / 3',
-    gridRow: '1 / 3',
-  },
-  '& > li:nth-of-type(3)': {
-    gridColumn: '1 / 2',
-    gridRow: '2 / 3',
-    height: '100px',
-  },
-  '& > li:nth-of-type(4)': {
-    gridColumn: '1 / 3',
-    gridRow: '3 / 4',
-    height: '84px',
-  },
-};
+];
 
-const grid2 = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(2, 1fr)',
-  gap: '10px',
+const grid2 = [
+  f.sideGutter,
+  {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gap: '10px',
 
-  '& > li:nth-of-type(1)': {
-    gridColumn: '1 / 2',
-    gridRow: '1 / 2',
-    height: '100px',
+    '& > li:nth-of-type(1)': {
+      gridColumn: '1 / 2',
+      gridRow: '1 / 2',
+      height: '100px',
+    },
+    '& > li:nth-of-type(2)': {
+      gridColumn: '2 / 3',
+      gridRow: '1 / 2',
+      height: '100px',
+    },
+    '& > li:nth-of-type(3)': {
+      gridColumn: '1 / 3',
+      gridRow: '2 / 3',
+      height: '84px',
+    },
   },
-  '& > li:nth-of-type(2)': {
-    gridColumn: '2 / 3',
-    gridRow: '1 / 2',
-    height: '100px',
-  },
-  '& > li:nth-of-type(3)': {
-    gridColumn: '1 / 3',
-    gridRow: '2 / 3',
-    height: '84px',
-  },
-};
+];
 
 const err = [
   f.posAbs,
@@ -92,4 +99,4 @@ const err = [
   }),
 ];
 
-export { wrap, sectionLabel, grid1, grid2, err };
+export { wrap, pageTitle, grid1, grid2, err };

@@ -130,7 +130,12 @@ const Subway = () => {
                         </button>
                       </>
                     ) : (
-                      <Skeleton width="64px" baseColor="#2e2e2e" highlightColor="rgba(255, 255, 255, 0.24)" />
+                      <Skeleton
+                        width="64px"
+                        borderRadius={0}
+                        baseColor="#2e2e2e"
+                        highlightColor="rgba(255, 255, 255, 0.24)"
+                      />
                     )}
                   </>
                 </TopInfo>
@@ -146,7 +151,12 @@ const Subway = () => {
                     </motion.span>
                   ) : (
                     <span>
-                      <Skeleton width="56px" baseColor="#2e2e2e" highlightColor="rgba(255, 255, 255, 0.24)" />
+                      <Skeleton
+                        width="56px"
+                        borderRadius={0}
+                        baseColor="#2e2e2e"
+                        highlightColor="rgba(255, 255, 255, 0.24)"
+                      />
                     </span>
                   )}
                 </AnimatePresence>
@@ -168,7 +178,8 @@ const Subway = () => {
                     fallback={
                       <Skeleton
                         width="257px"
-                        height="20px"
+                        height="24px"
+                        borderRadius={0}
                         baseColor="#2e2e2e"
                         highlightColor="rgba(255, 255, 255, 0.24)"
                       />
@@ -178,8 +189,9 @@ const Subway = () => {
                       <Train trainNo={data?.trainRealTimes?.[selectedIdx]?.trainNum} subwayLineId={subwayLineIds[0]} />
                     ) : (
                       <Skeleton
-                        width="178px"
-                        height="20px"
+                        width="217px"
+                        height="24px"
+                        borderRadius={0}
                         baseColor="#2e2e2e"
                         highlightColor="rgba(255, 255, 255, 0.24)"
                       />
@@ -223,7 +235,12 @@ const Subway = () => {
                     <>
                       {new Array(4).fill('').map((_, idx) => (
                         <li key={idx}>
-                          <Skeleton width="97px" baseColor="#2e2e2e" highlightColor="rgba(255, 255, 255, 0.24)" />
+                          <Skeleton
+                            width="97px"
+                            borderRadius={0}
+                            baseColor="#2e2e2e"
+                            highlightColor="rgba(255, 255, 255, 0.24)"
+                          />
                         </li>
                       ))}
                     </>

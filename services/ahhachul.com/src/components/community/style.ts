@@ -4,7 +4,7 @@ import { CSSObject, Theme } from '@emotion/react';
 const tabHeight = '68.4px';
 const paddingTopHeight = '26px';
 
-const wrap = [f.fullWidth, f.flexColumn, { padding: `${paddingTopHeight} 20px 48px 20px` }];
+const wrap = [f.fullWidth, f.flexColumn, { padding: `${paddingTopHeight} 0 48px` }];
 
 const err = [
   f.posAbs,

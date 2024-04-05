@@ -29,7 +29,7 @@ function TabSection() {
   };
 
   return (
-    <Box as="section" padding={5}>
+    <Box as="section" css={{ padding: '0 20px', marginBottom: '16px' }}>
       <Flex as="ul" align="center" gap="25px">
         {Object.entries(LOST_AND_FOUND_TABS).map(([key, { label, icon, value }]) => (
           <li key={key} role="none">

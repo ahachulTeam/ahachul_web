@@ -24,7 +24,7 @@ function ListSection() {
   // console.log('flatData :', flatData);
 
   return (
-    <Box as="section" css={{ padding: '24px 0' }}>
+    <Box as="section">
       <Flex as="ul" direction="column" css={ul}>
         <TalkLoungeCard />
         <TalkLoungeCard />

@@ -5,6 +5,7 @@ import TabSection from './tabSection';
 import ListSection from './listSection';
 import { wrap, err } from './style';
 import ErrorDefault from 'components/error-management/ErrorDefault';
+import FilterSection from './filterSection';
 // import { useDispatch } from 'react-redux';
 // import { setTab } from 'stores/community';
 
@@ -20,6 +21,7 @@ const Community = () => {
   return (
     <main css={wrap}>
       <TabSection />
+      <FilterSection />
       <ErrorComponent.QueryErrorBoundary fallback={(props) => <ErrorDefault {...props} />} fallbackCss={err}>
         <Suspense fallback={<UiComponent.Loading />}>
           <ListSection />

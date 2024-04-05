@@ -1,11 +1,16 @@
-const ul = {
-  '& > li:first-of-type': {
-    '& > article': { paddingTop: 0 },
-  },
+import { f } from 'styles';
 
-  '& > li:not(:last-of-type)': {
-    borderBottom: '1px solid hsla(0, 0%, 100%, .06)',
+const ul = [
+  f.sideGutter,
+  {
+    '& > li:first-of-type': {
+      '& > article': { paddingTop: 0 },
+    },
+
+    '& > li:not(:last-of-type)': {
+      borderBottom: '1px solid hsla(0, 0%, 100%, .06)',
+    },
   },
-};
+];
 
 export { ul };

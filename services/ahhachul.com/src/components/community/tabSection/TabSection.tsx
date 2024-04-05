@@ -1,7 +1,6 @@
 import { Box, Flex, Text } from '@ahhachul/react-components-layout';
 import IconCategoryFree from 'static/icons/community/IconCategoryFree';
 import IconCategoryInsight from 'static/icons/community/IconCategoryInsight';
-import { theme } from 'styles';
 import { TabBtn } from './style';
 import { CommunityCategoryType } from 'types';
 import { useAppSelector } from 'stores';
@@ -42,7 +41,7 @@ function TabSection() {
   };
 
   return (
-    <Box as="section" padding={5} background={theme.color.static.dark.gray[200]}>
+    <Box as="section" padding={5} style={{ padding: '0 20px', marginBottom: '16px' }}>
       <Flex as="ul" align="center" gap="25px">
         {Object.entries(COMMUNITY_TABS).map(([key, { label, icon, value }]) => (
           <li key={key} role="none">

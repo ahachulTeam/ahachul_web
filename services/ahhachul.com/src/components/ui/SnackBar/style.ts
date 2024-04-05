@@ -35,7 +35,7 @@ const toast: CSSObject = {
   alignItems: 'center',
   justifyContent: 'space-between',
   gap: '30px',
-  background: 'linear-gradient(91deg, rgba(35, 40, 52, 0.70) 0%, rgba(39, 40, 62, 0.70) 100%)',
+  background: 'linear-gradient(91deg, rgba(35, 40, 52, 0.87) 0%, rgba(39, 40, 62, 0.87) 100%)',
   padding: '8px 36px',
   borderRadius: '10px',
   position: 'relative',

@@ -2,11 +2,12 @@ import React, { Suspense } from 'react';
 
 import { ErrorComponent, UiComponent } from 'components';
 import ListSection from './listSection';
-import { wrap, sectionLabel, err } from './style';
+import { wrap, pageTitle, err } from './style';
 import ErrorDefault from 'components/error-management/ErrorDefault';
 import { AnimatePresence, motion } from 'framer-motion';
 import { defaultFadeInVariants } from 'data/motion';
 import { useAppSelector } from 'stores';
+import FilterSection from './filterSection';
 
 const ComplaintList = () => {
   const { activeView } = useAppSelector((state) => state.complaint);
@@ -21,7 +22,8 @@ const ComplaintList = () => {
           exit="exit"
           variants={defaultFadeInVariants}
         >
-          <h2 css={[sectionLabel]}>실시간 민원</h2>
+          <h2 css={pageTitle}>실시간 민원</h2>
+          <FilterSection />
           <ErrorComponent.QueryErrorBoundary fallback={(props) => <ErrorDefault {...props} />} fallbackCss={err}>
             <Suspense fallback={<UiComponent.Loading />}>
               <ListSection />

@@ -4,6 +4,7 @@ import LostCard from './Item';
 import { useGetLostList } from 'queries/lost/useGetLostList';
 // import { flattenInfinityListData } from 'utils/response';
 import { useAppSelector } from 'stores';
+import { ul } from './style';
 // import { ILostList } from 'types';
 // import { useMemo } from 'react';
 
@@ -18,7 +19,7 @@ function ListSection() {
   console.log('data :', data);
 
   return (
-    <Box as="section" style={{ padding: '24px 0' }}>
+    <Box as="section">
       <Flex as="ul" direction="column" css={ul}>
         <LostCard />
         <LostCard />
@@ -30,11 +31,5 @@ function ListSection() {
     </Box>
   );
 }
-
-const ul = {
-  '& > li:not(:last-of-type)': {
-    borderBottom: '1px solid hsla(0, 0%, 100%, .06)',
-  },
-};
 
 export default ListSection;
