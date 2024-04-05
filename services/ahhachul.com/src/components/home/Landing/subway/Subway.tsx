@@ -4,13 +4,13 @@ import styled from '@emotion/styled';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-import { filterWrap, loading, sectionWrap, title, wrap } from './style';
+import { filterWrap, sectionWrap, title, wrap } from './style';
 import Train from './train/Train';
 import IconFetch from 'static/icons/system/IconFetch';
 import IconInfo from 'static/icons/system/IconInfo';
 import { useFlow } from 'stackflow';
 import IconChevron from 'static/icons/system/IconChevron';
-import { ErrorComponent, UiComponent } from 'components';
+import { ErrorComponent } from 'components';
 import { useGetTrainsRealTimeInfo } from 'queries/train/useGetTrainsRealTimeInfo';
 import { exportHexColorWidthLineName, formatCurrentTrainArrivalTypeToKo } from 'utils/export';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -130,7 +130,7 @@ const Subway = () => {
                         </button>
                       </>
                     ) : (
-                      <Skeleton width="74px" baseColor="#2e2e2e" highlightColor="rgba(255, 255, 255, 0.24)" />
+                      <Skeleton width="64px" baseColor="#2e2e2e" highlightColor="rgba(255, 255, 255, 0.24)" />
                     )}
                   </>
                 </TopInfo>
@@ -164,12 +164,25 @@ const Subway = () => {
               </TrainInfoTop>
               <div css={{ position: 'relative', minHeight: '31px' }}>
                 <ErrorComponent.QueryErrorBoundary fallback={(props) => <TrainError {...props} />}>
-                  <Suspense fallback={<UiComponent.PartialLoading css={loading} size={'98px'} />}>
-                    {/* 이게 맞나 ? */}
+                  <Suspense
+                    fallback={
+                      <Skeleton
+                        width="257px"
+                        height="20px"
+                        baseColor="#2e2e2e"
+                        highlightColor="rgba(255, 255, 255, 0.24)"
+                      />
+                    }
+                  >
                     {data?.trainRealTimes?.[selectedIdx]?.trainNum ? (
                       <Train trainNo={data?.trainRealTimes?.[selectedIdx]?.trainNum} subwayLineId={subwayLineIds[0]} />
                     ) : (
-                      <UiComponent.PartialLoading css={loading} size={'98px'} />
+                      <Skeleton
+                        width="178px"
+                        height="20px"
+                        baseColor="#2e2e2e"
+                        highlightColor="rgba(255, 255, 255, 0.24)"
+                      />
                     )}
                   </Suspense>
                 </ErrorComponent.QueryErrorBoundary>
