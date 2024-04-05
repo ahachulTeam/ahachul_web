@@ -4,7 +4,17 @@ import { createLinkComponent } from '@stackflow/link';
 import { historySyncPlugin } from '@stackflow/plugin-history-sync';
 import { basicRendererPlugin } from '@stackflow/plugin-renderer-basic';
 
-import { Complaints, Home, Lost, LostDetail, LostEditor, Community, CommunityDetail, CommunityEditor } from 'pages';
+import {
+  Home,
+  Complaints,
+  ComplaintDetail,
+  Lost,
+  LostDetail,
+  LostEditor,
+  Community,
+  CommunityDetail,
+  CommunityEditor,
+} from 'pages';
 import { ComplaintsComponent, HomeComponent, SharedComponent } from 'components';
 import { PATH } from 'data';
 
@@ -24,9 +34,10 @@ export const { Stack, activities, useFlow, useStepFlow } = stackflow({
     Home,
     SubwayMap: HomeComponent.SubwayMap,
     RegisterCenter: HomeComponent.RegisterCenter,
-    Complaints,
     AskTrainNumber: ComplaintsComponent.AskTrainNumber,
     ComplaintsSubmission: ComplaintsComponent.ComplaintsSubmission,
+    Complaints,
+    ComplaintDetail,
     Lost,
     LostDetail,
     LostEditor,
@@ -60,6 +71,7 @@ export const { Stack, activities, useFlow, useStepFlow } = stackflow({
         SubwayMap: PATH.subwayMap,
         RegisterCenter: PATH.registerCenter,
         Complaints: PATH.complaints,
+        ComplaintDetail: PATH.complaintDetail,
         AskTrainNumber: PATH.complaintsAskTrainNumber,
         ComplaintsSubmission: PATH.complaintsSubmission,
         Lost: PATH.lost,

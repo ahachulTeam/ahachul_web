@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CommunityCategoryType, ICommunityStore } from 'types';
 
 const initialState: ICommunityStore = {
-  activeTab: 'FREE',
+  activeTab: 'HOT',
 };
 
 const {

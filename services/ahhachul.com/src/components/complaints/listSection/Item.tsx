@@ -13,7 +13,7 @@ import { f } from 'styles';
 function Item() {
   const { push } = useFlow();
   const navigateToDetail = () =>
-    push('CommunityDetail', { articleId: (Math.floor(Math.random() * 1000) + 1).toString() });
+    push('ComplaintDetail', { articleId: (Math.floor(Math.random() * 1000) + 1).toString() });
 
   const getRandomNickname = () => {
     const list = [

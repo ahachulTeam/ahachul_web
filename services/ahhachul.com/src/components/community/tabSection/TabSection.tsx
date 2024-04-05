@@ -7,8 +7,15 @@ import { CommunityCategoryType } from 'types';
 import { useAppSelector } from 'stores';
 import { useDispatch } from 'react-redux';
 import { setTab } from 'stores/community';
+import IconCategoryRank from 'static/icons/community/IconCategoryRank';
+import IconCategoryQuestion from 'static/icons/community/IconCategoryQuestion';
 
 const COMMUNITY_TABS = {
+  hot: {
+    icon: <IconCategoryRank />,
+    label: '인기',
+    value: 'HOT',
+  },
   free: {
     icon: <IconCategoryFree />,
     label: '자유',
@@ -18,6 +25,11 @@ const COMMUNITY_TABS = {
     icon: <IconCategoryInsight />,
     label: '정보',
     value: 'INSIGHT',
+  },
+  question: {
+    icon: <IconCategoryQuestion />,
+    label: '질문',
+    value: 'QUESTION',
   },
 } as const;
 

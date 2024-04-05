@@ -9,12 +9,12 @@ import { setTab } from 'stores/lost';
 
 const LOST_AND_FOUND_TABS = {
   acquire: {
-    icon: <IconCircleUp />,
+    icon: <IconCircleDown />,
     label: '습득물',
     value: 'ACQUIRE',
   },
   lost: {
-    icon: <IconCircleDown />,
+    icon: <IconCircleUp />,
     label: '분실물',
     value: 'LOST',
   },

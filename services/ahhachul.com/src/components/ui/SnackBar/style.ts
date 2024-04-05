@@ -1,20 +1,28 @@
 import { type CSSObject, type Theme } from '@emotion/react';
 
-const container = (posBottom: number): CSSObject => ({
-  position: 'fixed',
-  bottom: `${posBottom}px`,
-  left: 0,
-  height: 'max-content',
-  width: '100%',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  zIndex: 900,
+const container =
+  (posBottom: number) =>
+  ({
+    layout: {
+      dimensions: {
+        zIndexes: { toast },
+      },
+    },
+  }: Theme): CSSObject => ({
+    position: 'fixed',
+    bottom: `${posBottom}px`,
+    left: 0,
+    height: 'max-content',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: toast,
 
-  '& > div:not(:first-of-type)': {
-    marginTop: '12px',
-  },
-});
+    '& > div:not(:first-of-type)': {
+      marginTop: '12px',
+    },
+  });
 
 const wrap = {
   minWidth: 'max-content',

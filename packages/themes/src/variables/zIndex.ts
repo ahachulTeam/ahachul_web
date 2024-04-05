@@ -3,6 +3,6 @@ export const zIndexes = {
   dialog: 200,
   bottomSheet: 300,
   alert: 400,
-  toast: 500,
   nav: 1000,
+  toast: 1500,
 };

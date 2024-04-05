@@ -5,7 +5,7 @@ export type ICommunityStore = {
   activeTab: CommunityCategoryType;
 };
 
-export type CommunityCategoryType = 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR';
+export type CommunityCategoryType = 'HOT' | 'FREE' | 'INSIGHT' | 'ISSUE' | 'HUMOR' | 'QUESTION';
 
 export interface ICommunity {
   /** 커뮤니티 포스트 아이디 */

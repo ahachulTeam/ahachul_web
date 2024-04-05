@@ -5,6 +5,7 @@ const PATH = {
   lostDetail: '/lost/:articleId',
   lostEditor: '/lost/editor',
   complaints: '/complaints',
+  complaintDetail: '/complaints/:articleId',
   complaintsAskTrainNumber: '/complaints/askTrainNumber',
   complaintsSubmission: '/complaints/complaintsSubmission',
   community: '/community',
