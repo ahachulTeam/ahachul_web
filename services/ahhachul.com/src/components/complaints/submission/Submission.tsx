@@ -75,7 +75,7 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
             <span>지하철 정보</span>
             <div css={trainLabelsWrap(exportHexColorWidthLineName(trainInfo.lineName))}>
               <span>
-                {trainNo} / {trainInfo.lineName} {trainInfo.roomNumber && `/ ${trainInfo.roomNumber}번째 칸`}
+                {trainInfo?.lineName} {trainInfo.roomNumber && `${trainInfo.roomNumber}번째 칸`}
               </span>
             </div>
           </div>

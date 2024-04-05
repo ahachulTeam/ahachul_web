@@ -1,1 +1,1 @@
-export { default as DirectMessage } from './DirectMessage';
+export { default as DMList } from './DMList';

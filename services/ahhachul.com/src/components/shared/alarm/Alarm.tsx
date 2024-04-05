@@ -4,8 +4,8 @@ import { Box } from '@ahhachul/react-components-layout';
 
 import { Layout } from 'components/layout';
 import { ActivityNotification } from './activityNotifications';
-import { DirectMessage } from './directMessage';
 import { UiComponent } from 'components';
+import { DMList } from './directMessage';
 
 export type AlarmType = 'activityNotification' | 'directMessage';
 
@@ -35,9 +35,9 @@ const Alarm: ActivityComponentType = () => {
           name="유실물 탭 버튼"
           css={{ padding: '0 20px 20px' }}
         />
-        <ul>
+        <>
           {tab === 'activityNotification' ? (
-            <>
+            <ul>
               <ActivityNotification type="talk" />
               <ActivityNotification type="complaints" />
               <ActivityNotification type="complaints" />
@@ -49,22 +49,11 @@ const Alarm: ActivityComponentType = () => {
               <ActivityNotification type="complaints" />
               <ActivityNotification type="complaints" />
               <ActivityNotification type="talk" />
-            </>
+            </ul>
           ) : (
-            <>
-              <DirectMessage />
-              <DirectMessage />
-              <DirectMessage />
-              <DirectMessage />
-              <DirectMessage />
-              <DirectMessage />
-              <DirectMessage />
-              <DirectMessage />
-              <DirectMessage />
-              <DirectMessage />
-            </>
+            <DMList />
           )}
-        </ul>
+        </>
       </Box>
     </Layout>
   );

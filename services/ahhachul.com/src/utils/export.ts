@@ -91,10 +91,10 @@ export const exportSubwayInfoFromTrainNumber = (
 
       if (firstDigitIs0Or1) {
         lineName = '1호선';
-        roomNumber = trainNumber[1];
+        roomNumber = String(+trainNumber[1] + 1);
       } else {
         lineName = `${trainNumber[0]}호선`;
-        roomNumber = trainNumber[1];
+        roomNumber = String(+trainNumber[1] + 1);
       }
     } else if (isLengthSix) {
       const startsWith3 = trainNumber[0] === '3';
@@ -109,19 +109,13 @@ export const exportSubwayInfoFromTrainNumber = (
         if (secondDigitIs6) {
           lineName = '경춘선';
           roomNumber = trainNumber[3];
-        }
-
-        if (secondDigitIs7) {
+        } else if (secondDigitIs7) {
           lineName = '경강선';
           roomNumber = trainNumber[3];
-        }
-
-        if (secondDigitIs2Or3) {
+        } else if (secondDigitIs2Or3) {
           lineName = '경의중앙선';
           roomNumber = trainNumber[3];
-        }
-
-        if (secondDigitIs5) {
+        } else if (secondDigitIs5) {
           lineName = '수인분당선';
           roomNumber = trainNumber[3];
         } else if (secondDigitIs1AndThirdDigitsIs9) {
@@ -138,6 +132,8 @@ export const exportSubwayInfoFromTrainNumber = (
             lineName = '수인분당선';
             roomNumber = trainNumber[3];
           }
+        } else {
+          error = '올바르지 않은 열차 번호입니다.';
         }
       } else {
         error = '올바르지 않은 열차 번호입니다.';

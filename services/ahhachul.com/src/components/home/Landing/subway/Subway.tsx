@@ -177,11 +177,12 @@ const Subway = () => {
                   <Suspense
                     fallback={
                       <Skeleton
-                        width="257px"
-                        height="24px"
-                        borderRadius={0}
+                        width="100%"
+                        height="21px"
+                        borderRadius={4}
                         baseColor="#2e2e2e"
                         highlightColor="rgba(255, 255, 255, 0.24)"
+                        css={{ marginTop: '5px' }}
                       />
                     }
                   >
@@ -189,11 +190,12 @@ const Subway = () => {
                       <Train trainNo={data?.trainRealTimes?.[selectedIdx]?.trainNum} subwayLineId={subwayLineIds[0]} />
                     ) : (
                       <Skeleton
-                        width="217px"
-                        height="24px"
-                        borderRadius={0}
+                        width="100%"
+                        height="21px"
+                        borderRadius={4}
                         baseColor="#2e2e2e"
                         highlightColor="rgba(255, 255, 255, 0.24)"
+                        css={{ marginTop: '5px' }}
                       />
                     )}
                   </Suspense>

@@ -1,5 +1,6 @@
 import { Flex } from '@ahhachul/react-components-layout';
 import { CSSObject, Theme } from '@emotion/react';
+import { getRandomBoolean } from 'mocks/utils';
 import { useState } from 'react';
 import { useFlow } from 'stackflow';
 
@@ -26,7 +27,7 @@ const getRandomNickname = () => {
   return list[randomIdx];
 };
 
-function DirectMessage() {
+function OneOnOneCard() {
   const { push } = useFlow();
   const pushTo = () => {
     push('Chat', { slug: getRandomNickname() });
@@ -35,7 +36,7 @@ function DirectMessage() {
     }, 750);
   };
 
-  const [notiCount, minus] = useState(1);
+  const [notiCount, minus] = useState(getRandomBoolean() ? 1 : 0);
   const isActive = notiCount >= 1;
 
   return (
@@ -105,4 +106,4 @@ const cnt = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
   right: 0,
 });
 
-export default DirectMessage;
+export default OneOnOneCard;
