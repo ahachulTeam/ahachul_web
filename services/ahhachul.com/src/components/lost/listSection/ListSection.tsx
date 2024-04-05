@@ -1,6 +1,6 @@
 import { Box, Flex } from '@ahhachul/react-components-layout';
 
-import LostAndFoundCard from './Item';
+import LostCard from './Item';
 import { useGetLostList } from 'queries/lost/useGetLostList';
 // import { flattenInfinityListData } from 'utils/response';
 import { useAppSelector } from 'stores';
@@ -20,12 +20,12 @@ function ListSection() {
   return (
     <Box as="section" style={{ padding: '24px 0' }}>
       <Flex as="ul" direction="column" css={ul}>
-        <LostAndFoundCard />
-        <LostAndFoundCard />
-        <LostAndFoundCard />
-        <LostAndFoundCard />
-        <LostAndFoundCard />
-        <LostAndFoundCard />
+        <LostCard />
+        <LostCard />
+        <LostCard />
+        <LostCard />
+        <LostCard />
+        <LostCard />
       </Flex>
     </Box>
   );

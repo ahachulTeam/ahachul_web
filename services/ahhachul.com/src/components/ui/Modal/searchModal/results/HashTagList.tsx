@@ -1,19 +1,19 @@
 import { CSSObject } from '@emotion/react';
+import { debounce } from 'lodash-es';
 import { useDispatch } from 'react-redux';
 import { hideModal } from 'stores/search/reducer';
 import { f } from 'styles';
 
 const HashTagList = () => {
   const dispatch = useDispatch();
-  const close = () => {
-    dispatch(hideModal());
-  };
+  const closeModal = () => dispatch(hideModal());
+  const debouncedHide = debounce(closeModal, 200);
 
   return (
     <section css={wrap}>
       <ul css={ul}>
         {new Array(32).fill('').map((_, idx) => (
-          <li key={idx} onClick={close}>
+          <li key={idx} onClick={debouncedHide}>
             <Item />
           </li>
         ))}
@@ -24,15 +24,13 @@ const HashTagList = () => {
 
 const Item = () => {
   return (
-    <li>
-      <article css={item}>
-        <div dangerouslySetInnerHTML={{ __html: HashTagSvg }}></div>
-        <div>
-          <span>#벚꽃</span>
-          <span>게시물 10.6만</span>
-        </div>
-      </article>
-    </li>
+    <article css={item}>
+      <div dangerouslySetInnerHTML={{ __html: HashTagSvg }}></div>
+      <div>
+        <span>#벚꽃</span>
+        <span>게시물 10.6만</span>
+      </div>
+    </article>
   );
 };
 

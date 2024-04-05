@@ -1,16 +1,17 @@
 import { Flex } from '@ahhachul/react-components-layout';
 import { CSSObject, Theme } from '@emotion/react';
+import { CSSProperties, useEffect, useState } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { useFlow } from 'stackflow';
 import IconComment from 'static/icons/system/IconComment';
-import IconHeart from 'static/icons/system/IconHeart';
 import mockImg1 from 'static/img/mocks/mock2.png';
 import mockImg2 from 'static/img/mocks/mock4.png';
 import mockImg3 from 'static/img/mocks/mock5.jpg';
 import { f } from 'styles';
+import { exportHexColorWidthLineName, exportSubwayInfoFromTrainNumber } from 'utils/export';
 
-function Item() {
+function Item({ trainNo }: { trainNo: string }) {
   const { push } = useFlow();
   const navigateToDetail = () =>
     push('ComplaintDetail', { articleId: (Math.floor(Math.random() * 1000) + 1).toString() });
@@ -38,24 +39,30 @@ function Item() {
     return list[randomIdx];
   };
 
+  const [subwayInfo, setSubwayInfo] = useState<any>();
+  useEffect(() => {
+    console.log(':exportSubwayInfoFromTrainNumber(trainNo)', exportSubwayInfoFromTrainNumber(trainNo));
+    setSubwayInfo(exportSubwayInfoFromTrainNumber(trainNo));
+  }, []);
+
   const getRandomContent = () => {
     const list = [
-      '일주일에 충치치료, 사랑니(매복)2개나 뺄려하다니 내가 미쳤지 근데 원래 이렇게 멍한 느낌이 드나? 아파서 말을 못하겠다',
-      '뷰뷰이 오늘 아침 8시에 퇴근하고 갤에 솔 공략 올리고 킬게용 아마 21:00~23:00 이시간쯤에 뱅종 할듯 상태 별로면 근말 할수도 있음..',
-      '[광고] 약탈폭풍  wow+배틀로얄   신규출시',
-      '몬스터 꺼버렸자나 한잔해',
+      '더워요',
+      '할아버지가 앞에서 춤춰요',
+      '다리가 너무 후들후들거려요 도와주세요',
+      '민원 신고 하느라 고생 많아, 한잔해',
       '토요일에 볼래요?',
-      '정규 1등 찍은 효신좌 근황',
+      '의자가 너무 더러워요',
       '반갑습니다',
-      '치과에서 이빨을 조지고 온 나',
-      '광운대행 진짜 화난다',
-      '늦은 밤엔 공룡의 광증이 깊어집니다.',
-      'zzzㅋㅋㅋㅋㅋㅋㅋㅋ오 오랜만이누 ㅎㅇㅎㅇㅋㅋㅋㅋㅋㅋ',
-      '정말 오랜만이야',
-      '나락쇼',
-      '롤체 시즌11 에메 간다',
+      '온도 조절 좀 부탁드립니다. 여름인데 왜 히터가 나오나요?',
+      '광운대행 진짜 화나요',
+      '경찰 좀 불러주세요, 성추행 신고할게요',
+      '취객이 난동 피우고 있어요',
+      '앞에 할머니가 쓰러지셨어요',
+      '제 이빨이 깨졌는데 출근해야하나요?',
+      '왜 15분이나 연착하는건가요?',
       '나랑 영화볼래요?',
-      '출근하다가 빵사가는데...',
+      '출근하다가 빵사가는데 이빨이 깨졌어요',
     ];
     const randomIdx = Math.floor(Math.random() * list.length - 1) + 1;
     return list[randomIdx];
@@ -70,9 +77,19 @@ function Item() {
   return (
     <li onClick={navigateToDetail}>
       <Flex as="article" direction="column" gap="12px" css={wrap}>
-        <Flex align="center">
-          <span css={nickname}>{getRandomNickname()}</span>
-          <time css={time}>오후 3:00</time>
+        <Flex direction="column">
+          <div css={{ marginBottom: '12px' }}>
+            <span css={nickname}>{getRandomNickname()}</span>
+            <time css={time}>오후 3:00</time>
+          </div>
+          <div css={trainLabelsWrap(exportHexColorWidthLineName(subwayInfo?.lineName))}>
+            <span>
+              {subwayInfo?.lineName} {subwayInfo?.roomNumber && `${subwayInfo?.roomNumber}번째 칸`}
+            </span>
+            <p>
+              열차번호 <b>{trainNo}</b>
+            </p>
+          </div>
         </Flex>
         <Flex justify="space-between">
           <p css={content as unknown as CSSObject}>{getRandomContent()}</p>
@@ -89,10 +106,7 @@ function Item() {
         </Flex>
         <Flex align="center">
           <div css={label}>
-            <IconHeart /> <span>3</span>
-          </div>
-          <div css={label}>
-            <IconComment /> <span>10</span>
+            <IconComment /> <span>2</span>
           </div>
         </Flex>
       </Flex>
@@ -101,7 +115,7 @@ function Item() {
 }
 
 const wrap = {
-  padding: '24px 0',
+  padding: '12px 0',
 };
 
 const nickname = ({ typography: { fontSize, fontWeight } }: Theme) => ({
@@ -116,6 +130,49 @@ const time = ({ typography: { fontSize } }: Theme): CSSObject => ({
   marginLeft: '6px',
 });
 
+const trainLabelsWrap =
+  (pointColor: CSSProperties['color']) =>
+  ({
+    color: {
+      static: {
+        dark: { gray },
+      },
+    },
+    typography: { fontSize, fontWeight },
+  }: Theme) => ({
+    display: 'flex',
+    alignItems: 'center',
+
+    '& > span': {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: '4px',
+      padding: '0 8px',
+      height: '20px',
+      color: gray[1000],
+      fontSize: fontSize[12],
+      fontWeight: fontWeight[500],
+      background: pointColor,
+    },
+
+    '& > p': {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: '4px',
+      padding: '0 8px',
+      height: '20px',
+      color: gray[1000],
+      fontSize: fontSize[12],
+      background: 'inherit',
+
+      '& > b': {
+        marginLeft: '4px',
+      },
+    },
+  });
+
 const content = [
   f.truncate4,
   ({ typography: { fontSize } }: Theme) => ({
@@ -127,9 +184,9 @@ const content = [
 ];
 
 const img: CSSObject = {
-  width: '80px',
-  minWidth: '80px',
-  height: '80px',
+  width: '50px',
+  minWidth: '50px',
+  height: '50px',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

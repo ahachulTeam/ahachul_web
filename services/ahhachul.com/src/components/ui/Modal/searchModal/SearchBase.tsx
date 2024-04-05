@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import HistoryList from './History';
 import RankKeywords from './RankKeywords';
@@ -11,25 +11,24 @@ import { f } from 'styles';
 import { hideModal, setKeyword } from 'stores/search/reducer';
 import { useAppSelector } from 'stores';
 import SearchList from './SearchList';
+import { debounce } from 'lodash-es';
 
 const SearchBase = () => {
   const dispatch = useDispatch();
   const { keyword, showModal } = useAppSelector((state) => state.search);
 
-  const handleModalClose = useCallback(() => {
-    dispatch(hideModal());
-  }, []);
+  const closeModal = () => dispatch(hideModal());
+  const debouncedHide = debounce(closeModal, 200);
 
   useEffect(() => {
-    if (showModal) {
-      dispatch(setKeyword(null));
-    }
+    if (!showModal) return;
+    else dispatch(setKeyword(null));
   }, [showModal]);
 
   return (
     <article css={wrap}>
       <div css={modalHead}>
-        <IconBack onClick={handleModalClose} />
+        <IconBack onClick={debouncedHide} />
         <SearchGroup />
       </div>
       {!keyword ? (

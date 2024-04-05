@@ -68,7 +68,6 @@ export const exportSubwayInfoFromTrainNumber = (
   let lineName = '',
     roomNumber = '',
     error = '';
-
   const startsWithAlphabet = /^[a-zA-Z]/.test(trainNumber);
   const startsWithNumber = /^[0-9]/.test(trainNumber);
 

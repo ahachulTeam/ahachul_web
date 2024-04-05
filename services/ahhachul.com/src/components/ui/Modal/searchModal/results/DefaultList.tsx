@@ -1,4 +1,5 @@
 import { CSSObject } from '@emotion/react';
+import { debounce } from 'lodash-es';
 import { useDispatch } from 'react-redux';
 import IconSearch from 'static/icons/system/IconSearch';
 import { hideModal } from 'stores/search/reducer';
@@ -6,15 +7,14 @@ import { f } from 'styles';
 
 const DefaultList = () => {
   const dispatch = useDispatch();
-  const close = () => {
-    dispatch(hideModal());
-  };
+  const closeModal = () => dispatch(hideModal());
+  const debouncedHide = debounce(closeModal, 200);
 
   return (
     <section css={wrap}>
-      <ul css={ul} onClick={close}>
+      <ul css={ul}>
         {new Array(32).fill('').map((_, idx) => (
-          <li key={idx}>
+          <li key={idx} onClick={debouncedHide}>
             <Item />
           </li>
         ))}
