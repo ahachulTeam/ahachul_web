@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { Flex, Text } from '@ahhachul/react-components-layout';
 import { UiComponent } from 'components';
 import IconBookmark from 'static/icons/system/IconBookmark';
@@ -6,6 +6,8 @@ import IconHeart from 'static/icons/system/IconHeart';
 import { userName, time, category, btn, commentList, commentTitle } from './style';
 import Comment from './Comment';
 import { IComplaint } from 'types';
+import { exportHexColorWidthLineName } from 'utils/export';
+import { Theme } from '@emotion/react';
 
 function DetailOnlyText({ data }: { data: IComplaint }) {
   return (
@@ -13,8 +15,14 @@ function DetailOnlyText({ data }: { data: IComplaint }) {
       <Flex direction="column" css={{ padding: '0 20px', marginTop: '16px', position: 'relative' }}>
         <h3 css={userName}>{data.writer}</h3>
         <time css={time}>1월13일 10:40</time>
-        <span css={category}>자유</span>
+        <span css={category}>{data?.complaintType}</span>
       </Flex>
+      <div css={trainLabelsWrap(exportHexColorWidthLineName(data?.lineName))}>
+        <span>{data?.lineName} 9번째 칸</span>
+        <span>
+          열차번호 <b>{data?.trainNo}</b>
+        </span>
+      </div>
       <UiComponent.TextRenderer article={data.content} />
       <Flex style={{ padding: '0 20px 20px' }} />
       <Flex align="center" justify="space-between" style={{ padding: '10px 20px' }}>
@@ -28,7 +36,7 @@ function DetailOnlyText({ data }: { data: IComplaint }) {
       </Flex>
       <UiComponent.Divider color="hsla(0, 0%, 100%, .06)" />
       <Flex justify="space-between" align="center" style={{ padding: '18px 20px 0' }}>
-        <span css={commentTitle}>댓글 99</span>
+        <span css={commentTitle}>댓글 {data?.commentCnt}</span>
         <Flex align="center" gap="12px">
           <span css={btn(true)}>인기순</span>
           <span css={btn(false)}>등록순</span>
@@ -50,5 +58,39 @@ function DetailOnlyText({ data }: { data: IComplaint }) {
     </>
   );
 }
+
+const trainLabelsWrap =
+  (pointColor: CSSProperties['color']) =>
+  ({
+    color: {
+      static: {
+        dark: { gray },
+      },
+    },
+    typography: { fontSize, fontWeight },
+  }: Theme) => ({
+    display: 'flex',
+    alignItems: 'center',
+    padding: '10px 20px',
+
+    '& > span': {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: '4px',
+      padding: '0 8px',
+      height: '20px',
+      color: gray[1000],
+      fontSize: fontSize[12],
+      fontWeight: fontWeight[500],
+      background: pointColor,
+      marginRight: '8px',
+
+      '& > b': {
+        fontWeight: fontWeight[400],
+        marginLeft: '4px',
+      },
+    },
+  });
 
 export default DetailOnlyText;

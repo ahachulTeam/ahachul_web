@@ -4,13 +4,14 @@ import { useEffect } from 'react';
 import { useFlow } from 'stackflow';
 import { useDispatch } from 'react-redux';
 import { addSnackBar, loaded, loading } from 'stores/ui';
+import { setView } from 'stores/complaints';
 
 export const useComplaintsArticle = () => {
   const res = useMutation({
     mutationFn: ComplaintsApi.post,
   });
 
-  const { pop } = useFlow();
+  const { push, pop } = useFlow();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,9 +23,10 @@ export const useComplaintsArticle = () => {
 
     if (res.status === 'success') {
       dispatch(loaded());
+      dispatch(setView('LIST'));
       pop(2);
       setTimeout(() => {
-        // push('Complaints', {});
+        push('ComplaintDetail', { articleId: '1' });
         dispatch(addSnackBar({ message: `민원을 등록했어요`, posBottom: 115 }));
       }, 750);
     } else if (res.status === 'error') {

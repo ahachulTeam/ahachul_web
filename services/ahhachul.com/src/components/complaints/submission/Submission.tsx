@@ -116,15 +116,23 @@ const SelectComponent = memo(
   }) => {
     const [current, setCurrent] = useState('');
 
-    const handleToggle = (type: any) => () => {
+    const handleToggle = (type: string) => () => {
       setCurrent(type);
       handleChangeSelect(type)();
+
+      const element = document.getElementById(type);
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+      }
     };
 
     return (
       <div css={buttonGroup}>
         {Object.entries(selectList).map(([key, val]) => (
-          <button key={key} type="button" css={toggleBtn(current === key)} onClick={handleToggle(key)}>
+          <button key={key} id={key} type="button" css={toggleBtn(current === key)} onClick={handleToggle(key)}>
             {val}
           </button>
         ))}
@@ -166,11 +174,19 @@ const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] = 
   }),
 ];
 
-const buttonGroup = [f.flexAlignCenter];
+const buttonGroup: [CSSObject[], CSSObject, CSSObject] = [
+  f.flexAlignCenter,
+  f.overflowScroll,
+  {
+    overflowY: 'hidden',
+    overflowX: 'scroll',
+  },
+];
 
 const toggleBtn =
   (isActive: boolean) =>
   ({ typography: { fontSize, fontWeight } }: Theme) => ({
+    flexShrink: 0,
     border: '1px solid rgb(196, 212, 252, 0.37)',
     height: '32px',
     borderRadius: '124px',
