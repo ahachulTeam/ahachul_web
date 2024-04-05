@@ -5,9 +5,9 @@ import IconBookmark from 'static/icons/system/IconBookmark';
 import IconHeart from 'static/icons/system/IconHeart';
 import { userName, time, category, btn, commentList, commentTitle } from './style';
 import Comment from './Comment';
-import { ILostDetail } from 'types';
+import { IComplaint } from 'types';
 
-function DetailOnlyText({ data }: { data: ILostDetail }) {
+function DetailOnlyText({ data }: { data: IComplaint }) {
   return (
     <>
       <Flex direction="column" css={{ padding: '0 20px', marginTop: '16px', position: 'relative' }}>

@@ -54,6 +54,12 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
       return;
     }
 
+    console.log({
+      ...formRef.current,
+      trainNo,
+      complaintType: params.slug,
+    });
+
     mutate({
       ...formRef.current,
       trainNo,

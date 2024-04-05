@@ -6,10 +6,10 @@ import IconHeart from 'static/icons/system/IconHeart';
 
 import { userName, time, category, btn, commentTitle, commentList } from './style';
 import Comment from './Comment';
-import { ILostDetail } from 'types';
+import { IComplaint } from 'types';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-function DetailWithImage({ data }: { data: ILostDetail }) {
+function DetailWithImage({ data }: { data: IComplaint }) {
   return (
     <>
       <Box
@@ -40,7 +40,7 @@ function DetailWithImage({ data }: { data: ILostDetail }) {
       <Flex direction="column" css={{ padding: '0 20px', marginTop: '20px', position: 'relative' }}>
         <h3 css={userName}>{data.writer}</h3>
         <time css={time}>1월13일 10:40</time>
-        <span css={category}>자유</span>
+        <span css={category}>{data?.complaintType}</span>
       </Flex>
       <UiComponent.TextRenderer article={data.content} />
       <Flex style={{ padding: '0 20px 20px' }} />
@@ -64,13 +64,6 @@ function DetailWithImage({ data }: { data: ILostDetail }) {
 
       {/* 댓글 */}
       <ul css={commentList}>
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
         <Comment />
         <Comment />
       </ul>
