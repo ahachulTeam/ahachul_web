@@ -1,8 +1,10 @@
 import { CSSObject } from '@emotion/react';
+import { COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
 import { defaultFadeInVariants } from 'data/motion';
 import { AnimatePresence, motion } from 'framer-motion';
 import { IComplaint } from 'types';
 import { getDomainName, isIOS } from 'utils/appEnv';
+import { formatComplaintShortContentToKoSentence, formatComplaintTypeToKoSentence } from 'utils/export';
 
 const FloatBtn = ({
   id,
@@ -12,7 +14,7 @@ const FloatBtn = ({
 }: Pick<IComplaint, 'id' | 'shortContent' | 'complaintType'> & { lineName: string }) => {
   const phoneNumber = '1577-1234'; // 3호선 민원 번호
   const url = `${getDomainName()}/complaints/${id}`;
-  const messageContent = `${lineName} ${complaintType}\n${shortContent}\n\n아하철에서 자세한 내용을 확인해주세요.\n\n${url}`;
+  const messageContent = `${lineName} ${formatComplaintTypeToKoSentence(complaintType as COMPLAINTS_CONTENTS_TYPES)}\n${formatComplaintShortContentToKoSentence(shortContent)}\n\n아하철에서 자세한 내용을 확인해주세요.\n\n${url}`;
 
   const handleSendMessage = () => {
     let messageLink = '';
@@ -52,7 +54,7 @@ const floatCss: CSSObject = {
   alignItems: 'center',
   justifyContent: 'center',
   padding: '12px 22px',
-  borderRadius: '10px',
+  borderRadius: '22px',
   fontSize: '13px',
   fontWeight: 600,
   color: 'rgb(65, 66, 89)',

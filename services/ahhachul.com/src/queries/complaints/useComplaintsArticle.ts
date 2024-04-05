@@ -25,8 +25,8 @@ export const useComplaintsArticle = () => {
       dispatch(loaded());
       dispatch(setView('LIST'));
       pop(2);
+      push('ComplaintDetail', { articleId: '1' });
       setTimeout(() => {
-        push('ComplaintDetail', { articleId: '1' });
         dispatch(addSnackBar({ message: `민원을 등록했어요`, posBottom: 115 }));
       }, 750);
     } else if (res.status === 'error') {

@@ -19,7 +19,7 @@ const getComplaintDetailResponse = (postId: string) => ({
     createdBy: 'dieo21',
     writer: '뚜밥뚜밥',
     images: [],
-    complaintType: '응급',
+    complaintType: '응급환자',
   },
 });
 

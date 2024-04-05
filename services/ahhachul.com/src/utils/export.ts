@@ -11,6 +11,7 @@
  * 김포골드
  */
 
+import { COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
 import { CongestionColorType, CurrentTrainArrivalType } from 'types';
 import { removeEmptyProperties } from './object';
 
@@ -190,5 +191,67 @@ export const formatCongestionColorToHexColor = (congestionColor?: CongestionColo
       return '#EE6161';
     default:
       return 'rgba(0, 0, 0, 0)';
+  }
+};
+
+export const formatComplaintTypeToKoSentence = (complaintType?: COMPLAINTS_CONTENTS_TYPES) => {
+  if (!complaintType) return;
+
+  switch (complaintType) {
+    case '환경민원':
+      return '환경 민원이 발생했어요.';
+    case '온도조절':
+      return '온도조절 민원이 발생했어요.';
+    case '질서저해':
+      return '질서저해 민원이 발생했어요.';
+    case '안내방송':
+      return '안내방송 민원이 발생했어요.';
+    case '응급환자':
+      return '응급환자 민원이 발생했어요.';
+    case '폭력':
+      return '폭력 민원이 발생했어요.';
+    case '성추행':
+      return '성추행 민원이 발생했어요.';
+    default:
+      return '민원이 발생했어요.';
+  }
+};
+
+export const formatComplaintShortContentToKoSentence = (complaintShortContent?: string) => {
+  if (!complaintShortContent) return;
+
+  switch (complaintShortContent) {
+    case '오물':
+      return '오물이 있어요!';
+    case '토사물':
+      return '토사물이 있어요!';
+    case '환기요청':
+      return '안좋은 냄새가 나요, 환기 좀 부탁드려요!';
+    case '시끄러워요':
+      return '안내방송이 너무 커서 시끄러워요!';
+    case '안들려요':
+      return '안내방송이 너무 작아서 안들려요!';
+    case '더워요':
+      return '너무 더워요! 온도 좀 낮춰주세요.';
+    case '추워요':
+      return '너무 추워요! 온도 좀 높여주세요.';
+    case '이동상인':
+      return '이동상인이 물건을 팔아요!';
+    case '취객':
+      return '취객이 돌아다녀요!';
+    case '노숙':
+      return '지하철에서 노숙을 하고 계세요!';
+    case '구걸':
+      return '지하철에서 구걸하고 계신 분이 있어요!';
+    case '종교행위':
+      return '지하철에서 종교행위하고 계신 분이 있어요!';
+    case '본인':
+      return '본인이 환자입니다.';
+    case '목격자':
+      return '본인은 목격자입니다.';
+    case '피해자':
+      return '본인이 피해자입니다.';
+    default:
+      return '민원이 발생했어요';
   }
 };

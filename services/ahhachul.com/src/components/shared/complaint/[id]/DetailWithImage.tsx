@@ -46,9 +46,9 @@ function DetailWithImage({ data }: { data: IComplaint }) {
       </Flex>
       <div css={trainLabelsWrap(exportHexColorWidthLineName(data?.lineName))}>
         <span>{data?.lineName} 9번째 칸</span>
-        <span>
+        <p>
           열차번호 <b>{data?.trainNo}</b>
-        </span>
+        </p>
       </div>
       <UiComponent.TextRenderer article={data.content} />
       <Flex style={{ padding: '0 20px 20px' }} />
@@ -91,7 +91,7 @@ const trainLabelsWrap =
   }: Theme) => ({
     display: 'flex',
     alignItems: 'center',
-    padding: '10px 20px',
+    padding: '16px 20px',
 
     '& > span': {
       display: 'flex',
@@ -99,15 +99,25 @@ const trainLabelsWrap =
       justifyContent: 'center',
       borderRadius: '4px',
       padding: '0 8px',
-      height: '20px',
+      height: '24px',
       color: gray[1000],
       fontSize: fontSize[12],
       fontWeight: fontWeight[500],
       background: pointColor,
-      marginRight: '8px',
+    },
+
+    '& > p': {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: '4px',
+      padding: '0 8px',
+      height: '24px',
+      color: gray[1000],
+      fontSize: fontSize[12],
+      background: 'inherit',
 
       '& > b': {
-        fontWeight: fontWeight[400],
         marginLeft: '4px',
       },
     },
