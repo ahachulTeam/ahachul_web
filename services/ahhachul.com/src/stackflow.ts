@@ -14,6 +14,7 @@ import {
   Community,
   CommunityDetail,
   CommunityEditor,
+  BlindDate,
 } from 'pages';
 import { ComplaintsComponent, HomeComponent, SharedComponent } from 'components';
 import { PATH } from 'data';
@@ -25,7 +26,6 @@ export const { Stack, activities, useFlow, useStepFlow } = stackflow({
     Alarm: SharedComponent.Alarm,
     MyTicket: SharedComponent.MyTicket,
     MyProfile: SharedComponent.MyProfile,
-    BlindDate: SharedComponent.BlindDate,
     AllServices: SharedComponent.AllServices,
     SubwayWarning: SharedComponent.SubwayWarning,
     SubwayTimeTable: SharedComponent.SubwayTimeTable,
@@ -44,6 +44,7 @@ export const { Stack, activities, useFlow, useStepFlow } = stackflow({
     Community,
     CommunityDetail,
     CommunityEditor,
+    BlindDate,
   },
   plugins: [
     basicRendererPlugin(),
@@ -62,7 +63,6 @@ export const { Stack, activities, useFlow, useStepFlow } = stackflow({
         Alarm: PATH.alarm,
         MyTicket: PATH.myTicket,
         MyProfile: PATH.me,
-        BlindDate: PATH.blindDate,
         AllServices: PATH.allServices,
         SubwayWarning: PATH.subwayWarning,
         SubwayTimeTable: PATH.subwayTimeTable,
@@ -80,6 +80,8 @@ export const { Stack, activities, useFlow, useStepFlow } = stackflow({
         Community: PATH.community,
         CommunityDetail: PATH.communityDetail,
         CommunityEditor: PATH.communityEditor,
+        // 소개팅
+        BlindDate: PATH.blindDate,
       },
       fallbackActivity: () => 'Home',
     }),

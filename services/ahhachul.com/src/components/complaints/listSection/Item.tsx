@@ -27,7 +27,7 @@ function Item({ article }: { article: IComplaint }) {
               {article.roomNumber && `${article?.roomNumber}번째 칸`}
             </span>
             <p>
-              열차번호 <b>{article.trainNo}</b>
+              차량번호 <b>{article.trainNo}</b>
             </p>
           </div>
         </Flex>

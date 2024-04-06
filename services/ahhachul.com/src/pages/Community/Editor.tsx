@@ -127,7 +127,14 @@ const CommunityEditor = () => {
           </div>
           <div css={section}>
             <span>자세한 설명</span>
-            <UiComponent.Editor isRich hasError={!!errors.content} onChange={handleChangeContent} />
+            <UiComponent.Editor
+              isRich
+              hasError={!!errors.content}
+              onChange={handleChangeContent}
+              placeholder={
+                '게시글 내용을 작성해 주세요.\n\n서비스 정책에 맞지 않을 경우\n자동으로 게시판 이동 혹은 삭제 처리 될 수 있습니다.'
+              }
+            />
             {errors.content && (
               <b>
                 <IconInfo /> {errors.content}

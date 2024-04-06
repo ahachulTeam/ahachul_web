@@ -49,7 +49,7 @@ function DetailWithImage({ data }: { data: IComplaintDetail }) {
           {exportLineNameWithSubwayLineId(data.subwayLineId)} {data.roomNumber}번째 칸
         </span>
         <p>
-          열차번호 <b>{data?.trainNo}</b>
+          차량번호 <b>{data?.trainNo}</b>
         </p>
       </div>
       <UiComponent.TextRenderer article={data.content} />

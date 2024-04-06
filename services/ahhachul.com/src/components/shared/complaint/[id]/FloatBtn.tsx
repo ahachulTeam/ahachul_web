@@ -19,7 +19,7 @@ const FloatBtn = ({
 }: Pick<IComplaint, 'id' | 'trainNo' | 'subwayLineId' | 'shortContent' | 'complaintType'>) => {
   const phoneNumber = '1577-1234'; // 3호선 민원 번호
   const url = `${getDomainName()}/complaints/${id}`;
-  const messageContent = `열차번호 ${trainNo}\n${exportLineNameWithSubwayLineId(subwayLineId)} ${formatComplaintTypeToKoSentence(complaintType as COMPLAINTS_CONTENTS_TYPES)}\n${formatComplaintShortContentToKoSentence(shortContent)}\n\n아하철에서 자세한 내용을 확인해주세요.\n\n${url}`;
+  const messageContent = `차량번호 ${trainNo}\n${exportLineNameWithSubwayLineId(subwayLineId)} ${formatComplaintTypeToKoSentence(complaintType as COMPLAINTS_CONTENTS_TYPES)}\n${formatComplaintShortContentToKoSentence(shortContent)}\n\n아하철에서 자세한 내용을 확인해주세요.\n\n${url}`;
 
   const handleSendMessage = () => {
     let messageLink = '';

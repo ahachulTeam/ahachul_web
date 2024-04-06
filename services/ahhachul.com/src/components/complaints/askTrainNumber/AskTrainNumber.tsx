@@ -29,9 +29,9 @@ const AskTrainNumber: ActivityComponentType<AskTrainNumberProps> = ({ params }) 
     const trainInfo = exportSubwayInfoFromTrainNumber(inputRef.current.value);
 
     if (!inputRef.current.value) {
-      dispatch(addSnackBar({ message: '열차번호를 입력해주세요', posBottom: 115 }));
+      dispatch(addSnackBar({ message: '차량번호를 입력해주세요', posBottom: 115 }));
     } else if (trainInfo.error) {
-      dispatch(addSnackBar({ message: '올바른 열차번호를 입력해주세요', posBottom: 115 }));
+      dispatch(addSnackBar({ message: '올바른 차량번호를 입력해주세요', posBottom: 115 }));
     } else {
       push('ComplaintsSubmission', { slug: params.slug, trainNumber: inputRef.current.value });
     }
@@ -49,15 +49,15 @@ const AskTrainNumber: ActivityComponentType<AskTrainNumberProps> = ({ params }) 
             정확한 민원접수를 위해
           </Text>
           <Text fontSize="lg" css={{ color: '#ffffff !important' }}>
-            <b css={{ color: '#2EE477' }}>열차번호</b>를 입력해주세요
+            <b css={{ color: '#2EE477' }}>차량번호</b>를 입력해주세요
           </Text>
         </Flex>
       </Box>
       <div css={section}>
-        <span>열차번호</span>
-        <input ref={inputRef} placeholder="열차번호" />
+        <span>차량번호</span>
+        <input ref={inputRef} placeholder="차량번호" />
         <button onClick={clickNoTrainNumber}>
-          <span>열차번호 없이 민원신고 하기</span>
+          <span>차량번호 없이 민원신고 하기</span>
           <IconChevron />
         </button>
       </div>

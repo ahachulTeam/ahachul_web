@@ -2,7 +2,6 @@ export * from './chat';
 export * from './alarm';
 export * from './myTicket';
 export * from './myProfile';
-export * from './blindDate';
 export * from './allServices';
 export * from './subwayWarning';
 export * from './subwayTimeTable';

@@ -7,4 +7,4 @@ export { default as CommunityEditor } from './Community/Editor';
 export { default as Lost } from './Lost';
 export { default as LostDetail } from './Lost/[id]';
 export { default as LostEditor } from './Lost/Editor';
-export { default as Onboarding } from './Onboarding';
+export { default as BlindDate } from './BlindDate';
