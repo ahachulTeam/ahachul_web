@@ -16,7 +16,7 @@ import {
   CommunityEditor,
   BlindDate,
 } from 'pages';
-import { ComplaintsComponent, HomeComponent, SharedComponent } from 'components';
+import { BlindDateComponent, ComplaintsComponent, HomeComponent, SharedComponent } from 'components';
 import { PATH } from 'data';
 
 export const { Stack, activities, useFlow, useStepFlow } = stackflow({
@@ -45,6 +45,7 @@ export const { Stack, activities, useFlow, useStepFlow } = stackflow({
     CommunityDetail,
     CommunityEditor,
     BlindDate,
+    FormForBlindDate: BlindDateComponent.FormForBlindDate,
   },
   plugins: [
     basicRendererPlugin(),
@@ -82,6 +83,7 @@ export const { Stack, activities, useFlow, useStepFlow } = stackflow({
         CommunityEditor: PATH.communityEditor,
         // 소개팅
         BlindDate: PATH.blindDate,
+        FormForBlindDate: PATH.blindDateForm,
       },
       fallbackActivity: () => 'Home',
     }),

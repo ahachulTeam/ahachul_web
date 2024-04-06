@@ -8,8 +8,9 @@ import { CTAMotionVariants } from 'data/motion';
 import { useFlow } from 'stackflow';
 
 const Introduce = () => {
-  const { replace } = useFlow();
+  const { push, replace } = useFlow();
   const goHome = () => replace('Home', {});
+  const goFormForBlindDate = () => push('FormForBlindDate', {});
   const { currentStep } = useParagraphStep();
   const { isCTAButtonVisible } = useCTAButtonVisible();
 
@@ -32,7 +33,7 @@ const Introduce = () => {
           <button css={cancelBtn} onClick={goHome}>
             돌아가기
           </button>
-          <button css={submitBtn} onClick={() => {}}>
+          <button css={submitBtn} onClick={goFormForBlindDate}>
             생성하기
           </button>
         </motion.div>

@@ -19,12 +19,14 @@ const PATH = {
   registerCenter: 'register-center',
   setting: '/setting',
   login: '/login',
-  blindDate: '/blindDate',
   allServices: '/allServices',
   subwayWarning: '/subwayWarning',
   subwayTimeTable: '/subwayTimeTable',
   stationTalks: '/stationTalks',
   subwayLineTalks: '/subwayLineTalks',
+  // 소개팅
+  blindDate: '/blindDate',
+  blindDateForm: '/blindDate/formForBlindDate',
 } as const;
 
 export { PATH };
