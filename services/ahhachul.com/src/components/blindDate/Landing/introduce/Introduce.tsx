@@ -3,8 +3,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { f } from 'styles';
 import { useCTAButtonVisible, useParagraphStep } from './hooks';
 import SkipStaggerWrapper from './SkipStaggerWrapper';
-import { css, CSSObject, Theme } from '@emotion/react';
-import { CTAMotionVariants, defaultFadeInVariants } from 'data/motion';
+import { CSSObject, Theme } from '@emotion/react';
+import { CTAMotionVariants } from 'data/motion';
 import { useFlow } from 'stackflow';
 
 const Introduce = () => {
@@ -13,40 +13,30 @@ const Introduce = () => {
   const { currentStep } = useParagraphStep();
   const { isCTAButtonVisible } = useCTAButtonVisible();
 
-  if (currentStep === 4) {
-    return (
-      <motion.section css={sectionCss} variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
-        <article css={article}>
-          <AnimatePresence mode="wait">{currentStep === 4 && <Paragraph4 key="4" />}</AnimatePresence>
-        </article>
-
-        {isCTAButtonVisible && (
-          <motion.div css={fixedBottomCss} variants={CTAMotionVariants} initial="initial" animate="animate" exit="exit">
-            <button css={cancelBtn} onClick={goHome}>
-              돌아가기
-            </button>
-            <button css={submitBtn} onClick={() => {}}>
-              생성하기
-            </button>
-          </motion.div>
-        )}
-      </motion.section>
-    );
-  }
-
   return (
     <motion.section css={wrap}>
       <article css={article}>
         <AnimatePresence mode="wait">
-          {[1, 2, 3].includes(currentStep) && (
+          {[1, 2, 3, 4].includes(currentStep) && (
             <>
               {currentStep === 1 && <Paragraph1 key="1" />}
               {currentStep === 2 && <Paragraph2 key="2" />}
               {currentStep === 3 && <Paragraph3 key="3" />}
+              {currentStep === 4 && <Paragraph4 key="4" />}
             </>
           )}
         </AnimatePresence>
       </article>
+      {isCTAButtonVisible && (
+        <motion.div css={fixedBottomCss} variants={CTAMotionVariants} initial="initial" animate="animate" exit="exit">
+          <button css={cancelBtn} onClick={goHome}>
+            돌아가기
+          </button>
+          <button css={submitBtn} onClick={() => {}}>
+            생성하기
+          </button>
+        </motion.div>
+      )}
     </motion.section>
   );
 };
@@ -55,7 +45,6 @@ const Paragraph1 = () => {
   return (
     <SkipStaggerWrapper>
       <p>안녕하세요!</p>
-      <p>아하철에서</p>
     </SkipStaggerWrapper>
   );
 };
@@ -63,11 +52,11 @@ const Paragraph1 = () => {
 const Paragraph2 = () => {
   return (
     <SkipStaggerWrapper>
-      <p>블라인드 데이트와</p>
+      <p>소개팅과 미팅을</p>
       <p>
-        사진을 통해서 <strong>인연</strong>를 찾는
+        <strong>매일 한번씩</strong>
       </p>
-      <p>기회를 잡아보세요</p>
+      <p>매칭시켜드릴게요</p>
     </SkipStaggerWrapper>
   );
 };
@@ -77,9 +66,9 @@ const Paragraph3 = () => {
     <SkipStaggerWrapper>
       <p>아하철만의</p>
       <p>
-        <strong>강력한 기능</strong>으로
+        특별한 <strong>소개팅</strong>으로
       </p>
-      <p>새로운 인연을 만날 수 있어요</p>
+      <p>새로운 연인을 만나보세요</p>
     </SkipStaggerWrapper>
   );
 };
@@ -87,10 +76,11 @@ const Paragraph3 = () => {
 const Paragraph4 = () => {
   return (
     <SkipStaggerWrapper>
-      <p>지금, 바로</p>
+      <p>지금, 간단한</p>
       <p>
-        <strong>나의 정보</strong>를 입력해보세요!
+        <strong>나의 정보</strong>를
       </p>
+      <p>입력하고 시작해보세요!</p>
     </SkipStaggerWrapper>
   );
 };
@@ -116,13 +106,13 @@ const article = {
   paddingTop: '26px',
 };
 
-const sectionCss = css`
-  position: relative;
-  z-index: 1000;
+// const sectionCss = css`
+//   position: relative;
+//   z-index: 1000;
 
-  width: 100%;
-  height: 100%;
-`;
+//   width: 100%;
+//   height: 100%;
+// `;
 
 const fixedBottomCss: CSSObject[] = [
   f.fullWidth,

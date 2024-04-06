@@ -26,7 +26,7 @@ export const useCTAButtonVisible = () => {
 
   console.log(':toggle', toggle);
   useEffect(() => {
-    const timeout = setTimeout(setTrue, 문구_수 * 매_문구_지속시간 - 1000);
+    const timeout = setTimeout(setTrue, 문구_수 * 매_문구_지속시간 - 800);
 
     return () => {
       clearTimeout(timeout);

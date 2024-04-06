@@ -1,6 +1,6 @@
 import { Children, type PropsWithChildren, useEffect } from 'react';
 import { css, type Interpolation, type Theme } from '@emotion/react';
-import { m, stagger, useAnimate, type Variants } from 'framer-motion';
+import { motion, stagger, useAnimate, type Variants } from 'framer-motion';
 import { defaultEasing } from 'data/motion';
 
 interface SkipStaggerWrapperProps extends PropsWithChildren {
@@ -22,13 +22,13 @@ const SkipStaggerWrapper = ({
   }, [animate, staggerDelay]);
 
   return (
-    <m.article ref={scope} css={[wrapperCss, wrapperOverrideCss]}>
+    <motion.article ref={scope} css={[wrapperCss, wrapperOverrideCss]}>
       {Children.toArray(children).map((paragraph, index) => (
-        <m.div key={index} css={headFont} variants={paragraphVariants}>
+        <motion.div key={index} css={headFont} variants={paragraphVariants}>
           {paragraph}
-        </m.div>
+        </motion.div>
       ))}
-    </m.article>
+    </motion.article>
   );
 };
 
@@ -62,9 +62,10 @@ const fadeInUpVariants: Variants = {
 };
 
 const headFont = {
+  opacity: 0,
   color: '#fff',
-  fontSize: '20px',
+  fontSize: '18px',
   fontWeight: 500,
-  lineHeight: '185%',
+  lineHeight: '171%',
   letterSpacing: '0.3px',
 };
