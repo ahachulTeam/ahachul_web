@@ -17,11 +17,19 @@ interface LayoutProps {
   children: React.ReactNode;
   hasSearch?: boolean;
   isDate?: boolean;
+  hasRightBtns?: boolean;
 }
 
-const Layout: React.FC<LayoutProps> = ({ activeTab = 'Home', appBar, hasSearch = false, isDate = false, children }) => {
+const Layout: React.FC<LayoutProps> = ({
+  activeTab = 'Home',
+  appBar,
+  hasSearch = false,
+  isDate = false,
+  hasRightBtns = true,
+  children,
+}) => {
   const { loading, snackBars } = useAppSelector((state) => state.ui);
-  const { defaultAppBar } = useDefaultAppBar(hasSearch, isDate);
+  const { defaultAppBar } = useDefaultAppBar({ hasSearch, isDate, hasRightBtns });
 
   const topEl = React.useRef<Nullable<HTMLDivElement>>(null);
   const scrollToTop = () => topEl?.current?.scrollTo({ top: 0, behavior: 'smooth' });

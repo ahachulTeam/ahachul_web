@@ -9,7 +9,15 @@ import mockProfile from 'static/img/mocks/mock3.png';
 import { showModal } from 'stores/search/reducer';
 import { left, right } from './style';
 
-const useDefaultAppBar = (hasSearch: boolean, isDate: boolean) => {
+const useDefaultAppBar = ({
+  hasSearch,
+  isDate,
+  hasRightBtns,
+}: {
+  hasSearch: boolean;
+  isDate: boolean;
+  hasRightBtns: boolean;
+}) => {
   const { push } = useFlow();
   const dispatch = useDispatch();
   const handleSearchModalOpen = () => dispatch(showModal());
@@ -47,7 +55,7 @@ const useDefaultAppBar = (hasSearch: boolean, isDate: boolean) => {
   return {
     defaultAppBar: {
       renderLeft: appBarLeft,
-      renderRight: appBarRight,
+      renderRight: hasRightBtns ? appBarRight : null,
     },
   };
 };

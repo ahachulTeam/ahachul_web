@@ -7,7 +7,7 @@ const Login: React.FC = () => {
   const { auth } = useAppSelector((state) => state.auth);
 
   return (
-    <Layout activeTab={false} isDate>
+    <Layout activeTab={false} hasRightBtns={auth?.token.accessToken ? true : false} isDate>
       {auth?.token.accessToken ? (
         <>
           <BlindDateComponent.Dashboard />
