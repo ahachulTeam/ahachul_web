@@ -1,6 +1,18 @@
-import mockImg1 from 'static/img/mocks/mock2.png';
-import mockImg2 from 'static/img/mocks/mock4.png';
-import mockImg3 from 'static/img/mocks/mock5.jpg';
+const getRandomTrainNo = () => {
+  const list = ['1192', '2332', '3453', '4123', '5049', '6123', '7234', '8958', '9123'];
+  const randomIdx = Math.floor(Math.random() * list.length - 1) + 1;
+  return {
+    trainNo: list[randomIdx],
+    roomNumber: +list[randomIdx][1] + 1,
+    subwayLine: list[randomIdx][0],
+  };
+};
+
+const getRandomSubwayLineId = () => {
+  const list = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'D', 'UL', 'SI', 'GJ', 'S'];
+  const randomIdx = Math.floor(Math.random() * list.length - 1) + 1;
+  return list[randomIdx];
+};
 
 const getRandomNickname = () => {
   const list = [
@@ -27,8 +39,8 @@ const getRandomNickname = () => {
 
 const getRandomContent = () => {
   const list = [
-    '일주일에 충치치료, 사랑니(매복)2개나 뺄려하다니 내가 미쳤지 근데 원래 이렇게 멍한 느낌이 드나? 아파서 말을 못하겠다',
-    '뷰뷰이 오늘 아침 8시에 퇴근하고 갤에 솔 공략 올리고 킬게용 아마 21:00~23:00 이시간쯤에 뱅종 할듯 상태 별로면 근말 할수도 있음..',
+    '일주일에 충치치료, 사랑니(매복)2개나 뺄려하다니',
+    '뷰뷰이 오늘 아침 8시에 퇴근하고 갤에 솔 공략 올리고 킬게용',
     '[광고] 약탈폭풍  wow+배틀로얄   신규출시',
     '몬스터 꺼버렸자나 한잔해',
     '토요일에 볼래요?',
@@ -37,7 +49,7 @@ const getRandomContent = () => {
     '치과에서 이빨을 조지고 온 나',
     '광운대행 진짜 화난다',
     '늦은 밤엔 공룡의 광증이 깊어집니다.',
-    'zzzㅋㅋㅋㅋㅋㅋㅋㅋ오 오랜만이누 ㅎㅇㅎㅇㅋㅋㅋㅋㅋㅋ',
+    'zzzㅋㅋㅋㅋㅋㅋㅋㅋ오 오랜만이누',
     '정말 오랜만이야',
     '나락쇼',
     '롤체 시즌11 에메 간다',
@@ -48,10 +60,8 @@ const getRandomContent = () => {
   return list[randomIdx];
 };
 
-const getRandomImg = () => {
-  const list = [mockImg1, mockImg2, mockImg3];
-  const randomIdx = Math.floor(Math.random() * list.length - 1) + 1;
-  return list[randomIdx];
+const getRandomImg = (idx: number) => {
+  return `https://source.unsplash.com/random?id=${idx}`;
 };
 
 const getRandomBoolean = (): boolean => {
@@ -59,4 +69,4 @@ const getRandomBoolean = (): boolean => {
   return Boolean(number % 2);
 };
 
-export { getRandomNickname, getRandomContent, getRandomImg, getRandomBoolean };
+export { getRandomTrainNo, getRandomSubwayLineId, getRandomNickname, getRandomContent, getRandomImg, getRandomBoolean };

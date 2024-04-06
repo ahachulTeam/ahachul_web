@@ -29,7 +29,7 @@ export interface ICommunity {
   /** 커뮤니티 포스트 지역 */
   regionType: RegionType;
   /** 커뮤니티 포스트 호선 ID */
-  subwayLineId: number;
+  subwayLineId: string;
   /** 커뮤니티 포스트 작성 날짜 */
   createdAt: string;
   /** 커뮤니티 포스트 작성자 ID */

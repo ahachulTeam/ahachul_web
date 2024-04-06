@@ -1,6 +1,6 @@
 import { http, delay, HttpResponse } from 'msw';
 import { API_BASE_URL } from 'data/api';
-import { communityContentMock } from './community.mock';
+import { communityContentMock, communityListItemMock } from './community.mock';
 import { getRandomBoolean } from 'mocks/utils';
 
 const getCommunityListResponse = {
@@ -8,7 +8,7 @@ const getCommunityListResponse = {
   message: 'SUCCESS',
   result: {
     hasNext: false,
-    posts: [],
+    posts: new Array(20).fill('').map((_, idx) => communityListItemMock(idx)),
   },
 };
 

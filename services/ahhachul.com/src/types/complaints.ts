@@ -1,4 +1,5 @@
-import { ImageType } from './response';
+import { IPageParams } from './request';
+import { ImageType, ListResponse } from './response';
 
 export interface IComplaintStore {
   activeView: ComplaintViewType;
@@ -19,8 +20,8 @@ export interface IComplaint {
   complaintType: string;
   /** 민원 요약 정보 */
   shortContent: string;
-  /** 호선 이름 */
-  lineName: string;
+  /** 칸 번호 */
+  roomNumber: number;
   /** 호선 ID */
   subwayLineId: string;
   /** 조회수 */
@@ -34,7 +35,22 @@ export interface IComplaint {
   /** 생성한 유저 닉네임 */
   writer: string;
   /** 민원 상세 이미지 리스트 */
+  image: ImageType;
+}
+
+export type IComplaintList = ListResponse<IComplaint>;
+
+export type IComplaintDetail = Omit<IComplaint, 'image'> & {
   images: ImageType[];
+};
+
+export interface IComplaintParams extends IPageParams {
+  /** 민원 타입  */
+  complaintType?: string;
+  /**  커뮤니티 포스트 호선 */
+  subwayLineId?: number;
+  /** 검색하고자 하는 내용 */
+  content?: string;
 }
 
 export interface IComplaintForm {

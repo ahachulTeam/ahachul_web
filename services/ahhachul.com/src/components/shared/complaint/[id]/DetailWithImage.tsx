@@ -6,12 +6,12 @@ import IconHeart from 'static/icons/system/IconHeart';
 
 import { userName, time, category, btn, commentTitle, commentList } from './style';
 import Comment from './Comment';
-import { IComplaint } from 'types';
+import { IComplaintDetail } from 'types';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Theme } from '@emotion/react';
-import { exportHexColorWidthLineName } from 'utils/export';
+import { exportHexColorWidthLineName, exportLineNameWithSubwayLineId } from 'utils/export';
 
-function DetailWithImage({ data }: { data: IComplaint }) {
+function DetailWithImage({ data }: { data: IComplaintDetail }) {
   return (
     <>
       <Box
@@ -44,8 +44,10 @@ function DetailWithImage({ data }: { data: IComplaint }) {
         <time css={time}>1월13일 10:40</time>
         <span css={category}>{data?.complaintType}</span>
       </Flex>
-      <div css={trainLabelsWrap(exportHexColorWidthLineName(data?.lineName))}>
-        <span>{data?.lineName} 9번째 칸</span>
+      <div css={trainLabelsWrap(exportHexColorWidthLineName(data.subwayLineId))}>
+        <span>
+          {exportLineNameWithSubwayLineId(data.subwayLineId)} {data.roomNumber}번째 칸
+        </span>
         <p>
           열차번호 <b>{data?.trainNo}</b>
         </p>

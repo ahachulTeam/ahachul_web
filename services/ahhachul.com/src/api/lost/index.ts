@@ -10,25 +10,25 @@ import {
 } from 'types';
 import { API_BASE_URL } from 'data/api';
 
-export const getLostListURL = `${API_BASE_URL}/lost-posts`;
+export const getLostURL = `${API_BASE_URL}/lost-posts`;
 
 /**  분실물, 유실물 리스트 조회 */
 export const getLostList = async (params: GetLostListRequestParams) => {
   const queryParams = queryString.stringify(params);
 
-  const url = `${getLostListURL}?${queryParams}`;
+  const url = `${getLostURL}?${queryParams}`;
 
   return await base.get<IResponse<GetLostListResponse>>(url);
 };
 
 /**  커뮤니티 포스트 상세 조회 */
 export const getLostDetail = async (postId: string) => {
-  const url = `${getLostListURL}/${postId}`;
+  const url = `${getLostURL}/${postId}`;
 
   return await base.get<IResponse<GetLostDetailResponse>>(url);
 };
 
 /**  유실물 포스트 생성  */
 export const post = async (body: ILostArticleForm) => {
-  return await base.post<IResponse<Partial<GetLostDetailResponse>>>(getLostListURL, body);
+  return await base.post<IResponse<Partial<GetLostDetailResponse>>>(getLostURL, body);
 };

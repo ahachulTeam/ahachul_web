@@ -5,11 +5,12 @@ import IconBookmark from 'static/icons/system/IconBookmark';
 import IconHeart from 'static/icons/system/IconHeart';
 import { userName, time, category, btn, commentList, commentTitle } from './style';
 import Comment from './Comment';
-import { IComplaint } from 'types';
-import { exportHexColorWidthLineName } from 'utils/export';
+import { IComplaintDetail } from 'types';
+import { exportHexColorWidthLineName, exportLineNameWithSubwayLineId } from 'utils/export';
 import { Theme } from '@emotion/react';
 
-function DetailOnlyText({ data }: { data: IComplaint }) {
+function DetailOnlyText({ data }: { data: IComplaintDetail }) {
+  console.log('data:', data);
   return (
     <>
       <Flex direction="column" css={{ padding: '0 20px', marginTop: '16px', position: 'relative' }}>
@@ -17,8 +18,10 @@ function DetailOnlyText({ data }: { data: IComplaint }) {
         <time css={time}>1월13일 10:40</time>
         <span css={category}>{data?.complaintType}</span>
       </Flex>
-      <div css={trainLabelsWrap(exportHexColorWidthLineName(data?.lineName))}>
-        <span>{data?.lineName} 9번째 칸</span>
+      <div css={trainLabelsWrap(exportHexColorWidthLineName(data.subwayLineId))}>
+        <span>
+          {exportLineNameWithSubwayLineId(data.subwayLineId)} {data.roomNumber}번째 칸
+        </span>
         <p>
           열차번호 <b>{data?.trainNo}</b>
         </p>

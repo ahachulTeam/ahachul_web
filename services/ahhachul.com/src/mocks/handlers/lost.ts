@@ -1,14 +1,14 @@
 import { http, delay, HttpResponse } from 'msw';
 import { API_BASE_URL } from 'data/api';
 import { getRandomBoolean } from 'mocks/utils';
-import { lostContentMock } from './lost.mock';
+import { lostContentMock, lostListItemMock } from './lost.mock';
 
 const getLostListResponse = {
   code: '100',
   message: 'SUCCESS',
   result: {
     hasNext: false,
-    posts: [],
+    posts: new Array(20).fill('').map((_, idx) => lostListItemMock(idx)),
   },
 };
 

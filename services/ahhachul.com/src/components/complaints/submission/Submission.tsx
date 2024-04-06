@@ -143,8 +143,7 @@ const SelectComponent = memo(
 
 const wrap = [f.fullWidth, f.flexColumn, { padding: '26px 0 120px 0' }];
 
-const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] = [
-  f.sideGutter,
+const section: [CSSObject[], ({ typography }: Theme) => CSSObject] = [
   f.flexColumn,
   ({ typography: { fontSize, fontWeight } }: Theme) => ({
     position: 'relative',
@@ -155,21 +154,12 @@ const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] = 
       fontSize: fontSize[14],
       fontWeight: fontWeight[600],
       marginBottom: '14px',
+      paddingLeft: '20px',
     },
 
-    '& > input': {
-      border: '1px solid rgb(196, 212, 252, 0.37)',
-      height: '44px',
-      borderRadius: '6px',
-      padding: '0 12px',
-      color: '#ffffff',
-      fontSize: fontSize[14],
-      caretColor: 'rgba(0, 255, 163, 0.5)',
-
-      '&::placeholder': {
-        fontSize: fontSize[14],
-        color: '#9da5b6',
-      },
+    '& > div.editor-container': {
+      width: 'calc(100% - 40px)',
+      margin: '0 auto',
     },
   }),
 ];
@@ -178,6 +168,8 @@ const buttonGroup: [CSSObject[], CSSObject, CSSObject] = [
   f.flexAlignCenter,
   f.overflowScroll,
   {
+    paddingLeft: '20px',
+    paddingRight: '20px',
     overflowY: 'hidden',
     overflowX: 'scroll',
   },
@@ -212,6 +204,7 @@ const trainLabelsWrap =
     display: 'flex',
     alignItems: 'center',
     width: '100%',
+    paddingLeft: '20px',
 
     '& > span': {
       display: 'flex',

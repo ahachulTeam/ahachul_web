@@ -1,6 +1,6 @@
 import { UseSuspenseQueryResult, useSuspenseQuery } from 'queries/query';
 import { getQueryKeys } from 'queries/query-key';
-import { type IComplaint as GetComplaintDetailResponse } from 'types';
+import { type IComplaintDetail as GetComplaintDetailResponse } from 'types';
 import { getComplaintDetail } from 'api/complaints';
 import { COMPLAINTS_DETAIL_KEY } from './keys';
 

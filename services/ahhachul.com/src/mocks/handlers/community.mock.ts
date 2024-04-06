@@ -1,3 +1,6 @@
+import { getRandomContent, getRandomImg, getRandomNickname, getRandomSubwayLineId } from 'mocks/utils';
+import { v4 } from 'uuid';
+
 export const communityContentMock = {
   root: {
     children: [
@@ -253,3 +256,39 @@ export const communityContentMock = {
     version: 1,
   },
 };
+
+export const communityListItemMock = (idx: number) => ({
+  /** 커뮤니티 포스트 아이디 */
+  id: v4() + idx,
+  /** 커뮤니티 포스트 제목 */
+  title: getRandomContent(),
+  /** 커뮤니티 포스트 내용 */
+  content: '',
+  /** 카테고리 타입 */
+  categoryType: 'FREE',
+  /** 커뮤니티 포스트 해시태그 리스트 */
+  hashTags: ['아하철'],
+  /** 커뮤니티 포스트 댓글 수 */
+  commentCnt: 2,
+  /** 커뮤니티 포스트 조회수 */
+  viewCnt: 87,
+  /** 커뮤니티 포스트 좋아요 수 */
+  likeCnt: 7,
+  /** 커뮤니티 포스트 핫 게시글 여부 */
+  hotPostYn: 'N',
+  /** 커뮤니티 포스트 지역 */
+  regionType: 'METROPOLITAN',
+  /** 커뮤니티 포스트 호선 ID */
+  subwayLineId: getRandomSubwayLineId(),
+  /** 커뮤니티 포스트 작성 날짜 */
+  createdAt: '2024-01-21T13:07:35.387616228',
+  /** 커뮤니티 포스트 작성자 ID */
+  createdBy: 'jasmin',
+  /** 커뮤니티 포스트 작성자 닉네임 */
+  writer: getRandomNickname(),
+  /** 커뮤니티 포스트 이미지 URL */
+  image: {
+    imageId: 112313123,
+    imageUrl: getRandomImg(idx),
+  },
+});

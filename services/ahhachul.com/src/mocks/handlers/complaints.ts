@@ -1,26 +1,54 @@
 import { http, delay, HttpResponse } from 'msw';
 import { API_BASE_URL } from 'data/api';
-import { complaintMock } from './complaint.mock';
+import { complaintListItemMock, complaintMock } from './complaint.mock';
+import { getRandomBoolean, getRandomTrainNo } from 'mocks/utils';
 
-const getComplaintDetailResponse = (postId: string) => ({
+const getComplaintListResponse = {
   code: '100',
   message: 'SUCCESS',
   result: {
-    id: postId,
-    title: '앞에 할머니가',
-    content: JSON.stringify(complaintMock),
-    shortContent: '목격자',
-    lineName: '3호선',
-    subwayLineId: 9,
-    trainNo: '3920',
-    viewCnt: 103,
-    commentCnt: 2,
-    createdAt: '2024-01-21T13:07:35.387616228',
-    createdBy: 'dieo21',
-    writer: '뚜밥뚜밥',
-    images: [],
-    complaintType: '응급환자',
+    hasNext: false,
+    posts: new Array(20).fill('').map((_, idx) => complaintListItemMock(idx)),
   },
+};
+
+const getComplaintDetailResponse = (postId: string, randomBoolean: boolean) => {
+  const info = getRandomTrainNo();
+
+  return {
+    code: '100',
+    message: 'SUCCESS',
+    result: {
+      id: postId,
+      title: '앞에 할머니가',
+      content: JSON.stringify(complaintMock),
+      shortContent: '목격자',
+      lineName: '3호선',
+      subwayLineId: info.subwayLine,
+      trainNo: info.trainNo,
+      viewCnt: 103,
+      commentCnt: 2,
+      createdAt: '2024-01-21T13:07:35.387616228',
+      createdBy: 'dieo21',
+      roomNumber: info.roomNumber,
+      writer: '뚜밥뚜밥',
+      images: randomBoolean
+        ? []
+        : [
+            {
+              imageId: 1,
+              imageUrl: 'https://source.unsplash.com/random',
+            },
+          ],
+      complaintType: '응급환자',
+    },
+  };
+};
+
+const getComplaintList = http.get(API_BASE_URL + '/complaints', async () => {
+  await delay(400);
+
+  return HttpResponse.json(getComplaintListResponse);
 });
 
 const getComplaintDetail = http.get(API_BASE_URL + '/complaints/:postId', async (req) => {
@@ -28,7 +56,9 @@ const getComplaintDetail = http.get(API_BASE_URL + '/complaints/:postId', async 
 
   await delay(200);
 
-  return HttpResponse.json(getComplaintDetailResponse(postId as string));
+  const randomBoolean = getRandomBoolean();
+
+  return HttpResponse.json(getComplaintDetailResponse(postId as string, randomBoolean));
 });
 
 const postComplaintsArticle = http.post(API_BASE_URL + '/complaints/messages', async () => {
@@ -41,6 +71,6 @@ const postComplaintsArticle = http.post(API_BASE_URL + '/complaints/messages', a
   });
 });
 
-const complaintsHandlers = [postComplaintsArticle, getComplaintDetail];
+const complaintsHandlers = [getComplaintList, getComplaintDetail, postComplaintsArticle];
 
 export default complaintsHandlers;

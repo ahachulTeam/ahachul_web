@@ -23,7 +23,7 @@ export interface ILost {
   /** 유실물 작성 날짜 */
   date: string;
   /** 유실 호선 ID */
-  subwayLine: number;
+  subwayLine: string;
   /** 유실물 쪽지 개수 */
   chats: number;
   /** 유실물 찾기 완료 여부 */
@@ -32,6 +32,10 @@ export interface ILost {
   categoryName: string;
   /** 유실물 이미지 URL */
   imageUrl: string;
+  /** 포스트 좋아요 수 */
+  likeCnt: number;
+  /** 포스트 댓글 수 */
+  commentCnt: number;
 }
 
 export type ILostList = ListResponse<ILost>;

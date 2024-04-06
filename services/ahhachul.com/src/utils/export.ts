@@ -15,6 +15,39 @@ import { COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
 import { CongestionColorType, CurrentTrainArrivalType } from 'types';
 import { removeEmptyProperties } from './object';
 
+export const exportLineNameWithSubwayLineId = (lineId: string) => {
+  switch (lineId) {
+    case '1':
+      return '1호선';
+    case '2':
+      return '2호선';
+    case '3':
+      return '3호선';
+    case '4':
+      return '4호선';
+    case '5':
+      return '5호선';
+    case '6':
+      return '6호선';
+    case '7':
+      return '7호선';
+    case '8':
+      return '8호선';
+    case '9':
+      return '9호선';
+    case 'S':
+      return '신림선';
+    case 'UL':
+      return '우의신설선';
+    case 'D':
+      return '신분당선';
+    case 'SI':
+      return '수인분당선';
+    case 'GJ':
+      return '경의중앙선';
+  }
+};
+
 export const exportHexColorWidthLineName = (lineName: string) => {
   switch (lineName) {
     case '1':
@@ -44,19 +77,19 @@ export const exportHexColorWidthLineName = (lineName: string) => {
     case '9':
     case '9호선':
       return '#BDB092';
-    case '수인분당선':
+    case 'SI':
       return '#FABE00';
-    case '신분당선':
+    case 'D':
       return '#D31145';
-    case '신림선':
+    case 'S':
       return '#6789CA';
-    case '우의신설선':
+    case 'UL':
       return '#B7C450';
     case '경춘선':
       return '#178C72';
     case '경강선':
       return '#0054A6';
-    case '경의중앙선':
+    case 'GJ':
       return '#77C4A3';
     default:
       return '#242424';

@@ -15,7 +15,8 @@ const ComplaintDetailMain = ({ postId }: ComplaintDetailMainProps) => {
       {data.hasImage ? <DetailWithImage data={data} /> : <DetailOnlyText data={data} />}
       {/* TODO: 내가 작성한 글일때만 보이게  */}
       <FloatBtn
-        lineName={data.lineName}
+        trainNo={data.trainNo}
+        subwayLineId={data.subwayLineId}
         complaintType={data.complaintType}
         shortContent={data.shortContent}
         id={data.id}

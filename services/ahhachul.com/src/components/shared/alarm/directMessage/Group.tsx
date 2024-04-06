@@ -5,20 +5,7 @@ import { useState } from 'react';
 import { useFlow } from 'stackflow';
 
 const getRandomNickname = () => {
-  const list = [
-    '강남',
-    '동묘앞',
-    '녹양',
-    '7호선',
-    '1호선',
-    '4호선',
-    '2호선',
-    '건대입구',
-    '홍대입구',
-    '신촌',
-    '혜화',
-    '종각',
-  ];
+  const list = ['선바와 아이들', '룩삼사거리', '수련잉!', '동숙누나와함께춤을', '큐이얍얍'];
   const randomIdx = Math.floor(Math.random() * list.length - 1) + 1;
   return list[randomIdx];
 };
@@ -51,7 +38,7 @@ function GroupChatCard() {
             paddingRight: '50px',
           }}
         >
-          <p css={content}>안녕하세요. 오늘 사람 많나요?</p>
+          <p css={content}>안녕하세요~</p>
           {isActive && <span css={cnt}>1</span>}
         </Flex>
       </Flex>

@@ -35,14 +35,6 @@ function DMList() {
         <ul>
           <Group />
           <Group />
-          <Group />
-          <Group />
-          <Group />
-          <Group />
-          <Group />
-          <Group />
-          <Group />
-          <Group />
         </ul>
       )}
     </div>

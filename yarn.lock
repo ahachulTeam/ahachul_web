@@ -8172,6 +8172,7 @@ __metadata:
     rxjs: "npm:^7.8.1"
     swiper: "npm:^9.3.2"
     typescript: "npm:^4.4.2"
+    uuid: "npm:^9.0.1"
     vitest: "npm:^0.34.6"
     web-vitals: "npm:^2.1.0"
     webpack-font-preload-plugin: "npm:^1.5.0"
@@ -24194,7 +24195,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:^9.0.0":
+"uuid@npm:^9.0.0, uuid@npm:^9.0.1":
   version: 9.0.1
   resolution: "uuid@npm:9.0.1"
   bin:

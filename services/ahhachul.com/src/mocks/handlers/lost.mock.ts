@@ -1,3 +1,12 @@
+import {
+  getRandomBoolean,
+  getRandomImg,
+  getRandomContent,
+  getRandomSubwayLineId,
+  getRandomNickname,
+} from 'mocks/utils';
+import { v4 } from 'uuid';
+
 export const lostContentMock = {
   root: {
     children: [
@@ -97,3 +106,32 @@ export const lostContentMock = {
     version: 1,
   },
 };
+
+export const lostListItemMock = (idx: number) => ({
+  /** 유실물 아이디 */
+  id: v4() + idx,
+  /** 유실물 제목 */
+  title: getRandomContent(),
+  /** 유실물 내용 */
+  content: '',
+  /** 유실물 작성자 닉네임 */
+  writer: getRandomNickname(),
+  /** 작성자 ID */
+  createdBy: 'jasmin',
+  /** 유실물 작성 날짜 */
+  date: '2024-04-03T13:07:35.387616228',
+  /** 유실 호선 ID */
+  subwayLine: getRandomSubwayLineId(),
+  /** 유실물 쪽지 개수 */
+  chats: getRandomBoolean() ? 1 : 0,
+  /** 유실물 찾기 완료 여부 */
+  status: 'PROGRESS',
+  /** 카테고리 이름 */
+  categoryName: '',
+  /** 커뮤니티 포스트 이미지 URL */
+  imageUrl: getRandomImg(idx),
+  /** 포스트 댓글 수 */
+  commentCnt: 2,
+  /** 포스트 좋아요 수 */
+  likeCnt: 7,
+});

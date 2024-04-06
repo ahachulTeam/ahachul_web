@@ -5,6 +5,7 @@ import IconAlarmTalk from 'static/icons/system/IconAlarmTalk';
 import IconAlarmComplaint from 'static/icons/system/IconAlarmComplaint';
 import { useFlow } from 'stackflow';
 import { useState } from 'react';
+import { getRandomBoolean } from 'mocks/utils';
 
 const getRandomContent = (type: 'talk' | 'complaints') => {
   const list = [
@@ -31,7 +32,7 @@ const getRandomContent = (type: 'talk' | 'complaints') => {
 
 function ActivityNotification(props: { type: 'talk' | 'complaints' }) {
   const { type } = props;
-  const [notiCount, minus] = useState(1);
+  const [notiCount, minus] = useState(getRandomBoolean() ? 1 : 0);
   const isActive = notiCount >= 1;
 
   const { push } = useFlow();
