@@ -6,8 +6,8 @@ import IconHeart from 'static/icons/system/IconHeart';
 import { btn_wrap, wrap } from './style';
 
 const HeaderSection = () => {
-  const { push } = useFlow();
-  const routeToBlindDate = () => push('BlindDate', {});
+  const { push, replace } = useFlow();
+  const routeToBlindDate = () => replace('BlindDate', {});
   const routeToAllServices = () => push('AllServices', {});
 
   return (

@@ -1,3 +1,35 @@
+const getShortContent = (complaintType: string) => {
+  const getRandomCase = (list: string[]) => {
+    const randomIdx = Math.floor(Math.random() * list.length - 1) + 1;
+    return list[randomIdx];
+  };
+
+  switch (complaintType) {
+    case '환경민원':
+      return getRandomCase(['오물', '토사물', '환기요청']);
+    case '온도조절':
+      return getRandomCase(['더워요', '추워요']);
+    case '질서저해':
+      return getRandomCase(['이동상인', '취객', '노숙', '구걸', '종교행위']);
+    case '안내방송':
+      return getRandomCase(['시끄러워요', '안들려요']);
+    case '응급환자':
+      return getRandomCase(['본인', '목격자']);
+    case '폭력':
+    case '성추행':
+      return getRandomCase(['피해자', '목격자']);
+  }
+};
+
+const getRandomComplaintType = () => {
+  const list = ['환경민원', '온도조절', '질서저해', '안내방송', '응급환자', '폭력', '성추행'];
+  const randomIdx = Math.floor(Math.random() * list.length - 1) + 1;
+  return {
+    complaintType: list[randomIdx],
+    shortContent: getShortContent(list[randomIdx]),
+  };
+};
+
 const getRandomTrainNo = () => {
   const list = ['1192', '2332', '3453', '4123', '5049', '6123', '7234', '8958', '9123'];
   const randomIdx = Math.floor(Math.random() * list.length - 1) + 1;
@@ -69,4 +101,12 @@ const getRandomBoolean = (): boolean => {
   return Boolean(number % 2);
 };
 
-export { getRandomTrainNo, getRandomSubwayLineId, getRandomNickname, getRandomContent, getRandomImg, getRandomBoolean };
+export {
+  getRandomTrainNo,
+  getRandomSubwayLineId,
+  getRandomNickname,
+  getRandomContent,
+  getRandomImg,
+  getRandomBoolean,
+  getRandomComplaintType,
+};

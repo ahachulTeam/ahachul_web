@@ -1,7 +1,7 @@
 import { http, delay, HttpResponse } from 'msw';
 import { API_BASE_URL } from 'data/api';
 import { complaintListItemMock, complaintMock } from './complaint.mock';
-import { getRandomBoolean, getRandomTrainNo } from 'mocks/utils';
+import { getRandomBoolean, getRandomComplaintType, getRandomTrainNo } from 'mocks/utils';
 
 const getComplaintListResponse = {
   code: '100',
@@ -14,6 +14,7 @@ const getComplaintListResponse = {
 
 const getComplaintDetailResponse = (postId: string, randomBoolean: boolean) => {
   const info = getRandomTrainNo();
+  const complaintInfo = getRandomComplaintType();
 
   return {
     code: '100',
@@ -22,8 +23,7 @@ const getComplaintDetailResponse = (postId: string, randomBoolean: boolean) => {
       id: postId,
       title: '앞에 할머니가',
       content: JSON.stringify(complaintMock),
-      shortContent: '목격자',
-      lineName: '3호선',
+      shortContent: complaintInfo.shortContent,
       subwayLineId: info.subwayLine,
       trainNo: info.trainNo,
       viewCnt: 103,
@@ -40,7 +40,7 @@ const getComplaintDetailResponse = (postId: string, randomBoolean: boolean) => {
               imageUrl: 'https://source.unsplash.com/random',
             },
           ],
-      complaintType: '응급환자',
+      complaintType: complaintInfo.complaintType,
     },
   };
 };

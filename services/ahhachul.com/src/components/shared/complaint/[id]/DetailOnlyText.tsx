@@ -10,7 +10,6 @@ import { exportHexColorWidthLineName, exportLineNameWithSubwayLineId } from 'uti
 import { Theme } from '@emotion/react';
 
 function DetailOnlyText({ data }: { data: IComplaintDetail }) {
-  console.log('data:', data);
   return (
     <>
       <Flex direction="column" css={{ padding: '0 20px', marginTop: '16px', position: 'relative' }}>
