@@ -44,7 +44,7 @@ const Introduce = () => {
 
 const Paragraph1 = () => {
   return (
-    <SkipStaggerWrapper>
+    <SkipStaggerWrapper staggerDelay={0}>
       <p>안녕하세요!</p>
     </SkipStaggerWrapper>
   );
@@ -69,7 +69,7 @@ const Paragraph3 = () => {
       <p>
         특별한 <strong>소개팅</strong>으로
       </p>
-      <p>새로운 연인을 만나보세요</p>
+      <p>새로운 인연을 만나보세요</p>
     </SkipStaggerWrapper>
   );
 };
