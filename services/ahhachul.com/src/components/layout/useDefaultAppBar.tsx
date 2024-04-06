@@ -1,32 +1,40 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useFlow } from 'stackflow';
+import { TypeActivities, useFlow } from 'stackflow';
 import IconBellActive from 'static/icons/system/IconBellActive';
 import IconLogo from 'static/icons/system/IconLogo';
 import IconSearch from 'static/icons/system/IconSearch';
 import mockProfile from 'static/img/mocks/mock3.png';
 import { showModal } from 'stores/search/reducer';
+import { KeyOf } from 'types';
 import { left, right } from './style';
 
 const useDefaultAppBar = ({
+  activeTab,
   hasSearch,
   isDate,
   hasRightBtns,
 }: {
+  activeTab?: KeyOf<TypeActivities> | false;
   hasSearch: boolean;
   isDate: boolean;
   hasRightBtns: boolean;
 }) => {
-  const { push } = useFlow();
+  const { push, replace } = useFlow();
   const dispatch = useDispatch();
   const handleSearchModalOpen = () => dispatch(showModal());
 
   const appBarLeft = () => (
-    <div css={left}>
+    <div css={left} onClick={clickLogoBtn}>
       <IconLogo />
     </div>
   );
+
+  const clickLogoBtn = () => {
+    if (activeTab === 'Home') return;
+    replace('Home', {});
+  };
 
   const clickAlarmBtn = () => {
     if (isDate) {

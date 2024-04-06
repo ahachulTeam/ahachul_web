@@ -5,6 +5,7 @@ export * from './appEnv';
 export * from './search';
 export * from './response';
 export * from './community';
+export * from './blindDate';
 export * from './complaints';
 export * from './authentication';
 export * from './utility-types';

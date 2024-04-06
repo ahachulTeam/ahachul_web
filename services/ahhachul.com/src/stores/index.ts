@@ -8,6 +8,7 @@ import { lostReducer } from './lost';
 import { complaintReducer } from './complaints';
 import { searchReducer } from './search';
 import { uiReducer } from './ui';
+import { blindDateReducer } from './blindDate';
 
 export type RootState = ReturnType<typeof store.getState>;
 type AppDispatch = typeof store.dispatch;
@@ -15,7 +16,7 @@ type AppDispatch = typeof store.dispatch;
 const persistConfig = {
   key: process.env.REACT_APP_NAME as string,
   storage,
-  whitelist: ['auth'],
+  whitelist: ['auth', 'blindDate'],
 };
 
 const reducers = combineReducers({
@@ -25,6 +26,7 @@ const reducers = combineReducers({
   community: communityReducer,
   complaint: complaintReducer,
   lost: lostReducer,
+  blindDate: blindDateReducer,
 });
 const reducer = persistReducer(persistConfig, reducers);
 

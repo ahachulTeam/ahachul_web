@@ -29,7 +29,7 @@ const Layout: React.FC<LayoutProps> = ({
   children,
 }) => {
   const { loading, snackBars } = useAppSelector((state) => state.ui);
-  const { defaultAppBar } = useDefaultAppBar({ hasSearch, isDate, hasRightBtns });
+  const { defaultAppBar } = useDefaultAppBar({ activeTab, hasSearch, isDate, hasRightBtns });
 
   const topEl = React.useRef<Nullable<HTMLDivElement>>(null);
   const scrollToTop = () => topEl?.current?.scrollTo({ top: 0, behavior: 'smooth' });

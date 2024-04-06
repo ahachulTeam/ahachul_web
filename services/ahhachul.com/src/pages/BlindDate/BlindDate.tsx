@@ -1,21 +1,14 @@
 import React from 'react';
-import { BlindDateComponent, UiComponent } from 'components';
+import { BlindDateComponent } from 'components';
 import { Layout } from 'components/layout';
 import { useAppSelector } from 'stores';
 
 const Login: React.FC = () => {
-  const { auth } = useAppSelector((state) => state.auth);
+  const { userAcceptedUsingBlindDate } = useAppSelector((state) => state.blindDate);
 
   return (
-    <Layout activeTab={false} hasRightBtns={auth?.token.accessToken ? true : false} isDate>
-      {auth?.token.accessToken ? (
-        <>
-          <BlindDateComponent.Dashboard />
-          <UiComponent.Footer />
-        </>
-      ) : (
-        <BlindDateComponent.Landing />
-      )}
+    <Layout activeTab={false} hasRightBtns={userAcceptedUsingBlindDate ? true : false} isDate>
+      {userAcceptedUsingBlindDate ? <BlindDateComponent.Dashboard /> : <BlindDateComponent.Landing />}
     </Layout>
   );
 };

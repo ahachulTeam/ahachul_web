@@ -79,3 +79,21 @@ export const CTAMotionVariants = {
     transition: { duration: 0.5, ease: defaultEasing },
   },
 };
+
+export const blindDateNavbarMotionVariants = {
+  initial: {
+    opacity: 0,
+    y: 30,
+    transition: { duration: 1, ease: defaultEasing },
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1, ease: defaultEasing },
+  },
+  exit: {
+    opacity: 0,
+    y: 30,
+    transition: { duration: 1, ease: defaultEasing },
+  },
+};

@@ -6,11 +6,16 @@ import SkipStaggerWrapper from './SkipStaggerWrapper';
 import { CSSObject, Theme } from '@emotion/react';
 import { CTAMotionVariants } from 'data/motion';
 import { useFlow } from 'stackflow';
+import { useDispatch } from 'react-redux';
+import { setAcceptUsingBlindDate } from 'stores/blindDate';
 
 const Introduce = () => {
-  const { push, replace } = useFlow();
+  const { replace } = useFlow();
+  const dispatch = useDispatch();
   const goHome = () => replace('Home', {});
-  const goFormForBlindDate = () => push('FormForBlindDate', {});
+  const goFormForBlindDate = () => {
+    dispatch(setAcceptUsingBlindDate());
+  };
   const { currentStep } = useParagraphStep();
   const { isCTAButtonVisible } = useCTAButtonVisible();
 
@@ -34,7 +39,7 @@ const Introduce = () => {
             돌아가기
           </button>
           <button css={submitBtn} onClick={goFormForBlindDate}>
-            생성하기
+            시작하기
           </button>
         </motion.div>
       )}
@@ -77,11 +82,15 @@ const Paragraph3 = () => {
 const Paragraph4 = () => {
   return (
     <SkipStaggerWrapper>
-      <p>지금, 간단한</p>
       <p>
-        <strong>나의 정보</strong>를
+        <strong>지금</strong>
       </p>
-      <p>입력하고 시작해보세요!</p>
+      <p>
+        <strong>바로</strong>
+      </p>
+      <p>
+        <strong>시작해보세요!</strong>
+      </p>
     </SkipStaggerWrapper>
   );
 };
