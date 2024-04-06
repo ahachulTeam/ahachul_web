@@ -274,9 +274,4 @@ const submitBtn = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject =
   borderRadius: '8px',
 });
 
-// const indicatorAreaCss = {
-//   height: '34px',
-//   width: '100%',
-// };
-
 export default CommunityEditor;

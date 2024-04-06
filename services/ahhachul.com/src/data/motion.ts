@@ -58,3 +58,24 @@ export const staggerFadeInUpVariants: Variants = {
     transition: { duration: 0.5, ease: defaultEasing },
   },
 };
+
+export const CTAMotionVariants = {
+  initial: {
+    opacity: 0,
+    y: 30,
+    x: '-50%',
+    transition: { duration: 0.5, ease: defaultEasing },
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    x: '-50%',
+    transition: { duration: 0.5, ease: defaultEasing },
+  },
+  exit: {
+    opacity: 0,
+    y: 30,
+    x: '-50%',
+    transition: { duration: 0.5, ease: defaultEasing },
+  },
+};

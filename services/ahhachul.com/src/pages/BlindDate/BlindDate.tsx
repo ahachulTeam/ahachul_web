@@ -7,9 +7,15 @@ const Login: React.FC = () => {
   const { auth } = useAppSelector((state) => state.auth);
 
   return (
-    <Layout activeTab={'Home'}>
-      {auth?.token.accessToken ? <BlindDateComponent.Dashboard /> : <BlindDateComponent.Landing />}
-      <UiComponent.Footer />
+    <Layout activeTab={false} isDate>
+      {auth?.token.accessToken ? (
+        <>
+          <BlindDateComponent.Dashboard />
+          <UiComponent.Footer />
+        </>
+      ) : (
+        <BlindDateComponent.Landing />
+      )}
     </Layout>
   );
 };

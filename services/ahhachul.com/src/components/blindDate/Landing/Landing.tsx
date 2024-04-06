@@ -1,11 +1,11 @@
 import React from 'react';
 
-import HeaderSection from './headerSection';
+import Introduce from './introduce';
 
 const Landing = () => {
   return (
     <main>
-      <HeaderSection />
+      <Introduce />
     </main>
   );
 };
