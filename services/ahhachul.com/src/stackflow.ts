@@ -45,7 +45,8 @@ export const { Stack, activities, useFlow, useStepFlow } = stackflow({
     CommunityDetail,
     CommunityEditor,
     BlindDate,
-    FormForBlindDate: BlindDateComponent.FormForBlindDate,
+    BlindDateForm: BlindDateComponent.FormForBlindDate,
+    BlindDateMyPage: BlindDateComponent.BlindDateMyPage,
   },
   plugins: [
     basicRendererPlugin(),
@@ -83,7 +84,8 @@ export const { Stack, activities, useFlow, useStepFlow } = stackflow({
         CommunityEditor: PATH.communityEditor,
         // 소개팅
         BlindDate: PATH.blindDate,
-        FormForBlindDate: PATH.blindDateForm,
+        BlindDateForm: PATH.blindDateForm,
+        BlindDateMyPage: PATH.blindDateMyPage,
       },
       fallbackActivity: () => 'Home',
     }),

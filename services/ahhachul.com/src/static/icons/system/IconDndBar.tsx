@@ -1,5 +1,4 @@
 import React from 'react';
-import { Interpolation, Theme } from '@emotion/react';
 import { f } from 'styles';
 
 const SVG = `
@@ -9,8 +8,8 @@ const SVG = `
 
 `;
 
-const IconDndBar: React.FC<{ onClick?: VoidFunction; css?: Interpolation<Theme> }> = ({ onClick, css }) => (
-  <div css={[f.flex, css]} onClick={onClick} dangerouslySetInnerHTML={{ __html: SVG }} />
+const IconDndBar: React.FC<{ onClick?: VoidFunction; className?: string }> = ({ onClick, className }) => (
+  <div css={f.flexCenterCenter} className={className} onClick={onClick} dangerouslySetInnerHTML={{ __html: SVG }} />
 );
 
 export default IconDndBar;

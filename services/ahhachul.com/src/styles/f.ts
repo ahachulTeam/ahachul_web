@@ -22,6 +22,14 @@ const flexJustifyCenter: CSSObject[] = [
   },
 ];
 
+const flexCenterCenter: CSSObject[] = [
+  flex,
+  {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+];
+
 const flexJustifySpaceBetween: CSSObject[] = [
   flex,
   {
@@ -164,6 +172,7 @@ export {
   flex,
   flexAlignCenter,
   flexJustifyCenter,
+  flexCenterCenter,
   flexJustifySpaceBetween,
   flexColumn,
   flex1,

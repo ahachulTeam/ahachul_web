@@ -27,6 +27,7 @@ const PATH = {
   // 소개팅
   blindDate: '/blindDate',
   blindDateForm: '/blindDate/formForBlindDate',
+  blindDateMyPage: '/blindDate/myPage',
 } as const;
 
 export { PATH };

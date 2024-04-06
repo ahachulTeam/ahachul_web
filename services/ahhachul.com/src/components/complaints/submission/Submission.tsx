@@ -50,7 +50,7 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
     e.preventDefault();
 
     if (!formRef.current.shortContent) {
-      dispatch(addSnackBar({ message: `민원 유형을 선택해주세요.`, posBottom: 115 }));
+      dispatch(addSnackBar({ message: `민원 유형을 선택해주세요.` }));
       return;
     }
 
@@ -96,7 +96,7 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
             />
           </div>
           <div css={submitWrap}>
-            <button type="submit" css={submitBtn} disabled={loading || status === 'pending'}>
+            <button type="submit" css={submitBtn} disabled={loading.active || status === 'pending'}>
               민원접수
             </button>
           </div>

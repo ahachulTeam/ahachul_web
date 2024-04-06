@@ -161,7 +161,7 @@ const LostEditor = () => {
             </div>
           </div>
           <div css={submitWrap}>
-            <button css={submitBtn} type="submit" disabled={loading || status === 'pending'}>
+            <button css={submitBtn} type="submit" disabled={loading.active || status === 'pending'}>
               작성 완료
             </button>
             {/* <div css={indicatorAreaCss} /> */}

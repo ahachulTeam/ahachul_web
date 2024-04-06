@@ -50,9 +50,9 @@ const Layout: React.FC<LayoutProps> = ({
         </div>
       </div>
       <UiComponent.SnackBar {...snackBars} />
-      {loading && <UiComponent.Loading opacity={0.45} />}
       {activeTab && <UiComponent.NavBar activeTab={activeTab} scrollToTop={scrollToTop} />}
       {activeTab && <UiComponent.BottomDim />}
+      {loading.active && <UiComponent.Loading opacity={loading.opacity} />}
     </AppScreen>
   );
 };

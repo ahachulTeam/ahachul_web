@@ -6,6 +6,7 @@ import IconBellActive from 'static/icons/system/IconBellActive';
 import IconLogo from 'static/icons/system/IconLogo';
 import IconSearch from 'static/icons/system/IconSearch';
 import mockProfile from 'static/img/mocks/mock3.png';
+import { hideNavbar, showNavbar } from 'stores/blindDate';
 import { showModal } from 'stores/search/reducer';
 import { KeyOf } from 'types';
 import { left, right } from './style';
@@ -33,7 +34,15 @@ const useDefaultAppBar = ({
 
   const clickLogoBtn = () => {
     if (activeTab === 'Home') return;
-    replace('Home', {});
+    if (isDate) {
+      dispatch(hideNavbar());
+      setTimeout(() => {
+        replace('Home', {}, { animate: true });
+        dispatch(showNavbar());
+      }, 750);
+    } else {
+      replace('Home', {}, { animate: false });
+    }
   };
 
   const clickAlarmBtn = () => {
@@ -46,7 +55,7 @@ const useDefaultAppBar = ({
 
   const clickMeBtn = () => {
     if (isDate) {
-      alert('go to date MyProfile');
+      push('BlindDateMyPage', {});
     } else {
       push('MyProfile', {});
     }

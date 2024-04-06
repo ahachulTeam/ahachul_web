@@ -1,7 +1,10 @@
 import { Interpolation, Theme } from '@emotion/react';
 
 export interface IUiStore {
-  loading: boolean;
+  loading: {
+    active: boolean;
+    opacity?: number;
+  };
   snackBars: ISnackBar;
 }
 

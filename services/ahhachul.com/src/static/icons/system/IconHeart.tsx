@@ -9,7 +9,7 @@ const SVG = `
 `;
 
 const IconHeart: React.FC<{ onClick?: VoidFunction; className?: string }> = ({ onClick, className }) => (
-  <div css={[f.flex]} className={className} onClick={onClick} dangerouslySetInnerHTML={{ __html: SVG }} />
+  <div css={f.flexCenterCenter} className={className} onClick={onClick} dangerouslySetInnerHTML={{ __html: SVG }} />
 );
 
 export default IconHeart;

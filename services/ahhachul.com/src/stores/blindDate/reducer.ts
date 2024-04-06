@@ -4,11 +4,12 @@ import { BlindDateViewType, IBlindDate } from 'types';
 const initialState: IBlindDate = {
   userAcceptedUsingBlindDate: false,
   activeView: 'BLIND',
+  showNavbar: true,
 };
 
 const {
   reducer,
-  actions: { setAcceptUsingBlindDate, setRejectUsingBlindDate, setBlindDateView },
+  actions: { setAcceptUsingBlindDate, setRejectUsingBlindDate, setBlindDateView, showNavbar, hideNavbar },
 } = createSlice({
   name: 'blindDate',
   initialState,
@@ -22,8 +23,14 @@ const {
     setBlindDateView: (state, action: PayloadAction<BlindDateViewType>) => {
       state.activeView = action.payload;
     },
+    showNavbar: (state) => {
+      state.showNavbar = true;
+    },
+    hideNavbar: (state) => {
+      state.showNavbar = false;
+    },
   },
 });
 
-export { initialState, setAcceptUsingBlindDate, setRejectUsingBlindDate, setBlindDateView };
+export { initialState, setAcceptUsingBlindDate, setRejectUsingBlindDate, setBlindDateView, showNavbar, hideNavbar };
 export default reducer;

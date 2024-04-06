@@ -3,4 +3,6 @@ export {
   setAcceptUsingBlindDate,
   setRejectUsingBlindDate,
   setBlindDateView,
+  showNavbar,
+  hideNavbar,
 } from './reducer';

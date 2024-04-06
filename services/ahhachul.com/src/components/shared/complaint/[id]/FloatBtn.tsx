@@ -50,7 +50,7 @@ const FloatBtn = ({
 
 const floatCss: CSSObject = {
   position: 'fixed',
-  bottom: '32px',
+  bottom: '40px',
   left: '50%',
   transform: 'translateX(-50%)',
   zIndex: 10,

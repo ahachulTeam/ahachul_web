@@ -27,11 +27,11 @@ export const useComplaintsArticle = () => {
       pop(2);
       push('ComplaintDetail', { articleId: '1' });
       setTimeout(() => {
-        dispatch(addSnackBar({ message: `민원을 등록했어요`, posBottom: 115 }));
+        dispatch(addSnackBar({ message: `민원을 등록했어요` }));
       }, 750);
     } else if (res.status === 'error') {
       dispatch(loaded());
-      dispatch(addSnackBar({ message: `시스템 오류로 등록에 실패했어요\n잠시 후 다시 시도해주세요`, posBottom: 115 }));
+      dispatch(addSnackBar({ message: `시스템 오류로 등록에 실패했어요\n잠시 후 다시 시도해주세요` }));
     }
   }, [res.status]);
 

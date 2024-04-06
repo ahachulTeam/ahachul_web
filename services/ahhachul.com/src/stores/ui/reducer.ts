@@ -2,7 +2,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ISnackBarPayload, IUiStore } from 'types';
 
 const initialState: IUiStore = {
-  loading: false,
+  loading: {
+    active: false,
+    opacity: 0.45,
+  },
   snackBars: {
     list: [],
     posBottom: 115,
@@ -11,19 +14,18 @@ const initialState: IUiStore = {
 
 const {
   reducer,
-  actions: { loaded, loading, clearAll, addSnackBar, removeSnackBar },
+  actions: { loaded, loading, addSnackBar, removeSnackBar },
 } = createSlice({
   name: 'ui',
   initialState,
   reducers: {
-    loading: (state) => {
-      state.loading = true;
+    loading: (state, action: PayloadAction<{ opacity: number }>) => {
+      state.loading.active = true;
+      state.loading.opacity = action?.payload?.opacity ?? 0.45;
     },
     loaded: (state) => {
-      state.loading = false;
-    },
-    clearAll: (state) => {
-      state.loading = false;
+      state.loading.active = false;
+      state.loading.opacity = 0.45;
     },
     addSnackBar: (state, action: PayloadAction<Omit<ISnackBarPayload, 'id'>>) => {
       const id = new Date().getTime().toString();
@@ -39,5 +41,5 @@ const {
   },
 });
 
-export { initialState, loaded, loading, clearAll, addSnackBar, removeSnackBar };
+export { initialState, loaded, loading, addSnackBar, removeSnackBar };
 export default reducer;

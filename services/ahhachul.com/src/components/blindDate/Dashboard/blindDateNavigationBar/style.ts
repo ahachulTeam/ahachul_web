@@ -6,13 +6,7 @@ const fadeIn = keyframes`
   100% { opacity: 1; top: -60px; z-index: 1; }
 `;
 
-const wrap = ({
-  layout: {
-    dimensions: {
-      zIndexes: { nav },
-    },
-  },
-}: Theme): CSSObject => ({
+const wrap: CSSObject = {
   opacity: 0,
   padding: '12px 16px 14px',
   backdropFilter: 'blur(20px)',
@@ -23,11 +17,11 @@ const wrap = ({
   left: 0,
   right: 0,
   margin: '16px auto',
-  zIndex: nav,
+  zIndex: 10,
   background: 'linear-gradient(91deg, rgba(35, 40, 52, 0.70) 0%, rgba(39, 40, 62, 0.70) 100%)',
   display: 'flex',
   alignItems: 'center',
-});
+};
 
 const itemWrap =
   (isActive: boolean) =>

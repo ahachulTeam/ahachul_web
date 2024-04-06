@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { itemWrap, wrap } from './style';
 import { blindDateNavbarMotionVariants } from 'data/motion';
 import IconBlind from 'static/icons/blindDate/IconBlind';
@@ -31,12 +31,18 @@ interface TabItemProps {
 }
 
 const BlindDateNavigationBar = ({ scrollToTop }: BottomNavbarProps) => {
+  const { showNavbar } = useAppSelector((state) => state.blindDate);
+
   return (
-    <motion.nav css={wrap} variants={blindDateNavbarMotionVariants} initial="initial" animate="animate" exit="exit">
-      {BLIND_DATE_NAVBAR_LIST.map((item, index) => {
-        return <TabItem key={index} label={item.label} Icon={item.Icon} scrollToTop={scrollToTop} />;
-      })}
-    </motion.nav>
+    <AnimatePresence mode="wait">
+      {showNavbar && (
+        <motion.nav css={wrap} variants={blindDateNavbarMotionVariants} initial="initial" animate="animate" exit="exit">
+          {BLIND_DATE_NAVBAR_LIST.map((item, index) => {
+            return <TabItem key={index} label={item.label} Icon={item.Icon} scrollToTop={scrollToTop} />;
+          })}
+        </motion.nav>
+      )}
+    </AnimatePresence>
   );
 };
 

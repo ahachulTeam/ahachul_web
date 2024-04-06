@@ -20,25 +20,41 @@ const wrap = [
 const btn_wrap = [
   f.fullWidth,
   f.flexAlignCenter,
-  ({ typography: { fontSize, fontWeight, lineHeight } }: Theme) => ({
+  ({
+    color: {
+      static: {
+        dark: { whiteAlpha },
+      },
+    },
+    typography: { fontWeight, lineHeight },
+  }: Theme) => ({
     '& > button': {
-      height: '36px',
-      backgroundColor: '#2E3033',
+      height: '32px',
+      backgroundColor: whiteAlpha[900],
       borderRadius: '8px',
-      padding: '0 12px',
       display: 'flex',
       alignItems: 'center',
-      color: '#C9CEDC',
-      fontSize: fontSize[14],
-      fontWeight: fontWeight[500],
-      lineHeight: lineHeight[133],
-      letterSpacing: '-0.4px',
+      marginRight: '12px',
+      padding: '0 12px',
 
       '& > span': {
-        marginLeft: '4px',
+        color: '#ffffff',
+        fontSize: '13px',
+        fontWeight: fontWeight[500],
+        lineHeight: lineHeight[133],
+        letterSpacing: '-0.4px',
+        marginLeft: '6px',
       },
 
-      marginRight: '12px',
+      '& > div': {
+        width: '14px',
+        height: '14px',
+
+        '& > svg > path': {
+          fill: '#ffffff',
+          stroke: '#ffffff',
+        },
+      },
     },
   }),
 ];
