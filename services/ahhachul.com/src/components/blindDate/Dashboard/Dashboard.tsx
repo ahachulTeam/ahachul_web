@@ -1,4 +1,3 @@
-import { UiComponent } from 'components';
 import React from 'react';
 import { Nullable } from 'types';
 import BlindDateNavigationBar from './blindDateNavigationBar';
@@ -15,7 +14,6 @@ const Dashboard = () => {
       <div ref={topEl} css={scrollable}>
         <BlindList />
         <PartyList />
-        <UiComponent.Footer />
       </div>
       <BlindDateNavigationBar scrollToTop={scrollToTop} />
     </main>
