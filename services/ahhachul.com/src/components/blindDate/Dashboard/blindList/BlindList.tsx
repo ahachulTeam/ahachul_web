@@ -37,7 +37,7 @@ const BlindList = () => {
             </div>
           </article>
           <p css={updateTitle}>4월 7일 일요일 08:00 업데이트</p>
-          <h3 css={cardTitle}>은영님의 운명의 상대</h3>
+          <h3 css={cardTitle}>이효범님의 운명의 상대</h3>
           <article css={card}>
             <div css={label}>
               <IconCheckFill />
@@ -47,10 +47,10 @@ const BlindList = () => {
               <div css={thumbnail}>🐰</div>
               <div css={textInfo}>
                 <span>
-                  <b>24세</b> 대학생
+                  <b>21세</b> 대학생
                 </span>
                 <ul>
-                  <li>#연세대</li>
+                  <li>#경희대</li>
                   <li>#ISTP</li>
                 </ul>
               </div>
@@ -62,7 +62,7 @@ const BlindList = () => {
             <div css={labelList}>
               <div>
                 <IconCheckFill />
-                <span>진지한 만남</span>
+                <span>설레는</span>
               </div>
               <div>
                 <IconLocation />
@@ -70,7 +70,7 @@ const BlindList = () => {
               </div>
             </div>
             <div css={userInfoSummary}>
-              <div css={thumbnail}>🐰</div>
+              <div css={thumbnail}>🐱</div>
               <div css={textInfo}>
                 <span>
                   <b>평균 24세</b> 직장인/대학원생
@@ -90,53 +90,53 @@ const BlindList = () => {
                 <IconCheckFill />
                 <span>소개팅</span>
               </div>
-              <div css={[thumbnail, { marginRight: 0, marginBottom: '8px' }]}>🐰</div>
-              <span css={smallInfo}>대학생, 24살</span>
-              <span css={[smallInfo, { marginBottom: 0 }]}>inseo613</span>
+              <div css={[thumbnail, { marginRight: 0, marginBottom: '8px' }]}>🦊</div>
+              <span css={smallInfo}>대학생, 22세</span>
+              <span css={[smallInfo, { marginBottom: 0 }]}>iwns281</span>
             </article>
             <article>
               <div>
                 <IconCheckFill />
                 <span>소개팅</span>
               </div>
-              <div css={[thumbnail, { marginRight: 0, marginBottom: '8px' }]}>🐰</div>
-              <span css={smallInfo}>대학생, 24살</span>
-              <span css={[smallInfo, { marginBottom: 0 }]}>inseo613</span>
+              <div css={[thumbnail, { marginRight: 0, marginBottom: '8px' }]}>🐥</div>
+              <span css={smallInfo}>대학생, 26세</span>
+              <span css={[smallInfo, { marginBottom: 0 }]}>iwns281</span>
             </article>
             <article>
               <div>
                 <IconCheckFill />
                 <span>소개팅</span>
               </div>
-              <div css={[thumbnail, { marginRight: 0, marginBottom: '8px' }]}>🐰</div>
-              <span css={smallInfo}>대학생, 24살</span>
-              <span css={[smallInfo, { marginBottom: 0 }]}>inseo613</span>
-            </article>
-            <article>
-              <div>
-                <IconCheckFill />
-                <span>소개팅</span>
-              </div>
-              <div css={[thumbnail, { marginRight: 0, marginBottom: '8px' }]}>🐰</div>
-              <span css={smallInfo}>대학생, 24살</span>
-              <span css={[smallInfo, { marginBottom: 0 }]}>inseo613</span>
+              <div css={[thumbnail, { marginRight: 0, marginBottom: '8px' }]}>🐶</div>
+              <span css={smallInfo}>대학생, 23세</span>
+              <span css={[smallInfo, { marginBottom: 0 }]}>iwns281</span>
             </article>
             <article>
               <div>
                 <IconCheckFill />
                 <span>미팅</span>
               </div>
-              <div css={[thumbnail, { marginRight: 0, marginBottom: '8px' }]}>🐰</div>
-              <span css={smallInfo}>대학생, 24살</span>
-              <span css={[smallInfo, { marginBottom: 0 }]}>inseo613</span>
+              <div css={[thumbnail, { marginRight: 0, marginBottom: '8px' }]}>🐭</div>
+              <span css={smallInfo}>평균 25세</span>
+              <span css={[smallInfo, { marginBottom: 0 }]}>iwns281</span>
             </article>
             <article>
               <div>
                 <IconCheckFill />
                 <span>미팅</span>
               </div>
-              <div css={[thumbnail, { marginRight: 0, marginBottom: '8px' }]}>🐰</div>
-              <span css={smallInfo}>대학생, 24살</span>
+              <div css={[thumbnail, { marginRight: 0, marginBottom: '8px' }]}>🦋</div>
+              <span css={smallInfo}>평균 22세</span>
+              <span css={[smallInfo, { marginBottom: 0 }]}>iwns281</span>
+            </article>
+            <article>
+              <div>
+                <IconCheckFill />
+                <span>미팅</span>
+              </div>
+              <div css={[thumbnail, { marginRight: 0, marginBottom: '8px' }]}>🦦</div>
+              <span css={smallInfo}>평균 23세</span>
               <span css={[smallInfo, { marginBottom: 0 }]}>inseo613</span>
             </article>
           </section>
