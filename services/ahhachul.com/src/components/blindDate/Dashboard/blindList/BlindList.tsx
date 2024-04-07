@@ -1,19 +1,20 @@
 import React from 'react';
 
-import { wrap, ticketWrap } from './style';
+import { wrap } from './style';
 import { AnimatePresence, motion } from 'framer-motion';
 import { defaultFadeInVariants } from 'data/motion';
 import { useAppSelector } from 'stores';
-import { css, CSSObject } from '@emotion/react';
-import styled from '@emotion/styled';
-import Skeleton from 'react-loading-skeleton';
-import { f } from 'styles';
 import { useGetBlindList } from 'queries/blindDate/useGetBlindList';
+import { CSSObject, Theme } from '@emotion/react';
+import { f } from 'styles';
+import IconBlindMembership from 'static/icons/blindDate/IconBlindMembership';
+import IconCheckFill from 'static/icons/blindDate/IconCheckFill';
+import IconLocation from 'static/icons/blindDate/IconLocation';
 
 const BlindList = () => {
   const { activeView } = useAppSelector((state) => state.blindDate);
 
-  const { data, isLoading } = useGetBlindList();
+  const { data } = useGetBlindList();
   console.log('data:', data);
 
   return (
@@ -26,351 +27,367 @@ const BlindList = () => {
           exit="exit"
           variants={defaultFadeInVariants}
         >
-          {/* <article>
-
+          <article css={banner}>
+            <IconBlindMembership />
+            <div>
+              <h2>
+                이효범님은 지금 <b>멤버십</b> 혜택 대상자에요
+              </h2>
+              <p>지금 가입하면 매칭 2배 이벤트!</p>
+            </div>
           </article>
-          <article css={headTitle}>4/7 오늘의 인연 카드가 도착했어요</article> */}
-          <div css={ticketWrap}>
-            <DateWrap>
-              <DateTypeLabel>소개팅</DateTypeLabel>
-              <ContentArea>
-                <div css={{ marginBottom: '8px' }}>
-                  <AnimatePresence mode="wait">
-                    {!isLoading ? (
-                      <TopInfo variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
-                        <b>24살</b>
-                        <span>대학생</span>
-                      </TopInfo>
-                    ) : (
-                      <TopInfo variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
-                        <Skeleton
-                          width="64px"
-                          borderRadius={12}
-                          baseColor="#2e2e2e"
-                          highlightColor="rgba(255, 255, 255, 0.24)"
-                        />
-                      </TopInfo>
-                    )}
-                  </AnimatePresence>
-                </div>
-                <CardWrap>
-                  <CardTopInfo>
-                    <AnimatePresence mode="wait">
-                      {!isLoading ? (
-                        <motion.span variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
-                          #연세대 #경영학과
-                        </motion.span>
-                      ) : (
-                        <span>
-                          <Skeleton
-                            width="84px"
-                            borderRadius={12}
-                            baseColor="#2e2e2e"
-                            highlightColor="rgba(255, 255, 255, 0.24)"
-                          />
-                        </span>
-                      )}
-                    </AnimatePresence>
-                    <div>
-                      <span>친구</span>
-                      <ul>
-                        <li />
-                        <li />
-                        <li />
-                        <li />
-                      </ul>
-                      <span>연인</span>
-                    </div>
-                  </CardTopInfo>
-                  <div css={{ position: 'relative', minHeight: '31px' }}>
-                    {!isLoading ? (
-                      <div css={characterWrap}>
-                        <div />
-                      </div>
-                    ) : (
-                      <Skeleton
-                        circle
-                        width="58px"
-                        height="58px"
-                        borderRadius="50%"
-                        baseColor="#2e2e2e"
-                        highlightColor="rgba(255, 255, 255, 0.24)"
-                      />
-                    )}
-                  </div>
-                  <button css={allTrainsBtnCss}>카드 열어보기</button>
-                </CardWrap>
-                <div css={{ position: 'relative', margin: '20px 0 0' }}>
-                  <AnimatePresence mode="wait">
-                    <BottomInfo variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
-                      <DateTypeLabel css={{ borderColor: '#FF5454' }}>미팅</DateTypeLabel>
-                      <div css={{ marginBottom: '8px' }}>
-                        <AnimatePresence mode="wait">
-                          <TopInfo variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
-                            <>
-                              {!isLoading ? (
-                                <>
-                                  <b>2대2</b>
-                                  <span>직장인</span>
-                                </>
-                              ) : (
-                                <Skeleton
-                                  width="64px"
-                                  borderRadius={12}
-                                  baseColor="#2e2e2e"
-                                  highlightColor="rgba(255, 255, 255, 0.24)"
-                                />
-                              )}
-                            </>
-                          </TopInfo>
-                        </AnimatePresence>
-                      </div>
-                      <CardWrap>
-                        <CardTopInfo>
-                          <AnimatePresence mode="wait">
-                            {!isLoading ? (
-                              <motion.span
-                                variants={defaultFadeInVariants}
-                                initial="initial"
-                                animate="animate"
-                                exit="exit"
-                              >
-                                #건대 #성수
-                              </motion.span>
-                            ) : (
-                              <span>
-                                <Skeleton
-                                  width="84px"
-                                  height="13.8px"
-                                  borderRadius={12}
-                                  baseColor="#2e2e2e"
-                                  highlightColor="rgba(255, 255, 255, 0.24)"
-                                />
-                              </span>
-                            )}
-                          </AnimatePresence>
-                          <div>
-                            <span>신나는</span>
-                            <ul>
-                              <li />
-                              <li />
-                              <li />
-                              <li />
-                            </ul>
-                            <span>설레는</span>
-                          </div>
-                        </CardTopInfo>
-                        <div css={{ position: 'relative', minHeight: '31px' }}>
-                          {!isLoading ? (
-                            <div css={characterWrap}>
-                              <div />
-                              <div />
-                            </div>
-                          ) : (
-                            <Skeleton
-                              circle
-                              width="58px"
-                              height="58px"
-                              borderRadius="50%"
-                              baseColor="#2e2e2e"
-                              highlightColor="rgba(255, 255, 255, 0.24)"
-                            />
-                          )}
-                        </div>
-                        <button css={[allTrainsBtnCss, { backgroundColor: '#FF5454' }]}>카드 열어보기</button>
-                      </CardWrap>
-                    </BottomInfo>
-                  </AnimatePresence>
-                </div>
-              </ContentArea>
-            </DateWrap>
-          </div>
+          <p css={updateTitle}>4월 7일 일요일 08:00 업데이트</p>
+          <h3 css={cardTitle}>은영님의 운명의 상대</h3>
+          <article css={card}>
+            <div css={label}>
+              <IconCheckFill />
+              <span>진지한 만남</span>
+            </div>
+            <div css={userInfoSummary}>
+              <div css={thumbnail}>🐰</div>
+              <div css={textInfo}>
+                <span>
+                  <b>24세</b> 대학생
+                </span>
+                <ul>
+                  <li>#연세대</li>
+                  <li>#ISTP</li>
+                </ul>
+              </div>
+            </div>
+            <button css={cardBtn}>카드 열어보기</button>
+          </article>
+          <h3 css={cardTitle}>다같이 한 잔해~</h3>
+          <article css={[card, { background: '#171717' }]}>
+            <div css={labelList}>
+              <div>
+                <IconCheckFill />
+                <span>진지한 만남</span>
+              </div>
+              <div>
+                <IconLocation />
+                <span>건대입구역</span>
+              </div>
+            </div>
+            <div css={userInfoSummary}>
+              <div css={thumbnail}>🐰</div>
+              <div css={textInfo}>
+                <span>
+                  <b>평균 24세</b> 직장인/대학원생
+                </span>
+                <ul>
+                  <li>#2대2</li>
+                  <li>#술게임</li>
+                </ul>
+              </div>
+            </div>
+            <button css={cardBtn}>카드 열어보기</button>
+          </article>
+          <h2 css={cardTitle}>최근 성사된 매칭</h2>
+          <section css={gridSection}>
+            <article>
+              <div>
+                <IconCheckFill />
+                <span>소개팅</span>
+              </div>
+              <div css={[thumbnail, { marginRight: 0, marginBottom: '8px' }]}>🐰</div>
+              <span css={smallInfo}>대학생, 24살</span>
+              <span css={[smallInfo, { marginBottom: 0 }]}>inseo613</span>
+            </article>
+            <article>
+              <div>
+                <IconCheckFill />
+                <span>소개팅</span>
+              </div>
+              <div css={[thumbnail, { marginRight: 0, marginBottom: '8px' }]}>🐰</div>
+              <span css={smallInfo}>대학생, 24살</span>
+              <span css={[smallInfo, { marginBottom: 0 }]}>inseo613</span>
+            </article>
+            <article>
+              <div>
+                <IconCheckFill />
+                <span>소개팅</span>
+              </div>
+              <div css={[thumbnail, { marginRight: 0, marginBottom: '8px' }]}>🐰</div>
+              <span css={smallInfo}>대학생, 24살</span>
+              <span css={[smallInfo, { marginBottom: 0 }]}>inseo613</span>
+            </article>
+            <article>
+              <div>
+                <IconCheckFill />
+                <span>소개팅</span>
+              </div>
+              <div css={[thumbnail, { marginRight: 0, marginBottom: '8px' }]}>🐰</div>
+              <span css={smallInfo}>대학생, 24살</span>
+              <span css={[smallInfo, { marginBottom: 0 }]}>inseo613</span>
+            </article>
+            <article>
+              <div>
+                <IconCheckFill />
+                <span>미팅</span>
+              </div>
+              <div css={[thumbnail, { marginRight: 0, marginBottom: '8px' }]}>🐰</div>
+              <span css={smallInfo}>대학생, 24살</span>
+              <span css={[smallInfo, { marginBottom: 0 }]}>inseo613</span>
+            </article>
+            <article>
+              <div>
+                <IconCheckFill />
+                <span>미팅</span>
+              </div>
+              <div css={[thumbnail, { marginRight: 0, marginBottom: '8px' }]}>🐰</div>
+              <span css={smallInfo}>대학생, 24살</span>
+              <span css={[smallInfo, { marginBottom: 0 }]}>inseo613</span>
+            </article>
+          </section>
+          <h2 css={cardTitle}>매칭 활성화</h2>
+          <section css={activeInfo}>
+            <div>
+              <span>소개팅 매칭 활성화</span>
+            </div>
+            <div>
+              <span>미팅 매칭 활성화</span>
+            </div>
+          </section>
         </motion.main>
       )}
     </AnimatePresence>
   );
 };
 
-// const headTitle = ({
-//   color: {
-//     scale: { gray },
-//   },
-//   typography: { fontSize, fontWeight },
-// }: Theme) => ({
-//   marginBottom: '16px',
-//   fontSize: fontSize[16],
-//   fontWeight: fontWeight[600],
-//   color: gray[1000],
-//   paddingLeft: '20px',
-// });
-
-const DateWrap = styled.div`
-  position: relative;
-  width: 100%;
-  min-height: 180px;
-  border-radius: 20px;
-  border: 1px solid #9da5b6;
-`;
-
-const DateTypeLabel = styled.span`
-  font-size: 16px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 36px;
-  border: 3px solid #4e41db;
-  border-radius: 21px;
-  padding: 0 32px;
-  background-color: #ffffff;
-  width: max-content;
-  margin: 0 auto;
-  margin-top: 20px;
-`;
-
-const ContentArea = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 0 20px 20px;
-`;
-
-const CardWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  row-gap: 4px;
-`;
-
-const CardTopInfo = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 28px;
-
-  & > span {
-    font-size: 12px;
-    color: #b4b4b4;
-  }
-
-  & > div {
-    display: flex;
-    align-items: center;
-
-    & > ul {
-      display: grid;
-      min-width: 40px;
-      grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
-      gap: 2px;
-      margin: 0 4px;
-
-      & > li {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-
-        &:first-of-type {
-          background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        &:nth-of-type(2) {
-          background-color: rgba(255, 255, 255, 0.16);
-        }
-
-        &:nth-of-type(3) {
-          background-color: rgba(255, 255, 255, 0.46);
-        }
-
-        &:last-of-type {
-          background-color: rgba(255, 255, 255, 1);
-        }
-      }
-    }
-
-    & > span {
-      font-size: 12px;
-      color: #ffffff;
-    }
-
-    & > button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: #ffffff;
-      width: 10px;
-      height: 10px;
-      padding: 2px;
-      border-radius: 50%;
-      position: relative;
-      top: 1px;
-
-      color: #ffffff;
-      background-color: #000000;
-    }
-  }
-`;
-
-const TopInfo = styled(motion.div)`
-  display: flex;
-  align-items: center;
-  position: relative;
-  padding-top: 20px;
-
-  & > b {
-    font-size: 16px;
-    font-weight: bold;
-    margin-right: 6px;
-    color: #ffffff;
-  }
-
-  & > span {
-    font-size: 14px;
-    color: #ffffff;
-  }
-`;
-
-const BottomInfo = styled(motion.ul)`
-  width: 100%;
-  justify-items: center;
-  border-top: 1px solid #9da5b6;
-`;
-
-const allTrainsBtnCss = css`
-  font-size: 14px;
-  font-weight: 600;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #ffffff;
-  width: 80%;
-  margin: 0 auto;
-  height: 44px;
-  border-radius: 24px;
-  margin-top: 28px;
-  background-color: #4e41db;
-`;
-
-const characterWrap: [CSSObject, CSSObject[], CSSObject] = [
-  f.posRel,
+const banner: [CSSObject[], ({ typography }: Theme) => CSSObject] = [
   f.flexAlignCenter,
-  {
-    '& > div': {
-      marginRight: '12px',
-      borderRadius: '50%',
-      border: '3px solid #9da5b6',
-      width: '58px',
-      height: '58px',
+  ({ typography: { fontSize, fontWeight } }: Theme) => ({
+    backgroundColor: 'rgba(245, 249, 254, 0.11)',
+    height: '69px',
+    paddingLeft: '18px',
+    width: 'calc(100% - 40px)',
+    margin: '0 auto',
+    borderRadius: '12px',
+    marginBottom: '32px',
+
+    '& > div:last-of-type': {
+      display: 'flex',
+      flexDirection: 'column',
+      marginLeft: '16px',
+
+      '& > h2': {
+        color: '#FFFFfF',
+        fontSize: fontSize[14],
+        fontWeight: fontWeight[700],
+        marginBottom: '6px',
+
+        '& > b': {
+          color: '#FF4C7C',
+        },
+      },
+
+      '& > p': {
+        color: '#AAA6B1',
+        fontSize: fontSize[12],
+      },
     },
+  }),
+];
+
+const updateTitle = ({ typography: { fontSize } }: Theme) => ({
+  color: 'rgba(255, 255, 255, 0.55)',
+  fontSize: fontSize[11],
+  paddingLeft: '20px',
+  marginBottom: '12px',
+});
+
+const cardTitle = ({ typography: { fontSize, fontWeight } }: Theme) => ({
+  color: '#ffffff',
+  fontSize: fontSize[14],
+  fontWeight: fontWeight[700],
+  paddingLeft: '20px',
+  marginBottom: '14px',
+});
+
+const card = ({ typography: { fontSize, fontWeight } }: Theme) => ({
+  color: '#ffffff',
+  fontSize: fontSize[14],
+  fontWeight: fontWeight[700],
+  width: 'calc(100% - 40px)',
+  margin: '0 auto',
+  borderRadius: '12px 12px 0 0',
+  backgroundColor: 'red',
+  padding: '18px',
+  background: 'linear-gradient(225deg, #853349 0%, #380E19 48%, #121212 100%)',
+  marginBottom: '36px',
+  backdropFilter: 'blur(4px)',
+});
+
+const label = ({ typography: { fontSize, fontWeight } }: Theme) => ({
+  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  borderRadius: '8px',
+  width: 'max-content',
+  height: '26px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '0 12px',
+  marginBottom: '21px',
+
+  '& > span': {
+    color: '#ffffff',
+    fontSize: fontSize[12],
+    fontWeight: fontWeight[500],
+    marginLeft: '6px',
+  },
+});
+
+const labelList = ({ typography: { fontSize, fontWeight } }: Theme) => ({
+  display: 'flex',
+  alignItems: 'center',
+  marginBottom: '26px',
+
+  '& > div': {
+    width: 'max-content',
+    height: '26px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '8px',
+    padding: '0 12px',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    marginRight: '6px',
 
     '& > span': {
-      position: 'absolute',
-      right: 0,
-      fontSize: '12px',
       color: '#ffffff',
+      fontSize: fontSize[12],
+      fontWeight: fontWeight[500],
+      marginLeft: '6px',
     },
   },
+});
+
+const userInfoSummary = [
+  f.flexAlignCenter,
+  {
+    marginBottom: '19px',
+  },
 ];
+
+const thumbnail = [
+  f.flexCenterCenter,
+  {
+    marginRight: '12px',
+    width: '56px',
+    height: '56px',
+    borderRadius: '50%',
+    backgroundColor: 'rgba(255, 255, 255, 0.25)',
+    fontSize: '30px',
+  },
+];
+
+const textInfo = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
+  width: 'max-content',
+  display: 'flex',
+  flexDirection: 'column',
+
+  '& > span': {
+    color: '#ffffff',
+    marginBottom: '6px',
+    fontWeight: fontWeight[400],
+    fontSize: fontSize[14],
+
+    '& > b': {
+      fontSize: fontSize[16],
+      fontWeight: fontWeight[600],
+    },
+  },
+  '& > ul': {
+    display: 'flex',
+    alignItems: 'center',
+
+    '& > li': {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '22px',
+      border: '1px solid rgba(255, 255, 255, 0.1)',
+      borderRadius: '8px',
+      fontSize: fontSize[12],
+      fontWeight: fontWeight[400],
+      padding: '0 10px',
+      marginRight: '4px',
+    },
+  },
+});
+
+const cardBtn = ({ typography: { fontSize, fontWeight } }: Theme) => ({
+  background: 'linear-gradient(225deg, #FF5151 0%,  #FF1756 100%)',
+  borderRadius: '6px',
+  width: 'calc(100% - 18px)',
+  margin: '0 auto',
+  height: '35px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: '#ffffff',
+  fontSize: fontSize[16],
+  fontWeight: fontWeight[600],
+});
+
+const gridSection = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(3, 1fr)',
+  gap: '10px 12px',
+  width: '100%',
+  padding: '0 20px',
+  marginBottom: '36px',
+
+  '& > article': {
+    background: '#171717',
+    borderRadius: '12px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '14px 0',
+
+    '& > div:first-of-type': {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: '12px',
+
+      '& > span': {
+        marginLeft: '5px',
+        color: 'rgba(255, 255, 255, 0.75)',
+        fontSize: fontSize[12],
+        fontWeight: fontWeight[500],
+      },
+    },
+  },
+});
+
+const smallInfo = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
+  color: '#ffffff',
+  fontSize: fontSize[12],
+  fontWeight: fontWeight[500],
+  marginBottom: '4px',
+});
+
+const activeInfo = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
+  padding: '20px',
+  margin: '0 20px',
+  background: '#171717',
+  borderRadius: '12px',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  gap: '17.5px',
+
+  '& > div': {
+    '& > span': {
+      color: '#ffffff',
+      fontSize: fontSize[14],
+      fontWeight: fontWeight[500],
+    },
+  },
+});
 
 export default BlindList;

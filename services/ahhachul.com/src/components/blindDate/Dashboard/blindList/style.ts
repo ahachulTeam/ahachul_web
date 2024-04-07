@@ -1,7 +1,7 @@
 import { Theme } from '@emotion/react';
 import { f } from 'styles';
 
-const paddingTopHeight = '26px';
+const paddingTopHeight = '14px';
 
 const wrap = [
   f.fullWidth,

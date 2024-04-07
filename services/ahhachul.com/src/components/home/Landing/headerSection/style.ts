@@ -34,7 +34,7 @@ const btn_wrap = [
       borderRadius: '8px',
       display: 'flex',
       alignItems: 'center',
-      marginRight: '12px',
+      marginRight: '8px',
       padding: '0 12px',
 
       '& > span': {
