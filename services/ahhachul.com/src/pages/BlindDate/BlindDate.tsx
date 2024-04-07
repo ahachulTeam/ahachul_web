@@ -7,7 +7,7 @@ const Login: React.FC = () => {
   const { userAcceptedUsingBlindDate } = useAppSelector((state) => state.blindDate);
 
   return (
-    <Layout activeTab={false} isDate>
+    <Layout activeTab={false} isDate backgroundColor={'#000'}>
       {userAcceptedUsingBlindDate ? <BlindDateComponent.Dashboard /> : <BlindDateComponent.Landing />}
     </Layout>
   );

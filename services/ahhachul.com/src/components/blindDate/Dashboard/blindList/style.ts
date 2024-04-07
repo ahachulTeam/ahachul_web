@@ -12,7 +12,7 @@ const wrap = [
         dark: { gray },
       },
     },
-  }: Theme) => ({ gap: '36px', padding: `${paddingTopHeight} 0 48px`, backgroundColor: gray[200] }),
+  }: Theme) => ({ gap: '36px', padding: `${paddingTopHeight} 0 48px`, backgroundColor: gray[0] }),
 ];
 
 const pageTitle = ({

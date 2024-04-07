@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { AppScreen } from '@stackflow/plugin-basic-ui';
 
 import { UiComponent } from 'components';
@@ -17,10 +17,18 @@ interface LayoutProps {
   children: React.ReactNode;
   hasSearch?: boolean;
   isDate?: boolean;
+  backgroundColor?: CSSProperties['backgroundColor'];
   onTopClick?: VoidFunction;
 }
 
-const Layout: React.FC<LayoutProps> = ({ activeTab = 'Home', appBar, hasSearch = false, isDate = false, children }) => {
+const Layout: React.FC<LayoutProps> = ({
+  activeTab = 'Home',
+  appBar,
+  hasSearch = false,
+  isDate = false,
+  backgroundColor,
+  children,
+}) => {
   const { loading, snackBars } = useAppSelector((state) => state.ui);
   const { defaultAppBar } = useDefaultAppBar({ activeTab, hasSearch, isDate });
 
@@ -35,7 +43,7 @@ const Layout: React.FC<LayoutProps> = ({ activeTab = 'Home', appBar, hasSearch =
         iconColor: theme.color.scale.gray[1000],
         onTopClick: scrollToTop,
       }}
-      backgroundColor={theme.color.static.dark.gray[200]}
+      backgroundColor={backgroundColor ?? theme.color.static.dark.gray[200]}
     >
       <div css={wrapper}>
         <div ref={topEl} css={scrollable(Boolean(activeTab))}>

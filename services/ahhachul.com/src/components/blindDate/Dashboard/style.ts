@@ -17,6 +17,7 @@ const scrollable = [
     paddingBottom: navbar,
   }),
 ];
+
 const title = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
   fontSize: fontSize[16],
   fontWeight: fontWeight[600],
