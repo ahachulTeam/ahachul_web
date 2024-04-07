@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useEffect } from 'react';
 import { AppScreen } from '@stackflow/plugin-basic-ui';
 
 import { UiComponent } from 'components';
@@ -35,6 +35,14 @@ const Layout: React.FC<LayoutProps> = ({
   const topEl = React.useRef<Nullable<HTMLDivElement>>(null);
   const scrollToTop = () => topEl?.current?.scrollTo({ top: 0, behavior: 'smooth' });
 
+  useEffect(() => {
+    if (isDate) return;
+    const themeColor = document?.getElementById('theme-color');
+    if (themeColor) {
+      themeColor.setAttribute('content', '#141517');
+    }
+  }, [isDate]);
+
   return (
     <AppScreen
       appBar={{
@@ -44,6 +52,7 @@ const Layout: React.FC<LayoutProps> = ({
         onTopClick: scrollToTop,
       }}
       backgroundColor={backgroundColor ?? theme.color.static.dark.gray[200]}
+      preventSwipeBack
     >
       <div css={wrapper}>
         <div ref={topEl} css={scrollable(Boolean(activeTab))}>
