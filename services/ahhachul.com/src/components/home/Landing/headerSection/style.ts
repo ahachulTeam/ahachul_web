@@ -29,7 +29,7 @@ const btn_wrap = [
     typography: { fontWeight, lineHeight },
   }: Theme) => ({
     '& > button': {
-      height: '32px',
+      height: '36px',
       backgroundColor: whiteAlpha[900],
       borderRadius: '8px',
       display: 'flex',

@@ -86,9 +86,6 @@ const BlindList = () => {
                     {!isLoading ? (
                       <div css={characterWrap}>
                         <div />
-                        <span>
-                          매너점수 <b>94점</b>
-                        </span>
                       </div>
                     ) : (
                       <Skeleton
@@ -168,9 +165,6 @@ const BlindList = () => {
                             <div css={characterWrap}>
                               <div />
                               <div />
-                              <span>
-                                매너점수 <b>97점</b>
-                              </span>
                             </div>
                           ) : (
                             <Skeleton
@@ -340,7 +334,7 @@ const TopInfo = styled(motion.div)`
 const BottomInfo = styled(motion.ul)`
   width: 100%;
   justify-items: center;
-  border-top: 1px solid rgba(210, 210, 210, 0.09);
+  border-top: 1px solid #9da5b6;
 `;
 
 const allTrainsBtnCss = css`

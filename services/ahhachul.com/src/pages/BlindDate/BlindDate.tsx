@@ -7,7 +7,7 @@ const Login: React.FC = () => {
   const { userAcceptedUsingBlindDate } = useAppSelector((state) => state.blindDate);
 
   return (
-    <Layout activeTab={false} hasRightBtns={userAcceptedUsingBlindDate ? true : false} isDate>
+    <Layout activeTab={false} isDate>
       {userAcceptedUsingBlindDate ? <BlindDateComponent.Dashboard /> : <BlindDateComponent.Landing />}
     </Layout>
   );

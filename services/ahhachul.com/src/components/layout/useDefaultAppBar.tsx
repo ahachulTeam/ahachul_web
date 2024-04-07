@@ -1,8 +1,10 @@
+import { throttle } from 'lodash-es';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { TypeActivities, useFlow } from 'stackflow';
 import IconBellActive from 'static/icons/system/IconBellActive';
+import IconBlindDate from 'static/icons/system/IconBlindDate';
 import IconLogo from 'static/icons/system/IconLogo';
 import IconSearch from 'static/icons/system/IconSearch';
 import mockProfile from 'static/img/mocks/mock3.png';
@@ -15,12 +17,10 @@ const useDefaultAppBar = ({
   activeTab,
   hasSearch,
   isDate,
-  hasRightBtns,
 }: {
   activeTab?: KeyOf<TypeActivities> | false;
   hasSearch: boolean;
   isDate: boolean;
-  hasRightBtns: boolean;
 }) => {
   const { push, replace } = useFlow();
   const dispatch = useDispatch();
@@ -28,11 +28,11 @@ const useDefaultAppBar = ({
 
   const appBarLeft = () => (
     <div css={left} onClick={clickLogoBtn}>
-      <IconLogo />
+      {isDate ? <IconBlindDate /> : <IconLogo />}
     </div>
   );
 
-  const clickLogoBtn = () => {
+  const clickLogoBtn = throttle(() => {
     if (activeTab === 'Home') return;
     if (isDate) {
       dispatch(hideNavbar());
@@ -43,23 +43,15 @@ const useDefaultAppBar = ({
     } else {
       replace('Home', {}, { animate: false });
     }
-  };
+  }, 1000);
 
-  const clickAlarmBtn = () => {
-    if (isDate) {
-      alert('go to date alarms');
-    } else {
-      push('Alarm', {});
-    }
-  };
+  const clickAlarmBtn = throttle(() => {
+    push('Alarm', {});
+  }, 1000);
 
-  const clickMeBtn = () => {
-    if (isDate) {
-      push('BlindDateMyPage', {});
-    } else {
-      push('MyProfile', {});
-    }
-  };
+  const clickMeBtn = throttle(() => {
+    push('MyProfile', {});
+  }, 1000);
 
   const appBarRight = () => (
     <div css={right(hasSearch)}>
@@ -72,7 +64,7 @@ const useDefaultAppBar = ({
   return {
     defaultAppBar: {
       renderLeft: appBarLeft,
-      renderRight: hasRightBtns ? appBarRight : null,
+      renderRight: isDate ? null : appBarRight,
     },
   };
 };
