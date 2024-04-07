@@ -1,7 +1,7 @@
 import { CSSObject, Theme } from '@emotion/react';
 import { f } from 'styles';
 
-const wrap = [f.fullWidth, f.flexColumn, { padding: '26px 20px 48px 20px' }];
+const wrap = [f.fullWidth, f.flexColumn, { padding: '14px 20px 48px 20px' }];
 
 const title = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
   color: '#e6e6e6',

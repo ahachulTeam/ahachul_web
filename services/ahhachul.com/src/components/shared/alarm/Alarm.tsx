@@ -27,7 +27,7 @@ const Alarm: ActivityComponentType = () => {
       }}
       activeTab={false}
     >
-      <Box as="main" css={{ padding: '16px 0' }}>
+      <Box as="main" css={{ padding: '14px 0' }}>
         <UiComponent.Toggle
           tabs={ALARM_TABS}
           defaultValue={tab as string}

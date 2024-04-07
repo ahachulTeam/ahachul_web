@@ -12,7 +12,7 @@ const SubwayTimeTable: ActivityComponentType = () => {
       }}
       activeTab={false}
     >
-      <main css={{ padding: '20px' }}>
+      <main css={{ padding: '14px 20px' }}>
         <h1 css={title}>지하철 시간표</h1>
       </main>
     </Layout>

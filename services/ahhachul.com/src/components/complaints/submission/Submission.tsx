@@ -141,7 +141,7 @@ const SelectComponent = memo(
   },
 );
 
-const wrap = [f.fullWidth, f.flexColumn, { padding: '26px 0 120px 0' }];
+const wrap = [f.fullWidth, f.flexColumn, { padding: '14px 0 120px 0' }];
 
 const section: [CSSObject[], ({ typography }: Theme) => CSSObject] = [
   f.flexColumn,
