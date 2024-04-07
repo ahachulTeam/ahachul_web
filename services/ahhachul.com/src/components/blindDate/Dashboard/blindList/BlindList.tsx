@@ -334,7 +334,7 @@ const cardBtn = ({ typography: { fontSize, fontWeight } }: Theme) => ({
 const gridSection = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
-  gap: '10px 12px',
+  gap: '12px 10px',
   width: '100%',
   padding: '0 20px',
   marginBottom: '36px',
