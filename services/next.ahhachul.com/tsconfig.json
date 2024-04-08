@@ -4,6 +4,7 @@
     "target": "ES6",
     "moduleResolution": "node",
     "jsx": "preserve",
+    "jsxImportSource": "@emotion/react",
     "incremental": true,
     "paths": {
       "@/src/*": ["./src/*"]
