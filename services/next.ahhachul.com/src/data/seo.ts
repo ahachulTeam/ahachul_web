@@ -49,7 +49,7 @@ export const searchLdJsonData = {
 export const detailLdJson = ({ name, description, offers, brandName, image, review, rating }: IDetailLdJson) => ({
   '@context': 'https://schema.org',
   '@type': 'Product',
-  image: image || metadata.image,
+  image: image || defaultMetadata.image,
   name,
   description,
   ...(offers && {

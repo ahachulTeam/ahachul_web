@@ -8,7 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <SEO pageProps={pageProps} />
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </>
   );
 }

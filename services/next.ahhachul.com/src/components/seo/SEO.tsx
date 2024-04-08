@@ -38,8 +38,6 @@ const SEO = ({ pageProps, metaData = defaultMetadata }: { pageProps: AppProps['p
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
-
-      <meta itemProp="image" content={image} />
       <link rel="canonical" href={`${getDomainName()}${pathname}`} />
 
       <meta property="og:title" content={title} />
