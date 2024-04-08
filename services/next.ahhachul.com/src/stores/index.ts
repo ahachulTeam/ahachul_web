@@ -8,9 +8,9 @@ export type RootState = ReturnType<typeof store.getState>;
 type AppDispatch = typeof store.dispatch;
 
 const persistConfig = {
-  key: process.env.REACT_APP_NAME as string,
+  key: process.env.NEXT_PUBLIC_APP_NAME as string,
   storage,
-  whitelist: ['auth', 'blindDate'],
+  whitelist: ['auth'],
 };
 
 const reducers = combineReducers({
