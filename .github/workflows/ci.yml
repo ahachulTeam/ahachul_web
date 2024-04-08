@@ -35,6 +35,16 @@ jobs:
       - name: Test
         run: yarn affected:test --parallel=5
 
+      - name: Set up environment variables for .env.production
+        env:
+          SERVICE_NAME: $(basename $(dirname ${GITHUB_REPOSITORY}))
+        run: |
+          if [ "$SERVICE_NAME" = "ahhachul.com" ]; then
+            echo "${{ secrets.ENV_PROD_CONTENT }}" > "services/$SERVICE_NAME/.env.production"
+          elif [ "$SERVICE_NAME" = "next.ahhachul.com" ]; then
+            echo "${{ secrets.NEXT_ENV_PROD_CONTENT }}" > "services/$SERVICE_NAME/.env.production"
+          fi
+
       - name: Build
         run: yarn affected:build --parallel=5
 
