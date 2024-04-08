@@ -1,16 +1,22 @@
 import { http, delay, HttpResponse } from 'msw';
 import { API_BASE_URL } from 'data/api';
 import { getRandomBoolean } from 'mocks/utils';
-import { lostContentMock, lostListItemMock } from './lost.mock';
+import { lostContentMock } from './lost.mock';
 
-const getLostListResponse = {
-  code: '100',
-  message: 'SUCCESS',
-  result: {
-    hasNext: false,
-    posts: new Array(20).fill('').map((_, idx) => lostListItemMock(idx)),
-  },
-};
+// const getLostListResponse = {
+//   code: '100',
+//   message: 'SUCCESS',
+//   result: {
+//     hasNext: false,
+//     posts: new Array(20).fill('').map((_, idx) => lostListItemMock(idx)),
+//   },
+// };
+
+// const getLostList = http.get(API_BASE_URL + '/lost-posts', async () => {
+//   await delay(400);
+
+//   return HttpResponse.json(getLostListResponse);
+// });
 
 const getLostDetailResponse = (postId: string, randomBoolean: boolean) => ({
   code: '100',
@@ -49,12 +55,6 @@ const getLostDetailResponse = (postId: string, randomBoolean: boolean) => ({
   },
 });
 
-const getLostList = http.get(API_BASE_URL + '/lost-posts', async () => {
-  await delay(400);
-
-  return HttpResponse.json(getLostListResponse);
-});
-
 const getLostDetail = http.get(API_BASE_URL + '/lost-posts/:postId', async (req) => {
   const { postId } = req.params;
 
@@ -91,6 +91,6 @@ const postLostArticle = http.post(API_BASE_URL + '/lost-posts', async (req) => {
   throw new Error();
 });
 
-const lostHandlers = [getLostList, getLostDetail, postLostArticle];
+const lostHandlers = [getLostDetail, postLostArticle];
 
 export default lostHandlers;

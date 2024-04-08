@@ -1,17 +1,17 @@
 import { UiComponent } from 'components';
 import { useIntersectionObserver } from 'hooks/useIntersectionObserver';
 import { UseIntersectionObserverProps } from 'types';
-import * as s from './style';
+import { wrapper } from './style';
 
 type Props = {
   children?: React.ReactNode;
 } & UseIntersectionObserverProps;
 
-const VisibilityLoader = ({ children = <UiComponent.Spinner />, ...observerProps }: Props) => {
+const VisibilityLoader = ({ children = <UiComponent.PartialLoading size="80px" />, ...observerProps }: Props) => {
   const { ref } = useIntersectionObserver(observerProps);
 
   return (
-    <div data-testid="VisibilityLoader" ref={ref} css={s.wrapper}>
+    <div data-testid="VisibilityLoader" ref={ref} css={wrapper}>
       <div>{children}</div>
     </div>
   );
