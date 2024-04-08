@@ -12,9 +12,15 @@
     "@ahhachul/themes": "workspace:^",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
+    "@tanstack/react-query": "^5.8.4",
+    "@tanstack/react-query-devtools": "^5.17.0",
+    "@types/axios": "^0.14.0",
+    "axios": "^1.2.2",
     "next": "13.5.4",
+    "query-string": "^8.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-intersection-observer": "^9.5.3"
   },
   "devDependencies": {
     "@types/node": "^20",

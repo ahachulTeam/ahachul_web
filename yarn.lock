@@ -6617,16 +6617,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/draft-js@npm:^0.11.18":
-  version: 0.11.18
-  resolution: "@types/draft-js@npm:0.11.18"
-  dependencies:
-    "@types/react": "npm:*"
-    immutable: "npm:~3.7.4"
-  checksum: 10c0/bc14aa9c054b7182b74f00349af667e76222b170b53379be489f9991f1d0cf1ecf2bb6a1a2970ee4a17c1676ab383e6d64da91c6d83c71d18371bd4da39304df
-  languageName: node
-  linkType: hard
-
 "@types/ejs@npm:^3.1.1":
   version: 3.1.5
   resolution: "@types/ejs@npm:3.1.5"
@@ -8232,7 +8222,6 @@ __metadata:
     "@testing-library/react-hooks": "npm:^8.0.1"
     "@testing-library/user-event": "npm:^14.5.1"
     "@types/axios": "npm:^0.14.0"
-    "@types/draft-js": "npm:^0.11.18"
     "@types/loadable__component": "npm:^5.13.8"
     "@types/lodash-es": "npm:^4.17.12"
     "@types/node": "npm:^20.8.3"
@@ -14444,13 +14433,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"immutable@npm:~3.7.4":
-  version: 3.7.6
-  resolution: "immutable@npm:3.7.6"
-  checksum: 10c0/efe2bbb2620aa897afbb79545b9eda4dd3dc072e05ae7004895a7efb43187e4265612a88f8723f391eb1c87c46c52fd11e2d1968e42404450c63e49558d7ca4e
-  languageName: node
-  linkType: hard
-
 "import-fresh@npm:^3.1.0, import-fresh@npm:^3.2.1":
   version: 3.3.0
   resolution: "import-fresh@npm:3.3.0"
@@ -18120,14 +18102,20 @@ __metadata:
     "@ahhachul/themes": "workspace:^"
     "@emotion/react": "npm:^11.11.3"
     "@emotion/styled": "npm:^11.11.0"
+    "@tanstack/react-query": "npm:^5.8.4"
+    "@tanstack/react-query-devtools": "npm:^5.17.0"
+    "@types/axios": "npm:^0.14.0"
     "@types/node": "npm:^20"
     "@types/react": "npm:^18.2.25"
     "@types/react-dom": "npm:^18.2.11"
+    axios: "npm:^1.2.2"
     eslint: "npm:^8"
     eslint-config-next: "npm:14.1.4"
     next: "npm:13.5.4"
+    query-string: "npm:^8.1.0"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
+    react-intersection-observer: "npm:^9.5.3"
     typescript: "npm:^5"
   languageName: unknown
   linkType: soft
