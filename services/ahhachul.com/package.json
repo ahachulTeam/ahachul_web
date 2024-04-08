@@ -4,9 +4,9 @@
   "version": "0.0.1",
   "scripts": {
     "lint": "eslint --ext js,jsx,ts,tsx src",
-    "start": "env-cmd -f .env.production yarn react-app-rewired start",
+    "start": "react-app-rewired start",
     "start:mocking": "REACT_APP_MOCKING=true react-app-rewired start",
-    "build": "env-cmd -f .env.production yarn react-app-rewired build",
+    "build": "react-app-rewired build",
     "test": "vitest",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
