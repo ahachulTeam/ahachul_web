@@ -25059,6 +25059,9 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./services/next.ahhachul.com/",\
         "packageDependencies": [\
           ["next.ahhachul.com", "workspace:services/next.ahhachul.com"],\
+          ["@ahhachul/themes", "workspace:packages/themes"],\
+          ["@emotion/react", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:11.11.4"],\
+          ["@emotion/styled", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:11.11.0"],\
           ["@types/node", "npm:20.12.5"],\
           ["@types/react", "npm:18.2.64"],\
           ["@types/react-dom", "npm:18.2.21"],\
