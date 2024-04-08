@@ -1,12 +1,12 @@
 export interface IAuthStore {
-  auth: SingupResponseType | null;
+  auth: IToken | null;
 }
 
 export const MEMBER_STATUS = ['PENDING', 'ACTIVATED', 'DORMANT', 'WITHDRAWN'] as const;
 
 export type MemberStatusType = (typeof MEMBER_STATUS)[number];
 
-export type MembeIdBase = { memberId: number };
+export type SocialSignInType = 'KAKAO' | 'GOOGLE' | 'NAVER' | 'APPLE';
 
 export interface IToken {
   /** 액세스 토큰 */
@@ -20,33 +20,19 @@ export interface IToken {
 }
 
 export interface ISocialSignInParams {
-  identity: string;
-  nonce?: string;
-  provider: 'KAKAO' | 'GOOGLE' | 'NAVER' | 'BODYCODI';
+  providerCode: string;
+  providerType: SocialSignInType;
 }
 
 export interface ITermsAgreement {
   PRIVACY_CONSENT: boolean;
 }
 
-export interface ISignUpParams extends MembeIdBase {
-  nickname: string;
-  profileImageUrl: string;
-  termsAgreement: ITermsAgreement;
+export interface IRefreshTokenParams {
+  refreshToken: IToken['refreshToken'];
 }
 
-export interface IRefreshTokenParams extends MembeIdBase {
-  refreshToken: string;
+export interface ISocialSignInResponse extends IToken {
+  memberId: number;
+  isNeedAdditionalUserInfo: boolean;
 }
-
-export interface IAuthResponseBase extends MembeIdBase {
-  token: IToken;
-}
-
-export interface ISocialSignInResponse extends IAuthResponseBase {
-  memberStatus: MemberStatusType;
-  isRequiredSignUp: boolean;
-}
-
-export type SingupResponseType = Omit<ISocialSignInResponse, 'isRequiredSignUp'>;
-export type RefreshTokenResponseType = Omit<SingupResponseType, 'memberStatus'>;

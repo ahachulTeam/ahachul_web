@@ -1,8 +1,18 @@
-import { IRefreshTokenParams } from '@/src/types';
+import queryString from 'query-string';
+import { IRefreshTokenParams, IResponse, ISocialSignInParams, ISocialSignInResponse, IToken } from '@/src/types';
+import { API_BASE_URL } from '@/src/data/api';
 import { base } from '..';
 
-const PATH = '/auth';
+export const getAuthURL = `${API_BASE_URL}/auth`;
 
-const refreshToken = (data: IRefreshTokenParams) => base.post(`${PATH}/tokens`, data);
+const login = async (params: ISocialSignInParams) => {
+  const queryParams = queryString.stringify(params);
 
-export { refreshToken };
+  const url = `${getAuthURL}/logins?${queryParams}`;
+
+  return await base.get<IResponse<ISocialSignInResponse>>(url);
+};
+
+const refreshToken = (body: IRefreshTokenParams) => base.post<IResponse<IToken>>(`${getAuthURL}/tokens`, body);
+
+export { login, refreshToken };

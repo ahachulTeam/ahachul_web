@@ -29,15 +29,13 @@ const PATH = {
   setting: '/me/setting',
   myTicket: '/me/setting/my-ticket',
   registerCenter: 'me/register-center',
+  settingNickname: '/me/setting/nickname',
 
   /** 인증 관련 */
   signin: '/signin',
   signup: '/signup',
   signupTerms: '/signup/terms',
-  signupWithApple: '/signup/callback/apple',
-  signupWithGoogle: '/signup/callback/google',
-  signupWithKakao: '/signup/callback/kakao',
-  signupWithNaver: '/signup/callback/naver',
+  signupRedirect: '/onboarding/redirect',
 
   /** 지하철 관련 */
   subwayMap: '/subway/map',
