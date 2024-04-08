@@ -1,4 +1,5 @@
 import { Interpolation, Theme } from '@emotion/react';
+import { IntersectionOptions } from 'react-intersection-observer';
 
 export interface IUiStore {
   loading: {
@@ -52,3 +53,8 @@ export interface DialogProps extends DialogButtonGroupProps, ModalProps {
   title?: string;
   content?: string;
 }
+
+export type UseIntersectionObserverProps = {
+  callback: () => void;
+  intersectionOptions?: IntersectionOptions;
+};

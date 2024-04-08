@@ -45,6 +45,8 @@ export const exportLineNameWithSubwayLineId = (lineId: string) => {
       return '수인분당선';
     case 'GJ':
       return '경의중앙선';
+    default:
+      return '기타';
   }
 };
 
@@ -92,7 +94,7 @@ export const exportHexColorWidthLineName = (lineName: string) => {
     case 'GJ':
       return '#77C4A3';
     default:
-      return '#242424';
+      return 'rgba(245, 249, 254, 0.11)';
   }
 };
 

@@ -9,6 +9,8 @@ export { default as BottomSheet } from './BottomSheet';
 export { default as TextRenderer } from './TextRenderer';
 export { default as FixedWarning } from './FixedWarning';
 export { default as PartialLoading } from './PartialLoading';
+export { default as Spinner } from './Spinner';
+export { default as InfiniteScroll } from './InfiniteScroll';
 
 export * from './Modal';
 export * from './Dialog';

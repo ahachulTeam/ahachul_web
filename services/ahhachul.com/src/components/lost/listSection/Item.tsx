@@ -9,18 +9,21 @@ import IconHeart from 'static/icons/system/IconHeart';
 import { f } from 'styles';
 import { ILost } from 'types';
 import { exportHexColorWidthLineName, exportLineNameWithSubwayLineId } from 'utils/export';
+import { formatDate } from 'utils/time';
 
 function Item({ article }: { article: ILost }) {
   const { push } = useFlow();
   const navigateToDetail = () => push('LostDetail', { articleId: article.id.toString() });
+
+  const noImg = article.imageUrl.includes('no_img');
 
   return (
     <li onClick={navigateToDetail}>
       <Flex as="article" direction="column" gap="12px" css={wrap}>
         <Flex direction="column">
           <div css={{ marginBottom: '12px' }}>
-            <span css={nickname}>{article.writer}</span>
-            <time css={time}>오후 3:00</time>
+            <span css={nickname}>{article.createdBy === 'SYSTEM' ? 'LOST112' : article.writer}</span>
+            <time css={time}>{formatDate(new Date(article.date))}</time>
           </div>
           <div css={trainLabelsWrap(exportHexColorWidthLineName(article.subwayLine))}>
             <span>{exportLineNameWithSubwayLineId(article.subwayLine)}</span>
@@ -29,14 +32,16 @@ function Item({ article }: { article: ILost }) {
         <Flex justify="space-between">
           <p css={content as unknown as CSSObject}>{article.title}</p>
           <div css={img}>
-            <LazyLoadImage
-              src={article.imageUrl}
-              alt=""
-              width="100%"
-              height="100%"
-              effect="opacity"
-              css={{ objectFit: 'cover', borderRadius: '6px' }}
-            />
+            {!noImg && (
+              <LazyLoadImage
+                src={article.imageUrl}
+                alt=""
+                width="100%"
+                height="100%"
+                effect="opacity"
+                css={{ objectFit: 'cover', borderRadius: '6px' }}
+              />
+            )}
           </div>
         </Flex>
         <Flex align="center">

@@ -5,7 +5,7 @@ import ComplaintCard from './Item';
 import { ul } from './style';
 
 function ListSection() {
-  const flatData = useGetComplaintList({ initPageToken: 0, size: 20 });
+  const flatData = useGetComplaintList({ page: 0, size: 20 });
 
   return (
     <Box as="section">

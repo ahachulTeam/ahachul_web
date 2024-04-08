@@ -8,7 +8,7 @@ import { ul } from './style';
 
 function ListSection() {
   const { activeTab } = useAppSelector((state) => state.community);
-  const flatData = useGetCommunityList({ initPageToken: 0, size: 20, sort: 'answeredAt,asc', categoryType: activeTab });
+  const flatData = useGetCommunityList({ page: 0, size: 20, sort: 'answeredAt,asc', categoryType: activeTab });
 
   return (
     <Box as="section">
