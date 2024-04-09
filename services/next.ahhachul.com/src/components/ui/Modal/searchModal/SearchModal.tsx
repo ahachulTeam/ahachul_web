@@ -10,7 +10,7 @@ const FadeInModal = ({ children }: { children: React.ReactNode }) => {
   // const { showModal } = useAppSelector((state) => state.search);
 
   return (
-    <AnimatePortal isShowing mode="sync">
+    <AnimatePortal isShowing={false} mode="sync">
       <div css={dim}>
         <motion.dialog
           css={dialog}

@@ -4,6 +4,7 @@ import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import storage from 'redux-persist/lib/storage';
 import { authReducer } from './auth';
 import { uiReducer } from './ui';
+import { complaintReducer } from './complaints';
 import { blindDateReducer } from './blindDate';
 
 export type RootState = ReturnType<typeof store.getState>;
@@ -18,6 +19,7 @@ const persistConfig = {
 const reducers = combineReducers({
   auth: authReducer,
   ui: uiReducer,
+  complaint: complaintReducer,
   blindDate: blindDateReducer,
 });
 const reducer = persistReducer(persistConfig, reducers);

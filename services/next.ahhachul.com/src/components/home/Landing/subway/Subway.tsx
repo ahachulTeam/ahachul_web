@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import { css, CSSObject, keyframes } from '@emotion/react';
+import { CSSObject, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 // import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -252,7 +252,7 @@ const Subway = () => {
                   )}
                 </BottomInfo>
               </AnimatePresence>
-              <button css={allTrainsBtnCss}>전체 시간표</button>
+              {/* <button css={allTrainsBtnCss}>전체 시간표</button> */}
             </div>
           </ContentArea>
         </SubwayInfo>
@@ -447,19 +447,19 @@ const BottomInfo = styled(motion.ul)`
   }
 `;
 
-const allTrainsBtnCss = css`
-  font-size: 16px;
-  font-weight: 600;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #ffffff;
-  width: 100%;
-  height: 44px;
-  border-radius: 10px;
-  background: #434343;
-  margin-top: 28px;
-`;
+// const allTrainsBtnCss = css`
+//   font-size: 16px;
+//   font-weight: 600;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   color: #ffffff;
+//   width: 100%;
+//   height: 44px;
+//   border-radius: 10px;
+//   background: #434343;
+//   margin-top: 28px;
+// `;
 
 const rotateAni = keyframes`
   0% { transform: translateY(-50%) rotate(0deg); }

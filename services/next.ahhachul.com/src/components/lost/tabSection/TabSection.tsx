@@ -3,17 +3,15 @@ import IconCircleDown from '@/src/static/icons/lost/IconCircleDown';
 import IconCircleUp from '@/src/static/icons/lost/IconCircleUp';
 import { TabBtn } from './style';
 import { LostType } from '@/src/types';
-// import { useDispatch } from 'react-redux';
-// import { useAppSelector } from '@/src/stores';
-// import { setTab } from '@/src/stores/lost';
+import { useState } from 'react';
 
 const LOST_AND_FOUND_TABS = {
-  acquire: {
+  ACQUIRE: {
     icon: <IconCircleDown />,
     label: '습득물',
     value: 'ACQUIRE',
   },
-  lost: {
+  LOST: {
     icon: <IconCircleUp />,
     label: '분실물',
     value: 'LOST',
@@ -21,12 +19,10 @@ const LOST_AND_FOUND_TABS = {
 } as const;
 
 function TabSection() {
-  // const dispatch = useDispatch();
-  // const { activeTab } = useAppSelector((state) => state.lost);
+  const [activeTab, setTab] = useState(Object.keys(LOST_AND_FOUND_TABS)[0]);
 
   const handleTab = (key: LostType) => () => {
-    console.log('key:', key);
-    // dispatch(setTab(key));
+    setTab(key);
   };
 
   return (
@@ -41,7 +37,7 @@ function TabSection() {
               align="center"
               direction="column"
               aria-controls={label}
-              // aria-selected={value === activeTab}
+              aria-selected={value === activeTab}
               onClick={handleTab(value)}
             >
               <Flex as="span" justify="center" align="center">
@@ -50,13 +46,11 @@ function TabSection() {
               <Text
                 as="p"
                 fontSize="sm"
-                css={
-                  {
-                    // color: value === activeTab ? '#c9cedc !important' : '#697183 !important',
-                    // marginTop: '8px',
-                    // fontWeight: value === activeTab ? '600 !important' : 400,
-                  }
-                }
+                css={{
+                  color: value === activeTab ? '#c9cedc !important' : '#697183 !important',
+                  marginTop: '8px',
+                  fontWeight: value === activeTab ? '600 !important' : 400,
+                }}
               >
                 {label}
               </Text>

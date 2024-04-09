@@ -197,6 +197,7 @@ const global = css`
   body {
     font-family: 'pretendard';
     color: $primary;
+    background-color: #141517;
   }
 
   h1 {

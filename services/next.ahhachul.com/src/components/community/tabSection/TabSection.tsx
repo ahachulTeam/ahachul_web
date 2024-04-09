@@ -1,31 +1,29 @@
+import React, { useState } from 'react';
 import { Box, Flex, Text } from '@ahhachul/react-components-layout';
 import IconCategoryFree from '@/src/static/icons/community/IconCategoryFree';
 import IconCategoryInsight from '@/src/static/icons/community/IconCategoryInsight';
 import { TabBtn } from './style';
 import { CommunityCategoryType } from '@/src/types';
-// import { useAppSelector } from '@/src/stores';
-// import { useDispatch } from 'react-redux';
-// import { setTab } from '@/src/stores/community';
 import IconCategoryRank from '@/src/static/icons/community/IconCategoryRank';
 import IconCategoryQuestion from '@/src/static/icons/community/IconCategoryQuestion';
 
 const COMMUNITY_TABS = {
-  hot: {
+  HOT: {
     icon: <IconCategoryRank />,
     label: '인기',
     value: 'HOT',
   },
-  free: {
+  FREE: {
     icon: <IconCategoryFree />,
     label: '자유',
     value: 'FREE',
   },
-  insight: {
+  INSIGHT: {
     icon: <IconCategoryInsight />,
     label: '정보',
     value: 'INSIGHT',
   },
-  question: {
+  QUESTION: {
     icon: <IconCategoryQuestion />,
     label: '질문',
     value: 'QUESTION',
@@ -33,12 +31,10 @@ const COMMUNITY_TABS = {
 } as const;
 
 function TabSection() {
-  // const dispatch = useDispatch();
-  // const { activeTab } = useAppSelector((state) => state.community);
+  const [activeTab, setTab] = useState(Object.keys(COMMUNITY_TABS)[0]);
 
   const handleTab = (key: CommunityCategoryType) => () => {
-    console.log('key', key);
-    // dispatch(setTab(key));
+    setTab(key);
   };
 
   return (
@@ -53,7 +49,7 @@ function TabSection() {
               align="center"
               direction="column"
               aria-controls={label}
-              // aria-selected={value === activeTab}
+              aria-selected={value === activeTab}
               onClick={handleTab(value)}
             >
               <Flex as="span" justify="center" align="center">
@@ -63,9 +59,9 @@ function TabSection() {
                 as="p"
                 fontSize="sm"
                 css={{
-                  // color: value === activeTab ? '#c9cedc !important' : '#697183 !important',
+                  color: value === activeTab ? '#c9cedc !important' : '#697183 !important',
                   marginTop: '8px',
-                  // fontWeight: value === activeTab ? '600 !important' : 400,
+                  fontWeight: value === activeTab ? '600 !important' : 400,
                 }}
               >
                 {label}
