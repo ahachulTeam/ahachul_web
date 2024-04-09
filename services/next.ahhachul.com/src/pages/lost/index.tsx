@@ -1,12 +1,13 @@
 import { LostComponent, UiComponent } from '@/src/components';
+import { Layout } from '@/src/components/layout';
 
 export default function Lost() {
   return (
-    <section>
+    <Layout>
       <LostComponent.LostMain />
       <UiComponent.SearchModal>
         <UiComponent.SearchBase />
       </UiComponent.SearchModal>
-    </section>
+    </Layout>
   );
 }

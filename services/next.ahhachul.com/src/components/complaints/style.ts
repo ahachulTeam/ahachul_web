@@ -94,7 +94,7 @@ const err = [
     bottom: navbar,
     left: '50%',
     transform: 'translateX(-50%)',
-    height: `calc(100% - ${header} - ${navbar} - ${paddingTopHeight})`,
+    minHeight: `calc(100vh - ${header} - ${navbar} - ${paddingTopHeight})`,
     boxSizing: 'border-box',
   }),
 ];

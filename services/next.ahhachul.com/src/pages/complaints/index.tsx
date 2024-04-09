@@ -1,9 +1,11 @@
 import { ComplaintsComponent } from '@/src/components';
+import { Layout } from '@/src/components/layout';
 
 export default function Complaint() {
   return (
-    <section>
+    <Layout>
       <ComplaintsComponent.ComplaintsMain />
-    </section>
+      <ComplaintsComponent.ComplaintList />
+    </Layout>
   );
 }

@@ -1,61 +1,65 @@
 import React from 'react';
-// import { useDispatch } from 'react-redux';
-// import { TypeActivities, useFlow } from 'stackflow';
-// import IconListView from '@/src/static/icons/complaints/IconListView';
-// import IconSubmissionView from '@/src/static/icons/complaints/IconSubmissionView';
+import IconListView from '@/src/static/icons/complaints/IconListView';
+import IconSubmissionView from '@/src/static/icons/complaints/IconSubmissionView';
 import IconCirclePlus from '@/src/static/icons/system/IconCirclePlus';
-// import { useAppSelector } from '@/src/stores';
-// import { setView } from '@/src/stores/complaints';
 import { IconType } from '@/src/types';
-import { KeyOf } from '@/src/types/utility-types/KeyOf';
 import { itemWrap, plusBtn, complaintToggle } from './style';
+import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
+import { PATH } from '@/src/data';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from '@/src/stores';
+import { setView } from '@/src/stores/complaints';
 
 interface TabItemProps {
-  activeTab: KeyOf<any>;
-  href: KeyOf<any>;
+  href: string;
   label: string;
   Icon: IconType;
   scrollToTop: VoidFunction;
 }
 
-const TabItem: React.FC<TabItemProps> = ({ activeTab, href, Icon, label, scrollToTop }) => {
-  // const { push, replace } = useFlow();
-  const isActive = activeTab === href;
+const TabItem: React.FC<TabItemProps> = ({ href, Icon, label, scrollToTop }) => {
+  const { push } = useRouter();
+  const pathname = usePathname();
+  const isActive = pathname === href;
+
   const handleTabClick = () => {
+    console.log('isActive', isActive);
     if (isActive) scrollToTop();
-    // else replace(href, {}, { animate: false });
+    else push(href);
   };
+
   const routeToEditor = () => {
-    // if (activeTab === 'Lost') push('LostEditor', {});
-    // else push('CommunityEditor', {});
+    if (href === PATH.lost) push(PATH.lostEditor);
+    else push(PATH.communityEditor);
   };
 
   return (
-    <div css={itemWrap(activeTab === href)}>
+    <div css={itemWrap(pathname === href)}>
       <button onClick={handleTabClick}>
         <Icon />
         <span>{label}</span>
       </button>
-      {isActive && (activeTab === 'Lost' || activeTab === 'Community') && (
+      {isActive && (pathname === PATH.lost || pathname === PATH.community) && (
         <button css={plusBtn} onClick={routeToEditor}>
           <IconCirclePlus />
         </button>
       )}
-      {isActive && activeTab === 'Complaints' && <ComplaintViewToggle />}
+      {isActive && pathname === PATH.complaints && <ComplaintViewToggle />}
     </div>
   );
 };
 
 const ComplaintViewToggle = () => {
-  // const dispatch = useDispatch();
-  // const { activeView } = useAppSelector((state) => state.complaint);
+  const dispatch = useDispatch();
+  const { activeView } = useAppSelector((state) => state.complaint);
   const handleToggle = () => {
-    // dispatch(setView(activeView === 'SUBMISSION' ? 'LIST' : 'SUBMISSION'));
+    dispatch(setView(activeView === 'SUBMISSION' ? 'LIST' : 'SUBMISSION'));
   };
 
   return (
     <button css={complaintToggle} onClick={handleToggle}>
-      {/* {activeView === 'SUBMISSION' ? <IconListView /> : <IconSubmissionView />} */}
+      {activeView === 'SUBMISSION' ? <IconListView /> : <IconSubmissionView />}
     </button>
   );
 };

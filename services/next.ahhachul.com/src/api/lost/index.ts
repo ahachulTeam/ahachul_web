@@ -16,7 +16,7 @@ export const getLostURL = `${API_BASE_URL}/lost-posts`;
 export const getLostList = async (params: GetLostListRequestParams) => {
   const queryParams = queryString.stringify(params);
 
-  const url = `${process.env.REACT_APP_BASE_URL}/lost-posts?${queryParams}`;
+  const url = `${getLostURL}?${queryParams}`;
 
   return await base.get<IResponse<GetLostListResponse>>(url);
 };

@@ -8,7 +8,7 @@ import Subway from './subway/Subway';
 
 const Landing = () => {
   return (
-    <main>
+    <section>
       <HeaderSection />
       <Subway />
       {/* <SubwayLineTalksSummary /> */}
@@ -18,7 +18,7 @@ const Landing = () => {
       {/* <RecommendTicket /> */}
       {/* <ReservedClass /> */}
       {/* <MyTicket /> */}
-    </main>
+    </section>
   );
 };
 

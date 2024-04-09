@@ -53,7 +53,6 @@ const itemWrap =
       fontSize: fontSize[11],
       fontWeight: fontWeight[500],
       color: isActive ? 'rgb(196, 212, 252)' : 'inherit',
-      transition: 'color 0.4s',
 
       '& > div > svg': {
         width: '20px',
@@ -64,10 +63,6 @@ const itemWrap =
         },
       },
 
-      '&:focus': {
-        color: 'rgb(196, 212, 252)',
-        boxShadow: 'none',
-      },
       '& span': {
         marginTop: '4px',
       },
