@@ -11,7 +11,7 @@ import { PATH } from '@/src/data';
 
 const HeaderSection = () => {
   const { push } = useRouter();
-  // const routeToBlindDate = () => replace('BlindDate', {});
+  const routeToBlindDate = () => dispatch(addSnackBar({ message: '준비중이에요' }));
   const routeToAllServices = () => push(PATH.allServices);
 
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const HeaderSection = () => {
           <IconDndBar />
           <span>전체</span>
         </button>
-        <button>
+        <button onClick={routeToBlindDate}>
           <IconHeart />
           <span>소개팅</span>
         </button>
