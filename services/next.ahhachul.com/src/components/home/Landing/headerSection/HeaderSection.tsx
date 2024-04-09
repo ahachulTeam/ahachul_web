@@ -1,17 +1,18 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-// import { useFlow } from 'stackflow';
+import { useRouter } from 'next/router';
 import IconDndBar from '@/src/static/icons/system/IconDndBar';
 import IconHeart from '@/src/static/icons/system/IconHeart';
 import IconSecondhand from '@/src/static/icons/system/IconSecondhand';
 import { addSnackBar } from '@/src/stores/ui';
 
 import { btn_wrap, wrap } from './style';
+import { PATH } from '@/src/data';
 
 const HeaderSection = () => {
-  // const { push, replace } = useFlow();
+  const { push } = useRouter();
   // const routeToBlindDate = () => replace('BlindDate', {});
-  // const routeToAllServices = () => push('AllServices', {});
+  const routeToAllServices = () => push(PATH.allServices);
 
   const dispatch = useDispatch();
   const clickSecondhand = () => dispatch(addSnackBar({ message: '준비중이에요' }));
@@ -19,7 +20,7 @@ const HeaderSection = () => {
   return (
     <section css={wrap}>
       <ul css={btn_wrap}>
-        <button>
+        <button onClick={routeToAllServices}>
           <IconDndBar />
           <span>전체</span>
         </button>

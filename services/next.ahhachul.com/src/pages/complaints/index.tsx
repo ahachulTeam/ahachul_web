@@ -3,7 +3,7 @@ import { Layout } from '@/src/components/layout';
 
 export default function Complaint() {
   return (
-    <Layout>
+    <Layout headerType="default">
       <ComplaintsComponent.ComplaintsMain />
       <ComplaintsComponent.ComplaintList />
     </Layout>

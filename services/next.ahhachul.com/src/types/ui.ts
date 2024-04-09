@@ -9,6 +9,12 @@ export interface IUiStore {
   snackBars: ISnackBar;
 }
 
+export type HeaderType = 'default' | 'search' | 'back';
+export interface IHeaderProps {
+  headerType?: HeaderType;
+  title?: string;
+}
+
 export type SizeType = 'small' | 'medium' | 'large';
 
 export type DividerOrientationType = 'horizontal' | 'vertical';

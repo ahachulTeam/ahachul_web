@@ -7,6 +7,8 @@ const SVG = `
 </svg>
 `;
 
-const IconLogo: React.FC = () => <div css={f.flexCenterCenter} dangerouslySetInnerHTML={{ __html: SVG }} />;
+const IconLogo: React.FC<{ onClick?: VoidFunction; className?: string }> = ({ className, onClick }) => (
+  <div css={f.flexCenterCenter} className={className} onClick={onClick} dangerouslySetInnerHTML={{ __html: SVG }} />
+);
 
 export default IconLogo;

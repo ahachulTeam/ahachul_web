@@ -29,11 +29,10 @@ const scrollable = (hasNavbar: boolean) => [
   ({
     layout: {
       size: {
-        height: { header, navbar },
+        height: { navbar },
       },
     },
   }: Theme): CSSObject => ({
-    paddingTop: header,
     paddingBottom: hasNavbar ? navbar : 0,
   }),
 ];
