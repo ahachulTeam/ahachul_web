@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 const wrap = css`
   width: 100%;
   padding: 31px 24px;
+  background-color: #141517;
 
   .ahhachul-biz-title {
     width: 100%;

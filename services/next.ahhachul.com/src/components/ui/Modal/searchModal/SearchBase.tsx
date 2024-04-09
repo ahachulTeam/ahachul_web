@@ -5,7 +5,7 @@ import RankKeywords from './RankKeywords';
 import SearchGroup from './SearchGroup';
 
 import { CSSObject } from '@emotion/react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import IconBack from '@/src/static/icons/system/IconBack';
 import { f } from '@/src/styles';
 // import { hideModal, setKeyword } from '@/src/stores/search/reducer';
@@ -14,7 +14,7 @@ import SearchList from './SearchList';
 // import { debounce } from 'lodash-es';
 
 const SearchBase = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // const { keyword, showModal } = useAppSelector((state) => state.search);
 
   // const closeModal = () => dispatch(hideModal());

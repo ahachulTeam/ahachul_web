@@ -1,3 +1,9 @@
+import { ComplaintsComponent } from '@/src/components';
+
 export default function Complaint() {
-  return <main></main>;
+  return (
+    <section>
+      <ComplaintsComponent.ComplaintsMain />
+    </section>
+  );
 }

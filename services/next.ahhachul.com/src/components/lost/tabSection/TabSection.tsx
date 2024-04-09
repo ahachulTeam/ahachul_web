@@ -3,8 +3,8 @@ import IconCircleDown from '@/src/static/icons/lost/IconCircleDown';
 import IconCircleUp from '@/src/static/icons/lost/IconCircleUp';
 import { TabBtn } from './style';
 import { LostType } from '@/src/types';
-import { useDispatch } from 'react-redux';
-import { useAppSelector } from '@/src/stores';
+// import { useDispatch } from 'react-redux';
+// import { useAppSelector } from '@/src/stores';
 // import { setTab } from '@/src/stores/lost';
 
 const LOST_AND_FOUND_TABS = {
@@ -21,10 +21,11 @@ const LOST_AND_FOUND_TABS = {
 } as const;
 
 function TabSection() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // const { activeTab } = useAppSelector((state) => state.lost);
 
   const handleTab = (key: LostType) => () => {
+    console.log('key:', key);
     // dispatch(setTab(key));
   };
 

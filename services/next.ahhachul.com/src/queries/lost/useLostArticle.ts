@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { getQueryKeys } from '@/src/queries/query-key';
 import { LOST_LIST_KEY } from './keys';
 import { useDispatch } from 'react-redux';
-import { addSnackBar, loaded, loading } from '@/src/stores/ui';
+import { addSnackBar, loaded } from '@/src/stores/ui';
 
 export const useLostArticle = () => {
   const res = useMutation({

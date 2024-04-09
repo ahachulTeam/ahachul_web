@@ -1,7 +1,7 @@
 import React from 'react';
 // import { ActivityComponentType } from '@stackflow/react';
 
-import { Layout } from '@/src/components/layout';
+// import { Layout } from '@/src/components/layout';
 import { title } from './style';
 
 const SubwayLineTalks = () => {

@@ -1,3 +1,13 @@
+import { HomeComponent, UiComponent } from '../components';
+import { useAppSelector } from '../stores';
+
 export default function Home() {
-  return <main>hello</main>;
+  const { auth } = useAppSelector((state) => state.auth);
+
+  return (
+    <section>
+      {auth?.accessToken ? <HomeComponent.Dashboard /> : <HomeComponent.Landing />}
+      <UiComponent.Footer />
+    </section>
+  );
 }

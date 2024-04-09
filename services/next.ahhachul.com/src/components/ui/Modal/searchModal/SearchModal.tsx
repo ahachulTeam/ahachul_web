@@ -1,6 +1,6 @@
 import React from 'react';
 import { CSSObject } from '@emotion/react';
-import { useAppSelector } from '@/src/stores';
+// import { useAppSelector } from '@/src/stores';
 import { motion } from 'framer-motion';
 
 import { AnimatePortal } from '../../Portal';

@@ -1,10 +1,10 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 // import { TypeActivities, useFlow } from 'stackflow';
-import IconListView from '@/src/static/icons/complaints/IconListView';
-import IconSubmissionView from '@/src/static/icons/complaints/IconSubmissionView';
+// import IconListView from '@/src/static/icons/complaints/IconListView';
+// import IconSubmissionView from '@/src/static/icons/complaints/IconSubmissionView';
 import IconCirclePlus from '@/src/static/icons/system/IconCirclePlus';
-import { useAppSelector } from '@/src/stores';
+// import { useAppSelector } from '@/src/stores';
 // import { setView } from '@/src/stores/complaints';
 import { IconType } from '@/src/types';
 import { KeyOf } from '@/src/types/utility-types/KeyOf';
@@ -47,7 +47,7 @@ const TabItem: React.FC<TabItemProps> = ({ activeTab, href, Icon, label, scrollT
 };
 
 const ComplaintViewToggle = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // const { activeView } = useAppSelector((state) => state.complaint);
   const handleToggle = () => {
     // dispatch(setView(activeView === 'SUBMISSION' ? 'LIST' : 'SUBMISSION'));

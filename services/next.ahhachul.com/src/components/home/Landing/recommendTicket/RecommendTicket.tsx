@@ -2,7 +2,7 @@ import React from 'react';
 // import { useFlow } from 'stackflow';
 
 import { wrap, title, card_wrap, info_wrap, package_badge, package_name, package_price } from './style';
-import mockProfile from '@/src/static/img/mocks/mock2.png';
+// import mockProfile from '@/src/static/img/mocks/mock2.png';
 import IconRecommendTicket from '@/src/static/icons/system/IconRecommendTicket';
 import IconPackage from '@/src/static/icons/system/IconPackage';
 

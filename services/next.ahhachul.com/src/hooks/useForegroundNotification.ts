@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 // import { addSnackBar } from '@/src/stores/ui';
 // import { NATIVE_CUSTOM_EVENTS } from '@/src/utils/nativeMethod';
 
 const useForegroundNotification = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   useEffect(() => {
     // const webForegroundNotificationEventListener = (event: CustomEvent) => {

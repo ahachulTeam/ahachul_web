@@ -18139,6 +18139,7 @@ __metadata:
     react-dom: "npm:^18.2.0"
     react-intersection-observer: "npm:^9.5.3"
     react-lazy-load-image-component: "npm:^1.6.0"
+    react-loading-skeleton: "npm:^3.4.0"
     react-redux: "npm:^9.1.0"
     react-spring-bottom-sheet: "npm:^3.4.1"
     redux-persist: "npm:^6.0.0"

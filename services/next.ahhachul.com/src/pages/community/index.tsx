@@ -1,3 +1,12 @@
+import { CommunityComponent, UiComponent } from '@/src/components';
+
 export default function Community() {
-  return <main></main>;
+  return (
+    <section>
+      <CommunityComponent.CommunityMain />
+      <UiComponent.SearchModal>
+        <UiComponent.SearchBase />
+      </UiComponent.SearchModal>
+    </section>
+  );
 }

@@ -3,7 +3,7 @@ import React, { useReducer, useRef } from 'react';
 import { Box, Flex, Text } from '@ahhachul/react-components-layout';
 
 import { COMPLAINTS_CONTENTS_TYPES } from '@/src/data/complaints';
-import { Layout } from '@/src/components/layout';
+// import { Layout } from '@/src/components/layout';
 import { WhereIsTrainNumberBottomSheet } from './bottomSheet';
 import { submitWrap, submitBtn } from './style';
 // import { useFlow } from 'stackflow';
@@ -12,13 +12,14 @@ import { CSSObject, Theme } from '@emotion/react';
 import IconChevron from '@/src/static/icons/system/IconChevron';
 import { useDispatch } from 'react-redux';
 import { addSnackBar } from '@/src/stores/ui';
-import { exportSubwayInfoFromTrainNumber } from '@/src/utils/export';
+// import { exportSubwayInfoFromTrainNumber } from '@/src/utils/export';
 
 type AskTrainNumberProps = {
   slug: COMPLAINTS_CONTENTS_TYPES;
 };
 
 const AskTrainNumber: React.FC<AskTrainNumberProps> = (params) => {
+  console.log('params:', params);
   // const { push } = useFlow();
   const [show, toggle] = useReducer((c) => !c, false);
 

@@ -6,7 +6,7 @@ import React, { useEffect } from 'react';
 // import { Nullable } from '@/src/types/utility-types';
 // import useDefaultAppBar from './useDefaultAppBar';
 // import { scrollable, wrapper } from './style';
-import { useAppSelector } from '@/src/stores';
+// import { useAppSelector } from '@/src/stores';
 // import { theme } from '@/src/styles';
 
 // type PropOf<T> = T extends React.ComponentType<infer U> ? U : never;
@@ -24,7 +24,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({
   // activeTab = 'Home',
   // appBar,
-  hasSearch = false,
+  // hasSearch = false,
   isDate = false,
   // backgroundColor,
   // children,

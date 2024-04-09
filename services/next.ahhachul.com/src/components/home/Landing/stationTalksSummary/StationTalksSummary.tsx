@@ -10,17 +10,17 @@ import React from 'react';
 // } from 'swiper/react';
 
 // import { useFlow } from 'stackflow';
-import { Flex } from '@ahhachul/react-components-layout';
+// import { Flex } from '@ahhachul/react-components-layout';
 
-import { wrap, title, headSection, ul, card_wrap, nickname, time, content, img, label } from './style';
+import { wrap, title, headSection } from './style';
 
-import mockImg1 from '@/src/static/img/mocks/mock2.png';
-import mockImg2 from '@/src/static/img/mocks/mock4.png';
-import mockImg3 from '@/src/static/img/mocks/mock5.jpg';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import IconHeart from '@/src/static/icons/system/IconHeart';
-import IconComment from '@/src/static/icons/system/IconComment';
-import { CSSObject } from '@emotion/react';
+// import mockImg1 from '@/src/static/img/mocks/mock2.png';
+// import mockImg2 from '@/src/static/img/mocks/mock4.png';
+// import mockImg3 from '@/src/static/img/mocks/mock5.jpg';
+// import { LazyLoadImage } from 'react-lazy-load-image-component';
+// import IconHeart from '@/src/static/icons/system/IconHeart';
+// import IconComment from '@/src/static/icons/system/IconComment';
+// import { CSSObject } from '@emotion/react';
 
 const StationTalksSummary = () => {
   // const { push } = useFlow();

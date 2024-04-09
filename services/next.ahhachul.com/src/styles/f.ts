@@ -1,4 +1,4 @@
-import { CSSObject, Theme } from '@emotion/react';
+import { CSSObject } from '@emotion/react';
 
 const grid: CSSObject = {
   display: 'grid',

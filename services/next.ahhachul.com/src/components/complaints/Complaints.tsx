@@ -7,7 +7,7 @@ import { Box } from '@ahhachul/react-components-layout';
 import { grid1, grid2, wrap, pageTitle } from './style';
 import { AnimatePresence, motion } from 'framer-motion';
 import { defaultFadeInVariants } from '@/src/data/motion';
-import { useAppSelector } from '@/src/stores';
+// import { useAppSelector } from '@/src/stores';
 
 const Complaints = () => {
   // const { activeView } = useAppSelector((state) => state.complaint);

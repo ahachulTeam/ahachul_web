@@ -6,7 +6,7 @@ import IconRequestPayment from '@/src/static/icons/system/IconRequestPayment';
 import { Divider } from '@/src/components/ui';
 import { wrap, title, card_wrap, info_wrap, payment_info, resson_info, bpay, paymentIcon } from './style';
 import IconPayment from '@/src/static/icons/system/IconPayment';
-import mockProfile from '@/src/static/img/mocks/photo.png';
+// import mockProfile from '@/src/static/img/mocks/photo.png';
 
 const RequestPayment = () => {
   // const { replace } = useFlow();

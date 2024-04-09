@@ -22,6 +22,7 @@ function SearchGroup() {
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    console.log('e:', e);
     // if (e.target.value.length === 0) debouncedChange(null);
     // else debouncedChange(e.target.value);
   }, []);
@@ -30,7 +31,7 @@ function SearchGroup() {
     e.preventDefault();
     if (inputRef.current) inputRef.current?.blur();
 
-    const pastHistory = !history ? [] : history;
+    // const pastHistory = !history ? [] : history;
     // dispatch(setHistory([inputRef.current.value, ...pastHistory]));
     // debouncedHide();
   };

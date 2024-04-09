@@ -31,7 +31,7 @@ function Footer() {
     <footer css={wrap}>
       <div className="ahhachul-biz-title" onClick={clickFold}>
         (주) 아하철 사업자 정보
-        {/* <img className={'ahhachul-info-down-img' + (open ? ' rotate' : '')} src={down} /> */}
+        <img className={'ahhachul-info-down-img' + (open ? ' rotate' : '')} src={down.src} />
       </div>
       <div className="ahhachul-biz-toogle-wrap">
         <div className="ahhachul-biz-toogle" style={style}>
@@ -67,15 +67,19 @@ function Footer() {
         </div>
       </div>
       <div className="ahhachul-social-wrap">
-        {/* <img className="ahhachul-social-img" src={kakao} onClick={openLink('https://www.kakaocorp.com/page/')} />
-        <img className="ahhachul-social-img" src={naver} onClick={openLink('https://naver.com')} />
-        <img className="ahhachul-social-img" src={facebook} onClick={openLink('https://www.facebook.com')} />
-        <img className="ahhachul-social-img" src={insta} onClick={openLink('https://www.instagram.com/createhb21/')} />
+        <img className="ahhachul-social-img" src={kakao.src} onClick={openLink('https://www.kakaocorp.com/page/')} />
+        <img className="ahhachul-social-img" src={naver.src} onClick={openLink('https://naver.com')} />
+        <img className="ahhachul-social-img" src={facebook.src} onClick={openLink('https://www.facebook.com')} />
         <img
           className="ahhachul-social-img"
-          src={youtube}
+          src={insta.src}
+          onClick={openLink('https://www.instagram.com/createhb21/')}
+        />
+        <img
+          className="ahhachul-social-img"
+          src={youtube.src}
           onClick={openLink('https://www.youtube.com/channel/UC9Cw6MssMWLLLW7jBzgUA5Q')}
-        /> */}
+        />
       </div>
       <div className="ahhachul-info-ctnt-wrap">
         <div className="ahhachul-info-ctnt">
@@ -88,7 +92,7 @@ function Footer() {
         </div>
       </div>
       <div className="ahhachul-info-logo-wrap">
-        {/* <img className="ahhachul-info-logo-img" src={ahhachulLogo} /> */}
+        <img className="ahhachul-info-logo-img" src={ahhachulLogo.src} />
         <div className="ahhachul-info-logo-ctnt">Ahhachul Inc. © 2024 All rights reserved.</div>
       </div>
     </footer>
