@@ -32,7 +32,7 @@ export const getApiEndpoint = () => {
 export const getDomainName = () => {
   switch (getAppEnv()) {
     case 'production':
-      return 'https://ahhachul.com';
+      return 'https://app.ahhachul.com';
     case 'staging':
       return 'https://ahhachul-com.vercel.app';
     case 'development':

@@ -18,7 +18,8 @@ export const isIOS = () => RegExp(IOS).test(getUserAgent());
 
 export const isProd = () => process.env.NODE_ENV === 'production';
 
-export const getAppEnv = (): AppEnv => (process.env.REACT_APP_ENV as Exclude<AppEnv, 'development'>) || 'development';
+export const getAppEnv = (): AppEnv =>
+  (process.env.NEXT_PUBLIC_APP_ENV as Exclude<AppEnv, 'development'>) || 'development';
 
 export const getApiEndpoint = () => {
   switch (getAppEnv()) {
@@ -35,9 +36,13 @@ export const getDomainName = () => {
     case 'production':
       return 'https://ahhachul.com';
     case 'staging':
-      return 'https://ahhachul-com.vercel.app';
+      return 'https://next-ahhachul-com.vercel.app';
     case 'development':
     default:
       return 'http://localhost:3000';
   }
 };
+
+export const getKakaoApiKey = () => process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
+export const getGoogleApiKey = () => process.env.NEXT_PUBLIC_GOOGLE_REST_API_KEY;
+export const getGoogleScope = () => process.env.NEXT_PUBLIC_GOOGLE_SCOPE;

@@ -1,14 +1,14 @@
 import React, { Suspense, useEffect, useState } from 'react';
-import { CSSObject, keyframes } from '@emotion/react';
+import { css, CSSObject, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-// import Skeleton from 'react-loading-skeleton';
+import Skeleton from 'react-loading-skeleton';
+import { useRouter } from 'next/router';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 import { filterWrap, sectionWrap, title, wrap } from './style';
 import Train from './train/Train';
 import IconFetch from '@/src/static/icons/system/IconFetch';
 import IconInfo from '@/src/static/icons/system/IconInfo';
-// import { useFlow } from 'stackflow';
 import IconChevron from '@/src/static/icons/system/IconChevron';
 import { ErrorComponent } from '@/src/components';
 import { useGetTrainsRealTimeInfo } from '@/src/queries/train/useGetTrainsRealTimeInfo';
@@ -16,11 +16,12 @@ import { exportHexColorWidthLineName, formatCurrentTrainArrivalTypeToKo } from '
 import { AnimatePresence, motion } from 'framer-motion';
 import TrainError from './train/TrainError';
 import { defaultFadeInVariants } from '@/src/data/motion';
+import { PATH } from '@/src/data';
 
 const Subway = () => {
-  // const { push } = useFlow();
-  // const routeToSubwayMap = () => push('SubwayMap', {});
-  // const routeToSubwayTimeTable = () => push('SubwayTimeTable', {});
+  const { push } = useRouter();
+  const routeToSubwayMap = () => push(PATH.subwayMap);
+  const routeToSubwayTimeTable = () => push(PATH.subwayTimeTable);
 
   const [subwayLineIds, setSubwayLineIds] = useState(['2', '7']);
   const initialSelectedData = {
@@ -72,7 +73,7 @@ const Subway = () => {
             <button onClick={() => swapArrayElements()}>{subwayLineIds[1]}</button>
           </li>
         </ul>
-        <button>
+        <button onClick={routeToSubwayMap}>
           <span>전체 노선도 보기</span>
           <IconChevron />
         </button>
@@ -130,13 +131,12 @@ const Subway = () => {
                         </button>
                       </>
                     ) : (
-                      // <Skeleton
-                      //   width="64px"
-                      //   borderRadius={0}
-                      //   baseColor="#2e2e2e"
-                      //   highlightColor="rgba(255, 255, 255, 0.24)"
-                      // />
-                      <></>
+                      <Skeleton
+                        width="64px"
+                        borderRadius={0}
+                        baseColor="#2e2e2e"
+                        highlightColor="rgba(255, 255, 255, 0.24)"
+                      />
                     )}
                   </>
                 </TopInfo>
@@ -152,12 +152,12 @@ const Subway = () => {
                     </motion.span>
                   ) : (
                     <span>
-                      {/* <Skeleton
+                      <Skeleton
                         width="56px"
                         borderRadius={0}
                         baseColor="#2e2e2e"
                         highlightColor="rgba(255, 255, 255, 0.24)"
-                      /> */}
+                      />
                     </span>
                   )}
                 </AnimatePresence>
@@ -177,29 +177,27 @@ const Subway = () => {
                 <ErrorComponent.QueryErrorBoundary fallback={(props) => <TrainError {...props} />}>
                   <Suspense
                     fallback={
-                      // <Skeleton
-                      //   width="100%"
-                      //   height="21px"
-                      //   borderRadius={4}
-                      //   baseColor="#2e2e2e"
-                      //   highlightColor="rgba(255, 255, 255, 0.24)"
-                      //   css={{ marginTop: '5px' }}
-                      // />
-                      <></>
+                      <Skeleton
+                        width="100%"
+                        height="21px"
+                        borderRadius={4}
+                        baseColor="#2e2e2e"
+                        highlightColor="rgba(255, 255, 255, 0.24)"
+                        css={{ marginTop: '5px' }}
+                      />
                     }
                   >
                     {data?.trainRealTimes?.[selectedIdx]?.trainNum ? (
                       <Train trainNo={data?.trainRealTimes?.[selectedIdx]?.trainNum} subwayLineId={subwayLineIds[0]} />
                     ) : (
-                      // <Skeleton
-                      //   width="100%"
-                      //   height="21px"
-                      //   borderRadius={4}
-                      //   baseColor="#2e2e2e"
-                      //   highlightColor="rgba(255, 255, 255, 0.24)"
-                      //   css={{ marginTop: '5px' }}
-                      // />
-                      <></>
+                      <Skeleton
+                        width="100%"
+                        height="21px"
+                        borderRadius={4}
+                        baseColor="#2e2e2e"
+                        highlightColor="rgba(255, 255, 255, 0.24)"
+                        css={{ marginTop: '5px' }}
+                      />
                     )}
                   </Suspense>
                 </ErrorComponent.QueryErrorBoundary>
@@ -240,19 +238,21 @@ const Subway = () => {
                     <>
                       {new Array(4).fill('').map((_, idx) => (
                         <li key={idx}>
-                          {/* <Skeleton
+                          <Skeleton
                             width="97px"
                             borderRadius={0}
                             baseColor="#2e2e2e"
                             highlightColor="rgba(255, 255, 255, 0.24)"
-                          /> */}
+                          />
                         </li>
                       ))}
                     </>
                   )}
                 </BottomInfo>
               </AnimatePresence>
-              {/* <button css={allTrainsBtnCss}>전체 시간표</button> */}
+              <button css={allTrainsBtnCss} onClick={routeToSubwayTimeTable}>
+                전체 시간표
+              </button>
             </div>
           </ContentArea>
         </SubwayInfo>
@@ -447,19 +447,19 @@ const BottomInfo = styled(motion.ul)`
   }
 `;
 
-// const allTrainsBtnCss = css`
-//   font-size: 16px;
-//   font-weight: 600;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   color: #ffffff;
-//   width: 100%;
-//   height: 44px;
-//   border-radius: 10px;
-//   background: #434343;
-//   margin-top: 28px;
-// `;
+const allTrainsBtnCss = css`
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  width: 100%;
+  height: 44px;
+  border-radius: 10px;
+  background: #434343;
+  margin-top: 28px;
+`;
 
 const rotateAni = keyframes`
   0% { transform: translateY(-50%) rotate(0deg); }

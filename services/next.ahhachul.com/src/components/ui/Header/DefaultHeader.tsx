@@ -1,5 +1,6 @@
 import { useRouter } from 'next/navigation';
 
+import { useAppSelector } from '@/src//stores';
 import { PATH } from '@/src/data';
 import mockProfile from '@/src/static/img/mocks/mock3.png';
 import IconLogo from '@/src/static/icons/system/IconLogo';
@@ -9,15 +10,16 @@ import { headerWrap, left, right } from './style';
 
 const DefaultHeader = () => {
   const { push, replace } = useRouter();
+  const { auth } = useAppSelector((state) => state.auth);
 
   const handleLogoClick = throttle(() => replace(PATH.home), 1000);
 
   const clickAlarmBtn = throttle(() => {
-    push('Alarm', {});
+    push(PATH.alarm);
   }, 1000);
 
   const clickMeBtn = throttle(() => {
-    push('MyProfile', {});
+    push(auth?.accessToken ? PATH.me : PATH.signin);
   }, 1000);
 
   return (
