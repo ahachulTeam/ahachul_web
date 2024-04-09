@@ -18,10 +18,14 @@ export const formatMMSS = (second: number) => {
  * @returns string - MM월DD일 HH:MM
  */
 export const formatDate = (date: Date): string => {
-  const month = ('0' + (date.getMonth() + 1)).slice(-2); // 월은 0부터 시작하므로 1을 더합니다.
-  const day = ('0' + date.getDate()).slice(-2);
-  const hours = ('0' + date.getHours()).slice(-2);
-  const minutes = ('0' + date.getMinutes()).slice(-2);
+  const month = String(date.getMonth() + 1).slice(-2); // 월은 0부터 시작하므로 1을 더합니다.
+  const day = String(date.getDate()).slice(-2);
+  const hours = String(date.getHours()).slice(-2);
+  const minutes = String(date.getMinutes()).slice(-2);
 
-  return `${month}월${day}일 ${hours}:${minutes}`;
+  if (minutes === '0') {
+    return `${month}월${day}일 ${hours}시`;
+  }
+
+  return `${month}월${day}일 ${hours}시${minutes}분`;
 };
