@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
+import { useParams } from 'next/navigation';
 
 import { ErrorComponent, SharedComponent, UiComponent } from '@/src/components';
 import { Layout } from '@/src/components/layout';
-import { useParams } from 'next/navigation';
 
 export default function LostDetail() {
   const params = useParams();

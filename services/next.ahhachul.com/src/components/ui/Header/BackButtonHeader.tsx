@@ -4,15 +4,19 @@ import { IHeaderProps } from '@/src/types';
 import { PATH } from '@/src/data';
 import IconHeaderBack from '@/src/static/icons/system/IconHeaderBack';
 import { headerWrap, titleCss } from './style';
+import { isHistoryExist } from '@/src/utils/appEnv';
 
 const BackButtonHeader = ({ title }: IHeaderProps) => {
   const router = useRouter();
 
   const handleBackIconClick = () => {
-    let prevPathIsNotThisApp = false;
-
-    if (prevPathIsNotThisApp) router.push(PATH.home);
-    else router.back();
+    const storage = globalThis?.sessionStorage;
+    if (!storage) router.push(PATH.home);
+    else {
+      const hasBackHistory = isHistoryExist(storage);
+      if (hasBackHistory) router.back();
+      else router.push(PATH.home);
+    }
   };
 
   return (

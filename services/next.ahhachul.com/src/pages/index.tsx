@@ -1,5 +1,5 @@
 import { HomeComponent, UiComponent } from '../components';
-import { Layout } from '@/src//components/layout';
+import { Layout } from '@/src/components/layout';
 import { useAppSelector } from '../stores';
 
 export default function Home() {

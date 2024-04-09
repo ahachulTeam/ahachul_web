@@ -46,3 +46,7 @@ export const getDomainName = () => {
 export const getKakaoApiKey = () => process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
 export const getGoogleApiKey = () => process.env.NEXT_PUBLIC_GOOGLE_REST_API_KEY;
 export const getGoogleScope = () => process.env.NEXT_PUBLIC_GOOGLE_SCOPE;
+
+export const isHistoryExist = (storage: Storage) => {
+  return Boolean(storage.getItem('prevPath') && typeof storage.getItem('prevPath') === 'string');
+};

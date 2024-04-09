@@ -1,6 +1,7 @@
-import { useAppSelector } from '@/src/stores';
 import React, { useCallback, type PropsWithChildren } from 'react';
-import { UiComponent } from '..';
+
+import { UiComponent } from '@/src/components';
+import { useAppSelector } from '@/src/stores';
 import { scrollable } from './style';
 
 interface LayoutProps {
@@ -15,9 +16,6 @@ const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({
   nav = true,
   children,
 }) => {
-  console.log('title:', title);
-  console.log('headerType:', headerType);
-
   const { loading, snackBars } = useAppSelector((state) => state.ui);
 
   const scrollToTop = useCallback(() => {
