@@ -1,12 +1,15 @@
 import { IMetaData, IBreadCrumbListLdJson, IDetailLdJson } from '@/src/types/seo';
+import mainBanner from '@/src/static/img/banners/mainPageBanner.png';
 
 export const defaultMetadata: IMetaData = {
   type: 'website',
   locale: 'ko_KR',
-  site_name: '',
-  description: '',
+  title: '아하철 - 1등 지하철 플랫폼&실시간 지하철 정보앱',
+  site_name: '아하철 | AhHachul',
+  description:
+    '지하철 혼잡도와 실시간 정보를 편리하게, 지하철 플랫폼 아하철. 지하철에 당신의 따뜻한 이야기를 채워나가요.',
   url: 'https://ahhachul.com/',
-  image: '',
+  image: mainBanner.src,
   keywords: '',
 };
 

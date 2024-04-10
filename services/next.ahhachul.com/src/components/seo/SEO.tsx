@@ -9,7 +9,7 @@ import { defaultMetadata } from '@/src/data/seo';
 const SEO = ({ pageProps, metaData = defaultMetadata }: { pageProps: AppProps['pageProps']; metaData?: IMetaData }) => {
   const pathname = usePathname();
 
-  const title = pageProps?.title || metaData.site_name;
+  const title = pageProps?.title || metaData.title;
   const description = pageProps?.description || metaData.description;
   const image = pageProps?.image || metaData.image;
   const keywords = pageProps?.keywords || metaData.keywords;

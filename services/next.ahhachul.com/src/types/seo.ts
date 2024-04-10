@@ -1,6 +1,7 @@
 export interface IMetaData {
   type: string;
   locale: string;
+  title: string;
   site_name: string;
   description: string;
   url: string;
