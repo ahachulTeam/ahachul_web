@@ -9,6 +9,7 @@ import { exportTitleFromPath, exportDescriptionFromPath, exportBannerImageFromPa
 import LdJsonList from './LdJson';
 
 const SEO = ({ pageProps, metaData = defaultMetadata }: { pageProps: AppProps['pageProps']; metaData?: IMetaData }) => {
+  const image = pageProps?.image || metaData.image;
   const keywords = pageProps?.keywords || metaData.keywords;
   const type = pageProps?.type || metaData.type;
   const hasRichResults = pageProps?.richResults?.length > 0;
@@ -16,7 +17,6 @@ const SEO = ({ pageProps, metaData = defaultMetadata }: { pageProps: AppProps['p
   const pathname = usePathname();
   const title = exportTitleFromPath(pageProps?.title, pathname);
   const description = exportDescriptionFromPath(pageProps?.description, pathname);
-  const image = exportBannerImageFromPath(pageProps?.image, pathname);
 
   return (
     <Head>

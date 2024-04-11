@@ -1,8 +1,3 @@
-import homeBanner from '@/src/static/img/banners/main_page_banner.png';
-import complaintsBanner from '@/src/static/img/banners/complaints_page_banner.png';
-import lostBanner from '@/src/static/img/banners/lost_page_banner.png';
-import communityBanner from '@/src/static/img/banners/community_page_banner.png';
-
 /**
  *
  * 남은거
@@ -294,24 +289,6 @@ export const formatComplaintShortContentToKoSentence = (complaintShortContent?: 
       return '제가 피해자에요.';
     default:
       return '민원이 발생했어요';
-  }
-};
-
-export const exportBannerImageFromPath = (defaultImage?: string, pathname?: string): string => {
-  if (defaultImage) return defaultImage;
-  else {
-    switch (pathname) {
-      case PATH.home:
-        return homeBanner.src;
-      case PATH.complaints:
-        return complaintsBanner.src;
-      case PATH.lost:
-        return lostBanner.src;
-      case PATH.community:
-        return communityBanner.src;
-      default:
-        return defaultMetadata.image;
-    }
   }
 };
 

@@ -1,9 +1,10 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { isEmpty } from 'lodash-es';
 
 import { Layout } from '@/src/components/layout';
 import { ComplaintsComponent } from '@/src/components';
 import { exportLineNameWithSubwayLineId } from '@/src/utils/export';
-import { isEmpty } from 'lodash-es';
+import complaintsBanner from '@/src/static/img/banners/complaints_page_banner.png';
 
 export default function Complaint({}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
@@ -21,6 +22,7 @@ export const getServerSideProps: GetServerSideProps<{ title: string; description
     const metaData = {
       title: '지하철 민원 센터 by 아하철',
       description: '지하철 민원을 10초 안에 해결해드릴게요',
+      image: complaintsBanner.src,
     };
 
     return { props: { ...metaData } };
@@ -35,6 +37,7 @@ export const getServerSideProps: GetServerSideProps<{ title: string; description
     const metaData = {
       title: `${target} 민원 센터 by 아하철`,
       description: `${target !== '지하철' ? `지하철 ${target}` : target} 민원을 10초 안에 해결해드릴게요`,
+      image: complaintsBanner.src,
     };
 
     return { props: { ...metaData } };

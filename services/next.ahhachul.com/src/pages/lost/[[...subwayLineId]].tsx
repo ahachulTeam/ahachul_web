@@ -1,9 +1,10 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { isEmpty } from 'lodash-es';
 
 import { Layout } from '@/src/components/layout';
 import { LostComponent, UiComponent } from '@/src/components';
 import { exportLineNameWithSubwayLineId } from '@/src/utils/export';
-import { isEmpty } from 'lodash-es';
+import lostBanner from '@/src/static/img/banners/lost_page_banner.png';
 
 export default function Lost({}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
@@ -23,6 +24,7 @@ export const getServerSideProps: GetServerSideProps<{ title: string; description
     const metaData = {
       title: '지하철 유실물 센터 by 아하철',
       description: '지하철 유실물을 모두 모아 보여드릴게요',
+      image: lostBanner.src,
     };
 
     return { props: { ...metaData } };
@@ -37,6 +39,7 @@ export const getServerSideProps: GetServerSideProps<{ title: string; description
     const metaData = {
       title: `${target} 유실물 센터 by 아하철`,
       description: `${target !== '지하철' ? `지하철 ${target}` : target} 유실물을 모두 모아 보여드릴게요`,
+      image: lostBanner.src,
     };
 
     return { props: { ...metaData } };

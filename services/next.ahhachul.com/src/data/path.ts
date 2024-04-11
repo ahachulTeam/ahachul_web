@@ -4,19 +4,19 @@ const PATH = {
 
   /** 민원 */
   complaints: '/complaints',
-  complaintDetail: '/complaints/:articleId',
-  complaintsAskTrainNumber: '/complaints/askTrainNumber',
-  complaintsSubmission: '/complaints/complaintsSubmission',
+  complaintDetail: '/complaint-post',
+  complaintsAskTrainNumber: '/complaints-ask-train-number',
+  complaintsSubmission: '/complaints/complaints-submission',
 
   /** 유실물  */
   lost: '/lost',
-  lostDetail: '/lost/:articleId',
-  lostEditor: '/lost/editor',
+  lostDetail: '/lost-post',
+  lostEditor: '/lost-editor',
 
   /** 커뮤니티 */
   community: '/community',
-  communityDetail: '/community/:articleId',
-  communityEditor: '/community/editor',
+  communityDetail: '/community-post',
+  communityEditor: '/community-editor',
 
   /** 채팅 관련 */
   chat: '/chat',
