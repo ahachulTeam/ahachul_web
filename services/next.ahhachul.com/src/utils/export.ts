@@ -1,3 +1,8 @@
+import mainBanner from '@/src/static/img/banners/main_page_banner.png';
+import complaintsBanner from '@/src/static/img/banners/complaints_page_banner.png';
+import lostBanner from '@/src/static/img/banners/lost_page_banner.png';
+import communityBanner from '@/src/static/img/banners/community_page_banner.png';
+
 /**
  *
  * 남은거
@@ -14,6 +19,7 @@
 import { COMPLAINTS_CONTENTS_TYPES } from '@/src/data/complaints';
 import { CongestionColorType, CurrentTrainArrivalType } from '@/src/types';
 import { removeEmptyProperties } from './object';
+import { PATH } from '../data';
 
 export const exportLineNameWithSubwayLineId = (lineId: string) => {
   switch (lineId) {
@@ -284,5 +290,28 @@ export const formatComplaintShortContentToKoSentence = (complaintShortContent?: 
       return '제가 피해자에요.';
     default:
       return '민원이 발생했어요';
+  }
+};
+
+export const exportBannerImageFromPath = (defaultImage: string, pathname: string): string => {
+  if (defaultImage) return defaultImage;
+  else {
+    let image = '';
+    switch (pathname) {
+      case PATH.home:
+        image = mainBanner.src;
+        break;
+      case PATH.complaints:
+        image = complaintsBanner.src;
+        break;
+      case PATH.lost:
+        image = lostBanner.src;
+        break;
+      case PATH.community:
+        image = communityBanner.src;
+        break;
+    }
+
+    return image;
   }
 };

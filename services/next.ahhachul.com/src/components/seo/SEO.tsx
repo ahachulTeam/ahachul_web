@@ -5,28 +5,19 @@ import { usePathname } from 'next/navigation';
 import { IMetaData } from '@/src/types/seo';
 import { getDomainName } from '@/src/utils/appEnv';
 import { defaultMetadata } from '@/src/data/seo';
+import { exportBannerImageFromPath } from '@/src/utils/export';
+import LdJsonList from './LdJson';
 
 const SEO = ({ pageProps, metaData = defaultMetadata }: { pageProps: AppProps['pageProps']; metaData?: IMetaData }) => {
   const pathname = usePathname();
 
   const title = pageProps?.title || metaData.title;
   const description = pageProps?.description || metaData.description;
-  const image = pageProps?.image || metaData.image;
   const keywords = pageProps?.keywords || metaData.keywords;
   const ogType = pageProps?.ogType || metaData.type;
+  const hasRichResults = pageProps?.richResults?.length > 0;
 
-  const hasRichResults = pageProps?.richResults?.length > 0 ? pageProps.richResults : null;
-  const ldJsonScript = () =>
-    pageProps?.richResults?.map(({ id, value }: any) => (
-      <script
-        id={id}
-        key={id}
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(value),
-        }}
-      />
-    ));
+  const image = exportBannerImageFromPath(pageProps?.image, pathname);
 
   return (
     <Head>
@@ -55,7 +46,7 @@ const SEO = ({ pageProps, metaData = defaultMetadata }: { pageProps: AppProps['p
       <meta name="twitter:url" content={`${getDomainName()}${pathname}`} />
       <meta name="twitter:card" content="summary_large_image" />
 
-      {hasRichResults && ldJsonScript()}
+      {hasRichResults && <LdJsonList richResults={pageProps.richResults} />}
     </Head>
   );
 };

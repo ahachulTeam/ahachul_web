@@ -24,7 +24,6 @@ const TabItem: React.FC<TabItemProps> = ({ href, Icon, label, scrollToTop }) => 
   const isActive = pathname === href;
 
   const handleTabClick = () => {
-    console.log('isActive', isActive);
     if (isActive) scrollToTop();
     else push(href);
   };

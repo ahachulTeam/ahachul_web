@@ -6,7 +6,7 @@ export const defaultMetadata: IMetaData = {
   locale: 'ko_KR',
   title: '아하철 - 1등 지하철&유실물 정보앱',
   site_name: '아하철 | AhHachul',
-  description: '지하철에 당신의 따뜻한 이야기를 채워나가요.',
+  description: '지하철에 당신의 따뜻한 이야기를 채워나가요',
   // description: '지하철 혼잡도와 실시간 정보를 편리하게, 지하철에 당신의 따뜻한 이야기를 채워나가요.',
   url: 'https://ahhachul.com/',
   image: mainBanner.src,
