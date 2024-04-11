@@ -276,7 +276,7 @@ export const formatComplaintShortContentToKoSentence = (complaintShortContent?: 
     case '이동상인':
       return '이동상인이 물건을 팔아요!';
     case '취객':
-      return '취객이 돌아다녀요!';
+      return '취객이 있어요!';
     case '노숙':
       return '지하철에서 노숙을 하고 계세요!';
     case '구걸':
@@ -308,6 +308,42 @@ export const exportBannerImageFromPath = (defaultImage: string, pathname: string
         return communityBanner.src;
       default:
         return defaultMetadata.image;
+    }
+  }
+};
+
+export const exportTitleFromPath = (defaultTitle: string, pathname: string): string => {
+  if (defaultTitle) return defaultTitle;
+  else {
+    switch (pathname) {
+      case PATH.home:
+        return '아하철 - 1등 지하철&유실물 정보앱';
+      case PATH.complaints:
+        return '민원 센터 | 아하철 - 1등 지하철&유실물 정보앱';
+      case PATH.lost:
+        return '유실물 센터 | 아하철 - 1등 지하철&유실물 정보앱';
+      case PATH.community:
+        return '지하철 커뮤니티 | 아하철 - 1등 지하철&유실물 정보앱';
+      default:
+        return defaultMetadata.title;
+    }
+  }
+};
+
+export const exportDescriptionFromPath = (defaultDescription: string, pathname: string): string => {
+  if (defaultDescription) return defaultDescription;
+  else {
+    switch (pathname) {
+      case PATH.home:
+        return '지하철에 당신의 따뜻한 이야기를 채워나가요';
+      case PATH.complaints:
+        return '지하철 민원을 10초 안에 해결해드릴게요';
+      case PATH.lost:
+        return '지하철 유실물을 모두 모아서 보여드릴게요';
+      case PATH.community:
+        return '지하철에 당신의 따뜻한 이야기를 채워나가요';
+      default:
+        return defaultMetadata.description;
     }
   }
 };

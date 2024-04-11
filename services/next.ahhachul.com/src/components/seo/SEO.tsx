@@ -5,18 +5,18 @@ import { usePathname } from 'next/navigation';
 import { IMetaData } from '@/src/types/seo';
 import { getDomainName } from '@/src/utils/appEnv';
 import { defaultMetadata } from '@/src/data/seo';
-import { exportBannerImageFromPath } from '@/src/utils/export';
+import { exportTitleFromPath, exportDescriptionFromPath, exportBannerImageFromPath } from '@/src/utils/export';
 import LdJsonList from './LdJson';
 
 const SEO = ({ pageProps, metaData = defaultMetadata }: { pageProps: AppProps['pageProps']; metaData?: IMetaData }) => {
   const pathname = usePathname();
 
-  const title = pageProps?.title || metaData.title;
-  const description = pageProps?.description || metaData.description;
   const keywords = pageProps?.keywords || metaData.keywords;
   const type = pageProps?.type || metaData.type;
   const hasRichResults = pageProps?.richResults?.length > 0;
 
+  const title = exportTitleFromPath(pageProps?.title, pathname);
+  const description = exportDescriptionFromPath(pageProps?.description, pathname);
   const image = exportBannerImageFromPath(pageProps?.image, pathname);
 
   return (
