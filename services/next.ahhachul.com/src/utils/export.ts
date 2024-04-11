@@ -319,11 +319,11 @@ export const exportTitleFromPath = (defaultTitle: string, pathname: string): str
       case PATH.home:
         return '아하철 - 1등 지하철&유실물 정보앱';
       case PATH.complaints:
-        return '지하철 민원 센터 | 아하철';
+        return '지하철 민원 센터 by 아하철';
       case PATH.lost:
-        return '지하철 유실물 센터 | 아하철';
+        return '지하철 유실물 센터 by 아하철';
       case PATH.community:
-        return '지하철 커뮤니티 플랫폼 | 아하철';
+        return '지하철 커뮤니티 by 아하철';
       default:
         return defaultMetadata.title;
     }
