@@ -315,48 +315,36 @@ export const exportBannerImageFromPath = (defaultImage?: string, pathname?: stri
   }
 };
 
-export const exportTitleFromPath = (defaultTitle?: string, pathname?: string, subwayInfo?: string): string => {
+export const exportTitleFromPath = (defaultTitle?: string, pathname?: string): string => {
   if (defaultTitle) return defaultTitle;
   else {
-    let targetName = '지하철';
-
-    if (subwayInfo && subwayInfo !== '기타 호선') {
-      targetName = subwayInfo;
-    }
-
     switch (pathname) {
       case PATH.home:
         return '아하철 - 1등 지하철&유실물 정보앱';
       case PATH.complaints:
-        return `${targetName} 민원 센터 by 아하철`;
+        return '지하철 민원 센터 by 아하철';
       case PATH.lost:
-        return `${targetName} 유실물 센터 by 아하철`;
+        return '지하철 유실물 센터 by 아하철';
       case PATH.community:
-        return `${targetName} 커뮤니티 by 아하철`;
+        return '지하철 커뮤니티 by 아하철';
       default:
         return defaultMetadata.title;
     }
   }
 };
 
-export const exportDescriptionFromPath = (
-  defaultDescription?: string,
-  pathname?: string,
-  subwayInfo?: string,
-): string => {
+export const exportDescriptionFromPath = (defaultDescription?: string, pathname?: string): string => {
   if (defaultDescription) return defaultDescription;
   else {
-    let targetName = subwayInfo ?? '지하철';
-
     switch (pathname) {
       case PATH.home:
-        return `${targetName}에 당신의 따뜻한 이야기를 채워나가요`;
+        return '지하철에 당신의 따뜻한 이야기를 채워나가요';
       case PATH.complaints:
-        return `${targetName} 민원을 10초 안에 해결해드릴게요`;
+        return '지하철 민원을 10초 안에 해결해드릴게요';
       case PATH.lost:
-        return `${targetName} 유실물을 모두 모아 보여드릴게요`;
+        return '지하철 유실물을 모두 모아 보여드릴게요';
       case PATH.community:
-        return `${targetName}에 당신의 따뜻한 이야기를 채워나가요`;
+        return '지하철에 당신의 따뜻한 이야기를 채워나가요';
       default:
         return defaultMetadata.description;
     }

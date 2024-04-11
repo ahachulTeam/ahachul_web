@@ -1,29 +1,21 @@
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 import { IMetaData } from '@/src/types/seo';
 import { getDomainName } from '@/src/utils/appEnv';
 import { defaultMetadata } from '@/src/data/seo';
-import {
-  exportTitleFromPath,
-  exportDescriptionFromPath,
-  exportBannerImageFromPath,
-  exportLineNameWithSubwayLineId,
-} from '@/src/utils/export';
+import { exportTitleFromPath, exportDescriptionFromPath, exportBannerImageFromPath } from '@/src/utils/export';
 import LdJsonList from './LdJson';
 
 const SEO = ({ pageProps, metaData = defaultMetadata }: { pageProps: AppProps['pageProps']; metaData?: IMetaData }) => {
-  const searchParam = useSearchParams();
-  const subwayInfo = exportLineNameWithSubwayLineId(searchParam.get('subwayLineId') as string | undefined);
-
   const keywords = pageProps?.keywords || metaData.keywords;
   const type = pageProps?.type || metaData.type;
   const hasRichResults = pageProps?.richResults?.length > 0;
 
   const pathname = usePathname();
-  const title = exportTitleFromPath(pageProps?.title, pathname, subwayInfo);
-  const description = exportDescriptionFromPath(pageProps?.description, pathname, subwayInfo);
+  const title = exportTitleFromPath(pageProps?.title, pathname);
+  const description = exportDescriptionFromPath(pageProps?.description, pathname);
   const image = exportBannerImageFromPath(pageProps?.image, pathname);
 
   return (
