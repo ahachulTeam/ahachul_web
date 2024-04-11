@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo,useCallback } from 'react';
 import IconListView from '@/src/static/icons/complaints/IconListView';
 import IconSubmissionView from '@/src/static/icons/complaints/IconSubmissionView';
 import IconCirclePlus from '@/src/static/icons/system/IconCirclePlus';
@@ -21,33 +21,39 @@ interface TabItemProps {
 const TabItem: React.FC<TabItemProps> = ({ href, Icon, label, scrollToTop }) => {
   const { push } = useRouter();
   const pathname = usePathname();
-  const isActive = pathname === href;
+  const isActive = href === PATH.home ? pathname === PATH.home : pathname.includes(href);
 
   const handleTabClick = () => {
     if (isActive) scrollToTop();
     else push(href);
   };
 
-  const routeToEditor = () => {
+  const routeToEditor = useCallback(() => {
     if (href === PATH.lost) push(PATH.lostEditor);
     else push(PATH.communityEditor);
-  };
+  }, [href, push]);
 
   return (
-    <div css={itemWrap(pathname === href)}>
+    <div css={itemWrap(isActive)}>
       <button onClick={handleTabClick}>
         <Icon />
         <span>{label}</span>
       </button>
-      {isActive && (pathname === PATH.lost || pathname === PATH.community) && (
-        <button css={plusBtn} onClick={routeToEditor}>
-          <IconCirclePlus />
-        </button>
+      {isActive && href !== PATH.home && (pathname.includes(PATH.lost) || pathname.includes(PATH.community)) && (
+        <GoToEditorButton routeToEditor={routeToEditor} />
       )}
-      {isActive && pathname === PATH.complaints && <ComplaintViewToggle />}
+      {isActive && pathname.includes(PATH.complaints) && <ComplaintViewToggle />}
     </div>
   );
 };
+
+const GoToEditorButton = memo(({ routeToEditor }: { routeToEditor: VoidFunction }) => {
+  return (
+    <button css={plusBtn} onClick={routeToEditor}>
+      <IconCirclePlus />
+    </button>
+  );
+});
 
 const ComplaintViewToggle = () => {
   const dispatch = useDispatch();

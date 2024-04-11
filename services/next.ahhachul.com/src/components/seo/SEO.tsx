@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { IMetaData } from '@/src/types/seo';
 import { getDomainName } from '@/src/utils/appEnv';
 import { defaultMetadata } from '@/src/data/seo';
-import { exportTitleFromPath, exportDescriptionFromPath, exportBannerImageFromPath } from '@/src/utils/export';
+import { exportTitleFromPath, exportDescriptionFromPath } from '@/src/utils/export';
 import LdJsonList from './LdJson';
 
 const SEO = ({ pageProps, metaData = defaultMetadata }: { pageProps: AppProps['pageProps']; metaData?: IMetaData }) => {
