@@ -2,13 +2,11 @@ import React from 'react';
 import { Box, Flex } from '@ahhachul/react-components-layout';
 
 import { useGetCommunityList } from '@/src/queries/community/useGetCommunityList';
-// import { useAppSelector } from '@/src/stores';
 import TalkLoungeCard from './Item';
 import { ul } from './style';
 
 function ListSection() {
-  // const { activeTab } = useAppSelector((state) => state.community);
-  const flatData = useGetCommunityList({ page: 0, size: 20, sort: 'answeredAt,asc', categoryType: 'FREE' });
+  const flatData = useGetCommunityList({ page: 0, size: 20, sort: 'createdAt,desc', categoryType: 'FREE' });
 
   return (
     <Box as="section">

@@ -47,7 +47,7 @@ export type ICommunityDetail = Omit<ICommunity, 'commentCnt' | 'image'> & {
   images: ImageType[];
 };
 
-export type CommunityListFilterParamType = 'favor' | 'answeredAt';
+export type CommunityListFilterParamType = 'likes' | 'createdAt' | 'views';
 export type CommunityListOrderParamType = 'desc' | 'asc';
 export type CommunityListSortParamType = `${CommunityListFilterParamType},${CommunityListOrderParamType}`;
 

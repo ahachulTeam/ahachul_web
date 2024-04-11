@@ -1,3 +1,5 @@
+import { Layout } from '@/src/components/layout';
+
 export default function CommunityDetail() {
-  return <main></main>;
+  return <Layout headerType="back" title="" nav={false}></Layout>;
 }

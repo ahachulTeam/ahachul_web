@@ -1,5 +1,6 @@
 import '@/src/styles/font.css';
 import '@ahhachul/themes/themes.css';
+import 'react-lazy-load-image-component/src/effects/opacity.css';
 
 import type { AppProps } from 'next/app';
 import SEO from '@/src/components/seo/SEO';

@@ -14,7 +14,7 @@ const SEO = ({ pageProps, metaData = defaultMetadata }: { pageProps: AppProps['p
   const title = pageProps?.title || metaData.title;
   const description = pageProps?.description || metaData.description;
   const keywords = pageProps?.keywords || metaData.keywords;
-  const ogType = pageProps?.ogType || metaData.type;
+  const type = pageProps?.type || metaData.type;
   const hasRichResults = pageProps?.richResults?.length > 0;
 
   const image = exportBannerImageFromPath(pageProps?.image, pathname);
@@ -36,7 +36,7 @@ const SEO = ({ pageProps, metaData = defaultMetadata }: { pageProps: AppProps['p
       <meta property="og:image" content={image} />
       <meta property="og:site_name" content={metaData.site_name} />
       <meta property="og:url" content={`${getDomainName()}${pathname}`} />
-      <meta property="og:type" content={ogType} />
+      <meta property="og:type" content={type} />
       <meta property="og:locale" content={metaData.locale} />
 
       <meta name="twitter:title" content={title} />

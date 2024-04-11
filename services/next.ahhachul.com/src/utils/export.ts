@@ -1,4 +1,4 @@
-import mainBanner from '@/src/static/img/banners/main_page_banner.png';
+import homeBanner from '@/src/static/img/banners/main_page_banner.png';
 import complaintsBanner from '@/src/static/img/banners/complaints_page_banner.png';
 import lostBanner from '@/src/static/img/banners/lost_page_banner.png';
 import communityBanner from '@/src/static/img/banners/community_page_banner.png';
@@ -20,6 +20,7 @@ import { COMPLAINTS_CONTENTS_TYPES } from '@/src/data/complaints';
 import { CongestionColorType, CurrentTrainArrivalType } from '@/src/types';
 import { removeEmptyProperties } from './object';
 import { PATH } from '../data';
+import { defaultMetadata } from '../data/seo';
 
 export const exportLineNameWithSubwayLineId = (lineId: string) => {
   switch (lineId) {
@@ -296,22 +297,17 @@ export const formatComplaintShortContentToKoSentence = (complaintShortContent?: 
 export const exportBannerImageFromPath = (defaultImage: string, pathname: string): string => {
   if (defaultImage) return defaultImage;
   else {
-    let image = '';
     switch (pathname) {
       case PATH.home:
-        image = mainBanner.src;
-        break;
+        return homeBanner.src;
       case PATH.complaints:
-        image = complaintsBanner.src;
-        break;
+        return complaintsBanner.src;
       case PATH.lost:
-        image = lostBanner.src;
-        break;
+        return lostBanner.src;
       case PATH.community:
-        image = communityBanner.src;
-        break;
+        return communityBanner.src;
+      default:
+        return defaultMetadata.image;
     }
-
-    return image;
   }
 };
