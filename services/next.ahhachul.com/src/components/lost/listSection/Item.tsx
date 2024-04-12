@@ -5,11 +5,11 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 // import { useFlow } from 'stackflow';
 import IconComment from '@/src/static/icons/system/IconComment';
-import IconHeart from '@/src/static/icons/system/IconHeart';
 import { f } from '@/src/styles';
 import { ILost } from '@/src/types';
 import { exportHexColorWidthLineName, exportLineNameWithSubwayLineId } from '@/src/utils/export';
 import { formatDate } from '@/src/utils/time';
+import IconDM from '@/src/static/icons/system/IconDM';
 
 function Item({ article }: { article: ILost }) {
   // const { push } = useFlow();
@@ -46,10 +46,10 @@ function Item({ article }: { article: ILost }) {
         </Flex>
         <Flex align="center">
           <div css={label}>
-            <IconHeart /> <span>{article.likeCnt}</span>
+            <IconComment /> <span>0</span>
           </div>
           <div css={label}>
-            <IconComment /> <span>{article.commentCnt}</span>
+            <IconDM css={{ width: '16px', height: '16px' }} /> <span>{article.chats}</span>
           </div>
         </Flex>
       </Flex>

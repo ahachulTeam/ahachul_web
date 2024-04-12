@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
+import IconCar from '@/src/static/icons/system/IconCar';
 import IconDndBar from '@/src/static/icons/system/IconDndBar';
 import IconHeart from '@/src/static/icons/system/IconHeart';
 import IconSecondhand from '@/src/static/icons/system/IconSecondhand';
@@ -31,6 +32,10 @@ const HeaderSection = () => {
         <button onClick={clickSecondhand}>
           <IconSecondhand css={{ '& > svg > path': { fill: 'none !important' } }} />
           <span>중고거래</span>
+        </button>
+        <button onClick={clickSecondhand}>
+          <IconCar css={{ '& > svg > path': { fill: 'none !important' } }} />
+          <span>카셰어링</span>
         </button>
       </ul>
     </section>

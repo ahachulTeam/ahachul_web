@@ -1,8 +1,7 @@
-import { Theme } from '@emotion/react';
+import { CSSObject, Theme } from '@emotion/react';
 import { f } from 'styles';
 
 const wrap = [
-  f.sideGutter,
   f.fullWidth,
   f.flexColumn,
   ({
@@ -17,8 +16,9 @@ const wrap = [
   }),
 ];
 
-const btn_wrap = [
+const btn_wrap: [CSSObject, CSSObject, CSSObject[], ({ color }: Theme) => CSSObject] = [
   f.fullWidth,
+  f.overflowScroll,
   f.flexAlignCenter,
   ({
     color: {
@@ -28,7 +28,13 @@ const btn_wrap = [
     },
     typography: { fontWeight, lineHeight },
   }: Theme) => ({
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    overflowX: 'scroll',
+    overflowY: 'hidden',
+
     '& > button': {
+      flexShrink: 0,
       height: '36px',
       backgroundColor: whiteAlpha[900],
       borderRadius: '8px',
