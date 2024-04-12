@@ -27,11 +27,11 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
-// import YouTubePlugin from './plugins/YouTubePlugin';
-// import { YouTubeNode } from './nodes/YouTubeNode';
+import YouTubePlugin from './plugins/YouTubePlugin';
+import { YouTubeNode } from './nodes/YouTubeNode';
 import { HashtagNode } from '@lexical/hashtag';
-// import AutoEmbedPlugin from './plugins/AutoEmbedPlugin';
-// import SpeechToTextPlugin, { SPEECH_TO_TEXT_COMMAND, SUPPORT_SPEECH_RECOGNITION } from './plugins/SpeechToTextPlugin';
+import AutoEmbedPlugin from './plugins/AutoEmbedPlugin';
+import SpeechToTextPlugin, { SPEECH_TO_TEXT_COMMAND } from './plugins/SpeechToTextPlugin';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
 import IconUndo from '@/src/static/icons/editor/IconUndo';
 import IconRedo from '@/src/static/icons/editor/IconRedo';
@@ -43,11 +43,16 @@ import IconLeftAlign from '@/src/static/icons/editor/IconLeftAlign';
 import IconCenterAlign from '@/src/static/icons/editor/IconCenterAlign';
 import IconRightAlign from '@/src/static/icons/editor/IconRightAlign';
 import IconYoutube from '@/src/static/icons/editor/IconYoutube';
-// import IconMic from '@/src/static/icons/editor/IconMic';
-// import ImagesPlugin, { FileInput, INSERT_IMAGE_COMMAND } from './plugins/ImagesPlugin';
-// import { ImageNode } from './nodes/ImageNode';
+import IconMic from '@/src/static/icons/editor/IconMic';
+import ImagesPlugin, { FileInput, INSERT_IMAGE_COMMAND } from './plugins/ImagesPlugin';
+import { ImageNode } from './nodes/ImageNode';
 import IconUploadImage from '@/src/static/icons/editor/IconUploadImage';
-// import SpeechToTextToolbarPlugin from './plugins/SpeechToTextToolbarPlugin';
+import SpeechToTextToolbarPlugin from './plugins/SpeechToTextToolbarPlugin';
+
+let SUPPORT_SPEECH_RECOGNITION = false;
+if (typeof window !== 'undefined') {
+  SUPPORT_SPEECH_RECOGNITION = 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
+}
 
 const editorTheme = {
   ltr: 'ltr',
@@ -128,7 +133,7 @@ const editorConfig = {
   },
   // Any custom nodes go here
 
-  nodes: [HeadingNode, QuoteNode, AutoLinkNode, LinkNode, HashtagNode],
+  nodes: [HeadingNode, QuoteNode, AutoLinkNode, LinkNode, HashtagNode, YouTubeNode, ImageNode],
 };
 
 const URL_REGEX =
@@ -207,19 +212,19 @@ const Editor = ({
           />
           <LinkPlugin />
           <HashtagPlugin />
-          {/* <SpeechToTextPlugin /> */}
+          <SpeechToTextPlugin />
           <AutoLinkPlugin matchers={MATCHERS} />
           <OnChangePlugin readonly={readonly} initialState={initialState} onChange={onChange} />
           {isRich && (
             <>
-              {/* <ImagesPlugin /> */}
+              <ImagesPlugin />
               <ToolbarPlugin />
-              {/* <YouTubePlugin /> */}
+              <YouTubePlugin />
               <HistoryPlugin />
-              {/* <AutoEmbedPlugin /> */}
+              <AutoEmbedPlugin />
             </>
           )}
-          {/* {!readonly && !isRich && <SpeechToTextToolbarPlugin />} */}
+          {!readonly && !isRich && <SpeechToTextToolbarPlugin />}
         </div>
       </div>
     </LexicalComposer>
@@ -245,7 +250,7 @@ function positionEditorElement(editor: any, rect: any) {
 
 function FloatingLinkEditor({ editor }: any) {
   const editorRef = useRef(null);
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const mouseDownRef = useRef(false);
   const [linkUrl, setLinkUrl] = useState('');
   const [isEditMode, setEditMode] = useState(false);
@@ -333,7 +338,7 @@ function FloatingLinkEditor({ editor }: any) {
 
   useEffect(() => {
     if (isEditMode && inputRef.current) {
-      // inputRef.current.focus();
+      inputRef.current.focus();
     }
   }, [isEditMode]);
 
@@ -416,22 +421,22 @@ function ToolbarPlugin() {
   const [isStrikethrough, setIsStrikethrough] = useState(false);
 
   // SPEECH to TEXT
-  // const [isSpeechToText, setIsSpeechToText] = useState(false);
+  const [isSpeechToText, setIsSpeechToText] = useState(false);
 
   // IMAGE
-  // const loadImage = (files: FileList | null) => {
-  //   const reader = new FileReader();
-  //   reader.onload = function () {
-  //     if (typeof reader.result === 'string') {
-  //       onFocus?.();
-  //       // activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, { altText: '', src: reader.result });
-  //     }
-  //     return '';
-  //   };
-  //   if (files !== null) {
-  //     reader.readAsDataURL(files[0]);
-  //   }
-  // };
+  const loadImage = (files: FileList | null) => {
+    const reader = new FileReader();
+    reader.onload = function () {
+      if (typeof reader.result === 'string') {
+        onFocus?.();
+        activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, { altText: '', src: reader.result });
+      }
+      return '';
+    };
+    if (files !== null) {
+      reader.readAsDataURL(files[0]);
+    }
+  };
 
   const onFocus = () => {
     const contentInput = document?.getElementById('content');
@@ -536,19 +541,19 @@ function ToolbarPlugin() {
           className="toolbar-item spaced"
           aria-label="Insert Image"
           onClick={() => {
-            // const input = document.getElementById('file-input');
-            // input?.click();
+            const input = document?.getElementById('file-input');
+            input?.click();
           }}
         >
           <IconUploadImage className="format" />
-          {/* <FileInput
+          <FileInput
             label="Image Upload"
             onChange={loadImage}
             accept="image/*"
             data-test-id="image-modal-file-upload"
-          /> */}
+          />
         </button>
-        {/* {SUPPORT_SPEECH_RECOGNITION && (
+        {SUPPORT_SPEECH_RECOGNITION && (
           <button
             type="button"
             className={'toolbar-item spaced mic ' + (isSpeechToText ? 'active' : '')}
@@ -561,7 +566,7 @@ function ToolbarPlugin() {
           >
             <IconMic className="format" />
           </button>
-        )} */}
+        )}
         <button
           type="button"
           className="toolbar-item spaced"
