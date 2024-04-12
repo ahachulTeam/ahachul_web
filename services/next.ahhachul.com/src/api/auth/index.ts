@@ -5,7 +5,7 @@ import { base } from '..';
 export const getAuthURL = `${API_BASE_URL}/auth`;
 
 const login = async (body: ISocialSignInParams) => {
-  const url = `${getAuthURL}/login?`;
+  const url = `${getAuthURL}/login`;
 
   return await base.post<IResponse<ISocialSignInResponse>>(url, body);
 };

@@ -24,7 +24,7 @@ const Subway = () => {
 
   const [subwayLineIds, setSubwayLineIds] = useState(['2', '7']);
   const initialSelectedData = {
-    // 건대입구 stationId
+    // 건대입구 stationId 내맘대로 정함
     stationId: '121',
     subwayLineId: subwayLineIds[0],
   };
