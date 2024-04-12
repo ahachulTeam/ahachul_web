@@ -1,4 +1,4 @@
-import React, { memo,useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import IconListView from '@/src/static/icons/complaints/IconListView';
 import IconSubmissionView from '@/src/static/icons/complaints/IconSubmissionView';
 import IconCirclePlus from '@/src/static/icons/system/IconCirclePlus';
@@ -21,7 +21,7 @@ interface TabItemProps {
 const TabItem: React.FC<TabItemProps> = ({ href, Icon, label, scrollToTop }) => {
   const { push } = useRouter();
   const pathname = usePathname();
-  const isActive = href === PATH.home ? pathname === PATH.home : pathname.includes(href);
+  const isActive = href === PATH.home ? pathname === PATH.home : pathname?.includes(href);
 
   const handleTabClick = () => {
     if (isActive) scrollToTop();
@@ -39,10 +39,10 @@ const TabItem: React.FC<TabItemProps> = ({ href, Icon, label, scrollToTop }) => 
         <Icon />
         <span>{label}</span>
       </button>
-      {isActive && href !== PATH.home && (pathname.includes(PATH.lost) || pathname.includes(PATH.community)) && (
+      {isActive && href !== PATH.home && (pathname?.includes(PATH.lost) || pathname?.includes(PATH.community)) && (
         <GoToEditorButton routeToEditor={routeToEditor} />
       )}
-      {isActive && pathname.includes(PATH.complaints) && <ComplaintViewToggle />}
+      {isActive && pathname?.includes(PATH.complaints) && <ComplaintViewToggle />}
     </div>
   );
 };

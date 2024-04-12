@@ -42,7 +42,7 @@ function DetailWithImage({ data }: { data: ILostDetail }) {
         <time css={time}>1월13일 10:40</time>
         <span css={category}>자유</span>
       </Flex>
-      <UiComponent.TextRenderer article={data.content} />
+      <UiComponent.TextRenderer article={data.content} isPlainText={!data.writer} />
       <Flex style={{ padding: '0 20px 20px' }} />
       <Flex align="center" justify="space-between" style={{ padding: '10px 20px' }}>
         <Flex align="center" gap="30px">

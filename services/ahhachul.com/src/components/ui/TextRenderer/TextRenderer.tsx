@@ -4,12 +4,14 @@ import { UiComponent } from 'components';
 
 export type AwesomeRendererProps = {
   article: string;
+  isPlainText?: boolean;
 };
 
-function TextRenderer({ article }: AwesomeRendererProps) {
+function TextRenderer({ article, isPlainText }: AwesomeRendererProps) {
   return (
     <div css={wrapperStyle}>
-      <UiComponent.Editor readonly initialState={article} />
+      {!isPlainText && <UiComponent.Editor readonly initialState={article} />}
+      {isPlainText && <pre className="editor-input ltr">{article}</pre>}
     </div>
   );
 }

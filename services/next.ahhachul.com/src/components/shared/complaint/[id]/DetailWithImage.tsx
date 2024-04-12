@@ -10,6 +10,7 @@ import { IComplaintDetail } from '@/src/types';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Theme } from '@emotion/react';
 import { exportHexColorWidthLineName, exportLineNameWithSubwayLineId } from '@/src/utils/export';
+import { formatDate } from '@/src/utils/time';
 
 function DetailWithImage({ data }: { data: IComplaintDetail }) {
   return (
@@ -41,7 +42,7 @@ function DetailWithImage({ data }: { data: IComplaintDetail }) {
       </Box>
       <Flex direction="column" css={{ padding: '0 20px', marginTop: '20px', position: 'relative' }}>
         <h3 css={userName}>{data.writer}</h3>
-        <time css={time}>1월13일 10:40</time>
+        <time css={time}>{formatDate(new Date(data.createdAt))}</time>
         <span css={category}>{data?.complaintType}</span>
       </Flex>
       <div css={trainLabelsWrap(exportHexColorWidthLineName(data.subwayLineId))}>

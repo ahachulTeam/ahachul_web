@@ -5,17 +5,18 @@ import IconBookmark from '@/src/static/icons/system/IconBookmark';
 import IconHeart from '@/src/static/icons/system/IconHeart';
 import { userName, time, category, btn, commentList, commentTitle } from './style';
 import Comment from './Comment';
+import { formatDate } from '@/src/utils/time';
 import { ILostDetail } from '@/src/types';
 
 function DetailOnlyText({ data }: { data: ILostDetail }) {
   return (
     <>
       <Flex direction="column" css={{ padding: '0 20px', marginTop: '16px', position: 'relative' }}>
-        <h3 css={userName}>{data.writer}</h3>
-        <time css={time}>1월13일 10:40</time>
-        <span css={category}>자유</span>
+        <h3 css={userName}>{data.writer ?? 'LOST112'}</h3>
+        <time css={time}>{formatDate(new Date(data.date))}</time>
+        <span css={category}>{data.categoryName}</span>
       </Flex>
-      <UiComponent.TextRenderer article={data.content} />
+      <UiComponent.TextRenderer article={data.content} isPlainText={!data.writer} />
       <Flex style={{ padding: '0 20px 20px' }} />
       <Flex align="center" justify="space-between" style={{ padding: '10px 20px' }}>
         <Flex align="center" gap="30px">

@@ -8,13 +8,14 @@ import Comment from './Comment';
 import { IComplaintDetail } from '@/src/types';
 import { exportHexColorWidthLineName, exportLineNameWithSubwayLineId } from '@/src/utils/export';
 import { Theme } from '@emotion/react';
+import { formatDate } from '@/src/utils/time';
 
 function DetailOnlyText({ data }: { data: IComplaintDetail }) {
   return (
     <>
       <Flex direction="column" css={{ padding: '0 20px', marginTop: '16px', position: 'relative' }}>
         <h3 css={userName}>{data.writer}</h3>
-        <time css={time}>1월13일 10:40</time>
+        <time css={time}>{formatDate(new Date(data.createdAt))}</time>
         <span css={category}>{data?.complaintType}</span>
       </Flex>
       <div css={trainLabelsWrap(exportHexColorWidthLineName(data.subwayLineId))}>

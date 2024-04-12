@@ -8,6 +8,7 @@ import { userName, time, category, btn, commentTitle, commentList } from './styl
 import Comment from './Comment';
 import { ILostDetail } from '@/src/types';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { formatDate } from '@/src/utils/time';
 
 function DetailWithImage({ data }: { data: ILostDetail }) {
   return (
@@ -38,11 +39,11 @@ function DetailWithImage({ data }: { data: ILostDetail }) {
         />
       </Box>
       <Flex direction="column" css={{ padding: '0 20px', marginTop: '20px', position: 'relative' }}>
-        <h3 css={userName}>{data.writer}</h3>
-        <time css={time}>1월13일 10:40</time>
+        <h3 css={userName}>{data.writer ?? 'LOST112'}</h3>
+        <time css={time}>{formatDate(new Date(data.date))}</time>
         <span css={category}>자유</span>
       </Flex>
-      <UiComponent.TextRenderer article={data.content} />
+      <UiComponent.TextRenderer article={data.content} isPlainText={!data.writer} />
       <Flex style={{ padding: '0 20px 20px' }} />
       <Flex align="center" justify="space-between" style={{ padding: '10px 20px' }}>
         <Flex align="center" gap="30px">
