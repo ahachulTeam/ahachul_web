@@ -11,7 +11,9 @@ function ListSection() {
     <Box as="section">
       <Flex as="ul" direction="column" css={ul}>
         {flatData.map((article) => (
-          <ComplaintCard key={article.id} article={article} />
+          <li key={article.id}>
+            <ComplaintCard article={article} />
+          </li>
         ))}
       </Flex>
     </Box>

@@ -3,18 +3,16 @@ import { CSSObject, Theme } from '@emotion/react';
 import { CSSProperties } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-// import { useFlow } from 'stackflow';
 import IconComment from '@/src/static/icons/system/IconComment';
 import { f } from '@/src/styles';
 import { IComplaint } from '@/src/types';
 import { exportHexColorWidthLineName, exportLineNameWithSubwayLineId } from '@/src/utils/export';
+import { PATH } from '@/src/data';
+import Link from 'next/link';
 
 function Item({ article }: { article: IComplaint }) {
-  // const { push } = useFlow();
-  // const navigateToDetail = () => push('ComplaintDetail', { articleId: article.id.toString() });
-
   return (
-    <li>
+    <Link href={`${PATH.complaintDetail}/${article.id}`}>
       <Flex as="article" direction="column" gap="12px" css={wrap}>
         <Flex direction="column">
           <div css={{ marginBottom: '12px' }}>
@@ -50,7 +48,7 @@ function Item({ article }: { article: IComplaint }) {
           </div>
         </Flex>
       </Flex>
-    </li>
+    </Link>
   );
 }
 

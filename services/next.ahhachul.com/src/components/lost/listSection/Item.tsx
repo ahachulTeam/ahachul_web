@@ -3,22 +3,20 @@ import { CSSObject, Theme } from '@emotion/react';
 import { CSSProperties } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-// import { useFlow } from 'stackflow';
 import IconComment from '@/src/static/icons/system/IconComment';
 import { f } from '@/src/styles';
 import { ILost } from '@/src/types';
 import { exportHexColorWidthLineName, exportLineNameWithSubwayLineId } from '@/src/utils/export';
 import { formatDate } from '@/src/utils/time';
 import IconDM from '@/src/static/icons/system/IconDM';
+import Link from 'next/link';
+import { PATH } from '@/src/data';
 
 function Item({ article }: { article: ILost }) {
-  // const { push } = useFlow();
-  // const navigateToDetail = () => push('LostDetail', { articleId: article.id.toString() });
-
   const noImg = article.imageUrl.includes('no_img');
 
   return (
-    <li>
+    <Link href={`${PATH.lostDetail}/${article.id}`}>
       <Flex as="article" direction="column" gap="12px" css={wrap}>
         <Flex direction="column">
           <div css={{ marginBottom: '12px' }}>
@@ -53,7 +51,7 @@ function Item({ article }: { article: ILost }) {
           </div>
         </Flex>
       </Flex>
-    </li>
+    </Link>
   );
 }
 

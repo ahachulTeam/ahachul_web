@@ -4,7 +4,7 @@ const ul = [
   f.sideGutter,
   {
     '& > li:first-of-type': {
-      '& > article': { paddingTop: 0 },
+      '& > a > article': { paddingTop: 0 },
     },
 
     '& > li:not(:last-of-type)': {
