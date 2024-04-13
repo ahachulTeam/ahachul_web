@@ -8252,6 +8252,7 @@ __metadata:
     react-router-dom: "npm:^6.21.3"
     react-scripts: "npm:5.0.1"
     react-spring-bottom-sheet: "npm:^3.4.1"
+    react-timer-hook: "npm:^3.0.7"
     redux-persist: "npm:^6.0.0"
     rxjs: "npm:^7.8.1"
     swiper: "npm:^9.3.2"
@@ -18142,6 +18143,7 @@ __metadata:
     react-loading-skeleton: "npm:^3.4.0"
     react-redux: "npm:^9.1.0"
     react-spring-bottom-sheet: "npm:^3.4.1"
+    react-timer-hook: "npm:^3.0.7"
     redux-persist: "npm:^6.0.0"
     rxjs: "npm:^7.8.1"
     typescript: "npm:^5"
@@ -21042,6 +21044,15 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10c0/6d66f3bdb65e1ec79089f80314da97c9a005087a04ee034255a5de129a4c0d9fd0bf99fa7bf642781ac2dc745ca687aae3de082bd8afdd0d117bc953241e15ad
+  languageName: node
+  linkType: hard
+
+"react-timer-hook@npm:^3.0.7":
+  version: 3.0.7
+  resolution: "react-timer-hook@npm:3.0.7"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 10c0/76a6419e8471be18023b907cb65c894566501305002186e9fa5ec42614ef21f0310f8ea0bed88b61efb75fc9bdc0430dcb92dc8f9a0a3c3a1956b6c27f6c8e2d
   languageName: node
   linkType: hard
 

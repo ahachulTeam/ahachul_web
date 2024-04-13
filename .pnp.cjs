@@ -13368,6 +13368,7 @@ const RAW_RUNTIME_STATE =
           ["react-router-dom", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:6.22.3"],\
           ["react-scripts", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:5.0.1"],\
           ["react-spring-bottom-sheet", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:3.4.1"],\
+          ["react-timer-hook", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:3.0.7"],\
           ["redux-persist", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:6.0.0"],\
           ["rxjs", "npm:7.8.1"],\
           ["swiper", "npm:9.4.1"],\
@@ -25081,6 +25082,7 @@ const RAW_RUNTIME_STATE =
           ["react-loading-skeleton", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:3.4.0"],\
           ["react-redux", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:9.1.0"],\
           ["react-spring-bottom-sheet", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:3.4.1"],\
+          ["react-timer-hook", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:3.0.7"],\
           ["redux-persist", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:6.0.0"],\
           ["rxjs", "npm:7.8.1"],\
           ["typescript", "patch:typescript@npm%3A5.4.4#optional!builtin<compat/typescript>::version=5.4.4&hash=5adc0c"]\
@@ -29299,6 +29301,28 @@ const RAW_RUNTIME_STATE =
           ["invariant", "npm:2.2.4"],\
           ["react", "npm:18.2.0"],\
           ["tslib", "npm:2.6.2"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["react-timer-hook", [\
+      ["npm:3.0.7", {\
+        "packageLocation": "../../.yarn/berry/cache/react-timer-hook-npm-3.0.7-46bce86a5b-10c0.zip/node_modules/react-timer-hook/",\
+        "packageDependencies": [\
+          ["react-timer-hook", "npm:3.0.7"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:3.0.7", {\
+        "packageLocation": "./.yarn/__virtual__/react-timer-hook-virtual-897341869d/3/.yarn/berry/cache/react-timer-hook-npm-3.0.7-46bce86a5b-10c0.zip/node_modules/react-timer-hook/",\
+        "packageDependencies": [\
+          ["react-timer-hook", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:3.0.7"],\
+          ["@types/react", "npm:18.2.64"],\
+          ["react", "npm:18.2.0"]\
         ],\
         "packagePeers": [\
           "@types/react",\

@@ -22,3 +22,5 @@ export const useGetLostList = (
     getNextPageParam: (lastPage) => lastPage.data.result.nextPageNum,
   });
 };
+
+// initialData?: InfiniteData<AxiosResponse<IResponse<ILostList>, any>, undefined>,

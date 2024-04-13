@@ -5,8 +5,10 @@ function QueryProvider({ children }: PropsWithChildren) {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        retry: 3,
+        retry: 1,
         staleTime: 1000 * 60, // 1분
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
       },
     },
   });

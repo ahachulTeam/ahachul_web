@@ -8,7 +8,7 @@ export default function LostDetail() {
   const params = useParams();
 
   return (
-    <Layout headerType="back">
+    <Layout headerType="back" title="" nav={false}>
       <ErrorComponent.QueryErrorBoundary>
         <Suspense fallback={<UiComponent.Loading opacity={1} />}>
           <SharedComponent.LostDetailMain postId={params?.articleId as string} />

@@ -72,6 +72,7 @@
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.21.3",
     "react-spring-bottom-sheet": "^3.4.1",
+    "react-timer-hook": "^3.0.7",
     "redux-persist": "^6.0.0",
     "swiper": "^9.3.2",
     "uuid": "^9.0.1"

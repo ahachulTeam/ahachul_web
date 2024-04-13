@@ -17,6 +17,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import TrainError from './train/TrainError';
 import { defaultFadeInVariants } from '@/src/data/motion';
 import { PATH } from '@/src/data';
+import Timer from './Timer';
 
 const Subway = () => {
   const { push } = useRouter();
@@ -228,9 +229,8 @@ const Subway = () => {
                                   : '400',
                             }}
                           >
-                            {idx === 0 ? '진입' : idx === 1 ? '2분' : idx === 2 ? '7분 37초' : '11분 32초'}
+                            <Timer expiryTime={item.currentArrivalTime} />
                           </span>
-                          {/* <span>{!item.currentArrivalTime ? '진입' : `${item.currentArrivalTime}분전`}</span> */}
                         </li>
                       ))}
                     </>

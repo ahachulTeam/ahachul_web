@@ -8,7 +8,7 @@ const fotTwo = [
     nextStationDirection: '신대방방면',
     destinationStationDirection: '성수행',
     trainNum: '2234',
-    currentArrivalTime: 0,
+    currentArrivalTime: 2,
     currentTrainArrivalCode: 'ENTER',
   },
   {
@@ -16,7 +16,7 @@ const fotTwo = [
     nextStationDirection: '봉천방면',
     destinationStationDirection: '성수행',
     trainNum: '2236',
-    currentArrivalTime: 3,
+    currentArrivalTime: 4,
     currentTrainArrivalCode: 'BEFORE_STATION_ARRIVE',
   },
   {
