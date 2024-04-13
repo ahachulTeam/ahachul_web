@@ -1,4 +1,4 @@
-import { ImageType, ListResponse } from '@/src/types';
+import { ImageType, ListResponse, Nullable } from '@/src/types';
 import { IPageParams } from '@/src/types/request';
 
 export type ILostStore = {
@@ -68,6 +68,7 @@ export interface ILostArticleForm {
   content: string;
   lostType: LostType;
   desiredLocation?: string;
+  imageFiles: Nullable<File>;
 }
 
 export interface ILostRecommendPost {

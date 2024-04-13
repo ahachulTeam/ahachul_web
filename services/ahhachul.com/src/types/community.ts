@@ -1,4 +1,4 @@
-import { ImageType, ListResponse, RegionType, YNType } from 'types';
+import { ImageType, ListResponse, Nullable, RegionType, YNType } from 'types';
 import { IPageParams } from 'types/request';
 
 export type ICommunityStore = {
@@ -71,4 +71,5 @@ export interface ICommunityArticleForm {
   title: string;
   content: string;
   communityType: CommunityCategoryType;
+  imageFiles: Nullable<File>;
 }

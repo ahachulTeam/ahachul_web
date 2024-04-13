@@ -10,17 +10,21 @@ import { useAppSelector } from '@/src/stores';
 import { Layout } from '@/src/components/layout';
 import { UiComponent } from '@/src/components';
 import { f } from '@/src/styles';
+import IconCamera from '@/src/static/icons/system/IconCamera';
+import IconCircleClose from '@/src/static/icons/system/IconCircleClose';
 
 const INIT_STATE: ICommunityArticleForm = {
   title: '',
   content: '',
   communityType: 'FREE',
+  imageFiles: null,
 };
 
 const ERROR_INIT_STATE: ErrorForm<ICommunityArticleForm> = {
   title: '',
   content: '',
   communityType: '',
+  imageFiles: '',
 };
 
 export default function CommunityEditor() {
@@ -29,6 +33,10 @@ export default function CommunityEditor() {
 
   const { loading } = useAppSelector((state) => state.ui);
   const { mutate, status } = CommunityQuery.useCommunityArticle();
+
+  const handleChangeImage = useCallback((image: File | null) => {
+    formRef.current.imageFiles = image;
+  }, []);
 
   const handleChangeTitle = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -100,6 +108,9 @@ export default function CommunityEditor() {
     <Layout headerType="back" title="글 작성" nav={false}>
       <form css={wrap} onSubmit={handleSubmit}>
         <div css={section}>
+          <ImageUpload handleChangeImage={handleChangeImage} />
+        </div>
+        <div css={section}>
           <span>제목</span>
           <input
             id="title"
@@ -146,6 +157,46 @@ export default function CommunityEditor() {
     </Layout>
   );
 }
+
+const ImageUpload = memo(({ handleChangeImage }: { handleChangeImage: (image: File | null) => void }) => {
+  const [image, setImage] = useState<File | null>(null);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setImage(e.target.files?.[0] as Nullable<File>);
+    handleChangeImage(e.target.files?.[0] as Nullable<File>);
+  };
+
+  const handleDeleteImage = () => {
+    setImage(null);
+    handleChangeImage(null);
+  };
+
+  return (
+    <div css={imageBox(Boolean(image))}>
+      <label htmlFor="upload">
+        <IconCamera />
+        <input
+          id="upload"
+          type="file"
+          accept="image/*"
+          hidden
+          disabled={Boolean(image)}
+          onChange={(e) => {
+            if (e.target.files?.[0]?.size === 0) return;
+            handleImageChange(e);
+          }}
+        />
+      </label>
+
+      {image && (
+        <div css={realImage}>
+          <img src={typeof image === 'string' ? image : URL.createObjectURL(image)} alt="" />
+          <IconCircleClose onClick={handleDeleteImage} />
+        </div>
+      )}
+    </div>
+  );
+});
 
 const SelectComponent = memo(
   ({ handleChangeLostType }: { handleChangeLostType: (type: CommunityCategoryType) => () => void }) => {
@@ -267,3 +318,56 @@ const submitBtn = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject =
   fontWeight: fontWeight[600],
   borderRadius: '8px',
 });
+
+const imageBox = (disabled: boolean) => [
+  f.flexAlignCenter,
+  f.fullWidth,
+  {
+    '& > label': {
+      width: '56px',
+      height: '56px',
+      border: '1px solid rgb(196, 212, 252, 0.37)',
+      borderRadius: '8px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      opacity: disabled ? 0.4 : 1,
+
+      '& > div': {
+        width: '20px',
+        height: '20px',
+
+        '&>svg>path': {
+          stroke: '#9da5b6',
+        },
+      },
+    },
+  },
+];
+
+const realImage: CSSObject = {
+  position: 'relative',
+  width: '55px',
+  height: '55px',
+  borderRadius: '8px',
+  marginLeft: '8px',
+
+  '& > img': {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    borderRadius: '8px',
+  },
+
+  '& > div': {
+    position: 'absolute',
+    top: '2px',
+    right: '2px',
+
+    width: '18px',
+    height: '18px',
+  },
+};

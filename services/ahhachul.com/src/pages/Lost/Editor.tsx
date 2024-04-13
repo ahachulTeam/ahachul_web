@@ -11,12 +11,15 @@ import { ErrorForm } from 'types/form';
 import IconInfo from 'static/icons/system/IconInfo';
 import { LostQuery } from 'queries';
 import { useAppSelector } from 'stores';
+import IconCamera from 'static/icons/system/IconCamera';
+import IconCircleClose from 'static/icons/system/IconCircleClose';
 
 const INIT_STATE: ILostArticleForm = {
   title: '',
   content: '',
   lostType: 'ACQUIRE',
   desiredLocation: '',
+  imageFiles: null,
 };
 
 const ERROR_INIT_STATE: ErrorForm<ILostArticleForm> = {
@@ -24,6 +27,7 @@ const ERROR_INIT_STATE: ErrorForm<ILostArticleForm> = {
   content: '',
   lostType: '',
   desiredLocation: '',
+  imageFiles: '',
 };
 
 const LostEditor = () => {
@@ -31,7 +35,11 @@ const LostEditor = () => {
   const [errors, setError] = useState<ErrorForm<ILostArticleForm>>(ERROR_INIT_STATE);
 
   const { loading } = useAppSelector((state) => state.ui);
-  const { mutate, status } = LostQuery.useLostArticle();
+  const { status } = LostQuery.useLostArticle();
+
+  const handleChangeImage = useCallback((image: File | null) => {
+    formRef.current.imageFiles = image;
+  }, []);
 
   const handleChangeTitle = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -82,8 +90,8 @@ const LostEditor = () => {
       }
       return;
     }
-
-    mutate(formRef.current);
+    console.log('formRef.current:', formRef.current);
+    // mutate(formRef.current);
   };
 
   let lostInfo: Nullable<ILostArticleForm> = null;
@@ -110,6 +118,9 @@ const LostEditor = () => {
     >
       <main css={wrap}>
         <form onSubmit={handleSubmit}>
+          <div css={section}>
+            <ImageUpload handleChangeImage={handleChangeImage} />
+          </div>
           <div css={section}>
             <span>제목</span>
             <input
@@ -171,6 +182,46 @@ const LostEditor = () => {
     </Layout>
   );
 };
+
+const ImageUpload = memo(({ handleChangeImage }: { handleChangeImage: (image: File | null) => void }) => {
+  const [image, setImage] = useState<File | null>(null);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setImage(e.target.files[0]);
+    handleChangeImage(e.target.files[0]);
+  };
+
+  const handleDeleteImage = () => {
+    setImage(null);
+    handleChangeImage(null);
+  };
+
+  return (
+    <div css={imageBox(Boolean(image))}>
+      <label htmlFor="upload">
+        <IconCamera />
+        <input
+          id="upload"
+          type="file"
+          accept="image/*"
+          hidden
+          disabled={Boolean(image)}
+          onChange={(e) => {
+            if (e.target.files[0].size === 0) return;
+            handleImageChange(e);
+          }}
+        />
+      </label>
+
+      {image && (
+        <div css={realImage}>
+          <img src={typeof image === 'string' ? image : URL.createObjectURL(image)} alt="" />
+          <IconCircleClose onClick={handleDeleteImage} />
+        </div>
+      )}
+    </div>
+  );
+});
 
 const SelectComponent = memo(({ handleChangeLostType }: { handleChangeLostType: (type: LostType) => () => void }) => {
   const [currentLostType, setCurrentLostType] = useState('ACQUIRE');
@@ -313,5 +364,58 @@ const submitBtn = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject =
 //   height: '34px',
 //   width: '100%',
 // };
+
+const imageBox = (disabled: boolean) => [
+  f.flexAlignCenter,
+  f.fullWidth,
+  {
+    '& > label': {
+      width: '56px',
+      height: '56px',
+      border: '1px solid rgb(196, 212, 252, 0.37)',
+      borderRadius: '8px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      opacity: disabled ? 0.4 : 1,
+
+      '& > div': {
+        width: '20px',
+        height: '20px',
+
+        '&>svg>path': {
+          stroke: '#9da5b6',
+        },
+      },
+    },
+  },
+];
+
+const realImage: CSSObject = {
+  position: 'relative',
+  width: '55px',
+  height: '55px',
+  borderRadius: '8px',
+  marginLeft: '8px',
+
+  '& > img': {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    borderRadius: '8px',
+  },
+
+  '& > div': {
+    position: 'absolute',
+    top: '2px',
+    right: '2px',
+
+    width: '18px',
+    height: '18px',
+  },
+};
 
 export default LostEditor;

@@ -12,6 +12,8 @@ import { IComplaintForm } from 'types/complaints';
 import { useAppSelector } from 'stores';
 import { addSnackBar } from 'stores/ui';
 import { useDispatch } from 'react-redux';
+import IconCamera from 'static/icons/system/IconCamera';
+import IconCircleClose from 'static/icons/system/IconCircleClose';
 
 type ComplaintsSubmissionProps = {
   slug: COMPLAINTS_CONTENTS_TYPES;
@@ -23,6 +25,7 @@ const INIT_STATE: IComplaintForm = {
   content: '',
   complaintType: '',
   shortContent: '',
+  imageFiles: null,
 };
 
 const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = ({ params }) => {
@@ -34,6 +37,10 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
   const formRef = useRef<IComplaintForm>(INIT_STATE);
   const { mutate } = useComplaintsArticle();
   const { loading } = useAppSelector((state) => state.ui);
+
+  const handleChangeImage = useCallback((image: File | null) => {
+    formRef.current.imageFiles = image;
+  }, []);
 
   const handleChangeContent = useCallback((targetValue: EditorState) => {
     formRef.current.content = JSON.stringify(targetValue.toJSON());
@@ -80,6 +87,10 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
             </div>
           </div>
           <div css={section}>
+            <span>첨부 이미지</span>
+            <ImageUpload handleChangeImage={handleChangeImage} />
+          </div>
+          <div css={section}>
             <span>{COMPLAINTS_ROOM_SERVICE_INFO[params.slug].title}</span>
             <SelectComponent
               selectList={COMPLAINTS_ROOM_SERVICE_INFO[params.slug].selectList}
@@ -105,6 +116,46 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
     </Layout>
   );
 };
+
+const ImageUpload = memo(({ handleChangeImage }: { handleChangeImage: (image: File | null) => void }) => {
+  const [image, setImage] = useState<File | null>(null);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setImage(e.target.files[0]);
+    handleChangeImage(e.target.files[0]);
+  };
+
+  const handleDeleteImage = () => {
+    setImage(null);
+    handleChangeImage(null);
+  };
+
+  return (
+    <div css={imageBox(Boolean(image))}>
+      <label htmlFor="upload">
+        <IconCamera />
+        <input
+          id="upload"
+          type="file"
+          accept="image/*"
+          hidden
+          disabled={Boolean(image)}
+          onChange={(e) => {
+            if (e.target.files[0].size === 0) return;
+            handleImageChange(e);
+          }}
+        />
+      </label>
+
+      {image && (
+        <div css={realImage}>
+          <img src={typeof image === 'string' ? image : URL.createObjectURL(image)} alt="" />
+          <IconCircleClose onClick={handleDeleteImage} />
+        </div>
+      )}
+    </div>
+  );
+});
 
 const SelectComponent = memo(
   ({
@@ -242,5 +293,60 @@ const submitBtn = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject =
   fontWeight: fontWeight[600],
   borderRadius: '8px',
 });
+
+const imageBox = (disabled: boolean) => [
+  f.flexAlignCenter,
+  f.fullWidth,
+  {
+    paddingLeft: '20px',
+
+    '& > label': {
+      width: '40px',
+      height: '40px',
+      border: '1px solid rgb(196, 212, 252, 0.37)',
+      borderRadius: '8px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      opacity: disabled ? 0.4 : 1,
+
+      '& > div': {
+        width: '18px',
+        height: '18px',
+
+        '&>svg>path': {
+          stroke: '#9da5b6',
+        },
+      },
+    },
+  },
+];
+
+const realImage: CSSObject = {
+  position: 'relative',
+  width: '39px',
+  height: '39px',
+  borderRadius: '8px',
+  marginLeft: '8px',
+
+  '& > img': {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    borderRadius: '8px',
+  },
+
+  '& > div': {
+    position: 'absolute',
+    top: '2px',
+    right: '2px',
+
+    width: '18px',
+    height: '18px',
+  },
+};
 
 export default ComplaintsSubmission;
