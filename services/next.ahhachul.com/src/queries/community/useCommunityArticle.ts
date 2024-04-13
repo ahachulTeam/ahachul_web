@@ -1,18 +1,14 @@
 import { CommunityApi } from '@/src/api';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useAuthMutation, useQueryClient } from '@/src/queries/query';
 import { useEffect } from 'react';
-// import { useFlow } from 'stackflow';
 import { getQueryKeys } from '@/src/queries/query-key';
 import { COMMUNITY_LIST_KEY } from './keys';
 import { useDispatch } from 'react-redux';
-import { addSnackBar, loaded } from '@/src/stores/ui';
+import { addSnackBar, loading, loaded } from '@/src/stores/ui';
 
 export const useCommunityArticle = () => {
-  const res = useMutation({
-    mutationFn: CommunityApi.post,
-  });
+  const res = useAuthMutation(CommunityApi.post);
 
-  // const { pop, push } = useFlow();
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
 
@@ -20,7 +16,7 @@ export const useCommunityArticle = () => {
     if (res.status === 'idle') return;
 
     if (res.status === 'pending') {
-      // dispatch(loading());
+      dispatch(loading({ opacity: 1 }));
     }
 
     if (res.status === 'success') {

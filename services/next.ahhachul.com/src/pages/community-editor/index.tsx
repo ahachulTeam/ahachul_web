@@ -16,14 +16,14 @@ import IconCircleClose from '@/src/static/icons/system/IconCircleClose';
 const INIT_STATE: ICommunityArticleForm = {
   title: '',
   content: '',
-  communityType: 'FREE',
+  categoryType: 'FREE',
   imageFiles: null,
 };
 
 const ERROR_INIT_STATE: ErrorForm<ICommunityArticleForm> = {
   title: '',
   content: '',
-  communityType: '',
+  categoryType: '',
   imageFiles: '',
 };
 
@@ -56,7 +56,7 @@ export default function CommunityEditor() {
 
   const handleChangeLostType = useCallback(
     (type: CommunityCategoryType) => () => {
-      formRef.current.communityType = type;
+      formRef.current.categoryType = type;
     },
     [],
   );
@@ -96,11 +96,11 @@ export default function CommunityEditor() {
     if (communityInfo) {
       formRef.current.title = communityInfo.title;
       formRef.current.content = communityInfo.content;
-      formRef.current.communityType = communityInfo.communityType;
+      formRef.current.categoryType = communityInfo.categoryType;
     } else {
       formRef.current.title = '';
       formRef.current.content = '';
-      formRef.current.communityType = 'FREE';
+      formRef.current.categoryType = 'FREE';
     }
   }, [communityInfo]);
 
