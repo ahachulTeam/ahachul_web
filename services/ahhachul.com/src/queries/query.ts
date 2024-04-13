@@ -25,37 +25,43 @@ function useAuthQuery<
   options?: Omit<UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>, 'queryKey' | 'queryFn'>,
 ) {
   const { auth } = useAppSelector((state) => state.auth);
-  const { mutate, status } = AuthQuery.useRefreshToken();
+  const { mutate, status: refreshTokenFetchStatus } = AuthQuery.useRefreshToken();
 
-  if (auth?.token.accessToken) {
-    base.defaults.headers.common['authorization'] = `Bearer ${auth?.token.accessToken}`;
+  if (auth?.accessToken) {
+    base.defaults.headers.common['authorization'] = `Bearer ${auth?.accessToken}`;
   }
 
   const enabled = options?.enabled === undefined ? true : options.enabled;
-  const { error, refetch, ...rest } = useQuery({
+  const {
+    error,
+    status: currentFetchStatus,
+    refetch: currentRefetch,
+    ...rest
+  } = useQuery({
     queryKey,
     queryFn,
-    enabled: enabled && !!auth?.token.accessToken,
+    enabled,
     ...options,
   });
 
   useEffect(() => {
-    if (status === 'success') {
-      refetch();
-    }
-
-    if (status === 'error') {
+    if (currentFetchStatus === 'error') {
       if ((error as AxiosError)?.response?.status === 401 && auth) {
-        auth?.token.refreshToken &&
+        auth?.refreshToken &&
           mutate({
-            memberId: auth.memberId,
-            refreshToken: auth.token.refreshToken,
+            refreshToken: auth.refreshToken,
           });
       }
     }
-  }, [status]);
+  }, [currentFetchStatus]);
 
-  return { refetch, ...rest };
+  useEffect(() => {
+    if (refreshTokenFetchStatus === 'success') {
+      currentRefetch();
+    }
+  }, [refreshTokenFetchStatus]);
+
+  return { refetch: currentRefetch, ...rest };
 }
 
 function useAuthMutation<TData = unknown, TError = unknown, TVariables = void, TContext = unknown>(
@@ -63,8 +69,8 @@ function useAuthMutation<TData = unknown, TError = unknown, TVariables = void, T
   options?: Omit<UseMutationOptions<TData, TError, TVariables, TContext>, 'mutationKey' | 'mutationFn'>,
 ) {
   const { auth } = useAppSelector((state) => state.auth);
-  if (auth?.token.accessToken) {
-    base.defaults.headers.common['authorization'] = `Bearer ${auth?.token.accessToken}`;
+  if (auth?.accessToken) {
+    base.defaults.headers.common['authorization'] = `Bearer ${auth?.accessToken}`;
   }
 
   return useMutation({
