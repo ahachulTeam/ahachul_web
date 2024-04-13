@@ -7,13 +7,21 @@ import { useGetLostList } from '@/src/queries/lost/useGetLostList';
 
 import LostCard from './Item';
 import { ul } from './style';
+import { useRouter } from 'next/router';
+import { LostType } from '@/src/types';
 
 function ListSection() {
+  const { query } = useRouter();
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage } = useGetLostList({
     page: 0,
     size: 20,
-    lostType: 'ACQUIRE',
+    keyword: query?.keyword as string,
+    hashTag: (query?.tag as string)?.replace('#', ''),
+    lostType: (query?.lostType as LostType) || 'ACQUIRE',
   });
+
+  console.log('hashtag:', query?.tag);
+  console.log('keyword:', query?.keyword);
 
   const flatData = flattenInfinityListData(data);
 

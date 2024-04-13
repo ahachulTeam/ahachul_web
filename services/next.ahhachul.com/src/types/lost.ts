@@ -58,6 +58,8 @@ export interface ILostParams extends IPageParams {
   origin?: LostOriginType;
   /** 검색 키워드 */
   keyword?: string;
+  /** 검색하고자 하는 해시 태그 */
+  hashTag?: string;
   /** 마지막으로 조회한 유실물 데이터의 ID */
   lostPostId?: number;
 }

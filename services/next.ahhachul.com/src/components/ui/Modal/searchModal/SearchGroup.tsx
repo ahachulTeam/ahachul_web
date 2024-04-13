@@ -10,9 +10,11 @@ import { useAppSelector } from '@/src/stores';
 import { hideModal, setHistory } from '@/src/stores/search/reducer';
 import { debounce } from 'lodash-es';
 import { Nullable } from '@/src/types';
+import { useRouter } from 'next/router';
 
 // TODO: rxjs 사용해서 최적화하기
 function SearchGroup() {
+  const router = useRouter();
   const dispatch = useDispatch();
   const { showModal, history } = useAppSelector((state) => state.search);
 
@@ -23,18 +25,27 @@ function SearchGroup() {
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    console.log('e:', e);
     if (e.target.value.length === 0) debouncedChange(null);
     else debouncedChange(e.target.value);
   }, []);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!inputRef.current?.value) return;
+
     if (inputRef.current) inputRef.current?.blur();
 
     const pastHistory = !history ? [] : history;
     dispatch(setHistory([inputRef.current!.value, ...pastHistory]));
     debouncedHide();
+
+    const asPath = router.asPath.split('?');
+
+    if (/^#/.test(inputRef.current!.value)) {
+      router.push(`${asPath[0]}?tag=${inputRef.current!.value?.replace('#', '')}`);
+    } else {
+      router.push(`${asPath[0]}?keyword=${inputRef.current!.value}`);
+    }
   };
 
   useEffect(() => {

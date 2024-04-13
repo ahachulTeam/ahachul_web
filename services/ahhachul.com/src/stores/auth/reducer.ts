@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IAuthStore, SingupResponseType } from 'types';
+import { IAuthStore, IToken } from 'types';
 
 const initialState: IAuthStore = {
   auth: null,
@@ -12,7 +12,7 @@ const {
   name: 'auth',
   initialState,
   reducers: {
-    setToken: (state, action: PayloadAction<SingupResponseType | null>) => {
+    setToken: (state, action: PayloadAction<IToken | null>) => {
       state.auth = action.payload;
     },
   },

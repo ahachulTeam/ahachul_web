@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 
 import { Flex } from '@ahhachul/react-components-layout';
 import { Button } from '@ahhachul/react-components-button';
@@ -7,9 +8,12 @@ import { hideModal } from '@/src/stores/search/reducer';
 import { useDispatch } from 'react-redux';
 
 function HistoryList() {
+  const router = useRouter();
   const dispatch = useDispatch();
-  const close = () => {
+  const close = (keyword: string) => () => {
     dispatch(hideModal());
+    const asPath = router.asPath.split('?');
+    router.push(`${asPath[0]}?keyword=${keyword}`);
   };
 
   return (
@@ -44,7 +48,7 @@ function HistoryList() {
         }}
       >
         <Button
-          onClick={close}
+          onClick={close('코레일')}
           size="sm"
           style={{
             flexShrink: 0,
@@ -59,7 +63,7 @@ function HistoryList() {
           코레일
         </Button>
         <Button
-          onClick={close}
+          onClick={close('인스타그램')}
           size="sm"
           style={{
             flexShrink: 0,
@@ -74,7 +78,7 @@ function HistoryList() {
           인스타그램
         </Button>
         <Button
-          onClick={close}
+          onClick={close('이강인')}
           size="sm"
           style={{
             flexShrink: 0,
@@ -89,7 +93,7 @@ function HistoryList() {
           이강인
         </Button>
         <Button
-          onClick={close}
+          onClick={close('K리그 개막')}
           size="sm"
           style={{
             flexShrink: 0,
@@ -104,7 +108,7 @@ function HistoryList() {
           K리그 개막
         </Button>
         <Button
-          onClick={close}
+          onClick={close('아이유')}
           size="sm"
           style={{
             flexShrink: 0,
@@ -119,7 +123,7 @@ function HistoryList() {
           아이유
         </Button>
         <Button
-          onClick={close}
+          onClick={close('오당기 아이유')}
           size="sm"
           style={{
             flexShrink: 0,
@@ -134,7 +138,7 @@ function HistoryList() {
           오당기 아이유
         </Button>
         <Button
-          onClick={close}
+          onClick={close('벚꽃')}
           size="sm"
           style={{
             flexShrink: 0,
@@ -149,7 +153,7 @@ function HistoryList() {
           벚꽃
         </Button>
         <Button
-          onClick={close}
+          onClick={close('4호선 연착')}
           size="sm"
           style={{
             flexShrink: 0,
@@ -164,7 +168,7 @@ function HistoryList() {
           4호선 연착
         </Button>
         <Button
-          onClick={close}
+          onClick={close('분실물 신고')}
           size="sm"
           style={{
             flexShrink: 0,
@@ -179,7 +183,7 @@ function HistoryList() {
           분실물 신고
         </Button>
         <Button
-          onClick={close}
+          onClick={close('1호선')}
           size="sm"
           style={{
             flexShrink: 0,

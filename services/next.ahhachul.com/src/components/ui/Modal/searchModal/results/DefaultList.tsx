@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { CSSObject } from '@emotion/react';
 import { debounce } from 'lodash-es';
 import { useDispatch } from 'react-redux';
@@ -6,15 +7,22 @@ import { hideModal } from '@/src/stores/search/reducer';
 import { f } from '@/src/styles';
 
 const DefaultList = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const closeModal = () => dispatch(hideModal());
   const debouncedHide = debounce(closeModal, 200);
+
+  const searchKeyword = (keyword: string) => () => {
+    debouncedHide();
+    const asPath = router.asPath.split('?');
+    router.push(`${asPath[0]}?keyword=${keyword}`);
+  };
 
   return (
     <section css={wrap}>
       <ul css={ul}>
         {new Array(32).fill('').map((_, idx) => (
-          <li key={idx} onClick={debouncedHide}>
+          <li key={idx} onClick={searchKeyword('jasmin')}>
             <Item />
           </li>
         ))}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Flex, Text } from '@ahhachul/react-components-layout';
 import IconCategoryFree from '@/src/static/icons/community/IconCategoryFree';
 import IconCategoryInsight from '@/src/static/icons/community/IconCategoryInsight';
@@ -6,6 +6,7 @@ import { TabBtn } from './style';
 import { CommunityCategoryType } from '@/src/types';
 import IconCategoryRank from '@/src/static/icons/community/IconCategoryRank';
 import IconCategoryQuestion from '@/src/static/icons/community/IconCategoryQuestion';
+import { useRouter } from 'next/router';
 
 const COMMUNITY_TABS = {
   HOT: {
@@ -31,10 +32,12 @@ const COMMUNITY_TABS = {
 } as const;
 
 function TabSection() {
-  const [activeTab, setTab] = useState(Object.keys(COMMUNITY_TABS)[0]);
+  const router = useRouter();
+  const activeTab = router.query?.categoryType || Object.keys(COMMUNITY_TABS)[0];
 
-  const handleTab = (key: CommunityCategoryType) => () => {
-    setTab(key);
+  const handleTab = (categoryType: CommunityCategoryType) => () => {
+    const asPath = router.asPath.split('?');
+    router.push(`${asPath[0]}?categoryType=${categoryType}`);
   };
 
   return (

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { CSSObject } from '@emotion/react';
 import { debounce } from 'lodash-es';
 import { useDispatch } from 'react-redux';
@@ -5,15 +6,22 @@ import { hideModal } from '@/src/stores/search/reducer';
 import { f } from '@/src/styles';
 
 const HashTagList = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const closeModal = () => dispatch(hideModal());
   const debouncedHide = debounce(closeModal, 200);
+
+  const searchHashTag = (hashTag: string) => () => {
+    debouncedHide();
+    const asPath = router.asPath.split('?');
+    router.push(`${asPath[0]}?tag=${hashTag.replace('#', '')}`);
+  };
 
   return (
     <section css={wrap}>
       <ul css={ul}>
         {new Array(32).fill('').map((_, idx) => (
-          <li key={idx} onClick={debouncedHide}>
+          <li key={idx} onClick={searchHashTag('#벚꽃')}>
             <Item />
           </li>
         ))}

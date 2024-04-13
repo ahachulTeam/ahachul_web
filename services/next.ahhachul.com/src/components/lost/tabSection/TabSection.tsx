@@ -3,7 +3,7 @@ import IconCircleDown from '@/src/static/icons/lost/IconCircleDown';
 import IconCircleUp from '@/src/static/icons/lost/IconCircleUp';
 import { TabBtn } from './style';
 import { LostType } from '@/src/types';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 const LOST_AND_FOUND_TABS = {
   ACQUIRE: {
@@ -19,10 +19,12 @@ const LOST_AND_FOUND_TABS = {
 } as const;
 
 function TabSection() {
-  const [activeTab, setTab] = useState(Object.keys(LOST_AND_FOUND_TABS)[0]);
+  const router = useRouter();
+  const activeTab = router.query?.lostType || Object.keys(LOST_AND_FOUND_TABS)[0];
 
-  const handleTab = (key: LostType) => () => {
-    setTab(key);
+  const handleTab = (lostType: LostType) => () => {
+    const asPath = router.asPath.split('?');
+    router.push(`${asPath[0]}?lostType=${lostType}`);
   };
 
   return (
