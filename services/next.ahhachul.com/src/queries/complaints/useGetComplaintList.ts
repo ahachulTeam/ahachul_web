@@ -1,23 +1,20 @@
-import { useSuspenseInfiniteQuery } from '@/src/queries/query';
+import { InfiniteData, useSuspenseInfiniteQuery, UseSuspenseInfiniteQueryResult } from '@/src/queries/query';
 import { getCommunityURL } from '@/src/api/community';
 import { getQueryKeys } from '@/src/queries/query-key';
-import { type IComplaintParams as GetComplaintListRequestParams, IComplaint } from '@/src/types';
+import { type IComplaintParams as GetComplaintListRequestParams, IComplaintList, IResponse } from '@/src/types';
 import { COMPLAINTS_LIST_KEY } from './keys';
 import { getComplaintList } from '@/src/api/complaints';
+import { AxiosResponse } from 'axios';
 
-type Params = GetComplaintListRequestParams & {
-  initPageToken?: number;
-};
-
-export const useGetComplaintList = (params: Params): IComplaint[] => {
-  const res = useSuspenseInfiniteQuery({
+export const useGetComplaintList = (
+  params: GetComplaintListRequestParams,
+): UseSuspenseInfiniteQueryResult<InfiniteData<AxiosResponse<IResponse<IComplaintList>>, Error>, unknown> => {
+  return useSuspenseInfiniteQuery({
     queryKey: getQueryKeys(COMPLAINTS_LIST_KEY).list({ params, getCommunityURL }),
-    queryFn: async ({ pageParam = params?.initPageToken }) => {
+    queryFn: async ({ pageParam = params?.page }) => {
       return await getComplaintList({ ...params, page: pageParam });
     },
-    initialPageParam: params?.initPageToken,
+    initialPageParam: params?.page,
     getNextPageParam: (lastPage) => lastPage.data.result.nextPageNum,
   });
-
-  return res.data.pages.map((page) => page.data.result.posts).flat();
 };

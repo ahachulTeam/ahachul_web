@@ -49,7 +49,7 @@ export interface IComplaintParams extends IPageParams {
   /** 민원 타입  */
   complaintType?: string;
   /**  커뮤니티 포스트 호선 */
-  subwayLineId?: number;
+  subwayLineId?: string;
   /** 검색하고자 하는 내용 */
   content?: string;
 }

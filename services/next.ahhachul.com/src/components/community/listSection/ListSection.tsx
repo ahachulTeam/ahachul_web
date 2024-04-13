@@ -8,18 +8,21 @@ import TalkLoungeCard from './Item';
 import { ul } from './style';
 import { useRouter } from 'next/router';
 import { CommunityCategoryType } from '@/src/types';
+import { useParams } from 'next/navigation';
 
 function ListSection() {
+  const params = useParams();
   const { query } = useRouter();
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage } = useGetCommunityList({
     page: 0,
     size: 20,
     sort: 'createdAt,desc',
+    hashTag: query?.tag as string,
     content: query?.keyword as string,
-    hashTag: (query?.tag as string)?.replace('#', ''),
     categoryType: (query?.categoryType as CommunityCategoryType) || 'HOT',
+    ...(params?.subwayLineId?.[0] && { subwayLineId: params?.subwayLineId?.[0] as string }),
   });
-  console.log('hashtag:', (query?.tag as string)?.replace('#', ''));
+
   const flatData = flattenInfinityListData(data);
 
   return (

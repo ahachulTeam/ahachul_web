@@ -6,21 +6,16 @@ import { IResponse } from '@/src/types';
 import { AxiosResponse } from 'axios';
 import { LostApi } from '@/src/api';
 
-type Params = GetLostListRequestParams & {
-  initPageToken?: number;
-};
-
 export const useGetLostList = (
-  params: Params,
+  params: GetLostListRequestParams,
 ): UseSuspenseInfiniteQueryResult<InfiniteData<AxiosResponse<IResponse<ILostList>>, Error>, unknown> => {
   return useSuspenseInfiniteQuery({
     queryKey: getQueryKeys(LOST_LIST_KEY).list({ params, url: LostApi.getLostURL }),
-    queryFn: async ({ pageParam = params?.initPageToken }) => {
+    queryFn: async ({ pageParam = params?.page }) => {
       return await LostApi.getLostList({ ...params, page: pageParam });
     },
-    initialPageParam: params?.initPageToken,
+    initialPageParam: params?.page,
     getNextPageParam: (lastPage) => lastPage.data.result.nextPageNum,
   });
 };
 
-// initialData?: InfiniteData<AxiosResponse<IResponse<ILostList>, any>, undefined>,

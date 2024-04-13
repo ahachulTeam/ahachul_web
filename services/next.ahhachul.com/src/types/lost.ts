@@ -53,7 +53,7 @@ export interface ILostParams extends IPageParams {
   /** 유실물 카테고리  - LOST(유실물) / ACQUIRE(습득물 + Lost112) */
   lostType: LostType;
   /**  유실물 호선 */
-  subwayLineId?: number;
+  subwayLineId?: string;
   /** 유실물 출처 */
   origin?: LostOriginType;
   /** 검색 키워드 */

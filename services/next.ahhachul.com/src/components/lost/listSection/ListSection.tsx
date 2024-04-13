@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'next/navigation';
 import { Box, Flex } from '@ahhachul/react-components-layout';
 
 import { UiComponent } from '@/src/components';
@@ -11,17 +12,16 @@ import { useRouter } from 'next/router';
 import { LostType } from '@/src/types';
 
 function ListSection() {
+  const params = useParams();
   const { query } = useRouter();
   const { data, hasNextPage, fetchNextPage, isFetchingNextPage } = useGetLostList({
     page: 0,
     size: 20,
+    hashTag: query?.tag as string,
     keyword: query?.keyword as string,
-    hashTag: (query?.tag as string)?.replace('#', ''),
     lostType: (query?.lostType as LostType) || 'ACQUIRE',
+    ...(params?.subwayLineId?.[0] && { subwayLineId: params?.subwayLineId?.[0] as string }),
   });
-
-  console.log('hashtag:', query?.tag);
-  console.log('keyword:', query?.keyword);
 
   const flatData = flattenInfinityListData(data);
 

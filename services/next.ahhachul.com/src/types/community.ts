@@ -55,7 +55,7 @@ export interface ICommunityParams extends IPageParams {
   /** 커뮤니티 포스트 카테고리 타입  */
   categoryType?: CommunityCategoryType;
   /**  커뮤니티 포스트 호선 */
-  subwayLineId?: number;
+  subwayLineId?: string;
   /** 검색하고자 하는 내용 */
   content?: string;
   /** 검색하고자 하는 해시 태그 */
