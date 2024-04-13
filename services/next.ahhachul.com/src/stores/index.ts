@@ -6,6 +6,7 @@ import { authReducer } from './auth';
 import { uiReducer } from './ui';
 import { complaintReducer } from './complaints';
 import { blindDateReducer } from './blindDate';
+import { searchReducer } from './search';
 
 export type RootState = ReturnType<typeof store.getState>;
 type AppDispatch = typeof store.dispatch;
@@ -19,6 +20,7 @@ const persistConfig = {
 const reducers = combineReducers({
   auth: authReducer,
   ui: uiReducer,
+  search: searchReducer,
   complaint: complaintReducer,
   blindDate: blindDateReducer,
 });

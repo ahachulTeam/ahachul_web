@@ -8,10 +8,15 @@ import IconBellActive from '@/src/static/icons/system/IconBellActive';
 import IconSearch from '@/src/static/icons/system/IconSearch';
 import mockProfile from '@/src/static/img/mocks/mock3.png';
 import { headerWrap, left, right } from './style';
+import { useDispatch } from 'react-redux';
+import { showModal } from '@/src/stores/search/reducer';
 
 const SearchHeader = () => {
   const { push, replace } = useRouter();
   const { auth } = useAppSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+  const handleSearchModalOpen = () => dispatch(showModal());
 
   const handleLogoClick = throttle(() => replace(PATH.home), 1000);
 
@@ -22,8 +27,6 @@ const SearchHeader = () => {
   const clickMeBtn = throttle(() => {
     push(auth?.accessToken ? PATH.me : PATH.signin);
   }, 1000);
-
-  const handleSearchModalOpen = () => {};
 
   return (
     <header css={headerWrap}>

@@ -1,16 +1,16 @@
 import React from 'react';
 import { CSSObject } from '@emotion/react';
-// import { useAppSelector } from '@/src/stores';
+import { useAppSelector } from '@/src/stores';
 import { motion } from 'framer-motion';
 
 import { AnimatePortal } from '../../Portal';
 import { defaultFadeInVariants } from '@/src/data/motion';
 
 const FadeInModal = ({ children }: { children: React.ReactNode }) => {
-  // const { showModal } = useAppSelector((state) => state.search);
+  const { showModal } = useAppSelector((state) => state.search);
 
   return (
-    <AnimatePortal isShowing={false} mode="sync">
+    <AnimatePortal isShowing={showModal} mode="sync">
       <div css={dim}>
         <motion.dialog
           css={dialog}

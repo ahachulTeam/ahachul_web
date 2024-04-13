@@ -3,13 +3,13 @@ import React from 'react';
 import { Flex } from '@ahhachul/react-components-layout';
 import { Button } from '@ahhachul/react-components-button';
 import { Theme } from '@emotion/react';
-// import { hideModal } from '@/src/stores/search/reducer';
-// import { useDispatch } from 'react-redux';
+import { hideModal } from '@/src/stores/search/reducer';
+import { useDispatch } from 'react-redux';
 
 function HistoryList() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const close = () => {
-    // dispatch(hideModal());
+    dispatch(hideModal());
   };
 
   return (

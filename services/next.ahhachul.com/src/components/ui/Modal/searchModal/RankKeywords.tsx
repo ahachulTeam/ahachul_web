@@ -3,13 +3,13 @@ import React from 'react';
 import { Flex } from '@ahhachul/react-components-layout';
 import IconPolygon from '@/src/static/icons/system/IconPolygon';
 import { Theme } from '@emotion/react';
-// import { useDispatch } from 'react-redux';
-// import { hideModal } from '@/src/stores/search/reducer';
+import { useDispatch } from 'react-redux';
+import { hideModal } from '@/src/stores/search/reducer';
 
 function RankKeywords() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const close = () => {
-    // dispatch(hideModal());
+    dispatch(hideModal());
   };
 
   return (

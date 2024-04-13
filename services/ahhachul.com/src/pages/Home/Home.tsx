@@ -16,7 +16,7 @@ const Home: ActivityComponentType = () => {
   return (
     <Layout activeTab={'Home'}>
       {/* {hasWarning && <UiComponent.FixedWarning />} */}
-      {auth?.token.accessToken ? <HomeComponent.Dashboard /> : <HomeComponent.Landing />}
+      {auth?.accessToken ? <HomeComponent.Dashboard /> : <HomeComponent.Landing />}
       <UiComponent.Footer />
     </Layout>
   );
