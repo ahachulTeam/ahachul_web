@@ -31,5 +31,19 @@ export const getComplaintDetail = async (postId: string) => {
 
 /** 민원 생성  */
 export const post = async (body: IComplaintForm) => {
-  return await base.post<IResponse<null>>(getComplaintsPostURL, body);
+  const formData = new FormData();
+  for (const [key, value] of Object.entries(body)) {
+    if (key !== 'imageFiles') {
+      formData.append(key, value);
+    }
+  }
+  if (body?.imageFiles) {
+    formData.append('imageFiles', body.imageFiles);
+  }
+
+  return await base.post<IResponse<null>>(getComplaintsPostURL, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 };

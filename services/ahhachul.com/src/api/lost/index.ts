@@ -30,5 +30,19 @@ export const getLostDetail = async (postId: string) => {
 
 /**  유실물 포스트 생성  */
 export const post = async (body: ILostArticleForm) => {
-  return await base.post<IResponse<Partial<GetLostDetailResponse>>>(getLostURL, body);
+  const formData = new FormData();
+  for (const [key, value] of Object.entries(body)) {
+    if (key !== 'imageFiles') {
+      formData.append(key, value);
+    }
+  }
+  if (body?.imageFiles) {
+    formData.append('imageFiles', body.imageFiles);
+  }
+
+  return await base.post<IResponse<Partial<GetLostDetailResponse>>>(getLostURL, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 };

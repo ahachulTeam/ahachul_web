@@ -1,5 +1,6 @@
 import { IPageParams } from './request';
 import { ImageType, ListResponse } from './response';
+import { Nullable } from './utility-types';
 
 export interface IComplaintStore {
   activeView: ComplaintViewType;
@@ -62,4 +63,6 @@ export interface IComplaintForm {
   shortContent: string;
   /** 민원 타입 */
   complaintType: string;
+  /** 첨부 이미지 */
+  imageFiles: Nullable<File>;
 }

@@ -30,5 +30,19 @@ export const getCommunityDetail = async (postId: string) => {
 
 /**  커뮤니티 포스트 생성  */
 export const post = async (body: ICommunityArticleForm) => {
-  return await base.post<IResponse<Partial<GetCommunityDetailResponse>>>(getCommunityURL, body);
+  const formData = new FormData();
+  for (const [key, value] of Object.entries(body)) {
+    if (key !== 'imageFiles') {
+      formData.append(key, value);
+    }
+  }
+  if (body?.imageFiles) {
+    formData.append('imageFiles', body.imageFiles);
+  }
+
+  return await base.post<IResponse<Partial<GetCommunityDetailResponse>>>(getCommunityURL, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 };
