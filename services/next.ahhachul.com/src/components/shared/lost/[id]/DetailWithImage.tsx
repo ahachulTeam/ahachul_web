@@ -4,8 +4,8 @@ import { UiComponent } from '@/src/components';
 import IconBookmark from '@/src/static/icons/system/IconBookmark';
 import IconHeart from '@/src/static/icons/system/IconHeart';
 
-import { userName, time, category, btn, commentTitle, commentList } from './style';
-import Comment from './Comment';
+import { userName, time, category, btn, commentTitle } from './style';
+// import Comment from './Comment';
 import { ILostDetail } from '@/src/types';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { formatDate } from '@/src/utils/time';
@@ -56,7 +56,7 @@ function DetailWithImage({ data }: { data: ILostDetail }) {
       </Flex>
       <UiComponent.Divider color="hsla(0, 0%, 100%, .06)" />
       <Flex justify="space-between" align="center" style={{ padding: '18px 20px 0' }}>
-        <span css={commentTitle}>댓글 99</span>
+        <span css={commentTitle}>댓글 0</span>
         <Flex align="center" gap="12px">
           <span css={btn(true)}>인기순</span>
           <span css={btn(false)}>등록순</span>
@@ -64,7 +64,7 @@ function DetailWithImage({ data }: { data: ILostDetail }) {
       </Flex>
 
       {/* 댓글 */}
-      <ul css={commentList}>
+      {/* <ul css={commentList}>
         <Comment />
         <Comment />
         <Comment />
@@ -74,7 +74,7 @@ function DetailWithImage({ data }: { data: ILostDetail }) {
         <Comment />
         <Comment />
         <Comment />
-      </ul>
+      </ul> */}
     </>
   );
 }

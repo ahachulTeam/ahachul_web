@@ -1,18 +1,15 @@
 import React, { PropsWithChildren } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, HydrationBoundary } from '@tanstack/react-query';
+import type { AppProps } from 'next/app';
 
-function QueryProvider({ children }: PropsWithChildren) {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: 1000 * 60, // 1분
-        refetchOnMount: false,
-        refetchOnWindowFocus: false,
-      },
-    },
-  });
+function QueryProvider({ pageProps, children }: PropsWithChildren<{ pageProps: AppProps['pageProps'] }>) {
+  const [queryClient] = React.useState(() => new QueryClient());
 
-  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <HydrationBoundary state={pageProps.dehydratedState}>{children}</HydrationBoundary>
+    </QueryClientProvider>
+  );
 }
 
 export default QueryProvider;

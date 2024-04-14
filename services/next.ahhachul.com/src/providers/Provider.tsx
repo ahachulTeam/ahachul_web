@@ -5,15 +5,16 @@ import { store } from '@/src/stores';
 import { theme, global } from '@/src/styles';
 import QueryProvider from './QueryProvider';
 import ThemeScript from './ThemeScript';
+import type { AppProps } from 'next/app';
 
-function AppProvider({ children }: PropsWithChildren) {
+function AppProvider({ pageProps, children }: PropsWithChildren<{ pageProps: AppProps['pageProps'] }>) {
   return (
     <>
       <ThemeScript />
       <Global styles={global} />
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider pageProps={pageProps}>{children}</QueryProvider>
         </Provider>
       </ThemeProvider>
     </>

@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <SEO pageProps={pageProps} />
-      <AppProvider>
+      <AppProvider pageProps={pageProps}>
         <Component {...pageProps} />
       </AppProvider>
     </>
