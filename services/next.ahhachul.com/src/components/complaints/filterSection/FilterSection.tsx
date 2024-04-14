@@ -22,8 +22,8 @@ const FilterSection = () => {
 
   const [show, toggle] = useReducer((c) => !c, false);
   const handleSubwayLine = (subwayLine: Nullable<string>) => {
-    if (!subwayLine) router.push(PATH.lost);
-    else router.push(`${PATH.lost}/${subwayLine}`);
+    if (!subwayLine) router.push(PATH.complaints);
+    else router.push(`${PATH.complaints}/${subwayLine}`);
   };
 
   return (
