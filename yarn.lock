@@ -18144,7 +18144,6 @@ __metadata:
     react-redux: "npm:^9.1.0"
     react-spring-bottom-sheet: "npm:^3.4.1"
     react-timer-hook: "npm:^3.0.7"
-    redux-persist: "npm:^6.0.0"
     rxjs: "npm:^7.8.1"
     typescript: "npm:^5"
   languageName: unknown

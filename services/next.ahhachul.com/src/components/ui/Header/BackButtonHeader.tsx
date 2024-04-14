@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 import { IHeaderProps } from '@/src/types';
 import { PATH } from '@/src/data';
@@ -11,11 +11,13 @@ const BackButtonHeader = ({ title }: IHeaderProps) => {
 
   const handleBackIconClick = () => {
     const storage = globalThis?.sessionStorage;
-    if (!storage) router.push(PATH.home);
+    if (!storage) router.replace(PATH.home);
     else {
       const hasBackHistory = isHistoryExist(storage);
-      if (hasBackHistory) router.back();
-      else router.push(PATH.home);
+      if (hasBackHistory) {
+        const history = storage.getItem('prevPath') as string;
+        router.replace(history, history, { shallow: true });
+      } else router.replace(PATH.home);
     }
   };
 

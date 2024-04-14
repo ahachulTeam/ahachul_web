@@ -23,6 +23,10 @@ export const formatDate = (date: Date): string => {
   const hours = String(date.getHours()).slice(-2);
   const minutes = String(date.getMinutes()).slice(-2);
 
+  if (hours === '0' && minutes === '0') {
+    return `${month}월${day}일 1시`;
+  }
+
   if (minutes === '0') {
     return `${month}월${day}일 ${hours}시`;
   }

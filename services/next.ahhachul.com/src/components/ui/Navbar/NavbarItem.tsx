@@ -4,12 +4,12 @@ import IconSubmissionView from '@/src/static/icons/complaints/IconSubmissionView
 import IconCirclePlus from '@/src/static/icons/system/IconCirclePlus';
 import { IconType } from '@/src/types';
 import { itemWrap, plusBtn, complaintToggle } from './style';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { PATH } from '@/src/data';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/src/stores';
 import { setView } from '@/src/stores/complaints';
-import { PrefetchKind } from 'next/dist/client/components/router-reducer/router-reducer-types';
 
 interface TabItemProps {
   href: string;
@@ -25,7 +25,7 @@ const TabItem: React.FC<TabItemProps> = ({ href, Icon, label, scrollToTop }) => 
 
   const handleTabClick = () => {
     if (isActive) scrollToTop();
-    else push(href);
+    else push(href, href, { shallow: true });
   };
 
   const routeToEditor = useCallback(() => {
@@ -34,9 +34,9 @@ const TabItem: React.FC<TabItemProps> = ({ href, Icon, label, scrollToTop }) => 
   }, [href, push]);
 
   useEffect(() => {
-    prefetch(PATH.complaints, { kind: PrefetchKind.FULL });
-    prefetch(PATH.lost, { kind: PrefetchKind.FULL });
-    prefetch(PATH.community, { kind: PrefetchKind.FULL });
+    prefetch(PATH.complaints, PATH.complaints, { priority: true });
+    prefetch(PATH.lost, PATH.complaints, { priority: true });
+    prefetch(PATH.community, PATH.complaints, { priority: true });
   }, []);
 
   return (
