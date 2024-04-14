@@ -1,11 +1,10 @@
-import React, { memo, useCallback, useEffect } from 'react';
+import React, { memo, useCallback } from 'react';
 import IconListView from '@/src/static/icons/complaints/IconListView';
 import IconSubmissionView from '@/src/static/icons/complaints/IconSubmissionView';
 import IconCirclePlus from '@/src/static/icons/system/IconCirclePlus';
 import { IconType } from '@/src/types';
 import { itemWrap, plusBtn, complaintToggle } from './style';
-import { usePathname } from 'next/navigation';
-import { useRouter } from 'next/router';
+import { useRouter, usePathname } from 'next/navigation';
 import { PATH } from '@/src/data';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/src/stores';
@@ -19,25 +18,19 @@ interface TabItemProps {
 }
 
 const TabItem: React.FC<TabItemProps> = ({ href, Icon, label, scrollToTop }) => {
-  const { push, prefetch } = useRouter();
+  const { push } = useRouter();
   const pathname = usePathname();
   const isActive = href === PATH.home ? pathname === PATH.home : pathname?.includes(href);
 
   const handleTabClick = () => {
     if (isActive) scrollToTop();
-    else push(href, href, { shallow: true });
+    else push(href);
   };
 
   const routeToEditor = useCallback(() => {
     if (href === PATH.lost) push(PATH.lostEditor);
     else push(PATH.communityEditor);
   }, [href, push]);
-
-  useEffect(() => {
-    prefetch(PATH.complaints, PATH.complaints, { priority: true });
-    prefetch(PATH.lost, PATH.complaints, { priority: true });
-    prefetch(PATH.community, PATH.complaints, { priority: true });
-  }, []);
 
   return (
     <div css={itemWrap(isActive)}>
