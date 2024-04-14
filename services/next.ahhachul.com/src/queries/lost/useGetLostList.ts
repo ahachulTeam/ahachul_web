@@ -18,4 +18,3 @@ export const useGetLostList = (
     getNextPageParam: (lastPage) => lastPage.data.result.nextPageNum,
   });
 };
-

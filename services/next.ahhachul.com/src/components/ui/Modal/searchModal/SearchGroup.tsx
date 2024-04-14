@@ -45,10 +45,18 @@ function SearchGroup() {
     if (/^#/.test(inputRef.current!.value)) {
       router.push(
         `${asPath[0]}?tag=${inputRef.current!.value?.replace('#', '')}${categoryType ? `&categoryType=${categoryType}` : ''}`,
+        undefined,
+        {
+          shallow: true,
+        },
       );
     } else {
       router.push(
         `${asPath[0]}?keyword=${inputRef.current!.value}${categoryType ? `&categoryType=${categoryType}` : ''}`,
+        undefined,
+        {
+          shallow: true,
+        },
       );
     }
   };

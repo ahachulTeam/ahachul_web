@@ -16,7 +16,9 @@ const HashTagList = () => {
 
   const searchHashTag = (hashTag: string) => () => {
     debouncedHide();
-    router.push(`${asPath[0]}?tag=${hashTag.replace('#', '')}${categoryType ? `&categoryType=${categoryType}` : ''}`);
+    router.push(`${asPath[0]}?tag=${hashTag.replace('#', '')}${categoryType ? `&categoryType=${categoryType}` : ''}`, undefined, {
+      shallow: true,
+    });
   };
 
   return (

@@ -19,13 +19,19 @@ const FilterSection = () => {
   const categoryType = router?.query?.categoryType;
 
   const handleDeleteKeyword = () => {
-    router.push(`${router.asPath?.split('?')?.[0]}${categoryType ? `?categoryType=${categoryType}` : ''}`);
+    router.push(`${router.asPath?.split('?')?.[0]}${categoryType ? `?categoryType=${categoryType}` : ''}`, undefined, {
+      shallow: true,
+    });
   };
 
   const [show, toggle] = useReducer((c) => !c, false);
   const handleSubwayLine = (subwayLine: Nullable<string>) => {
-    if (!subwayLine) router.push(`${PATH.lost}${categoryType ? `?categoryType=${categoryType}` : ''}`);
-    else router.push(`${PATH.lost}/${subwayLine}${categoryType ? `?categoryType=${categoryType}` : ''}`);
+    if (!subwayLine)
+      router.push(`${PATH.lost}${categoryType ? `?categoryType=${categoryType}` : ''}`, undefined, { shallow: true });
+    else
+      router.push(`${PATH.lost}/${subwayLine}${categoryType ? `?categoryType=${categoryType}` : ''}`, undefined, {
+        shallow: true,
+      });
   };
 
   return (

@@ -24,7 +24,9 @@ function TabSection() {
   const activeTab = router.query?.categoryType || Object.keys(LOST_AND_FOUND_TABS)[0];
 
   const handleTab = (categoryType: LostType) => () => {
-    router.push(`${asPath[0]}?categoryType=${categoryType}`);
+    router.push(`${asPath[0]}?categoryType=${categoryType}`, undefined, {
+      shallow: true,
+    });
   };
 
   return (

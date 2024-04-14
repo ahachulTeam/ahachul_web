@@ -37,7 +37,9 @@ function TabSection() {
   const activeTab = router.query?.categoryType || Object.keys(COMMUNITY_TABS)[0];
 
   const handleTab = (categoryType: CommunityCategoryType) => () => {
-    router.push(`${asPath[0]}?categoryType=${categoryType}`);
+    router.push(`${asPath[0]}?categoryType=${categoryType}`, undefined, {
+      shallow: true,
+    });
   };
 
   return (

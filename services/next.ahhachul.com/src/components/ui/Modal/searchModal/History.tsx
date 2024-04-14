@@ -15,7 +15,9 @@ function HistoryList() {
   const dispatch = useDispatch();
   const close = (keyword: string) => () => {
     dispatch(hideModal());
-    router.push(`${asPath[0]}?keyword=${keyword}${categoryType ? `&categoryType=${categoryType}` : ''}`);
+    router.push(`${asPath[0]}?keyword=${keyword}${categoryType ? `&categoryType=${categoryType}` : ''}`, undefined, {
+      shallow: true,
+    });
   };
 
   return (

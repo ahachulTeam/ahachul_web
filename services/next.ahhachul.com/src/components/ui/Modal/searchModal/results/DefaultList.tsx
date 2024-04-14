@@ -17,7 +17,9 @@ const DefaultList = () => {
 
   const searchKeyword = (keyword: string) => () => {
     debouncedHide();
-    router.push(`${asPath[0]}?keyword=${keyword}${categoryType ? `&categoryType=${categoryType}` : ''}`);
+    router.push(`${asPath[0]}?keyword=${keyword}${categoryType ? `&categoryType=${categoryType}` : ''}`, undefined, {
+      shallow: true,
+    });
   };
 
   return (

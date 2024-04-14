@@ -17,13 +17,21 @@ const FilterSection = () => {
   const subwayLineId = params?.subwayLineId?.[0];
 
   const handleDeleteKeyword = () => {
-    router.push(`${router.asPath?.split('?')?.[0]}`);
+    router.push(`${router.asPath?.split('?')?.[0]}`, undefined, {
+      shallow: true,
+    });
   };
 
   const [show, toggle] = useReducer((c) => !c, false);
   const handleSubwayLine = (subwayLine: Nullable<string>) => {
-    if (!subwayLine) router.push(PATH.complaints);
-    else router.push(`${PATH.complaints}/${subwayLine}`);
+    if (!subwayLine)
+      router.push(PATH.complaints, undefined, {
+        shallow: true,
+      });
+    else
+      router.push(`${PATH.complaints}/${subwayLine}`, undefined, {
+        shallow: true,
+      });
   };
 
   return (
