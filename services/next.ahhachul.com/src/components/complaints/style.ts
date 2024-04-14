@@ -1,6 +1,8 @@
 import { CSSObject, Theme } from '@emotion/react';
 import { f } from '@/src/styles';
 
+const titleSectionHeight = '18.4px';
+const filterSectionHeight = '46px';
 const paddingTopHeight = '14px';
 
 const wrap = [
@@ -94,7 +96,7 @@ const err = [
     bottom: navbar,
     left: '50%',
     transform: 'translateX(-50%)',
-    minHeight: `calc(100vh - ${header} - ${navbar} - ${paddingTopHeight})`,
+    minHeight: `calc(100vh - ${header} - ${navbar} - ${titleSectionHeight} - ${filterSectionHeight} - ${paddingTopHeight})`,
     boxSizing: 'border-box',
   }),
 ];

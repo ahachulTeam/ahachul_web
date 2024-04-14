@@ -1,15 +1,15 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import IconListView from '@/src/static/icons/complaints/IconListView';
 import IconSubmissionView from '@/src/static/icons/complaints/IconSubmissionView';
 import IconCirclePlus from '@/src/static/icons/system/IconCirclePlus';
 import { IconType } from '@/src/types';
 import { itemWrap, plusBtn, complaintToggle } from './style';
-import { useRouter } from 'next/router';
-import { usePathname } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { PATH } from '@/src/data';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/src/stores';
 import { setView } from '@/src/stores/complaints';
+import { PrefetchKind } from 'next/dist/client/components/router-reducer/router-reducer-types';
 
 interface TabItemProps {
   href: string;
@@ -19,7 +19,7 @@ interface TabItemProps {
 }
 
 const TabItem: React.FC<TabItemProps> = ({ href, Icon, label, scrollToTop }) => {
-  const { push } = useRouter();
+  const { push, prefetch } = useRouter();
   const pathname = usePathname();
   const isActive = href === PATH.home ? pathname === PATH.home : pathname?.includes(href);
 
@@ -32,6 +32,12 @@ const TabItem: React.FC<TabItemProps> = ({ href, Icon, label, scrollToTop }) => 
     if (href === PATH.lost) push(PATH.lostEditor);
     else push(PATH.communityEditor);
   }, [href, push]);
+
+  useEffect(() => {
+    prefetch(PATH.complaints, { kind: PrefetchKind.FULL });
+    prefetch(PATH.lost, { kind: PrefetchKind.FULL });
+    prefetch(PATH.community, { kind: PrefetchKind.FULL });
+  }, []);
 
   return (
     <div css={itemWrap(isActive)}>

@@ -1,11 +1,14 @@
 import { CSSObject, Theme } from '@emotion/react';
-import { useDispatch } from 'react-redux';
 import IconChevron from '@/src/static/icons/system/IconChevron';
-import { addSnackBar } from '@/src/stores/ui';
 import { f } from '@/src/styles';
 import { useParams } from 'next/navigation';
 import { useRouter } from 'next/router';
 import IconCircleClose from '@/src/static/icons/system/IconCircleClose';
+import { useReducer } from 'react';
+import { UiComponent } from '../..';
+import { PATH } from '@/src/data';
+import { exportLineNameWithSubwayLineId } from '@/src/utils/export';
+import { Nullable } from '@/src/types';
 
 const FilterSection = () => {
   const params = useParams();
@@ -19,31 +22,40 @@ const FilterSection = () => {
     router.push(`${router.asPath?.split('?')?.[0]}${categoryType ? `?categoryType=${categoryType}` : ''}`);
   };
 
-  const dispatch = useDispatch();
-  const handleClickFilter = () => {
-    dispatch(addSnackBar({ message: '준비중이에요', posBottom: 155 }));
+  const [show, toggle] = useReducer((c) => !c, false);
+  const handleSubwayLine = (subwayLine: Nullable<string>) => {
+    if (!subwayLine) router.push(PATH.lost);
+    else router.push(`${PATH.lost}/${subwayLine}`);
   };
 
   return (
-    <section css={wrap}>
-      <ul css={ul}>
-        {(keyword || hashTag) && (
+    <>
+      <section css={wrap}>
+        <ul css={ul}>
+          {(keyword || hashTag) && (
+            <li>
+              <button css={keywordBtn}>
+                {keyword && keyword}
+                {hashTag && `#${hashTag}`}
+                <IconCircleClose onClick={handleDeleteKeyword} />
+              </button>
+            </li>
+          )}
           <li>
-            <button css={keywordBtn}>
-              {keyword && keyword}
-              {hashTag && `#${hashTag}`}
-              <IconCircleClose onClick={handleDeleteKeyword} />
+            <button css={filterBtn(Boolean(subwayLineId))} onClick={toggle}>
+              {subwayLineId ? exportLineNameWithSubwayLineId(subwayLineId) : '호선'}
+              <IconChevron />
             </button>
           </li>
-        )}
-        <li>
-          <button css={filterBtn(Boolean(subwayLineId))} onClick={handleClickFilter}>
-            {subwayLineId || ''}호선
-            <IconChevron />
-          </button>
-        </li>
-      </ul>
-    </section>
+        </ul>
+      </section>
+      <UiComponent.SubwayLineBottomSheet
+        isShowing={show}
+        subwayLineId={subwayLineId}
+        onClose={toggle}
+        handleSubwayLine={handleSubwayLine}
+      />
+    </>
   );
 };
 

@@ -1,8 +1,9 @@
 export const zIndexes = {
-  dimmed: 100,
+  dimmed: 200,
   dialog: 200,
-  bottomSheet: 300,
   alert: 400,
   nav: 1000,
   toast: 1500,
+  bottomSheetDimmed: 2000,
+  bottomSheet: 3000,
 };

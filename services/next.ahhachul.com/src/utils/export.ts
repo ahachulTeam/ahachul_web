@@ -37,16 +37,18 @@ export const exportLineNameWithSubwayLineId = (lineId?: string) => {
       return '8호선';
     case '9':
       return '9호선';
-    case 'S':
-      return '신림선';
-    case 'UL':
-      return '우의신설선';
-    case 'D':
+    case '10':
       return '신분당선';
-    case 'SI':
+    case '11':
       return '수인분당선';
-    case 'GJ':
+    case '12':
       return '경의중앙선';
+    case '13':
+      return '우의신설선';
+    case '14':
+      return '신림선';
+      case '15':
+        return '공항선';
     default:
       return '기타 호선';
   }
@@ -81,20 +83,29 @@ export const exportHexColorWidthLineName = (lineName: string) => {
     case '9':
     case '9호선':
       return '#BDB092';
-    case 'SI':
-      return '#FABE00';
-    case 'D':
+    case '10':
+    case '신분당선':
       return '#D31145';
-    case 'S':
-      return '#6789CA';
-    case 'UL':
+    case '11':
+    case '수인분당선':
+      return '#FABE00';
+    case '12':
+    case '경의중앙선':
+      return '#77C4A3';
+    case '13':
+    case '우의신설선':
       return '#B7C450';
+    case '14':
+    case '신림선':
+      return '#6789CA';
+    case '15':
+    case '공항선':
+      return '#0090D2';
     case '경춘선':
       return '#178C72';
     case '경강선':
       return '#0054A6';
-    case 'GJ':
-      return '#77C4A3';
+
     default:
       return 'rgba(245, 249, 254, 0.11)';
   }

@@ -6,7 +6,6 @@ export { default as SnackBar } from './SnackBar';
 export { default as Toggle } from './Toggle';
 export { default as Editor } from './Editor';
 export { default as BottomDim } from './BottomDim';
-export { default as BottomSheet } from './BottomSheet';
 export { default as TextRenderer } from './TextRenderer';
 export { default as FixedWarning } from './FixedWarning';
 export { default as PartialLoading } from './PartialLoading';
@@ -14,3 +13,4 @@ export { default as VisibilityLoader } from './VisibilityLoader';
 
 export * from './Modal';
 export * from './Dialog';
+export * from './BottomSheet';

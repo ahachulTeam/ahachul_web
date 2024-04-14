@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  // reactStrictMode: true,
+  /** react-spring-bottom-sheet issue */
+  reactStrictMode: false,
   eslint: {
     ignoreDuringBuilds: true,
   },
