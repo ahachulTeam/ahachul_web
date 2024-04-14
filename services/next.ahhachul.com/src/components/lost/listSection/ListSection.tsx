@@ -19,7 +19,7 @@ function ListSection() {
     size: 20,
     hashTag: query?.tag as string,
     keyword: query?.keyword as string,
-    lostType: (query?.lostType as LostType) || 'ACQUIRE',
+    lostType: (query?.categoryType as LostType) || 'ACQUIRE',
     ...(params?.subwayLineId?.[0] && { subwayLineId: params?.subwayLineId?.[0] as string }),
   });
 

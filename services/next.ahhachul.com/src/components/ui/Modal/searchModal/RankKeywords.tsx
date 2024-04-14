@@ -9,11 +9,13 @@ import { hideModal } from '@/src/stores/search/reducer';
 
 function RankKeywords() {
   const router = useRouter();
+  const asPath = router.asPath.split('?');
+  const categoryType = router.query?.categoryType;
+
   const dispatch = useDispatch();
   const close = (keyword: string) => () => {
     dispatch(hideModal());
-    const asPath = router.asPath.split('?');
-    router.push(`${asPath[0]}?keyword=${keyword}`);
+    router.push(`${asPath[0]}?keyword=${keyword}${categoryType ? `&categoryType=${categoryType}` : ''}`);
   };
 
   return (

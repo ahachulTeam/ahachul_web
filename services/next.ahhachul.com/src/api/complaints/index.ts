@@ -9,13 +9,14 @@ import type {
   IComplaintList as GetComplaintListResponse,
   IComplaintParams as GetComplaintListParams,
 } from '@/src/types';
+import { removeEmptyProperties } from '@/src/utils/object';
 
 export const getComplaintURL = `${API_BASE_URL}/complaints`;
 export const getComplaintsPostURL = `${API_BASE_URL}/complaints/messages`;
 
 /**  커뮤니티 포스트 리스트 조회 */
 export const getComplaintList = async (params: GetComplaintListParams) => {
-  const queryParams = queryString.stringify(params);
+  const queryParams = queryString.stringify(removeEmptyProperties(params));
 
   const url = `${getComplaintURL}?${queryParams}`;
 

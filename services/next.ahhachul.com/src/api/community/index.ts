@@ -9,12 +9,13 @@ import {
   ICommunityArticleForm,
 } from '@/src/types';
 import { API_BASE_URL } from '@/src/data/api';
+import { removeEmptyProperties } from '@/src/utils/object';
 
 export const getCommunityURL = `${API_BASE_URL}/community-posts`;
 
 /**  커뮤니티 포스트 리스트 조회 */
 export const getCommunityList = async (params: GetCommunityListRequestParams) => {
-  const queryParams = queryString.stringify(params);
+  const queryParams = queryString.stringify(removeEmptyProperties(params));
 
   const url = `${getCommunityURL}?${queryParams}`;
 

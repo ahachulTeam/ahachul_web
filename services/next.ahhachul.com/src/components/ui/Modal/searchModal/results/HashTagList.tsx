@@ -7,14 +7,16 @@ import { f } from '@/src/styles';
 
 const HashTagList = () => {
   const router = useRouter();
+  const asPath = router.asPath.split('?');
+  const categoryType = router.query?.categoryType;
+
   const dispatch = useDispatch();
   const closeModal = () => dispatch(hideModal());
   const debouncedHide = debounce(closeModal, 200);
 
   const searchHashTag = (hashTag: string) => () => {
     debouncedHide();
-    const asPath = router.asPath.split('?');
-    router.push(`${asPath[0]}?tag=${hashTag.replace('#', '')}`);
+    router.push(`${asPath[0]}?tag=${hashTag.replace('#', '')}${categoryType ? `&categoryType=${categoryType}` : ''}`);
   };
 
   return (

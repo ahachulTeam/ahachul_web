@@ -33,10 +33,10 @@ const COMMUNITY_TABS = {
 
 function TabSection() {
   const router = useRouter();
+  const asPath = router.asPath.split('?');
   const activeTab = router.query?.categoryType || Object.keys(COMMUNITY_TABS)[0];
 
   const handleTab = (categoryType: CommunityCategoryType) => () => {
-    const asPath = router.asPath.split('?');
     router.push(`${asPath[0]}?categoryType=${categoryType}`);
   };
 

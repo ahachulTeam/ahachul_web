@@ -20,11 +20,11 @@ const LOST_AND_FOUND_TABS = {
 
 function TabSection() {
   const router = useRouter();
-  const activeTab = router.query?.lostType || Object.keys(LOST_AND_FOUND_TABS)[0];
+  const asPath = router.asPath.split('?');
+  const activeTab = router.query?.categoryType || Object.keys(LOST_AND_FOUND_TABS)[0];
 
-  const handleTab = (lostType: LostType) => () => {
-    const asPath = router.asPath.split('?');
-    router.push(`${asPath[0]}?lostType=${lostType}`);
+  const handleTab = (categoryType: LostType) => () => {
+    router.push(`${asPath[0]}?categoryType=${categoryType}`);
   };
 
   return (

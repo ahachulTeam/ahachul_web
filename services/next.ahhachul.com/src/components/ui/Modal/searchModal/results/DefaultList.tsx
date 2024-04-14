@@ -8,14 +8,16 @@ import { f } from '@/src/styles';
 
 const DefaultList = () => {
   const router = useRouter();
+  const asPath = router.asPath.split('?');
+  const categoryType = router.query?.categoryType;
+
   const dispatch = useDispatch();
   const closeModal = () => dispatch(hideModal());
   const debouncedHide = debounce(closeModal, 200);
 
   const searchKeyword = (keyword: string) => () => {
     debouncedHide();
-    const asPath = router.asPath.split('?');
-    router.push(`${asPath[0]}?keyword=${keyword}`);
+    router.push(`${asPath[0]}?keyword=${keyword}${categoryType ? `&categoryType=${categoryType}` : ''}`);
   };
 
   return (

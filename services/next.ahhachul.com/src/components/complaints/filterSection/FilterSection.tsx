@@ -3,14 +3,19 @@ import { useDispatch } from 'react-redux';
 import IconChevron from '@/src/static/icons/system/IconChevron';
 import { addSnackBar } from '@/src/stores/ui';
 import { f } from '@/src/styles';
-
-// const filterSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" stroke="rgb(196, 212, 252)" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-// <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
-// </svg>
-// `;
+import { useParams } from 'next/navigation';
+import { useRouter } from 'next/router';
+import IconCircleClose from '@/src/static/icons/system/IconCircleClose';
 
 const FilterSection = () => {
-  let hasConditions = false;
+  const params = useParams();
+  const router = useRouter();
+  const keyword = router?.query?.keyword;
+  const subwayLineId = params?.subwayLineId?.[0];
+
+  const handleDeleteKeyword = () => {
+    router.push(`${router.asPath?.split('?')?.[0]}`);
+  };
 
   const dispatch = useDispatch();
   const handleClickFilter = () => {
@@ -19,10 +24,18 @@ const FilterSection = () => {
 
   return (
     <section css={wrap}>
-      <ul css={ul(hasConditions)}>
+      <ul css={ul}>
+        {keyword && (
+          <li>
+            <button css={keywordBtn}>
+              {keyword}
+              <IconCircleClose onClick={handleDeleteKeyword} />
+            </button>
+          </li>
+        )}
         <li>
-          <button css={filterBtn} onClick={handleClickFilter}>
-            호선
+          <button css={filterBtn(Boolean(subwayLineId))} onClick={handleClickFilter}>
+            {subwayLineId || ''}호선
             <IconChevron />
           </button>
         </li>
@@ -39,18 +52,23 @@ const wrap = [
   },
 ];
 
-const ul = (hasConditions: boolean): [CSSObject[], CSSObject, CSSObject] => [
+const ul: [CSSObject[], CSSObject, CSSObject, CSSObject] = [
   f.flexAlignCenter,
   f.overflowScroll,
+  f.posRel,
   {
     overflowY: 'hidden',
     overflowX: 'scroll',
-    justifyContent: hasConditions ? 'flex-start' : 'flex-end',
+    justifyContent: 'flex-end',
     gap: '8px',
   },
 ];
 
-const filterBtn = ({ typography: { fontSize, fontWeight } }: Theme) => ({
+const keywordBtn = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
+  position: 'absolute',
+  top: '50%',
+  left: 0,
+  transform: 'translateY(-50%)',
   flexShrink: 0,
   border: '1px solid rgb(196, 212, 252, 0.47)',
   height: '30px',
@@ -71,16 +89,49 @@ const filterBtn = ({ typography: { fontSize, fontWeight } }: Theme) => ({
   },
 
   '& > div': {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '16px',
-    height: '16px',
-    transform: 'rotate(90deg)',
+    width: '18px',
+    height: '18px',
+    zIndex: 10,
 
     '& > svg > path': {
       stroke: 'rgb(196, 212, 252)',
     },
   },
 });
+
+const filterBtn =
+  (hasCondition: boolean) =>
+  ({ typography: { fontSize, fontWeight } }: Theme) => ({
+    flexShrink: 0,
+    border: '1px solid rgb(196, 212, 252, 0.47)',
+    height: '30px',
+    borderRadius: '124px',
+    padding: '0 10px 0 14px',
+    width: 'max-content',
+    color: 'rgb(196, 212, 252)',
+    fontSize: fontSize[12],
+    fontWeight: hasCondition ? fontWeight[700] : fontWeight[600],
+    transition: 'opacity 0.3s ease-in-out',
+    willChange: 'opacity',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '4px',
+
+    '&:active': {
+      opacity: '0.4',
+    },
+
+    '& > div': {
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '16px',
+      height: '16px',
+      transform: 'rotate(90deg)',
+
+      '& > svg > path': {
+        stroke: 'rgb(196, 212, 252)',
+      },
+    },
+  });
 
 export default FilterSection;

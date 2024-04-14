@@ -9,12 +9,13 @@ import {
   ILostArticleForm,
 } from '@/src/types';
 import { API_BASE_URL } from '@/src/data/api';
+import { removeEmptyProperties } from '@/src/utils/object';
 
 export const getLostURL = `${API_BASE_URL}/lost-posts`;
 
 /**  분실물, 유실물 리스트 조회  => !!실제 백엔드 연동 중!! */
 export const getLostList = async (params: GetLostListRequestParams) => {
-  const queryParams = queryString.stringify(params);
+  const queryParams = queryString.stringify(removeEmptyProperties(params));
 
   const url = `${getLostURL}?${queryParams}`;
 

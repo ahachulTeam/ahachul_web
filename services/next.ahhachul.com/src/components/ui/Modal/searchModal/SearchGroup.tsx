@@ -15,6 +15,9 @@ import { useRouter } from 'next/router';
 // TODO: rxjs 사용해서 최적화하기
 function SearchGroup() {
   const router = useRouter();
+  const asPath = router.asPath.split('?');
+  const categoryType = router.query?.categoryType;
+
   const dispatch = useDispatch();
   const { showModal, history } = useAppSelector((state) => state.search);
 
@@ -39,12 +42,14 @@ function SearchGroup() {
     dispatch(setHistory([inputRef.current!.value, ...pastHistory]));
     debouncedHide();
 
-    const asPath = router.asPath.split('?');
-
     if (/^#/.test(inputRef.current!.value)) {
-      router.push(`${asPath[0]}?tag=${inputRef.current!.value?.replace('#', '')}`);
+      router.push(
+        `${asPath[0]}?tag=${inputRef.current!.value?.replace('#', '')}${categoryType ? `&categoryType=${categoryType}` : ''}`,
+      );
     } else {
-      router.push(`${asPath[0]}?keyword=${inputRef.current!.value}`);
+      router.push(
+        `${asPath[0]}?keyword=${inputRef.current!.value}${categoryType ? `&categoryType=${categoryType}` : ''}`,
+      );
     }
   };
 
