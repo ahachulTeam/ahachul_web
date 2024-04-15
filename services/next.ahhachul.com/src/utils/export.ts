@@ -10,7 +10,6 @@
  * 서해선
  * 김포골드
  */
-import { isEmpty } from 'lodash-es';
 
 import { COMPLAINTS_CONTENTS_TYPES } from '@/src/data/complaints';
 import { CongestionColorType, CurrentTrainArrivalType } from '@/src/types';
@@ -301,32 +300,17 @@ export const formatComplaintShortContentToKoSentence = (complaintShortContent?: 
   }
 };
 
-export const exportTitleFromPath = (
-  defaultTitle?: string,
-  pathname?: string,
-  params?: { subwayLineId?: string[] },
-): string => {
+export const exportTitleFromPath = (defaultTitle?: string, pathname?: string): string => {
   if (defaultTitle) return defaultTitle;
   else {
     switch (pathname) {
-      case pathname?.includes(PATH.home):
+      case PATH.home:
         return '아하철 - 1등 지하철&유실물 정보앱';
-      case pathname?.includes(PATH.complaints):
+      case PATH.complaints:
         return '지하철 민원 센터 by 아하철';
-      case pathname?.includes(PATH.lost):
-        if (isEmpty(params)) {
-          return '지하철 유실물 센터 by 아하철';
-        } else {
-          let target = '지하철';
-          let subwayInfo = exportLineNameWithSubwayLineId(params?.subwayLineId?.[0] as string | undefined);
-
-          if (subwayInfo && subwayInfo !== '기타 호선') {
-            target = subwayInfo;
-          }
-
-          return `${target} 유실물 센터 by 아하철`;
-        }
-      case pathname?.includes(PATH.community):
+      case PATH.lost:
+        return '지하철 유실물 센터 by 아하철';
+      case PATH.community:
         return '지하철 커뮤니티 by 아하철';
       default:
         return defaultMetadata.title;
