@@ -17,6 +17,17 @@ import { removeEmptyProperties } from './object';
 import { PATH } from '../data';
 import { defaultMetadata } from '../data/seo';
 
+import communityBanner from '@/src/static/img/banners/community_page_banner.png';
+import communityLine1Banner from '@/src/static/img/banners/community/line_1.png';
+import communityLine2Banner from '@/src/static/img/banners/community/line_2.png';
+import communityLine3Banner from '@/src/static/img/banners/community/line_3.png';
+import communityLine4Banner from '@/src/static/img/banners/community/line_4.png';
+import communityLine5Banner from '@/src/static/img/banners/community/line_5.png';
+import communityLine6Banner from '@/src/static/img/banners/community/line_6.png';
+import communityLine7Banner from '@/src/static/img/banners/community/line_7.png';
+import communityLine8Banner from '@/src/static/img/banners/community/line_8.png';
+import communityLine9Banner from '@/src/static/img/banners/community/line_9.png';
+
 export const exportLineNameWithSubwayLineId = (lineId?: string) => {
   switch (lineId?.toString()) {
     case '1':
@@ -333,5 +344,30 @@ export const exportDescriptionFromPath = (defaultDescription?: string, pathname?
       default:
         return defaultMetadata.description;
     }
+  }
+};
+
+export const exportBannerImageWidthLineId = (lineName: string) => {
+  switch (lineName) {
+    case '1':
+      return communityLine1Banner.src;
+    case '2':
+      return communityLine2Banner.src;
+    case '3':
+      return communityLine3Banner.src;
+    case '4':
+      return communityLine4Banner.src;
+    case '5':
+      return communityLine5Banner.src;
+    case '6':
+      return communityLine6Banner.src;
+    case '7':
+      return communityLine7Banner.src;
+    case '8':
+      return communityLine8Banner.src;
+    case '9':
+      return communityLine9Banner.src;
+    default:
+      return communityBanner.src;
   }
 };
