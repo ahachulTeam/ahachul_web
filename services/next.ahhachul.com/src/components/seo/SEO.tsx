@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
-import { usePathname } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 
 import { IMetaData } from '@/src/types/seo';
 import { getDomainName } from '@/src/utils/appEnv';
@@ -16,8 +16,9 @@ const SEO = ({ pageProps, metaData = defaultMetadata }: { pageProps: AppProps['p
   const hasRichResults = pageProps?.richResults?.length > 0;
 
   const router = useRouter();
+  const params = useParams();
   const pathname = usePathname();
-  const title = exportTitleFromPath(pageProps?.title, pathname);
+  const title = exportTitleFromPath(pageProps?.title, pathname, params);
   const description = exportDescriptionFromPath(pageProps?.description, pathname);
 
   return (
