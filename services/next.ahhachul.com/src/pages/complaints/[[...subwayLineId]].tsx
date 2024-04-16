@@ -5,12 +5,16 @@ import { Layout } from '@/src/components/layout';
 import { ComplaintsComponent } from '@/src/components';
 import { exportLineNameWithSubwayLineId } from '@/src/utils/export';
 import complaintsBanner from '@/src/static/img/banners/complaints_page_banner.png';
+import { useRouter } from 'next/router';
 
-export default function Complaint({}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Complaint({ title }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const { query } = useRouter();
+  console.log('title:', title);
+
   return (
     <Layout headerType="default">
-      <ComplaintsComponent.ComplaintsMain />
-      <ComplaintsComponent.ComplaintList />
+      {query?.tab !== 'list' && <ComplaintsComponent.ComplaintsMain />}
+      {query?.tab === 'list' && <ComplaintsComponent.ComplaintList />}
     </Layout>
   );
 }

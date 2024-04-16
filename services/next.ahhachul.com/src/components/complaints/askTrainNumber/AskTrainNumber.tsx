@@ -1,40 +1,38 @@
 import React, { useReducer, useRef } from 'react';
-// import { ActivityComponentType } from '@stackflow/react';
 import { Box, Flex, Text } from '@ahhachul/react-components-layout';
 
 import { COMPLAINTS_CONTENTS_TYPES } from '@/src/data/complaints';
-// import { Layout } from '@/src/components/layout';
 import { WhereIsTrainNumberBottomSheet } from './bottomSheet';
 import { submitWrap, submitBtn } from './style';
-// import { useFlow } from 'stackflow';
+import { useRouter } from 'next/router';
 import { f } from '@/src/styles';
 import { CSSObject, Theme } from '@emotion/react';
 import IconChevron from '@/src/static/icons/system/IconChevron';
 import { useDispatch } from 'react-redux';
 import { addSnackBar } from '@/src/stores/ui';
-// import { exportSubwayInfoFromTrainNumber } from '@/src/utils/export';
+import { exportSubwayInfoFromTrainNumber } from '@/src/utils/export';
+import { PATH } from '@/src/data';
 
 type AskTrainNumberProps = {
   slug: COMPLAINTS_CONTENTS_TYPES;
 };
 
 const AskTrainNumber: React.FC<AskTrainNumberProps> = (params) => {
-  console.log('params:', params);
-  // const { push } = useFlow();
+  const { push } = useRouter();
   const [show, toggle] = useReducer((c) => !c, false);
 
   const dispatch = useDispatch();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const next = () => {
-    // const trainInfo = exportSubwayInfoFromTrainNumber(inputRef.current.value);
-    // if (!inputRef.current.value) {
-    //   dispatch(addSnackBar({ message: '차량번호를 입력해주세요', posBottom: 115 }));
-    // } else if (trainInfo.error) {
-    //   dispatch(addSnackBar({ message: '올바른 차량번호를 입력해주세요', posBottom: 115 }));
-    // } else {
-    //   push('ComplaintsSubmission', { slug: params.slug, trainNumber: inputRef.current.value });
-    // }
+    const trainInfo = exportSubwayInfoFromTrainNumber(inputRef.current!.value);
+    if (!inputRef.current!.value) {
+      dispatch(addSnackBar({ message: '차량번호를 입력해주세요', posBottom: 115 }));
+    } else if (trainInfo.error) {
+      dispatch(addSnackBar({ message: '올바른 차량번호를 입력해주세요', posBottom: 115 }));
+    } else {
+      push(`${PATH.complaintsSubmission}?slug=${params.slug}&trainNumber=${inputRef.current!.value}`);
+    }
   };
 
   const clickNoTrainNumber = () => {
@@ -42,7 +40,6 @@ const AskTrainNumber: React.FC<AskTrainNumberProps> = (params) => {
   };
 
   return (
-    // <Layout activeTab={false} appBar={{ title: params.slug }}>
     <>
       <Box as="main" css={{ padding: '14px 20px' }}>
         <Flex direction="column" gap="6px" css={{ marginBottom: '16px' }}>
@@ -69,7 +66,6 @@ const AskTrainNumber: React.FC<AskTrainNumberProps> = (params) => {
       </div>
       <WhereIsTrainNumberBottomSheet isShowing={show} onClose={toggle} />
     </>
-    // </Layout>
   );
 };
 

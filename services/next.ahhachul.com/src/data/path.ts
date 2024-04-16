@@ -6,7 +6,7 @@ const PATH = {
   complaints: '/complaints',
   complaintDetail: '/complaint-post',
   complaintsAskTrainNumber: '/complaints-ask-train-number',
-  complaintsSubmission: '/complaints/complaints-submission',
+  complaintsSubmission: '/complaints-submission',
 
   /** 유실물  */
   lost: '/lost',

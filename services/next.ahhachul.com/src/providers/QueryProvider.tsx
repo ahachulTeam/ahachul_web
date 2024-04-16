@@ -8,6 +8,7 @@ function QueryProvider({ pageProps, children }: PropsWithChildren<{ pageProps: A
       new QueryClient({
         defaultOptions: {
           queries: {
+            retry: 0,
             staleTime: 60 * 1000,
             refetchOnMount: false,
             refetchOnWindowFocus: false,

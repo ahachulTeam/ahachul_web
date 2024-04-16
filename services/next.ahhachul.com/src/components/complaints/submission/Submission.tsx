@@ -1,6 +1,4 @@
 import React, { CSSProperties, FormEvent, memo, useCallback, useRef, useState } from 'react';
-// import { ActivityComponentType } from '@stackflow/react';
-// import { Layout } from '@/src/components/layout';
 import { COMPLAINTS_CONTENTS_TYPES, COMPLAINTS_ROOM_SERVICE_INFO } from '@/src/data/complaints';
 import {
   exportHexColorWidthLineName,
@@ -74,8 +72,6 @@ const ComplaintsSubmission: React.FC<ComplaintsSubmissionProps> = (params) => {
   };
 
   return (
-    // <Layout activeTab={false} appBar={{ title: params.slug }}>
-
     <main css={wrap}>
       <form onSubmit={handleSubmit}>
         <div css={section}>
@@ -109,7 +105,6 @@ const ComplaintsSubmission: React.FC<ComplaintsSubmissionProps> = (params) => {
         </div>
       </form>
     </main>
-    // </Layout>
   );
 };
 

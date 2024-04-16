@@ -4,11 +4,9 @@ import IconSubmissionView from '@/src/static/icons/complaints/IconSubmissionView
 import IconCirclePlus from '@/src/static/icons/system/IconCirclePlus';
 import { IconType } from '@/src/types';
 import { itemWrap, plusBtn, complaintToggle } from './style';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import { PATH } from '@/src/data';
-import { useDispatch } from 'react-redux';
-import { useAppSelector } from '@/src/stores';
-import { setView } from '@/src/stores/complaints';
 
 interface TabItemProps {
   href: string;
@@ -18,7 +16,7 @@ interface TabItemProps {
 }
 
 const TabItem: React.FC<TabItemProps> = ({ href, Icon, label, scrollToTop }) => {
-  const { push } = useRouter();
+  const { push, replace, query } = useRouter();
   const pathname = usePathname();
   const isActive = href === PATH.home ? pathname === PATH.home : pathname?.includes(href);
 
@@ -32,6 +30,11 @@ const TabItem: React.FC<TabItemProps> = ({ href, Icon, label, scrollToTop }) => 
     else push(PATH.communityEditor);
   }, [href, push]);
 
+  const toggleComplaintView = useCallback(() => {
+    if (query?.tab !== 'list') replace(`${PATH.complaints}?tab=list`);
+    else replace(PATH.complaints);
+  }, [href, replace]);
+
   return (
     <div css={itemWrap(isActive)}>
       <button onClick={handleTabClick}>
@@ -41,7 +44,9 @@ const TabItem: React.FC<TabItemProps> = ({ href, Icon, label, scrollToTop }) => 
       {isActive && href !== PATH.home && (pathname?.includes(PATH.lost) || pathname?.includes(PATH.community)) && (
         <GoToEditorButton routeToEditor={routeToEditor} />
       )}
-      {isActive && pathname?.includes(PATH.complaints) && <ComplaintViewToggle />}
+      {isActive && pathname?.includes(PATH.complaints) && (
+        <ComplaintViewToggle viewType={query?.tab as string | undefined} toggleComplaintView={toggleComplaintView} />
+      )}
     </div>
   );
 };
@@ -54,16 +59,16 @@ const GoToEditorButton = memo(({ routeToEditor }: { routeToEditor: VoidFunction 
   );
 });
 
-const ComplaintViewToggle = () => {
-  const dispatch = useDispatch();
-  const { activeView } = useAppSelector((state) => state.complaint);
-  const handleToggle = () => {
-    dispatch(setView(activeView === 'SUBMISSION' ? 'LIST' : 'SUBMISSION'));
-  };
-
+const ComplaintViewToggle = ({
+  viewType,
+  toggleComplaintView,
+}: {
+  viewType?: string;
+  toggleComplaintView: VoidFunction;
+}) => {
   return (
-    <button css={complaintToggle} onClick={handleToggle}>
-      {activeView === 'SUBMISSION' ? <IconListView /> : <IconSubmissionView />}
+    <button css={complaintToggle} onClick={toggleComplaintView}>
+      {viewType !== 'list' ? <IconListView /> : <IconSubmissionView />}
     </button>
   );
 };

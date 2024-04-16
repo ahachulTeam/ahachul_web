@@ -1,31 +1,29 @@
 import { ComplaintsApi } from '@/src/api';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
-// import { useFlow } from 'stackflow';
+import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { addSnackBar, loaded } from '@/src/stores/ui';
-// import { setView } from '@/src/stores/complaints';
+import { addSnackBar, loaded, loading } from '@/src/stores/ui';
+import { PATH } from '@/src/data';
 
 export const useComplaintsArticle = () => {
   const res = useMutation({
     mutationFn: ComplaintsApi.post,
   });
 
-  // const { push, pop } = useFlow();
+  const {  replace } = useRouter();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (res.status === 'idle') return;
 
     if (res.status === 'pending') {
-      // dispatch(loading());
+      dispatch(loading({ opacity: 1 }));
     }
 
     if (res.status === 'success') {
       dispatch(loaded());
-      // dispatch(setView('LIST'));
-      // pop(2);
-      // push('ComplaintDetail', { articleId: '1' });
+      replace(`${PATH.complaintDetail}/1`);
       setTimeout(() => {
         dispatch(addSnackBar({ message: `민원을 등록했어요` }));
       }, 750);
