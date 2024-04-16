@@ -31,7 +31,7 @@ const AskTrainNumber: React.FC<AskTrainNumberProps> = (params) => {
     } else if (trainInfo.error) {
       dispatch(addSnackBar({ message: '올바른 차량번호를 입력해주세요', posBottom: 115 }));
     } else {
-      push(`${PATH.complaintsSubmission}?slug=${params.slug}&trainNumber=${inputRef.current!.value}`);
+      push(`${PATH.complaintsSubmission}?slug=${params?.slug}&trainNumber=${inputRef.current!.value}`);
     }
   };
 

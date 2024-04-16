@@ -7,7 +7,7 @@ export default function ComplaintsSubmission() {
   const { query } = useRouter();
 
   return (
-    <Layout headerType="back" title={query?.slug as string} nav={false}>
+    <Layout headerType="back" title={(query?.slug as string) || ''} nav={false}>
       <ComplaintsComponent.ComplaintsSubmission
         slug={query?.slug as COMPLAINTS_CONTENTS_TYPES}
         trainNumber={query?.trainNumber as string}

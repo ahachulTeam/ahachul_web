@@ -16,6 +16,10 @@ import { IComplaintForm } from '@/src/types/complaints';
 import { useAppSelector } from '@/src/stores';
 import { addSnackBar } from '@/src/stores/ui';
 import { useDispatch } from 'react-redux';
+import IconCamera from '@/src/static/icons/system/IconCamera';
+import IconCircleClose from '@/src/static/icons/system/IconCircleClose';
+import { Nullable } from '@/src/types';
+import { isEmpty } from 'lodash-es';
 
 type ComplaintsSubmissionProps = {
   slug: COMPLAINTS_CONTENTS_TYPES;
@@ -39,8 +43,12 @@ const ComplaintsSubmission: React.FC<ComplaintsSubmissionProps> = (params) => {
   const dispatch = useDispatch();
 
   const formRef = useRef<IComplaintForm>(INIT_STATE);
-  const { mutate } = useComplaintsArticle();
+  const { mutate, status } = useComplaintsArticle();
   const { loading } = useAppSelector((state) => state.ui);
+
+  const handleChangeImage = useCallback((image: File | null) => {
+    formRef.current.imageFiles = image;
+  }, []);
 
   const handleChangeContent = useCallback((targetValue: EditorState) => {
     formRef.current.content = JSON.stringify(targetValue.toJSON());
@@ -64,9 +72,9 @@ const ComplaintsSubmission: React.FC<ComplaintsSubmissionProps> = (params) => {
     mutate({
       ...formRef.current,
       trainNo,
-      subwayLineId: exportSubwayLineIdWithLineName(trainInfo.lineName),
-      complaintType: formatComplaintTypeToEn(params.slug) as string,
-      location: trainInfo.roomNumber as string,
+      subwayLineId: exportSubwayLineIdWithLineName(trainInfo?.lineName),
+      complaintType: formatComplaintTypeToEn(params?.slug) as string,
+      location: trainInfo?.roomNumber as string,
       phoneNumber: '02-234-5678',
     });
   };
@@ -76,16 +84,20 @@ const ComplaintsSubmission: React.FC<ComplaintsSubmissionProps> = (params) => {
       <form onSubmit={handleSubmit}>
         <div css={section}>
           <span>지하철 정보</span>
-          <div css={trainLabelsWrap(exportHexColorWidthLineName(trainInfo.lineName || ''))}>
+          <div css={trainLabelsWrap(exportHexColorWidthLineName(trainInfo?.lineName || ''))}>
             <span>
-              {trainInfo?.lineName} {trainInfo.roomNumber && `${trainInfo.roomNumber}번째 칸`}
+              {trainInfo?.lineName} {trainInfo?.roomNumber && `${trainInfo.roomNumber}번째 칸`}
             </span>
           </div>
         </div>
         <div css={section}>
-          <span>{COMPLAINTS_ROOM_SERVICE_INFO[params.slug].title}</span>
+          <span>첨부 이미지</span>
+          <ImageUpload handleChangeImage={handleChangeImage} />
+        </div>
+        <div css={section}>
+          <span>{COMPLAINTS_ROOM_SERVICE_INFO[params?.slug]?.title}</span>
           <SelectComponent
-            selectList={COMPLAINTS_ROOM_SERVICE_INFO[params.slug].selectList}
+            selectList={COMPLAINTS_ROOM_SERVICE_INFO[params?.slug]?.selectList}
             handleChangeSelect={handleChangeSelect}
           />
         </div>
@@ -107,6 +119,46 @@ const ComplaintsSubmission: React.FC<ComplaintsSubmissionProps> = (params) => {
     </main>
   );
 };
+
+const ImageUpload = memo(({ handleChangeImage }: { handleChangeImage: (image: File | null) => void }) => {
+  const [image, setImage] = useState<File | null>(null);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setImage(e.target.files?.[0] as Nullable<File>);
+    handleChangeImage(e.target.files?.[0] as Nullable<File>);
+  };
+
+  const handleDeleteImage = () => {
+    setImage(null);
+    handleChangeImage(null);
+  };
+
+  return (
+    <div css={imageBox(Boolean(image))}>
+      <label htmlFor="upload">
+        <IconCamera />
+        <input
+          id="upload"
+          type="file"
+          accept="image/*"
+          hidden
+          disabled={Boolean(image)}
+          onChange={(e) => {
+            if (e.target.files?.[0]?.size === 0) return;
+            handleImageChange(e);
+          }}
+        />
+      </label>
+
+      {image && (
+        <div css={realImage}>
+          <img src={typeof image === 'string' ? image : URL.createObjectURL(image)} alt="" />
+          <IconCircleClose onClick={handleDeleteImage} />
+        </div>
+      )}
+    </div>
+  );
+});
 
 const SelectComponent = memo(
   ({
@@ -133,11 +185,12 @@ const SelectComponent = memo(
 
     return (
       <div css={buttonGroup}>
-        {Object.entries(selectList).map(([key, val]) => (
-          <button key={key} id={key} type="button" css={toggleBtn(current === key)} onClick={handleToggle(key)}>
-            {val}
-          </button>
-        ))}
+        {!isEmpty(selectList) &&
+          Object.entries(selectList).map(([key, val]) => (
+            <button key={key} id={key} type="button" css={toggleBtn(current === key)} onClick={handleToggle(key)}>
+              {val}
+            </button>
+          ))}
       </div>
     );
   },
@@ -244,5 +297,60 @@ const submitBtn = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject =
   fontWeight: fontWeight[600],
   borderRadius: '8px',
 });
+
+const imageBox = (disabled: boolean) => [
+  f.flexAlignCenter,
+  f.fullWidth,
+  {
+    paddingLeft: '20px',
+
+    '& > label': {
+      width: '40px',
+      height: '40px',
+      border: '1px solid rgb(196, 212, 252, 0.37)',
+      borderRadius: '8px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      opacity: disabled ? 0.4 : 1,
+
+      '& > div': {
+        width: '18px',
+        height: '18px',
+
+        '&>svg>path': {
+          stroke: '#9da5b6',
+        },
+      },
+    },
+  },
+];
+
+const realImage: CSSObject = {
+  position: 'relative',
+  width: '39px',
+  height: '39px',
+  borderRadius: '8px',
+  marginLeft: '8px',
+
+  '& > img': {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    borderRadius: '8px',
+  },
+
+  '& > div': {
+    position: 'absolute',
+    top: '2px',
+    right: '2px',
+
+    width: '18px',
+    height: '18px',
+  },
+};
 
 export default ComplaintsSubmission;

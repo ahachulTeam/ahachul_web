@@ -11,7 +11,7 @@ export const useComplaintsArticle = () => {
     mutationFn: ComplaintsApi.post,
   });
 
-  const {  replace } = useRouter();
+  const { replace } = useRouter();
   const dispatch = useDispatch();
 
   useEffect(() => {
