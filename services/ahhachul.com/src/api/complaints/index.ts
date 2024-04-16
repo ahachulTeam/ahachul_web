@@ -11,11 +11,11 @@ import queryString from 'query-string';
 
 export const getComplaintURL = `${API_BASE_URL}/complaints/messages`;
 
-/**  커뮤니티 포스트 리스트 조회 */
+/**  실시간 민원 리스트 조회 */
 export const getComplaintList = async (params: GetComplaintListParams) => {
   const queryParams = queryString.stringify(params);
 
-  const url = `${getComplaintURL}?${queryParams}`;
+  const url = `${process.env.REACT_APP_BASE_URL}/complaints/messages?${queryParams}`;
 
   return await base.get<IResponse<GetComplaintListResponse>>(url);
 };

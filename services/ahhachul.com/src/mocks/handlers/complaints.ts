@@ -1,16 +1,16 @@
 import { http, delay, HttpResponse } from 'msw';
 import { API_BASE_URL } from 'data/api';
-import { complaintListItemMock, complaintMock } from './complaint.mock';
+import { complaintMock } from './complaint.mock';
 import { getRandomBoolean, getRandomComplaintType, getRandomTrainNo } from 'mocks/utils';
 
-const getComplaintListResponse = {
-  code: '100',
-  message: 'SUCCESS',
-  result: {
-    hasNext: false,
-    posts: new Array(20).fill('').map((_, idx) => complaintListItemMock(idx)),
-  },
-};
+// const getComplaintListResponse = {
+//   code: '100',
+//   message: 'SUCCESS',
+//   result: {
+//     hasNext: false,
+//     posts: new Array(20).fill('').map((_, idx) => complaintListItemMock(idx)),
+//   },
+// };
 
 const getComplaintDetailResponse = (postId: string, randomBoolean: boolean) => {
   const info = getRandomTrainNo();
@@ -45,11 +45,11 @@ const getComplaintDetailResponse = (postId: string, randomBoolean: boolean) => {
   };
 };
 
-const getComplaintList = http.get(API_BASE_URL + '/complaints', async () => {
-  await delay(400);
+// const getComplaintList = http.get(API_BASE_URL + '/complaints', async () => {
+//   await delay(400);
 
-  return HttpResponse.json(getComplaintListResponse);
-});
+//   return HttpResponse.json(getComplaintListResponse);
+// });
 
 const getComplaintDetail = http.get(API_BASE_URL + '/complaints/:postId', async (req) => {
   const { postId } = req.params;
@@ -71,6 +71,6 @@ const getComplaintDetail = http.get(API_BASE_URL + '/complaints/:postId', async 
 //   });
 // });
 
-const complaintsHandlers = [getComplaintList, getComplaintDetail];
+const complaintsHandlers = [getComplaintDetail];
 
 export default complaintsHandlers;
