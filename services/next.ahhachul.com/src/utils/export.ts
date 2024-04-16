@@ -160,8 +160,10 @@ export const exportHexColorWidthLineName = (lineName: string) => {
 };
 
 export const exportSubwayInfoFromTrainNumber = (
-  trainNumber: string,
+  trainNumber?: string,
 ): { lineName?: string; roomNumber?: string; error?: string } => {
+  if (!trainNumber) return { error: 'no trainNumber' };
+  
   let lineName = '',
     roomNumber = '',
     error = '';
