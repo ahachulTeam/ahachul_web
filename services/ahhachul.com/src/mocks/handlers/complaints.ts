@@ -61,16 +61,16 @@ const getComplaintDetail = http.get(API_BASE_URL + '/complaints/:postId', async 
   return HttpResponse.json(getComplaintDetailResponse(postId as string, randomBoolean));
 });
 
-const postComplaintsArticle = http.post(API_BASE_URL + '/complaints/messages', async () => {
-  await delay(400);
+// const postComplaintsArticle = http.post(API_BASE_URL + '/complaints/messages', async () => {
+//   await delay(400);
 
-  return HttpResponse.json({
-    code: '100',
-    message: 'SUCCESS',
-    result: null,
-  });
-});
+//   return HttpResponse.json({
+//     code: '100',
+//     message: 'SUCCESS',
+//     result: null,
+//   });
+// });
 
-const complaintsHandlers = [getComplaintList, getComplaintDetail, postComplaintsArticle];
+const complaintsHandlers = [getComplaintList, getComplaintDetail];
 
 export default complaintsHandlers;

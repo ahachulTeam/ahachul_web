@@ -2,7 +2,13 @@ import React, { CSSProperties, FormEvent, memo, useCallback, useRef, useState } 
 // import { ActivityComponentType } from '@stackflow/react';
 // import { Layout } from '@/src/components/layout';
 import { COMPLAINTS_CONTENTS_TYPES, COMPLAINTS_ROOM_SERVICE_INFO } from '@/src/data/complaints';
-import { exportHexColorWidthLineName, exportSubwayInfoFromTrainNumber } from '@/src/utils/export';
+import {
+  exportHexColorWidthLineName,
+  exportSubwayInfoFromTrainNumber,
+  exportSubwayLineIdWithLineName,
+  formatComplaintShortContentToEn,
+  formatComplaintTypeToEn,
+} from '@/src/utils/export';
 import { CSSObject, Theme } from '@emotion/react';
 import { f } from '@/src/styles';
 import { useComplaintsArticle } from '@/src/queries/complaints';
@@ -20,9 +26,12 @@ type ComplaintsSubmissionProps = {
 
 const INIT_STATE: IComplaintForm = {
   trainNo: '',
+  location: '',
+  subwayLineId: '',
   content: '',
   complaintType: '',
-  shortContent: '',
+  shortContentType: '',
+  imageFiles: null,
 };
 
 const ComplaintsSubmission: React.FC<ComplaintsSubmissionProps> = (params) => {
@@ -41,7 +50,7 @@ const ComplaintsSubmission: React.FC<ComplaintsSubmissionProps> = (params) => {
 
   const handleChangeSelect = useCallback(
     (type: string) => () => {
-      formRef.current.shortContent = type;
+      formRef.current.shortContentType = formatComplaintShortContentToEn(type) as string;
     },
     [],
   );
@@ -49,21 +58,18 @@ const ComplaintsSubmission: React.FC<ComplaintsSubmissionProps> = (params) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!formRef.current.shortContent) {
+    if (!formRef.current.shortContentType) {
       dispatch(addSnackBar({ message: `민원 유형을 선택해주세요.` }));
       return;
     }
 
-    console.log({
-      ...formRef.current,
-      trainNo,
-      complaintType: params.slug,
-    });
-
     mutate({
       ...formRef.current,
       trainNo,
-      complaintType: params.slug,
+      subwayLineId: exportSubwayLineIdWithLineName(trainInfo.lineName),
+      complaintType: formatComplaintTypeToEn(params.slug) as string,
+      location: trainInfo.roomNumber as string,
+      phoneNumber: '02-234-5678',
     });
   };
 

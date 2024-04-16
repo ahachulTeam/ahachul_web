@@ -9,8 +9,7 @@ import type {
 } from 'types';
 import queryString from 'query-string';
 
-export const getComplaintURL = `${API_BASE_URL}/complaints`;
-export const getComplaintsPostURL = `${API_BASE_URL}/complaints/messages`;
+export const getComplaintURL = `${API_BASE_URL}/complaints/messages`;
 
 /**  커뮤니티 포스트 리스트 조회 */
 export const getComplaintList = async (params: GetComplaintListParams) => {
@@ -40,7 +39,7 @@ export const post = async (body: IComplaintForm) => {
     formData.append('imageFiles', body.imageFiles);
   }
 
-  return await base.post<IResponse<null>>(getComplaintsPostURL, formData, {
+  return await base.post<IResponse<null>>(getComplaintURL, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

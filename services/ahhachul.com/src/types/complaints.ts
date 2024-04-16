@@ -55,14 +55,20 @@ export interface IComplaintParams extends IPageParams {
 }
 
 export interface IComplaintForm {
-  /** 열차 번호 */
+  /** 차량 번호 */
   trainNo: string;
+  /** 칸 번호 */
+  location: string;
+  /** 노선 ID */
+  subwayLineId: string;
   /** 민원 세부 내용 */
   content: string;
   /** 민원 요약 정보 */
-  shortContent: string;
+  shortContentType: string;
   /** 민원 타입 */
   complaintType: string;
   /** 이미지 */
   imageFiles: Nullable<File>;
+
+  phoneNumber?: string;
 }

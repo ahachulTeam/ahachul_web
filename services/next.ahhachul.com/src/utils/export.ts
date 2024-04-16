@@ -28,6 +28,43 @@ import communityLine7Banner from '@/src/static/img/banners/community/line_7.png'
 import communityLine8Banner from '@/src/static/img/banners/community/line_8.png';
 import communityLine9Banner from '@/src/static/img/banners/community/line_9.png';
 
+export const exportSubwayLineIdWithLineName = (lineName?: string) => {
+  switch (lineName?.toString()) {
+    case '1호선':
+      return '1';
+    case '2호선':
+      return '2';
+    case '3호선':
+      return '3';
+    case '4호선':
+      return '4';
+    case '5호선':
+      return '5';
+    case '6호선':
+      return '6';
+    case '7호선':
+      return '7';
+    case '8호선':
+      return '8';
+    case '9호선':
+      return '9';
+    case '신분당선':
+      return '10';
+    case '수인분당선':
+      return '11';
+    case '경의중앙선':
+      return '12';
+    case '우의신설선':
+      return '13';
+    case '신림선':
+      return '14';
+    case '공항선':
+      return '15';
+    default:
+      return '기타 호선';
+  }
+};
+
 export const exportLineNameWithSubwayLineId = (lineId?: string) => {
   switch (lineId?.toString()) {
     case '1':
@@ -369,5 +406,67 @@ export const exportBannerImageWidthLineId = (lineName: string) => {
       return communityLine9Banner.src;
     default:
       return communityBanner.src;
+  }
+};
+
+export const formatComplaintTypeToEn = (complaintType?: COMPLAINTS_CONTENTS_TYPES) => {
+  if (!complaintType) return;
+
+  switch (complaintType) {
+    case '환경민원':
+      return 'ENVIRONMENTAL_COMPLAINT';
+    case '온도조절':
+      return 'TEMPERATURE_CONTROL';
+    case '질서저해':
+      return 'DISORDER';
+    case '안내방송':
+      return 'ANNOUNCEMENT';
+    case '응급환자':
+      return 'EMERGENCY_PATIENT';
+    case '폭력':
+      return 'VIOLENCE';
+    case '성추행':
+      return 'SEXUAL_HARASSMENT';
+    default:
+      return 'OTHER_COMPLAINT';
+  }
+};
+
+export const formatComplaintShortContentToEn = (complaintShortContent?: string) => {
+  if (!complaintShortContent) return;
+
+  switch (complaintShortContent) {
+    case '오물':
+      return 'WASTE';
+    case '토사물':
+      return 'VOMIT';
+    case '환기요청':
+      return 'VENTILATION_REQUEST';
+    case '시끄러워요':
+      return 'NOISY';
+    case '안들려요':
+      return 'NOT_HEARD';
+    case '더워요':
+      return 'TOO_HOT';
+    case '추워요':
+      return 'TOO_COLD';
+    case '이동상인':
+      return 'MOBILE_VENDOR';
+    case '취객':
+      return 'DRUNK';
+    case '노숙':
+      return 'HOMELESS';
+    case '구걸':
+      return 'BEGGING';
+    case '종교행위':
+      return 'RELIGIOUS_ACTIVITY';
+    case '본인':
+      return 'SELF';
+    case '목격자':
+      return 'WITNESS';
+    case '피해자':
+      return 'VICTIM';
+    default:
+      return '';
   }
 };

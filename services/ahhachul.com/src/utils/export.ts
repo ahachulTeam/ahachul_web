@@ -15,8 +15,45 @@ import { COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
 import { CongestionColorType, CurrentTrainArrivalType } from 'types';
 import { removeEmptyProperties } from './object';
 
-export const exportLineNameWithSubwayLineId = (lineId: string) => {
-  switch (lineId) {
+export const exportSubwayLineIdWithLineName = (lineName?: string) => {
+  switch (lineName?.toString()) {
+    case '1호선':
+      return '1';
+    case '2호선':
+      return '2';
+    case '3호선':
+      return '3';
+    case '4호선':
+      return '4';
+    case '5호선':
+      return '5';
+    case '6호선':
+      return '6';
+    case '7호선':
+      return '7';
+    case '8호선':
+      return '8';
+    case '9호선':
+      return '9';
+    case '신분당선':
+      return '10';
+    case '수인분당선':
+      return '11';
+    case '경의중앙선':
+      return '12';
+    case '우의신설선':
+      return '13';
+    case '신림선':
+      return '14';
+    case '공항선':
+      return '15';
+    default:
+      return '기타 호선';
+  }
+};
+
+export const exportLineNameWithSubwayLineId = (lineId?: string) => {
+  switch (lineId?.toString()) {
     case '1':
       return '1호선';
     case '2':
@@ -35,23 +72,25 @@ export const exportLineNameWithSubwayLineId = (lineId: string) => {
       return '8호선';
     case '9':
       return '9호선';
-    case 'S':
-      return '신림선';
-    case 'UL':
-      return '우의신설선';
-    case 'D':
+    case '10':
       return '신분당선';
-    case 'SI':
+    case '11':
       return '수인분당선';
-    case 'GJ':
+    case '12':
       return '경의중앙선';
+    case '13':
+      return '우의신설선';
+    case '14':
+      return '신림선';
+    case '15':
+      return '공항선';
     default:
-      return '기타';
+      return '기타 호선';
   }
 };
 
 export const exportHexColorWidthLineName = (lineName: string) => {
-  switch (lineName) {
+  switch (lineName?.toString()) {
     case '1':
     case '1호선':
       return '#0052A4';
@@ -79,20 +118,29 @@ export const exportHexColorWidthLineName = (lineName: string) => {
     case '9':
     case '9호선':
       return '#BDB092';
-    case 'SI':
-      return '#FABE00';
-    case 'D':
+    case '10':
+    case '신분당선':
       return '#D31145';
-    case 'S':
-      return '#6789CA';
-    case 'UL':
+    case '11':
+    case '수인분당선':
+      return '#FABE00';
+    case '12':
+    case '경의중앙선':
+      return '#77C4A3';
+    case '13':
+    case '우의신설선':
       return '#B7C450';
+    case '14':
+    case '신림선':
+      return '#6789CA';
+    case '15':
+    case '공항선':
+      return '#0090D2';
     case '경춘선':
       return '#178C72';
     case '경강선':
       return '#0054A6';
-    case 'GJ':
-      return '#77C4A3';
+
     default:
       return 'rgba(245, 249, 254, 0.11)';
   }
@@ -284,5 +332,67 @@ export const formatComplaintShortContentToKoSentence = (complaintShortContent?: 
       return '제가 피해자에요.';
     default:
       return '민원이 발생했어요';
+  }
+};
+
+export const formatComplaintTypeToEn = (complaintType?: COMPLAINTS_CONTENTS_TYPES) => {
+  if (!complaintType) return;
+
+  switch (complaintType) {
+    case '환경민원':
+      return 'ENVIRONMENTAL_COMPLAINT';
+    case '온도조절':
+      return 'TEMPERATURE_CONTROL';
+    case '질서저해':
+      return 'DISORDER';
+    case '안내방송':
+      return 'ANNOUNCEMENT';
+    case '응급환자':
+      return 'EMERGENCY_PATIENT';
+    case '폭력':
+      return 'VIOLENCE';
+    case '성추행':
+      return 'SEXUAL_HARASSMENT';
+    default:
+      return 'OTHER_COMPLAINT';
+  }
+};
+
+export const formatComplaintShortContentToEn = (complaintShortContent?: string) => {
+  if (!complaintShortContent) return;
+
+  switch (complaintShortContent) {
+    case '오물':
+      return 'WASTE';
+    case '토사물':
+      return 'VOMIT';
+    case '환기요청':
+      return 'VENTILATION_REQUEST';
+    case '시끄러워요':
+      return 'NOISY';
+    case '안들려요':
+      return 'NOT_HEARD';
+    case '더워요':
+      return 'TOO_HOT';
+    case '추워요':
+      return 'TOO_COLD';
+    case '이동상인':
+      return 'MOBILE_VENDOR';
+    case '취객':
+      return 'DRUNK';
+    case '노숙':
+      return 'HOMELESS';
+    case '구걸':
+      return 'BEGGING';
+    case '종교행위':
+      return 'RELIGIOUS_ACTIVITY';
+    case '본인':
+      return 'SELF';
+    case '목격자':
+      return 'WITNESS';
+    case '피해자':
+      return 'VICTIM';
+    default:
+      return '';
   }
 };

@@ -1,22 +1,21 @@
-import { useSuspenseInfiniteQuery } from 'queries/query';
-import { getCommunityList, getCommunityURL } from 'api/community';
+import { InfiniteData, useSuspenseInfiniteQuery, UseSuspenseInfiniteQueryResult } from 'queries/query';
+import { AxiosResponse } from 'axios';
+import { getCommunityURL } from 'api/community';
 import { getQueryKeys } from 'queries/query-key';
-import { type ICommunityParams as GetCommunityListRequestParams, ICommunity } from 'types';
+import { type ICommunityParams as GetCommunityListRequestParams, ICommunityList } from 'types';
 import { COMMUNITY_LIST_KEY } from './keys';
+import { IResponse } from 'types';
+import { CommunityApi } from 'api';
 
-type Params = GetCommunityListRequestParams & {
-  initPageToken?: number;
-};
-
-export const useGetCommunityList = (params: Params): ICommunity[] => {
-  const res = useSuspenseInfiniteQuery({
+export const useGetCommunityList = (
+  params: GetCommunityListRequestParams,
+): UseSuspenseInfiniteQueryResult<InfiniteData<AxiosResponse<IResponse<ICommunityList>>, Error>, unknown> => {
+  return useSuspenseInfiniteQuery({
     queryKey: getQueryKeys(COMMUNITY_LIST_KEY).list({ params, getCommunityURL }),
-    queryFn: async ({ pageParam = params?.initPageToken }) => {
-      return await getCommunityList({ ...params, page: pageParam });
+    queryFn: async ({ pageParam = params?.page }) => {
+      return await CommunityApi.getCommunityList({ ...params, page: pageParam });
     },
-    initialPageParam: params?.initPageToken,
+    initialPageParam: params?.page,
     getNextPageParam: (lastPage) => lastPage.data.result.nextPageNum,
   });
-
-  return res.data.pages.map((page) => page.data.result.posts).flat();
 };
