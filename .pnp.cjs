@@ -11424,6 +11424,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@types/js-cookie", [\
+      ["npm:3.0.6", {\
+        "packageLocation": "../../.yarn/berry/cache/@types-js-cookie-npm-3.0.6-c9126e5b48-10c0.zip/node_modules/@types/js-cookie/",\
+        "packageDependencies": [\
+          ["@types/js-cookie", "npm:3.0.6"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@types/js-yaml", [\
       ["npm:4.0.9", {\
         "packageLocation": "../../.yarn/berry/cache/@types-js-yaml-npm-4.0.9-6a16d01bd2-10c0.zip/node_modules/@types/js-yaml/",\
@@ -22458,6 +22467,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["js-cookie", [\
+      ["npm:3.0.5", {\
+        "packageLocation": "../../.yarn/berry/cache/js-cookie-npm-3.0.5-8fc8fcc9b4-10c0.zip/node_modules/js-cookie/",\
+        "packageDependencies": [\
+          ["js-cookie", "npm:3.0.5"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["js-tokens", [\
       ["npm:4.0.0", {\
         "packageLocation": "../../.yarn/berry/cache/js-tokens-npm-4.0.0-0ac852e9e2-10c0.zip/node_modules/js-tokens/",\
@@ -25052,6 +25070,7 @@ const RAW_RUNTIME_STATE =
           ["@tanstack/react-query", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:5.28.9"],\
           ["@tanstack/react-query-devtools", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:5.25.0"],\
           ["@types/axios", "npm:0.14.0"],\
+          ["@types/js-cookie", "npm:3.0.6"],\
           ["@types/lodash-es", "npm:4.17.12"],\
           ["@types/node", "npm:20.12.5"],\
           ["@types/react", "npm:18.2.64"],\
@@ -25062,6 +25081,7 @@ const RAW_RUNTIME_STATE =
           ["eslint", "npm:8.57.0"],\
           ["eslint-config-next", "virtual:656f6679609ce5b2f109cac1960ef183ffc0f14f80c8941873ab80b93071d949a764820b058f0d7f4e4fe28794b034e8055fa06afe185028779421d61380aacc#npm:14.1.4"],\
           ["framer-motion", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:10.18.0"],\
+          ["js-cookie", "npm:3.0.5"],\
           ["lexical", "npm:0.14.2"],\
           ["lodash-es", "npm:4.17.21"],\
           ["next", "virtual:656f6679609ce5b2f109cac1960ef183ffc0f14f80c8941873ab80b93071d949a764820b058f0d7f4e4fe28794b034e8055fa06afe185028779421d61380aacc#npm:13.5.4"],\

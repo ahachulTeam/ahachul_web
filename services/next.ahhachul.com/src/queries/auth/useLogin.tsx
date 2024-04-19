@@ -7,8 +7,10 @@ import { AuthApi } from '@/src/api';
 import { useAppDispatch } from '@/src/stores';
 import { PATH } from '@/src/data/path';
 import { setToken } from '@/src/stores/auth';
+import { useAuth } from '@/src/providers/AuthProvider';
 
 const useLoginMutation = () => {
+  const { auth } = useAuth();
   const router = useRouter();
   const dispatch = useAppDispatch();
 
@@ -24,7 +26,10 @@ const useLoginMutation = () => {
       dispatch(setToken(token));
 
       if (data.data.result.isNeedAdditionalUserInfo) router.replace(PATH.settingNickname);
-      else router.replace(PATH.home);
+      else {
+        auth.signIn(token);
+        router.replace(PATH.home);
+      }
     },
   });
 };

@@ -10,6 +10,7 @@ const login = async (body: ISocialSignInParams) => {
   return await base.post<IResponse<ISocialSignInResponse>>(url, body);
 };
 
-const refreshToken = (body: IRefreshTokenParams) => base.post<IResponse<IToken>>(`${getAuthURL}/tokens`, body);
+const refreshToken = async (body: IRefreshTokenParams) =>
+  await base.post<IResponse<IToken>>(`${getAuthURL}/tokens`, body);
 
 export { login, refreshToken };
