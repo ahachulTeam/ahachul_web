@@ -5,7 +5,7 @@ import { Player } from '@lottiefiles/react-lottie-player';
 import animationData from 'static/lottie/loading.json';
 import useDisableScroll from 'hooks/useDisableScroll';
 import Background from './Background';
-import Portal from '../Portal/Portal';
+import { loader } from './style';
 
 interface Props {
   css?: Interpolation<Theme>;
@@ -17,20 +17,18 @@ function Loading({ css = {}, opacity = 0.45, isWhite = false, children }: PropsW
   useDisableScroll();
 
   return (
-    <Portal>
-      <Background css={css} opacity={opacity} isWhite={isWhite}>
-        <Player
-          autoplay
-          loop
-          src={animationData}
-          rendererSettings={{
-            preserveAspectRatio: 'xMidYMid slice',
-          }}
-          css={{ width: '130px' }}
-        />
-        {children}
-      </Background>
-    </Portal>
+    <Background css={css} opacity={opacity} isWhite={isWhite}>
+      <Player
+        autoplay
+        loop
+        src={animationData}
+        rendererSettings={{
+          preserveAspectRatio: 'xMidYMid slice',
+        }}
+        css={loader}
+      />
+      {children}
+    </Background>
   );
 }
 

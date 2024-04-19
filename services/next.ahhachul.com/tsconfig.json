@@ -1,0 +1,20 @@
+{
+  "extends": "../../tsconfig.service.json",
+  "compilerOptions": {
+    "target": "ES6",
+    "moduleResolution": "node",
+    "jsx": "preserve",
+    "jsxImportSource": "@emotion/react",
+    "incremental": true,
+    "paths": {
+      "@/src/*": ["./src/*"]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

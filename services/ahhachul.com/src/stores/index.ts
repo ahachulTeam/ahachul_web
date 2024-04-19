@@ -3,6 +3,12 @@ import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { authReducer } from './auth';
+import { communityReducer } from './community';
+import { lostReducer } from './lost';
+import { complaintReducer } from './complaints';
+import { searchReducer } from './search';
+import { uiReducer } from './ui';
+import { blindDateReducer } from './blindDate';
 
 export type RootState = ReturnType<typeof store.getState>;
 type AppDispatch = typeof store.dispatch;
@@ -10,11 +16,17 @@ type AppDispatch = typeof store.dispatch;
 const persistConfig = {
   key: process.env.REACT_APP_NAME as string,
   storage,
-  whitelist: ['auth'],
+  whitelist: ['auth', 'blindDate'],
 };
 
 const reducers = combineReducers({
   auth: authReducer,
+  search: searchReducer,
+  ui: uiReducer,
+  community: communityReducer,
+  complaint: complaintReducer,
+  lost: lostReducer,
+  blindDate: blindDateReducer,
 });
 const reducer = persistReducer(persistConfig, reducers);
 

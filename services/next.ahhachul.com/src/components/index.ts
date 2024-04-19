@@ -1,0 +1,10 @@
+export * as UiComponent from './ui';
+export * as HomeComponent from './home';
+export * as LostComponent from './lost';
+export * as SharedComponent from './shared';
+export * as LayoutComponent from './layout';
+export * as ComplaintsComponent from './complaints';
+export * as CommunityComponent from './community';
+export * as BlindDateComponent from './blindDate';
+export * as AlarmComponent from './alarm';
+export * as ErrorComponent from './error-management';

@@ -6,12 +6,14 @@ const wrap = [
   f.flexColumn,
   ({
     color: {
-      primary: { white },
+      static: {
+        dark: { gray },
+      },
     },
   }: Theme): CSSObject => ({
     paddingTop: '32px',
     paddingBottom: '24px',
-    backgroundColor: white,
+    backgroundColor: gray[200],
   }),
 ];
 
@@ -20,15 +22,7 @@ const head_section = [
   f.flex1,
   f.fullWidth,
   f.flexAlignCenter,
-  ({
-    color: {
-      bluegray: { bluegray40 },
-    },
-    typography: {
-      size: { paragraph2 },
-      weight: { medium },
-    },
-  }: Theme) => ({
+  ({ typography: { fontSize, fontWeight } }: Theme) => ({
     justifyContent: 'space-between',
     marginBottom: '16px',
     gap: '12px',
@@ -39,9 +33,9 @@ const head_section = [
       display: 'flex',
       alignItems: 'center',
       justfyContent: 'center',
-      color: bluegray40,
-      fontSize: paragraph2,
-      fontWeight: medium,
+      color: '#949DB2',
+      fontSize: fontSize[14],
+      fontWeight: fontWeight[500],
       lineHeight: '20px',
       letterSpacing: '-0.2px',
     },
@@ -52,24 +46,20 @@ const title = [
   f.flexAlignCenter,
   ({
     color: {
-      primary: { purple },
-      bluegray: { bluegray90 },
+      scale: { gray, purple },
     },
-    typography: {
-      size: { heading5 },
-      weight: { bold },
-    },
+    typography: { fontSize, fontWeight },
   }: Theme): CSSObject => ({
     span: {
-      color: bluegray90,
-      fontSize: heading5,
-      fontWeight: bold,
+      color: gray[200],
+      fontSize: fontSize[18],
+      fontWeight: fontWeight[700],
       lineHeight: '28px',
       letterSpacing: '-0.4px',
       marginLeft: '6px',
 
       b: {
-        color: purple,
+        color: purple[900],
         marginLeft: '4px',
       },
     },
@@ -81,11 +71,13 @@ const tickets_wrap = [
   f.flexColumn,
   ({
     color: {
-      primary: { blue },
+      static: {
+        dark: { gray },
+      },
     },
   }: Theme): CSSObject => ({
     padding: '24px',
-    backgroundColor: blue,
+    backgroundColor: gray[200],
   }),
 ];
 
@@ -93,13 +85,9 @@ const info_wrap = [
   f.flexAlignCenter,
   ({
     color: {
-      primary: { white },
-      sub: { green_63ffab },
+      scale: { gray },
     },
-    typography: {
-      size: { paragraph1, element3 },
-      weight: { semibold },
-    },
+    typography: { fontSize, fontWeight },
   }: Theme): CSSObject => ({
     marginBottom: '20px',
 
@@ -108,18 +96,18 @@ const info_wrap = [
     },
 
     '& span': {
-      color: white,
-      fontSize: paragraph1,
-      fontWeight: semibold,
+      color: gray[1000],
+      fontSize: fontSize[16],
+      fontWeight: fontWeight[600],
       lineHeight: '24px',
       letterSpacing: '-0.4px',
       marginRight: '8px',
     },
 
     '& p': {
-      color: green_63ffab,
-      fontSize: element3,
-      fontWeight: semibold,
+      color: '#63ffab ',
+      fontSize: fontSize[12],
+      fontWeight: fontWeight[600],
       height: '24px',
       padding: '0 10px',
       border: '1px solid rgba(255, 255, 255, 0.30)',
@@ -138,11 +126,11 @@ const card_wrap = [
   f.flexColumn,
   ({
     color: {
-      primary: { white },
+      scale: { gray },
     },
   }: Theme): CSSObject => ({
     justifyContent: 'space-between',
-    backgroundColor: white,
+    backgroundColor: gray[1000],
     borderRadius: '8px',
     overflow: 'hidden',
   }),
@@ -158,22 +146,14 @@ const card_top = [
 
 const package_info = [
   f.flexAlignCenter,
-  ({
-    color: {
-      bluegray: { bluegray50 },
-    },
-    typography: {
-      size: { paragraph2 },
-      weight: { medium },
-    },
-  }: Theme): CSSObject => ({
+  ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
     justifyContent: 'space-between',
     marginBottom: '9.5px',
 
     '& > div > span': {
-      color: bluegray50,
-      fontSize: paragraph2,
-      fontWeight: medium,
+      color: '#727B8E',
+      fontSize: fontSize[14],
+      fontWeight: fontWeight[500],
       lineHeight: '18px',
       letterSpacing: '-0.2px',
       marginRight: '2px',
@@ -185,19 +165,15 @@ const lesson_name = [
   f.flexColumn,
   ({
     color: {
-      primary: { black },
+      scale: { gray },
     },
-    typography: {
-      size: { heading5 },
-      weight: { bold },
-    },
-  }: Theme): CSSObject => ({
-    paddingRight: '50px',
+    typography: { fontSize, fontWeight },
+  }) => ({
     marginBottom: '8px',
 
-    color: black,
-    fontSize: heading5,
-    fontWeight: bold,
+    color: gray[0],
+    fontSize: fontSize[18],
+    fontWeight: fontWeight[700],
     lineHeight: '24px',
     letterSpacing: '-0.4px',
   }),
@@ -205,21 +181,13 @@ const lesson_name = [
 
 const times = [
   f.flexAlignCenter,
-  ({
-    color: {
-      primary: { blue },
-    },
-    typography: {
-      size: { paragraph2 },
-      weight: { bold },
-    },
-  }: Theme): CSSObject => ({
+  ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
     marginBottom: '8px',
 
     '& span': {
-      color: blue,
-      fontSize: paragraph2,
-      fontWeight: bold,
+      color: '#004FEC',
+      fontSize: fontSize[14],
+      fontWeight: fontWeight[700],
       lineHeight: '20px',
       letterSpacing: '-0.2px',
       marginRight: '6px',
@@ -229,21 +197,13 @@ const times = [
 
 const ticket_name = [
   f.flexAlignCenter,
-  ({
-    color: {
-      sub: { gray_b0b0b0 },
-    },
-    typography: {
-      size: { element4 },
-      weight: { semibold },
-    },
-  }: Theme) => ({
+  ({ typography: { fontSize, fontWeight } }: Theme) => ({
     marginRight: '50px',
     height: '26px',
     width: 'max-content',
-    color: gray_b0b0b0,
-    fontSize: element4,
-    fontWeight: semibold,
+    color: '#b0b0b0',
+    fontSize: fontSize[11],
+    fontWeight: fontWeight[600],
     lineHeight: '14px',
     letterSpacing: '-0.2px',
     padding: '0 9px',
@@ -257,29 +217,21 @@ const ticket_name = [
 
 const card_bottom = [
   f.flexAlignCenter,
-  ({
-    color: {
-      sub: { gray_f5f8fd },
-    },
-  }: Theme): CSSObject => ({
+  {
     justifyContent: 'space-between',
     height: '54px',
     padding: '0 20px',
-    backgroundColor: gray_f5f8fd,
-  }),
+    backgroundColor: '#f5f8fd',
+  },
 ];
 
 const labels = [
   f.flexAlignCenter,
   ({
     color: {
-      primary: { blue, white },
-      sub: { gray_e1e9f5 },
+      scale: { gray },
     },
-    typography: {
-      size: { element3 },
-      weight: { semibold },
-    },
+    typography: { fontSize, fontWeight },
   }: Theme): CSSObject => ({
     gap: '8px',
 
@@ -288,26 +240,22 @@ const labels = [
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: '50px',
-      border: `1px solid ${gray_e1e9f5}`,
+      border: `1px solid #e1e9f5`,
       height: '30px',
       padding: '0 10px',
-      backgroundColor: white,
-      color: blue,
-      fontSize: element3,
-      fontWeight: semibold,
+      backgroundColor: gray[1000],
+      color: '#004FEC',
+      fontSize: fontSize[12],
+      fontWeight: fontWeight[600],
       lineHeight: '14px',
       letterSpacing: '-0.2px',
     },
   }),
 ];
 
-const bannerIcon = ({
-  color: {
-    sub: { blue_83a7e1 },
-  },
-}: Theme): CSSObject => ({
-  '& svg': { width: '20px', height: '20px', transform: 'rotate(180deg)', '& path': { stroke: blue_83a7e1 } },
-});
+const bannerIcon = {
+  '& svg': { width: '20px', height: '20px', transform: 'rotate(180deg)', '& path': { stroke: '#83a7e1' } },
+};
 
 export {
   wrap,

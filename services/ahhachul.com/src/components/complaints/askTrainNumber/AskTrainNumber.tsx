@@ -1,73 +1,128 @@
-import React from 'react';
+import React, { useReducer, useRef } from 'react';
 import { ActivityComponentType } from '@stackflow/react';
 import { Box, Flex, Text } from '@ahhachul/react-components-layout';
 
 import { COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
 import { Layout } from 'components/layout';
-import { tooltip } from './style';
+import { WhereIsTrainNumberBottomSheet } from './bottomSheet';
+import { submitWrap, submitBtn } from './style';
+import { useFlow } from 'stackflow';
+import { f } from 'styles';
+import { CSSObject, Theme } from '@emotion/react';
+import IconChevron from 'static/icons/system/IconChevron';
+import { useDispatch } from 'react-redux';
+import { addSnackBar } from 'stores/ui';
+import { exportSubwayInfoFromTrainNumber } from 'utils/export';
 
 type AskTrainNumberProps = {
   slug: COMPLAINTS_CONTENTS_TYPES;
 };
 
 const AskTrainNumber: ActivityComponentType<AskTrainNumberProps> = ({ params }) => {
+  const { push } = useFlow();
+  const [show, toggle] = useReducer((c) => !c, false);
+
+  const dispatch = useDispatch();
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const next = () => {
+    const trainInfo = exportSubwayInfoFromTrainNumber(inputRef.current.value);
+
+    if (!inputRef.current.value) {
+      dispatch(addSnackBar({ message: '차량번호를 입력해주세요', posBottom: 115 }));
+    } else if (trainInfo.error) {
+      dispatch(addSnackBar({ message: '올바른 차량번호를 입력해주세요', posBottom: 115 }));
+    } else {
+      push('ComplaintsSubmission', { slug: params.slug, trainNumber: inputRef.current.value });
+    }
+  };
+
+  const clickNoTrainNumber = () => {
+    dispatch(addSnackBar({ message: '준비중이에요', posBottom: 115 }));
+  };
+
   return (
+<<<<<<< HEAD
     <Layout activeTab={false} appBar={{ title: params.slug }} isDarkMode>
       <Box css={{ padding: '20px' }}>
         <Flex direction="column" gap="6px" css={{ marginBottom: '50px' }}>
+=======
+    <Layout activeTab={false} appBar={{ title: params.slug }}>
+      <Box as="main" css={{ padding: '14px 20px' }}>
+        <Flex direction="column" gap="6px" css={{ marginBottom: '16px' }}>
+>>>>>>> main
           <Text fontSize="lg" css={{ color: '#ffffff !important' }}>
             정확한 민원접수를 위해
           </Text>
           <Text fontSize="lg" css={{ color: '#ffffff !important' }}>
-            <b css={{ color: '#2EE477' }}>열차번호</b>를 입력해주세요
+            <b css={{ color: '#2EE477' }}>차량번호</b>를 입력해주세요
           </Text>
         </Flex>
       </Box>
-      <div style={{ padding: '0 20px' }}>
-        {/* <Input variant="filled" placeholder="열차번호" /> */}
-        <span css={tooltip} onClick={() => {}}>
-          {/* <CircleWarningSVG /> */}
-          <span style={{ color: '#ffffff' }} onClick={() => {}}>
-            열차번호는 어디에 있나요?
-          </span>
-        </span>
+      <div css={section}>
+        <span>차량번호</span>
+        <input ref={inputRef} placeholder="차량번호" />
+        <button onClick={clickNoTrainNumber}>
+          <span>차량번호 없이 민원신고 하기</span>
+          <IconChevron />
+        </button>
       </div>
-      {/* <div css={buttonWrapper}>
-        <Button
-          size="md"
-          color="whiteAlpha"
-          onClick={신고유형선택으로가기}
-          style={{
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '48px',
-            borderRadius: '8px',
-            backgroundColor: vars.colors.$static.dark.color.black,
-          }}
-        >
+      <div css={submitWrap}>
+        <button css={submitBtn} onClick={next}>
           다음
-        </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          color="blackAlpha"
-          // onClick={openSubwayLine모달}
-          style={{
-            width: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: 'max-content',
-            backgroundColor: vars.colors.$static.dark.color.white,
-          }}
-        >
-          열차번호 없이 민원신고 하기
-        </Button>
-      </div> */}
+        </button>
+      </div>
+      <WhereIsTrainNumberBottomSheet isShowing={show} onClose={toggle} />
     </Layout>
   );
 };
+
+const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] = [
+  f.sideGutter,
+  f.flexColumn,
+  ({ typography: { fontSize, fontWeight } }: Theme) => ({
+    position: 'relative',
+    marginBottom: '32px',
+
+    '& > span': {
+      color: '#ffffff',
+      fontSize: fontSize[14],
+      fontWeight: fontWeight[600],
+      marginBottom: '14px',
+    },
+
+    '& > input': {
+      border: '1px solid rgb(196, 212, 252, 0.37)',
+      height: '44px',
+      borderRadius: '6px',
+      padding: '0 12px',
+      color: '#ffffff',
+      fontSize: fontSize[14],
+      caretColor: 'rgba(0, 255, 163, 0.5)',
+
+      '&::placeholder': {
+        fontSize: fontSize[14],
+        color: '#9da5b6',
+      },
+    },
+
+    '& > button': {
+      width: '100%',
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      color: 'rgb(196, 212, 252, 0.7)',
+      fontSize: fontSize[14],
+      fontWeight: fontWeight[400],
+      marginTop: '16px',
+
+      '& > div > svg > path': {
+        '&:first-of-type': {
+          stroke: 'rgb(196, 212, 252, 0.7)',
+        },
+      },
+    },
+  }),
+];
 
 export default AskTrainNumber;

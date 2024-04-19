@@ -21,7 +21,6 @@ import {
 } from './style';
 
 import IconGoto from 'static/icons/mocks/IconGoto';
-import IconBpayLong from 'static/icons/system/IconBPayLong';
 
 const MyTicket = () => {
   const { push } = useFlow();
@@ -34,7 +33,7 @@ const MyTicket = () => {
         <h1 css={title}>
           <IconMyTicket />
           <span>
-            보유한 이용권 <b>3</b>
+            보유한 티켓 <b>1</b>
           </span>
         </h1>
         <button onClick={onClickToRegister}>더보기</button>
@@ -42,7 +41,7 @@ const MyTicket = () => {
       <div css={tickets_wrap}>
         <div css={info_wrap}>
           <IconGoto />
-          <span>아하철 고투 피트니스</span>
+          <span>아하철 피트니스</span>
           <p>이용중</p>
         </div>
         <div css={card_wrap}>
@@ -51,23 +50,21 @@ const MyTicket = () => {
               <div>
                 <span>그룹수업</span>
                 <span>·</span>
-                <span>아하철 필라테스</span>
+                <span>아하철 GX</span>
               </div>
-              <IconBpayLong />
             </div>
-            <p css={lesson_name}>VIP를 위한 여름 다이어트다이어 2줄일때</p>
+            <p css={lesson_name}>VIP를 위한 여름 다이어트</p>
             <div css={times}>
-              <span>2020.08.26</span>
+              <span>2024.02.26</span>
               <span>-</span>
-              <span>2021.08.26</span>
+              <span>2024.08.26</span>
             </div>
-            <span css={ticket_name}>이용권 상품명이용권 상품명 이용권 상품명이용권 상품명</span>
+            <span css={ticket_name}>아하철과 고투가 함께하는 다이어트 필승 공략 티켓</span>
           </div>
           <div css={card_bottom}>
             <div css={labels}>
-              <span>180일 남음</span>
-              <span>27회 남음</span>
-              <span>주간 7회 남음</span>
+              <span>213일 남음</span>
+              <span>주간 2회 남음</span>
             </div>
             <IconBack css={bannerIcon} onClick={onClickToRegister} />
           </div>

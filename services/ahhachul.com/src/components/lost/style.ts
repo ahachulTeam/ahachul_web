@@ -1,13 +1,26 @@
+import { f } from 'styles';
 import { CSSObject, Theme } from '@emotion/react';
 
-const title = ({
-  typography: {
-    size: { paragraph1 },
-    weight: { semibold },
-  },
-}: Theme): CSSObject => ({
-  fontSize: paragraph1,
-  fontWeight: semibold,
-});
+const tabHeight = '68.4px';
+const paddingTopHeight = '14px';
 
-export { title };
+const wrap = [f.fullWidth, f.flexColumn, { padding: `${paddingTopHeight} 0 48px` }];
+
+const err = [
+  f.posAbs,
+  ({
+    layout: {
+      size: {
+        height: { header, navbar },
+      },
+    },
+  }: Theme): CSSObject => ({
+    bottom: navbar,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    height: `calc(100% - ${header} - ${navbar} - ${tabHeight} - ${paddingTopHeight})`,
+    boxSizing: 'border-box',
+  }),
+];
+
+export { wrap, err };

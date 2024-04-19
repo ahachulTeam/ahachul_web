@@ -1,7 +1,7 @@
-import * as React from "react";
-import { ButtonProps } from "./types";
-import { clsx } from "clsx";
-import { assignInlineVars } from "@vanilla-extract/dynamic";
+import * as React from 'react';
+import { ButtonProps } from './types';
+import { clsx } from 'clsx';
+import { assignInlineVars } from '@vanilla-extract/dynamic';
 import {
   activeColorVariant,
   buttonStyle,
@@ -9,32 +9,25 @@ import {
   hoverColorVariant,
   spanStyle,
   spinnerStyle,
-} from "./style.css";
-import { vars } from "@ahhachul/themes";
-import { useButton } from "@ahhachul/react-hooks-button";
+} from './style.css';
+import { vars } from '@ahhachul/themes';
+import { useButton } from '@ahhachul/react-hooks-button';
 
 const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
   const { buttonProps } = useButton(props);
   const {
-    variant = "solid",
-    size = "md",
-    color = "gray",
+    variant = 'solid',
+    size = 'md',
+    color = 'gray',
+    enableColor,
+    hoverColor,
+    activeColor,
     leftIcon,
     rightIcon,
     isLoading,
     children,
     style,
   } = props;
-
-  const endableColor = vars.colors.$scale[color][500];
-  const hoverColor =
-    variant === "solid"
-      ? vars.colors.$scale[color][600]
-      : vars.colors.$scale[color][50];
-  const activeColor =
-    variant === "solid"
-      ? vars.colors.$scale[color][700]
-      : vars.colors.$scale[color][100];
 
   return (
     <button
@@ -49,7 +42,7 @@ const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
       ])}
       style={{
         ...assignInlineVars({
-          [enableColorVariant]: endableColor,
+          [enableColorVariant]: enableColor,
           [hoverColorVariant]: hoverColor,
           [activeColorVariant]: activeColor,
         }),

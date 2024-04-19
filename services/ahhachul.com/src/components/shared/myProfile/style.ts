@@ -1,24 +1,5 @@
-import { CSSObject, Theme } from '@emotion/react';
+import { f } from 'styles';
 
-const title = ({
-  typography: {
-    size: { paragraph1 },
-    weight: { semibold },
-  },
-}: Theme): CSSObject => ({
-  fontSize: paragraph1,
-  fontWeight: semibold,
-});
+const wrap = [f.fullWidth, f.flexColumn, { padding: '14px 20px 48px 20px' }];
 
-const left: CSSObject = {
-  marginLeft: '8px',
-};
-
-const right: CSSObject = {
-  display: 'grid',
-  gridTemplateColumns: '24px 24px',
-  gap: '16px',
-  marginRight: '8px',
-};
-
-export { title, left, right };
+export { wrap };

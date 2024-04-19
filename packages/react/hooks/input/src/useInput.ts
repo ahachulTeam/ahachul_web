@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { UseInputProps, UseInputResult } from "./types";
+import { useState } from 'react';
+import { UseInputProps, UseInputResult } from './types';
 
 export const useInput = (props: UseInputProps): UseInputResult => {
   const {
@@ -34,10 +34,10 @@ export const useInput = (props: UseInputProps): UseInputResult => {
       onChange: handleChange,
       disabled: isDisabled,
       readOnly: isReadOnly,
-      "data-disabled": isDisabled,
-      "data-invalid": isInvalid,
-      "aria-invalid": isInvalid,
-      "aria-required": isRequired,
+      'data-disabled': isDisabled,
+      'data-invalid': isInvalid,
+      'aria-invalid': isInvalid,
+      'aria-required': isRequired,
     },
     valueCount: currentValue.toString().length,
   };

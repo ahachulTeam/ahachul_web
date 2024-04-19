@@ -7,12 +7,14 @@ const wrap = [
   f.flexColumn,
   ({
     color: {
-      primary: { white },
+      static: {
+        dark: { gray },
+      },
     },
   }: Theme) => ({
     paddingTop: '16px',
     paddingBottom: '24px',
-    backgroundColor: white,
+    backgroundColor: gray[200],
   }),
 ];
 
@@ -20,19 +22,16 @@ const title = [
   f.flexAlignCenter,
   ({
     color: {
-      bluegray: { bluegray90 },
+      scale: { gray },
     },
-    typography: {
-      size: { heading5 },
-      weight: { bold },
-    },
+    typography: { fontSize, fontWeight },
   }: Theme): CSSObject => ({
     marginBottom: '12px',
 
     b: {
-      color: bluegray90,
-      fontSize: heading5,
-      fontWeight: bold,
+      color: gray[1000],
+      fontSize: fontSize[18],
+      fontWeight: fontWeight[700],
       lineHeight: '28px',
       letterSpacing: '-0.4px',
       marginLeft: '6px',
@@ -43,16 +42,11 @@ const title = [
 const card_wrap = [
   f.fullWidth,
   f.flexColumn,
-  ({
-    color: {
-      sub: { gray_eaeaea },
-    },
-    shadows,
-  }: Theme): CSSObject => ({
+  ({ layout: { shadows } }: Theme): CSSObject => ({
     padding: '24px',
-    border: `1px solid ${gray_eaeaea}`,
+    border: `2px solid #949DB2`,
     borderRadius: '8px',
-    boxShadow: shadows[3],
+    boxShadow: shadows.md,
   }),
 ];
 
@@ -68,15 +62,7 @@ const info_wrap = [
 const payment_info = [
   f.fullWidth,
   f.flexAlignCenter,
-  ({
-    color: {
-      sub: { gray_738dc2, gray_3a3c53, red_ff546c },
-    },
-    typography: {
-      size: { element2, heading5 },
-      weight: { medium, bold },
-    },
-  }: Theme): CSSObject => ({
+  ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
     position: 'relative',
     height: '48px',
     marginBottom: '12px',
@@ -94,17 +80,17 @@ const payment_info = [
       flexDirection: 'column',
 
       '& span:first-of-type': {
-        color: gray_738dc2,
-        fontSize: element2,
-        fontWeight: medium,
+        color: '#738dc2',
+        fontSize: fontSize[14],
+        fontWeight: fontWeight[500],
         lineHeight: '18px',
         letterSpacing: '-0.2px',
       },
 
       '& span:last-of-type': {
-        color: gray_3a3c53,
-        fontSize: heading5,
-        fontWeight: bold,
+        color: '#3a3c53',
+        fontSize: fontSize[18],
+        fontWeight: fontWeight[700],
         lineHeight: '28px',
         letterSpacing: '-0.4px',
       },
@@ -116,13 +102,13 @@ const payment_info = [
       right: 0,
       transform: 'translateY(-50%)',
 
-      fontSize: element2,
-      fontWeight: bold,
+      fontSize: fontSize[14],
+      fontWeight: fontWeight[700],
       lineHeight: '18px',
       letterSpacing: '-0.2px',
 
       height: '26px',
-      color: red_ff546c,
+      color: '#ff546c',
       backgroundColor: 'rgba(255, 84, 108, 0.10)',
       display: 'flex',
       alignItems: 'center',
@@ -136,21 +122,11 @@ const payment_info = [
 const resson_info = [
   f.fullWidth,
   f.flexAlignCenter,
-  ({
-    color: {
-      primary: { white },
-      bluegray: { bluegray80 },
-    },
-    typography: {
-      size: { paragraph1 },
-      weight: { medium },
-    },
-  }: Theme): CSSObject => ({
+  ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
     marginTop: '12px',
-    color: bluegray80,
-    backgroundColor: white,
-    fontSize: paragraph1,
-    fontWeight: medium,
+    color: '#4C5874',
+    fontSize: fontSize[16],
+    fontWeight: fontWeight[500],
     lineHeight: '24px',
     letterSpacing: '-0.4px',
   }),
@@ -162,20 +138,17 @@ const bpay = [
   f.flexJustifyCenter,
   ({
     color: {
-      primary: { blue, white },
+      scale: { gray },
     },
-    typography: {
-      size: { paragraph1 },
-      weight: { bold },
-    },
+    typography: { fontSize, fontWeight },
   }: Theme): CSSObject => ({
     height: '48px',
     borderRadius: '8px',
-    color: white,
-    backgroundColor: blue,
+    color: gray[1000],
+    backgroundColor: '#004FEC',
 
-    fontSize: paragraph1,
-    fontWeight: bold,
+    fontSize: fontSize[16],
+    fontWeight: fontWeight[700],
     lineHeight: '24px',
     letterSpacing: '-0.4px',
 

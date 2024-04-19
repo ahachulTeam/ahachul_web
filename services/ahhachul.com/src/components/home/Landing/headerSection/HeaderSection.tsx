@@ -1,46 +1,43 @@
-import React, { useReducer } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useFlow } from 'stackflow';
+import IconCar from 'static/icons/system/IconCar';
+import IconDndBar from 'static/icons/system/IconDndBar';
+import IconHeart from 'static/icons/system/IconHeart';
+import IconSecondhand from 'static/icons/system/IconSecondhand';
+import { addSnackBar } from 'stores/ui';
 
-import IconSearch from 'static/icons/system/IconSearch';
-import IconQRCode from 'static/icons/system/IconQRCode';
-import IconBack from 'static/icons/system/IconBack';
-import { wrap, title, btn_wrap, registCenter, mobileTicket, banner, bannerTextGroup, bannerIcon } from './style';
-import { MobileTicketBottomSheet } from '../bottomSheet';
+import { btn_wrap, wrap } from './style';
 
 const HeaderSection = () => {
-  const { push } = useFlow();
-  const [show, toggle] = useReducer((c) => !c, false);
-  const onClickToRegister = () => push('RegisterCenter', {});
+  const { push, replace } = useFlow();
+  const routeToBlindDate = () => replace('BlindDate', {});
+  const routeToAllServices = () => push('AllServices', {});
+
+  const dispatch = useDispatch();
+  const clickSecondhand = () => dispatch(addSnackBar({ message: '준비중이에요' }));
 
   return (
-    <div css={wrap}>
-      <h1 css={title}>
-        이효범님<b>함께 화이팅해요! 💪🏻</b>
-      </h1>
-      <div css={btn_wrap}>
-        <button css={registCenter} onClick={onClickToRegister}>
-          <IconSearch />
-          <span>센터등록</span>
+    <section css={wrap}>
+      <ul css={btn_wrap}>
+        <button onClick={routeToAllServices}>
+          <IconDndBar />
+          <span>전체</span>
         </button>
-        <button css={mobileTicket} onClick={toggle}>
-          <IconQRCode />
-          <span>모바일 회원증</span>
+        <button onClick={routeToBlindDate}>
+          <IconHeart />
+          <span>소개팅</span>
         </button>
-      </div>
-      <div
-        css={[banner, { cursor: 'pointer' }]}
-        onClick={() => {
-          window.open('https://smartstore.naver.com/bodycodi/category/4b24fbeb689342f3b06bafb732682e00?cp=1', '_blank');
-        }}
-      >
-        <div css={bannerTextGroup}>
-          <p>아하철 블랙 필라테스</p>
-          <p>블랙라벨 블랙블랙 레깅스 1+1 반값특가!</p>
-        </div>
-        <IconBack css={bannerIcon} />
-      </div>
-      <MobileTicketBottomSheet isShowing={show} onClose={toggle} />
-    </div>
+        <button onClick={clickSecondhand}>
+          <IconSecondhand css={{ '& > svg > path': { fill: 'none !important' } }} />
+          <span>중고거래</span>
+        </button>
+        <button onClick={clickSecondhand}>
+          <IconCar css={{ '& > svg > path': { fill: 'none !important' } }} />
+          <span>카셰어링</span>
+        </button>
+      </ul>
+    </section>
   );
 };
 

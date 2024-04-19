@@ -1,25 +1,24 @@
-import { UseInputProps } from "@ahhachul/react-hooks-input";
-import { vars } from "@ahhachul/themes";
+import { UseInputProps } from '@ahhachul/react-hooks-input';
 
-type Size = "lg" | "md" | "sm" | "xs";
-type Color = keyof typeof vars.colors.$scale;
+type Size = 'lg' | 'md' | 'sm' | 'xs';
 
 export type InputProps = UseInputProps & {
-  color?: Color;
+  color?: string;
+  placeholderColor?: string;
   size?: Size;
-  variant?: "outline" | "filled";
+  variant?: 'outline' | 'filled';
   errorBorderColor?: string;
   focusBorderColor?: string;
 };
 
 export type InputGroupProps = {
-  color?: Color;
+  color?: string;
   size?: Size;
   children: React.ReactNode[];
-} & Omit<React.HTMLAttributes<HTMLDivElement>, "children">;
+} & Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>;
 
-export type InputLeftAddonProps = {
-  color?: Color;
+export type InputAddonProps = {
+  color?: string;
   size?: Size;
   children: React.ReactNode;
 };

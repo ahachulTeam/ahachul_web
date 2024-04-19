@@ -1,24 +1,23 @@
-import { vars } from "@ahhachul/themes";
-import { inputLeftAddonStyle } from "./style.css";
-import { InputLeftAddonProps } from "./types";
-import { clsx } from "clsx";
+import { inputAddonStyle } from './style.css';
+import { InputAddonProps } from './types';
+import { clsx } from 'clsx';
 
-const InputLeftAddon = (props: InputLeftAddonProps) => {
-  const { size = "md", color = "gray", children } = props;
+const InputLeftAddon = (props: InputAddonProps) => {
+  const { size = 'md', color = 'gray', children } = props;
 
   return (
     <div
       className={clsx([
-        inputLeftAddonStyle({
+        inputAddonStyle({
           size,
         }),
       ])}
-      style={{ color: vars.colors.$scale[color][900] }}
+      style={{ color }}
     >
       {children}
     </div>
   );
 };
 
-InputLeftAddon.displayName = "InputLeftAddon";
+InputLeftAddon.displayName = 'InputLeftAddon';
 export { InputLeftAddon };

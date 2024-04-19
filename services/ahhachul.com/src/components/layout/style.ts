@@ -3,20 +3,15 @@ import { f } from 'styles';
 
 const wrapper = [f.posAbsFull, f.flexColumn, f.rootLineHeight];
 
-const left = ({
-  typography: {
-    size: { paragraph1 },
-    weight: { semibold },
-  },
-}: Theme): CSSObject => ({
-  fontSize: paragraph1,
-  fontWeight: semibold,
+const left = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
+  fontSize: fontSize[16],
+  fontWeight: fontWeight[600],
   paddingLeft: '16px',
 });
 
-const right: CSSObject = {
+const right = (hasSearch: boolean): CSSObject => ({
   display: 'grid',
-  gridTemplateColumns: '24px 24px',
+  gridTemplateColumns: hasSearch ? '24px 24px 24px' : '24px 24px',
   alignItems: 'center',
   gap: '16px',
   paddingRight: '16px',
@@ -26,14 +21,16 @@ const right: CSSObject = {
     height: '24px',
     borderRadius: '50%',
   },
-};
+});
 
 const scrollable = (hasNavbar: boolean) => [
   f.flex1,
   f.overflowScroll,
   ({
-    size: {
-      height: { header, navbar },
+    layout: {
+      size: {
+        height: { header, navbar },
+      },
     },
   }: Theme): CSSObject => ({
     paddingTop: header,

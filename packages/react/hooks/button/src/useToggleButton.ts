@@ -1,11 +1,8 @@
-import { useToggle } from "@ahhachul/react-hooks-toggle";
-import { OverloadedToggleButtonFunction } from "./types";
-import { useButton } from "./useButton";
+import { useToggle } from '@ahhachul/react-hooks-toggle';
+import { OverloadedToggleButtonFunction } from './types';
+import { useButton } from './useButton';
 
-export const useToggleButton: OverloadedToggleButtonFunction = (
-  props: any,
-  isSelected?: boolean,
-): any => {
+export const useToggleButton: OverloadedToggleButtonFunction = (props: any, isSelected?: boolean): any => {
   const { isSelected: _isSelected, toggle } = useToggle({
     isSelected,
   });

@@ -1,18 +1,13 @@
-import "@ahhachul/react-components-layout/style.css";
-import React from "react";
-import {
-  OrderedList,
-  ListItem,
-  UnorderedList,
-  List,
-} from "@ahhachul/react-components-layout";
+import '@ahhachul/react-components-layout/style.css';
+import React from 'react';
+import { OrderedList, ListItem, UnorderedList, List } from '@ahhachul/react-components-layout';
 
 export default {
-  title: "React Components/Layout/List",
+  title: 'React Components/Layout/List',
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 };
 
 export const OrderedListStory = {

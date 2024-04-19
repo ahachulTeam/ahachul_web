@@ -3,11 +3,15 @@ import { ActivityComponentType } from '@stackflow/react';
 
 import { Layout } from 'components/layout';
 import { LostComponent } from 'components';
+import { UiComponent } from 'components';
 
 const Lost: ActivityComponentType = () => {
   return (
-    <Layout activeTab={'Lost'}>
+    <Layout activeTab={'Lost'} hasSearch>
       <LostComponent.LostMain />
+      <UiComponent.SearchModal>
+        <UiComponent.SearchBase />
+      </UiComponent.SearchModal>
     </Layout>
   );
 };

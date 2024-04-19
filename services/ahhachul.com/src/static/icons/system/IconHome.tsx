@@ -7,6 +7,8 @@ const SVG = `
 </svg>
 `;
 
-const IconHome: React.FC = () => <div css={f.flex} dangerouslySetInnerHTML={{ __html: SVG }} />;
+const IconHome: React.FC = ({ className }: { className?: string }) => (
+  <div css={f.flex} className={className} dangerouslySetInnerHTML={{ __html: SVG }} />
+);
 
 export default IconHome;

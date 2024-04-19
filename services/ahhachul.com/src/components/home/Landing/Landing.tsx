@@ -1,38 +1,24 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 
-import useDidMount from 'hooks/useDidMount';
-
-import { HeaderSection } from './headerSection';
-import { RequestPayment } from './requestPayment';
-import { RecommendTicket } from './recommendTicket';
-import { ReservedClass } from './reservedClass';
-import { MyTicket } from './myTicket';
-import { BeginningBottomSheet } from './bottomSheet';
+import HeaderSection from './headerSection/HeaderSection';
+// import StationTalksSummary from './stationTalksSummary/StationTalksSummary';
+// import MyShortestPathList from './myShortestPathList/MyShortestPathList';
+import Subway from './subway/Subway';
+// import SubwayLineTalksSummary from './subwayLineTalksSummary/SubwayLineTalksSummary';
 
 const Landing = () => {
-  // const { isLoading } = useCheckSignin();
-  const [show, toggle] = useReducer((c) => !c, false);
-
-  useDidMount(() => {
-    const timer = setTimeout(() => {
-      toggle();
-    }, 1200);
-
-    return () => clearTimeout(timer);
-  });
-
   return (
-    <>
-      <main>
-        <HeaderSection />
-        <RequestPayment />
-        <RecommendTicket />
-        <ReservedClass />
-        <MyTicket />
-      </main>
-      {/* {isLoading && <UiComponent.Loading isWhite opacity={1} />} */}
-      <BeginningBottomSheet isShowing={show} onClose={toggle} />
-    </>
+    <main>
+      <HeaderSection />
+      <Subway />
+      {/* <SubwayLineTalksSummary /> */}
+      {/* <StationTalksSummary /> */}
+      {/* <MyShortestPathList /> */}
+      {/* <RequestPayment /> */}
+      {/* <RecommendTicket /> */}
+      {/* <ReservedClass /> */}
+      {/* <MyTicket /> */}
+    </main>
   );
 };
 

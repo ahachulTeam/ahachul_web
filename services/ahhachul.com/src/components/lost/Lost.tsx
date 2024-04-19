@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
-import { UiComponent } from 'components';
-import { useCheckSignin } from 'hooks';
-import { title } from './style';
+import { ErrorComponent, UiComponent } from 'components';
+import ErrorDefault from 'components/error-management/ErrorDefault';
+import { TabSection } from './tabSection';
+import ListSection from './listSection/ListSection';
+import { wrap, err } from './style';
+import FilterSection from './filterSection';
 
 const Lost = () => {
-  const { isLoading } = useCheckSignin();
-
   return (
-    <main css={{ padding: '20px' }}>
-      <h1 css={title}>this is Lost page (before user loggedin)</h1>
-      {isLoading && <UiComponent.Loading isWhite opacity={1} />}
+    <main css={wrap}>
+      <TabSection />
+      <FilterSection />
+      <ErrorComponent.QueryErrorBoundary fallback={(props) => <ErrorDefault {...props} />} fallbackCss={err}>
+        <Suspense fallback={<UiComponent.Loading />}>
+          <ListSection />
+        </Suspense>
+      </ErrorComponent.QueryErrorBoundary>
     </main>
   );
 };

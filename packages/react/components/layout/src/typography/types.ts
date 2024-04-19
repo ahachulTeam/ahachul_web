@@ -1,13 +1,14 @@
-import { classes } from "@ahhachul/themes";
-import { AsElementProps, StyleProps } from "../core/types";
-import { CSSProperties } from "@vanilla-extract/css";
+import { classes } from '@ahhachul/themes';
+import { AsElementProps, StyleProps } from '../core/types';
+import { CSSProperties } from '@vanilla-extract/css';
 
 export type TextProps = AsElementProps &
   StyleProps & {
     fontSize: keyof typeof classes.typography.text;
-    align?: CSSProperties["textAlign"];
-    casing?: CSSProperties["textTransform"];
-    decoration?: CSSProperties["textDecoration"];
+    fontWeight?: CSSProperties['fontWeight'];
+    align?: CSSProperties['textAlign'];
+    casing?: CSSProperties['textTransform'];
+    decoration?: CSSProperties['textDecoration'];
   };
 
 export type HeadingProps = StyleProps &

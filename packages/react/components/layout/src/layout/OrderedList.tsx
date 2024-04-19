@@ -1,12 +1,9 @@
-import * as React from "react";
-import { OrderListProps } from "./types";
-import { vars } from "@ahhachul/themes";
-import { Flex } from "./Flex";
+import * as React from 'react';
+import { OrderListProps } from './types';
+import { vars } from '@ahhachul/themes';
+import { Flex } from './Flex';
 
-const OrderedList = (
-  props: OrderListProps,
-  ref: React.Ref<HTMLOListElement>,
-) => {
+const OrderedList = (props: OrderListProps, ref: React.Ref<HTMLOListElement>) => {
   const { spacing = 3, children, ...rest } = props;
 
   return (
@@ -15,7 +12,7 @@ const OrderedList = (
       as="ol"
       ref={ref}
       direction="column"
-      style={{ gap: vars.box.spacing[spacing], listStyleType: "decimal" }}
+      style={{ gap: vars.box.spacing[spacing], listStyleType: 'decimal' }}
     >
       {children}
     </Flex>

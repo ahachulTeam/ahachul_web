@@ -1,42 +1,43 @@
-import "@ahhachul/react-components-layout/style.css";
-import { Box, Divider as _Divider } from "@ahhachul/react-components-layout";
-import { vars } from "@ahhachul/themes";
+import React from 'react';
+import '@ahhachul/react-components-layout/style.css';
+import { Box, Divider as _Divider } from '@ahhachul/react-components-layout';
+import { vars } from '@ahhachul/themes';
 
 export default {
-  title: "React Components/Layout/Divider",
+  title: 'React Components/Layout/Divider',
   component: _Divider,
   decorators: [
     (Story) => (
-      <Box padding={3} style={{ width: "300px", height: "300px" }}>
+      <Box padding={3} style={{ width: '300px', height: '300px' }}>
         <Story />
       </Box>
     ),
   ],
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     orientation: {
-      options: ["horizontal", "vertical"],
-      control: "select",
+      options: ['horizontal', 'vertical'],
+      control: 'select',
     },
     variant: {
-      options: ["solid", "dashed"],
-      control: "select",
+      options: ['solid', 'dashed'],
+      control: 'select',
     },
     color: {
       options: Object.keys(vars.colors.$scale),
-      control: "select",
+      control: 'select',
     },
   },
 };
 
 export const Divider = {
   args: {
-    color: "gray",
+    color: 'gray',
     size: 1,
-    variant: "solid",
-    orientation: "horizontal",
+    variant: 'solid',
+    orientation: 'horizontal',
   },
 };

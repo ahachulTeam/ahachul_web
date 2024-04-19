@@ -1,16 +1,32 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
-import { UiComponent } from 'components';
-import { useCheckSignin } from 'hooks';
-import { title } from './style';
+import { ErrorComponent, UiComponent } from 'components';
+import TabSection from './tabSection';
+import ListSection from './listSection';
+import { wrap, err } from './style';
+import ErrorDefault from 'components/error-management/ErrorDefault';
+import FilterSection from './filterSection';
+// import { useDispatch } from 'react-redux';
+// import { setTab } from 'stores/community';
 
 const Community = () => {
-  const { isLoading } = useCheckSignin();
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   console.log('Community Page mounted successfully');
+
+  //   return () => dispatch(setTab('FREE'));
+  // }, []);
 
   return (
-    <main css={{ padding: '20px' }}>
-      <h1 css={title}>this is Community page (before user loggedin)</h1>
-      {isLoading && <UiComponent.Loading isWhite opacity={1} />}
+    <main css={wrap}>
+      <TabSection />
+      <FilterSection />
+      <ErrorComponent.QueryErrorBoundary fallback={(props) => <ErrorDefault {...props} />} fallbackCss={err}>
+        <Suspense fallback={<UiComponent.Loading />}>
+          <ListSection />
+        </Suspense>
+      </ErrorComponent.QueryErrorBoundary>
     </main>
   );
 };

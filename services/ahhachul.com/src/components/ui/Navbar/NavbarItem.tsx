@@ -1,25 +1,33 @@
 import React from 'react';
-import { TypeActivities } from 'stackflow';
+import { useDispatch } from 'react-redux';
+import { TypeActivities, useFlow } from 'stackflow';
+import IconListView from 'static/icons/complaints/IconListView';
+import IconSubmissionView from 'static/icons/complaints/IconSubmissionView';
+import IconCirclePlus from 'static/icons/system/IconCirclePlus';
+import { useAppSelector } from 'stores';
+import { setView } from 'stores/complaints';
 import { IconType } from 'types';
 import { KeyOf } from 'types/utility-types/KeyOf';
-import { itemWrap } from './style';
+import { itemWrap, plusBtn, complaintToggle } from './style';
 
 interface TabItemProps {
   activeTab: KeyOf<TypeActivities>;
   href: KeyOf<TypeActivities>;
   label: string;
   Icon: IconType;
-  replace: (tab: KeyOf<TypeActivities>) => {
-    activityId: string;
-  };
   scrollToTop: VoidFunction;
 }
 
-const TabItem: React.FC<TabItemProps> = ({ activeTab, href, Icon, label, replace, scrollToTop }) => {
+const TabItem: React.FC<TabItemProps> = ({ activeTab, href, Icon, label, scrollToTop }) => {
+  const { push, replace } = useFlow();
   const isActive = activeTab === href;
   const handleTabClick = () => {
     if (isActive) scrollToTop();
-    else replace(href);
+    else replace(href, {}, { animate: false });
+  };
+  const routeToEditor = () => {
+    if (activeTab === 'Lost') push('LostEditor', {});
+    else push('CommunityEditor', {});
   };
 
   return (
@@ -28,7 +36,27 @@ const TabItem: React.FC<TabItemProps> = ({ activeTab, href, Icon, label, replace
         <Icon />
         <span>{label}</span>
       </button>
+      {isActive && (activeTab === 'Lost' || activeTab === 'Community') && (
+        <button css={plusBtn} onClick={routeToEditor}>
+          <IconCirclePlus />
+        </button>
+      )}
+      {isActive && activeTab === 'Complaints' && <ComplaintViewToggle />}
     </div>
+  );
+};
+
+const ComplaintViewToggle = () => {
+  const dispatch = useDispatch();
+  const { activeView } = useAppSelector((state) => state.complaint);
+  const handleToggle = () => {
+    dispatch(setView(activeView === 'SUBMISSION' ? 'LIST' : 'SUBMISSION'));
+  };
+
+  return (
+    <button css={complaintToggle} onClick={handleToggle}>
+      {activeView === 'SUBMISSION' ? <IconListView /> : <IconSubmissionView />}
+    </button>
   );
 };
 

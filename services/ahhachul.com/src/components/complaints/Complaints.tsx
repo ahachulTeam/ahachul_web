@@ -1,55 +1,60 @@
 import React from 'react';
-import loadable from '@loadable/component';
-import { Box, Grid, Text } from '@ahhachul/react-components-layout';
+import { Box } from '@ahhachul/react-components-layout';
 
-import { useFlow } from 'stackflow';
+import { Link } from 'stackflow';
 import { ComplaintsComponent } from 'components';
-import { COMPLAINTS_CONTENTS, COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
-import { grid, wrap, sectionLabel } from './style';
-
-const getRoomService = (serviceName: string) => {
-  return loadable(() => import(`./room/services/${serviceName}`), {
-    cacheKey: () => serviceName,
-  });
-};
+import { COMPLAINTS_CONTENTS, COMPLAINTS_CONTENTS_TYPES, COMPLAINTS_CONTENTS_VALUE_TYPES } from 'data/complaints';
+import { grid1, grid2, wrap, pageTitle } from './style';
+import { AnimatePresence, motion } from 'framer-motion';
+import { defaultFadeInVariants } from 'data/motion';
+import { useAppSelector } from 'stores';
 
 const Complaints = () => {
-  const { push } = useFlow();
-  const handleClickCard = (slug: string) => {
-    push('AskTrainNumber', { slug: slug as COMPLAINTS_CONTENTS_TYPES });
-  };
+  const { activeView } = useAppSelector((state) => state.complaint);
 
   return (
-    <main css={wrap}>
-      <Box>
-        <Text fontSize="md" css={sectionLabel}>
-          지하철 환경
-        </Text>
-        <Grid templateColumns="repeat(2, 1fr)" css={grid}>
-          {Object.entries(COMPLAINTS_CONTENTS)
-            .slice(0, 4)
-            .map(([key, value]) => (
-              <article key={key} onMouseOver={() => getRoomService(key).preload()} onClick={() => handleClickCard(key)}>
-                <ComplaintsComponent.ComplaintCard title={value.label} description={value.description} />
-              </article>
-            ))}
-        </Grid>
-      </Box>
-      <Box>
-        <Text fontSize="xl" css={sectionLabel}>
-          긴급민원 요청
-        </Text>
-        <Grid templateColumns="repeat(2, 1fr)" css={grid}>
-          {Object.entries(COMPLAINTS_CONTENTS)
-            .slice(4, 7)
-            .map(([key, value]) => (
-              <article key={key} onMouseOver={() => getRoomService(key).preload()} onClick={() => handleClickCard(key)}>
-                <ComplaintsComponent.ComplaintCard title={value.label} description={value.description} />
-              </article>
-            ))}
-        </Grid>
-      </Box>
-    </main>
+    <AnimatePresence mode="wait">
+      {activeView === 'SUBMISSION' && (
+        <motion.main css={wrap} initial="initial" animate="animate" exit="exit" variants={defaultFadeInVariants}>
+          <Box>
+            <h2 css={pageTitle}>지하철 환경</h2>
+            <ul css={grid1}>
+              {Object.entries(COMPLAINTS_CONTENTS)
+                .slice(0, 4)
+                .map(([key, value]: [COMPLAINTS_CONTENTS_TYPES, COMPLAINTS_CONTENTS_VALUE_TYPES]) => (
+                  <li key={key}>
+                    <Link activityName="AskTrainNumber" activityParams={{ slug: key }}>
+                      <ComplaintsComponent.ComplaintCard
+                        title={value.label}
+                        description={value.description}
+                        icon={value?.icon}
+                      />
+                    </Link>
+                  </li>
+                ))}
+            </ul>
+          </Box>
+          <Box>
+            <h2 css={pageTitle}>긴급민원 요청</h2>
+            <ul css={grid2}>
+              {Object.entries(COMPLAINTS_CONTENTS)
+                .slice(4, 7)
+                .map(([key, value]: [COMPLAINTS_CONTENTS_TYPES, COMPLAINTS_CONTENTS_VALUE_TYPES]) => (
+                  <li key={key}>
+                    <Link activityName="AskTrainNumber" activityParams={{ slug: key }}>
+                      <ComplaintsComponent.ComplaintCard
+                        title={value.label}
+                        description={value.description}
+                        icon={value?.icon}
+                      />
+                    </Link>
+                  </li>
+                ))}
+            </ul>
+          </Box>
+        </motion.main>
+      )}
+    </AnimatePresence>
   );
 };
 

@@ -14,7 +14,7 @@ function MobileTicketBottomSheet(props: Props) {
     <BottomSheet isShowing={props.isShowing} onClickOutside={props.onClose} isDraggable isFullHeight header={false}>
       <div css={{ position: 'relative' }}>
         <div css={top}>
-          <span>모바일 회원증</span>
+          <span>수도권 노선도</span>
           <IconClose onClick={props.onClose} />
           <div />
         </div>

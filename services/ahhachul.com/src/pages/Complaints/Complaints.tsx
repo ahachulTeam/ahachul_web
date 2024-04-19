@@ -6,8 +6,9 @@ import { ComplaintsComponent } from 'components';
 
 const Complaints: ActivityComponentType = () => {
   return (
-    <Layout activeTab={'Complaints'} isDarkMode>
+    <Layout activeTab={'Complaints'}>
       <ComplaintsComponent.ComplaintsMain />
+      <ComplaintsComponent.ComplaintList />
     </Layout>
   );
 };

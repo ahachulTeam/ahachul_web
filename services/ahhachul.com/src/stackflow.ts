@@ -4,24 +4,49 @@ import { createLinkComponent } from '@stackflow/link';
 import { historySyncPlugin } from '@stackflow/plugin-history-sync';
 import { basicRendererPlugin } from '@stackflow/plugin-renderer-basic';
 
-import { Complaints, Home, Lost, Community } from 'pages';
-import { ComplaintsComponent, HomeComponent, SharedComponent } from 'components';
+import {
+  Home,
+  Complaints,
+  ComplaintDetail,
+  Lost,
+  LostDetail,
+  LostEditor,
+  Community,
+  CommunityDetail,
+  CommunityEditor,
+  BlindDate,
+} from 'pages';
+import { BlindDateComponent, ComplaintsComponent, HomeComponent, SharedComponent } from 'components';
 import { PATH } from 'data';
 
-export const { Stack, activities, useFlow } = stackflow({
+export const { Stack, activities, useFlow, useStepFlow } = stackflow({
   transitionDuration: 350,
   activities: {
-    Home,
     Chat: SharedComponent.Chat,
     Alarm: SharedComponent.Alarm,
     MyTicket: SharedComponent.MyTicket,
     MyProfile: SharedComponent.MyProfile,
-    PurchaseTicket: HomeComponent.PurchaseTicket,
+    AllServices: SharedComponent.AllServices,
+    SubwayWarning: SharedComponent.SubwayWarning,
+    SubwayTimeTable: SharedComponent.SubwayTimeTable,
+    SubwayLineTalks: SharedComponent.SubwayLineTalks,
+    StationTalks: SharedComponent.StationTalks,
+    Home,
+    SubwayMap: HomeComponent.SubwayMap,
     RegisterCenter: HomeComponent.RegisterCenter,
-    Complaints,
     AskTrainNumber: ComplaintsComponent.AskTrainNumber,
+    ComplaintsSubmission: ComplaintsComponent.ComplaintsSubmission,
+    Complaints,
+    ComplaintDetail,
     Lost,
+    LostDetail,
+    LostEditor,
     Community,
+    CommunityDetail,
+    CommunityEditor,
+    BlindDate,
+    BlindDateForm: BlindDateComponent.FormForBlindDate,
+    BlindDateMyPage: BlindDateComponent.BlindDateMyPage,
   },
   plugins: [
     basicRendererPlugin(),
@@ -40,11 +65,27 @@ export const { Stack, activities, useFlow } = stackflow({
         Alarm: PATH.alarm,
         MyTicket: PATH.myTicket,
         MyProfile: PATH.me,
+        AllServices: PATH.allServices,
+        SubwayWarning: PATH.subwayWarning,
+        SubwayTimeTable: PATH.subwayTimeTable,
+        SubwayLineTalks: PATH.subwayLineTalks,
+        StationTalks: PATH.stationTalks,
+        SubwayMap: PATH.subwayMap,
         RegisterCenter: PATH.registerCenter,
         Complaints: PATH.complaints,
-        AskTrainNumber: PATH.askTrainNumber,
+        ComplaintDetail: PATH.complaintDetail,
+        AskTrainNumber: PATH.complaintsAskTrainNumber,
+        ComplaintsSubmission: PATH.complaintsSubmission,
         Lost: PATH.lost,
+        LostDetail: PATH.lostDetail,
+        LostEditor: PATH.lostEditor,
         Community: PATH.community,
+        CommunityDetail: PATH.communityDetail,
+        CommunityEditor: PATH.communityEditor,
+        // 소개팅
+        BlindDate: PATH.blindDate,
+        BlindDateForm: PATH.blindDateForm,
+        BlindDateMyPage: PATH.blindDateMyPage,
       },
       fallbackActivity: () => 'Home',
     }),

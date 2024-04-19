@@ -6,12 +6,12 @@ const RegisterCenter = () => {
   return (
     <Layout
       appBar={{
-        title: '센터 등록',
+        title: '나만의 역 등록',
       }}
       activeTab={false}
     >
       <main css={{ padding: '20px' }}>
-        <h1 css={title}>this is 센터 등록 page</h1>
+        <h1 css={title}>this is 나만의 역 등록 page</h1>
       </main>
     </Layout>
   );

@@ -1,5 +1,4 @@
 import { CSSObject, Theme } from '@emotion/react';
-import theme from './theme';
 
 const grid: CSSObject = {
   display: 'grid',
@@ -19,6 +18,14 @@ const flexAlignCenter: CSSObject[] = [
 const flexJustifyCenter: CSSObject[] = [
   flex,
   {
+    justifyContent: 'center',
+  },
+];
+
+const flexCenterCenter: CSSObject[] = [
+  flex,
+  {
+    alignItems: 'center',
     justifyContent: 'center',
   },
 ];
@@ -73,14 +80,14 @@ const nowrap: CSSObject = {
 
 const resetButton = ({
   color: {
-    primary: { black },
+    scale: { gray },
   },
 }: Theme): CSSObject => ({
   appearance: 'none',
   border: 0,
   padding: 0,
   background: 'none',
-  color: black,
+  color: gray[0],
   textAlign: 'left',
 });
 
@@ -119,9 +126,45 @@ const visuallyHidden: CSSObject = {
   overflow: 'hidden',
 };
 
+const truncate = {
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  wordBreak: 'break-all',
+};
+
+const truncate1 = [
+  truncate,
+  {
+    WebkitLineClamp: 1,
+  },
+];
+
+const truncate2 = [
+  truncate,
+  {
+    WebkitLineClamp: 2,
+  },
+];
+
+const truncate3 = [
+  truncate,
+  {
+    WebkitLineClamp: 2,
+  },
+];
+
+const truncate4 = [
+  truncate,
+  {
+    WebkitLineClamp: 2,
+  },
+];
+
 const sideGutter: CSSObject = {
-  paddingLeft: theme.size.gutter,
-  paddingRight: theme.size.gutter,
+  paddingLeft: '20px',
+  paddingRight: '20px',
 };
 
 export {
@@ -129,6 +172,7 @@ export {
   flex,
   flexAlignCenter,
   flexJustifyCenter,
+  flexCenterCenter,
   flexJustifySpaceBetween,
   flexColumn,
   flex1,
@@ -145,6 +189,10 @@ export {
   overflowScroll,
   rootLineHeight,
   visuallyHidden,
+  truncate1,
+  truncate2,
+  truncate3,
+  truncate4,
   sideGutter,
   resetButton,
 };

@@ -1,23 +1,17 @@
-import * as React from "react";
-import { DividerProps } from "./types";
-import { vars } from "@ahhachul/themes";
+import * as React from 'react';
+import { DividerProps } from './types';
 
 const Divider = (props: DividerProps, ref: React.Ref<HTMLHRElement>) => {
-  const {
-    color = "gray",
-    variant = "solid",
-    size = 1,
-    orientation = "horizontal",
-  } = props;
+  const { color = 'gray', variant = 'solid', size = 1, orientation = 'horizontal' } = props;
 
   const borderStyle =
-    orientation === "horizontal"
+    orientation === 'horizontal'
       ? {
-          width: "100%",
+          width: '100%',
           borderWidth: `0 0 ${size}px 0`,
         }
       : {
-          height: "100%",
+          height: '100%',
           borderWidth: `0 0 0 ${size}px`,
         };
 
@@ -27,7 +21,7 @@ const Divider = (props: DividerProps, ref: React.Ref<HTMLHRElement>) => {
       ref={ref}
       style={{
         borderStyle: variant,
-        borderColor: color && vars.colors.$scale?.[color]?.[200],
+        borderColor: color,
         ...borderStyle,
         ...props.style,
       }}
