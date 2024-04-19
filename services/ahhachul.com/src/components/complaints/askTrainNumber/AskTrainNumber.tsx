@@ -42,15 +42,9 @@ const AskTrainNumber: ActivityComponentType<AskTrainNumberProps> = ({ params }) 
   };
 
   return (
-<<<<<<< HEAD
-    <Layout activeTab={false} appBar={{ title: params.slug }} isDarkMode>
-      <Box css={{ padding: '20px' }}>
-        <Flex direction="column" gap="6px" css={{ marginBottom: '50px' }}>
-=======
     <Layout activeTab={false} appBar={{ title: params.slug }}>
       <Box as="main" css={{ padding: '14px 20px' }}>
         <Flex direction="column" gap="6px" css={{ marginBottom: '16px' }}>
->>>>>>> main
           <Text fontSize="lg" css={{ color: '#ffffff !important' }}>
             정확한 민원접수를 위해
           </Text>
