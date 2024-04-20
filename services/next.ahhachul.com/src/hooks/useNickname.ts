@@ -13,8 +13,10 @@ interface Props {
 
 function useNickname({ nickname, originNickname = '' }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { mutateAsync, status } = MemberQuery.useCheckNickname();
+  const { mutateAsync, data, status } = MemberQuery.useCheckNickname();
   const subjectRef = useRef(new Subject<string>());
+
+  console.log('data:', data);
 
   const [invalidMsg, setInvalidMsg] = useState('');
 
@@ -33,7 +35,7 @@ function useNickname({ nickname, originNickname = '' }: Props) {
         filter((v) => v !== originNickname),
         map((v) => {
           if (v.length > MAX_LEN) {
-            setInvalidMsg('한글,영문 10자 이하로 입력해주세요');
+            setInvalidMsg('한글,영문 8자 이하로 입력해주세요');
             return '';
           } else if (v.length === 1) {
             setInvalidMsg('최소 2자 이상 입력해주세요');
@@ -44,12 +46,12 @@ function useNickname({ nickname, originNickname = '' }: Props) {
           }
         }),
         filter((v) => v !== ''),
-        mergeMap((v) => from(mutateAsync(v)).pipe(catchError((e) => of(e)))),
+        mergeMap((v) => from(mutateAsync(v?.trim())).pipe(catchError((e) => of(e)))),
         map((d) => {
           if (d instanceof AxiosError) {
             return '지원하지 않는 형식입니다';
           }
-          return d.data.payload ? '중복인 닉네임이라 사용할 수 없습니다.' : '';
+          return !d.data.result?.available ? '중복인 닉네임이라 사용할 수 없습니다.' : '';
         }),
       )
       .subscribe((v: string) => {
@@ -63,7 +65,7 @@ function useNickname({ nickname, originNickname = '' }: Props) {
     subjectRef.current.next(nickname);
   }, [nickname]);
 
-  return { invalidMsg, disabled, inputRef };
+  return { invalidMsg, disabled, inputRef, available: data?.data.result?.available };
 }
 
 export default useNickname;

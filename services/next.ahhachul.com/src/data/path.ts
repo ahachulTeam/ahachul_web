@@ -28,8 +28,8 @@ const PATH = {
   me: '/me',
   setting: '/me/setting',
   myTicket: '/me/setting/my-ticket',
-  registerCenter: 'me/register-center',
   settingNickname: '/me/setting/nickname',
+  settingStations: '/me/setting/register-center',
 
   /** 인증 관련 */
   signin: '/signin',

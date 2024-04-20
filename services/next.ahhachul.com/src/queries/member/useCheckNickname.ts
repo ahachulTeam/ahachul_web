@@ -1,10 +1,8 @@
-import { useMutation } from '@/src/queries/query';
+import { useAuthMutation } from '@/src/queries/query';
 import { MemberApi } from '@/src/api';
 
 function useCheckNickName() {
-  return useMutation({
-    mutationFn: MemberApi.checkNickname,
-  });
+  return useAuthMutation(MemberApi.checkNickname);
 }
 
 export default useCheckNickName;

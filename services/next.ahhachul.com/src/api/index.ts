@@ -5,7 +5,6 @@ import { auth } from '@/src/providers/AuthProvider';
 import { Tokens } from '../utils/authentication/tokens';
 
 export const tokenService = new Tokens(auth);
-export const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const setInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use(

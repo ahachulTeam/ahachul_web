@@ -1,25 +1,39 @@
 import { Layout } from '@/src/components/layout';
+import { PATH } from '@/src/data';
 import useNickname from '@/src/hooks/useNickname';
+import { usePutPersonalInfo } from '@/src/queries/member';
 import IconInfo from '@/src/static/icons/system/IconInfo';
 import { f } from '@/src/styles';
 import { CSSObject, Theme } from '@emotion/react';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { FormEvent, useEffect, useState } from 'react';
 
 export default function MeNicknameSetting() {
+  const router = useRouter();
   const [nickname, setNickName] = useState('');
 
-  const { disabled: nicknameDisabled, inputRef, invalidMsg } = useNickname({ nickname });
+  const { disabled: nicknameDisabled, inputRef, invalidMsg, available } = useNickname({ nickname });
 
-  const handleSubmit = () => {
-    if (nicknameDisabled) {
+  const { mutate, status } = usePutPersonalInfo();
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (nicknameDisabled || !available) {
       inputRef.current?.focus?.();
       return;
     }
 
-    // mutate({
-    //   nickname,
-    // });
+    mutate({
+      nickname,
+    });
   };
+
+  useEffect(() => {
+    if (status === 'success') {
+      router.replace(PATH.settingStations);
+    }
+  }, [status]);
 
   return (
     <Layout headerType="back" title="" nav={false}>
@@ -41,7 +55,7 @@ export default function MeNicknameSetting() {
         </div>
         <div css={submitWrap}>
           <button css={submitBtn} type="submit" disabled={nicknameDisabled}>
-            작성 완료
+            다음
           </button>
         </div>
       </form>
@@ -126,4 +140,9 @@ const submitBtn = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject =
   color: '#141517',
   fontWeight: fontWeight[600],
   borderRadius: '8px',
+
+  '&:disabled': {
+    color: '#ffffff',
+    opacity: 0.75,
+  },
 });
