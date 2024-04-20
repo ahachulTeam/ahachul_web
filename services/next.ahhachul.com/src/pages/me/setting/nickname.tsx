@@ -3,6 +3,7 @@ import { PATH } from '@/src/data';
 import useNickname from '@/src/hooks/useNickname';
 import { usePutPersonalInfo } from '@/src/queries/member';
 import IconInfo from '@/src/static/icons/system/IconInfo';
+import { useAppSelector } from '@/src/stores';
 import { f } from '@/src/styles';
 import { CSSObject, Theme } from '@emotion/react';
 import { useRouter } from 'next/router';
@@ -11,6 +12,7 @@ import { FormEvent, useEffect, useState } from 'react';
 export default function MeNicknameSetting() {
   const router = useRouter();
   const [nickname, setNickName] = useState('');
+  const { auth: clientAuth } = useAppSelector((state) => state.auth);
 
   const { disabled: nicknameDisabled, inputRef, invalidMsg, available } = useNickname({ nickname });
 
@@ -28,6 +30,12 @@ export default function MeNicknameSetting() {
       nickname,
     });
   };
+
+  useEffect(() => {
+    if (!clientAuth) {
+      router.replace(PATH.signin);
+    }
+  }, [clientAuth]);
 
   useEffect(() => {
     if (status === 'success') {

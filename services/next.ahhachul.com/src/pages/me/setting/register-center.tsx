@@ -43,6 +43,12 @@ export default function MeRegisterCenter() {
   };
 
   useEffect(() => {
+    if (!clientAuth) {
+      router.replace(PATH.signin);
+    }
+  }, [clientAuth]);
+
+  useEffect(() => {
     if (status === 'success') {
       auth.signIn(clientAuth as IToken);
       router.replace(PATH.home);
