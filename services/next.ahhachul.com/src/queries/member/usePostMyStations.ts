@@ -4,11 +4,11 @@ import { STATIONS_KEY } from './keys';
 import { useAppDispatch } from '@/src/stores';
 import { loaded, loading } from '@/src/stores/ui';
 
-function usePutMyStations() {
+function usePostMyStations() {
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
 
-  return useAuthMutation(MemberApi.putMyStations, {
+  return useAuthMutation(MemberApi.postMyStations, {
     onSettled() {
       dispatch(loaded());
     },
@@ -21,4 +21,4 @@ function usePutMyStations() {
   });
 }
 
-export default usePutMyStations;
+export default usePostMyStations;

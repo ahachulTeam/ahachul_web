@@ -12,6 +12,6 @@ const getPersonalInfo = () => base.get<IResponse<IMember>>(`${PATH}`);
 const putPersonalInfo = (data: MemberUpdateType) => base.patch(`${PATH}`, data);
 
 // TODO: api 수정되면 고도화하기
-const putMyStations = (data: { stationNames: string[] }) => base.patch(`${PATH}/bookmarks/stations`, data);
+const postMyStations = (data: { stationNames: string[] }) => base.post(`${PATH}/bookmarks/stations`, data);
 
-export { checkNickname, getPersonalInfo, putPersonalInfo, putMyStations };
+export { checkNickname, getPersonalInfo, putPersonalInfo, postMyStations };

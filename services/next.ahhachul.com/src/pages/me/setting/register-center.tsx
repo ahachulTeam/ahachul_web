@@ -1,7 +1,7 @@
 import { Layout } from '@/src/components/layout';
 import { PATH } from '@/src/data';
 import { useAuth } from '@/src/providers/AuthProvider';
-import { usePutMyStations } from '@/src/queries/member';
+import { usePostMyStations } from '@/src/queries/member';
 import { useAppSelector } from '@/src/stores';
 import { f } from '@/src/styles';
 import { IToken } from '@/src/types';
@@ -16,7 +16,7 @@ export default function MeRegisterCenter() {
   const { auth: clientAuth } = useAppSelector((state) => state.auth);
 
   const [stations, setStations] = useState<string[]>([]);
-  const { mutate, status } = usePutMyStations();
+  const { mutate, status } = usePostMyStations();
 
   const handleChange = useCallback(
     (station: string) => () => {
