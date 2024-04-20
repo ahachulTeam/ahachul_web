@@ -5384,24 +5384,24 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@inquirer/confirm", [\
-      ["npm:3.1.0", {\
-        "packageLocation": "../../.yarn/berry/cache/@inquirer-confirm-npm-3.1.0-d52af2819f-10c0.zip/node_modules/@inquirer/confirm/",\
+      ["npm:3.0.0", {\
+        "packageLocation": "../../.yarn/berry/cache/@inquirer-confirm-npm-3.0.0-984f548d6b-10c0.zip/node_modules/@inquirer/confirm/",\
         "packageDependencies": [\
-          ["@inquirer/confirm", "npm:3.1.0"],\
-          ["@inquirer/core", "npm:7.1.0"],\
-          ["@inquirer/type", "npm:1.2.1"]\
+          ["@inquirer/confirm", "npm:3.0.0"],\
+          ["@inquirer/core", "npm:7.0.0"],\
+          ["@inquirer/type", "npm:1.2.0"]\
         ],\
         "linkType": "HARD"\
       }]\
     ]],\
     ["@inquirer/core", [\
-      ["npm:7.1.0", {\
-        "packageLocation": "../../.yarn/berry/cache/@inquirer-core-npm-7.1.0-4ac3a446f8-10c0.zip/node_modules/@inquirer/core/",\
+      ["npm:7.0.0", {\
+        "packageLocation": "../../.yarn/berry/cache/@inquirer-core-npm-7.0.0-c301d3f0c5-10c0.zip/node_modules/@inquirer/core/",\
         "packageDependencies": [\
-          ["@inquirer/core", "npm:7.1.0"],\
-          ["@inquirer/type", "npm:1.2.1"],\
+          ["@inquirer/core", "npm:7.0.0"],\
+          ["@inquirer/type", "npm:1.2.0"],\
           ["@types/mute-stream", "npm:0.0.4"],\
-          ["@types/node", "npm:20.11.30"],\
+          ["@types/node", "npm:20.11.25"],\
           ["@types/wrap-ansi", "npm:3.0.0"],\
           ["ansi-escapes", "npm:4.3.2"],\
           ["chalk", "npm:4.1.2"],\
@@ -5418,10 +5418,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@inquirer/type", [\
-      ["npm:1.2.1", {\
-        "packageLocation": "../../.yarn/berry/cache/@inquirer-type-npm-1.2.1-fd56585cc2-10c0.zip/node_modules/@inquirer/type/",\
+      ["npm:1.2.0", {\
+        "packageLocation": "../../.yarn/berry/cache/@inquirer-type-npm-1.2.0-5c889cb5a6-10c0.zip/node_modules/@inquirer/type/",\
         "packageDependencies": [\
-          ["@inquirer/type", "npm:1.2.1"]\
+          ["@inquirer/type", "npm:1.2.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -11424,6 +11424,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@types/js-cookie", [\
+      ["npm:3.0.6", {\
+        "packageLocation": "../../.yarn/berry/cache/@types-js-cookie-npm-3.0.6-c9126e5b48-10c0.zip/node_modules/@types/js-cookie/",\
+        "packageDependencies": [\
+          ["@types/js-cookie", "npm:3.0.6"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@types/js-yaml", [\
       ["npm:4.0.9", {\
         "packageLocation": "../../.yarn/berry/cache/@types-js-yaml-npm-4.0.9-6a16d01bd2-10c0.zip/node_modules/@types/js-yaml/",\
@@ -11589,14 +11598,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../.yarn/berry/cache/@types-node-npm-20.11.25-b6ac39dd46-10c0.zip/node_modules/@types/node/",\
         "packageDependencies": [\
           ["@types/node", "npm:20.11.25"],\
-          ["undici-types", "npm:5.26.5"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
-      ["npm:20.11.30", {\
-        "packageLocation": "../../.yarn/berry/cache/@types-node-npm-20.11.30-b20dd3f11f-10c0.zip/node_modules/@types/node/",\
-        "packageDependencies": [\
-          ["@types/node", "npm:20.11.30"],\
           ["undici-types", "npm:5.26.5"]\
         ],\
         "linkType": "HARD"\
@@ -11873,10 +11874,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@types/statuses", [\
-      ["npm:2.0.5", {\
-        "packageLocation": "../../.yarn/berry/cache/@types-statuses-npm-2.0.5-f46121f53f-10c0.zip/node_modules/@types/statuses/",\
+      ["npm:2.0.4", {\
+        "packageLocation": "../../.yarn/berry/cache/@types-statuses-npm-2.0.4-c9c508f332-10c0.zip/node_modules/@types/statuses/",\
         "packageDependencies": [\
-          ["@types/statuses", "npm:2.0.5"]\
+          ["@types/statuses", "npm:2.0.4"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -20351,10 +20352,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["headers-polyfill", [\
-      ["npm:4.0.3", {\
-        "packageLocation": "../../.yarn/berry/cache/headers-polyfill-npm-4.0.3-65ca63b329-10c0.zip/node_modules/headers-polyfill/",\
+      ["npm:4.0.2", {\
+        "packageLocation": "../../.yarn/berry/cache/headers-polyfill-npm-4.0.2-0cef9f97de-10c0.zip/node_modules/headers-polyfill/",\
         "packageDependencies": [\
-          ["headers-polyfill", "npm:4.0.3"]\
+          ["headers-polyfill", "npm:4.0.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -22462,6 +22463,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../.yarn/berry/cache/jiti-npm-1.21.0-baebd5985a-10c0.zip/node_modules/jiti/",\
         "packageDependencies": [\
           ["jiti", "npm:1.21.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["js-cookie", [\
+      ["npm:3.0.5", {\
+        "packageLocation": "../../.yarn/berry/cache/js-cookie-npm-3.0.5-8fc8fcc9b4-10c0.zip/node_modules/js-cookie/",\
+        "packageDependencies": [\
+          ["js-cookie", "npm:3.0.5"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -24744,21 +24754,21 @@ const RAW_RUNTIME_STATE =
           ["msw", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:2.2.11"],\
           ["@bundled-es-modules/cookie", "npm:2.0.0"],\
           ["@bundled-es-modules/statuses", "npm:1.0.1"],\
-          ["@inquirer/confirm", "npm:3.1.0"],\
+          ["@inquirer/confirm", "npm:3.0.0"],\
           ["@mswjs/cookies", "npm:1.1.0"],\
           ["@mswjs/interceptors", "npm:0.25.16"],\
           ["@open-draft/until", "npm:2.1.0"],\
           ["@types/cookie", "npm:0.6.0"],\
-          ["@types/statuses", "npm:2.0.5"],\
+          ["@types/statuses", "npm:2.0.4"],\
           ["@types/typescript", null],\
           ["chalk", "npm:4.1.2"],\
           ["graphql", "npm:16.8.1"],\
-          ["headers-polyfill", "npm:4.0.3"],\
+          ["headers-polyfill", "npm:4.0.2"],\
           ["is-node-process", "npm:1.2.0"],\
           ["outvariant", "npm:1.4.2"],\
           ["path-to-regexp", "npm:6.2.1"],\
           ["strict-event-emitter", "npm:0.5.1"],\
-          ["type-fest", "npm:4.14.0"],\
+          ["type-fest", "npm:4.11.1"],\
           ["typescript", "patch:typescript@npm%3A4.9.5#optional!builtin<compat/typescript>::version=4.9.5&hash=289587"],\
           ["yargs", "npm:17.7.2"]\
         ],\
@@ -25060,6 +25070,7 @@ const RAW_RUNTIME_STATE =
           ["@tanstack/react-query", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:5.28.9"],\
           ["@tanstack/react-query-devtools", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:5.25.0"],\
           ["@types/axios", "npm:0.14.0"],\
+          ["@types/js-cookie", "npm:3.0.6"],\
           ["@types/lodash-es", "npm:4.17.12"],\
           ["@types/node", "npm:20.12.5"],\
           ["@types/react", "npm:18.2.64"],\
@@ -25070,6 +25081,7 @@ const RAW_RUNTIME_STATE =
           ["eslint", "npm:8.57.0"],\
           ["eslint-config-next", "virtual:656f6679609ce5b2f109cac1960ef183ffc0f14f80c8941873ab80b93071d949a764820b058f0d7f4e4fe28794b034e8055fa06afe185028779421d61380aacc#npm:14.1.4"],\
           ["framer-motion", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:10.18.0"],\
+          ["js-cookie", "npm:3.0.5"],\
           ["lexical", "npm:0.14.2"],\
           ["lodash-es", "npm:4.17.21"],\
           ["next", "virtual:656f6679609ce5b2f109cac1960ef183ffc0f14f80c8941873ab80b93071d949a764820b058f0d7f4e4fe28794b034e8055fa06afe185028779421d61380aacc#npm:13.5.4"],\
@@ -32502,10 +32514,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["npm:4.14.0", {\
-        "packageLocation": "../../.yarn/berry/cache/type-fest-npm-4.14.0-ad5e80a67a-10c0.zip/node_modules/type-fest/",\
+      ["npm:4.11.1", {\
+        "packageLocation": "../../.yarn/berry/cache/type-fest-npm-4.11.1-8fe6985264-10c0.zip/node_modules/type-fest/",\
         "packageDependencies": [\
-          ["type-fest", "npm:4.14.0"]\
+          ["type-fest", "npm:4.11.1"]\
         ],\
         "linkType": "HARD"\
       }]\

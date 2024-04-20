@@ -6,6 +6,7 @@ import { theme, global } from '@/src/styles';
 import QueryProvider from './QueryProvider';
 import ThemeScript from './ThemeScript';
 import type { AppProps } from 'next/app';
+import { AuthProvider } from './AuthProvider';
 
 function AppProvider({ pageProps, children }: PropsWithChildren<{ pageProps: AppProps['pageProps'] }>) {
   return (
@@ -14,7 +15,9 @@ function AppProvider({ pageProps, children }: PropsWithChildren<{ pageProps: App
       <Global styles={global} />
       <ThemeProvider theme={theme}>
         <Provider store={store}>
-          <QueryProvider pageProps={pageProps}>{children}</QueryProvider>
+          <QueryProvider pageProps={pageProps}>
+            <AuthProvider>{children}</AuthProvider>
+          </QueryProvider>
         </Provider>
       </ThemeProvider>
     </>
