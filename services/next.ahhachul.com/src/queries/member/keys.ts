@@ -1,7 +1,7 @@
 const KEY = ['MEMBER'];
 
-const STATS_KEY = [...KEY, 'STATS'];
+const STATIONS_KEY = [...KEY, 'STATIONS'];
 
 const PERSONAL_INFO_KEY = [...KEY, 'PERSONAL_INFO'];
 
-export { KEY, STATS_KEY, PERSONAL_INFO_KEY };
+export { KEY, STATIONS_KEY, PERSONAL_INFO_KEY };

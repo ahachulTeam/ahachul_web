@@ -2,13 +2,16 @@ import { base } from '..';
 import { IResponse } from '@/src/types';
 import { IMember, MemberUpdateType } from '@/src/types/member';
 
-const PATH = '/v1/members';
+const PATH = '/members';
 
 const checkNickname = (nickname: string) =>
-  base.get<IResponse<boolean>>(`${PATH}/check-nickname`, { params: { nickname } });
+  base.post<IResponse<{ available: boolean }>>(`${PATH}/check-nickname`, { nickname });
 
-const getPersonalInfo = () => base.get<IResponse<IMember>>(`${PATH}/personal-info`);
+const getPersonalInfo = () => base.get<IResponse<IMember>>(`${PATH}`);
 
-const putPersonalInfo = (data: MemberUpdateType) => base.put(`${PATH}/personal-info`, data);
+const putPersonalInfo = (data: MemberUpdateType) => base.patch(`${PATH}`, data);
 
-export { checkNickname, getPersonalInfo, putPersonalInfo };
+// TODO: api 수정되면 고도화하기
+const postMyStations = (data: { stationNames: string[] }) => base.post(`${PATH}/bookmarks/stations`, data);
+
+export { checkNickname, getPersonalInfo, putPersonalInfo, postMyStations };
