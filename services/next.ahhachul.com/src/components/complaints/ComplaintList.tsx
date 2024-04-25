@@ -8,7 +8,7 @@ import FilterSection from './filterSection';
 
 const ComplaintList = () => {
   return (
-    <section css={[wrap, { gap: 0 }]}>
+    <div css={[wrap, { gap: 0 }]}>
       <h2 css={pageTitle}>실시간 민원</h2>
       <FilterSection />
       <ErrorComponent.QueryErrorBoundary fallback={(props) => <ErrorDefault {...props} />} fallbackCss={err}>
@@ -16,7 +16,7 @@ const ComplaintList = () => {
           <ListSection />
         </Suspense>
       </ErrorComponent.QueryErrorBoundary>
-    </section>
+    </div>
   );
 };
 

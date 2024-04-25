@@ -111,69 +111,67 @@ export default function LostEditor() {
 
   return (
     <Layout headerType="back" title="글 작성" nav={false}>
-      <main css={wrap}>
-        <form onSubmit={handleSubmit}>
-          <div css={section}>
-            <ImageUpload handleChangeImage={handleChangeImage} />
-          </div>
-          <div css={section}>
-            <span>제목</span>
-            <input
-              id="title"
-              placeholder="제목"
-              aria-invalid={!!errors.title}
-              onChange={handleChangeTitle}
-              onClick={() => {
-                if (errors.title) setError((prev) => ({ ...prev, title: '' }));
+      <form css={wrap} onSubmit={handleSubmit}>
+        <div css={section}>
+          <ImageUpload handleChangeImage={handleChangeImage} />
+        </div>
+        <div css={section}>
+          <span>제목</span>
+          <input
+            id="title"
+            placeholder="제목"
+            aria-invalid={!!errors.title}
+            onChange={handleChangeTitle}
+            onClick={() => {
+              if (errors.title) setError((prev) => ({ ...prev, title: '' }));
+            }}
+          />
+          {errors.title && (
+            <b>
+              <IconInfo /> {errors.title}
+            </b>
+          )}
+        </div>
+        <div css={section}>
+          <span>유실물 타입</span>
+          <SelectComponent handleChangeLostType={handleChangeLostType} />
+        </div>
+        <div css={section}>
+          <span>자세한 설명</span>
+          <UiComponent.Editor
+            hasError={!!errors.content}
+            onChange={handleChangeContent}
+            placeholder={
+              '게시글 내용을 작성해 주세요.\n\n보상이나 사례가 포함된경우\n#보상 혹은 #사례\n해시태그를 입력해주세요.'
+            }
+          />
+          {errors.content && (
+            <b>
+              <IconInfo /> {errors.content}
+            </b>
+          )}
+        </div>
+        <div css={section}>
+          <span>거래 희망 장소</span>
+          <div css={inputButtonGroup}>
+            <button type="button">위치 추가</button>
+            <IconChevron
+              css={{
+                position: 'absolute',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                right: '12px',
               }}
             />
-            {errors.title && (
-              <b>
-                <IconInfo /> {errors.title}
-              </b>
-            )}
           </div>
-          <div css={section}>
-            <span>유실물 타입</span>
-            <SelectComponent handleChangeLostType={handleChangeLostType} />
-          </div>
-          <div css={section}>
-            <span>자세한 설명</span>
-            <UiComponent.Editor
-              hasError={!!errors.content}
-              onChange={handleChangeContent}
-              placeholder={
-                '게시글 내용을 작성해 주세요.\n\n보상이나 사례가 포함된경우\n#보상 혹은 #사례\n해시태그를 입력해주세요.'
-              }
-            />
-            {errors.content && (
-              <b>
-                <IconInfo /> {errors.content}
-              </b>
-            )}
-          </div>
-          <div css={section}>
-            <span>거래 희망 장소</span>
-            <div css={inputButtonGroup}>
-              <button type="button">위치 추가</button>
-              <IconChevron
-                css={{
-                  position: 'absolute',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  right: '12px',
-                }}
-              />
-            </div>
-          </div>
-          <div css={submitWrap}>
-            <button css={submitBtn} type="submit" disabled={loading.active || status === 'pending'}>
-              작성 완료
-            </button>
-            {/* <div css={indicatorAreaCss} /> */}
-          </div>
-        </form>
-      </main>
+        </div>
+        <div css={submitWrap}>
+          <button css={submitBtn} type="submit" disabled={loading.active || status === 'pending'}>
+            작성 완료
+          </button>
+          {/* <div css={indicatorAreaCss} /> */}
+        </div>
+      </form>
     </Layout>
   );
 }

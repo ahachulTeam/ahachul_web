@@ -3,6 +3,7 @@
     "target": "ES6",
     "module": "esnext",
     "moduleResolution": "node",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
     "allowSyntheticDefaultImports": true,

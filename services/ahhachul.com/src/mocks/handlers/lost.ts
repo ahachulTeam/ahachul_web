@@ -1,7 +1,7 @@
 import { http, delay, HttpResponse } from 'msw';
 import { API_BASE_URL } from 'data/api';
 import { getRandomBoolean } from 'mocks/utils';
-import { lostContentMock } from './lost.mock';
+// import { lostContentMock } from './lost.mock';
 
 // const getLostListResponse = {
 //   code: '100',
@@ -18,52 +18,52 @@ import { lostContentMock } from './lost.mock';
 //   return HttpResponse.json(getLostListResponse);
 // });
 
-const getLostDetailResponse = (postId: string, randomBoolean: boolean) => ({
-  code: '100',
-  message: 'SUCCESS',
-  result: {
-    id: postId,
-    title: '구찌 지갑 분실하신분',
-    content: JSON.stringify(lostContentMock),
-    writer: '뚜밥뚜밥',
-    createdBy: 'dieo21',
-    date: '2024-01-21T13:07:35.387616228',
-    subwayLine: 1,
-    chats: 1,
-    status: 'PROGRESS',
-    categoryName: '휴대폰',
-    storage: '우리집',
-    pageUrl: 'http://lost112',
-    images: randomBoolean
-      ? []
-      : [
-          {
-            imageId: 1,
-            imageUrl: 'https://source.unsplash.com/random',
-          },
-        ],
-    externalSourceImageUrl: 'https://source.unsplash.com/random',
-    recommendPosts: [
-      {
-        id: 2,
-        title: 'title',
-        writer: 'writer',
-        imageUrl: 'https://img.png',
-        date: '2023/01/23',
-      },
-    ],
-  },
-});
+// const getLostDetailResponse = (postId: string, randomBoolean: boolean) => ({
+//   code: '100',
+//   message: 'SUCCESS',
+//   result: {
+//     id: postId,
+//     title: '구찌 지갑 분실하신분',
+//     content: JSON.stringify(lostContentMock),
+//     writer: '뚜밥뚜밥',
+//     createdBy: 'dieo21',
+//     date: '2024-01-21T13:07:35.387616228',
+//     subwayLine: 1,
+//     chats: 1,
+//     status: 'PROGRESS',
+//     categoryName: '휴대폰',
+//     storage: '우리집',
+//     pageUrl: 'http://lost112',
+//     images: randomBoolean
+//       ? []
+//       : [
+//           {
+//             imageId: 1,
+//             imageUrl: 'https://source.unsplash.com/random',
+//           },
+//         ],
+//     externalSourceImageUrl: 'https://source.unsplash.com/random',
+//     recommendPosts: [
+//       {
+//         id: 2,
+//         title: 'title',
+//         writer: 'writer',
+//         imageUrl: 'https://img.png',
+//         date: '2023/01/23',
+//       },
+//     ],
+//   },
+// });
 
-const getLostDetail = http.get(API_BASE_URL + '/lost-posts/:postId', async (req) => {
-  const { postId } = req.params;
+// const getLostDetail = http.get(API_BASE_URL + '/lost-posts/:postId', async (req) => {
+//   const { postId } = req.params;
 
-  await delay(400);
+//   await delay(400);
 
-  const randomBoolean = getRandomBoolean();
+//   const randomBoolean = getRandomBoolean();
 
-  return HttpResponse.json(getLostDetailResponse(postId as string, randomBoolean));
-});
+//   return HttpResponse.json(getLostDetailResponse(postId as string, randomBoolean));
+// });
 
 const postLostArticle = http.post(API_BASE_URL + '/lost-posts', async (req) => {
   console.log('req was :', req);
@@ -91,6 +91,6 @@ const postLostArticle = http.post(API_BASE_URL + '/lost-posts', async (req) => {
   throw new Error();
 });
 
-const lostHandlers = [getLostDetail, postLostArticle];
+const lostHandlers = [postLostArticle];
 
 export default lostHandlers;

@@ -11,7 +11,14 @@ function TextRenderer({ article, isPlainText }: AwesomeRendererProps) {
   return (
     <div css={wrapperStyle}>
       {!isPlainText && <UiComponent.Editor readonly initialState={article} />}
-      {isPlainText && <pre className="editor-input ltr">{article}</pre>}
+      {isPlainText && (
+        <pre
+          className="editor-input"
+          css={{ lineHeight: '32px', padding: 0, wordBreak: 'break-word', whiteSpace: 'pre-wrap' }}
+        >
+          {article.replaceAll(`  `, '\n')}
+        </pre>
+      )}
     </div>
   );
 }

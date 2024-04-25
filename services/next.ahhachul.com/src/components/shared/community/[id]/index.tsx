@@ -10,7 +10,7 @@ type CommunityDetailMainProps = {
 const CommunityDetailMain = ({ postId }: CommunityDetailMainProps) => {
   const { data } = useGetCommunityDetail(postId);
 
-  return <main>{data.hasImage ? <DetailWithImage data={data} /> : <DetailOnlyText data={data} />}</main>;
+  return <article>{data.hasImage ? <DetailWithImage data={data} /> : <DetailOnlyText data={data} />}</article>;
 };
 
 export default CommunityDetailMain;
