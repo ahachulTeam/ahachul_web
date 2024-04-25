@@ -28,7 +28,6 @@ const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({
       <UiComponent.Header headerType={headerType} title={title} />
       <main css={scrollable(nav)}>{children}</main>
       <UiComponent.SnackBar {...snackBars} />
-      {nav && <UiComponent.BottomDim />}
       {nav && <UiComponent.NavBar scrollToTop={scrollToTop} />}
       {loading.active && <UiComponent.Loading opacity={loading.opacity} />}
     </>
