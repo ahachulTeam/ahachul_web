@@ -70,6 +70,7 @@ export interface ICommunityArticleForm {
   // communityImages: Array<File | undefined>;
   title: string;
   content: string;
+  subwayLineId?: string;
   categoryType: CommunityCategoryType;
   imageFiles: Nullable<File>;
 }
