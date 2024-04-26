@@ -97,10 +97,6 @@ export default function CommunityEditor() {
       formRef.current.title = communityInfo.title;
       formRef.current.content = communityInfo.content;
       formRef.current.categoryType = communityInfo.categoryType;
-    } else {
-      formRef.current.title = '';
-      formRef.current.content = '';
-      formRef.current.categoryType = 'FREE';
     }
   }, [communityInfo]);
 

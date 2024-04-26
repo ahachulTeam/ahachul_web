@@ -1,9 +1,19 @@
-import React, { ChangeEvent, FormEvent, memo, useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  memo,
+  useCallback,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+  type DispatchWithoutAction,
+} from 'react';
 import { EditorState } from 'lexical';
 import { CSSObject, Theme } from '@emotion/react';
 
 import { ErrorForm } from '@/src/types/form';
-import { ILostArticleForm, LostType, Nullable } from '@/src/types';
+import { ILostArticleForm, KeyOf, LostType, Nullable } from '@/src/types';
 import IconInfo from '@/src/static/icons/system/IconInfo';
 import { LostQuery } from '@/src/queries';
 import { useAppSelector } from '@/src/stores';
@@ -13,20 +23,25 @@ import { f } from '@/src/styles';
 import IconChevron from '@/src/static/icons/system/IconChevron';
 import IconCamera from '@/src/static/icons/system/IconCamera';
 import IconCircleClose from '@/src/static/icons/system/IconCircleClose';
+import { exportLineNameWithSubwayLineId } from '@/src/utils/export';
 
 const INIT_STATE: ILostArticleForm = {
   title: '',
   content: '',
   lostType: 'ACQUIRE',
-  desiredLocation: '',
+  subwayLineId: '',
+  detailLostPlace: '',
+  desiredTradePlace: '',
   imageFiles: null,
-};
+} as const;
 
 const ERROR_INIT_STATE: ErrorForm<ILostArticleForm> = {
   title: '',
   content: '',
   lostType: '',
-  desiredLocation: '',
+  subwayLineId: '',
+  detailLostPlace: '',
+  desiredTradePlace: '',
   imageFiles: '',
 };
 
@@ -41,10 +56,15 @@ export default function LostEditor() {
     formRef.current.imageFiles = image;
   }, []);
 
-  const handleChangeTitle = useCallback(
+  const handleChangePureStringValue = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      if (errors.title) setError((prev) => ({ ...prev, title: '' }));
-      formRef.current.title = e.target.value;
+      if (e.target.name === 'title' && errors.title) {
+        setError((prev) => ({ ...prev, title: '' }));
+      }
+
+      formRef.current[
+        e.target.name as KeyOf<Pick<ILostArticleForm, 'title' | 'desiredTradePlace' | 'detailLostPlace'>>
+      ] = e.target.value;
     },
     [errors],
   );
@@ -57,12 +77,17 @@ export default function LostEditor() {
     [errors],
   );
 
-  const handleChangeLostType = useCallback(
-    (type: LostType) => () => {
-      formRef.current.lostType = type;
-    },
-    [],
-  );
+  const handleChangeLostType = useCallback((type: LostType) => {
+    formRef.current.lostType = type;
+  }, []);
+
+  const handleSubwayLine = useCallback((subwayLine: Nullable<string>) => {
+    if (!subwayLine) {
+      formRef.current.subwayLineId = '';
+    } else {
+      formRef.current.subwayLineId = subwayLine;
+    }
+  }, []);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -100,12 +125,9 @@ export default function LostEditor() {
       formRef.current.title = lostInfo.title;
       formRef.current.content = lostInfo.content;
       formRef.current.lostType = lostInfo.lostType;
-      formRef.current.desiredLocation = lostInfo.desiredLocation;
-    } else {
-      formRef.current.title = '';
-      formRef.current.content = '';
-      formRef.current.lostType = 'LOST';
-      formRef.current.desiredLocation = '';
+      formRef.current.subwayLineId = lostInfo.subwayLineId;
+      formRef.current.detailLostPlace = lostInfo.detailLostPlace;
+      formRef.current.desiredTradePlace = lostInfo.desiredTradePlace;
     }
   }, [lostInfo]);
 
@@ -116,12 +138,15 @@ export default function LostEditor() {
           <ImageUpload handleChangeImage={handleChangeImage} />
         </div>
         <div css={section}>
-          <span>제목</span>
+          <p>
+            제목
+            <span css={{ fontSize: 16, color: 'red', marginLeft: 2 }}>*</span>
+          </p>
           <input
-            id="title"
+            name="title"
             placeholder="제목"
             aria-invalid={!!errors.title}
-            onChange={handleChangeTitle}
+            onChange={handleChangePureStringValue}
             onClick={() => {
               if (errors.title) setError((prev) => ({ ...prev, title: '' }));
             }}
@@ -133,11 +158,17 @@ export default function LostEditor() {
           )}
         </div>
         <div css={section}>
-          <span>유실물 타입</span>
+          <p>
+            유실물 타입
+            <span css={{ fontSize: 16, color: 'red', marginLeft: 2 }}>*</span>
+          </p>
           <SelectComponent handleChangeLostType={handleChangeLostType} />
         </div>
         <div css={section}>
-          <span>자세한 설명</span>
+          <p>
+            자세한 설명
+            <span css={{ fontSize: 16, color: 'red', marginLeft: 2 }}>*</span>
+          </p>
           <UiComponent.Editor
             hasError={!!errors.content}
             onChange={handleChangeContent}
@@ -152,18 +183,16 @@ export default function LostEditor() {
           )}
         </div>
         <div css={section}>
-          <span>거래 희망 장소</span>
-          <div css={inputButtonGroup}>
-            <button type="button">위치 추가</button>
-            <IconChevron
-              css={{
-                position: 'absolute',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                right: '12px',
-              }}
-            />
-          </div>
+          <span>어떤 호선에서 발견하셨나요?</span>
+          <SelectSubwayComponent handleSubwayLine={handleSubwayLine} />
+        </div>
+        <div css={section}>
+          <span>습득/분실 세부 장소</span>
+          <input name="detailLostPlace" placeholder="세부 장소" onChange={handleChangePureStringValue} />
+        </div>
+        <div css={section}>
+          <span>교환 희망 장소</span>
+          <input name="desiredTradePlace" placeholder="위치를 입력해주세요." onChange={handleChangePureStringValue} />
         </div>
         <div css={submitWrap}>
           <button css={submitBtn} type="submit" disabled={loading.active || status === 'pending'}>
@@ -216,12 +245,12 @@ const ImageUpload = memo(({ handleChangeImage }: { handleChangeImage: (image: Fi
   );
 });
 
-const SelectComponent = memo(({ handleChangeLostType }: { handleChangeLostType: (type: LostType) => () => void }) => {
+const SelectComponent = memo(({ handleChangeLostType }: { handleChangeLostType: (type: LostType) => void }) => {
   const [currentLostType, setCurrentLostType] = useState('ACQUIRE');
 
   const handleToggle = (type: LostType) => () => {
     setCurrentLostType(type);
-    handleChangeLostType(type)();
+    handleChangeLostType(type);
   };
 
   return (
@@ -236,6 +265,44 @@ const SelectComponent = memo(({ handleChangeLostType }: { handleChangeLostType: 
   );
 });
 
+const SelectSubwayComponent = memo(
+  ({ handleSubwayLine }: { handleSubwayLine: (subwayLine: Nullable<string>) => void }) => {
+    const [show, toggle] = useReducer((c) => !c, false);
+    const [subwayLineId, setSubwayLineId] = useState<string | undefined>();
+
+    const handleSubway = (subwayLine: Nullable<string>) => {
+      if (!subwayLine) {
+        setSubwayLineId(undefined);
+      } else {
+        setSubwayLineId(subwayLine);
+      }
+      handleSubwayLine(subwayLine);
+    };
+
+    return (
+      <div css={inputButtonGroup}>
+        <button type="button" onClick={toggle}>
+          {subwayLineId ? exportLineNameWithSubwayLineId(subwayLineId) : '호선 추가'}
+        </button>
+        <IconChevron
+          css={{
+            position: 'absolute',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            right: '12px',
+          }}
+        />
+        <UiComponent.SubwayLineBottomSheet
+          isShowing={show}
+          subwayLineId={subwayLineId}
+          onClose={toggle}
+          handleSubwayLine={handleSubway}
+        />
+      </div>
+    );
+  },
+);
+
 const wrap = [f.fullWidth, f.flexColumn, { padding: '14px 0 120px 0' }];
 
 const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] = [
@@ -245,7 +312,7 @@ const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] = 
     position: 'relative',
     marginBottom: '32px',
 
-    '& > span': {
+    '& > span, & > p': {
       color: '#ffffff',
       fontSize: fontSize[14],
       fontWeight: fontWeight[600],

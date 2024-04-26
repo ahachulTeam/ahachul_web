@@ -11,7 +11,9 @@ import { subwayInfoList } from '@/src/utils/subway';
 import { CSSObject, Theme } from '@emotion/react';
 import { throttle } from 'lodash-es';
 import { useRouter } from 'next/router';
-import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
+const defaultStationLabels = ['home', 'company', 'school', 'favorite'];
 
 export default function MeRegisterCenter() {
   const { auth } = useAuth();
@@ -62,6 +64,35 @@ export default function MeRegisterCenter() {
     setSearchKeyword(value);
     delayedFoundStationInfo(value);
   };
+
+  const [selected, setSelected] = useState<{ stationName: string; label?: string; showLabels: boolean }[]>([]);
+  const handleStation = (stationName: string) => {
+    if (selected.length === 3) {
+      console.log('3 is max');
+    } else {
+      const alreadySelected = selected.filter((item) => item.stationName === stationName).length > 0;
+      if (alreadySelected) {
+        setSelected((prev) => [...prev, { stationName, showLabels: false }]);
+      } else {
+        setSelected((prev) => [...prev, { stationName, showLabels: true }]);
+      }
+    }
+  };
+
+  const handleLabel = (stationName: string, label: string) => {
+    const copy = [...selected];
+    const itemIdx = copy.findIndex((item) => item.stationName === stationName);
+    copy[itemIdx] = { stationName, label, showLabels: true };
+    const newSelected = copy;
+    setSelected(newSelected);
+  };
+
+  // if selected station has label ?
+  const excludeListForAlreadySelectedLabel = useMemo(() => {
+    const labels = selected.map((item) => item.label);
+    const uniqueLabels = defaultStationLabels.filter((label) => !defaultStationLabels.includes(label));
+    return uniqueLabels;
+  }, [selected]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -115,6 +146,11 @@ export default function MeRegisterCenter() {
                         css={{ color: exportHexColorWidthLineName(item.parentLineId.toString()), marginRight: '8px' }}
                       >
                         {item.parentLineId}
+                        {/* 
+                        selected stations 중에 label이 존재하는 station과 일치하지않는다면
+                        excludeListForAlreadySelectedLabel를 보여주고
+                        아니면 defaultStationLabels를 보여준다. 
+                        */}
                       </span>
                     ))}
                     <span css={{ marginLeft: '24px' }}>{highlightMatchKeyword(searchKeyword, station.label)}</span>
@@ -254,3 +290,12 @@ const toggleBtn =
     color: isActive ? '#141517' : '#9da5b6',
     fontWeight: isActive ? fontWeight[600] : fontWeight[400],
   });
+
+// 1. click station (can be toggle)
+// 2. show detail labels
+// 3. select labels
+// 4.
+
+// is station active ?
+// is label active ?
+// remove label on another label list except not index that have selected labels
