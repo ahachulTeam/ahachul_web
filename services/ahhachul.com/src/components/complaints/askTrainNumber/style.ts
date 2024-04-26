@@ -9,7 +9,7 @@ const submitWrap: CSSObject[] = [
     left: '50%',
     transform: 'translateX(-50%)',
     background: '#141517',
-    padding: '16px 20px 24px',
+    padding: '16px 20px 0',
   },
 ];
 
@@ -24,4 +24,9 @@ const submitBtn = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject =
   borderRadius: '8px',
 });
 
-export { submitWrap, submitBtn };
+const indicatorAreaCss = {
+  height: '34px',
+  width: '100%',
+};
+
+export { submitWrap, submitBtn, indicatorAreaCss };

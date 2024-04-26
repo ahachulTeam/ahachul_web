@@ -6,14 +6,18 @@ const nonDraggableCss = {
   },
 };
 
-const zIndexCss = {
-  '& [data-rsbs-overlay]': {
-    zIndex: '100 !important',
+const zIndexCss = ({
+  layout: {
+    dimensions: { zIndexes },
   },
+}: Theme) => ({
   '& [data-rsbs-backdrop]': {
-    zIndex: '100 !important',
+    zIndex: zIndexes.bottomSheetDimmed,
   },
-};
+  '& [data-rsbs-overlay]': {
+    zIndex: zIndexes.bottomSheet,
+  },
+});
 
 const contentCss = (isFullHeight: boolean) => ({
   height: isFullHeight ? 'calc(100vh)' : 'auto',
@@ -21,14 +25,16 @@ const contentCss = (isFullHeight: boolean) => ({
 
 const bottomSheetCss = ({
   color: {
-    scale: { gray },
+    static: {
+      dark: { gray },
+    },
   },
 }: Theme): CSSObject => ({
   '--rsbs-backdrop-bg': 'rgba(0, 0, 0, 0.60)',
   '--rsbs-max-w': '475px',
   '--rsbs-ml': 'auto',
   '--rsbs-mr': 'auto',
-  '--rsbs-bg': gray[1000],
+  '--rsbs-bg': gray[200],
   '--rsbs-overlay-rounded': '28px',
   '--rsbs-handle-bg': '#3C3D47',
 

@@ -1,6 +1,6 @@
+import React, { CSSProperties } from 'react';
 import { Flex } from '@ahhachul/react-components-layout';
 import { CSSObject, Theme } from '@emotion/react';
-import { CSSProperties } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { useFlow } from 'stackflow';

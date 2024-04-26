@@ -5,7 +5,7 @@ import { Box, Flex, Text } from '@ahhachul/react-components-layout';
 import { COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
 import { Layout } from 'components/layout';
 import { WhereIsTrainNumberBottomSheet } from './bottomSheet';
-import { submitWrap, submitBtn } from './style';
+import { submitWrap, submitBtn, indicatorAreaCss } from './style';
 import { useFlow } from 'stackflow';
 import { f } from 'styles';
 import { CSSObject, Theme } from '@emotion/react';
@@ -65,6 +65,7 @@ const AskTrainNumber: ActivityComponentType<AskTrainNumberProps> = ({ params }) 
         <button css={submitBtn} onClick={next}>
           다음
         </button>
+        <div css={indicatorAreaCss} />
       </div>
       <WhereIsTrainNumberBottomSheet isShowing={show} onClose={toggle} />
     </Layout>

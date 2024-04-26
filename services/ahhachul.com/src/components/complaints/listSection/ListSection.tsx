@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box, Flex } from '@ahhachul/react-components-layout';
 import { UiComponent } from 'components';
 import { useGetComplaintList } from 'queries/complaints/useGetComplaintList';

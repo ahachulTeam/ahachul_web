@@ -178,7 +178,7 @@ const CommunityEditor = () => {
             <button css={submitBtn} type="submit" disabled={loading.active || status === 'pending'}>
               작성 완료
             </button>
-            {/* <div css={indicatorAreaCss} /> */}
+            <div css={indicatorAreaCss} />
           </div>
         </form>
       </main>
@@ -391,7 +391,7 @@ const submitWrap: CSSObject[] = [
     left: '50%',
     transform: 'translateX(-50%)',
     background: '#141517',
-    padding: '16px 20px 24px',
+    padding: '16px 20px 0px',
   },
 ];
 
@@ -457,6 +457,11 @@ const realImage: CSSObject = {
     width: '18px',
     height: '18px',
   },
+};
+
+const indicatorAreaCss = {
+  height: '34px',
+  width: '100%',
 };
 
 export default CommunityEditor;

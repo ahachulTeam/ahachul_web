@@ -118,6 +118,7 @@ const ComplaintsSubmission: ActivityComponentType<ComplaintsSubmissionProps> = (
             <button type="submit" css={submitBtn} disabled={loading.active || status === 'pending'}>
               민원접수
             </button>
+            <div css={indicatorAreaCss} />
           </div>
         </form>
       </main>
@@ -287,7 +288,7 @@ const submitWrap: CSSObject[] = [
     left: '50%',
     transform: 'translateX(-50%)',
     background: '#141517',
-    padding: '16px 20px 24px',
+    padding: '16px 20px 0',
   },
 ];
 
@@ -355,6 +356,11 @@ const realImage: CSSObject = {
     width: '18px',
     height: '18px',
   },
+};
+
+const indicatorAreaCss = {
+  height: '34px',
+  width: '100%',
 };
 
 export default ComplaintsSubmission;
