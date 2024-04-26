@@ -66,7 +66,7 @@ export default function MeRegisterCenter() {
   };
 
   const [selected, setSelected] = useState<{ stationName: string; label?: string; showLabels: boolean }[]>([]);
-  const handleStation = (stationName: string) => {
+  const handleStation = (stationName: string) => () => {
     if (selected.length === 3) {
       console.log('3 is max');
     } else {
@@ -106,11 +106,11 @@ export default function MeRegisterCenter() {
     // });
   };
 
-  useEffect(() => {
-    if (!clientAuth) {
-      router.replace(PATH.signin);
-    }
-  }, [clientAuth]);
+  // useEffect(() => {
+  //   if (!clientAuth) {
+  //     router.replace(PATH.signin);
+  //   }
+  // }, [clientAuth]);
 
   useEffect(() => {
     if (status === 'success') {
@@ -130,15 +130,7 @@ export default function MeRegisterCenter() {
           {isUserTyped && (
             <ul>
               {refinedStationFromSearchKeyword.map((station, idx) => (
-                <li
-                  key={idx}
-                  onClick={() =>
-                    console.log({
-                      stationName: station.label,
-                      label: '회사',
-                    })
-                  }
-                >
+                <li key={idx} onClick={handleStation(station.label)}>
                   <div css={{ color: '#fff', marginBottom: '8px' }}>
                     {station.info.map((item, idx) => (
                       <span

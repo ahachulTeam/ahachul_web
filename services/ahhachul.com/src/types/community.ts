@@ -67,9 +67,9 @@ export interface ICommunityParams extends IPageParams {
 }
 
 export interface ICommunityArticleForm {
-  // communityImages: Array<File | undefined>;
   title: string;
   content: string;
-  communityType: CommunityCategoryType;
+  subwayLineId?: string;
+  categoryType: CommunityCategoryType;
   imageFiles: Nullable<File>;
 }

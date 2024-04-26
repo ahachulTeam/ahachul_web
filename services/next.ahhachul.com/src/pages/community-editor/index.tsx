@@ -120,7 +120,10 @@ export default function CommunityEditor() {
           <ImageUpload handleChangeImage={handleChangeImage} />
         </div>
         <div css={section}>
-          <span>제목</span>
+          <p>
+            제목
+            <span css={{ fontSize: 16, color: 'red', marginLeft: 2 }}>*</span>
+          </p>
           <input
             id="title"
             placeholder="제목"
@@ -137,11 +140,17 @@ export default function CommunityEditor() {
           )}
         </div>
         <div css={section}>
-          <span>카테고리</span>
+          <p>
+            카테고리
+            <span css={{ fontSize: 16, color: 'red', marginLeft: 2 }}>*</span>
+          </p>
           <SelectComponent handleChangeLostType={handleChangeLostType} />
         </div>
         <div css={section}>
-          <span>자세한 설명</span>
+          <p>
+            자세한 설명
+            <span css={{ fontSize: 16, color: 'red', marginLeft: 2 }}>*</span>
+          </p>
           <UiComponent.Editor
             isRich
             hasError={!!errors.content}
@@ -283,7 +292,7 @@ const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] = 
     position: 'relative',
     marginBottom: '32px',
 
-    '& > span': {
+    '& > span, & > p': {
       color: '#ffffff',
       fontSize: fontSize[14],
       fontWeight: fontWeight[600],
