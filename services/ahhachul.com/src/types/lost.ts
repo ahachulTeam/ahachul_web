@@ -67,7 +67,6 @@ export interface ILostArticleForm {
   content: string;
   lostType: LostType;
   subwayLineId?: string;
-  detailLostPlace?: string;
   desiredTradePlace?: string;
   imageFiles: Nullable<File>;
 }

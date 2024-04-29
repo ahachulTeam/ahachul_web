@@ -20,7 +20,6 @@ const INIT_STATE: ILostArticleForm = {
   content: '',
   lostType: 'ACQUIRE',
   subwayLineId: '',
-  detailLostPlace: '',
   desiredTradePlace: '',
   imageFiles: null,
 };
@@ -30,7 +29,6 @@ const ERROR_INIT_STATE: ErrorForm<ILostArticleForm> = {
   content: '',
   lostType: '',
   subwayLineId: '',
-  detailLostPlace: '',
   desiredTradePlace: '',
   imageFiles: '',
 };
@@ -40,7 +38,7 @@ const LostEditor = () => {
   const [errors, setError] = useState<ErrorForm<ILostArticleForm>>(ERROR_INIT_STATE);
 
   const { loading } = useAppSelector((state) => state.ui);
-  const { status } = LostQuery.useLostArticle();
+  const { status, mutate } = LostQuery.useLostArticle();
 
   const handleChangeImage = useCallback((image: File | null) => {
     formRef.current.imageFiles = image;
@@ -52,9 +50,7 @@ const LostEditor = () => {
         setError((prev) => ({ ...prev, title: '' }));
       }
 
-      formRef.current[
-        e.target.name as KeyOf<Pick<ILostArticleForm, 'title' | 'desiredTradePlace' | 'detailLostPlace'>>
-      ] = e.target.value;
+      formRef.current[e.target.name as KeyOf<Pick<ILostArticleForm, 'title' | 'desiredTradePlace'>>] = e.target.value;
     },
     [errors],
   );
@@ -108,8 +104,7 @@ const LostEditor = () => {
       }
       return;
     }
-    console.log('formRef.current:', formRef.current);
-    // mutate(formRef.current);
+    mutate(formRef.current);
   };
 
   let lostInfo: Nullable<ILostArticleForm> = null;
@@ -119,7 +114,6 @@ const LostEditor = () => {
       formRef.current.content = lostInfo.content;
       formRef.current.lostType = lostInfo.lostType;
       formRef.current.subwayLineId = lostInfo.subwayLineId;
-      formRef.current.detailLostPlace = lostInfo.detailLostPlace;
       formRef.current.desiredTradePlace = lostInfo.desiredTradePlace;
     }
   }, [lostInfo]);
@@ -142,7 +136,7 @@ const LostEditor = () => {
               <span css={{ fontSize: 16, color: 'red', marginLeft: 2 }}>*</span>
             </p>
             <input
-              id="title"
+              name="title"
               placeholder="제목"
               aria-invalid={!!errors.title}
               onChange={handleChangePureStringValue}
@@ -184,10 +178,6 @@ const LostEditor = () => {
           <div css={section}>
             <span>어떤 호선에서 발견하셨나요?</span>
             <SelectSubwayComponent handleSubwayLine={handleSubwayLine} />
-          </div>
-          <div css={section}>
-            <span>습득/분실 세부 장소</span>
-            <input name="detailLostPlace" placeholder="세부 장소" onChange={handleChangePureStringValue} />
           </div>
           <div css={section}>
             <span>교환 희망 장소</span>

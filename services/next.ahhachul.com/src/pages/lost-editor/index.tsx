@@ -21,7 +21,6 @@ const INIT_STATE: ILostArticleForm = {
   content: '',
   lostType: 'ACQUIRE',
   subwayLineId: '',
-  detailLostPlace: '',
   desiredTradePlace: '',
   imageFiles: null,
 } as const;
@@ -31,7 +30,6 @@ const ERROR_INIT_STATE: ErrorForm<ILostArticleForm> = {
   content: '',
   lostType: '',
   subwayLineId: '',
-  detailLostPlace: '',
   desiredTradePlace: '',
   imageFiles: '',
 };
@@ -53,9 +51,7 @@ function LostEditor() {
         setError((prev) => ({ ...prev, title: '' }));
       }
 
-      formRef.current[
-        e.target.name as KeyOf<Pick<ILostArticleForm, 'title' | 'desiredTradePlace' | 'detailLostPlace'>>
-      ] = e.target.value;
+      formRef.current[e.target.name as KeyOf<Pick<ILostArticleForm, 'title' | 'desiredTradePlace'>>] = e.target.value;
     },
     [errors],
   );
@@ -117,7 +113,6 @@ function LostEditor() {
       formRef.current.content = lostInfo.content;
       formRef.current.lostType = lostInfo.lostType;
       formRef.current.subwayLineId = lostInfo.subwayLineId;
-      formRef.current.detailLostPlace = lostInfo.detailLostPlace;
       formRef.current.desiredTradePlace = lostInfo.desiredTradePlace;
     }
   }, [lostInfo]);
@@ -189,7 +184,6 @@ function LostEditor() {
           <button css={submitBtn} type="submit" disabled={loading.active || status === 'pending'}>
             작성 완료
           </button>
-          {/* <div css={indicatorAreaCss} /> */}
         </div>
       </form>
     </Layout>
