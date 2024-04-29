@@ -1,14 +1,4 @@
-import React, {
-  ChangeEvent,
-  FormEvent,
-  memo,
-  useCallback,
-  useEffect,
-  useReducer,
-  useRef,
-  useState,
-  type DispatchWithoutAction,
-} from 'react';
+import React, { ChangeEvent, FormEvent, memo, useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { EditorState } from 'lexical';
 import { CSSObject, Theme } from '@emotion/react';
 
@@ -24,6 +14,7 @@ import IconChevron from '@/src/static/icons/system/IconChevron';
 import IconCamera from '@/src/static/icons/system/IconCamera';
 import IconCircleClose from '@/src/static/icons/system/IconCircleClose';
 import { exportLineNameWithSubwayLineId } from '@/src/utils/export';
+import withAuth from '@/src/hooks/withAuth';
 
 const INIT_STATE: ILostArticleForm = {
   title: '',
@@ -45,7 +36,7 @@ const ERROR_INIT_STATE: ErrorForm<ILostArticleForm> = {
   imageFiles: '',
 };
 
-export default function LostEditor() {
+function LostEditor() {
   const formRef = useRef<ILostArticleForm>(INIT_STATE);
   const [errors, setError] = useState<ErrorForm<ILostArticleForm>>(ERROR_INIT_STATE);
 
@@ -472,3 +463,5 @@ const realImage: CSSObject = {
     height: '18px',
   },
 };
+
+export default withAuth(LostEditor);

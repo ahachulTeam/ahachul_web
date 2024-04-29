@@ -1,9 +1,10 @@
 import { ComplaintsComponent } from '@/src/components';
 import { Layout } from '@/src/components/layout';
 import { COMPLAINTS_CONTENTS_TYPES } from '@/src/data/complaints';
+import withAuth from '@/src/hooks/withAuth';
 import { useRouter } from 'next/router';
 
-export default function ComplaintsSubmission() {
+function ComplaintsSubmission() {
   const { query } = useRouter();
 
   return (
@@ -15,3 +16,5 @@ export default function ComplaintsSubmission() {
     </Layout>
   );
 }
+
+export default withAuth(ComplaintsSubmission);

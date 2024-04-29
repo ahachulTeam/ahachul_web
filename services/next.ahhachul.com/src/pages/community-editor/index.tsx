@@ -14,6 +14,7 @@ import IconCamera from '@/src/static/icons/system/IconCamera';
 import IconCircleClose from '@/src/static/icons/system/IconCircleClose';
 import { exportLineNameWithSubwayLineId } from '@/src/utils/export';
 import IconChevron from '@/src/static/icons/system/IconChevron';
+import withAuth from '@/src/hooks/withAuth';
 
 const INIT_STATE: ICommunityArticleForm = {
   title: '',
@@ -31,7 +32,7 @@ const ERROR_INIT_STATE: ErrorForm<ICommunityArticleForm> = {
   imageFiles: '',
 };
 
-export default function CommunityEditor() {
+function CommunityEditor() {
   const formRef = useRef<ICommunityArticleForm>(INIT_STATE);
   const [errors, setError] = useState<ErrorForm<ICommunityArticleForm>>(ERROR_INIT_STATE);
 
@@ -452,3 +453,5 @@ const realImage: CSSObject = {
     height: '18px',
   },
 };
+
+export default withAuth(CommunityEditor);

@@ -1,9 +1,10 @@
 import { ComplaintsComponent } from '@/src/components';
 import { Layout } from '@/src/components/layout';
 import { COMPLAINTS_CONTENTS_TYPES } from '@/src/data/complaints';
+import withAuth from '@/src/hooks/withAuth';
 import { useRouter } from 'next/router';
 
-export default function AskTrainNumber() {
+function AskTrainNumber() {
   const { query } = useRouter();
 
   return (
@@ -12,3 +13,5 @@ export default function AskTrainNumber() {
     </Layout>
   );
 }
+
+export default withAuth(AskTrainNumber);
