@@ -1,7 +1,18 @@
 import { CSSObject, Theme } from '@emotion/react';
 import { f } from 'styles';
 
-const wrapper = [f.posAbsFull, f.flexColumn, f.rootLineHeight];
+const wrapper = [
+  f.posAbsFull,
+  f.flexColumn,
+  f.rootLineHeight,
+  {
+    width: '100%',
+    maxWidth: '390px',
+    top: 0,
+    left: '50%',
+    transform: 'translateX(-50%)',
+  },
+];
 
 const left = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
   fontSize: fontSize[16],

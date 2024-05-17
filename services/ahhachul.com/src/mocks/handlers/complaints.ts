@@ -1,16 +1,16 @@
 import { http, delay, HttpResponse } from 'msw';
 import { API_BASE_URL } from 'data/api';
-import { complaintMock } from './complaint.mock';
+import { complaintListItemMock, complaintMock } from './complaint.mock';
 import { getRandomBoolean, getRandomComplaintType, getRandomTrainNo } from 'mocks/utils';
 
-// const getComplaintListResponse = {
-//   code: '100',
-//   message: 'SUCCESS',
-//   result: {
-//     hasNext: false,
-//     posts: new Array(20).fill('').map((_, idx) => complaintListItemMock(idx)),
-//   },
-// };
+const getComplaintListResponse = {
+  code: '100',
+  message: 'SUCCESS',
+  result: {
+    hasNext: false,
+    posts: new Array(20).fill('').map((_, idx) => complaintListItemMock(idx)),
+  },
+};
 
 const getComplaintDetailResponse = (postId: string, randomBoolean: boolean) => {
   const info = getRandomTrainNo();
@@ -45,13 +45,13 @@ const getComplaintDetailResponse = (postId: string, randomBoolean: boolean) => {
   };
 };
 
-// const getComplaintList = http.get(API_BASE_URL + '/complaints', async () => {
-//   await delay(400);
+const getComplaintList = http.get(API_BASE_URL + '/complaints/messages', async () => {
+  await delay(400);
 
-//   return HttpResponse.json(getComplaintListResponse);
-// });
+  return HttpResponse.json(getComplaintListResponse);
+});
 
-const getComplaintDetail = http.get(API_BASE_URL + '/complaints/:postId', async (req) => {
+const getComplaintDetail = http.get(API_BASE_URL + '/complaints/messages/:postId', async (req) => {
   const { postId } = req.params;
 
   await delay(200);
@@ -61,16 +61,16 @@ const getComplaintDetail = http.get(API_BASE_URL + '/complaints/:postId', async 
   return HttpResponse.json(getComplaintDetailResponse(postId as string, randomBoolean));
 });
 
-// const postComplaintsArticle = http.post(API_BASE_URL + '/complaints/messages', async () => {
-//   await delay(400);
+const postComplaintsArticle = http.post(API_BASE_URL + '/complaints/messages', async () => {
+  await delay(400);
 
-//   return HttpResponse.json({
-//     code: '100',
-//     message: 'SUCCESS',
-//     result: null,
-//   });
-// });
+  return HttpResponse.json({
+    code: '100',
+    message: 'SUCCESS',
+    result: null,
+  });
+});
 
-const complaintsHandlers = [getComplaintDetail];
+const complaintsHandlers = [getComplaintList, getComplaintDetail, postComplaintsArticle];
 
 export default complaintsHandlers;

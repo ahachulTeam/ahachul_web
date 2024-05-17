@@ -3,15 +3,15 @@ import { useDispatch } from 'react-redux';
 import { useFlow } from 'stackflow';
 import IconCar from 'static/icons/system/IconCar';
 import IconDndBar from 'static/icons/system/IconDndBar';
-import IconHeart from 'static/icons/system/IconHeart';
+// import IconHeart from 'static/icons/system/IconHeart';
 import IconSecondhand from 'static/icons/system/IconSecondhand';
 import { addSnackBar } from 'stores/ui';
 
 import { btn_wrap, wrap } from './style';
 
 const HeaderSection = () => {
-  const { push, replace } = useFlow();
-  const routeToBlindDate = () => replace('BlindDate', {});
+  const { push } = useFlow();
+  // const routeToBlindDate = () => replace('BlindDate', {});
   const routeToAllServices = () => push('AllServices', {});
 
   const dispatch = useDispatch();
@@ -24,10 +24,10 @@ const HeaderSection = () => {
           <IconDndBar />
           <span>전체</span>
         </button>
-        <button onClick={routeToBlindDate}>
+        {/* <button onClick={routeToBlindDate}>
           <IconHeart />
           <span>소개팅</span>
-        </button>
+        </button> */}
         <button onClick={clickSecondhand}>
           <IconSecondhand css={{ '& > svg > path': { fill: 'none !important' } }} />
           <span>중고거래</span>

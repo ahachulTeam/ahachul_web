@@ -20,7 +20,7 @@ export class Auth {
   }
 
   get isAuth() {
-    return !!this.user?.refreshToken;
+    return !!this.user?.accessToken;
   }
 
   get accessToken() {

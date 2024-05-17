@@ -13,7 +13,7 @@ const AllServices: ActivityComponentType = () => {
       activeTab={false}
     >
       <main css={{ padding: '14px 20px' }}>
-        <h1 css={title}>this is All Services page</h1>
+        <h1 css={title}></h1>
       </main>
     </Layout>
   );

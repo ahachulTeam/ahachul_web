@@ -7,17 +7,19 @@ import type {
   IComplaintList as GetComplaintListResponse,
   IComplaintParams as GetComplaintListParams,
 } from 'types';
-import queryString from 'query-string';
+// import queryString from 'query-string';
 
 export const getComplaintURL = `${API_BASE_URL}/complaints/messages`;
 
 /**  실시간 민원 리스트 조회 */
 export const getComplaintList = async (params: GetComplaintListParams) => {
-  const queryParams = queryString.stringify(params);
+  console.log('params:', params);
+  // const queryParams = queryString.stringify(params);
 
-  const url = `${process.env.REACT_APP_BASE_URL}/complaints/messages?${queryParams}`;
+  // const url = `${process.env.REACT_APP_BASE_URL}/complaints/messages?${queryParams}`;
+  // const url = `${getComplaintURL}/complaints`;
 
-  return await base.get<IResponse<GetComplaintListResponse>>(url);
+  return await base.get<IResponse<GetComplaintListResponse>>(getComplaintURL);
 };
 
 /** 민원 상세 조회 */
