@@ -16,7 +16,7 @@ function DetailWithImage({ data }: { data: ILostDetail }) {
         style={{
           position: 'relative',
           width: '100vw',
-          minWidth: '100vw',
+          maxWidth: '390px',
           aspectRatio: '1 / 0.925667',
         }}
       >

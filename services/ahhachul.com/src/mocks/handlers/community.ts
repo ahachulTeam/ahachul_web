@@ -64,34 +64,34 @@ const postCommunityArticle = http.post(API_BASE_URL + '/community-posts', async 
 
   await delay(800);
 
-  const tOrF = getRandomBoolean();
+  // const tOrF = getRandomBoolean();
 
-  if (tOrF) {
-    return HttpResponse.json({
-      code: '100',
-      message: 'SUCCESS',
-      result: {
-        id: 1,
-        title: '생성된 제목',
-        content: '생성된 내용',
-        categoryType: 'ISSUE',
-        region: 'METROPOLITAN',
-        subwayLineId: 1,
-        images: [
-          {
-            imageId: 1,
-            imageUrl: 'url1',
-          },
-          {
-            imageId: 2,
-            imageUrl: 'url2',
-          },
-        ],
-      },
-    });
-  }
+  // if (tOrF) {
+  return HttpResponse.json({
+    code: '100',
+    message: 'SUCCESS',
+    result: {
+      id: 1,
+      title: '생성된 제목',
+      content: '생성된 내용',
+      categoryType: 'ISSUE',
+      region: 'METROPOLITAN',
+      subwayLineId: 1,
+      images: [
+        {
+          imageId: 1,
+          imageUrl: 'url1',
+        },
+        {
+          imageId: 2,
+          imageUrl: 'url2',
+        },
+      ],
+    },
+  });
+  // }
 
-  throw new Error();
+  // throw new Error();
 });
 
 const communityHandlers = [getCommunityList, getCommunityDetail, postCommunityArticle];

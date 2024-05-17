@@ -49,6 +49,7 @@ const Layout: React.FC<LayoutProps> = ({
         ...(appBar || defaultAppBar),
         textColor: theme.color.scale.gray[1000],
         iconColor: theme.color.scale.gray[1000],
+
         onTopClick: scrollToTop,
       }}
       backgroundColor={backgroundColor ?? theme.color.static.dark.gray[200]}

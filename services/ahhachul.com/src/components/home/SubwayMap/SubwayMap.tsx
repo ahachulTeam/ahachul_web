@@ -11,7 +11,7 @@ const SubwayMap = () => {
       activeTab={false}
     >
       <main css={wrap}>
-        <h1 css={title}>this is 노선도 보기 page</h1>
+        <h1 css={title}></h1>
       </main>
     </Layout>
   );

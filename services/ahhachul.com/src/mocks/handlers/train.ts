@@ -1,6 +1,6 @@
 import { http, delay, HttpResponse } from 'msw';
 import { API_BASE_URL } from 'data/api';
-import { getRandomBoolean } from 'mocks/utils';
+// import { getRandomBoolean } from 'mocks/utils';
 
 const fotTwo = [
   {
@@ -195,17 +195,17 @@ const getTrainCongestion = http.get(API_BASE_URL + '/trains/real-times/congestio
   const subwayLineId = params.get('subwayLineId');
   await delay(400);
 
-  const bool = getRandomBoolean();
+  // const bool = getRandomBoolean();
 
-  if (bool) {
-    if (subwayLineId === '2') {
-      return HttpResponse.json(getTrainCongestionResponse(true));
-    } else {
-      return HttpResponse.json(getTrainCongestionResponse(false));
-    }
+  // if (bool) {
+  if (subwayLineId === '2') {
+    return HttpResponse.json(getTrainCongestionResponse(true));
   } else {
-    throw new Error();
+    return HttpResponse.json(getTrainCongestionResponse(false));
   }
+  // } else {
+  //   throw new Error();
+  // }
 });
 
 const trainHandlers = [getTrainsRealTimeInfo, getTrainCongestion];
