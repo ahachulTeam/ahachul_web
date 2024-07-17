@@ -13,7 +13,7 @@ export const useGetTrainsRealTimeInfo = (
       return await getTrainsRealTimeInfo(params);
     },
     select: (res) => res.data.result,
+    retry: 3,
     staleTime: 0,
-    retry: 1,
   });
 };
