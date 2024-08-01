@@ -39,10 +39,10 @@ const getLostDetailResponse = (postId: string, randomBoolean: boolean) => ({
       : [
           {
             imageId: 1,
-            imageUrl: 'https://source.unsplash.com/random',
+            imageUrl: `https://picsum.photos/seed/picsum/300/200`,
           },
         ],
-    externalSourceImageUrl: 'https://source.unsplash.com/random',
+    externalSourceImageUrl: `https://picsum.photos/seed/picsum/300/200`,
     recommendPosts: [
       {
         id: 2,

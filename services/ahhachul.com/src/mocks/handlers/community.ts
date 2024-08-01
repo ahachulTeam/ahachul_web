@@ -37,7 +37,7 @@ const getCommunityDetailResponse = (postId: string, randomBoolean: boolean) => (
       : [
           {
             imageId: 1,
-            imageUrl: 'https://source.unsplash.com/random',
+            imageUrl: `https://picsum.photos/seed/picsum/300/200`,
           },
         ],
   },
