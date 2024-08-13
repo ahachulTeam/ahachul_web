@@ -5,12 +5,7 @@ const top = [
   f.fullWidth,
   f.flexAlignCenter,
   f.posRel,
-  ({
-    color: {
-      scale: { gray },
-    },
-    typography: { fontSize, fontWeight },
-  }: Theme): CSSObject => ({
+  ({ color: { gray }, typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
     height: '55px',
     backgroundColor: gray[1000],
     justifyContent: 'space-between',

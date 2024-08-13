@@ -5,13 +5,7 @@ import { f } from '@/src/styles';
 const wrap = [
   f.fullWidth,
   f.flexColumn,
-  ({
-    color: {
-      static: {
-        dark: { gray },
-      },
-    },
-  }: Theme) => ({
+  ({ color: { gray } }: Theme) => ({
     paddingTop: '32px',
     paddingBottom: '32px',
     backgroundColor: gray[200],
@@ -44,12 +38,7 @@ const headSection = [
 
 const title = [
   f.flexAlignCenter,
-  ({
-    color: {
-      scale: { gray },
-    },
-    typography: { fontSize, fontWeight },
-  }: Theme): CSSObject => ({
+  ({ color: { gray }, typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
     span: {
       color: gray[1000],
       fontSize: fontSize[16],
@@ -73,16 +62,10 @@ const ul = [
 const card_wrap = [
   f.fullWidth,
   f.flexColumn,
-  ({
-    color: {
-      static: {
-        dark: { gray },
-      },
-    },
-  }: Theme): CSSObject => ({
+  ({ color: { gray } }: Theme): CSSObject => ({
     justifyContent: 'space-between',
     padding: '20px 16px',
-    backgroundColor: gray[0],
+    backgroundColor: gray[50],
     borderRadius: '12px',
     border: '1px solid #242524',
   }),

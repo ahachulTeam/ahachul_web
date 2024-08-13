@@ -3,11 +3,7 @@ import { DividerProps } from './Divider';
 
 const borderStyle =
   ({ orientation, variant, thickness, size, color }: Omit<DividerProps, 'css'>) =>
-  ({
-    color: {
-      scale: { gray },
-    },
-  }: Theme): CSSObject => ({
+  ({ color: { gray } }: Theme): CSSObject => ({
     borderColor: color || gray[100],
     borderStyle: variant,
     ...(orientation === 'horizontal'

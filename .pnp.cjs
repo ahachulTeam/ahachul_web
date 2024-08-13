@@ -243,7 +243,6 @@ const RAW_RUNTIME_STATE =
           ["@ahhachul/esbuild-config", "workspace:packages/esbuild-config"],\
           ["@ahhachul/react-hooks-button", "virtual:54503ab75b2c2cd48eda3c4f96d939a7a44427df14fcb908ea5749edb333a4e3575a444ee6b7ac1b4b40f2a8551fc6c2ed7e41a4aad45321b1b5712ba3dcd63b#workspace:packages/react/hooks/button"],\
           ["@ahhachul/themes", "workspace:packages/themes"],\
-          ["@types/ahhachul__themes", null],\
           ["@types/react", "npm:18.2.64"],\
           ["@types/react-dom", "npm:18.2.21"],\
           ["@vanilla-extract/css", "npm:1.14.1"],\
@@ -259,8 +258,6 @@ const RAW_RUNTIME_STATE =
           ["typescript", "patch:typescript@npm%3A5.4.2#optional!builtin<compat/typescript>::version=5.4.2&hash=5adc0c"]\
         ],\
         "packagePeers": [\
-          "@ahhachul/themes",\
-          "@types/ahhachul__themes",\
           "@types/react",\
           "react"\
         ],\

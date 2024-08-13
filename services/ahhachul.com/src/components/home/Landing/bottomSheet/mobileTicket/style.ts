@@ -5,12 +5,7 @@ const top = [
   f.fullWidth,
   f.flexAlignCenter,
   f.posRel,
-  ({
-    color: {
-      scale: { gray },
-    },
-    typography: { fontSize, fontWeight },
-  }: Theme): CSSObject => ({
+  ({ color: { gray }, typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
     height: '55px',
     backgroundColor: '#3477FE',
     justifyContent: 'space-between',
@@ -37,11 +32,7 @@ const top = [
 
 const card = [
   f.flexColumn,
-  ({
-    color: {
-      scale: { gray },
-    },
-  }: Theme): CSSObject => ({
+  ({ color: { gray } }: Theme): CSSObject => ({
     width: 'calc(100% - 48px)',
     height: '338px',
     position: 'absolute',

@@ -6,25 +6,18 @@ const paddingTopHeight = '14px';
 const wrap = [
   f.fullWidth,
   f.flexColumn,
-  ({
-    color: {
-      static: {
-        dark: { gray },
-      },
-    },
-  }: Theme) => ({ gap: '36px', padding: `${paddingTopHeight} 0 48px`, backgroundColor: gray[200] }),
+  ({ color: { background } }: Theme) => ({
+    gap: '36px',
+    padding: `${paddingTopHeight} 0 48px`,
+    backgroundColor: background[50],
+  }),
 ];
 
-const pageTitle = ({
-  color: {
-    scale: { gray },
-  },
-  typography: { fontSize, fontWeight },
-}: Theme) => ({
+const pageTitle = ({ color: { text }, typography: { fontSize, fontWeight } }: Theme) => ({
   marginBottom: '16px',
   fontSize: fontSize[16],
   fontWeight: fontWeight[600],
-  color: gray[1000],
+  color: text[50],
   paddingLeft: '20px',
 });
 
@@ -85,7 +78,7 @@ const grid2 = [
 const err = [
   f.posAbs,
   ({
-    layout: {
+    dimensions: {
       size: {
         height: { header, navbar },
       },

@@ -5,13 +5,7 @@ const wrap = [
   f.sideGutter,
   f.fullWidth,
   f.flexColumn,
-  ({
-    color: {
-      static: {
-        dark: { gray },
-      },
-    },
-  }: Theme) => ({
+  ({ color: { gray } }: Theme) => ({
     paddingTop: '16px',
     paddingBottom: '24px',
     backgroundColor: gray[200],
@@ -20,12 +14,7 @@ const wrap = [
 
 const title = [
   f.flexAlignCenter,
-  ({
-    color: {
-      scale: { gray },
-    },
-    typography: { fontSize, fontWeight },
-  }: Theme): CSSObject => ({
+  ({ color: { gray }, typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
     marginBottom: '12px',
 
     b: {
@@ -136,12 +125,7 @@ const bpay = [
   f.fullWidth,
   f.flexAlignCenter,
   f.flexJustifyCenter,
-  ({
-    color: {
-      scale: { gray },
-    },
-    typography: { fontSize, fontWeight },
-  }: Theme): CSSObject => ({
+  ({ color: { gray }, typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
     height: '48px',
     borderRadius: '8px',
     color: gray[1000],

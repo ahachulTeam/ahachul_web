@@ -99,13 +99,7 @@ const wrap = [
   f.sideGutter,
   f.fullWidth,
   f.flexColumn,
-  ({
-    color: {
-      static: {
-        dark: { gray },
-      },
-    },
-  }: Theme) => ({
+  ({ color: { gray } }: Theme) => ({
     paddingTop: '28px',
     backgroundColor: gray[200],
   }),

@@ -78,19 +78,6 @@ const nowrap: CSSObject = {
   whiteSpace: 'nowrap',
 };
 
-// const resetButton = ({
-//   color: {
-//     scale: { gray },
-//   },
-// }: Theme): CSSObject => ({
-//   appearance: 'none',
-//   border: 0,
-//   padding: 0,
-//   background: 'none',
-//   color: gray[0],
-//   textAlign: 'left',
-// });
-
 const cursorPointer: CSSObject = {
   cursor: 'pointer',
   WebkitTapHighlightColor: 'transparent',
@@ -194,5 +181,4 @@ export {
   truncate3,
   truncate4,
   sideGutter,
-  // resetButton,
 };

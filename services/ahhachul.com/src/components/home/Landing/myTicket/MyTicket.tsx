@@ -21,6 +21,7 @@ import {
 } from './style';
 
 import IconGoto from 'static/icons/mocks/IconGoto';
+import { CSSObject } from '@emotion/react';
 
 const MyTicket = () => {
   const { push } = useFlow();
@@ -53,7 +54,7 @@ const MyTicket = () => {
                 <span>아하철 GX</span>
               </div>
             </div>
-            <p css={lesson_name}>VIP를 위한 여름 다이어트</p>
+            <p css={lesson_name as unknown as CSSObject}>VIP를 위한 여름 다이어트</p>
             <div css={times}>
               <span>2024.02.26</span>
               <span>-</span>

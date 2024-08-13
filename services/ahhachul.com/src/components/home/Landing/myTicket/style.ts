@@ -4,13 +4,7 @@ import { f } from 'styles';
 const wrap = [
   f.fullWidth,
   f.flexColumn,
-  ({
-    color: {
-      static: {
-        dark: { gray },
-      },
-    },
-  }: Theme): CSSObject => ({
+  ({ color: { gray } }: Theme): CSSObject => ({
     paddingTop: '32px',
     paddingBottom: '24px',
     backgroundColor: gray[200],
@@ -44,12 +38,7 @@ const head_section = [
 
 const title = [
   f.flexAlignCenter,
-  ({
-    color: {
-      scale: { gray, purple },
-    },
-    typography: { fontSize, fontWeight },
-  }: Theme): CSSObject => ({
+  ({ color: { gray, purple }, typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
     span: {
       color: gray[200],
       fontSize: fontSize[18],
@@ -69,13 +58,7 @@ const title = [
 const tickets_wrap = [
   f.fullWidth,
   f.flexColumn,
-  ({
-    color: {
-      static: {
-        dark: { gray },
-      },
-    },
-  }: Theme): CSSObject => ({
+  ({ color: { gray } }: Theme): CSSObject => ({
     padding: '24px',
     backgroundColor: gray[200],
   }),
@@ -83,12 +66,7 @@ const tickets_wrap = [
 
 const info_wrap = [
   f.flexAlignCenter,
-  ({
-    color: {
-      scale: { gray },
-    },
-    typography: { fontSize, fontWeight },
-  }: Theme): CSSObject => ({
+  ({ color: { gray }, typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
     marginBottom: '20px',
 
     '& div': {
@@ -124,11 +102,7 @@ const info_wrap = [
 const card_wrap = [
   f.fullWidth,
   f.flexColumn,
-  ({
-    color: {
-      scale: { gray },
-    },
-  }: Theme): CSSObject => ({
+  ({ color: { gray } }: Theme): CSSObject => ({
     justifyContent: 'space-between',
     backgroundColor: gray[1000],
     borderRadius: '8px',
@@ -227,12 +201,7 @@ const card_bottom = [
 
 const labels = [
   f.flexAlignCenter,
-  ({
-    color: {
-      scale: { gray },
-    },
-    typography: { fontSize, fontWeight },
-  }: Theme): CSSObject => ({
+  ({ color: { gray }, typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
     gap: '8px',
 
     '& > span': {

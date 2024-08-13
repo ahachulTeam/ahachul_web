@@ -79,13 +79,13 @@ export default function MeRegisterCenter() {
     }
   };
 
-  const handleLabel = (stationName: string, label: string) => {
-    const copy = [...selected];
-    const itemIdx = copy.findIndex((item) => item.stationName === stationName);
-    copy[itemIdx] = { stationName, label, showLabels: true };
-    const newSelected = copy;
-    setSelected(newSelected);
-  };
+  // const handleLabel = (stationName: string, label: string) => {
+  //   const copy = [...selected];
+  //   const itemIdx = copy.findIndex((item) => item.stationName === stationName);
+  //   copy[itemIdx] = { stationName, label, showLabels: true };
+  //   const newSelected = copy;
+  //   setSelected(newSelected);
+  // };
 
   // if selected station has label ?
   const excludeListForAlreadySelectedLabel = useMemo(() => {

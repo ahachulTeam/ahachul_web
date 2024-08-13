@@ -70,14 +70,7 @@ const wrap = [
   f.fullWidth,
   f.sideGutter,
   f.flexAlignCenter,
-  ({
-    color: {
-      static: {
-        dark: { gray, red },
-      },
-    },
-    typography: { fontSize, fontWeight, lineHeight },
-  }: Theme): CSSObject => ({
+  ({ color: { gray, ruby }, typography: { fontSize, fontWeight, lineHeight } }: Theme): CSSObject => ({
     // position: 'absolute',
     // top: 0,
     // left: posX,
@@ -89,7 +82,7 @@ const wrap = [
     zIndex: 10,
 
     gap: '8px',
-    backgroundColor: red[900],
+    backgroundColor: ruby[900],
 
     '& > div:first-of-type': {
       width: '20px',

@@ -27,7 +27,7 @@ const scrollable = (hasNavbar: boolean) => [
   f.flex1,
   f.overflowScroll,
   ({
-    layout: {
+    dimensions: {
       size: {
         height: { navbar },
       },

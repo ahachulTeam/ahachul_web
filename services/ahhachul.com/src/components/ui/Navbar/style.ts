@@ -7,10 +7,8 @@ const fadeIn = keyframes`
 `;
 
 const wrap = ({
-  layout: {
-    dimensions: {
-      zIndexes: { nav },
-    },
+  dimensions: {
+    zIndexes: { nav },
   },
 }: Theme): CSSObject => ({
   padding: '12px 16px 14px',

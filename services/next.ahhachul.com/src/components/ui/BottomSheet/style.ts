@@ -6,11 +6,7 @@ const nonDraggableCss = {
   },
 };
 
-const zIndexCss = ({
-  layout: {
-    dimensions: { zIndexes },
-  },
-}: Theme) => ({
+const zIndexCss = ({ dimensions: { zIndexes } }: Theme) => ({
   '& [data-rsbs-backdrop]': {
     zIndex: zIndexes.bottomSheetDimmed,
   },
@@ -23,13 +19,7 @@ const contentCss = (isFullHeight: boolean) => ({
   height: isFullHeight ? 'calc(100vh)' : 'auto',
 });
 
-const bottomSheetCss = ({
-  color: {
-    static: {
-      dark: { gray },
-    },
-  },
-}: Theme): CSSObject => ({
+const bottomSheetCss = ({ color: { gray } }: Theme): CSSObject => ({
   '--rsbs-backdrop-bg': 'rgba(0, 0, 0, 0.60)',
   '--rsbs-max-w': '475px',
   '--rsbs-ml': 'auto',

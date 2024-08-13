@@ -35,7 +35,6 @@
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
-    "@ahhachul/themes": "workspace:^",
     "react": "*"
   },
   "dependencies": {

@@ -90,7 +90,6 @@ __metadata:
     react-dom: "npm:^18.2.0"
     typescript: "npm:^5.2.2"
   peerDependencies:
-    "@ahhachul/themes": "workspace:^"
     react: "*"
   languageName: unknown
   linkType: soft

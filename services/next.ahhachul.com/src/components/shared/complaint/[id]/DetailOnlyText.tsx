@@ -64,14 +64,7 @@ function DetailOnlyText({ data }: { data: IComplaintDetail }) {
 
 const trainLabelsWrap =
   (pointColor: CSSProperties['color']) =>
-  ({
-    color: {
-      static: {
-        dark: { gray },
-      },
-    },
-    typography: { fontSize, fontWeight },
-  }: Theme) => ({
+  ({ color: { gray }, typography: { fontSize, fontWeight } }: Theme) => ({
     display: 'flex',
     alignItems: 'center',
     padding: '16px 20px',

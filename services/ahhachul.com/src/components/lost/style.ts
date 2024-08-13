@@ -9,7 +9,7 @@ const wrap = [f.fullWidth, f.flexColumn, { padding: `${paddingTopHeight} 0 48px`
 const err = [
   f.posAbs,
   ({
-    layout: {
+    dimensions: {
       size: {
         height: { header, navbar },
       },

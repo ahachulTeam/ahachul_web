@@ -6,15 +6,13 @@ const headerWrap = [
   f.flexAlignCenter,
   f.flexJustifySpaceBetween,
   ({
-    layout: {
+    dimensions: {
       size: {
         height: { header },
       },
     },
     color: {
-      static: {
-        dark: { gray },
-      },
+    gray 
     },
   }: Theme) => ({
     height: header,
@@ -46,9 +44,7 @@ const titleCss = [
   f.posAbs,
   ({
     color: {
-      static: {
-        dark: { gray },
-      },
+      gray
     },
     typography: { fontSize, fontWeight },
   }: Theme) => ({

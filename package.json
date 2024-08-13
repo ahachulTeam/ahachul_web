@@ -16,7 +16,6 @@
     "dev:packages": "nx run-many --target=dev --projects='@ahhachul/react-hooks-*,@ahhachul/react-components-*'",
     "prepare": "husky"
   },
-  "packageManager": "yarn@4.1.1",
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix"
   },
@@ -42,5 +41,6 @@
   },
   "dependencies": {
     "vite": "^5.1.5"
-  }
+  },
+  "packageManager": "yarn@4.1.1"
 }

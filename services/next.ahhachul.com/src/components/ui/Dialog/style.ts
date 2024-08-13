@@ -1,13 +1,11 @@
 import { CSSObject, Theme } from '@emotion/react';
 
 const wrap = ({
-  layout: {
+  dimensions: {
     size: {
       height: { header },
     },
-    dimensions: {
-      zIndexes: { dimmed },
-    },
+    zIndexes: { dimmed },
   },
 }: Theme): CSSObject => ({
   position: 'fixed',
@@ -21,12 +19,8 @@ const wrap = ({
 const backgroundCover =
   (opacity: number, isWhite: boolean) =>
   ({
-    color: {
-      static: {
-        dark: { gray },
-      },
-    },
-    layout: {
+    color: { gray },
+    dimensions: {
       size: {
         height: { header },
       },
@@ -38,12 +32,10 @@ const backgroundCover =
   });
 
 const background = ({
-  layout: {
+  dimensions: {
+    zIndexes: { dialog },
     size: {
       height: { header },
-    },
-    dimensions: {
-      zIndexes: { dialog },
     },
   },
 }: Theme): CSSObject => ({
@@ -60,25 +52,15 @@ const background = ({
   zIndex: dialog,
 });
 
-const dialogTitleCss = ({
-  color: {
-    scale: { gray },
-  },
-  typography: { fontSize, fontWeight },
-}: Theme): CSSObject => ({
+const dialogTitleCss = ({ color: { gray }, typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
   fontSize: fontSize[20],
   fontWeight: fontWeight[700],
-  color: gray[0],
+  color: gray[50],
 });
 
-const dialogContentCss = ({
-  color: {
-    scale: { gray },
-  },
-  typography: { fontSize },
-}: Theme): CSSObject => ({
+const dialogContentCss = ({ color: { gray }, typography: { fontSize } }: Theme): CSSObject => ({
   fontSize: fontSize[14],
-  color: gray[0],
+  color: gray[50],
 });
 
 const dialogWrapperCss: CSSObject = {
@@ -99,16 +81,12 @@ const buttonWrapperCss: CSSObject = {
   gap: '4px',
 };
 
-const dialogButtonTextCss = ({
-  color: {
-    scale: { gray },
-  },
-}: Theme) => ({
-  color: gray[0],
+const dialogButtonTextCss = ({ color: { gray } }: Theme) => ({
+  color: gray[50],
 });
 
 const loader = ({
-  layout: {
+  dimensions: {
     size: {
       height: { header },
     },

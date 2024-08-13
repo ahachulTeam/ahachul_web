@@ -1,13 +1,11 @@
 import { CSSObject, Theme } from '@emotion/react';
 
 const wrap = ({
-  layout: {
+  dimensions: {
     size: {
       height: { header },
     },
-    dimensions: {
-      zIndexes: { dimmed },
-    },
+    zIndexes: { dimmed },
   },
 }: Theme): CSSObject => ({
   position: 'fixed',
@@ -21,30 +19,24 @@ const wrap = ({
 const backgroundCover =
   (opacity: number, isWhite: boolean) =>
   ({
-    color: {
-      static: {
-        dark: { gray },
-      },
-    },
-    layout: {
+    color: { text, background },
+    dimensions: {
       size: {
         height: { header },
       },
     },
   }: Theme): CSSObject => ({
-    background: isWhite ? gray[1000] : gray[200],
+    background: isWhite ? text[50] : background[50],
     opacity,
     height: `calc(100vh - ${header})`,
   });
 
 const background = ({
-  layout: {
+  dimensions: {
     size: {
       height: { header },
     },
-    dimensions: {
-      zIndexes: { dialog },
-    },
+    zIndexes: { dialog },
   },
 }: Theme): CSSObject => ({
   position: 'fixed',
@@ -60,23 +52,13 @@ const background = ({
   zIndex: dialog,
 });
 
-const dialogTitleCss = ({
-  color: {
-    scale: { gray },
-  },
-  typography: { fontSize, fontWeight },
-}: Theme): CSSObject => ({
+const dialogTitleCss = ({ color: { gray }, typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
   fontSize: fontSize[20],
   fontWeight: fontWeight[700],
   color: gray[0],
 });
 
-const dialogContentCss = ({
-  color: {
-    scale: { gray },
-  },
-  typography: { fontSize },
-}: Theme): CSSObject => ({
+const dialogContentCss = ({ color: { gray }, typography: { fontSize } }: Theme): CSSObject => ({
   fontSize: fontSize[14],
   color: gray[0],
 });
@@ -99,16 +81,12 @@ const buttonWrapperCss: CSSObject = {
   gap: '4px',
 };
 
-const dialogButtonTextCss = ({
-  color: {
-    scale: { gray },
-  },
-}: Theme) => ({
+const dialogButtonTextCss = ({ color: { gray } }: Theme) => ({
   color: gray[0],
 });
 
 const loader = ({
-  layout: {
+  dimensions: {
     size: {
       height: { header },
     },

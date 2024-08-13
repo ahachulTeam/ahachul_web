@@ -5,13 +5,7 @@ const wrap = [
   f.sideGutter,
   f.fullWidth,
   f.flexColumn,
-  ({
-    color: {
-      static: {
-        dark: { gray },
-      },
-    },
-  }: Theme) => ({
+  ({ color: { gray } }: Theme) => ({
     paddingTop: '16px',
     paddingBottom: '24px',
     backgroundColor: gray[200],
@@ -20,12 +14,7 @@ const wrap = [
 
 const title = [
   f.flexAlignCenter,
-  ({
-    color: {
-      scale: { gray },
-    },
-    typography: { fontSize, fontWeight },
-  }: Theme): CSSObject => ({
+  ({ color: { gray }, typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
     marginBottom: '12px',
 
     b: {
@@ -83,12 +72,7 @@ const package_badge = [
   }),
 ];
 
-const package_name = ({
-  color: {
-    scale: { gray },
-  },
-  typography: { fontSize, fontWeight },
-}: Theme): CSSObject => ({
+const package_name = ({ color: { gray }, typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
   marginBottom: '24px',
 
   color: gray[1000],

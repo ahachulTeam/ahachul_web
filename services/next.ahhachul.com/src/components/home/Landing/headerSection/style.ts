@@ -4,13 +4,7 @@ import { f } from '@/src/styles';
 const wrap = [
   f.fullWidth,
   f.flexColumn,
-  ({
-    color: {
-      static: {
-        dark: { gray },
-      },
-    },
-  }: Theme) => ({
+  ({ color: { gray } }: Theme) => ({
     paddingTop: '14px',
     backgroundColor: gray[200],
   }),
@@ -20,14 +14,7 @@ const btn_wrap: [CSSObject, CSSObject, CSSObject[], ({ color }: Theme) => CSSObj
   f.fullWidth,
   f.overflowScroll,
   f.flexAlignCenter,
-  ({
-    color: {
-      static: {
-        dark: { whiteAlpha },
-      },
-    },
-    typography: { fontWeight, lineHeight },
-  }: Theme) => ({
+  ({ color: { whiteAlpha }, typography: { fontWeight, lineHeight } }: Theme) => ({
     paddingLeft: '20px',
     paddingRight: '20px',
     overflowX: 'scroll',

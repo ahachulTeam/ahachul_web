@@ -5,11 +5,7 @@ const wrap = [
   f.sideGutter,
   f.fullWidth,
   ({
-    color: {
-      static: {
-        dark: { gray },
-      },
-    },
+    color: { gray },
     typography: { fontSize, fontWeight },
     layout: {
       radii: { full },

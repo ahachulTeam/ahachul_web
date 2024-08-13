@@ -5,24 +5,13 @@ const sectionWrap = [
   f.sideGutter,
   f.fullWidth,
   f.flexColumn,
-  ({
-    color: {
-      static: {
-        dark: { gray },
-      },
-    },
-  }: Theme) => ({
+  ({ color: { gray } }: Theme) => ({
     paddingTop: '24px',
     backgroundColor: gray[200],
   }),
 ];
 
-const title = ({
-  color: {
-    scale: { gray },
-  },
-  typography: { fontSize, fontWeight },
-}: Theme): CSSObject => ({
+const title = ({ color: { gray }, typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
   color: gray[1000],
   fontSize: fontSize[18],
   fontWeight: fontWeight[500],
@@ -42,11 +31,7 @@ const title = ({
 const filterWrap = [
   f.fullWidth,
   ({
-    color: {
-      static: {
-        dark: { gray },
-      },
-    },
+    color: { gray },
     typography: { fontSize, fontWeight },
     layout: {
       radii: { full },
@@ -97,13 +82,7 @@ const filterWrap = [
 const wrap = [
   f.fullWidth,
   f.flexColumn,
-  ({
-    color: {
-      static: {
-        dark: { gray },
-      },
-    },
-  }: Theme) => ({
+  ({ color: { gray } }: Theme) => ({
     paddingBottom: '24px',
     backgroundColor: gray[200],
   }),

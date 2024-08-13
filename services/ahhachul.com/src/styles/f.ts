@@ -78,11 +78,7 @@ const nowrap: CSSObject = {
   whiteSpace: 'nowrap',
 };
 
-const resetButton = ({
-  color: {
-    scale: { gray },
-  },
-}: Theme): CSSObject => ({
+const resetButton = ({ color: { gray } }: Theme): CSSObject => ({
   appearance: 'none',
   border: 0,
   padding: 0,

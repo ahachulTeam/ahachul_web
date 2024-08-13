@@ -47,12 +47,12 @@ const Layout: React.FC<LayoutProps> = ({
     <AppScreen
       appBar={{
         ...(appBar || defaultAppBar),
-        textColor: theme.color.scale.gray[1000],
-        iconColor: theme.color.scale.gray[1000],
+        textColor: theme.color.text[50],
+        iconColor: theme.color.text[50],
 
         onTopClick: scrollToTop,
       }}
-      backgroundColor={backgroundColor ?? theme.color.static.dark.gray[200]}
+      backgroundColor={backgroundColor ?? theme.color.background[50]}
       preventSwipeBack
     >
       <div css={wrapper}>

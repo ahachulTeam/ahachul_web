@@ -5,19 +5,12 @@ const top = [
   f.fullWidth,
   f.flexCenterCenter,
   f.posRel,
-  ({
-    color: {
-      static: {
-        dark: { gray },
-      },
-    },
-    typography: { fontSize, fontWeight },
-  }: Theme): CSSObject => ({
+  ({ color: { background, text }, typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
     height: '32px',
-    backgroundColor: gray[200],
+    backgroundColor: background[50],
 
     '& > span': {
-      color: gray[1000],
+      color: text[50],
       fontSize: fontSize[16],
       fontWeight: fontWeight[600],
       lineHeight: '22.54px',
@@ -29,15 +22,9 @@ const top = [
 const content = [
   f.fullWidth,
   f.flexColumn,
-  ({
-    color: {
-      static: {
-        dark: { gray },
-      },
-    },
-  }: Theme): CSSObject => ({
+  ({ color: { background } }: Theme): CSSObject => ({
     padding: '20px 20px 0',
-    backgroundColor: gray[200],
+    backgroundColor: background[50],
   }),
 ];
 
@@ -63,14 +50,16 @@ const toggleBtn =
     fontWeight: isActive ? fontWeight[600] : fontWeight[400],
   });
 
-const submitWrap = (hasSubwayLineId: boolean): CSSObject[] => [
-  f.fullWidth,
-  {
-    background: '#141517',
-    padding: '40px 0 0',
-    ...(hasSubwayLineId && { display: 'grid', gridTemplateColumns: '1fr 3fr', gap: '16px' }),
-  },
-];
+const submitWrap =
+  (hasSubwayLineId: boolean) =>
+  ({ color: { background } }: Theme): CSSObject[] => [
+    f.fullWidth,
+    {
+      background: background[50],
+      padding: '40px 0 0',
+      ...(hasSubwayLineId && { display: 'grid', gridTemplateColumns: '1fr 3fr', gap: '16px' }),
+    },
+  ];
 
 const submitBtn = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
   padding: '0 14px',

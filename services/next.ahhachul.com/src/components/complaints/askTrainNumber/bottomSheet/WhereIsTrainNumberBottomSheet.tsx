@@ -1,9 +1,9 @@
 import React from 'react';
-import { vars } from '@ahhachul/themes';
 import { Button } from '@ahhachul/react-components-button';
 import { Flex, Box, Text } from '@ahhachul/react-components-layout';
 
 import { BottomSheet } from '@/src/components/ui';
+import { theme } from '@/src/styles';
 
 interface WhereIsTrainNumberBottomSheetProps {
   isShowing: boolean;
@@ -43,7 +43,7 @@ function WhereIsTrainNumberBottomSheet({ isShowing, onClose }: WhereIsTrainNumbe
             justifyContent: 'center',
             height: '48px',
             borderRadius: '8px',
-            backgroundColor: vars.colors.$static.dark.color.black,
+            backgroundColor: theme.color.black[50],
           }}
         >
           확인

@@ -1,9 +1,9 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { vars } from '@ahhachul/themes';
 import { Flex, Text, Heading } from '@ahhachul/react-components-layout';
 import { Button } from '@ahhachul/react-components-button';
 import { BottomSheet } from '@/src/components/ui';
+import { theme } from '@/src/styles';
 // import { IconBack } from '@stackflow/plugin-basic-ui';
 
 const CALL_CENTER_FILTER = {
@@ -109,7 +109,7 @@ function CallCenterBottomSheet({ isShowing, onClose }: CallCenterBottomSheetProp
               width: '100%',
               height: '48px',
               borderRadius: '8px',
-              backgroundColor: vars.colors.$static.dark.color.black,
+              backgroundColor: theme.color.black[50],
             }}
           >
             닫기
