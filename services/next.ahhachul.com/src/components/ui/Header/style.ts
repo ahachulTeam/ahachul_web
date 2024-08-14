@@ -11,12 +11,10 @@ const headerWrap = [
         height: { header },
       },
     },
-    color: {
-    gray 
-    },
+    color: { background },
   }: Theme) => ({
     height: header,
-    backgroundColor: gray[200],
+    backgroundColor: background[50],
   }),
 ];
 
@@ -42,16 +40,11 @@ const right = (hasSearch: boolean): CSSObject => ({
 
 const titleCss = [
   f.posAbs,
-  ({
-    color: {
-      gray
-    },
-    typography: { fontSize, fontWeight },
-  }: Theme) => ({
+  ({ color: { text }, typography: { fontSize, fontWeight } }: Theme) => ({
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    color: gray[1000],
+    color: text[50],
     fontSize: fontSize[16],
     fontWeight: fontWeight[600],
     lineHeight: '18.4px',

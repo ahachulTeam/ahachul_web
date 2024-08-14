@@ -5,7 +5,7 @@ const wrap = [
   f.sideGutter,
   f.fullWidth,
   ({
-    color: { gray },
+    color: { black, gray },
     typography: { fontSize, fontWeight },
     layout: {
       radii: { full },
@@ -14,7 +14,7 @@ const wrap = [
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: gray[200],
+    backgroundColor: black[100],
     marginBottom: '28px',
 
     '& > ul ': {

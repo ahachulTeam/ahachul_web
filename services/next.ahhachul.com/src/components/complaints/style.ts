@@ -8,7 +8,11 @@ const paddingTopHeight = '14px';
 const wrap = [
   f.fullWidth,
   f.flexColumn,
-  ({ color: { gray } }: Theme) => ({ gap: '36px', padding: `${paddingTopHeight} 0 48px`, backgroundColor: gray[200] }),
+  ({ color: { background } }: Theme) => ({
+    gap: '36px',
+    padding: `${paddingTopHeight} 0 48px`,
+    backgroundColor: background[50],
+  }),
 ];
 
 const pageTitle = ({ color: { gray }, typography: { fontSize, fontWeight } }: Theme) => ({

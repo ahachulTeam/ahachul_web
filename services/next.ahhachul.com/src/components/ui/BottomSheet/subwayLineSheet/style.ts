@@ -5,12 +5,12 @@ const top = [
   f.fullWidth,
   f.flexCenterCenter,
   f.posRel,
-  ({ color: { gray }, typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
+  ({ color: { background,text }, typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
     height: '32px',
-    backgroundColor: gray[200],
+    backgroundColor: background[50],
 
     '& > span': {
-      color: gray[1000],
+      color: text[50],
       fontSize: fontSize[16],
       fontWeight: fontWeight[600],
       lineHeight: '22.54px',
@@ -22,9 +22,9 @@ const top = [
 const content = [
   f.fullWidth,
   f.flexColumn,
-  ({ color: { gray } }: Theme): CSSObject => ({
+  ({ color: { background } }: Theme): CSSObject => ({
     padding: '20px 20px 0',
-    backgroundColor: gray[200],
+    backgroundColor: background[50],
   }),
 ];
 

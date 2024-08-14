@@ -55,12 +55,12 @@ const background = ({
 const dialogTitleCss = ({ color: { gray }, typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
   fontSize: fontSize[20],
   fontWeight: fontWeight[700],
-  color: gray[0],
+  color: gray[50],
 });
 
 const dialogContentCss = ({ color: { gray }, typography: { fontSize } }: Theme): CSSObject => ({
   fontSize: fontSize[14],
-  color: gray[0],
+  color: gray[50],
 });
 
 const dialogWrapperCss: CSSObject = {
@@ -82,7 +82,7 @@ const buttonWrapperCss: CSSObject = {
 };
 
 const dialogButtonTextCss = ({ color: { gray } }: Theme) => ({
-  color: gray[0],
+  color: gray[50],
 });
 
 const loader = ({

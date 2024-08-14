@@ -19,12 +19,12 @@ const contentCss = (isFullHeight: boolean) => ({
   height: isFullHeight ? 'calc(100vh)' : 'auto',
 });
 
-const bottomSheetCss = ({ color: { gray } }: Theme): CSSObject => ({
+const bottomSheetCss = ({ color: { background } }: Theme): CSSObject => ({
   '--rsbs-backdrop-bg': 'rgba(0, 0, 0, 0.60)',
   '--rsbs-max-w': '475px',
   '--rsbs-ml': 'auto',
   '--rsbs-mr': 'auto',
-  '--rsbs-bg': gray[200],
+  '--rsbs-bg': background[50],
   '--rsbs-overlay-rounded': '28px',
   '--rsbs-handle-bg': '#3C3D47',
 

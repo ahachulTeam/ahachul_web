@@ -4,9 +4,9 @@ import { f } from '@/src/styles';
 const wrap = [
   f.fullWidth,
   f.flexColumn,
-  ({ color: { gray } }: Theme) => ({
+  ({ color: { background } }: Theme) => ({
     paddingTop: '14px',
-    backgroundColor: gray[200],
+    backgroundColor: background[50],
   }),
 ];
 
@@ -23,7 +23,7 @@ const btn_wrap: [CSSObject, CSSObject, CSSObject[], ({ color }: Theme) => CSSObj
     '& > button': {
       flexShrink: 0,
       height: '36px',
-      backgroundColor: whiteAlpha[900],
+      backgroundColor: whiteAlpha[50],
       borderRadius: '8px',
       display: 'flex',
       alignItems: 'center',

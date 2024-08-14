@@ -17,7 +17,7 @@ export default function Document() {
         <meta name="msapplication-TileColor" content="#141517" />
         <meta name="msapplication-TileImage" content={defaultMetadata.image} />
       </Head>
-      <body>
+      <body className="theme-dark">
         <Main />
         <NextScript />
       </body>
