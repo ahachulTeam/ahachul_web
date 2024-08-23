@@ -31,3 +31,9 @@
    [next-ahhachul.com](https://next-ahhachul-com.vercel.app/)
 
 ---
+
+### 기획 명세 톺아보기
+
+_[ahhachul.doc](https://ahhachul.notion.site/9436714083ce409d98e936973099631e)_
+
+---
