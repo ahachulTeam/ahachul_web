@@ -8,17 +8,26 @@
    ```shell
    $ yarn
    ```
-3. **Web App** 실행하기
+3. `env contents => secret repo`
+4. **Web App** 실행하기
    ```shell
    $ yarn workspace ahhachul.com start
    ```
-4. **Web App** Mocking 모드로 실행하기
+5. **Web App** Mocking 모드로 실행하기
    ```shell
    $ yarn workspace ahhachul.com start:mocking
    ```
-5. **Web** 실행하기
+6. **Web** 실행하기
    ```shell
    $ yarn workspace next.ahhachul.com dev
    ```
+
+### 프로젝트 프리뷰
+
+1. **Webview application**
+   [ahhachul.com](https://ahhachul-com.vercel.app/)
+
+2. **Web application**
+   [next-ahhachul.com](https://next-ahhachul-com.vercel.app/)
 
 ---
