@@ -18,6 +18,9 @@ import {
 } from 'pages';
 import { BlindDateComponent, ComplaintsComponent, HomeComponent, SharedComponent } from 'components';
 import { PATH } from 'data';
+import { theme } from 'styles';
+
+const stackflowThemeSelector = 'cupertino';
 
 export const { Stack, activities, useFlow, useStepFlow } = stackflow({
   transitionDuration: 350,
@@ -51,11 +54,10 @@ export const { Stack, activities, useFlow, useStepFlow } = stackflow({
   plugins: [
     basicRendererPlugin(),
     basicUIPlugin({
-      theme: 'cupertino',
+      theme: stackflowThemeSelector,
       appBar: {
-        height: '58px',
         borderSize: '0',
-        borderColor: 'white',
+        height: theme.dimensions.size.height.header,
       },
     }),
     historySyncPlugin({
