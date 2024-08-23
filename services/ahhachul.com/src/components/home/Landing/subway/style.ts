@@ -6,7 +6,6 @@ const sectionWrap = [
   f.fullWidth,
   f.flexColumn,
   ({ color: { background } }: Theme) => ({
-    paddingTop: '24px',
     backgroundColor: background[50],
   }),
 ];

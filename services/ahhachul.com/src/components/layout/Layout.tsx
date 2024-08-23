@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect } from 'react';
+import React, { CSSProperties, PropsWithChildren, useEffect } from 'react';
 import { AppScreen } from '@stackflow/plugin-basic-ui';
 
 import { UiComponent } from 'components';
@@ -13,20 +13,19 @@ type PropOf<T> = T extends React.ComponentType<infer U> ? U : never;
 
 interface LayoutProps {
   activeTab?: KeyOf<TypeActivities> | false;
-  appBar?: PropOf<typeof AppScreen>['appBar'];
-  children: React.ReactNode;
   hasSearch?: boolean;
   isDate?: boolean;
   backgroundColor?: CSSProperties['backgroundColor'];
+  appBar?: PropOf<typeof AppScreen>['appBar'];
   onTopClick?: VoidFunction;
 }
 
-const Layout: React.FC<LayoutProps> = ({
+const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({
   activeTab = 'Home',
-  appBar,
   hasSearch = false,
   isDate = false,
   backgroundColor,
+  appBar,
   children,
 }) => {
   const { loading, snackBars } = useAppSelector((state) => state.ui);
@@ -49,7 +48,6 @@ const Layout: React.FC<LayoutProps> = ({
         ...(appBar || defaultAppBar),
         textColor: theme.color.text[50],
         iconColor: theme.color.text[50],
-
         onTopClick: scrollToTop,
       }}
       backgroundColor={backgroundColor ?? theme.color.background[50]}

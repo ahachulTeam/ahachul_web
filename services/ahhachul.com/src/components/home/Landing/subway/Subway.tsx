@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-import { filterWrap, sectionWrap, title, wrap } from './style';
+import { filterWrap, sectionWrap, wrap } from './style';
 import Train from './train/Train';
 import IconFetch from 'static/icons/system/IconFetch';
 import IconInfo from 'static/icons/system/IconInfo';
@@ -57,10 +57,6 @@ const Subway = () => {
 
   return (
     <section css={sectionWrap}>
-      <h1 css={title}>
-        <b>이효범님,</b>
-        현재 <b>열차정보와 혼잡도</b>를 알려드려요!
-      </h1>
       <div css={filterWrap}>
         <ul>
           <li>
@@ -82,6 +78,7 @@ const Subway = () => {
       </div>
       <div css={wrap}>
         <SubwayInfo>
+          {/* ThickBorderArea */}
           <ThickBorderArea
             tabIndex={-1}
             css={{
@@ -105,12 +102,23 @@ const Subway = () => {
               )}
             </AnimatePresence>
           </ThickBorderArea>
+          {/* ThickBorder Area */}
+
+          {/* Train Area */}
           <ContentArea>
+            {/* Train summary */}
             <div css={{ minHeight: '18.4px', marginBottom: '18px' }}>
               <AnimatePresence mode="wait">
                 <TopInfo variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
                   <>
-                    {!isLoading ? (
+                    {isLoading ? (
+                      <Skeleton
+                        width="64px"
+                        borderRadius={0}
+                        baseColor="#2e2e2e"
+                        highlightColor="rgba(255, 255, 255, 0.24)"
+                      />
+                    ) : (
                       <>
                         <b>
                           {formatCurrentTrainArrivalTypeToKo(
@@ -132,19 +140,13 @@ const Subway = () => {
                           <IconFetch css={{ position: 'relative', top: '1px' }} />
                         </button>
                       </>
-                    ) : (
-                      <Skeleton
-                        width="64px"
-                        borderRadius={0}
-                        baseColor="#2e2e2e"
-                        highlightColor="rgba(255, 255, 255, 0.24)"
-                      />
                     )}
                   </>
                 </TopInfo>
               </AnimatePresence>
             </div>
             <TrainInfoContainer>
+              {/* Train summary */}
               <TrainInfoTop>
                 <AnimatePresence mode="wait">
                   {!isLoading ? (
@@ -175,6 +177,7 @@ const Subway = () => {
                   <IconInfo css={{ position: 'relative', top: '1px', marginLeft: '4px' }} />
                 </div>
               </TrainInfoTop>
+              {/* Train Painting */}
               <div css={{ position: 'relative', minHeight: '31px' }}>
                 <ErrorComponent.QueryErrorBoundary fallback={(props) => <TrainError {...props} />}>
                   <Suspense
@@ -205,10 +208,24 @@ const Subway = () => {
                 </ErrorComponent.QueryErrorBoundary>
               </div>
             </TrainInfoContainer>
+            {/* Bottom Train Info */}
             <div css={{ minHeight: '72.2px', position: 'relative', margin: '72px 0 0' }}>
               <AnimatePresence mode="wait">
                 <BottomInfo variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
-                  {!isLoading ? (
+                  {isLoading ? (
+                    <>
+                      {new Array(4).fill('').map((_, idx) => (
+                        <li key={idx}>
+                          <Skeleton
+                            width="97px"
+                            borderRadius={0}
+                            baseColor="#2e2e2e"
+                            highlightColor="rgba(255, 255, 255, 0.24)"
+                          />
+                        </li>
+                      ))}
+                    </>
+                  ) : (
                     <>
                       {data?.trainRealTimes?.map((item, idx) => (
                         <li key={item.currentArrivalTime} onClick={handleSelectedTrainIndex(idx)}>
@@ -232,19 +249,6 @@ const Subway = () => {
                           >
                             <Timer expiryTime={item.currentArrivalTime} />
                           </span>
-                        </li>
-                      ))}
-                    </>
-                  ) : (
-                    <>
-                      {new Array(4).fill('').map((_, idx) => (
-                        <li key={idx}>
-                          <Skeleton
-                            width="97px"
-                            borderRadius={0}
-                            baseColor="#2e2e2e"
-                            highlightColor="rgba(255, 255, 255, 0.24)"
-                          />
                         </li>
                       ))}
                     </>

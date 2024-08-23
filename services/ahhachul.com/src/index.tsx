@@ -1,4 +1,4 @@
-import './styles/font.css';
+import 'styles/font.css';
 import '@ahhachul/themes/themes.css';
 import '@stackflow/plugin-basic-ui/index.css';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
