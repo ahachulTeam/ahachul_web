@@ -1,7 +1,7 @@
 import React from 'react';
 import { Player } from '@lottiefiles/react-lottie-player';
 
-import animationData from 'static/lottie/loading.json';
+import animationData from 'shared/static/lottie/loading.json';
 import { SizeWithPercentType, SizeWithPxType } from 'types';
 
 interface PartialLoadingProps {

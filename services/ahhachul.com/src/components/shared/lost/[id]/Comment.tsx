@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex } from '@ahhachul/react-components-layout';
-import IconEllipsisHorizontal from 'static/icons/system/IconEllipsisHorizontal';
-import IconHeart from 'static/icons/system/IconHeart';
+import IconEllipsisHorizontal from 'shared/static/icons/system/IconEllipsisHorizontal';
+import IconHeart from 'shared/static/icons/system/IconHeart';
 
 import { commentNickname, commentContent, reCommentBtn, commentLoveBtn } from './style';
 

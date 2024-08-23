@@ -1,7 +1,7 @@
 import React from 'react';
 import { BottomSheet } from 'components/ui';
 
-import IconClose from 'static/icons/system/IconClose';
+import IconClose from 'shared/static/icons/system/IconClose';
 import { top, content } from './style';
 
 interface Props {

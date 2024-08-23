@@ -4,7 +4,7 @@ import { useAppSelector } from 'stores';
 import { motion } from 'framer-motion';
 
 import { AnimatePortal } from '../../Portal';
-import { defaultFadeInVariants } from 'data/motion';
+import { defaultFadeInVariants } from 'shared/data/motion';
 
 const FadeInModal = ({ children }: { children: React.ReactNode }) => {
   const { showModal } = useAppSelector((state) => state.search);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { f } from 'styles';
+import { f } from 'shared/style';
 
 const SVG = `
 <?xml version="1.0" encoding="utf-8"?>

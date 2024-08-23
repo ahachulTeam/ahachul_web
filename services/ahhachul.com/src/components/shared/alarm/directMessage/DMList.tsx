@@ -1,6 +1,6 @@
 import { CSSObject, Theme } from '@emotion/react';
 import { useState } from 'react';
-import { f } from 'styles';
+import { f } from 'shared/style';
 import OneOnOne from './OneOnOne';
 import Group from './Group';
 

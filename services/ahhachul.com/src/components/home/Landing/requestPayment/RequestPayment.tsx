@@ -1,11 +1,11 @@
 import React from 'react';
 import { useFlow } from 'stackflow';
 
-import { theme } from 'styles';
-import IconRequestPayment from 'static/icons/system/IconRequestPayment';
+import { theme } from 'shared/style';
+import IconRequestPayment from 'shared/static/icons/system/IconRequestPayment';
 import { Divider } from 'components/ui';
 import { wrap, title, card_wrap, info_wrap, payment_info, resson_info, bpay, paymentIcon } from './style';
-import IconPayment from 'static/icons/system/IconPayment';
+import IconPayment from 'shared/static/icons/system/IconPayment';
 import mockProfile from 'static/img/mocks/photo.png';
 
 const RequestPayment = () => {

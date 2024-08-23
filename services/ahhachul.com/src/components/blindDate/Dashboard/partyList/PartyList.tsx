@@ -2,7 +2,7 @@ import React from 'react';
 
 import { wrap, pageTitle } from './style';
 import { AnimatePresence, motion } from 'framer-motion';
-import { defaultFadeInVariants } from 'data/motion';
+import { defaultFadeInVariants } from 'shared/data/motion';
 import { useAppSelector } from 'stores';
 
 const PartyList = () => {

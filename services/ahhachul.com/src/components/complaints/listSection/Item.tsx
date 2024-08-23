@@ -4,8 +4,8 @@ import { CSSObject, Theme } from '@emotion/react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { useFlow } from 'stackflow';
-import IconComment from 'static/icons/system/IconComment';
-import { f } from 'styles';
+import IconComment from 'shared/static/icons/system/IconComment';
+import { f } from 'shared/style';
 import { IComplaint } from 'types';
 import { exportHexColorWidthLineName, exportLineNameWithSubwayLineId } from 'utils/export';
 

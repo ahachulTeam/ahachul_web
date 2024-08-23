@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Theme } from '@emotion/react';
 import { CSSObject } from '@emotion/styled';
 
-import { f } from 'styles';
+import { f } from 'shared/style';
 
 const getPhrase = () => {
   let randomNum = Math.floor(Math.random() * 9);

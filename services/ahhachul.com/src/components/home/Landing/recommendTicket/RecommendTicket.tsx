@@ -3,8 +3,8 @@ import { useFlow } from 'stackflow';
 
 import { wrap, title, card_wrap, info_wrap, package_badge, package_name, package_price } from './style';
 import mockProfile from 'static/img/mocks/mock2.png';
-import IconRecommendTicket from 'static/icons/system/IconRecommendTicket';
-import IconPackage from 'static/icons/system/IconPackage';
+import IconRecommendTicket from 'shared/static/icons/system/IconRecommendTicket';
+import IconPackage from 'shared/static/icons/system/IconPackage';
 
 const RecommendTicket = () => {
   const { push } = useFlow();

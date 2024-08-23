@@ -2,14 +2,14 @@ import React from 'react';
 
 import { wrap } from './style';
 import { AnimatePresence, motion } from 'framer-motion';
-import { defaultFadeInVariants } from 'data/motion';
+import { defaultFadeInVariants } from 'shared/data/motion';
 import { useAppSelector } from 'stores';
 import { useGetBlindList } from 'queries/blindDate/useGetBlindList';
 import { CSSObject, Theme } from '@emotion/react';
-import { f } from 'styles';
-import IconBlindMembership from 'static/icons/blindDate/IconBlindMembership';
-import IconCheckFill from 'static/icons/blindDate/IconCheckFill';
-import IconLocation from 'static/icons/blindDate/IconLocation';
+import { f } from 'shared/style';
+import IconBlindMembership from 'shared/static/icons/blindDate/IconBlindMembership';
+import IconCheckFill from 'shared/static/icons/blindDate/IconCheckFill';
+import IconLocation from 'shared/static/icons/blindDate/IconLocation';
 
 const BlindList = () => {
   const { activeView } = useAppSelector((state) => state.blindDate);

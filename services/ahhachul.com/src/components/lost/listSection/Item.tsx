@@ -4,9 +4,9 @@ import { CSSProperties } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { useFlow } from 'stackflow';
-import IconComment from 'static/icons/system/IconComment';
-import IconDM from 'static/icons/system/IconDM';
-import { f } from 'styles';
+import IconComment from 'shared/static/icons/system/IconComment';
+import IconDM from 'shared/static/icons/system/IconDM';
+import { f } from 'shared/style';
 import { ILost } from 'types';
 import { exportHexColorWidthLineName, exportLineNameWithSubwayLineId } from 'utils/export';
 import { formatDate } from 'utils/time';

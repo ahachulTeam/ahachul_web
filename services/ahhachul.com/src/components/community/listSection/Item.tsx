@@ -4,9 +4,9 @@ import { CSSProperties } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { useFlow } from 'stackflow';
-import IconComment from 'static/icons/system/IconComment';
-import IconHeart from 'static/icons/system/IconHeart';
-import { f } from 'styles';
+import IconComment from 'shared/static/icons/system/IconComment';
+import IconHeart from 'shared/static/icons/system/IconHeart';
+import { f } from 'shared/style';
 import { ICommunity } from 'types';
 import { exportHexColorWidthLineName, exportLineNameWithSubwayLineId } from 'utils/export';
 

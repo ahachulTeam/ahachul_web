@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFlow } from 'stackflow';
-import IconHome from 'static/icons/system/IconHome';
+import IconHome from 'shared/static/icons/system/IconHome';
 
 import { btn_wrap, wrap } from './style';
 

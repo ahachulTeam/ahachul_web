@@ -1,5 +1,5 @@
 import { CSSObject, Theme } from '@emotion/react';
-import { f } from 'styles';
+import { f } from 'shared/style';
 
 const wrap = [
   f.fullWidth,
@@ -44,7 +44,6 @@ const btn_wrap: [CSSObject, CSSObject, CSSObject[], ({ color }: Theme) => CSSObj
         height: '14px',
 
         '& > svg > path': {
-          fill: '#ffffff',
           stroke: '#ffffff',
         },
       },

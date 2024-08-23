@@ -3,7 +3,7 @@ import { container } from './style';
 import SnackBar from './SnackBar';
 import { ISnackBar } from 'types';
 import { AnimatePresence, motion } from 'framer-motion';
-import { snackBarMotionVariants } from 'data/motion';
+import { snackBarMotionVariants } from 'shared/data/motion';
 
 function SnackBarContainer({ list, posBottom }: ISnackBar) {
   return (

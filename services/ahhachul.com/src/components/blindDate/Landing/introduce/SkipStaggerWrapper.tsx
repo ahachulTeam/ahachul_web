@@ -1,7 +1,7 @@
 import { Children, type PropsWithChildren, useEffect } from 'react';
 import { css, type Interpolation, type Theme } from '@emotion/react';
 import { motion, stagger, useAnimate, type Variants } from 'framer-motion';
-import { defaultEasing } from 'data/motion';
+import { defaultEasing } from 'shared/data/motion';
 
 interface SkipStaggerWrapperProps extends PropsWithChildren {
   wrapperOverrideCss?: Interpolation<Theme>;

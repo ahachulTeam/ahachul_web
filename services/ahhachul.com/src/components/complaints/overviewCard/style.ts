@@ -1,5 +1,5 @@
 import { CSSObject, Theme } from '@emotion/react';
-import { f } from 'styles';
+import { f } from 'shared/style';
 
 const wrap: [CSSObject[], CSSObject, CSSObject, ({ color }: Theme) => CSSObject] = [
   f.flexColumn,

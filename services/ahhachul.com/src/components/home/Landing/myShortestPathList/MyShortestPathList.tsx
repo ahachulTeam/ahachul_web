@@ -1,8 +1,8 @@
 import { Theme } from '@emotion/react';
 import React, { useEffect, useState } from 'react';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
-import IconDndBar from 'static/icons/system/IconDndBar';
-import { f } from 'styles';
+import IconDndBar from 'shared/static/icons/system/IconDndBar';
+import { f } from 'shared/style';
 
 const MyShortestPathList = () => {
   const [items, setItems] = useState([

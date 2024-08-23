@@ -6,7 +6,7 @@ import { ComplaintsComponent } from 'components';
 import { COMPLAINTS_CONTENTS, COMPLAINTS_CONTENTS_TYPES, COMPLAINTS_CONTENTS_VALUE_TYPES } from 'data/complaints';
 import { grid1, grid2, wrap, pageTitle } from './style';
 import { AnimatePresence, motion } from 'framer-motion';
-import { defaultFadeInVariants } from 'data/motion';
+import { defaultFadeInVariants } from 'shared/data/motion';
 import { useAppSelector } from 'stores';
 
 const Complaints = () => {

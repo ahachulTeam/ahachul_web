@@ -1,13 +1,13 @@
 import { Box, Flex, Text } from '@ahhachul/react-components-layout';
-import IconCategoryFree from 'static/icons/community/IconCategoryFree';
-import IconCategoryInsight from 'static/icons/community/IconCategoryInsight';
+import IconCategoryFree from 'shared/static/icons/community/IconCategoryFree';
+import IconCategoryInsight from 'shared/static/icons/community/IconCategoryInsight';
 import { TabBtn } from './style';
 import { CommunityCategoryType } from 'types';
 import { useAppSelector } from 'stores';
 import { useDispatch } from 'react-redux';
 import { setTab } from 'stores/community';
-import IconCategoryRank from 'static/icons/community/IconCategoryRank';
-import IconCategoryQuestion from 'static/icons/community/IconCategoryQuestion';
+import IconCategoryRank from 'shared/static/icons/community/IconCategoryRank';
+import IconCategoryQuestion from 'shared/static/icons/community/IconCategoryQuestion';
 
 const COMMUNITY_TABS = {
   hot: {

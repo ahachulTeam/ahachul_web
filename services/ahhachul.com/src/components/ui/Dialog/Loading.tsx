@@ -2,8 +2,8 @@ import React, { PropsWithChildren } from 'react';
 import { Interpolation, Theme } from '@emotion/react';
 import { Player } from '@lottiefiles/react-lottie-player';
 
-import animationData from 'static/lottie/loading.json';
-import useDisableScroll from 'hooks/useDisableScroll';
+import animationData from 'shared/static/lottie/loading.json';
+import useDisableScroll from 'shared/lib/useDisableScroll';
 import Background from './Background';
 import { loader } from './style';
 

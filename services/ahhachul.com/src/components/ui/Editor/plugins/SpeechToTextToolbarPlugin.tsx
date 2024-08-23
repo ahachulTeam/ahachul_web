@@ -1,6 +1,6 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { useRef, useState } from 'react';
-import IconMic from 'static/icons/editor/IconMic';
+import IconMic from 'shared/static/icons/editor/IconMic';
 import { SPEECH_TO_TEXT_COMMAND, SUPPORT_SPEECH_RECOGNITION } from './SpeechToTextPlugin';
 
 const SpeechToTextToolbarPlugin = () => {

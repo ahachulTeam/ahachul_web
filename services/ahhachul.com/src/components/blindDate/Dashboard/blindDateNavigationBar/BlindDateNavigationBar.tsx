@@ -1,9 +1,9 @@
 import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { itemWrap, wrap } from './style';
-import { blindDateNavbarMotionVariants } from 'data/motion';
-import IconBlind from 'static/icons/blindDate/IconBlind';
-import IconParty from 'static/icons/blindDate/IconParty';
+import { blindDateNavbarMotionVariants } from 'shared/data/motion';
+import IconBlind from 'shared/static/icons/blindDate/IconBlind';
+import IconParty from 'shared/static/icons/blindDate/IconParty';
 import { BlindDateViewType, IconType } from 'types';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'stores';

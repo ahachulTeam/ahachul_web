@@ -1,9 +1,9 @@
 import { CSSObject } from '@emotion/react';
 import { debounce } from 'lodash-es';
 import { useDispatch } from 'react-redux';
-import IconSearch from 'static/icons/system/IconSearch';
+import IconSearch from 'shared/static/icons/system/IconSearch';
 import { hideModal } from 'stores/search/reducer';
-import { f } from 'styles';
+import { f } from 'shared/style';
 
 const DefaultList = () => {
   const dispatch = useDispatch();

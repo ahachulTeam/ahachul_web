@@ -1,43 +1,36 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useReducer, useState } from 'react';
 import { css, CSSObject, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
 
 import { filterWrap, sectionWrap, wrap } from './style';
-import Train from './train/Train';
-import IconFetch from 'static/icons/system/IconFetch';
-import IconInfo from 'static/icons/system/IconInfo';
+import TrainPainting from './train/TrainPainting';
+import IconFetch from 'shared/static/icons/system/IconFetch';
+import IconInfo from 'shared/static/icons/system/IconInfo';
 import { useFlow } from 'stackflow';
-import IconChevron from 'static/icons/system/IconChevron';
+import IconChevron from 'shared/static/icons/system/IconChevron';
 import { ErrorComponent } from 'components';
 import { useGetTrainsRealTimeInfo } from 'queries/train/useGetTrainsRealTimeInfo';
 import { exportHexColorWidthLineName, formatCurrentTrainArrivalTypeToKo } from 'utils/export';
 import { AnimatePresence, motion } from 'framer-motion';
 import TrainError from './train/TrainError';
-import { defaultFadeInVariants } from 'data/motion';
+import { defaultFadeInVariants } from 'shared/data/motion';
 import Timer from './Timer';
+import { useFlowStepOnSubwaySection } from './flow';
+import SelectSubwayLine from './SelectSubwayLine';
 
 const Subway = () => {
-  const { push } = useFlow();
-  const routeToSubwayMap = () => push('SubwayMap', {});
-  const routeToSubwayTimeTable = () => push('SubwayTimeTable', {});
+  const { toSubwayMap, toSubwayTimeTable } = useFlowStepOnSubwaySection();
+  // user가 선택한 현재 역의 해당하는 호선을 뜻한다.
+  const [subwayLines, handleSubwayLines] = useReducer((newSubwayLines) => newSubwayLines, ['2', '7']);
 
-  const [subwayLineIds, setSubwayLineIds] = useState(['2', '7']);
+  // 건대입구 stationId 내맘대로 정함
   const initialSelectedData = {
-    // 건대입구 stationId 내맘대로 정함
-    stationId: '121',
-    subwayLineId: subwayLineIds[0],
+    stationId: '123',
+    subwayLineId: subwayLines[0],
   };
 
   const [selectedIdx, setSelectedIdx] = useState(0);
-  const swapArrayElements = () => {
-    let copy = [...subwayLineIds];
-    let temp = copy[0];
-    copy[0] = copy[1];
-    copy[1] = temp;
-    setSubwayLineIds(copy);
-  };
 
   const handleSelectedTrainIndex = (idx: number) => () => {
     setSelectedIdx(idx);
@@ -50,215 +43,21 @@ const Subway = () => {
   console.log('data:', data);
 
   useEffect(() => {
-    if (isSuccess || subwayLineIds) {
+    if (isSuccess || subwayLines) {
       setSelectedIdx(0);
     }
-  }, [isSuccess, subwayLineIds]);
+  }, [isSuccess, subwayLines]);
 
   return (
     <section css={sectionWrap}>
-      <div css={filterWrap}>
-        <ul>
-          <li>
-            <button>{subwayLineIds[0]}</button>
-          </li>
-          <li
-            css={{
-              transition: 'background-color 0.4s ease-in-out',
-              backgroundColor: exportHexColorWidthLineName(subwayLineIds[1]),
-            }}
-          >
-            <button onClick={() => swapArrayElements()}>{subwayLineIds[1]}</button>
-          </li>
-        </ul>
-        <button onClick={routeToSubwayMap}>
-          <span>전체 노선도 보기</span>
-          <IconChevron />
-        </button>
-      </div>
+      <SelectSubwayLine subwayLineIds={subwayLines} changeCallback={handleSubwayLines} toSubwayMap={toSubwayMap} />
       <div css={wrap}>
         <SubwayInfo>
           {/* ThickBorderArea */}
-          <ThickBorderArea
-            tabIndex={-1}
-            css={{
-              transition: 'background-color 0.4s ease-in-out',
-              backgroundColor: exportHexColorWidthLineName(subwayLineIds[0]),
-            }}
-          >
-            <StationLabel
-              css={{
-                transition: 'border-color 0.4s ease-in-out',
-                borderColor: exportHexColorWidthLineName(subwayLineIds[0]),
-              }}
-            >
-              건대입구
-            </StationLabel>
-            <AnimatePresence mode="wait">
-              {!isLoading && (
-                <DirectionLabel variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
-                  {data?.trainRealTimes?.[selectedIdx]?.nextStationDirection}
-                </DirectionLabel>
-              )}
-            </AnimatePresence>
-          </ThickBorderArea>
-          {/* ThickBorder Area */}
-
-          {/* Train Area */}
           <ContentArea>
-            {/* Train summary */}
-            <div css={{ minHeight: '18.4px', marginBottom: '18px' }}>
-              <AnimatePresence mode="wait">
-                <TopInfo variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
-                  <>
-                    {isLoading ? (
-                      <Skeleton
-                        width="64px"
-                        borderRadius={0}
-                        baseColor="#2e2e2e"
-                        highlightColor="rgba(255, 255, 255, 0.24)"
-                      />
-                    ) : (
-                      <>
-                        <b>
-                          {formatCurrentTrainArrivalTypeToKo(
-                            data?.trainRealTimes?.[selectedIdx]?.currentTrainArrivalCode,
-                          )}
-                        </b>
-                        <span>{data?.trainRealTimes?.[selectedIdx]?.destinationStationDirection}</span>
-                        <button
-                          onClick={() => {
-                            setRefetchBtnClicked(true);
-                            refetch();
-
-                            setTimeout(() => {
-                              setRefetchBtnClicked(false);
-                            }, 1000);
-                          }}
-                          css={refetchBtnCss(refetchBtnClicked)}
-                        >
-                          <IconFetch css={{ position: 'relative', top: '1px' }} />
-                        </button>
-                      </>
-                    )}
-                  </>
-                </TopInfo>
-              </AnimatePresence>
-            </div>
-            <TrainInfoContainer>
-              {/* Train summary */}
-              <TrainInfoTop>
-                <AnimatePresence mode="wait">
-                  {!isLoading ? (
-                    <motion.span variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
-                      {data?.trainRealTimes?.[selectedIdx]?.trainNum &&
-                        `전동차 ${data?.trainRealTimes?.[selectedIdx]?.trainNum}`}
-                    </motion.span>
-                  ) : (
-                    <span>
-                      <Skeleton
-                        width="56px"
-                        borderRadius={0}
-                        baseColor="#2e2e2e"
-                        highlightColor="rgba(255, 255, 255, 0.24)"
-                      />
-                    </span>
-                  )}
-                </AnimatePresence>
-                <div>
-                  <span>여유</span>
-                  <ul>
-                    <li />
-                    <li />
-                    <li />
-                    <li />
-                  </ul>
-                  <span>혼잡</span>
-                  <IconInfo css={{ position: 'relative', top: '1px', marginLeft: '4px' }} />
-                </div>
-              </TrainInfoTop>
-              {/* Train Painting */}
-              <div css={{ position: 'relative', minHeight: '31px' }}>
-                <ErrorComponent.QueryErrorBoundary fallback={(props) => <TrainError {...props} />}>
-                  <Suspense
-                    fallback={
-                      <Skeleton
-                        width="100%"
-                        height="21px"
-                        borderRadius={4}
-                        baseColor="#2e2e2e"
-                        highlightColor="rgba(255, 255, 255, 0.24)"
-                        css={{ marginTop: '5px' }}
-                      />
-                    }
-                  >
-                    {data?.trainRealTimes?.[selectedIdx]?.trainNum ? (
-                      <Train trainNo={data?.trainRealTimes?.[selectedIdx]?.trainNum} subwayLineId={subwayLineIds[0]} />
-                    ) : (
-                      <Skeleton
-                        width="100%"
-                        height="21px"
-                        borderRadius={4}
-                        baseColor="#2e2e2e"
-                        highlightColor="rgba(255, 255, 255, 0.24)"
-                        css={{ marginTop: '5px' }}
-                      />
-                    )}
-                  </Suspense>
-                </ErrorComponent.QueryErrorBoundary>
-              </div>
-            </TrainInfoContainer>
-            {/* Bottom Train Info */}
-            <div css={{ minHeight: '72.2px', position: 'relative', margin: '72px 0 0' }}>
-              <AnimatePresence mode="wait">
-                <BottomInfo variants={defaultFadeInVariants} initial="initial" animate="animate" exit="exit">
-                  {isLoading ? (
-                    <>
-                      {new Array(4).fill('').map((_, idx) => (
-                        <li key={idx}>
-                          <Skeleton
-                            width="97px"
-                            borderRadius={0}
-                            baseColor="#2e2e2e"
-                            highlightColor="rgba(255, 255, 255, 0.24)"
-                          />
-                        </li>
-                      ))}
-                    </>
-                  ) : (
-                    <>
-                      {data?.trainRealTimes?.map((item, idx) => (
-                        <li key={item.currentArrivalTime} onClick={handleSelectedTrainIndex(idx)}>
-                          <b
-                            css={{
-                              fontWeight:
-                                item?.trainNum === data?.trainRealTimes?.[selectedIdx]?.trainNum
-                                  ? '700 !important'
-                                  : '400',
-                            }}
-                          >
-                            {item.destinationStationDirection}
-                          </b>
-                          <span
-                            css={{
-                              fontWeight:
-                                item?.trainNum === data?.trainRealTimes?.[selectedIdx]?.trainNum
-                                  ? '700 !important'
-                                  : '400',
-                            }}
-                          >
-                            <Timer expiryTime={item.currentArrivalTime} />
-                          </span>
-                        </li>
-                      ))}
-                    </>
-                  )}
-                </BottomInfo>
-              </AnimatePresence>
-              <button css={allTrainsBtnCss} onClick={routeToSubwayTimeTable}>
-                전체 시간표
-              </button>
-            </div>
+            <button css={allTrainsBtnCss} onClick={toSubwayTimeTable}>
+              전체 시간표
+            </button>
           </ContentArea>
         </SubwayInfo>
       </div>
@@ -273,43 +72,6 @@ const SubwayInfo = styled.div`
   border-radius: 20px;
   background-color: #2e2e2e;
   min-height: 390.586px;
-`;
-
-const ThickBorderArea = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 25px;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-`;
-
-const StationLabel = styled.span`
-  font-size: 16px;
-  font-weight: 600;
-  position: absolute;
-  top: 50%;
-  left: 27px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 36px;
-  border: 3px solid #20b154;
-  border-radius: 21px;
-  padding: 8px 32px;
-  background-color: #ffffff;
-  transform: translateY(-50%);
-`;
-
-const DirectionLabel = styled(motion.span)`
-  font-size: 14px;
-  font-weight: 600;
-  position: absolute;
-  top: 50%;
-  left: 157px;
-  transform: translateY(-50%);
-  color: #ffffff;
 `;
 
 const ContentArea = styled.div`

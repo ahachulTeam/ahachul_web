@@ -1,10 +1,10 @@
 import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { f } from 'styles';
+import { f } from 'shared/style';
 import { useCTAButtonVisible, useParagraphStep } from './hooks';
 import SkipStaggerWrapper from './SkipStaggerWrapper';
 import { CSSObject, Theme } from '@emotion/react';
-import { CTAMotionVariants } from 'data/motion';
+import { CTAMotionVariants } from 'shared/data/motion';
 import { useFlow } from 'stackflow';
 import { useDispatch } from 'react-redux';
 import { setAcceptUsingBlindDate } from 'stores/blindDate';

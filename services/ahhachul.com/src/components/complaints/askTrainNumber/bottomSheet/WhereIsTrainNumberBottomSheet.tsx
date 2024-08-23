@@ -3,7 +3,7 @@ import { Button } from '@ahhachul/react-components-button';
 import { Flex, Box, Text } from '@ahhachul/react-components-layout';
 
 import { BottomSheet } from 'components/ui';
-import { theme } from 'styles';
+import { theme } from 'shared/style';
 
 interface WhereIsTrainNumberBottomSheetProps {
   isShowing: boolean;

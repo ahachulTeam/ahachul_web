@@ -1,11 +1,20 @@
 import { CSSObject, Theme } from '@emotion/react';
-import { f } from 'styles';
+import { f } from 'shared/style';
 
 const sectionWrap = [
   f.sideGutter,
   f.fullWidth,
   f.flexColumn,
   ({ color: { background } }: Theme) => ({
+    backgroundColor: background[50],
+  }),
+];
+
+const wrap = [
+  f.fullWidth,
+  f.flexColumn,
+  ({ color: { background } }: Theme) => ({
+    paddingBottom: '24px',
     backgroundColor: background[50],
   }),
 ];
@@ -75,15 +84,6 @@ const filterWrap = [
       fontSize: fontSize[14],
       fontWeight: fontWeight[500],
     },
-  }),
-];
-
-const wrap = [
-  f.fullWidth,
-  f.flexColumn,
-  ({ color: { background } }: Theme) => ({
-    paddingBottom: '24px',
-    backgroundColor: background[50],
   }),
 ];
 

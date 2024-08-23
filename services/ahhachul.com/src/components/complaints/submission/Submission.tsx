@@ -10,7 +10,7 @@ import {
   formatComplaintTypeToEn,
 } from 'utils/export';
 import { CSSObject, Theme } from '@emotion/react';
-import { f } from 'styles';
+import { f } from 'shared/style';
 import { useComplaintsArticle } from 'queries/complaints';
 import { UiComponent } from 'components';
 import { EditorState } from 'lexical';
@@ -18,8 +18,8 @@ import { IComplaintForm } from 'types/complaints';
 import { useAppSelector } from 'stores';
 import { addSnackBar } from 'stores/ui';
 import { useDispatch } from 'react-redux';
-import IconCamera from 'static/icons/system/IconCamera';
-import IconCircleClose from 'static/icons/system/IconCircleClose';
+import IconCamera from 'shared/static/icons/system/IconCamera';
+import IconCircleClose from 'shared/static/icons/system/IconCircleClose';
 
 type ComplaintsSubmissionProps = {
   slug: COMPLAINTS_CONTENTS_TYPES;

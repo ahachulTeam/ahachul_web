@@ -23,7 +23,7 @@ import * as ReactDOM from 'react-dom';
 import { INSERT_YOUTUBE_COMMAND } from './YouTubePlugin';
 import { UiComponent } from 'components';
 import useBoolean from 'hooks/useBoolean';
-import IconYoutube from 'static/icons/editor/IconYoutube';
+import IconYoutube from 'shared/static/icons/editor/IconYoutube';
 
 interface PlaygroundEmbedConfig extends EmbedConfig {
   contentName: string;

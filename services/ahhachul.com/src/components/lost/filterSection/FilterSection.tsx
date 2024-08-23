@@ -1,8 +1,8 @@
 import React, { useReducer, useState } from 'react';
 import { CSSObject, Theme } from '@emotion/react';
 import { UiComponent } from 'components';
-import IconChevron from 'static/icons/system/IconChevron';
-import { f } from 'styles';
+import IconChevron from 'shared/static/icons/system/IconChevron';
+import { f } from 'shared/style';
 import { Nullable } from 'types';
 import { exportLineNameWithSubwayLineId } from 'utils/export';
 

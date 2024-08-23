@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useFlow } from 'stackflow';
-import IconCar from 'static/icons/system/IconCar';
-import IconDndBar from 'static/icons/system/IconDndBar';
-import IconHeart from 'static/icons/system/IconHeart';
-import IconSecondhand from 'static/icons/system/IconSecondhand';
+import IconCar from 'shared/static/icons/system/IconCar';
+import IconDndBar from 'shared/static/icons/system/IconDndBar';
+import IconHeart from 'shared/static/icons/system/IconHeart';
+import IconSecondhand from 'shared/static/icons/system/IconSecondhand';
 import { addSnackBar } from 'stores/ui';
 
 import { btn_wrap, wrap } from './style';
@@ -34,9 +34,8 @@ const ourAppCTAFlowIsThis = [
 }[];
 
 const AppCTAFlows = () => {
-  const { push, replace } = useFlow();
-
   const dispatch = useDispatch();
+  const { push, replace } = useFlow();
 
   const handleClick = (title: OurCTAType) => () => {
     switch (title) {

@@ -23,12 +23,12 @@ import { Modal } from '../Modal';
 function Dialog({ onCancel, onConfirm, cancelText, confirmText, title, content, onClose, isOpen }: DialogProps) {
   const handleCancel = () => {
     onClose();
-    onCancel && onCancel();
+    onCancel?.();
   };
 
   const handleConfirm = () => {
     onClose();
-    onConfirm && onConfirm();
+    onConfirm?.();
   };
 
   return (

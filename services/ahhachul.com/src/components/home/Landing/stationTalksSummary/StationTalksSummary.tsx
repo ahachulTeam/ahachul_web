@@ -18,8 +18,8 @@ import mockImg1 from 'static/img/mocks/mock2.png';
 import mockImg2 from 'static/img/mocks/mock4.png';
 import mockImg3 from 'static/img/mocks/mock5.jpg';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import IconHeart from 'static/icons/system/IconHeart';
-import IconComment from 'static/icons/system/IconComment';
+import IconHeart from 'shared/static/icons/system/IconHeart';
+import IconComment from 'shared/static/icons/system/IconComment';
 import { CSSObject } from '@emotion/react';
 
 const StationTalksSummary = () => {

@@ -6,8 +6,8 @@ import SearchGroup from './SearchGroup';
 
 import { CSSObject } from '@emotion/react';
 import { useDispatch } from 'react-redux';
-import IconBack from 'static/icons/system/IconBack';
-import { f } from 'styles';
+import IconBack from 'shared/static/icons/system/IconBack';
+import { f } from 'shared/style';
 import { hideModal, setKeyword } from 'stores/search/reducer';
 import { useAppSelector } from 'stores';
 import SearchList from './SearchList';

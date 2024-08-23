@@ -1,7 +1,7 @@
-import Home from 'static/icons/navbar/IconMenuHome';
-import Reservation from 'static/icons/navbar/IconMenuReservation';
-import BPay from 'static/icons/navbar/IconMenuBPay';
-import Community from 'static/icons/navbar/IconMenuCommunity';
+import Home from 'shared/static/icons/navbar/IconMenuHome';
+import Reservation from 'shared/static/icons/navbar/IconMenuReservation';
+import BPay from 'shared/static/icons/navbar/IconMenuBPay';
+import Community from 'shared/static/icons/navbar/IconMenuCommunity';
 
 const BOTTOM_NAVBAR_LIST = [
   {

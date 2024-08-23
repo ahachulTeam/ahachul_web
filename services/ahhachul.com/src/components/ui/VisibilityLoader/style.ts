@@ -1,3 +1,3 @@
-import { f } from 'styles';
+import { f } from 'shared/style';
 
 export const wrapper = [f.fullWidth, f.flexJustifyCenter];

@@ -2,8 +2,8 @@ import React from 'react';
 import { Box, Flex, Text } from '@ahhachul/react-components-layout';
 import { UiComponent } from 'components';
 import { type ICommunityDetail } from 'types';
-import IconBookmark from 'static/icons/system/IconBookmark';
-import IconHeart from 'static/icons/system/IconHeart';
+import IconBookmark from 'shared/static/icons/system/IconBookmark';
+import IconHeart from 'shared/static/icons/system/IconHeart';
 
 import Comment from './Comment';
 import { userName, time, btn, commentTitle, category, commentList } from './style';

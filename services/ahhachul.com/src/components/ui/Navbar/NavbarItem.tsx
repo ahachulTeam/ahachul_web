@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { TypeActivities, useFlow } from 'stackflow';
-import IconListView from 'static/icons/complaints/IconListView';
-import IconSubmissionView from 'static/icons/complaints/IconSubmissionView';
-import IconCirclePlus from 'static/icons/system/IconCirclePlus';
+import IconListView from 'shared/static/icons/complaints/IconListView';
+import IconSubmissionView from 'shared/static/icons/complaints/IconSubmissionView';
+import IconCirclePlus from 'shared/static/icons/system/IconCirclePlus';
 import { useAppSelector } from 'stores';
 import { setView } from 'stores/complaints';
 import { IconType } from 'types';

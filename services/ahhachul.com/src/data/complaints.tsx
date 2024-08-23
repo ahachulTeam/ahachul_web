@@ -2,11 +2,11 @@ import React from 'react';
 
 import { KeyOf, ValueOf } from 'types/utility-types';
 
-import Icon환경 from 'static/icons/complaints/Icon환경';
-import Icon질서 from 'static/icons/complaints/Icon질서';
-import Icon응급 from 'static/icons/complaints/Icon응급';
-import Icon폭력 from 'static/icons/complaints/Icon폭력';
-import Icon화살표 from 'static/icons/complaints/Icon화살표';
+import Icon환경 from 'shared/static/icons/complaints/Icon환경';
+import Icon질서 from 'shared/static/icons/complaints/Icon질서';
+import Icon응급 from 'shared/static/icons/complaints/Icon응급';
+import Icon폭력 from 'shared/static/icons/complaints/Icon폭력';
+import Icon화살표 from 'shared/static/icons/complaints/Icon화살표';
 
 export const COMPLAINTS_CONTENTS = {
   환경민원: {

@@ -1,4 +1,4 @@
-import { f } from 'styles';
+import { f } from 'shared/style';
 
 const paddingTopHeight = '26px';
 

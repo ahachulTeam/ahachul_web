@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFlow } from 'stackflow';
-import IconChevron from 'static/icons/system/IconChevron';
+import IconChevron from 'shared/static/icons/system/IconChevron';
 
 import { wrap } from './style';
 

@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useRef, type FormEvent, type ChangeEvent } from 'react';
 import { InputGroup, Input } from '@ahhachul/react-components-input';
 
-import IconSearch from 'static/icons/system/IconSearch';
+import IconSearch from 'shared/static/icons/system/IconSearch';
 import { CSSObject } from '@emotion/react';
 import { useDispatch } from 'react-redux';
 import { setKeyword } from 'stores/search';
-import { f } from 'styles';
+import { f } from 'shared/style';
 import { useAppSelector } from 'stores';
 import { hideModal, setHistory } from 'stores/search/reducer';
 import { debounce } from 'lodash-es';

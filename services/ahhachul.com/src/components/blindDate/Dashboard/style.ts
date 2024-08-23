@@ -1,5 +1,5 @@
 import { CSSObject, Theme } from '@emotion/react';
-import { f } from 'styles';
+import { f } from 'shared/style';
 
 const wrapper = [f.posAbsFull, f.flexColumn, f.rootLineHeight];
 

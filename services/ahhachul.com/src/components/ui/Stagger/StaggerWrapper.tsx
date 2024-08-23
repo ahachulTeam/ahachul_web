@@ -1,7 +1,7 @@
 import { Children, type PropsWithChildren } from 'react';
 import { motion, type Variants } from 'framer-motion';
 import { CSSObject } from '@emotion/react';
-import { staggerFadeInUpVariants } from 'data/motion';
+import { staggerFadeInUpVariants } from 'shared/data/motion';
 
 export const stagger = (delay = 0.3): Variants => ({
   animate: { transition: { staggerChildren: delay } },

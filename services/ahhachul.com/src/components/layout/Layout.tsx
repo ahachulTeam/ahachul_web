@@ -7,7 +7,7 @@ import { KeyOf, Nullable } from 'types/utility-types';
 import useDefaultAppBar from './useDefaultAppBar';
 import { scrollable, wrapper } from './style';
 import { useAppSelector } from 'stores';
-import { theme } from 'styles';
+import { theme } from 'shared/style';
 
 type PropOf<T> = T extends React.ComponentType<infer U> ? U : never;
 

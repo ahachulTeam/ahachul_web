@@ -3,10 +3,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { TypeActivities, useFlow } from 'stackflow';
-import IconBellActive from 'static/icons/system/IconBellActive';
-import IconBlindDate from 'static/icons/system/IconBlindDate';
-import IconLogo from 'static/icons/system/IconLogo';
-import IconSearch from 'static/icons/system/IconSearch';
+import IconBellActive from 'shared/static/icons/system/IconBellActive';
+import IconBlindDate from 'shared/static/icons/system/IconBlindDate';
+import IconLogo from 'shared/static/icons/system/IconLogo';
+import IconSearch from 'shared/static/icons/system/IconSearch';
 import mockProfile from 'static/img/mocks/mock3.png';
 import { hideNavbar, showNavbar } from 'stores/blindDate';
 import { showModal } from 'stores/search/reducer';

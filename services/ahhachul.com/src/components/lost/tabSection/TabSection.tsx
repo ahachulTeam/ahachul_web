@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from '@ahhachul/react-components-layout';
-import IconCircleDown from 'static/icons/lost/IconCircleDown';
-import IconCircleUp from 'static/icons/lost/IconCircleUp';
+import IconCircleDown from 'shared/static/icons/lost/IconCircleDown';
+import IconCircleUp from 'shared/static/icons/lost/IconCircleUp';
 import { TabBtn } from './style';
 import { LostType } from 'types';
 import { useDispatch } from 'react-redux';

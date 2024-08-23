@@ -5,7 +5,7 @@ import ListSection from './listSection';
 import { wrap, pageTitle, err } from './style';
 import ErrorDefault from 'components/error-management/ErrorDefault';
 import { AnimatePresence, motion } from 'framer-motion';
-import { defaultFadeInVariants } from 'data/motion';
+import { defaultFadeInVariants } from 'shared/data/motion';
 import { useAppSelector } from 'stores';
 import FilterSection from './filterSection';
 

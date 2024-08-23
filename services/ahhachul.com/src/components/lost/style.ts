@@ -1,4 +1,4 @@
-import { f } from 'styles';
+import { f } from 'shared/style';
 import { CSSObject, Theme } from '@emotion/react';
 
 const tabHeight = '68.4px';

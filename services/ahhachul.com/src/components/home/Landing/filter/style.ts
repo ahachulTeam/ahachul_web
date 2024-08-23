@@ -1,5 +1,5 @@
 import { Theme } from '@emotion/react';
-import { f } from 'styles';
+import { f } from 'shared/style';
 
 const wrap = [
   f.sideGutter,

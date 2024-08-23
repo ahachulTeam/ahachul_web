@@ -1,11 +1,11 @@
 import { Flex } from '@ahhachul/react-components-layout';
 import { CSSObject, Theme } from '@emotion/react';
 
-import IconAlarmTalk from 'static/icons/system/IconAlarmTalk';
-import IconAlarmComplaint from 'static/icons/system/IconAlarmComplaint';
+import IconAlarmTalk from 'shared/static/icons/system/IconAlarmTalk';
+import IconAlarmComplaint from 'shared/static/icons/system/IconAlarmComplaint';
 import { useFlow } from 'stackflow';
 import { useState } from 'react';
-import { getRandomBoolean } from 'mocks/utils';
+import { getRandomBoolean } from 'shared/lib/server/__mocks__/utils';
 
 const getRandomContent = (type: 'talk' | 'complaints') => {
   const list = [

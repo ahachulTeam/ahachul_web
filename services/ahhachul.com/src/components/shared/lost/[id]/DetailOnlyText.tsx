@@ -1,8 +1,8 @@
 import React from 'react';
 import { Flex, Text } from '@ahhachul/react-components-layout';
 import { UiComponent } from 'components';
-import IconBookmark from 'static/icons/system/IconBookmark';
-import IconHeart from 'static/icons/system/IconHeart';
+import IconBookmark from 'shared/static/icons/system/IconBookmark';
+import IconHeart from 'shared/static/icons/system/IconHeart';
 import { userName, time, category, btn, commentList, commentTitle } from './style';
 import Comment from './Comment';
 import { ILostDetail } from 'types';

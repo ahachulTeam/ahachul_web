@@ -1,6 +1,6 @@
 import { CSSObject } from '@emotion/react';
 import { COMPLAINTS_CONTENTS_TYPES } from 'data/complaints';
-import { defaultFadeInVariants } from 'data/motion';
+import { defaultFadeInVariants } from 'shared/data/motion';
 import { AnimatePresence, motion } from 'framer-motion';
 import { IComplaint } from 'types';
 import { getDomainName, isIOS } from 'utils/appEnv';

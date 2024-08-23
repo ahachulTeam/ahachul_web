@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Flex } from '@ahhachul/react-components-layout';
-import IconPolygon from 'static/icons/system/IconPolygon';
+import IconPolygon from 'shared/static/icons/system/IconPolygon';
 import { Theme } from '@emotion/react';
 import { useDispatch } from 'react-redux';
 import { hideModal } from 'stores/search/reducer';

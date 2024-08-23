@@ -2,7 +2,7 @@ import { CSSObject } from '@emotion/react';
 import { debounce } from 'lodash-es';
 import { useDispatch } from 'react-redux';
 import { hideModal } from 'stores/search/reducer';
-import { f } from 'styles';
+import { f } from 'shared/style';
 
 const HashTagList = () => {
   const dispatch = useDispatch();

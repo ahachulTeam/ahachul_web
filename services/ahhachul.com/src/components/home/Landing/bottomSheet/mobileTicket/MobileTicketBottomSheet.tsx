@@ -2,7 +2,7 @@ import React from 'react';
 import { BottomSheet } from 'components/ui';
 
 import { top, card } from './style';
-import IconClose from 'static/icons/system/IconClose';
+import IconClose from 'shared/static/icons/system/IconClose';
 
 interface Props {
   isShowing: boolean;

@@ -1,9 +1,9 @@
 import React from 'react';
 //  { useEffect, useRef, useState }
 import { CSSObject, keyframes, Theme } from '@emotion/react';
-import { f } from 'styles';
-import IconBell from 'static/icons/system/IconBell';
-import IconChevron from 'static/icons/system/IconChevron';
+import { f } from 'shared/style';
+import IconBell from 'shared/static/icons/system/IconBell';
+import IconChevron from 'shared/static/icons/system/IconChevron';
 import { useFlow } from 'stackflow';
 // import { addSwipeLeftListener, addSwipeRightListener } from 'utils/swipe';
 // import IconClose from 'static/icons/system/IconClose';

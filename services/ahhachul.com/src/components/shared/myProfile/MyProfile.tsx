@@ -3,8 +3,8 @@ import { Flex, Text, Divider } from '@ahhachul/react-components-layout';
 import { ActivityComponentType } from '@stackflow/react';
 
 import { Layout } from 'components/layout';
-import IconEdit from 'static/icons/system/IconEdit';
-import IconFancyArrow from 'static/icons/system/IconFancyArrow';
+import IconEdit from 'shared/static/icons/system/IconEdit';
+import IconFancyArrow from 'shared/static/icons/system/IconFancyArrow';
 import { wrap } from './style';
 
 const MyProfile: ActivityComponentType = () => {

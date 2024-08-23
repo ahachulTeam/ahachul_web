@@ -1,8 +1,8 @@
 import React from 'react';
 import { useFlow } from 'stackflow';
 
-import IconMyTicket from 'static/icons/system/IconMyTicket';
-import IconBack from 'static/icons/system/IconBack';
+import IconMyTicket from 'shared/static/icons/system/IconMyTicket';
+import IconBack from 'shared/static/icons/system/IconBack';
 import {
   wrap,
   head_section,
@@ -20,7 +20,7 @@ import {
   bannerIcon,
 } from './style';
 
-import IconGoto from 'static/icons/mocks/IconGoto';
+import IconGoto from 'shared/static/icons/mocks/IconGoto';
 import { CSSObject } from '@emotion/react';
 
 const MyTicket = () => {
