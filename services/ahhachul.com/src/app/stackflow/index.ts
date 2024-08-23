@@ -5,20 +5,18 @@ import { plugins } from './plugins';
 import { sharedLayers, homeLayers, lostLayers, communityLayers, complaintLayers, blindDateLayers } from './layers';
 
 type TypeActivities = typeof activities;
-const { Link } = createLinkComponent<TypeActivities>();
 
+const { Link } = createLinkComponent<TypeActivities>();
 const { Stack, activities, useFlow, useStepFlow } = stackflow({
   activities: {
-    // 도메인
+    // 도메인 레이어
     ...homeLayers,
     ...lostLayers,
     ...communityLayers,
     ...complaintLayers,
-
-    // 소개팅
     ...blindDateLayers,
 
-    // 공용
+    // 공용 레이어
     ...sharedLayers,
   },
   plugins,
