@@ -18,7 +18,7 @@ function DetailWithImage({ data }: { data: IComplaintDetail }) {
         style={{
           position: 'relative',
           width: '100vw',
-          maxWidth: '390px',
+          maxWidth: '520px',
           aspectRatio: '1 / 0.925667',
         }}
       >

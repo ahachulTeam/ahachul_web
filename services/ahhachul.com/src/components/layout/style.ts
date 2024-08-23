@@ -7,7 +7,7 @@ const wrapper = [
   f.rootLineHeight,
   {
     width: '100%',
-    maxWidth: '390px',
+    maxWidth: '520px',
     top: 0,
     left: '50%',
     transform: 'translateX(-50%)',

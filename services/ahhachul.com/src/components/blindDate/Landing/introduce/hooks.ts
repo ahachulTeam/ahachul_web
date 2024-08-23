@@ -22,9 +22,8 @@ export const useParagraphStep = () => {
 };
 
 export const useCTAButtonVisible = () => {
-  const [isCTAButtonVisible, toggle, setTrue] = useBoolean(false);
+  const [isCTAButtonVisible, , setTrue] = useBoolean(false);
 
-  console.log(':toggle', toggle);
   useEffect(() => {
     const timeout = setTimeout(setTrue, 문구_수 * 매_문구_지속시간 - 800);
 

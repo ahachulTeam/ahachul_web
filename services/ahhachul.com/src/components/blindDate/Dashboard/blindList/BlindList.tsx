@@ -322,13 +322,13 @@ const cardBtn = ({ typography: { fontSize, fontWeight } }: Theme) => ({
   borderRadius: '6px',
   width: 'calc(100% - 18px)',
   margin: '0 auto',
-  height: '35px',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   color: '#ffffff',
   fontSize: fontSize[16],
   fontWeight: fontWeight[600],
+  padding: '12px 0',
 });
 
 const gridSection = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
