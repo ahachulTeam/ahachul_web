@@ -1,5 +1,6 @@
-import Community from 'pages/communicate/ui/Page/Page';
+import React from 'react';
 
+const Community = React.lazy(() => import('pages/communicate/ui/Page/Page'));
 export const communityLayers = {
   Community,
   // CommunityDetail,
