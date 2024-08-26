@@ -4,11 +4,12 @@ const config: AxiosRequestConfig = {};
 const baseURL = process.env.APP_ENV === 'test' ? 'http://localhost:3000' : process.env.PUBLIC_BASE_URL;
 config.baseURL = baseURL;
 
-const axiosInstance = axios.create(config);
-const axiosRoutes = {
+const base = axios.create(config);
+const routes = {
   auth: '/auth',
   users: '/users',
+  community: '/community',
   'blind-date': '/blind-date',
 } as const;
 
-export { baseURL, axiosInstance, axiosRoutes };
+export { baseURL, base, routes };

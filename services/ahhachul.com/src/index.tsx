@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import reportWebVitals from './reportWebVitals';
-import { AppEntry } from './app/appEntry';
-import { AppProvider } from './app/appProvider';
+
+import { AppProvider, AppEntry } from 'app';
+import { reportWebVitals } from './reportWebVitals';
 
 import 'styles/font.css';
 import '@ahhachul/themes/themes.css';

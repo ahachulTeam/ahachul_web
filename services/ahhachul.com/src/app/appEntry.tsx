@@ -1,12 +1,10 @@
 import React from 'react';
 import { Stack } from './stackflow';
 
-export function AppEntry() {
+export const AppEntry = () => {
   return (
     <React.Suspense fallback={null}>
       <Stack />
     </React.Suspense>
   );
-}
-
-export default AppEntry;
+};

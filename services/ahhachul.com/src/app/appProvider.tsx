@@ -11,7 +11,7 @@ import { store, persistor } from 'shared/stores';
 import 'react-loading-skeleton/dist/skeleton.css';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 
-export function AppProvider({ children }: PropsWithChildren) {
+export const AppProvider = ({ children }: PropsWithChildren) => {
   return (
     <>
       <ThemeScript />
@@ -26,4 +26,4 @@ export function AppProvider({ children }: PropsWithChildren) {
       </ThemeProvider>
     </>
   );
-}
+};

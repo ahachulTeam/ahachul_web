@@ -12,6 +12,6 @@
     "baseUrl": "src",
     "types": ["vitest/globals"]
   },
-  "include": ["**/*.ts", "**/*.ts", "**/*.tsx", "types/global.d.ts"],
+  "include": ["**/*.ts", "**/*.ts", "**/*.tsx", "types/react-app-global.d.ts"],
   "exclude": ["node_modules"]
 }

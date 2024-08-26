@@ -12,7 +12,7 @@ import { AxiosError } from 'axios';
 
 import { AuthQuery } from 'features/app-authentications';
 
-import { axiosInstance } from 'shared/api';
+import { base } from 'shared/api/configure-axios';
 import { useAppSelector } from 'shared/stores';
 
 function getQueryKeys(type: string[]) {
@@ -51,7 +51,7 @@ function useAuthQuery<
   const { mutate, status: refreshTokenFetchStatus } = AuthQuery.useRefreshToken();
 
   if (auth?.accessToken) {
-    axiosInstance.defaults.headers.common['authorization'] = `Bearer ${auth?.accessToken}`;
+    base.defaults.headers.common['authorization'] = `Bearer ${auth?.accessToken}`;
   }
 
   const enabled = options?.enabled === undefined ? true : options.enabled;
@@ -96,7 +96,7 @@ function useAuthMutation<TData = unknown, TError = unknown, TVariables = void, T
 }) {
   const { auth } = useAppSelector((state) => state.auth);
   if (auth?.accessToken) {
-    axiosInstance.defaults.headers.common['authorization'] = `Bearer ${auth?.accessToken}`;
+    base.defaults.headers.common['authorization'] = `Bearer ${auth?.accessToken}`;
   }
 
   return useMutation({
