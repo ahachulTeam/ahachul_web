@@ -1,1 +1,2 @@
-export { default } from './BlindDate';
+// export { default } from './BlindDate';
+export {};

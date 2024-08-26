@@ -1,7 +1,7 @@
-import { Community, CommunityDetail, CommunityEditor } from 'pages';
+import Community from 'pages/communicate/ui/Page/Page';
 
 export const communityLayers = {
   Community,
-  CommunityDetail,
-  CommunityEditor,
-};
+  // CommunityDetail,
+  // CommunityEditor,
+} as const;

@@ -10,8 +10,7 @@ import {
 } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
-import { AuthQuery } from 'features/app-authentications';
-
+import { AuthQuery } from 'entities/app-authentications';
 import { base } from 'shared/api/configure-axios';
 import { useAppSelector } from 'shared/stores';
 

@@ -2,7 +2,9 @@ import { stackflow } from '@stackflow/react';
 import { createLinkComponent } from '@stackflow/link';
 
 import { plugins } from './plugins';
-import { sharedLayers, homeLayers, lostLayers, communityLayers, complaintLayers, blindDateLayers } from './layers';
+import { homeLayers, communityLayers } from './layers';
+
+import '@stackflow/plugin-basic-ui/index.css';
 
 type TypeActivities = typeof activities;
 
@@ -11,13 +13,13 @@ const { Stack, activities, useFlow, useStepFlow } = stackflow({
   activities: {
     // 도메인 레이어
     ...homeLayers,
-    ...lostLayers,
+    // ...lostLayers,
     ...communityLayers,
-    ...complaintLayers,
-    ...blindDateLayers,
+    // ...complaintLayers,
+    // ...blindDateLayers,
 
     // 공용 레이어
-    ...sharedLayers,
+    // ...sharedLayers,
   },
   plugins,
   transitionDuration: 350,

@@ -1,7 +1,7 @@
 import React, { type PropsWithChildren } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-function QueryProvider({ children }: PropsWithChildren) {
+const QueryProvider = ({ children }: PropsWithChildren) => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -13,6 +13,6 @@ function QueryProvider({ children }: PropsWithChildren) {
   });
 
   return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
-}
+};
 
 export default QueryProvider;

@@ -1,7 +1,7 @@
 import '@emotion/react';
-import { theme } from 'shared/style';
+import themes from 'shared/themes.css';
 
-type CustomTheme = typeof theme;
+type CustomTheme = typeof themes;
 
 declare module '@emotion/react' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface

@@ -1,9 +1,9 @@
-import { Complaints, ComplaintDetail } from 'pages';
-import { ComplaintsComponent } from 'components';
+// import { Complaints, ComplaintDetail } from 'pages';
+// import { ComplaintsComponent } from 'components';
 
 export const complaintLayers = {
-  Complaints,
-  ComplaintDetail,
-  AskTrainNumber: ComplaintsComponent.AskTrainNumber,
-  ComplaintsSubmission: ComplaintsComponent.ComplaintsSubmission,
+  // Complaints,
+  // ComplaintDetail,
+  // AskTrainNumber: ComplaintsComponent.AskTrainNumber,
+  // ComplaintsSubmission: ComplaintsComponent.ComplaintsSubmission,
 };

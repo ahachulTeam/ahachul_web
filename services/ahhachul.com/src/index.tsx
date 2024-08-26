@@ -1,12 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import { AppProvider, AppEntry } from 'app';
+import { AppEntry } from 'app/appEntry';
+import { AppProvider } from 'app/appProvider';
 import { reportWebVitals } from './reportWebVitals';
-
-import 'styles/font.css';
-import '@ahhachul/themes/themes.css';
-import '@stackflow/plugin-basic-ui/index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(

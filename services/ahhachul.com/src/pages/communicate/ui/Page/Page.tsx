@@ -1,16 +1,15 @@
 import React from 'react';
 import { type ActivityComponentType } from '@stackflow/react';
-
-import { Layout } from 'components/layout';
-import { CommunityComponent, UiComponent } from 'components';
+import { Layout } from 'widgets';
 
 const Community: ActivityComponentType = () => {
   return (
-    <Layout activeTab={'Community'} hasSearch>
-      <CommunityComponent.CommunityMain />
-      <UiComponent.SearchModal>
+    <Layout>
+      <div>Community</div>
+      {/* <CommunityComponent.CommunityMain /> */}
+      {/* <UiComponent.SearchModal>
         <UiComponent.SearchBase />
-      </UiComponent.SearchModal>
+      </UiComponent.SearchModal> */}
     </Layout>
   );
 };

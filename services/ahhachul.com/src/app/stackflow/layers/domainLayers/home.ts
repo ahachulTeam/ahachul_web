@@ -1,9 +1,7 @@
-import { Home } from 'pages';
-
-import { HomeComponent } from 'components';
+import Home from 'pages/main/ui/Page/Page';
 
 export const homeLayers = {
   Home,
-  SubwayMap: HomeComponent.SubwayMap,
-  RegisterCenter: HomeComponent.RegisterCenter,
+  // SubwayMap: HomeComponent.SubwayMap,
+  // RegisterCenter: HomeComponent.RegisterCenter,
 };

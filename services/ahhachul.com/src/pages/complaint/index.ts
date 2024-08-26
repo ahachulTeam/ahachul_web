@@ -1,1 +1,3 @@
-export { default } from './ui/Complaints';
+// export { default } from './ui/Complaints';
+
+export {};

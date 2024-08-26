@@ -1,18 +1,19 @@
 import React from 'react';
 import { ActivityComponentType } from '@stackflow/react';
 
-import { HomeComponent, UiComponent } from 'components';
-import { Layout } from 'components/layout';
-import theme from 'shared/style/theme';
+import { Layout } from 'widgets';
+import theme from 'shared/themes.css';
+import { useFlow } from 'app/stackflow';
 
 const Home: ActivityComponentType = () => {
   const t = theme;
   console.log('t :', t);
 
+  const { push } = useFlow();
+
   return (
-    <Layout activeTab={'Home'}>
-      <HomeComponent.Dashboard />
-      <UiComponent.Footer />
+    <Layout>
+      <div onClick={() => push('Community', {})}>hi</div>
     </Layout>
   );
 };

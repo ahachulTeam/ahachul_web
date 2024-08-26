@@ -1,6 +1,10 @@
 import { useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
-import { UseIntersectionObserverProps } from 'types';
+import { useInView, type IntersectionOptions } from 'react-intersection-observer';
+
+interface UseIntersectionObserverProps {
+  callback: VoidFunction;
+  intersectionOptions?: IntersectionOptions;
+}
 
 export const useIntersectionObserver = ({
   callback,

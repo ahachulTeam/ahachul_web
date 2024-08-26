@@ -1,7 +1,7 @@
-import { Lost, LostDetail, LostEditor } from 'pages';
+// import { Lost, LostDetail, LostEditor } from 'pages';
 
 export const lostLayers = {
-  Lost,
-  LostDetail,
-  LostEditor,
+  // Lost,
+  // LostDetail,
+  // LostEditor,
 };

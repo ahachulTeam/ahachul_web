@@ -1,0 +1,42 @@
+:root {
+  --pretendard: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+    'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+}
+
+@font-face {
+  font-family: 'pretendard';
+  font-weight: 400;
+  src:
+    url('./static/fonts/Pretendard-Regular.subset.woff2') format('woff2'),
+    url('./static/fonts/Pretendard-Regular.subset.woff') format('woff'),
+    url('./static/fonts/Pretendard-Regular.subset.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'pretendard';
+  font-weight: 500;
+  src:
+    url('./static/fonts/Pretendard-Medium.subset.woff2') format('woff2'),
+    url('./static/fonts/Pretendard-Medium.subset.woff') format('woff'),
+    url('./static/fonts/Pretendard-Medium.subset.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'pretendard';
+  font-weight: 600;
+  src:
+    url('./static/fonts/Pretendard-SemiBold.subset.woff2') format('woff2'),
+    url('./static/fonts/Pretendard-SemiBold.subset.woff') format('woff'),
+    url('./static/fonts/Pretendard-SemiBold.subset.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'pretendard';
+  font-weight: 700;
+  src:
+    url('./static/fonts/Pretendard-Bold.subset.woff2') format('woff2'),
+    url('./static/fonts/Pretendard-Bold.subset.woff') format('woff'),
+    url('./static/fonts/Pretendard-Bold.subset.ttf') format('truetype');
+  font-display: swap;
+}

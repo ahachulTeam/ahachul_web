@@ -12,6 +12,8 @@ declare global {
 
   export type IndexOf<T, K extends KeyOf<T>> = ValueOf<T[K]>;
   export type OmitKeyOf<TObject extends object, TKey extends keyof TObject> = Omit<TObject, TKey>;
+
+  export type PropOf<T> = T extends React.ComponentType<infer U> ? U : never;
 }
 
 export {};

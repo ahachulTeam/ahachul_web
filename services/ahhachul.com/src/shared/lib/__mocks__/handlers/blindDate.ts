@@ -1,18 +1,20 @@
-import { http, delay, HttpResponse } from 'msw';
-import { API_BASE_URL } from 'data/api';
+// import { http, delay, HttpResponse } from 'msw';
+// import { API_BASE_URL } from 'data/api';
 
-const getBlindListResponse = {
-  code: '100',
-  message: 'SUCCESS',
-  result: {},
-};
+// const getBlindListResponse = {
+//   code: '100',
+//   message: 'SUCCESS',
+//   result: {},
+// };
 
-const getBlindList = http.get(API_BASE_URL + '/blindDate', async () => {
-  await delay(400);
+// const getBlindList = http.get(API_BASE_URL + '/blindDate', async () => {
+//   await delay(400);
 
-  return HttpResponse.json(getBlindListResponse);
-});
+//   return HttpResponse.json(getBlindListResponse);
+// });
 
-const blindDateHandlers = [getBlindList];
+// const blindDateHandlers = [getBlindList];
 
-export default blindDateHandlers;
+// export default blindDateHandlers;
+
+export {};
