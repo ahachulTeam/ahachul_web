@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { describe, expect, test } from 'vitest';
 
-import useBoolean from '../useBoolean';
+import useBoolean from '../hooks/useBoolean';
 
 describe('hooks/common/useBoolean', () => {
   test('정의되어 있어야 한다', () => {

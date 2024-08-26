@@ -5,7 +5,7 @@ import IconAlarmTalk from 'shared/static/icons/system/IconAlarmTalk';
 import IconAlarmComplaint from 'shared/static/icons/system/IconAlarmComplaint';
 import { useFlow } from 'stackflow';
 import { useState } from 'react';
-import { getRandomBoolean } from 'shared/lib/server/__mocks__/utils';
+import { getRandomBoolean } from 'shared/lib/__mocks__/handlers/utils';
 
 const getRandomContent = (type: 'talk' | 'complaints') => {
   const list = [

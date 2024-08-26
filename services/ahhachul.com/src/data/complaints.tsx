@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { KeyOf, ValueOf } from 'types/utility-types';
-
 import Icon환경 from 'shared/static/icons/complaints/Icon환경';
 import Icon질서 from 'shared/static/icons/complaints/Icon질서';
 import Icon응급 from 'shared/static/icons/complaints/Icon응급';

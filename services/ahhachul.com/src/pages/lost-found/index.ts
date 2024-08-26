@@ -1,1 +1,1 @@
-export { default } from './Lost';
+export { default } from './ui/Main/Page';

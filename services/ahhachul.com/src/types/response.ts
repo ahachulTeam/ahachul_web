@@ -8,15 +8,6 @@ export interface IQueryResponse<T> {
   error?: unknown;
 }
 
-export interface IResponse<T> {
-  /** 응답코드 */
-  code: string;
-  /** 응답메시지 */
-  message: string;
-  /** response data */
-  result: T;
-}
-
 export interface ListPageApiInfo {
   hasNext: boolean;
   nextPageNum?: number;

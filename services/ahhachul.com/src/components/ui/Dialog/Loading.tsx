@@ -3,7 +3,7 @@ import { Interpolation, Theme } from '@emotion/react';
 import { Player } from '@lottiefiles/react-lottie-player';
 
 import animationData from 'shared/static/lottie/loading.json';
-import useDisableScroll from 'shared/lib/useDisableScroll';
+import useDisableScroll from 'shared/lib/hooks/useDisableScroll';
 import Background from './Background';
 import { loader } from './style';
 

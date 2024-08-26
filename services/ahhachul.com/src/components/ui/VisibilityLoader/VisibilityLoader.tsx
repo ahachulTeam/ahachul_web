@@ -1,5 +1,5 @@
 import { UiComponent } from 'components';
-import { useIntersectionObserver } from 'shared/lib/useIntersectionObserver';
+import { useIntersectionObserver } from 'shared/lib/hooks/useIntersectionObserver';
 import { UseIntersectionObserverProps } from 'types';
 import { wrapper } from './style';
 

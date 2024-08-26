@@ -14,7 +14,6 @@ import React, {
   useState,
 } from 'react';
 
-import type { ConstructorType, Nullable } from 'types';
 import {
   AssertionError,
   useErrorBoundary_this_hook_should_be_called_in_ErrorBoundary_props_children,
@@ -22,6 +21,8 @@ import {
 import { ErrorBoundaryGroupContext } from './ErrorBoundaryGroup';
 import ErrorDefault from './ErrorDefault';
 import { hasResetKeysChanged } from './utils';
+
+type ConstructorType<TClass> = new (...args: any[]) => TClass;
 
 export interface ErrorBoundaryFallbackProps<TError extends Error = Error> {
   /**

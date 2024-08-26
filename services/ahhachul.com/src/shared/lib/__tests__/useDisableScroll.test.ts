@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { describe, expect, test } from 'vitest';
 
-import useDisableScroll from '../useDisableScroll';
+import useDisableScroll from '../hooks/useDisableScroll';
 
 describe('hooks/common/useScrollLock', () => {
   test('정의되어 있는가', () => {

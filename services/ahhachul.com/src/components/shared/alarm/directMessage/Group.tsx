@@ -1,6 +1,6 @@
 import { Flex } from '@ahhachul/react-components-layout';
 import { CSSObject, Theme } from '@emotion/react';
-import { getRandomBoolean } from 'shared/lib/server/__mocks__/utils';
+import { getRandomBoolean } from 'shared/lib/__mocks__/handlers/utils';
 import { useState } from 'react';
 import { useFlow } from 'stackflow';
 

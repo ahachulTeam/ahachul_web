@@ -1,10 +1,1 @@
-export { default as Home } from './main';
-export { default as Complaints } from './complain';
-export { default as ComplaintDetail } from './complain/[id]';
-export { default as Community } from './communication';
-export { default as CommunityDetail } from './communication/[id]';
-export { default as CommunityEditor } from './communication/Editor';
-export { default as Lost } from './lostfound';
-export { default as LostDetail } from './lostfound/[id]';
-export { default as LostEditor } from './lostfound/Editor';
-export { default as BlindDate } from './date';
+export {};
