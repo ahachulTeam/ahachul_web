@@ -8,7 +8,10 @@ interface TabItemProps {
   callbackFn_whenIsSame?: VoidFunction;
 }
 
-export const NavItem: React.FC<TabItemProps> = ({ tab, callbackFn_whenIsSame }) => {
+export const NavItem: React.FC<TabItemProps> = ({
+  tab,
+  callbackFn_whenIsSame,
+}) => {
   const { isSame, handleTabClick } = useNavItem({ tab, callbackFn_whenIsSame });
 
   return (

@@ -70,6 +70,10 @@ const fullHeight = {
   height: '100%',
 };
 
+const maxWidth = {
+  maxWidth: '520px',
+};
+
 const posAbsFull = [posAbs, top0, left0, fullWidth, fullHeight];
 
 const nowrap = {
@@ -151,6 +155,7 @@ const cssUtils = {
   posAbs,
   top0,
   left0,
+  maxWidth,
   fullWidth,
   fullHeight,
   posAbsFull,

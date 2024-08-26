@@ -1,5 +1,5 @@
-import type { InfiniteData } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
+import type { InfiniteData } from '@tanstack/react-query';
 import { IResponse, ResponseOfList } from 'entities/with-server';
 
 export const flattenInfinityListData = <T>(

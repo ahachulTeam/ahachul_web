@@ -15,13 +15,13 @@ const PATH = {
     },
   },
 
-  /** 유실물  */
+  /** 유실물 */
   lost: {
-    home: '/lost',
-    create: '/lost/create',
+    home: '/lost-found',
+    create: '/lost-found/create',
     detail: {
-      home: '/lost/:articleId',
-      edit: '/lost/:articleId/edit',
+      home: '/lost-found/:articleId',
+      edit: '/lost-found/:articleId/edit',
     },
   },
 

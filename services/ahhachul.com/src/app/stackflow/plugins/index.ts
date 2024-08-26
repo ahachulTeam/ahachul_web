@@ -14,6 +14,15 @@ const defaultOptions = {
 const stackflowPlugin = [
   basicRendererPlugin(),
   basicUIPlugin(defaultOptions),
-  historySyncPlugin({ routes: { Home: PATH.home, Community: PATH.community.home }, fallbackActivity: () => 'Home' }),
+  historySyncPlugin({
+    routes: {
+      Home: PATH.home,
+      LostFound: PATH.lost.home,
+      Community: PATH.community.home,
+      Complaint: PATH.complaints.home,
+      BlindDate: PATH.date.home,
+    },
+    fallbackActivity: () => 'Home',
+  }),
 ];
 export { stackflowPlugin as plugins };

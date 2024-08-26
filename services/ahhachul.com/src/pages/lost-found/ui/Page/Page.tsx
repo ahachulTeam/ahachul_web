@@ -1,19 +1,17 @@
 import React from 'react';
+import { useTheme } from '@emotion/react';
 import { ActivityComponentType } from '@stackflow/react';
-
-// import { Layout } from 'components/layout';
-// import { LostComponent } from 'components';
-// import { UiComponent } from 'components';
+import { Layout, Navbar } from 'widgets';
 
 const Lost: ActivityComponentType = () => {
+  const {
+    color: { text },
+  } = useTheme();
+
   return (
-    // <Layout activeTab={'Lost'} hasSearch>
-    //   <LostComponent.LostMain />
-    //   <UiComponent.SearchModal>
-    //     <UiComponent.SearchBase />
-    //   </UiComponent.SearchModal>
-    // </Layout>
-    <div></div>
+    <Layout appBar={{ title: 'Lost' }} navigationSlot={<Navbar />}>
+      <div css={{ color: text[50] }}>LostFound</div>
+    </Layout>
   );
 };
 

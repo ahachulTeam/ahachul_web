@@ -1,19 +1,20 @@
 import React from 'react';
+import { useTheme } from '@emotion/react';
 import { ActivityComponentType } from '@stackflow/react';
-import theme from 'shared/themes.css';
-
-import { Layout, Navbar } from 'widgets';
 import { useFlow } from 'app/stackflow';
+import { Layout, Navbar } from 'widgets';
 
 const Home: ActivityComponentType = () => {
-  const t = theme;
-  console.log('t :', t);
-
   const { push } = useFlow();
+  const {
+    color: { text },
+  } = useTheme();
 
   return (
-    <Layout navigationSlot={<Navbar />}>
-      <div onClick={() => push('Community', {})}>hi</div>
+    <Layout appBar={{ title: 'Home' }} navigationSlot={<Navbar />}>
+      <div css={{ color: text[50] }} onClick={() => push('Community', {})}>
+        hi
+      </div>
     </Layout>
   );
 };

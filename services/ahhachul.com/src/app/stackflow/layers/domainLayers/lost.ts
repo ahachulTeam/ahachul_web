@@ -1,7 +1,8 @@
-// import { Lost, LostDetail, LostEditor } from 'pages';
+import React from 'react';
 
+const LostFound = React.lazy(() => import('pages/lost-found/ui/Page/Page'));
 export const lostLayers = {
-  // Lost,
+  LostFound,
   // LostDetail,
   // LostEditor,
 };

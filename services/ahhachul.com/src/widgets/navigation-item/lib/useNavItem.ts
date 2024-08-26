@@ -1,7 +1,13 @@
 import { useActivity, useFlow } from 'app/stackflow';
 import { NavItem } from 'widgets/navigation-item/model';
 
-export const useNavItem = ({ tab, callbackFn_whenIsSame }: { tab: NavItem; callbackFn_whenIsSame?: VoidFunction }) => {
+export const useNavItem = ({
+  tab,
+  callbackFn_whenIsSame,
+}: {
+  tab: NavItem;
+  callbackFn_whenIsSame?: VoidFunction;
+}) => {
   const activity = useActivity();
   const isSame = activity.name === tab.href;
 

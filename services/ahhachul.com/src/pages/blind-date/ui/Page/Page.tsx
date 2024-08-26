@@ -1,24 +1,17 @@
 import React from 'react';
-// import { BlindDateComponent } from 'components';
-// import { Layout } from 'components/layout';
-// import { useAppSelector } from 'stores';
+import { useTheme } from '@emotion/react';
+import { type ActivityComponentType } from '@stackflow/react';
+import { Layout, Navbar } from 'widgets';
 
-const BlindDate: React.FC = () => {
-  // const { userAcceptedUsingBlindDate } = useAppSelector((state) => state.blindDate);
-
-  // useEffect(() => {
-  //   if (!userAcceptedUsingBlindDate) return;
-  //   const themeColor = document?.getElementById('theme-color');
-  //   if (themeColor) {
-  //     themeColor.setAttribute('content', '#000');
-  //   }
-  // }, [userAcceptedUsingBlindDate]);
+const BlindDate: ActivityComponentType = () => {
+  const {
+    color: { text },
+  } = useTheme();
 
   return (
-    // <Layout activeTab={false} isDate backgroundColor={userAcceptedUsingBlindDate ? '#000' : undefined}>
-    //   {userAcceptedUsingBlindDate ? <BlindDateComponent.Dashboard /> : <BlindDateComponent.Landing />}
-    // </Layout>
-    <div></div>
+    <Layout appBar={{ title: 'BlindDate' }} navigationSlot={<Navbar />}>
+      <div css={{ color: text[50] }}>BlindDate</div>
+    </Layout>
   );
 };
 
