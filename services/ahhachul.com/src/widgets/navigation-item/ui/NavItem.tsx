@@ -5,11 +5,11 @@ import * as styles from './NavItem.css';
 
 interface TabItemProps {
   tab: TabItem;
-  scrollToTop: VoidFunction;
+  callbackFn_whenIsSame?: VoidFunction;
 }
 
-export const NavItem: React.FC<TabItemProps> = ({ tab, scrollToTop }) => {
-  const { isSame, handleTabClick } = useNavItem({ tab, scrollToTop });
+export const NavItem: React.FC<TabItemProps> = ({ tab, callbackFn_whenIsSame }) => {
+  const { isSame, handleTabClick } = useNavItem({ tab, callbackFn_whenIsSame });
 
   return (
     <div css={styles.wrap(isSame)}>

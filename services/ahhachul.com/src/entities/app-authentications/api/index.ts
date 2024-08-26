@@ -10,9 +10,9 @@ type refreshTokenBodyType = {
   refreshToken: IToken['refreshToken'];
 };
 
-const refreshToken = (body: refreshTokenBodyType) => base.post(`${routes}/tokens`, body);
+const refreshToken = (body: refreshTokenBodyType) => base.post(`${routes.auth}/tokens`, body);
 
-const useRefreshToken = () => {
+export const useRefreshToken = () => {
   const dispatch = useAppDispatch();
 
   return useMutation({
@@ -27,5 +27,3 @@ const useRefreshToken = () => {
     },
   });
 };
-
-export { useRefreshToken };

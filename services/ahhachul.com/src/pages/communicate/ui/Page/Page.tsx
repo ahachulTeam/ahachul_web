@@ -1,10 +1,10 @@
 import React from 'react';
 import { type ActivityComponentType } from '@stackflow/react';
-import { Layout } from 'widgets';
+import { Layout, Navbar } from 'widgets';
 
 const Community: ActivityComponentType = () => {
   return (
-    <Layout>
+    <Layout navigationSlot={<Navbar />}>
       <div>Community</div>
       {/* <CommunityComponent.CommunityMain /> */}
       {/* <UiComponent.SearchModal>
