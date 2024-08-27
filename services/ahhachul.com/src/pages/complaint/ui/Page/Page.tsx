@@ -2,6 +2,7 @@ import React from 'react';
 import { useTheme } from '@emotion/react';
 import { ActivityComponentType } from '@stackflow/react';
 import { Layout, Navbar } from 'widgets';
+import { renderLeft, renderRight } from 'widgets/layout-header';
 
 const Complaint: ActivityComponentType = () => {
   const {
@@ -9,7 +10,7 @@ const Complaint: ActivityComponentType = () => {
   } = useTheme();
 
   return (
-    <Layout appBar={{ title: 'Complaint' }} navigationSlot={<Navbar />}>
+    <Layout appBar={{ renderLeft, renderRight }} navigationSlot={<Navbar />}>
       <div css={{ color: text[50] }}>Complaint</div>
     </Layout>
   );

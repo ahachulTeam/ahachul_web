@@ -1,6 +1,12 @@
 // import { SharedComponent } from 'components';
 
+import React from 'react';
+
+const SubwayNotices = React.lazy(
+  () => import('pages/_shared-pages/subway-notices/ui/Page/Page'),
+);
 export const sharedLayers = {
+  SubwayNotices,
   // Chat: SharedComponent.Chat,
   // Alarm: SharedComponent.Alarm,
   // MyTicket: SharedComponent.MyTicket,

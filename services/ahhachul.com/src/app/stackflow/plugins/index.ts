@@ -4,16 +4,15 @@ import { basicRendererPlugin } from '@stackflow/plugin-renderer-basic';
 import { PATH } from 'shared/lib/config/app-path';
 import themes from 'shared/themes.css';
 
-const defaultOptions = {
-  theme: 'cupertino',
-  appBar: {
-    borderColor: themes.color.background[50],
-    height: themes.dimensions.size.height.header,
-  },
-} as const;
 const stackflowPlugin = [
   basicRendererPlugin(),
-  basicUIPlugin(defaultOptions),
+  basicUIPlugin({
+    theme: themes.selector,
+    appBar: {
+      height: themes.dimensions.size.height.header,
+      borderColor: themes.color.background[50],
+    },
+  }),
   historySyncPlugin({
     routes: {
       Home: PATH.home,
@@ -21,6 +20,7 @@ const stackflowPlugin = [
       Community: PATH.community.home,
       Complaint: PATH.complaints.home,
       BlindDate: PATH.date.home,
+      SubwayNotices: PATH['_shared-pages'].subwayNotice,
     },
     fallbackActivity: () => 'Home',
   }),

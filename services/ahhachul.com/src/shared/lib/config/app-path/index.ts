@@ -78,12 +78,16 @@ const PATH = {
     membership: '/blind-date/membership',
   },
 
-  /** 전체 서비스  */
-  allServices: '/all-services',
-  /** 채팅 */
-  chat: '/chat',
-  /** 알림 */
-  alarm: '/alarm',
+  '_shared-pages': {
+    /** 전체 서비스  */
+    allServices: '/all-services',
+    /** 채팅 */
+    chat: '/chat',
+    /** 알림 */
+    alarm: '/alarm',
+    /** 지하철 공지사항 */
+    subwayNotice: '/subway-notice',
+  },
 } as const;
 
 export { PATH };

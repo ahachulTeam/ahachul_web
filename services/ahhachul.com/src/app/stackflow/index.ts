@@ -8,6 +8,7 @@ import {
   communityLayers,
   complaintLayers,
   blindDateLayers,
+  sharedLayers,
 } from './layers';
 
 import '@stackflow/plugin-basic-ui/index.css';
@@ -25,7 +26,7 @@ const { Stack, activities, useFlow, useStepFlow } = stackflow({
     ...blindDateLayers,
 
     // 공용 레이어
-    // ...sharedLayers,
+    ...sharedLayers,
   },
   plugins,
   transitionDuration: 350,

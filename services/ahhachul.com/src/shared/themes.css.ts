@@ -6,6 +6,7 @@ const NAVBAR_HEIGHT = '109px';
 const BOTTOM_DIM_HEIGHT = '200px';
 
 const themes = {
+  selector: 'cupertino',
   color: {
     ...vars.colors.$scale,
   },

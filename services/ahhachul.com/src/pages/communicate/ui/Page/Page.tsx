@@ -2,6 +2,7 @@ import React from 'react';
 import { useTheme } from '@emotion/react';
 import { type ActivityComponentType } from '@stackflow/react';
 import { Layout, Navbar } from 'widgets';
+import { renderLeft, renderRight } from 'widgets/layout-header';
 
 const Community: ActivityComponentType = () => {
   const {
@@ -9,7 +10,7 @@ const Community: ActivityComponentType = () => {
   } = useTheme();
 
   return (
-    <Layout appBar={{ title: 'Community' }} navigationSlot={<Navbar />}>
+    <Layout appBar={{ renderLeft, renderRight }} navigationSlot={<Navbar />}>
       <div css={{ color: text[50] }}>Community</div>
     </Layout>
   );
