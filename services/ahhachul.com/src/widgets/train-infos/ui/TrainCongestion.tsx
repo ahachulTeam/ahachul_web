@@ -6,7 +6,7 @@ import { useGetTrainCongestionInfo } from 'features/subway-trains/api/congestion
 import { subwayCongestionHexColors } from 'widgets/train-infos/lib/subway-congestion-hex-colors';
 import { useIsomorphicLayoutEffect } from 'shared/lib/hooks/useIsomorphicLayoutEffect';
 import { TrainIcon } from 'widgets/train-infos/ui/TrainIcon';
-import { TrainSectionIcon } from 'widgets/train-infos/ui/TrainSectionIcon';
+import { TrainEachSection } from 'widgets/train-infos/ui/TrainEachSection';
 import * as styles from './TrainCongestion.css';
 import { WithSubwayLineId } from 'features/subway-lines';
 import { WithSubwayTrainId } from 'features/subway-trains';
@@ -47,7 +47,7 @@ const TrainCongestion = ({ trainNo, subwayLineId }: TrainCongestionProps) => {
         <ul>
           {congestions.map(({ sectionNo, congestionColor: color }, idx) => (
             <li key={`${sectionNo}-${color}`}>
-              <TrainSectionIcon
+              <TrainEachSection
                 roomNumber={idx + 1}
                 color={subwayCongestionHexColors(color)}
               />

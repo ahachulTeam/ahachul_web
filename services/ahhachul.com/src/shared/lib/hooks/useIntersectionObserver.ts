@@ -1,7 +1,10 @@
 import { useEffect } from 'react';
-import { useInView, type IntersectionOptions } from 'react-intersection-observer';
+import {
+  useInView,
+  type IntersectionOptions,
+} from 'react-intersection-observer';
 
-interface UseIntersectionObserverProps {
+interface Props {
   callback: VoidFunction;
   intersectionOptions?: IntersectionOptions;
 }
@@ -9,7 +12,7 @@ interface UseIntersectionObserverProps {
 export const useIntersectionObserver = ({
   callback,
   intersectionOptions = { threshold: 0.3 },
-}: UseIntersectionObserverProps) => {
+}: Props) => {
   const { ref, inView } = useInView(intersectionOptions);
 
   useEffect(() => {
