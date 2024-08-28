@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
-import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
+import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
 
-const useTimeout = (fn: () => void, ms: number) => {
+export const useTimeout = (fn: () => void, ms: number) => {
   const fnRef = useRef(fn);
 
   useIsomorphicLayoutEffect(() => {
@@ -13,5 +13,3 @@ const useTimeout = (fn: () => void, ms: number) => {
     return () => clearTimeout(id);
   }, [ms]);
 };
-
-export default useTimeout;

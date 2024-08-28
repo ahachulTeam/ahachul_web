@@ -1,4 +1,4 @@
-export type AppEnv = 'production' | 'staging' | 'development';
+export type AppEnv = 'production' | 'staging' | 'test';
 
 export const APP_USER_AGENT = 'ahhachul.today.app';
 export const ANDROID = 'android|Android';
@@ -17,13 +17,14 @@ export const isIOS = () => RegExp(IOS).test(getUserAgent());
 
 export const isProd = () => process.env.NODE_ENV === 'production';
 
-export const getAppEnv = (): AppEnv => (process.env.REACT_APP_ENV as Exclude<AppEnv, 'development'>) || 'development';
+export const getAppEnv = (): AppEnv =>
+  (process.env.REACT_APP_ENV as Exclude<AppEnv, 'test'>) || 'test';
 
 export const getApiEndpoint = () => {
   switch (getAppEnv()) {
     case 'production':
     case 'staging':
-    case 'development':
+    case 'test':
     default:
       return '';
   }
@@ -35,7 +36,7 @@ export const getDomainName = () => {
       return 'https://app.ahhachul.com';
     case 'staging':
       return 'https://ahhachul-com.vercel.app';
-    case 'development':
+    case 'test':
     default:
       return 'http://localhost:3000';
   }

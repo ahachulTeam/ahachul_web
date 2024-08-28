@@ -7,6 +7,7 @@ import {
   useMutation,
   MutationFunction,
   UseMutationOptions,
+  useSuspenseQuery,
 } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
@@ -44,22 +45,28 @@ function useAuthQuery<
 }: {
   queryKey: TQueryKey;
   queryFn: QueryFunction<TQueryFnData, TQueryKey>;
-  options?: Omit<UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>, 'queryKey' | 'queryFn'>;
+  options?: Omit<
+    UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
+    'queryKey' | 'queryFn'
+  > & { suspense?: boolean };
 }) {
   const { auth } = useAppSelector((state) => state.auth);
-  const { mutate, status: refreshTokenFetchStatus } = AuthQuery.useRefreshToken();
+  const { mutate, status: refreshTokenFetchStatus } =
+    AuthQuery.useRefreshToken();
 
   if (auth?.accessToken) {
-    base.defaults.headers.common['authorization'] = `Bearer ${auth?.accessToken}`;
+    base.defaults.headers.common['authorization'] =
+      `Bearer ${auth?.accessToken}`;
   }
 
+  const callAPI = options?.suspense ? useSuspenseQuery : useQuery;
   const enabled = options?.enabled === undefined ? true : options.enabled;
   const {
     error,
     status: currentFetchStatus,
     refetch: currentRefetch,
     ...rest
-  } = useQuery({
+  } = callAPI({
     queryKey,
     queryFn,
     enabled,
@@ -86,16 +93,25 @@ function useAuthQuery<
   return { refetch: currentRefetch, ...rest };
 }
 
-function useAuthMutation<TData = unknown, TError = unknown, TVariables = void, TContext = unknown>({
+function useAuthMutation<
+  TData = unknown,
+  TError = unknown,
+  TVariables = void,
+  TContext = unknown,
+>({
   mutationFn,
   options,
 }: {
   mutationFn: MutationFunction<TData, TVariables>;
-  options?: Omit<UseMutationOptions<TData, TError, TVariables, TContext>, 'mutationKey' | 'mutationFn'>;
+  options?: Omit<
+    UseMutationOptions<TData, TError, TVariables, TContext>,
+    'mutationKey' | 'mutationFn'
+  >;
 }) {
   const { auth } = useAppSelector((state) => state.auth);
   if (auth?.accessToken) {
-    base.defaults.headers.common['authorization'] = `Bearer ${auth?.accessToken}`;
+    base.defaults.headers.common['authorization'] =
+      `Bearer ${auth?.accessToken}`;
   }
 
   return useMutation({

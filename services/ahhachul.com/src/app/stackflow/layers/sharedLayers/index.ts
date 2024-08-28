@@ -2,10 +2,14 @@
 
 import React from 'react';
 
+const AllServices = React.lazy(
+  () => import('pages/_shared-pages/all-services/ui/Page/Page'),
+);
 const SubwayNotices = React.lazy(
   () => import('pages/_shared-pages/subway-notices/ui/Page/Page'),
 );
 export const sharedLayers = {
+  AllServices,
   SubwayNotices,
   // Chat: SharedComponent.Chat,
   // Alarm: SharedComponent.Alarm,

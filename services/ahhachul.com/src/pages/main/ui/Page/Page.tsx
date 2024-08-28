@@ -1,21 +1,18 @@
 import React from 'react';
-import { useTheme } from '@emotion/react';
 import { ActivityComponentType } from '@stackflow/react';
-import { useFlow } from 'app/stackflow';
+
+import { CTAFlows } from 'features/call-to-actions';
+import { CheerUpPhrase } from 'features/users';
 import { Layout, Navbar } from 'widgets';
+import { TrainInfo } from 'widgets/train-infos';
 import { renderLeft, renderRight } from 'widgets/layout-header';
 
 const Home: ActivityComponentType = () => {
-  const { push } = useFlow();
-  const {
-    color: { text },
-  } = useTheme();
-
   return (
     <Layout appBar={{ renderLeft, renderRight }} navigationSlot={<Navbar />}>
-      <div css={{ color: text[50] }} onClick={() => push('SubwayNotices', {})}>
-        hi
-      </div>
+      <CTAFlows />
+      <CheerUpPhrase />
+      <TrainInfo />
     </Layout>
   );
 };

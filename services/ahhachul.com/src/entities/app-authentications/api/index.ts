@@ -6,11 +6,12 @@ import { base, routes, useMutation } from 'shared/api';
 import { setToken } from '../slice';
 import { type IToken } from '../model';
 
-type refreshTokenBodyType = {
+interface APIRefreshTokenBody {
   refreshToken: IToken['refreshToken'];
-};
+}
 
-const refreshToken = (body: refreshTokenBodyType) => base.post(`${routes.auth}/tokens`, body);
+const refreshToken = (body: APIRefreshTokenBody) =>
+  base.post(`${routes.auth}/tokens`, body);
 
 export const useRefreshToken = () => {
   const dispatch = useAppDispatch();

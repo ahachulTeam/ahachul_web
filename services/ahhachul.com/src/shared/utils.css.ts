@@ -99,6 +99,14 @@ const overflowScroll = {
   },
 };
 
+const overflowXScroll = {
+  overflowX: 'scroll',
+  WebkitOverflowScrolling: 'touch',
+  '::-webkit-scrollbar': {
+    display: 'none',
+  },
+};
+
 const rootLineHeight = {
   lineHeight: '1.15',
 };
@@ -163,6 +171,7 @@ const cssUtils = {
   cursorPointer,
   overflowHidden,
   overflowScroll,
+  overflowXScroll,
   rootLineHeight,
   visuallyHidden,
   truncate1,

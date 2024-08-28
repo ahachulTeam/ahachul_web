@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from '@emotion/react';
 import { type ActivityComponentType } from '@stackflow/react';
-import { Layout, Navbar } from 'widgets';
+import { Layout } from 'widgets';
 
 const BlindDate: ActivityComponentType = () => {
   const {
@@ -9,7 +9,7 @@ const BlindDate: ActivityComponentType = () => {
   } = useTheme();
 
   return (
-    <Layout appBar={{ title: 'BlindDate' }} navigationSlot={<Navbar />}>
+    <Layout appBar={{ title: 'BlindDate' }}>
       <div css={{ color: text[50] }}>BlindDate</div>
     </Layout>
   );

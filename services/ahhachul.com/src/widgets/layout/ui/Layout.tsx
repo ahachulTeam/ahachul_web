@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { type ComponentProps } from 'react';
 import { AppScreen } from '@stackflow/plugin-basic-ui';
 import themes from 'shared/themes.css';
 
 export const Layout = (
-  props: PropOf<typeof AppScreen> & {
+  props: ComponentProps<typeof AppScreen> & {
     navigationSlot?: React.ReactNode;
     dimSlot?: React.ReactNode;
   },

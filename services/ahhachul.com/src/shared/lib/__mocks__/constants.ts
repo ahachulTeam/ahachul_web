@@ -1,6 +1,6 @@
 import { getAppEnv } from 'shared/lib/config/app-env';
 
-// until backend api is ready
-const MOCKING = getAppEnv() === 'staging' ? 'true' : process.env.REACT_APP_MOCKING ?? 'false';
+const MOCKING =
+  getAppEnv() === 'test' && process.env.REACT_APP_MOCKING === 'true';
 
-export const isMocking = () => MOCKING === 'true';
+export const isMocking = () => Boolean(MOCKING);

@@ -8,7 +8,7 @@ type Return = readonly [boolean, VoidFunction, VoidFunction, VoidFunction];
  * @param initialValue - 기본 boolean 값
  * @returns [boolean state, toggle func, set true func, set false func]
  */
-const useBoolean = (initialValue: boolean): Return => {
+export const useBoolean = (initialValue: boolean): Return => {
   const [value, setValue] = useState(initialValue);
 
   const setTrue = useCallback(() => {
@@ -25,5 +25,3 @@ const useBoolean = (initialValue: boolean): Return => {
 
   return [value, toggle, setTrue, setFalse];
 };
-
-export default useBoolean;
