@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Flex } from '@ahhachul/react-components-layout';
 
-import { BaseArticle } from 'features/articles';
+import type { Article } from 'features/articles';
 import * as styles from './BaseArticleLIst.css';
 
 const FetchNextPage = React.lazy(() =>
@@ -10,14 +10,14 @@ const FetchNextPage = React.lazy(() =>
   })),
 );
 
-interface BaseArticleLIstProps<TData> {
+interface BaseArticleLIstProps<TData extends Article> {
   data: TData[];
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
   fetchNextPage: VoidFunction;
 }
 
-export const BaseArticleLIst = <TData extends BaseArticle>({
+export const BaseArticleLIst = <TData extends Article>({
   data,
   hasNextPage,
   isFetchingNextPage,

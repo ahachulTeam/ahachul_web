@@ -11,7 +11,9 @@ const base = axios.create(config);
 const routes = {
   auth: '/auth',
   users: '/users',
-  community: '/community',
+  community: '/community-posts',
+  complaints: '/complaints/messages',
+  'lost-found': '/lost-posts',
   'blind-date': '/blind-date',
   'subway-lines': '/subway-lines',
   'subway-trains': '/trains/real-times',

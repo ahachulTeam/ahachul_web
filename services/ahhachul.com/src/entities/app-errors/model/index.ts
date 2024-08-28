@@ -1,6 +1,16 @@
 import { type HttpStatusCode } from 'axios';
 
-type ErrorCode = '100' | '101' | '102' | '103' | '200' | '201' | '202' | '203' | '204' | '205';
+type ErrorCode =
+  | '100'
+  | '101'
+  | '102'
+  | '103'
+  | '200'
+  | '201'
+  | '202'
+  | '203'
+  | '204'
+  | '205';
 
 type CommonResponseMessages =
   | 'SUCCESS'
