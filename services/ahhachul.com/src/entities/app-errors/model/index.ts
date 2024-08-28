@@ -24,6 +24,18 @@ type CommonResponseMessages =
   | '유효하지 않은 권한 코드입니다.'
   | '유효하지 않은 엑세스 토큰입니다.';
 
-type ErrorCodeInfo = Partial<Record<ErrorCode, CommonResponseMessages>>;
+export type ErrorCodeInfo = Partial<Record<ErrorCode, CommonResponseMessages>>;
 
-export { ErrorCodeInfo };
+export class AssertionError extends Error {
+  static assert(condition: boolean, message: string): asserts condition {
+    if (!condition) {
+      throw new AssertionError(message);
+    }
+  }
+}
+
+export const useErrorBoundary_this_hook_should_be_called_in_ErrorBoundary_props_children =
+  'useErrorBoundary: this hook should be called in ErrorBoundary.props.children';
+
+export const useErrorBoundaryGroup_this_hook_should_be_called_in_ErrorBoundary_props_children =
+  'useErrorBoundaryGroup: this hook should be called in ErrorBoundary.props.children';

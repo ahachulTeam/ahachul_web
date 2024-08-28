@@ -10,7 +10,7 @@ import type { IResponse } from 'entities/with-server';
 import type { CommunityList } from '../model';
 import type { ParamsOfCommunityList } from '../model/params';
 
-const COMMUNITY_LIST_KEY = [...[routes.community], 'list'];
+const COMMUNITY_LIST_KEY = [routes.community];
 
 const getCommunityList = (params: ParamsOfCommunityList) =>
   base.get<IResponse<CommunityList>>(

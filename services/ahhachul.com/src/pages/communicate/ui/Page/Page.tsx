@@ -1,5 +1,6 @@
 import React from 'react';
 import type { ActivityComponentType } from '@stackflow/react';
+import { BaseErrorBoundary } from 'entities/app-errors/ui/ErrorBoundary';
 import { Layout, Navbar } from 'widgets';
 import { renderLeft, renderRight } from 'widgets/layout-header';
 
@@ -10,7 +11,9 @@ const CommunityArticleList = React.lazy(
 const Community: ActivityComponentType = () => {
   return (
     <Layout appBar={{ renderLeft, renderRight }} navigationSlot={<Navbar />}>
-      <CommunityArticleList />
+      <BaseErrorBoundary>
+        <CommunityArticleList />
+      </BaseErrorBoundary>
     </Layout>
   );
 };

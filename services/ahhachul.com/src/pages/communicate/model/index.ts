@@ -1,10 +1,8 @@
-import type { Article } from 'features/articles';
+import type { Article, WithHashTags } from 'features/articles';
 import type { ResponseOfList } from 'entities/with-server';
 
 export type CategoryOfCommunity = 'FREE' | 'INSIGHT' | 'QUESTION';
-export interface CommunityArticle extends Article {
-  writer: string;
-  hashTags: Array<string>;
+export interface CommunityArticle extends Article, WithHashTags {
   categoryType: CategoryOfCommunity;
 }
 export type CommunityList = ResponseOfList<CommunityArticle>;

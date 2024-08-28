@@ -6,13 +6,14 @@ const QueryProvider = ({ children }: PropsWithChildren) => {
     defaultOptions: {
       queries: {
         retry: false,
-        refetchOnMount: false,
         refetchOnWindowFocus: false,
       },
     },
   });
 
-  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+  return (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
 };
 
 export default QueryProvider;

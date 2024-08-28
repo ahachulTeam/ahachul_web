@@ -1,4 +1,5 @@
 import React from 'react';
+import { BaseErrorBoundary } from 'entities/app-errors/ui/ErrorBoundary';
 import * as styles from './TrainInfo.css';
 
 import { TrainLineFilter } from './TrainLineFilter';
@@ -16,7 +17,9 @@ export const TrainInfo = () => {
   return (
     <section css={styles.section}>
       <TrainLineFilter stationId={activatedStationId} />
-      <TrainRealTimes {...activatedSubwayInfo} />
+      <BaseErrorBoundary>
+        <TrainRealTimes {...activatedSubwayInfo} />
+      </BaseErrorBoundary>
     </section>
   );
 };

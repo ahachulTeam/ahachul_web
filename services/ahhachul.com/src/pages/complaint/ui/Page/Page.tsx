@@ -1,17 +1,19 @@
 import React from 'react';
-import { useTheme } from '@emotion/react';
 import { ActivityComponentType } from '@stackflow/react';
+import { BaseErrorBoundary } from 'entities/app-errors/ui/ErrorBoundary';
 import { Layout, Navbar } from 'widgets';
 import { renderLeft, renderRight } from 'widgets/layout-header';
 
-const Complaint: ActivityComponentType = () => {
-  const {
-    color: { text },
-  } = useTheme();
+const ComplaintArticleList = React.lazy(
+  () => import('../_common/ComplaintArticleList/ComplaintArticleList'),
+);
 
+const Complaint: ActivityComponentType = () => {
   return (
     <Layout appBar={{ renderLeft, renderRight }} navigationSlot={<Navbar />}>
-      <div css={{ color: text[50] }}>Complaint</div>
+      <BaseErrorBoundary>
+        <ComplaintArticleList />
+      </BaseErrorBoundary>
     </Layout>
   );
 };
