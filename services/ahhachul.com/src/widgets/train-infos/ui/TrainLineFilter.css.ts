@@ -4,6 +4,7 @@ import { subwayLineHexColors } from '../lib/subway-line-hex-colors';
 
 export const filters = [
   cssUtils.fullWidth,
+  cssUtils.flexAlignCenter,
   ({
     color: { background, text },
     typography: { fontSize, fontWeight },
@@ -11,18 +12,10 @@ export const filters = [
       radii: { full },
     },
   }: Theme) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     backgroundColor: background[50],
     marginBottom: '28px',
 
-    '& > ul ': {
-      display: 'flex',
-      alignItems: 'center',
-    },
-
-    '& > ul > li': {
+    '& > li': {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',

@@ -9,22 +9,20 @@ export const TrainLineFilter = ({ stationId }: SubwayLineFilterProps) => {
   const subwayLines = [stationId];
 
   return (
-    <div css={styles.filters}>
-      <ul>
-        {subwayLines.map((line, idx) => (
-          <>
-            {idx === 0 ? (
-              <li key={'0'} css={styles.colorful}>
-                {line}
-              </li>
-            ) : (
-              <li key={`${line}-${idx}`} css={styles.inherit(line)}>
-                <button type="button">{line}</button>
-              </li>
-            )}
-          </>
-        ))}
-      </ul>
-    </div>
+    <ul css={styles.filters}>
+      {subwayLines.map((line, idx) => (
+        <>
+          {idx === 0 ? (
+            <li key={'0'} css={styles.colorful}>
+              {line}
+            </li>
+          ) : (
+            <li key={`${line}-${idx}`} css={styles.inherit(line)}>
+              <button type="button">{line}</button>
+            </li>
+          )}
+        </>
+      ))}
+    </ul>
   );
 };
