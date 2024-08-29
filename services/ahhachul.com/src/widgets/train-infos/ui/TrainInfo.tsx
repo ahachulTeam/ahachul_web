@@ -1,8 +1,7 @@
 import React from 'react';
 import { BaseErrorBoundary } from 'entities/app-errors/ui/ErrorBoundary';
-import * as styles from './TrainInfo.css';
-
 import { TrainLineFilter } from './TrainLineFilter';
+import * as styles from './TrainInfo.css';
 
 const TrainRealTimes = React.lazy(() => import('./TrainRealTimes'));
 

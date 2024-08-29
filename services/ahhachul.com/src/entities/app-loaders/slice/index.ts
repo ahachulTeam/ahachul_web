@@ -5,9 +5,10 @@ interface LoadingStore {
   opacity?: number;
 }
 
+const defaultOpacity = 0.4;
 const initialState: LoadingStore = {
   active: false,
-  opacity: 0.5,
+  opacity: defaultOpacity,
 };
 
 const {
@@ -18,11 +19,13 @@ const {
   initialState,
   reducers: {
     loading: (state, action: PayloadAction<LoadingStore>) => {
-      state.opacity = action?.payload?.opacity ?? 0.5;
       state.active = true;
+      if (action?.payload?.opacity) {
+        state.opacity = action.payload.opacity;
+      }
     },
     loaded: (state) => {
-      state.opacity = 0.5;
+      state.opacity = defaultOpacity;
       state.active = false;
     },
   },

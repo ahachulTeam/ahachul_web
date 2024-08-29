@@ -1,10 +1,14 @@
+import React, { type HTMLAttributes } from 'react';
 import { withSuspense } from '@ahhachul/react-hooks-utility';
 import { useGetCommunityList } from 'pages/communicate/api/get-list';
 import type { CommunityArticle } from 'pages/communicate/model';
+import { Loading } from 'entities/app-loaders/ui/Loading';
 import { flattenInfinityList } from 'shared/lib/utils/array/flattenInfinityList';
-import { BaseArticleLIst } from 'widgets/articles/ui/BaseArticleLIst';
+import { BaseArticleList } from 'widgets/articles/ui/BaseArticleList';
 
-const CommunityArticleList = () => {
+interface CommunityArticleListProps
+  extends HTMLAttributes<HTMLSectionElement> {}
+const CommunityArticleList = ({ ...props }: CommunityArticleListProps) => {
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } =
     useGetCommunityList({
       page: 0,
@@ -13,17 +17,16 @@ const CommunityArticleList = () => {
   const communityArticles = flattenInfinityList(data);
 
   return (
-    <BaseArticleLIst<CommunityArticle>
+    <BaseArticleList<CommunityArticle>
       data={communityArticles}
       hasNextPage={hasNextPage}
       isFetchingNextPage={isFetchingNextPage}
       fetchNextPage={fetchNextPage}
+      {...props}
     />
   );
 };
 
 export default withSuspense(CommunityArticleList, {
-  fallback: (
-    <div css={{ color: 'white' }}>Loading Community Article List...</div>
-  ),
+  fallback: <Loading />,
 });

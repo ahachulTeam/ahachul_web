@@ -3,7 +3,7 @@ import { ActivityComponentType } from '@stackflow/react';
 import { BaseErrorBoundary } from 'entities/app-errors/ui/ErrorBoundary';
 import { Layout, Navbar } from 'widgets';
 import { renderLeft, renderRight } from 'widgets/layout-header';
-import { BottomDim } from 'shared/ui';
+import * as styles from './Page.css';
 
 const LostFoundArticleList = React.lazy(
   () => import('../_common/LostFoundArticleList/LostFoundArticleList'),
@@ -11,13 +11,9 @@ const LostFoundArticleList = React.lazy(
 
 const Lost: ActivityComponentType = () => {
   return (
-    <Layout
-      appBar={{ renderLeft, renderRight }}
-      navigationSlot={<Navbar />}
-      dimSlot={<BottomDim />}
-    >
+    <Layout appBar={{ renderLeft, renderRight }} navigationSlot={Navbar}>
       <BaseErrorBoundary>
-        <LostFoundArticleList />
+        <LostFoundArticleList css={styles.articleListLayout} />
       </BaseErrorBoundary>
     </Layout>
   );

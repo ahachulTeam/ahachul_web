@@ -1,12 +1,14 @@
+import type { HTMLAttributes } from 'react';
 import { CTAList } from 'features/call-to-actions/data';
 import { useCTAFlows } from 'features/call-to-actions/lib/useCTAFlows';
 import * as styles from './CTAFlows.css';
 
-export const CTAFlows = () => {
+interface CTAFlowsProps extends HTMLAttributes<HTMLSectionElement> {}
+export const CTAFlows = ({ ...props }: CTAFlowsProps) => {
   const { clickStack } = useCTAFlows();
 
   return (
-    <section css={styles.wrap}>
+    <section css={styles.wrap} {...props}>
       <ul css={styles.btn_wrap}>
         {CTAList.map((stack) => (
           <button

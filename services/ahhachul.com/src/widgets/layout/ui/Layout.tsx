@@ -1,17 +1,17 @@
 import React, { type ComponentProps } from 'react';
 import { AppScreen } from '@stackflow/plugin-basic-ui';
+import { Navbar } from 'widgets/navigation';
 import themes from 'shared/themes.css';
 import * as styles from './Layout.css';
 
 export const Layout = (
   props: ComponentProps<typeof AppScreen> & {
-    navigationSlot?: React.ReactNode;
-    dimSlot?: React.ReactNode;
+    navigationSlot?: typeof Navbar;
   },
 ) => {
   const topEl = React.useRef<Nullable<HTMLDivElement>>(null);
   const onTopClick = () =>
-    topEl?.current?.scrollTo({ top: 0, behavior: 'smooth' });
+    topEl?.current?.scrollTo?.({ top: 0, behavior: 'smooth' });
   const _appBar = Object.assign(props.appBar ?? {}, {
     iconColor: themes.color.text[50],
     textColor: themes.color.text[50],
@@ -29,8 +29,7 @@ export const Layout = (
           {props.children}
         </div>
       </main>
-      {props.navigationSlot}
-      {props.dimSlot}
+      {props.navigationSlot?.({ onTopClick })}
     </AppScreen>
   );
 };

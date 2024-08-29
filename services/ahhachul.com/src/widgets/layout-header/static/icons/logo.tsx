@@ -7,8 +7,12 @@ const SVG = `
 </svg>
 `;
 
-const LogoIcon = () => (
-  <div css={cssUtils.flex} dangerouslySetInnerHTML={{ __html: SVG }} />
+const LogoIcon = ({ className }: { className?: string }) => (
+  <div
+    css={cssUtils.flex}
+    className={className}
+    dangerouslySetInnerHTML={{ __html: SVG }}
+  />
 );
 
 export default LogoIcon;

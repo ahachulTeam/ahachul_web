@@ -11,9 +11,17 @@ declare global {
   export type Values<T extends Record<string, unknown>> = T[Keys<T>];
 
   export type IndexOf<T, K extends KeyOf<T>> = ValueOf<T[K]>;
-  export type OmitKeyOf<TObject extends object, TKey extends keyof TObject> = Omit<TObject, TKey>;
+  export type OmitKeyOf<
+    TObject extends object,
+    TKey extends keyof TObject,
+  > = Omit<TObject, TKey>;
 
   export type PropOf<T> = T extends React.ComponentType<infer U> ? U : never;
+
+  /**
+   * For typescript compatibility
+   */
+  export interface HTMLSectionElement extends HTMLElement {}
 }
 
 export {};

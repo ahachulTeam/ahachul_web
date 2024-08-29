@@ -1,19 +1,23 @@
 import React from 'react';
 import { NavItem } from 'widgets/navigation-item/ui/NavItem';
-import * as styles from './Navbar.css';
+import { BottomDim } from 'shared/ui';
 import { navlist } from '../data';
+import * as styles from './Navbar.css';
 
 interface NavbarProps {
-  callbackFn_whenIsSame?: VoidFunction;
+  onTopClick?: VoidFunction;
 }
 
-export const Navbar = ({ callbackFn_whenIsSame }: NavbarProps) => {
+export const Navbar = ({ onTopClick }: NavbarProps) => {
   return (
-    <nav css={styles.navbar}>
-      {navlist.map((tab) => {
-        const props = { tab, callbackFn_whenIsSame };
-        return <NavItem key={tab.label} {...props} />;
-      })}
-    </nav>
+    <>
+      <nav css={styles.navbar}>
+        {navlist.map((tab) => {
+          const props = { tab, onTopClick };
+          return <NavItem key={tab.label} {...props} />;
+        })}
+      </nav>
+      <BottomDim />
+    </>
   );
 };

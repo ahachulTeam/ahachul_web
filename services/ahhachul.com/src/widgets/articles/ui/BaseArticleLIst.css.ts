@@ -1,14 +1,9 @@
-import cssUtils from 'shared/utils.css';
-
-export const ul = [
-  cssUtils.sideGutter,
-  {
-    '& > li:first-of-type': {
-      '& > article': { paddingTop: 0 },
-    },
-
-    '& > li:not(:last-of-type)': {
-      borderBottom: '1px solid hsla(0, 0%, 100%, .06)',
-    },
+export const ul = {
+  '& > li:first-of-type': {
+    '& > article': { paddingTop: 0 },
   },
-];
+
+  '& > li:not(:last-of-type)': {
+    borderBottom: '1px solid hsla(0, 0%, 100%, .06)',
+  },
+};

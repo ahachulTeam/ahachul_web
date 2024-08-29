@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { type HTMLAttributes } from 'react';
 import { Box, Flex } from '@ahhachul/react-components-layout';
 
 import type { Article } from 'features/articles';
-import * as styles from './BaseArticleLIst.css';
 import { ArticleCard } from './ArticleCard';
+import * as styles from './BaseArticleList.css';
 
 const FetchNextPage = React.lazy(() =>
   import('./FetchNextPage').then((module) => ({
@@ -11,21 +11,23 @@ const FetchNextPage = React.lazy(() =>
   })),
 );
 
-interface BaseArticleListProps<TData extends Article> {
+interface BaseArticleListProps<TData extends Article>
+  extends HTMLAttributes<HTMLSectionElement> {
   data: TData[];
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
   fetchNextPage: VoidFunction;
 }
 
-export const BaseArticleLIst = <TData extends Article>({
+export const BaseArticleList = <TData extends Article>({
   data,
   hasNextPage,
   isFetchingNextPage,
   fetchNextPage,
+  ...props
 }: BaseArticleListProps<TData>) => {
   return (
-    <Box as="section">
+    <Box as="section" {...props}>
       <Flex as="ul" direction="column" css={styles.ul}>
         {data.map((article) => (
           <ArticleCard<TData> key={article.id} data={article} to="Community" />

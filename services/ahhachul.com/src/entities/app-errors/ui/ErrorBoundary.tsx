@@ -1,4 +1,5 @@
 import React from 'react';
+import themes from 'shared/themes.css';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
@@ -24,7 +25,9 @@ class BaseErrorBoundary extends React.Component<
 
   render() {
     if (this.state.hasError) {
-      return <h1>Something went wrong.</h1>;
+      return (
+        <h3 style={{ color: themes.color.text[50] }}>Something went wrong.</h3>
+      );
     }
 
     return this.props.children;

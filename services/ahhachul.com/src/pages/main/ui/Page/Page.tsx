@@ -6,17 +6,13 @@ import { CheerUpPhrase } from 'features/users';
 import { Layout, Navbar } from 'widgets';
 import { TrainInfo } from 'widgets/train-infos';
 import { renderLeft, renderRight } from 'widgets/layout-header';
-import { BottomDim } from 'shared/ui';
+import * as styles from './Page.css';
 
 const Home: ActivityComponentType = () => {
   return (
-    <Layout
-      appBar={{ renderLeft, renderRight }}
-      navigationSlot={<Navbar />}
-      dimSlot={<BottomDim />}
-    >
-      <CTAFlows />
-      <CheerUpPhrase />
+    <Layout appBar={{ renderLeft, renderRight }} navigationSlot={Navbar}>
+      <CTAFlows css={styles.ctaFlowsLayout} />
+      <CheerUpPhrase css={styles.cheerUpPhraseLayout} />
       <TrainInfo />
     </Layout>
   );
