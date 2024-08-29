@@ -23,6 +23,8 @@ const stackflowPlugin = [
       BlindDate: PATH.date.home,
       AllServices: PATH['_shared-pages'].allServices,
       SubwayNotices: PATH['_shared-pages'].subwayNotice,
+      Market: PATH['_shared-pages'].market,
+      CarSharing: PATH['_shared-pages'].carSharing,
     },
     fallbackActivity: () => 'Home',
   }),

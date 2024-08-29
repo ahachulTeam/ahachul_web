@@ -87,6 +87,10 @@ const PATH = {
     alarm: '/alarm',
     /** 지하철 공지사항 */
     subwayNotice: '/subway-notice',
+    /** 중고거래 */
+    market: '/market',
+    /** 카셰어링 */
+    carSharing: '/car-sharing',
   },
 } as const;
 

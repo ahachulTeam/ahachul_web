@@ -3,7 +3,7 @@ import { useTheme } from '@emotion/react';
 import { ActivityComponentType } from '@stackflow/react';
 import { Layout } from 'widgets';
 
-const AllServices: ActivityComponentType = () => {
+const CarSharing: ActivityComponentType = () => {
   const {
     dimensions: {
       size: { gutter },
@@ -12,10 +12,10 @@ const AllServices: ActivityComponentType = () => {
   } = useTheme();
 
   return (
-    <Layout appBar={{ title: '전체 서비스' }}>
-      <div css={{ padding: gutter, color: text[50] }}>전체 서비스</div>
+    <Layout appBar={{ title: '카셰어링' }}>
+      <div css={{ padding: gutter, color: text[50] }}>카셰어링</div>
     </Layout>
   );
 };
 
-export default AllServices;
+export default CarSharing;

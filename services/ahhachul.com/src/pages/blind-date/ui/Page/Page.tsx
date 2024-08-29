@@ -5,12 +5,15 @@ import { Layout } from 'widgets';
 
 const BlindDate: ActivityComponentType = () => {
   const {
+    dimensions: {
+      size: { gutter },
+    },
     color: { text },
   } = useTheme();
 
   return (
-    <Layout appBar={{ title: 'BlindDate' }}>
-      <div css={{ color: text[50] }}>BlindDate</div>
+    <Layout appBar={{ title: '소개팅' }}>
+      <div css={{ padding: gutter, color: text[50] }}>소개팅</div>
     </Layout>
   );
 };
