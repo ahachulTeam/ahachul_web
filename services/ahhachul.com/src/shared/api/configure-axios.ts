@@ -10,7 +10,7 @@ config.baseURL = baseURL;
 const base = axios.create(config);
 const routes = {
   auth: '/auth',
-  users: '/users',
+  users: '/members',
   community: '/community-posts',
   complaints: '/complaints/messages',
   'lost-found': '/lost-posts',

@@ -1,19 +1,28 @@
-import React from 'react';
-import { useTheme } from '@emotion/react';
+import React, { useState, useCallback } from 'react';
 import { type ActivityComponentType } from '@stackflow/react';
 import { Layout } from 'widgets';
+import { NicknameSetup } from 'features/users';
+import * as styles from './Page.css';
 
 const BlindDate: ActivityComponentType = () => {
-  const {
-    dimensions: {
-      size: { gutter },
-    },
-    color: { text },
-  } = useTheme();
+  const [nickname, setNickname] = useState('');
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setNickname(e.target.value),
+    [],
+  );
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log('nickname', nickname);
+  };
 
   return (
     <Layout appBar={{ title: '소개팅' }}>
-      <div css={{ padding: gutter, color: text[50] }}>소개팅</div>
+      <NicknameSetup
+        nickname={nickname}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        css={styles.nicknameSetupLayout}
+      />
     </Layout>
   );
 };

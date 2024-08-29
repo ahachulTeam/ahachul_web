@@ -33,6 +33,10 @@ export const blackAlpha = {
   900: 'rgba(0, 0, 0, 0.92)',
 };
 
+export const blueGrayAlpha = {
+  50: 'rgb(196, 212, 252, 0.37)',
+};
+
 export const skyPurpleAlpha = {
   50: 'rgba(60, 70, 94, 0.37)',
 };
@@ -44,4 +48,5 @@ export const rubyAlpha = {
 export const greenAlpha = {
   50: 'rgba(30, 100, 55, 0.5)',
   100: 'rgba(50, 150, 100, 0.87)',
+  200: 'rgba(0, 255, 163, 0.5)',
 };

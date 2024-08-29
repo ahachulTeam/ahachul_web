@@ -6,11 +6,11 @@ import { base, routes, useMutation } from 'shared/api';
 import { setToken } from '../slice';
 import { type IToken } from '../model';
 
-interface APIRefreshTokenBody {
+interface APIRefreshTokenParams {
   refreshToken: IToken['refreshToken'];
 }
 
-const refreshToken = (body: APIRefreshTokenBody) =>
+const refreshToken = (body: APIRefreshTokenParams) =>
   base.post(`${routes.auth}/tokens`, body);
 
 export const useRefreshToken = () => {

@@ -1,1 +1,2 @@
-export { CheerUpPhrasesWithUserName as CheerUpPhrase } from './ui/CheerUpPhrasesWithUserName/CheerUpPhrasesWithUserName';
+export * as UserQuery from './api';
+export * from './ui';

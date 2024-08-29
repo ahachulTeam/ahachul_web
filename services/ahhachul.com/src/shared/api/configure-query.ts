@@ -11,9 +11,9 @@ import {
 } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
-import { AuthQuery } from 'entities/app-authentications';
 import { base } from 'shared/api/configure-axios';
 import { useAppSelector } from 'shared/stores';
+import { useRefreshToken } from 'entities/app-authentications';
 
 function getQueryKeys(type: string[]) {
   return {
@@ -51,8 +51,7 @@ function useAuthQuery<
   > & { suspense?: boolean };
 }) {
   const { auth } = useAppSelector((state) => state.auth);
-  const { mutate, status: refreshTokenFetchStatus } =
-    AuthQuery.useRefreshToken();
+  const { mutate, status: refreshTokenFetchStatus } = useRefreshToken();
 
   if (auth?.accessToken) {
     base.defaults.headers.common['authorization'] =
