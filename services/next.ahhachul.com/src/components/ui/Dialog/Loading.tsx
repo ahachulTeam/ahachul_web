@@ -13,7 +13,12 @@ interface Props {
   isWhite?: boolean;
 }
 
-function Loading({ css = {}, opacity = 0.45, isWhite = false, children }: PropsWithChildren<Props>) {
+function Loading({
+  css = {},
+  opacity = 0.45,
+  isWhite = false,
+  children,
+}: PropsWithChildren<Props>) {
   useDisableScroll();
 
   return (

@@ -5262,17 +5262,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stackflow/plugin-preload@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "@stackflow/plugin-preload@npm:1.3.0"
-  dependencies:
-    "@stackflow/plugin-history-sync": "npm:^1.4.0"
+"@stackflow/plugin-preload@npm:^1.4.1":
+  version: 1.4.1
+  resolution: "@stackflow/plugin-preload@npm:1.4.1"
   peerDependencies:
-    "@stackflow/core": ^1
-    "@stackflow/react": ^1
+    "@stackflow/core": ^1.1.0-canary.0
+    "@stackflow/plugin-history-sync": ^1.6.2-canary.0
+    "@stackflow/react": ^1.3.0-canary.0
     "@types/react": ">=16.8.0"
     react: ">=16.8.0"
-  checksum: 10c0/cc089b446c62d7302d0812f78b898bfad85beab3fe11c7aa66b441544787c597e663b021220d9baaee4b4a2592ec6123eeeb66ebd712cc2dc5df26ebb15701ed
+  checksum: 10c0/252da88f9249c57be12f41fbb822b51cbac50775cb6cc4663826965becba64f9e30ceb566a009273f774c3cff450721c15e4465922a2d739970a26c3a1bd99dd
   languageName: node
   linkType: hard
 
@@ -8208,7 +8207,7 @@ __metadata:
     "@stackflow/link": "npm:^1.4.0"
     "@stackflow/plugin-basic-ui": "npm:^1.5.3"
     "@stackflow/plugin-history-sync": "npm:^1.4.0"
-    "@stackflow/plugin-preload": "npm:^1.3.0"
+    "@stackflow/plugin-preload": "npm:^1.4.1"
     "@stackflow/plugin-renderer-basic": "npm:^1.1.8"
     "@stackflow/react": "npm:^1.1.8"
     "@tanstack/react-query": "npm:^5.8.4"
