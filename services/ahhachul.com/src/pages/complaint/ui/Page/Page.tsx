@@ -3,11 +3,8 @@ import { ActivityComponentType } from '@stackflow/react';
 import { BaseErrorBoundary } from 'entities/app-errors/ui/ErrorBoundary';
 import { Layout, Navbar } from 'widgets';
 import { renderLeft, renderRight } from 'widgets/layout-header';
+import ComplaintArticleList from '../_common/ComplaintArticleList/ComplaintArticleList';
 import * as styles from './Page.css';
-
-const ComplaintArticleList = React.lazy(
-  () => import('../_common/ComplaintArticleList/ComplaintArticleList'),
-);
 
 const Complaint: ActivityComponentType = () => {
   return (

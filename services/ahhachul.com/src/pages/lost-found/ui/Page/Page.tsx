@@ -3,11 +3,8 @@ import { ActivityComponentType } from '@stackflow/react';
 import { BaseErrorBoundary } from 'entities/app-errors/ui/ErrorBoundary';
 import { Layout, Navbar } from 'widgets';
 import { renderLeft, renderRight } from 'widgets/layout-header';
+import LostFoundArticleList from '../_common/LostFoundArticleList/LostFoundArticleList';
 import * as styles from './Page.css';
-
-const LostFoundArticleList = React.lazy(
-  () => import('../_common/LostFoundArticleList/LostFoundArticleList'),
-);
 
 const Lost: ActivityComponentType = () => {
   return (
