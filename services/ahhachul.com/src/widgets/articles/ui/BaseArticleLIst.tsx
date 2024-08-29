@@ -3,6 +3,7 @@ import { Box, Flex } from '@ahhachul/react-components-layout';
 
 import type { Article } from 'features/articles';
 import * as styles from './BaseArticleLIst.css';
+import { ArticleCard } from './ArticleCard';
 
 const FetchNextPage = React.lazy(() =>
   import('./FetchNextPage').then((module) => ({
@@ -10,7 +11,7 @@ const FetchNextPage = React.lazy(() =>
   })),
 );
 
-interface BaseArticleLIstProps<TData extends Article> {
+interface BaseArticleListProps<TData extends Article> {
   data: TData[];
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
@@ -22,12 +23,12 @@ export const BaseArticleLIst = <TData extends Article>({
   hasNextPage,
   isFetchingNextPage,
   fetchNextPage,
-}: BaseArticleLIstProps<TData>) => {
+}: BaseArticleListProps<TData>) => {
   return (
     <Box as="section">
       <Flex as="ul" direction="column" css={styles.ul}>
         {data.map((article) => (
-          <li key={article.id}>{article.title}</li>
+          <ArticleCard<TData> key={article.id} data={article} to="Community" />
         ))}
       </Flex>
       {hasNextPage && (

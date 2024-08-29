@@ -1,6 +1,7 @@
 import React, { type ComponentProps } from 'react';
 import { AppScreen } from '@stackflow/plugin-basic-ui';
 import themes from 'shared/themes.css';
+import * as styles from './Layout.css';
 
 export const Layout = (
   props: ComponentProps<typeof AppScreen> & {
@@ -23,7 +24,11 @@ export const Layout = (
       preventSwipeBack
       backgroundColor={props.backgroundColor ?? themes.color.background[50]}
     >
-      <main ref={topEl}>{props.children}</main>
+      <main css={styles.wrapper}>
+        <div ref={topEl} css={styles.scrollable(Boolean(props.navigationSlot))}>
+          {props.children}
+        </div>
+      </main>
       {props.navigationSlot}
       {props.dimSlot}
     </AppScreen>

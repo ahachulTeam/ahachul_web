@@ -210,7 +210,7 @@ export const lostListItemMock = (idx: number) => ({
   /** 유실물 작성 날짜 */
   date: '2024-04-03T13:07:35.387616228',
   /** 유실 호선 ID */
-  subwayLine: getRandomSubwayLineId(),
+  subwayLineId: getRandomSubwayLineId(),
   /** 유실물 쪽지 개수 */
   chats: getRandomBoolean() ? 1 : 0,
   /** 유실물 찾기 완료 여부 */

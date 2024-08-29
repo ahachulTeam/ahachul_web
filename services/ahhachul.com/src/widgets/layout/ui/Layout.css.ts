@@ -17,10 +17,11 @@ export const scrollable = (navigationSlot: boolean) =>
     ({
       dimensions: {
         size: {
-          height: { navbar },
+          height: { header, navbar },
         },
       },
     }: Theme): CSSObject => ({
+      paddingTop: header,
       paddingBottom: navigationSlot ? navbar : 0,
     }),
   ] as Interpolation<Theme>;

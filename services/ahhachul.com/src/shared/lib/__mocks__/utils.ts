@@ -69,11 +69,11 @@ const getRandomSubwayLineId = () => {
     '7',
     '8',
     '9',
-    'D',
-    'UL',
-    'SI',
-    'GJ',
-    'S',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
   ];
   const randomIdx = Math.floor(Math.random() * list.length - 1) + 1;
   return list[randomIdx];
