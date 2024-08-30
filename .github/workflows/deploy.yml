@@ -49,8 +49,8 @@ jobs:
 
       - name: Remove Existing Files & Upload New to S3
         run: |
-          aws s3 rm s3://${{ secrets.S3_BUCKET_NAME }}/ahhachul.com --recursive
-          aws s3 cp services/ahhachul.com/build s3://${{ secrets.S3_BUCKET_NAME }}/ahhachul.com --recursive
+          aws s3 rm s3://${{ secrets.S3_BUCKET_NAME }} --recursive
+          aws s3 cp services/ahhachul.com/build s3://${{ secrets.S3_BUCKET_NAME }} --recursive
 
       - name: Invalidate CloudFront for ahhachul.com
         run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID_USER }} --paths "/*"
