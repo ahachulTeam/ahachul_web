@@ -9,7 +9,10 @@ import { CommentCountIcon } from '../static/icons/comment-count';
 import * as styles from './ArticleCard.css';
 
 interface ArticleCardProps<TData extends Article> {
-  to: KeyOf<TypeActivities>;
+  to: Extract<
+    KeyOf<TypeActivities>,
+    'CommunityDetail' | 'ComplaintDetail' | 'LostFoundDetail'
+  >;
   data: TData;
 }
 
@@ -18,7 +21,7 @@ export const ArticleCard = <TData extends Article>({
   data,
 }: ArticleCardProps<TData>) => {
   return (
-    <Link activityName={to} activityParams={{}}>
+    <Link activityName={to} activityParams={{ articleId: data.id }}>
       <Flex as="article" direction="column" gap="12px" css={styles.card}>
         <Flex direction="column">
           <div css={{ marginBottom: '12px' }}>

@@ -1,10 +1,15 @@
 import type { ResponseOfImage } from 'entities/with-server';
 import type { WithSubwayLineId } from 'features/subway-lines';
 
+export interface WithArticleId {
+  articleId: number;
+}
+
 export interface Article
   extends WithSubwayLineId,
     Partial<WithImages>,
-    Partial<WithCounts> {
+    Partial<WithCounts>,
+    Partial<WithHashTags> {
   id: number;
   title: string;
   writer: string;

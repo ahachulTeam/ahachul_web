@@ -17,9 +17,12 @@ const stackflowPlugin = [
   historySyncPlugin({
     routes: {
       Home: PATH.home,
-      LostFound: PATH.lost.home,
+      LostFound: PATH.lostFound.home,
+      LostFoundDetail: PATH.lostFound.detail.home,
       Community: PATH.community.home,
+      CommunityDetail: PATH.community.detail.home,
       Complaint: PATH.complaints.home,
+      ComplaintDetail: PATH.complaints.detail.home,
       BlindDate: PATH.date.home,
       AllServices: PATH['_shared-pages'].allServices,
       SubwayNotices: PATH['_shared-pages'].subwayNotice,

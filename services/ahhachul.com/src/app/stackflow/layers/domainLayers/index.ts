@@ -1,5 +1,5 @@
 export * from './home';
-export * from './lost';
+export * from './lostFound';
 export * from './community';
 export * from './complaint';
 

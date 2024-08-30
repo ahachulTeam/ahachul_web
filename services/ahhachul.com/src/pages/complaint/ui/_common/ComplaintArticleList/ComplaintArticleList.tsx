@@ -18,6 +18,7 @@ const ComplaintArticleList = ({ ...props }: ComplaintArticleListProps) => {
 
   return (
     <BaseArticleList<ComplaintArticle>
+      to="ComplaintDetail"
       data={complaintArticles}
       hasNextPage={hasNextPage}
       isFetchingNextPage={isFetchingNextPage}

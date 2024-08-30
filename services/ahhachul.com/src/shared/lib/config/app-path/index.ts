@@ -16,7 +16,7 @@ const PATH = {
   },
 
   /** 유실물 */
-  lost: {
+  lostFound: {
     home: '/lost-found',
     create: '/lost-found/create',
     detail: {

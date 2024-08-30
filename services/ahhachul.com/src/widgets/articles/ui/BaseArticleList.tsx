@@ -4,6 +4,7 @@ import { Box, Flex } from '@ahhachul/react-components-layout';
 import type { Article } from 'features/articles';
 import { ArticleCard } from './ArticleCard';
 import * as styles from './BaseArticleList.css';
+import { TypeActivities } from 'app/stackflow';
 
 const FetchNextPage = React.lazy(() =>
   import('./FetchNextPage').then((module) => ({
@@ -13,6 +14,10 @@ const FetchNextPage = React.lazy(() =>
 
 interface BaseArticleListProps<TData extends Article>
   extends HTMLAttributes<HTMLSectionElement> {
+  to: Extract<
+    KeyOf<TypeActivities>,
+    'CommunityDetail' | 'ComplaintDetail' | 'LostFoundDetail'
+  >;
   data: TData[];
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
@@ -20,6 +25,7 @@ interface BaseArticleListProps<TData extends Article>
 }
 
 export const BaseArticleList = <TData extends Article>({
+  to,
   data,
   hasNextPage,
   isFetchingNextPage,
@@ -30,7 +36,7 @@ export const BaseArticleList = <TData extends Article>({
     <Box as="section" {...props}>
       <Flex as="ul" direction="column" css={styles.ul}>
         {data.map((article) => (
-          <ArticleCard<TData> key={article.id} data={article} to="Community" />
+          <ArticleCard<TData> key={article.id} data={article} to={to} />
         ))}
       </Flex>
       {hasNextPage && (

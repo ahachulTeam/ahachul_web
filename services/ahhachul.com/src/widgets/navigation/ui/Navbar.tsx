@@ -8,16 +8,14 @@ interface NavbarProps {
   onTopClick?: VoidFunction;
 }
 
-export const Navbar = ({ onTopClick }: NavbarProps) => {
-  return (
-    <>
-      <nav css={styles.navbar}>
-        {navlist.map((tab) => {
-          const props = { tab, onTopClick };
-          return <NavItem key={tab.label} {...props} />;
-        })}
-      </nav>
-      <BottomDim />
-    </>
-  );
-};
+export const Navbar = ({ onTopClick }: NavbarProps) => (
+  <>
+    <nav css={styles.navbar}>
+      {navlist.map((tab) => {
+        const props = { tab, onTopClick };
+        return <NavItem key={tab.label} {...props} />;
+      })}
+    </nav>
+    <BottomDim />
+  </>
+);

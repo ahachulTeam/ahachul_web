@@ -18,6 +18,7 @@ const CommunityArticleList = ({ ...props }: CommunityArticleListProps) => {
 
   return (
     <BaseArticleList<CommunityArticle>
+      to="CommunityDetail"
       data={communityArticles}
       hasNextPage={hasNextPage}
       isFetchingNextPage={isFetchingNextPage}

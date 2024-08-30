@@ -6,7 +6,7 @@ import { renderLeft, renderRight } from 'widgets/layout-header';
 import LostFoundArticleList from '../_common/LostFoundArticleList/LostFoundArticleList';
 import * as styles from './Page.css';
 
-const Lost: ActivityComponentType = () => {
+const LostFound: ActivityComponentType = () => {
   return (
     <Layout appBar={{ renderLeft, renderRight }} navigationSlot={Navbar}>
       <BaseErrorBoundary>
@@ -16,4 +16,4 @@ const Lost: ActivityComponentType = () => {
   );
 };
 
-export default Lost;
+export default LostFound;
