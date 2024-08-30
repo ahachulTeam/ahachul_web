@@ -7,10 +7,9 @@ import {
   useSuspenseInfiniteQuery,
 } from 'shared/api';
 import type { IResponse } from 'entities/with-server';
+import { COMPLAINT_QUERY_KEY } from './query-key';
 import type { ComplaintList } from '../model';
 import type { ParamsOfComplaintList } from '../model/params';
-
-const COMPLAINT_LIST_KEY = [routes.complaints];
 
 const getComplaintList = (params: ParamsOfComplaintList) =>
   base.get<IResponse<ComplaintList>>(
@@ -19,7 +18,7 @@ const getComplaintList = (params: ParamsOfComplaintList) =>
 
 export const useGetComplaintList = (params: ParamsOfComplaintList) =>
   useSuspenseInfiniteQuery({
-    queryKey: getQueryKeys(COMPLAINT_LIST_KEY).list({ params }),
+    queryKey: getQueryKeys(COMPLAINT_QUERY_KEY).list({ params }),
     queryFn: ({ pageParam = params?.page }) =>
       getComplaintList({ ...params, page: pageParam }),
     getNextPageParam: (lastPage) => lastPage.data.result.nextPageNum,

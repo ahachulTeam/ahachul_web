@@ -216,67 +216,69 @@ function OnChangePlugin({ readonly, initialState, onChange }: any) {
   return null;
 }
 
-const Editor = ({
-  isRich = false,
-  hasError = false,
-  readonly = false,
-  initialState,
-  placeholder,
-  onChange,
-}: EditorProps) => {
-  return (
-    <LexicalComposer initialConfig={editorConfig}>
-      <div
-        className="editor-container"
-        css={[
-          styles.wrap(readonly),
-          {
-            borderColor: readonly
-              ? 'rgba(0, 0, 0, 0)'
-              : hasError
-                ? '#E02020'
-                : 'rgb(196, 212, 252, 0.37)',
-          },
-        ]}
-      >
-        <div className="editor-inner">
-          <RichTextPlugin
-            contentEditable={
-              <ContentEditable
-                className="editor-input"
-                id="content"
-                css={{ padding: readonly ? 0 : '15px 10px' }}
-              />
-            }
-            placeholder={
-              readonly ? null : <Placeholder placeholder={placeholder} />
-            }
-            ErrorBoundary={LexicalErrorBoundary}
-          />
-          <LinkPlugin />
-          <HashtagPlugin />
-          <SpeechToTextPlugin />
-          <AutoLinkPlugin matchers={MATCHERS} />
-          <OnChangePlugin
-            readonly={readonly}
-            initialState={initialState}
-            onChange={onChange}
-          />
-          {isRich && (
-            <>
-              <ImagesPlugin />
-              <ToolbarPlugin />
-              <YouTubePlugin />
-              <HistoryPlugin />
-              <AutoEmbedPlugin />
-            </>
-          )}
-          {!readonly && !isRich && <SpeechToTextToolbarPlugin />}
+const Editor = React.memo(
+  ({
+    isRich = false,
+    hasError = false,
+    readonly = false,
+    initialState,
+    placeholder,
+    onChange,
+  }: EditorProps) => {
+    return (
+      <LexicalComposer initialConfig={editorConfig}>
+        <div
+          className="editor-container"
+          css={[
+            styles.wrap(readonly),
+            {
+              borderColor: readonly
+                ? 'rgba(0, 0, 0, 0)'
+                : hasError
+                  ? '#E02020'
+                  : 'rgb(196, 212, 252, 0.37)',
+            },
+          ]}
+        >
+          <div className="editor-inner">
+            <RichTextPlugin
+              contentEditable={
+                <ContentEditable
+                  className="editor-input"
+                  id="content"
+                  css={{ padding: readonly ? 0 : '15px 10px' }}
+                />
+              }
+              placeholder={
+                readonly ? null : <Placeholder placeholder={placeholder} />
+              }
+              ErrorBoundary={LexicalErrorBoundary}
+            />
+            <LinkPlugin />
+            <HashtagPlugin />
+            <SpeechToTextPlugin />
+            <AutoLinkPlugin matchers={MATCHERS} />
+            <OnChangePlugin
+              readonly={readonly}
+              initialState={initialState}
+              onChange={onChange}
+            />
+            {isRich && (
+              <>
+                <ImagesPlugin />
+                <ToolbarPlugin />
+                <YouTubePlugin />
+                <HistoryPlugin />
+                <AutoEmbedPlugin />
+              </>
+            )}
+            {!readonly && !isRich && <SpeechToTextToolbarPlugin />}
+          </div>
         </div>
-      </div>
-    </LexicalComposer>
-  );
-};
+      </LexicalComposer>
+    );
+  },
+);
 
 function Divider() {
   return <div className="divider" />;

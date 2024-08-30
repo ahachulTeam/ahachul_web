@@ -13,6 +13,7 @@ const routes = {
   users: '/members',
   community: '/community-posts',
   complaints: '/complaints/messages',
+  'community-comments': '/community-comments',
   'lost-found': '/lost-posts',
   'blind-date': '/blind-date',
   'subway-lines': '/subway-lines',

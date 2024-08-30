@@ -11,6 +11,8 @@ import type { CommunityList } from '../model';
 import type { ParamsOfCommunityList } from '../model/params';
 
 const COMMUNITY_LIST_KEY = [routes.community];
+// ['/community-posts']
+// ['/community-posts', 'list', { ... }]
 
 const getCommunityList = (params: ParamsOfCommunityList) =>
   base.get<IResponse<CommunityList>>(

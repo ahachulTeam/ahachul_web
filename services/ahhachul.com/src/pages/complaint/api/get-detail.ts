@@ -1,9 +1,8 @@
 import { base, routes, getQueryKeys, useAuthQuery } from 'shared/api';
 import type { IResponse } from 'entities/with-server';
+import { COMPLAINT_QUERY_KEY } from './query-key';
 import type { ComplaintDetail } from '../model';
 import type { ParamsOfComplaintDetail } from '../model/params';
-
-const COMPLAINT_DETAIL_KEY = [routes.complaints];
 
 const getComplaintDetail = (params: ParamsOfComplaintDetail) =>
   base.get<IResponse<ComplaintDetail>>(
@@ -12,7 +11,7 @@ const getComplaintDetail = (params: ParamsOfComplaintDetail) =>
 
 export const useGetComplaintDetail = (params: ParamsOfComplaintDetail) =>
   useAuthQuery({
-    queryKey: getQueryKeys(COMPLAINT_DETAIL_KEY).detail(params.articleId),
+    queryKey: getQueryKeys(COMPLAINT_QUERY_KEY).detail(params.articleId),
     queryFn: () => getComplaintDetail(params),
     options: {
       suspense: true,

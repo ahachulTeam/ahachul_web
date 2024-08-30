@@ -4,7 +4,8 @@ import type { WithSubwayLineId } from 'features/subway-lines';
 export interface Article
   extends WithSubwayLineId,
     Partial<WithImages>,
-    Partial<WithCounts>,
+    Partial<WithLikeCounts>,
+    Partial<WithCommentCounts>,
     Partial<WithHashTags> {
   id: number;
   title: string;
@@ -30,7 +31,10 @@ export interface WithImages {
   image: ResponseOfImage;
 }
 
-export interface WithCounts {
+export interface WithLikeCounts {
   likeCnt: number;
+}
+
+export interface WithCommentCounts {
   commentCnt: number;
 }

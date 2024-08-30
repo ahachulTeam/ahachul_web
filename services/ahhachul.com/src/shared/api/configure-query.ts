@@ -30,6 +30,9 @@ function getQueryKeys(type: string[]) {
     detail(id: number | string) {
       return [...this.details(), id] as const;
     },
+    comments(id: number | string) {
+      return [...this.detail(id), 'comments'] as const;
+    },
   };
 }
 

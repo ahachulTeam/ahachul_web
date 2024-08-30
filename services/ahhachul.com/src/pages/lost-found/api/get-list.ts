@@ -7,10 +7,9 @@ import {
   useSuspenseInfiniteQuery,
 } from 'shared/api';
 import type { IResponse } from 'entities/with-server';
+import { LOST_FOUND_QUERY_KEY } from './query-key';
 import type { LostList } from '../model';
 import type { ParamsOfLostFoundList } from '../model/params';
-
-const LOST_FOUND_LIST_KEY = [routes['lost-found']];
 
 const getLostFoundList = (params: ParamsOfLostFoundList) =>
   base.get<IResponse<LostList>>(
@@ -19,7 +18,7 @@ const getLostFoundList = (params: ParamsOfLostFoundList) =>
 
 export const useGetLostFoundList = (params: ParamsOfLostFoundList) =>
   useSuspenseInfiniteQuery({
-    queryKey: getQueryKeys(LOST_FOUND_LIST_KEY).list({ params }),
+    queryKey: getQueryKeys(LOST_FOUND_QUERY_KEY).list({ params }),
     queryFn: ({ pageParam = params?.page }) =>
       getLostFoundList({ ...params, page: pageParam }),
     getNextPageParam: (lastPage) => lastPage.data.result.nextPageNum,

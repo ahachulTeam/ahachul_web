@@ -1,9 +1,8 @@
 import { base, routes, getQueryKeys, useAuthQuery } from 'shared/api';
 import type { IResponse } from 'entities/with-server';
+import { LOST_FOUND_QUERY_KEY } from './query-key';
 import type { LostFoundDetail } from '../model';
 import type { ParamsOfLostFoundDetail } from '../model/params';
-
-const LOST_FOUND_DETAIL_KEY = [routes['lost-found']];
 
 const getLostFoundDetail = (params: ParamsOfLostFoundDetail) =>
   base.get<IResponse<LostFoundDetail>>(
@@ -12,7 +11,7 @@ const getLostFoundDetail = (params: ParamsOfLostFoundDetail) =>
 
 export const useGetLostFoundDetail = (params: ParamsOfLostFoundDetail) =>
   useAuthQuery({
-    queryKey: getQueryKeys(LOST_FOUND_DETAIL_KEY).detail(params.articleId),
+    queryKey: getQueryKeys(LOST_FOUND_QUERY_KEY).detail(params.articleId),
     queryFn: () => getLostFoundDetail(params),
     options: {
       suspense: true,
