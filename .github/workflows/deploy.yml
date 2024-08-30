@@ -3,7 +3,7 @@ name: Deploy Admin and User to S3
 on:
   push:
     branches:
-      - cicd
+      - main
 
 jobs:
   deploy:
