@@ -1,0 +1,52 @@
+name: Deploy Admin and User to S3
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      - name: Install dependencies with Yarn
+        run: yarn install
+
+      - name: Build packages with Yarn
+        run: yarn build:all
+
+      - name: Create .env file for ahhachul.com
+        run: |
+          echo "REACT_APP_MOCKING=${{ secrets.REACT_APP_MOCKING }}" >> services/ahhachul.com/.env
+          echo "REACT_APP_BASE_URL=${{ secrets.REACT_APP_BASE_URL }}" >> services/ahhachul.com/.env
+          echo "REACT_APP_NAME=${{ secrets.REACT_APP_NAME }}" >> services/ahhachul.com/.env
+          echo "REACT_APP_ENV=${{ secrets.REACT_APP_ENV }}" >> services/ahhachul.com/.env
+
+      - name: Build ahhachul.com
+        run: yarn workspace ahhachul.com build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Remove Existing Files & Upload New to S3
+        run: |
+          aws s3 rm s3://${{ secrets.S3_BUCKET_NAME }}/ahhachul.com --recursive
+          aws s3 cp packages/ahhachul.com/dist s3://${{ secrets.S3_BUCKET_NAME }}/ahhachul.com --recursive
+
+      - name: Invalidate CloudFront for ahhachul.com
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID_USER }} --paths "/*"
