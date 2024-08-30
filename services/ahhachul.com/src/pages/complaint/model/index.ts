@@ -1,4 +1,4 @@
-import type { Article } from 'features/articles';
+import type { Article, ArticleDetail } from 'features/articles';
 import type { ResponseOfList } from 'entities/with-server';
 
 export type ComplaintType =
@@ -15,3 +15,4 @@ export interface ComplaintArticle extends Article {
   complaintType: ComplaintType;
 }
 export type ComplaintList = ResponseOfList<ComplaintArticle>;
+export interface ComplaintDetail extends ArticleDetail {}

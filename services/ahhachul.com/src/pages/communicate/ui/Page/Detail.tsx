@@ -2,14 +2,14 @@ import React from 'react';
 import type { ActivityComponentType } from '@stackflow/react';
 import { Layout } from 'widgets';
 import type { WithArticleId } from 'features/articles';
+import CommunityArticleDetail from '../_common/CommunityArticleDetail/CommunityArticleDetail';
 
 const CommunityDetail: ActivityComponentType<WithArticleId> = ({
   params: { articleId },
 }) => {
   return (
     <Layout>
-      <div css={{ color: 'white' }}>hello this is community detail page!</div>
-      <p css={{ color: 'white' }}>articleId is ... {articleId}</p>
+      <CommunityArticleDetail articleId={articleId} />
     </Layout>
   );
 };
