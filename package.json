@@ -10,6 +10,7 @@
     "affected:build": "nx affected -t build",
     "affected:test": "nx affected -t test",
     "build:local": "nx build",
+    "build:all": "nx run-many --target=build --all",
     "graph": "nx run-many --target=build --graph",
     "dev:all": "yarn dev:storybook & yarn dev:packages",
     "dev:storybook": "nx storybook @ahhachul/storybook",
