@@ -1,7 +1,9 @@
 name: Deploy Admin and User to S3
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - cicd
 
 jobs:
   deploy:
@@ -11,6 +13,8 @@ jobs:
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
