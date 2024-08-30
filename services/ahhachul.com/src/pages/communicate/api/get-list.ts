@@ -7,12 +7,9 @@ import {
   useSuspenseInfiniteQuery,
 } from 'shared/api';
 import type { IResponse } from 'entities/with-server';
+import { COMMUNITY_QUERY_KEY } from './query-key';
 import type { CommunityList } from '../model';
 import type { ParamsOfCommunityList } from '../model/params';
-
-const COMMUNITY_LIST_KEY = [routes.community];
-// ['/community-posts']
-// ['/community-posts', 'list', { ... }]
 
 const getCommunityList = (params: ParamsOfCommunityList) =>
   base.get<IResponse<CommunityList>>(
@@ -21,7 +18,7 @@ const getCommunityList = (params: ParamsOfCommunityList) =>
 
 export const useGetCommunityList = (params: ParamsOfCommunityList) =>
   useSuspenseInfiniteQuery({
-    queryKey: getQueryKeys(COMMUNITY_LIST_KEY).list({ params }),
+    queryKey: getQueryKeys(COMMUNITY_QUERY_KEY).list({ params }),
     queryFn: ({ pageParam = params?.page }) =>
       getCommunityList({ ...params, page: pageParam }),
     getNextPageParam: (lastPage) => lastPage.data.result.nextPageNum,

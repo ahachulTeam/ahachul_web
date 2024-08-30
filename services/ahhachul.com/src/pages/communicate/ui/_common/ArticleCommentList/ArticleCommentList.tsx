@@ -3,6 +3,7 @@ import type { WithArticleId } from 'features/articles';
 import { useGetCommunityComments } from 'pages/communicate/api/get-comments';
 import { BaseCommentList } from 'widgets/comments/ui/BaseCommentList';
 import * as styles from './ArticleCommentList.css';
+
 const ArticleCommentList = ({ articleId }: WithArticleId) => {
   const { data } = useGetCommunityComments({ articleId });
 

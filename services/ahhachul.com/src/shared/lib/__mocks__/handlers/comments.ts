@@ -72,6 +72,18 @@ const getCommentsResponse = {
           },
         ],
       },
+      {
+        parentComment: {
+          id: 1111,
+          upperCommentId: null,
+          content: '네번째 상위 내용',
+          status: 'CREATED',
+          createdAt: '2024-04-30T03:42:09.301118048',
+          createdBy: '네번째 부모 작성자 ID',
+          writer: '네번째 부모 작성자 닉네임',
+        },
+        childComments: [],
+      },
     ],
   },
 };

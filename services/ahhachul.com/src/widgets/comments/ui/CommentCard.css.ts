@@ -10,21 +10,21 @@ export const wrap = (asChild: boolean) => ({
 });
 
 export const name = ({
-  color: { blueDarkGray },
+  color: { text },
   typography: { fontSize, fontWeight },
 }: Theme) =>
   ({
     fontSize: fontSize[12],
     fontWeight: fontWeight[700],
-    color: blueDarkGray[600],
+    color: text[50],
   }) as Interpolation<Theme>;
 
 export const body = ({
-  color: { blueDarkGray },
+  color: { text },
   typography: { fontSize, fontWeight },
 }: Theme) =>
   ({
-    color: blueDarkGray[600],
+    color: text[50],
     fontSize: fontSize[14],
     fontWeight: fontWeight[400],
     paddingRight: '42px',

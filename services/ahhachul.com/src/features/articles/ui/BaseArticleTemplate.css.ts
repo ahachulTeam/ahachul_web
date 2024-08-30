@@ -19,17 +19,13 @@ export const thumbnail = [
 
 export const articleTitle = [
   cssUtils.sideGutter,
-  ({
-    color: { blueDarkGray },
-    typography: { fontSize, fontWeight },
-  }: Theme) => ({
+  ({ color: { text }, typography: { fontSize, fontWeight } }: Theme) => ({
     marginTop: '28px',
     marginBottom: '14px',
 
     fontSize: fontSize[20],
     fontWeight: fontWeight[700],
-    color: blueDarkGray[600],
-    textAlign: 'left',
+    color: text[50],
   }),
 ] as Interpolation<Theme>;
 
@@ -38,7 +34,7 @@ export const articleBasicInfos = [
   cssUtils.flexColumn,
   cssUtils.posRel,
   ({
-    color: { blueDarkGray },
+    color: { text, blueDarkGray },
     typography: { fontSize, fontWeight },
   }: Theme) => ({
     marginTop: '20px',
@@ -48,8 +44,7 @@ export const articleBasicInfos = [
 
       fontSize: fontSize[16],
       fontWeight: fontWeight[700],
-      color: blueDarkGray[600],
-      textAlign: 'left',
+      color: text[50],
     },
 
     '& > time': {
