@@ -4,6 +4,10 @@ import { historySyncPlugin } from '@stackflow/plugin-history-sync';
 import { basicRendererPlugin } from '@stackflow/plugin-renderer-basic';
 import { PATH } from 'shared/lib/config/app-path';
 import themes from 'shared/themes.css';
+import { QueryClient } from '@tanstack/react-query';
+import { loader as CommunityDetail } from 'pages/communicate/ui/Page/Detail';
+
+const queryClient = new QueryClient();
 
 const stackflowPlugin = [
   basicRendererPlugin(),
@@ -32,7 +36,9 @@ const stackflowPlugin = [
     fallbackActivity: () => 'Home',
   }),
   preloadPlugin({
-    loaders: {},
+    loaders: {
+      CommunityDetail: CommunityDetail(queryClient),
+    },
   }),
 ];
 export { stackflowPlugin as plugins };

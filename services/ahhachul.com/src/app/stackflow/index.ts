@@ -1,6 +1,6 @@
 import { stackflow } from '@stackflow/react';
 import { createLinkComponent } from '@stackflow/link';
-
+import { createPreloader } from '@stackflow/plugin-preload';
 import { plugins } from './plugins';
 import {
   homeLayers,
@@ -16,6 +16,7 @@ import '@stackflow/plugin-basic-ui/index.css';
 type TypeActivities = typeof activities;
 
 const { Link } = createLinkComponent<TypeActivities>();
+const { usePreloader } = createPreloader<TypeActivities>();
 const { Stack, activities, useFlow, useStepFlow } = stackflow({
   activities: {
     // 도메인 레이어
@@ -33,4 +34,12 @@ const { Stack, activities, useFlow, useStepFlow } = stackflow({
 });
 
 export * from '@stackflow/react';
-export { Stack, activities, useFlow, useStepFlow, Link, type TypeActivities };
+export {
+  Stack,
+  activities,
+  useFlow,
+  useStepFlow,
+  usePreloader,
+  Link,
+  type TypeActivities,
+};

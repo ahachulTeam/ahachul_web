@@ -1,25 +1,35 @@
-import { withSuspense } from '@ahhachul/react-hooks-utility';
-import type { WithArticleId } from 'features/articles';
-import { Loading } from 'entities/app-loaders/ui/Loading';
+import React from 'react';
+import { AxiosResponse } from 'axios';
+
+import type { CommunityDetail } from 'pages/communicate/model';
 import { useGetCommunityDetail } from 'pages/communicate/api/get-detail';
-import { BaseErrorBoundary } from 'entities/app-errors/ui/ErrorBoundary';
+import type { WithArticleId } from 'features/articles';
 import { BaseArticleTemplate } from 'features/articles/ui/BaseArticleTemplate';
+import type { IResponse } from 'entities/with-server';
+import { BaseErrorBoundary } from 'entities/app-errors/ui/ErrorBoundary';
 
 import ArticleCommentList from '../ArticleCommentList/ArticleCommentList';
 
-const CommunityArticleDetail = ({ articleId }: WithArticleId) => {
-  const { data } = useGetCommunityDetail({ articleId });
+interface CommunityArticleDetailProps extends WithArticleId {
+  initialData?: AxiosResponse<IResponse<CommunityDetail>>;
+}
+
+export const CommunityArticleDetail = ({
+  articleId,
+  initialData,
+}: CommunityArticleDetailProps) => {
+  const {
+    data: {
+      data: { result },
+    },
+  } = useGetCommunityDetail({ articleId }, initialData);
 
   return (
     <BaseErrorBoundary>
-      <BaseArticleTemplate article={data} />
+      <BaseArticleTemplate article={result} />
       <BaseErrorBoundary>
         <ArticleCommentList articleId={articleId} />
       </BaseErrorBoundary>
     </BaseErrorBoundary>
   );
 };
-
-export default withSuspense(CommunityArticleDetail, {
-  fallback: <Loading />,
-});
