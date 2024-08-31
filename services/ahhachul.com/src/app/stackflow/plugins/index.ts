@@ -1,13 +1,12 @@
-import { QueryClient } from '@tanstack/react-query';
-import { basicUIPlugin } from '@stackflow/plugin-basic-ui';
 import { preloadPlugin } from '@stackflow/plugin-preload';
+import { basicUIPlugin } from '@stackflow/plugin-basic-ui';
 import { historySyncPlugin } from '@stackflow/plugin-history-sync';
 import { basicRendererPlugin } from '@stackflow/plugin-renderer-basic';
+import { queryClient } from 'app/lib/react-query';
+import { loader as CommunityDetail } from 'pages/communicate/ui/Page/Detail';
 import { PATH } from 'shared/lib/config/app-path';
 import themes from 'shared/themes.css';
-import { loader as CommunityDetail } from 'pages/communicate/ui/Page/Detail';
 
-const queryClient = new QueryClient();
 const stackflowPlugin = [
   basicRendererPlugin(),
   basicUIPlugin({
