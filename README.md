@@ -36,4 +36,10 @@
 
 _[ahhachul.doc](https://ahhachul.notion.site/9436714083ce409d98e936973099631e)_
 
+### 회의록 톺아보기
+
+_[ahhachul.meets](https://stealth-colt-2c8.notion.site/9a038fbb3ea548838e203901a3f408c7?v=190eab7396864401b6efe9007e9a1f78)_
+<br />
+_[ahhachul.meets_old_history](https://ahhachul.notion.site/84e370f6936245c298ea6ef5f0fffa02?v=fc7d433da8414b9991c17259579d3252)_
+
 ---

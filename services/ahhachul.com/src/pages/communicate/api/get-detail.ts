@@ -17,7 +17,7 @@ export const communityDetailQuery = (params: ParamsOfCommunityDetail) => ({
 
 export const useGetCommunityDetail = (
   params: ParamsOfCommunityDetail,
-  initialData?: AxiosResponse<IResponse<CommunityDetail>>,
+  initialData: AxiosResponse<IResponse<CommunityDetail>>,
 ) =>
   useAuthQuery({
     queryKey: communityDetailQuery(params).queryKey,

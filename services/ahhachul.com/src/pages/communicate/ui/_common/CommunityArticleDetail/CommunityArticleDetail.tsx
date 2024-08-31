@@ -6,12 +6,9 @@ import { useGetCommunityDetail } from 'pages/communicate/api/get-detail';
 import type { WithArticleId } from 'features/articles';
 import { BaseArticleTemplate } from 'features/articles/ui/BaseArticleTemplate';
 import type { IResponse } from 'entities/with-server';
-import { BaseErrorBoundary } from 'entities/app-errors/ui/ErrorBoundary';
-
-import ArticleCommentList from '../ArticleCommentList/ArticleCommentList';
 
 interface CommunityArticleDetailProps extends WithArticleId {
-  initialData?: AxiosResponse<IResponse<CommunityDetail>>;
+  initialData: AxiosResponse<IResponse<CommunityDetail>>;
 }
 
 export const CommunityArticleDetail = ({
@@ -20,16 +17,9 @@ export const CommunityArticleDetail = ({
 }: CommunityArticleDetailProps) => {
   const {
     data: {
-      data: { result },
+      data: { result: article },
     },
   } = useGetCommunityDetail({ articleId }, initialData);
 
-  return (
-    <BaseErrorBoundary>
-      <BaseArticleTemplate article={result} />
-      <BaseErrorBoundary>
-        <ArticleCommentList articleId={articleId} />
-      </BaseErrorBoundary>
-    </BaseErrorBoundary>
-  );
+  return <BaseArticleTemplate article={article} />;
 };

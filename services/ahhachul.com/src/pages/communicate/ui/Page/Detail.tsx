@@ -12,6 +12,7 @@ import { BaseErrorBoundary } from 'entities/app-errors/ui/ErrorBoundary';
 import { Layout } from 'widgets';
 
 import CommunityDetailWrapper from '../_common/CommunityArticleDetail/CommunityDetailWrapper';
+import ArticleCommentList from '../_common/ArticleCommentList/ArticleCommentList';
 
 export const loader =
   (queryClient: QueryClient) =>
@@ -31,14 +32,17 @@ export const loader =
 const CommunityDetail: ActivityComponentType<WithArticleId> = ({
   params: { articleId },
 }) => {
-  const preloadRef = useActivityPreloadRef() as Promise<
+  const preloadRef = useActivityPreloadRef<Promise<
     AxiosResponse<IResponse<CommunityArticleDetail>>
-  > | null;
+  > | null>();
 
   return (
     <Layout>
       <BaseErrorBoundary>
         <CommunityDetailWrapper articleId={articleId} preloadRef={preloadRef} />
+        <BaseErrorBoundary>
+          <ArticleCommentList articleId={articleId} />
+        </BaseErrorBoundary>
       </BaseErrorBoundary>
     </Layout>
   );
