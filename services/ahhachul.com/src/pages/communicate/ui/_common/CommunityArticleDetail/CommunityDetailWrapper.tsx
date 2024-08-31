@@ -1,53 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { AxiosResponse } from 'axios';
-import { withSuspense } from '@ahhachul/react-hooks-utility';
+import { suspend as readData } from 'suspend-react';
 
 import type { CommunityDetail } from 'pages/communicate/model';
-import { Loading } from 'entities/app-loaders/ui/Loading';
 import { IResponse } from 'entities/with-server';
 import type { WithArticleId } from 'features/articles';
-import { CommunityArticleDetail } from './CommunityArticleDetail';
+import { CommunityArticleDetail } from './CommunityArticleDetail'; // Ensure this line is uncommented and the component is imported
 
 interface CommunityDetailWrapperProps extends WithArticleId {
   preloadRef: Promise<AxiosResponse<IResponse<CommunityDetail>>> | null;
 }
 
-const CommunityDetailWrapper = ({
+export const CommunityDetailWrapper = ({
   articleId,
   preloadRef,
 }: CommunityDetailWrapperProps) => {
-  const [initialData, setData] = useState<AxiosResponse<
-    IResponse<CommunityDetail>
-  > | null>(null);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    preloadRef && readData();
-
-    // todo: 공통 util function으로 빼기
-    async function readData() {
-      try {
-        const response = await preloadRef;
-        setData(response);
-      } catch (err) {
-        console.error(err);
-        setError(err);
-      }
-    }
-  }, [preloadRef]);
-
-  if (error) {
-    // 에러를 다시 던져 에러 경계로 전파하기
-    throw error;
-  }
-
-  return (
-    initialData && (
-      <CommunityArticleDetail articleId={articleId} initialData={initialData} />
-    )
-  );
+  const data = readData(async () => await preloadRef, [preloadRef]);
+  return <CommunityArticleDetail articleId={articleId} initialData={data} />;
 };
-
-export default withSuspense(CommunityDetailWrapper, {
-  fallback: <Loading />,
-});

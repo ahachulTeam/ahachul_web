@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { AxiosResponse } from 'axios';
 import { QueryClient } from '@tanstack/react-query';
 import type { ActivityComponentType } from '@stackflow/react';
@@ -8,11 +8,12 @@ import type { CommunityDetail as CommunityArticleDetail } from 'pages/communicat
 import { communityDetailQuery } from 'pages/communicate/api/get-detail';
 import type { WithArticleId } from 'features/articles';
 import type { IResponse } from 'entities/with-server';
+import { Loading } from 'entities/app-loaders/ui/Loading';
 import { BaseErrorBoundary } from 'entities/app-errors/ui/ErrorBoundary';
 import { Layout } from 'widgets';
 
-import CommunityDetailWrapper from '../_common/CommunityArticleDetail/CommunityDetailWrapper';
-import ArticleCommentList from '../_common/ArticleCommentList/ArticleCommentList';
+import { CommunityDetailWrapper } from '../_common/CommunityArticleDetail/CommunityDetailWrapper';
+import { ArticleCommentList } from '../_common/ArticleCommentList/ArticleCommentList';
 
 export const loader =
   (queryClient: QueryClient) =>
@@ -39,9 +40,16 @@ const CommunityDetail: ActivityComponentType<WithArticleId> = ({
   return (
     <Layout>
       <BaseErrorBoundary>
-        <CommunityDetailWrapper articleId={articleId} preloadRef={preloadRef} />
+        <Suspense fallback={<Loading />}>
+          <CommunityDetailWrapper
+            articleId={articleId}
+            preloadRef={preloadRef}
+          />
+        </Suspense>
         <BaseErrorBoundary>
-          <ArticleCommentList articleId={articleId} />
+          <Suspense>
+            <ArticleCommentList articleId={articleId} />
+          </Suspense>
         </BaseErrorBoundary>
       </BaseErrorBoundary>
     </Layout>

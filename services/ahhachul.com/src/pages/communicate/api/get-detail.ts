@@ -24,6 +24,7 @@ export const useGetCommunityDetail = (
     queryFn: communityDetailQuery(params).queryFn,
     options: {
       initialData,
+      throwOnError: true,
       staleTime: 5 * 60 * 1000, // default: 5분, 글 수정 시에는 따로 업데이트 관리
     },
   });
