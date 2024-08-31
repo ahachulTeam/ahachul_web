@@ -9,7 +9,7 @@ import FilterSection from './filterSection';
 
 const Community = () => {
   return (
-    <main css={wrap}>
+    <div css={wrap}>
       <TabSection />
       <FilterSection />
       <ErrorComponent.QueryErrorBoundary fallback={(props) => <ErrorDefault {...props} />} fallbackCss={err}>
@@ -17,7 +17,7 @@ const Community = () => {
           <ListSection />
         </Suspense>
       </ErrorComponent.QueryErrorBoundary>
-    </main>
+    </div>
   );
 };
 

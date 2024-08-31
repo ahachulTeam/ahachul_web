@@ -3,6 +3,7 @@ import { Box } from '@ahhachul/react-components-layout';
 
 import { Layout } from '@/src/components/layout';
 import { UiComponent, AlarmComponent } from '@/src/components';
+import withAuth from '@/src/hooks/withAuth';
 
 export type AlarmType = 'activityNotification' | 'directMessage';
 
@@ -11,7 +12,7 @@ const ALARM_TABS: Record<AlarmType, string> = {
   directMessage: '채팅',
 };
 
-export default function Alarm() {
+function Alarm() {
   const [tab, setTab] = useState<AlarmType>(Object.keys(ALARM_TABS)[0] as AlarmType);
   const handleChangeTab = useCallback((t: string) => {
     setTab(t as AlarmType);
@@ -50,3 +51,5 @@ export default function Alarm() {
     </Layout>
   );
 }
+
+export default withAuth(Alarm);

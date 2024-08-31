@@ -95,10 +95,10 @@ const content = ({ typography: { fontSize } }: Theme): CSSObject => ({
   lineHeight: '19px',
 });
 
-const cnt = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
+const cnt = ({ color: { background }, typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
   fontSize: fontSize[12],
   fontWeight: fontWeight[500],
-  color: '#ffffff',
+  color: background[50],
   height: '24px',
   width: '24px',
   border: '1px solid hsla(0, 0%, 100%, .09)',

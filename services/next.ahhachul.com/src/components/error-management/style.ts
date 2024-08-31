@@ -1,11 +1,6 @@
 import { CSSObject, Theme } from '@emotion/react';
 
-const errWrap = ({
-  color: {
-    scale: { gray },
-  },
-  typography: { fontSize, fontWeight, lineHeight },
-}: Theme): CSSObject => ({
+const errWrap = ({ color: { gray }, typography: { fontSize, fontWeight, lineHeight } }: Theme): CSSObject => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',

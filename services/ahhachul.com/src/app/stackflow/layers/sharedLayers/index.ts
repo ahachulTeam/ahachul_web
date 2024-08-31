@@ -1,0 +1,23 @@
+import React from 'react';
+
+const AllServices = React.lazy(
+  () => import('pages/_shared-pages/all-services/ui/Page/Page'),
+);
+const SubwayNotices = React.lazy(
+  () => import('pages/_shared-pages/subway-notices/ui/Page/Page'),
+);
+const Market = React.lazy(
+  () => import('pages/_shared-pages/market/ui/Page/Page'),
+);
+const CarSharing = React.lazy(
+  () => import('pages/_shared-pages/car-sharing/ui/Page/Page'),
+);
+export const sharedLayers = {
+  AllServices,
+  SubwayNotices,
+  Market,
+  CarSharing,
+  // Chat: SharedComponent.Chat,
+  // Alarm: SharedComponent.Alarm,
+  // MyProfile: SharedComponent.MyProfile,
+} as const;

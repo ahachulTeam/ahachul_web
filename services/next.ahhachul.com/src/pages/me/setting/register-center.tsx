@@ -5,48 +5,112 @@ import { usePostMyStations } from '@/src/queries/member';
 import { useAppSelector } from '@/src/stores';
 import { f } from '@/src/styles';
 import { IToken } from '@/src/types';
+import { IStation } from '@/src/types/subway';
+import { exportHexColorWidthLineName } from '@/src/utils/export';
+import { subwayInfoList } from '@/src/utils/subway';
 import { CSSObject, Theme } from '@emotion/react';
-import { isEmpty } from 'lodash-es';
+import { throttle } from 'lodash-es';
 import { useRouter } from 'next/router';
-import { FormEvent, useCallback, useEffect, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+
+const defaultStationLabels = ['home', 'company', 'school', 'favorite'];
 
 export default function MeRegisterCenter() {
   const { auth } = useAuth();
   const router = useRouter();
   const { auth: clientAuth } = useAppSelector((state) => state.auth);
 
-  const [stations, setStations] = useState<string[]>([]);
-  const { mutate, status } = usePostMyStations();
+  const { status } = usePostMyStations();
 
-  const handleChange = useCallback(
-    (station: string) => () => {
-      if (stations?.includes(station)) {
-        const newStations = stations.filter((el) => el !== station);
-        setStations(newStations);
-      } else {
-        setStations((prev) => [...prev, station]);
-      }
+  const stationInfos = subwayInfoList;
+  const [isUserTyped, setIsUserTyped] = useState(false);
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [refinedStationFromSearchKeyword, setRefinedStationFromSearchKeyword] = useState<
+    { label: string; info: IStation[] }[]
+  >([] as { label: string; info: IStation[] }[]);
+
+  const filteredStations = useCallback(
+    (station: string) => {
+      setRefinedStationFromSearchKeyword(
+        Object.entries(stationInfos)
+          ?.filter((s) => {
+            const [stationName] = s;
+            return stationName.includes(station);
+          })
+          .map((station) => {
+            const [stationName, stationInfo] = station;
+            return {
+              label: stationName,
+              info: stationInfo,
+            };
+          }),
+      );
     },
-    [],
+    [stationInfos],
   );
+
+  const delayedFoundStationInfo = useRef(
+    throttle((searchKeyword: string) => filteredStations(searchKeyword), 150),
+  ).current;
+
+  const searchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+
+    if (value?.length > 0) {
+      setIsUserTyped(true);
+    } else {
+      setIsUserTyped(false);
+    }
+    setSearchKeyword(value);
+    delayedFoundStationInfo(value);
+  };
+
+  const [selected, setSelected] = useState<{ stationName: string; label?: string; showLabels: boolean }[]>([]);
+  const handleStation = (stationName: string) => () => {
+    if (selected.length === 3) {
+      console.log('3 is max');
+    } else {
+      const alreadySelected = selected.filter((item) => item.stationName === stationName).length > 0;
+      if (alreadySelected) {
+        setSelected((prev) => [...prev, { stationName, showLabels: false }]);
+      } else {
+        setSelected((prev) => [...prev, { stationName, showLabels: true }]);
+      }
+    }
+  };
+
+  // const handleLabel = (stationName: string, label: string) => {
+  //   const copy = [...selected];
+  //   const itemIdx = copy.findIndex((item) => item.stationName === stationName);
+  //   copy[itemIdx] = { stationName, label, showLabels: true };
+  //   const newSelected = copy;
+  //   setSelected(newSelected);
+  // };
+
+  // if selected station has label ?
+  const excludeListForAlreadySelectedLabel = useMemo(() => {
+    const labels = selected.map((item) => item.label);
+    const uniqueLabels = defaultStationLabels.filter((label) => !defaultStationLabels.includes(label));
+    return uniqueLabels;
+  }, [selected]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (isEmpty(stations)) {
-      return;
-    }
+    // if (isEmpty(stations)) {
+    //   return;
+    // }
 
-    mutate({
-      stationNames: stations,
-    });
+    // mutate({
+    //   stationNames: stations,
+    // });
   };
 
-  useEffect(() => {
-    if (!clientAuth) {
-      router.replace(PATH.signin);
-    }
-  }, [clientAuth]);
+  // useEffect(() => {
+  //   if (!clientAuth) {
+  //     router.replace(PATH.signin);
+  //   }
+  // }, [clientAuth]);
 
   useEffect(() => {
     if (status === 'success') {
@@ -56,24 +120,40 @@ export default function MeRegisterCenter() {
   }, [status]);
 
   return (
-    <Layout headerType="back" title="" nav={false}>
+    <Layout headerType="back" title="회원가입" nav={false}>
       <form css={wrap} onSubmit={handleSubmit}>
         <div css={section}>
           <span>즐겨찾는역 설정</span>
-          <div css={buttonGroup}>
-            <button type="button" css={toggleBtn(stations.includes('건대입구역'))} onClick={handleChange('건대입구역')}>
-              건대입구역
-            </button>
-            <button type="button" css={toggleBtn(stations.includes('강남역'))} onClick={handleChange('강남역')}>
-              강남역
-            </button>
-            <button type="button" css={toggleBtn(stations.includes('홍대입구역'))} onClick={handleChange('홍대입구역')}>
-              홍대입구역
-            </button>
-          </div>
+          <input id="search-station" placeholder="역 검색" value={searchKeyword} onChange={searchChange} />
+        </div>
+        <div css={section}>
+          {isUserTyped && (
+            <ul>
+              {refinedStationFromSearchKeyword.map((station, idx) => (
+                <li key={idx} onClick={handleStation(station.label)}>
+                  <div css={{ color: '#fff', marginBottom: '8px' }}>
+                    {station.info.map((item, idx) => (
+                      <span
+                        key={idx}
+                        css={{ color: exportHexColorWidthLineName(item.parentLineId.toString()), marginRight: '8px' }}
+                      >
+                        {item.parentLineId}
+                        {/* 
+                        selected stations 중에 label이 존재하는 station과 일치하지않는다면
+                        excludeListForAlreadySelectedLabel를 보여주고
+                        아니면 defaultStationLabels를 보여준다. 
+                        */}
+                      </span>
+                    ))}
+                    <span css={{ marginLeft: '24px' }}>{highlightMatchKeyword(searchKeyword, station.label)}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
         <div css={submitWrap}>
-          <button css={submitBtn} type="submit" disabled={isEmpty(stations)}>
+          <button css={submitBtn} type="submit">
             다음
           </button>
         </div>
@@ -81,6 +161,26 @@ export default function MeRegisterCenter() {
     </Layout>
   );
 }
+
+const highlightMatchKeyword = (keyword: string, suggestion: string) => {
+  const index = suggestion.indexOf(keyword);
+
+  if (index !== -1) {
+    const start = suggestion.slice(0, index);
+    const match = suggestion.slice(index, index + keyword.length);
+    const end = suggestion.slice(index + keyword.length);
+
+    return (
+      <>
+        {start}
+        <span css={{ color: 'rgb(196, 212, 252)' }}>{match}</span>
+        {end}
+      </>
+    );
+  }
+
+  return suggestion;
+};
 
 const wrap = [f.fullWidth, f.flexColumn, { padding: '14px 0 120px 0' }];
 
@@ -182,3 +282,12 @@ const toggleBtn =
     color: isActive ? '#141517' : '#9da5b6',
     fontWeight: isActive ? fontWeight[600] : fontWeight[400],
   });
+
+// 1. click station (can be toggle)
+// 2. show detail labels
+// 3. select labels
+// 4.
+
+// is station active ?
+// is label active ?
+// remove label on another label list except not index that have selected labels

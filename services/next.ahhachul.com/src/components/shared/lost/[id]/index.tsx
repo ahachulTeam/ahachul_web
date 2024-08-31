@@ -9,7 +9,7 @@ type LostDetailMainProps = {
 const LostDetailMain = ({ postId }: LostDetailMainProps) => {
   const { data } = useGetLostDetail(postId);
 
-  return <main>{data.hasImage ? <DetailWithImage data={data} /> : <DetailOnlyText data={data} />}</main>;
+  return <article>{data.hasImage ? <DetailWithImage data={data} /> : <DetailOnlyText data={data} />}</article>;
 };
 
 export default LostDetailMain;

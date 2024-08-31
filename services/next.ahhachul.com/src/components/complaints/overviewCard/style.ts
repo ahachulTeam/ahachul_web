@@ -5,12 +5,7 @@ const wrap: [CSSObject[], CSSObject, CSSObject, ({ color }: Theme) => CSSObject]
   f.flexColumn,
   f.fullWidth,
   f.fullHeight,
-  ({
-    color: {
-      scale: { gray },
-    },
-    typography: { fontSize, fontWeight },
-  }: Theme) => ({
+  ({ color: { gray }, typography: { fontSize, fontWeight } }: Theme) => ({
     position: 'relative',
     padding: '16px',
     borderRadius: '8px',

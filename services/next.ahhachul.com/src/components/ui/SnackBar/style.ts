@@ -3,10 +3,8 @@ import { type CSSObject, type Theme } from '@emotion/react';
 const container =
   (posBottom: number) =>
   ({
-    layout: {
-      dimensions: {
-        zIndexes: { toast },
-      },
+    dimensions: {
+      zIndexes: { toast },
     },
   }: Theme): CSSObject => ({
     position: 'fixed',

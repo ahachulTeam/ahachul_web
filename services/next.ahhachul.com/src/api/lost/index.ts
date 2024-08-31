@@ -32,7 +32,7 @@ export const getLostDetail = async (postId: string) => {
 /**  유실물 포스트 생성  */
 export const post = async (body: ILostArticleForm) => {
   const formData = new FormData();
-  for (const [key, value] of Object.entries(body)) {
+  for (const [key, value] of Object.entries(removeEmptyProperties(body))) {
     if (key !== 'imageFiles') {
       formData.append(key, value);
     }

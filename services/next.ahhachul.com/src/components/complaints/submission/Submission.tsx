@@ -95,7 +95,10 @@ const ComplaintsSubmission: React.FC<ComplaintsSubmissionProps> = (params) => {
           <ImageUpload handleChangeImage={handleChangeImage} />
         </div>
         <div css={section}>
-          <span>{COMPLAINTS_ROOM_SERVICE_INFO[params?.slug]?.title}</span>
+          <p>
+            {COMPLAINTS_ROOM_SERVICE_INFO[params?.slug]?.title}
+            <span css={{ fontSize: 16, color: 'red', marginLeft: 2 }}>*</span>
+          </p>
           <SelectComponent
             selectList={COMPLAINTS_ROOM_SERVICE_INFO[params?.slug]?.selectList}
             handleChangeSelect={handleChangeSelect}
@@ -204,7 +207,7 @@ const section: [CSSObject[], ({ typography }: Theme) => CSSObject] = [
     position: 'relative',
     marginBottom: '32px',
 
-    '& > span': {
+    '& > span, & > p': {
       color: '#ffffff',
       fontSize: fontSize[14],
       fontWeight: fontWeight[600],
@@ -248,14 +251,7 @@ const toggleBtn =
 
 const trainLabelsWrap =
   (pointColor: CSSProperties['color']) =>
-  ({
-    color: {
-      static: {
-        dark: { gray },
-      },
-    },
-    typography: { fontSize, fontWeight },
-  }: Theme) => ({
+  ({ color: { gray }, typography: { fontSize, fontWeight } }: Theme) => ({
     display: 'flex',
     alignItems: 'center',
     width: '100%',

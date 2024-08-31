@@ -18,19 +18,23 @@ const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({
 }) => {
   const { loading, snackBars } = useAppSelector((state) => state.ui);
 
-  const scrollToTop = useCallback(() => {
-    if (!window) return;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
+  const scrollToTop = useCallback(
+    () => window?.scrollTo?.({ top: 0, behavior: 'smooth' }),
+    [],
+  );
 
   return (
     <>
       <UiComponent.Header headerType={headerType} title={title} />
-      <main css={scrollable(nav)}>{children}</main>
       <UiComponent.SnackBar {...snackBars} />
-      {nav && <UiComponent.BottomDim />}
-      {nav && <UiComponent.NavBar scrollToTop={scrollToTop} />}
       {loading.active && <UiComponent.Loading opacity={loading.opacity} />}
+      <main css={scrollable(nav)}>{children}</main>
+      {nav && (
+        <>
+          <UiComponent.NavBar scrollToTop={scrollToTop} />
+          <UiComponent.BottomDim />
+        </>
+      )}
     </>
   );
 };

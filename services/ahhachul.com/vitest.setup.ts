@@ -4,7 +4,7 @@ import { cleanup } from '@testing-library/react';
 import { beforeAll, beforeEach, afterEach, afterAll, vi } from 'vitest';
 
 import { setupIntersectionMocking, resetIntersectionMocking } from 'react-intersection-observer/test-utils';
-import { server } from 'mocks/server';
+import { server } from 'shared/lib/__mocks__/server';
 
 beforeAll(() => {
   server.listen();

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, memo, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, memo, useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { EditorState } from 'lexical';
 import { CSSObject, Theme } from '@emotion/react';
 
@@ -12,10 +12,14 @@ import { UiComponent } from '@/src/components';
 import { f } from '@/src/styles';
 import IconCamera from '@/src/static/icons/system/IconCamera';
 import IconCircleClose from '@/src/static/icons/system/IconCircleClose';
+import { exportLineNameWithSubwayLineId } from '@/src/utils/export';
+import IconChevron from '@/src/static/icons/system/IconChevron';
+import withAuth from '@/src/hooks/withAuth';
 
 const INIT_STATE: ICommunityArticleForm = {
   title: '',
   content: '',
+  subwayLineId: '',
   categoryType: 'FREE',
   imageFiles: null,
 };
@@ -23,11 +27,12 @@ const INIT_STATE: ICommunityArticleForm = {
 const ERROR_INIT_STATE: ErrorForm<ICommunityArticleForm> = {
   title: '',
   content: '',
+  subwayLineId: '',
   categoryType: '',
   imageFiles: '',
 };
 
-export default function CommunityEditor() {
+function CommunityEditor() {
   const formRef = useRef<ICommunityArticleForm>(INIT_STATE);
   const [errors, setError] = useState<ErrorForm<ICommunityArticleForm>>(ERROR_INIT_STATE);
 
@@ -60,6 +65,14 @@ export default function CommunityEditor() {
     },
     [],
   );
+
+  const handleSubwayLine = useCallback((subwayLine: Nullable<string>) => {
+    if (!subwayLine) {
+      formRef.current.subwayLineId = '';
+    } else {
+      formRef.current.subwayLineId = subwayLine;
+    }
+  }, []);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -96,11 +109,8 @@ export default function CommunityEditor() {
     if (communityInfo) {
       formRef.current.title = communityInfo.title;
       formRef.current.content = communityInfo.content;
+      formRef.current.subwayLineId = communityInfo.subwayLineId;
       formRef.current.categoryType = communityInfo.categoryType;
-    } else {
-      formRef.current.title = '';
-      formRef.current.content = '';
-      formRef.current.categoryType = 'FREE';
     }
   }, [communityInfo]);
 
@@ -111,7 +121,10 @@ export default function CommunityEditor() {
           <ImageUpload handleChangeImage={handleChangeImage} />
         </div>
         <div css={section}>
-          <span>제목</span>
+          <p>
+            제목
+            <span css={{ fontSize: 16, color: 'red', marginLeft: 2 }}>*</span>
+          </p>
           <input
             id="title"
             placeholder="제목"
@@ -128,11 +141,17 @@ export default function CommunityEditor() {
           )}
         </div>
         <div css={section}>
-          <span>카테고리</span>
+          <p>
+            카테고리
+            <span css={{ fontSize: 16, color: 'red', marginLeft: 2 }}>*</span>
+          </p>
           <SelectComponent handleChangeLostType={handleChangeLostType} />
         </div>
         <div css={section}>
-          <span>자세한 설명</span>
+          <p>
+            자세한 설명
+            <span css={{ fontSize: 16, color: 'red', marginLeft: 2 }}>*</span>
+          </p>
           <UiComponent.Editor
             isRich
             hasError={!!errors.content}
@@ -146,6 +165,10 @@ export default function CommunityEditor() {
               <IconInfo /> {errors.content}
             </b>
           )}
+        </div>
+        <div css={section}>
+          <span>어떤 호선에 글을 작성할까요?</span>
+          <SelectSubwayComponent handleSubwayLine={handleSubwayLine} />
         </div>
         <div css={submitWrap}>
           <button css={submitBtn} type="submit" disabled={loading.active || status === 'pending'}>
@@ -223,6 +246,44 @@ const SelectComponent = memo(
   },
 );
 
+const SelectSubwayComponent = memo(
+  ({ handleSubwayLine }: { handleSubwayLine: (subwayLine: Nullable<string>) => void }) => {
+    const [show, toggle] = useReducer((c) => !c, false);
+    const [subwayLineId, setSubwayLineId] = useState<string | undefined>();
+
+    const handleSubway = (subwayLine: Nullable<string>) => {
+      if (!subwayLine) {
+        setSubwayLineId(undefined);
+      } else {
+        setSubwayLineId(subwayLine);
+      }
+      handleSubwayLine(subwayLine);
+    };
+
+    return (
+      <div css={inputButtonGroup}>
+        <button type="button" onClick={toggle}>
+          {subwayLineId ? exportLineNameWithSubwayLineId(subwayLineId) : '호선 추가'}
+        </button>
+        <IconChevron
+          css={{
+            position: 'absolute',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            right: '12px',
+          }}
+        />
+        <UiComponent.SubwayLineBottomSheet
+          isShowing={show}
+          subwayLineId={subwayLineId}
+          onClose={toggle}
+          handleSubwayLine={handleSubway}
+        />
+      </div>
+    );
+  },
+);
+
 const wrap = [f.fullWidth, f.flexColumn, { padding: '14px 0 120px 0' }];
 
 const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] = [
@@ -232,7 +293,7 @@ const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] = 
     position: 'relative',
     marginBottom: '32px',
 
-    '& > span': {
+    '& > span, & > p': {
       color: '#ffffff',
       fontSize: fontSize[14],
       fontWeight: fontWeight[600],
@@ -275,6 +336,27 @@ const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] = 
           stroke: '#E02020',
         },
       },
+    },
+  }),
+];
+
+const inputButtonGroup: [CSSObject, CSSObject, ({ typography }: Theme) => CSSObject] = [
+  f.fullHeight,
+  f.posRel,
+  ({ typography: { fontSize } }: Theme) => ({
+    '& > button': {
+      border: '1px solid rgb(196, 212, 252, 0.37)',
+      height: '44px',
+      borderRadius: '6px',
+      padding: '0 12px',
+      color: '#9da5b6',
+      fontSize: fontSize[14],
+      width: '100%',
+      textAlign: 'left',
+    },
+
+    '& > div > svg > path': {
+      stroke: '#9da5b6',
     },
   }),
 ];
@@ -371,3 +453,5 @@ const realImage: CSSObject = {
     height: '18px',
   },
 };
+
+export default withAuth(CommunityEditor);

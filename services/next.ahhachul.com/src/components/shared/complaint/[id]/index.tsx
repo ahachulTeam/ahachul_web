@@ -11,7 +11,7 @@ const ComplaintDetailMain = ({ postId }: ComplaintDetailMainProps) => {
   const { data } = useGetComplaintDetail(postId);
 
   return (
-    <main>
+    <article>
       {data.hasImage ? <DetailWithImage data={data} /> : <DetailOnlyText data={data} />}
       {/* TODO: 내가 작성한 글일때만 보이게  */}
       <FloatBtn
@@ -22,7 +22,7 @@ const ComplaintDetailMain = ({ postId }: ComplaintDetailMainProps) => {
         id={data.id}
       />
       {/* TODO: 내가 작성한 글일때만 보이게  */}
-    </main>
+    </article>
   );
 };
 

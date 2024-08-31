@@ -12,7 +12,13 @@ const BottomNavbar = ({ scrollToTop }: BottomNavbarProps) => {
   return (
     <nav css={wrap}>
       {BOTTOM_NAVBAR_LIST.map((item, index) => (
-        <TabItem key={index} href={item?.href} Icon={item?.Icon} label={item?.label} scrollToTop={scrollToTop} />
+        <TabItem
+          key={index}
+          href={item?.href}
+          Icon={item?.Icon}
+          label={item?.label}
+          scrollToTop={scrollToTop}
+        />
       ))}
     </nav>
   );

@@ -65,11 +65,11 @@ export interface ILostParams extends IPageParams {
 }
 
 export interface ILostArticleForm {
-  // lostImages: Array<File | undefined>;
   title: string;
   content: string;
   lostType: LostType;
-  desiredLocation?: string;
+  subwayLineId?: string;
+  desiredTradePlace?: string;
   imageFiles: Nullable<File>;
 }
 

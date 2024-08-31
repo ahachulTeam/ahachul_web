@@ -5,19 +5,14 @@ const top = [
   f.fullWidth,
   f.flexAlignCenter,
   f.posRel,
-  ({
-    color: {
-      scale: { gray },
-    },
-    typography: { fontSize, fontWeight },
-  }: Theme): CSSObject => ({
+  ({ color: { gray }, typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
     height: '55px',
     backgroundColor: gray[1000],
     justifyContent: 'space-between',
     padding: '0 24px',
 
     '& > span': {
-      color: gray[0],
+      color: gray[50],
       fontSize: fontSize[18],
       fontWeight: fontWeight[700],
       lineHeight: '22.54px',
@@ -25,7 +20,7 @@ const top = [
     },
 
     '& > div > svg > g > path': {
-      fill: gray[0],
+      fill: gray[50],
     },
   }),
 ];

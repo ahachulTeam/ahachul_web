@@ -3,7 +3,7 @@ import { MemberQuery } from '@/src/queries';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Subject, catchError, debounceTime, filter, from, map, mergeMap, of } from 'rxjs';
 
-const MAX_LEN = 10;
+const MAX_LEN = 8;
 const MIN_LEN = 2;
 
 interface Props {
@@ -15,8 +15,6 @@ function useNickname({ nickname, originNickname = '' }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const { mutateAsync, data, status } = MemberQuery.useCheckNickname();
   const subjectRef = useRef(new Subject<string>());
-
-  console.log('data:', data);
 
   const [invalidMsg, setInvalidMsg] = useState('');
 

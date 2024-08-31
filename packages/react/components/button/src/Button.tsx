@@ -10,7 +10,6 @@ import {
   spanStyle,
   spinnerStyle,
 } from './style.css';
-import { vars } from '@ahhachul/themes';
 import { useButton } from '@ahhachul/react-hooks-button';
 
 const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
@@ -18,7 +17,6 @@ const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
   const {
     variant = 'solid',
     size = 'md',
-    color = 'gray',
     enableColor,
     hoverColor,
     activeColor,

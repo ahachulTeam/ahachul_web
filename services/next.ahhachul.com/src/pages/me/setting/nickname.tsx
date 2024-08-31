@@ -44,7 +44,7 @@ export default function MeNicknameSetting() {
   }, [status]);
 
   return (
-    <Layout headerType="back" title="" nav={false}>
+    <Layout headerType="back" title="회원가입" nav={false}>
       <form css={wrap} onSubmit={handleSubmit}>
         <div css={section}>
           <span>닉네임 설정</span>
