@@ -1,1 +1,1 @@
-export { Logo as renderLeft } from './Logo';
+export { Logo as renderLeftLogo } from './Logo';

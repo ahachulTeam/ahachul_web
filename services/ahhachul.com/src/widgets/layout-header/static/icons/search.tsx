@@ -8,8 +8,6 @@ const SVG = `
 </svg>
 `;
 
-const SearchIcon = () => (
+export const SearchIcon = () => (
   <div css={cssUtils.flex} dangerouslySetInnerHTML={{ __html: SVG }} />
 );
-
-export default SearchIcon;
