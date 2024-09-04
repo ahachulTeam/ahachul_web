@@ -45,10 +45,10 @@
     "react-redux": "^9.1.0",
     "react-spring-bottom-sheet": "^3.4.1",
     "react-timer-hook": "^3.0.7",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "sharp": "^0.33.5"
   },
   "devDependencies": {
-    "@emotion/babel-plugin": "^11.11.0",
     "@types/js-cookie": "^3.0.6",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20",

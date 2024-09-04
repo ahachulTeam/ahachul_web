@@ -1,5 +1,8 @@
-import { IMetaData, IBreadCrumbListLdJson, IDetailLdJson } from '@/src/types/seo';
-import mainBanner from '@/src/static/img/banners/main_page_banner.png';
+import {
+  IMetaData,
+  IBreadCrumbListLdJson,
+  IDetailLdJson,
+} from '@/src/types/seo';
 
 export const defaultMetadata: IMetaData = {
   type: 'website',
@@ -9,7 +12,7 @@ export const defaultMetadata: IMetaData = {
   description: '지하철에 당신의 따뜻한 이야기를 채워나가요',
   // description: '지하철 혼잡도와 실시간 정보를 편리하게, 지하철에 당신의 따뜻한 이야기를 채워나가요.',
   url: 'https://ahhachul.com/',
-  image: mainBanner.src,
+  image: 'https://static.ahhachul.com/images/main_page_banner.png',
   keywords: '',
 };
 
@@ -49,7 +52,15 @@ export const searchLdJsonData = {
   ],
 };
 
-export const detailLdJson = ({ name, description, offers, brandName, image, review, rating }: IDetailLdJson) => ({
+export const detailLdJson = ({
+  name,
+  description,
+  offers,
+  brandName,
+  image,
+  review,
+  rating,
+}: IDetailLdJson) => ({
   '@context': 'https://schema.org',
   '@type': 'Product',
   image: image || defaultMetadata.image,
@@ -65,19 +76,21 @@ export const detailLdJson = ({ name, description, offers, brandName, image, revi
   }),
   ...(brandName && { brand: { '@type': 'Brand', name: brandName } }),
   ...(review && {
-    review: review?.map(({ author, datePublished, reviewBody, reviewRating }) => ({
-      '@type': 'Review',
-      name: reviewBody.slice(0, 10),
-      datePublished,
-      reviewBody,
-      reviewRating: {
-        '@type': 'Rating',
-        worstRating: reviewRating?.worstRating,
-        ratingValue: reviewRating?.ratingValue,
-        bestRating: reviewRating?.bestRating,
-      },
-      author: { '@type': 'Person', name: author },
-    })),
+    review: review?.map(
+      ({ author, datePublished, reviewBody, reviewRating }) => ({
+        '@type': 'Review',
+        name: reviewBody.slice(0, 10),
+        datePublished,
+        reviewBody,
+        reviewRating: {
+          '@type': 'Rating',
+          worstRating: reviewRating?.worstRating,
+          ratingValue: reviewRating?.ratingValue,
+          bestRating: reviewRating?.bestRating,
+        },
+        author: { '@type': 'Person', name: author },
+      }),
+    ),
   }),
   ...(rating && {
     aggregateRating: {

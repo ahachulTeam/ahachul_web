@@ -6,22 +6,23 @@
     "services/**/*"
   ],
   "scripts": {
+    "prepare": "husky",
     "lint": "eslint --ext js,jsx,ts,tsx",
-    "affected:build": "nx affected -t build",
     "affected:test": "nx affected -t test",
-    "build:local": "nx build",
-    "build:all": "nx run-many --target=build --all",
+    "affected:build": "nx affected -t build",
     "graph": "nx run-many --target=build --graph",
-    "dev:all": "yarn dev:storybook & yarn dev:packages",
-    "dev:storybook": "nx storybook @ahhachul/storybook",
-    "dev:packages": "nx run-many --target=dev --projects='@ahhachul/react-hooks-*,@ahhachul/react-components-*'",
-    "prepare": "husky"
+    "storybook": "nx storybook @ahhachul/storybook",
+    "web:dev": "yarn workspace next.ahhachul.com dev",
+    "app:build": "yarn workspace ahhachul.com build",
+    "web:build": "yarn workspace next.ahhachul.com build",
+    "app:start": "yarn workspace ahhachul.com start",
+    "web:start": "yarn workspace next.ahhachul.com start",
+    "build:all": "nx run-many --target=build --all"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix"
   },
   "devDependencies": {
-    "@storybook/addon-docs": "^7.4.0",
     "@typescript-eslint/eslint-plugin": "^6.5.0",
     "@typescript-eslint/parser": "^6.5.0",
     "eslint": "^8.48.0",
@@ -39,9 +40,6 @@
     "nx": "^16.8.1",
     "prettier": "^3.0.3",
     "typescript": "^4.4.2"
-  },
-  "dependencies": {
-    "vite": "^5.1.5"
   },
   "packageManager": "yarn@4.1.1"
 }

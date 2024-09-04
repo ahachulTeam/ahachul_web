@@ -17,16 +17,8 @@ import { removeEmptyProperties } from './object';
 import { PATH } from '../data';
 import { defaultMetadata } from '../data/seo';
 
-import communityBanner from '@/src/static/img/banners/community_page_banner.png';
-import communityLine1Banner from '@/src/static/img/banners/community/line_1.png';
-import communityLine2Banner from '@/src/static/img/banners/community/line_2.png';
-import communityLine3Banner from '@/src/static/img/banners/community/line_3.png';
-import communityLine4Banner from '@/src/static/img/banners/community/line_4.png';
-import communityLine5Banner from '@/src/static/img/banners/community/line_5.png';
-import communityLine6Banner from '@/src/static/img/banners/community/line_6.png';
-import communityLine7Banner from '@/src/static/img/banners/community/line_7.png';
-import communityLine8Banner from '@/src/static/img/banners/community/line_8.png';
-import communityLine9Banner from '@/src/static/img/banners/community/line_9.png';
+const communityBannerUrl =
+  'https://static.ahhachul.com/images/community_page_banner.png';
 
 export const exportSubwayLineIdWithLineName = (lineName?: string) => {
   switch (lineName?.toString()) {
@@ -163,7 +155,7 @@ export const exportSubwayInfoFromTrainNumber = (
   trainNumber?: string,
 ): { lineName?: string; roomNumber?: string; error?: string } => {
   if (!trainNumber) return { error: 'no trainNumber' };
-  
+
   let lineName = '',
     roomNumber = '',
     error = '';
@@ -200,9 +192,11 @@ export const exportSubwayInfoFromTrainNumber = (
       if (startsWith3) {
         const secondDigitIs6 = trainNumber[1] === '6';
         const secondDigitIs7 = trainNumber[1] === '7';
-        const secondDigitIs2Or3 = trainNumber[1] === '2' || trainNumber[1] === '3';
+        const secondDigitIs2Or3 =
+          trainNumber[1] === '2' || trainNumber[1] === '3';
         const secondDigitIs5 = trainNumber[1] === '5';
-        const secondDigitIs1AndThirdDigitsIs9 = trainNumber[1] === '1' && trainNumber[2] === '9';
+        const secondDigitIs1AndThirdDigitsIs9 =
+          trainNumber[1] === '1' && trainNumber[2] === '9';
 
         if (secondDigitIs6) {
           lineName = '경춘선';
@@ -221,7 +215,9 @@ export const exportSubwayInfoFromTrainNumber = (
             `${trainNumber[trainNumber.length - 2]}${trainNumber[trainNumber.length - 1]}`,
           );
 
-          const isLastDigitBetween1And5 = 1 <= lastDigitAndSecondLastDigit && lastDigitAndSecondLastDigit <= 5;
+          const isLastDigitBetween1And5 =
+            1 <= lastDigitAndSecondLastDigit &&
+            lastDigitAndSecondLastDigit <= 5;
 
           if (isLastDigitBetween1And5) {
             lineName = '1호선';
@@ -250,7 +246,9 @@ export const exportSubwayInfoFromTrainNumber = (
   });
 };
 
-export const formatCurrentTrainArrivalTypeToKo = (trainArrivalType?: CurrentTrainArrivalType) => {
+export const formatCurrentTrainArrivalTypeToKo = (
+  trainArrivalType?: CurrentTrainArrivalType,
+) => {
   if (!trainArrivalType) return;
 
   switch (trainArrivalType) {
@@ -271,7 +269,9 @@ export const formatCurrentTrainArrivalTypeToKo = (trainArrivalType?: CurrentTrai
   }
 };
 
-export const formatCongestionColorToHexColor = (congestionColor?: CongestionColorType) => {
+export const formatCongestionColorToHexColor = (
+  congestionColor?: CongestionColorType,
+) => {
   if (!congestionColor) return;
 
   switch (congestionColor) {
@@ -288,7 +288,9 @@ export const formatCongestionColorToHexColor = (congestionColor?: CongestionColo
   }
 };
 
-export const formatComplaintTypeToKoSentence = (complaintType?: COMPLAINTS_CONTENTS_TYPES) => {
+export const formatComplaintTypeToKoSentence = (
+  complaintType?: COMPLAINTS_CONTENTS_TYPES,
+) => {
   if (!complaintType) return;
 
   switch (complaintType) {
@@ -311,7 +313,9 @@ export const formatComplaintTypeToKoSentence = (complaintType?: COMPLAINTS_CONTE
   }
 };
 
-export const formatComplaintShortContentToKoSentence = (complaintShortContent?: string) => {
+export const formatComplaintShortContentToKoSentence = (
+  complaintShortContent?: string,
+) => {
   if (!complaintShortContent) return;
 
   switch (complaintShortContent) {
@@ -350,7 +354,10 @@ export const formatComplaintShortContentToKoSentence = (complaintShortContent?: 
   }
 };
 
-export const exportTitleFromPath = (defaultTitle?: string, pathname?: string): string => {
+export const exportTitleFromPath = (
+  defaultTitle?: string,
+  pathname?: string,
+): string => {
   if (defaultTitle) return defaultTitle;
   else {
     switch (pathname) {
@@ -368,7 +375,10 @@ export const exportTitleFromPath = (defaultTitle?: string, pathname?: string): s
   }
 };
 
-export const exportDescriptionFromPath = (defaultDescription?: string, pathname?: string): string => {
+export const exportDescriptionFromPath = (
+  defaultDescription?: string,
+  pathname?: string,
+): string => {
   if (defaultDescription) return defaultDescription;
   else {
     switch (pathname) {
@@ -389,29 +399,22 @@ export const exportDescriptionFromPath = (defaultDescription?: string, pathname?
 export const exportBannerImageWidthLineId = (lineName: string) => {
   switch (lineName) {
     case '1':
-      return communityLine1Banner.src;
     case '2':
-      return communityLine2Banner.src;
     case '3':
-      return communityLine3Banner.src;
     case '4':
-      return communityLine4Banner.src;
     case '5':
-      return communityLine5Banner.src;
     case '6':
-      return communityLine6Banner.src;
     case '7':
-      return communityLine7Banner.src;
     case '8':
-      return communityLine8Banner.src;
     case '9':
-      return communityLine9Banner.src;
     default:
-      return communityBanner.src;
+      return communityBannerUrl;
   }
 };
 
-export const formatComplaintTypeToEn = (complaintType?: COMPLAINTS_CONTENTS_TYPES) => {
+export const formatComplaintTypeToEn = (
+  complaintType?: COMPLAINTS_CONTENTS_TYPES,
+) => {
   if (!complaintType) return;
 
   switch (complaintType) {
@@ -434,7 +437,9 @@ export const formatComplaintTypeToEn = (complaintType?: COMPLAINTS_CONTENTS_TYPE
   }
 };
 
-export const formatComplaintShortContentToEn = (complaintShortContent?: string) => {
+export const formatComplaintShortContentToEn = (
+  complaintShortContent?: string,
+) => {
   if (!complaintShortContent) return;
 
   switch (complaintShortContent) {

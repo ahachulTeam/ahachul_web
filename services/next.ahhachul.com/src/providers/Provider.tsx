@@ -1,14 +1,19 @@
 import React, { PropsWithChildren } from 'react';
-import { ThemeProvider, Global } from '@emotion/react';
 import { Provider } from 'react-redux';
+import type { AppProps } from 'next/app';
+import { ThemeProvider, Global } from '@emotion/react';
+
 import { store } from '@/src/stores';
 import { theme, global } from '@/src/styles';
-import QueryProvider from './QueryProvider';
+
 import ThemeScript from './ThemeScript';
-import type { AppProps } from 'next/app';
+import QueryProvider from './QueryProvider';
 import { AuthProvider } from './AuthProvider';
 
-function AppProvider({ pageProps, children }: PropsWithChildren<{ pageProps: AppProps['pageProps'] }>) {
+function AppProvider({
+  pageProps,
+  children,
+}: PropsWithChildren<{ pageProps: AppProps['pageProps'] }>) {
   return (
     <>
       <ThemeScript />
