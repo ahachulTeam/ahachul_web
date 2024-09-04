@@ -13,6 +13,7 @@ const CommunityArticleList = ({ ...props }: CommunityArticleListProps) => {
     useGetCommunityList({
       page: 0,
       size: 10,
+      sort: 'createdAt,asc',
     });
   const communityArticles = flattenInfinityList(data);
 

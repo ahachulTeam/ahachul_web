@@ -19,15 +19,15 @@ const { Link } = createLinkComponent<TypeActivities>();
 const { usePreloader } = createPreloader<TypeActivities>();
 const { Stack, activities, useFlow, useStepFlow } = stackflow({
   activities: {
+    // 공용 레이어
+    ...sharedLayers,
+
     // 도메인 레이어
     ...homeLayers,
     ...lostLayers,
     ...communityLayers,
     ...complaintLayers,
     ...blindDateLayers,
-
-    // 공용 레이어
-    ...sharedLayers,
   },
   plugins,
   transitionDuration: 350,

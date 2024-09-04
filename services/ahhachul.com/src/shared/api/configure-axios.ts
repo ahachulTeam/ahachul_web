@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 const config: AxiosRequestConfig = {};
 const baseURL =
-  process.env.REACT_APP_ENV === 'test'
+  process.env.REACT_APP_MOCKING === 'true'
     ? 'http://localhost:3000'
     : process.env.REACT_APP_BASE_URL;
 config.baseURL = baseURL;

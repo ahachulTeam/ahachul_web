@@ -7,8 +7,6 @@ const SVG = `
 </svg>
 `;
 
-const AlarmIcon = () => (
+export const AlarmIcon = () => (
   <div css={cssUtils.flex} dangerouslySetInnerHTML={{ __html: SVG }} />
 );
-
-export default AlarmIcon;

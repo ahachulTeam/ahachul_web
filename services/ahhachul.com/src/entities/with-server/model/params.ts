@@ -1,4 +1,10 @@
-export type PageSort = 'favor,desc' | 'favor,asc' | 'answeredAt,desc' | 'answeredAt,asc';
+export type PageSort =
+  | 'likes,desc'
+  | 'likes,asc'
+  | 'createdAt,desc'
+  | 'createdAt,asc'
+  | 'views,desc'
+  | 'views,asc';
 export interface PageParams {
   page: number;
   size: number;
