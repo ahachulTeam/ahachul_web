@@ -13,6 +13,7 @@ const LostFoundArticleList = ({ ...props }: LostFoundArticleListProps) => {
     useGetLostFoundList({
       page: 0,
       size: 10,
+      lostType: 'ACQUIRE',
     });
   const lostArticles = flattenInfinityList(data);
 
