@@ -12,11 +12,11 @@
     "affected:build": "nx affected -t build",
     "graph": "nx run-many --target=build --graph",
     "storybook": "nx storybook @ahhachul/storybook",
-    "web:dev": "yarn workspace next.ahhachul.com dev",
-    "app:build": "yarn workspace ahhachul.com build",
-    "web:build": "yarn workspace next.ahhachul.com build",
-    "app:start": "yarn workspace ahhachul.com start",
-    "web:start": "yarn workspace next.ahhachul.com start",
+    "dev:web": "yarn workspace next.ahhachul.com dev",
+    "build:app": "yarn workspace ahhachul.com build",
+    "build:web": "yarn workspace next.ahhachul.com build",
+    "start:app": "yarn workspace ahhachul.com start",
+    "start:web": "yarn workspace next.ahhachul.com start",
     "build:all": "nx run-many --target=build --all"
   },
   "lint-staged": {

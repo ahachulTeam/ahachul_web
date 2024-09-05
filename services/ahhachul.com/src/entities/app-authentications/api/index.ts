@@ -1,10 +1,8 @@
 import { AxiosError } from 'axios';
 
-import { useAppDispatch } from 'shared/stores';
 import { base, routes, useMutation } from 'shared/api';
-
-import { setToken } from '../slice';
-import { type IToken } from '../model';
+import { useAuthStore } from 'entities/app-authentications/slice';
+import { type IToken } from 'entities/app-authentications/model';
 
 interface APIRefreshTokenParams {
   refreshToken: IToken['refreshToken'];
@@ -14,16 +12,16 @@ const refreshToken = (body: APIRefreshTokenParams) =>
   base.post(`${routes.auth}/tokens`, body);
 
 export const useRefreshToken = () => {
-  const dispatch = useAppDispatch();
+  const setToken = useAuthStore((state) => state.setToken);
 
   return useMutation({
     mutationFn: refreshToken,
     onSuccess(data) {
-      dispatch(setToken(data.data.payload));
+      setToken(data.data.payload);
     },
     onError(err) {
       if (err instanceof AxiosError) {
-        dispatch(setToken(null));
+        setToken(null);
       }
     },
   });

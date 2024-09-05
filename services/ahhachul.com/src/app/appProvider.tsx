@@ -1,13 +1,10 @@
 import React, { PropsWithChildren } from 'react';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider, Global } from '@emotion/react';
 
 import themes from 'shared/themes.css';
 import globals from 'shared/globals.css';
 import { MSWInitializer, QueryProvider } from 'app/lib';
 import { ThemeScript } from 'widgets';
-import { store, persistor } from 'shared/stores';
 
 import 'shared/fonts.css';
 import '@ahhachul/themes/themes.css';
@@ -21,11 +18,7 @@ export const AppProvider = ({ children }: PropsWithChildren) => {
       <Global styles={globals} />
       <ThemeProvider theme={themes}>
         <MSWInitializer />
-        <Provider store={store}>
-          <PersistGate persistor={persistor}>
-            <QueryProvider>{children}</QueryProvider>
-          </PersistGate>
-        </Provider>
+        <QueryProvider>{children}</QueryProvider>
       </ThemeProvider>
     </>
   );

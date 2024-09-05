@@ -1,26 +1,25 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import { type IToken } from 'entities/app-authentications/model';
 
 interface IAuthStore {
-  auth: IToken | null;
+  state: IToken | null;
 }
 
-const initialState: IAuthStore = {
-  auth: null,
-};
-
-const {
-  reducer,
-  actions: { setToken },
-} = createSlice({
-  name: 'auth',
-  initialState,
-  reducers: {
-    setToken: (state, action: PayloadAction<IAuthStore['auth']>) => {
-      state.auth = action.payload;
+export const useAuthStore = create(
+  persist<
+    IAuthStore & {
+      setToken: (token: IToken | null) => void;
+    }
+  >(
+    (set) => ({
+      state: null,
+      setToken: (state: IToken | null) => {
+        set({ state });
+      },
+    }),
+    {
+      name: 'auth',
     },
-  },
-});
-
-export { initialState, setToken };
-export default reducer;
+  ),
+);

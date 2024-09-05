@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
-import { css } from '@emotion/react';
 import { motion } from 'framer-motion';
 import { ChevronIcon } from 'widgets/layout-header/static/icons/chevron';
+import * as styles from './StationSelect.css';
 
 const wrapperVariants = {
   open: {
@@ -21,7 +21,6 @@ const wrapperVariants = {
     opacity: 0,
     transition: {
       duration: 0.2,
-      when: 'afterChildren',
       staggerChildren: 0.1,
     },
   },
@@ -60,12 +59,12 @@ export const StationSelect = () => {
   const [open, toggle] = useReducer((open) => !open, false);
 
   return (
-    <div css={containerStyle}>
+    <div css={styles.container}>
       <motion.div
         css={{ position: 'relative' }}
         animate={open ? 'open' : 'closed'}
       >
-        <button onClick={toggle} css={buttonStyle}>
+        <button onClick={toggle} css={styles.button}>
           <span>건대입구</span>
           <motion.span variants={iconVariants}>
             <ChevronIcon />
@@ -76,7 +75,7 @@ export const StationSelect = () => {
           initial={wrapperVariants.closed}
           variants={wrapperVariants}
           style={{ originY: 'top' }}
-          css={menuStyle}
+          css={styles.menu}
         >
           <Option text="건대입구" />
           <Option text="신논현" />
@@ -88,63 +87,8 @@ export const StationSelect = () => {
 
 const Option = ({ text }: { text: string }) => {
   return (
-    <motion.li variants={itemVariants} css={optionStyle}>
+    <motion.li variants={itemVariants} css={styles.option}>
       <motion.span variants={actionTextVariants}>{text}</motion.span>
     </motion.li>
   );
 };
-
-const containerStyle = css`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const buttonStyle = css`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 8px 12px;
-  border-radius: 6px;
-  color: #f0f4ff;
-  font-size: 18px;
-  font-weight: bold;
-`;
-
-const menuStyle = css`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 8px;
-  border-radius: 8px;
-  background-color: white;
-  box-shadow:
-    0 10px 15px rgba(0, 0, 0, 0.1),
-    0 4px 6px rgba(0, 0, 0, 0.05);
-  position: absolute;
-  top: 120%;
-  left: 12px;
-  width: 192px;
-  overflow: hidden;
-`;
-
-const optionStyle = css`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  padding: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  white-space: nowrap;
-  border-radius: 6px;
-  color: #334155;
-  cursor: pointer;
-  transition:
-    background-color 0.2s,
-    color 0.2s;
-  &:hover {
-    background-color: #e0e7ff;
-    color: #6366f1;
-  }
-`;

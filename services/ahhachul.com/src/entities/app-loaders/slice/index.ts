@@ -1,35 +1,30 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { create } from 'zustand';
 
-interface LoadingStore {
+interface ILoadingStore {
   active: boolean;
-  opacity?: number;
+  opacity: number;
 }
 
-const defaultOpacity = 0.4;
-const initialState: LoadingStore = {
+const defaultOpacity = 0.5;
+
+const useLoadingStore = create<
+  ILoadingStore & {
+    setLoaded: () => void;
+    setLoading: (opacity?: number) => void;
+  }
+>((set) => ({
   active: false,
   opacity: defaultOpacity,
-};
+  setLoaded: () =>
+    set(() => ({
+      active: false,
+      opacity: defaultOpacity,
+    })),
+  setLoading: (opacity = defaultOpacity) =>
+    set(() => ({
+      active: true,
+      opacity,
+    })),
+}));
 
-const {
-  reducer,
-  actions: { loaded, loading },
-} = createSlice({
-  name: 'ui',
-  initialState,
-  reducers: {
-    loading: (state, action: PayloadAction<LoadingStore>) => {
-      state.active = true;
-      if (action?.payload?.opacity) {
-        state.opacity = action.payload.opacity;
-      }
-    },
-    loaded: (state) => {
-      state.opacity = defaultOpacity;
-      state.active = false;
-    },
-  },
-});
-
-export { initialState, loaded, loading };
-export default reducer;
+export default useLoadingStore;

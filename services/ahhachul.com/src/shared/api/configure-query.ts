@@ -12,8 +12,8 @@ import {
 import { AxiosError } from 'axios';
 
 import { base } from 'shared/api/configure-axios';
-import { useAppSelector } from 'shared/stores';
 import { useRefreshToken } from 'entities/app-authentications';
+import { useAuthStore } from 'entities/app-authentications/slice';
 
 function getQueryKeys(type: string[]) {
   return {
@@ -53,7 +53,7 @@ function useAuthQuery<
     'queryKey' | 'queryFn'
   > & { suspense?: boolean };
 }) {
-  const { auth } = useAppSelector((state) => state.auth);
+  const auth = useAuthStore((state) => state.state);
   const { mutate, status: refreshTokenFetchStatus } = useRefreshToken();
 
   if (auth?.accessToken) {
@@ -110,7 +110,7 @@ function useAuthMutation<
     'mutationKey' | 'mutationFn'
   >;
 }) {
-  const { auth } = useAppSelector((state) => state.auth);
+  const auth = useAuthStore((state) => state.state);
   if (auth?.accessToken) {
     base.defaults.headers.common['authorization'] =
       `Bearer ${auth?.accessToken}`;
