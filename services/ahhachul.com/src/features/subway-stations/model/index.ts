@@ -1,3 +1,3 @@
 export interface WithSubwayStationId {
-  stationId: string;
+  stationId: number;
 }

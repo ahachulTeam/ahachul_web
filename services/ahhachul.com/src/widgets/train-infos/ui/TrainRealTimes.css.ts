@@ -20,7 +20,7 @@ export const inner = ({ color: { gray } }: Theme) =>
     backgroundColor: gray[50],
   }) as Interpolation<Theme>;
 
-export const thickBorder = (subwayLineId: string) =>
+export const thickBorder = (subwayLineId: number) =>
   ({
     position: 'absolute',
     left: '0',

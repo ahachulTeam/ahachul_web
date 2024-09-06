@@ -1,34 +1,34 @@
-export const subwayLineHexColors = (line: string) => {
+export const subwayLineHexColors = (line: number) => {
   switch (line) {
-    case '1':
+    case 1:
       return '#0052A4';
-    case '2':
+    case 2:
       return '#00A84D';
-    case '3':
+    case 3:
       return '#EF7C1C';
-    case '4':
+    case 4:
       return '#00A4E3';
-    case '5':
+    case 5:
       return '#996cac';
-    case '6':
+    case 6:
       return '#CD7C2F';
-    case '7':
+    case 7:
       return '#747F00';
-    case '8':
+    case 8:
       return '#E6186C';
-    case '9':
+    case 9:
       return '#BDB092';
-    case '10':
+    case 10:
       return '#D31145';
-    case '11':
+    case 11:
       return '#FABE00';
-    case '12':
+    case 12:
       return '#77C4A3';
-    case '13':
+    case 13:
       return '#B7C450';
-    case '14':
+    case 14:
       return '#6789CA';
-    case '15':
+    case 15:
       return '#0090D2';
   }
 };

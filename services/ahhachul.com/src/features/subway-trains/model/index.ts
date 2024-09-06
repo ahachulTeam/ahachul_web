@@ -1,5 +1,5 @@
 export interface WithSubwayTrainId {
-  trainNo: string;
+  trainNo: number;
 }
 
 /**
@@ -36,7 +36,7 @@ type UpDownType = 'UP' | 'DOWN';
  * @property {CurrentTrainArrivalType} currentTrainArrivalCode - 해당 열차 현재 위치 코드 {@link CurrentTrainArrivalType}
  */
 export interface ITrain {
-  trainNum: string;
+  trainNum: number;
   upDownType: UpDownType;
   nextStationDirection: string;
   destinationStationDirection: string;

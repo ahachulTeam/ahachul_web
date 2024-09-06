@@ -7,7 +7,11 @@ export default function Home() {
 
   return (
     <Layout headerType="default">
-      {auth?.accessToken ? <HomeComponent.Dashboard /> : <HomeComponent.Landing />}
+      {auth?.accessToken ? (
+        <HomeComponent.Dashboard />
+      ) : (
+        <HomeComponent.Landing />
+      )}
       <UiComponent.Footer />
     </Layout>
   );

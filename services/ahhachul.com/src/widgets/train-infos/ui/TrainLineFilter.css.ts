@@ -19,14 +19,15 @@ export const filters = [
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      width: '32px',
+      width: '50px',
       height: '32px',
       borderRadius: full,
+      padding: '0 6px',
       marginRight: '12px',
 
       '& > button': {
         color: text[50],
-        fontSize: fontSize[16],
+        fontSize: fontSize[14],
         fontWeight: fontWeight[600],
         letterSpacing: '-0.2px',
       },
@@ -34,11 +35,7 @@ export const filters = [
   }),
 ] as Interpolation<Theme>;
 
-export const colorful = {
-  background: 'linear-gradient(263deg, #2EE477 0%, #50BEFD 100%)',
-};
-
-export const inherit = (line: string) => ({
+export const inherit = (line: number) => ({
   transition: 'background-color 0.4s ease-in-out',
   background: subwayLineHexColors(line),
 });
