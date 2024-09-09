@@ -28,6 +28,7 @@ const stackflowPlugin = [
       Complaint: PATH.complaints.home,
       ComplaintDetail: PATH.complaints.detail.home,
       CreateComplaintArticle: PATH.complaints.create.home,
+      ComplaintForm: PATH.complaints.create.form,
       BlindDate: PATH.date.home,
       AllServices: PATH['_shared-pages'].allServices,
       SubwayNotices: PATH['_shared-pages'].subwayNotice,

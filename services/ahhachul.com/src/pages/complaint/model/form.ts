@@ -3,11 +3,9 @@ import type { WithImageFile } from 'entities/with-server';
 import type { WithSubwayLineId } from 'features/subway-lines';
 import type { ComplaintType } from '.';
 
-interface LostForm
+export interface ComplaintForm
   extends Pick<Article, 'content'>,
     Partial<WithSubwayLineId>,
     Partial<WithImageFile> {
   complaintType: ComplaintType;
 }
-
-export { LostForm };

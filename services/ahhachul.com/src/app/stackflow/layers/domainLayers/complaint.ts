@@ -7,10 +7,15 @@ const ComplaintDetail = React.lazy(
 const CreateComplaintArticle = React.lazy(
   () => import('pages/complaint/ui/Page/Create'),
 );
+const ComplaintForm = React.lazy(
+  () => import('pages/complaint/ui/Page/ComplaintForm'),
+);
+
 export const complaintLayers = {
   Complaint,
   ComplaintDetail,
   CreateComplaintArticle,
+  ComplaintForm,
   // ComplaintDetail,
   // AskTrainNumber: ComplaintsComponent.AskTrainNumber,
   // ComplaintsSubmission: ComplaintsComponent.ComplaintsSubmission,

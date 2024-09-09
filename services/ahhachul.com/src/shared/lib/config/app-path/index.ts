@@ -11,8 +11,7 @@ const PATH = {
     },
     create: {
       home: '/complaints/create',
-      progress: '/complaints/create/progress',
-      submit: '/complaints/create/submit',
+      form: '/complaints/create/submit',
     },
   },
 

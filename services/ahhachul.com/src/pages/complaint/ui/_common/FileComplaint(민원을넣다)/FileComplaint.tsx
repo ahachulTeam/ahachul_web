@@ -15,7 +15,7 @@ const renderComplaintsGrid = (
   <ul css={css}>
     {items.map(([key, { icon, label, desc }]) => (
       <li key={key}>
-        <Link activityName={'BlindDate'} activityParams={{ type: key }}>
+        <Link activityName={'ComplaintForm'} activityParams={{ slug: label }}>
           <FileComplaintCard icon={icon} title={label} description={desc} />
         </Link>
       </li>
