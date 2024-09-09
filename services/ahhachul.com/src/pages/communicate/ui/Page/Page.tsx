@@ -1,8 +1,9 @@
 import React from 'react';
-import type { ActivityComponentType } from '@stackflow/react';
-import { BaseErrorBoundary } from 'entities/app-errors/ui/ErrorBoundary';
+import type { ActivityComponentType } from 'app/stackflow';
 import { Layout, Navbar } from 'widgets';
 import { renderLeftLogo, renderRight } from 'widgets/layout-header';
+import { ArticleListErrorFallback } from 'widgets/articles/ui/ArticleListErrorFallback';
+import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
 import CommunityArticleList from '../_common/CommunityArticleList/CommunityArticleList';
 import * as styles from './Page.css';
 
@@ -12,9 +13,17 @@ const Community: ActivityComponentType = () => {
       appBar={{ renderLeft: renderLeftLogo, renderRight }}
       navigationSlot={Navbar}
     >
-      <BaseErrorBoundary>
-        <CommunityArticleList css={styles.articleListLayout} />
-      </BaseErrorBoundary>
+      <QueryErrorBoundary
+        errorFallback={({ error, reset }) =>
+          ArticleListErrorFallback({
+            css: styles.layout,
+            error,
+            reset,
+          })
+        }
+      >
+        <CommunityArticleList css={styles.layout} />
+      </QueryErrorBoundary>
     </Layout>
   );
 };

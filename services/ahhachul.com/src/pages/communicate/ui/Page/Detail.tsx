@@ -5,11 +5,13 @@ import { useActivityPreloadRef } from '@stackflow/plugin-preload';
 
 import { communityDetailQuery } from 'pages/communicate/api/get-detail';
 import type { WithArticleId } from 'features/articles';
+import { ArticleDetailErrorFallback } from 'features/articles/ui/ArticleDetailErrorFallback';
 import { Loading } from 'entities/app-loaders/ui/Loading';
-import { BaseErrorBoundary } from 'entities/app-errors/ui/ErrorBoundary';
+import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
 import { Layout } from 'widgets';
 
 import { CommunityArticleDetail } from '../_common/CommunityArticleDetail/CommunityArticleDetail';
+import * as styles from './Page.css';
 
 export const loader =
   (queryClient: QueryClient) =>
@@ -31,14 +33,22 @@ const CommunityDetail: ActivityComponentType<WithArticleId> = ({
 
   return (
     <Layout>
-      <BaseErrorBoundary>
+      <QueryErrorBoundary
+        errorFallback={({ error, reset }) =>
+          ArticleDetailErrorFallback({
+            css: styles.layout,
+            error,
+            reset,
+          })
+        }
+      >
         <Suspense fallback={<Loading />}>
           <CommunityArticleDetail
             articleId={articleId}
             preloadRef={preloadRef}
           />
         </Suspense>
-      </BaseErrorBoundary>
+      </QueryErrorBoundary>
     </Layout>
   );
 };

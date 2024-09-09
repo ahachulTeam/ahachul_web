@@ -1,8 +1,9 @@
 import React from 'react';
 import { ActivityComponentType } from '@stackflow/react';
-import { BaseErrorBoundary } from 'entities/app-errors/ui/ErrorBoundary';
+import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
 import { Layout, Navbar } from 'widgets';
 import { renderLeftLogo, renderRight } from 'widgets/layout-header';
+import { ArticleListErrorFallback } from 'widgets/articles/ui/ArticleListErrorFallback';
 import ComplaintArticleList from '../_common/ComplaintArticleList/ComplaintArticleList';
 import * as styles from './Page.css';
 
@@ -12,9 +13,17 @@ const Complaint: ActivityComponentType = () => {
       appBar={{ renderLeft: renderLeftLogo, renderRight }}
       navigationSlot={Navbar}
     >
-      <BaseErrorBoundary>
-        <ComplaintArticleList css={styles.articleListLayout} />
-      </BaseErrorBoundary>
+      <QueryErrorBoundary
+        errorFallback={({ error, reset }) =>
+          ArticleListErrorFallback({
+            css: styles.layout,
+            error,
+            reset,
+          })
+        }
+      >
+        <ComplaintArticleList css={styles.layout} />
+      </QueryErrorBoundary>
     </Layout>
   );
 };

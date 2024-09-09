@@ -17,10 +17,15 @@ const getTrainInfo = (params: APITrainInfoParams) =>
     `${routes['subway-trains']}?${queryString.stringify(params)}`,
   );
 
+export const trainInfoQuery = (params: APITrainInfoParams) => ({
+  queryKey: getQueryKeys(TRAIN_KEY).list({ params }),
+  queryFn: () => getTrainInfo(params),
+});
+
 export const useGetTrainInfo = (params: APITrainInfoParams) =>
   useAuthQuery({
-    queryFn: () => getTrainInfo(params),
-    queryKey: getQueryKeys(TRAIN_KEY).list({ params }),
+    queryFn: trainInfoQuery(params).queryFn,
+    queryKey: trainInfoQuery(params).queryKey,
     options: {
       suspense: true,
       select: (res) => {

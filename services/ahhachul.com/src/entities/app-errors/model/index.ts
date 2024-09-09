@@ -33,9 +33,3 @@ export class AssertionError extends Error {
     }
   }
 }
-
-export const useErrorBoundary_this_hook_should_be_called_in_ErrorBoundary_props_children =
-  'useErrorBoundary: this hook should be called in ErrorBoundary.props.children';
-
-export const useErrorBoundaryGroup_this_hook_should_be_called_in_ErrorBoundary_props_children =
-  'useErrorBoundaryGroup: this hook should be called in ErrorBoundary.props.children';

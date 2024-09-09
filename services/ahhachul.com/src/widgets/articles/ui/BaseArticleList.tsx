@@ -32,17 +32,24 @@ export const BaseArticleList = <TData extends Article>({
   fetchNextPage,
   ...props
 }: BaseArticleListProps<TData>) => {
+  const isEmpty = data.length === 0;
+
   return (
     <Box as="section" {...props}>
-      <Flex as="ul" direction="column" css={styles.ul}>
-        {data.map((article) => (
-          <ArticleCard<TData> key={article.id} data={article} to={to} />
-        ))}
-      </Flex>
-      {hasNextPage && (
-        <FetchNextPage
-          callback={() => !isFetchingNextPage && fetchNextPage()}
-        />
+      {isEmpty && <p css={styles.empty}>검색결과가 없어요.</p>}
+      {!isEmpty && (
+        <>
+          <Flex as="ul" direction="column" css={styles.ul}>
+            {data.map((article) => (
+              <ArticleCard<TData> key={article.id} data={article} to={to} />
+            ))}
+          </Flex>
+          {hasNextPage && (
+            <FetchNextPage
+              callback={() => !isFetchingNextPage && fetchNextPage()}
+            />
+          )}
+        </>
       )}
     </Box>
   );

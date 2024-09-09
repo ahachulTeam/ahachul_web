@@ -7,11 +7,8 @@ import { Layout, Navbar } from 'widgets';
 import { TrainInfo } from 'widgets/train-infos';
 import { renderLeftStationSelect, renderRight } from 'widgets/layout-header';
 import * as styles from './Page.css';
-import { useGetSubwayLinesInfo } from 'features/subway-lines/api/get-subway-lines-info';
 
 const Home: ActivityComponentType = () => {
-  const { data } = useGetSubwayLinesInfo();
-  console.log('data:', data);
   return (
     <Layout
       appBar={{

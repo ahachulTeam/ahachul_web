@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react';
-import { BaseErrorBoundary } from 'entities/app-errors/ui/ErrorBoundary';
+import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
 import { useUserStationStore } from 'entities/@use-subway-context/slice';
 import TrainRealTimes from './TrainRealTimes';
 import { TrainLineFilter } from './TrainLineFilter';
+import { TrainErrorFallback } from './TrainErrorFallback';
 import * as styles from './TrainInfo.css';
 
 export const TrainInfo = () => {
@@ -12,7 +13,6 @@ export const TrainInfo = () => {
     () => stations[0].stationInfos[0],
     [stations[0].stationInfos],
   );
-  console.log('realTimesProps:', realTimesProps);
 
   return (
     <section css={styles.section}>
@@ -21,9 +21,9 @@ export const TrainInfo = () => {
         activatedStation={activatedStation}
         setUserStations={setUserStations}
       />
-      <BaseErrorBoundary>
+      <QueryErrorBoundary errorFallback={TrainErrorFallback}>
         <TrainRealTimes {...realTimesProps} />
-      </BaseErrorBoundary>
+      </QueryErrorBoundary>
     </section>
   );
 };
