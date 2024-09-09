@@ -1,14 +1,16 @@
 import React from 'react';
+import { Link } from 'app/stackflow';
 import { useNavItem } from 'widgets/navigation-item/lib/useNavItem';
-import { type NavItem as TabItem } from 'widgets/navigation-item/model';
+import type { NavType } from 'widgets/navigation/data';
+import PlusIcon from '../static/icons/PlusIcon';
 import * as styles from './NavItem.css';
 
 interface TabItemProps {
-  tab: TabItem;
+  tab: NavType;
   onTopClick?: VoidFunction;
 }
 
-export const NavItem: React.FC<TabItemProps> = ({ tab, onTopClick }) => {
+export const NavItem = ({ tab, onTopClick }: TabItemProps) => {
   const { isSame, handleTabClick } = useNavItem({ tab, onTopClick });
 
   return (
@@ -17,6 +19,15 @@ export const NavItem: React.FC<TabItemProps> = ({ tab, onTopClick }) => {
         {tab.icon()}
         <span>{tab.label}</span>
       </button>
+      {isSame && tab.createPageOptions?.to && (
+        <Link
+          css={styles.plusBtn}
+          activityParams={{}}
+          activityName={tab.createPageOptions.to}
+        >
+          <PlusIcon />
+        </Link>
+      )}
     </div>
   );
 };

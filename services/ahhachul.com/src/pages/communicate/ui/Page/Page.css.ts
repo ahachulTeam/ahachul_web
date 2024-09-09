@@ -1,4 +1,10 @@
 import { Interpolation, Theme } from '@emotion/react';
+import { fadeIn } from 'shared/lib/config/animation/keyframes';
 import cssUtils from 'shared/utils.css';
 
-export const layout = [cssUtils.sideGutter] as Interpolation<Theme>;
+export const layout = [
+  cssUtils.sideGutter,
+  {
+    animation: `0.3s forwards ${fadeIn}`,
+  },
+] as Interpolation<Theme>;

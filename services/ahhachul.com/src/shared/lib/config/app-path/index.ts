@@ -10,6 +10,7 @@ const PATH = {
       edit: '/complaints/:articleId/edit',
     },
     create: {
+      home: '/complaints/create',
       progress: '/complaints/create/progress',
       submit: '/complaints/create/submit',
     },

@@ -18,7 +18,6 @@ export const useNavItem = ({
       return false;
     }
 
-    // @ts-ignore
     replace(tab.href, {}, { animate: false });
   };
 

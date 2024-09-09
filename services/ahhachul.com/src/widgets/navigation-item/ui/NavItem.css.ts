@@ -1,6 +1,6 @@
-import { CSSObject, Theme } from '@emotion/react';
+import { CSSObject, Interpolation, keyframes, Theme } from '@emotion/react';
 
-const wrap =
+export const wrap =
   (isActive: boolean) =>
   ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
     display: 'flex',
@@ -49,4 +49,38 @@ const wrap =
     },
   });
 
-export { wrap };
+const fadeIn = (translateY: number) => keyframes`
+  0% { opacity: 0; transform: translate(-50%, 0); z-index: -1; }
+  75% { opacity: 0.2; transform: translate(-50%, 0); }
+  100% { opacity: 1; transform: translate(-50%, -${translateY}px); z-index: 1; }
+`;
+
+export const plusBtn = {
+  animation: `0.5s forwards ${fadeIn(60)}`,
+  position: 'absolute',
+  top: 0,
+  left: '50%',
+  transform: 'translateX(-50%)',
+  background:
+    'linear-gradient(91deg, rgba(35, 40, 52, 0.90) 0%, rgba(39, 40, 62, 0.90) 100%)',
+  width: '36px',
+  height: '36px',
+  padding: '8px',
+  borderRadius: 9999,
+  zIndex: -1,
+  willChange: 'opacity, transform',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  boxShadow: '0 0 0 3px rgba(0, 0, 0, 0.04)',
+
+  '& > div > svg': {
+    width: '20px !important',
+    height: '20px !important',
+
+    '& > path, & > rect': {
+      fill: 'rgb(65, 66, 89) !important',
+      stroke: 'rgb(196, 212, 252) !important',
+    },
+  },
+} as Interpolation<Theme>;
