@@ -1,6 +1,6 @@
 {
   "name": "@ahhachul/react-hooks-input",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "type": "module",
   "main": "dist/index.js",
   "exports": {
@@ -18,7 +18,7 @@
     "dev": "yarn build:js --watch && yarn build:type --watch"
   },
   "devDependencies": {
-    "@ahhachul/esbuild-config": "workspace:^",
+    "@ahhachul/esbuild-config": "^0.0.3",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "react": "^18.2.0",

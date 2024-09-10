@@ -35,7 +35,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ahhachul/esbuild-config@workspace:^, @ahhachul/esbuild-config@workspace:packages/esbuild-config":
+"@ahhachul/esbuild-config@npm:^0.0.3, @ahhachul/esbuild-config@workspace:^, @ahhachul/esbuild-config@workspace:packages/esbuild-config":
   version: 0.0.0-use.local
   resolution: "@ahhachul/esbuild-config@workspace:packages/esbuild-config"
   dependencies:
@@ -69,13 +69,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ahhachul/react-components-button@workspace:^, @ahhachul/react-components-button@workspace:packages/react/components/button":
+"@ahhachul/react-components-button@npm:^0.0.3, @ahhachul/react-components-button@workspace:^, @ahhachul/react-components-button@workspace:packages/react/components/button":
   version: 0.0.0-use.local
   resolution: "@ahhachul/react-components-button@workspace:packages/react/components/button"
   dependencies:
-    "@ahhachul/esbuild-config": "workspace:^"
-    "@ahhachul/react-hooks-button": "workspace:^"
-    "@ahhachul/themes": "workspace:^"
+    "@ahhachul/esbuild-config": "npm:^0.0.3"
+    "@ahhachul/react-hooks-button": "npm:^0.0.3"
+    "@ahhachul/themes": "npm:^0.0.3"
     "@types/react": "npm:^18.2.21"
     "@types/react-dom": "npm:^18.2.7"
     "@vanilla-extract/css": "npm:^1.13.0"
@@ -94,13 +94,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ahhachul/react-components-input@workspace:^, @ahhachul/react-components-input@workspace:packages/react/components/input":
+"@ahhachul/react-components-input@npm:^0.0.5, @ahhachul/react-components-input@workspace:^, @ahhachul/react-components-input@workspace:packages/react/components/input":
   version: 0.0.0-use.local
   resolution: "@ahhachul/react-components-input@workspace:packages/react/components/input"
   dependencies:
-    "@ahhachul/esbuild-config": "workspace:^"
-    "@ahhachul/react-hooks-input": "workspace:^"
-    "@ahhachul/themes": "workspace:^"
+    "@ahhachul/esbuild-config": "npm:^0.0.3"
+    "@ahhachul/react-hooks-input": "npm:^0.0.3"
+    "@ahhachul/themes": "npm:^0.0.3"
     "@types/react": "npm:^18.2.21"
     "@types/react-dom": "npm:^18.2.7"
     "@vanilla-extract/css": "npm:^1.13.0"
@@ -115,17 +115,17 @@ __metadata:
     react-dom: "npm:^18.2.0"
     typescript: "npm:^5.2.2"
   peerDependencies:
-    "@ahhachul/themes": "workspace:^"
+    "@ahhachul/themes": ^0.0.3
     react: "*"
   languageName: unknown
   linkType: soft
 
-"@ahhachul/react-components-layout@workspace:^, @ahhachul/react-components-layout@workspace:packages/react/components/layout":
+"@ahhachul/react-components-layout@npm:^0.0.3, @ahhachul/react-components-layout@workspace:^, @ahhachul/react-components-layout@workspace:packages/react/components/layout":
   version: 0.0.0-use.local
   resolution: "@ahhachul/react-components-layout@workspace:packages/react/components/layout"
   dependencies:
-    "@ahhachul/esbuild-config": "workspace:^"
-    "@ahhachul/themes": "workspace:^"
+    "@ahhachul/esbuild-config": "npm:^0.0.3"
+    "@ahhachul/themes": "npm:^0.0.3"
     "@types/react": "npm:^18.2.21"
     "@types/react-dom": "npm:^18.2.7"
     "@vanilla-extract/css": "npm:^1.13.0"
@@ -139,7 +139,7 @@ __metadata:
     react-dom: "npm:^18.2.0"
     typescript: "npm:^5.2.2"
   peerDependencies:
-    "@ahhachul/themes": "workspace:^"
+    "@ahhachul/themes": ^0.0.3
     react: "*"
   languageName: unknown
   linkType: soft
@@ -195,12 +195,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ahhachul/react-hooks-button@workspace:^, @ahhachul/react-hooks-button@workspace:packages/react/hooks/button":
+"@ahhachul/react-hooks-button@npm:^0.0.3, @ahhachul/react-hooks-button@workspace:^, @ahhachul/react-hooks-button@workspace:packages/react/hooks/button":
   version: 0.0.0-use.local
   resolution: "@ahhachul/react-hooks-button@workspace:packages/react/hooks/button"
   dependencies:
-    "@ahhachul/esbuild-config": "workspace:^"
-    "@ahhachul/react-hooks-toggle": "workspace:^"
+    "@ahhachul/esbuild-config": "npm:^0.0.3"
+    "@ahhachul/react-hooks-toggle": "npm:^0.0.3"
     "@types/react": "npm:^18.2.21"
     "@types/react-dom": "npm:^18.2.7"
     clsx: "npm:^2.0.0"
@@ -212,11 +212,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ahhachul/react-hooks-input@workspace:^, @ahhachul/react-hooks-input@workspace:packages/react/hooks/input":
+"@ahhachul/react-hooks-input@npm:^0.0.3, @ahhachul/react-hooks-input@workspace:packages/react/hooks/input":
   version: 0.0.0-use.local
   resolution: "@ahhachul/react-hooks-input@workspace:packages/react/hooks/input"
   dependencies:
-    "@ahhachul/esbuild-config": "workspace:^"
+    "@ahhachul/esbuild-config": "npm:^0.0.3"
     "@types/react": "npm:^18.2.21"
     "@types/react-dom": "npm:^18.2.7"
     clsx: "npm:^2.0.0"
@@ -244,11 +244,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ahhachul/react-hooks-toggle@workspace:^, @ahhachul/react-hooks-toggle@workspace:packages/react/hooks/toggle":
+"@ahhachul/react-hooks-toggle@npm:^0.0.3, @ahhachul/react-hooks-toggle@workspace:packages/react/hooks/toggle":
   version: 0.0.0-use.local
   resolution: "@ahhachul/react-hooks-toggle@workspace:packages/react/hooks/toggle"
   dependencies:
-    "@ahhachul/esbuild-config": "workspace:^"
+    "@ahhachul/esbuild-config": "npm:^0.0.3"
     "@types/react": "npm:^18.2.21"
     "@types/react-dom": "npm:^18.2.7"
     clsx: "npm:^2.0.0"
@@ -315,11 +315,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ahhachul/themes@workspace:^, @ahhachul/themes@workspace:packages/themes":
+"@ahhachul/themes@npm:^0.0.3, @ahhachul/themes@workspace:^, @ahhachul/themes@workspace:packages/themes":
   version: 0.0.0-use.local
   resolution: "@ahhachul/themes@workspace:packages/themes"
   dependencies:
-    "@ahhachul/esbuild-config": "workspace:^"
+    "@ahhachul/esbuild-config": "npm:^0.0.3"
     typescript: "npm:^5.2.2"
   languageName: unknown
   linkType: soft
@@ -18621,10 +18621,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "next.ahhachul.com@workspace:services/next.ahhachul.com"
   dependencies:
-    "@ahhachul/react-components-button": "workspace:^"
-    "@ahhachul/react-components-input": "workspace:^"
-    "@ahhachul/react-components-layout": "workspace:^"
-    "@ahhachul/themes": "workspace:^"
+    "@ahhachul/react-components-button": "npm:^0.0.3"
+    "@ahhachul/react-components-input": "npm:^0.0.5"
+    "@ahhachul/react-components-layout": "npm:^0.0.3"
+    "@ahhachul/themes": "npm:^0.0.3"
     "@emotion/react": "npm:^11.11.3"
     "@emotion/styled": "npm:^11.11.0"
     "@lexical/clipboard": "npm:^0.14.2"

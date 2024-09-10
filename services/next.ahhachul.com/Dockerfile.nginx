@@ -1,0 +1,6 @@
+FROM nginx:stable as service
+
+COPY ./conf/nginx.conf /etc/nginx/conf.d/ahhachul_web.conf
+RUN rm -f /etc/nginx/conf.d/default.conf
+
+CMD nginx -g 'daemon off;'
