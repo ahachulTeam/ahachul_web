@@ -59,7 +59,7 @@ const actionTextVariants = {
 };
 
 export const StationSelect = () => {
-  const [openDialog, toggleDialog] = useReducer((open) => !open, false);
+  const [openDialog, toggleDialog] = useReducer((open) => !open, false); // https://github.com/streamich/react-use/pull/837
   const { stations, setUserStations } = useUserStationStore((state) => state);
   const activatedStation = useMemo(() => stations[0], [stations]);
 

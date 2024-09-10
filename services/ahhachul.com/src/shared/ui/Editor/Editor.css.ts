@@ -3,23 +3,18 @@ import { css, Theme } from '@emotion/react';
 export const wrap =
   (readonly: boolean) =>
   ({ color: { text } }: Theme) => css`
+    position: relative;
+    width: 100%;
+    border: 1px solid rgb(196, 212, 252, 0.37);
+    border-radius: 6px;
+    line-height: 20px;
+
     .ltr {
       text-align: left;
     }
 
     .rtl {
       text-align: right;
-    }
-
-    .editor-container {
-      border-radius: 2px;
-      width: 100%;
-      position: relative;
-      line-height: 20px;
-      font-weight: 400;
-      text-align: left;
-      border-radius: 6px;
-      border: 1px solid rgb(196, 212, 252, 0.37);
     }
 
     .editor-inner {

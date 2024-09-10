@@ -21,17 +21,8 @@ interface ErrorBoundaryState {
   error: Error | null;
 }
 
-const changedArray = (
-  prevArray: Array<unknown> = [],
-  nextArray: Array<unknown> = [],
-) => {
-  return (
-    prevArray.length !== nextArray.length ||
-    prevArray.some((item, index) => {
-      return !Object.is(item, nextArray[index]);
-    })
-  );
-};
+const changedArray = (a: unknown[] = [], b: unknown[] = []) =>
+  a.length !== b.length || a.some((item, index) => !Object.is(item, b[index]));
 
 const errorBoundaryInitialState = { hasError: false, error: null };
 

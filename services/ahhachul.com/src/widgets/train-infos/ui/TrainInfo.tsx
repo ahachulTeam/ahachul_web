@@ -21,7 +21,10 @@ export const TrainInfo = () => {
         activatedStation={activatedStation}
         setUserStations={setUserStations}
       />
-      <QueryErrorBoundary errorFallback={TrainErrorFallback}>
+      <QueryErrorBoundary
+        keys={Object.values(realTimesProps)}
+        errorFallback={TrainErrorFallback}
+      >
         <TrainRealTimes {...realTimesProps} />
       </QueryErrorBoundary>
     </section>

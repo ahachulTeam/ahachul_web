@@ -1,6 +1,7 @@
 import { vars } from '@ahhachul/themes';
 
-const GUTTER = '20px';
+const PAGE_PADDING_TOP = '16px';
+const SIDE_GUTTER = '20px';
 const HEADER_HEIGHT = '58px';
 const NAVBAR_HEIGHT = '109px';
 const BOTTOM_DIM_HEIGHT = '200px';
@@ -16,7 +17,8 @@ const themes = {
   dimensions: {
     ...vars.zIndex,
     size: {
-      gutter: GUTTER,
+      gutter: SIDE_GUTTER,
+      pagePaddingTop: PAGE_PADDING_TOP,
       height: {
         header: HEADER_HEIGHT,
         navbar: NAVBAR_HEIGHT,
