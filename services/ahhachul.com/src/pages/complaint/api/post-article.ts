@@ -18,7 +18,20 @@ const postComplaintArticle = (form: ComplaintForm) => {
   });
 };
 
+const afterSubmitFailed = (error: Error) => {
+  // 토스트 띄어주고 뒤로 가기
+  console.log('error with toast:', error, '토스트 띄어주고 뒤로 가기');
+};
+
+const afterSubmitSuccess = () => {
+  // do something with stackflow
+};
+
 export const usePostComplaintArticle = () =>
   useAuthMutation({
     mutationFn: postComplaintArticle,
+    options: {
+      onError: afterSubmitFailed,
+      onSuccess: afterSubmitSuccess,
+    },
   });

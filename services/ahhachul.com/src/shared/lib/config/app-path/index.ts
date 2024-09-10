@@ -5,14 +5,12 @@ const PATH = {
   /** 민원 */
   complaints: {
     home: '/complaints',
+    list: '/complaints/list',
     detail: {
       home: '/complaints/:articleId',
       edit: '/complaints/:articleId/edit',
     },
-    create: {
-      home: '/complaints/create',
-      form: '/complaints/create/submit',
-    },
+    create: '/complaints/create',
   },
 
   /** 유실물 */

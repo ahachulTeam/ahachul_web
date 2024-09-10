@@ -20,7 +20,7 @@ export const navlist: NavType[] = [
     icon: NavbarIcons.ComplaintTab,
     label: '민원',
     createPageOptions: {
-      to: 'CreateComplaintArticle',
+      to: 'ComplaintList',
     },
   },
   {

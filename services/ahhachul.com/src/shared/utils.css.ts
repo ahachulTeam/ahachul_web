@@ -145,6 +145,10 @@ const truncate2 = [
   },
 ];
 
+const pagePaddingTop = {
+  paddingTop: '16px',
+};
+
 const sideGutter = {
   paddingLeft: '20px',
   paddingRight: '20px',
@@ -177,6 +181,7 @@ const cssUtils = {
   truncate1,
   truncate2,
   sideGutter,
+  pagePaddingTop,
 };
 
 export default cssUtils;
