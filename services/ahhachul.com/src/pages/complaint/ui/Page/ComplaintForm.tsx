@@ -132,7 +132,7 @@ const ComplaintForm: ActivityComponentType<ComplaintFormProps> = ({
             rules={{
               required: {
                 value: true,
-                message: '내용을 입력하세요',
+                message: '내용을 입력해주세요',
               },
             }}
           />

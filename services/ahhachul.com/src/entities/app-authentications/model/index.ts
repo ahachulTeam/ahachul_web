@@ -1,4 +1,9 @@
-export const MEMBER_STATUS = ['PENDING', 'ACTIVATED', 'DORMANT', 'WITHDRAWN'] as const;
+export const MEMBER_STATUS = [
+  'PENDING',
+  'ACTIVATED',
+  'DORMANT',
+  'WITHDRAWN',
+] as const;
 
 export type MemberStatusType = (typeof MEMBER_STATUS)[number];
 
@@ -18,9 +23,4 @@ export interface IToken {
 export interface ISocialSignInParams {
   providerCode: string;
   providerType: SocialSignInType;
-}
-
-export interface ISocialSignInResponse extends IToken {
-  memberId: number;
-  isNeedAdditionalUserInfo: boolean;
 }
