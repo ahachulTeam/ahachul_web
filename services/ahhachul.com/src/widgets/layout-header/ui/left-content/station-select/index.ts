@@ -1,1 +1,1 @@
-export { StationSelect as renderLeftStationSelect } from './StationSelect';
+export { StationSelect } from './StationSelect';

@@ -1,47 +1,55 @@
 import { AxiosError } from 'axios';
 
-import { base, routes, useMutation } from 'shared/api';
+import { base, routes, useMutation, useQueries } from 'shared/api';
 import { useAuthStore } from 'entities/app-authentications/slice';
 import type {
-  ISocialSignInParams,
+  ISocialSignInType,
   IToken,
 } from 'entities/app-authentications/model';
-import { IResponse } from 'entities/with-server';
+import type { IResponse } from 'entities/with-server';
+import queryString from 'query-string';
 
-interface APIRefreshTokenParams {
-  refreshToken: IToken['refreshToken'];
+interface APIRedirectUrlParams {
+  providerType: ISocialSignInType;
 }
 
-const refreshToken = (body: APIRefreshTokenParams) =>
-  base.post(`${routes.auth}/tokens`, body);
+interface APIRedirectUrlResponse {
+  redirectUrl: string;
+}
 
-export const useRefreshToken = () => {
-  const setToken = useAuthStore((state) => state.setToken);
+const getRedirectUrl = (params: APIRedirectUrlParams) =>
+  base.get<IResponse<APIRedirectUrlResponse>>(
+    `${routes.auth}/redirect-url?${queryString.stringify(params)}`,
+  );
 
-  return useMutation({
-    mutationFn: refreshToken,
-    onSuccess(data) {
-      setToken(data.data);
-    },
-    onError(err) {
-      if (err instanceof AxiosError) {
-        setToken(null);
-      }
-    },
+export const useGetSignInRedirectUrl = () =>
+  useQueries({
+    queries: [
+      {
+        staleTime: Infinity,
+        queryKey: ['getRedirectUrl', 'KAKAO'],
+        queryFn: () => getRedirectUrl({ providerType: 'KAKAO' }),
+      },
+      {
+        staleTime: Infinity,
+        queryKey: ['getRedirectUrl', 'GOOGLE'],
+        queryFn: () => getRedirectUrl({ providerType: 'GOOGLE' }),
+      },
+    ],
   });
-};
 
-export interface ISocialSignInResponse extends IToken {
+interface APISocialSignInParams {
+  providerCode: string;
+  providerType: ISocialSignInType;
+}
+
+interface APISocialSignInResponse extends IToken {
   memberId: number;
   isNeedAdditionalUserInfo: boolean;
 }
 
-const login = async (body: ISocialSignInParams) => {
-  return await base.post<IResponse<ISocialSignInResponse>>(
-    `${routes.auth}/login`,
-    body,
-  );
-};
+const login = (body: APISocialSignInParams) =>
+  base.post<IResponse<APISocialSignInResponse>>(`${routes.auth}/login`, body);
 
 export const useLogin = () => {
   const setToken = useAuthStore((state) => state.setToken);
@@ -74,6 +82,29 @@ export const useLogin = () => {
     onError(err) {
       if (err instanceof AxiosError) {
         console.log(err);
+      }
+    },
+  });
+};
+
+interface APIRefreshTokenParams {
+  refreshToken: IToken['refreshToken'];
+}
+
+const refreshToken = (body: APIRefreshTokenParams) =>
+  base.post(`${routes.auth}/tokens`, body);
+
+export const useRefreshToken = () => {
+  const setToken = useAuthStore((state) => state.setToken);
+
+  return useMutation({
+    mutationFn: refreshToken,
+    onSuccess(data) {
+      setToken(data.data);
+    },
+    onError(err) {
+      if (err instanceof AxiosError) {
+        setToken(null);
       }
     },
   });
