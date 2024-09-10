@@ -1,0 +1,69 @@
+name: Build & Deploy ahhachul_web
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Create .env File
+        run: |
+          touch .env
+          echo -e "${{ secrets.NEXT_ENV_PROD_CONTENT }}" > .env
+        working-directory: ./services/next.ahhachul.com
+
+      - name: Build and Push Docker Image for ARM64
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./services/next.ahhachul.com/Dockerfile
+          push: true
+          tags: ahhachul/ahhachul_web:latest
+          platforms: linux/arm64/v8
+          cache-from: type=registry,ref=ahhachul/ahhachul_web:buildcache
+          cache-to: type=registry,ref=ahhachul/ahhachul_web:buildcache,mode=max
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Repository
+        uses: actions/checkout@v2
+
+      - name: Prepare deployment bundle
+        run: |
+          mkdir deployment_bundle
+          cp deploy.sh deployment_bundle/deploy.sh
+          cp appspec.yml deployment_bundle/appspec.yml
+          zip -r deployment_bundle.zip deployment_bundle/
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Upload to S3
+        run: |
+          aws s3 cp deployment_bundle.zip s3://${{ secrets.S3_BUCKET_NAME }}/deployment_bundle.zip
+
+      - name: Deploy with CodeDeploy
+        run: |
+          aws deploy create-deployment \
+          --application-name ahhachul-web-deployments \
+          --deployment-group-name ahhachul-web-deployment-group \
+          --s3-location bucket=${{ secrets.S3_BUCKET_NAME }},key=deployment_bundle.zip,bundleType=zip

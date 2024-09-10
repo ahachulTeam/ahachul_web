@@ -9,10 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@ahhachul/react-components-button": "workspace:^",
-    "@ahhachul/react-components-input": "workspace:^",
-    "@ahhachul/react-components-layout": "workspace:^",
-    "@ahhachul/themes": "workspace:^",
+    "@ahhachul/react-components-button": "^0.0.3",
+    "@ahhachul/react-components-input": "^0.0.5",
+    "@ahhachul/react-components-layout": "^0.0.3",
+    "@ahhachul/themes": "^0.0.3",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@lexical/clipboard": "^0.14.2",
