@@ -25,12 +25,14 @@ export const getServerSideProps: GetServerSideProps<{
   description: string;
 }> = async (context) => {
   const params = context.params;
+  const defaultImage =
+    'https://static.ahhachul.com/images/complaints_page_banner.png';
 
   if (isEmpty(params)) {
     const metaData = {
       title: '지하철 민원 센터 by 아하철',
       description: '지하철 민원을 10초 안에 해결해드릴게요',
-      image: 'https://static.ahhachul.com/images/complaints_page_banner.png',
+      image: defaultImage,
     };
 
     return { props: { ...metaData } };
@@ -47,7 +49,7 @@ export const getServerSideProps: GetServerSideProps<{
     const metaData = {
       title: `${target} 민원 센터 by 아하철`,
       description: `${target !== '지하철' ? `지하철 ${target}` : target} 민원을 10초 안에 해결해드릴게요`,
-      image: 'https://static.ahhachul.com/images/complaints_page_banner.png',
+      image: defaultImage,
     };
 
     return { props: { ...metaData } };

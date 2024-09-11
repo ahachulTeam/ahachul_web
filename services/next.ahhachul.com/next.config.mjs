@@ -11,6 +11,13 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        hostname: 'static.ahhachul.com',
+      },
+    ],
+  },
 };
 
 export default nextConfig;
