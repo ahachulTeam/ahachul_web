@@ -31,15 +31,13 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/yarn-install
 
-      - name: Set up environment variables for .env.production
-        env:
-          SERVICE_NAME: $(basename $(dirname ${GITHUB_REPOSITORY}))
+      - name: Set up environment variables
         run: |
-          if [ "$SERVICE_NAME" = "ahhachul.com" ]; then
-            echo "${{ secrets.ENV_PROD_CONTENT }}" > "services/ahhachul.com/.env.production"
-          elif [ "$SERVICE_NAME" = "next.ahhachul.com" ]; then
-            echo "${{ secrets.NEXT_ENV_PROD_CONTENT }}" > "services/next.ahhachul.com/.env.production"
-          fi
+          echo '${{ secrets.REACT_APP_DEV_CONFIG }}' > config.json
+          cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/ahhachul.com/.env.production
+
+          echo '${{ secrets.NEXT_APP_DEV_CONFIG }}' > config.json
+          cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/next.ahhachul.com/.env.production
 
       - name: Check if .env.production file is created
         run: ls -al services/ahhachul.com
