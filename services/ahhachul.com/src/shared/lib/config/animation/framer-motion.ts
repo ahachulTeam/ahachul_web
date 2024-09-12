@@ -19,3 +19,21 @@ export const animateVariants = (duration = 0.3): MotionVariantsType => ({
     willChange: 'opacity',
   },
 });
+
+export const fadeInAndUpVariants = (duration = 0.3): MotionVariantsType => ({
+  initial: {
+    opacity: 0,
+    y: 30,
+    transition: { duration, ease: defaultEasing },
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration, ease: defaultEasing },
+  },
+  exit: {
+    opacity: 0,
+    y: 30,
+    transition: { duration, ease: defaultEasing },
+  },
+});
