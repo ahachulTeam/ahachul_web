@@ -44,19 +44,15 @@ export const SocialLogin = () => {
 
 const Content = styled(motion.section)`
   position: relative;
-  display: block;
-  border: 0;
-  padding: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: #141517;
-  z-index: 10000000;
+  background-color: ${({ theme }) => theme.color.background[50]};
 `;
 
 const CenterLogoGroup = styled.div`
   position: absolute;
-  top: 30%;
+  top: 17.8%;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -74,7 +70,7 @@ const CenterLogoGroup = styled.div`
     gap: 8px;
 
     & > span {
-      color: #ffffff;
+      color: ${({ theme }) => theme.color.text[50]};
       font-size: 16px;
     }
   }
@@ -89,7 +85,7 @@ const SocialGroup = styled.article`
   flex-direction: column;
   gap: 8px;
   width: 100%;
-  padding: 24px 30px;
+  padding: 24px 30px 0;
 `;
 const SocialButton = styled.button`
   display: flex;
@@ -101,7 +97,7 @@ const SocialButton = styled.button`
   border-radius: 6px;
 
   & > span {
-    color: #000000;
+    color: ${({ theme }) => theme.color.background[50]};
     font-size: 16px;
     font-weight: 600;
   }
@@ -110,5 +106,5 @@ const KakaoLogin = styled(SocialButton)`
   background-color: #fee500;
 `;
 const GoogleLogin = styled(SocialButton)`
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.color.text[50]};
 `;
