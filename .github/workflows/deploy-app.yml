@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - feat/sign-in
-    paths:
-      - 'services/ahhachul.com/**'
+    # paths:
+    #   - 'services/ahhachul.com/**'
 
 env:
   DEFAULT_NODE_VERSION: '20.14.0'

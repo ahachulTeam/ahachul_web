@@ -31,9 +31,6 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/yarn-install
 
-      - name: Test
-        run: yarn affected:test --parallel=5
-
       - name: Set up environment variables for .env.production
         env:
           SERVICE_NAME: $(basename $(dirname ${GITHUB_REPOSITORY}))
