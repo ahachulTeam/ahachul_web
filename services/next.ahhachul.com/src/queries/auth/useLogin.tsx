@@ -24,12 +24,8 @@ const useLoginMutation = () => {
         refreshTokenExpiresIn: data.data.result.refreshTokenExpiresIn,
       };
       dispatch(setToken(token));
-
-      if (data.data.result.isNeedAdditionalUserInfo) router.replace(PATH.settingNickname);
-      else {
-        auth.signIn(token);
-        router.replace(PATH.home);
-      }
+      auth.signIn(token);
+      router.replace(PATH.home);
     },
   });
 };

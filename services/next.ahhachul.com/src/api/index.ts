@@ -13,7 +13,7 @@ const setInterceptor = (instance: AxiosInstance) => {
     (config) => {
       const requestConfig = config;
 
-      let { accessToken } = auth;
+      let accessToken = auth.accessToken;
       if (accessToken) {
         requestConfig.headers.Authorization = `Bearer ${accessToken}`;
       }
@@ -21,10 +21,15 @@ const setInterceptor = (instance: AxiosInstance) => {
       if (Tokens.isServer() && tokenService.context?.req?.cookies) {
         accessToken = '';
         if (tokenService.context.req.cookies[tokenService.cookieKey]) {
-          accessToken = JSON.parse(tokenService.context.req.cookies[tokenService.cookieKey]!).accessToken;
+          accessToken = JSON.parse(
+            tokenService.context.req.cookies[tokenService.cookieKey]!,
+          ).accessToken;
 
           requestConfig.headers.Cookie = `${tokenService.cookieKey}={${encodeURIComponent(
-            tokenService.context.req.cookies[tokenService.cookieKey]!.slice(1, -1),
+            tokenService.context.req.cookies[tokenService.cookieKey]!.slice(
+              1,
+              -1,
+            ),
           )}}`;
         }
 
@@ -46,7 +51,12 @@ const setInterceptor = (instance: AxiosInstance) => {
           const toastMessage = ERROR_MESSAGE[status]?.[code];
           console.warn(status, code, toastMessage);
 
-          if (code === '201' || code === '203' || code === '204' || code === '205') {
+          if (
+            code === '201' ||
+            code === '203' ||
+            code === '204' ||
+            code === '205'
+          ) {
             // 다시 로그인
             tokenService.expireSession();
             return Promise.reject(error);

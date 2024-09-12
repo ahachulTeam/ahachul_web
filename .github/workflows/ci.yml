@@ -6,7 +6,7 @@ on:
   pull_request:
 
 env:
-  DEFAULT_NODE_VERSION: '20.7.0'
+  DEFAULT_NODE_VERSION: '20.14.0'
 
 jobs:
   main:
@@ -16,7 +16,7 @@ jobs:
       actions: 'read'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -27,43 +27,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.DEFAULT_NODE_VERSION }}
-          cache: yarn
 
       - name: Install dependencies
-        run: yarn install --immutable
+        uses: ./.github/actions/yarn-install
 
-      - name: Test
-        run: yarn affected:test --parallel=5
-
-      - name: Set up environment variables for .env.production
-        env:
-          SERVICE_NAME: $(basename $(dirname ${GITHUB_REPOSITORY}))
+      - name: Set up environment variables
         run: |
-          if [ "$SERVICE_NAME" = "ahhachul.com" ]; then
-            echo "${{ secrets.ENV_PROD_CONTENT }}" > "services/$SERVICE_NAME/.env.production"
-          elif [ "$SERVICE_NAME" = "next.ahhachul.com" ]; then
-            echo "${{ secrets.NEXT_ENV_PROD_CONTENT }}" > "services/$SERVICE_NAME/.env.production"
-          fi
+          echo "${{ secrets.REACT_APP_DEV_CONFIG }}" > "services/ahhachul.com/.env"
+          echo "${{ secrets.NEXT_APP_DEV_CONFIG }}" > "services/next.ahhachul.com/.env"
 
       - name: Build
         run: yarn affected:build --parallel=5
-
-      # ahhachul.com Continuous Deployment
-      # - name: Configure AWS credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: ${{ secrets.AWS_REGION }}
-
-      # - name: Upload to S3
-      #   run: aws s3 cp --recursive build s3://trunkr.kr
-
-      # - name: Invalidate CloudFront
-      #   uses: chetan/invalidate-cloudfront-action@v2
-      #   env:
-      #     DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
-      #     PATHS: '/index.html'
-      #     AWS_REGION: ${{ secrets.AWS_REGION }}
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

@@ -8,8 +8,7 @@ export type ComplaintType =
   | 'ANNOUNCEMENT'
   | 'EMERGENCY_PATIENT'
   | 'VIOLENCE'
-  | 'SEXUAL_HARASSMENT'
-  | 'OTHER_COMPLAINT';
+  | 'SEXUAL_HARASSMENT';
 export type ShortComplaintType =
   | 'WASTE'
   | 'VOMIT'

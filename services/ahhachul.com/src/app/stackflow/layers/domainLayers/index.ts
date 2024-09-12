@@ -1,4 +1,5 @@
 export * from './home';
+export * from './signIn';
 export * from './lostFound';
 export * from './community';
 export * from './complaint';

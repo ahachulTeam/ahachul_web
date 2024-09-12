@@ -23,3 +23,19 @@ export const useAuthStore = create(
     },
   ),
 );
+
+interface ISocialLoginModalStore {
+  active: boolean;
+}
+
+export const useSocialLoginModal = create<
+  ISocialLoginModalStore & {
+    setActiveToggle: (a: boolean) => void;
+  }
+>((set) => ({
+  active: false,
+  setActiveToggle: (active: boolean) =>
+    set(() => ({
+      active,
+    })),
+}));
