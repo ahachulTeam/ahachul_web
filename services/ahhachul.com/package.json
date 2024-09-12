@@ -5,8 +5,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "start:mocking": "REACT_APP_MOCKING=true react-app-rewired start",
-    "build:dev": "env-cmd -f .env.development react-app-rewired",
-    "build": "GENERATE_SOURCEMAP=false env-cmd -f .env.production react-app-rewired build",
+    "build": "GENERATE_SOURCEMAP=false react-app-rewired build",
     "test": "vitest",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",

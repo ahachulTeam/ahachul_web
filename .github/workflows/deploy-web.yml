@@ -27,7 +27,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.DEFAULT_NODE_VERSION }}
-          cache: yarn
 
       - name: Install dependencies
         uses: ./.github/actions/yarn-install
@@ -35,7 +34,10 @@ jobs:
       - name: Create .env file for next.ahhachul.com
         run: |
           echo '${{ secrets.NEXT_APP_DEV_CONFIG }}' > config.json
-          cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/next.ahhachul.com/.env.production
+          cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' > services/next.ahhachul.com/.env
+
+      - name: Check if .env.production file is created
+        run: ls -al services/next.ahhachul.com
 
       - name: Build only affected packages
         run: yarn affected:build --parallel=5

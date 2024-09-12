@@ -34,7 +34,10 @@ jobs:
       - name: Create .env file for ahhachul.com
         run: |
           echo '${{ secrets.REACT_APP_DEV_CONFIG }}' > config.json
-          cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/ahhachul.com/.env.production
+          cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' > services/ahhachul.com/.env
+
+      - name: Check if .env.production file is created
+        run: ls -al services/ahhachul.com
 
       - name: Build only affected packages
         run: yarn affected:build --parallel=5
