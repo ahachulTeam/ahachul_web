@@ -3,15 +3,16 @@
   "packageManager": "yarn@4.1.1",
   "version": "0.0.1",
   "scripts": {
-    "start": "react-app-rewired start",
-    "start:mocking": "REACT_APP_MOCKING=true react-app-rewired start",
-    "build:dev": "env-cmd -f .env.development react-app-rewired",
-    "build": "GENERATE_SOURCEMAP=false env-cmd -f .env.production react-app-rewired build",
     "test": "vitest",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "type:coverage": "typescript-coverage-report",
-    "lint": "eslint --ext js,jsx,ts,tsx src"
+    "lint": "eslint --ext js,jsx,ts,tsx src",
+    "start": "react-app-rewired start",
+    "start:mocking": "REACT_APP_MOCKING=true react-app-rewired start",
+    "build": "GENERATE_SOURCEMAP=false env-cmd -f .env.production react-app-rewired build",
+    "build:dev": "env-cmd -f .env.development react-app-rewired build",
+    "preview": "react-app-rewired build"
   },
   "browserslist": {
     "production": [
