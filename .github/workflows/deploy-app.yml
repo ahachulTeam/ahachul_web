@@ -33,8 +33,7 @@ jobs:
 
       - name: Create .env file for ahhachul.com
         run: |
-          echo '${{ secrets.REACT_APP_DEV_CONFIG }}' > config.json
-          cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' > services/ahhachul.com/.env
+          echo "${{ secrets.REACT_APP_DEV_CONFIG }}" > "services/ahhachul.com/.env"
 
       - name: Check if .env.production file is created
         run: ls -al services/ahhachul.com
