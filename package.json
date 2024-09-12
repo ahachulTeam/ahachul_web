@@ -15,8 +15,8 @@
     "storybook": "nx storybook @ahhachul/storybook",
     "dev:app": "yarn workspace ahhachul.com start",
     "dev:web": "yarn workspace next.ahhachul.com dev",
-    "build:app": "yarn workspace ahhachul.com build",
-    "build:web": "yarn workspace next.ahhachul.com build",
+    "build:app": "nx build ahhachul.com",
+    "build:web": "nx build next.ahhachul.com",
     "build:all": "nx run-many --target=build --all"
   },
   "lint-staged": {
