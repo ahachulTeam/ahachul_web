@@ -34,12 +34,20 @@ jobs:
       - name: Create .env file for next.ahhachul.com
         run: |
           echo "${{ secrets.NEXT_APP_DEV_CONFIG }}" > "services/next.ahhachul.com/.env"
+          echo "${{ secrets.NEXT_APP_DEV_CONFIG }}" > "services/next.ahhachul.com/.env.production"
 
       - name: Check if .env.production file is created
         run: ls -al services/next.ahhachul.com
 
       - name: Build only affected packages
         run: yarn affected:build --parallel=5
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Log in to Amazon ECR Public
         run: |
