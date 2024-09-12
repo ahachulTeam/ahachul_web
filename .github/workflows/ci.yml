@@ -41,5 +41,8 @@ jobs:
             echo "${{ secrets.NEXT_ENV_PROD_CONTENT }}" > "services/$SERVICE_NAME/.env.production"
           fi
 
+      - name: Check if .env.production file is created
+        run: ls -al services/ahhachul.com
+
       - name: Build
         run: yarn affected:build --parallel=5
