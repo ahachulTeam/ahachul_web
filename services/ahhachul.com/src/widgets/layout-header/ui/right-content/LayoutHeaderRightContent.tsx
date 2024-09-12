@@ -1,11 +1,17 @@
-import { AlarmIcon } from 'widgets/layout-header/static/icons/alarm';
-import { SearchIcon } from 'widgets/layout-header/static/icons/search';
+import { Link } from 'app/stackflow';
+import { ChatIcon } from 'widgets/layout-header/static/icons/chat';
+import { UserIcon } from 'widgets/layout-header/static/icons/user';
 import * as styles from './LayoutHeaderRightContent.css';
 
-export const LayoutHeaderRightContent = () => (
-  <div css={styles.right}>
-    <AlarmIcon />
-    <SearchIcon />
-    {/* <img src={mock} alt="user-profile-image" /> */}
-  </div>
-);
+export const LayoutHeaderRightContent = () => {
+  return (
+    <div css={styles.right}>
+      <Link activityName="SignIn" activityParams={{}}>
+        <ChatIcon />
+      </Link>
+      <Link activityName="SignIn" activityParams={{}}>
+        <UserIcon />
+      </Link>
+    </div>
+  );
+};

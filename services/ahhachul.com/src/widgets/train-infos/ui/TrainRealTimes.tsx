@@ -37,7 +37,7 @@ const TrainRealTimes = ({ stationId, parentLineId }: TrainRealTimesProps) => {
             initial="initial"
             animate="animate"
             exit="exit"
-            variants={animateVariants}
+            variants={animateVariants(0.3)}
             css={styles.trainDirection}
           >
             {nextStationDirection}
@@ -49,7 +49,7 @@ const TrainRealTimes = ({ stationId, parentLineId }: TrainRealTimesProps) => {
               initial="initial"
               animate="animate"
               exit="exit"
-              variants={animateVariants}
+              variants={animateVariants(0.3)}
               css={styles.arrivalInfoLabel}
             >
               <b>{trainArrivalCode[currentTrainArrivalCode]}</b>
@@ -65,7 +65,7 @@ const TrainRealTimes = ({ stationId, parentLineId }: TrainRealTimesProps) => {
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                variants={animateVariants}
+                variants={animateVariants(0.3)}
               >
                 전동차 {trainNum}
               </motion.div>

@@ -61,7 +61,7 @@ const TrainCongestion = ({ trainNo, subwayLineId }: TrainCongestionProps) => {
                   animate="animate"
                   exit="exit"
                   css={styles.indicator}
-                  variants={animateVariants}
+                  variants={animateVariants(0.3)}
                 >
                   <RecommendIcon />
                   <span>추천</span>
