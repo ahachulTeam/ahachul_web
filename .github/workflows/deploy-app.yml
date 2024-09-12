@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - feat/sign-in
+    paths:
+      - 'services/ahhachul.com/**'
 
 env:
   DEFAULT_NODE_VERSION: '20.14.0'
@@ -16,7 +18,7 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
 
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v3
@@ -25,12 +27,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.DEFAULT_NODE_VERSION }}
-          cache: yarn
 
       - name: Install dependencies
-        run: yarn install --immutable
+        uses: ./.github/actions/yarn-install
 
-      - name: Set up environment variables for .env.production
+      - name: Create .env file for ahhachul.com
         run: |
           echo '${{ secrets.REACT_APP_DEV_CONFIG }}' > config.json
           cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/ahhachul.com/.env.production

@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - feat/sign-in
+    paths:
+      - 'services/next.ahhachul.com/**'
+
 env:
   DEFAULT_NODE_VERSION: '20.14.0'
 
@@ -15,7 +18,8 @@ jobs:
       - name: Check Out Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
+
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
         uses: nrwl/nx-set-shas@v3
 
@@ -26,11 +30,11 @@ jobs:
           cache: yarn
 
       - name: Install dependencies
-        run: yarn install --immutable
+        uses: ./.github/actions/yarn-install
 
-      - name: Set up environment variables for .env.production
+      - name: Create .env file for next.ahhachul.com
         run: |
-          echo '${{ secrets.NEXT_ENV_PROD_CONTENT }}' > config.json
+          echo '${{ secrets.NEXT_APP_DEV_CONFIG }}' > config.json
           cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/next.ahhachul.com/.env.production
 
       - name: Build only affected packages
