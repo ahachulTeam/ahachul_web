@@ -17,7 +17,7 @@ export const TrainArrivalTimes = ({
         animate="animate"
         exit="exit"
         css={styles.arrivalList}
-        variants={animateVariants}
+        variants={animateVariants(0.3)}
       >
         {trainRealTimes.map((item) => (
           <li key={item.trainNum}>

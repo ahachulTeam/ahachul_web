@@ -19,8 +19,9 @@ export const Loading = ({
   deferredMs = 1000,
   children,
 }: PropsWithChildren<Partial<LoadingProps>>) => {
-  useDisableScroll();
   const [isDeferred, setIsDeferred] = useState(false);
+
+  useDisableScroll();
   useTimeout(() => setIsDeferred(true), deferredMs);
 
   if (!isDeferred) return null;

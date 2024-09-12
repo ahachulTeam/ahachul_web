@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
-import { AnimatePortal } from 'shared/ui/Portal';
 import { animateVariants } from 'shared/lib/config/animation/framer-motion';
 
 import { useGetSignInRedirectUrl } from '../api';
@@ -16,50 +15,34 @@ export const SocialLogin = () => {
   console.log('urls:', urls);
 
   return (
-    <AnimatePortal isShowing mode="sync">
-      <Overlay>
-        <Content
-          exit="exit"
-          animate="animate"
-          initial="initial"
-          variants={animateVariants}
-        >
-          <CenterLogoGroup>
-            <img src={AppLogo} alt="ahhachul-app-logo" />
-            <div>
-              <span>더 편한 지하철을 만드는</span>
-              <LogoTypoIcon />
-            </div>
-          </CenterLogoGroup>
-          <SocialGroup>
-            <KakaoLogin>
-              <KakaoIcon />
-              <span>Kakao로 계속하기</span>
-            </KakaoLogin>
-            <GoogleLogin>
-              <GoogleIcon />
-              <span>Google로 계속하기</span>
-            </GoogleLogin>
-          </SocialGroup>
-        </Content>
-      </Overlay>
-    </AnimatePortal>
+    <Content
+      exit="exit"
+      animate="animate"
+      initial="initial"
+      variants={animateVariants(0.7)}
+    >
+      <CenterLogoGroup>
+        <img src={AppLogo} alt="ahhachul-app-logo" />
+        <div>
+          <span>더 편한 지하철을 만드는</span>
+          <LogoTypoIcon />
+        </div>
+      </CenterLogoGroup>
+      <SocialGroup>
+        <KakaoLogin>
+          <KakaoIcon />
+          <span>Kakao로 계속하기</span>
+        </KakaoLogin>
+        <GoogleLogin>
+          <GoogleIcon />
+          <span>Google로 계속하기</span>
+        </GoogleLogin>
+      </SocialGroup>
+    </Content>
   );
 };
 
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: unset;
-  z-index: 100000;
-`;
-
-const Content = styled(motion.dialog)`
+const Content = styled(motion.section)`
   position: relative;
   display: block;
   border: 0;
