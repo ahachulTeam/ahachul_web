@@ -28,9 +28,9 @@
     ]
   },
   "dependencies": {
-    "@ahhachul/react-components-layout": "workspace:^",
-    "@ahhachul/react-hooks-utility": "workspace:^",
-    "@ahhachul/themes": "workspace:^",
+    "@ahhachul/react-components-layout": "^0.0.3",
+    "@ahhachul/react-hooks-utility": "^0.0.3",
+    "@ahhachul/themes": "^0.0.3",
     "@emotion/babel-preset-css-prop": "^11.11.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.13.0",

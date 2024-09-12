@@ -260,11 +260,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ahhachul/react-hooks-utility@workspace:^, @ahhachul/react-hooks-utility@workspace:packages/react/hooks/utility":
+"@ahhachul/react-hooks-utility@npm:^0.0.3, @ahhachul/react-hooks-utility@workspace:packages/react/hooks/utility":
   version: 0.0.0-use.local
   resolution: "@ahhachul/react-hooks-utility@workspace:packages/react/hooks/utility"
   dependencies:
-    "@ahhachul/esbuild-config": "workspace:^"
+    "@ahhachul/esbuild-config": "npm:^0.0.3"
     "@types/react": "npm:^18.2.21"
     "@types/react-dom": "npm:^18.2.7"
     clsx: "npm:^2.0.0"
@@ -8712,9 +8712,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "ahhachul.com@workspace:services/ahhachul.com"
   dependencies:
-    "@ahhachul/react-components-layout": "workspace:^"
-    "@ahhachul/react-hooks-utility": "workspace:^"
-    "@ahhachul/themes": "workspace:^"
+    "@ahhachul/react-components-layout": "npm:^0.0.3"
+    "@ahhachul/react-hooks-utility": "npm:^0.0.3"
+    "@ahhachul/themes": "npm:^0.0.3"
     "@emotion/babel-preset-css-prop": "npm:^11.11.0"
     "@emotion/react": "npm:^11.11.3"
     "@emotion/styled": "npm:^11.13.0"
