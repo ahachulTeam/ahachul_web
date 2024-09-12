@@ -2,6 +2,7 @@ FROM node:20-alpine
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
+COPY services/next.ahhachul.com         ./services/next.ahhachul.com
 COPY nx.json tsconfig*         ./ 
 COPY package.json              ./
 COPY yarn.lock .pnp*           ./ 
