@@ -36,9 +36,9 @@ jobs:
           SERVICE_NAME: $(basename $(dirname ${GITHUB_REPOSITORY}))
         run: |
           if [ "$SERVICE_NAME" = "ahhachul.com" ]; then
-            echo "${{ secrets.ENV_PROD_CONTENT }}" > "services/$SERVICE_NAME/.env.production"
+            echo "${{ secrets.ENV_PROD_CONTENT }}" > "services/ahhachul.com/.env.production"
           elif [ "$SERVICE_NAME" = "next.ahhachul.com" ]; then
-            echo "${{ secrets.NEXT_ENV_PROD_CONTENT }}" > "services/$SERVICE_NAME/.env.production"
+            echo "${{ secrets.NEXT_ENV_PROD_CONTENT }}" > "services/next.ahhachul.com/.env.production"
           fi
 
       - name: Check if .env.production file is created
