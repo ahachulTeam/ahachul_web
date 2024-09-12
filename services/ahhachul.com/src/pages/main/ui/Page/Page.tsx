@@ -7,12 +7,8 @@ import { Layout, Navbar } from 'widgets';
 import { TrainInfo } from 'widgets/train-infos';
 import { StationSelect, renderRight } from 'widgets/layout-header';
 import * as styles from './Page.css';
-import { useGetSignInRedirectUrl } from 'entities/app-authentications/api';
 
 const Home: ActivityComponentType = () => {
-  const results = useGetSignInRedirectUrl();
-  console.log('results:', results);
-
   return (
     <Layout
       appBar={{

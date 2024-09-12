@@ -18,6 +18,7 @@ const stackflowPlugin = [
   }),
   historySyncPlugin({
     routes: {
+      SignIn: PATH.authentication.signIn,
       Home: PATH.home,
       LostFound: PATH.lostFound.home,
       LostFoundDetail: PATH.lostFound.detail.home,

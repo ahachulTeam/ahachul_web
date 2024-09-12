@@ -9,6 +9,7 @@ import {
   complaintLayers,
   blindDateLayers,
   sharedLayers,
+  signInLayers,
 } from './layers';
 
 import '@stackflow/plugin-basic-ui/index.css';
@@ -19,6 +20,9 @@ const { Link } = createLinkComponent<TypeActivities>();
 const { usePreloader } = createPreloader<TypeActivities>();
 const { Stack, activities, useFlow, useStepFlow } = stackflow({
   activities: {
+    // 로그인 레이어
+    ...signInLayers,
+
     // 공용 레이어
     ...sharedLayers,
 

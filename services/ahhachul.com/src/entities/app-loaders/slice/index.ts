@@ -7,7 +7,7 @@ interface ILoadingStore {
 
 const defaultOpacity = 0.5;
 
-const useLoadingStore = create<
+export const useLoadingStore = create<
   ILoadingStore & {
     setLoaded: () => void;
     setLoading: (opacity?: number) => void;
@@ -26,5 +26,3 @@ const useLoadingStore = create<
       opacity,
     })),
 }));
-
-export default useLoadingStore;

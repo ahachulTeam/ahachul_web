@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build:dev": "env-cmd -f .env.development next build",
+    "build": "env-cmd -f .env.production next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -30,6 +31,7 @@
     "@tanstack/react-query-devtools": "^5.17.0",
     "@types/axios": "^0.14.0",
     "axios": "^1.2.2",
+    "env-cmd": "^10.1.0",
     "framer-motion": "^10.16.16",
     "js-cookie": "^3.0.5",
     "lexical": "^0.14.2",

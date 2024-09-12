@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 
-import { base, routes, useMutation, useQueries } from 'shared/api';
+import { base, routes, useMutation, useSuspenseQueries } from 'shared/api';
 import { useAuthStore } from 'entities/app-authentications/slice';
 import type {
   ISocialSignInType,
@@ -23,7 +23,7 @@ const getRedirectUrl = (params: APIRedirectUrlParams) =>
   );
 
 export const useGetSignInRedirectUrl = () =>
-  useQueries({
+  useSuspenseQueries({
     queries: [
       {
         staleTime: Infinity,

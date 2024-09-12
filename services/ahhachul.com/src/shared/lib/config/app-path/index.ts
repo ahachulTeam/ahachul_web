@@ -47,8 +47,8 @@ const PATH = {
 
   /** 인증 관련 */
   authentication: {
-    signin: '/signin',
-    signup: {
+    signIn: '/signin',
+    signUp: {
       home: '/signup',
       terms: '/signup/terms',
       callback: {
