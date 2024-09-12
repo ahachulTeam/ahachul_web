@@ -3,9 +3,9 @@ name: Build & Deploy Ahhachul Web
 on:
   push:
     branches:
-      - feat/sign-in
-    # paths:
-    #   - 'services/next.ahhachul.com/**'
+      - main
+    paths:
+      - 'services/next.ahhachul.com/**'
 
 env:
   DEFAULT_NODE_VERSION: '20.14.0'
@@ -52,7 +52,9 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t ${{ secrets.ECR_REPOSITORY_URI }}:latest .
+
       - name: Push Docker image to Amazon ECR
         run: docker push ${{ secrets.ECR_REPOSITORY_URI }}:latest
+        
       - name: Deploy Application
         run: aws ecs update-service --cluster ${{ secrets.ECS_CLUSTER_NAME }} --service ${{ secrets.DEV_ECS_APP_SERVICE_NAME }} --force-new-deployment
