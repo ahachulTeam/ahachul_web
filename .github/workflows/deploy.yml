@@ -52,3 +52,17 @@ jobs:
 
       - name: Invalidate CloudFront for ahhachul.com
         run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID_USER }} --paths "/*"
+
+      - name: Log in to Amazon ECR Public
+        run: |
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY_URI }}
+
+      - name: Build Docker image
+        run: |
+          docker build -f services/next.ahhachul.com/Dockerfile -t ${{ secrets.ECR_REPOSITORY_URI }}:latest .
+
+      - name: Push Docker image to Amazon ECR
+        run: docker push ${{ secrets.ECR_REPOSITORY_URI }}:latest
+
+      - name: Deploy Application
+        run: aws ecs update-service --cluster ${{ secrets.ECS_CLUSTER_NAME }} --service ${{ secrets.DEV_ECS_APP_SERVICE_NAME }} --force-new-deployment

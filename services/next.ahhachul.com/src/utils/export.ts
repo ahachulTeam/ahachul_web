@@ -399,14 +399,23 @@ export const exportDescriptionFromPath = (
 export const exportBannerImageWidthLineId = (lineName: string) => {
   switch (lineName) {
     case '1':
+      return 'https://static.ahhachul.com/images/community/line_1.png';
     case '2':
+      return 'https://static.ahhachul.com/images/community/line_2.png';
     case '3':
+      return 'https://static.ahhachul.com/images/community/line_3.png';
     case '4':
+      return 'https://static.ahhachul.com/images/community/line_4.png';
     case '5':
+      return 'https://static.ahhachul.com/images/community/line_5.png';
     case '6':
+      return 'https://static.ahhachul.com/images/community/line_6.png';
     case '7':
+      return 'https://static.ahhachul.com/images/community/line_7.png';
     case '8':
+      return 'https://static.ahhachul.com/images/community/line_8.png';
     case '9':
+      return 'https://static.ahhachul.com/images/community/line_9.png';
     default:
       return communityBannerUrl;
   }

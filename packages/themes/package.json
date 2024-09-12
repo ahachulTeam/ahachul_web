@@ -1,6 +1,6 @@
 {
   "name": "@ahhachul/themes",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "type": "module",
   "main": "dist/index.js",
   "exports": {
@@ -19,7 +19,7 @@
     "clean": "rm -rf dist"
   },
   "devDependencies": {
-    "@ahhachul/esbuild-config": "workspace:^",
+    "@ahhachul/esbuild-config": "^0.0.3",
     "typescript": "^5.2.2"
   }
 }

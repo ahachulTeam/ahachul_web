@@ -1,4 +1,10 @@
-import { IRefreshTokenParams, IResponse, ISocialSignInParams, ISocialSignInResponse, IToken } from '@/src/types';
+import {
+  IRefreshTokenParams,
+  IResponse,
+  ISocialSignInParams,
+  ISocialSignInResponse,
+  IToken,
+} from '@/src/types';
 import { API_BASE_URL } from '@/src/data/api';
 import { base } from '..';
 
