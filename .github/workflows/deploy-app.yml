@@ -1,42 +1,42 @@
-name: Deploy Admin and User to S3
+name: Build & Deploy Ahhachul App
 
 on:
   push:
     branches:
-      - main
+      - feat/sign-in
+
+env:
+  DEFAULT_NODE_VERSION: '20.14.0'
 
 jobs:
   deploy:
-    name: Deploy
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
+
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: ${{ env.DEFAULT_NODE_VERSION }}
+          cache: yarn
 
-      - name: Install Yarn
-        run: npm install -g yarn
+      - name: Install dependencies
+        run: yarn install --immutable
 
-      - name: Install dependencies with Yarn
-        run: yarn install
-
-      - name: Build packages with Yarn
-        run: yarn build:all
-
-      - name: Create .env file for ahhachul.com
+      - name: Set up environment variables for .env.production
         run: |
           echo '${{ secrets.REACT_APP_DEV_CONFIG }}' > config.json
-          cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/ahhachul.com/.env
+          cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/ahhachul.com/.env.production
 
-      - name: Build ahhachul.com
-        run: yarn workspace ahhachul.com build
+      - name: Build only affected packages
+        run: yarn affected:build --parallel=5
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -50,7 +50,7 @@ jobs:
           aws s3 rm s3://${{ secrets.S3_BUCKET_NAME }} --recursive
           aws s3 cp services/ahhachul.com/build s3://${{ secrets.S3_BUCKET_NAME }} --recursive
 
-      - name: Invalidate CloudFront for ahhachul.com
+      - name: Invalidate CloudFront
         run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID_USER }} --paths "/*"
 
       - name: Log in to Amazon ECR Public

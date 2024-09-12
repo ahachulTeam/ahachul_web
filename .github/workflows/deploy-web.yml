@@ -1,69 +1,49 @@
-name: Build & Deploy ahhachul_web
+name: Build & Deploy Ahhachul Web
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - feat/sign-in
+env:
+  DEFAULT_NODE_VERSION: '20.14.0'
 
 jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check Out Repository
-        uses: actions/checkout@v2
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
-      - name: Create .env File
-        run: |
-          touch .env
-          echo -e "${{ secrets.NEXT_ENV_PROD_CONTENT }}" > .env
-        working-directory: ./services/next.ahhachul.com
-
-      - name: Build and Push Docker Image for ARM64
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./services/next.ahhachul.com/Dockerfile
-          push: true
-          tags: ahhachul/ahhachul_web:latest
-          platforms: linux/arm64/v8
-          cache-from: type=registry,ref=ahhachul/ahhachul_web:buildcache
-          cache-to: type=registry,ref=ahhachul/ahhachul_web:buildcache,mode=max
-
   deploy:
-    needs: build-and-push
     runs-on: ubuntu-latest
+
     steps:
       - name: Check Out Repository
-        uses: actions/checkout@v2
-
-      - name: Prepare deployment bundle
-        run: |
-          mkdir deployment_bundle
-          cp deploy.sh deployment_bundle/deploy.sh
-          cp appspec.yml deployment_bundle/appspec.yml
-          zip -r deployment_bundle.zip deployment_bundle/
-
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: actions/checkout@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          fetch-depth: 1
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v3
 
-      - name: Upload to S3
-        run: |
-          aws s3 cp deployment_bundle.zip s3://${{ secrets.S3_BUCKET_NAME }}/deployment_bundle.zip
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.DEFAULT_NODE_VERSION }}
+          cache: yarn
 
-      - name: Deploy with CodeDeploy
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Set up environment variables for .env.production
         run: |
-          aws deploy create-deployment \
-          --application-name ahhachul-web-deployments \
-          --deployment-group-name ahhachul-web-deployment-group \
-          --s3-location bucket=${{ secrets.S3_BUCKET_NAME }},key=deployment_bundle.zip,bundleType=zip
+          echo '${{ secrets.NEXT_ENV_PROD_CONTENT }}' > config.json
+          cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/next.ahhachul.com/.env.production
+
+      - name: Build only affected packages
+        run: yarn affected:build --parallel=5
+
+      - name: Log in to Amazon ECR Public
+        run: |
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY_URI }}
+
+      - name: Build Docker image
+        run: |
+          docker build -f services/next.ahhachul.com/Dockerfile -t ${{ secrets.ECR_REPOSITORY_URI }}:latest
+      - name: Push Docker image to Amazon ECR
+        run: docker push ${{ secrets.ECR_REPOSITORY_URI }}:lates
+      - name: Deploy Application
+        run: aws ecs update-service --cluster ${{ secrets.ECS_CLUSTER_NAME }} --service ${{ secrets.DEV_ECS_APP_SERVICE_NAME }} --force-new-deployment
