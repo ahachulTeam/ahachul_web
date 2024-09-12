@@ -3,9 +3,9 @@ name: Build & Deploy Ahhachul Web
 on:
   push:
     branches:
-      - feat/sign-in
-    # paths:
-    #   - 'services/next.ahhachul.com/**'
+      - main
+    paths:
+      - 'services/next.ahhachul.com/**'
 
 env:
   DEFAULT_NODE_VERSION: '20.14.0'
