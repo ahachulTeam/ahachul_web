@@ -3,9 +3,9 @@ name: Build & Deploy Ahhachul Web
 on:
   push:
     branches:
-      - main
-    paths:
-      - 'services/next.ahhachul.com/**'
+      - feat/sign-in
+    # paths:
+    #   - 'services/next.ahhachul.com/**'
 
 env:
   DEFAULT_NODE_VERSION: '20.14.0'
@@ -33,7 +33,7 @@ jobs:
 
       - name: Create .env file for next.ahhachul.com
         run: |
-          echo "${{ secrets.NEXT_APP_DEV_CONFIG }}" > "services/next.ahhachul.com/.env.production"
+          echo "${{ secrets.NEXT_APP_DEV_CONFIG }}" > "services/next.ahhachul.com/.env"
 
       - name: Check if .env.production file is created
         run: ls -al services/next.ahhachul.com
@@ -54,7 +54,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -f services/next.ahhachul.com/Dockerfile -t ${{ secrets.ECR_REPOSITORY_URI }}:latest
+          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}:latest
       - name: Push Docker image to Amazon ECR
         run: docker push ${{ secrets.ECR_REPOSITORY_URI }}:lates
       - name: Deploy Application

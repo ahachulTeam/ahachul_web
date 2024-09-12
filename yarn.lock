@@ -8748,7 +8748,6 @@ __metadata:
     "@vitejs/plugin-react": "npm:^4.2.1"
     axios: "npm:^1.2.2"
     customize-cra: "npm:^1.0.0"
-    env-cmd: "npm:^10.1.0"
     framer-motion: "npm:^10.16.16"
     happy-dom: "npm:^12.10.3"
     lexical: "npm:^0.14.2"
@@ -12070,18 +12069,6 @@ __metadata:
   version: 4.5.0
   resolution: "entities@npm:4.5.0"
   checksum: 10c0/5b039739f7621f5d1ad996715e53d964035f75ad3b9a4d38c6b3804bb226e282ffeae2443624d8fdd9c47d8e926ae9ac009c54671243f0c3294c26af7cc85250
-  languageName: node
-  linkType: hard
-
-"env-cmd@npm:^10.1.0":
-  version: 10.1.0
-  resolution: "env-cmd@npm:10.1.0"
-  dependencies:
-    commander: "npm:^4.0.0"
-    cross-spawn: "npm:^7.0.0"
-  bin:
-    env-cmd: bin/env-cmd.js
-  checksum: 10c0/8ea5f4205bed83f39ea0ef0eb94d52a47bc815302c55779fb6c38346ca9284df1855f0847c8f5c702554f7f01e3575d171f12cffd13a1bada01961815842abe3
   languageName: node
   linkType: hard
 
@@ -18761,7 +18748,6 @@ __metadata:
     "@types/react-dom": "npm:^18.2.11"
     "@types/react-lazy-load-image-component": "npm:^1.6.3"
     axios: "npm:^1.2.2"
-    env-cmd: "npm:^10.1.0"
     eslint: "npm:^8"
     eslint-config-next: "npm:14.1.4"
     framer-motion: "npm:^10.16.16"

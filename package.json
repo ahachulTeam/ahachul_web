@@ -17,7 +17,8 @@
     "dev:web": "yarn workspace next.ahhachul.com dev",
     "build:app": "nx build ahhachul.com",
     "build:web": "nx build next.ahhachul.com",
-    "build:all": "nx run-many --target=build --all"
+    "build:all": "nx run-many --target=build --all",
+    "start:web": "yarn workspace next.ahhachul.com start"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix"

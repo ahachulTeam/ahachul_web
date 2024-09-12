@@ -13855,7 +13855,6 @@ const RAW_RUNTIME_STATE =
           ["@vitejs/plugin-react", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:4.2.1"],\
           ["axios", "npm:1.6.7"],\
           ["customize-cra", "npm:1.0.0"],\
-          ["env-cmd", "npm:10.1.0"],\
           ["framer-motion", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:10.18.0"],\
           ["happy-dom", "npm:12.10.3"],\
           ["lexical", "npm:0.14.2"],\
@@ -17879,17 +17878,6 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../.yarn/berry/cache/entities-npm-4.5.0-7cdb83b832-10c0.zip/node_modules/entities/",\
         "packageDependencies": [\
           ["entities", "npm:4.5.0"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["env-cmd", [\
-      ["npm:10.1.0", {\
-        "packageLocation": "../../../.yarn/berry/cache/env-cmd-npm-10.1.0-85470635d6-10c0.zip/node_modules/env-cmd/",\
-        "packageDependencies": [\
-          ["env-cmd", "npm:10.1.0"],\
-          ["commander", "npm:4.1.1"],\
-          ["cross-spawn", "npm:7.0.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -25647,7 +25635,6 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "npm:18.2.21"],\
           ["@types/react-lazy-load-image-component", "npm:1.6.3"],\
           ["axios", "npm:1.6.7"],\
-          ["env-cmd", "npm:10.1.0"],\
           ["eslint", "npm:8.57.0"],\
           ["eslint-config-next", "virtual:656f6679609ce5b2f109cac1960ef183ffc0f14f80c8941873ab80b93071d949a764820b058f0d7f4e4fe28794b034e8055fa06afe185028779421d61380aacc#npm:14.1.4"],\
           ["framer-motion", "virtual:6711538759eca51cc18df0d9313e36499fa5cdf3c376414147ed6827eec4dfd59636cca89eccc5cf3248cb75e3528f9f240064ce2444ccbff5607da77e32a555#npm:10.18.0"],\
