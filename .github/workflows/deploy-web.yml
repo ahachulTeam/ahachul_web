@@ -35,7 +35,7 @@ jobs:
         run: |
           echo "${{ secrets.NEXT_APP_DEV_CONFIG }}" > "services/next.ahhachul.com/.env"
 
-      - name: Build next,ahhachul.com
+      - name: Build next.ahhachul.com
         run: yarn build:web
 
       - name: Configure AWS credentials
