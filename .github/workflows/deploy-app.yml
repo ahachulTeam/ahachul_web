@@ -3,9 +3,9 @@ name: Build & Deploy Ahhachul App
 on:
   push:
     branches:
-      - feat/sign-in
-    # paths:
-    #   - 'services/ahhachul.com/**'
+      - main
+    paths:
+      - 'services/ahhachul.com/**'
 
 env:
   DEFAULT_NODE_VERSION: '20.14.0'
@@ -34,9 +34,6 @@ jobs:
       - name: Create .env file for ahhachul.com
         run: |
           echo "${{ secrets.NEXT_APP_DEV_CONFIG }}" > "services/ahhachul.com/.env"
-
-      - name: Check if .env.production file is created
-        run: ls -al services/ahhachul.com
 
       - name: Build ahhachul.com
         run: yarn build:app

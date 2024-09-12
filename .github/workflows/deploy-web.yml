@@ -35,9 +35,6 @@ jobs:
         run: |
           echo "${{ secrets.NEXT_APP_DEV_CONFIG }}" > "services/next.ahhachul.com/.env"
 
-      - name: Check if .env.production file is created
-        run: ls -al services/next.ahhachul.com
-
       - name: Build next,ahhachul.com
         run: yarn build:web
 
@@ -54,8 +51,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}:latest
+          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}:latest .
       - name: Push Docker image to Amazon ECR
-        run: docker push ${{ secrets.ECR_REPOSITORY_URI }}:lates
+        run: docker push ${{ secrets.ECR_REPOSITORY_URI }}:latest
       - name: Deploy Application
         run: aws ecs update-service --cluster ${{ secrets.ECS_CLUSTER_NAME }} --service ${{ secrets.DEV_ECS_APP_SERVICE_NAME }} --force-new-deployment
