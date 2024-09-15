@@ -1,6 +1,6 @@
-import { HomeComponent, UiComponent } from '../components';
 import { Layout } from '@/src/components/layout';
 import { useAppSelector } from '../stores';
+import { HomeComponent, UiComponent } from '../components';
 
 export default function Home() {
   const { auth } = useAppSelector((state) => state.auth);
