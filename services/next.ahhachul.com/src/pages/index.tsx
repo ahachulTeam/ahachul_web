@@ -6,7 +6,7 @@ export default function Home() {
   const { auth } = useAppSelector((state) => state.auth);
 
   return (
-    <Layout headerType="default">
+    <Layout>
       {auth?.accessToken ? (
         <HomeComponent.Dashboard />
       ) : (
