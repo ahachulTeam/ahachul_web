@@ -85,6 +85,10 @@ jobs:
                   LoadBalancerInfo:
                     ContainerName: "app-container"
                     ContainerPort: 3000
+                  CapacityProviderStrategy:
+                  - CapacityProvider: "FARGATE_SPOT"
+                    Base: 0
+                    Weight: 1
           EOF
 
       - name: Deploy Application
