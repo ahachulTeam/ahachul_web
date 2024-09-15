@@ -55,9 +55,6 @@ jobs:
 
       - name: Push Docker image to Amazon ECR
         run: docker push ${{ secrets.ECR_REPOSITORY_URI }}:latest
-        
-      - name: Deploy Application
-        run: aws ecs update-service --cluster ${{ secrets.ECS_CLUSTER_NAME }} --service ${{ secrets.DEV_ECS_APP_SERVICE_NAME }} --force-new-deployment
 
       - name: Get the latest Task Definition ARN
         id: task_definition
