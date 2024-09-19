@@ -1,9 +1,4 @@
-import {
-  // delay,
-  http,
-  HttpResponse,
-} from 'msw';
-import { getRandomBoolean } from '../utils';
+import { http, HttpResponse } from 'msw';
 
 const getCommentsResponse = {
   code: '100',
@@ -97,13 +92,6 @@ const getCommentsResponse = {
 const getCommentList = http.get(
   'http://localhost:3000/community-comments',
   async () => {
-    const randomBoolean = getRandomBoolean();
-
-    if (!randomBoolean) {
-      throw new Error(`Invalid`);
-    }
-
-    // await delay(4000);
     return HttpResponse.json(getCommentsResponse);
   },
 );
