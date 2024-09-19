@@ -24,6 +24,7 @@ const globals = css`
 
   body {
     margin: 0;
+    background-color: #141517;
   }
 
   main {

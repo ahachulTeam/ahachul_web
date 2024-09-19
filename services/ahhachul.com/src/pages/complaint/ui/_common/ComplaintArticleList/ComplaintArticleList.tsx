@@ -29,5 +29,5 @@ const ComplaintArticleList = ({ ...props }: ComplaintArticleListProps) => {
 };
 
 export default withSuspense(ComplaintArticleList, {
-  fallback: <Loading />,
+  fallback: <Loading opacity={1} />,
 });

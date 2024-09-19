@@ -30,5 +30,5 @@ const LostFoundArticleList = ({ ...props }: LostFoundArticleListProps) => {
 };
 
 export default withSuspense(LostFoundArticleList, {
-  fallback: <Loading />,
+  fallback: <Loading opacity={1} />,
 });

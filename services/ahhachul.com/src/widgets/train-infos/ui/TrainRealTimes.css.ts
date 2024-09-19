@@ -42,6 +42,7 @@ export const stationName = (subwayLineId: number) =>
       padding: '8px 32px',
 
       borderRadius: '21px',
+      transition: 'border-color 0.4s ease-in-out',
       border: `3px solid ${subwayLineHexColors(subwayLineId)}`,
       backgroundColor: text[50],
 

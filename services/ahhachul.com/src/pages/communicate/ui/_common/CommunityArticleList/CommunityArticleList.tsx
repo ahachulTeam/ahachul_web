@@ -30,5 +30,5 @@ const CommunityArticleList = ({ ...props }: CommunityArticleListProps) => {
 };
 
 export default withSuspense(CommunityArticleList, {
-  fallback: <Loading />,
+  fallback: <Loading opacity={1} />,
 });

@@ -16,5 +16,5 @@ const LostFoundArticleDetail = ({ articleId }: WithArticleId) => {
 };
 
 export default withSuspense(LostFoundArticleDetail, {
-  fallback: <Loading />,
+  fallback: <Loading opacity={1} />,
 });

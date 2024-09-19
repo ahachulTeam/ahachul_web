@@ -16,5 +16,5 @@ const ComplaintArticleDetail = ({ articleId }: WithArticleId) => {
 };
 
 export default withSuspense(ComplaintArticleDetail, {
-  fallback: <Loading />,
+  fallback: <Loading opacity={1} />,
 });

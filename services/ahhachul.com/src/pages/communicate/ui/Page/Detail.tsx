@@ -47,7 +47,7 @@ const CommunityDetail: ActivityComponentType<WithArticleId> = ({
           })
         }
       >
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<Loading opacity={1} />}>
           <CommunityArticleDetail
             articleId={articleId}
             preloadRef={preloadRef}
