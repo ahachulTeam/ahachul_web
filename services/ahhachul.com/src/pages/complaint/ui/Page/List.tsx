@@ -3,8 +3,11 @@ import { ActivityComponentType } from '@stackflow/react';
 import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
 import { Layout } from 'widgets';
 import { ArticleListErrorFallback } from 'widgets/articles/ui/ArticleListErrorFallback';
-import ComplaintArticleList from '../_common/ComplaintArticleList/ComplaintArticleList';
 import * as styles from './Page.css';
+
+const ComplaintArticleList = React.lazy(
+  () => import('../_common/ComplaintArticleList/ComplaintArticleList'),
+);
 
 const ComplaintList: ActivityComponentType = () => {
   return (

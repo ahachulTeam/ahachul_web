@@ -4,8 +4,12 @@ import { Layout, Navbar } from 'widgets';
 import { renderLeftLogo, renderRight } from 'widgets/layout-header';
 import { ArticleListErrorFallback } from 'widgets/articles/ui/ArticleListErrorFallback';
 import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
-import CommunityArticleList from '../_common/CommunityArticleList/CommunityArticleList';
+
 import * as styles from './Page.css';
+
+const CommunityArticleList = React.lazy(
+  () => import('../_common/CommunityArticleList/CommunityArticleList'),
+);
 
 const Community: ActivityComponentType = () => {
   return (

@@ -1,16 +1,9 @@
-import React from 'react';
+import Community from 'pages/communicate/ui/Page/Page';
+import CommunityDetail from 'pages/communicate/ui/Page/Detail';
+import CreateCommunityArticle from 'pages/communicate/ui/Page/Create';
 
-const Community = React.lazy(() => import('pages/communicate/ui/Page/Page'));
-const CommunityDetail = React.lazy(
-  () => import('pages/communicate/ui/Page/Detail'),
-);
-const CreateCommunityArticle = React.lazy(
-  () => import('pages/communicate/ui/Page/Create'),
-);
 export const communityLayers = {
   Community,
   CommunityDetail,
   CreateCommunityArticle,
-  // CommunityDetail,
-  // CommunityEditor,
 } as const;

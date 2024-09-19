@@ -10,8 +10,13 @@ import { Loading } from 'entities/app-loaders/ui/Loading';
 import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
 import { Layout } from 'widgets';
 
-import { CommunityArticleDetail } from '../_common/CommunityArticleDetail/CommunityArticleDetail';
 import * as styles from './Page.css';
+
+const CommunityArticleDetail = React.lazy(() =>
+  import('../_common/CommunityArticleDetail/CommunityArticleDetail').then(
+    (module) => ({ default: module.CommunityArticleDetail }),
+  ),
+);
 
 export const loader =
   (queryClient: QueryClient) =>
