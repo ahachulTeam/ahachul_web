@@ -29,7 +29,7 @@ export const ArticleCard = <TData extends Article>({
             <time css={styles.date}>오후 3:00</time>
           </div>
           <div
-            css={styles.subwayLineId(subwayLineHexColors(data.subwayLineId))}
+            css={styles.subwayLineId(subwayLineHexColors(+data.subwayLineId))}
           >
             {subwayLineToKrMap[data.subwayLineId]}
           </div>

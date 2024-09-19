@@ -1,11 +1,10 @@
-import { Suspense } from 'react';
+// import { Suspense } from 'react';
 import styled from '@emotion/styled';
 import type { ActivityComponentType } from '@stackflow/react';
 import { motion } from 'framer-motion';
 import { SocialLogin } from 'entities/app-authentications/ui/SocialLogin';
-import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
+// import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
 import { LogoTypoIcon } from 'entities/app-authentications/static/icons/logo-typo';
-import { ArticleListErrorFallback } from 'widgets/articles/ui/ArticleListErrorFallback';
 import { Layout } from 'widgets';
 import { animateVariants } from 'shared/lib/config/animation/framer-motion';
 import AppLogo from 'entities/app-authentications/static/img/app-logo.png';
@@ -26,11 +25,11 @@ export const SignIn: ActivityComponentType = () => {
             <LogoTypoIcon />
           </div>
         </CenterLogoGroup>
-        <QueryErrorBoundary errorFallback={ArticleListErrorFallback}>
-          <Suspense fallback={null}>
-            <SocialLogin />
-          </Suspense>
-        </QueryErrorBoundary>
+        {/* <QueryErrorBoundary>
+          <Suspense fallback={null}> */}
+        <SocialLogin />
+        {/* </Suspense>
+        </QueryErrorBoundary> */}
       </Content>
     </Layout>
   );

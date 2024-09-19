@@ -33,28 +33,26 @@ export const thickBorder = (subwayLineId: number) =>
     backgroundColor: subwayLineHexColors(subwayLineId),
   }) as Interpolation<Theme>;
 
-export const stationName = [
-  cssUtils.posAbs,
-  cssUtils.flexCenterCenter,
-  ({
-    color: { text, green },
-    typography: { fontSize, fontWeight },
-  }: Theme) => ({
-    height: '36px',
-    padding: '8px 32px',
+export const stationName = (subwayLineId: number) =>
+  [
+    cssUtils.posAbs,
+    cssUtils.flexCenterCenter,
+    ({ color: { text }, typography: { fontSize, fontWeight } }: Theme) => ({
+      height: '36px',
+      padding: '8px 32px',
 
-    borderRadius: '21px',
-    border: `3px solid ${green[50]}`,
-    backgroundColor: text[50],
+      borderRadius: '21px',
+      border: `3px solid ${subwayLineHexColors(subwayLineId)}`,
+      backgroundColor: text[50],
 
-    top: '50%',
-    left: '27px',
-    transform: 'translateY(-50%)',
+      top: '50%',
+      left: '27px',
+      transform: 'translateY(-50%)',
 
-    fontSize: fontSize[16],
-    fontWeight: fontWeight[600],
-  }),
-] as Interpolation<Theme>;
+      fontSize: fontSize[16],
+      fontWeight: fontWeight[600],
+    }),
+  ] as Interpolation<Theme>;
 
 export const trainDirection = [
   cssUtils.posAbs,

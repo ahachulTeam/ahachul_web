@@ -32,7 +32,7 @@ const TrainRealTimes = ({ stationId, parentLineId }: TrainRealTimesProps) => {
     <div css={styles.trainRealTimes}>
       <div css={styles.inner}>
         <div css={styles.thickBorder(parentLineId)}>
-          <div css={styles.stationName}>건대입구</div>
+          <div css={styles.stationName(parentLineId)}>건대입구</div>
           <motion.div
             initial="initial"
             animate="animate"
