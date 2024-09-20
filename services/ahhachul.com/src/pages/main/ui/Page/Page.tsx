@@ -6,6 +6,7 @@ import { CheerUpPhrase } from 'features/users';
 import { Layout, Navbar } from 'widgets';
 import { TrainInfo } from 'widgets/train-infos';
 import { StationSelect, renderRight } from 'widgets/layout-header';
+import { Footer } from 'widgets/layout-footer/ui/Footer';
 import * as styles from './Page.css';
 
 const Home: ActivityComponentType = () => {
@@ -21,6 +22,8 @@ const Home: ActivityComponentType = () => {
       <CTAFlows css={styles.ctaFlowsLayout} />
       <CheerUpPhrase css={styles.cheerUpPhraseLayout} />
       <TrainInfo />
+      <div css={{ minHeight: '320px' }} />
+      <Footer />
     </Layout>
   );
 };
