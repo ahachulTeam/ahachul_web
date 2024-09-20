@@ -20,10 +20,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Derive appropriate SHAs for base and head for `nx affected` commands
-        uses: nrwl/nx-set-shas@v3
+      - name: Parse secrets from JSON
+        id: secrets
+        run: |
+          echo '${{ secrets.DEV_META_DATA }}' | jq -r 'to_entries | .[] | "echo \(.key)=\(.value) >> $GITHUB_ENV"' | bash
 
-      - name: Set up Node.js
+      - name: Print AWS Region
+        run: echo "AWS_REGION is $AWS_REGION"
+
+      - name: Set up Node.jss
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.DEFAULT_NODE_VERSION }}
@@ -33,7 +38,8 @@ jobs:
 
       - name: Create .env file for next.ahhachul.com
         run: |
-          echo "${{ secrets.NEXT_APP_DEV_CONFIG }}" > "services/next.ahhachul.com/.env"
+          echo '${{ secrets.DEV_NEXTJS_APP_CONFIG }}' > config.json
+          cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/next.ahhachul.com/.env
 
       - name: Build next.ahhachul.com
         run: yarn build:web
@@ -41,27 +47,26 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Log in to Amazon ECR Public
         run: |
-          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY_URI }}
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ env.ECR_REPOSITORY_URI }}
 
       - name: Build Docker image
-        run: |
-          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}:latest .
+        run: docker build -t ${{ env.ECR_REPOSITORY_URI }}:latest .
 
       - name: Push Docker image to Amazon ECR
-        run: docker push ${{ secrets.ECR_REPOSITORY_URI }}:latest
+        run: docker push ${{ env.ECR_REPOSITORY_URI }}:latest
 
       - name: Get the latest Task Definition ARN
         id: task_definition
         run: |
           TASK_DEF_ARN=$(aws ecs describe-services \
-            --cluster ${{ secrets.ECS_CLUSTER_NAME }} \
-            --services ${{ secrets.ECS_SERVICE_NAME }} \
+            --cluster ${{ env.ECS_CLUSTER_NAME }} \
+            --services ${{ env.ECS_SERVICE_NAME }} \
             --query 'services[0].taskDefinition' --output text)
           echo "TASK_DEF_ARN=$TASK_DEF_ARN" >> $GITHUB_ENV
 
@@ -75,8 +80,8 @@ jobs:
                 Properties:
                   TaskDefinition: "$TASK_DEF_ARN"
                   LoadBalancerInfo:
-                    ContainerName: "app-container"
-                    ContainerPort: 3000
+                    ContainerName: ${{ env.CONTAINER_NAME }}
+                    ContainerPort: ${{ env.CONTAINER_PORT }}
                   CapacityProviderStrategy:
                   - CapacityProvider: "FARGATE_SPOT"
                     Base: 0
@@ -87,7 +92,7 @@ jobs:
         run: |
           APPSPEC_CONTENT=$(cat appspec.yaml | jq -sR .)
           aws deploy create-deployment \
-            --application-name ${{ secrets.CODEDEPLOY_APP_NAME }} \
-            --deployment-group-name ${{ secrets.CODEDEPLOY_DEPLOYMENT_GROUP }} \
+            --application-name ${{ env.CODEDEPLOY_APP_NAME }} \
+            --deployment-group-name ${{ env.CODEDEPLOY_DEPLOYMENT_GROUP }} \
             --deployment-config-name CodeDeployDefault.ECSAllAtOnce \
             --revision "{\"revisionType\":\"AppSpecContent\",\"appSpecContent\":{\"content\":$APPSPEC_CONTENT}}"

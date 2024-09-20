@@ -23,8 +23,7 @@ jobs:
       - name: Parse secrets from JSON
         id: secrets
         run: |
-          echo "${{ secrets.DEV_META_DATA }}" > secrets.json
-          jq -r 'to_entries | .[] | "export " + .key + "=\"" + .value + "\""' secrets.json >> $GITHUB_ENV
+          echo '${{ secrets.DEV_META_DATA }}' | jq -r 'to_entries | .[] | "echo \(.key)=\(.value) >> $GITHUB_ENV"' | bash
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
