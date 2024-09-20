@@ -1,6 +1,6 @@
 import React, { useReducer } from 'react';
 
-import down from '../static/images/arrow_down.png';
+import arrowDown from 'shared/static/images/arrow_down.png';
 import kakao from '../static/images/footer_kakao.png';
 import naver from '../static/images/footer_naver.png';
 import facebook from '../static/images/footer_facebook.png';
@@ -27,7 +27,7 @@ export const Footer = () => {
         (주) 아하철 사업자 정보
         <img
           className={'arrow-down-img' + (fold.open ? ' rotate' : '')}
-          src={down}
+          src={arrowDown}
         />
       </div>
       <div className="biz-toggle-wrap">
