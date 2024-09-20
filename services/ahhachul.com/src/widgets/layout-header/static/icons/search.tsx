@@ -9,5 +9,9 @@ const SVG = `
 `;
 
 export const SearchIcon = () => (
-  <div css={cssUtils.flex} dangerouslySetInnerHTML={{ __html: SVG }} />
+  <div
+    css={cssUtils.flex}
+    className="search-icon"
+    dangerouslySetInnerHTML={{ __html: SVG }}
+  />
 );

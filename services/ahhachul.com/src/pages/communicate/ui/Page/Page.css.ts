@@ -6,5 +6,6 @@ export const layout = [
   cssUtils.sideGutter,
   {
     animation: `0.3s forwards ${fadeIn}`,
+    paddingTop: '91px',
   },
 ] as Interpolation<Theme>;
