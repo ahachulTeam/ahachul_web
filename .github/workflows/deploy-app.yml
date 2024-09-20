@@ -20,8 +20,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Derive appropriate SHAs for base and head for `nx affected` commands
-        uses: nrwl/nx-set-shas@v3
+      - name: Parse secrets from JSON
+        id: secrets
+        run: |
+          echo "${{ secrets.DEV_META_DATA }}" > secrets.json
+          jq -r 'to_entries | .[] | "export " + .key + "=\"" + .value + "\""' secrets.json >> $GITHUB_ENV
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -33,7 +36,8 @@ jobs:
 
       - name: Create .env file for ahhachul.com
         run: |
-          echo "${{ secrets.REACT_APP_DEV_CONFIG }}" > "services/ahhachul.com/.env"
+          echo '${{ secrets.DEV_REACT_APP_CONFIG }}' > config.json
+          cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/ahhachul.com/.env
 
       - name: Build ahhachul.com
         run: yarn build:app
@@ -41,14 +45,14 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Remove Existing Files & Upload New to S3
         run: |
-          aws s3 rm s3://${{ secrets.S3_BUCKET_NAME }} --recursive
-          aws s3 cp services/ahhachul.com/build s3://${{ secrets.S3_BUCKET_NAME }} --recursive
+          aws s3 rm s3://${S3_BUCKET_NAME} --recursive
+          aws s3 cp services/ahhachul.com/build s3://${S3_BUCKET_NAME} --recursive
 
       - name: Invalidate CloudFront
-        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID_USER }} --paths "/*"
+        run: aws cloudfront create-invalidation --distribution-id ${{ env.AWS_CLOUDFRONT_DISTRIBUTION_ID_USER }} --paths "/*"
