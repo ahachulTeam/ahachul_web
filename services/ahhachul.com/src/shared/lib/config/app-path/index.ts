@@ -38,8 +38,6 @@ const PATH = {
     home: '/my',
     setting: {
       home: '/my/setting',
-      // 이용권 구매
-      ticket: '/my/setting/ticket',
       // 즐겨찾는 역 설정
       register: '/my/register',
     },
@@ -47,15 +45,12 @@ const PATH = {
 
   /** 인증 관련 */
   authentication: {
-    signIn: '/signin',
-    signUp: {
-      home: '/signup',
+    signIn: {
+      home: '/signin',
       terms: '/signup/terms',
-      callback: {
-        apple: '/signup/callback/apple',
-        google: '/signup/callback/google',
-        kakao: '/signup/callback/kakao',
-        naver: '/signup/callback/naver',
+      setting: {
+        subway: '/signup/setting/subway',
+        nickname: '/signup/setting/nickname',
       },
     },
   },

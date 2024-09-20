@@ -18,7 +18,11 @@ const stackflowPlugin = [
   }),
   historySyncPlugin({
     routes: {
-      SignIn: PATH.authentication.signIn,
+      // sign-in pages
+      SignIn: PATH.authentication.signIn.home,
+      SetupNickname: PATH.authentication.signIn.setting.nickname,
+
+      // main pages
       Home: PATH.home,
       LostFound: PATH.lostFound.home,
       LostFoundDetail: PATH.lostFound.detail.home,
@@ -31,6 +35,8 @@ const stackflowPlugin = [
       ComplaintDetail: PATH.complaints.detail.home,
       ComplaintForm: PATH.complaints.create,
       BlindDate: PATH.date.home,
+
+      // shared pages
       AllServices: PATH['_shared-pages'].allServices,
       SubwayNotices: PATH['_shared-pages'].subwayNotice,
       Market: PATH['_shared-pages'].market,

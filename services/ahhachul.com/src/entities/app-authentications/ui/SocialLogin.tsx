@@ -3,14 +3,17 @@ import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import { fadeInAndUpVariants } from 'shared/lib/config/animation/framer-motion';
 
+import { useFlow } from 'app/stackflow';
 import { useGetSignInRedirectUrl } from '../api';
-
 import { KakaoIcon } from '../static/icons/kakao';
 import { GoogleIcon } from '../static/icons/google';
 
 export const SocialLogin = () => {
+  const { push } = useFlow();
   const urls = useGetSignInRedirectUrl();
   console.log('urls:', urls);
+
+  const clickLogin = () => push('SetupNickname', {});
 
   return (
     <SocialGroup
@@ -19,11 +22,11 @@ export const SocialLogin = () => {
       initial="initial"
       variants={fadeInAndUpVariants(0.3)}
     >
-      <KakaoLogin>
+      <KakaoLogin onClick={clickLogin}>
         <KakaoIcon />
         <span>Kakao로 계속하기</span>
       </KakaoLogin>
-      <GoogleLogin>
+      <GoogleLogin onClick={clickLogin}>
         <GoogleIcon />
         <span>Google로 계속하기</span>
       </GoogleLogin>
