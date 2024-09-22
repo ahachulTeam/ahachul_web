@@ -6,21 +6,20 @@ type ButtonFilterType = 'dropdown-filter' | 'drawer-filter';
 interface ButtonFilterProps {
   label: string;
   type: ButtonFilterType;
+  onClick?: VoidFunction;
 }
 
 export const ButtonFilter = ({
   label,
   type,
   children,
+  onClick,
 }: PropsWithChildren<ButtonFilterProps>) => {
   let open = false;
-  const handleClick = () => {
-    console.log(type);
-  };
 
   return (
     <div css={filterWrapper}>
-      <button css={buttonFilter} onClick={handleClick}>
+      <button css={buttonFilter} data-type={type} onClick={onClick}>
         <span>{label}</span>
         <img
           className={'arrow-down-img' + (open ? ' rotate' : '')}
@@ -42,7 +41,7 @@ export const buttonFilter = ({
 }: Theme) =>
   ({
     flexShrink: 0,
-    height: '26px',
+    height: '36px',
     backgroundColor: whiteAlpha[50],
     border: `1px solid ${whiteAlpha[100]}`,
     borderRadius: '18px',
@@ -62,7 +61,7 @@ export const buttonFilter = ({
     '& > .arrow-down-img': {
       width: '19px',
       marginLeft: '4px',
-      transform: 'rotate(0deg)px',
+      transform: 'rotate(0deg)',
     },
 
     '& > .arrow-down-img.rotate': {

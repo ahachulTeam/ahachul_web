@@ -31,6 +31,7 @@ export const SearchFilter = (props: SearchFilterProps) => {
   const [showCancel, setShowCancel] = useState(false);
   const toggleFocus = () => props.handleFocus?.();
   const onFocus = () => {
+    if (showCancel) return;
     toggleFocus();
     setShowCancel(true);
   };
@@ -78,16 +79,16 @@ const searchGroup = css({
 
 const addOn = css({
   position: 'absolute',
-  left: '34px',
+  left: '26px',
   top: '50%',
-  transform: 'translateY(-50%)',
+  transform: 'translateY(-48%)',
 
   '& > .search-icon': {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '18px',
-    height: '18px',
+    width: '17.5px',
+    height: '17.5px',
     opacity: 0.7,
   },
 });
@@ -95,16 +96,16 @@ const addOn = css({
 const input = css({
   width: '100%',
   maxWidth: '100%',
-  height: '32px',
-  backgroundColor: 'rgba(119, 119, 119, 0.388)',
-  borderRadius: '7px',
-  padding: '0 12px 0 34px',
+  height: '36px',
+  backgroundColor: '#2E3034',
+  borderRadius: '9px',
+  padding: '0 12px 0 28px',
   fontSize: '16px',
   color: '#f0f4ff',
   caretColor: 'rgba(0, 255, 163, .5)',
 
   '&::placeholder': {
-    color: '#f0f4ff',
+    color: '#999AA1',
   },
 
   '&:active:not(:focus)': {

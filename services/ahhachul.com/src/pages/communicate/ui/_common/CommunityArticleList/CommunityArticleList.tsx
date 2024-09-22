@@ -5,15 +5,18 @@ import type { CommunityArticle } from 'pages/communicate/model';
 import { Loading } from 'entities/app-loaders/ui/Loading';
 import { flattenInfinityList } from 'shared/lib/utils/array/flattenInfinityList';
 import { BaseArticleList } from 'widgets/articles/ui/BaseArticleList';
+import { useCommunityFilterStore } from 'pages/communicate/slice';
 
 interface CommunityArticleListProps
   extends HTMLAttributes<HTMLSectionElement> {}
 const CommunityArticleList = ({ ...props }: CommunityArticleListProps) => {
+  const { filters } = useCommunityFilterStore((state) => state);
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } =
     useGetCommunityList({
       page: 0,
       size: 10,
       sort: 'createdAt,asc',
+      ...filters,
     });
   const communityArticles = flattenInfinityList(data);
 

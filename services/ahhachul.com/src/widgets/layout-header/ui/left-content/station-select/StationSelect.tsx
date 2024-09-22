@@ -1,7 +1,7 @@
 import React, { useMemo, useReducer, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { from, tap, map } from 'rxjs';
-import { ChevronIcon } from 'widgets/layout-header/static/icons/chevron';
+import { ChevronIcon } from 'shared/static/icons/chevron';
 import type { UserStation } from 'entities/@use-subway-context/model';
 import { useUserStationStore } from 'entities/@use-subway-context/slice';
 import * as styles from './StationSelect.css';

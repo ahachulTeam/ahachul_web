@@ -7,6 +7,10 @@ const SVG = `
 </svg>
 `;
 
-export const ChevronIcon = () => (
-  <div css={cssUtils.flex} dangerouslySetInnerHTML={{ __html: SVG }} />
+export const ChevronIcon = ({ className }: { className?: string }) => (
+  <div
+    css={cssUtils.flex}
+    className={className}
+    dangerouslySetInnerHTML={{ __html: SVG }}
+  />
 );

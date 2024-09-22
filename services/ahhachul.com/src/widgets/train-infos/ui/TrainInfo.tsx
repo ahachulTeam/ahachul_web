@@ -10,7 +10,7 @@ export const TrainInfo = () => {
   const { stations, setUserStations } = useUserStationStore((state) => state);
   const activatedStation = useMemo(() => stations[0], [stations]);
   const realTimesProps = useMemo(
-    () => stations[0].stationInfos[0],
+    () => ({ ...stations[0].stationInfos[0], name: stations[0].name }),
     [stations[0].stationInfos],
   );
 

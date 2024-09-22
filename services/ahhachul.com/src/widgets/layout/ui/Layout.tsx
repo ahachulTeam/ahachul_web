@@ -1,13 +1,11 @@
 import React, { type ComponentProps } from 'react';
 import { AppScreen } from '@stackflow/plugin-basic-ui';
 import { Navbar } from 'widgets/navigation';
-import { FilterGroup } from 'widgets/filters/ui/FilterGroup';
 import themes from 'shared/themes.css';
 import * as styles from './Layout.css';
 
 export const Layout = (
   props: ComponentProps<typeof AppScreen> & {
-    filterSlot?: typeof FilterGroup;
     navigationSlot?: typeof Navbar;
   },
 ) => {
@@ -19,7 +17,6 @@ export const Layout = (
     textColor: themes.color.text[50],
     onTopClick,
   });
-  const hasFilter = Boolean(props.filterSlot);
 
   return (
     <AppScreen
@@ -32,7 +29,6 @@ export const Layout = (
           {props.children}
         </div>
       </main>
-      {props.filterSlot?.({ show: hasFilter })}
       {props.navigationSlot?.({ onTopClick })}
     </AppScreen>
   );
