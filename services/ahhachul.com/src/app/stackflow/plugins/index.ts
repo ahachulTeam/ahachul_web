@@ -10,6 +10,7 @@ import themes from 'shared/themes.css';
 const stackflowPlugin = [
   basicRendererPlugin(),
   basicUIPlugin({
+    rootClassName: 'ahhachul',
     theme: themes.selector,
     appBar: {
       height: themes.dimensions.size.height.header,

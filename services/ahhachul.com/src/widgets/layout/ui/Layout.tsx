@@ -13,9 +13,13 @@ export const Layout = (
   const onTopClick = () =>
     topEl?.current?.scrollTo?.({ top: 0, behavior: 'smooth' });
   const _appBar = Object.assign(props.appBar ?? {}, {
+    className: 'app-bar',
     iconColor: themes.color.text[50],
     textColor: themes.color.text[50],
     onTopClick,
+    styles: {
+      zIndex: 1,
+    },
   });
 
   return (

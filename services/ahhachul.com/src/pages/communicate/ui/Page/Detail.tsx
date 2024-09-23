@@ -10,8 +10,6 @@ import { Loading } from 'entities/app-loaders/ui/Loading';
 import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
 import { Layout } from 'widgets';
 
-import * as styles from './Page.css';
-
 const CommunityArticleDetail = React.lazy(() =>
   import('../_common/CommunityArticleDetail/CommunityArticleDetail').then(
     (module) => ({ default: module.CommunityArticleDetail }),
@@ -38,15 +36,7 @@ const CommunityDetail: ActivityComponentType<WithArticleId> = ({
 
   return (
     <Layout>
-      <QueryErrorBoundary
-        errorFallback={({ error, reset }) =>
-          ArticleDetailErrorFallback({
-            css: styles.layout,
-            error,
-            reset,
-          })
-        }
-      >
+      <QueryErrorBoundary errorFallback={ArticleDetailErrorFallback}>
         <Suspense fallback={<Loading opacity={1} />}>
           <CommunityArticleDetail
             articleId={articleId}

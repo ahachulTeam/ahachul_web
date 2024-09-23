@@ -41,7 +41,9 @@ export const BaseArticleList = <TData extends Article>({
         <>
           <Flex as="ul" direction="column" css={styles.ul}>
             {data.map((article) => (
-              <ArticleCard<TData> key={article.id} data={article} to={to} />
+              <li key={article.id}>
+                <ArticleCard<TData> data={article} to={to} />
+              </li>
             ))}
           </Flex>
           {hasNextPage && (

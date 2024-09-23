@@ -8,12 +8,12 @@ export const motion = (scale: boolean) =>
     left: 0,
     width: '100%',
     height: scale ? '58px' : 0,
-    zIndex: scale ? 89 : 0,
+    zIndex: scale ? 8 : 0,
     backgroundColor: scale ? '#141517' : 'rgba(0,0,0,0)',
     transition: 'background-color 0.15s ease',
   });
 
-export const filterGroup = (scale: boolean) =>
+export const filterGroup = (isScale: boolean, isActive: boolean) =>
   css({
     position: 'fixed',
     top: '58px',
@@ -21,9 +21,9 @@ export const filterGroup = (scale: boolean) =>
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    gap: scale ? '9px' : '16px',
-    zIndex: 99,
-    transform: scale ? 'translateY(-42px)' : 'translateY(0)',
+    gap: isScale ? '9px' : '16px',
+    zIndex: isActive || isScale ? 9 : 0,
+    transform: isScale ? 'translateY(-42px)' : 'translateY(0)',
     transition: 'all 0.4s ease',
     borderBottom: '1px solid #c9c9c92f',
     backgroundColor: '#141517',
@@ -83,6 +83,19 @@ export const buttonFilter = ({
       backgroundColor: '#267CDD',
     },
   }) as Interpolation<Theme>;
+
+export const controlledFilterLength = css`
+  background-color: #ffffff;
+  color: #277fe1 !important;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  font-size: 9px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 export const dropdownMenu = css`
   .DropdownMenuContent,
@@ -216,3 +229,116 @@ export const dropdownMenu = css`
     }
   }
 `;
+
+export const overlay = css`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+`;
+
+export const drawerContainer = css`
+  z-index: 999999999;
+  display: flex;
+  flex-direction: column;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: 96%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+`;
+
+export const handle = css`
+  margin-left: auto;
+  margin-right: auto;
+  width: 3rem; /* 12 * 0.25rem = 3rem */
+  height: 0.325rem; /* 1.5 * 0.25rem = 0.375rem */
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background-color: #d4d4d8; /* Zinc-300 color */
+  margin-bottom: 2rem; /* 8 * 0.25rem = 2rem */
+`;
+
+export const content = css`
+  padding: 1.2rem 1rem; /* 4 * 0.25rem = 1rem */
+  background-color: #222226;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  height: 100%;
+`;
+
+export const drawerHeader = css`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+`;
+
+export const headerTitle = css({
+  fontSize: '18px',
+  fontWeight: '600',
+  color: '#ffffff',
+});
+
+export const cancel = css({
+  fontSize: '16px',
+  color: '#025FAC',
+});
+
+export const done = css({
+  fontSize: '16px',
+  fontWeight: '600',
+  color: '#025FAC',
+});
+
+export const input = css({
+  width: '100%',
+  maxWidth: '100%',
+  height: '36px',
+  backgroundColor: '#2E3034',
+  borderRadius: '9px',
+  padding: '0 12px 0 30px',
+  fontSize: '16px',
+  color: '#f0f4ff',
+  caretColor: 'rgba(0, 255, 163, .5)',
+
+  '&::placeholder': {
+    color: '#999AA1',
+  },
+
+  '&:active:not(:focus)': {
+    backgroundColor: 'rgba(119, 119, 119, 0.8)',
+  },
+
+  transition: 'all 0.3s ease',
+});
+
+export const searchGroup = css({
+  position: 'relative',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '14px',
+  width: '100%',
+  backgroundColor: '#222226',
+  marginBottom: '16px',
+});
+
+export const addOn = css({
+  position: 'absolute',
+  left: '8px',
+  top: '50%',
+  transform: 'translateY(-48%)',
+
+  '& > .search-icon': {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '17.5px',
+    height: '17.5px',
+    opacity: 0.7,
+  },
+});

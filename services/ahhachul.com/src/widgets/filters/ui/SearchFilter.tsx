@@ -1,6 +1,6 @@
+import { useState, useRef, useCallback } from 'react';
 import { css } from '@emotion/react';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 import { SearchIcon } from 'widgets/layout-header/static/icons/search';
 
 const cancelVariants = {
@@ -27,43 +27,67 @@ const cancelVariants = {
 interface SearchFilterProps {
   handleFocus: VoidFunction;
 }
-export const SearchFilter = (props: SearchFilterProps) => {
-  const [showCancel, setShowCancel] = useState(false);
-  const toggleFocus = () => props.handleFocus?.();
-  const onFocus = () => {
-    if (showCancel) return;
-    toggleFocus();
-    setShowCancel(true);
-  };
-  const handleCancel = () => {
-    toggleFocus();
-    setShowCancel(false);
-  };
+export const SearchFilter = ({ handleFocus }: SearchFilterProps) => {
+  const [isFocused, setIsFocused] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleInputFocus = useCallback(() => {
+    if (!isFocused) {
+      setIsFocused(true);
+      handleFocus();
+    }
+  }, [isFocused, handleFocus]);
+
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      console.log(e.target.value);
+    },
+    [],
+  );
+
+  const handleFormSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      inputRef.current?.blur();
+    },
+    [],
+  );
+
+  const handleCancel = useCallback(() => {
+    setIsFocused(false);
+    handleFocus();
+    if (inputRef.current) {
+      inputRef.current.value = '';
+      inputRef.current.blur();
+    }
+  }, [handleFocus]);
 
   return (
-    <div css={searchGroup}>
-      <button css={addOn}>
+    <form css={searchGroup} onSubmit={handleFormSubmit}>
+      <button type="submit" css={addOn}>
         <SearchIcon />
       </button>
       <motion.input
         css={input}
+        ref={inputRef}
         placeholder="검색"
-        onFocus={onFocus}
-        animate={{ maxWidth: showCancel ? 'calc(100% - 40px)' : '100%' }}
+        onFocus={handleInputFocus}
+        onChange={handleInputChange}
+        animate={{ maxWidth: isFocused ? 'calc(100% - 40px)' : '100%' }}
       />
-      {showCancel && (
+      {isFocused && (
         <motion.button
           css={cancel}
           variants={cancelVariants}
-          exit="exit"
-          animate="animate"
           initial="initial"
+          animate="animate"
+          exit="exit"
           onClick={handleCancel}
         >
           취소
         </motion.button>
       )}
-    </div>
+    </form>
   );
 };
 
@@ -79,7 +103,7 @@ const searchGroup = css({
 
 const addOn = css({
   position: 'absolute',
-  left: '26px',
+  left: '27px',
   top: '50%',
   transform: 'translateY(-48%)',
 

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useReducer } from 'react';
+import { useActivity } from '@stackflow/react';
 import type { ActivityComponentType } from 'app/stackflow';
 import { Layout, Navbar } from 'widgets';
 import { renderLeftLogo, renderRight } from 'widgets/layout-header';
@@ -12,24 +13,38 @@ const CommunityArticleList = React.lazy(
 );
 
 const Community: ActivityComponentType = () => {
+  const activity = useActivity();
+  const [isScale, toggleScale] = useReducer((scale) => !scale, false);
+
   return (
-    <Layout
-      appBar={{ renderLeft: renderLeftLogo, renderRight }}
-      navigationSlot={Navbar}
-    >
-      <FilterGroup />
-      <QueryErrorBoundary
-        errorFallback={({ error, reset }) =>
-          ArticleListErrorFallback({
-            css: styles.layout,
-            error,
-            reset,
-          })
-        }
+    <div css={styles.wrap} data-vaul-drawer-wrapper="true">
+      <FilterGroup
+        isScale={isScale}
+        isActive={activity.isActive}
+        typeList={['인기', '자유', '정보', '질문']}
+        toggleScale={toggleScale}
+      />
+      <Layout
+        appBar={{
+          overflow: 'visible',
+          renderLeft: renderLeftLogo,
+          renderRight,
+        }}
+        navigationSlot={Navbar}
       >
-        <CommunityArticleList css={styles.layout} />
-      </QueryErrorBoundary>
-    </Layout>
+        <QueryErrorBoundary
+          errorFallback={({ error, reset }) =>
+            ArticleListErrorFallback({
+              css: styles.layout(isScale),
+              error,
+              reset,
+            })
+          }
+        >
+          <CommunityArticleList css={styles.layout(isScale)} />
+        </QueryErrorBoundary>
+      </Layout>
+    </div>
   );
 };
 
