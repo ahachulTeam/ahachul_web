@@ -1,11 +1,13 @@
-import React, { useReducer } from 'react';
+import React, { useRef, useCallback, useEffect, useState } from 'react';
 import { useActivity } from '@stackflow/react';
 import { ActivityComponentType } from '@stackflow/react';
 import { Layout, Navbar } from 'widgets';
+import { ComposeLayout } from 'widgets/layout/ui/ComposeLayout';
 import { renderLeftLogo, renderRight } from 'widgets/layout-header';
 import { ArticleListErrorFallback } from 'widgets/articles/ui/ArticleListErrorFallback';
 import { FilterGroup } from 'widgets/filters/ui/FilterGroup';
 import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
+import { useScrollTracker } from 'shared/lib/hooks/useScrollTracker';
 import * as styles from './Page.css';
 
 const LostFoundArticleList = React.lazy(
@@ -14,10 +16,20 @@ const LostFoundArticleList = React.lazy(
 
 const LostFound: ActivityComponentType = () => {
   const activity = useActivity();
-  const [isScale, toggleScale] = useReducer((scale) => !scale, false);
+  const [isScale, setIsScale] = useState(false);
+  const toggleScale = useCallback(() => {
+    setIsScale((prev) => !prev);
+  }, []);
+
+  const layoutRef = useRef<HTMLDivElement>(null);
+  const { condition } = useScrollTracker(layoutRef);
+
+  useEffect(() => {
+    setIsScale(condition === 'downState');
+  }, [condition]);
 
   return (
-    <div css={styles.wrap} data-vaul-drawer-wrapper="true">
+    <ComposeLayout>
       <FilterGroup
         isScale={isScale}
         isActive={activity.isActive}
@@ -25,8 +37,10 @@ const LostFound: ActivityComponentType = () => {
         toggleScale={toggleScale}
       />
       <Layout
-        appBar={{ renderLeft: renderLeftLogo, renderRight }}
+        ref={layoutRef}
+        condition={condition}
         navigationSlot={Navbar}
+        appBar={{ renderLeft: renderLeftLogo, renderRight }}
       >
         <QueryErrorBoundary
           errorFallback={({ error, reset }) =>
@@ -40,7 +54,7 @@ const LostFound: ActivityComponentType = () => {
           <LostFoundArticleList css={styles.layout(isScale)} />
         </QueryErrorBoundary>
       </Layout>
-    </div>
+    </ComposeLayout>
   );
 };
 
