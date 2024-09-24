@@ -1,25 +1,51 @@
-import React, { type ComponentProps } from 'react';
+import React, {
+  type ComponentProps,
+  useRef,
+  useEffect,
+  useState,
+  forwardRef,
+} from 'react';
 import { AppScreen } from '@stackflow/plugin-basic-ui';
 import { Navbar } from 'widgets/navigation';
 import themes from 'shared/themes.css';
 import * as styles from './Layout.css';
 
-export const Layout = (
-  props: ComponentProps<typeof AppScreen> & {
-    navigationSlot?: typeof Navbar;
-  },
-) => {
-  const topEl = React.useRef<Nullable<HTMLDivElement>>(null);
+type LayoutProps = ComponentProps<typeof AppScreen> & {
+  navigationSlot?: typeof Navbar;
+};
+
+export const Layout = forwardRef<HTMLDivElement, LayoutProps>((props, ref) => {
+  const innerRef = useRef<HTMLDivElement>(null);
+  const topEl = (ref as React.RefObject<HTMLDivElement>) ?? innerRef;
+  const [scrollPosition, setScrollPosition] = useState(0);
+  console.log('scrollPosition', scrollPosition);
+
   const onTopClick = () =>
     topEl?.current?.scrollTo?.({ top: 0, behavior: 'smooth' });
+
+  const handleScroll = () => {
+    const position = topEl.current?.scrollTop ?? 0;
+    setScrollPosition(position);
+    console.log('Current scroll position:', position);
+  };
+
+  useEffect(() => {
+    const element = topEl.current;
+    if (element) {
+      element.addEventListener('scroll', handleScroll, { passive: true });
+    }
+
+    return () => {
+      if (element) {
+        element.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
+
   const _appBar = Object.assign(props.appBar ?? {}, {
-    className: 'app-bar',
     iconColor: themes.color.text[50],
     textColor: themes.color.text[50],
     onTopClick,
-    styles: {
-      zIndex: 1,
-    },
   });
 
   return (
@@ -36,4 +62,6 @@ export const Layout = (
       {props.navigationSlot?.({ onTopClick })}
     </AppScreen>
   );
-};
+});
+
+Layout.displayName = 'Layout';

@@ -18,16 +18,16 @@ export const filterGroup = (isScale: boolean, isActive: boolean) =>
     position: 'fixed',
     top: '58px',
     left: 0,
-    display: 'flex',
     flexDirection: 'column',
     width: '100%',
     gap: isScale ? '9px' : '16px',
-    zIndex: isActive || isScale ? 9 : 0,
     transform: isScale ? 'translateY(-42px)' : 'translateY(0)',
     transition: 'all 0.4s ease',
     borderBottom: '1px solid #c9c9c92f',
     backgroundColor: '#141517',
     paddingBottom: '16px',
+    zIndex: isActive || isScale ? 9 : 0,
+    display: isActive ? 'flex' : 'none',
   });
 
 export const btn_wrap = [

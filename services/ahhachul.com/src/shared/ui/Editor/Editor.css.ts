@@ -277,6 +277,7 @@ export const wrap =
       padding: 8px;
       cursor: pointer;
       vertical-align: middle;
+      transition: background-color 0.1s ease;
     }
 
     .toolbar button.toolbar-item:disabled {
@@ -329,13 +330,14 @@ export const wrap =
     }
 
     .toolbar .toolbar-item:active:not([disabled]) {
-      background-color: #eee;
+      background-color: rgba(223, 232, 250, 0.3);
     }
 
     .toolbar .divider {
-      width: 1px;
-      background-color: rgba(223, 232, 250, 0.3) !important;
-      margin: 0 4px;
+      min-width: 1px;
+      height: 18px;
+      background-color: rgba(223, 232, 250, 0.45) !important;
+      margin: auto 4px;
     }
 
     .toolbar select.toolbar-item {
@@ -715,6 +717,7 @@ export const wrap =
       flex: 1;
     }
     .Input__input {
+      width: 100%;
       display: flex;
       flex: 2;
       border: 1px solid rgb(196, 212, 252, 0.37);
@@ -785,3 +788,55 @@ export const wrap =
       touch-action: none;
     }
   `;
+
+export const youtubeEmbedWrap = css`
+  .Input__wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .Input__wrapper.hidden {
+    display: none;
+  }
+  .Input__label {
+    display: flex;
+    flex: 1;
+  }
+  .Input__input {
+    width: 100%;
+    display: flex;
+    flex: 2;
+    border: 1px solid rgb(196, 212, 252, 0.37);
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    min-width: 0;
+
+    color: #ffffff;
+    font-size: 14px;
+
+    &::placeholder {
+      font-size: 14px;
+      color: '#9da5b6';
+    }
+  }
+  .Input__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 40px);
+    margin: 0 auto;
+    height: 32px;
+    background: rgb(196, 212, 252);
+    color: #141517;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    min-width: 0;
+  }
+`;

@@ -5,6 +5,7 @@ import type { Article } from 'features/articles';
 import { ArticleCard } from './ArticleCard';
 import * as styles from './BaseArticleList.css';
 import { TypeActivities } from 'app/stackflow';
+import { useDisableScroll } from 'shared/lib/hooks/useDisableScroll';
 
 const FetchNextPage = React.lazy(() =>
   import('./FetchNextPage').then((module) => ({
@@ -24,6 +25,16 @@ interface BaseArticleListProps<TData extends Article>
   fetchNextPage: VoidFunction;
 }
 
+const EmptyList = () => {
+  useDisableScroll();
+
+  return (
+    <Box as="p" css={styles.empty}>
+      검색결과가 없어요.
+    </Box>
+  );
+};
+
 export const BaseArticleList = <TData extends Article>({
   to,
   data,
@@ -36,7 +47,7 @@ export const BaseArticleList = <TData extends Article>({
 
   return (
     <Box as="section" {...props}>
-      {isEmpty && <p css={styles.empty}>검색결과가 없어요.</p>}
+      {isEmpty && <EmptyList />}
       {!isEmpty && (
         <>
           <Flex as="ul" direction="column" css={styles.ul}>

@@ -14,6 +14,7 @@ import { useBoolean } from 'shared/lib/hooks/useBoolean';
 import { INSERT_YOUTUBE_COMMAND } from './YouTubePlugin';
 import { YoutubeIcon } from '../static/icons/youtube';
 import { Modal } from 'shared/ui/Modal';
+import * as styles from '../Editor.css';
 
 interface PlaygroundEmbedConfig extends EmbedConfig {
   contentName: string;
@@ -168,12 +169,15 @@ export function AutoEmbedDialog({
 
   return (
     <div
-      style={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        backgroundColor: '#141517',
-      }}
+      css={[
+        styles.youtubeEmbedWrap,
+        {
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundColor: '#141517',
+        },
+      ]}
     >
       <div className="Input__wrapper">
         <input

@@ -8,7 +8,13 @@ const SVG = `
 export const YoutubeIcon = () => (
   <div
     className="format"
-    css={cssUtils.flex}
+    css={[
+      cssUtils.flex,
+      {
+        position: 'relative',
+        top: '1px',
+      },
+    ]}
     dangerouslySetInnerHTML={{ __html: SVG }}
   />
 );

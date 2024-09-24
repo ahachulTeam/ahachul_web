@@ -8,5 +8,9 @@ const SVG = `
 `;
 
 export const RightAlignIcon = () => (
-  <div css={cssUtils.flex} dangerouslySetInnerHTML={{ __html: SVG }} />
+  <div
+    className="format"
+    css={cssUtils.flex}
+    dangerouslySetInnerHTML={{ __html: SVG }}
+  />
 );

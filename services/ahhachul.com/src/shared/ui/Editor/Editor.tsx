@@ -570,75 +570,6 @@ function ToolbarPlugin() {
       <div className="toolbar" ref={toolbarRef}>
         <button
           type="button"
-          disabled={!canUndo}
-          onClick={() => {
-            //@ts-ignore
-            editor.dispatchCommand(UNDO_COMMAND, null);
-          }}
-          className="toolbar-item spaced"
-          aria-label="Undo"
-        >
-          <UndoIcon />
-        </button>
-        <button
-          type="button"
-          disabled={!canRedo}
-          onClick={() => {
-            //@ts-ignore
-            editor.dispatchCommand(REDO_COMMAND, null);
-          }}
-          className="toolbar-item"
-          aria-label="Redo"
-        >
-          <RedoIcon />
-        </button>
-        <Divider />
-        <button
-          type="button"
-          className="toolbar-item spaced"
-          aria-label="Insert Image"
-          onClick={() => {
-            const input = document?.getElementById('file-input');
-            input?.click();
-          }}
-        >
-          <UploadIcon />
-          <FileInput
-            label="Image Upload"
-            onChange={loadImage}
-            accept="image/*"
-            data-test-id="image-modal-file-upload"
-          />
-        </button>
-        {SUPPORT_SPEECH_RECOGNITION && (
-          <button
-            type="button"
-            className={
-              'toolbar-item spaced mic ' + (isSpeechToText ? 'active' : '')
-            }
-            title="Speech To Text"
-            aria-label={`${isSpeechToText ? 'Enable' : 'Disable'} speech to text`}
-            onClick={() => {
-              editor.dispatchCommand(SPEECH_TO_TEXT_COMMAND, !isSpeechToText);
-              setIsSpeechToText(!isSpeechToText);
-            }}
-          >
-            <MicIcon />
-          </button>
-        )}
-        <button
-          type="button"
-          className="toolbar-item spaced"
-          aria-label="Youtube Video"
-          onClick={() => {
-            activeEditor.dispatchCommand(INSERT_EMBED_COMMAND, 'youtube-video');
-          }}
-        >
-          <YoutubeIcon />
-        </button>
-        <Divider />
-        <button
-          type="button"
           onClick={() => {
             !isBold && onFocus?.();
             editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
@@ -718,6 +649,72 @@ function ToolbarPlugin() {
           <RightAlignIcon />
         </button>
         <Divider />
+        <button
+          type="button"
+          className="toolbar-item spaced"
+          aria-label="Insert Image"
+          onClick={() => {
+            const input = document?.getElementById('file-input');
+            input?.click();
+          }}
+        >
+          <UploadIcon />
+          <FileInput
+            label="Image Upload"
+            onChange={loadImage}
+            accept="image/*"
+            data-test-id="image-modal-file-upload"
+          />
+        </button>
+        <button
+          type="button"
+          className="toolbar-item spaced"
+          aria-label="Youtube Video"
+          onClick={() => {
+            activeEditor.dispatchCommand(INSERT_EMBED_COMMAND, 'youtube-video');
+          }}
+        >
+          <YoutubeIcon />
+        </button>
+        {SUPPORT_SPEECH_RECOGNITION && (
+          <button
+            type="button"
+            className={
+              'toolbar-item spaced mic ' + (isSpeechToText ? 'active' : '')
+            }
+            title="Speech To Text"
+            aria-label={`${isSpeechToText ? 'Enable' : 'Disable'} speech to text`}
+            onClick={() => {
+              editor.dispatchCommand(SPEECH_TO_TEXT_COMMAND, !isSpeechToText);
+              setIsSpeechToText(!isSpeechToText);
+            }}
+          >
+            <MicIcon />
+          </button>
+        )}
+        <Divider />
+        <button
+          type="button"
+          disabled={!canUndo}
+          onClick={() => {
+            editor.dispatchCommand(UNDO_COMMAND, null);
+          }}
+          className="toolbar-item spaced"
+          aria-label="Undo"
+        >
+          <UndoIcon />
+        </button>
+        <button
+          type="button"
+          disabled={!canRedo}
+          onClick={() => {
+            editor.dispatchCommand(REDO_COMMAND, null);
+          }}
+          className="toolbar-item"
+          aria-label="Redo"
+        >
+          <RedoIcon />
+        </button>
       </div>
     </article>
   );

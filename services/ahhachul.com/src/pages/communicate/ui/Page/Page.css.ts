@@ -12,7 +12,7 @@ export const layout = (isScaled = false) =>
     cssUtils.sideGutter,
     {
       animation: `0.3s forwards ${fadeIn}`,
-      paddingTop: '111px',
+      paddingTop: '100px',
       transform: isScaled ? 'translateY(-50px)' : 'translateY(0)',
       transition: 'transform 0.4s ease',
     },

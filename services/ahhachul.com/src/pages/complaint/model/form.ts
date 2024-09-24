@@ -1,6 +1,6 @@
 import type { WithImageFile } from 'entities/with-server';
 import type { WithSubwayLineId } from 'features/subway-lines';
-import type { ComplaintArticle, ComplaintType } from '.';
+import type { ComplaintArticle } from '.';
 
 export interface ComplaintForm
   extends Pick<

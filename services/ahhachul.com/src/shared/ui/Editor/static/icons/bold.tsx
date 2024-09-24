@@ -8,5 +8,9 @@ const SVG = `
 `;
 
 export const BoldIcon = () => (
-  <div css={cssUtils.flex} dangerouslySetInnerHTML={{ __html: SVG }} />
+  <div
+    className="format"
+    css={cssUtils.flex}
+    dangerouslySetInnerHTML={{ __html: SVG }}
+  />
 );

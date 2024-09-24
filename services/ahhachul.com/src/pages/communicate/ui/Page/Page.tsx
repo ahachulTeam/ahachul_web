@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useRef, useReducer } from 'react';
 import { useActivity } from '@stackflow/react';
 import type { ActivityComponentType } from 'app/stackflow';
 import { Layout, Navbar } from 'widgets';
@@ -14,6 +14,7 @@ const CommunityArticleList = React.lazy(
 
 const Community: ActivityComponentType = () => {
   const activity = useActivity();
+  const layoutRef = useRef<HTMLDivElement>(null);
   const [isScale, toggleScale] = useReducer((scale) => !scale, false);
 
   return (
@@ -25,12 +26,13 @@ const Community: ActivityComponentType = () => {
         toggleScale={toggleScale}
       />
       <Layout
+        ref={layoutRef}
+        navigationSlot={Navbar}
         appBar={{
           overflow: 'visible',
           renderLeft: renderLeftLogo,
           renderRight,
         }}
-        navigationSlot={Navbar}
       >
         <QueryErrorBoundary
           errorFallback={({ error, reset }) =>

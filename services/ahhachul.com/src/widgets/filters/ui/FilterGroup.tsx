@@ -37,13 +37,24 @@ export const FilterGroup = ({
   };
 
   const [open, setOpen] = React.useState(false);
+  const handleToggleDrawer = () => {
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+      const themeColor = !open ? '#000000' : '#141517';
+      metaThemeColor.setAttribute('content', themeColor);
+    }
+    setOpen(!open);
+  };
 
   return (
     <>
       <div css={styles.motion(isScale)} />
       <div css={styles.filterGroup(isScale, isActive)}>
         <SearchFilter handleFocus={handleInputFocus} />
-        <div css={[styles.btn_wrap, styles.dropdownMenu]}>
+        <div
+          id="filter-button-group"
+          css={[styles.btn_wrap, styles.dropdownMenu]}
+        >
           {showFilterControlButton && (
             <DropdownMenu.Root modal={false}>
               <DropdownMenu.Trigger asChild>
@@ -76,6 +87,7 @@ export const FilterGroup = ({
               </DropdownMenu.Content>
             </DropdownMenu.Root>
           )}
+
           <DropdownMenu.Root modal={false}>
             <DropdownMenu.Trigger asChild>
               <button
@@ -157,11 +169,12 @@ export const FilterGroup = ({
               </DropdownMenu.RadioGroup>
             </DropdownMenu.Content>
           </DropdownMenu.Root>
+
           <Drawer.Root
             open={open}
-            onOpenChange={setOpen}
-            repositionInputs={false}
             shouldScaleBackground
+            repositionInputs={false}
+            onOpenChange={handleToggleDrawer}
           >
             <Drawer.Trigger asChild>
               <button css={styles.buttonFilter}>
@@ -178,13 +191,13 @@ export const FilterGroup = ({
                 <div css={styles.content}>
                   {/* <div css={styles.handle} /> */}
                   <div css={styles.drawerHeader}>
-                    <button css={styles.cancel} onClick={() => setOpen(false)}>
+                    <button css={styles.cancel} onClick={handleToggleDrawer}>
                       취소
                     </button>
                     <Drawer.Title css={styles.headerTitle}>
                       작성자별 필터링
                     </Drawer.Title>
-                    <button css={styles.done} onClick={() => setOpen(false)}>
+                    <button css={styles.done} onClick={handleToggleDrawer}>
                       완료
                     </button>
                   </div>
