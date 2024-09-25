@@ -11,15 +11,15 @@
 3. `env contents => secret repo`
 4. **Web App** 실행하기
    ```shell
-   $ yarn workspace ahhachul.com start
+   $ yarn dev:app
    ```
 5. **Web App** Mocking 모드로 실행하기
    ```shell
-   $ yarn workspace ahhachul.com start:mocking
+   $ yarn dev:mocking
    ```
 6. **Web** 실행하기
    ```shell
-   $ yarn workspace next.ahhachul.com dev
+   $ yarn dev:web
    ```
 
 ### 프로젝트 프리뷰

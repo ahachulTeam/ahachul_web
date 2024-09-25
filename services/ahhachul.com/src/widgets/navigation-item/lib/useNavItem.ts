@@ -3,10 +3,10 @@ import { NavItem } from 'widgets/navigation-item/model';
 
 export const useNavItem = ({
   tab,
-  onTopClick,
+  handleScrollToTop,
 }: {
   tab: NavItem;
-  onTopClick?: VoidFunction;
+  handleScrollToTop?: VoidFunction;
 }) => {
   const activity = useActivity();
   const isSame = activity.name === tab.href;
@@ -14,7 +14,7 @@ export const useNavItem = ({
   const { replace } = useFlow();
   const handleTabClick = () => {
     if (isSame) {
-      onTopClick?.();
+      handleScrollToTop?.();
       return false;
     }
 

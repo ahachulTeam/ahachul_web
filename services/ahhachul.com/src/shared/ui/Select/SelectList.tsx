@@ -3,21 +3,21 @@ import { objectEntries } from 'shared/lib/utils/object/object-entries';
 import * as styles from './SelectList.css';
 
 interface SelectListProps {
-  hasError?: boolean;
   current: string;
-  selectList: Record<string, string>;
+  options: Record<string, string>;
+  hasError?: boolean;
   handleChange: (key: string) => () => void;
 }
 
 export const SelectList = ({
-  hasError,
   current,
-  selectList,
+  options,
+  hasError,
   handleChange,
 }: SelectListProps) => {
   return (
     <div css={styles.wrap}>
-      {objectEntries(selectList).map(([key, val]) => {
+      {objectEntries(options).map(([key, val]) => {
         const isSame = current === key;
         return (
           <button

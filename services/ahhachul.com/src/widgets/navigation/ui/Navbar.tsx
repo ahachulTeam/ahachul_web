@@ -1,27 +1,42 @@
-import React from 'react';
+import React, { type RefObject, useMemo, useCallback } from 'react';
 import { NavItem } from 'widgets/navigation-item/ui/NavItem';
+import { navlist } from 'widgets/navigation/data';
 import { BottomDim } from 'shared/ui';
-import { ScrollCondition } from 'shared/lib/hooks/useScrollTracker';
-import { navlist } from '../data';
+import {
+  ScrollDirection,
+  useScrollDirection,
+} from 'shared/lib/hooks/useScrollDirection';
 import * as styles from './Navbar.css';
 
 interface NavbarProps {
-  condition: ScrollCondition;
-  onTopClick?: VoidFunction;
+  elementRef: RefObject<HTMLElement>;
+  handleScrollToTop: () => void;
 }
 
-export const Navbar = ({ condition, onTopClick }: NavbarProps) => {
-  const visible = condition === 'upState';
+export const Navbar: React.FC<NavbarProps> = React.memo(
+  ({ elementRef, handleScrollToTop }) => {
+    const { scrollDir } = useScrollDirection(elementRef);
 
-  return (
-    <>
-      <nav css={styles.navbar(visible)}>
-        {navlist.map((tab) => {
-          const props = { tab, onTopClick };
-          return <NavItem key={tab.label} {...props} />;
-        })}
-      </nav>
-      <BottomDim />
-    </>
-  );
-};
+    const isVisible = useMemo(
+      () => scrollDir === ScrollDirection.up,
+      [scrollDir],
+    );
+
+    const renderNavItem = useCallback(
+      (tab: (typeof navlist)[number]) => {
+        const props = { tab, onTopClick: handleScrollToTop };
+        return <NavItem key={tab.label} {...props} />;
+      },
+      [handleScrollToTop],
+    );
+
+    return (
+      <>
+        <nav css={styles.navbar(isVisible)} aria-hidden={!isVisible}>
+          {navlist.map(renderNavItem)}
+        </nav>
+        <BottomDim />
+      </>
+    );
+  },
+);
