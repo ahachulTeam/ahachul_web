@@ -5,8 +5,8 @@ import { Layout } from 'widgets';
 import { ComposeLayout } from 'widgets/layout/ui/ComposeLayout';
 import { renderLeftLogo, renderRight } from 'widgets/layout-header';
 import { ArticleListErrorFallback } from 'widgets/articles/ui/ArticleListErrorFallback';
-import { FilterGroup } from 'widgets/filters/ui/FilterGroup';
 import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
+import { CommunityFilters } from '../_common/CommunityFilters/CommunityFilters';
 import * as styles from './Page.css';
 
 const CommunityArticleList = React.lazy(
@@ -19,11 +19,10 @@ const Community: ActivityComponentType = () => {
 
   return (
     <ComposeLayout>
-      <FilterGroup
+      <CommunityFilters
         isScale={isScale}
         isActive={activity.isActive}
-        typeList={['인기', '자유', '정보', '질문']}
-        toggleScale={toggleScale}
+        handleScale={toggleScale}
       />
       <Layout
         showNavbar

@@ -2,8 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { ParamsOfCommunityList } from '../model/params';
 
-const defaultCommunityFilters = {
-};
+const defaultCommunityFilters = {};
 
 type ICommunityFilters = Omit<ParamsOfCommunityList, 'page' | 'size'>;
 interface ICommunityFilterStore {

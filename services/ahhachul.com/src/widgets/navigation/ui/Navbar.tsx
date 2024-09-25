@@ -24,7 +24,7 @@ export const Navbar: React.FC<NavbarProps> = React.memo(
 
     const renderNavItem = useCallback(
       (tab: (typeof navlist)[number]) => {
-        const props = { tab, onTopClick: handleScrollToTop };
+        const props = { tab, handleScrollToTop };
         return <NavItem key={tab.label} {...props} />;
       },
       [handleScrollToTop],

@@ -5,8 +5,8 @@ import { Layout } from 'widgets';
 import { ComposeLayout } from 'widgets/layout/ui/ComposeLayout';
 import { renderLeftLogo, renderRight } from 'widgets/layout-header';
 import { ArticleListErrorFallback } from 'widgets/articles/ui/ArticleListErrorFallback';
-import { FilterGroup } from 'widgets/filters/ui/FilterGroup';
 import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
+import { LostFoundFilters } from '../_common/LostFoundFilters/LostFoundFilters';
 import * as styles from './Page.css';
 
 const LostFoundArticleList = React.lazy(
@@ -19,11 +19,10 @@ const LostFound: ActivityComponentType = () => {
 
   return (
     <ComposeLayout>
-      <FilterGroup
+      <LostFoundFilters
         isScale={isScale}
         isActive={activity.isActive}
-        typeList={['유실물', '분실물']}
-        toggleScale={toggleScale}
+        handleScale={toggleScale}
       />
       <Layout showNavbar appBar={{ renderLeft: renderLeftLogo, renderRight }}>
         <QueryErrorBoundary
