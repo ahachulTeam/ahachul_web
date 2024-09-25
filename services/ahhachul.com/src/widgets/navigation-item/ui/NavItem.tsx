@@ -7,11 +7,11 @@ import * as styles from './NavItem.css';
 
 interface TabItemProps {
   tab: NavType;
-  onTopClick?: VoidFunction;
+  handleScrollToTop?: VoidFunction;
 }
 
-export const NavItem = ({ tab, onTopClick }: TabItemProps) => {
-  const { isSame, handleTabClick } = useNavItem({ tab, onTopClick });
+export const NavItem = ({ tab, handleScrollToTop }: TabItemProps) => {
+  const { isSame, handleTabClick } = useNavItem({ tab, handleScrollToTop });
 
   return (
     <div css={styles.wrap(isSame)}>

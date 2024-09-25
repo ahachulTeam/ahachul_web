@@ -1,44 +1,60 @@
-import React, { type ComponentProps, forwardRef } from 'react';
+import React, {
+  type ComponentProps,
+  useRef,
+  useMemo,
+  useCallback,
+} from 'react';
 import { AppScreen } from '@stackflow/plugin-basic-ui';
 import { Navbar } from 'widgets/navigation';
-import { ScrollCondition } from 'shared/lib/hooks/useScrollTracker';
 import themes from 'shared/themes.css';
 import * as styles from './Layout.css';
 
-type LayoutProps = ComponentProps<typeof AppScreen> & {
-  condition?: ScrollCondition;
-  navigationSlot?: typeof Navbar;
-};
+interface LayoutProps extends ComponentProps<typeof AppScreen> {
+  showNavbar?: boolean;
+}
 
-export const Layout = forwardRef<HTMLDivElement, LayoutProps>((props, ref) => {
-  const topEl = ref as React.RefObject<HTMLDivElement>;
+export const Layout: React.FC<LayoutProps> = ({
+  showNavbar,
+  appBar,
+  children,
+  backgroundColor = themes.color.background[50],
+  ...props
+}) => {
+  const scrollableRef = useRef<HTMLDivElement>(null);
 
-  const onTopClick = () =>
-    topEl?.current?.scrollTo?.({ top: 0, behavior: 'smooth' });
+  const handleScrollToTop = useCallback(() => {
+    scrollableRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
-  const _appBar = Object.assign(props.appBar ?? {}, {
-    iconColor: themes.color.text[50],
-    textColor: themes.color.text[50],
-    onTopClick,
-  });
+  const customAppBar = useMemo(
+    () => ({
+      ...appBar,
+      iconColor: themes.color.text[50],
+      textColor: themes.color.text[50],
+    }),
+    [appBar],
+  );
+
+  const navbarConfig = useMemo(
+    () => ({
+      elementRef: scrollableRef,
+      handleScrollToTop,
+    }),
+    [handleScrollToTop],
+  );
 
   return (
     <AppScreen
-      appBar={_appBar}
-      preventSwipeBack
-      backgroundColor={props.backgroundColor ?? themes.color.background[50]}
+      appBar={customAppBar}
+      backgroundColor={backgroundColor}
+      {...props}
     >
       <main css={styles.wrapper}>
-        <div ref={topEl} css={styles.scrollable(Boolean(props.navigationSlot))}>
-          {props.children}
+        <div ref={scrollableRef} css={styles.scrollable(Boolean(showNavbar))}>
+          {children}
         </div>
       </main>
-      {props.navigationSlot?.({
-        condition: props.condition,
-        onTopClick,
-      })}
+      {showNavbar && <Navbar {...navbarConfig} />}
     </AppScreen>
   );
-});
-
-Layout.displayName = 'Layout';
+};

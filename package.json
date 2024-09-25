@@ -15,6 +15,7 @@
     "storybook": "nx storybook @ahhachul/storybook",
     "dev:app": "yarn workspace ahhachul.com start",
     "dev:web": "yarn workspace next.ahhachul.com dev",
+    "dev:mocking": "yarn workspace ahhachul.com start:mocking",
     "build:app": "nx build ahhachul.com",
     "build:web": "nx build next.ahhachul.com",
     "build:all": "nx run-many --target=build --all",
