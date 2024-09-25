@@ -1,6 +1,6 @@
 import React, { HTMLAttributes } from 'react';
 import InfoIcon from 'shared/static/icons/info';
-import * as styles from './FieldErrorMessage.css';
+import * as styles from './FormField.css';
 
 interface FieldErrorMessageProps extends HTMLAttributes<HTMLDivElement> {
   errMsg?: string | null | undefined;

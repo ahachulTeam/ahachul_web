@@ -1,18 +1,19 @@
 import React, { useMemo, useCallback } from 'react';
-import type { ActivityComponentType } from '@stackflow/react';
+import { ActivityComponentType, useActivity } from '@stackflow/react';
 import { Layout } from 'widgets';
+import type { ComplaintForm as IComplaintForm } from 'pages/complaint/model/form';
 import { useCreateComplaintForm } from 'pages/complaint/lib/useCreateComplaintForm';
-import { ImageUploadField } from 'widgets/form-fields/ui/ImageUploadField';
-import { CategorySelectField } from 'widgets/form-fields/ui/CategorySelectFieldProps';
-import { ContentEditorField } from 'widgets/form-fields/ui/ContentEditorField';
-import * as styles from './ComplaintForm.css';
-import { ComplaintForm as IComplaintForm } from 'pages/complaint/model/form';
 import {
   complaintTypeMap,
   complaintsContentDetail,
 } from 'pages/complaint/data';
+import { ImageUploadField } from 'widgets/form-fields/ui/ImageUploadField';
+import { CategorySelectField } from 'widgets/form-fields/ui/CategorySelectField';
+import { ContentEditorField } from 'widgets/form-fields/ui/ContentEditorField';
+import { SubmitButton } from 'widgets/form-fields/ui/SubmitButton';
+import * as styles from './ComplaintForm.css';
 
-const SUBMIT_BUTTON_TEXT = '민원접수';
+const SUBMIT_BUTTON_TEXT = '등록';
 const EDITOR_PLACEHOLDER = `민원 내용을 입력해 주세요.\n\n서비스 정책에 맞지 않을 경우\n자동으로 삭제 처리 될 수 있습니다.`;
 
 interface ComplaintFormProps {
@@ -32,10 +33,12 @@ const ComplaintForm: ActivityComponentType<ComplaintFormProps> = ({
     onSubmit,
     onError,
   } = useCreateComplaintForm(slug);
+  const submit = handleSubmit(onSubmit, onError);
 
+  const activity = useActivity();
   const renderForm = useCallback(
     () => (
-      <form css={styles.wrap} onSubmit={handleSubmit(onSubmit, onError)}>
+      <form css={styles.wrap} onSubmit={submit}>
         <ImageUploadField<IComplaintForm> control={control} name="imageFiles" />
         <CategorySelectField<IComplaintForm>
           errors={errors}
@@ -54,17 +57,12 @@ const ComplaintForm: ActivityComponentType<ComplaintFormProps> = ({
           errors={errors}
           name="content"
         />
-        <div css={styles.submitGroup}>
-          <button
-            type="submit"
-            css={styles.submit}
-            disabled={isSubmitting}
-            aria-busy={isSubmitting}
-          >
-            {SUBMIT_BUTTON_TEXT}
-          </button>
-          <div css={styles.indicatorArea} />
-        </div>
+        <SubmitButton
+          isActive={activity.isActive}
+          isSubmitting={isSubmitting}
+          buttonText={SUBMIT_BUTTON_TEXT}
+          onSubmit={submit}
+        />
       </form>
     ),
     [

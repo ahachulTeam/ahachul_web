@@ -1,7 +1,7 @@
 import React from 'react';
 import { Control, Controller, FieldErrors, Path } from 'react-hook-form';
 import Editor from 'shared/ui/Editor';
-import { FieldErrorMessage } from 'shared/ui/FieldErrorMessage/FieldErrorMessage';
+import { FieldErrorMessage } from 'widgets/form-fields/ui/FieldErrorMessage';
 import { EditorState } from 'lexical';
 import * as styles from './FormField.css';
 

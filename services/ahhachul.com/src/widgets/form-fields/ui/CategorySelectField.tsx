@@ -8,7 +8,7 @@ import {
   FieldValues,
 } from 'react-hook-form';
 import { SelectList } from 'shared/ui/Select/SelectList';
-import { FieldErrorMessage } from 'shared/ui/FieldErrorMessage/FieldErrorMessage';
+import { FieldErrorMessage } from 'widgets/form-fields/ui/FieldErrorMessage';
 import * as styles from './FormField.css';
 
 interface CategorySelectFieldProps<T extends FieldValues> {
