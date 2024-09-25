@@ -279,7 +279,7 @@ export const drawerHeader = css`
 `;
 
 export const headerTitle = css({
-  fontSize: '18px',
+  fontSize: '16px',
   fontWeight: '600',
   color: '#ffffff',
 });

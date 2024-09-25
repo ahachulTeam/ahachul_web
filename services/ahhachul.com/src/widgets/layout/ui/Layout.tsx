@@ -31,8 +31,9 @@ export const Layout: React.FC<LayoutProps> = ({
       ...appBar,
       iconColor: themes.color.text[50],
       textColor: themes.color.text[50],
+      onTopClick: handleScrollToTop,
     }),
-    [appBar],
+    [appBar, handleScrollToTop],
   );
 
   const navbarConfig = useMemo(

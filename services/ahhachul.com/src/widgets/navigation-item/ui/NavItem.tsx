@@ -7,7 +7,7 @@ import * as styles from './NavItem.css';
 
 interface TabItemProps {
   tab: NavType;
-  handleScrollToTop?: VoidFunction;
+  handleScrollToTop: VoidFunction;
 }
 
 export const NavItem = ({ tab, handleScrollToTop }: TabItemProps) => {

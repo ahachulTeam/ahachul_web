@@ -1,7 +1,8 @@
-import { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { css } from '@emotion/react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { SearchIcon } from 'widgets/layout-header/static/icons/search';
+import { Subject, debounceTime } from 'rxjs';
 
 const cancelVariants = {
   initial: {
@@ -24,23 +25,39 @@ const cancelVariants = {
   },
 };
 
-interface SearchFilterProps {
-  handleFocus: VoidFunction;
+export interface SearchFilterProps {
+  handleScale: () => void;
+  handleSetKeyword: (keyword: string) => void;
+  resetKeyword: () => void;
 }
-export const SearchFilter = ({ handleFocus }: SearchFilterProps) => {
-  const [isFocused, setIsFocused] = useState(false);
+
+export const SearchFilter: React.FC<SearchFilterProps> = ({
+  handleScale,
+  handleSetKeyword,
+  resetKeyword,
+}) => {
+  const subject = useRef(new Subject<string>());
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleAnimation = useCallback(
+    (focusValue: boolean) => {
+      setIsFocused(focusValue);
+      handleScale();
+    },
+    [handleScale],
+  );
 
   const handleInputFocus = useCallback(() => {
     if (!isFocused) {
-      setIsFocused(true);
-      handleFocus();
+      handleAnimation(true);
     }
-  }, [isFocused, handleFocus]);
+  }, [isFocused, handleAnimation]);
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      console.log(e.target.value);
+      const value = e.target.value;
+      subject.current.next(value);
     },
     [],
   );
@@ -48,19 +65,30 @@ export const SearchFilter = ({ handleFocus }: SearchFilterProps) => {
   const handleFormSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      const form = e.currentTarget;
+      const formData = new FormData(form);
+      const inputValue = formData.get('search') as string;
+      subject.current.next(inputValue);
       inputRef.current?.blur();
     },
     [],
   );
 
   const handleCancel = useCallback(() => {
-    setIsFocused(false);
-    handleFocus();
     if (inputRef.current) {
       inputRef.current.value = '';
-      inputRef.current.blur();
     }
-  }, [handleFocus]);
+    resetKeyword();
+    handleAnimation(false);
+  }, [resetKeyword, handleAnimation]);
+
+  useEffect(() => {
+    const subscription = subject.current
+      .pipe(debounceTime(800))
+      .subscribe((value) => handleSetKeyword(value));
+
+    return () => subscription.unsubscribe();
+  }, [handleSetKeyword]);
 
   return (
     <form css={searchGroup} onSubmit={handleFormSubmit}>
@@ -70,23 +98,27 @@ export const SearchFilter = ({ handleFocus }: SearchFilterProps) => {
       <motion.input
         css={input}
         ref={inputRef}
+        name="search"
         placeholder="검색"
         onFocus={handleInputFocus}
         onChange={handleInputChange}
         animate={{ maxWidth: isFocused ? 'calc(100% - 40px)' : '100%' }}
       />
-      {isFocused && (
-        <motion.button
-          css={cancel}
-          variants={cancelVariants}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          onClick={handleCancel}
-        >
-          취소
-        </motion.button>
-      )}
+      <AnimatePresence>
+        {isFocused && (
+          <motion.button
+            css={cancel}
+            variants={cancelVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            onClick={handleCancel}
+            type="button"
+          >
+            취소
+          </motion.button>
+        )}
+      </AnimatePresence>
     </form>
   );
 };
