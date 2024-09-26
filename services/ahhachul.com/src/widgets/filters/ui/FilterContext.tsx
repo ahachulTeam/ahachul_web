@@ -4,13 +4,9 @@ import React, {
   useState,
   useCallback,
   useEffect,
-<<<<<<< HEAD
   useMemo,
 } from 'react';
 import * as styles from './Filter.css';
-=======
-} from 'react';
->>>>>>> main
 
 interface FilterState {
   [key: string]: string;
@@ -94,7 +90,6 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({
     0,
   );
 
-<<<<<<< HEAD
   const value = useMemo(
     () => ({
       id,
@@ -114,22 +109,6 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({
       <div css={styles.composeLayout} data-vaul-drawer-wrapper="true">
         {children}
       </div>
-=======
-  return (
-    <FilterContext.Provider
-      value={{
-        id,
-        filters,
-        keyword,
-        setFilter,
-        setKeyword,
-        resetFilters,
-        resetKeyword,
-        controlledFilterLength,
-      }}
-    >
-      {children}
->>>>>>> main
     </FilterContext.Provider>
   );
 };

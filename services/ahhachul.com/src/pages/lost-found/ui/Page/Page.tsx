@@ -19,14 +19,10 @@ const LostFound: ActivityComponentType = () => {
   const [isScale, toggleScale] = useReducer((scale) => !scale, false);
 
   return (
-<<<<<<< HEAD
     <FilterProvider
       id="lostFound"
       defaultValues={LOST_FOUND_FILTER_DEFAULT_VALUES}
     >
-=======
-    <ComposeLayout>
->>>>>>> main
       <LostFoundFilters
         isScale={isScale}
         isActive={activity.isActive}

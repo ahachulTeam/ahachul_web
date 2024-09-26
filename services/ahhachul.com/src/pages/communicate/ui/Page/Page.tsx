@@ -19,14 +19,10 @@ const Community: ActivityComponentType = () => {
   const [isScale, toggleScale] = useReducer((scale) => !scale, false);
 
   return (
-<<<<<<< HEAD
     <FilterProvider
       id="community"
       defaultValues={COMMUNITY_FILTER_DEFAULT_VALUES}
     >
-=======
-    <ComposeLayout>
->>>>>>> main
       <CommunityFilters
         isScale={isScale}
         isActive={activity.isActive}
