@@ -23,4 +23,6 @@ export const useGetCommunityList = (params: ParamsOfCommunityList) =>
       getCommunityList({ ...params, page: pageParam }),
     getNextPageParam: (lastPage) => lastPage.data.result.nextPageNum,
     initialPageParam: params?.page ?? 0,
+    gcTime: 5 * 60 * 1000,
+    staleTime: 30 * 1000,
   });

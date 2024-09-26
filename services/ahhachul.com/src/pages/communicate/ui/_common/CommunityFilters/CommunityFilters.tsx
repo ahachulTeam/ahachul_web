@@ -1,3 +1,4 @@
+import { COMMUNITY_FILTER_DEFAULT_VALUES } from 'pages/communicate/data';
 import React from 'react';
 import { FilterGroup } from 'widgets/filters/ui/FilterGroup';
 
@@ -6,12 +7,6 @@ interface CommunityFiltersProps {
   isActive: boolean;
   handleScale: () => void;
 }
-
-export const COMMUNITY_FILTER_DEFAULT_VALUES = {
-  category: 'HOT',
-  line: 'allLines',
-  search: '',
-};
 
 const CATEGORY_OPTIONS = {
   HOT: '인기',
@@ -32,10 +27,8 @@ export const CommunityFilters: React.FC<CommunityFiltersProps> = ({
 }) => {
   return (
     <FilterGroup
-      id="community"
       isScale={isScale}
       isActive={isActive}
-      defaultValues={COMMUNITY_FILTER_DEFAULT_VALUES}
       handleScale={handleScale}
     >
       <FilterGroup.DropdownFilter

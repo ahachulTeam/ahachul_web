@@ -1,6 +1,11 @@
 import { css, type Interpolation, type Theme } from '@emotion/react';
 import cssUtils from 'shared/utils.css';
 
+export const composeLayout = css({
+  width: '100%',
+  height: '100vh',
+});
+
 export const motion = (scale: boolean) =>
   css({
     position: 'fixed',

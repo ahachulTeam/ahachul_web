@@ -1,3 +1,4 @@
+import { LOST_FOUND_FILTER_DEFAULT_VALUES } from 'pages/lost-found/data';
 import React from 'react';
 import { FilterGroup } from 'widgets/filters/ui/FilterGroup';
 
@@ -6,12 +7,6 @@ interface LostFoundFiltersProps {
   isActive: boolean;
   handleScale: () => void;
 }
-
-export const LOST_FOUND_FILTER_DEFAULT_VALUES = {
-  type: 'LOST',
-  line: 'allLines',
-  search: '',
-};
 
 const TYPE_OPTIONS = {
   LOST: '분실물',
@@ -30,10 +25,8 @@ export const LostFoundFilters: React.FC<LostFoundFiltersProps> = ({
 }) => {
   return (
     <FilterGroup
-      id="lostFound"
       isScale={isScale}
       isActive={isActive}
-      defaultValues={LOST_FOUND_FILTER_DEFAULT_VALUES}
       handleScale={handleScale}
     >
       <FilterGroup.DropdownFilter

@@ -68,7 +68,7 @@ export const SearchFilter: React.FC<SearchFilterProps> = ({
       const form = e.currentTarget;
       const formData = new FormData(form);
       const inputValue = formData.get('search') as string;
-      subject.current.next(inputValue);
+      handleSetKeyword(inputValue);
       inputRef.current?.blur();
     },
     [],
@@ -84,7 +84,7 @@ export const SearchFilter: React.FC<SearchFilterProps> = ({
 
   useEffect(() => {
     const subscription = subject.current
-      .pipe(debounceTime(800))
+      .pipe(debounceTime(300))
       .subscribe((value) => handleSetKeyword(value));
 
     return () => subscription.unsubscribe();

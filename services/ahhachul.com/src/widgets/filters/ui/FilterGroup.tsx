@@ -1,5 +1,5 @@
 import React from 'react';
-import { FilterProvider, useFilters } from './FilterContext';
+import { useFilters } from './FilterContext';
 import { SearchFilter, SearchFilterProps } from './SearchFilter';
 import { DropdownFilter, DropdownFilterProps } from './DropdownFilter';
 import { DrawerFilter, DrawerFilterProps } from './DrawerFilter';
@@ -8,10 +8,8 @@ import * as styles from './Filter.css';
 
 interface FilterGroupProps {
   children: React.ReactNode;
-  id: string;
   isScale: boolean;
   isActive: boolean;
-  defaultValues: Record<string, string>;
   handleScale: () => void;
 }
 
@@ -51,22 +49,18 @@ type FilterGroupMainType = React.FC<FilterGroupProps> & {
 };
 
 const FilterGroupMain: FilterGroupMainType = ({
-  id,
   children,
   isScale,
   isActive,
-  defaultValues,
   handleScale,
 }) => (
-  <FilterProvider id={id} defaultValues={defaultValues}>
-    <FilterGroupInner
-      isScale={isScale}
-      isActive={isActive}
-      handleScale={handleScale}
-    >
-      {children}
-    </FilterGroupInner>
-  </FilterProvider>
+  <FilterGroupInner
+    isScale={isScale}
+    isActive={isActive}
+    handleScale={handleScale}
+  >
+    {children}
+  </FilterGroupInner>
 );
 
 FilterGroupMain.SearchFilter = SearchFilter;

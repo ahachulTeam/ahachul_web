@@ -5,15 +5,19 @@ import type { LostFoundArticle } from 'pages/lost-found/model';
 import { Loading } from 'entities/app-loaders/ui/Loading';
 import { flattenInfinityList } from 'shared/lib/utils/array/flattenInfinityList';
 import { BaseArticleList } from 'widgets/articles/ui/BaseArticleList';
+import { useFilters } from 'widgets/filters/ui/FilterContext';
 
 interface LostFoundArticleListProps
   extends HTMLAttributes<HTMLSectionElement> {}
 const LostFoundArticleList = ({ ...props }: LostFoundArticleListProps) => {
+  const { keyword, filters } = useFilters();
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } =
     useGetLostFoundList({
       page: 0,
       size: 10,
       lostType: 'ACQUIRE',
+      keyword,
+      ...filters,
     });
   const lostArticles = flattenInfinityList(data);
 
@@ -30,5 +34,5 @@ const LostFoundArticleList = ({ ...props }: LostFoundArticleListProps) => {
 };
 
 export default withSuspense(LostFoundArticleList, {
-  fallback: <Loading opacity={1} />,
+  fallback: <Loading opacity={1} deferredMs={0} />,
 });
