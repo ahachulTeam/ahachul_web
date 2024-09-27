@@ -27,7 +27,10 @@ export const DropdownFilter = <T extends Record<string, string>>({
       <DropdownMenu.Trigger asChild>
         <button data-active={isActive} css={styles.buttonFilter}>
           <span>{currentLabel}</span>
-          <ChevronDownIcon stroke={isActive ? '#fff' : '#4C5874'} />
+          <ChevronDownIcon
+            className="arrow-down-img"
+            stroke={isActive ? '#fff' : '#4C5874'}
+          />
         </button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content
