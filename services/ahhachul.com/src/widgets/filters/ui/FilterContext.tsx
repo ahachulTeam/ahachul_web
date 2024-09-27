@@ -1,122 +1,126 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  useEffect,
-  useMemo,
-} from 'react';
-import * as styles from './Filter.css';
+/**
+ * 레거시 코드, 혹시 모르니 주석으로 남겨놓아요
+ */
 
-interface FilterState {
-  [key: string]: string;
-}
+// import React, {
+//   createContext,
+//   useContext,
+//   useState,
+//   useCallback,
+//   useEffect,
+//   useMemo,
+// } from 'react';
+// import * as styles from './Filter.css';
 
-interface FilterContextType {
-  id: string;
-  filters: FilterState;
-  keyword: string;
-  setFilter: (key: string, value: string) => void;
-  setKeyword: (value: string) => void;
-  resetFilters: () => void;
-  resetKeyword: () => void;
-  controlledFilterLength: number;
-}
+// interface FilterState {
+//   [key: string]: string;
+// }
 
-const FilterContext = createContext<FilterContextType | undefined>(undefined);
+// interface FilterContextType {
+//   id: string;
+//   filters: FilterState;
+//   keyword: string;
+//   setFilter: (key: string, value: string) => void;
+//   setKeyword: (value: string) => void;
+//   resetFilters: () => void;
+//   resetKeyword: () => void;
+//   controlledFilterLength: number;
+// }
 
-interface FilterProviderProps {
-  children: React.ReactNode;
-  defaultValues: FilterState;
-  id: string;
-}
+// const FilterContext = createContext<FilterContextType | undefined>(undefined);
 
-const getStorageKey = (id: string) => `filters_${id}`;
+// interface FilterProviderProps {
+//   children: React.ReactNode;
+//   defaultValues: FilterState;
+//   id: string;
+// }
 
-const getStoredFilters = (
-  id: string,
-  defaultValues: FilterState,
-): FilterState => {
-  const storedFilters = localStorage.getItem(getStorageKey(id));
-  if (storedFilters) {
-    const parsedFilters = JSON.parse(storedFilters);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { search, ...otherFilters } = parsedFilters;
-    return otherFilters;
-  }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { search, ...otherDefaults } = defaultValues;
-  return otherDefaults;
-};
+// const getStorageKey = (id: string) => `filters_${id}`;
 
-export const FilterProvider: React.FC<FilterProviderProps> = ({
-  children,
-  defaultValues,
-  id,
-}) => {
-  const [filters, setFilters] = useState<FilterState>(() =>
-    getStoredFilters(id, defaultValues),
-  );
-  const [keyword, setKeyword] = useState('');
+// const getStoredFilters = (
+//   id: string,
+//   defaultValues: FilterState,
+// ): FilterState => {
+//   const storedFilters = localStorage.getItem(getStorageKey(id));
+//   if (storedFilters) {
+//     const parsedFilters = JSON.parse(storedFilters);
+//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//     const { search, ...otherFilters } = parsedFilters;
+//     return otherFilters;
+//   }
+//   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//   const { search, ...otherDefaults } = defaultValues;
+//   return otherDefaults;
+// };
 
-  useEffect(() => {
-    localStorage.setItem(getStorageKey(id), JSON.stringify(filters));
-  }, [id, filters]);
+// export const FilterProvider: React.FC<FilterProviderProps> = ({
+//   children,
+//   defaultValues,
+//   id,
+// }) => {
+//   const [filters, setFilters] = useState<FilterState>(() =>
+//     getStoredFilters(id, defaultValues),
+//   );
+//   const [keyword, setKeyword] = useState('');
 
-  const setFilter = useCallback(
-    (key: string, value: string) => {
-      setFilters((prev) => {
-        const newFilters = { ...prev, [key]: value };
-        localStorage.setItem(getStorageKey(id), JSON.stringify(newFilters));
-        return newFilters;
-      });
-    },
-    [id],
-  );
+//   useEffect(() => {
+//     localStorage.setItem(getStorageKey(id), JSON.stringify(filters));
+//   }, [id, filters]);
 
-  const resetFilters = useCallback(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { search, ...otherDefaults } = defaultValues;
-    setFilters(otherDefaults);
-    localStorage.setItem(getStorageKey(id), JSON.stringify(otherDefaults));
-  }, [defaultValues, id]);
+//   const setFilter = useCallback(
+//     (key: string, value: string) => {
+//       setFilters((prev) => {
+//         const newFilters = { ...prev, [key]: value };
+//         localStorage.setItem(getStorageKey(id), JSON.stringify(newFilters));
+//         return newFilters;
+//       });
+//     },
+//     [id],
+//   );
 
-  const resetKeyword = useCallback(() => {
-    setKeyword('');
-  }, []);
+//   const resetFilters = useCallback(() => {
+//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+//     const { search, ...otherDefaults } = defaultValues;
+//     setFilters(otherDefaults);
+//     localStorage.setItem(getStorageKey(id), JSON.stringify(otherDefaults));
+//   }, [defaultValues, id]);
 
-  const controlledFilterLength = Object.entries(filters).reduce(
-    (count, [key, value]) => (value !== defaultValues[key] ? count + 1 : count),
-    0,
-  );
+//   const resetKeyword = useCallback(() => {
+//     setKeyword('');
+//   }, []);
 
-  const value = useMemo(
-    () => ({
-      id,
-      filters,
-      keyword,
-      setFilter,
-      setKeyword,
-      resetFilters,
-      resetKeyword,
-      controlledFilterLength,
-    }),
-    [id, filters, keyword, controlledFilterLength],
-  );
+//   const controlledFilterLength = Object.entries(filters).reduce(
+//     (count, [key, value]) => (value !== defaultValues[key] ? count + 1 : count),
+//     0,
+//   );
 
-  return (
-    <FilterContext.Provider value={value}>
-      <div css={styles.composeLayout} data-vaul-drawer-wrapper="true">
-        {children}
-      </div>
-    </FilterContext.Provider>
-  );
-};
+//   const value = useMemo(
+//     () => ({
+//       id,
+//       filters,
+//       keyword,
+//       setFilter,
+//       setKeyword,
+//       resetFilters,
+//       resetKeyword,
+//       controlledFilterLength,
+//     }),
+//     [id, filters, keyword, controlledFilterLength],
+//   );
 
-export const useFilters = () => {
-  const context = useContext(FilterContext);
-  if (context === undefined) {
-    throw new Error('useFilters must be used within a FilterProvider');
-  }
-  return context;
-};
+//   return (
+//     <FilterContext.Provider value={value}>
+//       <div css={styles.composeLayout} data-vaul-drawer-wrapper="true">
+//         {children}
+//       </div>
+//     </FilterContext.Provider>
+//   );
+// };
+
+// export const useFilters = () => {
+//   const context = useContext(FilterContext);
+//   if (context === undefined) {
+//     throw new Error('useFilters must be used within a FilterProvider');
+//   }
+//   return context;
+// };

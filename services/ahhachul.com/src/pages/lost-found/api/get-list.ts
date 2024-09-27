@@ -1,11 +1,6 @@
 import queryString from 'query-string';
 
-import {
-  base,
-  routes,
-  getQueryKeys,
-  useSuspenseInfiniteQuery,
-} from 'shared/api';
+import { base, routes, getQueryKeys, useInfiniteQuery } from 'shared/api';
 import type { IResponse } from 'entities/with-server';
 import { LOST_FOUND_QUERY_KEY } from './query-key';
 import type { LostList } from '../model';
@@ -17,7 +12,7 @@ const getLostFoundList = (params: ParamsOfLostFoundList) =>
   );
 
 export const useGetLostFoundList = (params: ParamsOfLostFoundList) =>
-  useSuspenseInfiniteQuery({
+  useInfiniteQuery({
     queryKey: getQueryKeys(LOST_FOUND_QUERY_KEY).list({ params }),
     queryFn: ({ pageParam = params?.page }) =>
       getLostFoundList({ ...params, page: pageParam }),
@@ -25,4 +20,5 @@ export const useGetLostFoundList = (params: ParamsOfLostFoundList) =>
     initialPageParam: params?.page ?? 0,
     gcTime: 5 * 60 * 1000,
     staleTime: 30 * 1000,
+    throwOnError: true,
   });

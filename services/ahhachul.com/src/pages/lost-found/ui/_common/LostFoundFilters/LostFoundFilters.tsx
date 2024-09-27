@@ -1,43 +1,48 @@
-import { LOST_FOUND_FILTER_DEFAULT_VALUES } from 'pages/lost-found/data';
 import React from 'react';
+import {
+  lostFoundUniqueFilterId,
+  useLostFoundFilterStore,
+} from 'pages/lost-found/slice';
 import { FilterGroup } from 'widgets/filters/ui/FilterGroup';
+import { LINE_OPTIONS } from 'features/subway-lines/data';
+import {
+  LOST_FOUND_FILTER_DEFAULT_VALUES,
+  TYPE_OPTIONS,
+} from 'pages/lost-found/data';
 
 interface LostFoundFiltersProps {
   isScale: boolean;
-  isActive: boolean;
   handleScale: () => void;
 }
 
-const TYPE_OPTIONS = {
-  LOST: '분실물',
-  ACQUIRE: '습득물',
-};
-
-const LINE_OPTIONS = {
-  allLines: '전체 호선 보기',
-  onlyMyLine: '내 호선만 보기',
-};
-
 export const LostFoundFilters: React.FC<LostFoundFiltersProps> = ({
   isScale,
-  isActive,
   handleScale,
 }) => {
+  const { filters, setFilter, resetFilters, controlledFilterLength } =
+    useLostFoundFilterStore();
+
   return (
     <FilterGroup
       isScale={isScale}
-      isActive={isActive}
+      uniqueId={lostFoundUniqueFilterId}
+      controlledFilterLength={controlledFilterLength}
       handleScale={handleScale}
+      resetFilters={resetFilters}
     >
       <FilterGroup.DropdownFilter
         filterKey="type"
+        filters={filters}
+        optionList={TYPE_OPTIONS}
         buttonLabel={TYPE_OPTIONS[LOST_FOUND_FILTER_DEFAULT_VALUES.type]}
-        options={TYPE_OPTIONS}
+        handleSetFilter={setFilter}
       />
       <FilterGroup.DropdownFilter
         filterKey="line"
+        filters={filters}
+        optionList={LINE_OPTIONS}
         buttonLabel={LINE_OPTIONS[LOST_FOUND_FILTER_DEFAULT_VALUES.line]}
-        options={LINE_OPTIONS}
+        handleSetFilter={setFilter}
       />
       <FilterGroup.DrawerFilter buttonLabel="작성자" title="작성자별 필터링" />
     </FilterGroup>

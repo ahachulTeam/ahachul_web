@@ -1,31 +1,34 @@
 import React from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { CheckIcon } from '@radix-ui/react-icons';
-import { FilterButton } from './FilterButton';
-import { useFilters } from './FilterContext';
+import { CheckIcon, ChevronDownIcon } from '@radix-ui/react-icons';
+import * as styles from './Filter.css';
 
-export interface DropdownFilterProps {
-  filterKey: string;
+export interface DropdownFilterProps<T extends Record<string, string>> {
+  filters: T;
+  filterKey: KeyOf<T>;
+  handleSetFilter: <K extends KeyOf<T>>(key: K, value: T[K]) => void;
   buttonLabel: string;
-  options: Record<string, string>;
+  optionList: Record<string, string>;
 }
 
-export const DropdownFilter: React.FC<DropdownFilterProps> = ({
+export const DropdownFilter = <T extends Record<string, string>>({
+  filters,
   filterKey,
+  handleSetFilter,
   buttonLabel,
-  options,
-}) => {
-  const { filters, setFilter } = useFilters();
+  optionList,
+}: DropdownFilterProps<T>): React.ReactElement => {
   const value = filters[filterKey];
-  const currentLabel = options[value] || buttonLabel;
+  const isActive = value !== Object.keys(optionList)[0];
+  const currentLabel = optionList[value as string] || buttonLabel;
 
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <FilterButton
-          label={currentLabel}
-          isActive={value !== Object.keys(options)[0]}
-        />
+    <DropdownMenu.Root modal={false}>
+      <DropdownMenu.Trigger asChild>
+        <button data-active={isActive} css={styles.buttonFilter}>
+          <span>{currentLabel}</span>
+          <ChevronDownIcon stroke={isActive ? '#fff' : '#4C5874'} />
+        </button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content
         align="start"
@@ -34,10 +37,12 @@ export const DropdownFilter: React.FC<DropdownFilterProps> = ({
         className="DropdownMenuContent"
       >
         <DropdownMenu.RadioGroup
-          value={value}
-          onValueChange={(newValue) => setFilter(filterKey, newValue)}
+          value={value as string}
+          onValueChange={(newValue) =>
+            handleSetFilter(filterKey, newValue as T[keyof T])
+          }
         >
-          {Object.entries(options).map(([key, label]) => (
+          {Object.entries(optionList).map(([key, label]) => (
             <DropdownMenu.RadioItem
               key={key}
               className="DropdownMenuRadioItem"

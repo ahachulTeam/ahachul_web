@@ -1,33 +1,26 @@
 import React, { useReducer } from 'react';
-import { useActivity } from '@stackflow/react';
 import type { ActivityComponentType } from '@stackflow/react';
 import { Layout } from 'widgets';
+import { ComposeLayout } from 'widgets/layout/ui/ComposeLayout';
 import { renderLeftLogo, renderRight } from 'widgets/layout-header';
-import { FilterProvider } from 'widgets/filters/ui/FilterContext';
 import { ArticleListErrorFallback } from 'widgets/articles/ui/ArticleListErrorFallback';
 import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
 import { LostFoundFilters } from '../_common/LostFoundFilters/LostFoundFilters';
 import * as styles from './Page.css';
-import { LOST_FOUND_FILTER_DEFAULT_VALUES } from 'pages/lost-found/data';
 
 const LostFoundArticleList = React.lazy(
   () => import('../_common/LostFoundArticleList/LostFoundArticleList'),
 );
 
-const LostFound: ActivityComponentType = () => {
-  const activity = useActivity();
+interface LostFoundProps {
+  keyword?: string;
+}
+const LostFound: ActivityComponentType<LostFoundProps> = ({ params }) => {
   const [isScale, toggleScale] = useReducer((scale) => !scale, false);
 
   return (
-    <FilterProvider
-      id="lostFound"
-      defaultValues={LOST_FOUND_FILTER_DEFAULT_VALUES}
-    >
-      <LostFoundFilters
-        isScale={isScale}
-        isActive={activity.isActive}
-        handleScale={toggleScale}
-      />
+    <ComposeLayout data-vaul-drawer-wrapper="true">
+      <LostFoundFilters isScale={isScale} handleScale={toggleScale} />
       <Layout showNavbar appBar={{ renderLeft: renderLeftLogo, renderRight }}>
         <QueryErrorBoundary
           errorFallback={({ error, reset }) =>
@@ -38,10 +31,13 @@ const LostFound: ActivityComponentType = () => {
             })
           }
         >
-          <LostFoundArticleList css={styles.layout(isScale)} />
+          <LostFoundArticleList
+            keyword={params.keyword}
+            css={styles.layout(isScale)}
+          />
         </QueryErrorBoundary>
       </Layout>
-    </FilterProvider>
+    </ComposeLayout>
   );
 };
 
