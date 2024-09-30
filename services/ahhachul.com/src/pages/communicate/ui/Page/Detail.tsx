@@ -9,6 +9,7 @@ import { ArticleDetailErrorFallback } from 'features/articles/ui/ArticleDetailEr
 import { Loading } from 'entities/app-loaders/ui/Loading';
 import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
 import { Layout } from 'widgets';
+import { CommentInput } from 'widgets/comments/ui/CommentInput';
 
 const CommunityArticleDetail = React.lazy(() =>
   import('../_common/CommunityArticleDetail/CommunityArticleDetail').then(
@@ -44,6 +45,7 @@ const CommunityDetail: ActivityComponentType<WithArticleId> = ({
           />
         </Suspense>
       </QueryErrorBoundary>
+      <CommentInput />
     </Layout>
   );
 };

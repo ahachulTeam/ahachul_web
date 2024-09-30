@@ -8,8 +8,8 @@ import type { IResponse } from 'entities/with-server';
 import { BaseErrorBoundary } from 'entities/app-errors/ui/ErrorBoundary';
 import type { WithArticleId } from 'features/articles';
 import { BaseArticleTemplate } from 'features/articles/ui/BaseArticleTemplate';
-
 import { ArticleCommentList } from '../ArticleCommentList/ArticleCommentList';
+
 interface CommunityArticleDetailProps extends WithArticleId {
   preloadRef: Promise<AxiosResponse<IResponse<CommunityDetail>>> | null;
 }

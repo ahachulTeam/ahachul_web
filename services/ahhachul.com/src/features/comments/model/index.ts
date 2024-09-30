@@ -17,3 +17,9 @@ export interface CommentList {
     childComments: Comment[];
   }[];
 }
+
+export interface CommentForm {
+  content: string;
+  postId: number;
+  upperCommentId: Nullable<number>;
+}
