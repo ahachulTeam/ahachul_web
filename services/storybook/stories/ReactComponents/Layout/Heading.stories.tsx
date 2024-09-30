@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React from 'react';
 import '@ahhachul/react-components-layout/style.css';
 import { Heading as _Heading } from '@ahhachul/react-components-layout';
 import { classes, vars } from '@ahhachul/themes';

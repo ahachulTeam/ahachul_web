@@ -1,11 +1,8 @@
-// @ts-ignore
-import React from 'react';
 import '@ahhachul/react-components-button/style.css';
-import { Button as _Button } from '@ahhachul/react-components-button';
 import '@ahhachul/react-components-layout/style.css';
-import { Text } from '@ahhachul/react-components-layout';
 import { vars } from '@ahhachul/themes';
-// @ts-ignore
+import { Text } from '@ahhachul/react-components-layout';
+import { Button as _Button } from '@ahhachul/react-components-button';
 import { useButton, useToggleButton } from '@ahhachul/react-hooks-button';
 
 export default {
@@ -72,10 +69,17 @@ export const TextButtonStory = {
 export const ToggleButtonStory = {
   render: () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { buttonProps, isSelected } = useToggleButton({ elementType: 'button' }, false);
+    const { buttonProps, isSelected } = useToggleButton(
+      { elementType: 'button' },
+      false,
+    );
 
     return (
-      <_Button {...buttonProps} variant={isSelected ? 'solid' : 'outline'} color="green">
+      <_Button
+        {...buttonProps}
+        variant={isSelected ? 'solid' : 'outline'}
+        color="green"
+      >
         {isSelected ? '😀' : '😂'}
       </_Button>
     );

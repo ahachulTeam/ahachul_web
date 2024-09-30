@@ -1,8 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React from 'react';
 import '@ahhachul/react-components-layout/style.css';
-import { Text as _Text } from '@ahhachul/react-components-layout';
 import { classes, vars } from '@ahhachul/themes';
+import { Text as _Text } from '@ahhachul/react-components-layout';
 
 export default {
   title: 'React Components/Layout/Typography/Text',

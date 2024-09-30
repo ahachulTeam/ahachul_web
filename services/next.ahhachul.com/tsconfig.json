@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.service.json",
   "compilerOptions": {
     "target": "ES6",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "jsx": "preserve",
     "jsxImportSource": "@emotion/react",
     "incremental": true,

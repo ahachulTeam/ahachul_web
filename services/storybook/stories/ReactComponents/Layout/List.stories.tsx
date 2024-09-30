@@ -1,6 +1,10 @@
 import '@ahhachul/react-components-layout/style.css';
-import React from 'react';
-import { OrderedList, ListItem, UnorderedList, List } from '@ahhachul/react-components-layout';
+import {
+  OrderedList,
+  ListItem,
+  UnorderedList,
+  List,
+} from '@ahhachul/react-components-layout';
 
 export default {
   title: 'React Components/Layout/List',

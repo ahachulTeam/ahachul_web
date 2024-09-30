@@ -1,7 +1,11 @@
 import '@ahhachul/react-components-accordion/style.css';
-import { Accordion, AccordionItem, AccordionButton, AccordionPanel } from '@ahhachul/react-components-accordion';
-import React from 'react';
-
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionProps,
+} from '@ahhachul/react-components-accordion';
 import '@ahhachul/react-components-layout/style.css';
 import { Text, Heading } from '@ahhachul/react-components-layout';
 
@@ -60,8 +64,19 @@ export const AccordionTestStory = {
     ],
     defaultActiveItems: [],
   },
-  render: ({ defaultActiveItems, items }) => (
-    <Accordion defaultActiveItems={defaultActiveItems} style={{ width: '500px' }}>
+  render: ({
+    defaultActiveItems,
+    items,
+  }: AccordionProps & {
+    items: {
+      name: string;
+      content: string;
+    }[];
+  }) => (
+    <Accordion
+      defaultActiveItems={defaultActiveItems}
+      style={{ width: '500px' }}
+    >
       {items.map((item, index) => (
         <AccordionItem key={item.name} itemName={item.name}>
           <AccordionButton data-testid={`button-${index}`}>

@@ -1,15 +1,13 @@
-import "@ahhachul/react-components-select/style.css";
-import { Select } from "@ahhachul/react-components-select";
-import React from "react";
-
-import "@ahhachul/react-components-layout/style.css";
+import '@ahhachul/react-components-select/style.css';
+import '@ahhachul/react-components-layout/style.css';
+import { Select } from '@ahhachul/react-components-select';
 
 export default {
-  title: "React Components/Select",
+  title: 'React Components/Select',
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 };
 
 export const SelectStory = {

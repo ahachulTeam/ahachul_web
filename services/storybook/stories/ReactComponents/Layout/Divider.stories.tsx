@@ -1,13 +1,13 @@
-import React from 'react';
 import '@ahhachul/react-components-layout/style.css';
-import { Box, Divider as _Divider } from '@ahhachul/react-components-layout';
+import { StoryFn } from '@storybook/react';
 import { vars } from '@ahhachul/themes';
+import { Box, Divider as _Divider } from '@ahhachul/react-components-layout';
 
 export default {
   title: 'React Components/Layout/Divider',
   component: _Divider,
   decorators: [
-    (Story) => (
+    (Story: StoryFn) => (
       <Box padding={3} style={{ width: '300px', height: '300px' }}>
         <Story />
       </Box>

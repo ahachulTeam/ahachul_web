@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React from 'react';
 import '@ahhachul/react-components-layout/style.css';
 import { Box as _Box } from '@ahhachul/react-components-layout';
 
