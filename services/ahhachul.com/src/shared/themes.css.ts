@@ -1,4 +1,4 @@
-import { vars } from '@ahhachul/themes';
+import { classes, vars } from '@ahhachul/themes';
 
 const PAGE_PADDING_TOP = '16px';
 const SIDE_GUTTER = '20px';
@@ -13,6 +13,7 @@ const themes = {
   },
   typography: {
     ...vars.typography,
+    ...classes.typography,
   },
   dimensions: {
     ...vars.zIndex,

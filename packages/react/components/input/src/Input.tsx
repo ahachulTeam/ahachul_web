@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { InputProps } from './types';
+import { vars } from '@ahhachul/themes';
 import { useInput } from '@ahhachul/react-hooks-input';
 
 import { clsx } from 'clsx';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
+import type { InputProps } from './types';
 import {
   colorVariant,
   placeholderColorVariant,
@@ -14,12 +15,12 @@ import {
 
 const Input = (props: InputProps, ref: React.Ref<HTMLInputElement>) => {
   const {
-    color = '#ffffff',
-    placeholderColor = 'gray',
-    size = 'lg',
+    size = 'md',
     variant = 'outline',
-    errorBorderColor = '#E53E3E',
-    focusBorderColor = '#3182CE',
+    color = 'white',
+    errorBorderColor = vars.colors.$scale.error[50],
+    placeholderColor = vars.colors.$scale.blueDarkGray[300],
+    focusBorderColor = vars.colors.$static.foundation.blueGrayAlpha[50],
     className,
     style,
     ...rest

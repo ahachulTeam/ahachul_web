@@ -8,6 +8,9 @@ import { ThemeScript } from 'widgets';
 
 import 'shared/fonts.css';
 import '@ahhachul/themes/themes.css';
+import '@ahhachul/react-components-layout/style.css';
+import '@ahhachul/react-components-button/style.css';
+
 import 'react-loading-skeleton/dist/skeleton.css';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 

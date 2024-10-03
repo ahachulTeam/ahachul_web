@@ -11,23 +11,25 @@ export const inputStyle = recipe({
   base: {
     border: 'none',
     boxShadow: 'none',
-    borderRadius: '0',
     appearance: 'none',
-    // 리셋 스타일
+    boxSizing: 'border-box',
+    borderRadius: 0,
+    // 위에까지는  리셋 스타일
+
     color: colorVariant,
+    borderWidth: '1px',
     borderStyle: 'solid',
-    borderWidth: '2px',
+    borderColor: vars.colors.$static.foundation.blueGrayAlpha[50],
+
     display: 'flex',
     alignItems: 'center',
-    fontWeight: vars.typography.fontWeight[400],
     width: '100%',
 
     position: 'relative',
     zIndex: 2,
 
     transition: 'background-color 0.2s, color 0.2s, border-color 0.2s',
-
-    caretColor: 'rgba(0, 255, 163, .5)',
+    caretColor: vars.colors.$static.foundation.greenAlpha[200],
 
     // @ts-ignore
     '&::placeholder': {
@@ -37,8 +39,6 @@ export const inputStyle = recipe({
     '&:focus-visible': {
       outline: 'none',
       borderColor: focusBorderColorVariant,
-
-      backgroundColor: 'transparent',
     },
 
     '&[disabled]': {
@@ -57,35 +57,41 @@ export const inputStyle = recipe({
         borderRadius: vars.box.radii.md,
         padding: '0 1rem',
         height: '3rem',
-        fontSize: vars.typography.fontSize[18],
+        fontSize: vars.typography.fontSize[16],
       },
       md: {
-        borderRadius: vars.box.radii.base,
-        padding: '0 1rem',
-        height: '2.5rem',
-        fontSize: vars.typography.fontSize[16],
+        borderRadius: vars.box.radii.md,
+        padding: '0 0.75rem',
+        height: '2.75rem',
+        fontSize: vars.typography.fontSize[14],
       },
       sm: {
         borderRadius: vars.box.radii.base,
         padding: '0 0.75rem',
-        height: '2rem',
-        fontSize: vars.typography.fontSize[14],
+        height: '2.25rem',
+        fontSize: vars.typography.fontSize[12],
       },
       xs: {
         borderRadius: vars.box.radii.sm,
         padding: '0 0.5rem',
         height: '1.5rem',
-        fontSize: vars.typography.fontSize[12],
+        fontSize: vars.typography.fontSize[11],
       },
     },
     variant: {
       outline: {
-        borderColor: vars.colors.$scale.gray[300],
+        borderColor: vars.colors.$static.foundation.blueGrayAlpha[50],
         backgroundColor: 'transparent',
       },
       filled: {
         borderColor: 'transparent',
-        backgroundColor: vars.colors.$scale.gray[100],
+        backgroundColor: '#2E3034',
+        borderRadius: vars.box.radii.lg,
+
+        '&:focus-visible': {
+          outline: 'none',
+          borderColor: 'transparent',
+        },
       },
     },
   },
@@ -106,45 +112,37 @@ export const inputAddonStyle = recipe({
     border: 0,
     display: 'flex',
     alignItems: 'center',
-    position: 'relative',
-    right: '-2px',
-    zIndex: 1,
+    justifyContent: 'center',
 
-    borderStyle: 'solid',
-    borderWidth: '2px',
-    borderColor: vars.colors.$scale.gray[300],
-    borderRightColor: 'transparent',
-    backgroundColor: vars.colors.$scale.gray[100],
+    zIndex: 1,
+    aspectRatio: '1 / 1',
+    backgroundColor: '#2E3034',
   },
   variants: {
     size: {
       lg: {
-        borderStartStartRadius: vars.box.radii.md,
-        borderEndStartRadius: vars.box.radii.md,
-        padding: '0 1rem',
         height: '3rem',
-        fontSize: vars.typography.fontSize[18],
+        fontSize: vars.typography.fontSize[16],
+        borderEndStartRadius: vars.box.radii.md,
+        borderStartStartRadius: vars.box.radii.md,
       },
       md: {
-        borderStartStartRadius: vars.box.radii.base,
-        borderEndStartRadius: vars.box.radii.base,
-        padding: '0 1rem',
-        height: '2.5rem',
-        fontSize: vars.typography.fontSize[16],
+        height: '2.75rem',
+        fontSize: vars.typography.fontSize[14],
+        borderEndStartRadius: vars.box.radii.md,
+        borderStartStartRadius: vars.box.radii.md,
       },
       sm: {
-        borderStartStartRadius: vars.box.radii.base,
-        borderEndStartRadius: vars.box.radii.base,
-        padding: '0 0.75rem',
-        height: '2rem',
-        fontSize: vars.typography.fontSize[14],
+        height: '2.25rem',
+        fontSize: vars.typography.fontSize[12],
+        borderEndStartRadius: vars.box.radii.md,
+        borderStartStartRadius: vars.box.radii.md,
       },
       xs: {
-        borderStartStartRadius: vars.box.radii.sm,
-        borderEndStartRadius: vars.box.radii.sm,
-        padding: '0 0.5rem',
         height: '1.5rem',
-        fontSize: vars.typography.fontSize[12],
+        fontSize: vars.typography.fontSize[11],
+        borderEndStartRadius: vars.box.radii.sm,
+        borderStartStartRadius: vars.box.radii.sm,
       },
     },
   },

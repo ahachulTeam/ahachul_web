@@ -5,7 +5,7 @@ import { clsx } from 'clsx';
 import { inputGroupStyle } from './style.css';
 
 const InputGroup = (props: InputGroupProps, ref: React.Ref<HTMLDivElement>) => {
-  const { children, className, color = 'gray', size = 'md', ...rest } = props;
+  const { children, className, color = 'white', size = 'md', ...rest } = props;
 
   const childrenWithProps = Children.toArray(children);
 
@@ -14,6 +14,7 @@ const InputGroup = (props: InputGroupProps, ref: React.Ref<HTMLDivElement>) => {
   childrenWithProps.forEach((child) => {
     // @ts-ignore
     if (child.type.displayName === 'InputLeftAddon') {
+      inputStyle.paddingLeft = 0;
       inputStyle.borderStartStartRadius = 0;
       inputStyle.borderEndStartRadius = 0;
     }

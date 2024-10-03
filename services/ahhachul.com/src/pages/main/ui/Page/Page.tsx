@@ -8,6 +8,7 @@ import { TrainInfo } from 'widgets/train-infos';
 import { Footer } from 'widgets/layout-footer/ui/Footer';
 import { StationSelect, renderRight } from 'widgets/layout-header';
 import * as styles from './Page.css';
+import { Button } from '@ahhachul/react-components-button';
 
 const Home: ActivityComponentType = () => {
   return (
@@ -22,6 +23,7 @@ const Home: ActivityComponentType = () => {
       <CTAFlows css={styles.ctaFlowsLayout} />
       <CheerUpPhrase css={styles.cheerUpPhraseLayout} />
       <TrainInfo />
+      <Button isLoading>등록</Button>
       <Footer />
     </Layout>
   );

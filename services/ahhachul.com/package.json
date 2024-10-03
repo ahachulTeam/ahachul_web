@@ -26,6 +26,7 @@
     ]
   },
   "dependencies": {
+    "@ahhachul/react-components-button": "^0.0.3",
     "@ahhachul/react-components-layout": "^0.0.3",
     "@ahhachul/react-hooks-utility": "^0.0.3",
     "@ahhachul/themes": "^0.0.3",

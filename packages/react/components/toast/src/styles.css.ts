@@ -15,10 +15,19 @@ export const toastContainerStyle = style({
 });
 
 export const toastStyle = style({
-  width: '100%',
+  minWidth: 'max-content',
   maxWidth: '17.5rem',
-  backgroundColor: "var(--gray-900)",
-  padding: "0.5rem 0.75rem",
-  color: "var(--gray-50)",
-  borderRadius: "var(--radii-md)",
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  background:
+    'linear-gradient(91deg, rgba(35, 40, 52, 0.87) 0%, rgba(39, 40, 62, 0.87) 100%)',
+  padding: '0.5rem 2.25rem',
+  textAlign: 'center',
+  fontSize: '0.75rem',
+  color: 'rgb(196, 212, 252, 0.87)',
+  borderRadius: '10px',
+  WebkitLineClamp: 2,
+  WebkitBoxOrient: 'vertical',
+  overflow: 'hidden',
 });

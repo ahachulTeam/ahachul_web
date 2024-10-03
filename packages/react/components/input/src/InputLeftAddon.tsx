@@ -1,9 +1,14 @@
-import { inputAddonStyle } from './style.css';
-import { InputAddonProps } from './types';
 import { clsx } from 'clsx';
+import { vars } from '@ahhachul/themes';
+import type { InputAddonProps } from './types';
+import { inputAddonStyle } from './style.css';
 
 const InputLeftAddon = (props: InputAddonProps) => {
-  const { size = 'md', color = 'gray', children } = props;
+  const {
+    size = 'md',
+    color = vars.colors.$scale.blueDarkGray[300],
+    children,
+  } = props;
 
   return (
     <div
