@@ -20,6 +20,7 @@ import '@ahhachul/react-components-select/style.css';
 import { Select } from '@ahhachul/react-components-select';
 
 import { ChevronDownIcon } from '@radix-ui/react-icons';
+
 import './App.css';
 import { 전체Icon } from './assets/전체';
 import { SearchIcon } from './assets/SearchIcon';
@@ -76,7 +77,7 @@ function App() {
         </Button>
         <Button
           size="sm"
-          variant="outline"
+          variant="ghost"
           onClick={() =>
             toast({
               payload: {

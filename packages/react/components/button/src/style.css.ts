@@ -37,11 +37,13 @@ export const buttonStyle = recipe({
       outline: 'none',
       boxShadow: vars.box.shadows.outline,
     },
-    '&:hover:not([disabled])': {
-      backgroundColor: hoverColorVariant,
-    },
     '&:active:not([disabled])': {
       backgroundColor: activeColorVariant,
+    },
+    '@media (hover: hover)': {
+      '&:hover:not([disabled])': {
+        backgroundColor: hoverColorVariant,
+      },
     },
   },
   variants: {
