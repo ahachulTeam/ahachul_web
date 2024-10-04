@@ -1,18 +1,24 @@
 import * as React from 'react';
+import { vars } from '@ahhachul/themes';
 import { SelectProps } from './types';
 
 import { clsx } from 'clsx';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
-import { errorBorderColorVariant, focusBorderColorVariant, selectStyle } from './style.css';
+import {
+  colorVariant,
+  errorBorderColorVariant,
+  focusBorderColorVariant,
+  selectStyle,
+} from './style.css';
 import { useSelect } from '@ahhachul/react-hooks-select';
 
 const Select = (props: SelectProps, ref: React.Ref<HTMLSelectElement>) => {
   const {
-    color = 'gray',
     size = 'md',
+    color = 'white',
     variant = 'outline',
-    errorBorderColor = '#E53E3E',
-    focusBorderColor = '#3182CE',
+    errorBorderColor = vars.colors.$scale.error[50],
+    focusBorderColor = vars.colors.$static.foundation.blueGrayAlpha[50],
     className,
     style,
     ...rest
@@ -33,6 +39,7 @@ const Select = (props: SelectProps, ref: React.Ref<HTMLSelectElement>) => {
       ])}
       style={{
         ...assignInlineVars({
+          [colorVariant]: color,
           [errorBorderColorVariant]: errorBorderColor,
           [focusBorderColorVariant]: focusBorderColor,
         }),
