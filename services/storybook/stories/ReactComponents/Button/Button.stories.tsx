@@ -39,6 +39,20 @@ export const ButtonStory = {
   },
 };
 
+export const SolidButtonStory = {
+  args: {
+    size: 'lg',
+    children: 'Button',
+    variant: 'solid',
+    isDisabled: false,
+    isLoading: false,
+    rightIcon: '😀',
+    enableColor: 'black',
+    hoverColor: '#025FAC',
+    activeColor: '#0276ac',
+  },
+};
+
 export const TextButtonStory = {
   render: () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -54,13 +68,13 @@ export const TextButtonStory = {
         {...buttonProps}
         as="div"
         fontSize="md"
-        color="green"
+        color="black"
         style={{
           userSelect: 'none',
           cursor: 'pointer',
         }}
       >
-        텍스트 버튼입니다.
+        텍스트 버튼
       </Text>
     );
   },
@@ -75,11 +89,7 @@ export const ToggleButtonStory = {
     );
 
     return (
-      <_Button
-        {...buttonProps}
-        variant={isSelected ? 'solid' : 'outline'}
-        color="green"
-      >
+      <_Button {...buttonProps} variant={isSelected ? 'solid' : 'outline'}>
         {isSelected ? '😀' : '😂'}
       </_Button>
     );

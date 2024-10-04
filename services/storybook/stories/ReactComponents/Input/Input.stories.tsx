@@ -4,6 +4,7 @@ import {
   InputGroup,
   InputLeftAddon,
 } from '@ahhachul/react-components-input';
+import { SearchIcon } from '../../../assets/SearchIcon';
 
 export default {
   title: 'React Components/Input',
@@ -14,24 +15,26 @@ export default {
 };
 
 export const InputStory = {
-  render: () => <Input placeholder="dd" />,
+  render: () => <Input placeholder="검색" />,
 };
 
 export const InputGroupStory = {
   render: () => (
-    <InputGroup size="lg" color="red">
-      <InputLeftAddon>$</InputLeftAddon>
-      <Input placeholder="dd" />
+    <InputGroup size="md" color="red">
+      <InputLeftAddon>
+        <SearchIcon />
+      </InputLeftAddon>
+      <Input variant="filled" placeholder="검색" />
     </InputGroup>
   ),
 };
 
 export const InputVariantFilledStory = {
-  render: () => <Input variant="filled" placeholder="dd" />,
+  render: () => <Input variant="filled" placeholder="검색" />,
 };
 
 export const InputFocusVisibleState = {
-  render: () => <Input />,
+  render: () => <Input placeholder="검색" focusBorderColor="#025FAC" />,
   parameters: {
     pseudo: { focusVisible: true },
   },

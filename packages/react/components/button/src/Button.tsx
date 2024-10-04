@@ -1,8 +1,12 @@
 import * as React from 'react';
-import { ButtonProps } from './types';
 import { clsx } from 'clsx';
+import { vars } from '@ahhachul/themes';
 import { assignInlineVars } from '@vanilla-extract/dynamic';
+import { useButton } from '@ahhachul/react-hooks-button';
+import type { ButtonProps } from './types';
 import {
+  colorVariant,
+  radiusVariant,
   activeColorVariant,
   buttonStyle,
   enableColorVariant,
@@ -10,16 +14,17 @@ import {
   spanStyle,
   spinnerStyle,
 } from './style.css';
-import { useButton } from '@ahhachul/react-hooks-button';
 
 const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
   const { buttonProps } = useButton(props);
   const {
     variant = 'solid',
     size = 'md',
-    enableColor,
-    hoverColor,
-    activeColor,
+    color = 'white',
+    borderRadius = vars.box.radii.lg,
+    hoverColor = vars.colors.$static.foundation.skyPurpleAlpha[50],
+    activeColor = vars.colors.$static.foundation.skyPurpleAlpha[50],
+    enableColor = vars.colors.$static.foundation.blueGrayAlpha[100],
     leftIcon,
     rightIcon,
     isLoading,
@@ -39,6 +44,8 @@ const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
       ])}
       style={{
         ...assignInlineVars({
+          [radiusVariant]: borderRadius,
+          [colorVariant]: color,
           [enableColorVariant]: enableColor,
           [hoverColorVariant]: hoverColor,
           [activeColorVariant]: activeColor,

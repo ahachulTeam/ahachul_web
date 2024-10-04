@@ -1,6 +1,6 @@
 {
   "name": "@ahhachul/react-components-button",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "main": "dist/index.js",
   "exports": {
@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@ahhachul/esbuild-config": "^0.0.3",
-    "@ahhachul/themes": "^0.0.3",
+    "@ahhachul/themes": "^0.0.5",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@vanilla-extract/css": "^1.13.0",
@@ -38,7 +38,7 @@
     "react": "*"
   },
   "dependencies": {
-    "@ahhachul/react-hooks-button": "^0.0.3",
+    "@ahhachul/react-hooks-button": "^0.0.4",
     "clsx": "^2.0.0"
   }
 }

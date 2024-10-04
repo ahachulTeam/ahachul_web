@@ -1,16 +1,6 @@
 import { typography } from '../variables';
 
 export const heading = {
-  '4xl': {
-    fontSize: typography.fontSize[60],
-    fontWeight: typography.fontWeight[700],
-    lineHeight: typography.lineHeight[100],
-  },
-  '3xl': {
-    fontSize: typography.fontSize[48],
-    fontWeight: typography.fontWeight[700],
-    lineHeight: typography.lineHeight[100],
-  },
   '2xl': {
     fontSize: typography.fontSize[36],
     fontWeight: typography.fontWeight[700],
@@ -44,16 +34,6 @@ export const heading = {
 };
 
 export const text = {
-  '6xl': {
-    fontSize: typography.fontSize[60],
-    fontWeight: typography.fontWeight[400],
-    lineHeight: typography.lineHeight[150],
-  },
-  '5xl': {
-    fontSize: typography.fontSize[48],
-    fontWeight: typography.fontWeight[400],
-    lineHeight: typography.lineHeight[150],
-  },
   '4xl': {
     fontSize: typography.fontSize[36],
     fontWeight: typography.fontWeight[400],
@@ -90,11 +70,16 @@ export const text = {
     lineHeight: typography.lineHeight[150],
   },
   xs: {
-    fontSize: typography.fontSize[12],
+    fontSize: typography.fontSize[13],
     fontWeight: typography.fontWeight[400],
     lineHeight: typography.lineHeight[150],
   },
   xxs: {
+    fontSize: typography.fontSize[12],
+    fontWeight: typography.fontWeight[400],
+    lineHeight: typography.lineHeight[150],
+  },
+  xxxs: {
     fontSize: typography.fontSize[11],
     fontWeight: typography.fontWeight[400],
     lineHeight: typography.lineHeight[150],

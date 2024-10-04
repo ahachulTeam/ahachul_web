@@ -1,7 +1,14 @@
-import { BaseButtonProps, OverloadedButtonFunction } from './types';
+import { OverloadedButtonFunction } from './types';
 
-export const useButton: OverloadedButtonFunction = (props: any): any => {
-  const { elementType = 'button', isDisabled, isLoading, tabIndex, onKeyDown, type = 'button' } = props;
+export const useButton: OverloadedButtonFunction = (props: any) => {
+  const {
+    elementType = 'button',
+    isDisabled,
+    isLoading,
+    tabIndex,
+    onKeyDown,
+    type = 'button',
+  } = props;
 
   const disabled = isDisabled || isLoading;
 
@@ -22,7 +29,6 @@ export const useButton: OverloadedButtonFunction = (props: any): any => {
     if (event.key === 'Enter' || event.key === '13') {
       if (disabled) return;
       if (event.defaultPrevented) return;
-      if (elementType === 'input' && type !== 'button') return;
 
       event.preventDefault();
       (event.currentTarget as HTMLElement).click();
@@ -45,27 +51,6 @@ export const useButton: OverloadedButtonFunction = (props: any): any => {
       additionalProps = {
         type: type ?? 'button',
         disabled,
-      };
-      break;
-    }
-    case 'a': {
-      const { href, target, rel } = props as BaseButtonProps<'a'>;
-
-      additionalProps = {
-        role: 'button',
-        href: disabled ? undefined : href,
-        target: disabled ? undefined : target,
-        rel: disabled ? undefined : rel,
-        'area-disabled': isDisabled,
-      };
-      break;
-    }
-    case 'input': {
-      additionalProps = {
-        role: 'button',
-        type: props.type,
-        disabled,
-        'area-disabled': undefined,
       };
       break;
     }

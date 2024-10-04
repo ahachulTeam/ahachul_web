@@ -1,6 +1,6 @@
 {
   "name": "@ahhachul/themes",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "type": "module",
   "main": "dist/index.js",
   "exports": {

@@ -6,8 +6,5 @@ const SVG = `
 `;
 
 export const SearchIcon = () => (
-  <div
-    className="react-icon search"
-    dangerouslySetInnerHTML={{ __html: SVG }}
-  />
+  <div className="search-icon" dangerouslySetInnerHTML={{ __html: SVG }} />
 );

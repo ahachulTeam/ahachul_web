@@ -1,6 +1,6 @@
 import type { ComponentProps, HTMLAttributes } from 'react';
 
-export type ButtonElementType = 'button' | 'a' | 'div' | 'span' | 'input';
+export type ButtonElementType = 'button' | 'div' | 'span';
 
 export type BaseButtonProps<T extends ButtonElementType = 'button'> = {
   elementType?: T;
@@ -23,9 +23,7 @@ export type UseButtonReturn<T> = {
 
 export type OverloadedButtonFunction = {
   (props: BaseButtonProps<'button'>): UseButtonReturn<HTMLButtonElement>;
-  (props: BaseButtonProps<'a'>): UseButtonReturn<HTMLAnchorElement>;
   (props: BaseButtonProps<'div'>): UseButtonReturn<HTMLDivElement>;
-  (props: BaseButtonProps<'input'>): UseButtonReturn<HTMLInputElement>;
   (props: BaseButtonProps<'span'>): UseButtonReturn<HTMLSpanElement>;
 };
 
@@ -39,17 +37,9 @@ export type OverloadedToggleButtonFunction = {
     isSelected?: boolean,
   ): UseToggleButtonReturn<HTMLButtonElement>;
   (
-    props: BaseButtonProps<'a'>,
-    isSelected?: boolean,
-  ): UseToggleButtonReturn<HTMLAnchorElement>;
-  (
     props: BaseButtonProps<'div'>,
     isSelected?: boolean,
   ): UseToggleButtonReturn<HTMLDivElement>;
-  (
-    props: BaseButtonProps<'input'>,
-    isSelected?: boolean,
-  ): UseToggleButtonReturn<HTMLInputElement>;
   (
     props: BaseButtonProps<'span'>,
     isSelected?: boolean,

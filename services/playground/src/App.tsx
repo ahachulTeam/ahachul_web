@@ -1,6 +1,3 @@
-import './App.css';
-import { SearchIcon } from './assets/SearchIcon';
-
 import '@ahhachul/themes/themes.css';
 
 import '@ahhachul/react-components-button/style.css';
@@ -21,6 +18,11 @@ import { useToast } from '@ahhachul/react-components-toast';
 
 import '@ahhachul/react-components-select/style.css';
 import { Select } from '@ahhachul/react-components-select';
+
+import { ChevronDownIcon } from '@radix-ui/react-icons';
+import './App.css';
+import { 전체Icon } from './assets/전체';
+import { SearchIcon } from './assets/SearchIcon';
 
 function App() {
   const { toast } = useToast();
@@ -48,8 +50,33 @@ function App() {
           <option value="1">1</option>
           <option value="2">2</option>
         </Select>
+        <Select isInvalid>
+          <option value="1">1</option>
+          <option value="2">2</option>
+        </Select>
+        <Select isDisabled>
+          <option value="1">1</option>
+          <option value="2">2</option>
+        </Select>
         <Divider color="rgb(196, 212, 252, 0.37)" />
         <Button
+          size="xs"
+          rightIcon={
+            <ChevronDownIcon className="arrow-down-img" stroke="#4C5874" />
+          }
+          borderRadius="18px"
+          style={{
+            border: '1px solid hsla(0, 0%, 100%, .06)',
+          }}
+        >
+          작성자
+        </Button>
+        <Button variant="outline" size="sm" leftIcon={<전체Icon />}>
+          전체
+        </Button>
+        <Button
+          size="sm"
+          variant="outline"
           onClick={() =>
             toast({
               payload: {
@@ -58,7 +85,7 @@ function App() {
             })
           }
         >
-          Toast Button
+          토스트
         </Button>
       </Flex>
     </>

@@ -1,7 +1,4 @@
 export const fontSize = {
-  72: '4.5rem',
-  60: '3.75rem',
-  48: '3rem',
   36: '2.25rem',
   32: '2rem',
   30: '1.875rem',
@@ -10,6 +7,7 @@ export const fontSize = {
   18: '1.125rem',
   16: '1rem',
   14: '0.875rem',
+  13: '0.8125rem',
   12: '0.75rem',
   11: '0.6875rem',
 };

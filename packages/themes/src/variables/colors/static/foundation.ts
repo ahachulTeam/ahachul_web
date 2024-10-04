@@ -35,6 +35,7 @@ export const blackAlpha = {
 
 export const blueGrayAlpha = {
   50: 'rgb(196, 212, 252, 0.37)',
+  100: 'hsla(0, 0%, 100%, .04)',
 };
 
 export const skyPurpleAlpha = {

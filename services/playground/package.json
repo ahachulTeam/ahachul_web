@@ -17,6 +17,7 @@
     "@ahhachul/react-components-select": "workspace:^",
     "@ahhachul/react-components-toast": "workspace:^",
     "@ahhachul/themes": "workspace:^",
+    "@radix-ui/react-icons": "^1.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
