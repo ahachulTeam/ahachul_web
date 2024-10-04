@@ -9563,7 +9563,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "ahhachul-front-projects@workspace:."
   dependencies:
-    "@ahhachul/react-components-toast": "workspace:^"
     "@typescript-eslint/eslint-plugin": "npm:^6.5.0"
     "@typescript-eslint/parser": "npm:^6.5.0"
     eslint: "npm:^8.48.0"

@@ -44,7 +44,6 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@ahhachul/react-components-toast": "workspace:^",
     "vite": "^4.4.9"
   }
 }

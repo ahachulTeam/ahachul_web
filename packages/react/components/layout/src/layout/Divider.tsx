@@ -1,11 +1,22 @@
 import * as React from 'react';
-import { DividerProps } from './types';
+import type { DividerProps } from './types';
 
-const Divider = (props: DividerProps, ref: React.Ref<HTMLHRElement>) => {
-  const { color = 'gray', variant = 'solid', size = 1, orientation = 'horizontal' } = props;
+const Divider = React.forwardRef<HTMLHRElement, DividerProps>((props, ref) => {
+  const {
+    color = 'gray',
+    variant = 'solid',
+    size = 1,
+    orientation = 'horizontal',
+    style,
+    ...restProps
+  } = props;
 
-  const borderStyle =
-    orientation === 'horizontal'
+  const isHorizontal = orientation === 'horizontal';
+
+  const dividerStyle: React.CSSProperties = {
+    borderStyle: variant,
+    borderColor: color,
+    ...(isHorizontal
       ? {
           width: '100%',
           borderWidth: `0 0 ${size}px 0`,
@@ -13,21 +24,21 @@ const Divider = (props: DividerProps, ref: React.Ref<HTMLHRElement>) => {
       : {
           height: '100%',
           borderWidth: `0 0 0 ${size}px`,
-        };
+        }),
+    ...style,
+  };
 
   return (
     <hr
-      {...props}
       ref={ref}
-      style={{
-        borderStyle: variant,
-        borderColor: color,
-        ...borderStyle,
-        ...props.style,
-      }}
+      role="separator"
+      aria-orientation={orientation}
+      style={dividerStyle}
+      {...restProps}
     />
   );
-};
+});
 
-const _Divider = React.forwardRef(Divider);
-export { _Divider as Divider };
+Divider.displayName = 'Divider';
+
+export { Divider };
