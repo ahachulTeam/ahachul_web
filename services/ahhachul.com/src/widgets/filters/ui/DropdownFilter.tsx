@@ -6,7 +6,7 @@ import * as styles from './Filter.css';
 export interface DropdownFilterProps<T extends Record<string, string>> {
   filters: T;
   filterKey: KeyOf<T>;
-  handleSetFilter: <K extends KeyOf<T>>(key: K, value: T[K]) => void;
+  handleChange: <K extends KeyOf<T>>(key: K, value: T[K]) => void;
   buttonLabel: string;
   optionList: Record<string, string>;
 }
@@ -14,7 +14,7 @@ export interface DropdownFilterProps<T extends Record<string, string>> {
 export const DropdownFilter = <T extends Record<string, string>>({
   filters,
   filterKey,
-  handleSetFilter,
+  handleChange,
   buttonLabel,
   optionList,
 }: DropdownFilterProps<T>): React.ReactElement => {
@@ -42,7 +42,7 @@ export const DropdownFilter = <T extends Record<string, string>>({
         <DropdownMenu.RadioGroup
           value={value as string}
           onValueChange={(newValue) =>
-            handleSetFilter(filterKey, newValue as T[keyof T])
+            handleChange(filterKey, newValue as T[keyof T])
           }
         >
           {Object.entries(optionList).map(([key, label]) => (

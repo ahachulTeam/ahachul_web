@@ -12,7 +12,7 @@ interface FilterGroupProps {
   children: React.ReactNode;
   uniqueId: AppUniqueFilterId;
   isScale: boolean;
-  controlledFilterLength: number;
+  activeFilterCount: number;
   handleScale: () => void;
   resetFilters: () => void;
 }
@@ -23,7 +23,7 @@ const FilterGroupMain: FilterGroupMainType = ({
   children,
   uniqueId,
   isScale,
-  controlledFilterLength,
+  activeFilterCount,
   handleScale,
   resetFilters,
 }) => {
@@ -40,9 +40,9 @@ const FilterGroupMain: FilterGroupMainType = ({
           handleSetKeyword={updateKeyword}
         />
         <div css={[styles.btn_wrap, styles.dropdownMenu]}>
-          {controlledFilterLength > 0 && (
+          {activeFilterCount > 0 && (
             <FilterManager
-              controlledFilterLength={controlledFilterLength}
+              activeFilterCount={activeFilterCount}
               removeAllFilterControl={resetFilters}
             />
           )}

@@ -19,14 +19,14 @@ export const LostFoundFilters: React.FC<LostFoundFiltersProps> = ({
   isScale,
   handleScale,
 }) => {
-  const { filters, setFilter, resetFilters, controlledFilterLength } =
+  const { filters, activeFilterCount, setFilter, resetFilters } =
     useLostFoundFilterStore();
 
   return (
     <FilterGroup
       isScale={isScale}
       uniqueId={lostFoundUniqueFilterId}
-      controlledFilterLength={controlledFilterLength}
+      activeFilterCount={activeFilterCount}
       handleScale={handleScale}
       resetFilters={resetFilters}
     >
@@ -35,14 +35,14 @@ export const LostFoundFilters: React.FC<LostFoundFiltersProps> = ({
         filters={filters}
         optionList={TYPE_OPTIONS}
         buttonLabel={TYPE_OPTIONS[LOST_FOUND_FILTER_DEFAULT_VALUES.type]}
-        handleSetFilter={setFilter}
+        handleChange={setFilter}
       />
       <FilterGroup.DropdownFilter
         filterKey="line"
         filters={filters}
         optionList={LINE_OPTIONS}
         buttonLabel={LINE_OPTIONS[LOST_FOUND_FILTER_DEFAULT_VALUES.line]}
-        handleSetFilter={setFilter}
+        handleChange={setFilter}
       />
       <FilterGroup.DrawerFilter buttonLabel="작성자" title="작성자별 필터링" />
     </FilterGroup>

@@ -19,14 +19,14 @@ export const CommunityFilters: React.FC<CommunityFiltersProps> = ({
   isScale,
   handleScale,
 }) => {
-  const { filters, setFilter, resetFilters, controlledFilterLength } =
+  const { filters, activeFilterCount, setFilter, resetFilters } =
     useCommunityFilterStore();
 
   return (
     <FilterGroup
       isScale={isScale}
       uniqueId={communityUniqueFilterId}
-      controlledFilterLength={controlledFilterLength}
+      activeFilterCount={activeFilterCount}
       handleScale={handleScale}
       resetFilters={resetFilters}
     >
@@ -35,14 +35,14 @@ export const CommunityFilters: React.FC<CommunityFiltersProps> = ({
         filters={filters}
         optionList={CATEGORY_OPTIONS}
         buttonLabel={CATEGORY_OPTIONS[COMMUNITY_FILTER_DEFAULT_VALUES.category]}
-        handleSetFilter={setFilter}
+        handleChange={setFilter}
       />
       <FilterGroup.DropdownFilter
         filterKey="line"
         filters={filters}
         optionList={LINE_OPTIONS}
         buttonLabel={LINE_OPTIONS[COMMUNITY_FILTER_DEFAULT_VALUES.line]}
-        handleSetFilter={setFilter}
+        handleChange={setFilter}
       />
       <FilterGroup.DrawerFilter buttonLabel="작성자" title="작성자별 필터링" />
     </FilterGroup>
