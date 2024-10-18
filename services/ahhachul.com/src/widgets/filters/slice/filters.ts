@@ -19,7 +19,6 @@ const createFilterStoreWithPersist = <T extends Record<string, string>>(
 ) => {
   const createStore: FilterStoreCreator<T> = (set) => ({
     filters: defaultValues,
-<<<<<<< Updated upstream
     activeFilterCount: 0,
     setFilter: (key, value) => {
       set((state) => {
@@ -39,22 +38,6 @@ const createFilterStoreWithPersist = <T extends Record<string, string>>(
       });
     },
     resetFilters: () => set({ filters: defaultValues, activeFilterCount: 0 }),
-=======
-    controlledFilterLength: 0,
-    setFilter: (key, value) =>
-      set((state) => ({
-        filters: { ...state.filters, [key]: value },
-        controlledFilterLength: Object.entries({
-          ...state.filters,
-          [key]: value,
-        }).reduce(
-          (count, [k, v]) => (v !== defaultValues[k] ? count + 1 : count),
-          0,
-        ),
-      })),
-    resetFilters: () =>
-      set({ filters: defaultValues, controlledFilterLength: 0 }),
->>>>>>> Stashed changes
   });
 
   return create<FilterState<T>>()(

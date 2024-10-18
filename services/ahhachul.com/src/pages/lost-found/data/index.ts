@@ -1,9 +1,12 @@
+import { SubwayLineFilterOptions } from 'features/subway-lines';
+import { LostFoundType } from '../model';
+
 export const LOST_FOUND_FILTER_DEFAULT_VALUES = {
-  type: 'LOST',
-  line: 'ALL_LINES',
+  type: LostFoundType.LOST,
+  line: SubwayLineFilterOptions.ALL,
 };
 
 export const TYPE_OPTIONS = {
-  LOST: '분실물',
-  ACQUIRE: '습득물',
+  [LostFoundType.LOST]: '분실물',
+  [LostFoundType.ACQUIRE]: '습득물',
 };

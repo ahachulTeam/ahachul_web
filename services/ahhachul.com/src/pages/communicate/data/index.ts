@@ -1,11 +1,14 @@
+import { SubwayLineFilterOptions } from 'features/subway-lines';
+import { CommunityCategoryType } from '../model';
+
 export const COMMUNITY_FILTER_DEFAULT_VALUES = {
-  category: 'HOT',
-  line: 'ALL_LINES',
+  category: CommunityCategoryType.HOT,
+  line: SubwayLineFilterOptions.ALL,
 };
 
 export const CATEGORY_OPTIONS = {
-  HOT: '인기',
-  FREE: '자유',
-  INSIGHT: '정보',
-  QUESTION: '질문',
+  [CommunityCategoryType.HOT]: '인기',
+  [CommunityCategoryType.FREE]: '자유',
+  [CommunityCategoryType.INSIGHT]: '정보',
+  [CommunityCategoryType.QUESTION]: '질문',
 };
