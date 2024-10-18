@@ -1,10 +1,6 @@
-import { PropsWithChildren } from 'react';
-import * as styles from './Layout.css';
+import styled from '@emotion/styled';
 
-export const ComposeLayout = (props: PropsWithChildren) => {
-  return (
-    <div data-vaul-drawer-wrapper="true" css={styles.composeLayout}>
-      {props.children}
-    </div>
-  );
-};
+export const ComposeLayout = styled.div`
+  width: 100%;
+  height: 100vh;
+`;
