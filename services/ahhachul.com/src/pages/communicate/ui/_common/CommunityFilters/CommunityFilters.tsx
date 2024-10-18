@@ -3,12 +3,10 @@ import {
   CATEGORY_OPTIONS,
   COMMUNITY_FILTER_DEFAULT_VALUES,
 } from 'pages/communicate/data';
-import {
-  communityUniqueFilterId,
-  useCommunityFilterStore,
-} from 'pages/communicate/slice';
+import { useCommunityFilterStore } from 'pages/communicate/slice';
 import { LINE_OPTIONS } from 'features/subway-lines/data';
 import { FilterGroup } from 'widgets/filters/ui/FilterGroup';
+import { APP_UNIQUE_FILTER_ID_LIST } from 'widgets/filters/data/uniqueId';
 
 interface CommunityFiltersProps {
   isScale: boolean;
@@ -25,7 +23,7 @@ export const CommunityFilters: React.FC<CommunityFiltersProps> = ({
   return (
     <FilterGroup
       isScale={isScale}
-      uniqueId={communityUniqueFilterId}
+      uniqueId={APP_UNIQUE_FILTER_ID_LIST.Community}
       activeFilterCount={activeFilterCount}
       handleScale={handleScale}
       resetFilters={resetFilters}

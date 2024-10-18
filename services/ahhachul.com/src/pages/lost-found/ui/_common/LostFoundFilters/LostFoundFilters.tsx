@@ -1,14 +1,12 @@
 import React from 'react';
 import {
-  lostFoundUniqueFilterId,
-  useLostFoundFilterStore,
-} from 'pages/lost-found/slice';
-import { FilterGroup } from 'widgets/filters/ui/FilterGroup';
-import { LINE_OPTIONS } from 'features/subway-lines/data';
-import {
   LOST_FOUND_FILTER_DEFAULT_VALUES,
   TYPE_OPTIONS,
 } from 'pages/lost-found/data';
+import { useLostFoundFilterStore } from 'pages/lost-found/slice';
+import { FilterGroup } from 'widgets/filters/ui/FilterGroup';
+import { LINE_OPTIONS } from 'features/subway-lines/data';
+import { APP_UNIQUE_FILTER_ID_LIST } from 'widgets/filters/data/uniqueId';
 
 interface LostFoundFiltersProps {
   isScale: boolean;
@@ -25,7 +23,7 @@ export const LostFoundFilters: React.FC<LostFoundFiltersProps> = ({
   return (
     <FilterGroup
       isScale={isScale}
-      uniqueId={lostFoundUniqueFilterId}
+      uniqueId={APP_UNIQUE_FILTER_ID_LIST.LostFound}
       activeFilterCount={activeFilterCount}
       handleScale={handleScale}
       resetFilters={resetFilters}
