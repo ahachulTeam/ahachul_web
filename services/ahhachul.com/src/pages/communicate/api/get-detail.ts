@@ -1,5 +1,6 @@
 import { base, routes, getQueryKeys, useAuthQuery } from 'shared/api';
 import type { IResponse } from 'entities/with-server';
+import { TIMESTAMP } from 'shared/lib/config/timestamp';
 import type { CommunityDetail } from '../model';
 import type { ParamsOfCommunityDetail } from '../model/params';
 import { COMMUNITY_QUERY_KEY } from './query-key';
@@ -25,6 +26,6 @@ export const useGetCommunityDetail = (
     options: {
       initialData,
       throwOnError: true,
-      staleTime: 5 * 60 * 1000, // default: 5분, 글 수정 시에는 따로 업데이트 관리
+      staleTime: 5 * TIMESTAMP.MINUTE, // default: 5분, 글 수정 시에는 따로 업데이트 관리
     },
   });
