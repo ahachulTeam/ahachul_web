@@ -25,8 +25,3 @@ export const scrollable = (navigationSlot: boolean) =>
       paddingBottom: navigationSlot ? navbar : 0,
     }),
   ] as Interpolation<Theme>;
-
-export const composeLayout = {
-  width: '100%',
-  height: '100vh',
-} as Interpolation<Theme>;

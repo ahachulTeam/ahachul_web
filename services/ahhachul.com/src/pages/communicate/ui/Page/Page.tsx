@@ -1,6 +1,5 @@
 import React, { useReducer } from 'react';
-import { useActivity } from '@stackflow/react';
-import type { ActivityComponentType } from 'app/stackflow';
+import { ActivityComponentType } from 'app/stackflow';
 import { Layout } from 'widgets';
 import { ComposeLayout } from 'widgets/layout/ui/ComposeLayout';
 import { renderLeftLogo, renderRight } from 'widgets/layout-header';
@@ -13,17 +12,15 @@ const CommunityArticleList = React.lazy(
   () => import('../_common/CommunityArticleList/CommunityArticleList'),
 );
 
-const Community: ActivityComponentType = () => {
-  const activity = useActivity();
+interface CommunityProps {
+  keyword?: string;
+}
+const Community: ActivityComponentType<CommunityProps> = ({ params }) => {
   const [isScale, toggleScale] = useReducer((scale) => !scale, false);
 
   return (
-    <ComposeLayout>
-      <CommunityFilters
-        isScale={isScale}
-        isActive={activity.isActive}
-        handleScale={toggleScale}
-      />
+    <ComposeLayout data-vaul-drawer-wrapper="true">
+      <CommunityFilters isScale={isScale} handleScale={toggleScale} />
       <Layout
         showNavbar
         appBar={{
@@ -40,7 +37,10 @@ const Community: ActivityComponentType = () => {
             })
           }
         >
-          <CommunityArticleList css={styles.layout(isScale)} />
+          <CommunityArticleList
+            keyword={params.keyword}
+            css={styles.layout(isScale)}
+          />
         </QueryErrorBoundary>
       </Layout>
     </ComposeLayout>

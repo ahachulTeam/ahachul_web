@@ -15,6 +15,7 @@ export const DrawerFilter: React.FC<DrawerFilterProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  // 앱으로 집어넣을 때 삭제할 코드
   const handleToggleDrawer = () => {
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {

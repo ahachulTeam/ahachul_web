@@ -1,25 +1,34 @@
 import React from 'react';
-import { FilterProvider, useFilters } from './FilterContext';
-import { SearchFilter, SearchFilterProps } from './SearchFilter';
-import { DropdownFilter, DropdownFilterProps } from './DropdownFilter';
-import { DrawerFilter, DrawerFilterProps } from './DrawerFilter';
+import { useActivity } from 'app/stackflow';
+import { SearchFilter } from './SearchFilter';
+import { DrawerFilter } from './DrawerFilter';
 import { FilterManager } from './FilterManager';
+import { DropdownFilter } from './DropdownFilter';
+import { useKeywordSearch } from '../lib/useKeywordSearch';
+import type { AppUniqueFilterId } from '../model';
 import * as styles from './Filter.css';
 
 interface FilterGroupProps {
   children: React.ReactNode;
-  id: string;
+  uniqueId: AppUniqueFilterId;
   isScale: boolean;
-  isActive: boolean;
-  defaultValues: Record<string, string>;
+  activeFilterCount: number;
   handleScale: () => void;
+  resetFilters: () => void;
 }
 
-const FilterGroupInner: React.FC<
-  Omit<FilterGroupProps, 'id' | 'defaultValues'>
-> = ({ children, isScale, isActive, handleScale }) => {
-  const { controlledFilterLength, resetFilters, setKeyword, resetKeyword } =
-    useFilters();
+type FilterGroupMainType = React.FC<FilterGroupProps>;
+
+const FilterGroupMain: FilterGroupMainType = ({
+  children,
+  uniqueId,
+  isScale,
+  activeFilterCount,
+  handleScale,
+  resetFilters,
+}) => {
+  const { isActive } = useActivity();
+  const { updateKeyword, resetKeyword } = useKeywordSearch(uniqueId);
 
   return (
     <>
@@ -28,12 +37,12 @@ const FilterGroupInner: React.FC<
         <SearchFilter
           handleScale={handleScale}
           resetKeyword={resetKeyword}
-          handleSetKeyword={setKeyword}
+          handleSetKeyword={updateKeyword}
         />
         <div css={[styles.btn_wrap, styles.dropdownMenu]}>
-          {controlledFilterLength > 0 && (
+          {activeFilterCount > 0 && (
             <FilterManager
-              controlledFilterLength={controlledFilterLength}
+              activeFilterCount={activeFilterCount}
               removeAllFilterControl={resetFilters}
             />
           )}
@@ -44,33 +53,7 @@ const FilterGroupInner: React.FC<
   );
 };
 
-type FilterGroupMainType = React.FC<FilterGroupProps> & {
-  SearchFilter: React.FC<SearchFilterProps>;
-  DrawerFilter: React.FC<DrawerFilterProps>;
-  DropdownFilter: React.FC<DropdownFilterProps>;
-};
-
-const FilterGroupMain: FilterGroupMainType = ({
-  id,
-  children,
-  isScale,
-  isActive,
-  defaultValues,
-  handleScale,
-}) => (
-  <FilterProvider id={id} defaultValues={defaultValues}>
-    <FilterGroupInner
-      isScale={isScale}
-      isActive={isActive}
-      handleScale={handleScale}
-    >
-      {children}
-    </FilterGroupInner>
-  </FilterProvider>
-);
-
-FilterGroupMain.SearchFilter = SearchFilter;
-FilterGroupMain.DrawerFilter = DrawerFilter;
-FilterGroupMain.DropdownFilter = DropdownFilter;
-
-export const FilterGroup = FilterGroupMain;
+export const FilterGroup = Object.assign(FilterGroupMain, {
+  DrawerFilter: DrawerFilter,
+  DropdownFilter: DropdownFilter,
+});

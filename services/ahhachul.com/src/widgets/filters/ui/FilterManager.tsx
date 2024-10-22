@@ -4,25 +4,19 @@ import { ChevronDownIcon } from '@radix-ui/react-icons';
 import * as styles from './Filter.css';
 
 interface FilterManagerProps {
-  controlledFilterLength: number;
+  activeFilterCount: number;
   removeAllFilterControl: () => void;
 }
 
 export const FilterManager: React.FC<FilterManagerProps> = ({
-  controlledFilterLength,
+  activeFilterCount,
   removeAllFilterControl,
 }) => {
-  if (controlledFilterLength === 0) {
-    return null;
-  }
-
   return (
     <DropdownMenu.Root modal={false}>
       <DropdownMenu.Trigger asChild>
         <button css={styles.buttonFilter}>
-          <span css={styles.controlledFilterLength}>
-            {controlledFilterLength}
-          </span>
+          <span css={styles.controlledFilterLength}>{activeFilterCount}</span>
           <ChevronDownIcon stroke="#4C5874" className="arrow-down-img" />
         </button>
       </DropdownMenu.Trigger>
@@ -34,7 +28,7 @@ export const FilterManager: React.FC<FilterManagerProps> = ({
         className="DropdownMenuContent"
       >
         <DropdownMenu.Label className="DropdownMenuLabel">
-          {controlledFilterLength}개 필터가 적용됨.
+          {activeFilterCount}개 필터가 적용됨.
         </DropdownMenu.Label>
         <DropdownMenu.Item
           className="DropdownMenuItem red"

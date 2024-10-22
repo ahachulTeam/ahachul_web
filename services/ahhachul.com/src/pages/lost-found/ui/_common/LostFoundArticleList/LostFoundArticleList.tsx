@@ -1,22 +1,30 @@
 import React, { type HTMLAttributes } from 'react';
-import { withSuspense } from '@ahhachul/react-hooks-utility';
 import { useGetLostFoundList } from 'pages/lost-found/api/get-list';
 import type { LostFoundArticle } from 'pages/lost-found/model';
 import { Loading } from 'entities/app-loaders/ui/Loading';
 import { flattenInfinityList } from 'shared/lib/utils/array/flattenInfinityList';
 import { BaseArticleList } from 'widgets/articles/ui/BaseArticleList';
+import { useLostFoundFilterStore } from 'pages/lost-found/slice';
 
-interface LostFoundArticleListProps
-  extends HTMLAttributes<HTMLSectionElement> {}
-const LostFoundArticleList = ({ ...props }: LostFoundArticleListProps) => {
-  const { data, hasNextPage, isFetchingNextPage, fetchNextPage } =
+interface LostFoundArticleListProps extends HTMLAttributes<HTMLSectionElement> {
+  keyword?: string;
+}
+export default function LostFoundArticleList({
+  keyword,
+  ...props
+}: LostFoundArticleListProps) {
+  const { filters } = useLostFoundFilterStore();
+  const { data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } =
     useGetLostFoundList({
       page: 0,
       size: 10,
-      lostType: 'ACQUIRE',
+      keyword,
+      ...filters,
     });
-  const lostArticles = flattenInfinityList(data);
 
+  if (!data || isLoading) return <Loading opacity={1} deferredMs={0} />;
+
+  const lostArticles = flattenInfinityList(data);
   return (
     <BaseArticleList<LostFoundArticle>
       to="LostFoundDetail"
@@ -27,8 +35,4 @@ const LostFoundArticleList = ({ ...props }: LostFoundArticleListProps) => {
       {...props}
     />
   );
-};
-
-export default withSuspense(LostFoundArticleList, {
-  fallback: <Loading opacity={1} />,
-});
+}
