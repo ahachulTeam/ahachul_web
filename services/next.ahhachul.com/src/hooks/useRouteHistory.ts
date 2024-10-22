@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-// 페이지 이동이 완료된 후에 이전 경로를 저장하고 현재 경로를 sessionStorage에 업데이트합니다.
+// 페이지 이동이 완료된 후에 이전 경로를 저장하고 현재 경로를 sessionStorage에 업데이트해요.
 const useRouteHistory = () => {
   const router = useRouter();
 
