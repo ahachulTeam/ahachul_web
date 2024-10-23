@@ -15,10 +15,14 @@ const getLostFoundList = (params: ParamsOfLostFoundList) =>
 export const useGetLostFoundList = (params: ParamsOfLostFoundList) =>
   useInfiniteQuery({
     queryKey: getQueryKeys(LOST_FOUND_QUERY_KEY).list({ params }),
-    queryFn: ({ pageParam = params?.page }) =>
-      getLostFoundList({ ...params, page: pageParam }),
-    getNextPageParam: (lastPage) => lastPage.data.result.nextPageNum,
-    initialPageParam: params?.page ?? 0,
+    queryFn: ({ pageParam = params?.pageToken }) =>
+      getLostFoundList({
+        ...params,
+        ...(pageParam && { pageToken: pageParam }),
+      }),
+    getNextPageParam: (lastPage) =>
+      lastPage.data.result.hasNext && lastPage.data.result.pageToken,
+    initialPageParam: null,
     gcTime: 5 * TIMESTAMP.MINUTE,
     staleTime: 30 * TIMESTAMP.SECOND,
     throwOnError: true,

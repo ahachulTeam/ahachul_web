@@ -16,8 +16,7 @@ export default function LostFoundArticleList({
   const { filters } = useLostFoundFilterStore();
   const { data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } =
     useGetLostFoundList({
-      page: 0,
-      size: 10,
+      pageSize: 10,
       keyword,
       ...filters,
     });

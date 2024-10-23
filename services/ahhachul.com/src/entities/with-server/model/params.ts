@@ -9,6 +9,11 @@ export interface PageParams {
   page: number;
   size: number;
 }
+
+export interface CursorBasedPaginationParams {
+  pageSize: number;
+  pageToken?: number;
+}
 export interface WithImageFile {
   imageFiles: File;
 }

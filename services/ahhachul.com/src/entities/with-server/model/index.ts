@@ -9,6 +9,7 @@ export interface IResponse<TResult> {
 
 interface PageNavigationResponse {
   hasNext: boolean;
+  pageToken?: number;
   nextPageNum?: number;
 }
 export interface ResponseOfList<TData> extends PageNavigationResponse {
