@@ -1,3 +1,4 @@
+import queryString from 'query-string';
 import {
   IRefreshTokenParams,
   IResponse,
@@ -10,6 +11,13 @@ import { base } from '..';
 
 export const getAuthURL = `${API_BASE_URL}/auth`;
 
+const getRedirectUrls = async (type: 'KAKAO' | 'GOOGLE') => {
+  const queryParams = queryString.stringify({ providerType: type });
+  const url = `${getAuthURL}/redirect-url?${queryParams}`;
+
+  return await base.get<IResponse<{ redirectUrl: string }>>(url);
+};
+
 const login = async (body: ISocialSignInParams) => {
   const url = `${getAuthURL}/login`;
 
@@ -19,4 +27,4 @@ const login = async (body: ISocialSignInParams) => {
 const refreshToken = async (body: IRefreshTokenParams) =>
   await base.post<IResponse<IToken>>(`${getAuthURL}/tokens`, body);
 
-export { login, refreshToken };
+export { getRedirectUrls, login, refreshToken };

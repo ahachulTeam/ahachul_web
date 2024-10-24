@@ -1,4 +1,13 @@
-import React, { ChangeEvent, FormEvent, memo, useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  memo,
+  useCallback,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
 import { EditorState } from 'lexical';
 import { CSSObject, Theme } from '@emotion/react';
 
@@ -14,7 +23,6 @@ import IconChevron from '@/src/static/icons/system/IconChevron';
 import IconCamera from '@/src/static/icons/system/IconCamera';
 import IconCircleClose from '@/src/static/icons/system/IconCircleClose';
 import { exportLineNameWithSubwayLineId } from '@/src/utils/export';
-import withAuth from '@/src/hooks/withAuth';
 
 const INIT_STATE: ILostArticleForm = {
   title: '',
@@ -36,7 +44,8 @@ const ERROR_INIT_STATE: ErrorForm<ILostArticleForm> = {
 
 function LostEditor() {
   const formRef = useRef<ILostArticleForm>(INIT_STATE);
-  const [errors, setError] = useState<ErrorForm<ILostArticleForm>>(ERROR_INIT_STATE);
+  const [errors, setError] =
+    useState<ErrorForm<ILostArticleForm>>(ERROR_INIT_STATE);
 
   const { loading } = useAppSelector((state) => state.ui);
   const { mutate, status } = LostQuery.useLostArticle();
@@ -51,7 +60,11 @@ function LostEditor() {
         setError((prev) => ({ ...prev, title: '' }));
       }
 
-      formRef.current[e.target.name as KeyOf<Pick<ILostArticleForm, 'title' | 'desiredTradePlace'>>] = e.target.value;
+      formRef.current[
+        e.target.name as KeyOf<
+          Pick<ILostArticleForm, 'title' | 'desiredTradePlace'>
+        >
+      ] = e.target.value;
     },
     [errors],
   );
@@ -81,14 +94,20 @@ function LostEditor() {
 
     const isEmptyTitle = formRef.current.title === '';
     const isEmptyContent =
-      formRef.current.content === '' || JSON.parse(formRef.current.content)?.root?.children?.[0]?.children?.length <= 0;
+      formRef.current.content === '' ||
+      JSON.parse(formRef.current.content)?.root?.children?.[0]?.children
+        ?.length <= 0;
 
     const titleInput = document?.getElementById('title');
 
     if (isEmptyTitle || isEmptyContent) {
       if (isEmptyTitle && isEmptyContent) {
         titleInput?.focus?.();
-        setError((prev) => ({ ...prev, title: '제목을 적어주세요', content: '내용을 적어주세요' }));
+        setError((prev) => ({
+          ...prev,
+          title: '제목을 적어주세요',
+          content: '내용을 적어주세요',
+        }));
       } else {
         if (isEmptyTitle) {
           titleInput?.focus?.();
@@ -174,14 +193,26 @@ function LostEditor() {
         </div>
         <div css={section}>
           <span>습득/분실 세부 장소</span>
-          <input name="detailLostPlace" placeholder="세부 장소" onChange={handleChangePureStringValue} />
+          <input
+            name="detailLostPlace"
+            placeholder="세부 장소"
+            onChange={handleChangePureStringValue}
+          />
         </div>
         <div css={section}>
           <span>교환 희망 장소</span>
-          <input name="desiredTradePlace" placeholder="위치를 입력해주세요." onChange={handleChangePureStringValue} />
+          <input
+            name="desiredTradePlace"
+            placeholder="위치를 입력해주세요."
+            onChange={handleChangePureStringValue}
+          />
         </div>
         <div css={submitWrap}>
-          <button css={submitBtn} type="submit" disabled={loading.active || status === 'pending'}>
+          <button
+            css={submitBtn}
+            type="submit"
+            disabled={loading.active || status === 'pending'}
+          >
             작성 완료
           </button>
         </div>
@@ -190,68 +221,97 @@ function LostEditor() {
   );
 }
 
-const ImageUpload = memo(({ handleChangeImage }: { handleChangeImage: (image: File | null) => void }) => {
-  const [image, setImage] = useState<File | null>(null);
+const ImageUpload = memo(
+  ({
+    handleChangeImage,
+  }: {
+    handleChangeImage: (image: File | null) => void;
+  }) => {
+    const [image, setImage] = useState<File | null>(null);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setImage(e.target.files?.[0] as Nullable<File>);
-    handleChangeImage(e.target.files?.[0] as Nullable<File>);
-  };
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setImage(e.target.files?.[0] as Nullable<File>);
+      handleChangeImage(e.target.files?.[0] as Nullable<File>);
+    };
 
-  const handleDeleteImage = () => {
-    setImage(null);
-    handleChangeImage(null);
-  };
+    const handleDeleteImage = () => {
+      setImage(null);
+      handleChangeImage(null);
+    };
 
-  return (
-    <div css={imageBox(Boolean(image))}>
-      <label htmlFor="upload">
-        <IconCamera />
-        <input
-          id="upload"
-          type="file"
-          accept="image/*"
-          hidden
-          disabled={Boolean(image)}
-          onChange={(e) => {
-            if (e.target.files?.[0]?.size === 0) return;
-            handleImageChange(e);
-          }}
-        />
-      </label>
+    return (
+      <div css={imageBox(Boolean(image))}>
+        <label htmlFor="upload">
+          <IconCamera />
+          <input
+            id="upload"
+            type="file"
+            accept="image/*"
+            hidden
+            disabled={Boolean(image)}
+            onChange={(e) => {
+              if (e.target.files?.[0]?.size === 0) return;
+              handleImageChange(e);
+            }}
+          />
+        </label>
 
-      {image && (
-        <div css={realImage}>
-          <img src={typeof image === 'string' ? image : URL.createObjectURL(image)} alt="" />
-          <IconCircleClose onClick={handleDeleteImage} />
-        </div>
-      )}
-    </div>
-  );
-});
+        {image && (
+          <div css={realImage}>
+            <img
+              src={
+                typeof image === 'string' ? image : URL.createObjectURL(image)
+              }
+              alt=""
+            />
+            <IconCircleClose onClick={handleDeleteImage} />
+          </div>
+        )}
+      </div>
+    );
+  },
+);
 
-const SelectComponent = memo(({ handleChangeLostType }: { handleChangeLostType: (type: LostType) => void }) => {
-  const [currentLostType, setCurrentLostType] = useState('ACQUIRE');
+const SelectComponent = memo(
+  ({
+    handleChangeLostType,
+  }: {
+    handleChangeLostType: (type: LostType) => void;
+  }) => {
+    const [currentLostType, setCurrentLostType] = useState('ACQUIRE');
 
-  const handleToggle = (type: LostType) => () => {
-    setCurrentLostType(type);
-    handleChangeLostType(type);
-  };
+    const handleToggle = (type: LostType) => () => {
+      setCurrentLostType(type);
+      handleChangeLostType(type);
+    };
 
-  return (
-    <div css={buttonGroup}>
-      <button type="button" css={toggleBtn(currentLostType === 'ACQUIRE')} onClick={handleToggle('ACQUIRE')}>
-        습득물
-      </button>
-      <button type="button" css={toggleBtn(currentLostType === 'LOST')} onClick={handleToggle('LOST')}>
-        분실물
-      </button>
-    </div>
-  );
-});
+    return (
+      <div css={buttonGroup}>
+        <button
+          type="button"
+          css={toggleBtn(currentLostType === 'ACQUIRE')}
+          onClick={handleToggle('ACQUIRE')}
+        >
+          습득물
+        </button>
+        <button
+          type="button"
+          css={toggleBtn(currentLostType === 'LOST')}
+          onClick={handleToggle('LOST')}
+        >
+          분실물
+        </button>
+      </div>
+    );
+  },
+);
 
 const SelectSubwayComponent = memo(
-  ({ handleSubwayLine }: { handleSubwayLine: (subwayLine: Nullable<string>) => void }) => {
+  ({
+    handleSubwayLine,
+  }: {
+    handleSubwayLine: (subwayLine: Nullable<string>) => void;
+  }) => {
     const [show, toggle] = useReducer((c) => !c, false);
     const [subwayLineId, setSubwayLineId] = useState<string | undefined>();
 
@@ -267,7 +327,9 @@ const SelectSubwayComponent = memo(
     return (
       <div css={inputButtonGroup}>
         <button type="button" onClick={toggle}>
-          {subwayLineId ? exportLineNameWithSubwayLineId(subwayLineId) : '호선 추가'}
+          {subwayLineId
+            ? exportLineNameWithSubwayLineId(subwayLineId)
+            : '호선 추가'}
         </button>
         <IconChevron
           css={{
@@ -290,61 +352,66 @@ const SelectSubwayComponent = memo(
 
 const wrap = [f.fullWidth, f.flexColumn, { padding: '14px 0 120px 0' }];
 
-const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] = [
-  f.sideGutter,
-  f.flexColumn,
-  ({ typography: { fontSize, fontWeight } }: Theme) => ({
-    position: 'relative',
-    marginBottom: '32px',
+const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] =
+  [
+    f.sideGutter,
+    f.flexColumn,
+    ({ typography: { fontSize, fontWeight } }: Theme) => ({
+      position: 'relative',
+      marginBottom: '32px',
 
-    '& > span, & > p': {
-      color: '#ffffff',
-      fontSize: fontSize[14],
-      fontWeight: fontWeight[600],
-      marginBottom: '14px',
-    },
-
-    '& > input': {
-      border: '1px solid rgb(196, 212, 252, 0.37)',
-      height: '44px',
-      borderRadius: '6px',
-      padding: '0 12px',
-      color: '#ffffff',
-      fontSize: fontSize[14],
-      caretColor: 'rgba(0, 255, 163, 0.5)',
-
-      '&::placeholder': {
+      '& > span, & > p': {
+        color: '#ffffff',
         fontSize: fontSize[14],
-        color: '#9da5b6',
+        fontWeight: fontWeight[600],
+        marginBottom: '14px',
       },
 
-      '&[aria-invalid="true"]': {
-        borderColor: '#E02020',
-      },
-    },
+      '& > input': {
+        border: '1px solid rgb(196, 212, 252, 0.37)',
+        height: '44px',
+        borderRadius: '6px',
+        padding: '0 12px',
+        color: '#ffffff',
+        fontSize: fontSize[14],
+        caretColor: 'rgba(0, 255, 163, 0.5)',
 
-    '& > b': {
-      display: 'inline-flex',
-      alignItems: 'center',
-      color: '#E02020',
-      fontSize: fontSize[14],
-      fontWeight: fontWeight[400],
-      marginTop: '12px',
-      gap: '6px',
+        '&::placeholder': {
+          fontSize: fontSize[14],
+          color: '#9da5b6',
+        },
 
-      '& > div > svg > path': {
-        fill: '#E02020',
-        stroke: '#ffffff',
-
-        '&:first-of-type': {
-          stroke: '#E02020',
+        '&[aria-invalid="true"]': {
+          borderColor: '#E02020',
         },
       },
-    },
-  }),
-];
 
-const inputButtonGroup: [CSSObject, CSSObject, ({ typography }: Theme) => CSSObject] = [
+      '& > b': {
+        display: 'inline-flex',
+        alignItems: 'center',
+        color: '#E02020',
+        fontSize: fontSize[14],
+        fontWeight: fontWeight[400],
+        marginTop: '12px',
+        gap: '6px',
+
+        '& > div > svg > path': {
+          fill: '#E02020',
+          stroke: '#ffffff',
+
+          '&:first-of-type': {
+            stroke: '#E02020',
+          },
+        },
+      },
+    }),
+  ];
+
+const inputButtonGroup: [
+  CSSObject,
+  CSSObject,
+  ({ typography }: Theme) => CSSObject,
+] = [
   f.fullHeight,
   f.posRel,
   ({ typography: { fontSize } }: Theme) => ({
@@ -394,7 +461,9 @@ const submitWrap: CSSObject[] = [
   },
 ];
 
-const submitBtn = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
+const submitBtn = ({
+  typography: { fontSize, fontWeight },
+}: Theme): CSSObject => ({
   padding: '0 14px',
   fontSize: fontSize[14],
   width: '100%',
@@ -458,4 +527,4 @@ const realImage: CSSObject = {
   },
 };
 
-export default withAuth(LostEditor);
+export default LostEditor;
