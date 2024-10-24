@@ -1,5 +1,4 @@
 import { Layout } from '@/src/components/layout';
-import withAuth from '@/src/hooks/withAuth';
 
 function MeTicket() {
   return (
@@ -9,4 +8,4 @@ function MeTicket() {
   );
 }
 
-export default withAuth(MeTicket);
+export default MeTicket;

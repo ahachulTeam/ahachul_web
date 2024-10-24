@@ -1,9 +1,22 @@
-import React, { ChangeEvent, FormEvent, memo, useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FormEvent,
+  memo,
+  useCallback,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
 import { EditorState } from 'lexical';
 import { CSSObject, Theme } from '@emotion/react';
 
 import { ErrorForm } from '@/src/types/form';
-import { CommunityCategoryType, ICommunityArticleForm, Nullable } from '@/src/types';
+import {
+  CommunityCategoryType,
+  ICommunityArticleForm,
+  Nullable,
+} from '@/src/types';
 import IconInfo from '@/src/static/icons/system/IconInfo';
 import { CommunityQuery } from '@/src/queries';
 import { useAppSelector } from '@/src/stores';
@@ -14,7 +27,6 @@ import IconCamera from '@/src/static/icons/system/IconCamera';
 import IconCircleClose from '@/src/static/icons/system/IconCircleClose';
 import { exportLineNameWithSubwayLineId } from '@/src/utils/export';
 import IconChevron from '@/src/static/icons/system/IconChevron';
-import withAuth from '@/src/hooks/withAuth';
 
 const INIT_STATE: ICommunityArticleForm = {
   title: '',
@@ -34,7 +46,8 @@ const ERROR_INIT_STATE: ErrorForm<ICommunityArticleForm> = {
 
 function CommunityEditor() {
   const formRef = useRef<ICommunityArticleForm>(INIT_STATE);
-  const [errors, setError] = useState<ErrorForm<ICommunityArticleForm>>(ERROR_INIT_STATE);
+  const [errors, setError] =
+    useState<ErrorForm<ICommunityArticleForm>>(ERROR_INIT_STATE);
 
   const { loading } = useAppSelector((state) => state.ui);
   const { mutate, status } = CommunityQuery.useCommunityArticle();
@@ -79,14 +92,20 @@ function CommunityEditor() {
 
     const isEmptyTitle = formRef.current.title === '';
     const isEmptyContent =
-      formRef.current.content === '' || JSON.parse(formRef.current.content)?.root?.children?.[0]?.children?.length <= 0;
+      formRef.current.content === '' ||
+      JSON.parse(formRef.current.content)?.root?.children?.[0]?.children
+        ?.length <= 0;
 
     const titleInput = document?.getElementById('title');
 
     if (isEmptyTitle || isEmptyContent) {
       if (isEmptyTitle && isEmptyContent) {
         titleInput?.focus?.();
-        setError((prev) => ({ ...prev, title: '제목을 적어주세요', content: '내용을 적어주세요' }));
+        setError((prev) => ({
+          ...prev,
+          title: '제목을 적어주세요',
+          content: '내용을 적어주세요',
+        }));
       } else {
         if (isEmptyTitle) {
           titleInput?.focus?.();
@@ -171,7 +190,11 @@ function CommunityEditor() {
           <SelectSubwayComponent handleSubwayLine={handleSubwayLine} />
         </div>
         <div css={submitWrap}>
-          <button css={submitBtn} type="submit" disabled={loading.active || status === 'pending'}>
+          <button
+            css={submitBtn}
+            type="submit"
+            disabled={loading.active || status === 'pending'}
+          >
             작성 완료
           </button>
           {/* <div css={indicatorAreaCss} /> */}
@@ -181,48 +204,63 @@ function CommunityEditor() {
   );
 }
 
-const ImageUpload = memo(({ handleChangeImage }: { handleChangeImage: (image: File | null) => void }) => {
-  const [image, setImage] = useState<File | null>(null);
+const ImageUpload = memo(
+  ({
+    handleChangeImage,
+  }: {
+    handleChangeImage: (image: File | null) => void;
+  }) => {
+    const [image, setImage] = useState<File | null>(null);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setImage(e.target.files?.[0] as Nullable<File>);
-    handleChangeImage(e.target.files?.[0] as Nullable<File>);
-  };
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setImage(e.target.files?.[0] as Nullable<File>);
+      handleChangeImage(e.target.files?.[0] as Nullable<File>);
+    };
 
-  const handleDeleteImage = () => {
-    setImage(null);
-    handleChangeImage(null);
-  };
+    const handleDeleteImage = () => {
+      setImage(null);
+      handleChangeImage(null);
+    };
 
-  return (
-    <div css={imageBox(Boolean(image))}>
-      <label htmlFor="upload">
-        <IconCamera />
-        <input
-          id="upload"
-          type="file"
-          accept="image/*"
-          hidden
-          disabled={Boolean(image)}
-          onChange={(e) => {
-            if (e.target.files?.[0]?.size === 0) return;
-            handleImageChange(e);
-          }}
-        />
-      </label>
+    return (
+      <div css={imageBox(Boolean(image))}>
+        <label htmlFor="upload">
+          <IconCamera />
+          <input
+            id="upload"
+            type="file"
+            accept="image/*"
+            hidden
+            disabled={Boolean(image)}
+            onChange={(e) => {
+              if (e.target.files?.[0]?.size === 0) return;
+              handleImageChange(e);
+            }}
+          />
+        </label>
 
-      {image && (
-        <div css={realImage}>
-          <img src={typeof image === 'string' ? image : URL.createObjectURL(image)} alt="" />
-          <IconCircleClose onClick={handleDeleteImage} />
-        </div>
-      )}
-    </div>
-  );
-});
+        {image && (
+          <div css={realImage}>
+            <img
+              src={
+                typeof image === 'string' ? image : URL.createObjectURL(image)
+              }
+              alt=""
+            />
+            <IconCircleClose onClick={handleDeleteImage} />
+          </div>
+        )}
+      </div>
+    );
+  },
+);
 
 const SelectComponent = memo(
-  ({ handleChangeLostType }: { handleChangeLostType: (type: CommunityCategoryType) => () => void }) => {
+  ({
+    handleChangeLostType,
+  }: {
+    handleChangeLostType: (type: CommunityCategoryType) => () => void;
+  }) => {
     const [currentLostType, setCurrentLostType] = useState('FREE');
 
     const handleToggle = (type: CommunityCategoryType) => () => {
@@ -232,13 +270,25 @@ const SelectComponent = memo(
 
     return (
       <div css={buttonGroup}>
-        <button type="button" css={toggleBtn(currentLostType === 'FREE')} onClick={handleToggle('FREE')}>
+        <button
+          type="button"
+          css={toggleBtn(currentLostType === 'FREE')}
+          onClick={handleToggle('FREE')}
+        >
           자유
         </button>
-        <button type="button" css={toggleBtn(currentLostType === 'INSIGHT')} onClick={handleToggle('INSIGHT')}>
+        <button
+          type="button"
+          css={toggleBtn(currentLostType === 'INSIGHT')}
+          onClick={handleToggle('INSIGHT')}
+        >
           정보
         </button>
-        <button type="button" css={toggleBtn(currentLostType === 'ISSUE')} onClick={handleToggle('ISSUE')}>
+        <button
+          type="button"
+          css={toggleBtn(currentLostType === 'ISSUE')}
+          onClick={handleToggle('ISSUE')}
+        >
           질문
         </button>
       </div>
@@ -247,7 +297,11 @@ const SelectComponent = memo(
 );
 
 const SelectSubwayComponent = memo(
-  ({ handleSubwayLine }: { handleSubwayLine: (subwayLine: Nullable<string>) => void }) => {
+  ({
+    handleSubwayLine,
+  }: {
+    handleSubwayLine: (subwayLine: Nullable<string>) => void;
+  }) => {
     const [show, toggle] = useReducer((c) => !c, false);
     const [subwayLineId, setSubwayLineId] = useState<string | undefined>();
 
@@ -263,7 +317,9 @@ const SelectSubwayComponent = memo(
     return (
       <div css={inputButtonGroup}>
         <button type="button" onClick={toggle}>
-          {subwayLineId ? exportLineNameWithSubwayLineId(subwayLineId) : '호선 추가'}
+          {subwayLineId
+            ? exportLineNameWithSubwayLineId(subwayLineId)
+            : '호선 추가'}
         </button>
         <IconChevron
           css={{
@@ -286,61 +342,66 @@ const SelectSubwayComponent = memo(
 
 const wrap = [f.fullWidth, f.flexColumn, { padding: '14px 0 120px 0' }];
 
-const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] = [
-  f.sideGutter,
-  f.flexColumn,
-  ({ typography: { fontSize, fontWeight } }: Theme) => ({
-    position: 'relative',
-    marginBottom: '32px',
+const section: [CSSObject, CSSObject[], ({ typography }: Theme) => CSSObject] =
+  [
+    f.sideGutter,
+    f.flexColumn,
+    ({ typography: { fontSize, fontWeight } }: Theme) => ({
+      position: 'relative',
+      marginBottom: '32px',
 
-    '& > span, & > p': {
-      color: '#ffffff',
-      fontSize: fontSize[14],
-      fontWeight: fontWeight[600],
-      marginBottom: '14px',
-    },
-
-    '& > input': {
-      border: '1px solid rgb(196, 212, 252, 0.37)',
-      height: '44px',
-      borderRadius: '6px',
-      padding: '0 12px',
-      color: '#ffffff',
-      fontSize: fontSize[14],
-      caretColor: 'rgba(0, 255, 163, 0.5)',
-
-      '&::placeholder': {
+      '& > span, & > p': {
+        color: '#ffffff',
         fontSize: fontSize[14],
-        color: '#9da5b6',
+        fontWeight: fontWeight[600],
+        marginBottom: '14px',
       },
 
-      '&[aria-invalid="true"]': {
-        borderColor: '#E02020',
-      },
-    },
+      '& > input': {
+        border: '1px solid rgb(196, 212, 252, 0.37)',
+        height: '44px',
+        borderRadius: '6px',
+        padding: '0 12px',
+        color: '#ffffff',
+        fontSize: fontSize[14],
+        caretColor: 'rgba(0, 255, 163, 0.5)',
 
-    '& > b': {
-      display: 'inline-flex',
-      alignItems: 'center',
-      color: '#E02020',
-      fontSize: fontSize[14],
-      fontWeight: fontWeight[400],
-      marginTop: '12px',
-      gap: '6px',
+        '&::placeholder': {
+          fontSize: fontSize[14],
+          color: '#9da5b6',
+        },
 
-      '& > div > svg > path': {
-        fill: '#E02020',
-        stroke: '#ffffff',
-
-        '&:first-of-type': {
-          stroke: '#E02020',
+        '&[aria-invalid="true"]': {
+          borderColor: '#E02020',
         },
       },
-    },
-  }),
-];
 
-const inputButtonGroup: [CSSObject, CSSObject, ({ typography }: Theme) => CSSObject] = [
+      '& > b': {
+        display: 'inline-flex',
+        alignItems: 'center',
+        color: '#E02020',
+        fontSize: fontSize[14],
+        fontWeight: fontWeight[400],
+        marginTop: '12px',
+        gap: '6px',
+
+        '& > div > svg > path': {
+          fill: '#E02020',
+          stroke: '#ffffff',
+
+          '&:first-of-type': {
+            stroke: '#E02020',
+          },
+        },
+      },
+    }),
+  ];
+
+const inputButtonGroup: [
+  CSSObject,
+  CSSObject,
+  ({ typography }: Theme) => CSSObject,
+] = [
   f.fullHeight,
   f.posRel,
   ({ typography: { fontSize } }: Theme) => ({
@@ -390,7 +451,9 @@ const submitWrap: CSSObject[] = [
   },
 ];
 
-const submitBtn = ({ typography: { fontSize, fontWeight } }: Theme): CSSObject => ({
+const submitBtn = ({
+  typography: { fontSize, fontWeight },
+}: Theme): CSSObject => ({
   padding: '0 14px',
   fontSize: fontSize[14],
   width: '100%',
@@ -454,4 +517,4 @@ const realImage: CSSObject = {
   },
 };
 
-export default withAuth(CommunityEditor);
+export default CommunityEditor;

@@ -1,7 +1,6 @@
 import { ComplaintsComponent } from '@/src/components';
 import { Layout } from '@/src/components/layout';
 import { COMPLAINTS_CONTENTS_TYPES } from '@/src/data/complaints';
-import withAuth from '@/src/hooks/withAuth';
 import { useRouter } from 'next/router';
 
 function ComplaintsSubmission() {
@@ -17,4 +16,4 @@ function ComplaintsSubmission() {
   );
 }
 
-export default withAuth(ComplaintsSubmission);
+export default ComplaintsSubmission;
