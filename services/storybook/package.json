@@ -33,6 +33,7 @@
     "storybook": "^7.4.0",
     "storybook-addon-pseudo-states": "^2.1.1",
     "storybook-addon-root-attributes": "^2.0.3",
+    "typescript": "^5",
     "vite": "^4.4.9",
     "vitest": "^0.34.6"
   },

@@ -31,7 +31,7 @@ __metadata:
     nextra-theme-docs: "npm:^2.13.1"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
-    typescript: "npm:^5.2.2"
+    typescript: "npm:^5"
   languageName: unknown
   linkType: soft
 
@@ -63,7 +63,7 @@ __metadata:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     rimraf: "npm:^6.0.1"
-    typescript: "npm:^5.2.2"
+    typescript: "npm:^5"
   peerDependencies:
     "@ahhachul/themes": "workspace:^"
     react: "*"
@@ -90,7 +90,7 @@ __metadata:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     rimraf: "npm:^6.0.1"
-    typescript: "npm:^5.2.2"
+    typescript: "npm:^5"
   peerDependencies:
     react: "*"
   languageName: unknown
@@ -116,7 +116,7 @@ __metadata:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     rimraf: "npm:^6.0.1"
-    typescript: "npm:^5.2.2"
+    typescript: "npm:^5"
   peerDependencies:
     "@ahhachul/themes": ^0.0.3
     react: "*"
@@ -141,7 +141,7 @@ __metadata:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     rimraf: "npm:^6.0.1"
-    typescript: "npm:^5.2.2"
+    typescript: "npm:^5"
   peerDependencies:
     "@ahhachul/themes": ^0.0.3
     react: "*"
@@ -168,7 +168,7 @@ __metadata:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     rimraf: "npm:^6.0.1"
-    typescript: "npm:^5.2.2"
+    typescript: "npm:^5"
   peerDependencies:
     "@ahhachul/themes": "workspace:^"
     react: "*"
@@ -194,7 +194,7 @@ __metadata:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     rimraf: "npm:^6.0.1"
-    typescript: "npm:^5.2.2"
+    typescript: "npm:^5"
   peerDependencies:
     "@ahhachul/themes": "workspace:^"
     react: "*"
@@ -213,7 +213,7 @@ __metadata:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     rimraf: "npm:^6.0.1"
-    typescript: "npm:^5.2.2"
+    typescript: "npm:^5"
   peerDependencies:
     react: "*"
   languageName: unknown
@@ -230,7 +230,7 @@ __metadata:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     rimraf: "npm:^6.0.1"
-    typescript: "npm:^5.2.2"
+    typescript: "npm:^5"
   peerDependencies:
     react: "*"
   languageName: unknown
@@ -247,7 +247,7 @@ __metadata:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     rimraf: "npm:^6.0.1"
-    typescript: "npm:^5.2.2"
+    typescript: "npm:^5"
   peerDependencies:
     react: "*"
   languageName: unknown
@@ -264,7 +264,7 @@ __metadata:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     rimraf: "npm:^6.0.1"
-    typescript: "npm:^5.2.2"
+    typescript: "npm:^5"
   peerDependencies:
     react: "*"
   languageName: unknown
@@ -281,7 +281,7 @@ __metadata:
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     rimraf: "npm:^6.0.1"
-    typescript: "npm:^5.2.2"
+    typescript: "npm:^5"
   peerDependencies:
     react: "*"
   languageName: unknown
@@ -321,6 +321,7 @@ __metadata:
     storybook: "npm:^7.4.0"
     storybook-addon-pseudo-states: "npm:^2.1.1"
     storybook-addon-root-attributes: "npm:^2.0.3"
+    typescript: "npm:^5"
     vite: "npm:^4.4.9"
     vitest: "npm:^0.34.6"
   languageName: unknown
@@ -332,7 +333,7 @@ __metadata:
   dependencies:
     "@ahhachul/esbuild-config": "npm:^0.0.3"
     rimraf: "npm:^6.0.1"
-    typescript: "npm:^5.2.2"
+    typescript: "npm:^5"
   languageName: unknown
   linkType: soft
 
@@ -9205,7 +9206,7 @@ __metadata:
     lint-staged: "npm:^15.2.2"
     nx: "npm:^16.8.1"
     prettier: "npm:^3.0.3"
-    typescript: "npm:^4.4.2"
+    typescript: "npm:^5"
     vite: "npm:^5.1.5"
   languageName: unknown
   linkType: soft
@@ -25291,16 +25292,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.4.2":
-  version: 4.9.5
-  resolution: "typescript@npm:4.9.5"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10c0/5f6cad2e728a8a063521328e612d7876e12f0d8a8390d3b3aaa452a6a65e24e9ac8ea22beb72a924fd96ea0a49ea63bb4e251fb922b12eedfb7f7a26475e5c56
-  languageName: node
-  linkType: hard
-
 "typescript@npm:^5":
   version: 5.4.4
   resolution: "typescript@npm:5.4.4"
@@ -25311,26 +25302,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.2.2":
-  version: 5.4.2
-  resolution: "typescript@npm:5.4.2"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10c0/583ff68cafb0c076695f72d61df6feee71689568179fb0d3a4834dac343df6b6ed7cf7b6f6c801fa52d43cd1d324e2f2d8ae4497b09f9e6cfe3d80a6d6c9ca52
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@npm%3A^4.4.2#optional!builtin<compat/typescript>":
-  version: 4.9.5
-  resolution: "typescript@patch:typescript@npm%3A4.9.5#optional!builtin<compat/typescript>::version=4.9.5&hash=289587"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10c0/e3333f887c6829dfe0ab6c1dbe0dd1e3e2aeb56c66460cb85c5440c566f900c833d370ca34eb47558c0c69e78ced4bfe09b8f4f98b6de7afed9b84b8d1dd06a1
-  languageName: node
-  linkType: hard
-
 "typescript@patch:typescript@npm%3A^5#optional!builtin<compat/typescript>":
   version: 5.4.4
   resolution: "typescript@patch:typescript@npm%3A5.4.4#optional!builtin<compat/typescript>::version=5.4.4&hash=5adc0c"
@@ -25338,16 +25309,6 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 10c0/1fa41b9964a9ff0ed913b339c90b46031b2d2da3cb1a192af516610733f7f1d5f7f9754a8e22b9ac7076d3d8aedd2c4f84db3f113bad060eac3a95962443a1bf
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@npm%3A^5.2.2#optional!builtin<compat/typescript>":
-  version: 5.4.2
-  resolution: "typescript@patch:typescript@npm%3A5.4.2#optional!builtin<compat/typescript>::version=5.4.2&hash=5adc0c"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10c0/fcf6658073d07283910d9a0e04b1d5d0ebc822c04dbb7abdd74c3151c7aa92fcddbac7d799404e358197222006ccdc4c0db219d223d2ee4ccd9e2b01333b49be
   languageName: node
   linkType: hard
 
