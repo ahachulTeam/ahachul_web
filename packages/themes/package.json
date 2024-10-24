@@ -16,10 +16,11 @@
     "build:js": "node build.js",
     "build:type": "yarn tsc --emitDeclarationOnly",
     "build:css": "node ./scripts/build-css-module.js",
-    "clean": "rm -rf dist"
+    "clean": "rimraf dist"
   },
   "devDependencies": {
     "@ahhachul/esbuild-config": "^0.0.3",
+    "rimraf": "^6.0.1",
     "typescript": "^5.2.2"
   }
 }

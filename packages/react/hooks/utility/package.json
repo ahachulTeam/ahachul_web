@@ -14,7 +14,7 @@
     "build": "yarn clean && yarn build:js && yarn build:type && yarn build:css",
     "build:js": "node build.js",
     "build:type": "yarn tsc --emitDeclarationOnly",
-    "clean": "rm -rf dist",
+    "clean": "rimraf dist",
     "dev": "yarn build:js --watch && yarn build:type --watch"
   },
   "devDependencies": {
@@ -23,6 +23,7 @@
     "@types/react-dom": "^18.2.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rimraf": "^6.0.1",
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
