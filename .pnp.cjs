@@ -208,6 +208,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:18.3.12"],\
           ["@types/react-dom", "npm:18.3.1"],\
           ["autoprefixer", "virtual:3f2a3c2f88f99fb7a7c4027701fbae98888c2de026765eec32952c94304518d5a0d1008942d4e2f32f0910e8f125d6bbc0c4d77d296510cf6b0c2fb489e3bdaa#npm:10.4.20"],\
+          ["clsx", "npm:2.1.1"],\
           ["eslint", "npm:8.57.0"],\
           ["eslint-config-next", "virtual:656f6679609ce5b2f109cac1960ef183ffc0f14f80c8941873ab80b93071d949a764820b058f0d7f4e4fe28794b034e8055fa06afe185028779421d61380aacc#npm:14.1.4"],\
           ["jest", "virtual:3f2a3c2f88f99fb7a7c4027701fbae98888c2de026765eec32952c94304518d5a0d1008942d4e2f32f0910e8f125d6bbc0c4d77d296510cf6b0c2fb489e3bdaa#npm:29.7.0"],\
@@ -216,6 +217,7 @@ const RAW_RUNTIME_STATE =
           ["postcss", "npm:8.4.47"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:3f2a3c2f88f99fb7a7c4027701fbae98888c2de026765eec32952c94304518d5a0d1008942d4e2f32f0910e8f125d6bbc0c4d77d296510cf6b0c2fb489e3bdaa#npm:18.3.1"],\
+          ["tailwind-merge", "npm:2.5.4"],\
           ["tailwindcss", "npm:3.4.14"],\
           ["ts-jest", "virtual:3f2a3c2f88f99fb7a7c4027701fbae98888c2de026765eec32952c94304518d5a0d1008942d4e2f32f0910e8f125d6bbc0c4d77d296510cf6b0c2fb489e3bdaa#npm:29.2.5"],\
           ["typescript", "patch:typescript@npm%3A5.4.4#optional!builtin<compat/typescript>::version=5.4.4&hash=5adc0c"],\
@@ -17075,6 +17077,13 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../../.yarn/berry/cache/clsx-npm-2.1.0-29d286e1de-10c0.zip/node_modules/clsx/",\
         "packageDependencies": [\
           ["clsx", "npm:2.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["npm:2.1.1", {\
+        "packageLocation": "../../../../.yarn/berry/cache/clsx-npm-2.1.1-96125b98be-10c0.zip/node_modules/clsx/",\
+        "packageDependencies": [\
+          ["clsx", "npm:2.1.1"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -34711,6 +34720,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../../.yarn/berry/cache/tabbable-npm-5.3.3-baf35cffe9-10c0.zip/node_modules/tabbable/",\
         "packageDependencies": [\
           ["tabbable", "npm:5.3.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["tailwind-merge", [\
+      ["npm:2.5.4", {\
+        "packageLocation": "../../../../.yarn/berry/cache/tailwind-merge-npm-2.5.4-cdd9f9e9ac-10c0.zip/node_modules/tailwind-merge/",\
+        "packageDependencies": [\
+          ["tailwind-merge", "npm:2.5.4"]\
         ],\
         "linkType": "HARD"\
       }]\
