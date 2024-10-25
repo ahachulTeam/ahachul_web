@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import ConditionalRender from './ConditionalRender';
 
 describe('ConditionalRender 컴포넌트', () => {
-  it('isRender가 true일 때 children을 렌더링한다', () => {
+  it('isRender가 true일 때 children을 렌더링한다.', () => {
     render(
       <ConditionalRender isRender={true}>
         <div data-testid="test-child">Hello, World!</div>
