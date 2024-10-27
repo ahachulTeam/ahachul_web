@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+### 폴더 구조
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+📦src
+ ┣ 📂app
+ ┃ ┣ 📂_component
+ ┃ ┃ ┃ ┣ MSWComponent.tsx
+ ┃ ┣ 📂(site)
+ ┃ ┃ ┣ 📂login
+ ┃ ┃ ┃ ┣ 📂_component
+ ┃ ┃ ┃ ┃ ┣ LoginButton.tsx
+ ┃ ┃ ┃ ┣ 📂_lib
+ ┃ ┃ ┃ ┃ ┣ getRedirectUrls.ts
+ ┃ ┃ ┃ ┣ page.tsx
+ ┃ ┃ ┃ ┣ loading.tsx
+ ┃ ┃ ┣ page.tsx
+ ┃ ┃ ┣ layout.tsx
+ ┃ ┃ ┣ not-found.tsx
+ ┃ ┣ favicon.ico
+ ┃ ┣ globals.css
+ ┣ 📂mocks 
+ ┣ 📂model 
+ ┣ 📂store 
+ ┣ 📂common
+ ┃ ┣ 📂utils
+ ┃ ┣ 📂assets
+ ┃ ┣ 📂components
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 설명
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| 폴더명        | 폴더 설명                                                                                                                             |
+|------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| public        | 누구나 접근 가능한 서버이므로 모든 사람들이 접근 가능한 이미지 등을 넣어요.                                                                                                                      |
+| src/app 구조 | app 폴더는 라우팅과 관련된 파일만 넣어 두고 그렇지 않은 파일(mocks, model 등)은 src에 넣어요.                                                               |
+| private folder(_폴더)      | 해당 페이지에서만 사용하는 것들      
+| mocks      | msw 설정 파일들                                                                                                   |
+| model     | schema 타입 정의                                                                      |
+| store      | zustand 이용한 전역 변수 관리                                                                                          |
+| common | 전역적으로 사용되는 util, component, asset 등 
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
