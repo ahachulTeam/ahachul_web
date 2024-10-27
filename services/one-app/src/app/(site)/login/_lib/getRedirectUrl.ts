@@ -3,8 +3,6 @@ export async function getRedirectUrl() {
     `${process.env.NEXT_PUBLIC_BASE_URL}/v1/auth/redirect-url`,
   );
 
-  console.log('res:', res);
-
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error('Failed to fetch data');
