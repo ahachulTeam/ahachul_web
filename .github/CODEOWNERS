@@ -1,8 +1,1 @@
-*.ts @createhb21 @areumsheep
-*.tsx @createhb21 @areumsheep
-
-# ahhachul.com 웹뷰 담당자
-/services/ahhachul.com @createhb21
-
-# next.ahhachul.com 웹 담당자
-/services/next.ahhachul.com @areumsheep
+@createhb21 @areumsheep @YoonJeongLulu
