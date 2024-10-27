@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import '../globals.css';
+import { RQProvider } from '../_components/RQProvider';
+import { MSWComponent } from '../_components/MSWComponent';
 import { cn } from '@/common/utils/cn';
 import { Pretendard } from '@/common/assets/fonts/pretendard';
 
@@ -16,7 +18,8 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={cn('font-sans antialiased', Pretendard.variable)}>
-        {children}
+        <MSWComponent />
+        <RQProvider>{children}</RQProvider>
       </body>
     </html>
   );

@@ -8,21 +8,14 @@
   ],
   "scripts": {
     "prepare": "husky",
-    "lint": "eslint --ext js,jsx,ts,tsx",
-    "affected:test": "nx affected -t test",
-    "affected:build": "nx affected -t build",
     "graph": "nx run-many --target=build --graph",
     "storybook": "nx storybook @ahhachul/storybook",
-    "dev:app": "yarn workspace ahhachul.com start",
-    "dev:web": "yarn workspace next.ahhachul.com dev",
-    "dev:mocking": "yarn workspace ahhachul.com start:mocking",
     "dev:one-app": "yarn workspace @ahhachul/one-app dev",
-    "test:one-app": "yarn workspace @ahhachul/one-app test:watch",
-    "build:app": "nx build ahhachul.com",
-    "build:web": "nx build next.ahhachul.com",
+    "dev:mocking": "yarn workspace @ahhachul/one-app dev:mocking",
+    "dev-server:mocking": "yarn workspace @ahhachul/one-app server:mocking",
+    "test:one-app": "yarn workspace @ahhachul/one-app test",
     "build:one-app": "nx build @ahhachul/one-app",
-    "build:all": "nx run-many --target=build --all",
-    "start:web": "yarn workspace next.ahhachul.com start"
+    "build:all": "nx run-many --target=build --all"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix"

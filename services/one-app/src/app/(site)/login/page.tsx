@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import LoginButton from './_component/LoginButton';
+import SocialLogins from './_component/SocialLogins';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <h1>App Login</h1>
-      <LoginButton />
+      <SocialLogins />
     </main>
   );
 }
