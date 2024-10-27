@@ -1,8 +1,5 @@
 name: CI
 on:
-  push:
-    branches:
-      - main
   pull_request:
 
 env:
@@ -31,10 +28,8 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/yarn-install
 
-      - name: Set up environment variables
-        run: |
-          echo "${{ secrets.REACT_APP_DEV_CONFIG }}" > "services/ahhachul.com/.env"
-          echo "${{ secrets.NEXT_APP_DEV_CONFIG }}" > "services/next.ahhachul.com/.env"
+      - name: Test
+        run: yarn test:one-app
 
       - name: Build
-        run: yarn affected:build --parallel=5
+        run: yarn build:one-app
