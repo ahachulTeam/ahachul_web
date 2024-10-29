@@ -1,12 +1,11 @@
-export async function getRedirectUrl() {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/v1/auth/redirect-url`,
-  );
+import { API_BASE } from '@/common/configure-axios';
 
-  if (!res.ok) {
+export async function getRedirectUrl() {
+  try {
+    const response = await API_BASE.get('/auth/redirect-url');
+    return response.data;
+  } catch (error) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error('Failed to fetch data');
   }
-
-  return res.json();
 }

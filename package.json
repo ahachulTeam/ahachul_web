@@ -11,9 +11,9 @@
     "graph": "nx run-many --target=build --graph",
     "storybook": "nx storybook @ahhachul/storybook",
     "dev:one-app": "yarn workspace @ahhachul/one-app dev",
-    "dev:mocking": "yarn workspace @ahhachul/one-app dev:mocking",
-    "dev-server:mocking": "yarn workspace @ahhachul/one-app server:mocking",
     "test:one-app": "yarn workspace @ahhachul/one-app test",
+    "dev:mocking": "yarn workspace @ahhachul/one-app dev:mocking",
+    "server:mocking": "yarn workspace @ahhachul/one-app server:mocking",
     "build:one-app": "nx build @ahhachul/one-app",
     "build:all": "nx run-many --target=build --all"
   },

@@ -34,7 +34,13 @@ export const handlers = [
   }),
   http.get('/v1/auth/redirect-url', () => {
     console.log('리다이렉트 URL 조회');
-    return HttpResponse.text(JSON.stringify('ok'));
+    return HttpResponse.json({
+      code: '100',
+      message: 'SUCCESS',
+      result: {
+        redirectUrl: 'redirectUrl',
+      },
+    });
   }),
   http.post('/v1/auth/token/refresh', () => {
     console.log('토큰 재발급');
