@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 const config: AxiosRequestConfig = {};
 const baseURL =
   process.env.NEXT_PUBLIC_API_MOCKING === 'enabled'
-    ? 'http://localhost:9090/v1'
+    ? 'http://localhost:9090'
     : process.env.NEXT_PUBLIC_BASE_URL;
 config.baseURL = baseURL;
 

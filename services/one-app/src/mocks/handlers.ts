@@ -17,7 +17,7 @@ const User = [
 const Posts = [];
 
 export const handlers = [
-  http.post('/v1/auth/login', async ({ request }) => {
+  http.post('/auth/login', async ({ request }) => {
     console.log('로그인');
     return HttpResponse.json({
       memberId: User[0].memberId,
@@ -28,11 +28,11 @@ export const handlers = [
       isNeedAdditionalUserInfo: false,
     });
   }),
-  http.post('/v1/auth/logout', () => {
+  http.post('/auth/logout', () => {
     console.log('로그아웃');
     return new HttpResponse(null);
   }),
-  http.get('/v1/auth/redirect-url', () => {
+  http.get('/auth/redirect-url', () => {
     console.log('리다이렉트 URL 조회');
     return HttpResponse.json({
       code: '100',
@@ -42,7 +42,7 @@ export const handlers = [
       },
     });
   }),
-  http.post('/v1/auth/token/refresh', () => {
+  http.post('/auth/token/refresh', () => {
     console.log('토큰 재발급');
     return HttpResponse.json({
       accessToken: faker.string.alphanumeric(20),
@@ -51,23 +51,20 @@ export const handlers = [
       refreshTokenExpiresIn: faker.number.int({ max: 100000 }),
     });
   }),
-  http.get(
-    '/v1/members/:userId',
-    ({ request, params }): StrictResponse<any> => {
-      const { userId } = params;
-      const found = User.find((v) => v.memberId === userId);
-      if (found) {
-        return HttpResponse.json(found);
-      }
-      return HttpResponse.json(
-        { message: 'no_such_user' },
-        {
-          status: 404,
-        },
-      );
-    },
-  ),
-  http.get('/v1/members/:userId/posts', ({ request, params }) => {
+  http.get('/members/:userId', ({ request, params }): StrictResponse<any> => {
+    const { userId } = params;
+    const found = User.find((v) => v.memberId === userId);
+    if (found) {
+      return HttpResponse.json(found);
+    }
+    return HttpResponse.json(
+      { message: 'no_such_user' },
+      {
+        status: 404,
+      },
+    );
+  }),
+  http.get('/members/:userId/posts', ({ request, params }) => {
     const { userId } = params;
     return HttpResponse.json([
       {
@@ -113,7 +110,7 @@ export const handlers = [
     ]);
   }),
   http.get(
-    '/v1/community-posts/:postId',
+    '/community-posts/:postId',
     ({ request, params }): StrictResponse<any> => {
       console.log('커뮤니티 글 상세 조회');
       const { postId } = params;
@@ -140,7 +137,7 @@ export const handlers = [
       });
     },
   ),
-  http.get('/api/posts/:postId/comments', ({ request, params }) => {
+  http.get('/posts/:postId/comments', ({ request, params }) => {
     console.log('커뮤니티 글 댓글 목록 조회');
     const { postId } = params;
     return HttpResponse.json({
