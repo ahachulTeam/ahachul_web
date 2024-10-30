@@ -27,3 +27,5 @@ dist
 
 .env
 **/.env
+
+.pnp.cjs
