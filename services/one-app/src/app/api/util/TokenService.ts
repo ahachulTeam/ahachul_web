@@ -1,16 +1,13 @@
 import axios, { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
-import { API_BASE_URL } from '@/common/constants/env';
 import { CookieKey } from '@/common/constants';
+import { apiClient } from '..';
 
 export class _TokenService {
-  private apiBaseUrl = API_BASE_URL;
   private isFetchingAccessToken = false;
   private tokenSubscribers: Array<(accessToken: string) => void> = [];
 
-  constructor(apiBaseUrl?: string) {
-    this.apiBaseUrl = apiBaseUrl ?? API_BASE_URL;
-  }
+  constructor() {}
 
   get isServer() {
     return typeof window === 'undefined';
@@ -43,18 +40,15 @@ export class _TokenService {
 
     try {
       this.isFetchingAccessToken = true;
-      const response = await axios.post(
-        `${this.apiBaseUrl}/v1/auth/token/refresh`,
-        {
-          refreshToken: this.refreshToken,
-        },
-      );
+      const response = await apiClient.post(`/auth/token/refresh`, {
+        refreshToken: this.refreshToken,
+      });
       const { accessToken, refreshToken } = response.data;
 
       Cookies.set(CookieKey.ACCESS_TOKEN, accessToken);
       Cookies.set(CookieKey.REFRESH_TOKEN, refreshToken);
 
-      this.notifySubscribers(accessToken);
+      this.broadcastTokenUpdate(accessToken);
     } catch (error) {
       this.expireSession();
       throw error;
@@ -97,7 +91,7 @@ export class _TokenService {
   }
 
   // 함수 주석 추가해놓기
-  private notifySubscribers(newAccessToken: string) {
+  private broadcastTokenUpdate(newAccessToken: string) {
     this.tokenSubscribers.forEach((callback) => callback(newAccessToken));
     this.tokenSubscribers = [];
   }
