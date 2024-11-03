@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
-import { API_BASE_URL } from '@/constants/env';
-import { CookieKey } from '@/constants';
+import { API_BASE_URL } from '@/common/constants/env';
+import { CookieKey } from '@/common/constants';
 
 export class _TokenService {
   private apiBaseUrl = API_BASE_URL;
@@ -96,6 +96,7 @@ export class _TokenService {
     return retryRequest;
   }
 
+  // 함수 주석 추가해놓기
   private notifySubscribers(newAccessToken: string) {
     this.tokenSubscribers.forEach((callback) => callback(newAccessToken));
     this.tokenSubscribers = [];

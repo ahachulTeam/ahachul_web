@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isBot } from 'next/dist/server/web/spec-extension/user-agent';
-import { CookieKey } from './src/constants';
-import { SITE_URL } from './src/constants/env';
+import { CookieKey } from './src/common/constants';
+import { SITE_URL } from './src/common/constants/env';
 
 export function middleware(request: NextRequest) {
   const userAgent = request.headers.get('user-agent');

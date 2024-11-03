@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requestSignIn } from './requestSignIn';
-import { APIResponseCode } from '@/constants/api';
-import { CookieKey } from '@/constants';
+import { APIResponseCode } from '@/common/constants/api';
+import { CookieKey } from '@/common/constants';
 import { z } from 'zod';
-import { ProviderType } from '@/constants';
+import { ProviderType } from '@/common/constants';
 
 const SignInQuerySchema = z.object({
   providerType: z.nativeEnum(ProviderType),
@@ -11,8 +11,11 @@ const SignInQuerySchema = z.object({
 });
 
 export async function GET(req: NextRequest) {
-  const { searchParams, pathname } = new URL(req.url);
-  const providerType = pathname.split('/').pop();
+  // api/login/callback?type=google&code=1234&returnTo=/
+  // api/login/callback?type=kakao&code=1234&returnTo=/
+
+  const { searchParams } = new URL(req.url);
+  const providerType = searchParams.get('type');
   const providerCode = searchParams.get('code');
   const returnTo = searchParams.get('returnTo') || '/';
 
