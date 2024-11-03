@@ -10,7 +10,7 @@ const SignInQuerySchema = z.object({
   providerCode: z.string(),
 });
 
-export async function POST(req: NextRequest) {
+export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const providerType = searchParams.get('providerType');
   const providerCode = searchParams.get('providerCode');
