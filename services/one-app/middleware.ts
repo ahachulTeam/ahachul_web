@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isBot } from 'next/dist/server/web/spec-extension/user-agent';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from './src/constants';
+import { CookieKey } from './src/constants';
 import { SITE_URL } from './src/constants/env';
 
 export function middleware(request: NextRequest) {
   const userAgent = request.headers.get('user-agent');
   if (!userAgent || isBot(userAgent)) return NextResponse.next();
 
-  const accessToken = request.cookies.get(ACCESS_TOKEN);
-  const refreshToken = request.cookies.get(REFRESH_TOKEN);
+  const accessToken = request.cookies.get(CookieKey.ACCESS_TOKEN);
+  const refreshToken = request.cookies.get(CookieKey.REFRESH_TOKEN);
 
   const { pathname, search } = request.nextUrl;
   const fullPath = `${pathname}${search}`;
