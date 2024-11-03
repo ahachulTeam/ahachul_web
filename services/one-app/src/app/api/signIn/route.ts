@@ -11,9 +11,9 @@ const SignInQuerySchema = z.object({
 });
 
 export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const providerType = searchParams.get('providerType');
-  const providerCode = searchParams.get('providerCode');
+  const { searchParams, pathname } = new URL(req.url);
+  const providerType = pathname.split('/').pop();
+  const providerCode = searchParams.get('code');
   const returnTo = searchParams.get('returnTo') || '/';
 
   try {
