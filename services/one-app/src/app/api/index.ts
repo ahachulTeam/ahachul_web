@@ -22,20 +22,21 @@ const setInterceptor = (instance: AxiosInstance) => {
     (err: AxiosError): Promise<AxiosError> => Promise.reject(err),
   );
 
+  // TODO, 응답 에러 처리 다듬기
   instance.interceptors.response.use(
     (response) => response,
     async (error) => {
       if (isAxiosError(error) && error.response?.data) {
-        const { code, status } = error.response.data as APIErrorResponse;
+        const { code } = error.response.data as APIErrorResponse;
 
         // console.log(code, error.response.data);
 
-        if (status === 401) {
+        if (code === '202') {
           // 액세스 토큰 만료 시 재요청
           return TokenService.resetTokenAndRetryRequest(error);
         }
 
-        if (['201', '202', '203', '204', '205'].includes(code)) {
+        if (['201', '203', '204', '205'].includes(code)) {
           // 세션 만료 시 로그아웃 처리
           TokenService.expireSession();
           return Promise.reject(error);

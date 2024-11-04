@@ -39,9 +39,10 @@ export async function GET(req: NextRequest) {
         sameSite: 'lax',
       });
     }
-  } catch (error) {
-    console.error('Parameter parsing failed:', error);
-  }
 
-  return NextResponse.redirect(returnTo);
+    return NextResponse.redirect(returnTo);
+  } catch (error) {
+    console.error('Error during sign in:', error);
+    return NextResponse.redirect(`/login?error=true`);
+  }
 }
