@@ -1,6 +1,6 @@
 import { API_BASE } from '@/common/configure-axios';
 import { IResponse } from '@/common/constants/api';
-import type { APIRedirectUrlResponse, SocialSignInType } from '@/model/Auth';
+import { type APIRedirectUrlResponse, SocialSignInType } from '@/model/Auth';
 
 export async function getRedirectUrl(params: SocialSignInType) {
   try {

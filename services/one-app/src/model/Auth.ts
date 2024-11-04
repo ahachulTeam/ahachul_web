@@ -10,7 +10,7 @@ export enum QueryStatus {
 }
 
 export interface SocialLoginOption {
-  name: string;
+  social: string;
   icon: React.ElementType;
   bgColor: string;
   providerType: SocialSignInType;

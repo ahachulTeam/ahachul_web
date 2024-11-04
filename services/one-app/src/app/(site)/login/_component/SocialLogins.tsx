@@ -14,11 +14,11 @@ import {
 
 interface SocialLoginButtonProps extends SocialLoginOption {
   redirectUrl?: string;
-  onRetry: () => void;
+  onRetry: VoidFunction;
 }
 
 const SocialLoginButton: React.FC<SocialLoginButtonProps> = ({
-  name,
+  social,
   icon: Icon,
   bgColor,
   redirectUrl,
@@ -47,7 +47,7 @@ const SocialLoginButton: React.FC<SocialLoginButtonProps> = ({
       className={`flex items-center justify-center gap-2 w-full h-[50px] rounded-md text-black ${bgColor}`}
     >
       <Icon />
-      <span className="text-base font-semibold">{`${name}로 계속하기`}</span>
+      <span className="text-base font-semibold">{`${social}로 계속하기`}</span>
     </button>
   );
 };
@@ -81,7 +81,7 @@ export const SocialLogins: React.FC<SocialLoginsProps> = ({
     <section className="fixed bottom-[34px] left-0 right-0 flex flex-col gap-2 px-[30px] pt-6">
       {socialLoginOptions.map((option, index) => (
         <SocialLoginButton
-          key={option.name}
+          key={option.social}
           {...option}
           redirectUrl={queries[index].data?.result?.redirectUrl}
           onRetry={() => handleRetry(option.providerType)}

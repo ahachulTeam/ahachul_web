@@ -5,19 +5,19 @@ import GoogleIcon from '@/common/assets/icons/google';
 
 export const socialLoginOptions: SocialLoginOption[] = [
   {
-    name: 'Google',
+    social: 'Google',
     icon: GoogleIcon,
     bgColor: 'bg-white',
     providerType: SocialSignInType.GOOGLE,
   },
   {
-    name: 'Apple',
+    social: 'Apple',
     icon: AppleIcon,
     bgColor: 'bg-white',
     providerType: SocialSignInType.APPLE,
   },
   {
-    name: 'Kakao',
+    social: 'Kakao',
     icon: KakaoIcon,
     bgColor: 'bg-[#fee500]',
     providerType: SocialSignInType.KAKAO,
