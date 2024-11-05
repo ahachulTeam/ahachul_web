@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requestSignIn } from './requestSignIn';
 import { APIResponseCode } from '@/common/constants/api';
-import { CookieKey } from '@/common/constants';
+import { CookieKey } from '@/model/Auth';
 import { z } from 'zod';
-import { ProviderType } from '@/common/constants';
+import { SocialSignInType } from '@/model/Auth';
 
 const SignInQuerySchema = z.object({
-  providerType: z.nativeEnum(ProviderType),
+  providerType: z.nativeEnum(SocialSignInType),
   providerCode: z.string(),
 });
 

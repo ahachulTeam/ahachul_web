@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isBot } from 'next/dist/server/web/spec-extension/user-agent';
-import { SITE_URL } from './src/common/constants/env';
+import { SITE_URL } from '@/common/constants/env';
 import { TokenService } from '@/app/api/util/TokenService';
 
 export function middleware(request: NextRequest) {

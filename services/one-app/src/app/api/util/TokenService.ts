@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
-import { CookieKey } from '@/common/constants';
+import { CookieKey } from '@/model/Auth';
 import { apiClient } from '..';
 
 export class _TokenService {
@@ -21,17 +21,17 @@ export class _TokenService {
     return Cookies.get(CookieKey.REFRESH_TOKEN);
   }
 
-  public expireSession() {
+  expireSession() {
     Cookies.remove(CookieKey.ACCESS_TOKEN);
     Cookies.remove(CookieKey.REFRESH_TOKEN);
     window.location.replace('/login'); // TODO, 리다이렉트 경로 설정
   }
 
-  public get isLoggedIn() {
+  get isLoggedIn() {
     return !!this.accessToken && !!this.refreshToken;
   }
 
-  public async renewAccessToken() {
+  async renewAccessToken() {
     if (this.isFetchingAccessToken) return;
 
     if (!this.refreshToken) {
@@ -57,7 +57,7 @@ export class _TokenService {
     }
   }
 
-  public async resetTokenAndRetryRequest(error: AxiosError): Promise<unknown> {
+  async resetTokenAndRetryRequest(error: AxiosError): Promise<unknown> {
     if (!this.refreshToken) {
       this.expireSession();
       return Promise.reject(error);

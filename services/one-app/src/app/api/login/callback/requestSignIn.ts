@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import { apiClient } from '../../index';
-import { ProviderType } from '@/common/constants';
 import { APIResponseCode, RESPONSE_MESSAGES } from '@/common/constants/api';
-import { API_BASE_URL } from '@/common/constants/env';
+import { SocialSignInType } from '@/model/Auth';
+
 // TODO, 실패 케이스 추가
 export const SignInResponseSchema = z.object({
   code: z.literal(APIResponseCode.SUCCESS),
@@ -21,7 +21,7 @@ export async function requestSignIn({
   providerType,
   providerCode,
 }: {
-  providerType: ProviderType;
+  providerType: SocialSignInType;
   providerCode: string;
 }) {
   try {
