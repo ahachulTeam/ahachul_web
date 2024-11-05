@@ -25,6 +25,13 @@ jobs:
         with:
           node-version: ${{ env.DEFAULT_NODE_VERSION }}
 
+      - name: Debug Secret
+        run: echo '${{ secrets.DEV_ONE_APP_CONFIG }}'
+
+      - name: Create .env file for one-app
+        run: |
+          echo '${{ secrets.DEV_ONE_APP_CONFIG }}' | jq -r 'to_entries | .[] | "\(.key)=\(.value)"' > services/one-app/.env
+
       - name: Install dependencies
         uses: ./.github/actions/yarn-install
 
