@@ -1,4 +1,5 @@
-import { type SocialLoginOption, SocialSignInType } from '@/model/Auth';
+import { SocialLoginOption } from '../_component/SocialLoginButton';
+import { SocialSignInType } from '@/model/Auth';
 import KakaoIcon from '@/common/assets/icons/kakao';
 import AppleIcon from '@/common/assets/icons/apple';
 import GoogleIcon from '@/common/assets/icons/google';
