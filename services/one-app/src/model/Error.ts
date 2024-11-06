@@ -12,7 +12,7 @@ export type ErrorCode =
   | '204'
   | '205';
 
-export type CommonResponseMessages =
+export type ErrorResponseMessages =
   | 'SUCCESS'
   | 'BAD_REQUEST'
   | 'INTERNAL_SERVER_ERROR'

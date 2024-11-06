@@ -10,4 +10,4 @@ export default function Error() {
     return <p className="text-red-500">Login failed!</p>;
   }
   return null;
-} 
+}

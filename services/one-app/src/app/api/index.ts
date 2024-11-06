@@ -1,7 +1,8 @@
 import axios, { AxiosError, AxiosInstance, isAxiosError } from 'axios';
-import { API_BASE_URL } from '@/common/constants/env';
+
 import { TokenService } from './util/TokenService';
-import { APIErrorResponse } from '@/type';
+import { API_BASE_URL } from '@/common/constants/env';
+import { APIErrorResponse } from '@/model/Error';
 
 // TODO, access_token 선택적으로 보내는 방안 모색 (axios type 확장)
 // public한 함수(인기 검색 순위 등)들의 경우 굳이 access_token이 없음을 처리할 필요가 없음
