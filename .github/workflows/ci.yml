@@ -35,6 +35,9 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/yarn-install
 
+      - name: TypeScript Compilation Check
+        run: yarn tsc --noEmit --project tsconfig.json
+
       - name: Test
         run: yarn test:one-app
 
