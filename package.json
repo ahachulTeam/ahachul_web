@@ -16,7 +16,8 @@
     "server:mocking": "yarn workspace @ahhachul/one-app server:mocking",
     "build:one-app": "nx build @ahhachul/one-app",
     "build:all": "nx run-many --target=build --all",
-    "build:web": "nx build next.ahhachul.com"
+    "build:web": "nx build next.ahhachul.com",
+    "start:web": "yarn workspace next.ahhachul.com start"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix"
