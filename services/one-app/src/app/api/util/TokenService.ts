@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
 import { CookieKey } from '@/model/Auth';
 import { apiClient } from '..';
+import { IS_DEV_ENV } from '@/common/constants/env';
 
 export class _TokenService {
   private isFetchingAccessToken = false;
@@ -19,6 +20,17 @@ export class _TokenService {
 
   get refreshToken() {
     return Cookies.get(CookieKey.REFRESH_TOKEN);
+  }
+
+  setToken(accessToken: string, refreshToken: string) {
+    Cookies.set(CookieKey.ACCESS_TOKEN, accessToken, {
+      sameSite: 'lax', // CSRF 방지
+      secure: !IS_DEV_ENV,
+    });
+    Cookies.set(CookieKey.REFRESH_TOKEN, refreshToken, {
+      sameSite: 'lax', // CSRF 방지
+      secure: !IS_DEV_ENV,
+    });
   }
 
   expireSession() {
@@ -44,9 +56,7 @@ export class _TokenService {
         refreshToken: this.refreshToken,
       });
       const { accessToken, refreshToken } = response.data;
-
-      Cookies.set(CookieKey.ACCESS_TOKEN, accessToken);
-      Cookies.set(CookieKey.REFRESH_TOKEN, refreshToken);
+      this.setToken(accessToken, refreshToken);
 
       this.broadcastTokenUpdate(accessToken);
     } catch (error) {
@@ -90,7 +100,6 @@ export class _TokenService {
     return retryRequest;
   }
 
-  // 함수 주석 추가해놓기
   private broadcastTokenUpdate(newAccessToken: string) {
     this.tokenSubscribers.forEach((callback) => callback(newAccessToken));
     this.tokenSubscribers = [];
