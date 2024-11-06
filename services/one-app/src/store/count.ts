@@ -1,8 +1,5 @@
 import { create } from 'zustand';
 
-/**
- * This is Mock interface & Function for creating
- */
 interface CountState {
   count: number;
   inc(): void;

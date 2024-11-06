@@ -1,15 +1,7 @@
 import { Metadata } from 'next';
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from '@tanstack/react-query';
 
 import { SocialLogins } from './_component/SocialLogins';
 import { HelloOnLogin } from './_component/HelloOnLogin';
-import { getRedirectUrl } from './_lib/getRedirectUrl';
-import { socialLoginOptions } from './_lib/socialLoginOptions';
-import { QueryStatus, SocialSignInType } from '@/model/Auth';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,38 +9,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Login() {
-  const queryClient = new QueryClient();
-  const providerTypes = socialLoginOptions.map((option) => option.providerType);
-
-  const results = await Promise.allSettled(
-    providerTypes.map((providerType) =>
-      queryClient
-        .prefetchQuery({
-          queryKey: ['oauth', providerType],
-          queryFn: () => getRedirectUrl(providerType),
-        })
-        .then(() => ({ status: QueryStatus.FULFILLED, providerType }))
-        .catch(() => ({ status: QueryStatus.REJECTED, providerType })),
-    ),
-  );
-
-  const queryStatuses = Object.fromEntries(
-    results.map((result) => [
-      result.status === QueryStatus.FULFILLED
-        ? result.value.providerType
-        : result.reason.providerType,
-      result.status,
-    ]),
-  ) as Record<SocialSignInType, QueryStatus>;
-
-  const dehydratedState = dehydrate(queryClient);
-
   return (
-    <main className="relative min-h-screen overflow-hidden bg-background-50">
+    <main className="relative min-h-screen overflow-hidden bg-black">
       <HelloOnLogin />
-      <HydrationBoundary state={dehydratedState}>
-        <SocialLogins queryStatuses={queryStatuses} />
-      </HydrationBoundary>
+      <section className="fixed bottom-[34px] left-0 right-0 flex flex-col gap-2 px-[30px] pt-6">
+        <SocialLogins />
+      </section>
     </main>
   );
 }

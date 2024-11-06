@@ -2,91 +2,46 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { useQueries } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
+import { SocialSignInType } from '@/model/Auth';
 import { getRedirectUrl } from '../_lib/getRedirectUrl';
 import { socialLoginOptions } from '../_lib/socialLoginOptions';
-import {
-  QueryStatus,
-  SocialSignInType,
-  type SocialLoginOption,
-} from '@/model/Auth';
+import { SocialLoginButton } from './SocialLoginButton';
 
-interface SocialLoginButtonProps extends SocialLoginOption {
-  redirectUrl?: string;
-  onRetry: VoidFunction;
-}
-
-const SocialLoginButton: React.FC<SocialLoginButtonProps> = ({
-  social,
-  icon: Icon,
-  bgColor,
-  redirectUrl,
-  onRetry,
-}) => {
-  const router = useRouter();
-
-  const handleClick = () => {
-    if (redirectUrl) {
-      router.push(redirectUrl);
-    } else {
-      // TODO
-      // showSnackbar({
-      //   type: 'error',
-      //   message: '로그인 정보를 불러오는데 실패했어요.',
-      //   actionLabel: '다시 시도하기',
-      //   onAction: onRetry,
-      // });
-      alert('로그인 정보를 불러오는데 실패했어요.');
-    }
-  };
-
-  return (
-    <button
-      onClick={handleClick}
-      className={`flex items-center justify-center gap-2 w-full h-[50px] rounded-md text-black ${bgColor}`}
-    >
-      <Icon />
-      <span className="text-base font-semibold">{`${social}로 계속하기`}</span>
-    </button>
-  );
-};
-
-interface SocialLoginsProps {
-  queryStatuses: Record<SocialSignInType, QueryStatus>;
-}
-
-export const SocialLogins: React.FC<SocialLoginsProps> = ({
-  queryStatuses,
-}) => {
-  const queries = useQueries({
-    queries: socialLoginOptions.map((option) => ({
-      queryKey: ['oauth', option.providerType],
-      queryFn: () => getRedirectUrl(option.providerType),
+export const SocialLogins: React.FC = () => {
+  const createSocialLoginQuery = (socialType: SocialSignInType) =>
+    useQuery({
+      enabled: false,
       staleTime: Infinity,
-      retry: queryStatuses?.[option.providerType] === QueryStatus.REJECTED,
-    })),
-  });
+      queryKey: ['oauth', socialType],
+      select: (res) => res.result.redirectUrl,
+      queryFn: () => getRedirectUrl(socialType),
+    });
 
-  const handleRetry = (providerType: SocialSignInType) => {
-    const queryIndex = socialLoginOptions.findIndex(
-      (option) => option.providerType === providerType,
-    );
-    if (queryIndex !== -1) {
-      queries[queryIndex].refetch();
+  const socialQueries = Object.values(SocialSignInType).reduce(
+    (acc, socialType) => {
+      acc[socialType] = createSocialLoginQuery(socialType);
+      return acc;
+    },
+    {} as Record<SocialSignInType, ReturnType<typeof createSocialLoginQuery>>,
+  );
+
+  const router = useRouter();
+  const handleLogin = async (socialType: SocialSignInType) => {
+    const { data: redirectUrl, isError } =
+      await socialQueries[socialType].refetch();
+
+    console.log('redirectUrl:', redirectUrl);
+    if (isError || !redirectUrl) {
+      alert('로그인 정보를 불러오는데 실패했어요.');
+      return;
     }
+
+    router.push(redirectUrl);
   };
 
-  return (
-    <section className="fixed bottom-[34px] left-0 right-0 flex flex-col gap-2 px-[30px] pt-6">
-      {socialLoginOptions.map((option, index) => (
-        <SocialLoginButton
-          key={option.social}
-          {...option}
-          redirectUrl={queries[index].data?.result?.redirectUrl}
-          onRetry={() => handleRetry(option.providerType)}
-        />
-      ))}
-    </section>
-  );
+  return socialLoginOptions.map((option) => (
+    <SocialLoginButton key={option.social} {...option} onLogin={handleLogin} />
+  ));
 };
