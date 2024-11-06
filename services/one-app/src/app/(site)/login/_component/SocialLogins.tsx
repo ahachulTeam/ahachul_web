@@ -32,7 +32,6 @@ export const SocialLogins: React.FC = () => {
     const { data: redirectUrl, isError } =
       await socialQueries[socialType].refetch();
 
-    console.log('redirectUrl:', redirectUrl);
     if (isError || !redirectUrl) {
       alert('로그인 정보를 불러오는데 실패했어요.');
       return;
