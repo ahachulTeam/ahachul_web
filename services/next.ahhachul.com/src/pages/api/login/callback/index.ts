@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { apiClient } from '../../utils/apiClient';
 import { getDomainName } from '@/src/utils/appEnv';
 
@@ -22,22 +22,26 @@ async function requestSignIn({
   }
 }
 
-export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const providerType = searchParams.get('type');
-  const providerCode = searchParams.get('code');
-  const returnTo = searchParams.get('returnTo') || '';
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
+  if (req.method !== 'GET') {
+    return res.status(405).end();
+  }
+
+  const { type: providerType, code: providerCode, returnTo = '' } = req.query;
 
   try {
-    const res = await requestSignIn({
-      providerType,
-      providerCode,
+    const response = await requestSignIn({
+      providerType: providerType as string | null,
+      providerCode: providerCode as string | null,
     });
-    console.log({ res });
+    console.log({ response });
 
-    return NextResponse.redirect(`${getDomainName()}/${returnTo}`);
+    res.redirect(`${getDomainName()}/${returnTo}`);
   } catch (error) {
     console.error('Error during sign in:', error);
-    return NextResponse.redirect(`${getDomainName()}/signin?error=true`);
+    res.redirect(`${getDomainName()}/signin?error=true`);
   }
 }
