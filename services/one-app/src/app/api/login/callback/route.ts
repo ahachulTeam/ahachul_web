@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { requestSignIn } from './requestSignIn';
-import { APIResponseCode } from '@/common/constants/api';
-import { CookieKey } from '@/model/Auth';
 import { z } from 'zod';
+
+import { requestSignIn } from './requestSignIn';
+import { CookieKey } from '@/model/Auth';
 import { SocialSignInType } from '@/model/Auth';
+import { SITE_URL } from '@/common/constants/env';
+import { APIResponseCode } from '@/common/constants/api';
 
 const SignInQuerySchema = z.object({
   providerType: z.nativeEnum(SocialSignInType),
@@ -17,7 +19,7 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const providerType = searchParams.get('type');
   const providerCode = searchParams.get('code');
-  const returnTo = searchParams.get('returnTo') || '/';
+  const returnTo = searchParams.get('returnTo') || '';
 
   try {
     const parsedParams = SignInQuerySchema.parse({
@@ -40,9 +42,9 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    return NextResponse.redirect(returnTo);
+    return NextResponse.redirect(`${SITE_URL}/${returnTo}`);
   } catch (error) {
     console.error('Error during sign in:', error);
-    return NextResponse.redirect(`/login?error=true`);
+    return NextResponse.redirect(`${SITE_URL}/login?error=true`);
   }
 }
