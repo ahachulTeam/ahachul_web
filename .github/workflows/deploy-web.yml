@@ -7,10 +7,9 @@ on:
     paths:
       - 'services/next.ahhachul.com/**'
   pull_request:
-    branches:
-      - fix/login-callback
     paths:
       - 'services/next.ahhachul.com/**'
+
 env:
   DEFAULT_NODE_VERSION: '20.14.0'
 
