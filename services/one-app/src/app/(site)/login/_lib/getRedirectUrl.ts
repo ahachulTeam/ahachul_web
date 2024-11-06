@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import axios from 'axios';
 
 import { apiClient } from '@/app/api';
 import { SocialSignInType } from '@/model/Auth';
@@ -24,7 +25,11 @@ export async function getRedirectUrl(
 
     return RedirectUrlResponseSchema.parse(response.data);
   } catch (error) {
-    console.error('Error fetching redirect URL:', error);
+    if (axios.isAxiosError(error) && error.response) {
+      console.error('Server responded with error:', error.response.data);
+    } else {
+      console.error('Error during sign in:', error);
+    }
     throw error;
   }
 }

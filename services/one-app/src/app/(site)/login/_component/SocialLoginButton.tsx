@@ -1,20 +1,26 @@
 import React from 'react';
 
-import { SocialSignInType, type SocialLoginOption } from '@/model/Auth';
+import { type SocialSignInType } from '@/model/Auth';
+
+export interface SocialLoginOption {
+  social: string;
+  icon: React.ElementType;
+  bgColor: string;
+  providerType: SocialSignInType;
+}
 
 interface SocialLoginButtonProps extends SocialLoginOption {
-  onLogin: (social: SocialSignInType) => Promise<void>;
+  onLogin: () => Promise<void>;
 }
 
 export const SocialLoginButton: React.FC<SocialLoginButtonProps> = ({
   social,
   bgColor,
   icon: Icon,
-  providerType: socialType,
   onLogin,
 }) => (
   <button
-    onClick={() => onLogin(socialType)}
+    onClick={onLogin}
     className={`flex items-center justify-center gap-2 w-full h-[50px] rounded-md text-black ${bgColor}`}
   >
     <Icon />
