@@ -8,7 +8,7 @@ on:
       - 'services/next.ahhachul.com/**'
   pull_request:
     branches:
-      - fix/*
+      - fix/login-callback
 
 env:
   DEFAULT_NODE_VERSION: '20.14.0'
