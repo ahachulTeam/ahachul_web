@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { apiClient } from '../../utils/apiClient';
+import { apiClient } from '../utils/apiClient';
 import { getDomainName } from '@/src/utils/appEnv';
 
 async function requestSignIn({
