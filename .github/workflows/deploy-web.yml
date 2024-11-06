@@ -6,6 +6,9 @@ on:
       - main
     paths:
       - 'services/next.ahhachul.com/**'
+  pull_request:
+    paths:
+      - 'services/next.ahhachul.com/**'
 
 env:
   DEFAULT_NODE_VERSION: '20.14.0'
@@ -87,7 +90,7 @@ jobs:
                     Base: 0
                     Weight: 1
           EOF
-    
+
       - name: Create Codedeploy deployment
         run: |
           APPSPEC_CONTENT=$(cat appspec.yaml | jq -sR .)
