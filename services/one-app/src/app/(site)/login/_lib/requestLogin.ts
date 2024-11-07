@@ -29,9 +29,6 @@ export async function requestLogin({
     const res = await apiClient.post(`/auth/login`, {
       providerType,
       providerCode,
-      headers: {
-        'Cache-Control': 'no-cache', // 캐시를 사용하지 않도록 설정
-      },
     });
 
     return LoginResponseSchema.parse(res.data);

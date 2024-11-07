@@ -1,18 +1,14 @@
 import axios, { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
 import { CookieKey } from '@/model/Auth';
-import { apiClient } from '..';
+import { apiClient } from '../../app/api';
 import { IS_DEV_ENV } from '@/common/constants/env';
 
-export class _TokenService {
+class _AuthService {
   private isFetchingAccessToken = false;
   private tokenSubscribers: Array<(accessToken: string) => void> = [];
 
   constructor() {}
-
-  get isServer() {
-    return typeof window === 'undefined';
-  }
 
   get accessToken() {
     return Cookies.get(CookieKey.ACCESS_TOKEN);
@@ -26,10 +22,12 @@ export class _TokenService {
     Cookies.set(CookieKey.ACCESS_TOKEN, accessToken, {
       sameSite: 'lax', // CSRF 방지
       secure: !IS_DEV_ENV,
+      path: '/', // 모든 경로에서 접근 가능하도록 설정
     });
     Cookies.set(CookieKey.REFRESH_TOKEN, refreshToken, {
       sameSite: 'lax', // CSRF 방지
       secure: !IS_DEV_ENV,
+      path: '/', // 모든 경로에서 접근 가능하도록 설정
     });
   }
 
@@ -110,4 +108,4 @@ export class _TokenService {
   }
 }
 
-export const TokenService = new _TokenService();
+export const AuthService = new _AuthService();
