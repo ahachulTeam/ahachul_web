@@ -5,12 +5,13 @@ import { requestLogin } from '../_lib/requestLogin';
 import { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { isValidSocialSignInType } from '@/model/Auth';
-import { AuthService } from '@/common/service/AuthService';
 import { useRef, Suspense } from 'react';
+import { useTemporaryAuthStore } from '@/store/auth';
 
 function LoginCallback() {
-  const isLoadingRef = useRef(false);
   const router = useRouter();
+  const isLoadingRef = useRef(false);
+  const { setTempAuth } = useTemporaryAuthStore();
 
   const searchParams = useSearchParams();
   const providerType = searchParams.get('type');
@@ -36,14 +37,15 @@ function LoginCallback() {
         providerCode,
       });
 
-      const { accessToken, refreshToken } = result;
-      AuthService.setToken(accessToken, refreshToken);
-      alert('로그인 성공');
-      router.replace('/');
+      const { accessToken, refreshToken, isNeedAdditionalUserInfo } = result;
 
+      if (!isNeedAdditionalUserInfo) router.replace('/');
+      else {
+        setTempAuth({ accessToken, refreshToken });
+        router.replace('/login/nickname');
+      }
     } catch (error) {
-      // console.error(error);
-      alert(error);
+      console.error(error);
       router.back();
     } finally {
       isLoadingRef.current = false;
@@ -58,7 +60,9 @@ function LoginCallback() {
 }
 
 export default function LoginCallbackPage() {
-  return <Suspense fallback={<div>Loading...</div>}>
-    <LoginCallback />
-  </Suspense>;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginCallback />
+    </Suspense>
+  );
 }
