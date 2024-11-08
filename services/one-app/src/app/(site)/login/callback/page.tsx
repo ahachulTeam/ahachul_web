@@ -6,13 +6,13 @@ import { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { isValidSocialSignInType } from '@/model/Auth';
 import { AuthService } from '@/common/service/AuthService';
-import { useRef } from 'react';
+import { useRef, Suspense } from 'react';
 
-export default function LoginCallbackPage() {
+function LoginCallback() {
   const isLoadingRef = useRef(false);
   const router = useRouter();
-  const searchParams = useSearchParams();
 
+  const searchParams = useSearchParams();
   const providerType = searchParams.get('type');
   const providerCode = searchParams.get('code');
 
@@ -54,6 +54,11 @@ export default function LoginCallbackPage() {
     handleLogin();
   }, []);
 
-  // TODO, 렌더링단에 로딩 넣어주기
   return null;
+}
+
+export default function LoginCallbackPage() {
+  return <Suspense fallback={<div>Loading...</div>}>
+    <LoginCallback />
+  </Suspense>;
 }
