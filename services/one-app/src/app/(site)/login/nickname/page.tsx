@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 
@@ -20,11 +20,25 @@ const MIN_LENGTH = 2;
 
 const NicknameSetup = () => {
   const router = useRouter();
-  const { mutateAsync, status } = useMutation({
-    mutationFn: checkNickname,
+  const { auth, reset: resetTemporaryAuth } = useTemporaryAuthStore();
+
+  const handleLoginDone = () => {
+    if (!auth) return;
+
+    const { accessToken, refreshToken } = auth;
+    AuthService.setToken(accessToken, refreshToken);
+    resetTemporaryAuth();
+    router.replace('/');
+  };
+
+  const { mutateAsync: updateUserInfoAndTryLoginDone } = useMutation({
+    mutationFn: updateUser,
+    onSuccess: handleLoginDone,
   });
 
-  const { auth, reset } = useTemporaryAuthStore();
+  const { mutateAsync: nicknameChecking, status } = useMutation({
+    mutationFn: checkNickname,
+  });
 
   const [nickname, setNickname] = useState('');
   const [isTouched, setIsTouched] = useState(false);
@@ -40,31 +54,6 @@ const NicknameSetup = () => {
     nickname.length < MIN_LENGTH ||
     nickname.length > MAX_LENGTH;
 
-  const checkNicknameValidity = useCallback(
-    debounce(async (value: string) => {
-      if (value.length <= 1) {
-        setErrorMessage('닉네임은 2자 이상 입력해주세요.');
-        return;
-      }
-      if (value.length > MAX_LENGTH) {
-        setErrorMessage('한글,영문 10자 이하로 입력해주세요.');
-        return;
-      }
-
-      try {
-        const res = await mutateAsync(value);
-        if (!res.result.available) {
-          setErrorMessage('중복인 닉네임이라 사용할 수 없습니다.');
-        } else {
-          setErrorMessage('');
-        }
-      } catch (error) {
-        setErrorMessage('지원하지 않는 형식입니다.');
-      }
-    }, 500),
-    [mutateAsync],
-  );
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.slice(0, MAX_LENGTH);
     setNickname(value);
@@ -72,34 +61,43 @@ const NicknameSetup = () => {
     checkNicknameValidity(value);
   };
 
-  const handleSubmit = async () => {
+  const checkNicknameValidity = debounce(async (value: string) => {
+    if (value.length <= 1) {
+      setErrorMessage('닉네임은 2자 이상 입력해주세요.');
+      return;
+    }
+    if (value.length > MAX_LENGTH) {
+      setErrorMessage('한글,영문 10자 이하로 입력해주세요.');
+      return;
+    }
+
+    try {
+      const res = await nicknameChecking(value);
+      if (!res.result.available) {
+        setErrorMessage('중복인 닉네임이라 사용할 수 없습니다.');
+      } else {
+        setErrorMessage('');
+      }
+    } catch (error) {
+      setErrorMessage('지원하지 않는 형식입니다.');
+    }
+  }, 500);
+
+  const handleSubmitFormField = async () => {
     if (disabled) return;
 
     // TODO: Global Loader 추가하기
     // setEnabledGlobalLoading(true);
     try {
-      await updateUserInfoAndLoginDone(nickname);
+      await updateUserInfoAndTryLoginDone(nickname);
     } catch (error) {
       console.error(error);
+      alert('유저 정보 수정 에러 발생!');
       // TODO: 추가적인 에러 처리
     } finally {
       // setEnabledGlobalLoading(false);
     }
   };
-
-  const handleSuccessUpdateUerInfo = () => {
-    if (!auth) return;
-
-    const { accessToken, refreshToken } = auth;
-    AuthService.setToken(accessToken, refreshToken);
-    reset();
-    router.replace('/');
-  };
-
-  const { mutateAsync: updateUserInfoAndLoginDone } = useMutation({
-    mutationFn: updateUser,
-    onSuccess: handleSuccessUpdateUerInfo,
-  });
 
   return (
     <main className="relative min-h-screen bg-black pt-9 px-5">
@@ -157,7 +155,6 @@ const NicknameSetup = () => {
       </div>
 
       <button
-        onClick={handleSubmit}
         disabled={disabled}
         className={cn(
           'w-full h-12 mt-8 text-white',
@@ -165,6 +162,7 @@ const NicknameSetup = () => {
           'disabled:bg-gray-600 disabled:cursor-not-allowed',
           isLoading && 'cursor-events-none',
         )}
+        onClick={handleSubmitFormField}
       >
         {isLoading ? (
           <span className="flex items-center justify-center">
