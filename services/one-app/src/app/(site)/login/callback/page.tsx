@@ -1,12 +1,12 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { Suspense, useRef, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+
 import { requestLogin } from '../_lib/requestLogin';
-import { useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { isValidSocialSignInType } from '@/model/Auth';
-import { useRef, Suspense } from 'react';
 import { useTemporaryAuthStore } from '@/store/auth';
+import { isValidSocialSignInType } from '@/model/Auth';
+import { AuthService } from '@/common/service/AuthService';
 
 function LoginCallback() {
   const router = useRouter();
@@ -39,8 +39,10 @@ function LoginCallback() {
 
       const { accessToken, refreshToken, isNeedAdditionalUserInfo } = result;
 
-      if (!isNeedAdditionalUserInfo) router.replace('/');
-      else {
+      if (!isNeedAdditionalUserInfo) {
+        AuthService.setToken(accessToken, refreshToken);
+        router.replace('/');
+      } else {
         setTempAuth({ accessToken, refreshToken });
         router.replace('/login/nickname');
       }

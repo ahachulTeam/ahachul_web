@@ -8,12 +8,12 @@ import { updateUser } from '../../my/_lib/updateUser';
 import { checkNickname } from '../_lib/checkNickname';
 import { cn } from '@/common/utils/cn';
 import { debounce } from '@/common/utils';
-import CheckIcon from '@/common/assets/icons/check';
+import { useTemporaryAuthStore } from '@/store/auth';
 import { AuthService } from '@/common/service/AuthService';
+import CheckIcon from '@/common/assets/icons/check';
 import ArrowLeftIcon from '@/common/assets/icons/arrow-left';
 import AlertCircleIcon from '@/common/assets/icons/alert-circle';
 import SpinnerIcon from '@/common/assets/icons/loading-spinner';
-import { useTemporaryAuthStore } from '@/store/auth';
 
 const MAX_LENGTH = 10;
 const MIN_LENGTH = 2;
