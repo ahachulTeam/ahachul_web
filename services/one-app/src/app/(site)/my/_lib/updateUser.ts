@@ -1,7 +1,8 @@
 import { z } from 'zod';
 import axios from 'axios';
 
-import { apiClient } from '@/app/api';
+import type { TemporaryUserAuthData } from '@/store/auth';
+import { API_BASE_URL } from '@/common/constants/env';
 import { APIResponseCode, RESPONSE_MESSAGES } from '@/common/constants/api';
 
 const GenderSchema = z.enum(['MALE', 'FEMALE']).nullable();
@@ -9,9 +10,6 @@ const GenderSchema = z.enum(['MALE', 'FEMALE']).nullable();
 const AgeRangeSchema = z
   .enum(['1', '10', '20', '30', '40', '50', '60', '70', '80', '90'])
   .nullable();
-
-type Gender = z.infer<typeof GenderSchema>;
-type AgeRange = z.infer<typeof AgeRangeSchema>;
 
 const UpdateUserResponseSchema = z.object({
   code: z.literal(APIResponseCode.SUCCESS),
@@ -25,17 +23,21 @@ const UpdateUserResponseSchema = z.object({
 
 type UpdateUserResponse = z.infer<typeof UpdateUserResponseSchema>;
 
-export const updateUser = async (
-  nickname?: string,
-  gender?: Gender,
-  ageRange?: AgeRange,
-) => {
+export const updateUser = async (data: {
+  nickname: string;
+  auth: TemporaryUserAuthData;
+}) => {
   try {
-    const res = await apiClient.patch<UpdateUserResponse>('members', {
-      nickname,
-      gender,
-      ageRange,
-    });
+    const accessToken = data.auth.accessToken;
+    const res = await axios.patch<UpdateUserResponse>(
+      `${API_BASE_URL}/members`,
+      { nickname: data.nickname },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
 
     return UpdateUserResponseSchema.parse(res.data);
   } catch (error) {

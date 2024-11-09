@@ -19,22 +19,17 @@ const NicknameSetup = () => {
   const {
     nickname,
     disabled,
-    isError,
-    isTouched,
-    isSuccess,
     errorMessage,
     lengthIndicator,
+    isTouched,
+    isValidateOk,
+    isValidateError,
     isNicknameChecking,
     handleInputChange,
   } = useCheckNickname();
 
-  const handleSubmit = () => {
-    if (disabled) return;
-    updateUserInfoAndTryLoginDone(nickname);
-  };
-
   const { auth, reset: removeTemporaryAuth } = useTemporaryAuthStore();
-  const { mutate: updateUserInfoAndTryLoginDone, status } = useMutation({
+  const { mutate: updateUserAndTryLoginProcessDone, status } = useMutation({
     mutationFn: updateUser,
     onSuccess: () => {
       if (!auth) return;
@@ -45,6 +40,11 @@ const NicknameSetup = () => {
       router.replace('/');
     },
   });
+
+  const handleSubmit = () => {
+    if (disabled || !auth) return;
+    updateUserAndTryLoginProcessDone({ nickname, auth });
+  };
 
   const isUpdating = status === 'pending';
   const isProcessing = isNicknameChecking || isUpdating;
@@ -73,14 +73,14 @@ const NicknameSetup = () => {
             className={cn(
               'w-full h-12 bg-white/10 border-0 px-3 text-white placeholder:text-gray-500',
               'focus:outline-none focus:bg-white/15',
-              isError && 'ring-2 ring-red-500',
-              isSuccess && 'ring-2 ring-[#2ACF6C]',
+              isValidateError && 'ring-2 ring-red-500',
+              isValidateOk && 'ring-2 ring-[#2ACF6C]',
             )}
             placeholder="닉네임을 입력해주세요"
           />
           <div className="absolute right-3 top-1/2 -translate-y-1/2">
-            {isError && <AlertCircleIcon />}
-            {isSuccess && <CheckIcon />}
+            {isValidateError && <AlertCircleIcon />}
+            {isValidateOk && <CheckIcon />}
           </div>
         </div>
 
@@ -88,13 +88,13 @@ const NicknameSetup = () => {
           <span
             className={cn(
               'text-sm',
-              isError && 'text-red-500',
-              isSuccess && 'text-[#2ACF6C]',
+              isValidateError && 'text-red-500',
+              isValidateOk && 'text-[#2ACF6C]',
               !isTouched && 'text-gray-500',
             )}
           >
             {errorMessage ||
-              (isSuccess
+              (isValidateOk
                 ? '사용할 수 있는 닉네임 입니다.'
                 : '닉네임은 2자 이상 입력해주세요.')}
           </span>

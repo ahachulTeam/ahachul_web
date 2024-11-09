@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
 import { debounce } from '@/common/utils';
@@ -19,8 +19,8 @@ export const useCheckNickname = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const isNicknameChecking = status === 'pending';
-  const isSuccess = nickname.length >= MIN_LENGTH && errorMessage === '';
-  const isError =
+  const isValidateOk = nickname.length >= MIN_LENGTH && errorMessage === '';
+  const isValidateError =
     isTouched && (nickname.length < MIN_LENGTH || errorMessage !== '');
 
   const disabled =
@@ -37,36 +37,39 @@ export const useCheckNickname = () => {
     checkNicknameValidity(value);
   };
 
-  const checkNicknameValidity = debounce(async (value: string) => {
-    if (value.length < MIN_LENGTH) {
-      setErrorMessage(`닉네임은 ${MIN_LENGTH}자 이상 입력해주세요.`);
-      return;
-    }
-    if (value.length > MAX_LENGTH) {
-      setErrorMessage(`한글,영문 ${MAX_LENGTH}자 이하로 입력해주세요.`);
-      return;
-    }
-
-    try {
-      const res = await nicknameChecking(value);
-      if (!res.result.available) {
-        setErrorMessage('중복인 닉네임이라 사용할 수 없습니다.');
-      } else {
-        setErrorMessage('');
+  const checkNicknameValidity = useCallback(
+    debounce(async (value: string) => {
+      if (value.length < MIN_LENGTH) {
+        setErrorMessage(`닉네임은 ${MIN_LENGTH}자 이상 입력해주세요.`);
+        return;
       }
-    } catch (error) {
-      setErrorMessage('지원하지 않는 형식입니다.');
-    }
-  }, 500);
+      if (value.length > MAX_LENGTH) {
+        setErrorMessage(`한글,영문 ${MAX_LENGTH}자 이하로 입력해주세요.`);
+        return;
+      }
+
+      try {
+        const res = await nicknameChecking(value);
+        if (!res.result.available) {
+          setErrorMessage('중복인 닉네임이라 사용할 수 없습니다.');
+        } else {
+          setErrorMessage('');
+        }
+      } catch (error) {
+        setErrorMessage('지원하지 않는 형식입니다.');
+      }
+    }, 500),
+    [],
+  );
 
   return {
     nickname,
-    isTouched,
-    errorMessage,
-    isSuccess,
-    isError,
     disabled,
+    errorMessage,
     lengthIndicator,
+    isTouched,
+    isValidateOk,
+    isValidateError,
     isNicknameChecking,
     handleInputChange,
   };

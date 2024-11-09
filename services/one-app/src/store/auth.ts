@@ -2,19 +2,19 @@ import { z } from 'zod';
 import { create } from 'zustand';
 import { LoginResponseSchema } from '@/app/(site)/login/_lib/requestLogin';
 
-export type UserAuthData = Pick<
+export type TemporaryUserAuthData = Pick<
   z.infer<typeof LoginResponseSchema>['result'],
   'accessToken' | 'refreshToken'
 >;
 
 interface TemporaryAuthState {
-  auth: UserAuthData | null;
-  setTempAuth: (authData: UserAuthData) => void;
+  auth: TemporaryUserAuthData | null;
+  setTempAuth: (authData: TemporaryUserAuthData) => void;
   reset: () => void;
 }
 
 export const useTemporaryAuthStore = create<TemporaryAuthState>((set) => ({
   auth: null,
-  setTempAuth: (authData: UserAuthData) => set({ auth: authData }),
+  setTempAuth: (authData: TemporaryUserAuthData) => set({ auth: authData }),
   reset: () => set({ auth: null }),
 }));
