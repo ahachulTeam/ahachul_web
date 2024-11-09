@@ -1,103 +1,53 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 
 import { updateUser } from '../../my/_lib/updateUser';
-import { checkNickname } from '../_lib/checkNickname';
-import { cn } from '@/common/utils/cn';
-import { debounce } from '@/common/utils';
+import { useCheckNickname } from '../_lib/useCheckNickname';
 import { useTemporaryAuthStore } from '@/store/auth';
 import { AuthService } from '@/common/service/AuthService';
+import { cn } from '@/common/utils/cn';
 import CheckIcon from '@/common/assets/icons/check';
 import ArrowLeftIcon from '@/common/assets/icons/arrow-left';
 import AlertCircleIcon from '@/common/assets/icons/alert-circle';
 import SpinnerIcon from '@/common/assets/icons/loading-spinner';
 
-const MAX_LENGTH = 10;
-const MIN_LENGTH = 2;
-
 const NicknameSetup = () => {
   const router = useRouter();
-  const { auth, reset: resetTemporaryAuth } = useTemporaryAuthStore();
+  const {
+    nickname,
+    disabled,
+    isError,
+    isTouched,
+    isSuccess,
+    errorMessage,
+    lengthIndicator,
+    isNicknameChecking,
+    handleInputChange,
+  } = useCheckNickname();
 
-  const handleLoginDone = () => {
-    if (!auth) return;
-
-    const { accessToken, refreshToken } = auth;
-    AuthService.setToken(accessToken, refreshToken);
-    resetTemporaryAuth();
-    router.replace('/');
-  };
-
-  const { mutateAsync: updateUserInfoAndTryLoginDone } = useMutation({
-    mutationFn: updateUser,
-    onSuccess: handleLoginDone,
-  });
-
-  const { mutateAsync: nicknameChecking, status } = useMutation({
-    mutationFn: checkNickname,
-  });
-
-  const [nickname, setNickname] = useState('');
-  const [isTouched, setIsTouched] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-
-  const isLoading = status === 'pending';
-  const isSuccess = nickname.length >= MIN_LENGTH && errorMessage === '';
-  const isError =
-    isTouched && (nickname.length < MIN_LENGTH || errorMessage !== '');
-
-  const disabled =
-    errorMessage !== '' ||
-    nickname.length < MIN_LENGTH ||
-    nickname.length > MAX_LENGTH;
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.slice(0, MAX_LENGTH);
-    setNickname(value);
-    if (!isTouched) setIsTouched(true);
-    checkNicknameValidity(value);
-  };
-
-  const checkNicknameValidity = debounce(async (value: string) => {
-    if (value.length <= 1) {
-      setErrorMessage('닉네임은 2자 이상 입력해주세요.');
-      return;
-    }
-    if (value.length > MAX_LENGTH) {
-      setErrorMessage('한글,영문 10자 이하로 입력해주세요.');
-      return;
-    }
-
-    try {
-      const res = await nicknameChecking(value);
-      if (!res.result.available) {
-        setErrorMessage('중복인 닉네임이라 사용할 수 없습니다.');
-      } else {
-        setErrorMessage('');
-      }
-    } catch (error) {
-      setErrorMessage('지원하지 않는 형식입니다.');
-    }
-  }, 500);
-
-  const handleSubmitFormField = async () => {
+  const handleSubmit = () => {
     if (disabled) return;
-
-    // TODO: Global Loader 추가하기
-    // setEnabledGlobalLoading(true);
-    try {
-      await updateUserInfoAndTryLoginDone(nickname);
-    } catch (error) {
-      console.error(error);
-      alert('유저 정보 수정 에러 발생!');
-      // TODO: 추가적인 에러 처리
-    } finally {
-      // setEnabledGlobalLoading(false);
-    }
+    updateUserInfoAndTryLoginDone(nickname);
   };
+
+  const { auth, reset: removeTemporaryAuth } = useTemporaryAuthStore();
+  const { mutate: updateUserInfoAndTryLoginDone, status } = useMutation({
+    mutationFn: updateUser,
+    onSuccess: () => {
+      if (!auth) return;
+
+      const { accessToken, refreshToken } = auth;
+      AuthService.setToken(accessToken, refreshToken);
+      removeTemporaryAuth();
+      router.replace('/');
+    },
+  });
+
+  const isUpdating = status === 'pending';
+  const isProcessing = isNicknameChecking || isUpdating;
 
   return (
     <main className="relative min-h-screen bg-black pt-9 px-5">
@@ -148,9 +98,7 @@ const NicknameSetup = () => {
                 ? '사용할 수 있는 닉네임 입니다.'
                 : '닉네임은 2자 이상 입력해주세요.')}
           </span>
-          <span className="text-sm text-gray-500">
-            {nickname.length} / {MAX_LENGTH}
-          </span>
+          <span className="text-sm text-gray-500">{lengthIndicator}</span>
         </div>
       </div>
 
@@ -160,11 +108,11 @@ const NicknameSetup = () => {
           'w-full h-12 mt-8 text-white',
           'bg-[#2ACF6C] hover:bg-[#2ACF6C]/90',
           'disabled:bg-gray-600 disabled:cursor-not-allowed',
-          isLoading && 'cursor-events-none',
+          isProcessing && 'cursor-events-none',
         )}
-        onClick={handleSubmitFormField}
+        onClick={handleSubmit}
       >
-        {isLoading ? (
+        {isProcessing ? (
           <span className="flex items-center justify-center">
             <SpinnerIcon className="animate-spin mr-2" />
           </span>
