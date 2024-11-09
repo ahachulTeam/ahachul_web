@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
 import { debounce } from '@/common/utils';
@@ -62,6 +62,16 @@ export const useCheckNickname = () => {
     [],
   );
 
+  const getNicknameStatusMessage = useCallback(() => {
+    if (errorMessage) {
+      return errorMessage;
+    }
+    if (isValidateOk) {
+      return '사용할 수 있는 닉네임 입니다.';
+    }
+    return `닉네임은 ${MIN_LENGTH}자 이상 입력해주세요.`;
+  }, [errorMessage, isValidateOk]);
+
   return {
     nickname,
     disabled,
@@ -72,5 +82,6 @@ export const useCheckNickname = () => {
     isValidateError,
     isNicknameChecking,
     handleInputChange,
+    getNicknameStatusMessage,
   };
 };

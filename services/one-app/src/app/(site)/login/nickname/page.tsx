@@ -3,15 +3,15 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
+import { useShallow } from 'zustand/shallow';
 
 import { updateUser } from '../../my/_lib/updateUser';
 import { useCheckNickname } from '../_lib/useCheckNickname';
+import { renderNicknameInputIcon } from '../_lib/utilityFunctions';
 import { useTemporaryAuthStore } from '@/store/auth';
 import { AuthService } from '@/common/service/AuthService';
 import { cn } from '@/common/utils/cn';
-import CheckIcon from '@/common/assets/icons/check';
 import ArrowLeftIcon from '@/common/assets/icons/arrow-left';
-import AlertCircleIcon from '@/common/assets/icons/alert-circle';
 import SpinnerIcon from '@/common/assets/icons/loading-spinner';
 
 const NicknameSetup = () => {
@@ -26,9 +26,15 @@ const NicknameSetup = () => {
     isValidateError,
     isNicknameChecking,
     handleInputChange,
+    getNicknameStatusMessage,
   } = useCheckNickname();
 
-  const { auth, reset: removeTemporaryAuth } = useTemporaryAuthStore();
+  const { auth, reset: removeTemporaryAuth } = useTemporaryAuthStore(
+    useShallow((state) => ({
+      auth: state.auth,
+      reset: state.reset,
+    })),
+  );
   const { mutate: updateUserAndTryLoginProcessDone, status } = useMutation({
     mutationFn: updateUser,
     onSuccess: () => {
@@ -79,8 +85,7 @@ const NicknameSetup = () => {
             placeholder="닉네임을 입력해주세요"
           />
           <div className="absolute right-3 top-1/2 -translate-y-1/2">
-            {isValidateError && <AlertCircleIcon />}
-            {isValidateOk && <CheckIcon />}
+            {renderNicknameInputIcon(isValidateOk, isValidateError)}
           </div>
         </div>
 
@@ -93,10 +98,7 @@ const NicknameSetup = () => {
               !isTouched && 'text-gray-500',
             )}
           >
-            {errorMessage ||
-              (isValidateOk
-                ? '사용할 수 있는 닉네임 입니다.'
-                : '닉네임은 2자 이상 입력해주세요.')}
+            {getNicknameStatusMessage()}
           </span>
           <span className="text-sm text-gray-500">{lengthIndicator}</span>
         </div>
