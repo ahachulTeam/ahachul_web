@@ -18,7 +18,7 @@ type CheckNicknameResponse = z.infer<typeof CheckNicknameResponseSchema>;
 export const checkNickname = async (nickname: string) => {
   try {
     const [res] = await Promise.all([
-      apiClient.post<CheckNicknameResponse>('members/check-nickname', {
+      apiClient.post<CheckNicknameResponse>('/members/check-nickname', {
         nickname,
       }),
       sleep(300),
