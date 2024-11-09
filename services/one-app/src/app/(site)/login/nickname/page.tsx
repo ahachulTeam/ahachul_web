@@ -7,7 +7,7 @@ import { useShallow } from 'zustand/shallow';
 
 import { updateUser } from '../../my/_lib/updateUser';
 import { useCheckNickname } from '../_lib/useCheckNickname';
-import { renderNicknameInputIcon } from '../_lib/utilityFunctions';
+import { renderIndicatorIcon } from '../_lib/utilityFunctions';
 import { useTemporaryAuthStore } from '@/store/auth';
 import { AuthService } from '@/common/service/AuthService';
 import { cn } from '@/common/utils/cn';
@@ -85,7 +85,7 @@ const NicknameSetup = () => {
             placeholder="닉네임을 입력해주세요"
           />
           <div className="absolute right-3 top-1/2 -translate-y-1/2">
-            {renderNicknameInputIcon(isValidateOk, isValidateError)}
+            {renderIndicatorIcon(isValidateOk, isValidateError)}
           </div>
         </div>
 

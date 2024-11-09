@@ -1,7 +1,7 @@
 import CheckIcon from '@/common/assets/icons/check';
 import AlertCircleIcon from '@/common/assets/icons/alert-circle';
 
-export const renderNicknameInputIcon = (
+export const renderIndicatorIcon = (
   isValidateOk: boolean,
   isValidateError: boolean,
 ) => {
