@@ -19,3 +19,5 @@ export const API_BASE_URL =
     : IS_DEV_ENV
       ? 'https://api.dev.ahhachul.com/v1'
       : 'https://api.ahhachul.com/v1';
+
+export const IS_SERVER = typeof window === 'undefined';

@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance, isAxiosError } from 'axios';
 
-import { TokenService } from './util/TokenService';
+import { AuthService } from '@/common/service/AuthService';
 import { API_BASE_URL } from '@/common/constants/env';
 import { APIErrorResponse } from '@/model/Error';
 
@@ -13,7 +13,7 @@ const setInterceptor = (instance: AxiosInstance) => {
       const requestConfig = config;
 
       // Access Token 설정
-      const accessToken = TokenService.accessToken;
+      const accessToken = AuthService.accessToken;
       if (accessToken) {
         requestConfig.headers.Authorization = `Bearer ${accessToken}`;
       }
@@ -34,12 +34,12 @@ const setInterceptor = (instance: AxiosInstance) => {
 
         if (code === '202') {
           // 액세스 토큰 만료 시 재요청
-          return TokenService.resetTokenAndRetryRequest(error);
+          return AuthService.resetTokenAndRetryRequest(error);
         }
 
         if (['201', '203', '204', '205'].includes(code)) {
           // 세션 만료 시 로그아웃 처리
-          TokenService.expireSession();
+          AuthService.expireSession();
           return Promise.reject(error);
         }
       }

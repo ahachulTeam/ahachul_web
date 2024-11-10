@@ -1,10 +1,11 @@
 import { z } from 'zod';
-import { apiClient } from '../../index';
+import { apiClient } from '@/app/api';
 import { APIResponseCode, RESPONSE_MESSAGES } from '@/common/constants/api';
 import { SocialSignInType } from '@/model/Auth';
+import axios from 'axios';
 
 // TODO, 실패 케이스 추가
-export const SignInResponseSchema = z.object({
+export const LoginResponseSchema = z.object({
   code: z.literal(APIResponseCode.SUCCESS),
   message: z.literal(RESPONSE_MESSAGES[APIResponseCode.SUCCESS]),
   result: z.object({
@@ -17,7 +18,7 @@ export const SignInResponseSchema = z.object({
   }),
 });
 
-export async function requestSignIn({
+export async function requestLogin({
   providerType,
   providerCode,
 }: {
@@ -30,9 +31,22 @@ export async function requestSignIn({
       providerCode,
     });
 
-    return SignInResponseSchema.parse(res.data);
+    return LoginResponseSchema.parse(res.data);
   } catch (error) {
-    console.error('Error during sign in:', error);
-    throw error;
+    if (axios.isAxiosError(error)) {
+      // Axios 오류 처리
+      throw new Error(
+        `Sign in failed: ${error.response?.data?.message || error.message}`,
+      );
+    } else if (error instanceof z.ZodError) {
+      // Zod 오류 처리
+      throw new Error(
+        `Validation failed: ${error.errors.map((e) => e.message).join(', ')}`,
+      );
+    } else {
+      // 기타 오류 처리
+      console.error('Unexpected error during sign in:', error);
+      throw new Error('An unexpected error occurred during sign in.');
+    }
   }
 }
