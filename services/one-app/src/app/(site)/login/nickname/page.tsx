@@ -19,14 +19,13 @@ const NicknameSetup = () => {
   const {
     nickname,
     disabled,
-    errorMessage,
     lengthIndicator,
     isTouched,
     isValidateOk,
     isValidateError,
     isNicknameChecking,
+    nickNameStatusMessage,
     handleInputChange,
-    getNicknameStatusMessage,
   } = useCheckNickname();
 
   const { auth, reset: removeTemporaryAuth } = useTemporaryAuthStore(
@@ -98,7 +97,7 @@ const NicknameSetup = () => {
               !isTouched && 'text-gray-500',
             )}
           >
-            {getNicknameStatusMessage()}
+            {nickNameStatusMessage}
           </span>
           <span className="text-sm text-gray-500">{lengthIndicator}</span>
         </div>
