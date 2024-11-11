@@ -1,0 +1,87 @@
+name: Build & Deploy Ahhachul One App
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'services/one-app/**'
+
+env:
+  DEFAULT_NODE_VERSION: '20.14.0'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Out Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Parse secrets from JSON
+        id: secrets
+        run: |
+          echo '${{ secrets.DEV_META_DATA }}' | jq -r 'to_entries | .[] | "echo \(.key)=\(.value) >> $GITHUB_ENV"' | bash
+
+      - name: Print AWS Region
+        run: echo "AWS_REGION is $AWS_REGION"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.DEFAULT_NODE_VERSION }}
+
+      - name: Install dependencies
+        uses: ./.github/actions/yarn-install
+
+      - name: Create .env file for one-app
+        run: |
+          echo '${{ secrets.DEV_ONE_APP_CONFIG }}' > config.json
+          cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/one-app/.env
+
+      - name: Build one-app
+        run: cd services/one-app && yarn build:one-app
+
+      - name: Build Docker image for one-app
+        run: docker build -t ${{ env.ECR_REPOSITORY_URI }}:one-app-latest services/one-app/
+
+      - name: Push Docker image for one-app to Amazon ECR
+        run: docker push ${{ env.ECR_REPOSITORY_URI }}:one-app-latest
+
+      - name: Get the latest Task Definition ARN for one-app
+        id: task_definition_one_app
+        run: |
+          TASK_DEF_ARN=$(aws ecs describe-services \
+            --cluster ${{ env.ECS_CLUSTER_NAME }} \
+            --services ${{ env.ECS_SERVICE_NAME_ONE_APP }} \
+            --query 'services[0].taskDefinition' --output text)
+          echo "TASK_DEF_ARN_ONE_APP=$TASK_DEF_ARN" >> $GITHUB_ENV
+
+      - name: Generate appspec.yaml for one-app
+        run: |
+          cat <<EOF > ./appspec-one-app.yaml
+          version: 0.0
+          Resources:
+            - TargetService:
+                Type: AWS::ECS::Service
+                Properties:
+                  TaskDefinition: "$TASK_DEF_ARN"
+                  LoadBalancerInfo:
+                    ContainerName: ${{ env.CONTAINER_NAME }}
+                    ContainerPort: ${{ env.CONTAINER_PORT }}
+                  CapacityProviderStrategy:
+                  - CapacityProvider: "FARGATE_SPOT"
+                    Base: 0
+                    Weight: 1
+          EOF
+
+      - name: Create Codedeploy deployment for one-app
+        run: |
+          APPSPEC_CONTENT=$(cat appspec-one-app.yaml | jq -sR .)
+          aws deploy create-deployment \
+            --application-name ${{ env.CODEDEPLOY_APP_NAME_ONE_APP }} \
+            --deployment-group-name ${{ env.CODEDEPLOY_DEPLOYMENT_GROUP_ONE_APP }} \
+            --deployment-config-name CodeDeployDefault.ECSAllAtOnce \
+            --revision "{\"revisionType\":\"AppSpecContent\",\"appSpecContent\":{\"content\":$APPSPEC_CONTENT}}"
