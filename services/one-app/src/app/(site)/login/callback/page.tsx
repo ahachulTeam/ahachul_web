@@ -53,6 +53,7 @@ function LoginCallback() {
       }
     } catch (error) {
       console.error(error);
+
       router.back();
     } finally {
       isLoadingRef.current = false;
