@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { AuthService } from '@/common/service/AuthService';
+import { IS_SERVER } from '@/common/constants/env';
 
 // 없어질 컴포넌트
 export default function LoggedIn() {
@@ -9,14 +10,10 @@ export default function LoggedIn() {
 
   useEffect(() => {
     // Check login state on the client side
-    setIsLoggedIn(AuthService.isLoggedIn);
+    if (!IS_SERVER) {
+      setIsLoggedIn(AuthService.isLoggedIn);
+    }
   }, []);
 
-  if (isLoggedIn === null) {
-    return null;
-  }
-
-  return (
-    <p>Logged in: {isLoggedIn ? 'O' : 'X'}</p>
-  );
+  return <p>Logged in: {isLoggedIn ? '✅' : '❌'}</p>;
 }
