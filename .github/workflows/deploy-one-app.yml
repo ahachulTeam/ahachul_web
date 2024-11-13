@@ -48,7 +48,7 @@ jobs:
         run: cd services/one-app && yarn build:one-app
 
       - name: Build Docker image for one-app
-        run: docker build -t ${{ env.ECR_REPOSITORY_URI }}:one-app-latest services/one-app/
+        run: docker build -t ${{ env.ECR_REPOSITORY_URI }}:one-app-latest -f Dockerfile .
 
       - name: Push Docker image for one-app to Amazon ECR
         run: docker push ${{ env.ECR_REPOSITORY_URI }}:one-app-latest
