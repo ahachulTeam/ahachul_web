@@ -47,6 +47,17 @@ jobs:
       - name: Build one-app
         run: cd services/one-app && yarn build:one-app
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Log in to Amazon ECR Public
+        run: |
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ env.ECR_REPOSITORY_URI }}
+
       - name: Build Docker image for one-app
         run: docker build -t ${{ env.ECR_REPOSITORY_URI }}:one-app-latest -f Dockerfile .
 
