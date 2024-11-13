@@ -42,8 +42,6 @@ function LoginCallback() {
         providerCode,
       });
 
-      console.log({ result });
-
       const { accessToken, refreshToken, isNeedAdditionalUserInfo } = result;
 
       if (!isNeedAdditionalUserInfo) {
