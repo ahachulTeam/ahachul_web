@@ -69,7 +69,7 @@ jobs:
         run: |
           TASK_DEF_ARN=$(aws ecs describe-services \
             --cluster ${{ env.ECS_CLUSTER_NAME }} \
-            --services ${{ env.ECS_SERVICE_NAME_ONE_APP }} \
+            --services ${{ env.ECS_SERVICE_NAME }} \
             --query 'services[0].taskDefinition' --output text)
           echo "TASK_DEF_ARN_ONE_APP=$TASK_DEF_ARN" >> $GITHUB_ENV
 
@@ -95,7 +95,7 @@ jobs:
         run: |
           APPSPEC_CONTENT=$(cat appspec-one-app.yaml | jq -sR .)
           aws deploy create-deployment \
-            --application-name ${{ env.CODEDEPLOY_APP_NAME_ONE_APP }} \
-            --deployment-group-name ${{ env.CODEDEPLOY_DEPLOYMENT_GROUP_ONE_APP }} \
+            --application-name ${{ env.CODEDEPLOY_APP_NAME }} \
+            --deployment-group-name ${{ env.CODEDEPLOY_DEPLOYMENT_GROUP }} \
             --deployment-config-name CodeDeployDefault.ECSAllAtOnce \
             --revision "{\"revisionType\":\"AppSpecContent\",\"appSpecContent\":{\"content\":$APPSPEC_CONTENT}}"
