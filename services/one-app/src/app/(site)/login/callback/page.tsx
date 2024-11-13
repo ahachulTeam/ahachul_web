@@ -42,6 +42,8 @@ function LoginCallback() {
         providerCode,
       });
 
+      console.log({ result });
+
       const { accessToken, refreshToken, isNeedAdditionalUserInfo } = result;
 
       if (!isNeedAdditionalUserInfo) {
@@ -53,8 +55,7 @@ function LoginCallback() {
       }
     } catch (error) {
       console.error(error);
-
-      router.back();
+      router.replace('/login?error=from_callback');
     } finally {
       isLoadingRef.current = false;
     }
