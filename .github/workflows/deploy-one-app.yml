@@ -75,7 +75,7 @@ jobs:
 
       - name: Generate appspec.yaml for one-app
         run: |
-          cat <<EOF > ./appspec.yaml
+          cat <<EOF > ./appspec-one-app.yaml
           version: 0.0
           Resources:
             - TargetService:
