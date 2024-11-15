@@ -5,6 +5,6 @@ docker rmi $(docker images ahhachul/ahhachul-dev-web -q)
 
 docker pull ahhachul/ahhachul-dev-web
 
-docker run --name ahhachul_web -d -p 3000:3000 ahhachul/ahhachul-dev-web:one-app-lastest
+docker run --name ahhachul_web -d -p 3000:3000 ahhachul/ahhachul-dev-web:one-app-latest
 
 echo "Deployment script executed successfully."
