@@ -45,7 +45,7 @@ jobs:
           cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/one-app/.env
 
       - name: Build one-app
-        run: cd services/one-app && yarn build:one-app
+        run: yarn build:one-app
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
