@@ -81,7 +81,7 @@ jobs:
             - TargetService:
                 Type: AWS::ECS::Service
                 Properties:
-                  TaskDefinition: "$TASK_DEF_ARN"
+                  TaskDefinition: "$TASK_DEF_ARN_ONE_APP"
                   LoadBalancerInfo:
                     ContainerName: ${{ env.CONTAINER_NAME }}
                     ContainerPort: ${{ env.CONTAINER_PORT }}
