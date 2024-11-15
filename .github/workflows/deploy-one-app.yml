@@ -6,9 +6,6 @@ on:
       - main
     paths:
       - 'services/one-app/**'
-  pull_request:
-    paths:
-      - 'services/one-app/**'
 
 env:
   DEFAULT_NODE_VERSION: '20.14.0'
