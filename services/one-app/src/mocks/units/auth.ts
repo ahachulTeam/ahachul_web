@@ -23,7 +23,7 @@ const createLoginSuccessResponse = (memberId: string) =>
   });
 
 const mock_로그인 = http.post('/auth/login', async ({ request }) => {
-  if (Math.random() < 0.3) {
+  if (Math.random() < ERROR_RATE) {
     return createErrorResponse();
   }
 
