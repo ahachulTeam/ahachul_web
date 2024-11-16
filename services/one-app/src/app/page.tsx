@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PlusIcon from '@/common/assets/icons/plus';
-import LoggedIn from './_component/LoggedIn';
+import LoggedIn from './(site)/_component/LoggedIn';
 
 export default function Home() {
   return (
@@ -11,6 +11,6 @@ export default function Home() {
         </Link>
         <LoggedIn />
       </div>
-    </main >
+    </main>
   );
 }

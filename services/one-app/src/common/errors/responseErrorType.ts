@@ -13,7 +13,6 @@ export type ErrorCode =
   | '205';
 
 export type ErrorResponseMessages =
-  | 'SUCCESS'
   | 'BAD_REQUEST'
   | 'INTERNAL_SERVER_ERROR'
   | '유효하지 않은 도메인입니다.'
