@@ -11,7 +11,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Pretendard', 'sans-serif'],
+        sans: ['var(--font-pretendard)'],
       },
       colors: {
         ...colors,
