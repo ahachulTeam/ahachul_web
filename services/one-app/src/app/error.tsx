@@ -10,8 +10,8 @@ export default function ErrorPage({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error(error);
-  }, [error]);
+    console.error('error in ErrorPage', error);
+  }, []);
 
   return (
     <div>

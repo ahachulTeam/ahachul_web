@@ -30,7 +30,8 @@ export const RQProvider = ({ children }: Props) => {
       onError: (error: Error) => {
         if (
           error instanceof RequestGetError &&
-          error.errorHandlingStrategy === 'errorBoundary'
+          // errorBoundary로 처리해야하는 에러인 경우 updateAppError를 하지 못하도록 얼리리턴
+          error.errorHandlingStrategy === 'fallback'
         )
           return;
 
