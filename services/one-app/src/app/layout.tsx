@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 
 import './globals.css';
@@ -26,7 +27,9 @@ export default function RootLayout({
         <ErrorCatcher>
           <RQProvider>
             {children}
-            <PathTracker />
+            <Suspense>
+              <PathTracker />
+            </Suspense>
           </RQProvider>
         </ErrorCatcher>
       </body>

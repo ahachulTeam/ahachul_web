@@ -1,53 +1,65 @@
-import axios, { AxiosError, AxiosInstance, isAxiosError } from 'axios';
-
+import axios, { AxiosError, AxiosInstance } from 'axios';
 import { AuthService } from '@/common/service/AuthService';
 import { API_BASE_URL } from '@/common/constants/env';
-import type { ErrorInfo } from '@/common/constants/serverErrorMessages';
+import {
+  APIResponseCode,
+  type ErrorInfo,
+  type ErrorCode,
+} from '@/common/constants/api';
 import {
   RequestGetError,
   WithErrorHandlingStrategy,
 } from '@/common/errors/RequestGetError';
 import { RequestFailedError } from '@/common/errors/RequestError';
 
-// TODO, access_token 선택적으로 보내는 방안 모색 (axios type 확장)
-// public한 함수(인기 검색 순위 등)들의 경우 굳이 access_token이 없음을 처리할 필요가 없음
+// 에러 코드 상수 정의
+const ERROR_CODES = {
+  ACCESS_TOKEN_EXPIRED: APIResponseCode.EXPIRED_ACCESS_TOKEN,
+  SESSION_EXPIRED: [
+    APIResponseCode.INVALID_ACCESS_TOKEN,
+    APIResponseCode.INVALID_REFRESH_TOKEN,
+    APIResponseCode.EXPIRED_REFRESH_TOKEN,
+    APIResponseCode.INVALID_PERMISSION_CODE,
+  ],
+} as const;
+
+function isSessionExpiredCode(code: string): code is ErrorCode {
+  return (ERROR_CODES.SESSION_EXPIRED as readonly string[]).includes(code);
+}
 
 const setInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
     (config) => {
       const requestConfig = config;
-
-      // Access Token 설정
       const accessToken = AuthService.accessToken;
       if (accessToken) {
         requestConfig.headers.Authorization = `Bearer ${accessToken}`;
       }
-
       return requestConfig;
     },
-    (err: AxiosError): Promise<AxiosError> => Promise.reject(err),
+    async (error: AxiosError) => {
+      const customError = await createError({ error });
+      return Promise.reject(customError);
+    },
   );
 
-  // TODO, 응답 에러 처리 다듬기
   instance.interceptors.response.use(
     (response) => response,
-    async (error) => {
-      if (isAxiosError(error) && error.response?.data) {
+    async (error: AxiosError) => {
+      if (error.response?.data) {
         const { code } = error.response.data as ErrorInfo;
 
-        if (code === '202') {
-          // 액세스 토큰 만료 시 재요청
+        if (code === ERROR_CODES.ACCESS_TOKEN_EXPIRED) {
           return AuthService.resetTokenAndRetryRequest(error);
         }
 
-        if (['201', '203', '204', '205'].includes(code)) {
-          // 세션 만료 시 로그아웃 처리
+        if (isSessionExpiredCode(code)) {
           AuthService.expireSession();
-          return Promise.reject(error);
+          return Promise.resolve({ sessionExpired: true });
         }
       }
 
-      const customError = await createError(error);
+      const customError = await createError({ error: error as AxiosError });
       return Promise.reject(customError);
     },
   );
@@ -72,26 +84,19 @@ const createError = async ({
   const { status, config, data } = error.response;
   const { code, message } = data as ErrorInfo;
 
-  if (config.method?.toUpperCase() === 'GET') {
-    return new RequestGetError({
-      status,
-      requestBody: config.data,
-      endpoint: config.url || '',
-      method: config.method,
-      errorHandlingStrategy,
-      message,
-      errorCode: code,
-    });
-  }
-
-  return new RequestFailedError({
+  const errorParams = {
     status,
     requestBody: config.data,
     endpoint: config.url || '',
     method: config.method || '',
+    errorHandlingStrategy,
     message,
     errorCode: code,
-  });
+  };
+
+  return config.method?.toUpperCase() === 'GET'
+    ? new RequestGetError(errorParams)
+    : new RequestFailedError(errorParams);
 };
 
 const apiClient = setInterceptor(

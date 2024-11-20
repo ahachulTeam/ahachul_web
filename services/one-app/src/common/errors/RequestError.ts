@@ -1,8 +1,5 @@
 import { BaseError } from './BaseError';
-import {
-  type ErrorCode,
-  SERVER_ERROR_MESSAGES,
-} from '@/common/constants/serverErrorMessages';
+import { type ErrorCode, RESPONSE_MESSAGES } from '@/common/constants/api';
 
 export type RequestFailedErrorType = {
   requestBody?: any;
@@ -37,8 +34,7 @@ export class RequestFailedError extends BaseError {
     this.errorCode = errorCode;
     this.requestBody = requestBody;
     this.errorMessage =
-      SERVER_ERROR_MESSAGES[message as keyof typeof SERVER_ERROR_MESSAGES] ||
-      message;
+      RESPONSE_MESSAGES[message as keyof typeof RESPONSE_MESSAGES] || message;
   }
 }
 

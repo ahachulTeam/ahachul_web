@@ -2,8 +2,8 @@ import { sendLogToSentry } from './sendLogToSentry';
 
 import { BaseError } from '@/common/errors/BaseError';
 import { RequestFailedError } from '@/common/errors/RequestError';
-import { SERVER_ERROR_MESSAGES } from '@/common/constants/serverErrorMessages';
 import { IS_DEV_ENV } from '@/common/constants/env';
+import { RESPONSE_MESSAGES } from '@/common/constants/api';
 
 export const captureError = async (error: Error) => {
   // local 환경이면 얼리리턴
@@ -14,18 +14,18 @@ export const captureError = async (error: Error) => {
   // RequestFailedError의 인스턴스는 RequestFailedError의 instanceof 체크에서 먼저 true를 반환하게 됩니다.
   if (error instanceof RequestFailedError) {
     switch (error.errorMessage) {
-      case SERVER_ERROR_MESSAGES[102]:
+      case RESPONSE_MESSAGES[102]:
         sendLogToSentry({ error, level: 'fatal' });
         break;
-      case SERVER_ERROR_MESSAGES[103]:
-      case SERVER_ERROR_MESSAGES[200]:
-      case SERVER_ERROR_MESSAGES[201]:
-      case SERVER_ERROR_MESSAGES[203]:
-      case SERVER_ERROR_MESSAGES[204]:
-      case SERVER_ERROR_MESSAGES[205]:
+      case RESPONSE_MESSAGES[103]:
+      case RESPONSE_MESSAGES[200]:
+      case RESPONSE_MESSAGES[201]:
+      case RESPONSE_MESSAGES[203]:
+      case RESPONSE_MESSAGES[204]:
+      case RESPONSE_MESSAGES[205]:
         sendLogToSentry({ error, level: 'info' });
         break;
-      case SERVER_ERROR_MESSAGES[101]:
+      case RESPONSE_MESSAGES[101]:
         sendLogToSentry({ error, level: 'warning' });
         break;
       default:

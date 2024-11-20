@@ -22,12 +22,14 @@ export const RQProvider = ({ children }: Props) => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
+        retry: false,
         throwOnError: true,
         refetchOnWindowFocus: false,
       },
     },
     queryCache: new QueryCache({
       onError: (error: Error) => {
+        console.log('QueryCache Error:', error);
         if (
           error instanceof RequestGetError &&
           // errorBoundary로 처리해야하는 에러인 경우 updateAppError를 하지 못하도록 얼리리턴

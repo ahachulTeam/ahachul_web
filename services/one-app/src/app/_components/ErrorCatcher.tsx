@@ -1,16 +1,11 @@
+'use client';
+
 import { useEffect } from 'react';
 
 import { useAppErrorStore } from '@/store/appErrorStore';
 import { captureError } from '@/common/utils/error/captureError';
 import { isRequestFailedError } from '@/common/errors/RequestError';
-import { SERVER_ERROR_MESSAGES } from '@/common/constants/serverErrorMessages';
-
-const isPredictableError = (error: Error): boolean => {
-  if (isRequestFailedError(error)) {
-    return error.errorCode !== '102';
-  }
-  return Object.keys(SERVER_ERROR_MESSAGES).includes(error.name);
-};
+import { RESPONSE_MESSAGES } from '@/common/constants/api';
 
 /**
  * @description
@@ -29,12 +24,18 @@ export const ErrorCatcher = ({ children }: React.PropsWithChildren) => {
 
     if (!isRequestFailedError(error) || !isPredictableError(error)) throw error; // error.tsx로 전파
 
-    // toast.error(SERVER_ERROR_MESSAGES[error.errorCode], {
+    // TODO: 토스트 컴포넌트 만들어서 alert 대체하기
+    // toast.error(RESPONSE_MESSAGES[error.errorCode], {
     //   showingTime: 3000,
     //   position: 'bottom',
     //   bottom: '8rem',
     // });
+    alert(RESPONSE_MESSAGES[error.errorCode]);
   }, [error]);
 
   return children;
+};
+
+const isPredictableError = (error: Error): boolean => {
+  return Object.values(RESPONSE_MESSAGES).includes(error.message);
 };
