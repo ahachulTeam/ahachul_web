@@ -11,14 +11,14 @@ function ArrowLeftIcon() {
     >
       <path
         d="M19 12L5 12"
-        stroke="white"
+        stroke="black"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M11 18L5 12L11 6"
-        stroke="white"
+        stroke="black"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
