@@ -16,7 +16,5 @@ export default function LoggedIn() {
     return null;
   }
 
-  return (
-    <p>Logged in: {isLoggedIn ? 'O' : 'X'}</p>
-  );
+  return <p>Logged in: {isLoggedIn ? 'O' : 'X'}</p>;
 }

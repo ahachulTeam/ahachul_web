@@ -23,8 +23,8 @@ export interface LostFoundPostDetail extends LostFoundPost {
 }
 
 export interface LostFoundListParams
-  extends WithSubwayLineId,
-    CursorBasedPaginationParams {
-  keyword: string;
+  extends CursorBasedPaginationParams,
+    Partial<WithSubwayLineId> {
   lostType: LostType;
+  keyword?: string;
 }
