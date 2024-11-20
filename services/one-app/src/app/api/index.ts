@@ -2,8 +2,11 @@ import axios, { AxiosError, AxiosInstance, isAxiosError } from 'axios';
 
 import { AuthService } from '@/common/service/AuthService';
 import { API_BASE_URL } from '@/common/constants/env';
-import type { APIErrorResponse } from '@/common/constants/serverErrorMessages';
-import { RequestGetError } from '@/common/errors/RequestGetError';
+import type { ErrorInfo } from '@/common/constants/serverErrorMessages';
+import {
+  RequestGetError,
+  WithErrorHandlingStrategy,
+} from '@/common/errors/RequestGetError';
 import { RequestFailedError } from '@/common/errors/RequestError';
 
 // TODO, access_token 선택적으로 보내는 방안 모색 (axios type 확장)
@@ -30,9 +33,7 @@ const setInterceptor = (instance: AxiosInstance) => {
     (response) => response,
     async (error) => {
       if (isAxiosError(error) && error.response?.data) {
-        const { code } = error.response.data as APIErrorResponse;
-
-        // console.log(code, error.response.data);
+        const { code } = error.response.data as ErrorInfo;
 
         if (code === '202') {
           // 액세스 토큰 만료 시 재요청
@@ -46,8 +47,6 @@ const setInterceptor = (instance: AxiosInstance) => {
         }
       }
 
-      // console.error(error);
-      // return Promise.reject(error);
       const customError = await createError(error);
       return Promise.reject(customError);
     },
@@ -56,31 +55,32 @@ const setInterceptor = (instance: AxiosInstance) => {
   return instance;
 };
 
-type ErrorInfo = {
-  errorCode: string;
-  message: string;
+type CreateError = {
+  error: AxiosError;
 };
 
-const createError = async (
-  error: AxiosError,
-): Promise<RequestFailedError | RequestGetError> => {
+const createError = async ({
+  error,
+  errorHandlingStrategy,
+}: WithErrorHandlingStrategy<CreateError>): Promise<
+  RequestFailedError | RequestGetError
+> => {
   if (!error.response) {
     throw error;
   }
 
   const { status, config, data } = error.response;
-  const { errorCode, message } = data as ErrorInfo;
+  const { code, message } = data as ErrorInfo;
 
   if (config.method?.toUpperCase() === 'GET') {
     return new RequestGetError({
       status,
       requestBody: config.data,
       endpoint: config.url || '',
-      name: errorCode,
       method: config.method,
       errorHandlingStrategy,
       message,
-      errorCode,
+      errorCode: code,
     });
   }
 
@@ -88,10 +88,9 @@ const createError = async (
     status,
     requestBody: config.data,
     endpoint: config.url || '',
-    name: errorCode,
     method: config.method || '',
     message,
-    errorCode,
+    errorCode: code,
   });
 };
 

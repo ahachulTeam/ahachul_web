@@ -1,5 +1,3 @@
-import { HttpStatusCode } from 'axios';
-
 export const SERVER_ERROR_MESSAGES = {
   '101': 'BAD_REQUEST',
   '102': 'INTERNAL_SERVER_ERROR',
@@ -14,15 +12,10 @@ export const SERVER_ERROR_MESSAGES = {
 
 export type ErrorCode = keyof typeof SERVER_ERROR_MESSAGES;
 
-export type ErrorResponseMessages =
+export type ErrorMessages =
   (typeof SERVER_ERROR_MESSAGES)[keyof typeof SERVER_ERROR_MESSAGES];
 
-export type ErrorCodeInfo = Partial<Record<ErrorCode, string>>;
-
-export type APIErrorResponse = {
+export type ErrorInfo = {
   code: ErrorCode;
-  errors: string;
-  message: string;
-  status: HttpStatusCode;
-  statusText: string;
+  message: ErrorMessages;
 };

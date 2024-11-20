@@ -11,7 +11,7 @@ export type WithErrorHandlingStrategy<P = unknown> = P & {
 };
 
 export class RequestGetError extends RequestFailedError {
-  errorHandlingStrategy: ErrorHandlingStrategy;
+  errorHandlingStrategy;
 
   constructor({
     errorHandlingStrategy = 'toast',
