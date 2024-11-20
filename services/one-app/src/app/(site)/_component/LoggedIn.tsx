@@ -17,16 +17,8 @@ export default function LoggedIn() {
   }
 
   return (
-    <p>
-      Logged in: {isLoggedIn ? 'O' : 'X'}
-      <button
-        onClick={() => {
-          throw new Error('에러 던지기!');
-        }}
-      >
-        throw Error
-      </button>
-      <br />
+    <div className="flex flex-col gap-3">
+      <p>Logged in: {isLoggedIn ? 'O' : 'X'}</p>
       <button
         onClick={() => {
           window.location.reload();
@@ -34,6 +26,6 @@ export default function LoggedIn() {
       >
         새로고침!
       </button>
-    </p>
+    </div>
   );
 }
