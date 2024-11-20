@@ -2,7 +2,7 @@ FROM node:20-alpine
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-COPY services/next.ahhachul.com         ./services/next.ahhachul.com
+COPY services/one-app         ./services/one-app
 COPY nx.json tsconfig*         ./ 
 COPY package.json              ./
 COPY yarn.lock .pnp*           ./ 
@@ -13,8 +13,8 @@ RUN yarn install
 
 ENV NEXT_TELEMETRY_DISABLED=1 
 
-RUN yarn build:web 
+RUN yarn build:one-app 
 
 EXPOSE 3000
 
-CMD ["yarn", "start:web"]
+CMD ["yarn", "start:one-app"]

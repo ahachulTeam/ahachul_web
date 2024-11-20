@@ -1,5 +1,15 @@
 import { useRef, useEffect, useCallback } from 'react';
 
+/**
+ * useDebounce 훅은 주어진 콜백 함수를 지정된 지연 시간 동안 지연시킵니다.
+ * 주로 입력 필드와 같은 사용자 인터페이스에서 사용되어,
+ * 사용자가 입력을 멈춘 후에만 콜백이 실행되도록 합니다.
+ *
+ * @param callback - 지연시킬 콜백 함수
+ * @param delay - 콜백 함수가 실행되기 전의 지연 시간 (밀리초)
+ * @returns 지연된 콜백 함수
+ */
+
 export function useDebounce<T extends any[]>(
   callback: (...params: T) => void,
   delay: number,
