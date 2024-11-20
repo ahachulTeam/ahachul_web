@@ -34,7 +34,7 @@ class _AuthService {
   expireSession() {
     Cookies.remove(CookieKey.ACCESS_TOKEN);
     Cookies.remove(CookieKey.REFRESH_TOKEN);
-    window.location.replace('/login'); // TODO, 리다이렉트 경로 설정
+    // window.location.replace('/login'); // TODO, 리다이렉트 경로 설정
   }
 
   get isLoggedIn() {

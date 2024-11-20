@@ -1,30 +1,54 @@
 'use client';
 
-import React, { useState } from 'react';
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import React from 'react';
+import {
+  QueryClientProvider,
+  QueryClient,
+  QueryCache,
+  MutationCache,
+} from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
+import { useAppErrorStore } from '@/store/appErrorStore';
+import { RequestGetError } from '@/common/errors/RequestGetError';
 
 type Props = {
   children: React.ReactNode;
 };
 
 export const RQProvider = ({ children }: Props) => {
-  const [client] = useState(
-    new QueryClient({
-      defaultOptions: {
-        // react-query 전역 설정
-        queries: {
-          retry: false,
-          retryOnMount: true,
-          refetchOnReconnect: false,
-          refetchOnWindowFocus: false,
-        },
+  const { updateAppError } = useAppErrorStore();
+
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+        throwOnError: true,
+        refetchOnWindowFocus: false,
+      },
+    },
+    queryCache: new QueryCache({
+      onError: (error: Error) => {
+        console.log('QueryCache Error:', error);
+        if (
+          error instanceof RequestGetError &&
+          // errorBoundary로 처리해야하는 에러인 경우 updateAppError를 하지 못하도록 얼리리턴
+          error.errorHandlingStrategy === 'fallback'
+        )
+          return;
+
+        updateAppError(error);
       },
     }),
-  );
+    mutationCache: new MutationCache({
+      onError: (error: Error) => {
+        updateAppError(error);
+      },
+    }),
+  });
 
   return (
-    <QueryClientProvider client={client}>
+    <QueryClientProvider client={queryClient}>
       {children}
       <ReactQueryDevtools
         initialIsOpen={process.env.NODE_ENV === 'development'}

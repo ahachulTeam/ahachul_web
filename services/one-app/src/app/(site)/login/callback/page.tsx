@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useShallow } from 'zustand/shallow';
 
 import { requestLogin } from '../_lib/requestLogin';
-import { useTemporaryAuthStore } from '@/store/auth';
+import { useTemporaryAuthStore } from '@/store/authStore';
 import { isValidSocialSignInType } from '@/model/Auth';
 import { AuthService } from '@/common/service/AuthService';
 

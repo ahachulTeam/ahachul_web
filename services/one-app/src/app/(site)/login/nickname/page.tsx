@@ -8,7 +8,7 @@ import { useShallow } from 'zustand/shallow';
 import { updateUser } from '../../my/_lib/updateUser';
 import { useCheckNickname } from '../_lib/useCheckNickname';
 import { renderIndicatorIcon } from '../_lib/utilityFunctions';
-import { useTemporaryAuthStore } from '@/store/auth';
+import { useTemporaryAuthStore } from '@/store/authStore';
 import { AuthService } from '@/common/service/AuthService';
 import { cn } from '@/common/utils/cn';
 import ArrowLeftIcon from '@/common/assets/icons/arrow-left';

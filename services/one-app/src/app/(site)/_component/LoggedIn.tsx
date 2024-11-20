@@ -17,6 +17,15 @@ export default function LoggedIn() {
   }
 
   return (
-    <p>Logged in: {isLoggedIn ? 'O' : 'X'}</p>
+    <div className="flex flex-col gap-3">
+      <p>Logged in: {isLoggedIn ? 'O' : 'X'}</p>
+      <button
+        onClick={() => {
+          window.location.reload();
+        }}
+      >
+        새로고침!
+      </button>
+    </div>
   );
 }

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import axios from 'axios';
 
-import type { TemporaryUserAuthData } from '@/store/auth';
+import type { TemporaryUserAuthData } from '@/store/authStore';
 import { API_BASE_URL } from '@/common/constants/env';
 import { APIResponseCode, RESPONSE_MESSAGES } from '@/common/constants/api';
 
