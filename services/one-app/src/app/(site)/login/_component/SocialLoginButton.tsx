@@ -21,9 +21,9 @@ export const SocialLoginButton: React.FC<SocialLoginButtonProps> = ({
 }) => (
   <button
     onClick={onLogin}
-    className={`flex items-center justify-center gap-2 w-full h-[50px] rounded-md text-black ${bgColor}`}
+    className={`flex items-center justify-center gap-2 w-full h-[50px] rounded-md ${bgColor}`}
   >
     <Icon />
-    <span className="text-base font-semibold">{`${social}로 계속하기`}</span>
+    <span className="text-16sb">{`${social}로 계속하기`}</span>
   </button>
 );
