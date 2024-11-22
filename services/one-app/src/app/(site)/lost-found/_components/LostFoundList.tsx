@@ -25,20 +25,14 @@ const LostFoundList = () => {
   return (
     <>
       {lostArticles.map((item, idx) => (
-        // item.id로만 하면 key 중복이 발생하고 있음.
-        // 해결 필요
         <Link key={`${item.id}-${idx}`} href={`/lost-found/${item.id}`}>
+          {/* item.id로만 하면 key 중복이 발생하고 있음. 확인 필요 */}
           {item.title}
         </Link>
       ))}
-      {hasNextPage && (
-        <IntersectionArea
-          callback={intersectCallback}
-          intersectionOptions={{ rootMargin: '24% 0px', threshold: 0 }}
-        >
-          <span className="visuallyHidden">더 보기</span>
-        </IntersectionArea>
-      )}
+      <IntersectionArea when={hasNextPage} callback={intersectCallback}>
+        <span className="visuallyHidden">더 보기</span>
+      </IntersectionArea>
     </>
   );
 };

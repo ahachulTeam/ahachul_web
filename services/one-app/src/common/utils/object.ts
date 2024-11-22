@@ -1,7 +1,7 @@
 import queryString from 'query-string';
 
 export const isValidObject = (obj: unknown): obj is Record<string, any> => {
-  return typeof obj === 'object' && obj !== null;
+  return typeof obj === 'object' && obj !== null && !Array.isArray(obj);
 };
 
 export function removeFalsyValues<T extends Record<string, any>>(
@@ -9,26 +9,20 @@ export function removeFalsyValues<T extends Record<string, any>>(
   options: { removeEmptyStrings?: boolean; removeZero?: boolean } = {},
 ): Partial<T> {
   if (!isValidObject(obj)) {
-    return obj;
+    throw new Error('obj must be a non-null object');
   }
 
-  const result: Partial<T> = {};
-
-  for (const key in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) {
-      const value = obj[key];
-      if (
-        value !== undefined &&
-        value !== null &&
-        (options.removeZero ? value !== 0 : true) &&
-        (options.removeEmptyStrings ? value !== '' : true)
-      ) {
-        result[key] = value;
-      }
+  return Object.entries(obj).reduce((result, [key, value]) => {
+    if (
+      value !== undefined &&
+      value !== null &&
+      (options.removeZero ? value !== 0 : true) &&
+      (options.removeEmptyStrings ? value !== '' : true)
+    ) {
+      result[key as keyof T] = value;
     }
-  }
-
-  return result;
+    return result;
+  }, {} as Partial<T>);
 }
 
 export const objectToQueryString = <T extends Record<string, any>>(
@@ -36,7 +30,7 @@ export const objectToQueryString = <T extends Record<string, any>>(
   options?: { removeEmptyStrings?: boolean; removeZero?: boolean },
 ): string => {
   if (!isValidObject(params)) {
-    return '';
+    throw new Error('params must be a non-null object');
   }
 
   return queryString.stringify(removeFalsyValues(params, options));

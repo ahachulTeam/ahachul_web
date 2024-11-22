@@ -3,13 +3,13 @@ import PlusIcon from '@/common/assets/icons/plus';
 import { SuspensedQueryBoundary } from '@/common/components/SuspensedQueryBoundary/SuspensedQueryBoundary';
 import LostFoundDetail from '../_components/LostFoundDetail';
 
-type Params = {
+type Props = {
   params: {
     lostId: string;
   };
 };
 
-export default function LostFoundDetailPage({ params }: Params) {
+export default function LostFoundDetailPage({ params }: Props) {
   const { lostId } = params;
 
   return (
