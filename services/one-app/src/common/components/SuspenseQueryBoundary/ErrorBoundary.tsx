@@ -3,20 +3,20 @@
 import React from 'react';
 import { isChangedArray } from '@/common/utils/array';
 
-type ErrorFallbackType = <ErrorType extends Error>(
-  props: ErrorFallbackProps<ErrorType>,
-) => React.ReactNode;
+type ErrorFallbackProps = {
+  error: Error;
+  reset: () => void;
+};
 
-interface ErrorFallbackProps<ErrorType extends Error = Error> {
-  error: ErrorType;
-  reset: VoidFunction;
-}
+type ErrorFallbackType =
+  | React.ReactNode
+  | ((props: ErrorFallbackProps) => React.ReactNode);
 
 interface ErrorBoundaryProps {
-  children: React.ReactNode;
-  errorFallback?: ErrorFallbackType;
-  resetError?: VoidFunction;
   keys?: unknown[];
+  children: React.ReactNode;
+  errorFallback: ErrorFallbackType;
+  resetError?: VoidFunction;
 }
 
 interface ErrorBoundaryState {
@@ -66,11 +66,11 @@ export class BaseErrorBoundary extends React.Component<
     const { hasError, error } = this.state;
     const { children, errorFallback } = this.props;
 
-    const isErrExist = hasError && error !== null;
-    const fallbackUI = (err: ErrorFallbackProps['error']) =>
-      errorFallback?.({ error: err, reset: this.resetBoundary });
-
-    if (isErrExist) return fallbackUI(error);
+    if (hasError && error !== null) {
+      return typeof errorFallback === 'function'
+        ? errorFallback({ error, reset: this.resetBoundary })
+        : errorFallback;
+    }
     return children;
   }
 }

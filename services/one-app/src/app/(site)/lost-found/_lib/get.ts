@@ -10,13 +10,13 @@ import type {
   LostFoundPostDetail,
   LostFoundListParams,
 } from '@/model/LostFound';
-import { TIMESTAMP } from '@/constants/time';
+import { TIMESTAMP } from '@/common/constants/time';
 import { generateQueryKey } from '@/common/utils/react-query';
 import { objectToQueryString } from '@/common/utils/object';
 
 const getLostFoundList = (params: LostFoundListParams) =>
   apiClient.get<IResponse<ListResponseWithPagination<LostFoundPost>>>(
-    `/lost-posts?${objectToQueryString(params)}`,
+    `/lost-posts?${objectToQueryString(params, { removeZero: true })}`,
   );
 
 export const useGetLostFoundList = (params: LostFoundListParams) =>
