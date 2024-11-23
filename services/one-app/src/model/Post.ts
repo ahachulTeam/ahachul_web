@@ -1,5 +1,3 @@
-import type { PostImage } from './PostImage';
-
 export interface Post {
   id: number;
   title: string;
@@ -7,9 +5,14 @@ export interface Post {
   content: string;
   createdAt: string;
   createdBy: string;
-  image: PostImage;
-  likeCnt?: number;
-  hashTags?: string[];
-  commentCnt?: number;
-  subwayLineId?: number;
+  commentCnt: number;
+  subwayLineId: number;
+}
+
+export interface RecommendPost {
+  id: number;
+  title: string;
+  writer: string;
+  createdAt: string;
+  imageUrl: string;
 }

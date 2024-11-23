@@ -20,8 +20,10 @@
     "clsx": "^2.1.1",
     "js-cookie": "^3.0.5",
     "next": "14.2.16",
+    "query-string": "^9.1.1",
     "react": "^18",
     "react-dom": "^18",
+    "react-intersection-observer": "^9.13.1",
     "tailwind-merge": "^2.5.4",
     "zod": "^3.23.8",
     "zustand": "^5.0.0"
