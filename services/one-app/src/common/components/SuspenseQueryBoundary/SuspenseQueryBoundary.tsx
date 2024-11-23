@@ -4,7 +4,7 @@ import { Suspense, type ComponentProps, type PropsWithChildren } from 'react';
 import { BaseErrorBoundary } from './ErrorBoundary';
 import { QueryErrorBoundary } from './QueryErrorBoundary';
 
-export const SuspensedQueryBoundary = (
+export const SuspenseQueryBoundary = (
   props: PropsWithChildren<
     ComponentProps<typeof BaseErrorBoundary> & {
       suspenseFallback: React.ReactNode;

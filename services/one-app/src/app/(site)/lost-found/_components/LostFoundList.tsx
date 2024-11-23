@@ -2,15 +2,10 @@
 
 import React from 'react';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 
 import { useGetLostFoundList } from '../_lib/get';
 import { flattenInfinityList } from '@/common/utils/react-query';
-
-const IntersectionArea = dynamic(
-  () => import('@/common/components/IntersectionArea'),
-  { ssr: false },
-);
+import { useIntersectionObserver } from '@/common/hooks/useIntersectionObserver';
 
 const LostFoundList = () => {
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } =
@@ -22,6 +17,10 @@ const LostFoundList = () => {
   const lostArticles = flattenInfinityList(data);
   const intersectCallback = () => !isFetchingNextPage && fetchNextPage();
 
+  const { ref } = useIntersectionObserver({
+    callback: intersectCallback,
+  });
+
   return (
     <>
       {lostArticles.map((item, idx) => (
@@ -30,9 +29,7 @@ const LostFoundList = () => {
           {item.title}
         </Link>
       ))}
-      <IntersectionArea when={hasNextPage} callback={intersectCallback}>
-        <span className="visuallyHidden">더 보기</span>
-      </IntersectionArea>
+      {hasNextPage && <span ref={ref}>더 보기</span>}
     </>
   );
 };

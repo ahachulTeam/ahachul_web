@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import PlusIcon from '@/common/assets/icons/plus';
 import LostFoundList from './_components/LostFoundList';
-import { SuspensedQueryBoundary } from '@/common/components/SuspensedQueryBoundary/SuspensedQueryBoundary';
+import { SuspenseQueryBoundary } from '@/common/components';
 
 export default function LostFoundPage() {
   return (
@@ -10,9 +10,9 @@ export default function LostFoundPage() {
         <Link href={'/lost-found/1'}>
           <PlusIcon />
         </Link>
-        <SuspensedQueryBoundary suspenseFallback={<div>loading</div>}>
+        <SuspenseQueryBoundary suspenseFallback={<div>loading</div>}>
           <LostFoundList />
-        </SuspensedQueryBoundary>
+        </SuspenseQueryBoundary>
       </div>
     </main>
   );
