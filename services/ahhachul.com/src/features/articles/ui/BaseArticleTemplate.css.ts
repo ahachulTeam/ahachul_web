@@ -20,7 +20,7 @@ export const thumbnail = [
 export const articleTitle = [
   cssUtils.sideGutter,
   ({ color: { text }, typography: { fontSize, fontWeight } }: Theme) => ({
-    marginTop: '28px',
+    marginTop: '14px',
     marginBottom: '14px',
 
     fontSize: fontSize[20],

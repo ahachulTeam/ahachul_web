@@ -30,5 +30,7 @@ export const subwayLineHexColors = (line: number) => {
       return '#6789CA';
     case 15:
       return '#0090D2';
+    default:
+      return 'rgba(255, 255, 255, 0.04)';
   }
 };

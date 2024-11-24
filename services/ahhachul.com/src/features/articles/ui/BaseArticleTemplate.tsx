@@ -30,11 +30,14 @@ export const BaseArticleTemplate = React.memo(
 
         <h1 css={styles.articleTitle}>{article.title}</h1>
         <div css={styles.articleBasicInfos}>
-          <h2>{article.writer}</h2>
+          <h2>{article.writer || 'LOST112'}</h2>
           <time>{article.createdAt}</time>
           <span>자유</span>
         </div>
-        <ArticleContentParser content={article.content} />
+        <ArticleContentParser
+          content={article.content}
+          isPlainContent={!article.writer}
+        />
 
         {article.likeCnt && (
           <div css={styles.countLabelInfos}>

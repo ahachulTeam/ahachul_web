@@ -13,6 +13,7 @@ export interface Article
   content: string;
   createdAt: string;
   createdBy: string;
+  imageUrl?: string;
 }
 
 export interface ArticleDetail extends Omit<Article, 'image'> {

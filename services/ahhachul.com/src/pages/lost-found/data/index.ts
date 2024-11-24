@@ -2,8 +2,8 @@ import { SubwayLineFilterOptions } from 'features/subway-lines';
 import { LostFoundType } from '../model';
 
 export const LOST_FOUND_FILTER_DEFAULT_VALUES = {
-  type: LostFoundType.LOST,
-  line: SubwayLineFilterOptions.ALL,
+  lostType: LostFoundType.LOST,
+  subwayLineId: SubwayLineFilterOptions.ALL,
 };
 
 export const TYPE_OPTIONS = {
