@@ -12,4 +12,6 @@ export const pre = css`
   padding: 0;
   word-break: break-word;
   white-space: pre-wrap;
+  color: #ffffff;
+  font-size: 14px;
 `;

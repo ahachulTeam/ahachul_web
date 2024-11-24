@@ -29,20 +29,22 @@ export const LostFoundFilters: React.FC<LostFoundFiltersProps> = ({
       resetFilters={resetFilters}
     >
       <FilterGroup.DropdownFilter
-        filterKey="type"
+        filterKey="lostType"
         filters={filters}
         optionList={TYPE_OPTIONS}
-        buttonLabel={TYPE_OPTIONS[LOST_FOUND_FILTER_DEFAULT_VALUES.type]}
+        buttonLabel={TYPE_OPTIONS[LOST_FOUND_FILTER_DEFAULT_VALUES.lostType]}
         handleChange={setFilter}
       />
       <FilterGroup.DropdownFilter
-        filterKey="line"
+        filterKey="subwayLineId"
         filters={filters}
         optionList={LINE_OPTIONS}
-        buttonLabel={LINE_OPTIONS[LOST_FOUND_FILTER_DEFAULT_VALUES.line]}
+        buttonLabel={
+          LINE_OPTIONS[LOST_FOUND_FILTER_DEFAULT_VALUES.subwayLineId]
+        }
         handleChange={setFilter}
       />
-      <FilterGroup.DrawerFilter buttonLabel="작성자" title="작성자별 필터링" />
+      {/* <FilterGroup.DrawerFilter buttonLabel="작성자" title="작성자별 필터링" /> */}
     </FilterGroup>
   );
 };

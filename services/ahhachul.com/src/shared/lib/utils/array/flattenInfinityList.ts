@@ -5,5 +5,5 @@ import { IResponse, ResponseOfList } from 'entities/with-server';
 export const flattenInfinityList = <TData>(
   data: InfiniteData<AxiosResponse<IResponse<ResponseOfList<TData>>>, unknown>,
 ): TData[] => {
-  return data.pages.map((page) => page?.data?.result?.posts ?? []).flat();
+  return data.pages.map((page) => page?.data?.result?.data ?? []).flat();
 };
