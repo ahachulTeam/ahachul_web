@@ -16,6 +16,7 @@
     "server:mocking": "yarn workspace @ahhachul/one-app server:mocking",
     "build:one-app": "nx build @ahhachul/one-app",
     "build:all": "nx run-many --target=build --all",
+    "build:app": "nx build ahhachul.com",
     "start:one-app": "yarn workspace @ahhachul/one-app start"
   },
   "lint-staged": {
