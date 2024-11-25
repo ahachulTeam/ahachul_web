@@ -18,6 +18,7 @@ export interface Article
 
 export interface ArticleDetail extends Omit<Article, 'image'> {
   images: ResponseOfImage[];
+  externalSourceImageUrl?: string;
 }
 
 export interface WithArticleId {

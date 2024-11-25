@@ -13,7 +13,8 @@ interface BaseArticleTemplateProps {
 
 export const BaseArticleTemplate = React.memo(
   ({ article }: BaseArticleTemplateProps) => {
-    const thumbnail = article?.images?.[0]?.imageUrl;
+    const thumbnail =
+      article?.images?.[0]?.imageUrl || article?.externalSourceImageUrl;
 
     return (
       <>
