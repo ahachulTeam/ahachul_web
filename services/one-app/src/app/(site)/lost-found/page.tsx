@@ -1,17 +1,9 @@
 import Link from 'next/link';
 import PlusIcon from '@/common/assets/icons/plus';
+import LostFoundList from './_components/LostFoundList';
 import { SuspenseQueryBoundary } from '@/common/components';
-import LostFoundDetail from '../_components/LostFoundDetail';
 
-type Props = {
-  params: {
-    lostId: string;
-  };
-};
-
-export default function LostFoundDetailPage({ params }: Props) {
-  const { lostId } = params;
-
+export default function LostFoundPage() {
   return (
     <main className="flex min-h-screen flex-col text-black bg-white ">
       <div className="flex flex-col gap-3">
@@ -19,7 +11,7 @@ export default function LostFoundDetailPage({ params }: Props) {
           <PlusIcon />
         </Link>
         <SuspenseQueryBoundary suspenseFallback={<div>loading</div>}>
-          <LostFoundDetail lostId={lostId} />
+          <LostFoundList />
         </SuspenseQueryBoundary>
       </div>
     </main>

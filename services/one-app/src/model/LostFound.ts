@@ -1,32 +1,30 @@
-export type LostStatus = 'PROGRESS' | 'COMPLETE';
-export type Image = {
-  imageId: number;
-  imageUrl: string;
-};
-export type RecommendPost = {
-  id: number;
-  title: string;
-  writer: string;
-  createdAt: string;
-  imageUrl: string;
-};
+import type { PostImage } from './PostImage';
+import type { WithSubwayLineId } from './Subway';
+import type { Post, RecommendPost } from './Post';
+import type { CursorBasedPaginationParams } from './Utils';
 
-export interface LostFound {
-  id: number;
-  title: string;
-  content: string;
-  writer: string | null;
-  createdBy: string | null;
-  createdAt: string;
-  subwayLineId: number | null;
-  commentCnt: number;
+export type LostType = 'LOST' | 'ACQUIRE';
+export type LostStatus = 'PROGRESS' | 'COMPLETE';
+
+export interface LostFoundPost extends Post {
   status: LostStatus;
+  imageUrl: string;
+  categoryName: string;
+}
+
+export interface LostFoundPostDetail extends LostFoundPost {
+  pageUrl: string;
   storage: string;
   storageNumber: string;
-  pageUrl: string;
-  images: Image[];
-  categoryName: string;
   externalSourceImageUrl: string;
-  recommendPosts: RecommendPost[];
   isFromLost112: boolean;
+  images: PostImage[];
+  recommendPosts: RecommendPost[];
+}
+
+export interface LostFoundListParams
+  extends CursorBasedPaginationParams,
+    Partial<WithSubwayLineId> {
+  lostType: LostType;
+  keyword?: string;
 }
