@@ -53,7 +53,7 @@ function useAuthQuery<
     'queryKey' | 'queryFn'
   > & { suspense?: boolean };
 }) {
-  const auth = useAuthStore(({ state }) => state);
+  const auth = useAuthStore(({ auth }) => auth);
   const { mutate, status: refreshTokenFetchStatus } = useRefreshToken();
 
   if (auth?.accessToken) {
@@ -110,7 +110,7 @@ function useAuthMutation<
     'mutationKey' | 'mutationFn'
   >;
 }) {
-  const auth = useAuthStore(({ state }) => state);
+  const auth = useAuthStore(({ auth }) => auth);
   if (auth?.accessToken) {
     base.defaults.headers.common['authorization'] =
       `Bearer ${auth?.accessToken}`;

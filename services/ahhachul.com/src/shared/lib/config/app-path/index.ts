@@ -45,12 +45,13 @@ const PATH = {
 
   /** 인증 관련 */
   authentication: {
-    signIn: {
-      home: '/signin',
-      terms: '/signup/terms',
+    login: {
+      home: '/login',
+      callback: '/login/callback',
+      terms: '/login/terms',
       setting: {
-        subway: '/signup/setting/subway',
-        nickname: '/signup/setting/nickname',
+        subway: '/login/setting/subway',
+        nickname: '/login/setting/nickname',
       },
     },
   },

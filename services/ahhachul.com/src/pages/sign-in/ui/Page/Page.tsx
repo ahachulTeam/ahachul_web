@@ -1,9 +1,7 @@
-// import { Suspense } from 'react';
 import styled from '@emotion/styled';
 import type { ActivityComponentType } from '@stackflow/react';
 import { motion } from 'framer-motion';
 import { SocialLogin } from 'entities/app-authentications/ui/SocialLogin';
-// import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
 import { LogoTypoIcon } from 'entities/app-authentications/static/icons/logo-typo';
 import { Layout } from 'widgets';
 import { animateVariants } from 'shared/lib/config/animation/framer-motion';
@@ -25,11 +23,7 @@ export const SignIn: ActivityComponentType = () => {
             <LogoTypoIcon />
           </div>
         </CenterLogoGroup>
-        {/* <QueryErrorBoundary>
-          <Suspense fallback={null}> */}
         <SocialLogin />
-        {/* </Suspense>
-        </QueryErrorBoundary> */}
       </Content>
     </Layout>
   );

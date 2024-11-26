@@ -14,8 +14,4 @@ export interface IToken {
   accessToken: string;
   /** 리프레시 토큰 */
   refreshToken: string;
-  /** 액세스 토큰 만료 시간 */
-  accessTokenExpiresIn: number;
-  /** 리프레시 토큰 만료 시간 */
-  refreshTokenExpiresIn: number;
 }

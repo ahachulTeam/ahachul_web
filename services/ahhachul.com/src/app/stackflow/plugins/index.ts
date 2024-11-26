@@ -20,8 +20,9 @@ const stackflowPlugin = [
   historySyncPlugin({
     routes: {
       // sign-in pages
-      SignIn: PATH.authentication.signIn.home,
-      SetupNickname: PATH.authentication.signIn.setting.nickname,
+      SignIn: PATH.authentication.login.home,
+      SignInCallback: PATH.authentication.login.callback,
+      SetupNickname: PATH.authentication.login.setting.nickname,
 
       // main pages
       Home: PATH.home,
