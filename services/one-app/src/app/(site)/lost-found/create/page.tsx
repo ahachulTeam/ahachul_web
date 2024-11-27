@@ -1,5 +1,11 @@
+import LostFoundForm from '../_components/LostFoundForm';
+
 const LostFoundCreatePage = () => {
-  return <h1>유실물 등록 페이지</h1>;
+  return (
+    <main>
+      <LostFoundForm />
+    </main>
+  );
 };
 
 export default LostFoundCreatePage;

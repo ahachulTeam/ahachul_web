@@ -1,39 +1,79 @@
 'use client';
 
+import { useState } from 'react';
 import ArrowLeftIcon from '@/common/assets/icons/arrow-left';
+import CloseCircleIcon from '@/common/assets/icons/close-circle';
 import ImagePlaceHolder from '@/common/assets/icons/image-placeholder';
 import SelectLineDrawer from './SelectLineDrawer';
 
-import type { LostFound } from '@/model/LostFound';
-
 type Props = {
-  lostFoundData: LostFound | null;
+  lostFoundData?: any | null;
 };
 
-const LostFoundForm = ({ lostFoundData }: Props) => {
+const MAX_IMAGE_LENGTH = 5;
+
+const LostFoundForm = ({ lostFoundData = null }: Props) => {
+  const [images, setImages] = useState<string[]>([]);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (images.length >= MAX_IMAGE_LENGTH) return;
+    const fileBlob = e.target.files?.[0];
+    if (!fileBlob) return;
+    const fileUrl = URL.createObjectURL(fileBlob);
+    setImages((prev) => [...prev, fileUrl]);
+    e.target.value = '';
+  };
+
+  const onDeleteImage = (index: number) => {
+    setImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
   return (
     <>
-      <div className="flex justify-between h-[50px] px-[20px] py-[12px]">
+      <div className="flex justify-between px-[20px] py-[12px]">
         <ArrowLeftIcon />
         <button className="px-[13px] py-[6px] bg-[#2ACF6C] text-[#FBFBFB] text-xs rounded-[3px] font-medium">
           등록
         </button>
       </div>
-      <form className="px-5 max-w-[520px]">
+      <form className="px-5 max-w-[520px] overflow-hidden">
         <div className="mb-8">
           <p className="font-medium mb-3">유실물 상세정보</p>
-          <label
-            htmlFor="image-upload"
-            className="flex justify-center items-center size-16 border rounded-[10px] border-[#CED0DD] cursor-pointer"
+          <div
+            className={`flex pt-1.5 overflow-x-auto overflow-scroll [&::-webkit-scrollbar]:hidden`}
           >
-            <ImagePlaceHolder />
-            <input
-              id="image-upload"
-              type="file"
-              className="hidden"
-              multiple
-            ></input>
-          </label>
+            <label
+              htmlFor="image-upload"
+              className="flex justify-center items-center size-16 min-w-16 border rounded-[10px] border-[#CED0DD] cursor-pointer"
+            >
+              <ImagePlaceHolder />
+              <input
+                id="image-upload"
+                type="file"
+                className="hidden"
+                multiple
+                onChange={handleFileChange}
+              />
+            </label>
+            {images.map((curSrc, index) => {
+              return (
+                <div className="relative min-w-16">
+                  <img
+                    className="border size-16 rounded-[10px] border-[#CED0DD] ml-2"
+                    src={curSrc}
+                    key={`${curSrc}-${index}`}
+                  />
+                  <button
+                    type="button"
+                    className="absolute -top-1.5 -right-1.5 z-10"
+                    onClick={() => onDeleteImage(index)}
+                  >
+                    <CloseCircleIcon />
+                  </button>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         <div className="mb-8">
@@ -94,9 +134,9 @@ const LostFoundForm = ({ lostFoundData }: Props) => {
             <p className="mr-1">자세한 설명</p>
             <span className="inline-block w-[5px] h-[5px] bg-red-500 rounded-full" />
           </div>
-          <div className="w-full border rounded-[5px] p-3">
+          <textarea className="w-full border rounded-[5px] p-3">
             에디터 영역 (lexical로 전환 필요)
-          </div>
+          </textarea>
         </div>
       </form>
     </>
