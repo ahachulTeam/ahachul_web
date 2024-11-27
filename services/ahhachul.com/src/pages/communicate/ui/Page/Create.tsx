@@ -35,7 +35,6 @@ const CreateCommunityArticle: ActivityComponentType = () => {
       <form css={styles.wrap} onSubmit={submit}>
         <ImageUploadField<CommunityForm> control={control} name="imageFiles" />
         <CategorySelectField<CommunityForm>
-          errors={errors}
           control={control}
           options={COMMUNITY_CATEGORY_LIST}
           name="categoryType"

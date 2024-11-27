@@ -41,7 +41,6 @@ const ComplaintForm: ActivityComponentType<ComplaintFormProps> = ({
       <form css={styles.wrap} onSubmit={submit}>
         <ImageUploadField<IComplaintForm> control={control} name="imageFiles" />
         <CategorySelectField<IComplaintForm>
-          errors={errors}
           control={control}
           options={information.selectList}
           name="shortContentType"

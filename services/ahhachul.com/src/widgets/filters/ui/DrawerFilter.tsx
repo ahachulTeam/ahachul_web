@@ -5,13 +5,13 @@ import { FilterButton } from './FilterButton';
 import * as styles from './Filter.css';
 
 export interface DrawerFilterProps {
-  buttonLabel: string;
   title: string;
+  buttonLabel: string;
 }
 
 export const DrawerFilter: React.FC<DrawerFilterProps> = ({
-  buttonLabel,
   title,
+  buttonLabel,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 

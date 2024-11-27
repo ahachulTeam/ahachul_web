@@ -24,6 +24,9 @@ const stackflowPlugin = [
       SignInCallback: PATH.authentication.login.callback,
       SetupNickname: PATH.authentication.login.setting.nickname,
 
+      // my pages
+      MyPage: PATH.my.home,
+
       // main pages
       Home: PATH.home,
       LostFound: PATH.lostFound.home,

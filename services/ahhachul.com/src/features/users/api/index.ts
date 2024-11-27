@@ -60,7 +60,7 @@ export const updateUser = async (data: { nickname: string; auth: IToken }) => {
 };
 
 const getUserInfo = () =>
-  base.post<IResponse<APIUserInfoResponse>>(routes.users);
+  base.get<IResponse<APIUserInfoResponse>>(routes.users);
 
 export const useGetUserInfo = (auth: Nullable<IToken>) =>
   useAuthQuery({

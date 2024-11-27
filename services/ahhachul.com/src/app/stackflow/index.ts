@@ -3,6 +3,7 @@ import { createLinkComponent } from '@stackflow/link';
 import { createPreloader } from '@stackflow/plugin-preload';
 import { plugins } from './plugins';
 import {
+  myLayers,
   homeLayers,
   lostLayers,
   communityLayers,
@@ -22,6 +23,9 @@ const { Stack, activities, useFlow, useStepFlow } = stackflow({
   activities: {
     // 로그인 레이어
     ...signInLayers,
+
+    // 마이 페이지 레이어
+    ...myLayers,
 
     // 공용 레이어
     ...sharedLayers,

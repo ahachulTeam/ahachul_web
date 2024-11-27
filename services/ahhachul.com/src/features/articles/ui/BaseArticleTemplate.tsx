@@ -1,11 +1,11 @@
 import React from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import type { ArticleDetail } from 'features/articles/model';
 import { LikeIcon } from 'widgets/articles/static/icons/like';
 import { BookmarkIcon } from 'widgets/articles/static/icons/bookmark';
 import { ArticleContentParser } from './ArticleContentParser';
 import * as styles from './BaseArticleTemplate.css';
+import BaseArticleImages from './BaseArticleImages';
 
 interface BaseArticleTemplateProps {
   article: ArticleDetail;
@@ -13,21 +13,9 @@ interface BaseArticleTemplateProps {
 
 export const BaseArticleTemplate = React.memo(
   ({ article }: BaseArticleTemplateProps) => {
-    const thumbnail =
-      article?.images?.[0]?.imageUrl || article?.externalSourceImageUrl;
-
     return (
       <>
-        {thumbnail && (
-          <div css={styles.thumbnailContainer}>
-            <LazyLoadImage
-              src={thumbnail}
-              alt={article.title}
-              css={styles.thumbnail}
-              effect="opacity"
-            />
-          </div>
-        )}
+        <BaseArticleImages label={article.title} images={article.images} />
 
         <h1 css={styles.articleTitle}>{article.title}</h1>
         <div css={styles.articleBasicInfos}>
@@ -35,6 +23,7 @@ export const BaseArticleTemplate = React.memo(
           <time>{article.createdAt}</time>
           <span>자유</span>
         </div>
+
         <ArticleContentParser
           content={article.content}
           isPlainContent={!article.writer}

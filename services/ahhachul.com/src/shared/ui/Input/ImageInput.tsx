@@ -4,34 +4,33 @@ import { CircleCloseIcon } from 'shared/static/icons/circle-close';
 import * as styles from './ImageInput.css';
 
 interface ImageUploadProps {
-  disabled?: boolean;
   hasPreview?: boolean;
-  image: File | null;
-  onDelete: () => void;
-  onChange: (file: File | null) => void;
+  images: File[];
+  onDelete: (index: number) => void;
+  onChange: (files: File[]) => void;
 }
 
 export const ImageUpload = memo(
   forwardRef<HTMLInputElement, ImageUploadProps>(
-    ({ disabled, hasPreview, image, onDelete, onChange }, ref) => {
+    ({ hasPreview, images, onDelete, onChange }, ref) => {
       const handleFileChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
-          const file = e.target.files ? e.target.files[0] : null;
-          onChange(file);
+          const files = e.target.files ? Array.from(e.target.files) : [];
+          onChange(files);
         },
         [onChange],
       );
 
       const handleDelete = useCallback(
-        (e: React.MouseEvent) => {
+        (index: number) => (e: React.MouseEvent) => {
           e.preventDefault();
-          onDelete();
+          onDelete(index);
         },
         [onDelete],
       );
 
       return (
-        <div css={styles.wrap(!!image)}>
+        <div css={styles.wrap(images.length >= 5)}>
           <label htmlFor="image-upload">
             <CameraIcon />
             <input
@@ -40,21 +39,28 @@ export const ImageUpload = memo(
               accept="image/*"
               id="image-upload"
               ref={ref}
-              disabled={disabled}
               onChange={handleFileChange}
+              multiple
+              disabled={images.length >= 5}
             />
           </label>
 
-          {hasPreview && image && (
-            <div id="image-preview" css={styles.image}>
-              <img
-                src={URL.createObjectURL(image)}
-                alt="preview"
-                onLoad={() => URL.revokeObjectURL(URL.createObjectURL(image))}
-              />
-              <button type="button" onClick={handleDelete}>
-                <CircleCloseIcon />
-              </button>
+          {hasPreview && images.length > 0 && (
+            <div css={{ display: 'flex', alignItems: 'center' }}>
+              {images.map((image, index) => (
+                <div key={index} css={styles.image}>
+                  <img
+                    src={URL.createObjectURL(image)}
+                    alt={`preview ${index + 1}`}
+                    onLoad={() =>
+                      URL.revokeObjectURL(URL.createObjectURL(image))
+                    }
+                  />
+                  <button type="button" onClick={handleDelete(index)}>
+                    <CircleCloseIcon />
+                  </button>
+                </div>
+              ))}
             </div>
           )}
         </div>

@@ -39,6 +39,7 @@ export const subwayLineId =
       color: text[50],
       fontSize: fontSize[12],
       fontWeight: fontWeight[500],
+      lineHeight: 1,
       background: pointColor,
     }) as Interpolation<Theme>;
 
@@ -101,12 +102,12 @@ export const countLabel = [
 
 export const info = [
   cssUtils.flexColumn,
-  ({ color: { blueDarkGray }, typography: { fontSize } }: Theme) => ({
+  ({ color: { text }, typography: { fontSize } }: Theme) => ({
     '& > p': {
       marginTop: '8px',
-      color: blueDarkGray[600],
+      color: text[50],
       fontSize: fontSize[14],
-      lineHeight: '19px',
+      lineHeight: '24px',
       letterSpacing: '-0.3px',
       overflow: 'hidden',
       display: '-webkit-box',

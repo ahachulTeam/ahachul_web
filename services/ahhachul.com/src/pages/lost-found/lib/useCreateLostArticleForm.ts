@@ -17,12 +17,14 @@ export const useCreateLostArticleForm = () => {
     defaultValues: {
       title: '',
       content: '',
-      imageFiles: null,
       lostType: 'LOST',
+      imageFiles: null,
+      subwayLineId: null,
+      categoryName: null,
     },
   });
 
-  const { mutate: createComplaint, isPending } = usePostLostAndFoundArticle();
+  const { mutate: createLostArticle, isPending } = usePostLostAndFoundArticle();
 
   const onError = () => {
     if (!validateContent(getValues('content'), setError)) return;
@@ -30,7 +32,7 @@ export const useCreateLostArticleForm = () => {
 
   const onSubmit = (data: LostForm) => {
     if (!validateContent(data.content, setError)) return;
-    createComplaint(data);
+    createLostArticle(data);
   };
 
   return {

@@ -9,6 +9,7 @@ import { TitleField } from 'widgets/form-fields/ui/TitleField';
 import { ContentEditorField } from 'widgets/form-fields/ui/ContentEditorField';
 import { SubmitButton } from 'widgets/form-fields/ui/SubmitButton';
 import * as styles from './Create.css';
+import SubwaySelectField from 'widgets/form-fields/ui/SubwaySelectField';
 
 const SUBMIT_BUTTON_TEXT = '등록';
 const LOST_AND_FOUND_CATEGORY_LIST = {
@@ -34,20 +35,19 @@ const CreateLostArticle: ActivityComponentType = () => {
       <form css={styles.wrap} onSubmit={submit}>
         <ImageUploadField<LostForm> control={control} name="imageFiles" />
         <CategorySelectField<LostForm>
-          errors={errors}
           control={control}
           options={LOST_AND_FOUND_CATEGORY_LIST}
           name="lostType"
         />
+        <SubwaySelectField control={control} name="subwayLineId" />
         <TitleField<LostForm>
           errors={errors}
           register={register}
           name="title"
         />
         <ContentEditorField<LostForm>
-          isRichEditor
-          control={control}
           errors={errors}
+          control={control}
           name="content"
         />
         <SubmitButton

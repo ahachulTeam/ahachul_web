@@ -9,7 +9,7 @@ const SVG = `
 
 export const ChevronIcon = ({ className }: { className?: string }) => (
   <div
-    css={cssUtils.flex}
+    css={cssUtils.flexCenterCenter}
     className={className}
     dangerouslySetInnerHTML={{ __html: SVG }}
   />
