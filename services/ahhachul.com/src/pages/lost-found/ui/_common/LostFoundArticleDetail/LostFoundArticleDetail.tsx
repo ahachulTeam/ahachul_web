@@ -1,20 +1,24 @@
-import { withSuspense } from '@ahhachul/react-hooks-utility';
+import React, { Suspense } from 'react';
+import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
 import type { WithArticleId } from 'features/articles';
-import { Loading } from 'entities/app-loaders/ui/Loading';
+import { ArticleDetailErrorFallback } from 'features/articles/ui/ArticleDetailErrorFallback';
 import { useGetLostFoundDetail } from 'pages/lost-found/api/get-detail';
-import { BaseErrorBoundary } from 'entities/app-errors/ui/ErrorBoundary';
 import { BaseArticleTemplate } from 'features/articles/ui/BaseArticleTemplate';
+import { ArticleCommentList } from '../ArticleCommentList/ArticleCommentList';
 
 const LostFoundArticleDetail = ({ articleId }: WithArticleId) => {
   const { data } = useGetLostFoundDetail({ articleId });
 
   return (
-    <BaseErrorBoundary>
+    <>
       <BaseArticleTemplate article={data} />
-    </BaseErrorBoundary>
+      <QueryErrorBoundary errorFallback={ArticleDetailErrorFallback}>
+        <Suspense fallback={<></>}>
+          <ArticleCommentList articleId={articleId} />
+        </Suspense>
+      </QueryErrorBoundary>
+    </>
   );
 };
 
-export default withSuspense(LostFoundArticleDetail, {
-  fallback: <Loading opacity={1} />,
-});
+export default LostFoundArticleDetail;
