@@ -53,7 +53,6 @@ const ComplaintForm: ActivityComponentType<ComplaintFormProps> = ({
           placeholder={EDITOR_PLACEHOLDER}
           isRichEditor={false}
           control={control}
-          errors={errors}
           name="content"
         />
         <SubmitButton

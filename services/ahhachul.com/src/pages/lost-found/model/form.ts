@@ -6,7 +6,7 @@ interface LostForm
   extends Pick<Article, 'title' | 'content'>,
     WithSubwayLineId {
   lostType: LostType;
-  imageFiles: File[];
+  imageFiles: File[] | null;
   categoryName: string | null;
 }
 

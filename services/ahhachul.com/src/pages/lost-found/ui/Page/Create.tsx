@@ -18,15 +18,8 @@ const LOST_AND_FOUND_CATEGORY_LIST = {
 };
 
 const CreateLostArticle: ActivityComponentType = () => {
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: { errors },
-    isSubmitting,
-    onSubmit,
-    onError,
-  } = useCreateLostArticleForm();
+  const { control, isSubmitting, register, handleSubmit, onSubmit, onError } =
+    useCreateLostArticleForm();
   const submit = handleSubmit(onSubmit, onError);
 
   const activity = useActivity();
@@ -41,15 +34,11 @@ const CreateLostArticle: ActivityComponentType = () => {
         />
         <SubwaySelectField control={control} name="subwayLineId" />
         <TitleField<LostForm>
-          errors={errors}
+          control={control}
           register={register}
           name="title"
         />
-        <ContentEditorField<LostForm>
-          errors={errors}
-          control={control}
-          name="content"
-        />
+        <ContentEditorField<LostForm> control={control} name="content" />
         <SubmitButton
           isActive={activity.isActive}
           isSubmitting={isSubmitting}
@@ -58,7 +47,7 @@ const CreateLostArticle: ActivityComponentType = () => {
         />
       </form>
     ),
-    [control, errors, handleSubmit, isSubmitting, onError, onSubmit, register],
+    [control, handleSubmit, isSubmitting, onError, onSubmit, register],
   );
 
   const memoizedForm = useMemo(() => renderForm(), [renderForm]);

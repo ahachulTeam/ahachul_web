@@ -40,14 +40,13 @@ const CreateCommunityArticle: ActivityComponentType = () => {
           name="categoryType"
         />
         <TitleField<CommunityForm>
-          errors={errors}
+          control={control}
           register={register}
           name="title"
         />
         <ContentEditorField<CommunityForm>
           isRichEditor
           control={control}
-          errors={errors}
           name="content"
         />
         <SubmitButton
