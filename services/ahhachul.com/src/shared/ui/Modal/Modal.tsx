@@ -32,7 +32,6 @@ function Modal({ isOpen, children, onClose }: PropsWithChildren<ModalProps>) {
         <motion.div
           key="modal"
           ref={modalRef}
-          css={styles.modalContentCss}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.03 }}

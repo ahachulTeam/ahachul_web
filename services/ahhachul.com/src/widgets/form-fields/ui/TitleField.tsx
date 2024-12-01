@@ -1,19 +1,20 @@
 import React from 'react';
-import { UseFormRegister, FieldErrors, Path } from 'react-hook-form';
+import { UseFormRegister, Path, useFormState, Control } from 'react-hook-form';
 import { FieldErrorMessage } from 'widgets/form-fields/ui/FieldErrorMessage';
 import * as styles from './FormField.css';
 
 interface TitleFieldProps<T extends Record<string, any>> {
   register: UseFormRegister<T>;
-  errors: FieldErrors<T>;
+  control: Control<T>;
   name: Path<T>;
 }
 
 export const TitleField = <T extends Record<string, any>>({
   register,
-  errors,
+  control,
   name,
 }: TitleFieldProps<T>) => {
+  const { errors } = useFormState({ control });
   const errorMessage = errors[name]?.message;
   const errorMsg = typeof errorMessage === 'string' ? errorMessage : undefined;
 

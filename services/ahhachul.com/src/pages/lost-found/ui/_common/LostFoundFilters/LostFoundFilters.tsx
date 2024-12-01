@@ -44,7 +44,6 @@ export const LostFoundFilters: React.FC<LostFoundFiltersProps> = ({
         }
         handleChange={setFilter}
       />
-      {/* <FilterGroup.DrawerFilter buttonLabel="작성자" title="작성자별 필터링" /> */}
     </FilterGroup>
   );
 };

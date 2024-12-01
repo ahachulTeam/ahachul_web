@@ -3,34 +3,26 @@ import {
   Control,
   Controller,
   Path,
-  RegisterOptions,
   FieldValues,
   useFormState,
 } from 'react-hook-form';
-import { SelectList } from 'shared/ui/Select/SelectList';
 import { FieldErrorMessage } from 'widgets/form-fields/ui/FieldErrorMessage';
 import * as styles from './FormField.css';
+import SubwayFilter from 'widgets/filters/ui/SubwayFilter';
 
-interface CategorySelectFieldProps<T extends FieldValues> {
+interface Props<T extends FieldValues> {
   control: Control<T>;
-  options: Record<string, string>;
   name: Path<T>;
   label?: string;
-  rules?: Omit<
-    RegisterOptions<T>,
-    'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
-  >;
 }
 
-export const CategorySelectField = <T extends FieldValues>({
-  options,
+const SubwaySelectField = <T extends FieldValues>({
   control,
   name,
-  label = '카테고리',
-  rules,
-}: CategorySelectFieldProps<T>) => {
+  label = '호선 선택',
+}: Props<T>) => {
   const { errors } = useFormState({ control });
-  const errorMessage = errors[name]?.message;
+  const errorMessage = errors[name]?.message as string | undefined;
   const errorMsg = typeof errorMessage === 'string' ? errorMessage : undefined;
 
   return (
@@ -39,15 +31,19 @@ export const CategorySelectField = <T extends FieldValues>({
         {label}
         <span css={styles.requireMark}>*</span>
       </p>
-      <Controller<T>
+      <Controller
         name={name}
         control={control}
-        rules={rules}
+        rules={{
+          required: '지하철 호선을 선택해주세요',
+        }}
         render={({ field }) => (
-          <SelectList
-            options={options}
-            current={field.value as string}
-            hasError={!!errorMsg}
+          <SubwayFilter
+            name={name}
+            title="호선 변경"
+            buttonLabel={label}
+            errorMsg={errorMessage}
+            current={field.value}
             onChange={field.onChange}
           />
         )}
@@ -56,3 +52,5 @@ export const CategorySelectField = <T extends FieldValues>({
     </div>
   );
 };
+
+export default SubwaySelectField;

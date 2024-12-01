@@ -6,6 +6,8 @@ import { subwayLineToKrMap } from 'widgets/train-infos/lib/subway-line-to-kr';
 import { subwayLineHexColors } from 'widgets/train-infos/lib/subway-line-hex-colors';
 import { CommentCountIcon } from '../static/icons/comment-count';
 import * as styles from './ArticleCard.css';
+import { ArticleContentParser } from 'features/articles/ui/ArticleContentParser';
+import { css } from '@emotion/react';
 
 interface ArticleCardProps<TData extends Article> {
   to: Extract<
@@ -19,6 +21,7 @@ export const ArticleCard = <TData extends Article>({
   to,
   data,
 }: ArticleCardProps<TData>) => {
+  const isPlainText = !data.writer;
   return (
     <Link activityName={to} activityParams={{ articleId: data.id }}>
       <Flex as="article" direction="column" gap="12px" css={styles.card}>
@@ -31,7 +34,14 @@ export const ArticleCard = <TData extends Article>({
         <Flex justify="space-between">
           <div css={styles.info}>
             <span css={styles.body}>{data.title}</span>
-            <p>{data.content}</p>
+            {isPlainText ? (
+              <p>{data.content}</p>
+            ) : (
+              <ArticleContentParser
+                content={data.content}
+                overrideCss={articleCardContentParser}
+              />
+            )}
           </div>
           {/* 이미지가 존재하면 showing */}
           {data?.imageUrl && (
@@ -63,3 +73,21 @@ export const ArticleCard = <TData extends Article>({
     </Link>
   );
 };
+
+const articleCardContentParser = css`
+  padding: 0;
+  margin-top: 12px;
+
+  & > div {
+    border: none;
+  }
+
+  .editor-input {
+    min-height: unset !important;
+    max-height: 46px !important;
+
+    p {
+      margin-bottom: 4px !important;
+    }
+  }
+`;

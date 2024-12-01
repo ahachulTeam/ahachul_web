@@ -1,5 +1,5 @@
 import React from 'react';
-import { Control, Controller, FieldErrors, Path } from 'react-hook-form';
+import { Control, Controller, Path, useFormState } from 'react-hook-form';
 import Editor from 'shared/ui/Editor';
 import { FieldErrorMessage } from 'widgets/form-fields/ui/FieldErrorMessage';
 import { EditorState } from 'lexical';
@@ -7,7 +7,6 @@ import * as styles from './FormField.css';
 
 interface ContentEditorFieldProps<T> {
   control: Control<T>;
-  errors: FieldErrors<T>;
   name: Path<T>;
   placeholder?: string;
   isRichEditor?: boolean;
@@ -15,11 +14,11 @@ interface ContentEditorFieldProps<T> {
 
 export const ContentEditorField = <T,>({
   control,
-  errors,
   name,
   placeholder,
   isRichEditor,
 }: ContentEditorFieldProps<T>) => {
+  const { errors } = useFormState({ control });
   const errorMessage = errors[name]?.message;
   const errorMsg = typeof errorMessage === 'string' ? errorMessage : undefined;
 
