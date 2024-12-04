@@ -21,7 +21,7 @@ const LostFoundDetail: ActivityComponentType<WithArticleId> = ({
           <LostFoundArticleDetail articleId={articleId} />
         </Suspense>
       </QueryErrorBoundary>
-      <LostFoundCommentTextField />
+      <LostFoundCommentTextField articleId={articleId} />
     </Layout>
   );
 };
