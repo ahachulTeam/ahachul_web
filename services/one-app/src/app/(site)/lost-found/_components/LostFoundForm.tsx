@@ -14,6 +14,7 @@ const MAX_IMAGE_LENGTH = 5;
 
 const LostFoundForm = ({ lostFoundData = null }: Props) => {
   const [images, setImages] = useState<string[]>([]);
+  const [subwayLineId, setSubwayLineId] = useState(1);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (images.length >= MAX_IMAGE_LENGTH) return;
@@ -87,6 +88,7 @@ const LostFoundForm = ({ lostFoundData = null }: Props) => {
               name="category"
               id="lost"
               value="lost"
+              defaultChecked
               className="peer/lost hidden"
             />
             <label
@@ -116,7 +118,10 @@ const LostFoundForm = ({ lostFoundData = null }: Props) => {
             <p className="mr-1">호선 선택</p>
             <span className="inline-block w-[5px] h-[5px] bg-red-500 rounded-full" />
           </div>
-          <SelectLineDrawer />
+          <SelectLineDrawer
+            subwayLineId={subwayLineId}
+            setSubwayLineId={setSubwayLineId}
+          />
         </div>
         <div className="mb-8">
           <div className="flex items-center font-medium mb-3">
@@ -134,9 +139,10 @@ const LostFoundForm = ({ lostFoundData = null }: Props) => {
             <p className="mr-1">자세한 설명</p>
             <span className="inline-block w-[5px] h-[5px] bg-red-500 rounded-full" />
           </div>
-          <textarea className="w-full border rounded-[5px] p-3">
-            에디터 영역 (lexical로 전환 필요)
-          </textarea>
+          <textarea
+            placeholder="게시글 내용을 작성해주세요."
+            className="w-full border rounded-[5px] p-3"
+          ></textarea>
         </div>
       </form>
     </>
