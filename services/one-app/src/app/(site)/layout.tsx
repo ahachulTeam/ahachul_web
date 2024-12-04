@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
+
 import '../globals.css';
 import { RQProvider } from '../_components/RQProvider';
 import { MSWComponent } from '../_components/MSWComponent';
@@ -19,7 +21,9 @@ export default function RootLayout({
     <html lang="ko">
       <body className={cn('font-sans antialiased', Pretendard.variable)}>
         <MSWComponent />
-        <RQProvider>{children}</RQProvider>
+        <RQProvider>
+          <NuqsAdapter>{children}</NuqsAdapter>
+        </RQProvider>
       </body>
     </html>
   );

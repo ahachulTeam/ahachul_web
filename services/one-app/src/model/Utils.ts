@@ -1,3 +1,9 @@
+export type KeyOf<T> = keyof T;
+export type ValueOf<T> = T[keyof T];
+export type StringRecord = Record<string, string>;
+export type ObjectKeys<T extends Record<PropertyKey, unknown>> =
+  `${Exclude<keyof T, symbol>}`;
+
 export interface IResponse<TResult> {
   code: string;
   message: string;

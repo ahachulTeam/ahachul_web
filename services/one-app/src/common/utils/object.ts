@@ -1,4 +1,5 @@
 import queryString from 'query-string';
+import type { ObjectKeys } from '@/model/Utils';
 
 export const isValidObject = (obj: unknown): obj is Record<string, any> => {
   return typeof obj === 'object' && obj !== null && !Array.isArray(obj);
@@ -35,3 +36,11 @@ export const objectToQueryString = <T extends Record<string, any>>(
 
   return queryString.stringify(removeFalsyValues(params, options));
 };
+
+export function objectEntries<Type extends Record<PropertyKey, unknown>>(
+  obj: Type,
+): Array<[ObjectKeys<Type>, Type[ObjectKeys<Type>]]> {
+  return Object.entries(obj) as Array<
+    [ObjectKeys<Type>, Type[ObjectKeys<Type>]]
+  >;
+}
