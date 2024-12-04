@@ -15,11 +15,8 @@
   },
   "dependencies": {
     "@faker-js/faker": "^9.0.3",
-<<<<<<< HEAD
     "@radix-ui/react-dropdown-menu": "^2.1.2",
-=======
     "@svgr/webpack": "^8.1.0",
->>>>>>> develop
     "@tanstack/react-query": "^5.59.16",
     "axios": "^1.7.7",
     "clsx": "^2.1.1",

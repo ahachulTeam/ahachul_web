@@ -27,7 +27,7 @@ const SearchFilter = () => {
   return (
     <input
       value={inputValue || ''}
-      placeholder="Enter your name"
+      placeholder="Enter Keyword"
       className="w-full h-4 text-sm bg-slate-500"
       onChange={handleChange}
     />
