@@ -16,12 +16,6 @@ const SUBWAY_LINES = [
   { name: '수인분당선', id: 16 },
   { name: '신분당선', id: 18 },
   { name: '우이신설선', id: 20 },
-  { name: '인천 1호선', id: 21 },
-  { name: '인천 2호선', id: 22 },
-  { name: '에버라인선', id: 23 },
-  { name: '의정부선', id: 24 },
-  { name: '김포골드선', id: 25 },
-  { name: '신림선', id: 26 },
 ];
 
 export default SUBWAY_LINES;
