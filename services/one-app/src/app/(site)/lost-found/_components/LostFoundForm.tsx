@@ -5,6 +5,7 @@ import ArrowLeftIcon from '@/common/assets/icons/arrow-left';
 import CloseCircleIcon from '@/common/assets/icons/close-circle';
 import ImagePlaceHolder from '@/common/assets/icons/image-placeholder';
 import SelectLineDrawer from './SelectLineDrawer';
+import Editor from '@/app/(site)/_component/Editor';
 
 type Props = {
   lostFoundData?: any | null;
@@ -15,6 +16,9 @@ const MAX_IMAGE_LENGTH = 5;
 const LostFoundForm = ({ lostFoundData = null }: Props) => {
   const [images, setImages] = useState<string[]>([]);
   const [subwayLineId, setSubwayLineId] = useState(1);
+  const [title, setTitle] = useState('');
+
+  const isActiveSubmitButton = !!title && !!subwayLineId;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (images.length >= MAX_IMAGE_LENGTH) return;
@@ -29,15 +33,23 @@ const LostFoundForm = ({ lostFoundData = null }: Props) => {
     setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
-    <>
+    <form onSubmit={onSubmit} className="overflow-hidden">
       <div className="flex justify-between px-[20px] py-[12px]">
         <ArrowLeftIcon />
-        <button className="px-[13px] py-[6px] bg-[#2ACF6C] text-[#FBFBFB] text-xs rounded-[3px] font-medium">
+        <button
+          type="submit"
+          disabled={isActiveSubmitButton}
+          className={`px-[13px] py-[6px] ${isActiveSubmitButton ? 'bg-[#2ACF6C] text-[#FBFBFB] cursor-pointer' : 'bg-[#EAECF1] text-[#95979F] cursor-not-allowed'}  text-xs rounded-[3px] font-medium`}
+        >
           등록
         </button>
       </div>
-      <form className="px-5 max-w-[520px] overflow-hidden">
+      <div className="h-full box-border pb-[26px] px-5 max-w-[520px]">
         <div className="mb-8">
           <p className="font-medium mb-3">유실물 상세정보</p>
           <div
@@ -131,21 +143,23 @@ const LostFoundForm = ({ lostFoundData = null }: Props) => {
           <input
             type="text"
             placeholder="제목을 입력해주세요"
+            onChange={(e) => setTitle(e.target.value)}
             className="w-full border py-3 pl-3 pr-4 outline-none rounded-[5px]"
           />
         </div>
-        <div>
+        <div className="relative w-full h-[200px] mb-[32px]">
           <div className="flex items-center font-medium mb-3">
             <p className="mr-1">자세한 설명</p>
             <span className="inline-block w-[5px] h-[5px] bg-red-500 rounded-full" />
           </div>
-          <textarea
-            placeholder="게시글 내용을 작성해주세요."
-            className="w-full border rounded-[5px] p-3"
-          ></textarea>
+          <Editor
+            placeholder={
+              '게시글 내용을 작성해 주세요.\n\n서비스 정책에 맞지 않을 경우\n자동으로 게시판 이동 혹은 삭제 처리 될 수 있습니다.'
+            }
+          />
         </div>
-      </form>
-    </>
+      </div>
+    </form>
   );
 };
 
