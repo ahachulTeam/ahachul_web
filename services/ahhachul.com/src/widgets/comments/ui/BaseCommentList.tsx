@@ -10,7 +10,7 @@ interface BaseCommentListProps extends HTMLAttributes<HTMLUListElement> {
 
 export const BaseCommentList = React.memo(
   ({ commentsMap, ...props }: BaseCommentListProps) => {
-    if (commentsMap.length === 0) return <EmptyCommentList />;
+    if (commentsMap.length === 0) return <EmptyCommentList {...props} />;
 
     return (
       <ul css={styles.comments} {...props}>

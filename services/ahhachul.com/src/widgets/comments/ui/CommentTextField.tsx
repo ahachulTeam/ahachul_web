@@ -127,7 +127,13 @@ function OnChangePlugin({
   return null;
 }
 
-const SubmitField = ({ onSubmit }: { onSubmit: () => void }) => {
+const SubmitField = ({
+  disabled,
+  onSubmit,
+}: {
+  disabled: boolean;
+  onSubmit: () => void;
+}) => {
   return (
     <SubmitBox className="toolbar-wrapper">
       <div>
@@ -136,7 +142,8 @@ const SubmitField = ({ onSubmit }: { onSubmit: () => void }) => {
       </div>
       <button
         type="button"
-        style={{ padding: '0 !important' }}
+        disabled={disabled}
+        css={{ padding: '0 !important' }}
         onClick={onSubmit}
       >
         등록
@@ -146,13 +153,14 @@ const SubmitField = ({ onSubmit }: { onSubmit: () => void }) => {
 };
 
 interface CommentTextFieldProps {
+  disabled: boolean;
   placeholder: string;
   onChange: (content: EditorState) => void;
   onSubmit: () => void;
 }
 
 const CommentTextField = React.memo(
-  ({ placeholder, onChange, onSubmit }: CommentTextFieldProps) => {
+  ({ disabled, placeholder, onChange, onSubmit }: CommentTextFieldProps) => {
     return (
       <CommentTextFieldWrap>
         <LexicalComposer initialConfig={editorConfig}>
@@ -174,7 +182,7 @@ const CommentTextField = React.memo(
               <LinkPlugin />
               <AutoLinkPlugin matchers={MATCHERS} />
               <OnChangePlugin onChange={onChange} />
-              <SubmitField onSubmit={onSubmit} />
+              <SubmitField disabled={disabled} onSubmit={onSubmit} />
             </div>
           </div>
         </LexicalComposer>
@@ -261,6 +269,11 @@ const SubmitBox = styled.div`
     cursor: pointer;
     border-radius: 6px;
     background-color: rgba(0, 255, 163, 0.5);
+
+    &:disabled {
+      opacity: 0.5;
+      background-color: rgb(101, 103, 107);
+    }
   }
 `;
 
