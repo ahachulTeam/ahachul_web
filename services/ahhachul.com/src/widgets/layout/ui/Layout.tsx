@@ -10,8 +10,6 @@ import themes from 'shared/themes.css';
 import { Loading } from 'entities/app-loaders';
 import { useLoadingStore } from 'entities/app-loaders/slice';
 import * as styles from './Layout.css';
-import { useLoadingStore } from 'entities/app-loaders/slice';
-import { Loading } from 'entities/app-loaders';
 
 interface LayoutProps extends ComponentProps<typeof AppScreen> {
   showNavbar?: boolean;
