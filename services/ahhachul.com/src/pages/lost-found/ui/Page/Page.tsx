@@ -6,11 +6,8 @@ import { renderLeftLogo, renderRight } from 'widgets/layout-header';
 import { ArticleListErrorFallback } from 'widgets/articles/ui/ArticleListErrorFallback';
 import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
 import { LostFoundFilters } from '../_common/LostFoundFilters/LostFoundFilters';
+import LostFoundArticleList from '../_common/LostFoundArticleList/LostFoundArticleList';
 import * as styles from './Page.css';
-
-const LostFoundArticleList = React.lazy(
-  () => import('../_common/LostFoundArticleList/LostFoundArticleList'),
-);
 
 interface LostFoundProps {
   keyword?: string;

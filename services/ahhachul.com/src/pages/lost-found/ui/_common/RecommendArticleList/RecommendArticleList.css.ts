@@ -1,9 +1,18 @@
 import type { Interpolation, Theme } from '@emotion/react';
 import cssUtils from 'shared/utils.css';
 
-export const commentSection = [
+export const section = [
   cssUtils.fullWidth,
   cssUtils.flexColumn,
+  {
+    '& > ul': {
+      padding: '0 20px',
+
+      '& > li:not(:last-of-type)': {
+        borderBottom: '1px solid hsla(0, 0%, 100%, .06)',
+      },
+    },
+  },
 ] as Interpolation<Theme>;
 
 export const decs = [
@@ -19,3 +28,7 @@ export const decs = [
     borderBottom: '1px solid hsla(0, 0%, 100%, .15)',
   }),
 ] as Interpolation<Theme>;
+
+export const commentListLayout = {
+  paddingBottom: '24px',
+} as Interpolation<Theme>;

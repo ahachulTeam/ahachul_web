@@ -7,9 +7,9 @@ import React, {
 import { AppScreen } from '@stackflow/plugin-basic-ui';
 import { Navbar } from 'widgets/navigation';
 import themes from 'shared/themes.css';
-import * as styles from './Layout.css';
-import { useLoadingStore } from 'entities/app-loaders/slice';
 import { Loading } from 'entities/app-loaders';
+import { useLoadingStore } from 'entities/app-loaders/slice';
+import * as styles from './Layout.css';
 
 interface LayoutProps extends ComponentProps<typeof AppScreen> {
   showNavbar?: boolean;

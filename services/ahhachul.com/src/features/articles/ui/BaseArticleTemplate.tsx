@@ -3,6 +3,7 @@ import React from 'react';
 import type { ArticleDetail } from 'features/articles/model';
 import { LikeIcon } from 'widgets/articles/static/icons/like';
 import { BookmarkIcon } from 'widgets/articles/static/icons/bookmark';
+import { checkContentType } from 'features/articles/lib/check-content-type';
 import { ArticleContentParser } from './ArticleContentParser';
 import * as styles from './BaseArticleTemplate.css';
 import BaseArticleImages from './BaseArticleImages';
@@ -13,6 +14,9 @@ interface BaseArticleTemplateProps {
 
 export const BaseArticleTemplate = React.memo(
   ({ article }: BaseArticleTemplateProps) => {
+    const contentType = checkContentType(article.content);
+    const isPlainContent = contentType !== 'json';
+
     return (
       <>
         <BaseArticleImages label={article.title} images={article.images} />
@@ -26,7 +30,7 @@ export const BaseArticleTemplate = React.memo(
 
         <ArticleContentParser
           content={article.content}
-          isPlainContent={!article.writer}
+          isPlainContent={isPlainContent}
         />
 
         {article.likeCnt && (
