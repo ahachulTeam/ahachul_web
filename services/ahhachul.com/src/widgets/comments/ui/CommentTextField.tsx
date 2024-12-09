@@ -209,10 +209,10 @@ const CommentTextFieldWrap = styled.div`
   background-color: #141517;
 
   & > div.editor-container {
+    border: none;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    border-color: rgba(223, 232, 250, 0.45);
-    border-bottom: none;
+    border-top: 1px solid rgba(223, 232, 250, 0.45);
 
     .editor-inner {
       .editor-input {
