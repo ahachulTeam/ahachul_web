@@ -5,8 +5,8 @@ import { LikeIcon } from 'widgets/articles/static/icons/like';
 import { BookmarkIcon } from 'widgets/articles/static/icons/bookmark';
 import { checkContentType } from 'features/articles/lib/check-content-type';
 import { ArticleContentParser } from './ArticleContentParser';
-import * as styles from './BaseArticleTemplate.css';
 import BaseArticleImages from './BaseArticleImages';
+import * as styles from './BaseArticleTemplate.css';
 
 interface BaseArticleTemplateProps {
   article: ArticleDetail;
