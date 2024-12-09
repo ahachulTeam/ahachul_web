@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { EditorState } from 'lexical';
+import styled from '@emotion/styled';
+import { $getRoot, EditorState } from 'lexical';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
@@ -12,7 +13,7 @@ import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 import * as styles from '../../../shared/ui/Editor/Editor.css';
-import styled from '@emotion/styled';
+import { isIOS } from 'shared/lib/config/app-env';
 
 const URL_REGEX =
   /((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
@@ -134,18 +135,25 @@ const SubmitField = ({
   disabled: boolean;
   onSubmit: () => void;
 }) => {
+  const [editor] = useLexicalComposerContext();
+
+  const handleSubmit = () => {
+    onSubmit?.();
+    setTimeout(() => {
+      editor.update(() => {
+        const root = $getRoot();
+        root.clear();
+      });
+    });
+  };
+
   return (
     <SubmitBox className="toolbar-wrapper">
       <div>
         <div id="box" />
         <button type="button">비공개 댓글</button>
       </div>
-      <button
-        type="button"
-        disabled={disabled}
-        css={{ padding: '0 !important' }}
-        onClick={onSubmit}
-      >
+      <button type="button" disabled={disabled} onClick={handleSubmit}>
         등록
       </button>
     </SubmitBox>
@@ -186,6 +194,7 @@ const CommentTextField = React.memo(
             </div>
           </div>
         </LexicalComposer>
+        {isIOS() && <div id="ios-padding" />}
       </CommentTextFieldWrap>
     );
   },
@@ -203,6 +212,7 @@ const CommentTextFieldWrap = styled.div`
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     border-color: rgba(223, 232, 250, 0.45);
+    border-bottom: none;
 
     .editor-inner {
       .editor-input {
@@ -216,6 +226,11 @@ const CommentTextFieldWrap = styled.div`
         }
       }
     }
+  }
+
+  & > #ios-padding {
+    width: 100%;
+    height: 32px;
   }
 `;
 

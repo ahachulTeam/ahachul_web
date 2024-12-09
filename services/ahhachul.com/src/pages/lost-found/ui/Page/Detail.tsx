@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { useRef, Suspense } from 'react';
 import type { ActivityComponentType } from '@stackflow/react';
 import { Layout } from 'widgets';
 import type { WithArticleId } from 'features/articles';
@@ -14,6 +14,14 @@ const LostFoundArticleDetail = React.lazy(
 const LostFoundDetail: ActivityComponentType<WithArticleId> = ({
   params: { articleId },
 }) => {
+  const bottomRef = useRef<HTMLDivElement | null>(null);
+  const handleHitBottom = () => {
+    bottomRef.current.scrollIntoView({
+      block: 'end',
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <Layout>
       <QueryErrorBoundary errorFallback={ArticleDetailErrorFallback}>
@@ -21,7 +29,11 @@ const LostFoundDetail: ActivityComponentType<WithArticleId> = ({
           <LostFoundArticleDetail articleId={articleId} />
         </Suspense>
       </QueryErrorBoundary>
-      <LostFoundCommentTextField articleId={articleId} />
+      <LostFoundCommentTextField
+        articleId={articleId}
+        handleHitBottom={handleHitBottom}
+      />
+      <div ref={bottomRef} css={{ height: '1px' }} />
     </Layout>
   );
 };

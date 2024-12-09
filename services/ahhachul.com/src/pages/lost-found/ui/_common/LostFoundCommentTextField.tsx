@@ -7,9 +7,10 @@ import { isContentFieldHasError } from 'features/articles/lib/has-content-error'
 
 interface Props {
   articleId: number;
+  handleHitBottom: () => void;
 }
 
-const LostFoundCommentTextField = ({ articleId }: Props) => {
+const LostFoundCommentTextField = ({ articleId, handleHitBottom }: Props) => {
   const { auth } = useAuthStore();
   const content = useRef<string>('');
 
@@ -22,12 +23,21 @@ const LostFoundCommentTextField = ({ articleId }: Props) => {
       alert('댓글을 입력해주세요.');
     }
 
-    mutate({
-      postId: articleId,
-      content: content.current,
-      upperCommentId: null,
-      isPrivate: null,
-    });
+    mutate(
+      {
+        postId: articleId,
+        content: content.current,
+        upperCommentId: null,
+        isPrivate: null,
+      },
+      {
+        onSuccess: () => {
+          setTimeout(() => {
+            handleHitBottom();
+          }, 100);
+        },
+      },
+    );
   };
 
   return (
