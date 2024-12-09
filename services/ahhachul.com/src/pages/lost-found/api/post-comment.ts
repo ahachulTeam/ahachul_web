@@ -4,6 +4,7 @@ import { IResponse } from 'entities/with-server';
 import { Comment } from 'features/comments/model';
 import { queryClient } from 'app/lib/react-query';
 import { LOST_FOUND_QUERY_KEY } from './query-key';
+
 export const postComment = async (data: {
   postId: number;
   content: string;
@@ -48,6 +49,37 @@ export const usePostComment = (articleId: number) => {
     options: {
       onError: afterSubmitFailed,
       onMutate: setEnableGlobalLoading,
+      onSuccess: afterSubmitSuccess,
+    },
+  });
+};
+
+export const deleteComment = async (commentId: number) => {
+  const response = await base.delete<
+    IResponse<Pick<Comment, 'id' | 'upperCommentId' | 'content'>>
+  >(`comments/${commentId}`);
+  return response.data;
+};
+
+export const useDeleteComment = (articleId: number) => {
+  const afterSubmitSuccess = (res: IResponse<Pick<Comment, 'id'>>) => {
+    console.log('res:', res);
+    queryClient.invalidateQueries({
+      queryKey: getQueryKeys(LOST_FOUND_QUERY_KEY).comments(articleId),
+    });
+
+    // setTimeout(() => {}, 500);
+  };
+  const afterSubmitFailed = (error: Error) => {
+    // 토스트 띄어주고 뒤로 가기
+    console.log('error with toast:', error, '토스트 띄어주고 뒤로 가기');
+    alert('글 작성하다가 에러 발생');
+  };
+
+  return useAuthMutation({
+    mutationFn: deleteComment,
+    options: {
+      onError: afterSubmitFailed,
       onSuccess: afterSubmitSuccess,
     },
   });
