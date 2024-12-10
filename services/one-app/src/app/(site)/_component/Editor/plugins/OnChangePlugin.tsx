@@ -1,7 +1,25 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { $getRoot, EditorState, ElementNode } from 'lexical';
 import { useEffect } from 'react';
 
-function OnChangePlugin({ initialState, onChange }: any) {
+const isEditorEmpty = () => {
+  const root = $getRoot();
+  const firstChild = root.getFirstChild();
+
+  // 타입 가드로 `ElementNode` 확인
+  if (firstChild instanceof ElementNode) {
+    return firstChild.isEmpty() && root.getChildrenSize() === 1;
+  }
+  // 비어있지 않다고 간주
+  return false;
+};
+
+type Params = {
+  initialState: string;
+  onChange: (editorState: EditorState | null) => void;
+};
+
+function OnChangePlugin({ initialState, onChange }: Params) {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
@@ -15,7 +33,9 @@ function OnChangePlugin({ initialState, onChange }: any) {
 
   useEffect(() => {
     return editor.registerUpdateListener(({ editorState }) => {
-      onChange?.(editorState);
+      editorState.read(() => {
+        onChange?.(isEditorEmpty() ? null : editorState);
+      });
     });
   }, [editor, onChange]);
 
