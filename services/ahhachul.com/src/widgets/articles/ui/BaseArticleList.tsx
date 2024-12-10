@@ -53,7 +53,7 @@ export const BaseArticleList = <TData extends Article>({
           <Flex as="ul" direction="column" css={styles.ul}>
             {data.map((article, idx) => (
               <li key={`${article.id}-${idx}`}>
-                <ArticleCard<TData> data={article} to={to} />
+                <ArticleCard<TData> article={article} to={to} />
               </li>
             ))}
           </Flex>
