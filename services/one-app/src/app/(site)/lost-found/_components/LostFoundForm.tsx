@@ -1,11 +1,14 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import ArrowLeftIcon from '@/common/assets/icons/arrow-left';
 import CloseCircleIcon from '@/common/assets/icons/close-circle';
 import ImagePlaceHolder from '@/common/assets/icons/image-placeholder';
 import SelectLineDrawer from './SelectLineDrawer';
 import Editor from '@/app/(site)/_component/Editor';
+import { type EditorState } from 'lexical';
+import { apiClient } from '@/app/api';
 
 type Props = {
   lostFoundData?: any | null;
@@ -14,18 +17,21 @@ type Props = {
 const MAX_IMAGE_LENGTH = 5;
 
 const LostFoundForm = ({ lostFoundData = null }: Props) => {
-  const [images, setImages] = useState<string[]>([]);
+  const router = useRouter();
+  const [images, setImages] = useState<{ data: File; url: string }[]>([]);
   const [subwayLineId, setSubwayLineId] = useState(1);
   const [title, setTitle] = useState('');
+  const [lostType, setLostType] = useState('LOST');
+  const [editorContent, setEditorContent] = useState<string | null>(null);
 
-  const isActiveSubmitButton = !!title && !!subwayLineId;
+  const isActiveSubmitButton = !!title && !!subwayLineId && !!editorContent;
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (images.length >= MAX_IMAGE_LENGTH) return;
     const fileBlob = e.target.files?.[0];
     if (!fileBlob) return;
     const fileUrl = URL.createObjectURL(fileBlob);
-    setImages((prev) => [...prev, fileUrl]);
+    setImages((prev) => [...prev, { data: fileBlob, url: fileUrl }]);
     e.target.value = '';
   };
 
@@ -33,8 +39,51 @@ const LostFoundForm = ({ lostFoundData = null }: Props) => {
     setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const contentFormData = {
+      title,
+      content: editorContent,
+      subwayLineId,
+      lostType,
+    };
+
+    const formData = new FormData();
+    const contentBlob = new Blob([JSON.stringify(contentFormData)], {
+      type: 'application/json',
+    });
+    formData.append('content', contentBlob);
+
+    images.forEach(({ data }) => {
+      if (data instanceof File) {
+        formData.append('files', data, data.name);
+      }
+    });
+
+    try {
+      const res = await apiClient.post('/lost-posts', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      const { code, result } = res?.data;
+
+      if (code === '100') {
+        router.push(`/lost-found/${result.id}`);
+      }
+    } catch (error) {
+      // Todo - 에러 팝업 추가 필요
+      alert('유시물 등록 에러 발생');
+    }
+  };
+
+  const onChangeEditorContent = (editorState: EditorState | null) => {
+    if (editorState) {
+      setEditorContent(JSON.stringify(editorState.toJSON()));
+    } else {
+      setEditorContent(null);
+    }
   };
 
   return (
@@ -43,7 +92,7 @@ const LostFoundForm = ({ lostFoundData = null }: Props) => {
         <ArrowLeftIcon />
         <button
           type="submit"
-          disabled={isActiveSubmitButton}
+          disabled={!isActiveSubmitButton}
           className={`px-[13px] py-[6px] ${isActiveSubmitButton ? 'bg-[#2ACF6C] text-[#FBFBFB] cursor-pointer' : 'bg-[#EAECF1] text-[#95979F] cursor-not-allowed'}  text-xs rounded-[3px] font-medium`}
         >
           등록
@@ -68,13 +117,13 @@ const LostFoundForm = ({ lostFoundData = null }: Props) => {
                 onChange={handleFileChange}
               />
             </label>
-            {images.map((curSrc, index) => {
+            {images.map((image, index) => {
               return (
                 <div className="relative min-w-16">
                   <img
                     className="border size-16 rounded-[10px] border-[#CED0DD] ml-2"
-                    src={curSrc}
-                    key={`${curSrc}-${index}`}
+                    src={image.url}
+                    key={`${image.data}-${index}`}
                   />
                   <button
                     type="button"
@@ -99,8 +148,9 @@ const LostFoundForm = ({ lostFoundData = null }: Props) => {
               type="radio"
               name="category"
               id="lost"
-              value="lost"
+              value="LOST"
               defaultChecked
+              onChange={(e) => setLostType(e.target.value)}
               className="peer/lost hidden"
             />
             <label
@@ -113,8 +163,9 @@ const LostFoundForm = ({ lostFoundData = null }: Props) => {
             <input
               type="radio"
               name="category"
-              value="acquire"
+              value="ACQUIRE"
               id="acquire"
+              onChange={(e) => setLostType(e.target.value)}
               className="peer/acquire hidden"
             />
             <label
@@ -156,6 +207,7 @@ const LostFoundForm = ({ lostFoundData = null }: Props) => {
             placeholder={
               '게시글 내용을 작성해 주세요.\n\n서비스 정책에 맞지 않을 경우\n자동으로 게시판 이동 혹은 삭제 처리 될 수 있습니다.'
             }
+            onChange={onChangeEditorContent}
           />
         </div>
       </div>
