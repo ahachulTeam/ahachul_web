@@ -5,3 +5,10 @@ export const right = {
   gap: '16px',
   paddingRight: '16px',
 };
+
+export const rightJustOne = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  paddingRight: '16px',
+};

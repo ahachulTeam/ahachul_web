@@ -6,6 +6,7 @@ import { ArticleDetailErrorFallback } from 'features/articles/ui/ArticleDetailEr
 import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
 import { Loading } from 'entities/app-loaders/ui/Loading';
 import LostFoundCommentTextField from '../_common/LostFoundCommentTextField';
+import { renderRightEllipsis } from 'widgets/layout-header';
 
 const LostFoundArticleDetail = React.lazy(
   () => import('../_common/LostFoundArticleDetail/LostFoundArticleDetail'),
@@ -23,12 +24,13 @@ const LostFoundDetail: ActivityComponentType<WithArticleId> = ({
   };
 
   return (
-    <Layout>
+    <Layout appBar={{ renderRight: renderRightEllipsis }}>
       <QueryErrorBoundary errorFallback={ArticleDetailErrorFallback}>
         <Suspense fallback={<Loading opacity={1} />}>
           <LostFoundArticleDetail articleId={articleId} />
         </Suspense>
       </QueryErrorBoundary>
+
       <LostFoundCommentTextField
         articleId={articleId}
         handleHitBottom={handleHitBottom}
