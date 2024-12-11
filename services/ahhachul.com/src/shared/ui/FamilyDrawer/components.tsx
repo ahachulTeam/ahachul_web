@@ -30,7 +30,13 @@ function Header({
   );
 }
 
-function Phrase({ setView }: { setView: (view: string) => void }) {
+function Phrase({
+  setView,
+  handleClose,
+}: {
+  setView: (view: string) => void;
+  handleClose: () => void;
+}) {
   return (
     <div>
       <div>
@@ -58,7 +64,7 @@ function Phrase({ setView }: { setView: (view: string) => void }) {
         <S.SecondaryButton onClick={() => setView('default')} variant="default">
           취소
         </S.SecondaryButton>
-        <S.SecondaryButton onClick={() => setView('default')} variant="primary">
+        <S.SecondaryButton onClick={handleClose} variant="primary">
           <FaceIDIcon />
           확인
         </S.SecondaryButton>
@@ -67,27 +73,33 @@ function Phrase({ setView }: { setView: (view: string) => void }) {
   );
 }
 
-function Key({ setView }: { setView: (view: string) => void }) {
+function Key({
+  setView,
+  handleClose,
+}: {
+  setView: (view: string) => void;
+  handleClose: () => void;
+}) {
   return (
     <div>
       <div>
         <Header
           icon={<RecoveryPhraseIcon />}
-          title="Private Key"
-          description="Your Private Key is the key used to back up your wallet. Keep it secret and secure at all times."
+          title="게시글 상태 변경"
+          description="물건을 찾으셨나요? 확인 버튼을 클릭하면 해결 완료 게시글로 업데이트돼요."
         />
         <S.List>
           <S.ListItem>
             <ShieldIcon />
-            Keep your private key safe
+            민갑함 개인정보를 노출하지 마세요
           </S.ListItem>
           <S.ListItem>
             <PassIcon />
-            Don&apos;t share it with anyone else
+            공개적인 글에 핸드폰 번호는 남기면 안돼요
           </S.ListItem>
           <S.ListItem>
             <BannedIcon />
-            If you lose it, we can&apos;t recover it
+            도용 방지 신고는 고객센터를 통해 문의해요
           </S.ListItem>
         </S.List>
       </div>
@@ -95,7 +107,7 @@ function Key({ setView }: { setView: (view: string) => void }) {
         <S.SecondaryButton onClick={() => setView('default')} variant="default">
           취소
         </S.SecondaryButton>
-        <S.SecondaryButton onClick={() => setView('default')} variant="primary">
+        <S.SecondaryButton onClick={handleClose} variant="primary">
           <FaceIDIcon />
           확인
         </S.SecondaryButton>
@@ -104,7 +116,13 @@ function Key({ setView }: { setView: (view: string) => void }) {
   );
 }
 
-function RemoveArticle({ setView }: { setView: (view: string) => void }) {
+function RemoveArticle({
+  setView,
+  handleClose,
+}: {
+  setView: (view: string) => void;
+  handleClose: () => void;
+}) {
   return (
     <div>
       <div>
@@ -120,30 +138,31 @@ function RemoveArticle({ setView }: { setView: (view: string) => void }) {
           >
             취소
           </S.SecondaryButton>
-          <S.SecondaryButton
-            onClick={() => setView('default')}
-            variant="danger"
-          >
-            확인
-          </S.SecondaryButton>
+          <S.SmoothSecondaryButton handleClick={handleClose} />
         </S.ButtonGroup>
       </div>
     </div>
   );
 }
 
-function DefaultView({ setView }: { setView: (view: string) => void }) {
+function DefaultView({
+  setView,
+  handleClose,
+}: {
+  setView: (view: string) => void;
+  handleClose: () => void;
+}) {
   return (
     <>
       <S.DefaultViewHeader>
-        <S.DefaultViewTitle>Options</S.DefaultViewTitle>
+        <S.DefaultViewTitle>게시글 설정</S.DefaultViewTitle>
       </S.DefaultViewHeader>
       <S.ButtonContainer>
         <S.Button onClick={() => setView('key')}>
           <LockIcon />
           상태 변경하기
         </S.Button>
-        <S.Button onClick={() => setView('update')}>
+        <S.Button onClick={handleClose}>
           <PhraseIcon />
           수정하기
         </S.Button>

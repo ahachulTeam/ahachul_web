@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { SmoothButton } from '../Button/SmoothButton';
 
 export const buttonBase = css`
   display: flex;
@@ -42,6 +43,15 @@ export const SecondaryButton = styled.button<{
   color: ${(props) => (props.variant === 'default' ? '#222222' : '#FFFFFF')};
 `;
 
+export const SmoothSecondaryButton = styled(SmoothButton)`
+  ${buttonBase}
+  justify-content: center;
+  border-radius: 9999px;
+  font-size: 19px;
+  background-color: #ff3f40;
+  color: #ffffff;
+`;
+
 export const HeaderWrapper = styled.header`
   margin-top: 21px;
 `;
@@ -49,14 +59,14 @@ export const HeaderWrapper = styled.header`
 export const HeaderTitle = styled.h2`
   margin-top: 10px;
   font-weight: 600;
-  color: #222222;
+  color: #ffffff;
   font-size: 22px;
 `;
 
 export const HeaderDescription = styled.p`
   margin-top: 12px;
   font-weight: 500;
-  color: #999999;
+  color: #f7f7f7;
   font-size: 17px;
   line-height: 24px;
 `;
@@ -96,7 +106,7 @@ export const DefaultViewHeader = styled.header`
 
 export const DefaultViewTitle = styled.h2`
   font-weight: 600;
-  color: #222222;
+  color: #f7f7f7;
   font-size: 19px;
 `;
 

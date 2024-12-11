@@ -4,11 +4,16 @@ import { AnimatedState } from '../AnimatedState/AnimatedState';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 
-export const SmoothButton = () => {
+interface Props {
+  className?: string;
+  handleClick?: () => void;
+}
+
+export const SmoothButton = ({ className, handleClick }: Props) => {
   const buttonCopy = {
-    idle: 'Send me a login link',
+    idle: '확인',
     loading: <SpinningIcon />,
-    success: 'Login link sent!',
+    success: '삭제 완료',
   };
 
   const [buttonState, setButtonState] =
@@ -18,6 +23,7 @@ export const SmoothButton = () => {
     <StyledButton
       type="button"
       disabled={buttonState !== 'idle'}
+      className={className}
       onClick={() => {
         if (buttonState === 'success') return;
 
@@ -28,8 +34,9 @@ export const SmoothButton = () => {
         }, 1750);
 
         setTimeout(() => {
-          setButtonState('idle');
-        }, 3500);
+          // setButtonState('idle');
+          handleClick?.();
+        }, 2750);
       }}
     >
       <AnimatedStateWrapper state={buttonState}>
@@ -54,7 +61,6 @@ const StyledButton = styled.button`
   width: 144px;
   overflow: hidden;
   border-radius: 8px;
-  background: linear-gradient(to bottom, #0ea5e9, #3b82f6);
   font-size: 14px;
   font-weight: 500;
   box-shadow:

@@ -14,16 +14,22 @@ export function FamilyDrawer() {
   const [elementRef, bounds] = useMeasure();
   const previousHeightRef = useRef<number>(0);
 
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = () => {
+    setIsOpen(false);
+    setView('default');
+  };
+
   const content = useMemo(() => {
     switch (view) {
       case 'default':
-        return <DefaultView setView={setView} />;
+        return <DefaultView setView={setView} handleClose={handleClose} />;
       case 'remove':
-        return <RemoveArticle setView={setView} />;
+        return <RemoveArticle setView={setView} handleClose={handleClose} />;
       case 'phrase':
-        return <Phrase setView={setView} />;
+        return <Phrase setView={setView} handleClose={handleClose} />;
       case 'key':
-        return <Key setView={setView} />;
+        return <Key setView={setView} handleClose={handleClose} />;
     }
   }, [view]);
 
@@ -51,12 +57,12 @@ export function FamilyDrawer() {
 
   return (
     <>
-      <DrawerButton onClick={() => setIsOpen(true)}>
+      <DrawerButton onClick={handleOpen}>
         <EllipsisIcon />
       </DrawerButton>
       <Drawer.Root open={isOpen} onOpenChange={setIsOpen}>
         <Drawer.Portal>
-          <DrawerOverlay onClick={() => setIsOpen(false)} />
+          <DrawerOverlay onClick={handleClose} />
           <Drawer.Content asChild>
             <DrawerContentWrapper
               animate={{
@@ -130,7 +136,7 @@ const DrawerContentWrapper = styled(motion.div)`
   margin-right: auto;
   overflow: hidden;
   border-radius: 36px;
-  background-color: #fefffe;
+  background-color: #222226e6;
   outline: none;
   transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
 `;
