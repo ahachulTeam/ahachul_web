@@ -1,4 +1,4 @@
-import type { Interpolation, Theme } from '@emotion/react';
+import { css, type Interpolation, type Theme } from '@emotion/react';
 import cssUtils from 'shared/utils.css';
 
 export const wrap = (asChild: boolean) => ({
@@ -61,3 +61,78 @@ export const like = [
     },
   }),
 ] as Interpolation<Theme>;
+
+export const dropdownMenu = css`
+  .DropdownMenuContent,
+  .DropdownMenuSubContent {
+    min-width: 125px;
+    background-color: #2a2b2c;
+    border-radius: 10px;
+    box-shadow:
+      0px 10px 38px -10px rgba(22, 23, 24, 0.35),
+      0px 10px 20px -15px rgba(22, 23, 24, 0.2);
+    animation-duration: 700ms;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+  }
+  .DropdownMenuContent[data-side='bottom'] {
+    animation-name: slideUpAndFade;
+  }
+
+  .DropdownMenuSubContent[data-side='right'] {
+    animation-name: slideRightAndFade;
+  }
+
+  .DropdownMenuRadioItem {
+    font-size: 16px;
+    line-height: 1;
+    color: #f6f6f6;
+    display: flex;
+    align-items: center;
+    height: 45px;
+    position: relative;
+    padding-left: 16px;
+    user-select: none;
+    outline: none;
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid #535456;
+    }
+  }
+
+  .DropdownMenuSubTrigger {
+    font-size: 16px;
+    line-height: 1;
+    color: #f6f6f6;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 45px;
+    position: relative;
+    padding-left: 32px;
+    padding-right: 12px;
+    user-select: none;
+    outline: none;
+  }
+
+  @keyframes slideUpAndFade {
+    from {
+      opacity: 0;
+      transform: translateY(2px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes slideRightAndFade {
+    from {
+      opacity: 0;
+      transform: translateX(-2px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+`;
