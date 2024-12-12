@@ -2,6 +2,11 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { $getRoot, EditorState, ElementNode } from 'lexical';
 import { useEffect } from 'react';
 
+type Params = {
+  initialState: string;
+  onChange: (editorState: EditorState | null) => void;
+};
+
 const isEditorEmpty = () => {
   const root = $getRoot();
   const firstChild = root.getFirstChild();
@@ -12,11 +17,6 @@ const isEditorEmpty = () => {
   }
   // 비어있지 않다고 간주
   return false;
-};
-
-type Params = {
-  initialState: string;
-  onChange: (editorState: EditorState | null) => void;
 };
 
 function OnChangePlugin({ initialState, onChange }: Params) {
@@ -33,7 +33,7 @@ function OnChangePlugin({ initialState, onChange }: Params) {
 
   useEffect(() => {
     return editor.registerUpdateListener(({ editorState }) => {
-      editorState.read(() => {
+      editor.read(() => {
         onChange?.(isEditorEmpty() ? null : editorState);
       });
     });

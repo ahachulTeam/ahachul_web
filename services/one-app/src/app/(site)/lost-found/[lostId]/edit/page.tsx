@@ -1,6 +1,5 @@
-'use client';
-
-import { useGetLostFoundDetail } from '../../_lib/get';
+import { SuspenseQueryBoundary } from '@/common/components';
+import LostFoundForm from '../../_components/LostFoundForm';
 
 type Props = {
   params: {
@@ -9,9 +8,11 @@ type Props = {
 };
 
 const LostFoundEditPage = ({ params: { lostId } }: Props) => {
-  const { data } = useGetLostFoundDetail(lostId);
-
-  return <h1>수정 페이지</h1>;
+  return (
+    <SuspenseQueryBoundary suspenseFallback={<div>loading</div>}>
+      <LostFoundForm lostId={lostId} />
+    </SuspenseQueryBoundary>
+  );
 };
 
 export default LostFoundEditPage;

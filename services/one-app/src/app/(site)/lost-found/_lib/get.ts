@@ -36,10 +36,15 @@ export const useGetLostFoundList = (params: LostFoundListParams) =>
 const getLostFoundDetail = (id: string) =>
   apiClient.get<IResponse<LostFoundPostDetail>>(`/lost-posts/${id}`);
 
-export const useGetLostFoundDetail = (id: string) =>
-  useSuspenseQuery({
+export const useGetLostFoundDetail = (id: string) => {
+  if (!id) {
+    // id가 없으면 null 반환
+    return { data: null };
+  }
+  return useSuspenseQuery({
     queryKey: generateQueryKey(['LOST_FOUND']).detail(id),
     queryFn: () => getLostFoundDetail(id),
     staleTime: 5 * TIMESTAMP.MINUTE,
     select: (res) => res.data.result,
   });
+};

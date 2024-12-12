@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ArrowLeftIcon from '@/common/assets/icons/arrow-left';
 import CloseCircleIcon from '@/common/assets/icons/close-circle';
 import ImagePlaceHolder from '@/common/assets/icons/image-placeholder';
@@ -9,14 +9,17 @@ import SelectLineDrawer from './SelectLineDrawer';
 import Editor from '@/app/(site)/_component/Editor';
 import { type EditorState } from 'lexical';
 import { apiClient } from '@/app/api';
+import { useGetLostFoundDetail } from '../_lib/get';
 
 type Props = {
-  lostFoundData?: any | null;
+  lostId?: string | null;
 };
 
 const MAX_IMAGE_LENGTH = 5;
 
-const LostFoundForm = ({ lostFoundData = null }: Props) => {
+const LostFoundForm = ({ lostId = null }: Props) => {
+  const { data: lostFoundDetailInfo } = useGetLostFoundDetail(lostId ?? '');
+
   const router = useRouter();
   const [images, setImages] = useState<{ data: File; url: string }[]>([]);
   const [subwayLineId, setSubwayLineId] = useState(1);
@@ -74,7 +77,7 @@ const LostFoundForm = ({ lostFoundData = null }: Props) => {
       }
     } catch (error) {
       // Todo - 에러 팝업 추가 필요
-      alert('유시물 등록 에러 발생');
+      alert('유실물 등록 에러 발생');
     }
   };
 
@@ -85,6 +88,15 @@ const LostFoundForm = ({ lostFoundData = null }: Props) => {
       setEditorContent(null);
     }
   };
+
+  useEffect(() => {
+    if (lostFoundDetailInfo) {
+      const { title, content, subwayLineId, images } = lostFoundDetailInfo;
+      setTitle(title);
+      setEditorContent(content);
+      setSubwayLineId(subwayLineId);
+    }
+  }, [lostFoundDetailInfo]);
 
   return (
     <form onSubmit={onSubmit} className="overflow-hidden">
@@ -194,6 +206,7 @@ const LostFoundForm = ({ lostFoundData = null }: Props) => {
           <input
             type="text"
             placeholder="제목을 입력해주세요"
+            value={title}
             onChange={(e) => setTitle(e.target.value)}
             className="w-full border py-3 pl-3 pr-4 outline-none rounded-[5px]"
           />
@@ -207,6 +220,7 @@ const LostFoundForm = ({ lostFoundData = null }: Props) => {
             placeholder={
               '게시글 내용을 작성해 주세요.\n\n서비스 정책에 맞지 않을 경우\n자동으로 게시판 이동 혹은 삭제 처리 될 수 있습니다.'
             }
+            initialState={lostFoundDetailInfo?.content}
             onChange={onChangeEditorContent}
           />
         </div>
