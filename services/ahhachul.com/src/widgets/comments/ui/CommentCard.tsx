@@ -8,7 +8,6 @@ import { ArticleContentParser } from 'features/articles/ui/ArticleContentParser'
 import { DropEllipsis } from './DropEllipsis';
 import * as styles from './CommentCard.css';
 import { useGetUserInfo } from 'features/users/api';
-import { useDeleteComment } from 'pages/lost-found/api/post-comment';
 import { useActivity } from '@stackflow/react';
 import { useAuthStore } from 'entities/app-authentications/slice';
 
@@ -31,34 +30,19 @@ export const CommentCard = ({ comment, asChild = false }: CommentCardProps) => {
   const { auth } = useAuthStore();
   const { data } = useGetUserInfo(auth);
 
-  const thisCommentIsMine = useMemo(() => {
+  const isMyComment = useMemo(() => {
     if (!data) return false;
     if (comment.status === 'DELETED') return false;
     return data?.memberId === +comment.createdBy;
   }, [data, comment]);
-
-  const { mutate: deleteComment } = useDeleteComment(+articleId);
-
-  const COMMENT_OPTIONS = {
-    UPDATE: {
-      label: '수정',
-      onClick: () => {
-        alert('수정');
-      },
-    },
-    DELETE: {
-      label: '삭제',
-      onClick: deleteComment,
-    },
-  } as const;
 
   return (
     <Flex as="li" direction="column" css={styles.wrap(asChild)}>
       <Flex as="article" direction="column">
         <Flex justify="space-between" align="center" css={styles.dropdownMenu}>
           <span css={styles.name}>{comment.writer}</span>
-          {thisCommentIsMine && (
-            <DropEllipsis commentId={comment.id} optionList={COMMENT_OPTIONS} />
+          {isMyComment && (
+            <DropEllipsis articleId={articleId} commentId={comment.id} />
           )}
         </Flex>
 

@@ -17,10 +17,6 @@ const LostFoundArticleDetail = ({ articleId }: WithArticleId) => {
   const { data: article } = useGetLostFoundDetail({ articleId });
   const commentCnt = article.commentCnt;
   const recommendPosts = article.recommendPosts;
-
-  const contentType = checkContentType(article.content);
-  const isPlainContent = contentType !== 'json';
-
   const images = article.isFromLost112
     ? [
         {
@@ -29,6 +25,9 @@ const LostFoundArticleDetail = ({ articleId }: WithArticleId) => {
         },
       ]
     : article.images;
+
+  const contentType = checkContentType(article.content);
+  const isPlainContent = contentType !== 'json';
 
   return (
     <article css={styles.article}>

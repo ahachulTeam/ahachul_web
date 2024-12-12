@@ -1,32 +1,31 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import useMeasure from 'react-use-measure';
 import { useFlow } from 'app/stackflow';
+import useMeasure from 'react-use-measure';
 import { Drawer } from 'vaul';
 import styled from '@emotion/styled';
 
-import { useDeleteComment } from 'pages/lost-found/api/post-comment';
 import { EllipsisIcon } from 'shared/static/icons/ellipsis';
+import * as S from './ArticleDropEllipsis.css';
 import {
+  BannedIcon,
   CloseIcon,
   DangerIcon,
+  FaceIDIcon,
+  LockIcon,
+  PassIcon,
   PhraseIcon,
+  RecoveryPhraseIcon,
+  ShieldIcon,
   WarningIcon,
 } from 'shared/ui/FamilyDrawer/icons';
-import * as S from './DropEllipsis.css';
+import { WithArticleId } from '../model';
+import { useDeleteLostFoundArticle } from 'pages/lost-found/api/post-article';
 import { queryClient } from 'app/lib/react-query';
 import { getQueryKeys } from 'shared/api';
 import { LOST_FOUND_QUERY_KEY } from 'pages/lost-found/api/query-key';
 
-export interface DropEllipsisProps {
-  articleId: string;
-  commentId: number;
-}
-
-export const DropEllipsis = ({
-  articleId,
-  commentId,
-}: DropEllipsisProps): React.ReactElement => {
+export const ArticleDropEllipsis = ({ articleId }: WithArticleId) => {
   const [isOpen, setIsOpen] = useState(false);
   const [view, setView] = useState('default');
   const [elementRef, bounds] = useMeasure();
@@ -52,13 +51,14 @@ export const DropEllipsis = ({
         return <DefaultView setView={setView} handleEdit={handleEdit} />;
       case 'remove':
         return (
-          <RemoveComment
+          <RemoveArticle
             articleId={articleId}
-            commentId={commentId}
             setView={setView}
             handleClose={handleClose}
           />
         );
+      case 'key':
+        return <UpdateStatus setView={setView} handleClose={handleClose} />;
     }
   }, [view]);
 
@@ -85,7 +85,7 @@ export const DropEllipsis = ({
   }, [bounds.height]);
 
   return (
-    <div css={S.buttonFilter}>
+    <>
       <DrawerButton onClick={handleOpen}>
         <EllipsisIcon />
       </DrawerButton>
@@ -127,7 +127,7 @@ export const DropEllipsis = ({
           </Drawer.Content>
         </Drawer.Portal>
       </Drawer.Root>
-    </div>
+    </>
   );
 };
 
@@ -149,59 +149,74 @@ function Header({
   );
 }
 
-function DefaultView({
-  setView,
-  handleEdit,
-}: {
-  setView: (view: string) => void;
-  handleEdit: () => void;
-}) {
-  return (
-    <>
-      <S.DefaultViewHeader>
-        <S.DefaultViewTitle>설정</S.DefaultViewTitle>
-      </S.DefaultViewHeader>
-      <S.ButtonContainer>
-        <S.Button onClick={handleEdit}>
-          <PhraseIcon />
-          수정하기
-        </S.Button>
-        <S.DangerButton onClick={() => setView('remove')}>
-          <WarningIcon />
-          삭제하기
-        </S.DangerButton>
-      </S.ButtonContainer>
-    </>
-  );
-}
-
-function RemoveComment({
-  articleId,
-  commentId,
+function UpdateStatus({
   setView,
   handleClose,
 }: {
-  articleId: string;
-  commentId: number;
   setView: (view: string) => void;
   handleClose: () => void;
 }) {
-  const { mutate: deleteComment, status } = useDeleteComment(+articleId);
-  const handleDeleteComment = useCallback(
+  return (
+    <div>
+      <div>
+        <Header
+          icon={<RecoveryPhraseIcon />}
+          title="상태 변경"
+          description="물건을 찾으셨나요? 확인 버튼을 클릭하면 해결 완료 게시글로 업데이트돼요."
+        />
+        <S.List>
+          <S.ListItem>
+            <ShieldIcon />
+            민감한 개인정보를 노출하지 마세요
+          </S.ListItem>
+          <S.ListItem>
+            <PassIcon />
+            공개적인 글에 핸드폰 번호는 남기면 안돼요
+          </S.ListItem>
+          <S.ListItem>
+            <BannedIcon />
+            도용 신고는 고객센터를 통해 문의해요
+          </S.ListItem>
+        </S.List>
+      </div>
+      <S.ButtonGroup>
+        <S.SecondaryButton onClick={() => setView('default')} variant="default">
+          취소
+        </S.SecondaryButton>
+        <S.SecondaryButton onClick={handleClose} variant="primary">
+          <FaceIDIcon />
+          확인
+        </S.SecondaryButton>
+      </S.ButtonGroup>
+    </div>
+  );
+}
+
+function RemoveArticle({
+  articleId,
+  setView,
+  handleClose,
+}: {
+  articleId: number;
+  setView: (view: string) => void;
+  handleClose: () => void;
+}) {
+  const { mutate: deleteArticle, status } = useDeleteLostFoundArticle();
+  const handleDeleteArticle = useCallback(
     () =>
-      deleteComment(commentId, {
+      deleteArticle(articleId, {
         onSuccess: () => {
           setTimeout(() => {
             handleClose();
           }, 850);
           setTimeout(() => {
             queryClient.invalidateQueries({
-              queryKey: getQueryKeys(LOST_FOUND_QUERY_KEY).comments(articleId),
+              queryKey: getQueryKeys(LOST_FOUND_QUERY_KEY).detail(articleId),
             });
           }, 1150);
         },
       }),
-    [articleId, commentId],
+    [articleId],
   );
 
   return (
@@ -221,11 +236,41 @@ function RemoveComment({
           </S.SecondaryButton>
           <S.SmoothSecondaryButton
             status={status}
-            handleClick={handleDeleteComment}
+            handleClick={handleDeleteArticle}
           />
         </S.ButtonGroup>
       </div>
     </div>
+  );
+}
+
+function DefaultView({
+  setView,
+  handleEdit,
+}: {
+  setView: (view: string) => void;
+  handleEdit: () => void;
+}) {
+  return (
+    <>
+      <S.DefaultViewHeader>
+        <S.DefaultViewTitle>설정</S.DefaultViewTitle>
+      </S.DefaultViewHeader>
+      <S.ButtonContainer>
+        <S.Button onClick={() => setView('key')}>
+          <LockIcon />
+          상태 변경하기
+        </S.Button>
+        <S.Button onClick={handleEdit}>
+          <PhraseIcon />
+          수정하기
+        </S.Button>
+        <S.DangerButton onClick={() => setView('remove')}>
+          <WarningIcon />
+          삭제하기
+        </S.DangerButton>
+      </S.ButtonContainer>
+    </>
   );
 }
 
@@ -256,9 +301,9 @@ const DrawerContentWrapper = styled(motion.div)`
   position: fixed;
   left: 16px;
   right: 16px;
-  bottom: 32px;
+  bottom: 16px;
   z-index: 10010;
-  max-width: 360px;
+  max-width: 361px;
   margin-left: auto;
   margin-right: auto;
   overflow: hidden;

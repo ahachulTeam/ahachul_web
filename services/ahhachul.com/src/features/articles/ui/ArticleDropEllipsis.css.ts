@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { SmoothButton } from '../Button/SmoothButton';
+import { SmoothButton } from 'shared/ui/Button/SmoothButton';
 
 export const buttonBase = css`
   display: flex;

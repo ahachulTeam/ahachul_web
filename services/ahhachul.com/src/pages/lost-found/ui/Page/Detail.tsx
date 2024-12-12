@@ -1,4 +1,4 @@
-import React, { useRef, Suspense } from 'react';
+import React, { useRef, useCallback, Suspense } from 'react';
 import type { ActivityComponentType } from '@stackflow/react';
 import { Layout } from 'widgets';
 import type { WithArticleId } from 'features/articles';
@@ -16,15 +16,17 @@ const LostFoundDetail: ActivityComponentType<WithArticleId> = ({
   params: { articleId },
 }) => {
   const bottomRef = useRef<HTMLDivElement | null>(null);
-  const handleHitBottom = () => {
+  const handleHitBottom = useCallback(() => {
     bottomRef.current.scrollIntoView({
       block: 'end',
       behavior: 'smooth',
     });
-  };
+  }, []);
 
   return (
-    <Layout appBar={{ renderRight: renderRightEllipsis }}>
+    <Layout
+      appBar={{ renderRight: () => renderRightEllipsis?.({ articleId }) }}
+    >
       <QueryErrorBoundary errorFallback={ArticleDetailErrorFallback}>
         <Suspense fallback={<Loading opacity={1} />}>
           <LostFoundArticleDetail articleId={articleId} />

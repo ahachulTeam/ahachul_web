@@ -18,7 +18,7 @@ const MyPage: ActivityComponentType = () => {
   const { data: userInfo } = useGetUserInfo(auth);
 
   const handleLogout = () => {
-    alert('로그아웃했어요');
+    window.alert('로그아웃했어요');
     reset();
     setTimeout(() => {
       window.location.assign(getDomainName());

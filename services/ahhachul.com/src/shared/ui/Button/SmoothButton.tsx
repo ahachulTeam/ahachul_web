@@ -1,46 +1,45 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SymbolIcon } from '@radix-ui/react-icons';
 import { AnimatedState } from '../AnimatedState/AnimatedState';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
 
 interface Props {
+  status: 'error' | 'idle' | 'pending' | 'success';
+  idleText?: string;
+  successText?: string;
+  errorText?: string;
   className?: string;
   handleClick?: () => void;
 }
 
-export const SmoothButton = ({ className, handleClick }: Props) => {
-  const buttonCopy = {
-    idle: '확인',
-    loading: <SpinningIcon />,
-    success: '삭제 완료',
+export const SmoothButton = ({
+  status,
+  idleText = '확인',
+  successText = '삭제 완료',
+  errorText = '오류 발생',
+  className,
+  handleClick,
+}: Props) => {
+  const buttonContent = {
+    idle: idleText,
+    pending: <SpinningIcon />,
+    success: successText,
+    error: errorText,
   };
-
-  const [buttonState, setButtonState] =
-    useState<keyof typeof buttonCopy>('idle');
 
   return (
     <StyledButton
       type="button"
-      disabled={buttonState !== 'idle'}
+      disabled={status !== 'idle'}
       className={className}
       onClick={() => {
-        if (buttonState === 'success') return;
-
-        setButtonState('loading');
-
-        setTimeout(() => {
-          setButtonState('success');
-        }, 1750);
-
-        setTimeout(() => {
-          // setButtonState('idle');
-          handleClick?.();
-        }, 2750);
+        if (status === 'success') return;
+        handleClick?.();
       }}
     >
-      <AnimatedStateWrapper state={buttonState}>
-        {buttonCopy[buttonState]}
+      <AnimatedStateWrapper state={status}>
+        {buttonContent[status]}
       </AnimatedStateWrapper>
     </StyledButton>
   );
