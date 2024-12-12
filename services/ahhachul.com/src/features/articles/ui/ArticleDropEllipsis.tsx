@@ -201,7 +201,11 @@ function RemoveArticle({
   setView: (view: string) => void;
   handleClose: () => void;
 }) {
-  const { mutate: deleteArticle, status } = useDeleteLostFoundArticle();
+  const {
+    mutate: deleteArticle,
+    status,
+    isPending,
+  } = useDeleteLostFoundArticle();
   const handleDeleteArticle = useCallback(
     () =>
       deleteArticle(articleId, {
@@ -229,8 +233,9 @@ function RemoveArticle({
         />
         <S.ButtonGroup>
           <S.SecondaryButton
-            onClick={() => setView('default')}
             variant="default"
+            disabled={isPending}
+            onClick={() => setView('default')}
           >
             취소
           </S.SecondaryButton>

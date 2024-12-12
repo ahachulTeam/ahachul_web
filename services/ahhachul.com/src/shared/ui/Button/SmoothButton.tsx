@@ -34,7 +34,7 @@ export const SmoothButton = ({
       disabled={status !== 'idle'}
       className={className}
       onClick={() => {
-        if (status === 'success') return;
+        if (status === 'success' || status === 'error') return;
         handleClick?.();
       }}
     >

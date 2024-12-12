@@ -13,20 +13,20 @@ import {
   PhraseIcon,
   WarningIcon,
 } from 'shared/ui/FamilyDrawer/icons';
-import * as S from './DropEllipsis.css';
+import * as S from './CommentDropEllipsis.css';
 import { queryClient } from 'app/lib/react-query';
 import { getQueryKeys } from 'shared/api';
 import { LOST_FOUND_QUERY_KEY } from 'pages/lost-found/api/query-key';
 
-export interface DropEllipsisProps {
+export interface CommentDropEllipsisProps {
   articleId: string;
   commentId: number;
 }
 
-export const DropEllipsis = ({
+export const CommentDropEllipsis = ({
   articleId,
   commentId,
-}: DropEllipsisProps): React.ReactElement => {
+}: CommentDropEllipsisProps): React.ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
   const [view, setView] = useState('default');
   const [elementRef, bounds] = useMeasure();
@@ -186,7 +186,11 @@ function RemoveComment({
   setView: (view: string) => void;
   handleClose: () => void;
 }) {
-  const { mutate: deleteComment, status } = useDeleteComment(+articleId);
+  const {
+    mutate: deleteComment,
+    status,
+    isPending,
+  } = useDeleteComment(+articleId);
   const handleDeleteComment = useCallback(
     () =>
       deleteComment(commentId, {
@@ -209,13 +213,14 @@ function RemoveComment({
       <div>
         <Header
           icon={<DangerIcon />}
-          title="글을 삭제하시겠어요?"
-          description="삭제하시면 복구할 수 없어요. 해당 글을 삭제할까요?"
+          title="댓글을 삭제하시겠어요?"
+          description="삭제하시면 복구할 수 없어요. 해당 댓글을 삭제할까요?"
         />
         <S.ButtonGroup>
           <S.SecondaryButton
-            onClick={() => setView('default')}
             variant="default"
+            disabled={isPending}
+            onClick={() => setView('default')}
           >
             취소
           </S.SecondaryButton>
@@ -256,7 +261,7 @@ const DrawerContentWrapper = styled(motion.div)`
   position: fixed;
   left: 16px;
   right: 16px;
-  bottom: 32px;
+  bottom: 16px;
   z-index: 10010;
   max-width: 360px;
   margin-left: auto;

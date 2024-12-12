@@ -5,7 +5,7 @@ import { LikeIcon } from 'widgets/articles/static/icons/like';
 import type { Comment } from 'features/comments/model';
 import { checkContentType } from 'features/articles/lib/check-content-type';
 import { ArticleContentParser } from 'features/articles/ui/ArticleContentParser';
-import { DropEllipsis } from './DropEllipsis';
+import { CommentDropEllipsis } from './CommentDropEllipsis';
 import * as styles from './CommentCard.css';
 import { useGetUserInfo } from 'features/users/api';
 import { useActivity } from '@stackflow/react';
@@ -42,7 +42,7 @@ export const CommentCard = ({ comment, asChild = false }: CommentCardProps) => {
         <Flex justify="space-between" align="center" css={styles.dropdownMenu}>
           <span css={styles.name}>{comment.writer}</span>
           {isMyComment && (
-            <DropEllipsis articleId={articleId} commentId={comment.id} />
+            <CommentDropEllipsis articleId={articleId} commentId={comment.id} />
           )}
         </Flex>
 
