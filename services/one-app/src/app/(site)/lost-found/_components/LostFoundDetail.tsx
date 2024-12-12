@@ -10,7 +10,7 @@ type Params = {
 const LostFoundDetail = ({ lostId }: Params) => {
   const { data } = useGetLostFoundDetail(lostId);
 
-  return <div>{data.title}</div>;
+  return <div>{data?.title}</div>;
 };
 
 export default LostFoundDetail;
