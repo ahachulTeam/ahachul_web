@@ -9,38 +9,29 @@ import SelectLineDrawer from './SelectLineDrawer';
 import Editor from '@/app/(site)/_component/Editor';
 import { type EditorState } from 'lexical';
 import { apiClient } from '@/app/api';
-import { useGetLostFoundDetail } from '../_lib/get';
+import useLostFoundDetailAdapter from '../_hook/useLostFoundDetailAdapter';
+import { useDetailImage } from '../_hook/useDetailImage';
+import useLostFoundFormInitialize from '../_hook/useLostFoundFormInitialize';
 
 type Props = {
   lostId?: string | null;
 };
 
-const MAX_IMAGE_LENGTH = 5;
-
 const LostFoundForm = ({ lostId = null }: Props) => {
-  const { data: lostFoundDetailInfo } = useGetLostFoundDetail(lostId ?? '');
-
   const router = useRouter();
-  const [images, setImages] = useState<{ data: File; url: string }[]>([]);
+  const lostFoundDetailInfo = useLostFoundDetailAdapter({
+    lostId: lostId ?? '',
+  });
+
+  const { images, removeImageIds, handleFileChange, onDeleteImage } =
+    useDetailImage(lostFoundDetailInfo?.images);
+
   const [subwayLineId, setSubwayLineId] = useState(1);
   const [title, setTitle] = useState('');
   const [lostType, setLostType] = useState('LOST');
   const [editorContent, setEditorContent] = useState<string | null>(null);
 
   const isActiveSubmitButton = !!title && !!subwayLineId && !!editorContent;
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (images.length >= MAX_IMAGE_LENGTH) return;
-    const fileBlob = e.target.files?.[0];
-    if (!fileBlob) return;
-    const fileUrl = URL.createObjectURL(fileBlob);
-    setImages((prev) => [...prev, { data: fileBlob, url: fileUrl }]);
-    e.target.value = '';
-  };
-
-  const onDeleteImage = (index: number) => {
-    setImages((prev) => prev.filter((_, i) => i !== index));
-  };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -89,14 +80,14 @@ const LostFoundForm = ({ lostId = null }: Props) => {
     }
   };
 
-  useEffect(() => {
-    if (lostFoundDetailInfo) {
-      const { title, content, subwayLineId, images } = lostFoundDetailInfo;
+  useLostFoundFormInitialize({
+    lostFoundDetailInfo,
+    initCallback: (title, initialContent, subwayLineId) => {
       setTitle(title);
-      setEditorContent(content);
+      setEditorContent(initialContent);
       setSubwayLineId(subwayLineId);
-    }
-  }, [lostFoundDetailInfo]);
+    },
+  });
 
   return (
     <form onSubmit={onSubmit} className="overflow-hidden">
@@ -131,11 +122,13 @@ const LostFoundForm = ({ lostId = null }: Props) => {
             </label>
             {images.map((image, index) => {
               return (
-                <div className="relative min-w-16">
+                <div
+                  key={`${image.data}-${index}`}
+                  className="relative min-w-16"
+                >
                   <img
                     className="border size-16 rounded-[10px] border-[#CED0DD] ml-2"
                     src={image.url}
-                    key={`${image.data}-${index}`}
                   />
                   <button
                     type="button"
@@ -220,7 +213,7 @@ const LostFoundForm = ({ lostId = null }: Props) => {
             placeholder={
               '게시글 내용을 작성해 주세요.\n\n서비스 정책에 맞지 않을 경우\n자동으로 게시판 이동 혹은 삭제 처리 될 수 있습니다.'
             }
-            initialState={lostFoundDetailInfo?.content}
+            initialState={lostFoundDetailInfo?.initialContent}
             onChange={onChangeEditorContent}
           />
         </div>
