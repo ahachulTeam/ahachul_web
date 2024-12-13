@@ -9,7 +9,7 @@ function CloseCircleIcon() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_6089_5611)">
+      <g clipPath="url(#clip0_6089_5611)">
         <rect width="24" height="24" rx="12" fill="#33333E" />
         <path
           d="M16 16L8 8"
