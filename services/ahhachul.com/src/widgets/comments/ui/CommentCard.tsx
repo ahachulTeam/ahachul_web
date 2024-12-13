@@ -10,6 +10,7 @@ import * as styles from './CommentCard.css';
 import { useGetUserInfo } from 'features/users/api';
 import { useActivity } from '@stackflow/react';
 import { useAuthStore } from 'entities/app-authentications/slice';
+import { useFlow } from 'app/stackflow';
 
 interface CommentCardProps {
   comment: Comment;
@@ -36,6 +37,16 @@ export const CommentCard = ({ comment, asChild = false }: CommentCardProps) => {
     return data?.memberId === +comment.createdBy;
   }, [data, comment]);
 
+  const { push } = useFlow();
+  const handleReplyComment = () => {
+    push('CommentInner', {
+      commentId: comment.id,
+      articleId: +articleId,
+      from: 'LostFoundDetail',
+      mode: 'reply',
+    });
+  };
+
   return (
     <Flex as="li" direction="column" css={styles.wrap(asChild)}>
       <Flex as="article" direction="column">
@@ -55,7 +66,9 @@ export const CommentCard = ({ comment, asChild = false }: CommentCardProps) => {
           />
         )}
         <Flex align="center" justify="space-between">
-          <span css={styles.답글달기}>답글 달기</span>
+          <span css={styles.답글달기} onClick={handleReplyComment}>
+            답글 달기
+          </span>
           <div css={styles.like}>
             <LikeIcon />
             {comment?.likeCnt && <span>{comment.likeCnt}</span>}

@@ -43,7 +43,14 @@ export const CommentDropEllipsis = ({
   const { push } = useFlow();
   const handleEdit = () => {
     handleClose();
-    push('Home', {});
+    setTimeout(() => {
+      push('CommentInner', {
+        commentId,
+        articleId: +articleId,
+        from: 'LostFoundDetail',
+        mode: 'edit',
+      });
+    }, 500);
   };
 
   const content = useMemo(() => {

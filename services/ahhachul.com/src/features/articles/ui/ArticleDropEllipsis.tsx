@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useState, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useFlow } from 'app/stackflow';
+// import { useFlow } from 'app/stackflow';
 import useMeasure from 'react-use-measure';
 import { Drawer } from 'vaul';
 import styled from '@emotion/styled';
@@ -39,10 +39,11 @@ export const ArticleDropEllipsis = ({ articleId }: WithArticleId) => {
   };
   const handleClose = () => setIsOpen(false);
 
-  const { push } = useFlow();
+  // const { push } = useFlow();
   const handleEdit = () => {
+    window.alert('수정 페이지 작업중');
     handleClose();
-    push('Home', {});
+    // push('Home', {});
   };
 
   const content = useMemo(() => {
@@ -57,7 +58,7 @@ export const ArticleDropEllipsis = ({ articleId }: WithArticleId) => {
             handleClose={handleClose}
           />
         );
-      case 'key':
+      case 'updateStatus':
         return <UpdateStatus setView={setView} handleClose={handleClose} />;
     }
   }, [view]);
@@ -262,7 +263,7 @@ function DefaultView({
         <S.DefaultViewTitle>설정</S.DefaultViewTitle>
       </S.DefaultViewHeader>
       <S.ButtonContainer>
-        <S.Button onClick={() => setView('key')}>
+        <S.Button onClick={() => setView('updateStatus')}>
           <LockIcon />
           상태 변경하기
         </S.Button>

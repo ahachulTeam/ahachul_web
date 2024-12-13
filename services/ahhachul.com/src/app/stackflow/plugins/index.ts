@@ -46,6 +46,8 @@ const stackflowPlugin = [
       SubwayNotices: PATH['_shared-pages'].subwayNotice,
       Market: PATH['_shared-pages'].market,
       CarSharing: PATH['_shared-pages'].carSharing,
+
+      CommentInner: PATH['_shared-pages'].commentInner,
     },
     fallbackActivity: () => 'Home',
   }),

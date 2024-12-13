@@ -24,11 +24,20 @@ const CarSharing = React.lazy(
       /* webpackPrefetch: true */ 'pages/_shared-pages/car-sharing/ui/Page/Page'
     ),
 );
+
+const CommentInner = React.lazy(
+  () =>
+    import(
+      /* webpackPrefetch: true */ 'pages/_shared-pages/comment/ui/Page/Page'
+    ),
+);
+
 export const sharedLayers = {
   AllServices,
   SubwayNotices,
   Market,
   CarSharing,
+  CommentInner,
   // Chat: SharedComponent.Chat,
   // Alarm: SharedComponent.Alarm,
   // MyProfile: SharedComponent.MyProfile,
