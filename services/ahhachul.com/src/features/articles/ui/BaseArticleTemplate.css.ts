@@ -1,6 +1,10 @@
 import { Interpolation, Theme } from '@emotion/react';
 import cssUtils from 'shared/utils.css';
 
+export const article = {
+  paddingBottom: '224px',
+};
+
 export const thumbnailContainer = [
   cssUtils.posRel,
   cssUtils.maxWidth,

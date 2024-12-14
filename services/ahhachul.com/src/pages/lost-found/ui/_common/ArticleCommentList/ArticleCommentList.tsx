@@ -25,7 +25,7 @@ export const ArticleCommentList = ({
 };
 
 export const ArticleCommentListInner = ({ articleId }: WithArticleId) => {
-  const { data } = useGetLostFoundComments({ articleId });
+  const { data } = useGetLostFoundComments(articleId);
 
   return <BaseCommentList commentsMap={data.comments} />;
 };

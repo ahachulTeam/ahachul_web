@@ -12,4 +12,3 @@ interface LostFoundListParams
 }
 
 export type ParamsOfLostFoundList = Partial<LostFoundListParams>;
-export interface ParamsOfLostFoundDetail extends WithArticleId {}

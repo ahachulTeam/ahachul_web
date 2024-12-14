@@ -1,50 +1,54 @@
-import React, { useRef, useCallback, useMemo } from 'react';
+import React, { useRef, useCallback, Suspense, useMemo } from 'react';
 import { ActivityComponentType } from '@stackflow/react';
 import { Layout } from 'widgets';
 import { WithArticleId } from 'features/articles';
 import { TypeActivities } from 'app/stackflow';
-import { getQueryKeys } from 'shared/api';
-import { LOST_FOUND_QUERY_KEY } from 'pages/lost-found/api/query-key';
-import { queryClient } from 'app/lib/react-query';
-import { AxiosResponse } from 'axios';
-import { IResponse } from 'entities/with-server';
-import { CommentList } from 'features/comments/model';
 import { CommentCard } from 'widgets/comments/ui/CommentCard';
 import CommentTextField from 'widgets/comments/ui/CommentTextField';
 import { EditorState } from 'lexical';
+import { ArticleContentParser } from 'features/articles/ui/ArticleContentParser';
+import { Loading } from 'entities/app-loaders';
+import { useAuthStore } from 'entities/app-authentications/slice';
+import { isEmptyContent } from 'features/articles/lib/has-content-error';
+import { useGetLostFoundComments } from 'pages/lost-found/api/get-comments';
+import * as styles from 'features/articles/ui/BaseArticleTemplate.css';
+import * as pageStyles from './Page.css';
+import { usePostComment } from 'pages/lost-found/api/post-comment';
 
-const CommentInnerPage: ActivityComponentType<
+const CommentInnerPage: React.FC<
   WithArticleId & {
     commentId: number;
-    from: Extract<
-      KeyOf<TypeActivities>,
-      'CommunityDetail' | 'ComplaintDetail' | 'LostFoundDetail'
-    >;
     mode: 'reply' | 'edit';
   }
-> = ({ params: { articleId, commentId, from, mode } }) => {
-  console.log('mode:', mode);
-  const commentQueryData = useMemo(() => {
-    switch (from) {
-      case 'LostFoundDetail':
-        return queryClient.getQueryData(
-          getQueryKeys(LOST_FOUND_QUERY_KEY).comments(articleId),
-        ) as AxiosResponse<IResponse<CommentList>>;
-      default:
-        return null;
-    }
-  }, [from]);
+> = ({ articleId, commentId, mode }) => {
+  const { auth } = useAuthStore();
+  const disabled = !auth;
 
-  const targetedCommentMap = useMemo(() => {
-    if (!commentQueryData) return null;
-    return commentQueryData.data.result.comments.find(
-      (item) => item.parentComment.id === commentId,
-    );
-  }, [commentQueryData]);
+  const { data: commentQueryData } = useGetLostFoundComments(articleId);
+  const { mutate: submitComment } = usePostComment(articleId, false);
 
-  const bottomRef = useRef<HTMLDivElement | null>(null);
+  const targetCommentMap = useMemo(
+    () =>
+      commentQueryData.comments.find((item) => {
+        return (
+          item.parentComment.id === commentId ||
+          item.childComments.some((child) => child.id === commentId)
+        );
+      }),
+    [commentQueryData.comments, commentId],
+  );
+
+  const parentComment = targetCommentMap.parentComment;
+  const targetComment =
+    parentComment.id === commentId
+      ? parentComment
+      : targetCommentMap.childComments.find(
+          (childComment) => childComment.id === commentId,
+        );
+
+  const bottomRef = useRef<HTMLDivElement>(null);
   const handleHitBottom = useCallback(() => {
-    bottomRef.current.scrollIntoView({
+    bottomRef.current?.scrollIntoView({
       block: 'end',
       behavior: 'smooth',
     });
@@ -52,28 +56,100 @@ const CommentInnerPage: ActivityComponentType<
 
   const content = useRef<string>('');
   const handleSubmit = () => {
-    handleHitBottom();
+    if (isEmptyContent(content.current)) {
+      window.alert('댓글을 입력해주세요.');
+      return;
+    }
+    if (!targetComment) {
+      console.error('Selected comment not found');
+      return;
+    }
+    if (mode === 'edit') {
+      window.alert('댓글 수정 API 나오면 작업할게요');
+      return;
+    }
+    const upperCommentId =
+      mode === 'reply' ? targetComment.id : targetComment.upperCommentId;
+    submitComment(
+      {
+        postId: articleId,
+        content: content.current,
+        upperCommentId,
+        isPrivate: null,
+      },
+      {
+        onSuccess: () => {
+          setTimeout(handleHitBottom, 100);
+        },
+      },
+    );
   };
 
-  if (!targetedCommentMap) return <></>;
+  return (
+    <>
+      <article css={styles.article}>
+        <div css={styles.articleBasicInfos}>
+          <h2>{parentComment.writer || 'LOST112'}</h2>
+          <time>{parentComment.createdAt}</time>
+          <span>자유</span>
+        </div>
 
+        <ArticleContentParser
+          content={parentComment.content}
+          isPlainContent={false}
+        />
+
+        {targetCommentMap.childComments.length > 0 ? (
+          <ul css={pageStyles.commentListWrap}>
+            {targetCommentMap.childComments.map((childComment) => (
+              <CommentCard
+                showEllipsis={false}
+                key={childComment.id}
+                comment={childComment}
+              />
+            ))}
+          </ul>
+        ) : (
+          <div css={pageStyles.emptyComment}>댓글을 남겨주세요.</div>
+        )}
+        <CommentTextField
+          disabled={disabled}
+          shouldFocusOnMount
+          placeholder="댓글을 남겨주세요."
+          initialState={mode === 'edit' && targetComment.content}
+          onSubmit={handleSubmit}
+          onChange={(val: EditorState) => {
+            content.current = JSON.stringify(val.toJSON());
+          }}
+        />
+      </article>
+      <div ref={bottomRef} css={{ height: '1px' }} />
+    </>
+  );
+};
+
+const CommentInnerPageWrap: ActivityComponentType<
+  WithArticleId & {
+    commentId: number;
+    // 추후 from을 통해 커뮤니티, 민원 페이지도 수용할 수 있게끔 리팩토링
+    from: Extract<
+      KeyOf<TypeActivities>,
+      'CommunityDetail' | 'ComplaintDetail' | 'LostFoundDetail'
+    >;
+    mode: 'reply' | 'edit';
+  }
+> = ({ params: { articleId, commentId, mode } }) => {
   return (
     <Layout>
-      <CommentCard comment={targetedCommentMap.parentComment} />
-      {targetedCommentMap.childComments.map((childComment) => (
-        <CommentCard asChild key={childComment.id} comment={childComment} />
-      ))}
-      <CommentTextField
-        disabled={false}
-        placeholder="댓글을 남겨주세요."
-        onSubmit={handleSubmit}
-        onChange={(val: EditorState) => {
-          content.current = JSON.stringify(val.toJSON());
-        }}
-      />
-      <div ref={bottomRef} css={{ height: '1px' }} />
+      <Suspense fallback={<Loading />}>
+        <CommentInnerPage
+          articleId={articleId}
+          commentId={commentId}
+          mode={mode}
+        />
+      </Suspense>
     </Layout>
   );
 };
 
-export default CommentInnerPage;
+export default CommentInnerPageWrap;

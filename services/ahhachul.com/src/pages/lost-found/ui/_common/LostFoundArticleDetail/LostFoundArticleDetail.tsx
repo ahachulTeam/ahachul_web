@@ -14,7 +14,7 @@ import * as styles from './LostFoundArticleDetail.css';
 import * as articleStyles from 'features/articles/ui/BaseArticleTemplate.css';
 
 const LostFoundArticleDetail = ({ articleId }: WithArticleId) => {
-  const { data: article } = useGetLostFoundDetail({ articleId });
+  const { data: article } = useGetLostFoundDetail(articleId);
   const commentCnt = article.commentCnt;
   const recommendPosts = article.recommendPosts;
   const images = article.isFromLost112

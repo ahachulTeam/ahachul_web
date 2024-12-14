@@ -1,13 +1,17 @@
 import { css, type Interpolation, type Theme } from '@emotion/react';
 import cssUtils from 'shared/utils.css';
 
-export const wrap = (asChild: boolean) => ({
-  padding: '12px 20px',
+export const wrap = (asChild: boolean) =>
+  ({
+    display: 'flex',
+    justifyContent: 'center',
+    height: asChild ? '72px' : '96px',
+    padding: '0 20px',
 
-  '& > article': {
-    paddingLeft: asChild ? '16px' : '0',
-  },
-});
+    '& > article': {
+      paddingLeft: asChild ? '16px' : '0',
+    },
+  }) as Interpolation<Theme>;
 
 export const name = ({
   color: { text },
@@ -17,6 +21,7 @@ export const name = ({
     fontSize: fontSize[12],
     fontWeight: fontWeight[700],
     color: text[50],
+    marginBottom: '6px',
   }) as Interpolation<Theme>;
 
 export const body = ({
@@ -28,7 +33,7 @@ export const body = ({
     fontSize: fontSize[14],
     fontWeight: fontWeight[400],
     paddingRight: '42px',
-    margin: '6px 0 12px',
+    marginBottom: '4px',
   }) as Interpolation<Theme>;
 
 export const 답글달기 = ({
@@ -39,6 +44,7 @@ export const 답글달기 = ({
     fontSize: fontSize[12],
     fontWeight: fontWeight[600],
     color: blueDarkGray[50],
+    marginTop: '10px',
   }) as Interpolation<Theme>;
 
 export const like = [

@@ -1,4 +1,5 @@
 import React from 'react';
+import CommentInner from 'pages/_shared-pages/comment/ui/Page/Page';
 
 const AllServices = React.lazy(
   () =>
@@ -22,13 +23,6 @@ const CarSharing = React.lazy(
   () =>
     import(
       /* webpackPrefetch: true */ 'pages/_shared-pages/car-sharing/ui/Page/Page'
-    ),
-);
-
-const CommentInner = React.lazy(
-  () =>
-    import(
-      /* webpackPrefetch: true */ 'pages/_shared-pages/comment/ui/Page/Page'
     ),
 );
 

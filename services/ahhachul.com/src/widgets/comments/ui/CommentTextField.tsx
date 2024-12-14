@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { $getRoot, EditorState } from 'lexical';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
@@ -112,12 +112,102 @@ const editorConfig = {
   nodes: [AutoLinkNode, LinkNode],
 };
 
-function OnChangePlugin({
-  onChange,
-}: {
+interface CommentTextFieldProps {
+  disabled: boolean;
+  placeholder: string;
+  readonly?: boolean;
+  initialState?: string;
+  shouldFocusOnMount?: boolean;
   onChange: (content: EditorState) => void;
-}) {
+  onSubmit: () => void;
+}
+
+const CommentTextField = React.memo(
+  ({
+    readonly,
+    disabled,
+    placeholder,
+    initialState,
+    shouldFocusOnMount,
+    onChange,
+    onSubmit,
+  }: CommentTextFieldProps) => {
+    useEffect(() => {});
+
+    return (
+      <CommentTextFieldWrap>
+        <LexicalComposer initialConfig={editorConfig}>
+          <div className="editor-container" css={styles.wrap(false)}>
+            <div className="editor-inner">
+              <PlainTextPlugin
+                contentEditable={
+                  <ContentEditable
+                    id="content"
+                    className="editor-input"
+                    css={{ padding: '15px 10px' }}
+                  />
+                }
+                placeholder={
+                  <pre className="editor-placeholder">{placeholder}</pre>
+                }
+                ErrorBoundary={LexicalErrorBoundary}
+              />
+              <LinkPlugin />
+              <AutoLinkPlugin matchers={MATCHERS} />
+              <OnChangePlugin
+                readonly={readonly}
+                initialState={initialState}
+                shouldFocusOnMount={shouldFocusOnMount}
+                onChange={onChange}
+              />
+              <SubmitField disabled={disabled} onSubmit={onSubmit} />
+            </div>
+          </div>
+        </LexicalComposer>
+        {isIOS() && <div id="ios-padding" />}
+      </CommentTextFieldWrap>
+    );
+  },
+);
+
+interface OnChangePluginProps {
+  readonly?: boolean;
+  initialState?: string;
+  shouldFocusOnMount?: boolean;
+  onChange?: (editorState: EditorState) => void;
+}
+
+export function OnChangePlugin({
+  readonly = false,
+  initialState,
+  shouldFocusOnMount = false,
+  onChange,
+}: OnChangePluginProps) {
   const [editor] = useLexicalComposerContext();
+
+  const setInitialState = useCallback(() => {
+    if (initialState) {
+      const content = editor.parseEditorState(JSON.parse(initialState));
+      editor.setEditorState(content);
+    }
+  }, [editor, initialState]);
+
+  useEffect(() => {
+    if (readonly) {
+      editor.setEditable(false);
+    }
+  }, [editor, readonly]);
+
+  useEffect(() => {
+    setInitialState();
+
+    if (shouldFocusOnMount) {
+      // Use requestAnimationFrame instead of setTimeout for better performance
+      requestAnimationFrame(() => {
+        editor.focus();
+      });
+    }
+  }, [editor, setInitialState, shouldFocusOnMount]);
 
   useEffect(() => {
     return editor.registerUpdateListener(({ editorState }) => {
@@ -159,46 +249,6 @@ const SubmitField = ({
     </SubmitBox>
   );
 };
-
-interface CommentTextFieldProps {
-  disabled: boolean;
-  placeholder: string;
-  onChange: (content: EditorState) => void;
-  onSubmit: () => void;
-}
-
-const CommentTextField = React.memo(
-  ({ disabled, placeholder, onChange, onSubmit }: CommentTextFieldProps) => {
-    return (
-      <CommentTextFieldWrap>
-        <LexicalComposer initialConfig={editorConfig}>
-          <div className="editor-container" css={styles.wrap(false)}>
-            <div className="editor-inner">
-              <PlainTextPlugin
-                contentEditable={
-                  <ContentEditable
-                    id="content"
-                    className="editor-input"
-                    css={{ padding: '15px 10px' }}
-                  />
-                }
-                placeholder={
-                  <pre className="editor-placeholder">{placeholder}</pre>
-                }
-                ErrorBoundary={LexicalErrorBoundary}
-              />
-              <LinkPlugin />
-              <AutoLinkPlugin matchers={MATCHERS} />
-              <OnChangePlugin onChange={onChange} />
-              <SubmitField disabled={disabled} onSubmit={onSubmit} />
-            </div>
-          </div>
-        </LexicalComposer>
-        {isIOS() && <div id="ios-padding" />}
-      </CommentTextFieldWrap>
-    );
-  },
-);
 
 const CommentTextFieldWrap = styled.div`
   position: fixed;

@@ -23,23 +23,18 @@ export const postComment = async (data: {
   return response.data;
 };
 
-export const usePostComment = (articleId: number) => {
+export const usePostComment = (articleId: number, showLoading = false) => {
   const { setEnableGlobalLoading, setDisableGlobalLoading } = useLoadingStore();
 
-  const afterSubmitSuccess = (
-    res: IResponse<Pick<Comment, 'id' | 'upperCommentId' | 'content'>>,
-  ) => {
-    console.log('res:', res);
-    setDisableGlobalLoading();
+  const afterSubmitSuccess = () => {
+    showLoading && setDisableGlobalLoading();
 
     queryClient.invalidateQueries({
       queryKey: getQueryKeys(LOST_FOUND_QUERY_KEY).comments(articleId),
     });
-
-    // setTimeout(() => {}, 500);
   };
   const afterSubmitFailed = (error: Error) => {
-    setDisableGlobalLoading();
+    showLoading && setDisableGlobalLoading();
     // 토스트 띄어주고 뒤로 가기
     console.log('error with toast:', error, '토스트 띄어주고 뒤로 가기');
     window.alert('댓글 작성하다가 에러 발생');
@@ -49,7 +44,7 @@ export const usePostComment = (articleId: number) => {
     mutationFn: postComment,
     options: {
       onError: afterSubmitFailed,
-      onMutate: setEnableGlobalLoading,
+      onMutate: showLoading ? setEnableGlobalLoading : () => {},
       onSuccess: afterSubmitSuccess,
     },
   });

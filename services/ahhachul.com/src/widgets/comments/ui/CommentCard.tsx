@@ -15,8 +15,15 @@ import { useFlow } from 'app/stackflow';
 interface CommentCardProps {
   comment: Comment;
   asChild?: boolean;
+  showLikeBtn?: boolean;
+  showEllipsis?: boolean;
 }
-export const CommentCard = ({ comment, asChild = false }: CommentCardProps) => {
+export const CommentCard = ({
+  comment,
+  asChild = false,
+  showLikeBtn = false,
+  showEllipsis = true,
+}: CommentCardProps) => {
   const {
     params: { articleId },
   } = useActivity();
@@ -34,8 +41,8 @@ export const CommentCard = ({ comment, asChild = false }: CommentCardProps) => {
   const isMyComment = useMemo(() => {
     if (!data) return false;
     if (comment.status === 'DELETED') return false;
-    return data?.memberId === +comment.createdBy;
-  }, [data, comment]);
+    return data?.memberId === +comment.createdBy && showEllipsis;
+  }, [data, comment, showEllipsis]);
 
   const { push } = useFlow();
   const handleReplyComment = () => {
@@ -66,12 +73,18 @@ export const CommentCard = ({ comment, asChild = false }: CommentCardProps) => {
           />
         )}
         <Flex align="center" justify="space-between">
-          <span css={styles.답글달기} onClick={handleReplyComment}>
-            답글 달기
-          </span>
+          {!comment.upperCommentId && (
+            <span css={styles.답글달기} onClick={handleReplyComment}>
+              답글 달기
+            </span>
+          )}
           <div css={styles.like}>
-            <LikeIcon />
-            {comment?.likeCnt && <span>{comment.likeCnt}</span>}
+            {showLikeBtn && (
+              <>
+                <LikeIcon />
+                {comment?.likeCnt && <span>{comment.likeCnt}</span>}
+              </>
+            )}
           </div>
         </Flex>
       </Flex>
