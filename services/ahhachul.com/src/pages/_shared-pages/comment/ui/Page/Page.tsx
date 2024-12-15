@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, Suspense, useMemo } from 'react';
+import React, { useRef, useCallback, Suspense, useMemo, useState } from 'react';
 import { ActivityComponentType } from '@stackflow/react';
 import { Layout } from 'widgets';
 import { WithArticleId } from 'features/articles';
@@ -14,6 +14,7 @@ import { useGetLostFoundComments } from 'pages/lost-found/api/get-comments';
 import * as styles from 'features/articles/ui/BaseArticleTemplate.css';
 import * as pageStyles from './Page.css';
 import { usePostComment } from 'pages/lost-found/api/post-comment';
+import { useUpdateComment } from 'pages/lost-found/api/post-comment';
 
 const CommentInnerPage: React.FC<
   WithArticleId & {
@@ -26,6 +27,7 @@ const CommentInnerPage: React.FC<
 
   const { data: commentQueryData } = useGetLostFoundComments(articleId);
   const { mutate: submitComment } = usePostComment(articleId, false);
+  const { mutate: updateComment } = useUpdateComment(articleId, false);
 
   const targetCommentMap = useMemo(
     () =>
@@ -46,13 +48,9 @@ const CommentInnerPage: React.FC<
           (childComment) => childComment.id === commentId,
         );
 
-  const bottomRef = useRef<HTMLDivElement>(null);
-  const handleHitBottom = useCallback(() => {
-    bottomRef.current?.scrollIntoView({
-      block: 'end',
-      behavior: 'smooth',
-    });
-  }, []);
+  const [commentInitialState, setCommentInitialState] = useState(
+    targetComment.content,
+  );
 
   const content = useRef<string>('');
   const handleSubmit = () => {
@@ -65,11 +63,24 @@ const CommentInnerPage: React.FC<
       return;
     }
     if (mode === 'edit') {
-      window.alert('댓글 수정 API 나오면 작업할게요');
+      updateComment(
+        {
+          commentId,
+          content: content.current,
+        },
+        {
+          onSuccess: () => {
+            setCommentInitialState('');
+            setTimeout(handleHitBottom, 100);
+          },
+        },
+      );
       return;
     }
+
     const upperCommentId =
       mode === 'reply' ? targetComment.id : targetComment.upperCommentId;
+
     submitComment(
       {
         postId: articleId,
@@ -85,13 +96,20 @@ const CommentInnerPage: React.FC<
     );
   };
 
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const handleHitBottom = useCallback(() => {
+    bottomRef.current?.scrollIntoView({
+      block: 'end',
+      behavior: 'smooth',
+    });
+  }, []);
+
   return (
     <>
       <article css={styles.article}>
         <div css={styles.articleBasicInfos}>
           <h2>{parentComment.writer || 'LOST112'}</h2>
           <time>{parentComment.createdAt}</time>
-          <span>자유</span>
         </div>
 
         <ArticleContentParser
@@ -116,7 +134,7 @@ const CommentInnerPage: React.FC<
           disabled={disabled}
           shouldFocusOnMount
           placeholder="댓글을 남겨주세요."
-          initialState={mode === 'edit' && targetComment.content}
+          initialState={mode === 'edit' && commentInitialState}
           onSubmit={handleSubmit}
           onChange={(val: EditorState) => {
             content.current = JSON.stringify(val.toJSON());

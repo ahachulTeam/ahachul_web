@@ -87,3 +87,44 @@ export const useDeleteComment = (articleId: number) => {
     },
   });
 };
+
+export const updateComment = async (data: {
+  content: string;
+  commentId: number;
+}) => {
+  const { content, commentId } = data;
+  const response = await base.patch<IResponse<Pick<Comment, 'id' | 'content'>>>(
+    `comments/${commentId}`,
+    {
+      content,
+    },
+  );
+  return response.data;
+};
+
+export const useUpdateComment = (articleId: number, showLoading = false) => {
+  const { setEnableGlobalLoading, setDisableGlobalLoading } = useLoadingStore();
+
+  const afterSubmitSuccess = () => {
+    showLoading && setDisableGlobalLoading();
+
+    queryClient.invalidateQueries({
+      queryKey: getQueryKeys(LOST_FOUND_QUERY_KEY).comments(articleId),
+    });
+  };
+  const afterSubmitFailed = (error: Error) => {
+    showLoading && setDisableGlobalLoading();
+    // 토스트 띄어주고 뒤로 가기
+    console.log('error with toast:', error, '토스트 띄어주고 뒤로 가기');
+    window.alert('댓글 수정하다가 에러 발생');
+  };
+
+  return useAuthMutation({
+    mutationFn: updateComment,
+    options: {
+      onError: afterSubmitFailed,
+      onMutate: showLoading ? setEnableGlobalLoading : () => {},
+      onSuccess: afterSubmitSuccess,
+    },
+  });
+};

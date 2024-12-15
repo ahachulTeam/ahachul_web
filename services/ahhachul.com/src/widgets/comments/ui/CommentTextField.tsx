@@ -142,7 +142,7 @@ const CommentTextField = React.memo(
               <PlainTextPlugin
                 contentEditable={
                   <ContentEditable
-                    id="content"
+                    id="CommentTextField"
                     className="editor-input"
                     css={{ padding: '15px 10px' }}
                   />
