@@ -29,3 +29,21 @@ export interface LostFoundListParams
   lostType: LostType;
   keyword?: string;
 }
+
+export interface DetailImages {
+  id: number | null;
+  data: File | null;
+  url: string;
+}
+
+export interface LostFoundFormData {
+  title: string;
+  initialContent: string;
+  subwayLineId: number;
+  lostType: LostType;
+  images: {
+    id: number | null;
+    data: File | null;
+    url: string;
+  }[];
+}

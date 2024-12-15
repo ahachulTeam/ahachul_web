@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ArrowLeftIcon from '@/common/assets/icons/arrow-left';
 import CloseCircleIcon from '@/common/assets/icons/close-circle';
 import ImagePlaceHolder from '@/common/assets/icons/image-placeholder';
@@ -9,9 +9,10 @@ import SelectLineDrawer from './SelectLineDrawer';
 import Editor from '@/app/(site)/_component/Editor';
 import { type EditorState } from 'lexical';
 import { apiClient } from '@/app/api';
-import useLostFoundDetailAdapter from '../_hook/useLostFoundDetailAdapter';
-import { useDetailImage } from '../_hook/useDetailImage';
-import useLostFoundFormInitialize from '../_hook/useLostFoundFormInitialize';
+import useFormAdapter from '../_hook/useFormAdapter';
+import useFormImage from '../_hook/useFormImage';
+import useFormInitialize from '../_hook/useFormInitialize';
+import createFormData from '@/lib/createFormData';
 
 type Props = {
   lostId?: string | null;
@@ -19,12 +20,12 @@ type Props = {
 
 const LostFoundForm = ({ lostId = null }: Props) => {
   const router = useRouter();
-  const lostFoundDetailInfo = useLostFoundDetailAdapter({
+  const lostFoundFormData = useFormAdapter({
     lostId: lostId ?? '',
   });
 
-  const { images, removeImageIds, handleFileChange, onDeleteImage } =
-    useDetailImage(lostFoundDetailInfo?.images);
+  const { images, setImages, removeImageIds, handleFileChange, onDeleteImage } =
+    useFormImage();
 
   const [subwayLineId, setSubwayLineId] = useState(1);
   const [title, setTitle] = useState('');
@@ -41,26 +42,30 @@ const LostFoundForm = ({ lostId = null }: Props) => {
       content: editorContent,
       subwayLineId,
       lostType,
+      ...(lostId && { removeImageIds }),
+      ...(lostId && { id: lostId }),
     };
 
-    const formData = new FormData();
-    const contentBlob = new Blob([JSON.stringify(contentFormData)], {
-      type: 'application/json',
-    });
-    formData.append('content', contentBlob);
-
-    images.forEach(({ data }) => {
-      if (data instanceof File) {
-        formData.append('files', data, data.name);
-      }
+    console.log(contentFormData);
+    const formData = createFormData({
+      jsonDataKey: 'content',
+      jsonData: contentFormData,
+      fileDataKey: 'files',
+      fileData: images.flatMap((image) =>
+        image.data !== null ? [image.data] : [],
+      ),
     });
 
     try {
-      const res = await apiClient.post('/lost-posts', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
+      const res = await apiClient.post(
+        `/lost-posts/${lostId || ''}`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         },
-      });
+      );
       const { code, result } = res?.data;
 
       if (code === '100') {
@@ -80,12 +85,13 @@ const LostFoundForm = ({ lostId = null }: Props) => {
     }
   };
 
-  useLostFoundFormInitialize({
-    lostFoundDetailInfo,
-    initCallback: (title, initialContent, subwayLineId) => {
+  useFormInitialize({
+    lostFoundFormData,
+    initCallback: ({ title, initialContent, subwayLineId, images }) => {
       setTitle(title);
       setEditorContent(initialContent);
       setSubwayLineId(subwayLineId);
+      setImages(images);
     },
   });
 
@@ -213,7 +219,7 @@ const LostFoundForm = ({ lostId = null }: Props) => {
             placeholder={
               '게시글 내용을 작성해 주세요.\n\n서비스 정책에 맞지 않을 경우\n자동으로 게시판 이동 혹은 삭제 처리 될 수 있습니다.'
             }
-            initialState={lostFoundDetailInfo?.initialContent}
+            initialState={lostFoundFormData?.initialContent}
             onChange={onChangeEditorContent}
           />
         </div>

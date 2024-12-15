@@ -1,4 +1,5 @@
 import {
+  keepPreviousData,
   useSuspenseInfiniteQuery,
   useSuspenseQuery,
 } from '@tanstack/react-query';

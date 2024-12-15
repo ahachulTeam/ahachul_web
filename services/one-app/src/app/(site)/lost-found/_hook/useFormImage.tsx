@@ -1,16 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import type { DetailImages } from '@/model/LostFound';
 
 const MAX_IMAGE_LENGTH = 5;
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
-type Image = {
-  id: number | null;
-  data: File | null;
-  url: string;
-};
-
-export const useDetailImage = (initialImages: Image[]) => {
-  const [images, setImages] = useState<Image[]>([]);
+const useFormImage = () => {
+  const [images, setImages] = useState<DetailImages[]>([]);
   const [removeImageIds, setRemoveImageIds] = useState<number[]>([]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,11 +36,7 @@ export const useDetailImage = (initialImages: Image[]) => {
     setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
-  useEffect(() => {
-    if (initialImages) {
-      setImages(initialImages);
-    }
-  }, [initialImages]);
-
-  return { images, removeImageIds, handleFileChange, onDeleteImage };
+  return { images, setImages, removeImageIds, handleFileChange, onDeleteImage };
 };
+
+export default useFormImage;
