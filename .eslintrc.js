@@ -10,7 +10,12 @@ module.exports = {
     project: './tsconfig.eslint.json',
     tsconfigRootDir: __dirname,
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:storybook/recommended', 'prettier'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:storybook/recommended',
+    'prettier',
+  ],
   plugins: ['react', '@typescript-eslint', 'react-hooks', 'jsx-a11y'],
   rules: {
     'react-hooks/rules-of-hooks': 'error',
