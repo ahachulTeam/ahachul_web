@@ -11,7 +11,6 @@ interface Props {
  * 선언적으로 간편한 조건부 렌더링을 제공합니다.
  * @param props
  */
-export const ConditionalRender = (props: Props) => {
-  const { children, isRender } = props;
+export const ConditionalRender = ({ isRender, children }: Props) => {
   return <>{isRender ? children : null}</>;
 };
