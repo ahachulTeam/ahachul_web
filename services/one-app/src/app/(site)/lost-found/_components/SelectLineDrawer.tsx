@@ -6,7 +6,7 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-} from '@/components/ui/carousel';
+} from '@/common/components/carousel';
 import {
   Drawer,
   DrawerTrigger,
@@ -16,10 +16,10 @@ import {
   DrawerFooter,
   DrawerTitle,
   DrawerDescription,
-} from '@/components/ui/drawer';
+} from '@/common/components/drawer';
 import SUBWAY_LINES from '@/constants/subwayLines';
 
-import { type CarouselApi } from '@/components/ui/carousel';
+import { type CarouselApi } from '@/common/components/carousel';
 
 const CAROUSEL_SUBWAY_LINES = SUBWAY_LINES.reduce(
   (acc, _, index) => {
