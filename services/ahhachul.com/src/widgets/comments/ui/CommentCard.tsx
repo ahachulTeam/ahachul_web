@@ -1,31 +1,91 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Flex } from '@ahhachul/react-components-layout';
-import { LikeIcon } from 'widgets/articles/static/icons/like';
-import { EllipsisIcon } from 'shared/static/icons/ellipsis';
+import { useFlow, useActivity } from 'app/stackflow';
+
+import { useGetUserInfo } from 'features/users/api';
 import type { Comment } from 'features/comments/model';
+import { checkContentType } from 'features/articles/lib/check-content-type';
+import { ArticleContentParser } from 'features/articles/ui/ArticleContentParser';
+import { useAuthStore } from 'entities/app-authentications/slice';
+import { LikeIcon } from 'widgets/articles/static/icons/like';
+import { formatDate } from 'shared/lib/utils/date/format-date';
+import { CommentDropEllipsis } from './CommentDropEllipsis';
 import * as styles from './CommentCard.css';
 
 interface CommentCardProps {
   comment: Comment;
   asChild?: boolean;
+  showLikeBtn?: boolean;
+  showEllipsis?: boolean;
 }
-export const CommentCard = ({ comment, asChild = false }: CommentCardProps) => {
-  const content =
-    comment.status === 'DELETED' ? '삭제된 댓글입니다' : comment.content;
+export const CommentCard = ({
+  comment,
+  asChild = false,
+  showLikeBtn = false,
+  showEllipsis = true,
+}: CommentCardProps) => {
+  const {
+    params: { articleId },
+  } = useActivity();
+
+  // TODO: 전반적으로 리팩터링 하기
+  const isDeleted = comment.status === 'DELETED';
+  const content = isDeleted ? '삭제된 댓글입니다' : comment.content;
+
+  const contentType = checkContentType(content);
+  const isPlainContent = contentType !== 'json';
+
+  const { auth } = useAuthStore();
+  const { data } = useGetUserInfo(auth);
+
+  const isMyComment = useMemo(() => {
+    if (!data) return false;
+    if (comment.status === 'DELETED') return false;
+    return data?.memberId === +comment.createdBy && showEllipsis;
+  }, [data, comment, showEllipsis]);
+
+  const { push } = useFlow();
+  const handleReplyComment = () => {
+    push('CommentInner', {
+      commentId: comment.id,
+      articleId: +articleId,
+      from: 'LostFoundDetail',
+      mode: 'reply',
+    });
+  };
 
   return (
     <Flex as="li" direction="column" css={styles.wrap(asChild)}>
-      <Flex as="article" direction="column" >
-        <Flex justify="space-between" align="center">
+      <Flex as="article" direction="column">
+        <Flex justify="space-between" align="center" css={styles.dropdownMenu}>
           <span css={styles.name}>{comment.writer}</span>
-          <EllipsisIcon />
+          {isMyComment && (
+            <CommentDropEllipsis articleId={articleId} commentId={comment.id} />
+          )}
         </Flex>
-        <p css={styles.body}>{content}</p>
+
+        {isPlainContent ? (
+          <p css={styles.body}>{content}</p>
+        ) : (
+          <ArticleContentParser
+            content={content}
+            overrideCss={styles.articleCardContentParser}
+          />
+        )}
+        <span css={styles.date}>{formatDate(comment.createdAt)}</span>
         <Flex align="center" justify="space-between">
-          <span css={styles.답글달기}>답글 달기</span>
+          {!comment.upperCommentId && (
+            <span css={styles.답글달기} onClick={handleReplyComment}>
+              답글 달기
+            </span>
+          )}
           <div css={styles.like}>
-            <LikeIcon />
-            {comment?.likeCnt && <span>{comment.likeCnt}</span>}
+            {showLikeBtn && (
+              <>
+                <LikeIcon />
+                {comment?.likeCnt && <span>{comment.likeCnt}</span>}
+              </>
+            )}
           </div>
         </Flex>
       </Flex>

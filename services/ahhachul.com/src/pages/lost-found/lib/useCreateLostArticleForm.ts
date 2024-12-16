@@ -13,7 +13,6 @@ export const useCreateLostArticleForm = () => {
         lostType: 'LOST',
         imageFiles: null,
         subwayLineId: null,
-        categoryName: null,
       },
     });
 

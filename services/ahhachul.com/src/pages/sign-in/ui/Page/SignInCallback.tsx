@@ -48,7 +48,7 @@ export const SignInCallback: ActivityComponentType<{
           refreshToken,
         });
         queryClient.invalidateQueries({ queryKey: GET_USER_INFO_QUERY_KEY });
-        alert('로그인 성공');
+        window.alert('로그인 성공');
         replace('Home', {});
       } else {
         setTempAuth({ accessToken, refreshToken });

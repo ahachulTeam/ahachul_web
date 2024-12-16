@@ -10,6 +10,7 @@ export const useAuthStore = create(
   persist<
     IAuthStore & {
       setToken: (token: Nullable<IToken>) => void;
+      reset: () => void;
     }
   >(
     (set) => ({
@@ -17,6 +18,7 @@ export const useAuthStore = create(
       setToken: (auth: Nullable<IToken>) => {
         set({ auth });
       },
+      reset: () => set({ auth: null }),
     }),
     {
       name: 'auth',

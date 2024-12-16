@@ -15,7 +15,7 @@ export const SocialLogin = () => {
       const res = await getRedirectUrl({ providerType: loginType });
       window.location.assign(res.data.result.redirectUrl);
     } catch (error) {
-      alert('로그인 정보를 불러오는데 실패했어요. (unknown)');
+      window.alert('로그인 정보를 불러오는데 실패했어요. (unknown)');
     }
   };
 

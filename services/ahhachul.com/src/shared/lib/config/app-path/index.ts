@@ -85,6 +85,8 @@ const PATH = {
     market: '/market',
     /** 카셰어링 */
     carSharing: '/car-sharing',
+
+    commentInner: '/comment-inner',
   },
 } as const;
 

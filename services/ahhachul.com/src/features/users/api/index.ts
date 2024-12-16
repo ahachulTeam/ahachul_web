@@ -68,7 +68,7 @@ export const useGetUserInfo = (auth: Nullable<IToken>) =>
     queryKey: GET_USER_INFO_QUERY_KEY,
     options: {
       enabled: !!auth,
-      staleTime: 10 * 60 * 1000,
+      staleTime: Infinity,
       select: (res) => res.data.result,
     },
   });

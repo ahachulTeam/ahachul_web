@@ -1,6 +1,9 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import { TIMESTAMP } from 'shared/lib/config/timestamp';
 
-const config: AxiosRequestConfig = {};
+const config: AxiosRequestConfig = {
+  timeout: 5 * TIMESTAMP.SECOND,
+};
 const baseURL =
   process.env.REACT_APP_MOCKING === 'true'
     ? 'http://localhost:3000'

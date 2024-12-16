@@ -19,17 +19,23 @@ export const subwayLineHexColors = (line: number) => {
     case 9:
       return '#BDB092';
     case 10:
-      return '#D31145';
+      return '#0054a6';
     case 11:
-      return '#FABE00';
-    case 12:
       return '#77C4A3';
+    case 12:
+      return '#0054a6';
     case 13:
-      return '#B7C450';
+      return '0090D2';
     case 14:
       return '#6789CA';
     case 15:
-      return '#0090D2';
+      return '#0054A6';
+    case 16:
+      return '#FABE00';
+    case 18:
+      return '#D31145';
+    case 20:
+      return '#B7C450';
     default:
       return 'rgba(255, 255, 255, 0.04)';
   }
