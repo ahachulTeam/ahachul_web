@@ -46,7 +46,6 @@ const LostFoundForm = ({ lostId = null }: Props) => {
       ...(lostId && { id: lostId }),
     };
 
-    console.log(contentFormData);
     const formData = createFormData({
       jsonDataKey: 'content',
       jsonData: contentFormData,
