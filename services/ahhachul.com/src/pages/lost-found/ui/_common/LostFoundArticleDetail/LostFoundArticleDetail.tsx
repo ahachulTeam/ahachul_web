@@ -12,6 +12,8 @@ import { ArticleCommentList } from '../ArticleCommentList/ArticleCommentList';
 import RecommendArticleList from '../RecommendArticleList/RecommendArticleList';
 import * as styles from './LostFoundArticleDetail.css';
 import * as articleStyles from 'features/articles/ui/BaseArticleTemplate.css';
+import { formatDate } from 'shared/lib/utils/date/format-date';
+import { subwayLineToKrMap } from 'widgets/train-infos/lib/subway-line-to-kr';
 
 const LostFoundArticleDetail = ({ articleId }: WithArticleId) => {
   const { data: article } = useGetLostFoundDetail(articleId);
@@ -36,8 +38,10 @@ const LostFoundArticleDetail = ({ articleId }: WithArticleId) => {
       <h1 css={articleStyles.articleTitle}>{article.title}</h1>
       <div css={articleStyles.articleBasicInfos}>
         <h2>{article.isFromLost112 ? 'LOST112' : article.writer}</h2>
-        <time>{article.createdAt}</time>
-        <span>자유</span>
+        <div>
+          {`${formatDate(article.createdAt)}. ${subwayLineToKrMap[article.subwayLineId]}`}
+        </div>
+        <span>{article.lostType === 'ACQUIRE' ? '습득물' : '분실물'}</span>
       </div>
 
       <ArticleContentParser

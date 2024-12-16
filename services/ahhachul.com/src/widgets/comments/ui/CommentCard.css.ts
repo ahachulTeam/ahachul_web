@@ -5,35 +5,49 @@ export const wrap = (asChild: boolean) =>
   ({
     display: 'flex',
     justifyContent: 'center',
-    height: asChild ? '72px' : '96px',
-    padding: '0 20px',
-
-    '& > article': {
-      paddingLeft: asChild ? '16px' : '0',
-    },
+    padding: '16px 20px',
+    paddingLeft: asChild ? '40px' : '20px',
   }) as Interpolation<Theme>;
 
-export const name = ({
-  color: { text },
-  typography: { fontSize, fontWeight },
-}: Theme) =>
+export const name = () =>
   ({
-    fontSize: fontSize[12],
-    fontWeight: fontWeight[700],
-    color: text[50],
-    marginBottom: '6px',
+    fontSize: '13px',
+    color: '#e2e2e2',
+    marginBottom: '8px',
   }) as Interpolation<Theme>;
 
-export const body = ({
-  color: { text },
-  typography: { fontSize, fontWeight },
-}: Theme) =>
+export const body = ({ color: { text } }: Theme) =>
   ({
     color: text[50],
-    fontSize: fontSize[14],
-    fontWeight: fontWeight[400],
+    fontSize: '15px',
     paddingRight: '42px',
-    marginBottom: '4px',
+    marginBottom: '12px',
+    height: '24px',
+  }) as Interpolation<Theme>;
+
+export const articleCardContentParser = css`
+  padding: 0;
+  padding-right: 42px;
+  margin-bottom: 12px !important;
+
+  & > div {
+    border: none;
+  }
+
+  .editor-input {
+    min-height: unset !important;
+
+    p {
+      fontsize: 15px;
+      margin-bottom: 4px !important;
+    }
+  }
+`;
+
+export const date = ({ typography: { fontSize } }: Theme) =>
+  ({
+    color: '#e2e2e2',
+    fontSize: fontSize[12],
   }) as Interpolation<Theme>;
 
 export const 답글달기 = ({
@@ -44,7 +58,7 @@ export const 답글달기 = ({
     fontSize: fontSize[12],
     fontWeight: fontWeight[600],
     color: blueDarkGray[50],
-    marginTop: '10px',
+    marginTop: '20px',
   }) as Interpolation<Theme>;
 
 export const like = [

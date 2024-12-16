@@ -23,4 +23,5 @@ export interface LostFoundDetail extends ArticleDetail {
   storage: string;
   storageNumber: number;
   status: LostStatusType;
+  lostType: LostType;
 }

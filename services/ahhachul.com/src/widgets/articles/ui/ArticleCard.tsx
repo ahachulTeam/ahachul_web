@@ -2,13 +2,15 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Flex } from '@ahhachul/react-components-layout';
 import { css } from '@emotion/react';
 import { Link, type TypeActivities } from 'app/stackflow';
+
 import type { Article } from 'features/articles';
-import { subwayLineToKrMap } from 'widgets/train-infos/lib/subway-line-to-kr';
-import { subwayLineHexColors } from 'widgets/train-infos/lib/subway-line-hex-colors';
-import { CommentCountIcon } from '../static/icons/comment-count';
-import * as styles from './ArticleCard.css';
 import { ArticleContentParser } from 'features/articles/ui/ArticleContentParser';
 import { checkContentType } from 'features/articles/lib/check-content-type';
+import { subwayLineToKrMap } from 'widgets/train-infos/lib/subway-line-to-kr';
+import { subwayLineHexColors } from 'widgets/train-infos/lib/subway-line-hex-colors';
+import { formatDate } from 'shared/lib/utils/date/format-date';
+import { CommentCountIcon } from '../static/icons/comment-count';
+import * as styles from './ArticleCard.css';
 
 interface ArticleCardProps<TData extends Article> {
   to: Extract<
@@ -31,7 +33,9 @@ export const ArticleCard = <TData extends Article>({
         <Flex direction="column">
           <div>
             <span css={styles.name}>{article.writer || 'LOST112'}</span>
-            <time css={styles.date}>오후 3:00</time>
+            <time css={styles.date}>
+              {formatDate(article.createdAt, false)}
+            </time>
           </div>
         </Flex>
         <Flex justify="space-between">

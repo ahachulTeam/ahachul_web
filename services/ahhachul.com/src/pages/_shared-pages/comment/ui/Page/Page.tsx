@@ -15,6 +15,7 @@ import * as styles from 'features/articles/ui/BaseArticleTemplate.css';
 import * as pageStyles from './Page.css';
 import { usePostComment } from 'pages/lost-found/api/post-comment';
 import { useUpdateComment } from 'pages/lost-found/api/post-comment';
+import { formatDate } from 'shared/lib/utils/date/format-date';
 
 const CommentInnerPage: React.FC<
   WithArticleId & {
@@ -109,7 +110,7 @@ const CommentInnerPage: React.FC<
       <article css={styles.article}>
         <div css={styles.articleBasicInfos}>
           <h2>{parentComment.writer || 'LOST112'}</h2>
-          <time>{parentComment.createdAt}</time>
+          <div>{formatDate(parentComment.createdAt)}</div>
         </div>
 
         <ArticleContentParser

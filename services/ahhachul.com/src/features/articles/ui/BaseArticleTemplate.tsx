@@ -3,7 +3,9 @@ import React from 'react';
 import type { ArticleDetail } from 'features/articles/model';
 import { LikeIcon } from 'widgets/articles/static/icons/like';
 import { BookmarkIcon } from 'widgets/articles/static/icons/bookmark';
+import { subwayLineToKrMap } from 'widgets/train-infos/lib/subway-line-to-kr';
 import { checkContentType } from 'features/articles/lib/check-content-type';
+import { formatDate } from 'shared/lib/utils/date/format-date';
 import { ArticleContentParser } from './ArticleContentParser';
 import BaseArticleImages from './BaseArticleImages';
 import * as styles from './BaseArticleTemplate.css';
@@ -24,7 +26,9 @@ export const BaseArticleTemplate = React.memo(
         <h1 css={styles.articleTitle}>{article.title}</h1>
         <div css={styles.articleBasicInfos}>
           <h2>{article.writer || 'LOST112'}</h2>
-          <time>{article.createdAt}</time>
+          <div>
+            {`${formatDate(article.createdAt)}. ${subwayLineToKrMap[article.subwayLineId]}`}
+          </div>
           <span>자유</span>
         </div>
 

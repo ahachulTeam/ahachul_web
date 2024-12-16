@@ -51,7 +51,9 @@ export const articleBasicInfos = [
       color: text[50],
     },
 
-    '& > time': {
+    '& > div': {
+      display: 'flex',
+      alignItems: 'cneter',
       color: blueDarkGray[300],
       fontSize: fontSize[12],
       fontWeight: fontWeight[500],

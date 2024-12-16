@@ -1,16 +1,16 @@
 import React, { useMemo } from 'react';
-import { css } from '@emotion/react';
 import { Flex } from '@ahhachul/react-components-layout';
-import { LikeIcon } from 'widgets/articles/static/icons/like';
+import { useFlow, useActivity } from 'app/stackflow';
+
+import { useGetUserInfo } from 'features/users/api';
 import type { Comment } from 'features/comments/model';
 import { checkContentType } from 'features/articles/lib/check-content-type';
 import { ArticleContentParser } from 'features/articles/ui/ArticleContentParser';
+import { useAuthStore } from 'entities/app-authentications/slice';
+import { LikeIcon } from 'widgets/articles/static/icons/like';
+import { formatDate } from 'shared/lib/utils/date/format-date';
 import { CommentDropEllipsis } from './CommentDropEllipsis';
 import * as styles from './CommentCard.css';
-import { useGetUserInfo } from 'features/users/api';
-import { useActivity } from '@stackflow/react';
-import { useAuthStore } from 'entities/app-authentications/slice';
-import { useFlow } from 'app/stackflow';
 
 interface CommentCardProps {
   comment: Comment;
@@ -69,9 +69,10 @@ export const CommentCard = ({
         ) : (
           <ArticleContentParser
             content={content}
-            overrideCss={articleCardContentParser}
+            overrideCss={styles.articleCardContentParser}
           />
         )}
+        <span css={styles.date}>{formatDate(comment.createdAt)}</span>
         <Flex align="center" justify="space-between">
           {!comment.upperCommentId && (
             <span css={styles.답글달기} onClick={handleReplyComment}>
@@ -91,21 +92,3 @@ export const CommentCard = ({
     </Flex>
   );
 };
-
-const articleCardContentParser = css`
-  padding: 0;
-  padding-right: 42px;
-  margin-bottom: 4px !important;
-
-  & > div {
-    border: none;
-  }
-
-  .editor-input {
-    min-height: unset !important;
-
-    p {
-      margin-bottom: 4px !important;
-    }
-  }
-`;
