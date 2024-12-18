@@ -30,73 +30,140 @@ const config: Config = {
         pc: { raw: '(min-width: 990px)' },
       },
       fontSize: ({ theme }) => ({
-        '20b': [
+        // Display
+        'display-large': [
+          '48px',
+          {
+            lineHeight: '128%',
+            letterSpacing: '-0.032em',
+            fontWeight: theme('fontWeight.semiBold'),
+          },
+        ],
+        'display-medium': [
+          '36px',
+          {
+            lineHeight: '133%',
+            letterSpacing: '-0.027em',
+            fontWeight: theme('fontWeight.semiBold'),
+          },
+        ],
+        'display-small': [
+          '32px',
+          {
+            lineHeight: '130%',
+            letterSpacing: '-0.025em',
+            fontWeight: theme('fontWeight.semiBold'),
+          },
+        ],
+
+        // Headline
+        'headline-large': [
+          '24px',
+          {
+            lineHeight: '133%',
+            letterSpacing: '-0.023em',
+            fontWeight: theme('fontWeight.semiBold'),
+          },
+        ],
+        'headline-medium': [
           '20px',
           {
-            lineHeight: '25px',
-            fontWeight: theme('fontWeight.bold'),
+            lineHeight: '140%',
+            letterSpacing: '-0.025em',
+            fontWeight: theme('fontWeight.semiBold'),
           },
         ],
-        '18b': [
+        'headline-small': [
           '18px',
           {
-            lineHeight: '23px',
-            fontWeight: theme('fontWeight.bold'),
-          },
-        ],
-        '16b': [
-          '16px',
-          {
-            lineHeight: '21px',
-            fontWeight: theme('fontWeight.bold'),
-          },
-        ],
-        '16sb': [
-          '16px',
-          {
-            lineHeight: '21px',
+            lineHeight: '133%',
+            letterSpacing: '-0.02em',
             fontWeight: theme('fontWeight.semiBold'),
           },
         ],
-        '14b': [
-          '14px',
+
+        // Title
+        'title-large': [
+          '16px',
           {
-            lineHeight: '19px',
-            fontWeight: theme('fontWeight.bold'),
-          },
-        ],
-        '14sb': [
-          '14px',
-          {
-            lineHeight: '19px',
+            lineHeight: '150%',
+            letterSpacing: '-0.02em',
             fontWeight: theme('fontWeight.semiBold'),
           },
         ],
-        '14m': [
-          '14px',
+        'title-medium': [
+          '16px',
           {
-            lineHeight: '19px',
+            lineHeight: '150%',
+            letterSpacing: '-0.02em',
             fontWeight: theme('fontWeight.medium'),
           },
         ],
-        '14r': [
+        'title-small': [
+          '15px',
+          {
+            lineHeight: '150%',
+            letterSpacing: '-0.02em',
+            fontWeight: theme('fontWeight.semiBold'),
+          },
+        ],
+
+        // Label
+        'label-large': [
           '14px',
           {
-            lineHeight: '19px',
-            fontWeight: theme('fontWeight.regular'),
+            lineHeight: '150%',
+            letterSpacing: '-0.02em',
+            fontWeight: theme('fontWeight.semiBold'),
           },
         ],
-        '12r': [
+        'label-medium': [
+          '14px',
+          {
+            lineHeight: '148%',
+            letterSpacing: '-0.02em',
+            fontWeight: theme('fontWeight.medium'),
+          },
+        ],
+        'label-small': [
           '12px',
           {
-            lineHeight: '16px',
+            lineHeight: '150%',
+            letterSpacing: '-0.017em',
+            fontWeight: theme('fontWeight.semiBold'),
+          },
+        ],
+
+        // Body
+        'body-large': [
+          '16px',
+          {
+            lineHeight: '150%',
+            letterSpacing: '-0.02em',
             fontWeight: theme('fontWeight.regular'),
           },
         ],
-        '11r': [
-          '11px',
+        'body-large-semi': [
+          '15px',
           {
-            lineHeight: '13px',
+            lineHeight: '150%',
+            letterSpacing: '-0.02em',
+            fontWeight: theme('fontWeight.regular'),
+          },
+        ],
+        'body-medium': [
+          '13px',
+          {
+            lineHeight: '150%',
+            letterSpacing: '-0.02em',
+            fontWeight: theme('fontWeight.regular'),
+          },
+        ],
+        'body-small': [
+          '12px',
+          {
+            lineHeight: '145%',
+            letterSpacing: '-0.02em',
             fontWeight: theme('fontWeight.regular'),
           },
         ],
