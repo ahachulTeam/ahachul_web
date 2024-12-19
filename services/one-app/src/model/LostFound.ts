@@ -1,9 +1,12 @@
 import type { PostImage } from './PostImage';
-import type { WithSubwayLineId } from './Subway';
+import type { SubwayLineFilterOptions, WithSubwayLineId } from './Subway';
 import type { Post, RecommendPost } from './Post';
 import type { CursorBasedPaginationParams } from './Utils';
 
-export type LostType = 'LOST' | 'ACQUIRE';
+export enum LostFoundType {
+  LOST = 'LOST',
+  ACQUIRE = 'ACQUIRE',
+}
 export type LostStatus = 'PROGRESS' | 'COMPLETE';
 
 export interface LostFoundPost extends Post {
@@ -26,9 +29,20 @@ export interface LostFoundPostDetail extends LostFoundPost {
 export interface LostFoundListParams
   extends CursorBasedPaginationParams,
     Partial<WithSubwayLineId> {
-  lostType: LostType;
-  keyword?: string;
+  keyword: string | null;
+  lostType: LostFoundType;
 }
+
+export type LostFoundFilterKeys = 'lostType' | 'subwayLineId';
+
+export type LostFoundFilterValues = {
+  lostType: LostFoundType;
+  subwayLineId: SubwayLineFilterOptions;
+};
+
+export type LostFoundFilters = {
+  [K in LostFoundFilterKeys]: LostFoundFilterValues[K];
+};
 
 export interface DetailImages {
   id: number | null;

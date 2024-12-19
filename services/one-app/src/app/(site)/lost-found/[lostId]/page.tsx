@@ -1,7 +1,8 @@
 import Link from 'next/link';
+
+import LostFoundPostDetail from '../_components/postDetail/PostDetail';
 import PlusIcon from '@/common/assets/icons/plus';
-import { SuspenseQueryBoundary } from '@/common/components';
-import LostFoundDetail from '../_components/LostFoundDetail';
+import { SuspenseQueryBoundary } from '@/common/components/SuspenseQueryBoundary/SuspenseQueryBoundary';
 
 type Props = {
   params: {
@@ -18,8 +19,11 @@ export default function LostFoundDetailPage({ params }: Props) {
         <Link href={'/lost-found/1'}>
           <PlusIcon />
         </Link>
-        <SuspenseQueryBoundary suspenseFallback={<div>loading</div>}>
-          <LostFoundDetail lostId={lostId} />
+        <SuspenseQueryBoundary
+          errorFallback={<div>error</div>}
+          suspenseFallback={<div>loading</div>}
+        >
+          <LostFoundPostDetail lostId={lostId} />
         </SuspenseQueryBoundary>
       </div>
     </main>
