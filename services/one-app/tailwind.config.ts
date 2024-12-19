@@ -3,6 +3,7 @@ import type { Config } from 'tailwindcss';
 const colors = require('./src/common/constants/colors');
 
 const config: Config = {
+  darkMode: ['class'],
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
@@ -170,6 +171,6 @@ const config: Config = {
       }),
     },
   },
-  plugins: [],
+  plugins: [require('tailwindcss-animate')],
 };
 export default config;

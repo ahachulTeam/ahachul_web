@@ -22,6 +22,7 @@ export interface LostFoundPostDetail extends LostFoundPost {
   externalSourceImageUrl: string;
   isFromLost112: boolean;
   images: PostImage[];
+  lostType: LostType;
   recommendPosts: RecommendPost[];
 }
 
@@ -42,3 +43,21 @@ export type LostFoundFilterValues = {
 export type LostFoundFilters = {
   [K in LostFoundFilterKeys]: LostFoundFilterValues[K];
 };
+
+export interface DetailImages {
+  id: number | null;
+  data: File | null;
+  url: string;
+}
+
+export interface LostFoundFormData {
+  title: string;
+  initialContent: string;
+  subwayLineId: number;
+  lostType: LostFoundType;
+  images: {
+    id: number | null;
+    data: File | null;
+    url: string;
+  }[];
+}
