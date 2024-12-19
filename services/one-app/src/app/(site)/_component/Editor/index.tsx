@@ -20,7 +20,7 @@ const Placeholder = ({
 }: {
   placeholder?: string;
 }) => (
-  <pre className="absolute text-wrap text-[15px] leading-[1.5] tracking-[-0.02em] top-[12px] text-[#95979F] left-[12px] -z-50 font-sans">
+  <pre className="absolute text-wrap text-body-large-semi top-[12px] text-gray-70 left-[12px] -z-50 font-sans">
     {placeholder}
   </pre>
 );
@@ -37,7 +37,7 @@ const Editor = ({ placeholder, onChange, initialState }: any) => {
       <div className="relative h-full">
         <RichTextPlugin
           contentEditable={
-            <ContentEditable className="h-full w-full border rounded-[5px] p-3 overflow-hidden text-wrap text-[15px] text-[#33333E] leading-[1.5] tracking-[-0.02em]" />
+            <ContentEditable className="h-full w-full border rounded-[5px] p-3 overflow-hidden text-wrap text-gray-90 text-body-large-semi" />
           }
           placeholder={<Placeholder placeholder={placeholder} />}
           ErrorBoundary={LexicalErrorBoundary}

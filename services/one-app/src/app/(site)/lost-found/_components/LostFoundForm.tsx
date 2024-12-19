@@ -101,14 +101,14 @@ const LostFoundForm = ({ lostId = null }: Props) => {
         <button
           type="submit"
           disabled={!isActiveSubmitButton}
-          className={`px-[13px] py-[6px] ${isActiveSubmitButton ? 'bg-[#2ACF6C] text-[#FBFBFB] cursor-pointer' : 'bg-[#EAECF1] text-[#95979F] cursor-not-allowed'}  text-xs rounded-[3px] font-medium`}
+          className={`px-[13px] py-[6px] rounded-[3px] text-body-small ${isActiveSubmitButton ? 'bg-key-color text-gray-0 cursor-pointer' : 'bg-gray-30 text-gray-70 cursor-not-allowed'}`}
         >
           등록
         </button>
       </div>
       <div className="h-full box-border pb-[26px] px-5 max-w-[520px]">
         <div className="mb-8">
-          <p className="font-medium mb-3">유실물 상세정보</p>
+          <p className="text-label-medium mb-3">유실물 상세정보</p>
           <div
             className={`flex pt-1.5 overflow-x-auto overflow-scroll [&::-webkit-scrollbar]:hidden`}
           >
@@ -149,9 +149,9 @@ const LostFoundForm = ({ lostId = null }: Props) => {
         </div>
 
         <div className="mb-8">
-          <div className="flex items-center font-medium mb-3">
-            <p className="mr-1">카테고리</p>
-            <span className="inline-block w-[5px] h-[5px] bg-red-500 rounded-full" />
+          <div className="flex items-center mb-3">
+            <p className="mr-1 gray-90 text-label-medium">카테고리</p>
+            <span className="inline-block w-[5px] h-[5px] bg-red rounded-full" />
           </div>
           <fieldset>
             <input
@@ -165,7 +165,7 @@ const LostFoundForm = ({ lostId = null }: Props) => {
             />
             <label
               htmlFor="lost"
-              className="box-border px-[12px] py-[7px] rounded text-sm border font-semibold text-[#33333E] mr-2.5 peer-checked/lost:border-[#2ACF6C] peer-checked/lost:bg-[#2ACF6C] peer-checked/lost:text-[#FBFBFB]"
+              className="box-border px-[12px] py-[7px] rounded border text-label-medium text-gray-90 mr-2.5 peer-checked/lost:border-key-color peer-checked/lost:bg-key-color peer-checked/lost:text-gray-0"
             >
               분실물
             </label>
@@ -180,16 +180,16 @@ const LostFoundForm = ({ lostId = null }: Props) => {
             />
             <label
               htmlFor="acquire"
-              className="box-border px-[12px] py-[7px] rounded text-sm border font-semibold text-[#33333E]  peer-checked/acquire:border-[#2ACF6C] peer-checked/acquire:bg-[#2ACF6C] peer-checked/acquire:text-[#FBFBFB]"
+              className="box-border px-[12px] py-[7px] rounded border text-label-medium text-gray-90  peer-checked/acquire:border-key-color peer-checked/acquire:bg-key-color peer-checked/acquire:text-gray-0"
             >
               습득물
             </label>
           </fieldset>
         </div>
         <div className="mb-8">
-          <div className="flex items-center font-medium mb-3">
-            <p className="mr-1">호선 선택</p>
-            <span className="inline-block w-[5px] h-[5px] bg-red-500 rounded-full" />
+          <div className="flex items-center mb-3">
+            <p className="mr-1 text-label-medium text-gray-90">호선 선택</p>
+            <span className="inline-block w-[5px] h-[5px] bg-red rounded-full" />
           </div>
           <SelectLineDrawer
             subwayLineId={subwayLineId}
@@ -197,22 +197,22 @@ const LostFoundForm = ({ lostId = null }: Props) => {
           />
         </div>
         <div className="mb-8">
-          <div className="flex items-center font-medium mb-3">
-            <p className="mr-1">제목</p>
-            <span className="inline-block w-[5px] h-[5px] bg-red-500 rounded-full" />
+          <div className="flex items-center mb-3">
+            <p className="mr-1 text-label-medium text-gray-90">제목</p>
+            <span className="inline-block w-[5px] h-[5px] bg-red rounded-full" />
           </div>
           <input
             type="text"
             placeholder="제목을 입력해주세요"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full border py-3 pl-3 pr-4 outline-none rounded-[5px]"
+            className="w-full border py-3 pl-3 pr-4 outline-none rounded-[5px] text-body-large-semi text-gray-90 placeholder:text-gray-70"
           />
         </div>
         <div className="relative w-full h-[200px] mb-[32px]">
-          <div className="flex items-center font-medium mb-3">
-            <p className="mr-1">자세한 설명</p>
-            <span className="inline-block w-[5px] h-[5px] bg-red-500 rounded-full" />
+          <div className="flex items-center mb-3">
+            <p className="mr-1 text-label-medium text-gray-90">자세한 설명</p>
+            <span className="inline-block w-[5px] h-[5px] bg-red rounded-full" />
           </div>
           <Editor
             placeholder={

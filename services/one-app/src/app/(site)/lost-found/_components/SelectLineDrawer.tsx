@@ -17,7 +17,7 @@ import {
   DrawerTitle,
   DrawerDescription,
 } from '@/common/components/drawer';
-import SUBWAY_LINES from '@/constants/subwayLines';
+import SUBWAY_LINES from '@/common/constants/subwayLines';
 
 import { type CarouselApi } from '@/common/components/carousel';
 
@@ -77,13 +77,13 @@ const SelectLineDrawer = ({ subwayLineId, setSubwayLineId }: any) => {
           <ArrowDownIcon />
         </button>
       </DrawerTrigger>
-      <DrawerContent className="w-full bg-[#F5F5F5] border border-[#EAECF1] [box-shadow:0px_-5px_8px_0px_rgba(0,0,0,0.05)]">
-        <div className="pl-[20px] pr-[20px] w-full h-full bg-[#F5F5F5]">
+      <DrawerContent className="w-full bg-gray-20 border border-gray-30 [box-shadow:0px_-5px_8px_0px_rgba(0,0,0,0.05)]">
+        <div className="pl-[20px] pr-[20px] w-full h-full bg-gray-20">
           <DrawerHeader className="p-0 mb-[32px]">
-            <DrawerTitle className="text-left text-[#33333E] mb-3">
+            <DrawerTitle className="!text-title-small text-gray-90 mb-3">
               호선 변경
             </DrawerTitle>
-            <DrawerDescription className="text-left text-[#74757C]">
+            <DrawerDescription className="text-left !text-label-medium text-gray-80">
               소식이 궁금한 호선을 선택해주세요.
             </DrawerDescription>
           </DrawerHeader>
@@ -107,7 +107,7 @@ const SelectLineDrawer = ({ subwayLineId, setSubwayLineId }: any) => {
                           <label
                             htmlFor={line.name}
                             onClick={() => setSubwayLineId(line.id)}
-                            className={`${subwayLineId === line.id ? 'bg-[#2ACF6C] border-[#2ACF6C] text-white' : 'bg-[#FCFCFC] border-[#EAECF1] text-[#33333E]'} w-full flex items-center justify-center rounded-full border px-[4px] py-[8px] cursor-pointer min-w-[105px]`}
+                            className={`${subwayLineId === line.id ? 'bg-key-color border-key-color text-gray-0' : 'bg-gray-10 border-gray-30 text-gray-90'} w-full flex items-center justify-center rounded-full border px-[4px] py-[8px] cursor-pointer min-w-[105px] text-label-medium`}
                           >
                             {line.name}
                           </label>
@@ -132,7 +132,7 @@ const SelectLineDrawer = ({ subwayLineId, setSubwayLineId }: any) => {
           </div>
           <DrawerFooter className="w-full mt-[24px] p-0">
             <DrawerClose asChild>
-              <button className="font-semibold text-white px-[138px] py-[15px] bg-[#2ACF6C] rounded-lg">
+              <button className="text-title-large text-gray-0 px-[138px] py-[15px] bg-key-color rounded-lg">
                 완료
               </button>
             </DrawerClose>
