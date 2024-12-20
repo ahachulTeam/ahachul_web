@@ -34,7 +34,7 @@ export const SetupNickname = () => {
       queryClient.invalidateQueries({ queryKey: GET_USER_INFO_QUERY_KEY });
       removeTemporaryAuth();
       window.alert('로그인 성공');
-      replace('Home', {});
+      replace('Home', {}, { animate: false });
     },
     onError: (error) => {
       console.log('API Error on updateUser:', error);

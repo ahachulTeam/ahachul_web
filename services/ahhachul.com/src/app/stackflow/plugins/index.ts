@@ -27,18 +27,27 @@ const stackflowPlugin = [
       // my pages
       MyPage: PATH.my.home,
 
-      // main pages
+      // home page
       Home: PATH.home,
+
+      // lost-found pages
       LostFound: PATH.lostFound.home,
       LostFoundDetail: PATH.lostFound.detail.home,
+      EditLostArticle: PATH.lostFound.detail.edit,
       CreateLostArticle: PATH.lostFound.create,
+
+      // community pages
       Community: PATH.community.home,
       CommunityDetail: PATH.community.detail.home,
       CreateCommunityArticle: PATH.community.create,
+
+      // complaint pages
       Complaint: PATH.complaints.home,
       ComplaintList: PATH.complaints.list,
       ComplaintDetail: PATH.complaints.detail.home,
       ComplaintForm: PATH.complaints.create,
+
+      // blind-date pages
       BlindDate: PATH.date.home,
 
       // shared pages

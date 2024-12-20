@@ -10,5 +10,9 @@ const SVG = `
 `;
 
 export const EllipsisIcon = () => (
-  <div css={[cssUtils.flex]} dangerouslySetInnerHTML={{ __html: SVG }} />
+  <div
+    id="EllipsisIcon"
+    css={[cssUtils.flexCenterCenter]}
+    dangerouslySetInnerHTML={{ __html: SVG }}
+  />
 );

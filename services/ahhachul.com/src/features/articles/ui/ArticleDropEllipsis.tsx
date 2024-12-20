@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useState, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-// import { useFlow } from 'app/stackflow';
+import { useFlow } from 'app/stackflow';
 import useMeasure from 'react-use-measure';
 import { Drawer } from 'vaul';
 import styled from '@emotion/styled';
@@ -39,11 +39,13 @@ export const ArticleDropEllipsis = ({ articleId }: WithArticleId) => {
   };
   const handleClose = () => setIsOpen(false);
 
-  // const { push } = useFlow();
+  const { pop, push } = useFlow();
   const handleEdit = () => {
-    window.alert('수정 페이지 작업중');
     handleClose();
-    // push('Home', {});
+    pop();
+    setTimeout(() => {
+      push('EditLostArticle', { articleId });
+    }, 500);
   };
 
   const content = useMemo(() => {
@@ -281,18 +283,18 @@ function DefaultView({
 }
 
 const DrawerButton = styled.button`
-  height: 24px;
   background-color: #141517;
   font-weight: 500;
   color: black;
   transition: background-color 0.2s;
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 100%;
-  justify-content: flex-end;
   &:focus-visible {
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5);
   }
+  transform: rotate(90deg);
 `;
 
 const DrawerOverlay = styled(Drawer.Overlay)`

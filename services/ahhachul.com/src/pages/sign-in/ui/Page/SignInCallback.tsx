@@ -49,7 +49,7 @@ export const SignInCallback: ActivityComponentType<{
         });
         queryClient.invalidateQueries({ queryKey: GET_USER_INFO_QUERY_KEY });
         window.alert('로그인 성공');
-        replace('Home', {});
+        replace('Home', {}, { animate: false });
       } else {
         setTempAuth({ accessToken, refreshToken });
         replace('SetupNickname', {});

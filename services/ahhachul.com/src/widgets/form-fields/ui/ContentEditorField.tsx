@@ -10,6 +10,7 @@ interface ContentEditorFieldProps<T> {
   name: Path<T>;
   placeholder?: string;
   isRichEditor?: boolean;
+  initialState?: string;
 }
 
 export const ContentEditorField = <T,>({
@@ -17,6 +18,7 @@ export const ContentEditorField = <T,>({
   name,
   placeholder,
   isRichEditor,
+  initialState,
 }: ContentEditorFieldProps<T>) => {
   const { errors } = useFormState({ control });
   const errorMessage = errors[name]?.message;
@@ -42,6 +44,7 @@ export const ContentEditorField = <T,>({
             }
             isRich={isRichEditor}
             hasError={!!errors[name]?.message}
+            initialState={initialState}
             onChange={(targetValue: EditorState) => {
               field.onChange(JSON.stringify(targetValue.toJSON()));
             }}

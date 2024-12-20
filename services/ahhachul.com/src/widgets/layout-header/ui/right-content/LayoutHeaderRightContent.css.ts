@@ -1,9 +1,13 @@
 export const right = {
   display: 'grid',
-  gridTemplateColumns: '24px 24px',
+  gridTemplateColumns: '36px 36px',
   alignItems: 'center',
-  gap: '16px',
-  paddingRight: '16px',
+  gap: '8px',
+
+  '& > button': {
+    width: '36px',
+    height: '36px',
+  },
 };
 
 export const rightJustOne = {

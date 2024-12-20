@@ -9,6 +9,8 @@ import { IResponse } from 'entities/with-server';
 import { WithArticleId } from 'features/articles';
 import { ArticleDropEllipsis } from 'features/articles/ui/ArticleDropEllipsis';
 import * as styles from './LayoutHeaderRightContent.css';
+import { ShareIcon } from 'shared/static/icons/share';
+import { nativeMethodUtils } from 'entities/app-bridge/data/native-methods';
 
 export const EllipsisRightContent = ({ articleId }: WithArticleId) => {
   const { auth } = useAuthStore();
@@ -24,8 +26,16 @@ export const EllipsisRightContent = ({ articleId }: WithArticleId) => {
     return myInfo.memberId === +queryData?.data?.result?.createdBy;
   }, [articleId, queryData, myInfo, isSuccess]);
 
+  const handleShare = () => {
+    const shareUrl = `dev.ahhachul.com/lost-found/${articleId}`;
+    nativeMethodUtils.share(shareUrl);
+  };
+
   return (
-    <div css={styles.rightJustOne}>
+    <div css={showEllipsis ? styles.right : styles.rightJustOne}>
+      <button onClick={handleShare}>
+        <ShareIcon />
+      </button>
       {showEllipsis ? <ArticleDropEllipsis articleId={articleId} /> : null}
     </div>
   );
