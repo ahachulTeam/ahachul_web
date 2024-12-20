@@ -16,10 +16,7 @@ export interface DropdownFilterProps<
   onSelect: (key: K, value: T[K]) => void;
 }
 
-export const DropdownFilter = <
-  T extends Record<string, string>,
-  K extends KeyOf<T>,
->({
+const DropdownFilter = <T extends Record<string, string>, K extends KeyOf<T>>({
   filters,
   options,
   onSelect,
@@ -32,8 +29,13 @@ export const DropdownFilter = <
   return (
     <DropdownMenu.Root modal={false}>
       <DropdownMenu.Trigger asChild>
-        <button data-active={isActive}>
-          <span>{options[activeValue]}</span>
+        <button
+          data-active={isActive}
+          className=" shrink-0 h-[30px] bg-gray-10 border border-gray-20 rounded-[1000px] px-[10px] flex items-center"
+        >
+          <span className=" text-gray-90 text-label-medium">
+            {options[activeValue]}
+          </span>
           <ChevronDownIcon />
         </button>
       </DropdownMenu.Trigger>
@@ -41,7 +43,7 @@ export const DropdownFilter = <
         align="start"
         sideOffset={10}
         alignOffset={-10}
-        className="DropdownMenuContent"
+        className=" w-[167px] bg-gray-10 rounded-lg shadow-[0px_4px_10px_0px_rgba(0,0,0,0.15)]"
       >
         <DropdownMenu.RadioGroup
           value={activeValue as string}
@@ -51,9 +53,9 @@ export const DropdownFilter = <
             <DropdownMenu.RadioItem
               key={val}
               value={val}
-              className="DropdownMenuRadioItem"
+              className=" text-gray-90 flex items-center pl-[32px] h-[45px] relative bg-white [&:not(:last-of-type)]:border-b [&:not(:last-of-type)]:border-gray-20"
             >
-              <DropdownMenu.ItemIndicator className="DropdownMenuItemIndicator">
+              <DropdownMenu.ItemIndicator className=" absolute left-[6px] w-[24px] inline-flex items-center justify-center">
                 <CheckIcon />
               </DropdownMenu.ItemIndicator>
               {label}
@@ -64,3 +66,5 @@ export const DropdownFilter = <
     </DropdownMenu.Root>
   );
 };
+
+export default DropdownFilter;

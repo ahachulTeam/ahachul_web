@@ -4,16 +4,16 @@ import ChevronDownIcon from '@/common/assets/icons/chevron-down';
 import { ConditionalRender } from '../ConditionalRender';
 
 interface Props {
-  activedCount: number;
+  activatedCount: number;
   handleReset: () => void;
 }
-const ResetFilter = ({ activedCount, handleReset }: Props) => {
+const ResetFilter = ({ activatedCount, handleReset }: Props) => {
   return (
-    <ConditionalRender isRender={activedCount > 0}>
+    <ConditionalRender isRender={activatedCount > 0}>
       <DropdownMenu.Root modal={false}>
         <DropdownMenu.Trigger asChild>
           <button>
-            <span>{activedCount}</span>
+            <span>{activatedCount}</span>
             <ChevronDownIcon />
           </button>
         </DropdownMenu.Trigger>
@@ -25,7 +25,7 @@ const ResetFilter = ({ activedCount, handleReset }: Props) => {
           className="DropdownMenuContent"
         >
           <DropdownMenu.Label className="DropdownMenuLabel">
-            {activedCount}개 필터가 적용됨.
+            {activatedCount}개 필터가 적용됨.
           </DropdownMenu.Label>
           <DropdownMenu.Item
             className="DropdownMenuItem red"
