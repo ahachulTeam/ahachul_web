@@ -13,7 +13,7 @@ export enum APP_UNIQUE_FILTER_ID_LIST {
 export type FilterState<T extends StringRecord> = {
   filters: T;
   loaded: boolean;
-  activedCount: number;
+  activatedCount: number;
   handleSelect: <K extends KeyOf<T>>(key: K, value: T[K]) => void;
   handleReset: () => void;
 };
@@ -26,7 +26,7 @@ const createFilterStoreWithPersist = <T extends StringRecord>(
 ) => {
   const createStore: FilterStoreCreator<T> = (set) => ({
     filters: defaultValues,
-    activedCount: 0,
+    activatedCount: 0,
     loaded: false,
     handleSelect: (key, value) => {
       set((state) => {
@@ -35,17 +35,17 @@ const createFilterStoreWithPersist = <T extends StringRecord>(
 
         const newFilters = { ...state.filters, [key]: value };
         const newActiveFilterCount =
-          state.activedCount +
+          state.activatedCount +
           (isDefaultValue && !wasDefaultValue ? -1 : 0) +
           (!isDefaultValue && wasDefaultValue ? 1 : 0);
 
         return {
           filters: newFilters,
-          activedCount: newActiveFilterCount,
+          activatedCount: newActiveFilterCount,
         };
       });
     },
-    handleReset: () => set({ filters: defaultValues, activedCount: 0 }),
+    handleReset: () => set({ filters: defaultValues, activatedCount: 0 }),
   });
 
   return create<FilterState<T>>()(

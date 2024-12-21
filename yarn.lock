@@ -71,6 +71,7 @@ __metadata:
     "@types/node": "npm:^20"
     "@types/react": "npm:^18"
     "@types/react-dom": "npm:^18"
+    "@types/react-lazy-load-image-component": "npm:^1.6.4"
     autoprefixer: "npm:^10.0.1"
     axios: "npm:^1.7.7"
     clsx: "npm:^2.1.1"
@@ -89,6 +90,9 @@ __metadata:
     react: "npm:^18"
     react-dom: "npm:^18"
     react-intersection-observer: "npm:^9.13.1"
+    react-lazy-load-image-component: "npm:^1.6.3"
+    react-zoom-pan-pinch: "npm:3.6.0"
+    swiper: "npm:^11.1.15"
     tailwind-merge: "npm:^2.5.4"
     tailwindcss: "npm:^3.3.0"
     ts-jest: "npm:^29.1.1"
@@ -10220,6 +10224,16 @@ __metadata:
     "@types/react": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: 10c0/40912e3f50f3d9984c20098d44a1ec1d81fc7f0053754c15199ea4eff9a4143df41736e168e08c00019e42e1dfc3b8e70f29bd93ef83a8e5cf11839cf3fcb7b0
+  languageName: node
+  linkType: hard
+
+"@types/react-lazy-load-image-component@npm:^1.6.4":
+  version: 1.6.4
+  resolution: "@types/react-lazy-load-image-component@npm:1.6.4"
+  dependencies:
+    "@types/react": "npm:*"
+    csstype: "npm:^3.0.2"
+  checksum: 10c0/f0d6c02439bbd4b899fe78c5a518e121bb333af0f5b36179136551e5c03efd0e8abb20a96dbc70e367858f2268bfcd883c3b6278646c9a09685a53039b1d1da4
   languageName: node
   linkType: hard
 
@@ -25299,6 +25313,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-lazy-load-image-component@npm:^1.6.3":
+  version: 1.6.3
+  resolution: "react-lazy-load-image-component@npm:1.6.3"
+  dependencies:
+    lodash.debounce: "npm:^4.0.8"
+    lodash.throttle: "npm:^4.1.1"
+  peerDependencies:
+    react: ^15.x.x || ^16.x.x || ^17.x.x || ^18.x.x || ^19.x.x
+  checksum: 10c0/5237557d90b26aadcaf078ce8fa9b5d2270705d771c3f4cdb39375e7988257f6ba0705b558150b54c695d9a001fbeb3d690638df1bc85759d248a0f01d9659d1
+  languageName: node
+  linkType: hard
+
 "react-loading-skeleton@npm:^3.4.0":
   version: 3.4.0
   resolution: "react-loading-skeleton@npm:3.4.0"
@@ -25608,6 +25634,16 @@ __metadata:
   peerDependencies:
     react: ">= 16.8.0"
   checksum: 10c0/6ca0f6cbe752257393833884df02dc1266d9feb6d10e9c4800b8d591dae7740538404767f2013c7bcef8154bdc1fcd8c166a8408a0c06ed6498e73b23feaeeec
+  languageName: node
+  linkType: hard
+
+"react-zoom-pan-pinch@npm:3.6.0":
+  version: 3.6.0
+  resolution: "react-zoom-pan-pinch@npm:3.6.0"
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: 10c0/e7fdec64aeeba25069cf5aa65e6414ac6cb71baa288aee19ce89d45109120ab4c0f9531553606c26b911f9685be59c417dd0ca5f8b95873c05ae1d7eecea857a
   languageName: node
   linkType: hard
 
@@ -28034,6 +28070,13 @@ __metadata:
   bin:
     svgo: ./bin/svgo
   checksum: 10c0/a6badbd3d1d6dbb177f872787699ab34320b990d12e20798ecae915f0008796a0f3c69164f1485c9def399e0ce0a5683eb4a8045e51a5e1c364bb13a0d9f79e1
+  languageName: node
+  linkType: hard
+
+"swiper@npm:^11.1.15":
+  version: 11.1.15
+  resolution: "swiper@npm:11.1.15"
+  checksum: 10c0/3faabc5b33c0663513e8e41c4ef7920d4c9a1ca6b988848f2e51e1db0d01471a1bae22fce3177b9d3ab2c128fc6df23074415ae7957bd0f8542fd7387fa5263d
   languageName: node
   linkType: hard
 

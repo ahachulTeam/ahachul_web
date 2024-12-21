@@ -8,7 +8,10 @@ const nextConfig = {
       use: [
         {
           loader: '@svgr/webpack',
-          options: {},
+          options: {
+            svgo: true,
+            typescript: true,
+          },
         },
       ],
     });

@@ -1,4 +1,4 @@
-export const gneratetAccurateSubwayLineId = (
+export const formatSubwayLineId = (
   filtersSubwayLineId: string,
   userFavoriteLineId: number,
 ) => {
