@@ -53,7 +53,7 @@ const DropdownFilter = <T extends Record<string, string>, K extends KeyOf<T>>({
             <DropdownMenu.RadioItem
               key={val}
               value={val}
-              className=" text-gray-90 flex items-center pl-[32px] h-[45px] relative bg-white [&:not(:last-of-type)]:border-b [&:not(:last-of-type)]:border-gray-20"
+              className=" text-gray-90 text-sm flex items-center pl-[32px] h-[45px] relative bg-white [&:not(:last-of-type)]:border-b [&:not(:last-of-type)]:border-gray-20"
             >
               <DropdownMenu.ItemIndicator className=" absolute left-[6px] w-[24px] inline-flex items-center justify-center">
                 <CheckIcon />
