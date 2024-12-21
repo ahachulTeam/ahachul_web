@@ -1,14 +1,15 @@
 'use client';
 
 import React from 'react';
-import { useGetLostFoundDetail } from '../../_lib/get';
-import LostTypeBadge from './LostTypeBadge';
-import { SUBWAY_LOGO_SVG_LIST } from '@/common/components/Subway/subway-logo-icon-map';
+
 import BookmarkIcon from '@/common/assets/icons/svgs/bookmark.svg';
-import EllipsisHorizontalIcon from '@/common/assets/icons/svgs/ellipsis.svg';
+import { SUBWAY_LOGO_SVG_LIST } from '@/common/components/Subway/subway-logo-icon-map';
+import LostTypeBadge from './LostTypeBadge';
+import { LostFoundCommentList } from './CommentList';
+import { useGetLostFoundDetail } from '../../_lib/get';
 
 type Props = {
-  lostId: string;
+  lostId: number;
 };
 
 const LostFoundPostDetail = ({ lostId }: Props) => {
@@ -47,45 +48,8 @@ const LostFoundPostDetail = ({ lostId }: Props) => {
           <BookmarkIcon />
         </div>
       </article>
-      <section>
-        {/* <CommentCard /> */}
-        <div className=" flex flex-col py-4 px-5 bg-gray-10 border-b border-b-gray-20">
-          <div className=" flex items-center justify-between pb-2">
-            <span className=" text-gray-90 text-[13px]">아라뱃길</span>
-            <EllipsisHorizontalIcon />
-          </div>
-          <div className=" flex flex-col gap-3 pb-5">
-            <div className=" text-gray-90 text-body-large-semi">
-              사당역(4호선)에서는 [23.07.18] [검정색 루이비통 반지갑]을
-              습득/보관 하였습니다. 분실하신 분께서는 본인을 증명할 수 있는
-              서류를 지참하시어 보관중으로 기재되어
-            </div>
-            <span className=" text-body-small text-gray-70">
-              {post.createdAt}
-            </span>
-          </div>
-          <button className=" text-gray-90 text-label-medium w-max">
-            답글 달기
-          </button>
-        </div>
 
-        <div className=" flex flex-col py-4 pl-10 pr-5 bg-gray-10 border-b border-b-gray-20">
-          <div className=" flex items-center justify-between pb-2">
-            <span className=" text-gray-90 text-[13px]">아라뱃길</span>
-            <EllipsisHorizontalIcon />
-          </div>
-          <div className=" flex flex-col gap-3 pb-5">
-            <div className=" text-gray-90 text-body-large-semi">
-              사당역(4호선)에서는 [23.07.18] [검정색 루이비통 반지갑]을
-              습득/보관 하였습니다. 분실하신 분께서는 본인을 증명할 수 있는
-              서류를 지참하시어 보관중으로 기재되어
-            </div>
-            <span className=" text-body-small text-gray-70">
-              {post.createdAt}
-            </span>
-          </div>
-        </div>
-      </section>
+      <LostFoundCommentList articleId={lostId} />
     </>
   );
 };
