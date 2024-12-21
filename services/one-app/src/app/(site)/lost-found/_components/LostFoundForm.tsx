@@ -37,18 +37,17 @@ const LostFoundForm = ({ lostId = null }: Props) => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const contentFormData = {
+    const contentData = {
       title,
       content: editorContent,
       subwayLineId,
       lostType,
-      ...(lostId && { removeImageIds }),
-      ...(lostId && { id: lostId }),
+      ...(lostId && removeImageIds.length && { removeImageIds }),
     };
 
-    const formData = createFormData({
+    const postData = createFormData({
       jsonDataKey: 'content',
-      jsonData: contentFormData,
+      jsonData: contentData,
       fileDataKey: 'files',
       fileData: images.flatMap((image) =>
         image.data !== null ? [image.data] : [],
@@ -58,7 +57,7 @@ const LostFoundForm = ({ lostId = null }: Props) => {
     try {
       const res = await apiClient.post(
         `/lost-posts/${lostId || ''}`,
-        formData,
+        postData,
         {
           headers: {
             'Content-Type': 'multipart/form-data',
