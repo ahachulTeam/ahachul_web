@@ -10,7 +10,7 @@ type Props = {
 const LostFoundPostDetail = ({ lostId }: Props) => {
   const { data } = useGetLostFoundDetail(lostId);
 
-  return <div>{data.title}</div>;
+  return <article className=" pb-6">{data.title}</article>;
 };
 
 export default LostFoundPostDetail;

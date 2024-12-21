@@ -14,7 +14,7 @@ function LostFound() {
 
   return loaded ? (
     <main className="flex min-h-screen flex-col text-black bg-white ">
-      <div className="flex flex-col gap-3 px-5">
+      <div className="flex flex-col">
         <LostFoundFilterList {...getFilterProps()} />
         <SuspenseQueryBoundary
           keys={boundaryKeys}

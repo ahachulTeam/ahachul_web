@@ -91,6 +91,8 @@ __metadata:
     react-dom: "npm:^18"
     react-intersection-observer: "npm:^9.13.1"
     react-lazy-load-image-component: "npm:^1.6.3"
+    react-zoom-pan-pinch: "npm:3.6.0"
+    swiper: "npm:^11.1.15"
     tailwind-merge: "npm:^2.5.4"
     tailwindcss: "npm:^3.3.0"
     ts-jest: "npm:^29.1.1"
@@ -25635,6 +25637,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-zoom-pan-pinch@npm:3.6.0":
+  version: 3.6.0
+  resolution: "react-zoom-pan-pinch@npm:3.6.0"
+  peerDependencies:
+    react: "*"
+    react-dom: "*"
+  checksum: 10c0/e7fdec64aeeba25069cf5aa65e6414ac6cb71baa288aee19ce89d45109120ab4c0f9531553606c26b911f9685be59c417dd0ca5f8b95873c05ae1d7eecea857a
+  languageName: node
+  linkType: hard
+
 "react@npm:^18":
   version: 18.3.1
   resolution: "react@npm:18.3.1"
@@ -28058,6 +28070,13 @@ __metadata:
   bin:
     svgo: ./bin/svgo
   checksum: 10c0/a6badbd3d1d6dbb177f872787699ab34320b990d12e20798ecae915f0008796a0f3c69164f1485c9def399e0ce0a5683eb4a8045e51a5e1c364bb13a0d9f79e1
+  languageName: node
+  linkType: hard
+
+"swiper@npm:^11.1.15":
+  version: 11.1.15
+  resolution: "swiper@npm:11.1.15"
+  checksum: 10c0/3faabc5b33c0663513e8e41c4ef7920d4c9a1ca6b988848f2e51e1db0d01471a1bae22fce3177b9d3ab2c128fc6df23074415ae7957bd0f8542fd7387fa5263d
   languageName: node
   linkType: hard
 

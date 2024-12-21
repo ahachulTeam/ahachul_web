@@ -12,7 +12,7 @@ export type Post = {
 } & Partial<OptionalPostFields>;
 
 export type OptionalPostFields = {
-  image: PostImage;
+  imageUrl: string;
 };
 
 export type RecommendPost = {

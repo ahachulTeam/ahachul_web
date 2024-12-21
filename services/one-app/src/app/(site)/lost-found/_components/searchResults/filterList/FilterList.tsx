@@ -21,7 +21,7 @@ const LostFoundFilterList = ({
   handleReset,
 }: LostFoundFilterListProps) => {
   return (
-    <section className=" flex flex-col gap-4 mt-8">
+    <section className=" flex flex-col gap-4 mt-8 px-5">
       <SearchFilter />
       <div className=" flex items-center gap-2">
         <ResetFilter
