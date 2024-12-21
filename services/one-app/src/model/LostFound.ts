@@ -22,7 +22,6 @@ export interface LostFoundPostDetail extends LostFoundPost {
   externalSourceImageUrl: string;
   isFromLost112: boolean;
   images: PostImage[];
-  lostType: LostType;
   recommendPosts: RecommendPost[];
   lostType: LostFoundType;
 }
