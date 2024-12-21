@@ -17,7 +17,7 @@ const LOST_FOUND_FILTER_DEFAULT_VALUES: LostFoundFilters = {
 
 export const useLostFoundFilters = () => {
   const [keyword] = useQueryState('keyword');
-  const { filters, loaded, activedCount, handleSelect, handleReset } =
+  const { filters, loaded, activatedCount, handleSelect, handleReset } =
     createFilterStoreWithPersist<LostFoundFilters>(
       LOST_FOUND_FILTER_DEFAULT_VALUES,
       APP_UNIQUE_FILTER_ID_LIST.LOST_FOUND,
@@ -27,7 +27,7 @@ export const useLostFoundFilters = () => {
 
   const getFilterProps = (): Omit<FilterState<LostFoundFilters>, 'loaded'> => ({
     filters,
-    activedCount,
+    activatedCount,
     handleSelect,
     handleReset,
   });

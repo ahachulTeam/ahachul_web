@@ -1,10 +1,10 @@
 import React from 'react';
 import { FilterState } from '@/store/filter';
 import { LostFoundFilters, LostFoundType } from '@/model/LostFound';
-import { DropdownFilter } from '@/common/components/Filters/DropdownFilter';
 import { subwayLineIdOptions } from '@/common/constants/subway';
-import ResetFilter from '@/common/components/Filters/ResetFilter';
-import SearchFilter from '@/common/components/Filters/SearchFilter';
+import ResetFilter from '@/common/components/Filter/ResetFilter';
+import SearchFilter from '@/common/components/Filter/SearchFilter';
+import DropdownFilter from '@/common/components/Filter/DropdownFilter';
 
 const lostTypeOptions = {
   [LostFoundType.LOST]: '분실물',
@@ -16,15 +16,18 @@ interface LostFoundFilterListProps
 
 const LostFoundFilterList = ({
   filters,
-  activedCount,
+  activatedCount,
   handleSelect,
   handleReset,
 }: LostFoundFilterListProps) => {
   return (
-    <section className=" flex flex-col gap-4">
+    <section className=" flex flex-col gap-4 mt-8 px-5">
       <SearchFilter />
-      <div>
-        <ResetFilter activedCount={activedCount} handleReset={handleReset} />
+      <div className=" flex items-center gap-2">
+        <ResetFilter
+          activatedCount={activatedCount}
+          handleReset={handleReset}
+        />
         <DropdownFilter
           name="lostType"
           filters={filters}

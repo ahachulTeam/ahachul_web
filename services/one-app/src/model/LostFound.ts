@@ -24,6 +24,7 @@ export interface LostFoundPostDetail extends LostFoundPost {
   images: PostImage[];
   lostType: LostType;
   recommendPosts: RecommendPost[];
+  lostType: LostFoundType;
 }
 
 export interface LostFoundListParams

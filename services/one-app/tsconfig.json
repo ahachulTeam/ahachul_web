@@ -24,9 +24,9 @@
   },
   "include": [
     "next-env.d.ts",
-    "custom.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "./src/globals.d.ts",
     ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
