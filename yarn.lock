@@ -56,6 +56,7 @@ __metadata:
   dependencies:
     "@faker-js/faker": "npm:^9.0.3"
     "@lexical/react": "npm:^0.21.0"
+    "@lottiefiles/react-lottie-player": "npm:^3.5.4"
     "@mswjs/http-middleware": "npm:^0.10.2"
     "@radix-ui/react-dropdown-menu": "npm:^2.1.2"
     "@svgr/webpack": "npm:^8.1.0"
@@ -5738,6 +5739,17 @@ __metadata:
   peerDependencies:
     react: 16 - 18
   checksum: 10c0/db32ff9e0594b6244eaf39a54190dad81c79339b4437abda1f122c354bd2aaf3235e565af1e036aa32bba53bda9401ceac942a5ac59295a091146c8bc8836f85
+  languageName: node
+  linkType: hard
+
+"@lottiefiles/react-lottie-player@npm:^3.5.4":
+  version: 3.5.4
+  resolution: "@lottiefiles/react-lottie-player@npm:3.5.4"
+  dependencies:
+    lottie-web: "npm:^5.12.2"
+  peerDependencies:
+    react: 16 - 18
+  checksum: 10c0/fbd154c1291648d1c652e37cbd95e71991a48c6c6da2f1de7cc632fd6c4b4e5ab35336ee788cf65f01c036dae89f7cfbe89638c6ee6048590b0c9a671289e480
   languageName: node
   linkType: hard
 
@@ -20530,7 +20542,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lottie-web@npm:^5.10.2":
+"lottie-web@npm:^5.10.2, lottie-web@npm:^5.12.2":
   version: 5.12.2
   resolution: "lottie-web@npm:5.12.2"
   checksum: 10c0/0aeaf631b10a76afd025df70c2a1486543530708e07a316946c08e55891dac483ffbaf2bf3648ae0b9c54c733118a0a086fd150aa76f7848606214c67ad72c30

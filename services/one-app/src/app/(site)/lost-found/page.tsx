@@ -1,12 +1,13 @@
 'use client';
+
 import { Suspense } from 'react';
 
 import LostFoundFilterList from './_components/searchResults/filterList/FilterList';
 import LostFoundSearchedList from './_components/searchResults/searchedList/SearchedList';
 import { useLostFoundFilters } from './_lib/useLostFoundFilterStore';
 import { SuspenseQueryBoundary } from '@/common/components/SuspenseQueryBoundary/SuspenseQueryBoundary';
-
-const LoadingPage = () => <div>Loading...</div>;
+import { Spinner } from '@/common/components/Spinner';
+import { ArticleListSuspenseFallback } from '@/common/components/Article/ArticleList.suspense';
 
 function LostFound() {
   const { loaded, keyword, filters, boundaryKeys, getFilterProps } =
@@ -20,20 +21,20 @@ function LostFound() {
           keys={boundaryKeys}
           resetError={() => {}}
           errorFallback={<div>error</div>}
-          suspenseFallback={<div>loading</div>}
+          suspenseFallback={<ArticleListSuspenseFallback />}
         >
           <LostFoundSearchedList keyword={keyword} filters={filters} />
         </SuspenseQueryBoundary>
       </div>
     </main>
   ) : (
-    <LoadingPage />
+    <Spinner />
   );
 }
 
 export default function LostFoundPage() {
   return (
-    <Suspense fallback={<LoadingPage />}>
+    <Suspense fallback={<Spinner />}>
       <LostFound />
     </Suspense>
   );

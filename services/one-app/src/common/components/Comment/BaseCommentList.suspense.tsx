@@ -5,7 +5,7 @@ import EllipsisHorizontalIcon from '@/common/assets/icons/svgs/ellipsis.svg';
 import { BaseSkeleton } from '../BaseSkeleton';
 
 export const CommentListSuspenseFallback = () => {
-  const { isDeferred } = useIsDeferred(500);
+  const { isDeferred } = useIsDeferred(0);
 
   return isDeferred ? (
     <section

@@ -28,7 +28,7 @@ const DropdownFilter = <T extends Record<string, string>, K extends KeyOf<T>>({
   const isActive = activeValue !== defaultValue;
 
   return (
-    <DropdownMenu.Root modal={false}>
+    <DropdownMenu.Root modal>
       <DropdownMenu.Trigger asChild>
         <button
           data-active={isActive}
@@ -48,7 +48,6 @@ const DropdownFilter = <T extends Record<string, string>, K extends KeyOf<T>>({
           className={cn(
             'w-[167px] overflow-hidden rounded-xl bg-gray-10 shadow-[0px_4px_10px_0px_rgba(0,0,0,0.15)]',
             'data-[state=open]:animate-[slideDownAndFade_150ms_ease-out]',
-            'data-[state=closed]:animate-[slideUpAndFade_150ms_ease-out]',
             'will-change-[opacity,transform]',
           )}
         >
@@ -63,8 +62,7 @@ const DropdownFilter = <T extends Record<string, string>, K extends KeyOf<T>>({
                 className={cn(
                   'relative flex h-[45px] items-center bg-white pl-[32px] text-sm text-gray-90',
                   '[&:not(:last-of-type)]:border-b [&:not(:last-of-type)]:border-gray-20',
-                  'outline-none transition-colors hover:bg-gray-50',
-                  'focus:bg-gray-50',
+                  'outline-none transition-colors',
                 )}
               >
                 <DropdownMenu.ItemIndicator className="absolute left-[6px] inline-flex w-[24px] items-center justify-center">

@@ -28,9 +28,8 @@ const LostFoundPostDetail = ({ lostId }: Props) => {
               <span className=" text-gray-80">{post.writer || 'LOST112'}</span>
               <span className=" text-gray-70">{post.createdAt}</span>
             </div>
-            <div className=" flex items-center gap-0.5 text-gray-90 text-label-medium font-regular">
+            <div className=" flex items-center text-gray-90 text-label-medium font-regular">
               {SUBWAY_LOGO_SVG_LIST[post.subwayLineId]}
-              <span>호선</span>
             </div>
           </div>
           <p className=" py-6 mb-3 text-body-large-semi text-gray-90">

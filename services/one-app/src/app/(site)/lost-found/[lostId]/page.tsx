@@ -1,11 +1,10 @@
-import Link from 'next/link';
-
 import LostFoundPostDetail from '../_components/postDetail/PostDetail';
 import { SuspenseQueryBoundary } from '@/common/components/SuspenseQueryBoundary/SuspenseQueryBoundary';
+import { ArticleDetailSuspenseFallback } from '@/common/components/Article/ArticleDetail.suspense';
 
 type Props = {
   params: {
-    lostId: string;
+    lostId: number;
   };
 };
 
@@ -17,7 +16,7 @@ export default function LostFoundDetailPage({ params }: Props) {
       <div className="flex flex-col gap-3">
         <SuspenseQueryBoundary
           errorFallback={<div>error</div>}
-          suspenseFallback={<div>loading</div>}
+          suspenseFallback={<ArticleDetailSuspenseFallback />}
         >
           <LostFoundPostDetail lostId={lostId} />
         </SuspenseQueryBoundary>

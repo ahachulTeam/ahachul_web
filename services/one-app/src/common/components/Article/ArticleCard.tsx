@@ -17,7 +17,7 @@ const ArticleCard = ({ post }: Props) => {
   const isLexicalSyntaxContent = isLexicalContent(post.content);
 
   return (
-    <article className=" py-6 px-5">
+    <article className=" py-6 px-5 border-b border-b-gray-20">
       <div className=" flex flex-col gap-3">
         <div className=" flex gap-1.5">
           <div className=" w-full flex flex-col gap-1.5">

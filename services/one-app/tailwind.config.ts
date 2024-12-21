@@ -168,6 +168,16 @@ const config: Config = {
           },
         ],
       }),
+      animation: {
+        spinner: 'spinner 1s steps(30) infinite',
+      },
+      keyframes: {
+        spinner: {
+          '100%': {
+            backgroundPosition: '-1740px',
+          },
+        },
+      },
     },
   },
   plugins: [],
