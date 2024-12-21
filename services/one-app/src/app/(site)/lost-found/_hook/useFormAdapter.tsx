@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useGetLostFoundDetail } from '../_lib/get';
-import type { LostType, LostFoundFormData } from '@/model/LostFound';
+import type { LostFoundFormData } from '@/model/LostFound';
 
 type UseLostFoundFormAdapter = (params: {
   lostId: string;
