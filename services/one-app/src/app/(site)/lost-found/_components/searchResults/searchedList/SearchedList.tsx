@@ -39,9 +39,7 @@ const LostFoundSearchedList = ({ keyword, filters }: Props) => {
   return (
     <>
       {lostArticles.map((item, idx) => (
-        // item.id로만 하면 key 중복이 발생하고 있음.
-        // 해결 필요
-        <Link key={`${item.id}-${idx}`} href={`/lost-found/${item.id}`}>
+        <Link key={`${item.id}${idx}`} href={`/lost-found/${item.id}`}>
           <ArticleCard post={item} />
         </Link>
       ))}

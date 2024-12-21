@@ -23,6 +23,7 @@ export interface LostFoundPostDetail extends LostFoundPost {
   isFromLost112: boolean;
   images: PostImage[];
   recommendPosts: RecommendPost[];
+  lostType: LostFoundType;
 }
 
 export interface LostFoundListParams
