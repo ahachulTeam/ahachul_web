@@ -8,7 +8,7 @@ export { default as SubwayLogo_7호선 } from './subway_logo_7.svg';
 export { default as SubwayLogo_8호선 } from './subway_logo_8.svg';
 export { default as SubwayLogo_9호선 } from './subway_logo_9.svg';
 export { default as SubwayLogo_경강 } from './subway_logo_경강.svg';
-export { default as SubwayLogo_경의중앙 } from './subway_logo_경의중앙.svg';
+export { default as SubwayLogo_경의중앙 } from './subway_logo_경의중앙.svg';
 export { default as SubwayLogo_경춘 } from './subway_logo_경춘.svg';
 export { default as SubwayLogo_공항 } from './subway_logo_공항.svg';
 export { default as SubwayLogo_김포골드 } from './subway_logo_김포골드.svg';
