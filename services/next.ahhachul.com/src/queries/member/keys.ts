@@ -1,7 +1,0 @@
-const KEY = ['MEMBER'];
-
-const STATIONS_KEY = [...KEY, 'STATIONS'];
-
-const PERSONAL_INFO_KEY = [...KEY, 'PERSONAL_INFO'];
-
-export { KEY, STATIONS_KEY, PERSONAL_INFO_KEY };
