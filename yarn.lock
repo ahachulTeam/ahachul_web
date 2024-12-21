@@ -57,8 +57,8 @@ __metadata:
     "@faker-js/faker": "npm:^9.0.3"
     "@lexical/react": "npm:^0.21.0"
     "@mswjs/http-middleware": "npm:^0.10.2"
-    "@radix-ui/react-dropdown-menu": "npm:^2.1.2"
     "@radix-ui/react-dialog": "npm:^1.1.2"
+    "@radix-ui/react-dropdown-menu": "npm:^2.1.2"
     "@radix-ui/react-slot": "npm:^1.1.1"
     "@svgr/webpack": "npm:^8.1.0"
     "@tanstack/react-query": "npm:^5.59.16"
@@ -7340,26 +7340,6 @@ __metadata:
     "@types/react-dom":
       optional: true
   checksum: 10c0/7e7130fcb0d99197322cd97987e1d7279b6c264fb6be3d883cbfcd49267740d83ca17b431e0d98848afd6067a13ee823ca396a8b63ae68f18a728cf70398c830
-  languageName: node
-  linkType: hard
-
-"@radix-ui/react-portal@npm:1.1.2":
-  version: 1.1.2
-  resolution: "@radix-ui/react-portal@npm:1.1.2"
-  dependencies:
-    "@radix-ui/react-primitive": "npm:2.0.0"
-    "@radix-ui/react-use-layout-effect": "npm:1.1.0"
-  peerDependencies:
-    "@types/react": "*"
-    "@types/react-dom": "*"
-    react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
-    react-dom: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
-  peerDependenciesMeta:
-    "@types/react":
-      optional: true
-    "@types/react-dom":
-      optional: true
-  checksum: 10c0/836967330893b16b85371775ed1a59e038ce99189f4851cfa976bde2710d704c2a9e49e0a5206e7ac3fcf8a67ddd2d126b8352a88f295d6ef49d04e269736ed1
   languageName: node
   linkType: hard
 
