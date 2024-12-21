@@ -2,9 +2,9 @@ import React from 'react';
 import { FilterState } from '@/store/filter';
 import { LostFoundFilters, LostFoundType } from '@/model/LostFound';
 import { subwayLineIdOptions } from '@/common/constants/subway';
-import ResetFilter from '@/common/components/Filters/ResetFilter';
-import SearchFilter from '@/common/components/Filters/SearchFilter';
-import DropdownFilter from '@/common/components/Filters/DropdownFilter';
+import ResetFilter from '@/common/components/Filter/ResetFilter';
+import SearchFilter from '@/common/components/Filter/SearchFilter';
+import DropdownFilter from '@/common/components/Filter/DropdownFilter';
 
 const lostTypeOptions = {
   [LostFoundType.LOST]: '분실물',
