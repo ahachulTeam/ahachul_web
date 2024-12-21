@@ -68,6 +68,23 @@ const LostFoundPostDetail = ({ lostId }: Props) => {
             답글 달기
           </button>
         </div>
+
+        <div className=" flex flex-col py-4 pl-10 pr-5 bg-gray-10 border-b border-b-gray-20">
+          <div className=" flex items-center justify-between pb-2">
+            <span className=" text-gray-90 text-[13px]">아라뱃길</span>
+            <EllipsisHorizontalIcon />
+          </div>
+          <div className=" flex flex-col gap-3 pb-5">
+            <div className=" text-gray-90 text-body-large-semi">
+              사당역(4호선)에서는 [23.07.18] [검정색 루이비통 반지갑]을
+              습득/보관 하였습니다. 분실하신 분께서는 본인을 증명할 수 있는
+              서류를 지참하시어 보관중으로 기재되어
+            </div>
+            <span className=" text-body-small text-gray-70">
+              {post.createdAt}
+            </span>
+          </div>
+        </div>
       </section>
     </>
   );
