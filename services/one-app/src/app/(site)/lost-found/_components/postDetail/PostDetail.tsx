@@ -7,6 +7,10 @@ import { SUBWAY_LOGO_SVG_LIST } from '@/common/components/Subway/subway-logo-ico
 import LostTypeBadge from './LostTypeBadge';
 import { LostFoundCommentList } from './CommentList';
 import { useGetLostFoundDetail } from '../../_lib/get';
+import { formatDate } from '@/common/utils/date';
+import { isLexicalContent } from '@/common/utils/validate';
+import { LexicalSyntaxContentParser } from '@/app/(site)/_component/Editor/LexicalSyntaxContentParser';
+import { cn } from '@/common/utils/cn';
 
 type Props = {
   lostId: number;
@@ -14,6 +18,7 @@ type Props = {
 
 const LostFoundPostDetail = ({ lostId }: Props) => {
   const { data: post } = useGetLostFoundDetail(lostId);
+  const isLexicalSyntaxContent = isLexicalContent(post.content);
 
   return (
     <>
@@ -26,18 +31,29 @@ const LostFoundPostDetail = ({ lostId }: Props) => {
           <div className=" w-full flex items-center justify-between pb-4 border-b border-b-gray-20">
             <div className=" flex items-center gap-1 text-body-medium">
               <span className=" text-gray-80">{post.writer || 'LOST112'}</span>
-              <span className=" text-gray-70">{post.createdAt}</span>
+              <span className=" text-gray-70">
+                {formatDate(post.createdAt)}
+              </span>
             </div>
             <div className=" flex items-center text-gray-90 text-label-medium font-regular">
               {SUBWAY_LOGO_SVG_LIST[post.subwayLineId]}
             </div>
           </div>
-          <p className=" py-6 mb-3 text-body-large-semi text-gray-90">
-            사당역(4호선)에서는 [23.07.18] [검정색 루이비통 반지갑]을 습득/보관
-            하였습니다. 분실하신 분께서는 본인을 증명할 수 있는 서류를
-            지참하시어 보관중으로 기재되어 있는 기관에 방문하시어 보관물품을
-            수령하시기 바랍니다. 특이사항 : 없음
-          </p>
+          {isLexicalSyntaxContent ? (
+            <LexicalSyntaxContentParser
+              content={post.content}
+              className={cn(
+                'px-0',
+                'py-6',
+                '[&>div>div]:p-0',
+                '[&>div>div]:border-none',
+              )}
+            />
+          ) : (
+            <p className=" py-6 mb-3 text-body-large-semi text-gray-90">
+              {post.content}
+            </p>
+          )}
         </div>
         <div className=" border-t border-t-gray-30 h-[50px] flex items-center justify-between px-5">
           <div className=" flex items-center gap-1 text-gray-80 text-label-medium">

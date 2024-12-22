@@ -4,10 +4,9 @@ import React from 'react';
 import { useIsDeferred } from '@/common/hooks/useIsDeferred';
 import { cn } from '@/common/utils/cn';
 import { BaseSkeleton } from '../BaseSkeleton';
-import BookmarkIcon from '@/common/assets/icons/svgs/bookmark.svg';
 
 export const ArticleDetailSuspenseFallback = () => {
-  const { isDeferred } = useIsDeferred(0);
+  const { isDeferred } = useIsDeferred(500);
 
   return isDeferred ? (
     <>
@@ -25,7 +24,7 @@ export const ArticleDetailSuspenseFallback = () => {
 
           {/* 제목 스켈레톤 */}
           <div className="pt-[13px] pb-4">
-            <BaseSkeleton width="50%" height={32} radius={6} />
+            <BaseSkeleton width="50%" height={21} radius={6} />
           </div>
 
           {/* 메타 정보 스켈레톤 */}
@@ -42,14 +41,18 @@ export const ArticleDetailSuspenseFallback = () => {
           {/* 본문 내용 스켈레톤 */}
           <div className="py-6 mb-3">
             <BaseSkeleton
-              width="100%"
-              height={20}
+              width="60%"
+              height={21}
               radius={6}
-              className="mb-1"
+              className="mb-0.5"
             />
-            <BaseSkeleton width="90%" height={20} radius={6} className="mb-1" />
-            <BaseSkeleton width="70%" height={20} radius={6} className="mb-1" />
-            <BaseSkeleton width="85%" height={20} radius={6} />
+            <BaseSkeleton
+              width="90%"
+              height={21}
+              radius={6}
+              className="mb-0.5"
+            />
+            <BaseSkeleton width="30%" height={21} radius={6} />
           </div>
         </div>
 
@@ -58,7 +61,9 @@ export const ArticleDetailSuspenseFallback = () => {
           <div className="flex items-center gap-1">
             <BaseSkeleton width={60} height={16} radius={6} />
           </div>
-          <BookmarkIcon className="text-gray-30" />
+          <div className="flex items-center">
+            <BaseSkeleton width={24} height={24} radius={12} />
+          </div>
         </div>
       </article>
 

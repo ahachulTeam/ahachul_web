@@ -5,7 +5,7 @@ import { BaseSkeleton } from '../BaseSkeleton';
 import Dot from '@/common/assets/icons/svgs/dot.svg';
 
 export const ArticleListSuspenseFallback = () => {
-  const { isDeferred } = useIsDeferred(0);
+  const { isDeferred } = useIsDeferred(500);
 
   return isDeferred ? (
     <section
@@ -30,8 +30,8 @@ export const ArticleListSuspenseFallback = () => {
           <div className="flex flex-col gap-3">
             <div className="flex gap-1.5">
               <div className="w-full flex flex-col gap-1.5">
-                <BaseSkeleton width={100} height={24} radius={6} />
-                <BaseSkeleton width={170} height={25} radius={6} />
+                <BaseSkeleton width={100} height={23} radius={6} />
+                <BaseSkeleton width={170} height={21} radius={6} />
               </div>
               {/* 이미지 스켈레톤 - 필요한 경우 활성화 */}
               <div className="flex items-center justify-center relative w-[66px] min-w-[66px] aspect-square">

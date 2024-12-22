@@ -1,12 +1,15 @@
 import React from 'react';
 import type { CommentList } from '@/model/Comment';
 import { CommentCard } from './CommentCard';
+import EmptyCommentList from './EmptyCommentList';
 
 interface Props {
   commentsMap: CommentList['comments'];
 }
 
 export const BaseCommentList = React.memo(({ commentsMap }: Props) => {
+  if (commentsMap.length === 0) return <EmptyCommentList />;
+
   return (
     <>
       {commentsMap.map(({ parentComment, childComments }) => (

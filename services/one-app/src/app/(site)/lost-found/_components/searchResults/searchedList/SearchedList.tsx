@@ -40,7 +40,7 @@ const LostFoundSearchedList = ({ keyword, filters }: Props) => {
   if (!lostArticles.length) return <EmptyArticleList />;
 
   return (
-    <>
+    <section>
       {lostArticles.map((item, idx) => (
         <Link key={`${item.id}${idx}`} href={`/lost-found/${item.id}`}>
           <ArticleCard post={item} />
@@ -51,7 +51,7 @@ const LostFoundSearchedList = ({ keyword, filters }: Props) => {
           더 보기
         </span>
       )}
-    </>
+    </section>
   );
 };
 

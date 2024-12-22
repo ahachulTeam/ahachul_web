@@ -8,6 +8,7 @@ import { SUBWAY_LOGO_SVG_LIST } from '@/common/components/Subway/subway-logo-ico
 import { LexicalSyntaxContentParser } from '@/app/(site)/_component/Editor/LexicalSyntaxContentParser';
 import Dot from '@/common/assets/icons/svgs/dot.svg';
 import CommentIcon from '@/common/assets/icons/comment';
+import { formatDate } from '@/common/utils/date';
 
 interface Props {
   post: Post;
@@ -57,7 +58,7 @@ const ArticleCard = ({ post }: Props) => {
             <Dot className=" relative top-[1px]" />
             <span>{post.writer || 'LOST112'}</span>
             <Dot className=" relative top-[1px]" />
-            <span>{post.createdAt}</span>
+            <span>{formatDate(post.createdAt, false)}</span>
           </div>
           <div className=" flex items-center gap-0.5 text-gray-80 text-body-medium">
             <CommentIcon />

@@ -3,6 +3,7 @@ import type { Comment } from '@/model/Comment';
 import EllipsisHorizontalIcon from '@/common/assets/icons/svgs/ellipsis.svg';
 import { cn } from '@/common/utils/cn';
 import { LexicalSyntaxContentParser } from '@/app/(site)/_component/Editor/LexicalSyntaxContentParser';
+import { formatDate } from '@/common/utils/date';
 
 interface CommentCardProps {
   comment: Comment;
@@ -10,8 +11,6 @@ interface CommentCardProps {
 }
 
 export const CommentCard = ({ comment, asChild = false }: CommentCardProps) => {
-  const isDeleted = comment.status === 'DELETED';
-
   return (
     <div
       className={cn(
@@ -24,7 +23,7 @@ export const CommentCard = ({ comment, asChild = false }: CommentCardProps) => {
         <EllipsisHorizontalIcon />
       </div>
       <div className=" flex flex-col gap-3 pb-5">
-        {!isDeleted ? (
+        {comment.status === 'CREATED' ? (
           <LexicalSyntaxContentParser
             content={comment.content}
             className={cn('p-0', '[&>div>div]:p-0', '[&>div>div]:border-none')}
@@ -35,7 +34,7 @@ export const CommentCard = ({ comment, asChild = false }: CommentCardProps) => {
           </div>
         )}
         <span className=" text-body-small text-gray-70">
-          {comment.createdAt}
+          {formatDate(comment.createdAt)}
         </span>
       </div>
       <button className=" text-gray-90 text-label-medium w-max">
