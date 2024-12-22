@@ -204,12 +204,12 @@ function RemoveComment({
         onSuccess: () => {
           setTimeout(() => {
             handleClose();
-          }, 850);
+          }, 350);
           setTimeout(() => {
             queryClient.invalidateQueries({
               queryKey: getQueryKeys(LOST_FOUND_QUERY_KEY).comments(articleId),
             });
-          }, 1150);
+          }, 550);
         },
       }),
     [articleId, commentId],

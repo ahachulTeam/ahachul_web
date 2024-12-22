@@ -9,10 +9,3 @@ export const right = {
     height: '36px',
   },
 };
-
-export const rightJustOne = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-  paddingRight: '16px',
-};

@@ -38,7 +38,7 @@ export const articleCardContentParser = css`
     min-height: unset !important;
 
     p {
-      fontsize: 15px;
+      font-size: 15px !important;
       margin-bottom: 4px !important;
     }
   }

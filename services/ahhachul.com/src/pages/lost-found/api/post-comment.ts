@@ -53,7 +53,7 @@ export const usePostComment = (articleId: number, showLoading = false) => {
 export const deleteComment = async (commentId: number) => {
   const [response] = await Promise.allSettled([
     base.delete<IResponse<Pick<Comment, 'id'>>>(`comments/${commentId}`),
-    sleep(1500),
+    sleep(750),
   ]);
 
   if (response.status === 'rejected') {

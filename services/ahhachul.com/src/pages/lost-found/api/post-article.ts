@@ -3,7 +3,7 @@ import type { LostForm } from '../model/form';
 import { useLoadingStore } from 'entities/app-loaders/slice';
 import { useFlow } from 'app/stackflow';
 import { IResponse } from 'entities/with-server';
-import { LostFoundDetail } from '../model';
+import type { LostFoundDetail, LostStatusType } from '../model';
 import { queryClient } from 'app/lib/react-query';
 import { LOST_FOUND_QUERY_KEY } from './query-key';
 import { Article } from 'features/articles';
@@ -83,7 +83,7 @@ export const deleteLostFoundArticle = async (articleId: number) => {
     base.delete<IResponse<Pick<Article, 'id'>>>(
       `${routes['lost-found']}/${articleId}`,
     ),
-    sleep(1500),
+    sleep(750),
   ]);
 
   if (response.status === 'rejected') {
@@ -182,6 +182,54 @@ export const useUpdateLostAndFoundArticle = () => {
     mutationFn: updateLostAndFoundArticle,
     options: {
       onMutate: setEnableGlobalLoading,
+      onError: afterSubmitFailed,
+      onSuccess: afterSubmitSuccess,
+    },
+  });
+};
+
+export const updateLostFoundStatus = async ({
+  postId,
+  status,
+}: {
+  postId: number;
+  status: LostStatusType;
+}) => {
+  const [response] = await Promise.allSettled([
+    base.patch<{ status: LostStatusType }>(
+      `${routes['lost-found']}/${postId}/status`,
+      {
+        status: status === 'COMPLETE' ? 'PROGRESS' : 'COMPLETE',
+      },
+    ),
+    sleep(750),
+  ]);
+
+  if (response.status === 'rejected') {
+    throw response.reason;
+  }
+
+  if (response.status === 'fulfilled') {
+    return response.value.data;
+  }
+
+  // TODO: sentry에 로그 남김
+  throw new Error('Unexpected state in Promise.allSettled');
+};
+
+export const useUpdateLostGoundStatus = () => {
+  const afterSubmitSuccess = (res: { status: LostStatusType }) => {
+    console.log('res:', res);
+  };
+  const afterSubmitFailed = (error: Error) => {
+    // 토스트 띄어주고 뒤로 가기
+    console.log('error with toast:', error, '토스트 띄어주고 뒤로 가기');
+    window.alert('글 작성하다가 에러 발생');
+  };
+
+  return useAuthMutation({
+    mutationFn: updateLostFoundStatus,
+    options: {
       onError: afterSubmitFailed,
       onSuccess: afterSubmitSuccess,
     },

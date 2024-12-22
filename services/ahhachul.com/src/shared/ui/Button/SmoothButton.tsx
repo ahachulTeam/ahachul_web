@@ -6,7 +6,7 @@ import { keyframes } from '@emotion/react';
 
 interface Props {
   status: 'error' | 'idle' | 'pending' | 'success';
-  idleText?: string;
+  idleText?: string | React.ReactNode;
   successText?: string;
   errorText?: string;
   className?: string;

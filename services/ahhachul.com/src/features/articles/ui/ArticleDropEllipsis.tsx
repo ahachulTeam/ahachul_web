@@ -20,12 +20,19 @@ import {
   WarningIcon,
 } from 'shared/ui/FamilyDrawer/icons';
 import { WithArticleId } from '../model';
-import { useDeleteLostFoundArticle } from 'pages/lost-found/api/post-article';
+import {
+  useDeleteLostFoundArticle,
+  useUpdateLostGoundStatus,
+} from 'pages/lost-found/api/post-article';
 import { queryClient } from 'app/lib/react-query';
 import { getQueryKeys } from 'shared/api';
 import { LOST_FOUND_QUERY_KEY } from 'pages/lost-found/api/query-key';
+import { useGetLostFoundDetail } from 'pages/lost-found/api/get-detail';
 
-export const ArticleDropEllipsis = ({ articleId }: WithArticleId) => {
+export const ArticleDropEllipsis = ({
+  articleId,
+  isMyArticle,
+}: WithArticleId & { isMyArticle: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [view, setView] = useState('default');
   const [elementRef, bounds] = useMeasure();
@@ -51,17 +58,29 @@ export const ArticleDropEllipsis = ({ articleId }: WithArticleId) => {
   const content = useMemo(() => {
     switch (view) {
       case 'default':
-        return <DefaultView setView={setView} handleEdit={handleEdit} />;
+        return isMyArticle ? (
+          <DefaultView setView={setView} handleEdit={handleEdit} />
+        ) : (
+          <ReportView setView={setView} />
+        );
       case 'remove':
-        return (
+        return isMyArticle ? (
           <RemoveArticle
             articleId={articleId}
             setView={setView}
             handleClose={handleClose}
           />
+        ) : (
+          <ReportDetalView setView={setView} />
         );
       case 'updateStatus':
-        return <UpdateStatus setView={setView} handleClose={handleClose} />;
+        return (
+          <UpdateStatus
+            articleId={articleId}
+            setView={setView}
+            handleClose={handleClose}
+          />
+        );
     }
   }, [view]);
 
@@ -153,45 +172,93 @@ function Header({
 }
 
 function UpdateStatus({
+  articleId,
   setView,
   handleClose,
 }: {
+  articleId: number;
   setView: (view: string) => void;
   handleClose: () => void;
 }) {
+  const { data: article } = useGetLostFoundDetail(articleId, {
+    suspense: false,
+  });
+  const {
+    mutate: updateStatus,
+    status,
+    isPending,
+  } = useUpdateLostGoundStatus();
+  const handleUpdateArticleStatus = useCallback(
+    () =>
+      updateStatus(
+        { postId: articleId, status: article.status },
+        {
+          onSuccess: () => {
+            setTimeout(() => {
+              handleClose();
+            }, 350);
+            setTimeout(() => {
+              queryClient.invalidateQueries({
+                queryKey: getQueryKeys(LOST_FOUND_QUERY_KEY).detail(articleId),
+              });
+            }, 550);
+          },
+        },
+      ),
+    [articleId],
+  );
+
   return (
-    <div>
+    <>
       <div>
         <Header
           icon={<RecoveryPhraseIcon />}
           title="상태 변경"
-          description="물건을 찾으셨나요? 확인 버튼을 클릭하면 해결 완료 게시글로 업데이트돼요."
+          description={
+            article?.status === 'PROGRESS'
+              ? '물건을 찾으셨나요? 확인 버튼을 클릭하면 찾기 완료 게시글로 업데이트돼요.'
+              : '다시 물건을 찾고 있는 상태로 변경할까요?'
+          }
         />
-        <S.List>
-          <S.ListItem>
-            <ShieldIcon />
-            민감한 개인정보를 노출하지 마세요
-          </S.ListItem>
-          <S.ListItem>
-            <PassIcon />
-            공개적인 글에 핸드폰 번호는 남기면 안돼요
-          </S.ListItem>
-          <S.ListItem>
-            <BannedIcon />
-            도용 신고는 고객센터를 통해 문의해요
-          </S.ListItem>
-        </S.List>
+        {article?.status === 'PROGRESS' && (
+          <S.List>
+            <S.ListItem>
+              <ShieldIcon />
+              민감한 개인정보를 노출하지 마세요
+            </S.ListItem>
+            <S.ListItem>
+              <PassIcon />
+              공개적인 글에 핸드폰 번호는 남기면 안돼요
+            </S.ListItem>
+            <S.ListItem>
+              <BannedIcon />
+              도용 신고는 고객센터를 통해 문의해요
+            </S.ListItem>
+          </S.List>
+        )}
       </div>
       <S.ButtonGroup>
-        <S.SecondaryButton onClick={() => setView('default')} variant="default">
+        <S.SecondaryButton
+          disabled={isPending}
+          onClick={() => setView('default')}
+          variant="default"
+        >
           취소
         </S.SecondaryButton>
-        <S.SecondaryButton onClick={handleClose} variant="primary">
-          <FaceIDIcon />
-          확인
-        </S.SecondaryButton>
+        <S.SmoothSecondaryButton
+          status={status}
+          idleText={
+            <>
+              <FaceIDIcon />
+              <span css={{ marginLeft: '15px' }}>확인</span>
+            </>
+          }
+          successText="변경 완료"
+          css={{ backgroundColor: '#4DAFFF' }}
+          handleClick={handleUpdateArticleStatus}
+        />
       </S.ButtonGroup>
-    </div>
+    </>
   );
 }
 
@@ -215,40 +282,38 @@ function RemoveArticle({
         onSuccess: () => {
           setTimeout(() => {
             handleClose();
-          }, 850);
+          }, 350);
           setTimeout(() => {
             queryClient.invalidateQueries({
               queryKey: getQueryKeys(LOST_FOUND_QUERY_KEY).detail(articleId),
             });
-          }, 1150);
+          }, 550);
         },
       }),
     [articleId],
   );
 
   return (
-    <div>
-      <div>
-        <Header
-          icon={<DangerIcon />}
-          title="글을 삭제하시겠어요?"
-          description="삭제하시면 복구할 수 없어요. 해당 글을 삭제할까요?"
+    <>
+      <Header
+        icon={<DangerIcon />}
+        title="글을 삭제하시겠어요?"
+        description="삭제하시면 복구할 수 없어요. 해당 글을 삭제할까요?"
+      />
+      <S.ButtonGroup>
+        <S.SecondaryButton
+          variant="default"
+          disabled={isPending}
+          onClick={() => setView('default')}
+        >
+          취소
+        </S.SecondaryButton>
+        <S.SmoothSecondaryButton
+          status={status}
+          handleClick={handleDeleteArticle}
         />
-        <S.ButtonGroup>
-          <S.SecondaryButton
-            variant="default"
-            disabled={isPending}
-            onClick={() => setView('default')}
-          >
-            취소
-          </S.SecondaryButton>
-          <S.SmoothSecondaryButton
-            status={status}
-            handleClick={handleDeleteArticle}
-          />
-        </S.ButtonGroup>
-      </div>
-    </div>
+      </S.ButtonGroup>
+    </>
   );
 }
 
@@ -282,6 +347,46 @@ function DefaultView({
   );
 }
 
+function ReportView({ setView }: { setView: (view: string) => void }) {
+  return (
+    <>
+      <S.DefaultViewHeader>
+        <S.DefaultViewTitle>설정</S.DefaultViewTitle>
+      </S.DefaultViewHeader>
+      <S.ButtonContainer>
+        <S.DangerButton onClick={() => setView('remove')}>
+          <WarningIcon />
+          신고하기
+        </S.DangerButton>
+      </S.ButtonContainer>
+    </>
+  );
+}
+
+function ReportDetalView({ setView }: { setView: (view: string) => void }) {
+  return (
+    <>
+      <Header
+        icon={<DangerIcon />}
+        title="글을 신고하시겠어요?"
+        description="신고하면 고객센터에서 해달 글을 검토해요. 해당 글을 신고할까요?"
+      />
+      <S.ButtonGroup>
+        <S.SecondaryButton
+          variant="default"
+          // disabled={isPending}
+          onClick={() => setView('default')}
+        >
+          취소
+        </S.SecondaryButton>
+        <S.SecondaryButton onClick={() => setView('default')} variant="danger">
+          확안
+        </S.SecondaryButton>
+      </S.ButtonGroup>
+    </>
+  );
+}
+
 const DrawerButton = styled.button`
   background-color: #141517;
   font-weight: 500;
@@ -295,6 +400,11 @@ const DrawerButton = styled.button`
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5);
   }
   transform: rotate(90deg);
+
+  & > #EllipsisIcon {
+    position: relative;
+    top: -1px;
+  }
 `;
 
 const DrawerOverlay = styled(Drawer.Overlay)`

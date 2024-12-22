@@ -19,7 +19,7 @@ export const EllipsisRightContent = ({ articleId }: WithArticleId) => {
     getQueryKeys(LOST_FOUND_QUERY_KEY).detail(articleId),
   ) as AxiosResponse<IResponse<{ createdBy: number }>>;
 
-  const showEllipsis = useMemo(() => {
+  const isMyArticle = useMemo(() => {
     if (!myInfo) return false;
     if (!isSuccess) return false;
     if (!queryData) return false;
@@ -32,11 +32,11 @@ export const EllipsisRightContent = ({ articleId }: WithArticleId) => {
   };
 
   return (
-    <div css={showEllipsis ? styles.right : styles.rightJustOne}>
+    <div css={styles.right}>
       <button onClick={handleShare}>
         <ShareIcon />
       </button>
-      {showEllipsis ? <ArticleDropEllipsis articleId={articleId} /> : null}
+      <ArticleDropEllipsis articleId={articleId} isMyArticle={isMyArticle} />
     </div>
   );
 };

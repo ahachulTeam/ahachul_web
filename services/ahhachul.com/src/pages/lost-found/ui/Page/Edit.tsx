@@ -13,7 +13,7 @@ import { WithArticleId } from 'features/articles';
 import { useGetLostFoundDetail } from 'pages/lost-found/api/get-detail';
 import * as styles from './Create.css';
 
-const SUBMIT_BUTTON_TEXT = '등록';
+const SUBMIT_BUTTON_TEXT = '수정';
 const LOST_AND_FOUND_CATEGORY_LIST = {
   LOST: '분실물',
   ACQUIRE: '습득물',
