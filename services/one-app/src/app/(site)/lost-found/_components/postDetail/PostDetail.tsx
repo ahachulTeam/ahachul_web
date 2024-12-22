@@ -10,8 +10,11 @@ import { formatDate } from '@/common/utils/date';
 import { isLexicalContent } from '@/common/utils/validate';
 import { LexicalSyntaxContentParser } from '@/app/(site)/_component/Editor/LexicalSyntaxContentParser';
 import { cn } from '@/common/utils/cn';
+import Lost112Img from '@/common/assets/images/lost112.png';
 import RecommendArticles from './RecommendArticles';
 import CommentTextField from './CommentTextField';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import Lost112ArticleTable from './Lost112ArticleTable';
 
 type Props = {
   lostId: number;
@@ -31,7 +34,9 @@ const LostFoundPostDetail = ({ lostId }: Props) => {
           </div>
           <div className=" w-full flex items-center justify-between pb-4 border-b border-b-gray-20">
             <div className=" flex items-center gap-1 text-body-medium">
-              <span className=" text-gray-80">{post.writer || 'LOST112'}</span>
+              <span className=" text-gray-80">
+                {post.writer || '로스트 112'}
+              </span>
               <span className=" text-gray-70">
                 {formatDate(post.createdAt)}
               </span>
@@ -40,6 +45,25 @@ const LostFoundPostDetail = ({ lostId }: Props) => {
               {SUBWAY_LOGO_SVG_LIST[post.subwayLineId]}
             </div>
           </div>
+        </div>
+        {post.isFromLost112 && (
+          <>
+            <div className=" px-5 flex items-center h-14 w-full gap-2">
+              <LazyLoadImage
+                src={Lost112Img.src}
+                alt="lost112-image"
+                effect="opacity"
+                width={24}
+                height={24}
+              />
+              <span className=" text-gray-90 text-label-medium">
+                로스트 112에 등록된 분실물입니다.
+              </span>
+            </div>
+            <Lost112ArticleTable post={post} />
+          </>
+        )}
+        <div className=" px-5">
           {isLexicalSyntaxContent ? (
             <LexicalSyntaxContentParser
               content={post.content}
@@ -60,7 +84,9 @@ const LostFoundPostDetail = ({ lostId }: Props) => {
 
       <RecommendArticles posts={post.recommendPosts} />
       <LostFoundCommentList commentCnt={post.commentCnt} articleId={lostId} />
-      <CommentTextField placeholder={`${post.writer}에게 댓글을 남겨주세요.`} />
+      <CommentTextField
+        placeholder={`${post.writer ?? '로스트 112'}에게 댓글을 남겨주세요.`}
+      />
     </>
   );
 };
