@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-
+import Image from 'next/image';
 import { SUBWAY_LOGO_SVG_LIST } from '@/common/components/Subway/subway-logo-icon-map';
 import LostTypeBadge from './LostTypeBadge';
 import { LostFoundCommentList } from './CommentList';
@@ -13,7 +13,6 @@ import { cn } from '@/common/utils/cn';
 import Lost112Img from '@/common/assets/images/lost112.png';
 import RecommendArticles from './RecommendArticles';
 import CommentTextField from './CommentTextField';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Lost112ArticleTable from './Lost112ArticleTable';
 import BaseArticleImages from '@/common/components/Article/ArticleImages';
 import { getRandomInt } from '@/common/utils/number';
@@ -61,13 +60,12 @@ const LostFoundPostDetail = ({ lostId }: Props) => {
         {post.isFromLost112 && (
           <>
             <div className=" px-5 flex items-center h-14 w-full gap-2">
-              <LazyLoadImage
-                src={Lost112Img.src}
+              <Image
+                src={Lost112Img}
                 alt="lost112-image"
-                effect="opacity"
                 width={24}
                 height={24}
-                visibleByDefault
+                priority
               />
               <span className=" text-gray-90 text-label-medium">
                 로스트 112에 등록된 분실물입니다.
