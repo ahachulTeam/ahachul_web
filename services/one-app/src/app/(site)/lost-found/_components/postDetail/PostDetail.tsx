@@ -10,7 +10,6 @@ import { formatDate } from '@/common/utils/date';
 import { isLexicalContent } from '@/common/utils/validate';
 import { LexicalSyntaxContentParser } from '@/app/(site)/_component/Editor/LexicalSyntaxContentParser';
 import { cn } from '@/common/utils/cn';
-import Lost112Img from '@/common/assets/images/lost112.png';
 import RecommendArticles from './RecommendArticles';
 import CommentTextField from './CommentTextField';
 import Lost112ArticleTable from './Lost112ArticleTable';
