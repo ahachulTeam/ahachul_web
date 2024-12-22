@@ -61,7 +61,7 @@ const LostFoundPostDetail = ({ lostId }: Props) => {
           <>
             <div className=" px-5 flex items-center h-14 w-full gap-2">
               <Image
-                src={Lost112Img}
+                src="/images/lost112.png"
                 alt="lost112-image"
                 width={24}
                 height={24}
