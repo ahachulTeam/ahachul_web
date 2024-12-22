@@ -28,7 +28,7 @@ const DropdownFilter = <T extends Record<string, string>, K extends KeyOf<T>>({
   const isActive = activeValue !== defaultValue;
 
   return (
-    <DropdownMenu.Root modal>
+    <DropdownMenu.Root modal={false}>
       <DropdownMenu.Trigger asChild>
         <button
           data-active={isActive}

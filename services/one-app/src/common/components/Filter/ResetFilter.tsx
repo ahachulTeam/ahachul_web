@@ -14,7 +14,7 @@ const ResetFilter = ({ activatedCount, handleReset }: Props) => {
 
   return (
     <ConditionalRender isRender={renderThis}>
-      <DropdownMenu.Root modal>
+      <DropdownMenu.Root modal={false}>
         <DropdownMenu.Trigger asChild>
           <button className=" shrink-0 h-[30px] bg-gray-10 border border-gray-20 rounded-[1000px] px-[10px] flex items-center">
             <span className=" text-label-medium rounded-full bg-gray-90 text-gray-0 w-[14px] h-[14px] text-[9px] font-medium inline-flex items-center justify-center">

@@ -12,8 +12,8 @@ export default function LostFoundDetailPage({ params }: Props) {
   const { lostId } = params;
 
   return (
-    <main className="flex min-h-screen flex-col text-black bg-white ">
-      <div className="flex flex-col gap-3">
+    <main className="flex min-h-screen flex-col text-black bg-white mb-[210px]">
+      <div className="flex flex-col">
         <SuspenseQueryBoundary
           errorFallback={<div>error</div>}
           suspenseFallback={<ArticleDetailSuspenseFallback />}

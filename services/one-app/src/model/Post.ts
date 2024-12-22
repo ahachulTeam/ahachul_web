@@ -1,5 +1,3 @@
-import { PostImage } from './PostImage';
-
 export type Post = {
   id: number;
   title: string;
@@ -15,10 +13,7 @@ export type OptionalPostFields = {
   imageUrl: string;
 };
 
-export type RecommendPost = {
-  id: number;
-  title: string;
-  writer: string;
-  createdAt: string;
-  imageUrl: string;
-};
+export type RecommendPost = Pick<
+  Post,
+  'id' | 'title' | 'writer' | 'createdAt' | 'imageUrl'
+>;

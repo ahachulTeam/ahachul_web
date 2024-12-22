@@ -2,7 +2,6 @@
 
 import React from 'react';
 
-import BookmarkIcon from '@/common/assets/icons/svgs/bookmark.svg';
 import { SUBWAY_LOGO_SVG_LIST } from '@/common/components/Subway/subway-logo-icon-map';
 import LostTypeBadge from './LostTypeBadge';
 import { LostFoundCommentList } from './CommentList';
@@ -11,6 +10,8 @@ import { formatDate } from '@/common/utils/date';
 import { isLexicalContent } from '@/common/utils/validate';
 import { LexicalSyntaxContentParser } from '@/app/(site)/_component/Editor/LexicalSyntaxContentParser';
 import { cn } from '@/common/utils/cn';
+import RecommendArticles from './RecommendArticles';
+import CommentTextField from './CommentTextField';
 
 type Props = {
   lostId: number;
@@ -55,16 +56,11 @@ const LostFoundPostDetail = ({ lostId }: Props) => {
             </p>
           )}
         </div>
-        <div className=" border-t border-t-gray-30 h-[50px] flex items-center justify-between px-5">
-          <div className=" flex items-center gap-1 text-gray-80 text-label-medium">
-            <span>댓글</span>
-            <span>{post.commentCnt}</span>
-          </div>
-          <BookmarkIcon />
-        </div>
       </article>
 
-      <LostFoundCommentList articleId={lostId} />
+      <RecommendArticles posts={post.recommendPosts} />
+      <LostFoundCommentList commentCnt={post.commentCnt} articleId={lostId} />
+      <CommentTextField placeholder={`${post.writer}에게 댓글을 남겨주세요.`} />
     </>
   );
 };
