@@ -40,7 +40,7 @@ const ArticleCard = ({ post }: Props) => {
             )}
           </div>
           {post?.imageUrl && (
-            <div className=" flex items-center justify-center relative w-[66px] min-w-[66px] aspect-square">
+            <div className=" flex items-center justify-center relative w-[66px] min-w-[66px] max-w-[66px] h-[66px] min-h-[66px] max-h-[66px]">
               <LazyLoadImage
                 width="100%"
                 height="100%"

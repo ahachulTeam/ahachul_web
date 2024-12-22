@@ -15,6 +15,8 @@ import RecommendArticles from './RecommendArticles';
 import CommentTextField from './CommentTextField';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Lost112ArticleTable from './Lost112ArticleTable';
+import BaseArticleImages from '@/common/components/Article/ArticleImages';
+import { getRandomInt } from '@/common/utils/number';
 
 type Props = {
   lostId: number;
@@ -24,10 +26,20 @@ const LostFoundPostDetail = ({ lostId }: Props) => {
   const { data: post } = useGetLostFoundDetail(lostId);
   const isLexicalSyntaxContent = isLexicalContent(post.content);
 
+  const images = post.isFromLost112
+    ? [
+        {
+          imageId: getRandomInt(),
+          imageUrl: post.externalSourceImageUrl,
+        },
+      ]
+    : post.images;
+
   return (
     <>
-      <article className=" pt-5">
-        <div className=" px-5">
+      <article>
+        <BaseArticleImages label={post.title} images={images} />
+        <div className=" pt-5 px-5">
           <LostTypeBadge lostFoundType={post.lostType} />
           <div className=" text-title-large text-gray-90 line-clamp-2 pt-[13px] pb-4">
             {post.title}
@@ -55,6 +67,7 @@ const LostFoundPostDetail = ({ lostId }: Props) => {
                 effect="opacity"
                 width={24}
                 height={24}
+                visibleByDefault
               />
               <span className=" text-gray-90 text-label-medium">
                 로스트 112에 등록된 분실물입니다.
