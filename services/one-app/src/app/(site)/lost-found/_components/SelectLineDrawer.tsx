@@ -19,6 +19,8 @@ import {
 } from '@/common/components/Drawer';
 import SUBWAY_LINES from '@/common/constants/subwayLines';
 
+import { cn } from '@/common/utils/cn';
+
 import { type CarouselApi } from '@/common/components/Carousel';
 
 const CAROUSEL_SUBWAY_LINES = SUBWAY_LINES.reduce(
@@ -107,7 +109,13 @@ const SelectLineDrawer = ({ subwayLineId, setSubwayLineId }: any) => {
                           <label
                             htmlFor={line.name}
                             onClick={() => setSubwayLineId(line.id)}
-                            className={`${subwayLineId === line.id ? 'bg-key-color border-key-color text-gray-0' : 'bg-gray-10 border-gray-30 text-gray-90'} w-full flex items-center justify-center rounded-full border px-[4px] py-[8px] cursor-pointer min-w-[105px] text-label-medium`}
+                            className={cn(
+                              'w-full flex items-center justify-center rounded-full border px-[4px] py-[8px]',
+                              'cursor-pointer min-w-[105px] text-label-medium',
+                              subwayLineId === line.id
+                                ? 'bg-key-color border-key-color text-gray-0'
+                                : 'bg-gray-10 border-gray-30 text-gray-90',
+                            )}
                           >
                             {line.name}
                           </label>
