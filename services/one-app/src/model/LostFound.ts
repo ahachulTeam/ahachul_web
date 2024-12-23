@@ -55,9 +55,5 @@ export interface LostFoundFormData {
   initialContent: string;
   subwayLineId: number;
   lostType: LostFoundType;
-  images: {
-    id: number | null;
-    data: File | null;
-    url: string;
-  }[];
+  images: DetailImages[];
 }
