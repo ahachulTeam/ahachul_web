@@ -1,0 +1,29 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# 현재 브랜치 이름 가져오기
+branch_name=$(git rev-parse --abbrev-ref HEAD)
+
+# 브랜치 이름에서 숫자 또는 텍스트 식별자 추출
+issue_identifier=$(echo "$branch_name" | grep -oE '[^/]+$')
+
+# 식별자가 없으면 스크립트 종료
+if [ -z "$issue_identifier" ]; then
+  echo "No issue identifier found." >> /tmp/husky-debug.log
+  exit 0
+fi
+
+# 커밋 메시지 파일 경로
+commit_msg_file="$1"
+
+# 커밋 메시지 경로 디버깅
+if [ ! -f "$commit_msg_file" ]; then
+  echo "COMMIT_EDITMSG file not found: $commit_msg_file" >> /tmp/husky-debug.log
+  exit 1
+fi
+
+# 커밋 메시지 끝에 식별자 추가 (줄바꿈 없이)
+if ! grep -q "(#$issue_identifier)" "$commit_msg_file"; then
+  sed -i '' -e "\$s/\$/ \\(#$issue_identifier\\)/" "$commit_msg_file"
+  echo "Issue identifier added: (#$issue_identifier)" >> /tmp/husky-debug.log
+fi
