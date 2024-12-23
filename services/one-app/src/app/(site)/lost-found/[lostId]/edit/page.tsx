@@ -9,7 +9,10 @@ type Props = {
 
 const LostFoundEditPage = ({ params: { lostId } }: Props) => {
   return (
-    <SuspenseQueryBoundary suspenseFallback={<div>loading</div>}>
+    <SuspenseQueryBoundary
+      errorFallback={<div>error</div>}
+      suspenseFallback={<div>loading</div>}
+    >
       <LostFoundForm lostId={lostId} />
     </SuspenseQueryBoundary>
   );
