@@ -13,6 +13,7 @@ import useFormAdapter from '../_hook/useFormAdapter';
 import useFormImage from '../_hook/useFormImage';
 import useFormInitialize from '../_hook/useFormInitialize';
 import createFormData from '@/lib/createFormData';
+import { usePostLostFound } from '../_lib/post';
 
 type Props = {
   lostId?: string | null;
@@ -22,6 +23,10 @@ const LostFoundForm = ({ lostId = null }: Props) => {
   const router = useRouter();
   const lostFoundFormData = useFormAdapter({
     lostId: lostId ?? '',
+  });
+
+  const { mutate: lostFoundMutate } = usePostLostFound((id: string) => {
+    router.push(`/lost-found/${id}`);
   });
 
   const { images, setImages, removeImageIds, handleFileChange, onDeleteImage } =
@@ -53,26 +58,7 @@ const LostFoundForm = ({ lostId = null }: Props) => {
         image.data !== null ? [image.data] : [],
       ),
     });
-
-    try {
-      const res = await apiClient.post(
-        `/lost-posts/${lostId || ''}`,
-        postData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        },
-      );
-      const { code, result } = res?.data;
-
-      if (code === '100') {
-        router.push(`/lost-found/${result.id}`);
-      }
-    } catch (error) {
-      // Todo - 에러 팝업 추가 필요
-      alert('유실물 등록 에러 발생');
-    }
+    lostFoundMutate({ lostId, postData });
   };
 
   const onChangeEditorContent = (editorState: EditorState | null) => {
