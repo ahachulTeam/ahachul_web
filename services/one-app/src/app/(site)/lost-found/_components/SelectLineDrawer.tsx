@@ -6,7 +6,7 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-} from '@/common/components/carousel';
+} from '@/common/components/Carousel';
 import {
   Drawer,
   DrawerTrigger,
@@ -16,10 +16,10 @@ import {
   DrawerFooter,
   DrawerTitle,
   DrawerDescription,
-} from '@/common/components/drawer';
+} from '@/common/components/Drawer';
 import SUBWAY_LINES from '@/common/constants/subwayLines';
 
-import { type CarouselApi } from '@/common/components/carousel';
+import { type CarouselApi } from '@/common/components/Carousel';
 
 const CAROUSEL_SUBWAY_LINES = SUBWAY_LINES.reduce(
   (acc, _, index) => {
@@ -50,23 +50,23 @@ const DotButton = ({
 };
 
 const SelectLineDrawer = ({ subwayLineId, setSubwayLineId }: any) => {
-  const [api, setApi] = useState<CarouselApi>();
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   useEffect(() => {
-    if (!api) {
+    if (!carouselApi) {
       return;
     }
 
-    api.scrollTo(selectedIndex, true);
-    api.on('select', ({ selectedScrollSnap }) => {
+    carouselApi.scrollTo(selectedIndex, true);
+    carouselApi.on('select', ({ selectedScrollSnap }) => {
       setSelectedIndex(selectedScrollSnap());
     });
-  }, [api]);
+  }, [carouselApi]);
 
   const onClickDotButton = useCallback(
-    (index: number) => api && api.scrollTo(index),
-    [api],
+    (index: number) => carouselApi && carouselApi.scrollTo(index),
+    [carouselApi],
   );
 
   return (
@@ -87,7 +87,7 @@ const SelectLineDrawer = ({ subwayLineId, setSubwayLineId }: any) => {
               소식이 궁금한 호선을 선택해주세요.
             </DrawerDescription>
           </DrawerHeader>
-          <Carousel className="w-full" setApi={setApi}>
+          <Carousel className="w-full" setApi={setCarouselApi}>
             <CarouselContent className="ml-0 mb-[32px]">
               {CAROUSEL_SUBWAY_LINES.map((lines) => {
                 return (
