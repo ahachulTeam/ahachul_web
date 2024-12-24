@@ -12,15 +12,17 @@ export function isLexicalContent(content: unknown): content is LexicalNode {
   try {
     const parsed = JSON.parse(content);
 
-    return (
-      parsed !== null &&
-      typeof parsed === 'object' &&
-      'root' in parsed &&
-      typeof parsed.root === 'object' &&
-      parsed.root !== null &&
-      'children' in parsed.root &&
-      Array.isArray(parsed.root.children)
-    );
+    if (!parsed || typeof parsed !== 'object') return false;
+
+    const { root } = parsed;
+
+    if (!root || typeof root !== 'object') return false;
+
+    const { children } = root;
+
+    if (!children || !Array.isArray(children)) return false;
+
+    return true;
   } catch {
     return false;
   }
