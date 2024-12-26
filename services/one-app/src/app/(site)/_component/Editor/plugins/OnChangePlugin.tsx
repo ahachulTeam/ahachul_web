@@ -2,9 +2,10 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { $getRoot, EditorState, ElementNode } from 'lexical';
 import { useEffect } from 'react';
 
-type Params = {
-  initialState: string;
-  onChange: (editorState: EditorState | null) => void;
+type Props = {
+  readonly?: boolean;
+  initialState?: string;
+  onChange?: (editorState: EditorState | null) => void;
 };
 
 const isEditorEmpty = () => {
@@ -19,17 +20,23 @@ const isEditorEmpty = () => {
   return false;
 };
 
-function OnChangePlugin({ initialState, onChange }: Params) {
+function OnChangePlugin({ readonly, initialState, onChange }: Props) {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
+    if (readonly) {
+      setTimeout(() => {
+        editor.setEditable(false);
+      });
+    }
+
     if (initialState) {
       const content = editor.parseEditorState(JSON.parse(initialState));
       setTimeout(() => {
         editor.setEditorState(content);
       });
     }
-  }, [initialState]);
+  }, [readonly, initialState]);
 
   useEffect(() => {
     return editor.registerUpdateListener(({ editorState }) => {

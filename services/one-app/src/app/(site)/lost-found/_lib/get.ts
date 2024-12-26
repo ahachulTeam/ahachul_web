@@ -34,16 +34,11 @@ export const useGetLostFoundList = (params: LostFoundListParams) =>
     staleTime: TIMESTAMP.SECOND,
   });
 
-const getLostFoundDetail = (id: string) =>
+const getLostFoundDetail = (id: number) =>
   apiClient.get<IResponse<LostFoundPostDetail>>(`/lost-posts/${id}`);
 
-export const useGetLostFoundDetail = (id: string) => {
-  // Todo - id가 빈 값일 경우 어떻게 해야할 지 확인 필요
-  if (!id) {
-    // id가 없으면 null 반환
-    return { data: null };
-  }
-  return useSuspenseQuery({
+export const useGetLostFoundDetail = (id: number) =>
+  useSuspenseQuery({
     queryKey: generateQueryKey(['LOST_FOUND']).detail(id),
     queryFn: () => getLostFoundDetail(id),
     staleTime: 5 * TIMESTAMP.MINUTE,

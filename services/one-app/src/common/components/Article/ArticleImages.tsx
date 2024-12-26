@@ -1,81 +1,83 @@
-// import React, { useReducer, useState } from 'react';
-// import { Swiper, SwiperSlide } from 'swiper/react';
-// import { Pagination } from 'swiper/modules';
-// import { LazyLoadImage } from 'react-lazy-load-image-component';
-// import type { PostImage } from '@/model/PostImage';
-// import { FullImageDialog } from './FullImageDialog';
-// // import * as styles from './BaseArticleImages.css';
+import React, { useReducer, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import type { PostImage } from '@/model/PostImage';
 
-// interface Props {
-//   label: string;
-//   images: PostImage[];
-//   canShowFullImageDialog?: boolean;
-// }
+import 'swiper/css';
+import 'swiper/css/pagination';
 
-// const BaseArticleImages = ({
-//   label,
-//   images,
-//   canShowFullImageDialog = true,
-// }: Props) => {
-//   const [showFullImgDialog, toggletShowFullImgDialog] = useReducer(
-//     (open) => !open,
-//     false,
-//   );
+interface Props {
+  label: string;
+  images: PostImage[];
+  canShowFullImageDialog?: boolean;
+}
 
-//   const handleFullImageDialog = () => {
-//     if (!canShowFullImageDialog) return;
-//     else toggletShowFullImgDialog();
-//   };
+const BaseArticleImages = ({
+  label,
+  images,
+  canShowFullImageDialog = true,
+}: Props) => {
+  const [showFullImgDialog, toggletShowFullImgDialog] = useReducer(
+    (open) => !open,
+    false,
+  );
 
-//   const [clickedIndex, setClickedIndex] = useState(0);
-//   const clickIndex = (idx: number) => () => {
-//     setClickedIndex(idx);
-//     handleFullImageDialog();
-//   };
+  const handleFullImageDialog = () => {
+    if (!canShowFullImageDialog) return;
+    else toggletShowFullImgDialog();
+  };
 
-//   return (
-//     <>
-//       {images.length === 1 ? (
-//         <div css={styles.swipeContainer} onClick={handleFullImageDialog}>
-//           <LazyLoadImage
-//             src={images[0].imageUrl}
-//             alt={`${label}-img-0`}
-//             css={styles.swipeImg}
-//             effect="opacity"
-//           />
-//         </div>
-//       ) : images.length > 1 ? (
-//         <Swiper
-//           modules={[Pagination]}
-//           slidesPerView={1}
-//           simulateTouch={false}
-//           touchStartPreventDefault={false}
-//           touchMoveStopPropagation={false}
-//           pagination={{ clickable: true }}
-//           css={styles.swipeContainer}
-//         >
-//           {images.map((img, idx) => (
-//             <SwiperSlide key={img.imageId} onClick={clickIndex(idx)}>
-//               <LazyLoadImage
-//                 effect="opacity"
-//                 alt={`${label}-img-${idx + 1}`}
-//                 src={img.imageUrl}
-//                 css={styles.swipeImg}
-//               />
-//             </SwiperSlide>
-//           ))}
-//         </Swiper>
-//       ) : null}
-//       <FullImageDialog
-//         isOpen={showFullImgDialog}
-//         images={images}
-//         onClose={handleFullImageDialog}
-//         clickedIndex={clickedIndex}
-//       />
-//     </>
-//   );
-// };
+  const [clickedIndex, setClickedIndex] = useState(0);
+  const clickIndex = (idx: number) => () => {
+    setClickedIndex(idx);
+    handleFullImageDialog();
+  };
 
-// export default BaseArticleImages;
+  return (
+    <>
+      {images.length === 1 ? (
+        <div
+          className=" relative w-full aspect-square"
+          onClick={handleFullImageDialog}
+        >
+          <LazyLoadImage
+            src={images[0].imageUrl}
+            alt={`${label}-img-0`}
+            effect="opacity"
+            className=" absolute object-cover top-0 left-0 w-full h-full"
+          />
+        </div>
+      ) : images.length > 1 ? (
+        <Swiper
+          modules={[Pagination]}
+          slidesPerView={1}
+          simulateTouch={false}
+          touchStartPreventDefault={false}
+          touchMoveStopPropagation={false}
+          pagination={{ clickable: true }}
+          className=" relative w-full aspect-square"
+        >
+          {images.map((img, idx) => (
+            <SwiperSlide key={img.imageId} onClick={clickIndex(idx)}>
+              <LazyLoadImage
+                effect="opacity"
+                alt={`${label}-img-${idx + 1}`}
+                src={img.imageUrl}
+                className=" absolute object-cover top-0 left-0 w-full h-full"
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      ) : null}
+      {/* <FullImageDialog
+        isOpen={showFullImgDialog}
+        images={images}
+        onClose={handleFullImageDialog}
+        clickedIndex={clickedIndex}
+      /> */}
+    </>
+  );
+};
 
-export {};
+export default BaseArticleImages;

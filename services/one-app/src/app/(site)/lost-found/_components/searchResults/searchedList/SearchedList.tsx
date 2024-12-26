@@ -9,6 +9,7 @@ import { formatSubwayLineId } from '@/common/utils/subway';
 import { useIntersectionObserver } from '@/common/hooks/useIntersectionObserver';
 import { useGetLostFoundList } from '@/app/(site)/lost-found/_lib/get';
 import ArticleCard from '@/common/components/Article/ArticleCard';
+import EmptyArticleList from '@/common/components/Article/EmptyArticleList';
 
 interface Props {
   keyword: string | null;
@@ -36,8 +37,10 @@ const LostFoundSearchedList = ({ keyword, filters }: Props) => {
     callback: intersectCallback,
   });
 
+  if (!lostArticles.length) return <EmptyArticleList />;
+
   return (
-    <>
+    <section>
       {lostArticles.map((item, idx) => (
         <Link key={`${item.id}${idx}`} href={`/lost-found/${item.id}`}>
           <ArticleCard post={item} />
@@ -48,7 +51,7 @@ const LostFoundSearchedList = ({ keyword, filters }: Props) => {
           더 보기
         </span>
       )}
-    </>
+    </section>
   );
 };
 
