@@ -2,19 +2,19 @@ import { useEffect } from 'react';
 import type { LostFoundFormData } from '@/model/LostFound';
 
 type Params = {
-  lostFoundFormData: LostFoundFormData;
+  initialFormData: LostFoundFormData | null;
   initCallback: (params: LostFoundFormData) => void;
 };
 
 const useLostFoundFormInitialize = ({
-  lostFoundFormData,
+  initialFormData,
   initCallback,
 }: Params) => {
   useEffect(() => {
-    if (lostFoundFormData) {
-      initCallback(lostFoundFormData);
+    if (initialFormData) {
+      initCallback(initialFormData);
     }
-  }, [lostFoundFormData]);
+  }, [initialFormData]);
 };
 
 export default useLostFoundFormInitialize;

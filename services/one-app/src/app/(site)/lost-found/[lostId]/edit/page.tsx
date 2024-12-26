@@ -1,5 +1,5 @@
 import { SuspenseQueryBoundary } from '@/common/components';
-import LostFoundForm from '../../_components/LostFoundForm';
+import LostFoundEdit from '../../_components/LostFoundEdit';
 
 type Props = {
   params: {
@@ -13,7 +13,7 @@ const LostFoundEditPage = ({ params: { lostId } }: Props) => {
       errorFallback={<div>error</div>}
       suspenseFallback={<div>loading</div>}
     >
-      <LostFoundForm lostId={lostId} />
+      <LostFoundEdit lostId={lostId} />
     </SuspenseQueryBoundary>
   );
 };

@@ -7,23 +7,22 @@ import CloseCircleIcon from '@/common/assets/icons/close-circle';
 import ImagePlaceHolder from '@/common/assets/icons/image-placeholder';
 import SelectLineDrawer from './SelectLineDrawer';
 import Editor from '@/app/(site)/_component/Editor';
-import { type EditorState } from 'lexical';
-import { apiClient } from '@/app/api';
-import useFormAdapter from '../_hook/useFormAdapter';
+
 import useFormImage from '../_hook/useFormImage';
 import useFormInitialize from '../_hook/useFormInitialize';
 import createFormData from '@/lib/createFormData';
 import { usePostLostFound } from '../_lib/post';
 
+import { type EditorState } from 'lexical';
+import type { LostFoundFormData } from '@/model/LostFound';
+
 type Props = {
   lostId?: string | null;
+  initialFormData?: LostFoundFormData | null;
 };
 
-const LostFoundForm = ({ lostId = null }: Props) => {
+const LostFoundForm = ({ lostId = null, initialFormData = null }: Props) => {
   const router = useRouter();
-  const lostFoundFormData = useFormAdapter({
-    lostId: lostId ?? '',
-  });
 
   const { mutate: lostFoundMutate } = usePostLostFound((id: string) => {
     router.push(`/lost-found/${id}`);
@@ -70,7 +69,7 @@ const LostFoundForm = ({ lostId = null }: Props) => {
   };
 
   useFormInitialize({
-    lostFoundFormData,
+    initialFormData,
     initCallback: ({ title, initialContent, subwayLineId, images }) => {
       setTitle(title);
       setEditorContent(initialContent);
@@ -203,7 +202,7 @@ const LostFoundForm = ({ lostId = null }: Props) => {
             placeholder={
               '게시글 내용을 작성해 주세요.\n\n서비스 정책에 맞지 않을 경우\n자동으로 게시판 이동 혹은 삭제 처리 될 수 있습니다.'
             }
-            initialState={lostFoundFormData?.initialContent}
+            initialState={initialFormData?.initialContent}
             onChange={onChangeEditorContent}
           />
         </div>

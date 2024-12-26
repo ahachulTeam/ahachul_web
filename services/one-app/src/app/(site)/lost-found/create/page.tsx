@@ -1,9 +1,9 @@
-import LostFoundForm from '../_components/LostFoundForm';
+import LostFoundCreate from '../_components/LostFoundCreate';
 
 const LostFoundCreatePage = () => {
   return (
     <main>
-      <LostFoundForm />
+      <LostFoundCreate />
     </main>
   );
 };
