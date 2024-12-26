@@ -33,10 +33,10 @@ export const useGetLostFoundList = (params: LostFoundListParams) =>
     staleTime: TIMESTAMP.SECOND,
   });
 
-const getLostFoundDetail = (id: string) =>
+const getLostFoundDetail = (id: number) =>
   apiClient.get<IResponse<LostFoundPostDetail>>(`/lost-posts/${id}`);
 
-export const useGetLostFoundDetail = (id: string) =>
+export const useGetLostFoundDetail = (id: number) =>
   useSuspenseQuery({
     queryKey: generateQueryKey(['LOST_FOUND']).detail(id),
     queryFn: () => getLostFoundDetail(id),
