@@ -1,6 +1,10 @@
 import { Interpolation, Theme } from '@emotion/react';
 import cssUtils from 'shared/utils.css';
 
+export const article = {
+  paddingBottom: '224px',
+};
+
 export const thumbnailContainer = [
   cssUtils.posRel,
   cssUtils.maxWidth,
@@ -47,7 +51,9 @@ export const articleBasicInfos = [
       color: text[50],
     },
 
-    '& > time': {
+    '& > div': {
+      display: 'flex',
+      alignItems: 'cneter',
       color: blueDarkGray[300],
       fontSize: fontSize[12],
       fontWeight: fontWeight[500],

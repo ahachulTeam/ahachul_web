@@ -2,10 +2,11 @@ import React, { memo, forwardRef, useCallback } from 'react';
 import { CameraIcon } from 'shared/static/icons/camera';
 import { CircleCloseIcon } from 'shared/static/icons/circle-close';
 import * as styles from './ImageInput.css';
+import { ResponseOfImage } from 'entities/with-server';
 
 interface ImageUploadProps {
   hasPreview?: boolean;
-  images: File[];
+  images: ResponseOfImage[] | File[] | null;
   onDelete: (index: number) => void;
   onChange: (files: File[]) => void;
 }
@@ -13,6 +14,7 @@ interface ImageUploadProps {
 export const ImageUpload = memo(
   forwardRef<HTMLInputElement, ImageUploadProps>(
     ({ hasPreview, images, onDelete, onChange }, ref) => {
+      console.log('images:', images);
       const handleFileChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
           const files = e.target.files ? Array.from(e.target.files) : [];
@@ -50,10 +52,16 @@ export const ImageUpload = memo(
               {images.map((image, index) => (
                 <div key={index} css={styles.image}>
                   <img
-                    src={URL.createObjectURL(image)}
+                    src={
+                      typeof image === 'object'
+                        ? (image as ResponseOfImage).imageUrl
+                        : URL.createObjectURL(image)
+                    }
                     alt={`preview ${index + 1}`}
-                    onLoad={() =>
-                      URL.revokeObjectURL(URL.createObjectURL(image))
+                    onLoad={
+                      typeof image === 'object'
+                        ? undefined
+                        : () => URL.revokeObjectURL(URL.createObjectURL(image))
                     }
                   />
                   <button type="button" onClick={handleDelete(index)}>

@@ -48,8 +48,8 @@ export const SignInCallback: ActivityComponentType<{
           refreshToken,
         });
         queryClient.invalidateQueries({ queryKey: GET_USER_INFO_QUERY_KEY });
-        alert('로그인 성공');
-        replace('Home', {});
+        window.alert('로그인 성공');
+        replace('Home', {}, { animate: false });
       } else {
         setTempAuth({ accessToken, refreshToken });
         replace('SetupNickname', {});

@@ -22,7 +22,6 @@ export const useGetLostFoundList = (params: ParamsOfLostFoundList) =>
     getNextPageParam: (lastPage) =>
       lastPage.data.result.hasNext ? lastPage.data.result.pageToken : null,
     initialPageParam: null,
-    gcTime: 5 * TIMESTAMP.MINUTE,
     staleTime: 30 * TIMESTAMP.SECOND,
     throwOnError: true,
   });

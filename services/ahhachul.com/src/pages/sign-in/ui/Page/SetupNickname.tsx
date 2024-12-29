@@ -33,12 +33,12 @@ export const SetupNickname = () => {
       setToken({ accessToken, refreshToken });
       queryClient.invalidateQueries({ queryKey: GET_USER_INFO_QUERY_KEY });
       removeTemporaryAuth();
-      alert('로그인 성공');
-      replace('Home', {});
+      window.alert('로그인 성공');
+      replace('Home', {}, { animate: false });
     },
     onError: (error) => {
       console.log('API Error on updateUser:', error);
-      alert('로그인 정보를 불러오는데 실패했어요.');
+      window.alert('로그인 정보를 불러오는데 실패했어요.');
     },
   });
 

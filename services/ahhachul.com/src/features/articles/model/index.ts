@@ -40,3 +40,11 @@ export interface WithLikeCounts {
 export interface WithCommentCounts {
   commentCnt: number;
 }
+
+export interface RecommendArticle {
+  id: number;
+  createdAt: string;
+  imageUrl: string;
+  title: string;
+  writer: string;
+}

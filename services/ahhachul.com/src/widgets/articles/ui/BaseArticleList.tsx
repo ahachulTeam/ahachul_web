@@ -6,12 +6,7 @@ import { ArticleCard } from './ArticleCard';
 import * as styles from './BaseArticleList.css';
 import { TypeActivities } from 'app/stackflow';
 import { useDisableScroll } from 'shared/lib/hooks/useDisableScroll';
-
-const FetchNextPage = React.lazy(() =>
-  import('./FetchNextPage').then((module) => ({
-    default: module.FetchNextPage,
-  })),
-);
+import { FetchNextPage } from './FetchNextPage';
 
 interface BaseArticleListProps<TData extends Article>
   extends HTMLAttributes<HTMLSectionElement> {
@@ -53,7 +48,7 @@ export const BaseArticleList = <TData extends Article>({
           <Flex as="ul" direction="column" css={styles.ul}>
             {data.map((article, idx) => (
               <li key={`${article.id}-${idx}`}>
-                <ArticleCard<TData> data={article} to={to} />
+                <ArticleCard<TData> article={article} to={to} />
               </li>
             ))}
           </Flex>

@@ -8,8 +8,8 @@ import { CategorySelectField } from 'widgets/form-fields/ui/CategorySelectField'
 import { TitleField } from 'widgets/form-fields/ui/TitleField';
 import { ContentEditorField } from 'widgets/form-fields/ui/ContentEditorField';
 import { SubmitButton } from 'widgets/form-fields/ui/SubmitButton';
-import * as styles from './Create.css';
 import SubwaySelectField from 'widgets/form-fields/ui/SubwaySelectField';
+import * as styles from './Create.css';
 
 const SUBMIT_BUTTON_TEXT = '등록';
 const LOST_AND_FOUND_CATEGORY_LIST = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import CommentInner from 'pages/_shared-pages/comment/ui/Page/Page';
 
 const AllServices = React.lazy(
   () =>
@@ -24,11 +25,13 @@ const CarSharing = React.lazy(
       /* webpackPrefetch: true */ 'pages/_shared-pages/car-sharing/ui/Page/Page'
     ),
 );
+
 export const sharedLayers = {
   AllServices,
   SubwayNotices,
   Market,
   CarSharing,
+  CommentInner,
   // Chat: SharedComponent.Chat,
   // Alarm: SharedComponent.Alarm,
   // MyProfile: SharedComponent.MyProfile,

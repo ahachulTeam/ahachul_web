@@ -288,6 +288,14 @@ export const wrap =
       margin-right: 2px;
     }
 
+    .toolbar button.toolbar-item.spaced.submit {
+      color: #fff;
+      font-size: 14px;
+      position: absolute;
+      right: 12px;
+      bottom: 20px;
+    }
+
     .toolbar button.toolbar-item.spaced.mic.active {
       animation: mic-pulsate-color 3s infinite;
     }
