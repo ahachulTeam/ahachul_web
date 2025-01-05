@@ -1,11 +1,11 @@
+'use client';
+
 import React from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
-import type { KeyOf } from '@/model/Utils';
-import { objectEntries } from '@/common/utils/object';
-import { cn } from '@/common/utils/cn';
-import CheckIcon from '@/common/assets/icons/check';
-import ChevronDownIcon from '@/common/assets/icons/chevron-down';
+import type { KeyOf } from '@/model';
+import { cn, objectEntries } from '@/common/utils';
+import { CheckIcon, ChevronDownIcon } from '@/common/assets/icons';
 
 export interface DropdownFilterProps<
   T extends Record<string, string>,
@@ -17,7 +17,10 @@ export interface DropdownFilterProps<
   onSelect: (key: K, value: T[K]) => void;
 }
 
-const DropdownFilter = <T extends Record<string, string>, K extends KeyOf<T>>({
+export const DropdownFilter = <
+  T extends Record<string, string>,
+  K extends KeyOf<T>,
+>({
   filters,
   options,
   onSelect,
@@ -77,5 +80,3 @@ const DropdownFilter = <T extends Record<string, string>, K extends KeyOf<T>>({
     </DropdownMenu.Root>
   );
 };
-
-export default DropdownFilter;

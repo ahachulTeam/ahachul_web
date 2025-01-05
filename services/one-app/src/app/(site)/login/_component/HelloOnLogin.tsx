@@ -1,5 +1,4 @@
-import LogoIcon from '@/common/assets/icons/logo';
-import LogoTextIcon from '@/common/assets/icons/logo-text';
+import { LogoIcon, LogoTextIcon } from '@/common/assets/icons';
 
 export const HelloOnLogin: React.FC = () => {
   return (

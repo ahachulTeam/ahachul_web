@@ -1,11 +1,14 @@
-import { cn } from '@/common/utils/cn';
+'use client';
+
 import React from 'react';
+
+import { cn } from '@/common/utils/cn';
 
 interface Props {
   className?: string;
 }
 
-const EmptyCommentList = ({ className }: Props) => {
+export const EmptyCommentList = ({ className }: Props) => {
   return (
     <div
       className={cn(
@@ -18,5 +21,3 @@ const EmptyCommentList = ({ className }: Props) => {
     </div>
   );
 };
-
-export default EmptyCommentList;

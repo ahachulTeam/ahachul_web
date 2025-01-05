@@ -1,8 +1,10 @@
-import React from 'react';
+'use client';
 
-import Editor from '@/app/(site)/_component/Editor';
+import React from 'react';
 import { EditorState } from 'lexical';
-import { cn } from '@/common/utils/cn';
+
+import { cn } from '@/common/utils';
+import { Editor } from '@/app/(site)/_component/Editor';
 
 interface CommentTextFieldProps {
   placeholder: string;
@@ -10,7 +12,7 @@ interface CommentTextFieldProps {
   onChange?: (content: EditorState | null) => void;
 }
 
-const CommentTextField = React.memo(
+export const CommentTextField = React.memo(
   ({ placeholder, onSubmit, onChange }: CommentTextFieldProps) => {
     const handleSubmit = () => {
       onSubmit?.();
@@ -59,5 +61,3 @@ const CommentTextField = React.memo(
     );
   },
 );
-
-export default CommentTextField;

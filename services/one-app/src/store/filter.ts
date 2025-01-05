@@ -1,6 +1,7 @@
 import { create, StateCreator } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { KeyOf, ValueOf, StringRecord } from '@/model/Utils';
+
+import type { KeyOf, ValueOf, StringRecord } from '@/model';
 
 export const filterKey = 'AHAHCHUL_FILTER_STORAGE';
 

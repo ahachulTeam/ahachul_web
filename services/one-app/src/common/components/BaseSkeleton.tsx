@@ -6,6 +6,7 @@ interface SkeletonProps
   extends Omit<ComponentProps<typeof Skeleton>, 'borderRadius'> {
   radius: number;
 }
+
 export const BaseSkeleton = ({ radius = 0, ...props }: SkeletonProps) => (
   <Skeleton
     {...props}

@@ -1,10 +1,15 @@
+'use client';
+
 import React from 'react';
 
-import { useGetLostFoundComments } from '../../_lib/comments';
-import { BaseCommentList } from '@/common/components/Comment/BaseCommentList';
-import { SuspenseQueryBoundary } from '@/common/components/SuspenseQueryBoundary/SuspenseQueryBoundary';
-import { CommentListSuspenseFallback } from '@/common/components/Comment/BaseCommentList.suspense';
-import BookmarkIcon from '@/common/assets/icons/svgs/bookmark.svg';
+import {
+  BaseCommentList,
+  SuspenseQueryBoundary,
+  CommentListSuspenseFallback,
+} from '@/common/components';
+import { BookmarkIcon } from '@/common/assets/icons';
+
+import { useGetLostFoundComments } from '../../_lib';
 
 interface Props {
   commentCnt: number;

@@ -1,9 +1,11 @@
+'use client';
+
 import React from 'react';
-import type { Comment } from '@/model/Comment';
-import EllipsisHorizontalIcon from '@/common/assets/icons/svgs/ellipsis.svg';
-import { cn } from '@/common/utils/cn';
-import { LexicalSyntaxContentParser } from '@/app/(site)/_component/Editor/LexicalSyntaxContentParser';
-import { formatDate } from '@/common/utils/date';
+
+import type { Comment } from '@/model';
+import { cn, formatDate } from '@/common/utils';
+import { EllipsisIcon } from '@/common/assets/icons';
+import { LexicalSyntaxContentParser } from '@/app/(site)/_component/Editor';
 
 interface CommentCardProps {
   comment: Comment;
@@ -20,7 +22,7 @@ export const CommentCard = ({ comment, asChild = false }: CommentCardProps) => {
     >
       <div className=" flex items-center justify-between pb-2">
         <span className=" text-gray-90 text-[13px]">{comment.writer}</span>
-        <EllipsisHorizontalIcon />
+        <EllipsisIcon />
       </div>
       <div className=" flex flex-col gap-3 pb-5">
         {comment.status === 'CREATED' ? (

@@ -1,6 +1,10 @@
-import LostFoundPostDetail from '../_components/postDetail/PostDetail';
-import { SuspenseQueryBoundary } from '@/common/components/SuspenseQueryBoundary/SuspenseQueryBoundary';
-import { ArticleDetailSuspenseFallback } from '@/common/components/Article/ArticleDetail.suspense';
+'use client';
+
+import {
+  SuspenseQueryBoundary,
+  ArticleDetailSuspenseFallback,
+} from '@/common/components';
+import { LostFoundPostDetail } from '../_components';
 
 type Props = {
   params: {

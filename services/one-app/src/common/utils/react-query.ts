@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 import type { InfiniteData } from '@tanstack/react-query';
-import { IResponse, ListResponseWithPagination } from '@/model/Utils';
+
+import type { IResponse, ListResponseWithPagination } from '@/model';
 
 export const generateQueryKey = (type: string[]) => {
   return {

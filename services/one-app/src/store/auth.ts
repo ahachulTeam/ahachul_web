@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { create } from 'zustand';
-import { LoginResponseSchema } from '@/app/(site)/login/_lib/requestLogin';
+
+import { LoginResponseSchema } from '@/app/(site)/login/_lib';
 
 export type TemporaryUserAuthData = Pick<
   z.infer<typeof LoginResponseSchema>['result'],

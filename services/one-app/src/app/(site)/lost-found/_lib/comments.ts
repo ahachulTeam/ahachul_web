@@ -1,10 +1,9 @@
 import { useSuspenseQuery, useMutation } from '@tanstack/react-query';
 
 import { apiClient } from '@/app/api';
-import type { IResponse } from '@/model/Utils';
-import type { Comment, CommentList } from '@/model/Comment';
-import { TIMESTAMP } from '@/common/constants/time';
-import { generateQueryKey } from '@/common/utils/react-query';
+import { TIMESTAMP } from '@/common/constants';
+import { generateQueryKey } from '@/common/utils';
+import type { IResponse, Comment, CommentList } from '@/model';
 
 const getLostFoundComments = (articleId: number) =>
   apiClient.get<IResponse<CommentList>>(`/lost-posts/${articleId}/comments`);

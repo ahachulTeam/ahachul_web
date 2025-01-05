@@ -2,10 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { useQueryState } from 'nuqs';
-import { useDebounce } from '@/common/hooks/useDebounce';
-import SearchIcon from '@/common/assets/icons/search';
 
-const SearchFilter = () => {
+import { useDebounce } from '@/common/hooks';
+import { SearchIcon } from '@/common/assets/icons';
+
+export const SearchFilter = () => {
   const [keyword, setKeyword] = useQueryState('keyword', {
     scroll: true,
     defaultValue: '',
@@ -40,5 +41,3 @@ const SearchFilter = () => {
     </div>
   );
 };
-
-export default SearchFilter;
