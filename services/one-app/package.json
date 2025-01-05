@@ -22,13 +22,9 @@
     "@tanstack/react-query": "^5.59.16",
     "axios": "^1.7.7",
     "clsx": "^2.1.1",
-<<<<<<< HEAD
     "date-fns": "^4.1.0",
     "js-cookie": "^3.0.5",
     "lexical": "^0.21.0",
-=======
-    "js-cookie": "^3.0.5",
->>>>>>> main
     "next": "14.2.16",
     "nuqs": "^2.2.2",
     "query-string": "^9.1.1",

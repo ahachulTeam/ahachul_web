@@ -1,11 +1,7 @@
 import { HttpResponse } from 'msw';
 import { faker } from '@faker-js/faker';
-<<<<<<< HEAD
 
 import { APIResponseCode, RESPONSE_MESSAGES } from '@/common/constants';
-=======
-import { APIResponseCode, RESPONSE_MESSAGES } from '@/common/constants/api';
->>>>>>> main
 
 export const ERROR_RATE = 0.3;
 export const ADDITIONAL_INFO_RATE = 0.3;

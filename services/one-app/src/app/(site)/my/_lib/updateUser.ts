@@ -1,18 +1,12 @@
 import { z } from 'zod';
 import axios from 'axios';
 
-<<<<<<< HEAD
-import type { TemporaryUserAuthData } from '@/store';
 import {
   API_BASE_URL,
   RESPONSE_MESSAGES,
   APIResponseCode,
 } from '@/common/constants';
-=======
-import type { TemporaryUserAuthData } from '@/store/auth';
-import { API_BASE_URL } from '@/common/constants/env';
-import { APIResponseCode, RESPONSE_MESSAGES } from '@/common/constants/api';
->>>>>>> main
+import type { TemporaryUserAuthData } from '@/store';
 
 const GenderSchema = z.enum(['MALE', 'FEMALE']).nullable();
 

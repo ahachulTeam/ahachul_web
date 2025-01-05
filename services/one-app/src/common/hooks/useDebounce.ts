@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 'use client';
 
-=======
->>>>>>> main
 import { useRef, useEffect, useCallback } from 'react';
 
 /**

@@ -1,13 +1,16 @@
-import * as React from "react";
-import { AccordionPanelProps } from "./types";
-import { clsx } from "clsx";
-import { accordionPanelStyle, panelHeight } from "./style.css";
-import { useAccordionContext } from "./AccordionContext";
-import { useEffect, useRef, useState } from "react";
-import { assignInlineVars } from "@vanilla-extract/dynamic";
+import * as React from 'react';
+import { AccordionPanelProps } from './types';
+import { clsx } from 'clsx';
+import { accordionPanelStyle, panelHeight } from './style.css';
+import { useAccordionContext } from './AccordionContext';
+import { useEffect, useRef, useState } from 'react';
+import { assignInlineVars } from '@vanilla-extract/dynamic';
 
-const AccordionPanel = (props: AccordionPanelProps, ref: React.Ref<HTMLDivElement>) => {
-  const { itemName = "", children, className, style, ...rest } = props;
+const AccordionPanel = (
+  props: AccordionPanelProps,
+  ref: React.Ref<HTMLDivElement>,
+) => {
+  const { itemName = '', children, className, style, ...rest } = props;
   const innerRef = useRef<HTMLDivElement>(null);
 
   const { activeItems } = useAccordionContext();
@@ -18,7 +21,7 @@ const AccordionPanel = (props: AccordionPanelProps, ref: React.Ref<HTMLDivElemen
     if (!innerRef.current) return;
 
     setCurrentPanelHeight(
-      isActive ? `${innerRef.current.clientHeight}px` : "0",
+      isActive ? `${innerRef.current.clientHeight}px` : '0',
     );
   }, [isActive, activeItems]);
 
@@ -30,7 +33,8 @@ const AccordionPanel = (props: AccordionPanelProps, ref: React.Ref<HTMLDivElemen
       data-action-item={isActive}
       style={{
         ...assignInlineVars({
-          [panelHeight]: currentPanelHeight ?? `$innerRef.current.clientHeight}px`,
+          [panelHeight]:
+            currentPanelHeight ?? `$innerRef.current.clientHeight}px`,
         }),
         ...style,
       }}
@@ -40,7 +44,7 @@ const AccordionPanel = (props: AccordionPanelProps, ref: React.Ref<HTMLDivElemen
       </div>
     </div>
   );
-}
+};
 
 const _AccordionPanel = React.forwardRef(AccordionPanel);
 export { _AccordionPanel as AccordionPanel };

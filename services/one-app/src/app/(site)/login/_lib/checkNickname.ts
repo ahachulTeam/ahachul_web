@@ -3,11 +3,7 @@ import axios from 'axios';
 
 import { apiClient } from '@/app/api';
 import { sleep } from '@/common/utils';
-<<<<<<< HEAD
 import { APIResponseCode, RESPONSE_MESSAGES } from '@/common/constants';
-=======
-import { APIResponseCode, RESPONSE_MESSAGES } from '@/common/constants/api';
->>>>>>> main
 
 const CheckNicknameResponseSchema = z.object({
   code: z.literal(APIResponseCode.SUCCESS),

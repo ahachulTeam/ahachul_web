@@ -1,5 +1,4 @@
-import CheckIcon from '@/common/assets/icons/check';
-import AlertCircleIcon from '@/common/assets/icons/alert-circle';
+import { CheckIcon, AlertCircleIcon } from '@/common/assets/icons';
 
 export const renderIndicatorIcon = (
   isValidateOk: boolean,

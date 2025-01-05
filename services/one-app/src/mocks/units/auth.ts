@@ -22,11 +22,7 @@ const createLoginSuccessResponse = (memberId: string) =>
     isNeedAdditionalUserInfo: Math.random() < ADDITIONAL_INFO_RATE,
   });
 
-<<<<<<< HEAD
 const mock_로그인 = http.post('/auth/login', async () => {
-=======
-const mock_로그인 = http.post('/auth/login', async ({ request }) => {
->>>>>>> main
   if (Math.random() < ERROR_RATE) {
     return createErrorResponse();
   }

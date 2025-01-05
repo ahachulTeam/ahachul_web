@@ -15,10 +15,7 @@
     "test:one-app": "yarn workspace @ahhachul/one-app test",
     "dev:mocking": "yarn workspace @ahhachul/one-app dev:mocking",
     "server:mocking": "yarn workspace @ahhachul/one-app server:mocking",
-<<<<<<< HEAD
-=======
     "build:app": "nx build ahhachul.com",
->>>>>>> main
     "build:one-app": "nx build @ahhachul/one-app",
     "build:all": "nx run-many --target=build --all",
     "start:one-app": "yarn workspace @ahhachul/one-app start"

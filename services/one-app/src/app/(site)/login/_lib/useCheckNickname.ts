@@ -3,13 +3,8 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
-<<<<<<< HEAD
 import { useDebounce } from '@/common/hooks';
 import { checkNickname } from '@/app/(site)/login/_lib';
-=======
-import { useDebounce } from '@/common/hooks/useDebounce';
-import { checkNickname } from '@/app/(site)/login/_lib/checkNickname';
->>>>>>> main
 
 const MAX_LENGTH = 10;
 const MIN_LENGTH = 2;
