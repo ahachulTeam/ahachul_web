@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { useIsDeferred } from '@/common/hooks/useIsDeferred';
-import { cn } from '@/common/utils/cn';
+import { cn } from '@/common/utils';
+import { useIsDeferred } from '@/common/hooks';
 import { BaseSkeleton } from '../BaseSkeleton';
 
 export const ArticleDetailSuspenseFallback = () => {

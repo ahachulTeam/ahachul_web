@@ -1,6 +1,7 @@
 'use client';
 
 import { Suspense, type ComponentProps, type PropsWithChildren } from 'react';
+
 import { BaseErrorBoundary } from './ErrorBoundary';
 import { QueryErrorBoundary } from './QueryErrorBoundary';
 

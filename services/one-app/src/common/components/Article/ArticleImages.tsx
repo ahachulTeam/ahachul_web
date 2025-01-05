@@ -1,8 +1,11 @@
-import React, { useReducer, useState } from 'react';
+'use client';
+
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import type { PostImage } from '@/model/PostImage';
+
+import type { PostImage } from '@/model';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -13,33 +16,30 @@ interface Props {
   canShowFullImageDialog?: boolean;
 }
 
-const BaseArticleImages = ({
+export const BaseArticleImages = ({
   label,
   images,
-  canShowFullImageDialog = true,
+  // canShowFullImageDialog = true,
 }: Props) => {
-  const [showFullImgDialog, toggletShowFullImgDialog] = useReducer(
-    (open) => !open,
-    false,
-  );
+  // const [_, toggletShowFullImgDialog] = useReducer((open) => !open, false);
 
-  const handleFullImageDialog = () => {
-    if (!canShowFullImageDialog) return;
-    else toggletShowFullImgDialog();
-  };
+  // const handleFullImageDialog = () => {
+  //   if (!canShowFullImageDialog) return;
+  //   else toggletShowFullImgDialog();
+  // };
 
-  const [clickedIndex, setClickedIndex] = useState(0);
-  const clickIndex = (idx: number) => () => {
-    setClickedIndex(idx);
-    handleFullImageDialog();
-  };
+  // const [__, setClickedIndex] = useState(0);
+  // const clickIndex = (idx: number) => () => {
+  //   setClickedIndex(idx);
+  //   handleFullImageDialog();
+  // };
 
   return (
     <>
       {images.length === 1 ? (
         <div
           className=" relative w-full aspect-square"
-          onClick={handleFullImageDialog}
+          // onClick={handleFullImageDialog}
         >
           <LazyLoadImage
             src={images[0].imageUrl}
@@ -59,7 +59,10 @@ const BaseArticleImages = ({
           className=" relative w-full aspect-square"
         >
           {images.map((img, idx) => (
-            <SwiperSlide key={img.imageId} onClick={clickIndex(idx)}>
+            <SwiperSlide
+              key={img.imageId}
+              // onClick={clickIndex(idx)}
+            >
               <LazyLoadImage
                 effect="opacity"
                 alt={`${label}-img-${idx + 1}`}
@@ -79,5 +82,3 @@ const BaseArticleImages = ({
     </>
   );
 };
-
-export default BaseArticleImages;

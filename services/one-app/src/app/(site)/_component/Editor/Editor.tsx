@@ -6,9 +6,12 @@ import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
-import SpeechToTextPlugin from './plugins/SpeechToTextPlugin';
-import SpeechToTextToolbarPlugin from './plugins/SpeechToTextToolbarPlugin';
-import OnChangePlugin from './plugins/OnChangePlugin';
+
+import {
+  OnChangePlugin,
+  SpeechToTextPlugin,
+  SpeechToTextToolbarPlugin,
+} from '@/app/(site)/_component/Editor';
 
 const theme = {};
 
@@ -37,7 +40,7 @@ type Props = {
   onChange?: (editorState: EditorState | null) => void;
 };
 
-const Editor = ({
+export const Editor = ({
   showMic,
   readonly,
   placeholder,
@@ -76,5 +79,3 @@ const Editor = ({
     </LexicalComposer>
   );
 };
-
-export default Editor;

@@ -4,6 +4,13 @@ export enum SocialSignInType {
   GOOGLE = 'GOOGLE',
 }
 
+export interface SocialLoginOption {
+  social: string;
+  icon: React.ElementType;
+  bgColor: string;
+  providerType: SocialSignInType;
+}
+
 export function isValidSocialSignInType(
   type: string | null,
 ): type is SocialSignInType {

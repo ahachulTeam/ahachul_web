@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
-import { RQProvider } from '../_components/RQProvider';
-import { MSWComponent } from '../_components/MSWComponent';
 import { cn } from '@/common/utils/cn';
+import { RQProvider, MSWComponent } from '@/app/_components';
 import { Pretendard } from '@/common/assets/fonts/pretendard';
 
 import '../globals.css';

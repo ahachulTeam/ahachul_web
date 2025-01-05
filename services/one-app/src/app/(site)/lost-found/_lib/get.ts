@@ -1,18 +1,20 @@
+'use client';
+
 import {
-  useSuspenseInfiniteQuery,
   useSuspenseQuery,
+  useSuspenseInfiniteQuery,
 } from '@tanstack/react-query';
 
 import { apiClient } from '@/app/api';
-import type { IResponse, ListResponseWithPagination } from '@/model/Utils';
 import type {
+  IResponse,
+  ListResponseWithPagination,
   LostFoundPost,
   LostFoundPostDetail,
   LostFoundListParams,
-} from '@/model/LostFound';
-import { TIMESTAMP } from '@/common/constants/time';
-import { generateQueryKey } from '@/common/utils/react-query';
-import { objectToQueryString } from '@/common/utils/object';
+} from '@/model';
+import { TIMESTAMP } from '@/common/constants';
+import { generateQueryKey, objectToQueryString } from '@/common/utils';
 
 const getLostFoundList = (params: LostFoundListParams) =>
   apiClient.get<IResponse<ListResponseWithPagination<LostFoundPost>>>(

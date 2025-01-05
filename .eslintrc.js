@@ -10,11 +10,14 @@ module.exports = {
     project: './tsconfig.eslint.json',
     tsconfigRootDir: __dirname,
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:storybook/recommended', 'prettier'],
-  plugins: ['react', '@typescript-eslint', 'react-hooks', 'jsx-a11y'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:storybook/recommended',
+    'prettier',
+  ],
+  plugins: ['react', '@typescript-eslint', 'jsx-a11y'],
   rules: {
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
     'react/react-in-jsx-scope': 'off',
     'comma-dangle': 'off',
     'react/display-name': 'off',

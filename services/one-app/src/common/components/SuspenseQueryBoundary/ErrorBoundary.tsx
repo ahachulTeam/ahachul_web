@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { isChangedArray } from '@/common/utils/array';
+
+import { isChangedArray } from '@/common/utils';
 
 type ErrorFallbackProps = {
   error: Error;

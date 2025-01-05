@@ -1,13 +1,14 @@
-import { formatDate } from '@/common/utils/date';
-import { LostFoundPostDetail } from '@/model/LostFound';
-import Link from 'next/link';
 import React from 'react';
+import Link from 'next/link';
+
+import { formatDate } from '@/common/utils';
+import type { LostFoundPostDetail } from '@/model';
 
 interface Props {
   post: LostFoundPostDetail;
 }
 
-const Lost112ArticleTable = ({ post }: Props) => {
+export const Lost112ArticleTable = ({ post }: Props) => {
   return (
     <div className="max-w bg-gray-20 px-5 py-4">
       <div className="bg-gray-0 rounded-lg px-5 py-4">
@@ -84,5 +85,3 @@ const Lost112ArticleTable = ({ post }: Props) => {
     </div>
   );
 };
-
-export default Lost112ArticleTable;

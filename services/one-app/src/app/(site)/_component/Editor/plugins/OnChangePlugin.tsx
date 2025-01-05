@@ -1,6 +1,8 @@
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { $getRoot, EditorState, ElementNode } from 'lexical';
+'use client';
+
 import { useEffect } from 'react';
+import { $getRoot, EditorState, ElementNode } from 'lexical';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 
 type Props = {
   readonly?: boolean;
@@ -20,7 +22,7 @@ const isEditorEmpty = () => {
   return false;
 };
 
-function OnChangePlugin({ readonly, initialState, onChange }: Props) {
+export function OnChangePlugin({ readonly, initialState, onChange }: Props) {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
@@ -48,5 +50,3 @@ function OnChangePlugin({ readonly, initialState, onChange }: Props) {
 
   return null;
 }
-
-export default OnChangePlugin;

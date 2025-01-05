@@ -1,4 +1,4 @@
-import Editor from '.';
+import { Editor } from '.';
 import { cn } from '@/common/utils/cn';
 
 export type Props = {

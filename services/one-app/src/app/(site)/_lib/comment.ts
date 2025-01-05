@@ -1,8 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { apiClient } from '@/app/api';
-import type { IResponse } from '@/model/Utils';
-import type { Comment } from '@/model/Comment';
+import type { Comment, IResponse } from '@/model';
 
 export const deleteComment = (commentId: number) =>
   apiClient.delete<IResponse<Pick<Comment, 'id'>>>(`comments/${commentId}`);
