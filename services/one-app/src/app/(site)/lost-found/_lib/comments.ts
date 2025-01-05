@@ -1,8 +1,8 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery, useMutation } from '@tanstack/react-query';
 
 import { apiClient } from '@/app/api';
 import type { IResponse } from '@/model/Utils';
-import type { CommentList } from '@/model/Comment';
+import type { Comment, CommentList } from '@/model/Comment';
 import { TIMESTAMP } from '@/common/constants/time';
 import { generateQueryKey } from '@/common/utils/react-query';
 
@@ -18,3 +18,26 @@ export const useGetLostFoundComments = (articleId: number) =>
       return res.data.result;
     },
   });
+
+export const postLostFoundComment = async (data: {
+  articleId: number;
+  content: string;
+  upperCommentId?: number;
+  isPrivate?: boolean;
+}) => {
+  const { articleId, content, upperCommentId = null, isPrivate = false } = data;
+  const response = await apiClient.post<
+    IResponse<Pick<Comment, 'id' | 'upperCommentId' | 'content'>>
+  >(`/lost-found/${articleId}/comments`, {
+    content,
+    upperCommentId,
+    isPrivate,
+  });
+  return response.data;
+};
+
+export const useLostFoundPostComment = () => {
+  return useMutation({
+    mutationFn: postLostFoundComment,
+  });
+};

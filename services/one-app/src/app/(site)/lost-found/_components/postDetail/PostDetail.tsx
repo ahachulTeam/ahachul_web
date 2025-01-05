@@ -11,10 +11,11 @@ import { isLexicalContent } from '@/common/utils/validate';
 import { LexicalSyntaxContentParser } from '@/app/(site)/_component/Editor/LexicalSyntaxContentParser';
 import { cn } from '@/common/utils/cn';
 import RecommendArticles from './RecommendArticles';
-import CommentTextField from './CommentTextField';
 import Lost112ArticleTable from './Lost112ArticleTable';
 import BaseArticleImages from '@/common/components/Article/ArticleImages';
 import { getRandomInt } from '@/common/utils/number';
+import CommentTextField from '@/common/components/Comment/CommentTextField';
+import { useLostFoundComment } from '../../_lib/useLostFoundComment';
 
 type Props = {
   lostId: number;
@@ -23,6 +24,9 @@ type Props = {
 const LostFoundPostDetail = ({ lostId }: Props) => {
   const { data: post } = useGetLostFoundDetail(lostId);
   const isLexicalSyntaxContent = isLexicalContent(post.content);
+
+  const { handleChangeComment, handleSubmitComment } =
+    useLostFoundComment(lostId);
 
   const images = post.isFromLost112
     ? [
@@ -96,6 +100,8 @@ const LostFoundPostDetail = ({ lostId }: Props) => {
       <LostFoundCommentList commentCnt={post.commentCnt} articleId={lostId} />
       <CommentTextField
         placeholder={`${post.writer ?? '로스트 112'}에게 댓글을 남겨주세요.`}
+        onSubmit={handleSubmitComment}
+        onChange={handleChangeComment}
       />
     </>
   );
