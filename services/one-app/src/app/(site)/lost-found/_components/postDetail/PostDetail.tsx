@@ -4,8 +4,8 @@ import React from 'react';
 import Image from 'next/image';
 
 import {
-  CommentTextField,
   BaseArticleImages,
+  CommentTextField,
   SUBWAY_LOGO_SVG_LIST,
 } from '@/common/components';
 import { cn, formatDate, getRandomInt, isLexicalContent } from '@/common/utils';
