@@ -3,17 +3,21 @@ import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import { fadeInAndUpVariants } from 'shared/lib/config/animation/framer-motion';
 
-import { useFlow } from 'app/stackflow';
-import { useGetSignInRedirectUrl } from '../api';
+import { getRedirectUrl } from '../api';
 import { KakaoIcon } from '../static/icons/kakao';
 import { GoogleIcon } from '../static/icons/google';
+import type { ISocialSignInType } from '../model';
+import { AppleIcon } from '../static/icons/apple';
 
 export const SocialLogin = () => {
-  const { push } = useFlow();
-  const urls = useGetSignInRedirectUrl();
-  console.log('urls:', urls);
-
-  const clickLogin = () => push('SetupNickname', {});
+  const clickLogin = async (loginType: ISocialSignInType) => {
+    try {
+      const res = await getRedirectUrl({ providerType: loginType });
+      window.location.assign(res.data.result.redirectUrl);
+    } catch (error) {
+      window.alert('로그인 정보를 불러오는데 실패했어요. (unknown)');
+    }
+  };
 
   return (
     <SocialGroup
@@ -22,14 +26,18 @@ export const SocialLogin = () => {
       initial="initial"
       variants={fadeInAndUpVariants(0.3)}
     >
-      <KakaoLogin onClick={clickLogin}>
-        <KakaoIcon />
-        <span>Kakao로 계속하기</span>
-      </KakaoLogin>
-      <GoogleLogin onClick={clickLogin}>
+      <GoogleLogin onClick={() => clickLogin('GOOGLE')}>
         <GoogleIcon />
         <span>Google로 계속하기</span>
       </GoogleLogin>
+      <GoogleLogin onClick={() => clickLogin('APPLE')}>
+        <AppleIcon />
+        <span>Apple로 계속하기</span>
+      </GoogleLogin>
+      <KakaoLogin onClick={() => clickLogin('KAKAO')}>
+        <KakaoIcon />
+        <span>Kakao로 계속하기</span>
+      </KakaoLogin>
     </SocialGroup>
   );
 };

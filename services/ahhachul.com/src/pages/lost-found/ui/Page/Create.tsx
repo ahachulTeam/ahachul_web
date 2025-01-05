@@ -8,6 +8,7 @@ import { CategorySelectField } from 'widgets/form-fields/ui/CategorySelectField'
 import { TitleField } from 'widgets/form-fields/ui/TitleField';
 import { ContentEditorField } from 'widgets/form-fields/ui/ContentEditorField';
 import { SubmitButton } from 'widgets/form-fields/ui/SubmitButton';
+import SubwaySelectField from 'widgets/form-fields/ui/SubwaySelectField';
 import * as styles from './Create.css';
 
 const SUBMIT_BUTTON_TEXT = '등록';
@@ -17,15 +18,8 @@ const LOST_AND_FOUND_CATEGORY_LIST = {
 };
 
 const CreateLostArticle: ActivityComponentType = () => {
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: { errors },
-    isSubmitting,
-    onSubmit,
-    onError,
-  } = useCreateLostArticleForm();
+  const { control, isSubmitting, register, handleSubmit, onSubmit, onError } =
+    useCreateLostArticleForm();
   const submit = handleSubmit(onSubmit, onError);
 
   const activity = useActivity();
@@ -34,22 +28,17 @@ const CreateLostArticle: ActivityComponentType = () => {
       <form css={styles.wrap} onSubmit={submit}>
         <ImageUploadField<LostForm> control={control} name="imageFiles" />
         <CategorySelectField<LostForm>
-          errors={errors}
           control={control}
           options={LOST_AND_FOUND_CATEGORY_LIST}
           name="lostType"
         />
+        <SubwaySelectField control={control} name="subwayLineId" />
         <TitleField<LostForm>
-          errors={errors}
+          control={control}
           register={register}
           name="title"
         />
-        <ContentEditorField<LostForm>
-          isRichEditor
-          control={control}
-          errors={errors}
-          name="content"
-        />
+        <ContentEditorField<LostForm> control={control} name="content" />
         <SubmitButton
           isActive={activity.isActive}
           isSubmitting={isSubmitting}
@@ -58,7 +47,7 @@ const CreateLostArticle: ActivityComponentType = () => {
         />
       </form>
     ),
-    [control, errors, handleSubmit, isSubmitting, onError, onSubmit, register],
+    [control, handleSubmit, isSubmitting, onError, onSubmit, register],
   );
 
   const memoizedForm = useMemo(() => renderForm(), [renderForm]);

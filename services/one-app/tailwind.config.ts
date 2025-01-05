@@ -4,9 +4,15 @@ const colors = require('./src/common/constants/colors');
 
 const config: Config = {
   content: [
+<<<<<<< HEAD
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
     './src/**/*.{js,ts,jsx,tsx}',
+=======
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+>>>>>>> main
   ],
   theme: {
     extend: {
@@ -178,6 +184,13 @@ const config: Config = {
           },
         },
       },
+    },
+    screens: {
+      sm: { raw: '(max-width: 411px)' },
+      md: { raw: '(min-width: 412px) and (max-width: 531px)' },
+      lg: { raw: '(min-width: 532px)' },
+      xl: { raw: '(min-width: 600px)' },
+      pc: { raw: '(min-width: 990px)' },
     },
   },
   plugins: [],

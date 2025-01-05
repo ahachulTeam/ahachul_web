@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import { useShallow } from 'zustand/shallow';
 
+<<<<<<< HEAD
 import { cn } from '@/common/utils/cn';
 import { AuthService } from '@/common/service/AuthService';
 import { useTemporaryAuthStore } from '@/store/auth';
@@ -16,6 +17,17 @@ import { updateUser } from '../../my/_lib/updateUser';
 import { renderIndicatorIcon } from '../_lib/utils';
 import { useCheckNickname } from '../_lib/useCheckNickname';
 
+=======
+import { updateUser } from '../../my/_lib/updateUser';
+import { useCheckNickname } from '../_lib/useCheckNickname';
+import { renderIndicatorIcon } from '../_lib/utilityFunctions';
+import { useTemporaryAuthStore } from '@/store/auth';
+import { AuthService } from '@/common/service/AuthService';
+import { cn } from '@/common/utils/cn';
+import ArrowLeftIcon from '@/common/assets/icons/arrow-left';
+import SpinnerIcon from '@/common/assets/icons/loading-spinner';
+
+>>>>>>> main
 const NicknameSetup = () => {
   const router = useRouter();
   const {

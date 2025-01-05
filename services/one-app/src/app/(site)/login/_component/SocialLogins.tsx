@@ -3,10 +3,18 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 
+<<<<<<< HEAD
 import { SocialSignInType } from '@/model';
 import { APIResponseCode } from '@/common/constants';
 import { SocialLoginButton } from '@/app/(site)/login/_component';
 import { getRedirectUrl, socialLoginOptions } from '@/app/(site)/login/_lib';
+=======
+import { SocialLoginButton } from './SocialLoginButton';
+import { getRedirectUrl } from '../_lib/getRedirectUrl';
+import { socialLoginOptions } from '../_lib/socialLoginOptions';
+import { SocialSignInType } from '@/model/Auth';
+import { APIResponseCode } from '@/common/constants/api';
+>>>>>>> main
 
 export const SocialLogins: React.FC = () => {
   const router = useRouter();

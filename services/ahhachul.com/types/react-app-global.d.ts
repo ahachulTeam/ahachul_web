@@ -22,6 +22,15 @@ declare global {
    * For typescript compatibility
    */
   export interface HTMLSectionElement extends HTMLElement {}
+
+  /**
+   * For App Bridge
+   */
+  interface Window {
+    ReactNativeWebView: {
+      postMessage: (message: string) => void;
+    };
+  }
 }
 
 export {};

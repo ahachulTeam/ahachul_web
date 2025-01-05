@@ -1,3 +1,4 @@
+export * from './my';
 export * from './home';
 export * from './signIn';
 export * from './lostFound';

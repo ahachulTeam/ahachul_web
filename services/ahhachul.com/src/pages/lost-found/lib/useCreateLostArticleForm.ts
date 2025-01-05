@@ -4,25 +4,19 @@ import { validateContent } from 'features/articles/lib/has-content-error';
 import { usePostLostAndFoundArticle } from 'pages/lost-found/api/post-article';
 
 export const useCreateLostArticleForm = () => {
-  const {
-    formState: { errors },
-    control,
-    register,
-    setValue,
-    setError,
-    getValues,
-    handleSubmit,
-  } = useForm<LostForm>({
-    mode: 'onBlur',
-    defaultValues: {
-      title: '',
-      content: '',
-      imageFiles: null,
-      lostType: 'LOST',
-    },
-  });
+  const { control, register, setValue, setError, getValues, handleSubmit } =
+    useForm<LostForm>({
+      mode: 'onBlur',
+      defaultValues: {
+        title: '',
+        content: '',
+        lostType: 'LOST',
+        imageFiles: null,
+        subwayLineId: null,
+      },
+    });
 
-  const { mutate: createComplaint, isPending } = usePostLostAndFoundArticle();
+  const { mutate: createLostArticle, isPending } = usePostLostAndFoundArticle();
 
   const onError = () => {
     if (!validateContent(getValues('content'), setError)) return;
@@ -30,18 +24,17 @@ export const useCreateLostArticleForm = () => {
 
   const onSubmit = (data: LostForm) => {
     if (!validateContent(data.content, setError)) return;
-    createComplaint(data);
+    createLostArticle(data);
   };
 
   return {
     control,
+    isSubmitting: isPending,
     register,
     setValue,
     setError,
     getValues,
     handleSubmit,
-    formState: { errors },
-    isSubmitting: isPending,
     onSubmit,
     onError,
   };

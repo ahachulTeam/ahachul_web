@@ -16,7 +16,7 @@ interface LoadingProps {
 export const Loading = ({
   opacity = 0.4,
   isWhite = false,
-  deferredMs = 1000,
+  deferredMs = 0,
   children,
 }: PropsWithChildren<Partial<LoadingProps>>) => {
   const [isDeferred, setIsDeferred] = useState(false);

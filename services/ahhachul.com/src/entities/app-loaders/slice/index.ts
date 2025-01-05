@@ -1,28 +1,22 @@
 import { create } from 'zustand';
 
 interface ILoadingStore {
-  active: boolean;
-  opacity: number;
+  globalLoading: boolean;
 }
-
-const defaultOpacity = 0.5;
 
 export const useLoadingStore = create<
   ILoadingStore & {
-    setLoaded: () => void;
-    setLoading: (opacity?: number) => void;
+    setEnableGlobalLoading: () => void;
+    setDisableGlobalLoading: (opacity?: number) => void;
   }
 >((set) => ({
-  active: false,
-  opacity: defaultOpacity,
-  setLoaded: () =>
+  globalLoading: false,
+  setEnableGlobalLoading: () =>
     set(() => ({
-      active: false,
-      opacity: defaultOpacity,
+      globalLoading: true,
     })),
-  setLoading: (opacity = defaultOpacity) =>
+  setDisableGlobalLoading: () =>
     set(() => ({
-      active: true,
-      opacity,
+      globalLoading: false,
     })),
 }));

@@ -13,10 +13,12 @@ export interface Article
   content: string;
   createdAt: string;
   createdBy: string;
+  imageUrl?: string;
 }
 
 export interface ArticleDetail extends Omit<Article, 'image'> {
   images: ResponseOfImage[];
+  externalSourceImageUrl?: string;
 }
 
 export interface WithArticleId {
@@ -37,4 +39,12 @@ export interface WithLikeCounts {
 
 export interface WithCommentCounts {
   commentCnt: number;
+}
+
+export interface RecommendArticle {
+  id: number;
+  createdAt: string;
+  imageUrl: string;
+  title: string;
+  writer: string;
 }

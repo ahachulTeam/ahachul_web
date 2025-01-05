@@ -347,3 +347,49 @@ export const addOn = css({
     opacity: 0.7,
   },
 });
+
+export const subwaySelect = css({
+  position: 'relative',
+  textAlign: 'left',
+  width: 'calc(100% - 40px)',
+  margin: '0 auto',
+  border: '1px solid rgb(196, 212, 252, 0.37)',
+  height: '44px',
+  borderRadius: '6px',
+  padding: '0 12px',
+  color: '#9da5b6',
+  fontSize: '14px',
+
+  '&[aria-invalid="true"]': {
+    borderColor: '#E02020',
+  },
+
+  '&[data-active="true"]': {
+    color: '#FFFFFF',
+  },
+});
+
+export const chevronIcon = css({
+  width: '14px',
+  height: '14px',
+  position: 'absolute',
+  top: '51.5%',
+  right: '12px',
+  transform: 'translateY(-50%)',
+  '& > svg > path': {
+    stroke: '#9da5b6',
+  },
+});
+
+export const subwayListContainer = css({
+  backgroundColor: '#2E2F37',
+  borderRadius: '12px',
+});
+
+export const subwayList = css({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(3, 1fr)',
+  gap: '8px',
+  justifyItems: 'center',
+  padding: '16px 0',
+});

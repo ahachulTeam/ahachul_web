@@ -13,7 +13,7 @@ interface PageNavigationResponse {
   nextPageNum?: number;
 }
 export interface ResponseOfList<TData> extends PageNavigationResponse {
-  posts: TData[];
+  data: TData[];
 }
 
 export interface ResponseOfImage {

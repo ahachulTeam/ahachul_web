@@ -1,7 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 import { AuthService } from '@/common/service/AuthService';
 
 // 없어질 컴포넌트
@@ -17,5 +20,12 @@ export default function LoggedIn() {
     return null;
   }
 
+<<<<<<< HEAD
   return <p>Logged in: {isLoggedIn ? 'O' : 'X'}</p>;
 }
+=======
+  return (
+    <p>Logged in: {isLoggedIn ? 'O' : 'X'}</p>
+  );
+}
+>>>>>>> main

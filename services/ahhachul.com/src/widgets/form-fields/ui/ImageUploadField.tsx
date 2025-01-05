@@ -13,16 +13,24 @@ export const ImageUploadField = <T,>({
   name,
 }: ImageUploadFieldProps<T>) => (
   <div css={styles.section}>
-    <span>첨부 이미지</span>
+    <span>첨부 이미지 (최대 5장)</span>
     <Controller
       name={name}
       render={({ field }) => (
         <ImageUpload
           hasPreview
-          image={field.value as File | null}
-          disabled={!!field.value}
-          onDelete={() => field.onChange(null)}
-          onChange={(file) => field.onChange(file)}
+          images={(field.value as File[]) || []}
+          onDelete={(index: number) => {
+            const currentImages = (field.value as File[]) || [];
+            const newImages = [...currentImages];
+            newImages.splice(index, 1);
+            field.onChange(newImages);
+          }}
+          onChange={(files: File[]) => {
+            const currentImages = (field.value as File[]) || [];
+            const newImages = [...currentImages, ...files].slice(0, 5);
+            field.onChange(newImages);
+          }}
         />
       )}
       control={control}

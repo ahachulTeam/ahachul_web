@@ -7,6 +7,8 @@ import React, {
 import { AppScreen } from '@stackflow/plugin-basic-ui';
 import { Navbar } from 'widgets/navigation';
 import themes from 'shared/themes.css';
+import { Loading } from 'entities/app-loaders';
+import { useLoadingStore } from 'entities/app-loaders/slice';
 import * as styles from './Layout.css';
 
 interface LayoutProps extends ComponentProps<typeof AppScreen> {
@@ -20,6 +22,7 @@ export const Layout: React.FC<LayoutProps> = ({
   backgroundColor = themes.color.background[50],
   ...props
 }) => {
+  const { globalLoading } = useLoadingStore();
   const scrollableRef = useRef<HTMLDivElement>(null);
 
   const handleScrollToTop = useCallback(() => {
@@ -55,6 +58,7 @@ export const Layout: React.FC<LayoutProps> = ({
           {children}
         </div>
       </main>
+      {globalLoading && <Loading />}
       {showNavbar && <Navbar {...navbarConfig} />}
     </AppScreen>
   );
