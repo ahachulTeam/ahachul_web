@@ -1,7 +1,10 @@
+'use client';
+
 import React from 'react';
-import type { CommentList } from '@/model/Comment';
+
+import type { CommentList } from '@/model';
 import { CommentCard } from './CommentCard';
-import EmptyCommentList from './EmptyCommentList';
+import { EmptyCommentList } from './EmptyCommentList';
 
 interface Props {
   commentsMap: CommentList['comments'];

@@ -2,27 +2,31 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { SUBWAY_LOGO_SVG_LIST } from '@/common/components/Subway/subway-logo-icon-map';
-import LostTypeBadge from './LostTypeBadge';
+
+import {
+  CommentTextField,
+  BaseArticleImages,
+  SUBWAY_LOGO_SVG_LIST,
+} from '@/common/components';
+import { cn, formatDate, getRandomInt, isLexicalContent } from '@/common/utils';
+import { LexicalSyntaxContentParser } from '@/app/(site)/_component/Editor';
+
+import { LostTypeBadge } from './LostTypeBadge';
 import { LostFoundCommentList } from './CommentList';
-import { useGetLostFoundDetail } from '../../_lib/get';
-import { formatDate } from '@/common/utils/date';
-import { isLexicalContent } from '@/common/utils/validate';
-import { LexicalSyntaxContentParser } from '@/app/(site)/_component/Editor/LexicalSyntaxContentParser';
-import { cn } from '@/common/utils/cn';
-import RecommendArticles from './RecommendArticles';
-import CommentTextField from './CommentTextField';
-import Lost112ArticleTable from './Lost112ArticleTable';
-import BaseArticleImages from '@/common/components/Article/ArticleImages';
-import { getRandomInt } from '@/common/utils/number';
+import { RecommendArticles } from './RecommendArticles';
+import { Lost112ArticleTable } from './Lost112ArticleTable';
+import { useGetLostFoundDetail, useLostFoundComment } from '../../_lib';
 
 type Props = {
   lostId: number;
 };
 
-const LostFoundPostDetail = ({ lostId }: Props) => {
+export const LostFoundPostDetail = ({ lostId }: Props) => {
   const { data: post } = useGetLostFoundDetail(lostId);
   const isLexicalSyntaxContent = isLexicalContent(post.content);
+
+  const { handleChangeComment, handleSubmitComment } =
+    useLostFoundComment(lostId);
 
   const images = post.isFromLost112
     ? [
@@ -96,9 +100,9 @@ const LostFoundPostDetail = ({ lostId }: Props) => {
       <LostFoundCommentList commentCnt={post.commentCnt} articleId={lostId} />
       <CommentTextField
         placeholder={`${post.writer ?? '로스트 112'}에게 댓글을 남겨주세요.`}
+        onSubmit={handleSubmitComment}
+        onChange={handleChangeComment}
       />
     </>
   );
 };
-
-export default LostFoundPostDetail;

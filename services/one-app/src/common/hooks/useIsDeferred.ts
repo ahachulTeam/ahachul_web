@@ -1,4 +1,7 @@
+'use client';
+
 import { useState } from 'react';
+
 import { useTimeout } from './useTimemout';
 
 export const useIsDeferred = (ms?: number) => {

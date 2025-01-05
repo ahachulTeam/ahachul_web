@@ -1,15 +1,17 @@
+'use client';
+
 import React from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-import type { RecommendPost } from '@/model/Post';
-import Dot from '@/common/assets/icons/svgs/dot.svg';
-import { formatDate } from '@/common/utils/date';
+import type { RecommendPost } from '@/model';
+import { formatDate } from '@/common/utils';
+import { DotIcon } from '@/common/assets/icons';
 
 interface Props {
   post: RecommendPost;
 }
 
-const RecommendArticleCard = ({ post }: Props) => {
+export const RecommendArticleCard = ({ post }: Props) => {
   return (
     <article className=" py-6 px-5 border-b border-b-gray-20">
       <div className=" flex flex-col gap-3">
@@ -19,7 +21,7 @@ const RecommendArticleCard = ({ post }: Props) => {
             <div className=" flex items-center justify-between">
               <div className=" flex items-center gap-1 text-gray-80 text-body-medium">
                 <span>LOST112</span>
-                <Dot className=" relative top-[1px]" />
+                <DotIcon className=" relative top-[1px]" />
                 <span>{formatDate(post.createdAt, false)}</span>
               </div>
             </div>
@@ -41,5 +43,3 @@ const RecommendArticleCard = ({ post }: Props) => {
     </article>
   );
 };
-
-export default RecommendArticleCard;

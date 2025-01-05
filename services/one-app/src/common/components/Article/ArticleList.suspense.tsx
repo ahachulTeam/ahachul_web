@@ -1,8 +1,11 @@
+'use client';
+
 import React from 'react';
-import { useIsDeferred } from '@/common/hooks/useIsDeferred';
-import { cn } from '@/common/utils/cn';
+import { cn } from '@/common/utils';
+import { useIsDeferred } from '@/common/hooks';
+import { DotIcon } from '@/common/assets/icons';
+
 import { BaseSkeleton } from '../BaseSkeleton';
-import Dot from '@/common/assets/icons/svgs/dot.svg';
 
 export const ArticleListSuspenseFallback = () => {
   const { isDeferred } = useIsDeferred(500);
@@ -41,9 +44,9 @@ export const ArticleListSuspenseFallback = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1 text-gray-80 text-body-medium">
                 <BaseSkeleton width={24} height={24} radius={12} />
-                <Dot className="relative top-[1px]" />
+                <DotIcon className="relative top-[1px]" />
                 <BaseSkeleton width={60} height={16} radius={6} />
-                <Dot className="relative top-[1px]" />
+                <DotIcon className="relative top-[1px]" />
                 <BaseSkeleton width={80} height={16} radius={6} />
               </div>
               <div className="flex items-center gap-0.5 text-gray-80">

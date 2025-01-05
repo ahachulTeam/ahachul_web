@@ -1,7 +1,8 @@
 import React from 'react';
-import EmptyGraphic from '@/common/assets/graphics/character/no-results.svg';
 
-const EmptyArticleList = () => {
+import { EmptyGraphic } from '@/common/assets/graphics';
+
+export const EmptyArticleList = () => {
   return (
     <section className=" pt-[60px] w-full flex flex-col items-center">
       <EmptyGraphic />
@@ -9,5 +10,3 @@ const EmptyArticleList = () => {
     </section>
   );
 };
-
-export default EmptyArticleList;

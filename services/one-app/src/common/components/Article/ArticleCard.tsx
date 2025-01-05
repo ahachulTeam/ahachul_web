@@ -1,20 +1,19 @@
+'use client';
+
 import React from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-import type { Post } from '@/model/Post';
-import { cn } from '@/common/utils/cn';
-import { isLexicalContent } from '@/common/utils/validate';
-import { SUBWAY_LOGO_SVG_LIST } from '@/common/components/Subway/subway-logo-icon-map';
-import { LexicalSyntaxContentParser } from '@/app/(site)/_component/Editor/LexicalSyntaxContentParser';
-import Dot from '@/common/assets/icons/svgs/dot.svg';
-import CommentIcon from '@/common/assets/icons/comment';
-import { formatDate } from '@/common/utils/date';
+import type { Post } from '@/model';
+import { cn, isLexicalContent, formatDate } from '@/common/utils';
+import { SUBWAY_LOGO_SVG_LIST } from '@/common/components';
+import { LexicalSyntaxContentParser } from '@/app/(site)/_component/Editor';
+import { DotIcon, CommentIcon } from '@/common/assets/icons';
 
 interface Props {
   post: Post;
 }
 
-const ArticleCard = ({ post }: Props) => {
+export const ArticleCard = ({ post }: Props) => {
   const isLexicalSyntaxContent = isLexicalContent(post.content);
 
   return (
@@ -55,9 +54,9 @@ const ArticleCard = ({ post }: Props) => {
         <div className=" flex items-center justify-between">
           <div className=" flex items-center gap-1 text-gray-80 text-body-medium">
             {SUBWAY_LOGO_SVG_LIST[post.subwayLineId]}
-            <Dot className=" relative top-[1px]" />
+            <DotIcon className=" relative top-[1px]" />
             <span>{post.writer || 'LOST112'}</span>
-            <Dot className=" relative top-[1px]" />
+            <DotIcon className=" relative top-[1px]" />
             <span>{formatDate(post.createdAt, false)}</span>
           </div>
           <div className=" flex items-center gap-0.5 text-gray-80 text-body-medium">
@@ -69,5 +68,3 @@ const ArticleCard = ({ post }: Props) => {
     </article>
   );
 };
-
-export default ArticleCard;

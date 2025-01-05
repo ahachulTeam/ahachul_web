@@ -1,13 +1,6 @@
 import React from 'react';
 
-import { type SocialSignInType } from '@/model/Auth';
-
-export interface SocialLoginOption {
-  social: string;
-  icon: React.ElementType;
-  bgColor: string;
-  providerType: SocialSignInType;
-}
+import type { SocialLoginOption } from '@/model/Auth';
 
 interface SocialLoginButtonProps extends SocialLoginOption {
   onLogin: () => Promise<void>;

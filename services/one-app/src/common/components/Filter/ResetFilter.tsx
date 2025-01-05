@@ -1,15 +1,18 @@
+'use client';
+
 import React from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
-import { cn } from '@/common/utils/cn';
-import ChevronDownIcon from '@/common/assets/icons/chevron-down';
+import { cn } from '@/common/utils';
+import { ChevronDownIcon } from '@/common/assets/icons';
 import { ConditionalRender } from '../ConditionalRender';
 
 interface Props {
   activatedCount: number;
   handleReset: () => void;
 }
-const ResetFilter = ({ activatedCount, handleReset }: Props) => {
+
+export const ResetFilter = ({ activatedCount, handleReset }: Props) => {
   const renderThis = activatedCount > 0;
 
   return (
@@ -49,5 +52,3 @@ const ResetFilter = ({ activatedCount, handleReset }: Props) => {
     </ConditionalRender>
   );
 };
-
-export default ResetFilter;
