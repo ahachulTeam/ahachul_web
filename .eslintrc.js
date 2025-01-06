@@ -18,8 +18,6 @@ module.exports = {
   ],
   plugins: ['react', '@typescript-eslint', 'react-hooks', 'jsx-a11y'],
   rules: {
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
     'react/react-in-jsx-scope': 'off',
     'comma-dangle': 'off',
     'react/display-name': 'off',

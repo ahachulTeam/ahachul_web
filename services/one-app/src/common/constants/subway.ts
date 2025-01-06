@@ -1,4 +1,4 @@
-import { SubwayLineFilterOptions } from '@/model/Subway';
+import { SubwayLineFilterOptions } from '@/model';
 
 export const subwayLineIdOptions = {
   [SubwayLineFilterOptions.ALL_LINES]: '전체 호선 보기',

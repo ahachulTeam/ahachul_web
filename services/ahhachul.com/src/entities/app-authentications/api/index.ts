@@ -17,7 +17,7 @@ interface APIRedirectUrlResponse {
   redirectUrl: string;
 }
 
-const getRedirectUrl = (params: APIRedirectUrlParams) =>
+export const getRedirectUrl = (params: APIRedirectUrlParams) =>
   base.get<IResponse<APIRedirectUrlResponse>>(
     `${routes.auth}/redirect-url?${queryString.stringify(params)}`,
   );
@@ -48,23 +48,17 @@ interface APISocialSignInResponse extends IToken {
   isNeedAdditionalUserInfo: boolean;
 }
 
-const login = (body: APISocialSignInParams) =>
+export const requestLogin = (body: APISocialSignInParams) =>
   base.post<IResponse<APISocialSignInResponse>>(`${routes.auth}/login`, body);
 
 export const useLogin = () => {
   const setToken = useAuthStore((state) => state.setToken);
 
   return useMutation({
-    mutationFn: login,
+    mutationFn: requestLogin,
     onSuccess({
       data: {
-        result: {
-          accessToken,
-          refreshToken,
-          accessTokenExpiresIn,
-          refreshTokenExpiresIn,
-          isNeedAdditionalUserInfo,
-        },
+        result: { accessToken, refreshToken, isNeedAdditionalUserInfo },
       },
     }) {
       if (isNeedAdditionalUserInfo) {
@@ -75,8 +69,6 @@ export const useLogin = () => {
       setToken({
         accessToken,
         refreshToken,
-        accessTokenExpiresIn,
-        refreshTokenExpiresIn,
       });
     },
     onError(err) {

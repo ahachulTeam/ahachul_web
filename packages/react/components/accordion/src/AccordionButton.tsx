@@ -1,16 +1,16 @@
-import * as React from "react";
-import { AccordionButtonProps } from "./types";
-import { clsx } from "clsx";
-import { accordionButtonStyle } from "./style.css";
-import { useButton } from "@ahhachul/react-hooks-button";
-import { useAccordionContext } from "./AccordionContext";
-import { useCallback } from "react";
+import * as React from 'react';
+import { AccordionButtonProps } from './types';
+import { clsx } from 'clsx';
+import { accordionButtonStyle } from './style.css';
+import { useButton } from '@ahhachul/react-hooks-button';
+import { useAccordionContext } from './AccordionContext';
+import { useCallback } from 'react';
 
 const AccordionButton = (
   props: AccordionButtonProps,
   ref: React.Ref<HTMLButtonElement>,
 ) => {
-  const { className, itemName = "", onClick, children, ...rest } = props;
+  const { className, itemName = '', onClick, children, ...rest } = props;
 
   const { setActiveItem } = useAccordionContext();
 
@@ -25,7 +25,7 @@ const AccordionButton = (
   const { buttonProps } = useButton({
     ...rest,
     onClick: handleClick,
-    elementType: "button",
+    elementType: 'button',
   });
 
   return (

@@ -188,7 +188,15 @@ interface EditorProps {
   onChange?: (content: EditorState) => void;
 }
 
-function OnChangePlugin({ readonly, initialState, onChange }: any) {
+function OnChangePlugin({
+  readonly,
+  initialState,
+  onChange,
+}: {
+  readonly?: EditorProps['readonly'];
+  initialState?: EditorProps['initialState'];
+  onChange: EditorProps['onChange'];
+}) {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {

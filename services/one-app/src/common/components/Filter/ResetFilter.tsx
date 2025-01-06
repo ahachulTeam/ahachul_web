@@ -1,13 +1,18 @@
+'use client';
+
 import React from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import ChevronDownIcon from '@/common/assets/icons/chevron-down';
+
+import { cn } from '@/common/utils';
+import { ChevronDownIcon } from '@/common/assets/icons';
 import { ConditionalRender } from '../ConditionalRender';
 
 interface Props {
   activatedCount: number;
   handleReset: () => void;
 }
-const ResetFilter = ({ activatedCount, handleReset }: Props) => {
+
+export const ResetFilter = ({ activatedCount, handleReset }: Props) => {
   const renderThis = activatedCount > 0;
 
   return (
@@ -21,26 +26,29 @@ const ResetFilter = ({ activatedCount, handleReset }: Props) => {
             <ChevronDownIcon />
           </button>
         </DropdownMenu.Trigger>
-
-        <DropdownMenu.Content
-          align="start"
-          sideOffset={10}
-          alignOffset={-10}
-          className=" w-[167px] bg-gray-10 rounded-lg shadow-[0px_4px_10px_0px_rgba(0,0,0,0.15)]"
-        >
-          <DropdownMenu.Label className=" py-[2px] px-[12px] text-[12px] text-gray-90">
-            {activatedCount}개 필터가 적용됨.
-          </DropdownMenu.Label>
-          <DropdownMenu.Item
-            className=" text-red text-sm flex items-center pl-[12px] h-[45px] relative bg-white"
-            onClick={handleReset}
+        <DropdownMenu.Portal>
+          <DropdownMenu.Content
+            align="start"
+            sideOffset={10}
+            alignOffset={-10}
+            className={cn(
+              'w-[167px] overflow-hidden rounded-xl bg-gray-10 shadow-[0px_4px_10px_0px_rgba(0,0,0,0.15)]',
+              'data-[state=open]:animate-[slideDownAndFade_150ms_ease-out]',
+              'will-change-[opacity,transform]',
+            )}
           >
-            모든 필터 지우기
-          </DropdownMenu.Item>
-        </DropdownMenu.Content>
+            <DropdownMenu.Label className=" py-3 px-3 text-xs text-gray-90">
+              {activatedCount}개 필터가 적용됨.
+            </DropdownMenu.Label>
+            <DropdownMenu.Item
+              className=" text-red text-sm flex items-center pl-[12px] h-[45px] relative bg-white"
+              onClick={handleReset}
+            >
+              모든 필터 지우기
+            </DropdownMenu.Item>
+          </DropdownMenu.Content>
+        </DropdownMenu.Portal>
       </DropdownMenu.Root>
     </ConditionalRender>
   );
 };
-
-export default ResetFilter;

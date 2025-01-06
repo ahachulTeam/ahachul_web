@@ -1,10 +1,13 @@
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { $getRoot, EditorState, ElementNode } from 'lexical';
-import { useEffect } from 'react';
+'use client';
 
-type Params = {
-  initialState: string;
-  onChange: (editorState: EditorState | null) => void;
+import { useEffect } from 'react';
+import { $getRoot, EditorState, ElementNode } from 'lexical';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+
+type Props = {
+  readonly?: boolean;
+  initialState?: string;
+  onChange?: (editorState: EditorState | null) => void;
 };
 
 const isEditorEmpty = () => {
@@ -19,17 +22,23 @@ const isEditorEmpty = () => {
   return false;
 };
 
-function OnChangePlugin({ initialState, onChange }: Params) {
+export function OnChangePlugin({ readonly, initialState, onChange }: Props) {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
+    if (readonly) {
+      setTimeout(() => {
+        editor.setEditable(false);
+      });
+    }
+
     if (initialState) {
       const content = editor.parseEditorState(JSON.parse(initialState));
       setTimeout(() => {
         editor.setEditorState(content);
       });
     }
-  }, [initialState]);
+  }, [readonly, initialState]);
 
   useEffect(() => {
     return editor.registerUpdateListener(({ editorState }) => {
@@ -41,5 +50,3 @@ function OnChangePlugin({ initialState, onChange }: Params) {
 
   return null;
 }
-
-export default OnChangePlugin;

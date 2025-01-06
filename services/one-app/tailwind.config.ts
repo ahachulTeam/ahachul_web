@@ -169,6 +169,23 @@ const config: Config = {
           },
         ],
       }),
+      animation: {
+        spinner: 'spinner 1s steps(30) infinite',
+      },
+      keyframes: {
+        spinner: {
+          '100%': {
+            backgroundPosition: '-1740px',
+          },
+        },
+      },
+    },
+    screens: {
+      sm: { raw: '(max-width: 411px)' },
+      md: { raw: '(min-width: 412px) and (max-width: 531px)' },
+      lg: { raw: '(min-width: 532px)' },
+      xl: { raw: '(min-width: 600px)' },
+      pc: { raw: '(min-width: 990px)' },
     },
   },
   plugins: [],

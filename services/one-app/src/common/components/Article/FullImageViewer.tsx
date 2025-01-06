@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
@@ -9,7 +11,7 @@ interface ImageViewerProps {
   onInteractionEnd: () => void;
 }
 
-const ImageViewer: React.FC<ImageViewerProps> = ({
+export const ImageViewer: React.FC<ImageViewerProps> = ({
   src,
   isPanEnabled,
   onZoomChange,
@@ -44,5 +46,3 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
     </TransformWrapper>
   );
 };
-
-export default ImageViewer;

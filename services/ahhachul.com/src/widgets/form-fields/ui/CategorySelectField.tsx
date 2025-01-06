@@ -2,10 +2,10 @@ import React from 'react';
 import {
   Control,
   Controller,
-  FieldErrors,
   Path,
   RegisterOptions,
   FieldValues,
+  useFormState,
 } from 'react-hook-form';
 import { SelectList } from 'shared/ui/Select/SelectList';
 import { FieldErrorMessage } from 'widgets/form-fields/ui/FieldErrorMessage';
@@ -14,7 +14,6 @@ import * as styles from './FormField.css';
 interface CategorySelectFieldProps<T extends FieldValues> {
   control: Control<T>;
   options: Record<string, string>;
-  errors: FieldErrors<T>;
   name: Path<T>;
   label?: string;
   rules?: Omit<
@@ -26,11 +25,11 @@ interface CategorySelectFieldProps<T extends FieldValues> {
 export const CategorySelectField = <T extends FieldValues>({
   options,
   control,
-  errors,
   name,
   label = '카테고리',
   rules,
 }: CategorySelectFieldProps<T>) => {
+  const { errors } = useFormState({ control });
   const errorMessage = errors[name]?.message;
   const errorMsg = typeof errorMessage === 'string' ? errorMessage : undefined;
 
@@ -49,9 +48,7 @@ export const CategorySelectField = <T extends FieldValues>({
             options={options}
             current={field.value as string}
             hasError={!!errorMsg}
-            handleChange={(key: string) => () => {
-              field.onChange(key);
-            }}
+            onChange={field.onChange}
           />
         )}
       />

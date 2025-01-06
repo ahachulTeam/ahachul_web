@@ -10,12 +10,3 @@ export const modalOverlayCss = [
     padding: '28px',
   }),
 ] as Interpolation<Theme>;
-
-export const modalContentCss = ({ color: { background } }: Theme) =>
-  ({
-    background: background[50],
-    borderRadius: '14px',
-    maxWidth: '300px',
-    width: '100%',
-    padding: '20px 24px',
-  }) as Interpolation<Theme>;

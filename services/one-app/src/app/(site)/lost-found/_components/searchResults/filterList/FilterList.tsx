@@ -1,10 +1,9 @@
 import React from 'react';
-import { FilterState } from '@/store/filter';
-import { LostFoundFilters, LostFoundType } from '@/model/LostFound';
-import { subwayLineIdOptions } from '@/common/constants/subway';
-import ResetFilter from '@/common/components/Filter/ResetFilter';
-import SearchFilter from '@/common/components/Filter/SearchFilter';
-import DropdownFilter from '@/common/components/Filter/DropdownFilter';
+
+import { FilterState } from '@/store';
+import { type LostFoundFilters, LostFoundType } from '@/model';
+import { subwayLineIdOptions } from '@/common/constants';
+import { ResetFilter, SearchFilter, DropdownFilter } from '@/common/components';
 
 const lostTypeOptions = {
   [LostFoundType.LOST]: '분실물',
@@ -14,7 +13,7 @@ const lostTypeOptions = {
 interface LostFoundFilterListProps
   extends Omit<FilterState<LostFoundFilters>, 'loaded'> {}
 
-const LostFoundFilterList = ({
+export const LostFoundFilterList = ({
   filters,
   activatedCount,
   handleSelect,
@@ -44,5 +43,3 @@ const LostFoundFilterList = ({
     </section>
   );
 };
-
-export default LostFoundFilterList;

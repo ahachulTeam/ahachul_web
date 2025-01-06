@@ -32,9 +32,7 @@ const getElement = (): HTMLElement => {
   return element;
 };
 
-export default function useReport(): (
-  arg0: string,
-) => ReturnType<typeof setTimeout> {
+export function useReport(): (arg0: string) => ReturnType<typeof setTimeout> {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const cleanup = useCallback(() => {
     if (timer.current !== null) {

@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import MicIcon from '@/common/assets/icons/mic.svg';
+
+import { MicIcon } from '@/common/assets/icons';
 import { SPEECH_TO_TEXT_COMMAND } from './SpeechToTextPlugin';
 
 const SpeechToTextToolbarPlugin = () => {

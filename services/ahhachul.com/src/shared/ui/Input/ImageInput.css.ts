@@ -15,7 +15,7 @@ export const wrap = (disabled: boolean) => [
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      opacity: disabled ? 0.4 : 1,
+      opacity: disabled ? 0.1 : 1,
 
       '& > div': {
         width: '18px',

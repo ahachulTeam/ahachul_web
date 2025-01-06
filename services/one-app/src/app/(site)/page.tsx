@@ -1,4 +1,5 @@
 import Link from 'next/link';
+
 import LoggedIn from './_component/LoggedIn';
 
 export default function Home() {

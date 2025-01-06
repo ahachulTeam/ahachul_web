@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+
 import { AuthService } from '@/common/service/AuthService';
 
 // 없어질 컴포넌트

@@ -1,8 +1,9 @@
 import { z } from 'zod';
-import { apiClient } from '@/app/api';
-import { APIResponseCode, RESPONSE_MESSAGES } from '@/common/constants/api';
-import { SocialSignInType } from '@/model/Auth';
 import axios from 'axios';
+
+import { apiClient } from '@/app/api';
+import { APIResponseCode, RESPONSE_MESSAGES } from '@/common/constants';
+import type { SocialSignInType } from '@/model';
 
 // TODO, 실패 케이스 추가
 export const LoginResponseSchema = z.object({

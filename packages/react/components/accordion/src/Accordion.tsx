@@ -1,15 +1,14 @@
-import { useState } from "react";
-import AccordionContext from "./AccordionContext";
-import { AccordionProps } from "./types";
-import { clsx } from "clsx";
-import * as React from "react";
-import { accordionStyle } from "./style.css";
+import { useState } from 'react';
+import AccordionContext from './AccordionContext';
+import { AccordionProps } from './types';
+import { clsx } from 'clsx';
+import * as React from 'react';
+import { accordionStyle } from './style.css';
 
 const Accordion = (props: AccordionProps, ref: React.Ref<HTMLDivElement>) => {
   const { defaultActiveItems = [], children, className, ...rest } = props;
 
-  const [activeItems, setActiveItems] =
-    useState<string[]>(defaultActiveItems);
+  const [activeItems, setActiveItems] = useState<string[]>(defaultActiveItems);
 
   const handleSetActiveItem = (item: string) => {
     if (activeItems.includes(item)) {
@@ -17,7 +16,7 @@ const Accordion = (props: AccordionProps, ref: React.Ref<HTMLDivElement>) => {
     } else {
       setActiveItems([...activeItems, item]);
     }
-  };  
+  };
 
   return (
     <AccordionContext.Provider
