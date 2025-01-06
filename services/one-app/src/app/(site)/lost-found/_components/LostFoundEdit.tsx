@@ -5,7 +5,7 @@ import LostFoundForm from './LostFoundForm';
 
 const LostFoundEdit = ({ lostId }: { lostId: string }) => {
   const lostFoundFormData = useFormAdapter({
-    lostId,
+    lostId: Number(lostId),
   });
   return <LostFoundForm lostId={lostId} initialFormData={lostFoundFormData} />;
 };

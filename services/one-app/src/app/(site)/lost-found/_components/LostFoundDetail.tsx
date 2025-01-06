@@ -8,7 +8,7 @@ type Params = {
 };
 
 const LostFoundDetail = ({ lostId }: Params) => {
-  const { data } = useGetLostFoundDetail(lostId);
+  const { data } = useGetLostFoundDetail(Number(lostId));
 
   return <div>{data?.title}</div>;
 };

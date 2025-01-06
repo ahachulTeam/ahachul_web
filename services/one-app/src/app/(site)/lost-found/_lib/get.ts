@@ -45,4 +45,3 @@ export const useGetLostFoundDetail = (id: number) =>
     staleTime: 5 * TIMESTAMP.MINUTE,
     select: (res) => res.data.result,
   });
-};

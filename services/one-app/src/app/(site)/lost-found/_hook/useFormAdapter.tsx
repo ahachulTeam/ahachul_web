@@ -5,7 +5,7 @@ import type { LostFoundFormData } from '@/model/LostFound';
 type UseLostFoundFormAdapter = ({
   lostId,
 }: {
-  lostId: string;
+  lostId: number;
 }) => LostFoundFormData;
 
 const DEFAULT_DATA: LostFoundFormData = {

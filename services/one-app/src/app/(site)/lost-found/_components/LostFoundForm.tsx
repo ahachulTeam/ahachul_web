@@ -6,7 +6,7 @@ import ArrowLeftIcon from '@/common/assets/icons/arrow-left';
 import CloseCircleIcon from '@/common/assets/icons/close-circle';
 import ImagePlaceHolder from '@/common/assets/icons/image-placeholder';
 import SelectLineDrawer from './SelectLineDrawer';
-import Editor from '@/app/(site)/_component/Editor';
+import { Editor } from '@/app/(site)/_component/Editor';
 
 import useFormImage from '../_hook/useFormImage';
 import useFormInitialize from '../_hook/useFormInitialize';
