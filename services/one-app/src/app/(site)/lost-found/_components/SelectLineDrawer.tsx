@@ -97,7 +97,7 @@ const SelectLineDrawer = ({ subwayLineId, setSubwayLineId }: any) => {
                     key={lines.join('')}
                     className="pb-0 grid grid-cols-3 grid-rows-4 gap-x-[9px] gap-y-[20px] p-0 min-w-[335px]"
                   >
-                    {lines.map((line, idx) => {
+                    {lines.map((line) => {
                       return (
                         <div key={line.name}>
                           <input

@@ -118,6 +118,7 @@ const LostFoundForm = ({ lostId = null, initialFormData = null }: Props) => {
                   <img
                     className="border size-16 rounded-[10px] border-[#CED0DD] ml-2"
                     src={image.url}
+                    alt={`Uploaded image ${index}`}
                   />
                   <button
                     type="button"

@@ -16,7 +16,7 @@ module.exports = {
     'plugin:storybook/recommended',
     'prettier',
   ],
-  plugins: ['react', '@typescript-eslint', 'react-hooks', 'jsx-a11y'],
+  plugins: ['react', '@typescript-eslint', 'jsx-a11y'],
   rules: {
     'react/react-in-jsx-scope': 'off',
     'comma-dangle': 'off',
