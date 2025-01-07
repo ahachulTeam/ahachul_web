@@ -43,3 +43,17 @@ export type LostFoundFilterValues = {
 export type LostFoundFilters = {
   [K in LostFoundFilterKeys]: LostFoundFilterValues[K];
 };
+
+export interface DetailImages {
+  id: number | null;
+  data: File | null;
+  url: string;
+}
+
+export interface LostFoundFormData {
+  title: string;
+  initialContent: string;
+  subwayLineId: number;
+  lostType: LostFoundType;
+  images: DetailImages[];
+}

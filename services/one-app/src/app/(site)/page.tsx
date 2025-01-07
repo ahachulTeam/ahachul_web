@@ -9,6 +9,7 @@ export default function Home() {
         <Link href={'/login'}>로그인 페이지</Link>
         <LoggedIn />
         <Link href={'/lost-found'}>유실물 페이지</Link>
+        <Link href={'/lost-found/create'}>유실물 등록하기</Link>
       </div>
     </main>
   );
