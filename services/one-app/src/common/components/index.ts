@@ -3,6 +3,7 @@ export * from './Filter';
 export * from './Spinner';
 export * from './Comment';
 export * from './Article';
+export * from './Header';
 export * from './BaseSkeleton';
 export * from './ConditionalRender';
 export * from './SuspenseQueryBoundary';
