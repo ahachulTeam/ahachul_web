@@ -1,6 +1,6 @@
 {
   "name": "@ahhachul/react-components-accordion",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "type": "module",
   "main": "dist/index.js",
   "exports": {
