@@ -1,7 +1,6 @@
 {
   "name": "@ahhachul/esbuild-config",
   "version": "0.0.0",
-  "packageManager": "yarn@4.0.2",
   "main": "index.js",
   "files": [
     "index.js"

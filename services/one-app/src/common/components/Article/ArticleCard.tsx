@@ -1,13 +1,10 @@
 'use client';
 
-import React from 'react';
-
-import type { Post } from '@/model';
-import { cn, isLexicalContent, formatDate } from '@/common/utils';
-import { SUBWAY_LOGO_SVG_LIST } from '@/common/components';
 import { LexicalSyntaxContentParser } from '@/app/(site)/_component/Editor';
 import { DotIcon, CommentIcon } from '@/common/assets/icons';
-
+import { SUBWAY_LOGO_SVG_LIST } from '@/common/components';
+import { cn, isLexicalContent, formatDate } from '@/common/utils';
+import type { Post } from '@/model';
 
 interface Props {
   post: Post;
@@ -33,9 +30,7 @@ export const ArticleCard = ({ post }: Props) => {
                 )}
               />
             ) : (
-              <div className=" text-body-medium text-gray-90 line-clamp-2">
-                {post.content}
-              </div>
+              <div className=" text-body-medium text-gray-90 line-clamp-2">{post.content}</div>
             )}
           </div>
           {post?.imageUrl && (
