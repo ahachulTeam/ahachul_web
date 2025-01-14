@@ -1,5 +1,6 @@
 'use client';
-import { type ReactNode } from 'react';
+
+import type { ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -11,9 +12,6 @@ interface Props {
  * 선언적으로 간편한 조건부 렌더링을 제공합니다.
  * @param props
  */
-function ConditionalRender(props: Props) {
-  const { children, isRender } = props;
+export const ConditionalRender = ({ isRender, children }: Props) => {
   return <>{isRender ? children : null}</>;
-}
-
-export default ConditionalRender;
+};

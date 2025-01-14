@@ -1,7 +1,6 @@
 name: Build & Deploy Ahhachul App
 
 on:
-  pull_request:
   push:
     branches:
       - main

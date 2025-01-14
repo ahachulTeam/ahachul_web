@@ -3,15 +3,34 @@ import * as React from 'react';
 function CloseCircleIcon() {
   return (
     <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="8" cy="8" r="7" fill="#DFDFDF" />
-      <path d="M5.5 5.5L10.5 10.5" stroke="white" strokeLinecap="round" />
-      <path d="M5.5 10.5L10.5 5.5" stroke="white" strokeLinecap="round" />
+      <g clipPath="url(#clip0_6089_5611)">
+        <rect width="24" height="24" rx="12" fill="#33333E" />
+        <path
+          d="M16 16L8 8"
+          stroke="white"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M16 8L8 16"
+          stroke="white"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_6089_5611">
+          <rect width="24" height="24" rx="12" fill="white" />
+        </clipPath>
+      </defs>
     </svg>
   );
 }

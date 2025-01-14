@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
-import '../globals.css';
-import { RQProvider } from '../_components/RQProvider';
-import { MSWComponent } from '../_components/MSWComponent';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
+
 import { cn } from '@/common/utils/cn';
+import { RQProvider, MSWComponent } from '@/app/_components';
 import { Pretendard } from '@/common/assets/fonts/pretendard';
+
+import '../globals.css';
+import 'react-lazy-load-image-component/src/effects/opacity.css';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -19,7 +22,9 @@ export default function RootLayout({
     <html lang="ko">
       <body className={cn('font-sans antialiased', Pretendard.variable)}>
         <MSWComponent />
-        <RQProvider>{children}</RQProvider>
+        <RQProvider>
+          <NuqsAdapter>{children}</NuqsAdapter>
+        </RQProvider>
       </body>
     </html>
   );
