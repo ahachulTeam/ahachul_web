@@ -5,6 +5,7 @@ import type { WithArticleId } from 'features/articles';
 import { ArticleDetailErrorFallback } from 'features/articles/ui/ArticleDetailErrorFallback';
 import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
 import * as styles from './Page.css';
+import { Loading } from 'entities/app-loaders/ui/Loading';
 
 const ComplaintArticleDetail = React.lazy(
   () => import('../_common/ComplaintArticleDetail/ComplaintArticleDetail'),
@@ -24,7 +25,9 @@ const ComplaintDetail: ActivityComponentType<WithArticleId> = ({
           })
         }
       >
-        <ComplaintArticleDetail articleId={articleId} />
+        <Suspense fallback={<Loading opacity={1} />}>
+          <ComplaintArticleDetail articleId={articleId} />
+        </Suspense>
       </QueryErrorBoundary>
     </Layout>
   );

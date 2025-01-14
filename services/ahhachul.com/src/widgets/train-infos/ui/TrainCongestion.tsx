@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react';
-import { withSuspense } from '@ahhachul/react-hooks-utility';
 import { motion } from 'framer-motion';
 import throttle from 'lodash-es/throttle';
 
@@ -75,8 +74,4 @@ const TrainCongestion = ({ trainNo, subwayLineId }: TrainCongestionProps) => {
   );
 };
 
-export default withSuspense(TrainCongestion, {
-  fallback: (
-    <BaseSkeleton width="100%" height="31px" radius={3} css={styles.skeleton} />
-  ),
-});
+export default TrainCongestion;

@@ -210,3 +210,7 @@ export const button = [
     fontWeight: fontWeight[600],
   }),
 ] as Interpolation<Theme>;
+
+export const skeleton = {
+  marginTop: '5px',
+} as Interpolation<Theme>;

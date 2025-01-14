@@ -25,7 +25,9 @@ export const TrainInfo = () => {
         keys={Object.values(realTimesProps)}
         errorFallback={TrainErrorFallback}
       >
-        <TrainRealTimes {...realTimesProps} />
+        <Suspense fallback={<div css={styles.trainRealTimes} />}>
+          <TrainRealTimes {...realTimesProps} />
+        </Suspense>
       </QueryErrorBoundary>
     </section>
   );

@@ -12,7 +12,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ahhachul/esbuild-config@npm:^0.0.3, @ahhachul/esbuild-config@workspace:^, @ahhachul/esbuild-config@workspace:packages/esbuild-config":
+"@ahhachul/esbuild-config@npm:^0.0.3, @ahhachul/esbuild-config@workspace:packages/esbuild-config":
   version: 0.0.0-use.local
   resolution: "@ahhachul/esbuild-config@workspace:packages/esbuild-config"
   dependencies:
@@ -84,86 +84,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ahhachul/react-components-accordion@workspace:packages/react/components/accordion":
-  version: 0.0.0-use.local
-  resolution: "@ahhachul/react-components-accordion@workspace:packages/react/components/accordion"
-  dependencies:
-    "@ahhachul/esbuild-config": "workspace:^"
-    "@ahhachul/react-hooks-button": "workspace:^"
-    "@ahhachul/themes": "workspace:^"
-    "@types/react": "npm:^18.2.21"
-    "@types/react-dom": "npm:^18.2.7"
-    "@vanilla-extract/css": "npm:^1.13.0"
-    "@vanilla-extract/dynamic": "npm:^2.0.3"
-    "@vanilla-extract/esbuild-plugin": "npm:^2.3.0"
-    "@vanilla-extract/recipes": "npm:^0.5.0"
-    "@vanilla-extract/sprinkles": "npm:^1.6.1"
-    autoprefixer: "npm:^10.4.15"
-    clsx: "npm:^2.0.0"
-    postcss: "npm:^8.4.29"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    rimraf: "npm:^6.0.1"
-    typescript: "npm:^5"
-  peerDependencies:
-    "@ahhachul/themes": "workspace:^"
-    react: "*"
-  languageName: unknown
-  linkType: soft
-
-"@ahhachul/react-components-button@workspace:packages/react/components/button":
-  version: 0.0.0-use.local
-  resolution: "@ahhachul/react-components-button@workspace:packages/react/components/button"
-  dependencies:
-    "@ahhachul/esbuild-config": "npm:^0.0.3"
-    "@ahhachul/react-hooks-button": "npm:^0.0.3"
-    "@ahhachul/themes": "npm:^0.0.3"
-    "@types/react": "npm:^18.2.21"
-    "@types/react-dom": "npm:^18.2.7"
-    "@vanilla-extract/css": "npm:^1.13.0"
-    "@vanilla-extract/dynamic": "npm:^2.0.3"
-    "@vanilla-extract/esbuild-plugin": "npm:^2.3.0"
-    "@vanilla-extract/recipes": "npm:^0.5.0"
-    "@vanilla-extract/sprinkles": "npm:^1.6.1"
-    autoprefixer: "npm:^10.4.15"
-    clsx: "npm:^2.0.0"
-    postcss: "npm:^8.4.29"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    rimraf: "npm:^6.0.1"
-    typescript: "npm:^5"
-  peerDependencies:
-    react: "*"
-  languageName: unknown
-  linkType: soft
-
-"@ahhachul/react-components-input@workspace:packages/react/components/input":
-  version: 0.0.0-use.local
-  resolution: "@ahhachul/react-components-input@workspace:packages/react/components/input"
-  dependencies:
-    "@ahhachul/esbuild-config": "npm:^0.0.3"
-    "@ahhachul/react-hooks-input": "npm:^0.0.3"
-    "@ahhachul/themes": "npm:^0.0.3"
-    "@types/react": "npm:^18.2.21"
-    "@types/react-dom": "npm:^18.2.7"
-    "@vanilla-extract/css": "npm:^1.13.0"
-    "@vanilla-extract/dynamic": "npm:^2.0.3"
-    "@vanilla-extract/esbuild-plugin": "npm:^2.3.0"
-    "@vanilla-extract/recipes": "npm:^0.5.0"
-    "@vanilla-extract/sprinkles": "npm:^1.6.1"
-    autoprefixer: "npm:^10.4.15"
-    clsx: "npm:^2.0.0"
-    postcss: "npm:^8.4.29"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    rimraf: "npm:^6.0.1"
-    typescript: "npm:^5"
-  peerDependencies:
-    "@ahhachul/themes": ^0.0.3
-    react: "*"
-  languageName: unknown
-  linkType: soft
-
 "@ahhachul/react-components-layout@npm:^0.0.3":
   version: 0.0.3
   resolution: "@ahhachul/react-components-layout@npm:0.0.3"
@@ -201,162 +121,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ahhachul/react-components-select@workspace:packages/react/components/select":
-  version: 0.0.0-use.local
-  resolution: "@ahhachul/react-components-select@workspace:packages/react/components/select"
-  dependencies:
-    "@ahhachul/esbuild-config": "workspace:^"
-    "@ahhachul/react-hooks-select": "workspace:^"
-    "@ahhachul/themes": "workspace:^"
-    "@types/react": "npm:^18.2.21"
-    "@types/react-dom": "npm:^18.2.7"
-    "@vanilla-extract/css": "npm:^1.13.0"
-    "@vanilla-extract/dynamic": "npm:^2.0.3"
-    "@vanilla-extract/esbuild-plugin": "npm:^2.3.0"
-    "@vanilla-extract/recipes": "npm:^0.5.0"
-    "@vanilla-extract/sprinkles": "npm:^1.6.1"
-    autoprefixer: "npm:^10.4.15"
-    clsx: "npm:^2.0.0"
-    postcss: "npm:^8.4.29"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    rimraf: "npm:^6.0.1"
-    typescript: "npm:^5"
-  peerDependencies:
-    "@ahhachul/themes": "workspace:^"
-    react: "*"
-  languageName: unknown
-  linkType: soft
-
-"@ahhachul/react-components-toast@workspace:packages/react/components/toast":
-  version: 0.0.0-use.local
-  resolution: "@ahhachul/react-components-toast@workspace:packages/react/components/toast"
-  dependencies:
-    "@ahhachul/esbuild-config": "workspace:^"
-    "@ahhachul/themes": "workspace:^"
-    "@types/react": "npm:^18.2.21"
-    "@types/react-dom": "npm:^18.2.7"
-    "@vanilla-extract/css": "npm:^1.13.0"
-    "@vanilla-extract/dynamic": "npm:^2.0.3"
-    "@vanilla-extract/esbuild-plugin": "npm:^2.3.0"
-    "@vanilla-extract/recipes": "npm:^0.5.0"
-    "@vanilla-extract/sprinkles": "npm:^1.6.1"
-    autoprefixer: "npm:^10.4.15"
-    clsx: "npm:^2.0.0"
-    postcss: "npm:^8.4.29"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    rimraf: "npm:^6.0.1"
-    typescript: "npm:^5"
-  peerDependencies:
-    "@ahhachul/themes": "workspace:^"
-    react: "*"
-  languageName: unknown
-  linkType: soft
-
-"@ahhachul/react-hooks-button@npm:^0.0.3":
-  version: 0.0.3
-  resolution: "@ahhachul/react-hooks-button@npm:0.0.3"
-  dependencies:
-    "@ahhachul/react-hooks-toggle": "npm:^0.0.3"
-    clsx: "npm:^2.0.0"
-  peerDependencies:
-    react: "*"
-  checksum: 10c0/c9fc3e8f288a7655eea83604e983133c742087c6a8e64e5773ccb98f805fe107c044c763065e8a22b74959bc4fdff74530253a9e7f351c565341700e277d5c1f
-  languageName: node
-  linkType: hard
-
-"@ahhachul/react-hooks-button@workspace:^, @ahhachul/react-hooks-button@workspace:packages/react/hooks/button":
-  version: 0.0.0-use.local
-  resolution: "@ahhachul/react-hooks-button@workspace:packages/react/hooks/button"
-  dependencies:
-    "@ahhachul/esbuild-config": "npm:^0.0.3"
-    "@ahhachul/react-hooks-toggle": "npm:^0.0.3"
-    "@types/react": "npm:^18.2.21"
-    "@types/react-dom": "npm:^18.2.7"
-    clsx: "npm:^2.0.0"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    rimraf: "npm:^6.0.1"
-    typescript: "npm:^5"
-  peerDependencies:
-    react: "*"
-  languageName: unknown
-  linkType: soft
-
-"@ahhachul/react-hooks-input@npm:^0.0.3":
-  version: 0.0.3
-  resolution: "@ahhachul/react-hooks-input@npm:0.0.3"
-  dependencies:
-    clsx: "npm:^2.0.0"
-  peerDependencies:
-    react: "*"
-  checksum: 10c0/325e58fb9413560a67da3233a5b1d3de401df8a830e296f377d584393d8899e09cff4074c97554e947b9968fc83265114397977ccb69098610d42f5e070e2dac
-  languageName: node
-  linkType: hard
-
-"@ahhachul/react-hooks-input@workspace:packages/react/hooks/input":
-  version: 0.0.0-use.local
-  resolution: "@ahhachul/react-hooks-input@workspace:packages/react/hooks/input"
-  dependencies:
-    "@ahhachul/esbuild-config": "npm:^0.0.3"
-    "@types/react": "npm:^18.2.21"
-    "@types/react-dom": "npm:^18.2.7"
-    clsx: "npm:^2.0.0"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    rimraf: "npm:^6.0.1"
-    typescript: "npm:^5"
-  peerDependencies:
-    react: "*"
-  languageName: unknown
-  linkType: soft
-
-"@ahhachul/react-hooks-select@workspace:^, @ahhachul/react-hooks-select@workspace:packages/react/hooks/select":
-  version: 0.0.0-use.local
-  resolution: "@ahhachul/react-hooks-select@workspace:packages/react/hooks/select"
-  dependencies:
-    "@ahhachul/esbuild-config": "workspace:^"
-    "@types/react": "npm:^18.2.21"
-    "@types/react-dom": "npm:^18.2.7"
-    clsx: "npm:^2.0.0"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    rimraf: "npm:^6.0.1"
-    typescript: "npm:^5"
-  peerDependencies:
-    react: "*"
-  languageName: unknown
-  linkType: soft
-
-"@ahhachul/react-hooks-toggle@npm:^0.0.3":
-  version: 0.0.3
-  resolution: "@ahhachul/react-hooks-toggle@npm:0.0.3"
-  dependencies:
-    clsx: "npm:^2.0.0"
-  peerDependencies:
-    react: "*"
-  checksum: 10c0/4907d91c54ada02507741470071dff498a2308475f7dad1ccc889d12a41949332ee1f79c3b40f573cf0f4372b3a53959587c228b1b180dc977c6a1fcda083351
-  languageName: node
-  linkType: hard
-
-"@ahhachul/react-hooks-toggle@workspace:packages/react/hooks/toggle":
-  version: 0.0.0-use.local
-  resolution: "@ahhachul/react-hooks-toggle@workspace:packages/react/hooks/toggle"
-  dependencies:
-    "@ahhachul/esbuild-config": "npm:^0.0.3"
-    "@types/react": "npm:^18.2.21"
-    "@types/react-dom": "npm:^18.2.7"
-    clsx: "npm:^2.0.0"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    rimraf: "npm:^6.0.1"
-    typescript: "npm:^5"
-  peerDependencies:
-    react: "*"
-  languageName: unknown
-  linkType: soft
-
 "@ahhachul/react-hooks-utility@npm:^0.0.3":
   version: 0.0.3
   resolution: "@ahhachul/react-hooks-utility@npm:0.0.3"
@@ -368,24 +132,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ahhachul/react-hooks-utility@workspace:packages/react/hooks/utility":
-  version: 0.0.0-use.local
-  resolution: "@ahhachul/react-hooks-utility@workspace:packages/react/hooks/utility"
-  dependencies:
-    "@ahhachul/esbuild-config": "npm:^0.0.3"
-    "@types/react": "npm:^18.2.21"
-    "@types/react-dom": "npm:^18.2.7"
-    clsx: "npm:^2.0.0"
-    react: "npm:^18.2.0"
-    react-dom: "npm:^18.2.0"
-    rimraf: "npm:^6.0.1"
-    typescript: "npm:^5"
-  peerDependencies:
-    react: "*"
-  languageName: unknown
-  linkType: soft
-
-"@ahhachul/themes@npm:^0.0.3, @ahhachul/themes@workspace:^, @ahhachul/themes@workspace:packages/themes":
+"@ahhachul/themes@npm:^0.0.3, @ahhachul/themes@workspace:packages/themes":
   version: 0.0.0-use.local
   resolution: "@ahhachul/themes@workspace:packages/themes"
   dependencies:
@@ -6953,7 +6700,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vanilla-extract/dynamic@npm:^2.0.3, @vanilla-extract/dynamic@npm:^2.1.1":
+"@vanilla-extract/dynamic@npm:^2.1.1":
   version: 2.1.2
   resolution: "@vanilla-extract/dynamic@npm:2.1.2"
   dependencies:

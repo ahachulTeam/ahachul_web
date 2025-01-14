@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { withSuspense } from '@ahhachul/react-hooks-utility';
 import { useGetTrainInfo } from 'features/subway-trains/api/time-info';
 import { animateVariants } from 'shared/lib/config/animation/framer-motion';
 import { WithSubwayStationId } from 'features/subway-stations';
@@ -86,7 +85,10 @@ const TrainRealTimes = ({
                 <InfoIcon />
               </div>
             </div>
-            <TrainCongestion trainNo={trainNum} subwayLineId={parentLineId} />
+            <Suspense fallback={<BaseSkeleton width="100%" height="31px" radius={3} css={styles.skeleton} />}>
+              <TrainCongestion trainNo={trainNum} subwayLineId={parentLineId} />
+            </Suspense>
+            </div>
           </div>
           <TrainArrivalTimes trainRealTimes={trainRealTimes} />
           <button css={styles.button}>전체 시간표</button>
@@ -96,6 +98,4 @@ const TrainRealTimes = ({
   );
 };
 
-export default withSuspense(TrainRealTimes, {
-  fallback: <div css={styles.trainRealTimes} />,
-});
+export default TrainRealTimes

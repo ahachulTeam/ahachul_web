@@ -1,13 +1,12 @@
 import React, { type HTMLAttributes } from 'react';
-import { withSuspense } from '@ahhachul/react-hooks-utility';
 import { useGetComplaintList } from 'pages/complaint/api/get-list';
 import type { ComplaintArticle } from 'pages/complaint/model';
-import { Loading } from 'entities/app-loaders/ui/Loading';
 import { flattenInfinityList } from 'shared/lib/utils/array/flattenInfinityList';
 import { BaseArticleList } from 'widgets/articles/ui/BaseArticleList';
 
 interface ComplaintArticleListProps
   extends HTMLAttributes<HTMLSectionElement> {}
+
 const ComplaintArticleList = ({ ...props }: ComplaintArticleListProps) => {
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } =
     useGetComplaintList({
@@ -28,6 +27,4 @@ const ComplaintArticleList = ({ ...props }: ComplaintArticleListProps) => {
   );
 };
 
-export default withSuspense(ComplaintArticleList, {
-  fallback: <Loading opacity={1} />,
-});
+export default ComplaintArticleList;
