@@ -14,7 +14,7 @@ module.exports = {
     sourceType: 'module',
     ecmaVersion: 2021,
   },
-  plugins: ['compat'],
+  plugins: ['unused-imports', 'compat'],
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -35,6 +35,7 @@ module.exports = {
     'prefer-const': 'off',
     'no-async-promise-executor': 'off',
     'no-prototype-builtins': 'off',
+    'unused-imports/no-unused-imports': 'error',
     // emotion css props
     'react/no-unknown-property': ['error', { ignore: ['css'] }],
   },

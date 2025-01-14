@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
@@ -26,9 +27,7 @@ export const RQProvider = ({ children }: Props) => {
   return (
     <QueryClientProvider client={client}>
       {children}
-      <ReactQueryDevtools
-        initialIsOpen={process.env.NODE_ENV === 'development'}
-      />
+      <ReactQueryDevtools initialIsOpen={process.env.NODE_ENV === 'development'} />
     </QueryClientProvider>
   );
 };
