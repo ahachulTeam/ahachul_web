@@ -8,9 +8,14 @@
     "start": "next start",
     "dev:mocking": "NEXT_PUBLIC_API_MOCKING=enabled next dev",
     "server:mocking": "npx tsx watch ./src/mocks/http.ts",
-    "lint": "next lint",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "lint:es": "eslint src",
+    "lint:es:fix": "eslint src --fix",
+    "lint:etc": "prettier src --check",
+    "lint:etc:fix": "prettier src --write",
+    "lint": "pnpm lint:es && pnpm lint:etc",
+    "lint:fix": "pnpm lint:es:fix && pnpm lint:etc:fix",
+    "test": "jest --watch",
+    "test:run": "jest",
     "test:coverage": "jest --coverage"
   },
   "dependencies": {

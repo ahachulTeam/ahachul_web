@@ -2,7 +2,20 @@
   "name": "ahhachul-front",
   "private": true,
   "scripts": {
-    "prepare": "husky"
+    "clean:branch": "git fetch --prune && git branch | grep -v '^*' | xargs git branch -D",
+    "clean:cache": "nx reset",
+    "prepare": "husky",
+    "preinstall": "corepack enable",
+    "start": "nx run-many --target=start --all",
+    "lint": "nx run-many --target=lint --all",
+    "lint:fix": "nx run-many --target=lint:fix --all",
+    "test": "nx run-many --target=test --all",
+    "test:run": "nx run-many --target=test:run --all",
+    "test:coverage": "nx run-many --target=test:coverage --all",
+    "test:e2e": "nx run-many --target=test:playwright --all",
+    "test:e2e:ui": "nx run-many --target=test:playwright:ui --all",
+    "test:all": "nx run-many --target=test:all --all",
+    "build:all": "nx run-many --target=build --all"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
@@ -15,7 +28,7 @@
     "eslint-plugin-react": "^7.34.1",
     "husky": "^9.0.11",
     "nano-staged": "^0.8.0",
-    "nx": "^16.8.1",
+    "nx": "^20.3.1",
     "prettier": "^3.2.5",
     "typescript": "5.4.5"
   },
@@ -33,9 +46,5 @@
     "development": [
       "last 1 chrome version"
     ]
-  },
-  "workspaces": [
-    "packages/**/*",
-    "services/one-app"
-  ]
+  }
 }

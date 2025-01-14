@@ -1,10 +1,12 @@
+import {
+  setupIntersectionMocking,
+  resetIntersectionMocking,
+} from 'react-intersection-observer/test-utils';
+
 import '@testing-library/jest-dom';
-
 import { cleanup } from '@testing-library/react';
-import { beforeAll, beforeEach, afterEach, afterAll, vi } from 'vitest';
-
-import { setupIntersectionMocking, resetIntersectionMocking } from 'react-intersection-observer/test-utils';
 import { server } from 'shared/lib/__mocks__/server';
+import { beforeAll, beforeEach, afterEach, afterAll, vi } from 'vitest';
 
 beforeAll(() => {
   server.listen();
