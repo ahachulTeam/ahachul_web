@@ -2,12 +2,7 @@ import { css } from '@emotion/react';
 
 const globals = css`
   * {
-    -webkit-tap-highlight-color: rgba(
-      255,
-      255,
-      255,
-      0
-    ); /* 버튼 클릭시 나오는 하이라이트 제거 */
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0); /* 버튼 클릭시 나오는 하이라이트 제거 */
     -webkit-touch-callout: none; /* 링크를 오래 눌렀을때 액션 막기*/
     -webkit-user-select: none; /* 글자들 선택 안되게 막기 */
     -khtml-user-select: none; /* 글자들 선택 안되게 막기 */

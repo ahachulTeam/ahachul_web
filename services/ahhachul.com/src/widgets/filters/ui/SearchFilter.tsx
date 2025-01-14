@@ -1,8 +1,9 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
+
 import { css } from '@emotion/react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SearchIcon } from 'widgets/layout-header/static/icons/search';
 import { Subject, debounceTime } from 'rxjs';
+import { SearchIcon } from 'widgets/layout-header/static/icons/search';
 
 const cancelVariants = {
   initial: {
@@ -54,25 +55,19 @@ export const SearchFilter: React.FC<SearchFilterProps> = ({
     }
   }, [isFocused, handleAnimation]);
 
-  const handleInputChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
-      subject.current.next(value);
-    },
-    [],
-  );
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    subject.current.next(value);
+  }, []);
 
-  const handleFormSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      const form = e.currentTarget;
-      const formData = new FormData(form);
-      const inputValue = formData.get('search') as string;
-      handleSetKeyword(inputValue);
-      inputRef.current?.blur();
-    },
-    [],
-  );
+  const handleFormSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const inputValue = formData.get('search') as string;
+    handleSetKeyword(inputValue);
+    inputRef.current?.blur();
+  }, []);
 
   const handleCancel = useCallback(() => {
     if (inputRef.current) {
@@ -85,7 +80,7 @@ export const SearchFilter: React.FC<SearchFilterProps> = ({
   useEffect(() => {
     const subscription = subject.current
       .pipe(debounceTime(300))
-      .subscribe((value) => handleSetKeyword(value));
+      .subscribe(value => handleSetKeyword(value));
 
     return () => subscription.unsubscribe();
   }, [handleSetKeyword]);

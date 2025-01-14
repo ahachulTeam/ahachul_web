@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
+
 import { Drawer } from 'vaul';
 import { SearchIcon } from 'widgets/layout-header/static/icons/search';
-import { FilterButton } from './FilterButton';
+
 import * as styles from './Filter.css';
+import { FilterButton } from './FilterButton';
 
 export interface DrawerFilterProps {
   title: string;
   buttonLabel: string;
 }
 
-export const DrawerFilter: React.FC<DrawerFilterProps> = ({
-  title,
-  buttonLabel,
-}) => {
+export const DrawerFilter: React.FC<DrawerFilterProps> = ({ title, buttonLabel }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   // 앱으로 집어넣을 때 삭제할 코드

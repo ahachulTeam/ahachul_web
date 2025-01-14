@@ -53,11 +53,7 @@ export interface ITrain {
  * @value {'CONGESTED'} 혼잡
  * @value {'VERY_CONGESTED'} 매우 혼잡
  */
-export type CongestionColorType =
-  | 'SMOOTH'
-  | 'MODERATE'
-  | 'CONGESTED'
-  | 'VERY_CONGESTED';
+export type CongestionColorType = 'SMOOTH' | 'MODERATE' | 'CONGESTED' | 'VERY_CONGESTED';
 
 /**
  * Congestion interface

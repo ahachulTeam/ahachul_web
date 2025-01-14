@@ -1,8 +1,10 @@
-import { base, routes, getQueryKeys, useInfiniteQuery } from 'shared/api';
 import type { IResponse } from 'entities/with-server';
+import { base, routes, getQueryKeys, useInfiniteQuery } from 'shared/api';
 import { TIMESTAMP } from 'shared/lib/config/timestamp';
 import { objectToQueryString } from 'shared/lib/utils/object/remove-falsy-properties';
+
 import { LOST_FOUND_QUERY_KEY } from './query-key';
+
 import type { LostList } from '../model';
 import type { ParamsOfLostFoundList } from '../model/params';
 
@@ -19,7 +21,7 @@ export const useGetLostFoundList = (params: ParamsOfLostFoundList) =>
         ...params,
         ...(pageParam && { pageToken: pageParam }),
       }),
-    getNextPageParam: (lastPage) =>
+    getNextPageParam: lastPage =>
       lastPage.data.result.hasNext ? lastPage.data.result.pageToken : null,
     initialPageParam: null,
     staleTime: 30 * TIMESTAMP.SECOND,

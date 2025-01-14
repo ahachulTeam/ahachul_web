@@ -1,14 +1,14 @@
 import { useForm } from 'react-hook-form';
-import { LostForm } from 'pages/lost-found/model/form';
+
 import { validateContent } from 'features/articles/lib/has-content-error';
 import { usePostLostAndFoundArticle } from 'pages/lost-found/api/post-article';
+import { LostForm } from 'pages/lost-found/model/form';
 
 export const useUpdateLostArticleForm = (defaultValues: Partial<LostForm>) => {
-  const { control, register, setValue, setError, getValues, handleSubmit } =
-    useForm<LostForm>({
-      mode: 'onBlur',
-      defaultValues,
-    });
+  const { control, register, setValue, setError, getValues, handleSubmit } = useForm<LostForm>({
+    mode: 'onBlur',
+    defaultValues,
+  });
 
   const { mutate: createLostArticle, isPending } = usePostLostAndFoundArticle();
 

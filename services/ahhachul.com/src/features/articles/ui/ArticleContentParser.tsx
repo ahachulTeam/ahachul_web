@@ -1,7 +1,6 @@
-import React from 'react';
 import Editor from 'shared/ui/Editor';
+
 import * as styles from './ArticleContentParser.css';
-import { Interpolation, Theme } from '@emotion/react';
 
 export type ArticleContentParserProps = {
   content: string;

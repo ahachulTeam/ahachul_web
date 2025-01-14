@@ -1,5 +1,6 @@
 import React from 'react';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+
 import styled from '@emotion/styled';
 
 interface ImageViewerProps {
@@ -29,7 +30,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
       onPanningStart={onInteractionStart}
       onPinchingStop={onInteractionEnd}
       onPinchingStart={onInteractionStart}
-      onTransformed={(ref) => onZoomChange(ref.state.scale)}
+      onTransformed={ref => onZoomChange(ref.state.scale)}
     >
       <TransformComponent>
         <CenterImage

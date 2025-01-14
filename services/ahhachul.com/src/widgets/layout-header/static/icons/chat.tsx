@@ -1,4 +1,3 @@
-import React from 'react';
 import cssUtils from 'shared/utils.css';
 
 const SVG = `
@@ -10,6 +9,4 @@ const SVG = `
 </svg>
 `;
 
-export const ChatIcon = () => (
-  <div css={cssUtils.flex} dangerouslySetInnerHTML={{ __html: SVG }} />
-);
+export const ChatIcon = () => <div css={cssUtils.flex} dangerouslySetInnerHTML={{ __html: SVG }} />;

@@ -1,18 +1,18 @@
+import { HTMLAttributes } from 'react';
+
 import type { Interpolation, Theme } from '@emotion/react';
 import { Link } from 'app/stackflow';
 import { complaintsContentList } from 'pages/complaint/data';
-import { HTMLAttributes } from 'react';
 import { objectEntries } from 'shared/lib/utils/object/object-entries';
-import { FileComplaintCard } from '../FileComplaintCard/FileComplaintCard';
+
 import * as styles from './FileComplaint.css';
+
+import { FileComplaintCard } from '../FileComplaintCard/FileComplaintCard';
 
 const topCards = objectEntries(complaintsContentList).slice(0, 4);
 const bottomCards = objectEntries(complaintsContentList).slice(4, 7);
 const renderComplaintsGrid = (
-  items: [
-    KeyOf<typeof complaintsContentList>,
-    ValueOf<typeof complaintsContentList>,
-  ][],
+  items: [KeyOf<typeof complaintsContentList>, ValueOf<typeof complaintsContentList>][],
   css: Interpolation<Theme>,
 ) => (
   <ul css={css}>

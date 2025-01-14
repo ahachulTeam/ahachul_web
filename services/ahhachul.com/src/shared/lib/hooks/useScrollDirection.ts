@@ -5,13 +5,8 @@ export enum ScrollDirection {
   down = 'down',
 }
 
-export const useScrollDirection = (
-  elementRef: RefObject<HTMLElement>,
-  threshold: number = 50,
-) => {
-  const [scrollDir, setScrollDir] = useState<ScrollDirection>(
-    ScrollDirection.up,
-  );
+export const useScrollDirection = (elementRef: RefObject<HTMLElement>, threshold: number = 50) => {
+  const [scrollDir, setScrollDir] = useState<ScrollDirection>(ScrollDirection.up);
 
   useEffect(() => {
     const element = elementRef.current;
@@ -19,9 +14,7 @@ export const useScrollDirection = (
 
     let previousScrollYPosition = element.scrollTop;
 
-    const scrolledMoreThanThreshold = (
-      currentScrollYPosition: number,
-    ): boolean =>
+    const scrolledMoreThanThreshold = (currentScrollYPosition: number): boolean =>
       Math.abs(currentScrollYPosition - previousScrollYPosition) > threshold;
 
     const isScrollingUp = (currentScrollYPosition: number): boolean =>
@@ -37,8 +30,7 @@ export const useScrollDirection = (
           ? ScrollDirection.down
           : ScrollDirection.up;
         setScrollDir(newScrollDirection);
-        previousScrollYPosition =
-          currentScrollYPosition > 0 ? currentScrollYPosition : 0;
+        previousScrollYPosition = currentScrollYPosition > 0 ? currentScrollYPosition : 0;
       }
     };
 

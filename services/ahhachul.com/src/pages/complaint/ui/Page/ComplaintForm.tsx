@@ -1,16 +1,15 @@
-import React, { useMemo, useCallback } from 'react';
+import { useMemo, useCallback } from 'react';
+
 import { ActivityComponentType, useActivity } from '@stackflow/react';
-import { Layout } from 'widgets';
-import type { ComplaintForm as IComplaintForm } from 'pages/complaint/model/form';
+import { complaintTypeMap, complaintsContentDetail } from 'pages/complaint/data';
 import { useCreateComplaintForm } from 'pages/complaint/lib/useCreateComplaintForm';
-import {
-  complaintTypeMap,
-  complaintsContentDetail,
-} from 'pages/complaint/data';
-import { ImageUploadField } from 'widgets/form-fields/ui/ImageUploadField';
+import type { ComplaintForm as IComplaintForm } from 'pages/complaint/model/form';
+import { Layout } from 'widgets';
 import { CategorySelectField } from 'widgets/form-fields/ui/CategorySelectField';
 import { ContentEditorField } from 'widgets/form-fields/ui/ContentEditorField';
+import { ImageUploadField } from 'widgets/form-fields/ui/ImageUploadField';
 import { SubmitButton } from 'widgets/form-fields/ui/SubmitButton';
+
 import * as styles from './ComplaintForm.css';
 
 const SUBMIT_BUTTON_TEXT = '등록';
@@ -20,9 +19,8 @@ interface ComplaintFormProps {
   slug: KeyOf<typeof complaintsContentDetail>;
 }
 
-const ComplaintForm: ActivityComponentType<ComplaintFormProps> = ({
-  params: { slug },
-}) => {
+// eslint-disable-next-line react/prop-types
+const ComplaintForm: ActivityComponentType<ComplaintFormProps> = ({ params: { slug } }) => {
   const information = complaintsContentDetail[slug];
 
   const {
@@ -63,22 +61,12 @@ const ComplaintForm: ActivityComponentType<ComplaintFormProps> = ({
         />
       </form>
     ),
-    [
-      control,
-      errors,
-      handleSubmit,
-      information,
-      isSubmitting,
-      onError,
-      onSubmit,
-    ],
+    [control, errors, handleSubmit, information, isSubmitting, onError, onSubmit],
   );
 
   const memoizedForm = useMemo(() => renderForm(), [renderForm]);
 
-  return (
-    <Layout appBar={{ title: complaintTypeMap[slug] }}>{memoizedForm}</Layout>
-  );
+  return <Layout appBar={{ title: complaintTypeMap[slug] }}>{memoizedForm}</Layout>;
 };
 
 export default ComplaintForm;

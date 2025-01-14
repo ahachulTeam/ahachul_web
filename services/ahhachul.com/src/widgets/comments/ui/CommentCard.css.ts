@@ -63,10 +63,7 @@ export const 답글달기 = ({
 
 export const like = [
   cssUtils.flexAlignCenter,
-  ({
-    color: { blueDarkGray },
-    typography: { fontSize, fontWeight },
-  }: Theme) => ({
+  ({ color: { blueDarkGray }, typography: { fontSize, fontWeight } }: Theme) => ({
     '& > div': {
       '& > svg > path': {
         fill: blueDarkGray[600],

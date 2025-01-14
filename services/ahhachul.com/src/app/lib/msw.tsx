@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import { initMocking, isMocking } from 'shared/lib/__mocks__';
 
 const MSWInitializer = () => {

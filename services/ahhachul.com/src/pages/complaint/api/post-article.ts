@@ -1,4 +1,5 @@
 import { base, routes, useAuthMutation } from 'shared/api';
+
 import type { ComplaintForm } from '../model/form';
 
 const postComplaintArticle = (form: ComplaintForm) => {

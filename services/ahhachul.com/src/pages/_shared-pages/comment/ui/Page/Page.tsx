@@ -1,21 +1,23 @@
 import React, { useRef, useCallback, Suspense, useMemo, useState } from 'react';
+
 import { ActivityComponentType } from '@stackflow/react';
-import { Layout } from 'widgets';
-import { WithArticleId } from 'features/articles';
 import { TypeActivities } from 'app/stackflow';
-import { CommentCard } from 'widgets/comments/ui/CommentCard';
-import CommentTextField from 'widgets/comments/ui/CommentTextField';
-import { EditorState } from 'lexical';
-import { ArticleContentParser } from 'features/articles/ui/ArticleContentParser';
-import { Loading } from 'entities/app-loaders';
 import { useAuthStore } from 'entities/app-authentications/slice';
+import { Loading } from 'entities/app-loaders';
+import { WithArticleId } from 'features/articles';
 import { isEmptyContent } from 'features/articles/lib/has-content-error';
-import { useGetLostFoundComments } from 'pages/lost-found/api/get-comments';
+import { ArticleContentParser } from 'features/articles/ui/ArticleContentParser';
 import * as styles from 'features/articles/ui/BaseArticleTemplate.css';
-import * as pageStyles from './Page.css';
+import { EditorState } from 'lexical';
+import { useGetLostFoundComments } from 'pages/lost-found/api/get-comments';
 import { usePostComment } from 'pages/lost-found/api/post-comment';
 import { useUpdateComment } from 'pages/lost-found/api/post-comment';
 import { formatDate } from 'shared/lib/utils/date/format-date';
+import { Layout } from 'widgets';
+import { CommentCard } from 'widgets/comments/ui/CommentCard';
+import CommentTextField from 'widgets/comments/ui/CommentTextField';
+
+import * as pageStyles from './Page.css';
 
 const CommentInnerPage: React.FC<
   WithArticleId & {
@@ -32,10 +34,10 @@ const CommentInnerPage: React.FC<
 
   const targetCommentMap = useMemo(
     () =>
-      commentQueryData.comments.find((item) => {
+      commentQueryData.comments.find(item => {
         return (
           item.parentComment.id === commentId ||
-          item.childComments.some((child) => child.id === commentId)
+          item.childComments.some(child => child.id === commentId)
         );
       }),
     [commentQueryData.comments, commentId],
@@ -45,13 +47,9 @@ const CommentInnerPage: React.FC<
   const targetComment =
     parentComment.id === commentId
       ? parentComment
-      : targetCommentMap.childComments.find(
-          (childComment) => childComment.id === commentId,
-        );
+      : targetCommentMap.childComments.find(childComment => childComment.id === commentId);
 
-  const [commentInitialState, setCommentInitialState] = useState(
-    targetComment.content,
-  );
+  const [commentInitialState, setCommentInitialState] = useState(targetComment.content);
 
   const content = useRef<string>('');
   const handleSubmit = () => {
@@ -79,8 +77,7 @@ const CommentInnerPage: React.FC<
       return;
     }
 
-    const upperCommentId =
-      mode === 'reply' ? targetComment.id : targetComment.upperCommentId;
+    const upperCommentId = mode === 'reply' ? targetComment.id : targetComment.upperCommentId;
 
     submitComment(
       {
@@ -113,19 +110,12 @@ const CommentInnerPage: React.FC<
           <div>{formatDate(parentComment.createdAt)}</div>
         </div>
 
-        <ArticleContentParser
-          content={parentComment.content}
-          isPlainContent={false}
-        />
+        <ArticleContentParser content={parentComment.content} isPlainContent={false} />
 
         {targetCommentMap.childComments.length > 0 ? (
           <ul css={pageStyles.commentListWrap}>
-            {targetCommentMap.childComments.map((childComment) => (
-              <CommentCard
-                showEllipsis={false}
-                key={childComment.id}
-                comment={childComment}
-              />
+            {targetCommentMap.childComments.map(childComment => (
+              <CommentCard showEllipsis={false} key={childComment.id} comment={childComment} />
             ))}
           </ul>
         ) : (
@@ -151,21 +141,15 @@ const CommentInnerPageWrap: ActivityComponentType<
   WithArticleId & {
     commentId: number;
     // 추후 from을 통해 커뮤니티, 민원 페이지도 수용할 수 있게끔 리팩토링
-    from: Extract<
-      KeyOf<TypeActivities>,
-      'CommunityDetail' | 'ComplaintDetail' | 'LostFoundDetail'
-    >;
+    from: Extract<KeyOf<TypeActivities>, 'CommunityDetail' | 'ComplaintDetail' | 'LostFoundDetail'>;
     mode: 'reply' | 'edit';
   }
+  // eslint-disable-next-line react/prop-types
 > = ({ params: { articleId, commentId, mode } }) => {
   return (
     <Layout>
       <Suspense fallback={<Loading />}>
-        <CommentInnerPage
-          articleId={articleId}
-          commentId={commentId}
-          mode={mode}
-        />
+        <CommentInnerPage articleId={articleId} commentId={commentId} mode={mode} />
       </Suspense>
     </Layout>
   );

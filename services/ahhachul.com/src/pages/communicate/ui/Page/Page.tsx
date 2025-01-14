@@ -1,12 +1,15 @@
 import React, { useReducer } from 'react';
+
 import { ActivityComponentType } from 'app/stackflow';
-import { Layout } from 'widgets';
-import { ComposeLayout } from 'widgets/layout/ui/ComposeLayout';
-import { renderLeftLogo, renderRight } from 'widgets/layout-header';
-import { ArticleListErrorFallback } from 'widgets/articles/ui/ArticleListErrorFallback';
 import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
-import { CommunityFilters } from '../_common/CommunityFilters/CommunityFilters';
+import { Layout } from 'widgets';
+import { ArticleListErrorFallback } from 'widgets/articles/ui/ArticleListErrorFallback';
+import { renderLeftLogo, renderRight } from 'widgets/layout-header';
+import { ComposeLayout } from 'widgets/layout/ui/ComposeLayout';
+
 import * as styles from './Page.css';
+
+import { CommunityFilters } from '../_common/CommunityFilters/CommunityFilters';
 
 const CommunityArticleList = React.lazy(
   () => import('../_common/CommunityArticleList/CommunityArticleList'),
@@ -15,8 +18,9 @@ const CommunityArticleList = React.lazy(
 interface CommunityProps {
   keyword?: string;
 }
+// eslint-disable-next-line react/prop-types
 const Community: ActivityComponentType<CommunityProps> = ({ params }) => {
-  const [isScale, toggleScale] = useReducer((scale) => !scale, false);
+  const [isScale, toggleScale] = useReducer(scale => !scale, false);
 
   return (
     <ComposeLayout data-vaul-drawer-wrapper="true">
@@ -37,10 +41,8 @@ const Community: ActivityComponentType<CommunityProps> = ({ params }) => {
             })
           }
         >
-          <CommunityArticleList
-            keyword={params.keyword}
-            css={styles.layout(isScale)}
-          />
+          {/* eslint-disable-next-line react/prop-types */}
+          <CommunityArticleList keyword={params.keyword} css={styles.layout(isScale)} />
         </QueryErrorBoundary>
       </Layout>
     </ComposeLayout>

@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Control,
   Controller,
@@ -7,8 +6,10 @@ import {
   FieldValues,
   useFormState,
 } from 'react-hook-form';
+
 import { SelectList } from 'shared/ui/Select/SelectList';
 import { FieldErrorMessage } from 'widgets/form-fields/ui/FieldErrorMessage';
+
 import * as styles from './FormField.css';
 
 interface CategorySelectFieldProps<T extends FieldValues> {
@@ -16,10 +17,7 @@ interface CategorySelectFieldProps<T extends FieldValues> {
   options: Record<string, string>;
   name: Path<T>;
   label?: string;
-  rules?: Omit<
-    RegisterOptions<T>,
-    'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
-  >;
+  rules?: Omit<RegisterOptions<T>, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>;
 }
 
 export const CategorySelectField = <T extends FieldValues>({

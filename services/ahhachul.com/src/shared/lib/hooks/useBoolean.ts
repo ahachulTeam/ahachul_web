@@ -20,7 +20,7 @@ export const useBoolean = (initialValue: boolean): Return => {
   }, []);
 
   const toggle = useCallback(() => {
-    setValue((prev) => !prev);
+    setValue(prev => !prev);
   }, []);
 
   return [value, toggle, setTrue, setFalse];

@@ -1,9 +1,11 @@
-import React, { useMemo, useReducer, useCallback } from 'react';
+import { useMemo, useReducer, useCallback } from 'react';
+
+import type { UserStation } from 'entities/@use-subway-context/model';
+import { useUserStationStore } from 'entities/@use-subway-context/slice';
 import { motion } from 'framer-motion';
 import { from, tap, map } from 'rxjs';
 import { ChevronIcon } from 'shared/static/icons/chevron';
-import type { UserStation } from 'entities/@use-subway-context/model';
-import { useUserStationStore } from 'entities/@use-subway-context/slice';
+
 import * as styles from './StationSelect.css';
 
 const wrapperVariants = {
@@ -59,8 +61,8 @@ const actionTextVariants = {
 };
 
 export const StationSelect = () => {
-  const [openDialog, toggleDialog] = useReducer((open) => !open, false); // https://github.com/streamich/react-use/pull/837
-  const { stations, setUserStations } = useUserStationStore((state) => state);
+  const [openDialog, toggleDialog] = useReducer(open => !open, false); // https://github.com/streamich/react-use/pull/837
+  const { stations, setUserStations } = useUserStationStore(state => state);
   const activatedStation = useMemo(() => stations[0], [stations]);
 
   const handleStationClick = useCallback(
@@ -73,11 +75,8 @@ export const StationSelect = () => {
       from([clickedStation])
         .pipe(
           tap(() => toggleDialog()),
-          map((clicked) => [
-            clicked,
-            ...stations.filter((station) => station.name !== clicked.name),
-          ]),
-          tap((updatedStations) => setUserStations(updatedStations)),
+          map(clicked => [clicked, ...stations.filter(station => station.name !== clicked.name)]),
+          tap(updatedStations => setUserStations(updatedStations)),
         )
         .subscribe();
     },
@@ -86,10 +85,7 @@ export const StationSelect = () => {
 
   return (
     <div css={styles.container}>
-      <motion.div
-        css={{ position: 'relative' }}
-        animate={openDialog ? 'open' : 'closed'}
-      >
+      <motion.div css={{ position: 'relative' }} animate={openDialog ? 'open' : 'closed'}>
         <button css={styles.button} onClick={toggleDialog}>
           <span>{activatedStation.name}</span>
           <motion.span variants={iconVariants}>
@@ -103,25 +99,15 @@ export const StationSelect = () => {
           style={{ originY: 'top' }}
           css={styles.menu}
         >
-          {stations.map((station) => (
-            <Option
-              key={station.name}
-              station={station}
-              onClick={handleStationClick(station)}
-            />
+          {stations.map(station => (
+            <Option key={station.name} station={station} onClick={handleStationClick(station)} />
           ))}
         </motion.ul>
       </motion.div>
     </div>
   );
 };
-const Option = ({
-  station,
-  onClick,
-}: {
-  station: UserStation;
-  onClick: () => void;
-}) => {
+const Option = ({ station, onClick }: { station: UserStation; onClick: () => void }) => {
   return (
     <motion.li variants={itemVariants} css={styles.option} onClick={onClick}>
       <motion.span variants={actionTextVariants}>{station.name}</motion.span>

@@ -1,6 +1,5 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
-import type { LexicalEditor } from 'lexical';
 
 import {
   AutoEmbedOption,
@@ -10,11 +9,14 @@ import {
   URL_MATCHER,
 } from '@lexical/react/LexicalAutoEmbedPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import type { LexicalEditor } from 'lexical';
 import { useBoolean } from 'shared/lib/hooks/useBoolean';
-import { INSERT_YOUTUBE_COMMAND } from './YouTubePlugin';
-import { YoutubeIcon } from '../static/icons/youtube';
 import { Modal } from 'shared/ui/Modal';
+
+import { INSERT_YOUTUBE_COMMAND } from './YouTubePlugin';
+
 import * as styles from '../Editor.css';
+import { YoutubeIcon } from '../static/icons/youtube';
 
 interface PlaygroundEmbedConfig extends EmbedConfig {
   contentName: string;
@@ -39,8 +41,7 @@ export const YoutubeEmbedConfig: PlaygroundEmbedConfig = {
 
   // Determine if a given URL is a match and return url data.
   parseUrl: async (url: string) => {
-    const match =
-      /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/.exec(url);
+    const match = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/.exec(url);
 
     const id = match ? (match?.[2].length === 11 ? match[2] : null) : null;
 
@@ -148,11 +149,9 @@ export function AutoEmbedDialog({
       debounce((inputText: string) => {
         const urlMatch = URL_MATCHER.exec(inputText);
         if (embedConfig != null && inputText != null && urlMatch != null) {
-          Promise.resolve(embedConfig.parseUrl(inputText)).then(
-            (parseResult) => {
-              setEmbedResult(parseResult);
-            },
-          );
+          Promise.resolve(embedConfig.parseUrl(inputText)).then(parseResult => {
+            setEmbedResult(parseResult);
+          });
         } else if (embedResult != null) {
           setEmbedResult(null);
         }
@@ -186,7 +185,7 @@ export function AutoEmbedDialog({
           placeholder={embedConfig.exampleUrl}
           value={text}
           data-test-id={`${embedConfig.type}-embed-modal-url`}
-          onChange={(e) => {
+          onChange={e => {
             const { value } = e.target;
             setText(value);
             validateText(value);
@@ -242,12 +241,7 @@ export default function AutoEmbedPlugin(): JSX.Element {
         getMenuOptions={getMenuOptions}
         menuRenderFn={(
           anchorElementRef,
-          {
-            selectedIndex,
-            options,
-            selectOptionAndCleanUp,
-            setHighlightedIndex,
-          },
+          { selectedIndex, options, selectOptionAndCleanUp, setHighlightedIndex },
         ) =>
           anchorElementRef.current
             ? ReactDOM.createPortal(

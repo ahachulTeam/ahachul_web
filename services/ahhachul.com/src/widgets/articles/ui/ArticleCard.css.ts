@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react';
+
 import type { Interpolation, Theme } from '@emotion/react';
 import cssUtils from 'shared/utils.css';
 
@@ -6,20 +7,14 @@ export const card = {
   padding: '12px 0',
 };
 
-export const name = ({
-  color: { text },
-  typography: { fontSize, fontWeight },
-}: Theme) =>
+export const name = ({ color: { text }, typography: { fontSize, fontWeight } }: Theme) =>
   ({
     color: text[50],
     fontSize: fontSize[14],
     fontWeight: fontWeight[600],
   }) as Interpolation<Theme>;
 
-export const date = ({
-  color: { blueDarkGray },
-  typography: { fontSize },
-}: Theme) =>
+export const date = ({ color: { blueDarkGray }, typography: { fontSize } }: Theme) =>
   ({
     color: blueDarkGray[300],
     fontSize: fontSize[12],
@@ -82,10 +77,7 @@ export const image = {
 
 export const countLabel = [
   cssUtils.flexAlignCenter,
-  ({
-    color: { blueDarkGray },
-    typography: { fontSize, fontWeight },
-  }: Theme) => ({
+  ({ color: { blueDarkGray }, typography: { fontSize, fontWeight } }: Theme) => ({
     marginRight: '8px',
 
     '& > span': {

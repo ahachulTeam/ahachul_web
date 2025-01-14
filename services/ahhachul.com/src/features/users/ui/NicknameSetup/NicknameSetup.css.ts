@@ -1,17 +1,11 @@
 import { Interpolation, Theme } from '@emotion/react';
 import cssUtils from 'shared/utils.css';
 
-export const form = [
-  cssUtils.fullWidth,
-  cssUtils.flexColumn,
-] as Interpolation<Theme>;
+export const form = [cssUtils.fullWidth, cssUtils.flexColumn] as Interpolation<Theme>;
 
 export const inputGroup = [
   cssUtils.flexColumn,
-  ({
-    color: { text, error, blueDarkGray },
-    typography: { fontSize, fontWeight },
-  }: Theme) => ({
+  ({ color: { text, error, blueDarkGray }, typography: { fontSize, fontWeight } }: Theme) => ({
     position: 'relative',
     marginBottom: '32px',
 
@@ -64,10 +58,7 @@ export const inputGroup = [
 
 export const btnWrap = [
   cssUtils.fullWidth,
-  ({
-    color: { primary, text, background },
-    typography: { fontSize, fontWeight },
-  }: Theme) => ({
+  ({ color: { primary, text, background }, typography: { fontSize, fontWeight } }: Theme) => ({
     position: 'fixed',
     bottom: 0,
     left: '50%',

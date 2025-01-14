@@ -1,8 +1,6 @@
 import {
-  전체Icon,
-  // 소개팅Icon,
-  중고거래Icon,
-  // 카셰어링Icon
+  전체Icon, // 소개팅Icon,
+  중고거래Icon, // 카셰어링Icon
 } from '../static';
 
 export const CTAList = {

@@ -1,9 +1,11 @@
 'use client';
 
 import type { ReactNode } from 'react';
+
 import { Player } from '@lottiefiles/react-lottie-player';
 
 import animationData from '@/common/assets/lottie/loading.json';
+
 import { FALLBACK_ACTION_CLASS_NAME } from '../constants/fallback-action';
 
 interface SpinnerProps {
@@ -13,12 +15,7 @@ interface SpinnerProps {
   zIndex?: number;
 }
 
-export function Spinner({
-  full,
-  children,
-  zTier = 0,
-  zIndex = 10,
-}: SpinnerProps) {
+export function Spinner({ full, children, zTier = 0, zIndex = 10 }: SpinnerProps) {
   const calculatedZIndex = zTier * 100 + zIndex;
 
   return (
@@ -29,9 +26,7 @@ export function Spinner({
       `}
       style={{ zIndex: calculatedZIndex }}
     >
-      <div
-        className={`table-cell align-middle text-center ${FALLBACK_ACTION_CLASS_NAME}`}
-      >
+      <div className={`table-cell align-middle text-center ${FALLBACK_ACTION_CLASS_NAME}`}>
         <div className="mx-auto w-28 h-28 bg-no-repeat animate-spinner">
           <Player
             loop

@@ -26,10 +26,7 @@ const changedArray = (a: unknown[] = [], b: unknown[] = []) =>
 
 const errorBoundaryInitialState = { hasError: false, error: null };
 
-class BaseErrorBoundary extends React.Component<
-  ErrorBoundaryProps,
-  ErrorBoundaryState
-> {
+class BaseErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = errorBoundaryInitialState;
@@ -40,18 +37,11 @@ class BaseErrorBoundary extends React.Component<
     return { hasError: true, error };
   }
 
-  componentDidUpdate(
-    prevProps: ErrorBoundaryProps,
-    prevState: ErrorBoundaryState,
-  ) {
+  componentDidUpdate(prevProps: ErrorBoundaryProps, prevState: ErrorBoundaryState) {
     const { error } = this.state;
     const { keys } = this.props;
 
-    if (
-      error !== null &&
-      prevState.error !== null &&
-      changedArray(prevProps.keys, keys)
-    ) {
+    if (error !== null && prevState.error !== null && changedArray(prevProps.keys, keys)) {
       this.resetBoundary();
     }
   }

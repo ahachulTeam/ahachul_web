@@ -1,10 +1,9 @@
-import queryString from 'query-string';
-
-import { TRAIN_KEY } from 'features/subway-trains/api';
-import type { ITrain } from 'features/subway-trains/model';
+import type { IResponse } from 'entities/with-server';
 import type { WithSubwayLineId } from 'features/subway-lines';
 import type { WithSubwayStationId } from 'features/subway-stations';
-import type { IResponse } from 'entities/with-server';
+import { TRAIN_KEY } from 'features/subway-trains/api';
+import type { ITrain } from 'features/subway-trains/model';
+import queryString from 'query-string';
 import { base, routes, getQueryKeys, useAuthQuery } from 'shared/api';
 
 interface APITrainInfoParams extends WithSubwayLineId, WithSubwayStationId {}
@@ -28,7 +27,7 @@ export const useGetTrainInfo = (params: APITrainInfoParams) =>
     queryKey: trainInfoQuery(params).queryKey,
     options: {
       suspense: true,
-      select: (res) => {
+      select: res => {
         return res.data.result;
       },
     },

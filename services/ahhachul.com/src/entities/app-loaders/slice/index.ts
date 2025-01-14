@@ -9,7 +9,7 @@ export const useLoadingStore = create<
     setEnableGlobalLoading: () => void;
     setDisableGlobalLoading: (opacity?: number) => void;
   }
->((set) => ({
+>(set => ({
   globalLoading: false,
   setEnableGlobalLoading: () =>
     set(() => ({

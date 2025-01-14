@@ -1,8 +1,10 @@
 import React from 'react';
-import { SymbolIcon } from '@radix-ui/react-icons';
-import { AnimatedState } from '../AnimatedState/AnimatedState';
-import styled from '@emotion/styled';
+
 import { keyframes } from '@emotion/react';
+import styled from '@emotion/styled';
+import { SymbolIcon } from '@radix-ui/react-icons';
+
+import { AnimatedState } from '../AnimatedState/AnimatedState';
 
 interface Props {
   status: 'error' | 'idle' | 'pending' | 'success';
@@ -38,9 +40,7 @@ export const SmoothButton = ({
         handleClick?.();
       }}
     >
-      <AnimatedStateWrapper state={status}>
-        {buttonContent[status]}
-      </AnimatedStateWrapper>
+      <AnimatedStateWrapper state={status}>{buttonContent[status]}</AnimatedStateWrapper>
     </StyledButton>
   );
 };

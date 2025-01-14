@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import { useTimeout } from './useTimeout';
 
 export const useIsDeferred = (ms?: number) => {

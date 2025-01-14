@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
+
 import styled from '@emotion/styled';
-import FullImageViewer from './FullImageViewer';
 import type { ResponseOfImage } from 'entities/with-server';
-import { Modal } from 'shared/ui/Modal';
 import { CloseIcon } from 'shared/static/icons/close';
+import { Modal } from 'shared/ui/Modal';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import FullImageViewer from './FullImageViewer';
 
 interface Props {
   isOpen: boolean;
@@ -13,20 +15,12 @@ interface Props {
   onClose: () => void;
 }
 
-export const FullImageDialog: React.FC<Props> = ({
-  isOpen,
-  images,
-  clickedIndex = 0,
-  onClose,
-}) => {
+export const FullImageDialog: React.FC<Props> = ({ isOpen, images, clickedIndex = 0, onClose }) => {
   const [currentIdx, setCurrentIdx] = useState(clickedIndex);
   const [headerShown, setHeaderShown] = useState(true);
   const [isPanEnabled, setIsPanEnabled] = useState(false);
 
-  const handleZoomChange = useCallback(
-    (scale: number) => setIsPanEnabled(scale > 1),
-    [],
-  );
+  const handleZoomChange = useCallback((scale: number) => setIsPanEnabled(scale > 1), []);
   const handleInteractionEnd = useCallback(() => setHeaderShown(true), []);
   const handleInteractionStart = useCallback(() => setHeaderShown(false), []);
 
@@ -60,9 +54,9 @@ export const FullImageDialog: React.FC<Props> = ({
               slidesPerView={1}
               spaceBetween={0}
               initialSlide={clickedIndex}
-              onSlideChange={(swiper) => setCurrentIdx(swiper.activeIndex)}
+              onSlideChange={swiper => setCurrentIdx(swiper.activeIndex)}
             >
-              {images.map((img) => (
+              {images.map(img => (
                 <SwiperSlide key={img.imageId}>
                   <FullImageViewer
                     src={img.imageUrl}
@@ -97,12 +91,11 @@ const Header = styled.div<{ headerShown: boolean; isPanEnabled: boolean }>`
   left: 0;
   z-index: 50;
   display: flex;
-  background-color: ${(props) =>
-    props.isPanEnabled ? 'rgba(0,0,0,0)' : '#000'};
+  background-color: ${props => (props.isPanEnabled ? 'rgba(0,0,0,0)' : '#000')};
 
   & > span,
   & > div {
-    opacity: ${(props) => (props.headerShown ? 1 : 0)};
+    opacity: ${props => (props.headerShown ? 1 : 0)};
     transition: opacity 0.3s ease-in-out;
   }
 `;
@@ -126,7 +119,7 @@ const Body = styled.div<{ isPanEnabled: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: ${(props) => (props.isPanEnabled ? '0' : '58px 0')};
+  padding: ${props => (props.isPanEnabled ? '0' : '58px 0')};
   transition: padding 0.3s ease-in-out;
 `;
 

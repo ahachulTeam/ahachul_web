@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { EmptyGraphic } from '@/common/assets/graphics';
 
 export const EmptyArticleList = () => {

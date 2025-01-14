@@ -22,15 +22,7 @@ const getShortContent = (complaintType: string) => {
 };
 
 const getRandomComplaintType = () => {
-  const list = [
-    '환경민원',
-    '온도조절',
-    '질서저해',
-    '안내방송',
-    '응급환자',
-    '폭력',
-    '성추행',
-  ];
+  const list = ['환경민원', '온도조절', '질서저해', '안내방송', '응급환자', '폭력', '성추행'];
   const randomIdx = Math.floor(Math.random() * list.length - 1) + 1;
   return {
     complaintType: list[randomIdx],
@@ -39,17 +31,7 @@ const getRandomComplaintType = () => {
 };
 
 const getRandomTrainNo = () => {
-  const list = [
-    '1192',
-    '2332',
-    '3453',
-    '4123',
-    '5049',
-    '6123',
-    '7234',
-    '8958',
-    '9123',
-  ];
+  const list = ['1192', '2332', '3453', '4123', '5049', '6123', '7234', '8958', '9123'];
   const randomIdx = Math.floor(Math.random() * list.length - 1) + 1;
   return {
     trainNo: list[randomIdx],
@@ -59,22 +41,7 @@ const getRandomTrainNo = () => {
 };
 
 const getRandomSubwayLineId = () => {
-  const list = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '11',
-    '12',
-    '13',
-    '14',
-  ];
+  const list = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14'];
   const randomIdx = Math.floor(Math.random() * list.length - 1) + 1;
   return list[randomIdx];
 };

@@ -1,0 +1,113 @@
+
+> ahhachul.com@0.0.0 lint:fix /Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com
+> pnpm lint:es:fix && pnpm lint:etc:fix
+
+
+> ahhachul.com@0.0.0 lint:es:fix /Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com
+> eslint src --fix
+
+Warning: React version not specified in eslint-plugin-react settings. See https://github.com/jsx-eslint/eslint-plugin-react#configuration .
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/features/articles/ui/BaseArticleTemplate.tsx[24m[0m
+[0m  [2m18:36[22m  [31merror[39m  Component definition is missing display name  [2mreact/display-name[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/features/subway-lines/api/get-subway-lines-info.ts[24m[0m
+[0m  [2m7:53[22m  [31merror[39m  Don't use `{}` as a type. `{}` actually means "any non-nullish value".[0m
+[0m- If you want a type meaning "any object", you probably want `object` instead.[0m
+[0m- If you want a type meaning "any value", you probably want `unknown` instead.[0m
+[0m- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.[0m
+[0m- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  [2m@typescript-eslint/ban-types[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/pages/_shared-pages/comment/ui/Page/Page.tsx[24m[0m
+[0m  [2m147:8[22m   [31merror[39m  'params' is missing in props validation            [2mreact/prop-types[22m[0m
+[0m  [2m147:18[22m  [31merror[39m  'params.articleId' is missing in props validation  [2mreact/prop-types[22m[0m
+[0m  [2m147:29[22m  [31merror[39m  'params.commentId' is missing in props validation  [2mreact/prop-types[22m[0m
+[0m  [2m147:40[22m  [31merror[39m  'params.mode' is missing in props validation       [2mreact/prop-types[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/pages/blind-date/api/get-list.ts[24m[0m
+[0m  [2m6:47[22m  [31merror[39m  Don't use `{}` as a type. `{}` actually means "any non-nullish value".[0m
+[0m- If you want a type meaning "any object", you probably want `object` instead.[0m
+[0m- If you want a type meaning "any value", you probably want `unknown` instead.[0m
+[0m- If you want a type meaning "empty object", you probably want `Record<string, never>` instead.[0m
+[0m- If you really want a type meaning "any non-nullish value", you probably want `NonNullable<unknown>` instead  [2m@typescript-eslint/ban-types[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/pages/communicate/ui/Page/Detail.tsx[24m[0m
+[0m  [2m31:66[22m  [31merror[39m  'params' is missing in props validation            [2mreact/prop-types[22m[0m
+[0m  [2m31:76[22m  [31merror[39m  'params.articleId' is missing in props validation  [2mreact/prop-types[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/pages/communicate/ui/Page/Page.tsx[24m[0m
+[0m  [2m21:61[22m  [31merror[39m  'params' is missing in props validation          [2mreact/prop-types[22m[0m
+[0m  [2m43:49[22m  [31merror[39m  'params.keyword' is missing in props validation  [2mreact/prop-types[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/pages/complaint/ui/Page/ComplaintForm.tsx[24m[0m
+[0m  [2m22:69[22m  [31merror[39m  'params' is missing in props validation       [2mreact/prop-types[22m[0m
+[0m  [2m22:79[22m  [31merror[39m  'params.slug' is missing in props validation  [2mreact/prop-types[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/pages/complaint/ui/Page/Detail.tsx[24m[0m
+[0m  [2m16:66[22m  [31merror[39m  'params' is missing in props validation            [2mreact/prop-types[22m[0m
+[0m  [2m16:76[22m  [31merror[39m  'params.articleId' is missing in props validation  [2mreact/prop-types[22m[0m
+[0m  [2m28:10[22m  [31merror[39m  'Suspense' is not defined                          [2mreact/jsx-no-undef[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/pages/complaint/ui/Page/List.tsx[24m[0m
+[0m  [2m27:10[22m  [31merror[39m  'Suspense' is not defined  [2mreact/jsx-no-undef[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/pages/lost-found/ui/Page/Detail.tsx[24m[0m
+[0m  [2m17:66[22m  [31merror[39m  'params' is missing in props validation            [2mreact/prop-types[22m[0m
+[0m  [2m17:76[22m  [31merror[39m  'params.articleId' is missing in props validation  [2mreact/prop-types[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/pages/lost-found/ui/Page/Edit.tsx[24m[0m
+[0m  [2m70:66[22m  [31merror[39m  'params' is missing in props validation            [2mreact/prop-types[22m[0m
+[0m  [2m70:76[22m  [31merror[39m  'params.articleId' is missing in props validation  [2mreact/prop-types[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/pages/lost-found/ui/Page/Page.tsx[24m[0m
+[0m  [2m20:61[22m  [31merror[39m  'params' is missing in props validation          [2mreact/prop-types[22m[0m
+[0m  [2m22:27[22m  [31merror[39m  'params.keyword' is missing in props validation  [2mreact/prop-types[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/pages/sign-in/ui/Page/SignInCallback.tsx[24m[0m
+[0m  [2m16:9[22m   [31merror[39m  'params' is missing in props validation       [2mreact/prop-types[22m[0m
+[0m  [2m16:19[22m  [31merror[39m  'params.type' is missing in props validation  [2mreact/prop-types[22m[0m
+[0m  [2m16:25[22m  [31merror[39m  'params.code' is missing in props validation  [2mreact/prop-types[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/shared/ui/Editor/Editor.tsx[24m[0m
+[0m  [2m208:16[22m  [31merror[39m  Component definition is missing display name                                                                                                       [2mreact/display-name[22m[0m
+[0m  [2m334:7[22m   [31merror[39m  Include a description after the "@ts-ignore" directive to explain why the @ts-ignore is necessary. The description must be 3 characters or longer  [2m@typescript-eslint/ban-ts-comment[22m[0m
+[0m  [2m490:9[22m   [31merror[39m  Include a description after the "@ts-ignore" directive to explain why the @ts-ignore is necessary. The description must be 3 characters or longer  [2m@typescript-eslint/ban-ts-comment[22m[0m
+[0m  [2m522:9[22m   [31merror[39m  '_payload' is defined but never used                                                                                                               [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/shared/ui/Editor/nodes/YouTubeNode.tsx[24m[0m
+[0m   [2m18:3[22m  [31merror[39m  Parsing error:                                     [2mprettier/prettier[22m[0m
+[0m  [2m141:5[22m  [31merror[39m  '_includeInert' is defined but never used          [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m  [2m142:5[22m  [31merror[39m  '_includeDirectionless' is defined but never used  [2m@typescript-eslint/no-unused-vars[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/widgets/comments/ui/BaseCommentList.tsx[24m[0m
+[0m  [2m13:32[22m  [31merror[39m  Component definition is missing display name  [2mreact/display-name[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/widgets/comments/ui/CommentListSuspenseFallback.tsx[24m[0m
+[0m  [2m5:10[22m  [31merror[39m  Parsing error:   [2mprettier/prettier[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/widgets/comments/ui/CommentTextField.tsx[24m[0m
+[0m  [2m124:26[22m  [31merror[39m  Component definition is missing display name  [2mreact/display-name[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/widgets/filters/ui/FilterGroup.tsx[24m[0m
+[0m  [2m26:3[22m  [31merror[39m  'children' is missing in props validation           [2mreact/prop-types[22m[0m
+[0m  [2m27:3[22m  [31merror[39m  'uniqueId' is missing in props validation           [2mreact/prop-types[22m[0m
+[0m  [2m28:3[22m  [31merror[39m  'isScale' is missing in props validation            [2mreact/prop-types[22m[0m
+[0m  [2m29:3[22m  [31merror[39m  'activeFilterCount' is missing in props validation  [2mreact/prop-types[22m[0m
+[0m  [2m30:3[22m  [31merror[39m  'handleScale' is missing in props validation        [2mreact/prop-types[22m[0m
+[0m  [2m31:3[22m  [31merror[39m  'resetFilters' is missing in props validation       [2mreact/prop-types[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/widgets/navigation/ui/Navbar.tsx[24m[0m
+[0m  [2m15:46[22m  [31merror[39m  Component definition is missing display name        [2mreact/display-name[22m[0m
+[0m  [2m15:60[22m  [31merror[39m  'elementRef' is missing in props validation         [2mreact/prop-types[22m[0m
+[0m  [2m15:72[22m  [31merror[39m  'handleScrollToTop' is missing in props validation  [2mreact/prop-types[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/widgets/train-infos/ui/TrainInfo.tsx[24m[0m
+[0m  [2m27:10[22m  [31merror[39m  'Suspense' is not defined  [2mreact/jsx-no-undef[22m[0m
+[0m[0m
+[0m[4m/Users/hblee-bodycodi/Documents/ahachul_web/services/ahhachul.com/src/widgets/train-infos/ui/TrainRealTimes.tsx[24m[0m
+[0m  [2m97:4[22m  [31merror[39m  Parsing error: ')' expected[0m
+[0m[0m
+[0m[31m[1m✖ 47 problems (47 errors, 0 warnings)[22m[39m[0m
+[0m[31m[1m[22m[39m[0m
+[41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 1.[39m
+[41m[30m ELIFECYCLE [39m[49m [31mCommand failed with exit code 1.[39m

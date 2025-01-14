@@ -1,14 +1,16 @@
-import React, { useMemo, useCallback } from 'react';
+import { useMemo, useCallback } from 'react';
+
 import { ActivityComponentType, useActivity } from '@stackflow/react';
-import { Layout } from 'widgets';
-import type { LostForm } from 'pages/lost-found/model/form';
 import { useCreateLostArticleForm } from 'pages/lost-found/lib/useCreateLostArticleForm';
-import { ImageUploadField } from 'widgets/form-fields/ui/ImageUploadField';
+import type { LostForm } from 'pages/lost-found/model/form';
+import { Layout } from 'widgets';
 import { CategorySelectField } from 'widgets/form-fields/ui/CategorySelectField';
-import { TitleField } from 'widgets/form-fields/ui/TitleField';
 import { ContentEditorField } from 'widgets/form-fields/ui/ContentEditorField';
+import { ImageUploadField } from 'widgets/form-fields/ui/ImageUploadField';
 import { SubmitButton } from 'widgets/form-fields/ui/SubmitButton';
 import SubwaySelectField from 'widgets/form-fields/ui/SubwaySelectField';
+import { TitleField } from 'widgets/form-fields/ui/TitleField';
+
 import * as styles from './Create.css';
 
 const SUBMIT_BUTTON_TEXT = '등록';
@@ -33,11 +35,7 @@ const CreateLostArticle: ActivityComponentType = () => {
           name="lostType"
         />
         <SubwaySelectField control={control} name="subwayLineId" />
-        <TitleField<LostForm>
-          control={control}
-          register={register}
-          name="title"
-        />
+        <TitleField<LostForm> control={control} register={register} name="title" />
         <ContentEditorField<LostForm> control={control} name="content" />
         <SubmitButton
           isActive={activity.isActive}

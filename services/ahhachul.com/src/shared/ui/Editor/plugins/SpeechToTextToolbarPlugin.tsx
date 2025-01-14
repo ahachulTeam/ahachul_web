@@ -1,12 +1,14 @@
 import { useRef, useState } from 'react';
+
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { MicIcon } from '../static/icons/mic';
+
 import { SPEECH_TO_TEXT_COMMAND } from './SpeechToTextPlugin';
+
+import { MicIcon } from '../static/icons/mic';
 
 let SUPPORT_SPEECH_RECOGNITION = false;
 if (typeof window !== 'undefined') {
-  SUPPORT_SPEECH_RECOGNITION =
-    'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
+  SUPPORT_SPEECH_RECOGNITION = 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
 }
 
 export const SpeechToTextToolbarPlugin = () => {
@@ -20,9 +22,7 @@ export const SpeechToTextToolbarPlugin = () => {
         {SUPPORT_SPEECH_RECOGNITION && (
           <button
             type="button"
-            className={
-              'toolbar-item spaced mic ' + (isSpeechToText ? 'active' : '')
-            }
+            className={'toolbar-item spaced mic ' + (isSpeechToText ? 'active' : '')}
             style={{ padding: '0 !important' }}
             title="Speech To Text"
             aria-label={`${isSpeechToText ? 'Enable' : 'Disable'} speech to text`}

@@ -1,7 +1,7 @@
-import type { Article } from 'features/articles';
-import type { WithImageFile } from 'entities/with-server';
-import type { WithSubwayLineId } from 'features/subway-lines';
 import type { CategoryOfCommunity } from '.';
+import type { WithImageFile } from 'entities/with-server';
+import type { Article } from 'features/articles';
+import type { WithSubwayLineId } from 'features/subway-lines';
 
 interface CommunityForm
   extends Pick<Article, 'title' | 'content'>,

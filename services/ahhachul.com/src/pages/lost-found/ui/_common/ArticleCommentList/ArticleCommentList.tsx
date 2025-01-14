@@ -1,9 +1,11 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
+
 import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
 import type { WithArticleId } from 'features/articles';
-import { BaseCommentList } from 'widgets/comments/ui/BaseCommentList';
 import { useGetLostFoundComments } from 'pages/lost-found/api/get-comments';
+import { BaseCommentList } from 'widgets/comments/ui/BaseCommentList';
 import CommentListSuspenseFallback from 'widgets/comments/ui/CommentListSuspenseFallback';
+
 import * as styles from './ArticleCommentList.css';
 
 export const ArticleCommentList = ({

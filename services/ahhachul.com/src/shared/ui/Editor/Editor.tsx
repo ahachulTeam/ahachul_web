@@ -1,4 +1,23 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+
+import { HashtagNode } from '@lexical/hashtag';
+import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link';
+import { AutoLinkNode, LinkNode } from '@lexical/link';
+import { INSERT_EMBED_COMMAND } from '@lexical/react/LexicalAutoEmbedPlugin';
+import { AutoLinkPlugin, createLinkMatcherWithRegExp } from '@lexical/react/LexicalAutoLinkPlugin';
+import { LexicalComposer } from '@lexical/react/LexicalComposer';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { ContentEditable } from '@lexical/react/LexicalContentEditable';
+import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
+import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
+import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
+import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
+import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
+import { HeadingNode, QuoteNode } from '@lexical/rich-text';
+import { $isHeadingNode } from '@lexical/rich-text';
+import { $isParentElementRTL, $isAtNodeEnd } from '@lexical/selection';
+import { mergeRegister } from '@lexical/utils';
 import {
   CAN_REDO_COMMAND,
   CAN_UNDO_COMMAND,
@@ -11,57 +30,31 @@ import {
   $isRangeSelection,
   EditorState,
 } from 'lexical';
-import { INSERT_EMBED_COMMAND } from '@lexical/react/LexicalAutoEmbedPlugin';
-import {
-  AutoLinkPlugin,
-  createLinkMatcherWithRegExp,
-} from '@lexical/react/LexicalAutoLinkPlugin';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { $isLinkNode, TOGGLE_LINK_COMMAND } from '@lexical/link';
-import { $isParentElementRTL, $isAtNodeEnd } from '@lexical/selection';
-import { mergeRegister } from '@lexical/utils';
-import { HeadingNode, QuoteNode } from '@lexical/rich-text';
-import { createPortal } from 'react-dom';
-import { $isHeadingNode } from '@lexical/rich-text';
-import { LexicalComposer } from '@lexical/react/LexicalComposer';
-import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
-import { ContentEditable } from '@lexical/react/LexicalContentEditable';
-import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
-import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
-import { AutoLinkNode, LinkNode } from '@lexical/link';
-import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
-import { YouTubePlugin } from './plugins/YouTubePlugin';
-import { YouTubeNode } from './nodes/YouTubeNode';
-import { HashtagNode } from '@lexical/hashtag';
-import AutoEmbedPlugin from './plugins/AutoEmbedPlugin';
-import SpeechToTextPlugin, {
-  SPEECH_TO_TEXT_COMMAND,
-} from './plugins/SpeechToTextPlugin';
-import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
-import { UndoIcon } from './static/icons/undo';
-import { RedoIcon } from './static/icons/redo';
-import { BoldIcon } from './static/icons/bold';
-import { ItalicIcon } from './static/icons/italic';
-import { UnderlineIcon } from './static/icons/underline';
-import { StrikethroughIcon } from './static/icons/strikethrough';
-import { LeftAlignIcon } from './static/icons/leftAlign';
-import { CenterAlignIcon } from './static/icons/centerAlign';
-import { RightAlignIcon } from './static/icons/rightAlign';
-import { YoutubeIcon } from './static/icons/youtube';
-import { MicIcon } from './static/icons/mic';
-import { UploadIcon } from './static/icons/upload';
-import ImagesPlugin, {
-  FileInput,
-  INSERT_IMAGE_COMMAND,
-} from './plugins/ImagesPlugin';
-import { ImageNode } from './nodes/ImageNode';
-import { SpeechToTextToolbarPlugin } from './plugins/SpeechToTextToolbarPlugin';
+
 import * as styles from './Editor.css';
+import { ImageNode } from './nodes/ImageNode';
+import { YouTubeNode } from './nodes/YouTubeNode';
+import AutoEmbedPlugin from './plugins/AutoEmbedPlugin';
+import ImagesPlugin, { FileInput, INSERT_IMAGE_COMMAND } from './plugins/ImagesPlugin';
+import SpeechToTextPlugin, { SPEECH_TO_TEXT_COMMAND } from './plugins/SpeechToTextPlugin';
+import { SpeechToTextToolbarPlugin } from './plugins/SpeechToTextToolbarPlugin';
+import { YouTubePlugin } from './plugins/YouTubePlugin';
+import { BoldIcon } from './static/icons/bold';
+import { CenterAlignIcon } from './static/icons/centerAlign';
+import { ItalicIcon } from './static/icons/italic';
+import { LeftAlignIcon } from './static/icons/leftAlign';
+import { MicIcon } from './static/icons/mic';
+import { RedoIcon } from './static/icons/redo';
+import { RightAlignIcon } from './static/icons/rightAlign';
+import { StrikethroughIcon } from './static/icons/strikethrough';
+import { UnderlineIcon } from './static/icons/underline';
+import { UndoIcon } from './static/icons/undo';
+import { UploadIcon } from './static/icons/upload';
+import { YoutubeIcon } from './static/icons/youtube';
 
 let SUPPORT_SPEECH_RECOGNITION = false;
 if (typeof window !== 'undefined') {
-  SUPPORT_SPEECH_RECOGNITION =
-    'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
+  SUPPORT_SPEECH_RECOGNITION = 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
 }
 
 const editorTheme = {
@@ -143,15 +136,7 @@ const editorConfig = {
   },
   // Any custom nodes go here
 
-  nodes: [
-    HeadingNode,
-    QuoteNode,
-    AutoLinkNode,
-    LinkNode,
-    HashtagNode,
-    YouTubeNode,
-    ImageNode,
-  ],
+  nodes: [HeadingNode, QuoteNode, AutoLinkNode, LinkNode, HashtagNode, YouTubeNode, ImageNode],
 };
 
 const URL_REGEX =
@@ -161,21 +146,17 @@ const EMAIL_REGEX =
   /(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
 
 const MATCHERS = [
-  createLinkMatcherWithRegExp(URL_REGEX, (text) => {
+  createLinkMatcherWithRegExp(URL_REGEX, text => {
     return text.startsWith('http') ? text : `https://${text}`;
   }),
-  createLinkMatcherWithRegExp(EMAIL_REGEX, (text) => {
+  createLinkMatcherWithRegExp(EMAIL_REGEX, text => {
     return `mailto:${text}`;
   }),
 ];
 
 const LowPriority = 1;
 
-function Placeholder({
-  placeholder = '게시글 내용을 작성해 주세요.',
-}: {
-  placeholder?: string;
-}) {
+function Placeholder({ placeholder = '게시글 내용을 작성해 주세요.' }: { placeholder?: string }) {
   return <pre className="editor-placeholder">{placeholder}</pre>;
 }
 
@@ -257,20 +238,14 @@ const Editor = React.memo(
                   css={{ padding: readonly ? 0 : '15px 10px' }}
                 />
               }
-              placeholder={
-                readonly ? null : <Placeholder placeholder={placeholder} />
-              }
+              placeholder={readonly ? null : <Placeholder placeholder={placeholder} />}
               ErrorBoundary={LexicalErrorBoundary}
             />
             <LinkPlugin />
             <HashtagPlugin />
             <SpeechToTextPlugin />
             <AutoLinkPlugin matchers={MATCHERS} />
-            <OnChangePlugin
-              readonly={readonly}
-              initialState={initialState}
-              onChange={onChange}
-            />
+            <OnChangePlugin readonly={readonly} initialState={initialState} onChange={onChange} />
             {isRich && (
               <>
                 <ImagesPlugin />
@@ -287,6 +262,8 @@ const Editor = React.memo(
     );
   },
 );
+
+Editor.displayName = 'Editor';
 
 function Divider() {
   return <div className="divider" />;
@@ -356,7 +333,6 @@ function FloatingLinkEditor({ editor }: any) {
       if (!mouseDownRef.current) {
         positionEditorElement(editorElem, rect);
       }
-      //@ts-ignore
       setLastSelection(selection);
     } else if (!activeElement || activeElement.className !== 'link-input') {
       positionEditorElement(editorElem, null);
@@ -406,10 +382,10 @@ function FloatingLinkEditor({ editor }: any) {
           ref={inputRef}
           className="link-input"
           value={linkUrl}
-          onChange={(event) => {
+          onChange={event => {
             setLinkUrl(event.target.value);
           }}
-          onKeyDown={(event) => {
+          onKeyDown={event => {
             if (event.key === 'Enter') {
               event.preventDefault();
               if (lastSelection !== null) {
@@ -434,7 +410,7 @@ function FloatingLinkEditor({ editor }: any) {
               className="link-edit"
               role="button"
               tabIndex={0}
-              onMouseDown={(event) => event.preventDefault()}
+              onMouseDown={event => event.preventDefault()}
               onClick={() => {
                 setEditMode(true);
               }}
@@ -508,17 +484,12 @@ function ToolbarPlugin() {
     if ($isRangeSelection(selection)) {
       const anchorNode = selection.anchor.getNode();
       const element =
-        anchorNode.getKey() === 'root'
-          ? anchorNode
-          : anchorNode.getTopLevelElementOrThrow();
+        anchorNode.getKey() === 'root' ? anchorNode : anchorNode.getTopLevelElementOrThrow();
       const elementKey = element.getKey();
       const elementDOM = editor.getElementByKey(elementKey);
       if (elementDOM !== null) {
-        //@ts-ignore
         setSelectedElementKey(elementKey);
-        const type = $isHeadingNode(element)
-          ? element.getTag()
-          : element.getType();
+        const type = $isHeadingNode(element) ? element.getTag() : element.getType();
         setBlockType(type);
       }
       // Update text format
@@ -548,7 +519,8 @@ function ToolbarPlugin() {
       }),
       editor.registerCommand(
         SELECTION_CHANGE_COMMAND,
-        (_payload) => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        _payload => {
           updateToolbar();
           return false;
         },
@@ -556,7 +528,7 @@ function ToolbarPlugin() {
       ),
       editor.registerCommand(
         CAN_UNDO_COMMAND,
-        (payload) => {
+        payload => {
           setCanUndo(payload);
           return false;
         },
@@ -564,7 +536,7 @@ function ToolbarPlugin() {
       ),
       editor.registerCommand(
         CAN_REDO_COMMAND,
-        (payload) => {
+        payload => {
           setCanRedo(payload);
           return false;
         },
@@ -620,8 +592,7 @@ function ToolbarPlugin() {
         >
           <StrikethroughIcon />
         </button>
-        {isLink &&
-          createPortal(<FloatingLinkEditor editor={editor} />, document.body)}
+        {isLink && createPortal(<FloatingLinkEditor editor={editor} />, document.body)}
         <Divider />
         <button
           type="button"
@@ -687,9 +658,7 @@ function ToolbarPlugin() {
         {SUPPORT_SPEECH_RECOGNITION && (
           <button
             type="button"
-            className={
-              'toolbar-item spaced mic ' + (isSpeechToText ? 'active' : '')
-            }
+            className={'toolbar-item spaced mic ' + (isSpeechToText ? 'active' : '')}
             title="Speech To Text"
             aria-label={`${isSpeechToText ? 'Enable' : 'Disable'} speech to text`}
             onClick={() => {

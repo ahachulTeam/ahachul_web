@@ -1,10 +1,6 @@
-import {
-  getRandomContent,
-  getRandomImg,
-  getRandomNickname,
-  getRandomSubwayLineId,
-} from '../utils';
 import { v4 } from 'uuid';
+
+import { getRandomContent, getRandomImg, getRandomNickname, getRandomSubwayLineId } from '../utils';
 
 export const communityContentMock = {
   root: {

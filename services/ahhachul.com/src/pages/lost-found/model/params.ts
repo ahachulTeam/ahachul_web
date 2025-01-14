@@ -1,11 +1,8 @@
-import type { CursorBasedPaginationParams } from 'entities/with-server';
-import { WithArticleId } from 'features/articles';
-import type { WithSubwayLineId } from 'features/subway-lines';
 import type { LostType } from '.';
+import type { CursorBasedPaginationParams } from 'entities/with-server';
+import type { WithSubwayLineId } from 'features/subway-lines';
 
-interface LostFoundListParams
-  extends WithSubwayLineId,
-    CursorBasedPaginationParams {
+interface LostFoundListParams extends WithSubwayLineId, CursorBasedPaginationParams {
   lostPostId: number;
   keyword: string;
   lostType: LostType;

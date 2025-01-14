@@ -1,13 +1,15 @@
-import React, { useMemo, useCallback } from 'react';
+import { useMemo, useCallback } from 'react';
+
 import { ActivityComponentType, useActivity } from '@stackflow/react';
-import { Layout } from 'widgets';
-import type { CommunityForm } from 'pages/communicate/model/form';
 import { useCreateCommunityArticleForm } from 'pages/communicate/lib/useCreateCommunityArticleForm';
-import { ImageUploadField } from 'widgets/form-fields/ui/ImageUploadField';
+import type { CommunityForm } from 'pages/communicate/model/form';
+import { Layout } from 'widgets';
 import { CategorySelectField } from 'widgets/form-fields/ui/CategorySelectField';
-import { TitleField } from 'widgets/form-fields/ui/TitleField';
 import { ContentEditorField } from 'widgets/form-fields/ui/ContentEditorField';
+import { ImageUploadField } from 'widgets/form-fields/ui/ImageUploadField';
 import { SubmitButton } from 'widgets/form-fields/ui/SubmitButton';
+import { TitleField } from 'widgets/form-fields/ui/TitleField';
+
 import * as styles from './Create.css';
 
 const SUBMIT_BUTTON_TEXT = '등록';
@@ -39,16 +41,8 @@ const CreateCommunityArticle: ActivityComponentType = () => {
           options={COMMUNITY_CATEGORY_LIST}
           name="categoryType"
         />
-        <TitleField<CommunityForm>
-          control={control}
-          register={register}
-          name="title"
-        />
-        <ContentEditorField<CommunityForm>
-          isRichEditor
-          control={control}
-          name="content"
-        />
+        <TitleField<CommunityForm> control={control} register={register} name="title" />
+        <ContentEditorField<CommunityForm> isRichEditor control={control} name="content" />
         <SubmitButton
           isActive={activity.isActive}
           isSubmitting={isSubmitting}

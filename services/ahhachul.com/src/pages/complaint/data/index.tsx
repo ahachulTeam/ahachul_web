@@ -1,9 +1,9 @@
 import type { ComplaintType, ShortComplaintType } from '../model';
-import { 환경Icon } from '../static/icons/환경Icon';
-import { 질서Icon } from '../static/icons/질서Icon';
-import { 화살표Icon } from '../static/icons/화살표Icon';
-import { 폭력Icon } from '../static/icons/폭력Icon';
 import { 응급Icon } from '../static/icons/응급Icon';
+import { 질서Icon } from '../static/icons/질서Icon';
+import { 폭력Icon } from '../static/icons/폭력Icon';
+import { 화살표Icon } from '../static/icons/화살표Icon';
+import { 환경Icon } from '../static/icons/환경Icon';
 
 export const complaintTypeMap: Record<ComplaintType, string> = {
   ENVIRONMENTAL_COMPLAINT: '환경민원',
@@ -15,24 +15,23 @@ export const complaintTypeMap: Record<ComplaintType, string> = {
   SEXUAL_HARASSMENT: '성추행',
 };
 
-export const complaintShortContentTypeMap: Record<ShortComplaintType, string> =
-  {
-    WASTE: '오물',
-    VOMIT: '토사물',
-    VENTILATION_REQUEST: '환기요청',
-    NOISY: '시끄러워요',
-    NOT_HEARD: '안들려요',
-    TOO_HOT: '더워요',
-    TOO_COLD: '추워요',
-    MOBILE_VENDOR: '이동상인',
-    DRUNK: '취객',
-    HOMELESS: '노숙',
-    BEGGING: '구걸',
-    RELIGIOUS_ACTIVITY: '종교행위',
-    SELF: '본인',
-    WITNESS: '목격자',
-    VICTIM: '피해자',
-  };
+export const complaintShortContentTypeMap: Record<ShortComplaintType, string> = {
+  WASTE: '오물',
+  VOMIT: '토사물',
+  VENTILATION_REQUEST: '환기요청',
+  NOISY: '시끄러워요',
+  NOT_HEARD: '안들려요',
+  TOO_HOT: '더워요',
+  TOO_COLD: '추워요',
+  MOBILE_VENDOR: '이동상인',
+  DRUNK: '취객',
+  HOMELESS: '노숙',
+  BEGGING: '구걸',
+  RELIGIOUS_ACTIVITY: '종교행위',
+  SELF: '본인',
+  WITNESS: '목격자',
+  VICTIM: '피해자',
+};
 
 export const complaintsContentList = {
   ENVIRONMENTAL_COMPLAINT: {

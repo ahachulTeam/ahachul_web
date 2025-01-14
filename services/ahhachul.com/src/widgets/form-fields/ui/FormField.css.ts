@@ -43,10 +43,7 @@ export const section = [
   }),
 ] as Interpolation<Theme>;
 
-export const requireMark = ({
-  color: { error },
-  typography: { fontSize },
-}: Theme) => ({
+export const requireMark = ({ color: { error }, typography: { fontSize } }: Theme) => ({
   marginLeft: '2px',
   color: error[50],
   fontSize: fontSize[16],
@@ -57,10 +54,7 @@ export const errMsgLayout = {
   marginTop: '12px',
 };
 
-export const errMsgWrap = ({
-  color: { error },
-  typography: { fontSize, fontWeight },
-}: Theme) => ({
+export const errMsgWrap = ({ color: { error }, typography: { fontSize, fontWeight } }: Theme) => ({
   display: 'inline-flex',
   alignItems: 'center',
   color: error[50],

@@ -1,6 +1,8 @@
 import React from 'react';
+
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { ChevronDownIcon } from '@radix-ui/react-icons';
+
 import * as styles from './Filter.css';
 
 interface FilterManagerProps {
@@ -30,10 +32,7 @@ export const FilterManager: React.FC<FilterManagerProps> = ({
         <DropdownMenu.Label className="DropdownMenuLabel">
           {activeFilterCount}개 필터가 적용됨.
         </DropdownMenu.Label>
-        <DropdownMenu.Item
-          className="DropdownMenuItem red"
-          onClick={removeAllFilterControl}
-        >
+        <DropdownMenu.Item className="DropdownMenuItem red" onClick={removeAllFilterControl}>
           모든 필터 지우기
         </DropdownMenu.Item>
       </DropdownMenu.Content>

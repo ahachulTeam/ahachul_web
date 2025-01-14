@@ -9,3 +9,12 @@ export const section = [
     backgroundColor: background[50],
   }),
 ] as Interpolation<Theme>;
+
+export const trainRealTimes = [
+  cssUtils.fullWidth,
+  cssUtils.flexColumn,
+  ({ color: { background } }: Theme) => ({
+    paddingBottom: '24px',
+    backgroundColor: background[50],
+  }),
+] as Interpolation<Theme>;

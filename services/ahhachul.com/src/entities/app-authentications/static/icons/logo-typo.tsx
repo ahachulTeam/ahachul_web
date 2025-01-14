@@ -1,4 +1,3 @@
-import React from 'react';
 import cssUtils from 'shared/utils.css';
 
 const SVG = `
@@ -15,8 +14,5 @@ const SVG = `
 `;
 
 export const LogoTypoIcon = () => (
-  <div
-    css={[cssUtils.flexCenterCenter]}
-    dangerouslySetInnerHTML={{ __html: SVG }}
-  />
+  <div css={[cssUtils.flexCenterCenter]} dangerouslySetInnerHTML={{ __html: SVG }} />
 );

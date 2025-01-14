@@ -1,10 +1,11 @@
-import { base, routes, getQueryKeys, useAuthMutation } from 'shared/api';
+import { queryClient } from 'app/lib/react-query';
 import { useLoadingStore } from 'entities/app-loaders/slice';
 import { IResponse } from 'entities/with-server';
 import { Comment } from 'features/comments/model';
-import { queryClient } from 'app/lib/react-query';
-import { LOST_FOUND_QUERY_KEY } from './query-key';
+import { base, routes, getQueryKeys, useAuthMutation } from 'shared/api';
 import { sleep } from 'shared/lib/utils/delay/sleep';
+
+import { LOST_FOUND_QUERY_KEY } from './query-key';
 
 export const postComment = async (data: {
   postId: number;
@@ -13,13 +14,14 @@ export const postComment = async (data: {
   isPrivate: boolean;
 }) => {
   const { postId, content, upperCommentId, isPrivate } = data;
-  const response = await base.post<
-    IResponse<Pick<Comment, 'id' | 'upperCommentId' | 'content'>>
-  >(`${routes['lost-found']}/${postId}/comments`, {
-    content,
-    upperCommentId,
-    isPrivate,
-  });
+  const response = await base.post<IResponse<Pick<Comment, 'id' | 'upperCommentId' | 'content'>>>(
+    `${routes['lost-found']}/${postId}/comments`,
+    {
+      content,
+      upperCommentId,
+      isPrivate,
+    },
+  );
   return response.data;
 };
 
@@ -88,10 +90,7 @@ export const useDeleteComment = (articleId: number) => {
   });
 };
 
-export const updateComment = async (data: {
-  content: string;
-  commentId: number;
-}) => {
+export const updateComment = async (data: { content: string; commentId: number }) => {
   const { content, commentId } = data;
   const response = await base.patch<IResponse<Pick<Comment, 'id' | 'content'>>>(
     `comments/${commentId}`,

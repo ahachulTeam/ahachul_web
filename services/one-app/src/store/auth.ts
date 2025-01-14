@@ -14,7 +14,7 @@ interface TemporaryAuthState {
   reset: () => void;
 }
 
-export const useTemporaryAuthStore = create<TemporaryAuthState>((set) => ({
+export const useTemporaryAuthStore = create<TemporaryAuthState>(set => ({
   auth: null,
   setTempAuth: (authData: TemporaryUserAuthData) => set({ auth: authData }),
   reset: () => set({ auth: null }),

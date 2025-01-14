@@ -1,4 +1,3 @@
-import React from 'react';
 import cssUtils from 'shared/utils.css';
 
 const SVG = `
@@ -8,9 +7,5 @@ const SVG = `
 `;
 
 export const LogoIcon = ({ className }: { className?: string }) => (
-  <div
-    css={cssUtils.flex}
-    className={className}
-    dangerouslySetInnerHTML={{ __html: SVG }}
-  />
+  <div css={cssUtils.flex} className={className} dangerouslySetInnerHTML={{ __html: SVG }} />
 );

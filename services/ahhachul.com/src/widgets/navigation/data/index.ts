@@ -1,4 +1,5 @@
 import type { TypeActivities } from 'app/stackflow';
+
 import { NavbarIcons } from '../static';
 
 export type NavType = {

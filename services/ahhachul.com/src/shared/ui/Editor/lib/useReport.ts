@@ -23,9 +23,7 @@ const getElement = (): HTMLElement => {
   return element;
 };
 
-export const useReport = (): ((
-  arg0: string,
-) => ReturnType<typeof setTimeout>) => {
+export const useReport = (): ((arg0: string) => ReturnType<typeof setTimeout>) => {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const cleanup = useCallback(() => {
     if (timer !== null) {
@@ -42,7 +40,7 @@ export const useReport = (): ((
   }, [cleanup]);
 
   return useCallback(
-    (content) => {
+    content => {
       // eslint-disable-next-line no-console
       console.log(content);
       const element = getElement();

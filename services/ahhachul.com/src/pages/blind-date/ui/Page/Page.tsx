@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from 'react';
+
 import { type ActivityComponentType } from '@stackflow/react';
-import { Layout } from 'widgets';
 import { NicknameSetup } from 'features/users';
+import { Layout } from 'widgets';
+
 import * as styles from './Page.css';
 
 const BlindDate: ActivityComponentType = () => {

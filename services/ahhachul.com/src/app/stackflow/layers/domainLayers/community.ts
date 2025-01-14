@@ -1,6 +1,6 @@
-import Community from 'pages/communicate/ui/Page/Page';
-import CommunityDetail from 'pages/communicate/ui/Page/Detail';
 import CreateCommunityArticle from 'pages/communicate/ui/Page/Create';
+import CommunityDetail from 'pages/communicate/ui/Page/Detail';
+import Community from 'pages/communicate/ui/Page/Page';
 
 export const communityLayers = {
   Community,

@@ -1,9 +1,10 @@
-import React, { useRef } from 'react';
-import type { EditorState } from 'lexical';
-import CommentTextField from 'widgets/comments/ui/CommentTextField';
-import { usePostComment } from 'pages/lost-found/api/post-comment';
+import { useRef } from 'react';
+
 import { useAuthStore } from 'entities/app-authentications/slice';
 import { isEmptyContent } from 'features/articles/lib/has-content-error';
+import type { EditorState } from 'lexical';
+import { usePostComment } from 'pages/lost-found/api/post-comment';
+import CommentTextField from 'widgets/comments/ui/CommentTextField';
 
 interface Props {
   articleId: number;

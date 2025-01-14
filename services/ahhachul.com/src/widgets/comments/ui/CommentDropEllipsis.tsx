@@ -1,22 +1,18 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 import useMeasure from 'react-use-measure';
-import { useFlow } from 'app/stackflow';
-import { Drawer } from 'vaul';
-import styled from '@emotion/styled';
 
-import { useDeleteComment } from 'pages/lost-found/api/post-comment';
-import { EllipsisIcon } from 'shared/static/icons/ellipsis';
-import {
-  CloseIcon,
-  DangerIcon,
-  PhraseIcon,
-  WarningIcon,
-} from 'shared/ui/FamilyDrawer/icons';
-import * as S from './CommentDropEllipsis.css';
+import styled from '@emotion/styled';
 import { queryClient } from 'app/lib/react-query';
-import { getQueryKeys } from 'shared/api';
+import { useFlow } from 'app/stackflow';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useDeleteComment } from 'pages/lost-found/api/post-comment';
 import { LOST_FOUND_QUERY_KEY } from 'pages/lost-found/api/query-key';
+import { getQueryKeys } from 'shared/api';
+import { EllipsisIcon } from 'shared/static/icons/ellipsis';
+import { CloseIcon, DangerIcon, PhraseIcon, WarningIcon } from 'shared/ui/FamilyDrawer/icons';
+import { Drawer } from 'vaul';
+
+import * as S from './CommentDropEllipsis.css';
 
 export interface CommentDropEllipsisProps {
   articleId: string;
@@ -78,15 +74,10 @@ export const CommentDropEllipsis = ({
       return MIN_DURATION;
     }
 
-    const heightDifference = Math.abs(
-      bounds.height - previousHeightRef.current,
-    );
+    const heightDifference = Math.abs(bounds.height - previousHeightRef.current);
     previousHeightRef.current = bounds.height;
 
-    const duration = Math.min(
-      Math.max(heightDifference / 500, MIN_DURATION),
-      MAX_DURATION,
-    );
+    const duration = Math.min(Math.max(heightDifference / 500, MIN_DURATION), MAX_DURATION);
 
     return duration;
   }, [bounds.height]);
@@ -193,11 +184,7 @@ function RemoveComment({
   setView: (view: string) => void;
   handleClose: () => void;
 }) {
-  const {
-    mutate: deleteComment,
-    status,
-    isPending,
-  } = useDeleteComment(+articleId);
+  const { mutate: deleteComment, status, isPending } = useDeleteComment(+articleId);
   const handleDeleteComment = useCallback(
     () =>
       deleteComment(commentId, {
@@ -231,10 +218,7 @@ function RemoveComment({
           >
             취소
           </S.SecondaryButton>
-          <S.SmoothSecondaryButton
-            status={status}
-            handleClick={handleDeleteComment}
-          />
+          <S.SmoothSecondaryButton status={status} handleClick={handleDeleteComment} />
         </S.ButtonGroup>
       </div>
     </div>

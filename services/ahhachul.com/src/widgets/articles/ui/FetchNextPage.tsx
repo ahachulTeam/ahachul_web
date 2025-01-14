@@ -1,6 +1,8 @@
 import { PropsWithChildren } from 'react';
 import { IntersectionOptions } from 'react-intersection-observer';
+
 import { useIntersectionObserver } from 'shared/lib/hooks/useIntersectionObserver';
+
 import * as styles from './FetchNextPage.css';
 
 interface FetchNextPageOptions {

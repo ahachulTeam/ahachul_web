@@ -1,8 +1,7 @@
 import type { UseFormSetError, Path } from 'react-hook-form';
 
 export const isEmptyContent = (content: string) => {
-  const isContentEmpty =
-    JSON.parse(content)?.root?.children?.[0]?.children?.length <= 0;
+  const isContentEmpty = JSON.parse(content)?.root?.children?.[0]?.children?.length <= 0;
   return isContentEmpty;
 };
 

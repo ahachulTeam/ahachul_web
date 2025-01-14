@@ -1,4 +1,5 @@
 import { type ComponentProps } from 'react';
+
 import { AnimatePresence } from 'framer-motion';
 
 import Portal from './Portal';

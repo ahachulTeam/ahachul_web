@@ -1,18 +1,17 @@
 import { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import throttle from 'lodash-es/throttle';
 
-import { animateVariants } from 'shared/lib/config/animation/framer-motion';
-import { useGetTrainCongestionInfo } from 'features/subway-trains/api/congestion-info';
-import { subwayCongestionHexColors } from 'widgets/train-infos/lib/subway-congestion-hex-colors';
-import { useIsomorphicLayoutEffect } from 'shared/lib/hooks/useIsomorphicLayoutEffect';
-import { TrainIcon } from 'widgets/train-infos/ui/TrainIcon';
-import { TrainEachSection } from 'widgets/train-infos/ui/TrainEachSection';
 import { WithSubwayLineId } from 'features/subway-lines';
 import { WithSubwayTrainId } from 'features/subway-trains';
-import { BaseSkeleton } from 'shared/ui/Skeleton/Skeleton';
+import { useGetTrainCongestionInfo } from 'features/subway-trains/api/congestion-info';
+import { motion } from 'framer-motion';
+import throttle from 'lodash-es/throttle';
+import { animateVariants } from 'shared/lib/config/animation/framer-motion';
+import { useIsomorphicLayoutEffect } from 'shared/lib/hooks/useIsomorphicLayoutEffect';
+import { subwayCongestionHexColors } from 'widgets/train-infos/lib/subway-congestion-hex-colors';
+import { TrainEachSection } from 'widgets/train-infos/ui/TrainEachSection';
+import { TrainIcon } from 'widgets/train-infos/ui/TrainIcon';
+
 import { RecommendIcon } from '../static/icons/recommend';
-import * as styles from './TrainCongestion.css';
 
 interface TrainCongestionProps extends WithSubwayLineId, WithSubwayTrainId {}
 
@@ -28,8 +27,7 @@ const TrainCongestion = ({ trainNo, subwayLineId }: TrainCongestionProps) => {
   const [width, setWidth] = useState(0);
   useIsomorphicLayoutEffect(() => {
     const detectionViewport = () => {
-      const width = (container.current as HTMLElement)?.getBoundingClientRect()
-        .width;
+      const width = (container.current as HTMLElement)?.getBoundingClientRect().width;
       setWidth(width);
     };
 
@@ -50,10 +48,7 @@ const TrainCongestion = ({ trainNo, subwayLineId }: TrainCongestionProps) => {
         <ul>
           {congestions.map(({ sectionNo, congestionColor: color }, idx) => (
             <li key={`${sectionNo}-${color}`}>
-              <TrainEachSection
-                roomNumber={idx + 1}
-                color={subwayCongestionHexColors(color)}
-              />
+              <TrainEachSection roomNumber={idx + 1} color={subwayCongestionHexColors(color)} />
               {color === 'SMOOTH' && (
                 <motion.div
                   initial="initial"

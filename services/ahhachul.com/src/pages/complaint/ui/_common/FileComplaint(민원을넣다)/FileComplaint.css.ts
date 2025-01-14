@@ -11,10 +11,7 @@ export const wrap = [
   }),
 ] as Interpolation<Theme>;
 
-export const label = ({
-  color: { text },
-  typography: { fontSize, fontWeight },
-}: Theme) =>
+export const label = ({ color: { text }, typography: { fontSize, fontWeight } }: Theme) =>
   ({
     color: text[50],
     fontSize: fontSize[16],

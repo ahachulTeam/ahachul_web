@@ -6,11 +6,7 @@ interface FileComplaintCardProps {
   icon: React.ReactNode;
 }
 
-export const FileComplaintCard = ({
-  icon,
-  title,
-  description,
-}: FileComplaintCardProps) => {
+export const FileComplaintCard = ({ icon, title, description }: FileComplaintCardProps) => {
   return (
     <article css={styles.wrap}>
       <span>{title}</span>

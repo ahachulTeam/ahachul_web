@@ -1,6 +1,6 @@
-import React from 'react';
 import type { RecommendArticle } from 'features/articles';
 import RecommendArticleCard from 'widgets/articles/ui/RecommendArticleCard';
+
 import * as styles from './RecommendArticleList.css';
 
 interface Props {
@@ -14,12 +14,9 @@ const RecommendArticleList = ({ recommendPosts }: Props) => {
         <p>추천 습득물</p>
       </div>
       <ul>
-        {recommendPosts.map((item) => (
+        {recommendPosts.map(item => (
           <li key={item.id}>
-            <RecommendArticleCard
-              to="LostFoundDetail"
-              recommendArticle={item}
-            />
+            <RecommendArticleCard to="LostFoundDetail" recommendArticle={item} />
           </li>
         ))}
       </ul>

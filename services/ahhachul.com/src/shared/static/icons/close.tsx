@@ -1,4 +1,3 @@
-import React from 'react';
 import cssUtils from 'shared/utils.css';
 
 const SVG = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -7,13 +6,7 @@ const SVG = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="
 </svg>
 `;
 
-export const CloseIcon = ({
-  className,
-  onClick,
-}: {
-  className?: string;
-  onClick: () => void;
-}) => (
+export const CloseIcon = ({ className, onClick }: { className?: string; onClick: () => void }) => (
   <div
     className={className}
     css={[cssUtils.flexCenterCenter]}

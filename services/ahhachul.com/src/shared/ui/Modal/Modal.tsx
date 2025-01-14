@@ -1,8 +1,11 @@
-import React, { type PropsWithChildren, useRef } from 'react';
+import { type PropsWithChildren, useRef } from 'react';
+
 import { motion } from 'framer-motion';
-import { AnimatePortal } from '../Portal';
 import { useOutsideClick } from 'shared/lib/hooks/useOutsideClick';
+
 import * as styles from './Modal.css';
+
+import { AnimatePortal } from '../Portal';
 
 /**
  * @description Modal 컴포넌트

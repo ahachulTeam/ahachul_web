@@ -1,8 +1,9 @@
-import React from 'react';
 import { Control, Controller, Path, useFormState } from 'react-hook-form';
+
+import { EditorState } from 'lexical';
 import Editor from 'shared/ui/Editor';
 import { FieldErrorMessage } from 'widgets/form-fields/ui/FieldErrorMessage';
-import { EditorState } from 'lexical';
+
 import * as styles from './FormField.css';
 
 interface ContentEditorFieldProps<T> {

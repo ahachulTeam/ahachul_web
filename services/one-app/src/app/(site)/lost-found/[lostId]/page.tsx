@@ -1,9 +1,7 @@
 'use client';
 
-import {
-  SuspenseQueryBoundary,
-  ArticleDetailSuspenseFallback,
-} from '@/common/components';
+import { SuspenseQueryBoundary, ArticleDetailSuspenseFallback } from '@/common/components';
+
 import { LostFoundPostDetail } from '../_components';
 
 type Props = {

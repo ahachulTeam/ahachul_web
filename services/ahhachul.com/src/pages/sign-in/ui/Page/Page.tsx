@@ -1,21 +1,16 @@
 import styled from '@emotion/styled';
 import type { ActivityComponentType } from '@stackflow/react';
-import { motion } from 'framer-motion';
-import { SocialLogin } from 'entities/app-authentications/ui/SocialLogin';
 import { LogoTypoIcon } from 'entities/app-authentications/static/icons/logo-typo';
-import { Layout } from 'widgets';
-import { animateVariants } from 'shared/lib/config/animation/framer-motion';
 import AppLogo from 'entities/app-authentications/static/img/app-logo.png';
+import { SocialLogin } from 'entities/app-authentications/ui/SocialLogin';
+import { motion } from 'framer-motion';
+import { animateVariants } from 'shared/lib/config/animation/framer-motion';
+import { Layout } from 'widgets';
 
 export const SignIn: ActivityComponentType = () => {
   return (
     <Layout>
-      <Content
-        exit="exit"
-        animate="animate"
-        initial="initial"
-        variants={animateVariants(0.7)}
-      >
+      <Content exit="exit" animate="animate" initial="initial" variants={animateVariants(0.7)}>
         <CenterLogoGroup>
           <img src={AppLogo} alt="ahhachul-app-logo" />
           <div>

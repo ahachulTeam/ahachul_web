@@ -1,5 +1,5 @@
-import { HttpResponse } from 'msw';
 import { faker } from '@faker-js/faker';
+import { HttpResponse } from 'msw';
 
 import { APIResponseCode, RESPONSE_MESSAGES } from '@/common/constants';
 
@@ -58,11 +58,7 @@ export const generateBasicArticleData = (
   createdBy: user.memberId,
 });
 
-const generateComment = (
-  id: number,
-  upperCommentId: number | null,
-  user: (typeof User)[0],
-) => ({
+const generateComment = (id: number, upperCommentId: number | null, user: (typeof User)[0]) => ({
   id,
   upperCommentId,
   content: faker.lorem.paragraphs(),
@@ -78,14 +74,12 @@ export const generateCommentThread = () => {
     null,
     faker.helpers.arrayElement(User),
   );
-  const childComments = Array.from(
-    { length: faker.number.int({ min: 0, max: 3 }) },
-    () =>
-      generateComment(
-        faker.number.int({ min: 1001, max: 2000 }),
-        parentComment.id,
-        faker.helpers.arrayElement(User),
-      ),
+  const childComments = Array.from({ length: faker.number.int({ min: 0, max: 3 }) }, () =>
+    generateComment(
+      faker.number.int({ min: 1001, max: 2000 }),
+      parentComment.id,
+      faker.helpers.arrayElement(User),
+    ),
   );
   return { parentComment, childComments };
 };

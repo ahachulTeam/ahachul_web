@@ -1,13 +1,9 @@
 import { AxiosError } from 'axios';
-
-import { base, routes, useMutation, useQueries } from 'shared/api';
+import type { ISocialSignInType, IToken } from 'entities/app-authentications/model';
 import { useAuthStore } from 'entities/app-authentications/slice';
-import type {
-  ISocialSignInType,
-  IToken,
-} from 'entities/app-authentications/model';
 import type { IResponse } from 'entities/with-server';
 import queryString from 'query-string';
+import { base, routes, useMutation, useQueries } from 'shared/api';
 
 interface APIRedirectUrlParams {
   providerType: ISocialSignInType;
@@ -52,7 +48,7 @@ export const requestLogin = (body: APISocialSignInParams) =>
   base.post<IResponse<APISocialSignInResponse>>(`${routes.auth}/login`, body);
 
 export const useLogin = () => {
-  const setToken = useAuthStore((state) => state.setToken);
+  const setToken = useAuthStore(state => state.setToken);
 
   return useMutation({
     mutationFn: requestLogin,
@@ -83,11 +79,10 @@ interface APIRefreshTokenParams {
   refreshToken: IToken['refreshToken'];
 }
 
-const refreshToken = (body: APIRefreshTokenParams) =>
-  base.post(`${routes.auth}/tokens`, body);
+const refreshToken = (body: APIRefreshTokenParams) => base.post(`${routes.auth}/tokens`, body);
 
 export const useRefreshToken = () => {
-  const setToken = useAuthStore((state) => state.setToken);
+  const setToken = useAuthStore(state => state.setToken);
 
   return useMutation({
     mutationFn: refreshToken,

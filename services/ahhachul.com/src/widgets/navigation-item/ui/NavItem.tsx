@@ -1,9 +1,10 @@
-import React from 'react';
 import { Link } from 'app/stackflow';
 import { useNavItem } from 'widgets/navigation-item/lib/useNavItem';
 import type { NavType } from 'widgets/navigation/data';
-import PlusIcon from '../static/icons/PlusIcon';
+
 import * as styles from './NavItem.css';
+
+import PlusIcon from '../static/icons/PlusIcon';
 
 interface TabItemProps {
   tab: NavType;
@@ -20,11 +21,7 @@ export const NavItem = ({ tab, handleScrollToTop }: TabItemProps) => {
         <span>{tab.label}</span>
       </button>
       {isSame && tab.createPageOptions?.to && (
-        <Link
-          css={styles.plusBtn}
-          activityParams={{}}
-          activityName={tab.createPageOptions.to}
-        >
+        <Link css={styles.plusBtn} activityParams={{}} activityName={tab.createPageOptions.to}>
           <PlusIcon />
         </Link>
       )}

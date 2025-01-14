@@ -1,14 +1,12 @@
 import React from 'react';
-import {
-  LOST_FOUND_FILTER_DEFAULT_VALUES,
-  TYPE_OPTIONS,
-} from 'pages/lost-found/data';
-import { FilterGroup } from 'widgets/filters/ui/FilterGroup';
+
+import { SubwayLineFilterOptions } from 'features/subway-lines';
 import { LINE_OPTIONS } from 'features/subway-lines/data';
+import { LOST_FOUND_FILTER_DEFAULT_VALUES, TYPE_OPTIONS } from 'pages/lost-found/data';
+import { LostFoundType } from 'pages/lost-found/model';
 import { APP_UNIQUE_FILTER_ID_LIST } from 'widgets/filters/data/uniqueId';
 import { FilterState } from 'widgets/filters/slice/filters';
-import { LostFoundType } from 'pages/lost-found/model';
-import { SubwayLineFilterOptions } from 'features/subway-lines';
+import { FilterGroup } from 'widgets/filters/ui/FilterGroup';
 
 interface LostFoundFiltersProps {
   isScale: boolean;
@@ -43,9 +41,7 @@ export const LostFoundFilters: React.FC<LostFoundFiltersProps> = ({
         filterKey="subwayLineId"
         filters={filterProps.filters}
         optionList={LINE_OPTIONS}
-        buttonLabel={
-          LINE_OPTIONS[LOST_FOUND_FILTER_DEFAULT_VALUES.subwayLineId]
-        }
+        buttonLabel={LINE_OPTIONS[LOST_FOUND_FILTER_DEFAULT_VALUES.subwayLineId]}
         handleChange={filterProps.handleSelect}
       />
     </FilterGroup>

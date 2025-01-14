@@ -1,4 +1,5 @@
 import { SubwayLineFilterOptions } from 'features/subway-lines';
+
 import { CommunityCategoryType } from '../model';
 
 export const COMMUNITY_FILTER_DEFAULT_VALUES = {

@@ -1,10 +1,7 @@
 import type { Interpolation, Theme } from '@emotion/react';
 import cssUtils from 'shared/utils.css';
 
-export const commentSection = [
-  cssUtils.fullWidth,
-  cssUtils.flexColumn,
-] as Interpolation<Theme>;
+export const commentSection = [cssUtils.fullWidth, cssUtils.flexColumn] as Interpolation<Theme>;
 
 export const decs = [
   cssUtils.fullWidth,

@@ -1,5 +1,6 @@
 import { create, StateCreator } from 'zustand';
 import { persist } from 'zustand/middleware';
+
 import type { AppUniqueFilterId } from '../model';
 
 export type FilterState<T extends Record<string, string>> = {
@@ -10,20 +11,18 @@ export type FilterState<T extends Record<string, string>> = {
   handleReset: () => void;
 };
 
-type FilterStoreCreator<T extends Record<string, string>> = StateCreator<
-  FilterState<T>
->;
+type FilterStoreCreator<T extends Record<string, string>> = StateCreator<FilterState<T>>;
 
 const createFilterStoreWithPersist = <T extends Record<string, string>>(
   defaultValues: T,
   uniqueId: AppUniqueFilterId,
 ) => {
-  const createStore: FilterStoreCreator<T> = (set) => ({
+  const createStore: FilterStoreCreator<T> = set => ({
     filters: defaultValues,
     activeCount: 0,
     loaded: false,
     handleSelect: (key, value) => {
-      set((state) => {
+      set(state => {
         const isDefaultValue = value === defaultValues[key];
         const wasDefaultValue = state.filters[key] === defaultValues[key];
 
@@ -45,7 +44,7 @@ const createFilterStoreWithPersist = <T extends Record<string, string>>(
   return create<FilterState<T>>()(
     persist(createStore, {
       name: `filter-storage-${uniqueId}`,
-      onRehydrateStorage: () => (state) => {
+      onRehydrateStorage: () => state => {
         if (state) {
           state.loaded = true;
         }

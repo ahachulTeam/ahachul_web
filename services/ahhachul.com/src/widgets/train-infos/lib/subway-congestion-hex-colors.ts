@@ -1,8 +1,6 @@
 import type { CongestionColorType } from 'features/subway-trains';
 
-export const subwayCongestionHexColors = (
-  congestionColor: CongestionColorType,
-) => {
+export const subwayCongestionHexColors = (congestionColor: CongestionColorType) => {
   switch (congestionColor) {
     case 'SMOOTH':
       return '#6FDA74';

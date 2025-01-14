@@ -1,15 +1,15 @@
-import { base, routes, getQueryKeys, useAuthQuery } from 'shared/api';
+import { AxiosResponse } from 'axios';
 import type { IResponse } from 'entities/with-server';
+import { base, routes, getQueryKeys, useAuthQuery } from 'shared/api';
 import { TIMESTAMP } from 'shared/lib/config/timestamp';
+
+import { COMMUNITY_QUERY_KEY } from './query-key';
+
 import type { CommunityDetail } from '../model';
 import type { ParamsOfCommunityDetail } from '../model/params';
-import { COMMUNITY_QUERY_KEY } from './query-key';
-import { AxiosResponse } from 'axios';
 
 const getCommunityDetail = (params: ParamsOfCommunityDetail) =>
-  base.get<IResponse<CommunityDetail>>(
-    `${routes.community}/${params.articleId}`,
-  );
+  base.get<IResponse<CommunityDetail>>(`${routes.community}/${params.articleId}`);
 
 export const communityDetailQuery = (params: ParamsOfCommunityDetail) => ({
   queryKey: getQueryKeys(COMMUNITY_QUERY_KEY).detail(params.articleId),

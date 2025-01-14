@@ -1,4 +1,3 @@
-import React from 'react';
 import cssUtils from 'shared/utils.css';
 
 const SVG = `<svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -11,8 +10,5 @@ const SVG = `<svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="
 `;
 
 export const CircleCloseIcon = () => (
-  <div
-    css={[cssUtils.flexCenterCenter]}
-    dangerouslySetInnerHTML={{ __html: SVG }}
-  />
+  <div css={[cssUtils.flexCenterCenter]} dangerouslySetInnerHTML={{ __html: SVG }} />
 );

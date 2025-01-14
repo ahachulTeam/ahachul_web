@@ -1,16 +1,8 @@
-import { AxiosError } from 'axios';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import {
-  Subject,
-  catchError,
-  debounceTime,
-  filter,
-  from,
-  map,
-  mergeMap,
-  of,
-} from 'rxjs';
+
 import { UserQuery } from '..';
+import { AxiosError } from 'axios';
+import { Subject, catchError, debounceTime, filter, from, map, mergeMap, of } from 'rxjs';
 
 const MIN_LEN = 2;
 const MAX_LEN = 10;
@@ -37,8 +29,8 @@ export const useCheckNickname = ({ nickname, originNickname = '' }: Props) => {
     subject.current
       .pipe(
         debounceTime(500),
-        filter((v) => v !== originNickname),
-        map((v) => {
+        filter(v => v !== originNickname),
+        map(v => {
           if (v.length > MAX_LEN) {
             setErrorMessage('한글,영문 10자 이하로 입력해주세요');
             return '';
@@ -50,11 +42,9 @@ export const useCheckNickname = ({ nickname, originNickname = '' }: Props) => {
             return v;
           }
         }),
-        filter((v) => v !== ''),
-        mergeMap((v) =>
-          from(mutateAsync({ nickname: v })).pipe(catchError((e) => of(e))),
-        ),
-        map((d) => {
+        filter(v => v !== ''),
+        mergeMap(v => from(mutateAsync({ nickname: v })).pipe(catchError(e => of(e)))),
+        map(d => {
           if (d instanceof AxiosError) {
             return '지원하지 않는 형식입니다';
           }

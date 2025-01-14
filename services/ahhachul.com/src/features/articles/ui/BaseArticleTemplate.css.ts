@@ -37,10 +37,7 @@ export const articleBasicInfos = [
   cssUtils.sideGutter,
   cssUtils.flexColumn,
   cssUtils.posRel,
-  ({
-    color: { text, blueDarkGray },
-    typography: { fontSize, fontWeight },
-  }: Theme) => ({
+  ({ color: { text, blueDarkGray }, typography: { fontSize, fontWeight } }: Theme) => ({
     marginTop: '20px',
 
     '& > h2': {

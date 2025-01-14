@@ -1,4 +1,3 @@
-import React from 'react';
 import cssUtils from 'shared/utils.css';
 
 const SVG = `
@@ -6,9 +5,5 @@ const SVG = `
 `;
 
 export const MicIcon = () => (
-  <div
-    className="format"
-    css={cssUtils.flex}
-    dangerouslySetInnerHTML={{ __html: SVG }}
-  />
+  <div className="format" css={cssUtils.flex} dangerouslySetInnerHTML={{ __html: SVG }} />
 );

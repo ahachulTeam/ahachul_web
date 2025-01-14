@@ -1,14 +1,10 @@
 'use client';
 
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
 // import { LazyLoadImage } from 'react-lazy-load-image-component';
-
 import type { PostImage } from '@/model';
-
-import 'swiper/css';
-import 'swiper/css/pagination';
 
 interface Props {
   label: string;
@@ -59,7 +55,7 @@ export const BaseArticleImages = ({
           pagination={{ clickable: true }}
           className=" relative w-full aspect-square"
         >
-          {images.map((img) => (
+          {images.map(img => (
             <SwiperSlide
               key={img.imageId}
               // onClick={clickIndex(idx)}

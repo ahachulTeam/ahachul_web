@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+
 import type {
   DOMConversionMap,
   DOMConversionOutput,
@@ -52,13 +53,7 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
   }
 
   static clone(node: ImageNode): ImageNode {
-    return new ImageNode(
-      node.__src,
-      node.__altText,
-      node.__width,
-      node.__height,
-      node.__key,
-    );
+    return new ImageNode(node.__src, node.__altText, node.__width, node.__height, node.__key);
   }
 
   exportDOM(): DOMExportOutput {
@@ -112,10 +107,7 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
     return node;
   }
 
-  setWidthAndHeight(
-    width: 'inherit' | number,
-    height: 'inherit' | number,
-  ): void {
+  setWidthAndHeight(width: 'inherit' | number, height: 'inherit' | number): void {
     const writable = this.getWritable();
     writable.__width = width;
     writable.__height = height;
@@ -159,25 +151,15 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
   }
 }
 
-export function $createImageNode({
-  altText,
-  height,
-  src,
-  width,
-  key,
-}: ImagePayload): ImageNode {
+export function $createImageNode({ altText, height, src, width, key }: ImagePayload): ImageNode {
   return $applyNodeReplacement(new ImageNode(src, altText, width, height, key));
 }
 
-export function $isImageNode(
-  node: LexicalNode | null | undefined,
-): node is ImageNode {
+export function $isImageNode(node: LexicalNode | null | undefined): node is ImageNode {
   return node instanceof ImageNode;
 }
 
-export function $createImageWithCaptionNode(props?: {
-  src: string;
-}): ImageNode {
+export function $createImageWithCaptionNode(props?: { src: string }): ImageNode {
   // NOTE: When you will try to clone existing editor we will need to create a new one
   // Without this we will just pass a reference to the previous editor
 

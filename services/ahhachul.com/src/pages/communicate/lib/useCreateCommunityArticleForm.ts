@@ -1,7 +1,8 @@
 import { useForm } from 'react-hook-form';
-import { CommunityForm } from 'pages/communicate/model/form';
+
 import { validateContent } from 'features/articles/lib/has-content-error';
 import { usePostCommunityArticle } from 'pages/communicate/api/post-article';
+import { CommunityForm } from 'pages/communicate/model/form';
 
 export const useCreateCommunityArticleForm = () => {
   const {

@@ -1,29 +1,26 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { Flex } from '@ahhachul/react-components-layout';
+
 import { css } from '@emotion/react';
 import { Link, type TypeActivities } from 'app/stackflow';
-
 import type { Article } from 'features/articles';
-import { ArticleContentParser } from 'features/articles/ui/ArticleContentParser';
 import { checkContentType } from 'features/articles/lib/check-content-type';
-import { subwayLineToKrMap } from 'widgets/train-infos/lib/subway-line-to-kr';
-import { subwayLineHexColors } from 'widgets/train-infos/lib/subway-line-hex-colors';
+import { ArticleContentParser } from 'features/articles/ui/ArticleContentParser';
 import { formatDate } from 'shared/lib/utils/date/format-date';
-import { CommentCountIcon } from '../static/icons/comment-count';
+import { subwayLineHexColors } from 'widgets/train-infos/lib/subway-line-hex-colors';
+import { subwayLineToKrMap } from 'widgets/train-infos/lib/subway-line-to-kr';
+
+import { Flex } from '@ahhachul/react-components-layout';
+
 import * as styles from './ArticleCard.css';
 
+import { CommentCountIcon } from '../static/icons/comment-count';
+
 interface ArticleCardProps<TData extends Article> {
-  to: Extract<
-    KeyOf<TypeActivities>,
-    'CommunityDetail' | 'ComplaintDetail' | 'LostFoundDetail'
-  >;
+  to: Extract<KeyOf<TypeActivities>, 'CommunityDetail' | 'ComplaintDetail' | 'LostFoundDetail'>;
   article: TData;
 }
 
-export const ArticleCard = <TData extends Article>({
-  to,
-  article,
-}: ArticleCardProps<TData>) => {
+export const ArticleCard = <TData extends Article>({ to, article }: ArticleCardProps<TData>) => {
   const contentType = checkContentType(article.content);
   const isPlainContent = contentType !== 'json';
 
@@ -33,9 +30,7 @@ export const ArticleCard = <TData extends Article>({
         <Flex direction="column">
           <div>
             <span css={styles.name}>{article.writer || 'LOST112'}</span>
-            <time css={styles.date}>
-              {formatDate(article.createdAt, false)}
-            </time>
+            <time css={styles.date}>{formatDate(article.createdAt, false)}</time>
           </div>
         </Flex>
         <Flex justify="space-between">
@@ -65,11 +60,7 @@ export const ArticleCard = <TData extends Article>({
           )}
         </Flex>
         <Flex align="center" justify="space-between">
-          <div
-            css={styles.subwayLineId(
-              subwayLineHexColors(+article.subwayLineId),
-            )}
-          >
+          <div css={styles.subwayLineId(subwayLineHexColors(+article.subwayLineId))}>
             {subwayLineToKrMap[article.subwayLineId] || '기타 호선'}
           </div>
           <Flex align="center">

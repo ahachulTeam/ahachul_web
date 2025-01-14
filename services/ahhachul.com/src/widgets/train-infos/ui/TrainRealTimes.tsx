@@ -1,36 +1,32 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useGetTrainInfo } from 'features/subway-trains/api/time-info';
-import { animateVariants } from 'shared/lib/config/animation/framer-motion';
+import { Suspense } from 'react';
+
 import { WithSubwayStationId } from 'features/subway-stations';
-import { ReFetchIcon } from 'shared/static/icons/re-fetch';
+import { useGetTrainInfo } from 'features/subway-trains/api/time-info';
+import { motion } from 'framer-motion';
+import { animateVariants } from 'shared/lib/config/animation/framer-motion';
 import InfoIcon from 'shared/static/icons/info';
-import TrainCongestion from './TrainCongestion';
+import { ReFetchIcon } from 'shared/static/icons/re-fetch';
+import { BaseSkeleton } from 'shared/ui/Skeleton/Skeleton';
+
 import { TrainArrivalTimes } from './TrainArrivalTimes';
-import { trainArrivalCode } from '../lib/train-arrival-code';
+import TrainCongestion from './TrainCongestion';
 import * as styles from './TrainRealTimes.css';
+
+import { trainArrivalCode } from '../lib/train-arrival-code';
 
 interface TrainRealTimesProps extends WithSubwayStationId {
   name: string;
   parentLineId: number;
 }
-const TrainRealTimes = ({
-  name,
-  stationId,
-  parentLineId,
-}: TrainRealTimesProps) => {
+const TrainRealTimes = ({ name, stationId, parentLineId }: TrainRealTimesProps) => {
   const {
     data: { trainRealTimes },
   } = useGetTrainInfo({
     stationId,
     subwayLineId: parentLineId,
   });
-  let {
-    trainNum,
-    nextStationDirection,
-    currentTrainArrivalCode,
-    destinationStationDirection,
-  } = trainRealTimes[0];
+  let { trainNum, nextStationDirection, currentTrainArrivalCode, destinationStationDirection } =
+    trainRealTimes[0];
 
   return (
     <div css={styles.trainRealTimes}>
@@ -85,17 +81,20 @@ const TrainRealTimes = ({
                 <InfoIcon />
               </div>
             </div>
-            <Suspense fallback={<BaseSkeleton width="100%" height="31px" radius={3} css={styles.skeleton} />}>
+            <Suspense
+              fallback={
+                <BaseSkeleton width="100%" height="31px" radius={3} css={styles.skeleton} />
+              }
+            >
               <TrainCongestion trainNo={trainNum} subwayLineId={parentLineId} />
             </Suspense>
-            </div>
           </div>
-          <TrainArrivalTimes trainRealTimes={trainRealTimes} />
-          <button css={styles.button}>전체 시간표</button>
         </div>
+        <TrainArrivalTimes trainRealTimes={trainRealTimes} />
+        <button css={styles.button}>전체 시간표</button>
       </div>
     </div>
   );
 };
 
-export default TrainRealTimes
+export default TrainRealTimes;

@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $wrapNodeInElement, mergeRegister } from '@lexical/utils';
 import {
@@ -20,12 +21,7 @@ import {
   LexicalEditor,
 } from 'lexical';
 
-import {
-  $createImageNode,
-  $isImageNode,
-  ImageNode,
-  ImagePayload,
-} from '../nodes/ImageNode';
+import { $createImageNode, $isImageNode, ImageNode, ImagePayload } from '../nodes/ImageNode';
 
 export type InsertImagePayload = Readonly<ImagePayload>;
 
@@ -55,7 +51,7 @@ export default function ImagesPlugin({
     return mergeRegister(
       editor.registerCommand<InsertImagePayload>(
         INSERT_IMAGE_COMMAND,
-        (payload) => {
+        payload => {
           const imageNode = $createImageNode(payload);
           $insertNodes([imageNode]);
           if ($isRootOrShadowRoot(imageNode.getParentOrThrow())) {
@@ -68,21 +64,21 @@ export default function ImagesPlugin({
       ),
       editor.registerCommand<DragEvent>(
         DRAGSTART_COMMAND,
-        (event) => {
+        event => {
           return onDragStart(event);
         },
         COMMAND_PRIORITY_HIGH,
       ),
       editor.registerCommand<DragEvent>(
         DRAGOVER_COMMAND,
-        (event) => {
+        event => {
           return onDragover(event);
         },
         COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand<DragEvent>(
         DROP_COMMAND,
-        (event) => {
+        event => {
           return onDrop(event, editor);
         },
         COMMAND_PRIORITY_HIGH,
@@ -247,7 +243,7 @@ export function FileInput({
         type="file"
         accept={accept}
         className="Input__input"
-        onChange={(e) => onChange(e.target.files)}
+        onChange={e => onChange(e.target.files)}
         data-test-id={dataTestId}
       />
     </div>

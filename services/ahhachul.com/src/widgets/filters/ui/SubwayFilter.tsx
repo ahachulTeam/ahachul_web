@@ -1,9 +1,11 @@
 import React, { useReducer } from 'react';
-import { Drawer } from 'vaul';
-import * as styles from './Filter.css';
-import { SelectList } from 'shared/ui/Select/SelectList';
+
 import { SUBWAY_OPTION_LIST } from 'features/subway-lines/data';
 import { ChevronIcon } from 'shared/static/icons/chevron';
+import { SelectList } from 'shared/ui/Select/SelectList';
+import { Drawer } from 'vaul';
+
+import * as styles from './Filter.css';
 
 interface SubwayFilterProps {
   name: string;
@@ -21,7 +23,7 @@ const SubwayFilter: React.FC<SubwayFilterProps> = ({
   errorMsg,
   onChange,
 }) => {
-  const [isOpen, toggleOpen] = useReducer((open) => !open, false);
+  const [isOpen, toggleOpen] = useReducer(open => !open, false);
 
   const handleChange = (value: string) => {
     onChange(value);
@@ -31,11 +33,7 @@ const SubwayFilter: React.FC<SubwayFilterProps> = ({
   return (
     <Drawer.Root open={isOpen} shouldScaleBackground onOpenChange={toggleOpen}>
       <Drawer.Trigger asChild>
-        <button
-          css={styles.subwaySelect}
-          data-active={!!current}
-          aria-invalid={!!errorMsg}
-        >
+        <button css={styles.subwaySelect} data-active={!!current} aria-invalid={!!errorMsg}>
           <span>{current ? SUBWAY_OPTION_LIST[current] : buttonLabel}</span>
           <ChevronIcon css={styles.chevronIcon} />
         </button>
@@ -49,10 +47,7 @@ const SubwayFilter: React.FC<SubwayFilterProps> = ({
                 취소
               </button>
               <Drawer.Title css={styles.headerTitle}>{title}</Drawer.Title>
-              <button
-                disabled
-                css={[styles.done, { color: 'rgb(34, 34, 38)' }]}
-              >
+              <button disabled css={[styles.done, { color: 'rgb(34, 34, 38)' }]}>
                 완료
               </button>
             </div>

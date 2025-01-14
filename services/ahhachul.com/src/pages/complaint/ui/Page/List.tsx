@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { Suspense } from 'react';
+
 import { ActivityComponentType } from '@stackflow/react';
 import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
+import { Loading } from 'entities/app-loaders/ui/Loading';
 import { Layout } from 'widgets';
 import { ArticleListErrorFallback } from 'widgets/articles/ui/ArticleListErrorFallback';
-import { Loading } from 'entities/app-loaders/ui/Loading';
+
 import * as styles from './List.css';
 
 const ComplaintArticleList = React.lazy(

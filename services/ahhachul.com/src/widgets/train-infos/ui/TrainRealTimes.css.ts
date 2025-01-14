@@ -1,7 +1,7 @@
 import { type Interpolation, type Theme } from '@emotion/react';
-import { subwayLineHexColors } from 'widgets/train-infos/lib/subway-line-hex-colors';
 import { rotate } from 'shared/lib/config/animation/keyframes';
 import cssUtils from 'shared/utils.css';
+import { subwayLineHexColors } from 'widgets/train-infos/lib/subway-line-hex-colors';
 
 export const trainRealTimes = [
   cssUtils.fullWidth,
@@ -85,10 +85,7 @@ export const currentTrainArrivalInfo = {
 export const arrivalInfoLabel = [
   cssUtils.posRel,
   cssUtils.flexAlignCenter,
-  ({
-    color: { text, skyBlue },
-    typography: { fontSize, fontWeight },
-  }: Theme) => ({
+  ({ color: { text, skyBlue }, typography: { fontSize, fontWeight } }: Theme) => ({
     '& > b': {
       color: skyBlue[500],
       fontSize: fontSize[16],

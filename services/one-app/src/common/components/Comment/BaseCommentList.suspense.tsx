@@ -1,9 +1,7 @@
 'use client';
 
-import React from 'react';
-
-import { cn } from '@/common/utils';
 import { useIsDeferred } from '@/common/hooks';
+import { cn } from '@/common/utils';
 
 import { BaseSkeleton } from '../BaseSkeleton';
 

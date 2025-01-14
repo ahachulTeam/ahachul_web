@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+
 import type { UserStationList } from '../model';
 
 const defaultStationList: UserStationList = [
@@ -54,7 +55,7 @@ export interface IUserStationStore {
 
 export const useUserStationStore = create(
   persist<IUserStationStore>(
-    (set) => ({
+    set => ({
       stations: defaultStationList,
       setUserStations: (updated: UserStationList) => {
         set({ stations: updated });

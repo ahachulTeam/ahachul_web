@@ -1,4 +1,3 @@
-import React from 'react';
 import cssUtils from 'shared/utils.css';
 
 const SVG = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -8,8 +7,5 @@ const SVG = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24px" he
 `;
 
 export const CameraIcon = () => (
-  <div
-    css={[cssUtils.flexCenterCenter]}
-    dangerouslySetInnerHTML={{ __html: SVG }}
-  />
+  <div css={[cssUtils.flexCenterCenter]} dangerouslySetInnerHTML={{ __html: SVG }} />
 );

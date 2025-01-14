@@ -1,6 +1,6 @@
-import { preloadPlugin } from '@stackflow/plugin-preload';
 import { basicUIPlugin } from '@stackflow/plugin-basic-ui';
 import { historySyncPlugin } from '@stackflow/plugin-history-sync';
+import { preloadPlugin } from '@stackflow/plugin-preload';
 import { basicRendererPlugin } from '@stackflow/plugin-renderer-basic';
 import { queryClient } from 'app/lib/react-query';
 import { loader as CommunityDetail } from 'pages/communicate/ui/Page/Detail';

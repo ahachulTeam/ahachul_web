@@ -61,8 +61,7 @@ export const plusBtn = {
   top: 0,
   left: '50%',
   transform: 'translateX(-50%)',
-  background:
-    'linear-gradient(91deg, rgba(35, 40, 52, 0.90) 0%, rgba(39, 40, 62, 0.90) 100%)',
+  background: 'linear-gradient(91deg, rgba(35, 40, 52, 0.90) 0%, rgba(39, 40, 62, 0.90) 100%)',
   width: '36px',
   height: '36px',
   padding: '8px',

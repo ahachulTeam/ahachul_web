@@ -1,14 +1,14 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { Flex } from '@ahhachul/react-components-layout';
+
 import { Link, type TypeActivities } from 'app/stackflow';
 import type { RecommendArticle } from 'features/articles';
+
+import { Flex } from '@ahhachul/react-components-layout';
+
 import * as styles from './RecommendArticleCard.css';
 
 interface Props {
-  to: Extract<
-    KeyOf<TypeActivities>,
-    'CommunityDetail' | 'ComplaintDetail' | 'LostFoundDetail'
-  >;
+  to: Extract<KeyOf<TypeActivities>, 'CommunityDetail' | 'ComplaintDetail' | 'LostFoundDetail'>;
   recommendArticle: RecommendArticle;
 }
 
@@ -19,9 +19,7 @@ const RecommendArticleCard = ({ to, recommendArticle }: Props) => {
         <Flex direction="column">
           <div>
             <span css={styles.name}>
-              {recommendArticle.writer === 'SYSTEM'
-                ? 'LOST112'
-                : recommendArticle.writer}
+              {recommendArticle.writer === 'SYSTEM' ? 'LOST112' : recommendArticle.writer}
             </span>
             <time css={styles.date}>오후 3:00</time>
           </div>

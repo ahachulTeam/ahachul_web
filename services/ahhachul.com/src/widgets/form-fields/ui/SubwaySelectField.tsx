@@ -1,14 +1,9 @@
-import React from 'react';
-import {
-  Control,
-  Controller,
-  Path,
-  FieldValues,
-  useFormState,
-} from 'react-hook-form';
-import { FieldErrorMessage } from 'widgets/form-fields/ui/FieldErrorMessage';
-import * as styles from './FormField.css';
+import { Control, Controller, Path, FieldValues, useFormState } from 'react-hook-form';
+
 import SubwayFilter from 'widgets/filters/ui/SubwayFilter';
+import { FieldErrorMessage } from 'widgets/form-fields/ui/FieldErrorMessage';
+
+import * as styles from './FormField.css';
 
 interface Props<T extends FieldValues> {
   control: Control<T>;

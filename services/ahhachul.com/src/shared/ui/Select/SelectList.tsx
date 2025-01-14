@@ -1,5 +1,5 @@
-import React from 'react';
 import { objectEntries } from 'shared/lib/utils/object/object-entries';
+
 import * as styles from './SelectList.css';
 
 interface SelectListProps {

@@ -1,6 +1,7 @@
-import React from 'react';
 import { Control, Controller, Path } from 'react-hook-form';
+
 import { ImageUpload } from 'shared/ui/Input/ImageInput';
+
 import * as styles from './FormField.css';
 
 interface ImageUploadFieldProps<T> {
@@ -8,10 +9,7 @@ interface ImageUploadFieldProps<T> {
   name: Path<T>;
 }
 
-export const ImageUploadField = <T,>({
-  control,
-  name,
-}: ImageUploadFieldProps<T>) => (
+export const ImageUploadField = <T,>({ control, name }: ImageUploadFieldProps<T>) => (
   <div css={styles.section}>
     <span>첨부 이미지 (최대 5장)</span>
     <Controller

@@ -19,8 +19,7 @@ export const navbar =
     padding: '12px 16px 14px',
     borderRadius: '24px',
     backdropFilter: 'blur(20px)',
-    background:
-      'linear-gradient(91deg, rgba(35, 40, 52, 0.70) 0%, rgba(39, 40, 62, 0.70) 100%)',
+    background: 'linear-gradient(91deg, rgba(35, 40, 52, 0.70) 0%, rgba(39, 40, 62, 0.70) 100%)',
 
     opacity: visible ? 1 : 0,
     transform: visible ? 'translateY(0)' : 'translateY(8%)',

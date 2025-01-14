@@ -1,15 +1,14 @@
 import React, { HTMLAttributes } from 'react';
+
 import InfoIcon from 'shared/static/icons/info';
+
 import * as styles from './FormField.css';
 
 interface FieldErrorMessageProps extends HTMLAttributes<HTMLDivElement> {
   errMsg?: string | null | undefined;
 }
 
-export const FieldErrorMessage: React.FC<FieldErrorMessageProps> = ({
-  errMsg,
-  ...props
-}) => {
+export const FieldErrorMessage: React.FC<FieldErrorMessageProps> = ({ errMsg, ...props }) => {
   if (!errMsg) return null;
 
   return (

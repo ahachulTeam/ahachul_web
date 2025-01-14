@@ -1,12 +1,18 @@
 import React, { useMemo, useRef, useState, useCallback } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { useFlow } from 'app/stackflow';
 import useMeasure from 'react-use-measure';
-import { Drawer } from 'vaul';
-import styled from '@emotion/styled';
 
+import styled from '@emotion/styled';
+import { queryClient } from 'app/lib/react-query';
+import { useFlow } from 'app/stackflow';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useGetLostFoundDetail } from 'pages/lost-found/api/get-detail';
+import {
+  useDeleteLostFoundArticle,
+  useUpdateLostGoundStatus,
+} from 'pages/lost-found/api/post-article';
+import { LOST_FOUND_QUERY_KEY } from 'pages/lost-found/api/query-key';
+import { getQueryKeys } from 'shared/api';
 import { EllipsisIcon } from 'shared/static/icons/ellipsis';
-import * as S from './ArticleDropEllipsis.css';
 import {
   BannedIcon,
   CloseIcon,
@@ -19,15 +25,11 @@ import {
   ShieldIcon,
   WarningIcon,
 } from 'shared/ui/FamilyDrawer/icons';
+import { Drawer } from 'vaul';
+
+import * as S from './ArticleDropEllipsis.css';
+
 import { WithArticleId } from '../model';
-import {
-  useDeleteLostFoundArticle,
-  useUpdateLostGoundStatus,
-} from 'pages/lost-found/api/post-article';
-import { queryClient } from 'app/lib/react-query';
-import { getQueryKeys } from 'shared/api';
-import { LOST_FOUND_QUERY_KEY } from 'pages/lost-found/api/query-key';
-import { useGetLostFoundDetail } from 'pages/lost-found/api/get-detail';
 
 export const ArticleDropEllipsis = ({
   articleId,
@@ -65,22 +67,12 @@ export const ArticleDropEllipsis = ({
         );
       case 'remove':
         return isMyArticle ? (
-          <RemoveArticle
-            articleId={articleId}
-            setView={setView}
-            handleClose={handleClose}
-          />
+          <RemoveArticle articleId={articleId} setView={setView} handleClose={handleClose} />
         ) : (
           <ReportDetalView setView={setView} />
         );
       case 'updateStatus':
-        return (
-          <UpdateStatus
-            articleId={articleId}
-            setView={setView}
-            handleClose={handleClose}
-          />
-        );
+        return <UpdateStatus articleId={articleId} setView={setView} handleClose={handleClose} />;
     }
   }, [view]);
 
@@ -93,15 +85,10 @@ export const ArticleDropEllipsis = ({
       return MIN_DURATION;
     }
 
-    const heightDifference = Math.abs(
-      bounds.height - previousHeightRef.current,
-    );
+    const heightDifference = Math.abs(bounds.height - previousHeightRef.current);
     previousHeightRef.current = bounds.height;
 
-    const duration = Math.min(
-      Math.max(heightDifference / 500, MIN_DURATION),
-      MAX_DURATION,
-    );
+    const duration = Math.min(Math.max(heightDifference / 500, MIN_DURATION), MAX_DURATION);
 
     return duration;
   }, [bounds.height]);
@@ -183,11 +170,7 @@ function UpdateStatus({
   const { data: article } = useGetLostFoundDetail(articleId, {
     suspense: false,
   });
-  const {
-    mutate: updateStatus,
-    status,
-    isPending,
-  } = useUpdateLostGoundStatus();
+  const { mutate: updateStatus, status, isPending } = useUpdateLostGoundStatus();
   const handleUpdateArticleStatus = useCallback(
     () =>
       updateStatus(
@@ -271,11 +254,7 @@ function RemoveArticle({
   setView: (view: string) => void;
   handleClose: () => void;
 }) {
-  const {
-    mutate: deleteArticle,
-    status,
-    isPending,
-  } = useDeleteLostFoundArticle();
+  const { mutate: deleteArticle, status, isPending } = useDeleteLostFoundArticle();
   const handleDeleteArticle = useCallback(
     () =>
       deleteArticle(articleId, {
@@ -308,10 +287,7 @@ function RemoveArticle({
         >
           취소
         </S.SecondaryButton>
-        <S.SmoothSecondaryButton
-          status={status}
-          handleClick={handleDeleteArticle}
-        />
+        <S.SmoothSecondaryButton status={status} handleClick={handleDeleteArticle} />
       </S.ButtonGroup>
     </>
   );

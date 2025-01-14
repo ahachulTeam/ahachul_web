@@ -5,9 +5,6 @@ interface TrainEachSectionProps {
   roomNumber: number;
 }
 
-export const TrainEachSection = ({
-  color,
-  roomNumber,
-}: TrainEachSectionProps) => (
+export const TrainEachSection = ({ color, roomNumber }: TrainEachSectionProps) => (
   <div css={styles.eachSection(color)}>{roomNumber}</div>
 );

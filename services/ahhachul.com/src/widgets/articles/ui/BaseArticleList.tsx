@@ -1,19 +1,17 @@
-import React, { type HTMLAttributes } from 'react';
+import { type HTMLAttributes } from 'react';
+
+import { TypeActivities } from 'app/stackflow';
+import type { Article } from 'features/articles';
+import { useDisableScroll } from 'shared/lib/hooks/useDisableScroll';
+
 import { Box, Flex } from '@ahhachul/react-components-layout';
 
-import type { Article } from 'features/articles';
 import { ArticleCard } from './ArticleCard';
 import * as styles from './BaseArticleList.css';
-import { TypeActivities } from 'app/stackflow';
-import { useDisableScroll } from 'shared/lib/hooks/useDisableScroll';
 import { FetchNextPage } from './FetchNextPage';
 
-interface BaseArticleListProps<TData extends Article>
-  extends HTMLAttributes<HTMLSectionElement> {
-  to: Extract<
-    KeyOf<TypeActivities>,
-    'CommunityDetail' | 'ComplaintDetail' | 'LostFoundDetail'
-  >;
+interface BaseArticleListProps<TData extends Article> extends HTMLAttributes<HTMLSectionElement> {
+  to: Extract<KeyOf<TypeActivities>, 'CommunityDetail' | 'ComplaintDetail' | 'LostFoundDetail'>;
   data: TData[];
   hasNextPage: boolean;
   isFetchingNextPage: boolean;
@@ -52,11 +50,7 @@ export const BaseArticleList = <TData extends Article>({
               </li>
             ))}
           </Flex>
-          {hasNextPage && (
-            <FetchNextPage
-              callback={() => !isFetchingNextPage && fetchNextPage()}
-            />
-          )}
+          {hasNextPage && <FetchNextPage callback={() => !isFetchingNextPage && fetchNextPage()} />}
         </>
       )}
     </Box>

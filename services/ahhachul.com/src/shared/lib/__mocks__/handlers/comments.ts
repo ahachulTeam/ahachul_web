@@ -89,12 +89,9 @@ const getCommentsResponse = {
 };
 
 // 현재는 커뮤니티 내의 글에만 댓글들이 있는데, 앞으로는 모든 종류의 글에도 댓글이 있도록 변경할 예정
-const getCommentList = http.get(
-  'http://localhost:3000/community-comments',
-  async () => {
-    return HttpResponse.json(getCommentsResponse);
-  },
-);
+const getCommentList = http.get('http://localhost:3000/community-comments', async () => {
+  return HttpResponse.json(getCommentsResponse);
+});
 
 const commentsHandlers = [getCommentList];
 

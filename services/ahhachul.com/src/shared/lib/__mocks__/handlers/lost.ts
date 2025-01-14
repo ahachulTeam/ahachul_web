@@ -1,6 +1,8 @@
 import { http, delay, HttpResponse } from 'msw';
-import { getRandomBoolean } from '../utils';
+
 import { lostListItemMock, lostContentMock } from './lost.mock';
+
+import { getRandomBoolean } from '../utils';
 
 const getLostListResponse = {
   code: '100',
@@ -54,49 +56,41 @@ const getLostDetailResponse = (postId: string, randomBoolean: boolean) => ({
   },
 });
 
-const getLostDetail = http.get(
-  'http://localhost:3000/lost-posts/:postId',
-  async (req) => {
-    const { postId } = req.params;
+const getLostDetail = http.get('http://localhost:3000/lost-posts/:postId', async req => {
+  const { postId } = req.params;
 
-    await delay(400);
+  await delay(400);
 
-    const randomBoolean = getRandomBoolean();
+  const randomBoolean = getRandomBoolean();
 
-    return HttpResponse.json(
-      getLostDetailResponse(postId as string, randomBoolean),
-    );
-  },
-);
+  return HttpResponse.json(getLostDetailResponse(postId as string, randomBoolean));
+});
 
-const postLostArticle = http.post(
-  'http://localhost:3000/lost-posts',
-  async (req) => {
-    console.log('req was :', req);
+const postLostArticle = http.post('http://localhost:3000/lost-posts', async req => {
+  console.log('req was :', req);
 
-    await delay(400);
+  await delay(400);
 
-    // const tOrF = getRandomBoolean();
+  // const tOrF = getRandomBoolean();
 
-    // if (tOrF) {
-    return HttpResponse.json({
-      code: '100',
-      message: 'SUCCESS',
-      result: {
-        id: 1,
-        images: [
-          {
-            imageId: 1,
-            imageUrl: 'url1',
-          },
-        ],
-      },
-    });
-    // }
+  // if (tOrF) {
+  return HttpResponse.json({
+    code: '100',
+    message: 'SUCCESS',
+    result: {
+      id: 1,
+      images: [
+        {
+          imageId: 1,
+          imageUrl: 'url1',
+        },
+      ],
+    },
+  });
+  // }
 
-    // throw new Error();
-  },
-);
+  // throw new Error();
+});
 
 const lostHandlers = [getLostList, getLostDetail, postLostArticle];
 

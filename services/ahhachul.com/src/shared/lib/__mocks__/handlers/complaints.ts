@@ -1,10 +1,8 @@
 import { http, delay, HttpResponse } from 'msw';
+
 import { complaintListItemMock, complaintMock } from './complaint.mock';
-import {
-  getRandomBoolean,
-  getRandomComplaintType,
-  getRandomTrainNo,
-} from '../utils';
+
+import { getRandomBoolean, getRandomComplaintType, getRandomTrainNo } from '../utils';
 
 const getComplaintListResponse = {
   code: '100',
@@ -48,47 +46,35 @@ const getComplaintDetailResponse = (postId: string, randomBoolean: boolean) => {
   };
 };
 
-const getComplaintList = http.get(
-  'http://localhost:3000/complaints/messages',
-  async () => {
-    await delay(400);
+const getComplaintList = http.get('http://localhost:3000/complaints/messages', async () => {
+  await delay(400);
 
-    return HttpResponse.json(getComplaintListResponse);
-  },
-);
+  return HttpResponse.json(getComplaintListResponse);
+});
 
 const getComplaintDetail = http.get(
   'http://localhost:3000/complaints/messages/:postId',
-  async (req) => {
+  async req => {
     const { postId } = req.params;
 
     await delay(200);
 
     const randomBoolean = getRandomBoolean();
 
-    return HttpResponse.json(
-      getComplaintDetailResponse(postId as string, randomBoolean),
-    );
+    return HttpResponse.json(getComplaintDetailResponse(postId as string, randomBoolean));
   },
 );
 
-const postComplaintsArticle = http.post(
-  'http://localhost:3000/complaints/messages',
-  async () => {
-    await delay(400);
+const postComplaintsArticle = http.post('http://localhost:3000/complaints/messages', async () => {
+  await delay(400);
 
-    return HttpResponse.json({
-      code: '100',
-      message: 'SUCCESS',
-      result: null,
-    });
-  },
-);
+  return HttpResponse.json({
+    code: '100',
+    message: 'SUCCESS',
+    result: null,
+  });
+});
 
-const complaintsHandlers = [
-  getComplaintList,
-  getComplaintDetail,
-  postComplaintsArticle,
-];
+const complaintsHandlers = [getComplaintList, getComplaintDetail, postComplaintsArticle];
 
 export default complaintsHandlers;

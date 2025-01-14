@@ -1,4 +1,3 @@
-import React from 'react';
 import cssUtils from 'shared/utils.css';
 
 const SVG = `
@@ -57,8 +56,5 @@ const SVG = `
 `;
 
 export const 카셰어링Icon = () => (
-  <div
-    css={cssUtils.flexCenterCenter}
-    dangerouslySetInnerHTML={{ __html: SVG }}
-  />
+  <div css={cssUtils.flexCenterCenter} dangerouslySetInnerHTML={{ __html: SVG }} />
 );

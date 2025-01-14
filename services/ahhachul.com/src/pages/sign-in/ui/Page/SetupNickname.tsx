@@ -1,18 +1,16 @@
 import React, { useState, useCallback } from 'react';
+
 import styled from '@emotion/styled';
-import { motion } from 'framer-motion';
+import { queryClient } from 'app/lib/react-query';
+import { useFlow } from 'app/stackflow';
+import { useAuthStore, useTemporaryAuthStore } from 'entities/app-authentications/slice';
 import { NicknameSetup } from 'features/users';
-import { Layout } from 'widgets';
+import { GET_USER_INFO_QUERY_KEY, updateUser } from 'features/users/api';
+import { motion } from 'framer-motion';
+import { useMutation } from 'shared/api';
 import { animateVariants } from 'shared/lib/config/animation/framer-motion';
 import cssUtils from 'shared/utils.css';
-import {
-  useAuthStore,
-  useTemporaryAuthStore,
-} from 'entities/app-authentications/slice';
-import { useMutation } from 'shared/api';
-import { useFlow } from 'app/stackflow';
-import { GET_USER_INFO_QUERY_KEY, updateUser } from 'features/users/api';
-import { queryClient } from 'app/lib/react-query';
+import { Layout } from 'widgets';
 
 export const SetupNickname = () => {
   const { replace } = useFlow();
@@ -36,7 +34,7 @@ export const SetupNickname = () => {
       window.alert('로그인 성공');
       replace('Home', {}, { animate: false });
     },
-    onError: (error) => {
+    onError: error => {
       console.log('API Error on updateUser:', error);
       window.alert('로그인 정보를 불러오는데 실패했어요.');
     },
@@ -54,12 +52,7 @@ export const SetupNickname = () => {
 
   return (
     <Layout>
-      <Content
-        exit="exit"
-        animate="animate"
-        initial="initial"
-        variants={animateVariants(0.7)}
-      >
+      <Content exit="exit" animate="animate" initial="initial" variants={animateVariants(0.7)}>
         <NicknameSetup
           nickname={nickname}
           handleChange={handleChange}

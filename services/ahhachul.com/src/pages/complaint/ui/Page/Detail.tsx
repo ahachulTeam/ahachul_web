@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { Suspense } from 'react';
+
 import type { ActivityComponentType } from '@stackflow/react';
-import { Layout } from 'widgets';
+import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
+import { Loading } from 'entities/app-loaders/ui/Loading';
 import type { WithArticleId } from 'features/articles';
 import { ArticleDetailErrorFallback } from 'features/articles/ui/ArticleDetailErrorFallback';
-import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
+import { Layout } from 'widgets';
+
 import * as styles from './Page.css';
-import { Loading } from 'entities/app-loaders/ui/Loading';
 
 const ComplaintArticleDetail = React.lazy(
   () => import('../_common/ComplaintArticleDetail/ComplaintArticleDetail'),
 );
 
-const ComplaintDetail: ActivityComponentType<WithArticleId> = ({
-  params: { articleId },
-}) => {
+// eslint-disable-next-line react/prop-types
+const ComplaintDetail: ActivityComponentType<WithArticleId> = ({ params: { articleId } }) => {
   return (
     <Layout>
       <QueryErrorBoundary

@@ -1,4 +1,3 @@
-import React from 'react';
 import cssUtils from 'shared/utils.css';
 
 const SVG = `
@@ -9,9 +8,5 @@ const SVG = `
 `;
 
 export const RedoIcon = () => (
-  <div
-    className="format"
-    css={cssUtils.flex}
-    dangerouslySetInnerHTML={{ __html: SVG }}
-  />
+  <div className="format" css={cssUtils.flex} dangerouslySetInnerHTML={{ __html: SVG }} />
 );

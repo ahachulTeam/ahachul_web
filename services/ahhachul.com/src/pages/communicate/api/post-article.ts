@@ -1,4 +1,5 @@
 import { base, routes, useAuthMutation } from 'shared/api';
+
 import type { CommunityForm } from '../model/form';
 
 const afterSubmitFailed = (error: Error) => {

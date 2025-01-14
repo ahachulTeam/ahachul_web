@@ -170,23 +170,20 @@ const getTrainCongestionResponse = (isLineTwo: boolean) => ({
   },
 });
 
-const getTrainsRealTimeInfo = http.get(
-  'http://localhost:3000/trains/real-times',
-  async (req) => {
-    const url = req?.request?.url || '';
-    const params = new URLSearchParams(url.split('?')[1]);
-    const subwayLineId = params.get('subwayLineId');
-    if (subwayLineId === '2') {
-      return HttpResponse.json(getTrainsRealTimeInfoResponse(true));
-    } else {
-      return HttpResponse.json(getTrainsRealTimeInfoResponse(false));
-    }
-  },
-);
+const getTrainsRealTimeInfo = http.get('http://localhost:3000/trains/real-times', async req => {
+  const url = req?.request?.url || '';
+  const params = new URLSearchParams(url.split('?')[1]);
+  const subwayLineId = params.get('subwayLineId');
+  if (subwayLineId === '2') {
+    return HttpResponse.json(getTrainsRealTimeInfoResponse(true));
+  } else {
+    return HttpResponse.json(getTrainsRealTimeInfoResponse(false));
+  }
+});
 
 const getTrainCongestion = http.get(
   'http://localhost:3000/trains/real-times/congestion',
-  async (req) => {
+  async req => {
     const url = req?.request?.url || '';
     const params = new URLSearchParams(url.split('?')[1]);
     const subwayLineId = params.get('subwayLineId');

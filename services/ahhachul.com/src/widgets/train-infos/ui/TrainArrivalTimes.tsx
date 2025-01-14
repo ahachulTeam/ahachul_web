@@ -1,15 +1,14 @@
-import { motion } from 'framer-motion';
 import { ITrain } from 'features/subway-trains';
+import { motion } from 'framer-motion';
 import { animateVariants } from 'shared/lib/config/animation/framer-motion';
+
 import * as styles from './TrainArrivalTimes.css';
 
 interface TrainArrivalTimesProps {
   trainRealTimes: Array<ITrain>;
 }
 
-export const TrainArrivalTimes = ({
-  trainRealTimes,
-}: TrainArrivalTimesProps) => {
+export const TrainArrivalTimes = ({ trainRealTimes }: TrainArrivalTimesProps) => {
   return (
     <div css={styles.listWrap}>
       <motion.ul
@@ -19,7 +18,7 @@ export const TrainArrivalTimes = ({
         css={styles.arrivalList}
         variants={animateVariants(0.3)}
       >
-        {trainRealTimes.map((item) => (
+        {trainRealTimes.map(item => (
           <li key={item.trainNum}>
             <b>{item.trainNum}</b>
             <span>5분33초</span>

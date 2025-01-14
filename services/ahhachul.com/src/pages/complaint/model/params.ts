@@ -1,7 +1,7 @@
+import type { ComplaintType } from '.';
 import type { PageParams } from 'entities/with-server';
 import type { WithArticleId } from 'features/articles';
 import type { WithSubwayLineId } from 'features/subway-lines';
-import type { ComplaintType } from '.';
 
 interface ComplaintListParams extends WithSubwayLineId, PageParams {
   content: string;

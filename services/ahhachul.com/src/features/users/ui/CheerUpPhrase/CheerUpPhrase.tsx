@@ -1,8 +1,10 @@
-import React, { type HTMLAttributes } from 'react';
-import { getRandomPhrase } from 'features/users/lib/getRandomPhrase';
-import * as styles from './CheerUpPhrase.css';
-import { useGetUserInfo } from 'features/users/api';
+import { type HTMLAttributes } from 'react';
+
 import { useAuthStore } from 'entities/app-authentications/slice';
+import { useGetUserInfo } from 'features/users/api';
+import { getRandomPhrase } from 'features/users/lib/getRandomPhrase';
+
+import * as styles from './CheerUpPhrase.css';
 
 interface CTAFlowsProps extends HTMLAttributes<HTMLHeadingElement> {}
 

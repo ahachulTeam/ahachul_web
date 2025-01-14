@@ -1,6 +1,7 @@
-import React from 'react';
 import { UseFormRegister, Path, useFormState, Control } from 'react-hook-form';
+
 import { FieldErrorMessage } from 'widgets/form-fields/ui/FieldErrorMessage';
+
 import * as styles from './FormField.css';
 
 interface TitleFieldProps<T extends Record<string, any>> {

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import {
   useQuery,
   QueryKey,
@@ -10,10 +11,9 @@ import {
   useSuspenseQuery,
 } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-
-import { base } from 'shared/api/configure-axios';
 import { useRefreshToken } from 'entities/app-authentications';
 import { useAuthStore } from 'entities/app-authentications/slice';
+import { base } from 'shared/api/configure-axios';
 
 function getQueryKeys(type: string[]) {
   return {
@@ -57,8 +57,7 @@ function useAuthQuery<
   const { mutate, status: refreshTokenFetchStatus } = useRefreshToken();
 
   if (auth?.accessToken) {
-    base.defaults.headers.common['authorization'] =
-      `Bearer ${auth?.accessToken}`;
+    base.defaults.headers.common['authorization'] = `Bearer ${auth?.accessToken}`;
   }
 
   const callAPI = options?.suspense ? useSuspenseQuery : useQuery;
@@ -95,12 +94,7 @@ function useAuthQuery<
   return { refetch: currentRefetch, ...rest };
 }
 
-function useAuthMutation<
-  TData = unknown,
-  TError = unknown,
-  TVariables = void,
-  TContext = unknown,
->({
+function useAuthMutation<TData = unknown, TError = unknown, TVariables = void, TContext = unknown>({
   mutationFn,
   options,
 }: {
@@ -112,8 +106,7 @@ function useAuthMutation<
 }) {
   const auth = useAuthStore(({ auth }) => auth);
   if (auth?.accessToken) {
-    base.defaults.headers.common['authorization'] =
-      `Bearer ${auth?.accessToken}`;
+    base.defaults.headers.common['authorization'] = `Bearer ${auth?.accessToken}`;
   }
 
   return useMutation({

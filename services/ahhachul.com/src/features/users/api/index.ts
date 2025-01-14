@@ -26,12 +26,8 @@ interface APIUserInfoResponse {
 }
 
 const checkNickname = (body: APICheckNicknameParams) =>
-  base.post<IResponse<APINicknameResponse>>(
-    `${routes.users}/check-nickname`,
-    body,
-  );
-export const useCheckNickName = () =>
-  useAuthMutation({ mutationFn: checkNickname });
+  base.post<IResponse<APINicknameResponse>>(`${routes.users}/check-nickname`, body);
+export const useCheckNickName = () => useAuthMutation({ mutationFn: checkNickname });
 
 export const updateUser = async (data: { nickname: string; auth: IToken }) => {
   try {
@@ -49,9 +45,7 @@ export const updateUser = async (data: { nickname: string; auth: IToken }) => {
     return res.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      throw new Error(
-        `Update user failed: ${error.response?.data?.message || error.message}`,
-      );
+      throw new Error(`Update user failed: ${error.response?.data?.message || error.message}`);
     } else {
       console.error('Unexpected error during user update:', error);
       throw new Error('An unexpected error occurred during user update.');
@@ -59,8 +53,7 @@ export const updateUser = async (data: { nickname: string; auth: IToken }) => {
   }
 };
 
-const getUserInfo = () =>
-  base.get<IResponse<APIUserInfoResponse>>(routes.users);
+const getUserInfo = () => base.get<IResponse<APIUserInfoResponse>>(routes.users);
 
 export const useGetUserInfo = (auth: Nullable<IToken>) =>
   useAuthQuery({
@@ -69,6 +62,6 @@ export const useGetUserInfo = (auth: Nullable<IToken>) =>
     options: {
       enabled: !!auth,
       staleTime: Infinity,
-      select: (res) => res.data.result,
+      select: res => res.data.result,
     },
   });

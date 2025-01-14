@@ -1,13 +1,15 @@
-import React, { useMemo } from 'react';
-import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
+import { Suspense, useMemo } from 'react';
+
 import { useUserStationStore } from 'entities/@use-subway-context/slice';
-import TrainRealTimes from './TrainRealTimes';
-import { TrainLineFilter } from './TrainLineFilter';
+import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
+
 import { TrainErrorFallback } from './TrainErrorFallback';
 import * as styles from './TrainInfo.css';
+import { TrainLineFilter } from './TrainLineFilter';
+import TrainRealTimes from './TrainRealTimes';
 
 export const TrainInfo = () => {
-  const { stations, setUserStations } = useUserStationStore((state) => state);
+  const { stations, setUserStations } = useUserStationStore(state => state);
   const activatedStation = useMemo(() => stations[0], [stations]);
   const realTimesProps = useMemo(
     () => ({ ...stations[0].stationInfos[0], name: stations[0].name }),
@@ -21,10 +23,7 @@ export const TrainInfo = () => {
         activatedStation={activatedStation}
         setUserStations={setUserStations}
       />
-      <QueryErrorBoundary
-        keys={Object.values(realTimesProps)}
-        errorFallback={TrainErrorFallback}
-      >
+      <QueryErrorBoundary keys={Object.values(realTimesProps)} errorFallback={TrainErrorFallback}>
         <Suspense fallback={<div css={styles.trainRealTimes} />}>
           <TrainRealTimes {...realTimesProps} />
         </Suspense>

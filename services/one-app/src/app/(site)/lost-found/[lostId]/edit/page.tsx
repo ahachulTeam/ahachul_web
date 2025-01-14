@@ -1,4 +1,5 @@
 import { SuspenseQueryBoundary } from '@/common/components';
+
 import LostFoundEdit from '../../_components/LostFoundEdit';
 
 type Props = {
@@ -7,16 +8,12 @@ type Props = {
   }>;
 };
 
-export default async function LostFoundEditPage({ params} : Props)  {
+export default async function LostFoundEditPage({ params }: Props) {
   const { lostId } = await params;
 
   return (
-    <SuspenseQueryBoundary
-      errorFallback={<div>error</div>}
-      suspenseFallback={<div>loading</div>}
-    >
+    <SuspenseQueryBoundary errorFallback={<div>error</div>} suspenseFallback={<div>loading</div>}>
       <LostFoundEdit lostId={lostId} />
     </SuspenseQueryBoundary>
   );
-};
-
+}

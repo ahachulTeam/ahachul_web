@@ -37,11 +37,7 @@ export const useQueryParams = () => {
     (key: string, value: string) => {
       const params = new URLSearchParams(window.location.search);
       params.set(key, value);
-      window.history.pushState(
-        {},
-        '',
-        `${window.location.pathname}?${params.toString()}`,
-      );
+      window.history.pushState({}, '', `${window.location.pathname}?${params.toString()}`);
       parseQueryParams();
     },
     [parseQueryParams],
@@ -51,11 +47,7 @@ export const useQueryParams = () => {
     (key: string) => {
       const params = new URLSearchParams(window.location.search);
       params.delete(key);
-      window.history.pushState(
-        {},
-        '',
-        `${window.location.pathname}?${params.toString()}`,
-      );
+      window.history.pushState({}, '', `${window.location.pathname}?${params.toString()}`);
       parseQueryParams();
     },
     [parseQueryParams],

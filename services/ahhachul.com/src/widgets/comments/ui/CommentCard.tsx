@@ -1,16 +1,18 @@
-import React, { useMemo } from 'react';
-import { Flex } from '@ahhachul/react-components-layout';
-import { useFlow, useActivity } from 'app/stackflow';
+import { useMemo } from 'react';
 
-import { useGetUserInfo } from 'features/users/api';
-import type { Comment } from 'features/comments/model';
+import { useFlow, useActivity } from 'app/stackflow';
+import { useAuthStore } from 'entities/app-authentications/slice';
 import { checkContentType } from 'features/articles/lib/check-content-type';
 import { ArticleContentParser } from 'features/articles/ui/ArticleContentParser';
-import { useAuthStore } from 'entities/app-authentications/slice';
-import { LikeIcon } from 'widgets/articles/static/icons/like';
+import type { Comment } from 'features/comments/model';
+import { useGetUserInfo } from 'features/users/api';
 import { formatDate } from 'shared/lib/utils/date/format-date';
-import { CommentDropEllipsis } from './CommentDropEllipsis';
+import { LikeIcon } from 'widgets/articles/static/icons/like';
+
+import { Flex } from '@ahhachul/react-components-layout';
+
 import * as styles from './CommentCard.css';
+import { CommentDropEllipsis } from './CommentDropEllipsis';
 
 interface CommentCardProps {
   comment: Comment;
@@ -59,18 +61,13 @@ export const CommentCard = ({
       <Flex as="article" direction="column">
         <Flex justify="space-between" align="center" css={styles.dropdownMenu}>
           <span css={styles.name}>{comment.writer}</span>
-          {isMyComment && (
-            <CommentDropEllipsis articleId={articleId} commentId={comment.id} />
-          )}
+          {isMyComment && <CommentDropEllipsis articleId={articleId} commentId={comment.id} />}
         </Flex>
 
         {isPlainContent ? (
           <p css={styles.body}>{content}</p>
         ) : (
-          <ArticleContentParser
-            content={content}
-            overrideCss={styles.articleCardContentParser}
-          />
+          <ArticleContentParser content={content} overrideCss={styles.articleCardContentParser} />
         )}
         <span css={styles.date}>{formatDate(comment.createdAt)}</span>
         <Flex align="center" justify="space-between">

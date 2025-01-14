@@ -1,12 +1,16 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
+
 import { useActivity } from 'app/stackflow';
-import { SearchFilter } from './SearchFilter';
+
 import { DrawerFilter } from './DrawerFilter';
-import { FilterManager } from './FilterManager';
 import { DropdownFilter } from './DropdownFilter';
+import * as styles from './Filter.css';
+import { FilterManager } from './FilterManager';
+import { SearchFilter } from './SearchFilter';
+
 import { useKeywordSearch } from '../lib/useKeywordSearch';
 import type { AppUniqueFilterId } from '../model';
-import * as styles from './Filter.css';
 
 interface FilterGroupProps {
   children: React.ReactNode;

@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 // todo: svgr 적용하기
 function LogoIcon() {
   return (

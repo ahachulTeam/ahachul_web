@@ -1,24 +1,18 @@
 import React from 'react';
-import {
-  CATEGORY_OPTIONS,
-  COMMUNITY_FILTER_DEFAULT_VALUES,
-} from 'pages/communicate/data';
-import { useCommunityFilterStore } from 'pages/communicate/slice';
+
 import { LINE_OPTIONS } from 'features/subway-lines/data';
-import { FilterGroup } from 'widgets/filters/ui/FilterGroup';
+import { CATEGORY_OPTIONS, COMMUNITY_FILTER_DEFAULT_VALUES } from 'pages/communicate/data';
+import { useCommunityFilterStore } from 'pages/communicate/slice';
 import { APP_UNIQUE_FILTER_ID_LIST } from 'widgets/filters/data/uniqueId';
+import { FilterGroup } from 'widgets/filters/ui/FilterGroup';
 
 interface CommunityFiltersProps {
   isScale: boolean;
   handleScale: () => void;
 }
 
-export const CommunityFilters: React.FC<CommunityFiltersProps> = ({
-  isScale,
-  handleScale,
-}) => {
-  const { filters, activeCount, handleSelect, handleReset } =
-    useCommunityFilterStore();
+export const CommunityFilters: React.FC<CommunityFiltersProps> = ({ isScale, handleScale }) => {
+  const { filters, activeCount, handleSelect, handleReset } = useCommunityFilterStore();
 
   return (
     <FilterGroup

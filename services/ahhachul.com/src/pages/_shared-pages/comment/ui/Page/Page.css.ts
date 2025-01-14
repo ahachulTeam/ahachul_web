@@ -1,5 +1,6 @@
 import { Interpolation, Theme, css } from '@emotion/react';
 import cssUtils from 'shared/utils.css';
+
 4;
 export const commentListWrap = [
   cssUtils.fullWidth,

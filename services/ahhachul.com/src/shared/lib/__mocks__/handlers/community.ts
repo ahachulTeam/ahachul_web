@@ -1,5 +1,7 @@
 import { http, delay, HttpResponse } from 'msw';
+
 import { communityContentMock, communityListItemMock } from './community.mock';
+
 import { getRandomBoolean } from '../utils';
 
 const getCommunityListResponse = {
@@ -11,10 +13,7 @@ const getCommunityListResponse = {
   },
 };
 
-const getCommunityDetailResponse = (
-  postId: string,
-  randomBoolean: boolean,
-) => ({
+const getCommunityDetailResponse = (postId: string, randomBoolean: boolean) => ({
   code: '100',
   message: 'SUCCESS',
   result: {
@@ -45,72 +44,57 @@ const getCommunityDetailResponse = (
   },
 });
 
-const getCommunityList = http.get(
-  'http://localhost:3000/community-posts',
-  async () => {
-    await delay(400);
+const getCommunityList = http.get('http://localhost:3000/community-posts', async () => {
+  await delay(400);
 
-    return HttpResponse.json(getCommunityListResponse);
-  },
-);
+  return HttpResponse.json(getCommunityListResponse);
+});
 
-const getCommunityDetail = http.get(
-  'http://localhost:3000/community-posts/:postId',
-  async (req) => {
-    const { postId } = req.params;
+const getCommunityDetail = http.get('http://localhost:3000/community-posts/:postId', async req => {
+  const { postId } = req.params;
 
-    await delay(400);
+  await delay(400);
 
-    const randomBoolean = getRandomBoolean();
+  const randomBoolean = getRandomBoolean();
 
-    return HttpResponse.json(
-      getCommunityDetailResponse(postId as string, randomBoolean),
-    );
-  },
-);
+  return HttpResponse.json(getCommunityDetailResponse(postId as string, randomBoolean));
+});
 
-const postCommunityArticle = http.post(
-  'http://localhost:3000/community-posts',
-  async (req) => {
-    console.log('req was :', req);
+const postCommunityArticle = http.post('http://localhost:3000/community-posts', async req => {
+  console.log('req was :', req);
 
-    await delay(800);
+  await delay(800);
 
-    // const tOrF = getRandomBoolean();
+  // const tOrF = getRandomBoolean();
 
-    // if (tOrF) {
-    return HttpResponse.json({
-      code: '100',
-      message: 'SUCCESS',
-      result: {
-        id: 1,
-        title: '생성된 제목',
-        content: '생성된 내용',
-        categoryType: 'ISSUE',
-        region: 'METROPOLITAN',
-        subwayLineId: 1,
-        images: [
-          {
-            imageId: 1,
-            imageUrl: 'url1',
-          },
-          {
-            imageId: 2,
-            imageUrl: 'url2',
-          },
-        ],
-      },
-    });
-    // }
+  // if (tOrF) {
+  return HttpResponse.json({
+    code: '100',
+    message: 'SUCCESS',
+    result: {
+      id: 1,
+      title: '생성된 제목',
+      content: '생성된 내용',
+      categoryType: 'ISSUE',
+      region: 'METROPOLITAN',
+      subwayLineId: 1,
+      images: [
+        {
+          imageId: 1,
+          imageUrl: 'url1',
+        },
+        {
+          imageId: 2,
+          imageUrl: 'url2',
+        },
+      ],
+    },
+  });
+  // }
 
-    // throw new Error();
-  },
-);
+  // throw new Error();
+});
 
-const communityHandlers = [
-  getCommunityList,
-  getCommunityDetail,
-  postCommunityArticle,
-];
+const communityHandlers = [getCommunityList, getCommunityDetail, postCommunityArticle];
 
 export default communityHandlers;

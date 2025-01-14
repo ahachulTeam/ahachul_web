@@ -1,8 +1,10 @@
 import React, { memo, forwardRef, useCallback } from 'react';
+
+import { ResponseOfImage } from 'entities/with-server';
 import { CameraIcon } from 'shared/static/icons/camera';
 import { CircleCloseIcon } from 'shared/static/icons/circle-close';
+
 import * as styles from './ImageInput.css';
-import { ResponseOfImage } from 'entities/with-server';
 
 interface ImageUploadProps {
   hasPreview?: boolean;

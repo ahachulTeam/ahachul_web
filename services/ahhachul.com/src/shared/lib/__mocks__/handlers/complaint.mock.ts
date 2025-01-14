@@ -1,10 +1,6 @@
-import {
-  getRandomImg,
-  getRandomContent,
-  getRandomNickname,
-  getRandomTrainNo,
-} from '../utils';
 import { v4 } from 'uuid';
+
+import { getRandomImg, getRandomContent, getRandomNickname, getRandomTrainNo } from '../utils';
 
 export const complaintMock = {
   root: {

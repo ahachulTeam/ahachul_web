@@ -1,17 +1,17 @@
-import React, { PropsWithChildren } from 'react';
-import { ThemeProvider, Global } from '@emotion/react';
-
-import themes from 'shared/themes.css';
-import globals from 'shared/globals.css';
-import { MSWInitializer, QueryProvider } from 'app/lib';
-import { ThemeScript } from 'widgets';
-
-import 'shared/fonts.css';
-import '@ahhachul/themes/themes.css';
-import 'react-loading-skeleton/dist/skeleton.css';
+import { PropsWithChildren } from 'react';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
+import 'react-loading-skeleton/dist/skeleton.css';
+
+import { ThemeProvider, Global } from '@emotion/react';
+import { MSWInitializer, QueryProvider } from 'app/lib';
+import 'shared/fonts.css';
+import globals from 'shared/globals.css';
+import themes from 'shared/themes.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { ThemeScript } from 'widgets';
+
+import '@ahhachul/themes/themes.css';
 
 export const AppProvider = ({ children }: PropsWithChildren) => {
   return (

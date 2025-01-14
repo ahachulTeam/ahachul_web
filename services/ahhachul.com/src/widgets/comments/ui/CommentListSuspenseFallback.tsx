@@ -1,10 +1,11 @@
-import React from 'react';
-import { Flex } from '@ahhachul/react-components-layout';
-import { EllipsisIcon } from 'shared/static/icons/ellipsis';
-import * as styles from './CommentCard.css';
-import * as listStyles from './BaseCommentList.css';
-import { BaseSkeleton } from 'shared/ui/Skeleton/Skeleton';
 import { useIsDeferred } from 'shared/lib/hooks/useIsDeferred';
+import { EllipsisIcon } from 'shared/static/icons/ellipsis';
+import { BaseSkeleton } from 'shared/ui/Skeleton/Skeleton';
+
+import { Flex } from '@ahhachul/react-components-layout';
+
+import * as listStyles from './BaseCommentList.css';
+import * as styles from './CommentCard.css';
 
 const CommentListSuspenseFallback = () => {
   const { isDeferred } = useIsDeferred();

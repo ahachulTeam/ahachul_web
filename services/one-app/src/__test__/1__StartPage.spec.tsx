@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+
 import Page from '@/app/(site)/page';
 
 it.skip('App Router: Works with Server Components', () => {

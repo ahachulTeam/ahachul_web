@@ -1,3 +1,5 @@
+import { v4 } from 'uuid';
+
 import {
   getRandomBoolean,
   getRandomImg,
@@ -5,7 +7,6 @@ import {
   getRandomSubwayLineId,
   getRandomNickname,
 } from '../utils';
-import { v4 } from 'uuid';
 
 export const lostContentMock = {
   root: {

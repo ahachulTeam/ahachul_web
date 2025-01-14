@@ -1,14 +1,11 @@
-import React, {
-  type ComponentProps,
-  useRef,
-  useMemo,
-  useCallback,
-} from 'react';
+import React, { type ComponentProps, useRef, useMemo, useCallback } from 'react';
+
 import { AppScreen } from '@stackflow/plugin-basic-ui';
-import { Navbar } from 'widgets/navigation';
-import themes from 'shared/themes.css';
 import { Loading } from 'entities/app-loaders';
 import { useLoadingStore } from 'entities/app-loaders/slice';
+import themes from 'shared/themes.css';
+import { Navbar } from 'widgets/navigation';
+
 import * as styles from './Layout.css';
 
 interface LayoutProps extends ComponentProps<typeof AppScreen> {
@@ -48,11 +45,7 @@ export const Layout: React.FC<LayoutProps> = ({
   );
 
   return (
-    <AppScreen
-      appBar={customAppBar}
-      backgroundColor={backgroundColor}
-      {...props}
-    >
+    <AppScreen appBar={customAppBar} backgroundColor={backgroundColor} {...props}>
       <main css={styles.wrapper}>
         <div ref={scrollableRef} css={styles.scrollable(Boolean(showNavbar))}>
           {children}

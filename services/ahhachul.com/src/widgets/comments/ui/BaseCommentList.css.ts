@@ -10,10 +10,7 @@ export const comments = [
   },
 ] as Interpolation<Theme>;
 
-export const count = ({
-  color: { blueDarkGray },
-  typography: { fontSize, fontWeight },
-}: Theme) =>
+export const count = ({ color: { blueDarkGray }, typography: { fontSize, fontWeight } }: Theme) =>
   ({
     fontSize: fontSize[14],
     fontWeight: fontWeight[700],

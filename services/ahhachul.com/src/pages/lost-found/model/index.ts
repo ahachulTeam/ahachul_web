@@ -1,9 +1,5 @@
-import type {
-  Article,
-  ArticleDetail,
-  RecommendArticle,
-} from 'features/articles';
 import type { ResponseOfList } from 'entities/with-server';
+import type { Article, ArticleDetail, RecommendArticle } from 'features/articles';
 
 export type LostType = 'LOST' | 'ACQUIRE';
 export enum LostFoundType {

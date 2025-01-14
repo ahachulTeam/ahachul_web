@@ -1,12 +1,12 @@
 import { useForm } from 'react-hook-form';
-import { ComplaintForm } from 'pages/complaint/model/form';
-import { usePostComplaintArticle } from 'pages/complaint/api/post-article';
+
 import { validateContent } from 'features/articles/lib/has-content-error';
+import { usePostComplaintArticle } from 'pages/complaint/api/post-article';
+import { ComplaintForm } from 'pages/complaint/model/form';
+
 import type { complaintsContentDetail } from '../data';
 
-export const useCreateComplaintForm = (
-  slug: KeyOf<typeof complaintsContentDetail>,
-) => {
+export const useCreateComplaintForm = (slug: KeyOf<typeof complaintsContentDetail>) => {
   const {
     control,
     handleSubmit,
@@ -23,8 +23,7 @@ export const useCreateComplaintForm = (
     },
   });
 
-  const { mutate: createComplaint, isPending: isSubmitting } =
-    usePostComplaintArticle();
+  const { mutate: createComplaint, isPending: isSubmitting } = usePostComplaintArticle();
 
   const onError = () => {
     if (!validateContent(getValues('content'), setError)) return;

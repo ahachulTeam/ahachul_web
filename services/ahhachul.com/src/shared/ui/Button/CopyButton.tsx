@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { CheckIcon, CopyIcon } from '@radix-ui/react-icons';
+import { useState } from 'react';
+
 import styled from '@emotion/styled';
+import { CheckIcon, CopyIcon } from '@radix-ui/react-icons';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export function CopyButton() {
   const variants = {

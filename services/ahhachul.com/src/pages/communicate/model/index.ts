@@ -1,5 +1,5 @@
-import type { Article, ArticleDetail } from 'features/articles';
 import type { ResponseOfList } from 'entities/with-server';
+import type { Article, ArticleDetail } from 'features/articles';
 
 export type CategoryOfCommunity = 'FREE' | 'INSIGHT' | 'QUESTION';
 export enum CommunityCategoryType {

@@ -1,4 +1,3 @@
-import React from 'react';
 import cssUtils from 'shared/utils.css';
 
 const SVG = `
@@ -9,8 +8,6 @@ const SVG = `
 </svg>
 `;
 
-const InfoIcon = () => (
-  <div css={[cssUtils.flex]} dangerouslySetInnerHTML={{ __html: SVG }} />
-);
+const InfoIcon = () => <div css={[cssUtils.flex]} dangerouslySetInnerHTML={{ __html: SVG }} />;
 
 export default InfoIcon;

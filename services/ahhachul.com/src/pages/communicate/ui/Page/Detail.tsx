@@ -1,19 +1,19 @@
 import React, { Suspense } from 'react';
-import { QueryClient } from '@tanstack/react-query';
-import type { ActivityComponentType } from '@stackflow/react';
-import { useActivityPreloadRef } from '@stackflow/plugin-preload';
 
-import { communityDetailQuery } from 'pages/communicate/api/get-detail';
+import { useActivityPreloadRef } from '@stackflow/plugin-preload';
+import type { ActivityComponentType } from '@stackflow/react';
+import { QueryClient } from '@tanstack/react-query';
+import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
+import { Loading } from 'entities/app-loaders/ui/Loading';
 import type { WithArticleId } from 'features/articles';
 import { ArticleDetailErrorFallback } from 'features/articles/ui/ArticleDetailErrorFallback';
-import { Loading } from 'entities/app-loaders/ui/Loading';
-import { QueryErrorBoundary } from 'entities/app-errors/ui/QueryErrorBoundary';
+import { communityDetailQuery } from 'pages/communicate/api/get-detail';
 import { Layout } from 'widgets';
 
 const CommunityArticleDetail = React.lazy(() =>
-  import('../_common/CommunityArticleDetail/CommunityArticleDetail').then(
-    (module) => ({ default: module.CommunityArticleDetail }),
-  ),
+  import('../_common/CommunityArticleDetail/CommunityArticleDetail').then(module => ({
+    default: module.CommunityArticleDetail,
+  })),
 );
 
 export const loader =
@@ -28,20 +28,15 @@ export const loader =
     }
   };
 
-const CommunityDetail: ActivityComponentType<WithArticleId> = ({
-  params: { articleId },
-}) => {
-  const preloadRef =
-    useActivityPreloadRef<ReturnType<ReturnType<typeof loader>>>();
+// eslint-disable-next-line react/prop-types
+const CommunityDetail: ActivityComponentType<WithArticleId> = ({ params: { articleId } }) => {
+  const preloadRef = useActivityPreloadRef<ReturnType<ReturnType<typeof loader>>>();
 
   return (
     <Layout>
       <QueryErrorBoundary errorFallback={ArticleDetailErrorFallback}>
         <Suspense fallback={<Loading opacity={1} />}>
-          <CommunityArticleDetail
-            articleId={articleId}
-            preloadRef={preloadRef}
-          />
+          <CommunityArticleDetail articleId={articleId} preloadRef={preloadRef} />
         </Suspense>
       </QueryErrorBoundary>
     </Layout>

@@ -1,10 +1,9 @@
-import React from 'react';
 import { useTheme } from '@emotion/react';
 import { ActivityComponentType } from '@stackflow/react';
-import { Layout } from 'widgets';
 import { useAuthStore } from 'entities/app-authentications/slice';
 import { useGetUserInfo } from 'features/users/api';
 import { getDomainName } from 'shared/lib/config/app-env';
+import { Layout } from 'widgets';
 
 const MyPage: ActivityComponentType = () => {
   const {

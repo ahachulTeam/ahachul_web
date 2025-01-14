@@ -22,8 +22,7 @@ export const isProd = () => process.env.NODE_ENV === 'production';
 export const isDev = () => process.env.NODE_ENV === 'development';
 
 export const getAppEnv = (): AppEnv =>
-  (process.env.REACT_APP_ENV as Exclude<AppEnv, 'development'>) ||
-  'development';
+  (process.env.REACT_APP_ENV as Exclude<AppEnv, 'development'>) || 'development';
 
 export const getDomainName = () => {
   switch (getAppEnv()) {

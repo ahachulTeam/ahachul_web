@@ -6,20 +6,14 @@ export const card = {
   position: 'relative',
 } as Interpolation<Theme>;
 
-export const name = ({
-  color: { text },
-  typography: { fontSize, fontWeight },
-}: Theme) =>
+export const name = ({ color: { text }, typography: { fontSize, fontWeight } }: Theme) =>
   ({
     color: text[50],
     fontSize: fontSize[12],
     fontWeight: fontWeight[500],
   }) as Interpolation<Theme>;
 
-export const date = ({
-  color: { blueDarkGray },
-  typography: { fontSize },
-}: Theme) =>
+export const date = ({ color: { blueDarkGray }, typography: { fontSize } }: Theme) =>
   ({
     color: blueDarkGray[300],
     fontSize: fontSize[11],
@@ -68,10 +62,7 @@ export const image = {
 
 export const countLabel = [
   cssUtils.flexAlignCenter,
-  ({
-    color: { blueDarkGray },
-    typography: { fontSize, fontWeight },
-  }: Theme) => ({
+  ({ color: { blueDarkGray }, typography: { fontSize, fontWeight } }: Theme) => ({
     marginRight: '8px',
 
     '& > span': {

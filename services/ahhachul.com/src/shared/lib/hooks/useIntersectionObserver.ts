@@ -1,8 +1,5 @@
 import { useEffect } from 'react';
-import {
-  useInView,
-  type IntersectionOptions,
-} from 'react-intersection-observer';
+import { useInView, type IntersectionOptions } from 'react-intersection-observer';
 
 interface Props {
   callback: VoidFunction;

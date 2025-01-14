@@ -1,6 +1,8 @@
 import React from 'react';
+
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { CheckIcon, ChevronDownIcon } from '@radix-ui/react-icons';
+
 import * as styles from './Filter.css';
 
 export interface DropdownFilterProps<T extends Record<string, string>> {
@@ -27,10 +29,7 @@ export const DropdownFilter = <T extends Record<string, string>>({
       <DropdownMenu.Trigger asChild>
         <button data-active={isActive} css={styles.buttonFilter}>
           <span>{currentLabel}</span>
-          <ChevronDownIcon
-            className="arrow-down-img"
-            stroke={isActive ? '#fff' : '#4C5874'}
-          />
+          <ChevronDownIcon className="arrow-down-img" stroke={isActive ? '#fff' : '#4C5874'} />
         </button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content
@@ -41,16 +40,10 @@ export const DropdownFilter = <T extends Record<string, string>>({
       >
         <DropdownMenu.RadioGroup
           value={value as string}
-          onValueChange={(newValue) =>
-            handleChange(filterKey, newValue as T[keyof T])
-          }
+          onValueChange={newValue => handleChange(filterKey, newValue as T[keyof T])}
         >
           {Object.entries(optionList).map(([key, label]) => (
-            <DropdownMenu.RadioItem
-              key={key}
-              className="DropdownMenuRadioItem"
-              value={key}
-            >
+            <DropdownMenu.RadioItem key={key} className="DropdownMenuRadioItem" value={key}>
               <DropdownMenu.ItemIndicator className="DropdownMenuItemIndicator">
                 <CheckIcon />
               </DropdownMenu.ItemIndicator>

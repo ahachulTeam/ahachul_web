@@ -1,4 +1,9 @@
-import * as React from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { BlockWithAlignableContents } from '@lexical/react/LexicalBlockWithAlignableContents';
+import {
+  DecoratorBlockNode,
+  SerializedDecoratorBlockNode,
+} from '@lexical/react/LexicalDecoratorBlockNode';
 import type {
   DOMConversionMap,
   DOMConversionOutput,
@@ -10,11 +15,6 @@ import type {
   NodeKey,
   Spread,
 } from 'lexical';
-import { BlockWithAlignableContents } from '@lexical/react/LexicalBlockWithAlignableContents';
-import {
-  DecoratorBlockNode,
-  SerializedDecoratorBlockNode,
-} from '@lexical/react/LexicalDecoratorBlockNode';
 
 type YouTubeComponentProps = Readonly<{
   className: Readonly<{
@@ -26,18 +26,9 @@ type YouTubeComponentProps = Readonly<{
   videoID: string;
 }>;
 
-function YouTubeComponent({
-  className,
-  format,
-  nodeKey,
-  videoID,
-}: YouTubeComponentProps) {
+function YouTubeComponent({ className, format, nodeKey, videoID }: YouTubeComponentProps) {
   return (
-    <BlockWithAlignableContents
-      className={className}
-      format={format}
-      nodeKey={nodeKey}
-    >
+    <BlockWithAlignableContents className={className} format={format} nodeKey={nodeKey}>
       <iframe
         width="100%"
         height="185"
@@ -58,9 +49,7 @@ export type SerializedYouTubeNode = Spread<
   SerializedDecoratorBlockNode
 >;
 
-function convertYoutubeElement(
-  domNode: HTMLElement,
-): null | DOMConversionOutput {
+function convertYoutubeElement(domNode: HTMLElement): null | DOMConversionOutput {
   const videoID = domNode.getAttribute('data-lexical-youtube');
   if (videoID) {
     const node = $createYouTubeNode(videoID);
@@ -105,10 +94,7 @@ export class YouTubeNode extends DecoratorBlockNode {
     element.setAttribute('data-lexical-youtube', this.__id);
     element.setAttribute('width', '100%');
     element.setAttribute('height', '185');
-    element.setAttribute(
-      'src',
-      `https://www.youtube-nocookie.com/embed/${this.__id}`,
-    );
+    element.setAttribute('src', `https://www.youtube-nocookie.com/embed/${this.__id}`);
     element.setAttribute('frameborder', '0');
     element.setAttribute(
       'allow',

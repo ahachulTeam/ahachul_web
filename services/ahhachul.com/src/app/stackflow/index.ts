@@ -1,7 +1,8 @@
-import { stackflow } from '@stackflow/react';
 import { createLinkComponent } from '@stackflow/link';
+import '@stackflow/plugin-basic-ui/index.css';
 import { createPreloader } from '@stackflow/plugin-preload';
-import { plugins } from './plugins';
+import { stackflow } from '@stackflow/react';
+
 import {
   myLayers,
   homeLayers,
@@ -12,8 +13,7 @@ import {
   sharedLayers,
   signInLayers,
 } from './layers';
-
-import '@stackflow/plugin-basic-ui/index.css';
+import { plugins } from './plugins';
 
 type TypeActivities = typeof activities;
 
@@ -42,12 +42,4 @@ const { Stack, activities, useFlow, useStepFlow } = stackflow({
 });
 
 export * from '@stackflow/react';
-export {
-  Stack,
-  activities,
-  useFlow,
-  useStepFlow,
-  usePreloader,
-  Link,
-  type TypeActivities,
-};
+export { Stack, activities, useFlow, useStepFlow, usePreloader, Link, type TypeActivities };

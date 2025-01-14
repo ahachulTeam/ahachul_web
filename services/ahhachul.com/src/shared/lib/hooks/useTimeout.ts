@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+
 import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
 
 export const useTimeout = (fn: () => void, ms: number) => {

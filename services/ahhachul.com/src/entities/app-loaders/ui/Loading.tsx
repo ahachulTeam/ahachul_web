@@ -1,10 +1,11 @@
-import React, { useState, type PropsWithChildren } from 'react';
-import { Player } from '@lottiefiles/react-lottie-player';
+import { useState, type PropsWithChildren } from 'react';
 
-import { useTimeout } from 'shared/lib/hooks/useTimeout';
+import { Player } from '@lottiefiles/react-lottie-player';
 import { useDisableScroll } from 'shared/lib/hooks/useDisableScroll';
-import { Background } from 'shared/ui/Background/Background';
+import { useTimeout } from 'shared/lib/hooks/useTimeout';
 import animationData from 'shared/static/lottie/loading.json';
+import { Background } from 'shared/ui/Background/Background';
+
 import * as styles from './Loading.css';
 
 interface LoadingProps {

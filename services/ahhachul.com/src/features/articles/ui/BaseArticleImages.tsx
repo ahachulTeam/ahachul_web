@@ -1,10 +1,12 @@
-import React, { useReducer, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import { useReducer, useState } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 import type { ResponseOfImage } from 'entities/with-server';
-import { FullImageDialog } from './FullImageDialog';
+import { Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
 import * as styles from './BaseArticleImages.css';
+import { FullImageDialog } from './FullImageDialog';
 
 interface Props {
   label: string;
@@ -12,15 +14,8 @@ interface Props {
   canShowFullImageDialog?: boolean;
 }
 
-const BaseArticleImages = ({
-  label,
-  images,
-  canShowFullImageDialog = true,
-}: Props) => {
-  const [showFullImgDialog, toggletShowFullImgDialog] = useReducer(
-    (open) => !open,
-    false,
-  );
+const BaseArticleImages = ({ label, images, canShowFullImageDialog = true }: Props) => {
+  const [showFullImgDialog, toggletShowFullImgDialog] = useReducer(open => !open, false);
 
   const handleFullImageDialog = () => {
     if (!canShowFullImageDialog) return;

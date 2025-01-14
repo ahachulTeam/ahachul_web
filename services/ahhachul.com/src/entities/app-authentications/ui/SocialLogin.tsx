@@ -1,13 +1,12 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import { fadeInAndUpVariants } from 'shared/lib/config/animation/framer-motion';
 
 import { getRedirectUrl } from '../api';
-import { KakaoIcon } from '../static/icons/kakao';
-import { GoogleIcon } from '../static/icons/google';
 import type { ISocialSignInType } from '../model';
 import { AppleIcon } from '../static/icons/apple';
+import { GoogleIcon } from '../static/icons/google';
+import { KakaoIcon } from '../static/icons/kakao';
 
 export const SocialLogin = () => {
   const clickLogin = async (loginType: ISocialSignInType) => {

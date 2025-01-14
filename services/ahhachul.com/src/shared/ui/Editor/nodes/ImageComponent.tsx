@@ -1,19 +1,9 @@
-import React, {
-  Suspense,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import type {
-  BaseSelection,
-  LexicalCommand,
-  LexicalEditor,
-  NodeKey,
-} from 'lexical';
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
+
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { useLexicalNodeSelection } from '@lexical/react/useLexicalNodeSelection';
 import { mergeRegister } from '@lexical/utils';
+import type { BaseSelection, LexicalCommand, LexicalEditor, NodeKey } from 'lexical';
 import {
   $getNodeByKey,
   $getSelection,
@@ -29,17 +19,19 @@ import {
   KEY_ESCAPE_COMMAND,
   SELECTION_CHANGE_COMMAND,
 } from 'lexical';
-import ImageResizer from './ImageResizer';
+
 import { $isImageNode } from './ImageNode';
+import ImageResizer from './ImageResizer';
 
 const imageCache = new Set();
 
-export const RIGHT_CLICK_IMAGE_COMMAND: LexicalCommand<MouseEvent> =
-  createCommand('RIGHT_CLICK_IMAGE_COMMAND');
+export const RIGHT_CLICK_IMAGE_COMMAND: LexicalCommand<MouseEvent> = createCommand(
+  'RIGHT_CLICK_IMAGE_COMMAND',
+);
 
 function useSuspenseImage(src: string) {
   if (!imageCache.has(src)) {
-    throw new Promise((resolve) => {
+    throw new Promise(resolve => {
       const img = new Image();
       img.src = src;
       img.onload = () => {
@@ -98,8 +90,7 @@ export default function ImageComponent({
   width: 'inherit' | number;
 }): JSX.Element {
   const imageRef = useRef<null | HTMLImageElement>(null);
-  const [isSelected, setSelected, clearSelection] =
-    useLexicalNodeSelection(nodeKey);
+  const [isSelected, setSelected, clearSelection] = useLexicalNodeSelection(nodeKey);
   const [isResizing, setIsResizing] = useState<boolean>(false);
   const [editor] = useLexicalComposerContext();
   const [selection, setSelection] = useState<BaseSelection | null>(null);
@@ -161,10 +152,7 @@ export default function ImageComponent({
           $isRangeSelection(latestSelection) &&
           latestSelection.getNodes().length === 1
         ) {
-          editor.dispatchCommand(
-            RIGHT_CLICK_IMAGE_COMMAND,
-            event as MouseEvent,
-          );
+          editor.dispatchCommand(RIGHT_CLICK_IMAGE_COMMAND, event as MouseEvent);
         }
       });
     },
@@ -188,19 +176,11 @@ export default function ImageComponent({
         },
         COMMAND_PRIORITY_LOW,
       ),
-      editor.registerCommand<MouseEvent>(
-        CLICK_COMMAND,
-        onClick,
-        COMMAND_PRIORITY_LOW,
-      ),
-      editor.registerCommand<MouseEvent>(
-        RIGHT_CLICK_IMAGE_COMMAND,
-        onClick,
-        COMMAND_PRIORITY_LOW,
-      ),
+      editor.registerCommand<MouseEvent>(CLICK_COMMAND, onClick, COMMAND_PRIORITY_LOW),
+      editor.registerCommand<MouseEvent>(RIGHT_CLICK_IMAGE_COMMAND, onClick, COMMAND_PRIORITY_LOW),
       editor.registerCommand(
         DRAGSTART_COMMAND,
-        (event) => {
+        event => {
           if (event.target === imageRef.current) {
             // TODO This is just a temporary workaround for FF to behave like other browsers.
             // Ideally, this handles drag & drop too (and all browsers).
@@ -211,22 +191,10 @@ export default function ImageComponent({
         },
         COMMAND_PRIORITY_LOW,
       ),
-      editor.registerCommand(
-        KEY_DELETE_COMMAND,
-        onDelete,
-        COMMAND_PRIORITY_LOW,
-      ),
-      editor.registerCommand(
-        KEY_BACKSPACE_COMMAND,
-        onDelete,
-        COMMAND_PRIORITY_LOW,
-      ),
+      editor.registerCommand(KEY_DELETE_COMMAND, onDelete, COMMAND_PRIORITY_LOW),
+      editor.registerCommand(KEY_BACKSPACE_COMMAND, onDelete, COMMAND_PRIORITY_LOW),
       editor.registerCommand(KEY_ENTER_COMMAND, onEnter, COMMAND_PRIORITY_LOW),
-      editor.registerCommand(
-        KEY_ESCAPE_COMMAND,
-        onEscape,
-        COMMAND_PRIORITY_LOW,
-      ),
+      editor.registerCommand(KEY_ESCAPE_COMMAND, onEscape, COMMAND_PRIORITY_LOW),
     );
 
     rootElement?.addEventListener('contextmenu', onRightClick);
@@ -250,10 +218,7 @@ export default function ImageComponent({
     setSelected,
   ]);
 
-  const onResizeEnd = (
-    nextWidth: 'inherit' | number,
-    nextHeight: 'inherit' | number,
-  ) => {
+  const onResizeEnd = (nextWidth: 'inherit' | number, nextHeight: 'inherit' | number) => {
     // Delay hiding the resize bars for click case
     setTimeout(() => {
       setIsResizing(false);
@@ -280,9 +245,7 @@ export default function ImageComponent({
         <div draggable={draggable}>
           <LazyImage
             className={
-              isFocused
-                ? `focused ${$isNodeSelection(selection) ? 'draggable' : ''}`
-                : null
+              isFocused ? `focused ${$isNodeSelection(selection) ? 'draggable' : ''}` : null
             }
             src={src}
             altText={altText}

@@ -1,6 +1,8 @@
 import React, { type HTMLAttributes } from 'react';
+
 import { useCheckNickname } from 'features/users/lib/useCheckNickname';
 import InfoIcon from 'shared/static/icons/info';
+
 import * as styles from './NicknameSetup.css';
 
 interface NicknameSetupProps extends HTMLAttributes<HTMLFormElement> {
@@ -21,11 +23,7 @@ export const NicknameSetup = ({
     <form css={styles.form} onSubmit={handleSubmit} {...props}>
       <div css={styles.inputGroup}>
         <span>닉네임 설정</span>
-        <input
-          placeholder="닉네임"
-          onChange={handleChange}
-          aria-invalid={Boolean(errorMessage)}
-        />
+        <input placeholder="닉네임" onChange={handleChange} aria-invalid={Boolean(errorMessage)} />
         {errorMessage && (
           <p>
             <InfoIcon />

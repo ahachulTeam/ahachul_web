@@ -1,19 +1,18 @@
 import React, { useCallback, useEffect } from 'react';
+
 import styled from '@emotion/styled';
-import { $getRoot, EditorState } from 'lexical';
-import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
-import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
-import {
-  AutoLinkPlugin,
-  createLinkMatcherWithRegExp,
-} from '@lexical/react/LexicalAutoLinkPlugin';
-import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin';
-import { ContentEditable } from '@lexical/react/LexicalContentEditable';
+import { AutoLinkPlugin, createLinkMatcherWithRegExp } from '@lexical/react/LexicalAutoLinkPlugin';
+import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
-import * as styles from '../../../shared/ui/Editor/Editor.css';
+import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
+import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin';
+import { $getRoot, EditorState } from 'lexical';
 import { isIOS } from 'shared/lib/config/app-env';
+
+import * as styles from '../../../shared/ui/Editor/Editor.css';
 
 const URL_REGEX =
   /((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
@@ -22,10 +21,10 @@ const EMAIL_REGEX =
   /(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/;
 
 const MATCHERS = [
-  createLinkMatcherWithRegExp(URL_REGEX, (text) => {
+  createLinkMatcherWithRegExp(URL_REGEX, text => {
     return text.startsWith('http') ? text : `https://${text}`;
   }),
-  createLinkMatcherWithRegExp(EMAIL_REGEX, (text) => {
+  createLinkMatcherWithRegExp(EMAIL_REGEX, text => {
     return `mailto:${text}`;
   }),
 ];
@@ -147,9 +146,7 @@ const CommentTextField = React.memo(
                     css={{ padding: '15px 10px' }}
                   />
                 }
-                placeholder={
-                  <pre className="editor-placeholder">{placeholder}</pre>
-                }
+                placeholder={<pre className="editor-placeholder">{placeholder}</pre>}
                 ErrorBoundary={LexicalErrorBoundary}
               />
               <LinkPlugin />
@@ -169,6 +166,8 @@ const CommentTextField = React.memo(
     );
   },
 );
+
+CommentTextField.displayName = 'CommentTextField';
 
 interface OnChangePluginProps {
   readonly?: boolean;
@@ -218,13 +217,7 @@ export function OnChangePlugin({
   return null;
 }
 
-const SubmitField = ({
-  disabled,
-  onSubmit,
-}: {
-  disabled: boolean;
-  onSubmit: () => void;
-}) => {
+const SubmitField = ({ disabled, onSubmit }: { disabled: boolean; onSubmit: () => void }) => {
   const [editor] = useLexicalComposerContext();
 
   const handleSubmit = () => {

@@ -44,13 +44,9 @@ export const SecondaryButton = styled.button<{
   justify-content: center;
   border-radius: 9999px;
   font-size: 19px;
-  background-color: ${(props) =>
-    props.variant === 'primary'
-      ? '#4DAFFF'
-      : props.variant === 'danger'
-        ? '#FF3F40'
-        : '#F0F2F4'};
-  color: ${(props) => (props.variant === 'default' ? '#222222' : '#FFFFFF')};
+  background-color: ${props =>
+    props.variant === 'primary' ? '#4DAFFF' : props.variant === 'danger' ? '#FF3F40' : '#F0F2F4'};
+  color: ${props => (props.variant === 'default' ? '#222222' : '#FFFFFF')};
 `;
 
 export const SmoothSecondaryButton = styled(SmoothButton)`

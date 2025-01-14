@@ -16,10 +16,7 @@ export const btn_wrap = [
   cssUtils.sideGutter,
 ] as Interpolation<Theme>;
 
-export const btn = ({
-  color: { whiteAlpha },
-  typography: { fontWeight, lineHeight },
-}: Theme) =>
+export const btn = ({ color: { whiteAlpha }, typography: { fontWeight, lineHeight } }: Theme) =>
   ({
     flexShrink: 0,
     height: '36px',
