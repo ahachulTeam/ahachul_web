@@ -7,13 +7,13 @@ import {
 import { LostFoundPostDetail } from '../_components';
 
 type Props = {
-  params: {
+  params: Promise<{
     lostId: number;
-  };
+  }>;
 };
 
-export default function LostFoundDetailPage({ params }: Props) {
-  const { lostId } = params;
+export default async function LostFoundDetailPage({ params }: Props) {
+  const { lostId } = await params;
 
   return (
     <main className="flex min-h-screen flex-col text-black bg-white mb-[210px]">

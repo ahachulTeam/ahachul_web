@@ -1,5 +1,8 @@
-{
-  "extends": ["next/core-web-vitals"],
+module.exports = {
+  "extends": [
+    "../../.eslintrc.js", 
+    "next/core-web-vitals" 
+  ],
   "rules": {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "off",
