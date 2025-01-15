@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "@emotion/react",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "incremental": true,
+    "baseUrl": "src",
+    "types": ["vitest/globals"]
+  },
+  "include": ["**/*.ts", "**/*.ts", "**/*.tsx", "types/react-app-global.d.ts"],
+  "exclude": ["node_modules"]
+}
