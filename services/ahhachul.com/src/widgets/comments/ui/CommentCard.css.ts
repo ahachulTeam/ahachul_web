@@ -4,6 +4,7 @@ import cssUtils from 'shared/utils.css';
 export const wrap = (asChild: boolean) =>
   ({
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
     padding: '16px 20px',
     paddingLeft: asChild ? '40px' : '20px',
@@ -80,6 +81,10 @@ export const like = [
 ] as Interpolation<Theme>;
 
 export const dropdownMenu = css`
+  display: flex;
+  align-itmes: center;
+  justify-content: space-between;
+
   .DropdownMenuContent,
   .DropdownMenuSubContent {
     min-width: 125px;

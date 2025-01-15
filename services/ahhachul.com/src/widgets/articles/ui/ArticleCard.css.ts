@@ -1,11 +1,14 @@
 import type { CSSProperties } from 'react';
 
-import type { Interpolation, Theme } from '@emotion/react';
+import { css, type Interpolation, type Theme } from '@emotion/react';
 import cssUtils from 'shared/utils.css';
 
-export const card = {
-  padding: '12px 0',
-};
+export const card = css`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 0;
+`;
 
 export const name = ({ color: { text }, typography: { fontSize, fontWeight } }: Theme) =>
   ({

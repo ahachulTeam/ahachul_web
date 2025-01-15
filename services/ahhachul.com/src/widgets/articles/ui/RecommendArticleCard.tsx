@@ -3,8 +3,6 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link, type TypeActivities } from 'app/stackflow';
 import type { RecommendArticle } from 'features/articles';
 
-import { Flex } from '@ahhachul/react-components-layout';
-
 import * as styles from './RecommendArticleCard.css';
 
 interface Props {
@@ -15,15 +13,15 @@ interface Props {
 const RecommendArticleCard = ({ to, recommendArticle }: Props) => {
   return (
     <Link activityName={to} activityParams={{ articleId: recommendArticle.id }}>
-      <Flex as="article" direction="column" gap="6px" css={styles.card}>
-        <Flex direction="column">
+      <article css={styles.card}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div>
             <span css={styles.name}>
               {recommendArticle.writer === 'SYSTEM' ? 'LOST112' : recommendArticle.writer}
             </span>
             <time css={styles.date}>오후 3:00</time>
           </div>
-        </Flex>
+        </div>
         <div css={styles.info}>
           <span css={styles.body}>{recommendArticle.title}</span>
         </div>
@@ -40,7 +38,7 @@ const RecommendArticleCard = ({ to, recommendArticle }: Props) => {
             />
           </div>
         )}
-      </Flex>
+      </article>
     </Link>
   );
 };

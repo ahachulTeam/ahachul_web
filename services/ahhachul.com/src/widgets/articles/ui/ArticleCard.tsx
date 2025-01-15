@@ -9,8 +9,6 @@ import { formatDate } from 'shared/lib/utils/date/format-date';
 import { subwayLineHexColors } from 'widgets/train-infos/lib/subway-line-hex-colors';
 import { subwayLineToKrMap } from 'widgets/train-infos/lib/subway-line-to-kr';
 
-import { Flex } from '@ahhachul/react-components-layout';
-
 import * as styles from './ArticleCard.css';
 
 import { CommentCountIcon } from '../static/icons/comment-count';
@@ -26,14 +24,14 @@ export const ArticleCard = <TData extends Article>({ to, article }: ArticleCardP
 
   return (
     <Link activityName={to} activityParams={{ articleId: article.id }}>
-      <Flex as="article" direction="column" gap="12px" css={styles.card}>
-        <Flex direction="column">
+      <article css={styles.card}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div>
             <span css={styles.name}>{article.writer || 'LOST112'}</span>
             <time css={styles.date}>{formatDate(article.createdAt, false)}</time>
           </div>
-        </Flex>
-        <Flex justify="space-between">
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div css={styles.info}>
             <span css={styles.body}>{article.title}</span>
             {isPlainContent ? (
@@ -58,18 +56,18 @@ export const ArticleCard = <TData extends Article>({ to, article }: ArticleCardP
               />
             </div>
           )}
-        </Flex>
-        <Flex align="center" justify="space-between">
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div css={styles.subwayLineId(subwayLineHexColors(+article.subwayLineId))}>
             {subwayLineToKrMap[article.subwayLineId] || '기타 호선'}
           </div>
-          <Flex align="center">
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             <div css={styles.countLabel}>
               <CommentCountIcon /> <span>{article?.commentCnt}</span>
             </div>
-          </Flex>
-        </Flex>
-      </Flex>
+          </div>
+        </div>
+      </article>
     </Link>
   );
 };

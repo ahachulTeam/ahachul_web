@@ -2,8 +2,6 @@ import { useIsDeferred } from 'shared/lib/hooks/useIsDeferred';
 import { EllipsisIcon } from 'shared/static/icons/ellipsis';
 import { BaseSkeleton } from 'shared/ui/Skeleton/Skeleton';
 
-import { Flex } from '@ahhachul/react-components-layout';
-
 import * as listStyles from './BaseCommentList.css';
 import * as styles from './CommentCard.css';
 
@@ -13,15 +11,15 @@ const CommentListSuspenseFallback = () => {
   return !isDeferred ? (
     <ul css={listStyles.comments}>
       {new Array(5).fill('').map((_, idx) => (
-        <Flex key={idx} as="li" direction="column" css={styles.wrap(false)}>
-          <Flex as="article" direction="column">
-            <Flex justify="space-between" align="center">
+        <li key={idx} css={styles.wrap(false)}>
+          <article style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <BaseSkeleton width={50} height={14} radius={6} />
               <EllipsisIcon />
-            </Flex>
+            </div>
             <BaseSkeleton width={150} height={32} radius={6} />
-          </Flex>
-        </Flex>
+          </article>
+        </li>
       ))}
     </ul>
   ) : null;

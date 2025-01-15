@@ -2,6 +2,9 @@ import type { Interpolation, Theme } from '@emotion/react';
 import cssUtils from 'shared/utils.css';
 
 export const card = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '6px',
   padding: '12px 0',
   position: 'relative',
 } as Interpolation<Theme>;

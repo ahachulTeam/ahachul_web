@@ -9,8 +9,6 @@ import { useGetUserInfo } from 'features/users/api';
 import { formatDate } from 'shared/lib/utils/date/format-date';
 import { LikeIcon } from 'widgets/articles/static/icons/like';
 
-import { Flex } from '@ahhachul/react-components-layout';
-
 import * as styles from './CommentCard.css';
 import { CommentDropEllipsis } from './CommentDropEllipsis';
 
@@ -57,12 +55,12 @@ export const CommentCard = ({
   };
 
   return (
-    <Flex as="li" direction="column" css={styles.wrap(asChild)}>
-      <Flex as="article" direction="column">
-        <Flex justify="space-between" align="center" css={styles.dropdownMenu}>
+    <li css={styles.wrap(asChild)}>
+      <article style={{ display: 'flex', flexDirection: 'column' }}>
+        <div css={styles.dropdownMenu}>
           <span css={styles.name}>{comment.writer}</span>
           {isMyComment && <CommentDropEllipsis articleId={articleId} commentId={comment.id} />}
-        </Flex>
+        </div>
 
         {isPlainContent ? (
           <p css={styles.body}>{content}</p>
@@ -70,7 +68,7 @@ export const CommentCard = ({
           <ArticleContentParser content={content} overrideCss={styles.articleCardContentParser} />
         )}
         <span css={styles.date}>{formatDate(comment.createdAt)}</span>
-        <Flex align="center" justify="space-between">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           {!comment.upperCommentId && (
             <span css={styles.답글달기} onClick={handleReplyComment}>
               답글 달기
@@ -84,8 +82,8 @@ export const CommentCard = ({
               </>
             )}
           </div>
-        </Flex>
-      </Flex>
-    </Flex>
+        </div>
+      </article>
+    </li>
   );
 };

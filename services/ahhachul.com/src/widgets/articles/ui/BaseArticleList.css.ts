@@ -1,15 +1,19 @@
-import { Theme } from '@emotion/react';
+import { Theme, css } from '@emotion/react';
 import cssUtils from 'shared/utils.css';
 
-export const ul = {
-  '& > li:first-of-type': {
-    '& > article': { paddingTop: 0 },
-  },
+export const ul = css`
 
-  '& > li:not(:last-of-type)': {
-    borderBottom: '1px solid hsla(0, 0%, 100%, .06)',
-  },
-};
+  display: flex
+  flex-direction: column;
+
+  & > li:first-of-type {
+    & > article: { paddingTop: 0 }
+  };
+
+  & > li:not(:last-of-type) {
+    border-bottom: 1px solid hsla(0, 0%, 100%, .06);
+  }
+`;
 
 export const empty = [
   cssUtils.flexCenterCenter,

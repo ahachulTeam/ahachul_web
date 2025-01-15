@@ -4,8 +4,6 @@ import { TypeActivities } from 'app/stackflow';
 import type { Article } from 'features/articles';
 import { useDisableScroll } from 'shared/lib/hooks/useDisableScroll';
 
-import { Box, Flex } from '@ahhachul/react-components-layout';
-
 import { ArticleCard } from './ArticleCard';
 import * as styles from './BaseArticleList.css';
 import { FetchNextPage } from './FetchNextPage';
@@ -21,11 +19,7 @@ interface BaseArticleListProps<TData extends Article> extends HTMLAttributes<HTM
 const EmptyList = () => {
   useDisableScroll();
 
-  return (
-    <Box as="p" css={styles.empty}>
-      검색결과가 없어요.
-    </Box>
-  );
+  return <p css={styles.empty}>검색결과가 없어요.</p>;
 };
 
 export const BaseArticleList = <TData extends Article>({
@@ -39,20 +33,20 @@ export const BaseArticleList = <TData extends Article>({
   const isEmpty = data.length === 0;
 
   return (
-    <Box as="section" {...props}>
+    <section {...props}>
       {isEmpty && <EmptyList />}
       {!isEmpty && (
         <>
-          <Flex as="ul" direction="column" css={styles.ul}>
+          <ul css={styles.ul}>
             {data.map((article, idx) => (
               <li key={`${article.id}-${idx}`}>
                 <ArticleCard<TData> article={article} to={to} />
               </li>
             ))}
-          </Flex>
+          </ul>
           {hasNextPage && <FetchNextPage callback={() => !isFetchingNextPage && fetchNextPage()} />}
         </>
       )}
-    </Box>
+    </section>
   );
 };
