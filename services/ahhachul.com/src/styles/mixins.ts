@@ -91,7 +91,7 @@ const overflowHidden = css`
   mask-image: -webkit-radial-gradient(white, black);
 `;
 
-const overflowScroll = css`
+const overflowYScroll = css`
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   ::-webkit-scrollbar {
@@ -174,7 +174,7 @@ const mixins = {
   nowrap,
   cursorPointer,
   overflowHidden,
-  overflowScroll,
+  overflowYScroll,
   overflowXScroll,
   rootLineHeight,
   visuallyHidden,

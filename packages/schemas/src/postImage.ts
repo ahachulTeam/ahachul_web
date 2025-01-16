@@ -1,4 +1,4 @@
-export interface PostImage {
-  imageId: number;
-  imageUrl: string;
-}
+// export interface PostImage {
+//   imageId: number;
+//   imageUrl: string;
+// }

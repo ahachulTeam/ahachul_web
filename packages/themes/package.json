@@ -1,0 +1,26 @@
+{
+  "name": "@ahhachul/themes",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./themes.css": "./dist/themes.css"
+  },
+  "scripts": {
+    "build": "pnpm clean && pnpm build:js && pnpm build:type && pnpm build:css",
+    "build:js": "node build.js",
+    "build:type": "pnpm tsc --emitDeclarationOnly",
+    "build:css": "node ./scripts/build-css-module.js",
+    "clean": "rimraf dist"
+  },
+  "devDependencies": {
+    "@ahhachul/esbuild-config": "workspace:*",
+    "rimraf": "^6.0.1",
+    "typescript": "5.4.5"
+  }
+}

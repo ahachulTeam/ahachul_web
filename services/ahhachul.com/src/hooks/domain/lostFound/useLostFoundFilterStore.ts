@@ -1,6 +1,6 @@
 import type { LostFoundFilters } from '@ahhachul/schemas';
 
-import { APP_UNIQUE_FILTER_ID_LIST, DefaultLostFoundFilterValues } from '@/data/filter';
+import { APP_UNIQUE_FILTER_ID_LIST, DefaultLostFoundFilterValues } from '@/constants/filter';
 import { useActivity } from '@/stackflow';
 import { filterStore } from '@/stores';
 import { IFilterState } from '@/types/filter';

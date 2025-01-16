@@ -1,9 +1,11 @@
 import { css } from '@emotion/react';
 
+import theme from './theme';
+
 const globalStyles = css`
   @font-face {
     font-family: 'Pretendard';
-    src: url('../static/fonts/pretendard-variable.woff2') format('woff2');
+    src: url('../assets/fonts/pretendard-variable.woff2') format('woff2');
     font-weight: 45 920;
     font-style: normal;
     font-display: swap;
@@ -136,12 +138,12 @@ const globalStyles = css`
     height: -webkit-fill-available;
   }
   body {
-    ${theme.fonts.regular14};
+    ${theme.typography.fontSize[14]};
     min-height: -webkit-fill-available;
     font-family: Pretendard, system-ui;
-    color: ${theme.colors.black};
+    color: ${theme.color.black};
     line-height: 1;
-    background-color: ${theme.colors.white};
+    background-color: ${theme.color.white};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-y: overlay;
@@ -157,7 +159,6 @@ const globalStyles = css`
     -moz-osx-font-smoothing: grayscale;
   }
   a {
-    color: ${theme.colors.gray60};
     text-decoration: none;
     cursor: pointer;
   }
@@ -205,13 +206,9 @@ const globalStyles = css`
   ul {
     list-style: none;
   }
-  mark {
-    background-color: inherit;
-    color: ${theme.colors.blue20};
-  }
   pre {
     font-family: Pretendard, system-ui;
-    color: ${theme.colors.black};
+    color: ${theme.color.black};
   }
 `;
 

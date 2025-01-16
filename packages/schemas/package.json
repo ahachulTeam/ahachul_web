@@ -12,8 +12,5 @@
     "lint:etc:fix": "prettier src --write",
     "lint": "pnpm lint:es && pnpm lint:etc",
     "lint:fix": "pnpm lint:es:fix && pnpm lint:etc:fix"
-  },
-  "devDependencies": {
-    "@allwagelab/typescript-config": "^0.0.1"
   }
 }

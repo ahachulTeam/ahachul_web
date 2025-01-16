@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { TAB_STATE, TabState } from '@/data/todo';
-import { Todo, todos as initialTodos } from '@/mocks/todo';
+import { TAB_STATE, TabState } from '@/constants/todo';
+import { Todo, todos as initialTodos } from '@/mocks/handlers/todo';
 
 const useTodoList = () => {
   const [todos, setTodos] = useState<Todo[]>(initialTodos);
