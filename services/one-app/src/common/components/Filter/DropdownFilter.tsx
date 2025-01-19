@@ -1,26 +1,21 @@
 'use client';
 
 import React from 'react';
+
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
-import type { KeyOf } from '@/model';
-import { cn, objectEntries } from '@/common/utils';
 import { CheckIcon, ChevronDownIcon } from '@/common/assets/icons';
+import { cn, objectEntries } from '@/common/utils';
+import type { KeyOf } from '@/model';
 
-export interface DropdownFilterProps<
-  T extends Record<string, string>,
-  K extends KeyOf<T>,
-> {
+export interface DropdownFilterProps<T extends Record<string, string>, K extends KeyOf<T>> {
   name: K;
   filters: T;
   options: Record<string, string>;
   onSelect: (key: K, value: T[K]) => void;
 }
 
-export const DropdownFilter = <
-  T extends Record<string, string>,
-  K extends KeyOf<T>,
->({
+export const DropdownFilter = <T extends Record<string, string>, K extends KeyOf<T>>({
   filters,
   options,
   onSelect,
@@ -37,9 +32,7 @@ export const DropdownFilter = <
           data-active={isActive}
           className="flex h-[30px] shrink-0 items-center rounded-[1000px] border border-gray-20 bg-gray-10 px-[10px]"
         >
-          <span className="text-label-medium text-gray-90">
-            {options[activeValue]}
-          </span>
+          <span className="text-label-medium text-gray-90">{options[activeValue]}</span>
           <ChevronDownIcon />
         </button>
       </DropdownMenu.Trigger>
@@ -56,7 +49,7 @@ export const DropdownFilter = <
         >
           <DropdownMenu.RadioGroup
             value={activeValue as string}
-            onValueChange={(newValue) => onSelect(name, newValue as T[K])}
+            onValueChange={newValue => onSelect(name, newValue as T[K])}
           >
             {objectEntries(options).map(([val, label]) => (
               <DropdownMenu.RadioItem

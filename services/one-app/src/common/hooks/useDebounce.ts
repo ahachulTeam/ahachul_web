@@ -12,10 +12,7 @@ import { useRef, useEffect, useCallback } from 'react';
  * @returns 지연된 콜백 함수
  */
 
-export function useDebounce<T extends any[]>(
-  callback: (...params: T) => void,
-  delay: number,
-) {
+export function useDebounce<T extends any[]>(callback: (...params: T) => void, delay: number) {
   const callbackRef = useRef(callback);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 

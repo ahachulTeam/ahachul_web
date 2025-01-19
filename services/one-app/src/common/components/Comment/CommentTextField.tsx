@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
+
 import { EditorState } from 'lexical';
 
-import { cn } from '@/common/utils';
 import { Editor } from '@/app/(site)/_component/Editor';
+import { cn } from '@/common/utils';
 
 interface CommentTextFieldProps {
   placeholder: string;
@@ -61,3 +62,5 @@ export const CommentTextField = React.memo(
     );
   },
 );
+
+CommentTextField.displayName = 'CommentTextField';

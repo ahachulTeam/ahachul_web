@@ -1,20 +1,18 @@
 'use client';
 
-import React from 'react';
-import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import { useShallow } from 'zustand/shallow';
-
-import { cn } from '@/common/utils/cn';
-import { AuthService } from '@/common/service/AuthService';
-import { useTemporaryAuthStore } from '@/store/auth';
 
 import ArrowLeftIcon from '@/common/assets/icons/arrow-left';
 import SpinnerIcon from '@/common/assets/icons/loading-spinner';
+import { AuthService } from '@/common/service/AuthService';
+import { cn } from '@/common/utils/cn';
+import { useTemporaryAuthStore } from '@/store/auth';
 
 import { updateUser } from '../../my/_lib/updateUser';
-import { renderIndicatorIcon } from '../_lib/utils';
 import { useCheckNickname } from '../_lib/useCheckNickname';
+import { renderIndicatorIcon } from '../_lib/utils';
 
 const NicknameSetup = () => {
   const router = useRouter();
@@ -31,7 +29,7 @@ const NicknameSetup = () => {
   } = useCheckNickname();
 
   const { auth, reset: removeTemporaryAuth } = useTemporaryAuthStore(
-    useShallow((state) => ({
+    useShallow(state => ({
       auth: state.auth,
       reset: state.reset,
     })),

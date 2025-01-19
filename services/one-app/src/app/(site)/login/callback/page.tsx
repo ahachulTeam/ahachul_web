@@ -1,19 +1,21 @@
 'use client';
 
 import { Suspense, useRef, useEffect } from 'react';
+
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useShallow } from 'zustand/shallow';
 
-import { requestLogin } from '../_lib/requestLogin';
-import { useTemporaryAuthStore } from '@/store/auth';
-import { isValidSocialSignInType } from '@/model/Auth';
 import { AuthService } from '@/common/service/AuthService';
+import { isValidSocialSignInType } from '@/model/Auth';
+import { useTemporaryAuthStore } from '@/store/auth';
+
+import { requestLogin } from '../_lib/requestLogin';
 
 function LoginCallback() {
   const router = useRouter();
   const isLoadingRef = useRef(false);
   const { setTempAuth } = useTemporaryAuthStore(
-    useShallow((state) => ({
+    useShallow(state => ({
       setTempAuth: state.setTempAuth,
     })),
   );
@@ -27,11 +29,7 @@ function LoginCallback() {
       return;
     }
 
-    if (
-      !providerType ||
-      !providerCode ||
-      !isValidSocialSignInType(providerType)
-    ) {
+    if (!providerType || !providerCode || !isValidSocialSignInType(providerType)) {
       return;
     }
 

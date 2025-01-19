@@ -11,16 +11,68 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "test", "dev", "lint"]
+        "cacheableOperations": ["build", "test", "test:run", "test:coverage", "lint", "lint:fix"]
       }
     }
   },
   "targetDefaults": {
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
     "build": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "outputs": ["{projectRoot}/dist/**"]
+    },
+    "start": {
+      "dependsOn": ["build"],
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "dependsOn": ["^lint"],
+      "inputs": ["{projectRoot}/**/*.{js,ts,tsx}"]
+    },
+    "lint:fix": {
+      "dependsOn": ["^lint:fix"],
+      "inputs": ["{projectRoot}/**/*.{js,ts,tsx}"]
     },
     "test": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "cache": false,
+      "inputs": ["{projectRoot}/src/**/*.{js,ts,tsx}", "{projectRoot}/test/**/*.{js,ts,tsx}"]
+    },
+    "test:run": {
+      "dependsOn": ["^build"],
+      "cache": true,
+      "inputs": ["{projectRoot}/src/**/*.{js,ts,tsx}", "{projectRoot}/test/**/*.{js,ts,tsx}"]
+    },
+    "test:coverage": {
+      "dependsOn": ["^build"],
+      "cache": true,
+      "inputs": ["{projectRoot}/src/**/*.{js,ts,tsx}", "{projectRoot}/test/**/*.{js,ts,tsx}"],
+      "outputs": ["{projectRoot}/coverage/**"]
+    },
+    "test:playwright": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "inputs": ["{projectRoot}/src/**/*.{js,ts,tsx}", "{projectRoot}/e2e/**/*.{js,ts,tsx}"]
+    },
+    "test:playwright:ui": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "inputs": ["{projectRoot}/src/**/*.{js,ts,tsx}", "{projectRoot}/e2e/**/*.{js,ts,tsx}"]
+    },
+    "test:all": {
+      "dependsOn": ["^build", "test:run", "test:playwright"],
+      "cache": false
     }
+  },
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "!{projectRoot}/**/*.md"],
+    "production": ["default", "!{projectRoot}/**/*.spec.ts"]
+  },
+  "implicitDependencies": {
+    "**/.env.*local": "*"
   }
 }

@@ -2,8 +2,7 @@ import type { ComponentProps } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 
-interface SkeletonProps
-  extends Omit<ComponentProps<typeof Skeleton>, 'borderRadius'> {
+interface SkeletonProps extends Omit<ComponentProps<typeof Skeleton>, 'borderRadius'> {
   radius: number;
 }
 

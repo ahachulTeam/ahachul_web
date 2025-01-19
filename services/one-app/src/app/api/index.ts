@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosInstance, isAxiosError } from 'axios';
 
-import { AuthService } from '@/common/service';
 import { API_BASE_URL } from '@/common/constants';
+import { AuthService } from '@/common/service';
 import type { APIErrorResponse } from '@/model';
 
 // TODO, access_token 선택적으로 보내는 방안 모색 (axios type 확장)
@@ -9,7 +9,7 @@ import type { APIErrorResponse } from '@/model';
 
 const setInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use(
-    (config) => {
+    config => {
       const requestConfig = config;
 
       // Access Token 설정
@@ -25,8 +25,8 @@ const setInterceptor = (instance: AxiosInstance) => {
 
   // TODO, 응답 에러 처리 다듬기
   instance.interceptors.response.use(
-    (response) => response,
-    async (error) => {
+    response => response,
+    async error => {
       if (isAxiosError(error) && error.response?.data) {
         const { code } = error.response.data as APIErrorResponse;
 

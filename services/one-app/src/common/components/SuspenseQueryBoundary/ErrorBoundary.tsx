@@ -9,9 +9,7 @@ type ErrorFallbackProps = {
   reset: () => void;
 };
 
-type ErrorFallbackType =
-  | React.ReactNode
-  | ((props: ErrorFallbackProps) => React.ReactNode);
+type ErrorFallbackType = React.ReactNode | ((props: ErrorFallbackProps) => React.ReactNode);
 
 interface ErrorBoundaryProps {
   keys?: unknown[];
@@ -27,10 +25,7 @@ interface ErrorBoundaryState {
 
 const errorBoundaryInitialState = { hasError: false, error: null };
 
-export class BaseErrorBoundary extends React.Component<
-  ErrorBoundaryProps,
-  ErrorBoundaryState
-> {
+export class BaseErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = errorBoundaryInitialState;
@@ -41,18 +36,11 @@ export class BaseErrorBoundary extends React.Component<
     return { hasError: true, error };
   }
 
-  componentDidUpdate(
-    prevProps: ErrorBoundaryProps,
-    prevState: ErrorBoundaryState,
-  ) {
+  componentDidUpdate(prevProps: ErrorBoundaryProps, prevState: ErrorBoundaryState) {
     const { error } = this.state;
     const { keys } = this.props;
 
-    if (
-      error !== null &&
-      prevState.error !== null &&
-      isChangedArray(prevProps.keys, keys)
-    ) {
+    if (error !== null && prevState.error !== null && isChangedArray(prevProps.keys, keys)) {
       this.resetBoundary();
     }
   }

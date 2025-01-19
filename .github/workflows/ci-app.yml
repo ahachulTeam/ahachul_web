@@ -1,0 +1,67 @@
+name: CI-APP
+on:
+  pull_request:
+    paths:
+      - 'services/ahhachul.com/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DEFAULT_NODE_VERSION: '20.13.0'
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        timeout-minutes: 1
+        with:
+          node-version: ${{ env.DEFAULT_NODE_VERSION }}
+
+      - name: Install dependencies
+        uses: ./.github/actions/pnpm-install
+        timeout-minutes: 5
+
+      - name: Create .env file for ahhachul.com
+        timeout-minutes: 1
+        run: |
+          echo '${{ secrets.DEV_REACT_APP_CONFIG }}' > config.json
+          cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/ahhachul.com/.env
+
+      - name: Lint ahhachul.com
+        timeout-minutes: 3
+        run: pnpm lint:app
+        continue-on-error: false
+
+      - name: Test ahhachul.com
+        if: success()
+        timeout-minutes: 5
+        run: pnpm test:app
+        continue-on-error: false
+
+      - name: Build ahhachul.com
+        if: success()
+        timeout-minutes: 5
+        run: pnpm build:app
+        continue-on-error: false
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: services/ahhachul.com/coverage
+          retention-days: 7

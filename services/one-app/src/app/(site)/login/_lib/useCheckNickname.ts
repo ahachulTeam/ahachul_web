@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+
 import { useMutation } from '@tanstack/react-query';
 
-import { useDebounce } from '@/common/hooks';
 import { checkNickname } from '@/app/(site)/login/_lib';
+import { useDebounce } from '@/common/hooks';
 
 const MAX_LENGTH = 10;
 const MIN_LENGTH = 2;
@@ -27,13 +28,10 @@ export const useCheckNickname = () => {
 
   const isNicknameChecking = status === 'pending';
   const isValidateOk = nickname.length >= MIN_LENGTH && errorMessage === '';
-  const isValidateError =
-    isTouched && (nickname.length < MIN_LENGTH || errorMessage !== '');
+  const isValidateError = isTouched && (nickname.length < MIN_LENGTH || errorMessage !== '');
 
   const disabled =
-    errorMessage !== '' ||
-    nickname.length < MIN_LENGTH ||
-    nickname.length > MAX_LENGTH;
+    errorMessage !== '' || nickname.length < MIN_LENGTH || nickname.length > MAX_LENGTH;
 
   const lengthIndicator = `${nickname.length} / ${MAX_LENGTH}`;
 

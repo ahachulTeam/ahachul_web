@@ -1,13 +1,11 @@
 'use client';
 
-import React from 'react';
-
+import { BookmarkIcon } from '@/common/assets/icons';
 import {
   BaseCommentList,
   SuspenseQueryBoundary,
   CommentListSuspenseFallback,
 } from '@/common/components';
-import { BookmarkIcon } from '@/common/assets/icons';
 
 import { useGetLostFoundComments } from '../../_lib';
 

@@ -1,13 +1,21 @@
 {
-  "printWidth": 80,
-  "semi": true,
+  "arrowParens": "avoid",
+  "endOfLine": "auto",
   "singleQuote": true,
-  "eslintIntegration": true,
-  "useTabs": false,
-  "tabWidth": 2,
   "trailingComma": "all",
-  "arrowParens": "always",
-  "orderedImports": true,
-  "bracketSpacing": true,
-  "jsxBracketSameLine": false
+  "tabWidth": 2,
+  "useTabs": false,
+  "printWidth": 100,
+  "semi": true,
+  "importOrder": [
+    "^react(-dom)?(.*)$",
+    "<THIRD_PARTY_MODULES>",
+    "^@ahhachul/(.*)$",
+    "^@/(.*)$",
+    "^\\./(.*)$",
+    "^\\.\\./(.*)"
+  ],
+  "importOrderSeparation": true,
+  "importOrderParserPlugins": ["typescript", "decorators", "jsx"],
+  "plugins": ["@trivago/prettier-plugin-sort-imports"]
 }
