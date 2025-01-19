@@ -1,9 +1,10 @@
 name: CI
 on:
   pull_request:
-
+  paths:
+    - 'services/one-app/**'
 env:
-  DEFAULT_NODE_VERSION: '20.14.0'
+  DEFAULT_NODE_VERSION: '20.13.0'
 
 jobs:
   main:
