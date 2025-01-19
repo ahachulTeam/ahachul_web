@@ -2,8 +2,13 @@ import axios from 'axios';
 import { z } from 'zod';
 
 import { apiClient } from '@/app/api';
+<<<<<<< HEAD
 import { APIResponseCode, RESPONSE_MESSAGES } from '@/common/constants';
 import type { SocialSignInType } from '@/model';
+=======
+import type { SocialSignInType } from '@/model';
+import { APIResponseCode, RESPONSE_MESSAGES } from '@/common/constants';
+>>>>>>> develop
 
 const RedirectUrlResponseSchema = z.object({
   code: z.literal(APIResponseCode.SUCCESS),

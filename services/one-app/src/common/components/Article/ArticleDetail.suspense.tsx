@@ -1,8 +1,14 @@
 'use client';
 
+<<<<<<< HEAD
 import { useIsDeferred } from '@/common/hooks';
 import { cn } from '@/common/utils';
 
+=======
+import React from 'react';
+import { cn } from '@/common/utils';
+import { useIsDeferred } from '@/common/hooks';
+>>>>>>> develop
 import { BaseSkeleton } from '../BaseSkeleton';
 
 export const ArticleDetailSuspenseFallback = () => {
@@ -40,8 +46,23 @@ export const ArticleDetailSuspenseFallback = () => {
 
           {/* 본문 내용 스켈레톤 */}
           <div className="py-6 mb-3">
+<<<<<<< HEAD
             <BaseSkeleton width="60%" height={21} radius={6} className="mb-0.5" />
             <BaseSkeleton width="90%" height={21} radius={6} className="mb-0.5" />
+=======
+            <BaseSkeleton
+              width="60%"
+              height={21}
+              radius={6}
+              className="mb-0.5"
+            />
+            <BaseSkeleton
+              width="90%"
+              height={21}
+              radius={6}
+              className="mb-0.5"
+            />
+>>>>>>> develop
             <BaseSkeleton width="30%" height={21} radius={6} />
           </div>
         </div>

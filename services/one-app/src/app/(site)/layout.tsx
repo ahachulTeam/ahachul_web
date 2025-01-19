@@ -3,11 +3,18 @@ import 'react-lazy-load-image-component/src/effects/opacity.css';
 import type { Metadata } from 'next';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
+<<<<<<< HEAD
+=======
+import { cn } from '@/common/utils/cn';
+>>>>>>> develop
 import { RQProvider, MSWComponent } from '@/app/_components';
 import { Pretendard } from '@/common/assets/fonts/pretendard';
 import { cn } from '@/common/utils/cn';
 
 import '../globals.css';
+
+import '../globals.css';
+import 'react-lazy-load-image-component/src/effects/opacity.css';
 
 export const metadata: Metadata = {
   title: 'Create Next App',

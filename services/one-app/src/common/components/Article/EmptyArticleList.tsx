@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+import React from 'react';
+
+>>>>>>> develop
 import { EmptyGraphic } from '@/common/assets/graphics';
 
 export const EmptyArticleList = () => {

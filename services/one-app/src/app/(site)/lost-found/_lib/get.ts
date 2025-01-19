@@ -1,10 +1,19 @@
 'use client';
 
+<<<<<<< HEAD
 import { useSuspenseQuery, useSuspenseInfiniteQuery } from '@tanstack/react-query';
 
 import { apiClient } from '@/app/api';
 import { TIMESTAMP } from '@/common/constants';
 import { generateQueryKey, objectToQueryString } from '@/common/utils';
+=======
+import {
+  useSuspenseQuery,
+  useSuspenseInfiniteQuery,
+} from '@tanstack/react-query';
+
+import { apiClient } from '@/app/api';
+>>>>>>> develop
 import type {
   IResponse,
   ListResponseWithPagination,
@@ -12,6 +21,11 @@ import type {
   LostFoundPostDetail,
   LostFoundListParams,
 } from '@/model';
+<<<<<<< HEAD
+=======
+import { TIMESTAMP } from '@/common/constants';
+import { generateQueryKey, objectToQueryString } from '@/common/utils';
+>>>>>>> develop
 
 const getLostFoundList = (params: LostFoundListParams) =>
   apiClient.get<IResponse<ListResponseWithPagination<LostFoundPost>>>(
@@ -27,7 +41,11 @@ export const useGetLostFoundList = (params: LostFoundListParams) =>
         ...(pageParam && { pageToken: pageParam }),
       }),
     initialPageParam: '',
+<<<<<<< HEAD
     getNextPageParam: lastPage => lastPage.data.result.pageToken,
+=======
+    getNextPageParam: (lastPage) => lastPage.data.result.pageToken,
+>>>>>>> develop
     gcTime: TIMESTAMP.MINUTE,
     staleTime: TIMESTAMP.SECOND,
   });
@@ -40,5 +58,9 @@ export const useGetLostFoundDetail = (id: number) =>
     queryKey: generateQueryKey(['LOST_FOUND']).detail(id),
     queryFn: () => getLostFoundDetail(id),
     staleTime: 5 * TIMESTAMP.MINUTE,
+<<<<<<< HEAD
     select: res => res.data.result,
+=======
+    select: (res) => res.data.result,
+>>>>>>> develop
   });

@@ -3,7 +3,10 @@
 import React from 'react';
 
 import type { CommentList } from '@/model';
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
 import { CommentCard } from './CommentCard';
 import { EmptyCommentList } from './EmptyCommentList';
 
@@ -19,7 +22,11 @@ export const BaseCommentList = React.memo(({ commentsMap }: Props) => {
       {commentsMap.map(({ parentComment, childComments }) => (
         <React.Fragment key={parentComment.id}>
           <CommentCard comment={parentComment} />
+<<<<<<< HEAD
           {childComments.map(childComment => (
+=======
+          {childComments.map((childComment) => (
+>>>>>>> develop
             <CommentCard asChild key={childComment.id} comment={childComment} />
           ))}
         </React.Fragment>
@@ -27,5 +34,8 @@ export const BaseCommentList = React.memo(({ commentsMap }: Props) => {
     </>
   );
 });
+<<<<<<< HEAD
 
 BaseCommentList.displayName = 'BaseCommentList';
+=======
+>>>>>>> develop

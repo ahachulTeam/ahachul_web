@@ -25,12 +25,20 @@ const createFilterStoreWithPersist = <T extends StringRecord>(
   defaultValues: T,
   uniqueId: AppUniqueFilterId,
 ) => {
+<<<<<<< HEAD
   const createStore: FilterStoreCreator<T> = set => ({
+=======
+  const createStore: FilterStoreCreator<T> = (set) => ({
+>>>>>>> develop
     filters: defaultValues,
     activatedCount: 0,
     loaded: false,
     handleSelect: (key, value) => {
+<<<<<<< HEAD
       set(state => {
+=======
+      set((state) => {
+>>>>>>> develop
         const isDefaultValue = value === defaultValues[key];
         const wasDefaultValue = state.filters[key] === defaultValues[key];
 
@@ -52,7 +60,11 @@ const createFilterStoreWithPersist = <T extends StringRecord>(
   return create<FilterState<T>>()(
     persist(createStore, {
       name: `${filterKey}-${uniqueId}`,
+<<<<<<< HEAD
       onRehydrateStorage: () => state => {
+=======
+      onRehydrateStorage: () => (state) => {
+>>>>>>> develop
         if (state) {
           state.loaded = true;
         }

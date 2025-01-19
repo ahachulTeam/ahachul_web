@@ -13,7 +13,11 @@ export const useGetLostFoundComments = (articleId: number) =>
     queryKey: generateQueryKey(['LOST_FOUND']).comments(articleId),
     queryFn: () => getLostFoundComments(articleId),
     staleTime: 5 * TIMESTAMP.MINUTE, // default: 5분, 글 수정 시에는 따로 업데이트 관리
+<<<<<<< HEAD
     select: res => {
+=======
+    select: (res) => {
+>>>>>>> develop
       return res.data.result;
     },
   });
