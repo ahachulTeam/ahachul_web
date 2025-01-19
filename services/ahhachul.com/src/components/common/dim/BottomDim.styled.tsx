@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 
-/* z-index: ${({ theme }: { theme: Theme }) => theme.dimensions.zIndexes.nav - 1}; */
 export const BottomDim = styled.div`
   width: 100vw;
   max-width: 520px;
@@ -11,6 +10,7 @@ export const BottomDim = styled.div`
   bottom: 0;
   pointer-events: none;
   height: 200px;
+  z-index: ${({ theme }) => theme.zIndex.navbar - 1};
   background: linear-gradient(
     180deg,
     rgba(24, 24, 29, 0) 0%,

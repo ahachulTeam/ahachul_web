@@ -1,3 +1,3 @@
-export { ReactComponent as KakaoIcon } from './ic_kakao.svg';
-export { ReactComponent as AppleIcon } from './ic_apple.svg';
-export { ReactComponent as GoogleIcon } from './ic_google.svg';
+export { default as KakaoIcon } from './ic_kakao.svg?react';
+export { default as AppleIcon } from './ic_apple.svg?react';
+export { default as GoogleIcon } from './ic_google.svg?react';

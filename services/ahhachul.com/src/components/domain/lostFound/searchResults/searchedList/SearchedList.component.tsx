@@ -1,47 +1,56 @@
-import { useMemo } from 'react';
+import { UiComponent } from '@/components';
+import { useIntersectionObserver, useThrottle } from '@/hooks';
+import { useFetchLostFoundList } from '@/services/lostFound';
+import { StackFlow } from '@/stackflow';
+import { LostFoundFilters } from '@/types';
+import { extractInfinitePageData } from '@/utils';
 
-import type { LostFoundFilters } from '@ahhachul/schemas';
+import * as S from './SearchedList.styled';
 
-interface Props {
-  keyword: string | null;
+interface LostFoundSearchedListProps {
   filters: LostFoundFilters;
+  keyword?: string;
+  isScale?: boolean;
 }
 
-const LostFoundSearchedList = ({ keyword, filters }: Props) => {
-  const temporaryUserFavoriteLineId = 1; // TODO: 추후 유저가 즐겨찾는 역 설장하는 피쳐 개발 후 수정하기
-  const subwayLineId = useMemo(
-    () => formatSubwayLineId(filters.subwayLineId, temporaryUserFavoriteLineId),
-    [filters.subwayLineId],
-  );
-
-  const { data, hasNextPage, isFetchingNextPage, fetchNextPage } = useGetLostFoundList({
-    pageSize: 40,
+const LostFoundSearchedList = ({
+  keyword,
+  filters: { lostType, subwayLineId },
+  isScale,
+}: LostFoundSearchedListProps) => {
+  const { data, hasNextPage, isFetchingNextPage, fetchNextPage } = useFetchLostFoundList({
     keyword,
+    lostType,
     subwayLineId,
-    lostType: filters.lostType,
   });
 
-  const lostArticles = flattenInfinityList(data);
-  const intersectCallback = () => !isFetchingNextPage && fetchNextPage();
-  const { ref: loadMoreRef } = useIntersectionObserver({
-    callback: intersectCallback,
+  const lostArticles = extractInfinitePageData(data);
+
+  const throttledFetchNextPage = useThrottle(() => {
+    if (!isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, 500);
+
+  const { ref: observer } = useIntersectionObserver({
+    callback: throttledFetchNextPage,
   });
 
-  if (!lostArticles.length) return <EmptyArticleList />;
+  if (!lostArticles.length) return <UiComponent.EmptyList />;
 
   return (
-    <section>
-      {lostArticles.map((item, idx) => (
-        <Link key={`${item.id}${idx}`} href={`/lost-found/${item.id}`}>
-          <ArticleCard post={item} />
-        </Link>
+    <S.Section isScale={isScale}>
+      {lostArticles.map((post, idx) => (
+        <StackFlow.Link
+          key={`${post.id}${idx}`}
+          activityName="LostFoundDetailPage"
+          activityParams={{ id: post.id }}
+        >
+          <UiComponent.ListItem post={post} />
+        </StackFlow.Link>
       ))}
-      {hasNextPage && (
-        <span ref={loadMoreRef} className="visuallyHidden">
-          더 보기
-        </span>
-      )}
-    </section>
+      {hasNextPage && <S.ViewMore ref={observer}>더 보기</S.ViewMore>}
+    </S.Section>
   );
 };
 

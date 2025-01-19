@@ -14,11 +14,10 @@ export const Main = styled.main`
 interface ScrollableProps {
   navigationSlot?: boolean;
 }
-
-// padding-top: ${({ dimensions }: Theme) => dimensions.size.height.header};
-// padding-bottom: ${({ dimensions, navigationSlot = false }: Theme & ScrollableProps) =>
-//   navigationSlot ? dimensions.size.height.navbar : 0};
 export const Scrollable = styled.div<ScrollableProps>`
   ${mixins.flex1}
-  ${mixins.overflowScroll}
+  ${mixins.overflowYScroll}
+  
+  padding-bottom: ${({ theme, navigationSlot }) =>
+    navigationSlot ? theme.size.navbar.height_m : 0};
 `;

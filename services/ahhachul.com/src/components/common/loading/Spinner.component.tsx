@@ -1,12 +1,14 @@
 import { useState, type PropsWithChildren } from 'react';
 
 import { Player } from '@lottiefiles/react-lottie-player';
-import { useDisableScroll } from 'shared/lib/hooks/useDisableScroll';
-import { useTimeout } from 'shared/lib/hooks/useTimeout';
-import animationData from 'shared/static/lottie/loading.json';
-import { Background } from 'shared/ui/Background/Background';
+
+import animationData from '@/assets/lottie/loading.json';
+import { useDisableScroll } from '@/hooks';
+import useTimeout from '@/hooks/useTimemout';
 
 import * as S from './Spinner.styled';
+
+import { Dim } from '../dim';
 
 interface LoadingProps {
   opacity?: number;
@@ -26,8 +28,9 @@ const LoadingSpinner = ({
   useTimeout(() => setIsDeferred(true), deferredMs);
 
   if (!isDeferred) return null;
+
   return (
-    <Background opacity={opacity} isWhite={isWhite}>
+    <Dim opacity={opacity} isWhite={isWhite}>
       <Player
         loop
         autoplay
@@ -38,7 +41,7 @@ const LoadingSpinner = ({
         }}
       />
       {children}
-    </Background>
+    </Dim>
   );
 };
 

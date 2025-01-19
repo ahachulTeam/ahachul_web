@@ -40,7 +40,7 @@ function formatToShortDate(date: Date): string {
  *   - format이 'relative'인 경우 'n일 전'
  */
 export function formatDateTime(dateString: string, options: FormatOptions = {}): string {
-  const { format = 'short' } = options;
+  const { format = 'relative' } = options;
 
   const date = new Date(dateString);
   if (isNaN(date.getTime())) {

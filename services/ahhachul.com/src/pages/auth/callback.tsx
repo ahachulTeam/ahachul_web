@@ -1,73 +1,64 @@
-// 인가 코드 받는 페이지
-import { useRef, useEffect } from 'react';
+/* eslint-disable react/prop-types */
+import { useEffect } from 'react';
 
-import { ActivityComponentType } from '@stackflow/react';
-import { queryClient } from 'app/lib/react-query';
-import { useFlow } from 'app/stackflow';
-import { requestLogin } from 'entities/app-authentications/api';
-import { ISocialSignInType } from 'entities/app-authentications/model';
-import { useAuthStore, useTemporaryAuthStore } from 'entities/app-authentications/slice';
-import { GET_USER_INFO_QUERY_KEY } from 'features/users/api';
-import { Layout } from 'widgets';
+import type { ActivityComponentType } from '@stackflow/react';
 
-const OAuthCallbackPage: ActivityComponentType<{
+import * as api from '@/apis/request';
+import { LayoutComponent, UiComponent } from '@/components';
+import { useAuth } from '@/contexts';
+import { useFlow } from '@/stackflow';
+import { useTempAuth } from '@/stores';
+import type { SocialSignInType } from '@/types';
+
+interface SignInCallbackPageProps {
   type: string;
   code: string;
-  // eslint-disable-next-line react/prop-types
-}> = ({ params: { type, code } }) => {
+}
+
+const SignInCallbackPage: ActivityComponentType<SignInCallbackPageProps> = ({
+  params: { type, code },
+}) => {
   const { replace } = useFlow();
-  const isLoadingRef = useRef(false);
-  const { setToken } = useAuthStore();
-  const { setTempAuth } = useTemporaryAuthStore();
-
-  const handleLogin = async () => {
-    if (isLoadingRef.current) {
-      return;
-    }
-
-    if (!type || !code) {
-      return;
-    }
-
-    try {
-      isLoadingRef.current = true;
-      const result = await requestLogin({
-        providerType: type as ISocialSignInType,
-        providerCode: code,
-      });
-
-      const { accessToken, refreshToken, isNeedAdditionalUserInfo } = result.data.result;
-
-      if (!isNeedAdditionalUserInfo) {
-        // 아래 내용들 따로 모듈로 만들기
-        setToken({
-          accessToken,
-          refreshToken,
-        });
-        queryClient.invalidateQueries({ queryKey: GET_USER_INFO_QUERY_KEY });
-        window.alert('로그인 성공');
-        replace('Home', {}, { animate: false });
-      } else {
-        setTempAuth({ accessToken, refreshToken });
-        replace('SetupNickname', {});
-      }
-    } catch (error) {
-      console.error(error);
-      replace('SignIn', {});
-    } finally {
-      isLoadingRef.current = false;
-    }
-  };
+  const { authService } = useAuth();
+  const { setTempTokens } = useTempAuth();
 
   useEffect(() => {
-    handleLogin();
-  }, []);
+    const handleSignIn = async () => {
+      if (!type || !code) {
+        replace('SignInPage', {});
+        return;
+      }
+
+      try {
+        const response = await api.login({
+          providerType: type as SocialSignInType,
+          providerCode: code,
+        });
+
+        const { accessToken, refreshToken, isNeedAdditionalUserInfo } = response.result;
+
+        if (isNeedAdditionalUserInfo) {
+          setTempTokens({ accessToken, refreshToken });
+          replace('SetNickNamePage', {});
+          return;
+        }
+
+        authService.signIn({ accessToken, refreshToken });
+        replace('HomePage', {}, { animate: false });
+      } catch (error) {
+        console.error(error);
+        replace('SignInPage', {});
+      }
+    };
+
+    handleSignIn();
+  }, [type, code]);
 
   return (
-    <Layout>
-      <div></div>
-    </Layout>
+    <LayoutComponent.Base>
+      <UiComponent.LoadingSpinner opacity={0.1} />
+    </LayoutComponent.Base>
   );
 };
 
-export default OAuthCallbackPage;
+export default SignInCallbackPage;

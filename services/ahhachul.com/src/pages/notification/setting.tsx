@@ -1,5 +1,7 @@
+import { LayoutComponent } from '@/components';
+
 const NotificationSettingPage = () => {
-  return <div>setting</div>;
+  return <LayoutComponent.Base>NotificationSettingPage</LayoutComponent.Base>;
 };
 
 export default NotificationSettingPage;

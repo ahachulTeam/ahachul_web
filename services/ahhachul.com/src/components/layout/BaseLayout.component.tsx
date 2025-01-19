@@ -5,6 +5,7 @@ import { AppScreen } from '@stackflow/plugin-basic-ui';
 import { useShallow } from 'zustand/react/shallow';
 
 import { uiStore } from '@/stores';
+import { theme } from '@/styles';
 
 import * as S from './BaseLayout.styled';
 
@@ -16,7 +17,7 @@ const BaseLayout: React.FC<LayoutProps> = ({
   appBar,
   children,
   navigationSlot,
-  backgroundColor,
+  backgroundColor = theme.colors.white,
   ...props
 }) => {
   const scrollableRef = useRef<HTMLDivElement>(null);
@@ -29,19 +30,9 @@ const BaseLayout: React.FC<LayoutProps> = ({
   const customAppBar = useMemo(
     () => ({
       ...appBar,
-      // iconColor: themes.color.text[50],
-      // textColor: themes.color.text[50],
       onTopClick: handleScrollToTop,
     }),
     [appBar, handleScrollToTop],
-  );
-
-  const navbarConfig = useMemo(
-    () => ({
-      el: scrollableRef,
-      handleScrollToTop,
-    }),
-    [handleScrollToTop],
   );
 
   return (
@@ -52,7 +43,7 @@ const BaseLayout: React.FC<LayoutProps> = ({
         </S.Scrollable>
       </S.Main>
       {globalLoading && <UiComponent.LoadingSpinner />}
-      {navigationSlot && <UiComponent.GNB {...navbarConfig} />}
+      {navigationSlot && <UiComponent.GNB handleScrollToTop={handleScrollToTop} />}
     </AppScreen>
   );
 };

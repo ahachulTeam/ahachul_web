@@ -3,6 +3,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { AnimatePresence } from 'motion/react';
 import { Subject, debounceTime } from 'rxjs';
 
+import { SearchIcon } from '@/assets/icons/system';
 import type { AppUniqueFilterId } from '@/types/filter';
 
 import useSearchInput from './SearchInput.hook';
@@ -87,7 +88,9 @@ const SearchInput: React.FC<SearchInputProps> = ({ uniqueId, toggleScale }) => {
 
   return (
     <S.Form onSubmit={handleFormSubmit}>
-      <S.SearchIconWrapper type="submit">{/* <SearchIcon /> */}</S.SearchIconWrapper>
+      <S.SearchIconWrapper type="submit">
+        <SearchIcon />
+      </S.SearchIconWrapper>
       <S.SearchInput
         ref={inputRef}
         name="search"

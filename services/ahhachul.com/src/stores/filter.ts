@@ -1,11 +1,20 @@
 import { create, StateCreator } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import type { IFilterState, AppUniqueFilterId } from '@/types/filter';
+import { RecordWithPrimitives } from '@/types';
+import type { AppUniqueFilterId } from '@/types/filter';
 
-type FilterStoreCreator<T extends Record<string, string>> = StateCreator<IFilterState<T>>;
+export interface IFilterState<T extends RecordWithPrimitives> {
+  filters: T;
+  loaded: boolean;
+  activatedCount: number;
+  handleSelect: (key: keyof T, value: T[keyof T]) => void;
+  handleReset: () => void;
+}
 
-const createFilterStoreWithPersist = <T extends Record<string, string>>(
+type FilterStoreCreator<T extends RecordWithPrimitives> = StateCreator<IFilterState<T>>;
+
+const createPersistentFilterStore = <T extends RecordWithPrimitives>(
   defaultValues: T,
   uniqueId: AppUniqueFilterId,
 ) => {
@@ -45,4 +54,4 @@ const createFilterStoreWithPersist = <T extends Record<string, string>>(
   );
 };
 
-export default createFilterStoreWithPersist;
+export default createPersistentFilterStore;

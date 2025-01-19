@@ -1,5 +1,7 @@
+import { LayoutComponent } from '@/components';
+
 const SettingPage = () => {
-  return <div>setting</div>;
+  return <LayoutComponent.Base>SettingPage</LayoutComponent.Base>;
 };
 
 export default SettingPage;

@@ -14,6 +14,6 @@ export const Dim = styled.div`
     width: 100%;
     height: 100%;
     background-color: ${theme.colors.dim};
-    z-index: ${theme.zIndex.modal};
+    z-index: ${theme.zIndex.drawer};
   `}
 `;

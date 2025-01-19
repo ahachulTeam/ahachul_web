@@ -1,8 +1,6 @@
-import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
-import { StackFlow } from '@/stackflow';
-
-export const Brand = styled(StackFlow.Link)`
+export const logoStyle = css`
   display: flex;
   align-items: center;
   height: 36px;

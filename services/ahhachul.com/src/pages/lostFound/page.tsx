@@ -5,11 +5,6 @@ import type { ActivityComponentType } from '@stackflow/react';
 import { HeaderComponent, LayoutComponent, UiComponent } from '@/components';
 import { LostFoundComponent } from '@/components/domain';
 import { useLostFoundFilters } from '@/hooks/domain';
-import { mixins } from '@/styles';
-
-// interface LostFoundProps {
-//   keyword?: string;
-// }
 
 const LostFoundPage: ActivityComponentType = () => {
   const [isScale, toggleScale] = useReducer(scale => !scale, false);
@@ -36,14 +31,12 @@ const LostFoundPage: ActivityComponentType = () => {
       <UiComponent.SuspenseQueryBoundary
         keys={boundaryKeys}
         errorFallback={<div />}
-        suspenseFallback={<div />}
+        suspenseFallback={<LostFoundComponent.SearchedListSkeleton isScale={isScale} />}
       >
-        <LostFoundComponent.SearchedList
-          keyword={keyword}
-          filters={filters}
-          css={mixins.animatedLayout(isScale)}
-        />
+        <LostFoundComponent.SearchedList keyword={keyword} filters={filters} isScale={isScale} />
       </UiComponent.SuspenseQueryBoundary>
+
+      <UiComponent.NewButton activityName="NewLostFoundPage" />
     </LayoutComponent.Composed>
   );
 };

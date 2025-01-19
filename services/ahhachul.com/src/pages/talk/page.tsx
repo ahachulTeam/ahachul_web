@@ -1,5 +1,7 @@
+import { LayoutComponent } from '@/components';
+
 const TalkPage = () => {
-  return <div>page</div>;
+  return <LayoutComponent.Base>TalkPage</LayoutComponent.Base>;
 };
 
 export default TalkPage;

@@ -1,13 +1,13 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
 interface PortalProps {
   children: ReactNode;
-  elementId: string;
   mounted: boolean;
+  elementId?: string;
 }
 
-const Portal = ({ children, elementId, mounted }: PortalProps) => {
+const Portal = ({ children, elementId = 'modal-root', mounted }: PortalProps) => {
   if (mounted) {
     const portal = document.getElementById(elementId);
 

@@ -1,6 +1,8 @@
+import styled from '@emotion/styled';
 import type { ActivityComponentType } from '@stackflow/react';
 
-import { HeaderComponent, LayoutComponent } from '@/components';
+import { HeaderComponent, HomeComponent, LayoutComponent } from '@/components';
+import { mixins } from '@/styles';
 
 const HomePage: ActivityComponentType = () => {
   return (
@@ -12,13 +14,20 @@ const HomePage: ActivityComponentType = () => {
         renderRight: HeaderComponent.HeaderActions,
       }}
     >
-      <div>hi</div>
-      {/* <CTAFlows css={styles.ctaFlowsLayout} />
-      <CheerUpPhrase css={styles.cheerUpPhraseLayout} />
-      <TrainInfo />
-      <Footer /> */}
+      <S.Container>
+        <HomeComponent.WelcomeMessage />
+      </S.Container>
     </LayoutComponent.Base>
   );
+};
+
+const S = {
+  Container: styled.div`
+    ${mixins.fullWidth};
+    ${mixins.flexColumn};
+    ${mixins.pagePaddingTop};
+    ${mixins.pagePaddingBottom};
+  `,
 };
 
 export default HomePage;

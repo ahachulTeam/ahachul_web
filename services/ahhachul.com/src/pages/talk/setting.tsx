@@ -1,5 +1,7 @@
+import { LayoutComponent } from '@/components';
+
 const TalkSettingPage = () => {
-  return <div>setting</div>;
+  return <LayoutComponent.Base>TalkSettingPage</LayoutComponent.Base>;
 };
 
 export default TalkSettingPage;

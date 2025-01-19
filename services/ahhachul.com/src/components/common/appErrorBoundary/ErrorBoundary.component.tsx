@@ -1,9 +1,11 @@
 import React from 'react';
 
+import type { AxiosError } from 'axios';
+
 import { isChangedArray } from '@/utils';
 
 type ErrorFallbackProps = {
-  error: Error;
+  error: AxiosError;
   reset: () => void;
 };
 
@@ -18,7 +20,7 @@ interface ErrorBoundaryProps {
 
 interface ErrorBoundaryState {
   hasError: boolean;
-  error: Error | null;
+  error: AxiosError | null;
 }
 
 const errorBoundaryInitialState = { hasError: false, error: null };
@@ -29,7 +31,7 @@ class BaseErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundar
     this.state = errorBoundaryInitialState;
   }
 
-  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+  static getDerivedStateFromError(error: AxiosError): ErrorBoundaryState {
     console.error(error);
     return { hasError: true, error };
   }

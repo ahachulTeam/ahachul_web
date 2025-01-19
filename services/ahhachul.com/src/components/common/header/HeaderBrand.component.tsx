@@ -1,12 +1,13 @@
-import { LogoIcon } from 'components/icons/logo';
+import { SmallLogeIcon } from '@/assets/icons/system';
+import { StackFlow } from '@/stackflow';
 
 import * as S from './HeaderBrand.styled';
 
 const HeaderBrand = () => {
   return (
-    <S.Brand activityName="HomePage" activityParams={{}}>
-      <LogoIcon />
-    </S.Brand>
+    <StackFlow.Link activityName="HomePage" activityParams={{}} css={S.logoStyle}>
+      <SmallLogeIcon />
+    </StackFlow.Link>
   );
 };
 

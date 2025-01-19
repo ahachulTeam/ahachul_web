@@ -1,17 +1,18 @@
-import type { LostFoundFilters } from '@ahhachul/schemas';
-
-import { APP_UNIQUE_FILTER_ID_LIST, DefaultLostFoundFilterValues } from '@/constants/filter';
+import { defaultLostFoundFilterValues } from '@/constants';
+import { APP_UNIQUE_FILTER_ID_LIST } from '@/constants/filter';
 import { useActivity } from '@/stackflow';
 import { filterStore } from '@/stores';
-import { IFilterState } from '@/types/filter';
+import type { IFilterState } from '@/stores/filter';
+import type { LostFoundFilters } from '@/types/lostFound';
 
 const useLostFoundFilters = () => {
   const {
     params: { keyword },
   } = useActivity();
+
   const { filters, loaded, activatedCount, handleSelect, handleReset } =
     filterStore<LostFoundFilters>(
-      DefaultLostFoundFilterValues,
+      defaultLostFoundFilterValues,
       APP_UNIQUE_FILTER_ID_LIST.LostFoundPage,
     )();
 

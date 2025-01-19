@@ -7,17 +7,16 @@ interface NavItemProps {
   handleScrollToTop: VoidFunction;
 }
 
-export const NavItem = ({ item, handleScrollToTop }: NavItemProps) => {
-  const {
-    label,
-    //  icon: Icon
-  } = item;
-  const { isSame, handleTabClick } = useNavItem({ item, handleScrollToTop });
+const NavItem = ({ item, handleScrollToTop }: NavItemProps) => {
+  const { label, icon: Icon, activeIcon: ActivatedIcon } = item;
+  const { isActive, handleTabClick } = useNavItem({ item, handleScrollToTop });
 
   return (
-    <S.NavItemButton isActive={isSame} onClick={handleTabClick}>
-      {/* {Icon} */}
+    <S.NavItemButton isActive={isActive} onClick={handleTabClick}>
+      {isActive ? ActivatedIcon : Icon}
       <span>{label}</span>
     </S.NavItemButton>
   );
 };
+
+export default NavItem;

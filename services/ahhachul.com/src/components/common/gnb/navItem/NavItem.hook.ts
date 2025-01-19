@@ -12,26 +12,26 @@ export const useNavItem = ({
   handleScrollToTop?: VoidFunction;
 }) => {
   const activity = useActivity();
-  const isSame = activity.name === item.href;
+
+  const isActive = activity.name === item.href;
 
   const { replace } = useFlow();
-  const handleHapticFeedback = useCallback(() => {
-    // if (isWebView()) {
-    // nativeMethodUtils.haptic();
-    // }
-  }, []);
+
+  const handleHapticFeedback = useCallback(() => {}, []);
+
   const handleTabClick = () => {
-    if (isSame) {
+    if (isActive) {
       handleScrollToTop?.();
-      return false;
+      return;
     }
 
     handleHapticFeedback();
+
     replace(item.href, {}, { animate: false });
   };
 
   return {
-    isSame,
+    isActive,
     handleTabClick,
   };
 };

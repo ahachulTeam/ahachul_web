@@ -20,7 +20,7 @@ export const CenterLogoGroup = styled.div`
     gap: 8px;
 
     & > span {
-      color: ${({ theme }) => theme.color.text[50]};
+      color: ${({ theme }) => theme.colors.white};
       font-size: 16px;
     }
   }

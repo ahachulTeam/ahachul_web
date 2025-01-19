@@ -1,6 +1,6 @@
 import { Global, ThemeProvider } from '@emotion/react';
 
-import { QueryClientProvider } from '@/contexts';
+import { QueryClientProvider, AuthProvider } from '@/contexts';
 import { StackFlow } from '@/stackflow';
 import { globalStyles, theme } from '@/styles';
 
@@ -13,9 +13,11 @@ function App() {
   return (
     <QueryClientProvider>
       <Global styles={globalStyles} />
-      <ThemeProvider theme={theme}>
-        <StackFlow.Routes />
-      </ThemeProvider>
+      <AuthProvider>
+        <ThemeProvider theme={theme}>
+          <StackFlow.Routes />
+        </ThemeProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

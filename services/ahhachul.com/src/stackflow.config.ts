@@ -5,22 +5,23 @@ import { basicRendererPlugin } from '@stackflow/plugin-renderer-basic';
 
 import { PATH } from '@/constants/path';
 
+import { theme } from './styles';
+
 export const stackflowPlugin = [
   basicRendererPlugin(),
   basicUIPlugin({
-    rootClassName: 'ahhachul',
     theme: 'cupertino',
-    // appBar: {
-    //   height: themes.dimensions.size.height.header,
-    //   borderColor: themes.color.background[50],
-    // },
+    appBar: {
+      height: theme.size.header.height_m,
+      borderSize: '0px',
+    },
   }),
   historySyncPlugin({
     routes: {
       // sign-in pages
-      LoginPage: PATH.auth.login,
-      OAuthCallbackPage: PATH.auth.callback,
-      SetNamePage: PATH.auth.settings.nickname,
+      SignInPage: PATH.auth.login,
+      SignInCallbackPage: PATH.auth.callback,
+      SetNickNamePage: PATH.auth.settings.nickname,
 
       // my pages
       MyPage: PATH.me.home,

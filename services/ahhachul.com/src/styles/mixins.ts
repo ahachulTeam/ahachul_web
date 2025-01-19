@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { fadeIn } from './animate';
+import { fadeIn } from './keyframes';
 
 const grid = css`
   display: grid;
@@ -123,6 +123,18 @@ const visuallyHidden = css`
   overflow: hidden;
 `;
 
+const clearHidden = css`
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  white-space: normal;
+  clip: auto;
+  overflow: auto;
+`;
+
 const truncate = css`
   overflow: hidden;
   text-overflow: ellipsis;
@@ -146,10 +158,18 @@ const sideGutter = css`
   padding-right: 20px;
 `;
 
+const pagePaddingTop = css`
+  padding-top: 16px;
+`;
+
+const pagePaddingBottom = css`
+  padding-bottom: 120px;
+`;
+
 const animatedLayout = (isScaled = false) => css`
   ${sideGutter}
   animation: 0.3s forwards ${fadeIn};
-  padding-top: 100px;
+  padding-top: 99px;
   transform: ${isScaled ? 'translateY(-50px)' : 'translateY(0)'};
   transition: transform 0.4s ease;
 `;
@@ -178,8 +198,11 @@ const mixins = {
   overflowXScroll,
   rootLineHeight,
   visuallyHidden,
+  clearHidden,
   truncate1,
   truncate2,
+  pagePaddingTop,
+  pagePaddingBottom,
   sideGutter,
   animatedLayout,
 };

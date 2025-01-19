@@ -8,8 +8,8 @@ import * as S from './SocialLogin.styled';
 const SocialLogin = () => {
   const clickLogin = async (loginType: SocialSignInType) => {
     try {
-      const data = await fetchRedirectUrl(loginType);
-      window.location.assign(data.result.redirectUrl);
+      const response = await fetchRedirectUrl(loginType);
+      window.location.assign(response.result.redirectUrl);
     } catch (error) {
       window.alert('로그인 정보를 불러오는데 실패했어요.');
     }

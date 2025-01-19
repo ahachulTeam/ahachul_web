@@ -1,3 +1,3 @@
-export { default as LoginPage } from './login';
-export { default as SetNamePage } from './set-name';
-export { default as OAuthCallbackPage } from './callback';
+export { default as SignInPage } from './login';
+export { default as SetNickNamePage } from './set-nickname';
+export { default as SignInCallbackPage } from './callback';

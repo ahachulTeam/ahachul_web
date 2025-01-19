@@ -1,14 +1,14 @@
 import React from 'react';
 
-import type { LostFoundFilters } from '@ahhachul/schemas';
-
 import { UiComponent } from '@/components';
+import { lostFoundFilterKeys, lostFoundTypeOptions, subwayLineFilterOptions } from '@/constants';
 import { useActivity } from '@/stackflow';
-import type { IFilterState } from '@/types/filter';
+import type { IFilterState } from '@/stores/filter';
+import type { LostFoundFilters as TypeLostFoundFilters } from '@/types/lostFound';
 
 import * as S from './LostFoundFilters.styled';
 
-interface LostFoundFilterListProps extends Omit<IFilterState<LostFoundFilters>, 'loaded'> {
+interface LostFoundFilterListProps extends Omit<IFilterState<TypeLostFoundFilters>, 'loaded'> {
   isScale: boolean;
   toggleScale: () => void;
 }
@@ -32,6 +32,18 @@ const LostFoundFilters: React.FC<LostFoundFilterListProps> = ({
           <UiComponent.FilterActions
             activeFilterCount={activatedCount}
             removeAllFilterControl={handleReset}
+          />
+          <UiComponent.DropdownFilter
+            filters={filters}
+            name={lostFoundFilterKeys.lostType}
+            options={lostFoundTypeOptions}
+            onSelect={handleSelect}
+          />
+          <UiComponent.DropdownFilter
+            filters={filters}
+            name={lostFoundFilterKeys.subwayLineId}
+            options={subwayLineFilterOptions}
+            onSelect={handleSelect}
           />
         </S.FilterListWrap>
       </S.FilterGroup>

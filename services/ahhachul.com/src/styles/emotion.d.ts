@@ -1,6 +1,6 @@
 import '@emotion/react';
 
-import { theme } from '@/styles';
+import { theme } from './theme';
 
 type DefaultTheme = typeof theme;
 

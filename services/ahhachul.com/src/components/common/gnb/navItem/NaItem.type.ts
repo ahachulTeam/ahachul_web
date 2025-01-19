@@ -4,5 +4,6 @@ import type { KeyOf } from '@/types/common';
 export interface NavItem {
   href: KeyOf<TypeActivities>;
   label: string;
-  // icon: React.ReactNode;
+  icon: React.ReactNode;
+  activeIcon: React.ReactNode;
 }

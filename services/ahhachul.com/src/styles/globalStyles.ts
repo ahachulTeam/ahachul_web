@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import theme from './theme';
+import { theme } from './theme';
 
 const globalStyles = css`
   @font-face {
@@ -11,10 +11,6 @@ const globalStyles = css`
     font-display: swap;
   }
 
-  html {
-    /* 1rem = 10px */
-    font-size: 62.5%;
-  }
   html,
   body,
   div,
@@ -138,12 +134,12 @@ const globalStyles = css`
     height: -webkit-fill-available;
   }
   body {
-    ${theme.typography.fontSize[14]};
+    ${theme.fonts.bodyMedium};
     min-height: -webkit-fill-available;
     font-family: Pretendard, system-ui;
-    color: ${theme.color.black};
+    color: ${theme.colors.black};
     line-height: 1;
-    background-color: ${theme.color.white};
+    background-color: ${theme.colors.white};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-y: overlay;
@@ -159,6 +155,7 @@ const globalStyles = css`
     -moz-osx-font-smoothing: grayscale;
   }
   a {
+    color: ${theme.colors.black};
     text-decoration: none;
     cursor: pointer;
   }
@@ -194,7 +191,6 @@ const globalStyles = css`
   button:focus-visible,
   a:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(106, 173, 164, 0.65) inset;
   }
   dialog {
     border: 0;
@@ -208,7 +204,7 @@ const globalStyles = css`
   }
   pre {
     font-family: Pretendard, system-ui;
-    color: ${theme.color.black};
+    color: ${theme.colors.black};
   }
 `;
 

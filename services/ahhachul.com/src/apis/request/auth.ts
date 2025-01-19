@@ -1,8 +1,14 @@
-import ax from '@/apis/fetcher';
-import type * as type from '@/types';
+import axiosInstance from '@/apis/fetcher';
+import type {
+  ApiResponse,
+  SocialSignInType,
+  RedirectUrl,
+  SignInRequestDto,
+  SignInResponseDto,
+} from '@/types';
 
-export const fetchRedirectUrl = async (providerType: type.SocialSignInType) => {
-  const { data } = await ax.get<type.IResponse<type.APIRedirectUrlResponse>>('/auth/redirect-url', {
+export const fetchRedirectUrl = async (providerType: SocialSignInType) => {
+  const { data } = await axiosInstance.get<ApiResponse<RedirectUrl>>('/auth/redirect-url', {
     params: {
       providerType,
     },
@@ -10,3 +16,11 @@ export const fetchRedirectUrl = async (providerType: type.SocialSignInType) => {
 
   return data;
 };
+
+export const login = async (req: SignInRequestDto) => {
+  const { data } = await axiosInstance.post<ApiResponse<SignInResponseDto>>('/auth/login', req);
+
+  return data;
+};
+
+export const logout = () => axiosInstance.post('/signout');

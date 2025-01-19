@@ -9,7 +9,7 @@ interface ModalProps {
 
 const Modal = ({ mounted, children }: ModalProps) => {
   return (
-    <Portal elementId="modal-root" mounted={mounted}>
+    <Portal mounted={mounted}>
       <S.Dim>{children}</S.Dim>
     </Portal>
   );

@@ -1,5 +1,7 @@
+import { LayoutComponent } from '@/components';
+
 const NotificationPage = () => {
-  return <div>page</div>;
+  return <LayoutComponent.Base>NotificationPage</LayoutComponent.Base>;
 };
 
 export default NotificationPage;

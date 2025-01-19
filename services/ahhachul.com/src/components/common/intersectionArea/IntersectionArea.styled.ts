@@ -1,10 +1,9 @@
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { mixins } from '@/styles';
+
 export const ViewMore = styled.div`
-  ${({ theme }) => css`
-    & > span {
-      ${theme.a11y.visuallyHidden};
-    }
-  `}
+  & > span {
+    ${mixins.visuallyHidden};
+  }
 `;

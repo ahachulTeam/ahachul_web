@@ -1,15 +1,14 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-
-import { StackFlow } from '@/stackflow';
 
 export const Container = styled.nav`
   display: grid;
   grid-template-columns: repeat(2, 36px);
   align-items: center;
-  gap: 8px;
+  gap: 2px;
 `;
 
-export const NavigationButton = styled(StackFlow.Link)`
+export const navigationButtonStyle = css`
   width: 36px;
   height: 36px;
   display: flex;

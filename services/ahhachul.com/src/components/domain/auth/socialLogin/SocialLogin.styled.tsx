@@ -23,7 +23,7 @@ export const SocialButton = styled.button`
   border-radius: 6px;
 
   & > span {
-    color: ${({ theme }) => theme.color.background[50]};
+    color: ${({ theme }) => theme.colors.black};
     font-size: 16px;
     font-weight: 600;
   }
@@ -34,9 +34,9 @@ export const KakaoLogin = styled(SocialButton)`
 `;
 
 export const GoogleLogin = styled(SocialButton)`
-  background-color: ${({ theme }) => theme.color.text[50]};
+  background-color: ${({ theme }) => theme.colors.white};
 `;
 
 export const AppleLogin = styled(SocialButton)`
-  background-color: ${({ theme }) => theme.color.text[50]};
+  background-color: ${({ theme }) => theme.colors.white};
 `;
