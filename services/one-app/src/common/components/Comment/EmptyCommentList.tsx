@@ -1,10 +1,5 @@
 'use client';
 
-<<<<<<< HEAD
-=======
-import React from 'react';
-
->>>>>>> develop
 import { cn } from '@/common/utils/cn';
 
 interface Props {

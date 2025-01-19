@@ -14,7 +14,6 @@ module.exports = {
     sourceType: 'module',
     ecmaVersion: 2021,
   },
-<<<<<<< HEAD
   plugins: ['unused-imports', 'compat'],
   extends: [
     'eslint:recommended',
@@ -39,29 +38,6 @@ module.exports = {
     'unused-imports/no-unused-imports': 'error',
     // emotion css props
     'react/no-unknown-property': ['error', { ignore: ['css'] }],
-=======
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:storybook/recommended',
-    'prettier',
-  ],
-  plugins: ['react', '@typescript-eslint', 'jsx-a11y'],
-  rules: {
-    'react/react-in-jsx-scope': 'off',
-    'comma-dangle': 'off',
-    'react/display-name': 'off',
-    'no-empty-function': 'off',
-    '@typescript-eslint/no-empty-function': ['off'],
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      {
-        argsIgnorePattern: '^_',
-      },
-    ],
-    'storybook/prefer-pascal-case': 'off',
-    'react-hooks/exhaustive-deps': 'off',
->>>>>>> develop
   },
   overrides: [
     {

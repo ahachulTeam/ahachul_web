@@ -1,10 +1,5 @@
 'use client';
 
-<<<<<<< HEAD
-=======
-import React from 'react';
-
->>>>>>> develop
 import type { LostFoundType } from '@/model';
 
 interface Props {

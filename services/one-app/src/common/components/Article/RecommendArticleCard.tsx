@@ -1,17 +1,8 @@
 'use client';
 
-<<<<<<< HEAD
 import { DotIcon } from '@/common/assets/icons';
 import { formatDate } from '@/common/utils';
 import type { RecommendPost } from '@/model';
-=======
-import React from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-
-import type { RecommendPost } from '@/model';
-import { formatDate } from '@/common/utils';
-import { DotIcon } from '@/common/assets/icons';
->>>>>>> develop
 
 interface Props {
   post: RecommendPost;
@@ -34,23 +25,15 @@ export const RecommendArticleCard = ({ post }: Props) => {
           </div>
           {post?.imageUrl && (
             <div className=" flex items-center justify-center relative w-[50px] min-w-[50px] aspect-square">
-<<<<<<< HEAD
               {/* TODO */}
               {/* <LazyLoadImage
-=======
-              <LazyLoadImage
->>>>>>> develop
                 width="100%"
                 height="100%"
                 effect="opacity"
                 src={post.imageUrl}
                 alt={`${post.title} - ${post.createdAt}`}
                 className=" absolute top-0 left-0 w-full h-full object-cover rounded-md"
-<<<<<<< HEAD
               /> */}
-=======
-              />
->>>>>>> develop
             </div>
           )}
         </div>

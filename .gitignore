@@ -2,14 +2,6 @@
 *.log
 *.tsbuildinfo
 
-.pnp.*
-.pnp.cjs
-.yarn/install-state.gz
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
 **/packge-lock.json
 **/node_modules/
 

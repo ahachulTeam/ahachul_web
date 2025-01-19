@@ -1,8 +1,5 @@
 import { Editor } from '.';
-<<<<<<< HEAD
 
-=======
->>>>>>> develop
 import { cn } from '@/common/utils/cn';
 
 export type Props = {

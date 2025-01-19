@@ -4,7 +4,6 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useShallow } from 'zustand/shallow';
 
-<<<<<<< HEAD
 import ArrowLeftIcon from '@/common/assets/icons/arrow-left';
 import SpinnerIcon from '@/common/assets/icons/loading-spinner';
 import { AuthService } from '@/common/service/AuthService';
@@ -14,18 +13,6 @@ import { useTemporaryAuthStore } from '@/store/auth';
 import { updateUser } from '../../my/_lib/updateUser';
 import { useCheckNickname } from '../_lib/useCheckNickname';
 import { renderIndicatorIcon } from '../_lib/utils';
-=======
-import { cn } from '@/common/utils/cn';
-import { AuthService } from '@/common/service/AuthService';
-import { useTemporaryAuthStore } from '@/store/auth';
-
-import ArrowLeftIcon from '@/common/assets/icons/arrow-left';
-import SpinnerIcon from '@/common/assets/icons/loading-spinner';
->>>>>>> develop
-
-import { updateUser } from '../../my/_lib/updateUser';
-import { renderIndicatorIcon } from '../_lib/utils';
-import { useCheckNickname } from '../_lib/useCheckNickname';
 
 const NicknameSetup = () => {
   const router = useRouter();

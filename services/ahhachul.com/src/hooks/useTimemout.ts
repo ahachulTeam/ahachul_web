@@ -1,16 +1,8 @@
-<<<<<<<< HEAD:services/ahhachul.com/src/hooks/useTimemout.ts
-import { useEffect, useRef } from 'react';
-
-import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
-========
-'use client';
->>>>>>>> develop:services/one-app/src/common/hooks/useTimemout.ts
-
 import { useEffect, useRef } from 'react';
 
 import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
 
-export const useTimeout = (fn: () => void, ms: number) => {
+const useTimeout = (fn: () => void, ms: number) => {
   const fnRef = useRef(fn);
 
   useIsomorphicLayoutEffect(() => {
@@ -22,3 +14,5 @@ export const useTimeout = (fn: () => void, ms: number) => {
     return () => clearTimeout(id);
   }, [ms]);
 };
+
+export default useTimeout;

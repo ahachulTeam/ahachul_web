@@ -30,11 +30,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({
       onPanningStart={onInteractionStart}
       onPinchingStop={onInteractionEnd}
       onPinchingStart={onInteractionStart}
-<<<<<<< HEAD
       onTransformed={ref => onZoomChange(ref.state.scale)}
-=======
-      onTransformed={(ref) => onZoomChange(ref.state.scale)}
->>>>>>> develop
     >
       <TransformComponent>
         <img

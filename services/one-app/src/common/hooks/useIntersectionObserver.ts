@@ -1,14 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-<<<<<<< HEAD
 import { useInView, type IntersectionOptions } from 'react-intersection-observer';
-=======
-import {
-  useInView,
-  type IntersectionOptions,
-} from 'react-intersection-observer';
->>>>>>> develop
 
 interface Props {
   callback: () => void;

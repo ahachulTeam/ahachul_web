@@ -1,18 +1,10 @@
 'use client';
 
-<<<<<<< HEAD
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 import { ChevronDownIcon } from '@/common/assets/icons';
 import { cn } from '@/common/utils';
 
-=======
-import React from 'react';
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
-import { cn } from '@/common/utils';
-import { ChevronDownIcon } from '@/common/assets/icons';
->>>>>>> develop
 import { ConditionalRender } from '../ConditionalRender';
 
 interface Props {

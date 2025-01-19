@@ -4,10 +4,6 @@ import { z } from 'zod';
 import { apiClient } from '@/app/api';
 import { APIResponseCode, RESPONSE_MESSAGES } from '@/common/constants';
 import { sleep } from '@/common/utils';
-<<<<<<< HEAD
-=======
-import { APIResponseCode, RESPONSE_MESSAGES } from '@/common/constants';
->>>>>>> develop
 
 const CheckNicknameResponseSchema = z.object({
   code: z.literal(APIResponseCode.SUCCESS),

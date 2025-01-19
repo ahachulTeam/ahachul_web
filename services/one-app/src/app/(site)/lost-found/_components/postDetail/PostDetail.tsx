@@ -1,6 +1,5 @@
 'use client';
 
-<<<<<<< HEAD
 import Image from 'next/image';
 
 import { LexicalSyntaxContentParser } from '@/app/(site)/_component/Editor';
@@ -12,23 +11,6 @@ import { Lost112ArticleTable } from './Lost112ArticleTable';
 import { LostTypeBadge } from './LostTypeBadge';
 import { RecommendArticles } from './RecommendArticles';
 
-=======
-import React from 'react';
-import Image from 'next/image';
-
-import {
-  BaseArticleImages,
-  CommentTextField,
-  SUBWAY_LOGO_SVG_LIST,
-} from '@/common/components';
-import { cn, formatDate, getRandomInt, isLexicalContent } from '@/common/utils';
-import { LexicalSyntaxContentParser } from '@/app/(site)/_component/Editor';
-
-import { LostTypeBadge } from './LostTypeBadge';
-import { LostFoundCommentList } from './CommentList';
-import { RecommendArticles } from './RecommendArticles';
-import { Lost112ArticleTable } from './Lost112ArticleTable';
->>>>>>> develop
 import { useGetLostFoundDetail, useLostFoundComment } from '../../_lib';
 
 type Props = {
@@ -39,12 +21,7 @@ export const LostFoundPostDetail = ({ lostId }: Props) => {
   const { data: post } = useGetLostFoundDetail(lostId);
   const isLexicalSyntaxContent = isLexicalContent(post.content);
 
-<<<<<<< HEAD
   const { handleChangeComment, handleSubmitComment } = useLostFoundComment(lostId);
-=======
-  const { handleChangeComment, handleSubmitComment } =
-    useLostFoundComment(lostId);
->>>>>>> develop
 
   const images = post.isFromLost112
     ? [
@@ -66,17 +43,8 @@ export const LostFoundPostDetail = ({ lostId }: Props) => {
           </div>
           <div className=" w-full flex items-center justify-between pb-4 border-b border-b-gray-20">
             <div className=" flex items-center gap-1 text-body-medium">
-<<<<<<< HEAD
               <span className=" text-gray-80">{post.writer || '로스트 112'}</span>
               <span className=" text-gray-70">{formatDate(post.createdAt)}</span>
-=======
-              <span className=" text-gray-80">
-                {post.writer || '로스트 112'}
-              </span>
-              <span className=" text-gray-70">
-                {formatDate(post.createdAt)}
-              </span>
->>>>>>> develop
             </div>
             <div className=" flex items-center text-gray-90 text-label-medium font-regular">
               {SUBWAY_LOGO_SVG_LIST[post.subwayLineId]}
@@ -104,24 +72,10 @@ export const LostFoundPostDetail = ({ lostId }: Props) => {
           {isLexicalSyntaxContent ? (
             <LexicalSyntaxContentParser
               content={post.content}
-<<<<<<< HEAD
               className={cn('px-0', 'py-6', '[&>div>div]:p-0', '[&>div>div]:border-none')}
             />
           ) : (
             <p className=" py-6 mb-3 text-body-large-semi text-gray-90">{post.content}</p>
-=======
-              className={cn(
-                'px-0',
-                'py-6',
-                '[&>div>div]:p-0',
-                '[&>div>div]:border-none',
-              )}
-            />
-          ) : (
-            <p className=" py-6 mb-3 text-body-large-semi text-gray-90">
-              {post.content}
-            </p>
->>>>>>> develop
           )}
         </div>
       </article>

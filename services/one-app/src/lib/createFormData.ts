@@ -27,11 +27,7 @@ const createFormData = <T extends Record<string, any>>({
   formData.append(jsonDataKey, jsonDataBlob);
 
   // 파일 데이터를 FormData에 추가
-<<<<<<< HEAD
   fileData?.forEach(file => {
-=======
-  fileData?.forEach((file) => {
->>>>>>> develop
     formData.append(fileDataKey, file, file.name);
   });
 

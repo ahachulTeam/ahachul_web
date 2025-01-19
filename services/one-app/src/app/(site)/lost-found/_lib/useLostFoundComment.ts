@@ -1,11 +1,7 @@
 'use client';
 
-<<<<<<< HEAD
 import { useRef } from 'react';
 
-=======
-import React, { useRef } from 'react';
->>>>>>> develop
 import type { EditorState } from 'lexical';
 
 import { useLostFoundPostComment } from './comments';

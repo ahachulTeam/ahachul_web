@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-<<<<<<< HEAD
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
@@ -10,32 +9,13 @@ import { cn, objectEntries } from '@/common/utils';
 import type { KeyOf } from '@/model';
 
 export interface DropdownFilterProps<T extends Record<string, string>, K extends KeyOf<T>> {
-=======
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-
-import type { KeyOf } from '@/model';
-import { cn, objectEntries } from '@/common/utils';
-import { CheckIcon, ChevronDownIcon } from '@/common/assets/icons';
-
-export interface DropdownFilterProps<
-  T extends Record<string, string>,
-  K extends KeyOf<T>,
-> {
->>>>>>> develop
   name: K;
   filters: T;
   options: Record<string, string>;
   onSelect: (key: K, value: T[K]) => void;
 }
 
-<<<<<<< HEAD
 export const DropdownFilter = <T extends Record<string, string>, K extends KeyOf<T>>({
-=======
-export const DropdownFilter = <
-  T extends Record<string, string>,
-  K extends KeyOf<T>,
->({
->>>>>>> develop
   filters,
   options,
   onSelect,
@@ -52,13 +32,7 @@ export const DropdownFilter = <
           data-active={isActive}
           className="flex h-[30px] shrink-0 items-center rounded-[1000px] border border-gray-20 bg-gray-10 px-[10px]"
         >
-<<<<<<< HEAD
           <span className="text-label-medium text-gray-90">{options[activeValue]}</span>
-=======
-          <span className="text-label-medium text-gray-90">
-            {options[activeValue]}
-          </span>
->>>>>>> develop
           <ChevronDownIcon />
         </button>
       </DropdownMenu.Trigger>
@@ -75,11 +49,7 @@ export const DropdownFilter = <
         >
           <DropdownMenu.RadioGroup
             value={activeValue as string}
-<<<<<<< HEAD
             onValueChange={newValue => onSelect(name, newValue as T[K])}
-=======
-            onValueChange={(newValue) => onSelect(name, newValue as T[K])}
->>>>>>> develop
           >
             {objectEntries(options).map(([val, label]) => (
               <DropdownMenu.RadioItem

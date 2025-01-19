@@ -1,24 +1,11 @@
 'use client';
 
-<<<<<<< HEAD
 import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // import { LazyLoadImage } from 'react-lazy-load-image-component';
 import type { PostImage } from '@/model';
 
-=======
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-
-import type { PostImage } from '@/model';
-
-import 'swiper/css';
-import 'swiper/css/pagination';
-
->>>>>>> develop
 interface Props {
   label: string;
   images: PostImage[];
@@ -26,11 +13,7 @@ interface Props {
 }
 
 export const BaseArticleImages = ({
-<<<<<<< HEAD
   // label,
-=======
-  label,
->>>>>>> develop
   images,
   // canShowFullImageDialog = true,
 }: Props) => {
@@ -54,21 +37,13 @@ export const BaseArticleImages = ({
           className=" relative w-full aspect-square"
           // onClick={handleFullImageDialog}
         >
-<<<<<<< HEAD
           {/* TODO */}
           {/* <LazyLoadImage
-=======
-          <LazyLoadImage
->>>>>>> develop
             src={images[0].imageUrl}
             alt={`${label}-img-0`}
             effect="opacity"
             className=" absolute object-cover top-0 left-0 w-full h-full"
-<<<<<<< HEAD
           /> */}
-=======
-          />
->>>>>>> develop
         </div>
       ) : images.length > 1 ? (
         <Swiper
@@ -80,30 +55,18 @@ export const BaseArticleImages = ({
           pagination={{ clickable: true }}
           className=" relative w-full aspect-square"
         >
-<<<<<<< HEAD
           {images.map(img => (
-=======
-          {images.map((img, idx) => (
->>>>>>> develop
             <SwiperSlide
               key={img.imageId}
               // onClick={clickIndex(idx)}
             >
-<<<<<<< HEAD
               {/* TODO */}
               {/* <LazyLoadImage
-=======
-              <LazyLoadImage
->>>>>>> develop
                 effect="opacity"
                 alt={`${label}-img-${idx + 1}`}
                 src={img.imageUrl}
                 className=" absolute object-cover top-0 left-0 w-full h-full"
-<<<<<<< HEAD
               /> */}
-=======
-              />
->>>>>>> develop
             </SwiperSlide>
           ))}
         </Swiper>
