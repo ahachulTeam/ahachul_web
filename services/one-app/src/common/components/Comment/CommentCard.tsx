@@ -1,11 +1,9 @@
 'use client';
 
-import React from 'react';
-
-import type { Comment } from '@/model';
-import { cn, formatDate } from '@/common/utils';
-import { EllipsisIcon } from '@/common/assets/icons';
 import { LexicalSyntaxContentParser } from '@/app/(site)/_component/Editor';
+import { EllipsisIcon } from '@/common/assets/icons';
+import { cn, formatDate } from '@/common/utils';
+import type { Comment } from '@/model';
 
 interface CommentCardProps {
   comment: Comment;
@@ -31,17 +29,11 @@ export const CommentCard = ({ comment, asChild = false }: CommentCardProps) => {
             className={cn('p-0', '[&>div>div]:p-0', '[&>div>div]:border-none')}
           />
         ) : (
-          <div className=" text-gray-90 text-body-large-semi">
-            삭제된 댓글입니다.
-          </div>
+          <div className=" text-gray-90 text-body-large-semi">삭제된 댓글입니다.</div>
         )}
-        <span className=" text-body-small text-gray-70">
-          {formatDate(comment.createdAt)}
-        </span>
+        <span className=" text-body-small text-gray-70">{formatDate(comment.createdAt)}</span>
       </div>
-      <button className=" text-gray-90 text-label-medium w-max">
-        답글 달기
-      </button>
+      <button className=" text-gray-90 text-label-medium w-max">답글 달기</button>
     </div>
   );
 };

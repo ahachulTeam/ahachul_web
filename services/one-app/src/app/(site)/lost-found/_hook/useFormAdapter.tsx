@@ -1,12 +1,10 @@
 import { useMemo } from 'react';
-import { useGetLostFoundDetail } from '../_lib/get';
+
 import type { LostFoundFormData } from '@/model/LostFound';
 
-type UseLostFoundFormAdapter = ({
-  lostId,
-}: {
-  lostId: number;
-}) => LostFoundFormData;
+import { useGetLostFoundDetail } from '../_lib/get';
+
+type UseLostFoundFormAdapter = ({ lostId }: { lostId: number }) => LostFoundFormData;
 
 const DEFAULT_DATA: LostFoundFormData = {
   title: '',
@@ -30,7 +28,7 @@ const useLostFoundFormAdapter: UseLostFoundFormAdapter = ({ lostId }) => {
       subwayLineId: data.subwayLineId ?? 1,
       lostType: data.lostType ?? 'LOST',
       images:
-        data.images.map((image) => ({
+        data.images.map(image => ({
           id: image.imageId ?? null,
           data: null,
           url: image.imageUrl,

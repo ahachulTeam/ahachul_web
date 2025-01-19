@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { cn } from '@/common/utils/cn';
 
 interface SpinnerIconProps extends React.SVGProps<SVGSVGElement> {
@@ -6,11 +7,7 @@ interface SpinnerIconProps extends React.SVGProps<SVGSVGElement> {
   className?: string;
 }
 
-const SpinnerIcon: React.FC<SpinnerIconProps> = ({
-  size = 24,
-  className,
-  ...props
-}) => {
+const SpinnerIcon: React.FC<SpinnerIconProps> = ({ size = 24, className, ...props }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

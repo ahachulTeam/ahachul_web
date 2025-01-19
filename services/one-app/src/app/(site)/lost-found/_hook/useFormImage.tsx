@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import type { DetailImages } from '@/model/LostFound';
 
 const MAX_IMAGE_LENGTH = 5;
@@ -17,23 +18,21 @@ const useFormImage = () => {
     const fileBlob = e.target.files?.[0];
     if (!fileBlob) return;
     if (fileBlob.size > MAX_FILE_SIZE) {
-      alert(
-        `파일 용량은 최대 ${MAX_FILE_SIZE / 1024 / 1024}MB까지 허용됩니다.`,
-      );
+      alert(`파일 용량은 최대 ${MAX_FILE_SIZE / 1024 / 1024}MB까지 허용됩니다.`);
       return;
     }
 
     const fileUrl = URL.createObjectURL(fileBlob);
-    setImages((prev) => [...prev, { id: null, data: fileBlob, url: fileUrl }]);
+    setImages(prev => [...prev, { id: null, data: fileBlob, url: fileUrl }]);
     e.target.value = '';
   };
 
   const onDeleteImage = (index: number) => {
     const targetImageId = images[index].id;
     if (targetImageId !== null) {
-      setRemoveImageIds((prev) => [...prev, targetImageId]);
+      setRemoveImageIds(prev => [...prev, targetImageId]);
     }
-    setImages((prev) => prev.filter((_, i) => i !== index));
+    setImages(prev => prev.filter((_, i) => i !== index));
   };
 
   return { images, setImages, removeImageIds, handleFileChange, onDeleteImage };

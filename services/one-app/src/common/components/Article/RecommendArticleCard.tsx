@@ -1,10 +1,8 @@
 'use client';
 
-import React from 'react';
-
-import type { RecommendPost } from '@/model';
-import { formatDate } from '@/common/utils';
 import { DotIcon } from '@/common/assets/icons';
+import { formatDate } from '@/common/utils';
+import type { RecommendPost } from '@/model';
 
 interface Props {
   post: RecommendPost;

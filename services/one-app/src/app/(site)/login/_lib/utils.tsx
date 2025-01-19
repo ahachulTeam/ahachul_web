@@ -1,9 +1,6 @@
 import { CheckIcon, AlertCircleIcon } from '@/common/assets/icons';
 
-export const renderIndicatorIcon = (
-  isValidateOk: boolean,
-  isValidateError: boolean,
-) => {
+export const renderIndicatorIcon = (isValidateOk: boolean, isValidateError: boolean) => {
   if (isValidateOk) {
     return <CheckIcon />;
   }

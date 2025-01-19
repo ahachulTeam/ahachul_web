@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import type { LostFoundFormData } from '@/model/LostFound';
 
 type Params = {
@@ -6,10 +7,7 @@ type Params = {
   initCallback: (params: LostFoundFormData) => void;
 };
 
-const useLostFoundFormInitialize = ({
-  initialFormData,
-  initCallback,
-}: Params) => {
+const useLostFoundFormInitialize = ({ initialFormData, initCallback }: Params) => {
   useEffect(() => {
     if (initialFormData) {
       initCallback(initialFormData);

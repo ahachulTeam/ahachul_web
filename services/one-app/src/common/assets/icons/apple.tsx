@@ -1,15 +1,7 @@
-import * as React from 'react';
-
 // todo: svgr 적용하기
 function AppleIcon() {
   return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 18 18"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M12.8015 0C12.8434 0 12.8853 0 12.9295 0C13.0323 1.26946 12.5477 2.218 11.9589 2.90489C11.381 3.58705 10.5898 4.24865 9.31008 4.14827C9.22471 2.89699 9.71004 2.0188 10.2981 1.33348C10.8435 0.694803 11.8435 0.126472 12.8015 0Z"
         fill="black"
