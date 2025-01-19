@@ -1,8 +1,15 @@
 'use client';
 
+<<<<<<< HEAD
 import { DotIcon } from '@/common/assets/icons';
 import { useIsDeferred } from '@/common/hooks';
 import { cn } from '@/common/utils';
+=======
+import React from 'react';
+import { cn } from '@/common/utils';
+import { useIsDeferred } from '@/common/hooks';
+import { DotIcon } from '@/common/assets/icons';
+>>>>>>> main
 
 import { BaseSkeleton } from '../BaseSkeleton';
 

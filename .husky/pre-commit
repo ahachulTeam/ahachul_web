@@ -1,1 +1,5 @@
-pnpm nano-staged
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# lint-staged 실행
+yarn lint-staged || exit 1

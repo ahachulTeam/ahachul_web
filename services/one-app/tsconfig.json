@@ -20,6 +20,16 @@
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
+<<<<<<< HEAD
   "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
+=======
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "./src/globals.d.ts",
+    ".next/types/**/*.ts"
+  ],
+>>>>>>> main
   "exclude": ["node_modules"]
 }

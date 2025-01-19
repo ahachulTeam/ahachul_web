@@ -1,5 +1,9 @@
 'use client';
 
+<<<<<<< HEAD
+=======
+import React from 'react';
+>>>>>>> main
 import { useGetLostFoundDetail } from '../_lib/get';
 
 type Params = {

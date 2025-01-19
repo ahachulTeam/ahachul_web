@@ -1,10 +1,21 @@
 'use client';
 
+<<<<<<< HEAD
 import { LexicalSyntaxContentParser } from '@/app/(site)/_component/Editor';
 import { DotIcon, CommentIcon } from '@/common/assets/icons';
 import { SUBWAY_LOGO_SVG_LIST } from '@/common/components';
 import { cn, isLexicalContent, formatDate } from '@/common/utils';
 import type { Post } from '@/model';
+=======
+import React from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
+import type { Post } from '@/model';
+import { cn, isLexicalContent, formatDate } from '@/common/utils';
+import { SUBWAY_LOGO_SVG_LIST } from '@/common/components';
+import { LexicalSyntaxContentParser } from '@/app/(site)/_component/Editor';
+import { DotIcon, CommentIcon } from '@/common/assets/icons';
+>>>>>>> main
 
 interface Props {
   post: Post;
@@ -30,20 +41,34 @@ export const ArticleCard = ({ post }: Props) => {
                 )}
               />
             ) : (
+<<<<<<< HEAD
               <div className=" text-body-medium text-gray-90 line-clamp-2">{post.content}</div>
+=======
+              <div className=" text-body-medium text-gray-90 line-clamp-2">
+                {post.content}
+              </div>
+>>>>>>> main
             )}
           </div>
           {post?.imageUrl && (
             <div className=" flex items-center justify-center relative w-[66px] min-w-[66px] max-w-[66px] h-[66px] min-h-[66px] max-h-[66px]">
+<<<<<<< HEAD
               {/* TODO */}
               {/* <LazyLoadImage
+=======
+              <LazyLoadImage
+>>>>>>> main
                 width="100%"
                 height="100%"
                 effect="opacity"
                 src={post.imageUrl}
                 alt={`${post.title} - ${post.createdAt}`}
                 className=" absolute top-0 left-0 w-full h-full object-cover rounded-md"
+<<<<<<< HEAD
               /> */}
+=======
+              />
+>>>>>>> main
             </div>
           )}
         </div>

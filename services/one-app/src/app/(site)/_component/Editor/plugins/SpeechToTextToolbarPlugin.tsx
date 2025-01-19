@@ -1,11 +1,17 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+<<<<<<< HEAD
 
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 
 import { MicIcon } from '@/common/assets/icons';
 
+=======
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+
+import { MicIcon } from '@/common/assets/icons';
+>>>>>>> main
 import { SPEECH_TO_TEXT_COMMAND } from './SpeechToTextPlugin';
 
 const SpeechToTextToolbarPlugin = () => {
@@ -13,7 +19,12 @@ const SpeechToTextToolbarPlugin = () => {
   const toolbarRef = useRef(null);
   const [isSpeechToText, setIsSpeechToText] = useState(false);
 
+<<<<<<< HEAD
   const [isSpeechRecognitionSupported, setIsSpeechRecognitionSupported] = useState(false);
+=======
+  const [isSpeechRecognitionSupported, setIsSpeechRecognitionSupported] =
+    useState(false);
+>>>>>>> main
 
   useEffect(() => {
     // 클라이언트 사이드에서 Speech Recognition 지원 여부 확인
@@ -31,13 +42,23 @@ const SpeechToTextToolbarPlugin = () => {
         {isSpeechRecognitionSupported && (
           <button
             type="button"
+<<<<<<< HEAD
             className={'toolbar-item spaced mic ' + (isSpeechToText ? 'active' : '')}
+=======
+            className={
+              'toolbar-item spaced mic ' + (isSpeechToText ? 'active' : '')
+            }
+>>>>>>> main
             style={{ padding: '0 !important' }}
             title="Speech To Text"
             aria-label={`${isSpeechToText ? 'Enable' : 'Disable'} speech to text`}
             onClick={() => {
               editor.dispatchCommand(SPEECH_TO_TEXT_COMMAND, !isSpeechToText);
+<<<<<<< HEAD
               setIsSpeechToText(prev => !prev);
+=======
+              setIsSpeechToText((prev) => !prev);
+>>>>>>> main
             }}
           >
             <MicIcon />

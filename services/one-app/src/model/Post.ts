@@ -13,4 +13,11 @@ export type OptionalPostFields = {
   imageUrl: string;
 };
 
+<<<<<<< HEAD
 export type RecommendPost = Pick<Post, 'id' | 'title' | 'writer' | 'createdAt' | 'imageUrl'>;
+=======
+export type RecommendPost = Pick<
+  Post,
+  'id' | 'title' | 'writer' | 'createdAt' | 'imageUrl'
+>;
+>>>>>>> main

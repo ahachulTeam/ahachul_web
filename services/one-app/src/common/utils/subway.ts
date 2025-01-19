@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 export const formatSubwayLineId = (filtersSubwayLineId: string, userFavoriteLineId: number) => {
+=======
+export const formatSubwayLineId = (
+  filtersSubwayLineId: string,
+  userFavoriteLineId: number,
+) => {
+>>>>>>> main
   switch (filtersSubwayLineId) {
     case 'ALL_LINES':
       return 0;

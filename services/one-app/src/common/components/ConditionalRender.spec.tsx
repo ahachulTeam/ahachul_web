@@ -1,5 +1,8 @@
 import { render, screen } from '@testing-library/react';
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 import { ConditionalRender } from './ConditionalRender';
 
 describe('ConditionalRender 컴포넌트', () => {

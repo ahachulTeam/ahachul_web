@@ -1,7 +1,12 @@
 import axios, { AxiosError, AxiosInstance, isAxiosError } from 'axios';
 
+<<<<<<< HEAD
 import { API_BASE_URL } from '@/common/constants';
 import { AuthService } from '@/common/service';
+=======
+import { AuthService } from '@/common/service';
+import { API_BASE_URL } from '@/common/constants';
+>>>>>>> main
 import type { APIErrorResponse } from '@/model';
 
 // TODO, access_token 선택적으로 보내는 방안 모색 (axios type 확장)

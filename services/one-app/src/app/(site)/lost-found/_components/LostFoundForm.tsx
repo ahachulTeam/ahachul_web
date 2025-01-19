@@ -1,5 +1,6 @@
 'use client';
 
+<<<<<<< HEAD
 import { useState } from 'react';
 
 import { type EditorState } from 'lexical';
@@ -18,6 +19,24 @@ import useFormImage from '../_hook/useFormImage';
 import useFormInitialize from '../_hook/useFormInitialize';
 import { usePostLostFound } from '../_lib/post';
 
+=======
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import ArrowLeftIcon from '@/common/assets/icons/arrow-left';
+import CloseCircleIcon from '@/common/assets/icons/close-circle';
+import ImagePlaceHolder from '@/common/assets/icons/image-placeholder';
+import SelectLineDrawer from './SelectLineDrawer';
+import { Editor } from '@/app/(site)/_component/Editor';
+
+import useFormImage from '../_hook/useFormImage';
+import useFormInitialize from '../_hook/useFormInitialize';
+import createFormData from '@/lib/createFormData';
+import { usePostLostFound } from '../_lib/post';
+
+import { type EditorState } from 'lexical';
+import type { LostFoundFormData } from '@/model/LostFound';
+
+>>>>>>> main
 type Props = {
   lostId?: string | null;
   initialFormData?: LostFoundFormData | null;
@@ -30,7 +49,12 @@ const LostFoundForm = ({ lostId = null, initialFormData = null }: Props) => {
     router.push(`/lost-found/${id}`);
   });
 
+<<<<<<< HEAD
   const { images, setImages, removeImageIds, handleFileChange, onDeleteImage } = useFormImage();
+=======
+  const { images, setImages, removeImageIds, handleFileChange, onDeleteImage } =
+    useFormImage();
+>>>>>>> main
 
   const [subwayLineId, setSubwayLineId] = useState(1);
   const [title, setTitle] = useState('');
@@ -54,7 +78,13 @@ const LostFoundForm = ({ lostId = null, initialFormData = null }: Props) => {
       jsonDataKey: 'content',
       jsonData: contentData,
       fileDataKey: 'files',
+<<<<<<< HEAD
       fileData: images.flatMap(image => (image.data !== null ? [image.data] : [])),
+=======
+      fileData: images.flatMap((image) =>
+        image.data !== null ? [image.data] : [],
+      ),
+>>>>>>> main
     });
     lostFoundMutate({ lostId, postData });
   };
@@ -110,7 +140,14 @@ const LostFoundForm = ({ lostId = null, initialFormData = null }: Props) => {
             </label>
             {images.map((image, index) => {
               return (
+<<<<<<< HEAD
                 <div key={`${image.data}-${index}`} className="relative min-w-16">
+=======
+                <div
+                  key={`${image.data}-${index}`}
+                  className="relative min-w-16"
+                >
+>>>>>>> main
                   <img
                     className="border size-16 rounded-[10px] border-[#CED0DD] ml-2"
                     src={image.url}
@@ -141,7 +178,11 @@ const LostFoundForm = ({ lostId = null, initialFormData = null }: Props) => {
               id="lost"
               value="LOST"
               defaultChecked
+<<<<<<< HEAD
               onChange={e => setLostType(e.target.value)}
+=======
+              onChange={(e) => setLostType(e.target.value)}
+>>>>>>> main
               className="peer/lost hidden"
             />
             <label
@@ -156,7 +197,11 @@ const LostFoundForm = ({ lostId = null, initialFormData = null }: Props) => {
               name="category"
               value="ACQUIRE"
               id="acquire"
+<<<<<<< HEAD
               onChange={e => setLostType(e.target.value)}
+=======
+              onChange={(e) => setLostType(e.target.value)}
+>>>>>>> main
               className="peer/acquire hidden"
             />
             <label
@@ -172,7 +217,14 @@ const LostFoundForm = ({ lostId = null, initialFormData = null }: Props) => {
             <p className="mr-1 text-label-medium text-gray-90">호선 선택</p>
             <span className="inline-block w-[5px] h-[5px] bg-red rounded-full" />
           </div>
+<<<<<<< HEAD
           <SelectLineDrawer subwayLineId={subwayLineId} setSubwayLineId={setSubwayLineId} />
+=======
+          <SelectLineDrawer
+            subwayLineId={subwayLineId}
+            setSubwayLineId={setSubwayLineId}
+          />
+>>>>>>> main
         </div>
         <div className="mb-8">
           <div className="flex items-center mb-3">
@@ -183,7 +235,11 @@ const LostFoundForm = ({ lostId = null, initialFormData = null }: Props) => {
             type="text"
             placeholder="제목을 입력해주세요"
             value={title}
+<<<<<<< HEAD
             onChange={e => setTitle(e.target.value)}
+=======
+            onChange={(e) => setTitle(e.target.value)}
+>>>>>>> main
             className="w-full border py-3 pl-3 pr-4 outline-none rounded-[5px] text-body-large-semi text-gray-90 placeholder:text-gray-70"
           />
         </div>
