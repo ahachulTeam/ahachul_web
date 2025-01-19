@@ -1,14 +1,7 @@
-<<<<<<< HEAD
 import type { Post, RecommendPost } from './Post';
 import type { PostImage } from './PostImage';
 import type { SubwayLineFilterOptions, WithSubwayLineId } from './Subway';
 import type { CursorBasedPaginationParams } from './Utils';
-=======
-import type { PostImage } from './PostImage';
-import type { Post, RecommendPost } from './Post';
-import type { CursorBasedPaginationParams } from './Utils';
-import type { SubwayLineFilterOptions, WithSubwayLineId } from './Subway';
->>>>>>> main
 
 export enum LostFoundType {
   LOST = 'LOST',

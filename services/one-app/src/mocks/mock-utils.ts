@@ -1,8 +1,5 @@
 import { faker } from '@faker-js/faker';
-<<<<<<< HEAD
 import { HttpResponse } from 'msw';
-=======
->>>>>>> main
 
 import { APIResponseCode, RESPONSE_MESSAGES } from '@/common/constants';
 

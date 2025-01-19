@@ -1,8 +1,5 @@
 'use client';
-<<<<<<< HEAD
 
-=======
->>>>>>> main
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -10,14 +7,8 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-<<<<<<< HEAD
 import { useEffect, useRef, useState } from 'react';
 
-=======
-
-import { useEffect, useRef, useState } from 'react';
-import type { LexicalCommand, LexicalEditor, RangeSelection } from 'lexical';
->>>>>>> main
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import type { LexicalCommand, LexicalEditor, RangeSelection } from 'lexical';
 import {
@@ -31,23 +22,11 @@ import {
 
 import { useReport } from '@/app/(site)/_hook';
 
-<<<<<<< HEAD
 export const SPEECH_TO_TEXT_COMMAND: LexicalCommand<boolean> =
   createCommand('SPEECH_TO_TEXT_COMMAND');
 
 const VOICE_COMMANDS: Readonly<
   Record<string, (arg0: { editor: LexicalEditor; selection: RangeSelection }) => void>
-=======
-export const SPEECH_TO_TEXT_COMMAND: LexicalCommand<boolean> = createCommand(
-  'SPEECH_TO_TEXT_COMMAND',
-);
-
-const VOICE_COMMANDS: Readonly<
-  Record<
-    string,
-    (arg0: { editor: LexicalEditor; selection: RangeSelection }) => void
-  >
->>>>>>> main
 > = {
   '\n': ({ selection }) => {
     selection.insertParagraph();
@@ -62,8 +41,7 @@ const VOICE_COMMANDS: Readonly<
 
 let SUPPORT_SPEECH_RECOGNITION = false;
 if (typeof window !== 'undefined') {
-  SUPPORT_SPEECH_RECOGNITION =
-    'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
+  SUPPORT_SPEECH_RECOGNITION = 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
 }
 
 function SpeechToTextPlugin(): null {
@@ -80,14 +58,11 @@ function SpeechToTextPlugin(): null {
       recognition.current = new SpeechRecognition();
       recognition.current.continuous = true;
       recognition.current.interimResults = true;
-      recognition.current.addEventListener(
-        'result',
-        (event: typeof SpeechRecognition) => {
-          const resultItem = event.results.item(event.resultIndex);
-          const { transcript } = resultItem.item(0);
-          report(transcript);
+      recognition.current.addEventListener('result', (event: typeof SpeechRecognition) => {
+        const resultItem = event.results.item(event.resultIndex);
+        const { transcript } = resultItem.item(0);
+        report(transcript);
 
-<<<<<<< HEAD
         if (!resultItem.isFinal) {
           return;
         }
@@ -108,32 +83,9 @@ function SpeechToTextPlugin(): null {
             } else {
               selection.insertText(transcript);
             }
-=======
-          if (!resultItem.isFinal) {
-            return;
->>>>>>> main
           }
-
-          editor.update(() => {
-            const selection = $getSelection();
-
-            if ($isRangeSelection(selection)) {
-              const command = VOICE_COMMANDS[transcript.toLowerCase().trim()];
-
-              if (command) {
-                command({
-                  editor,
-                  selection,
-                });
-              } else if (transcript.match(/\s*\n\s*/)) {
-                selection.insertParagraph();
-              } else {
-                selection.insertText(transcript);
-              }
-            }
-          });
-        },
-      );
+        });
+      });
     }
 
     if (recognition.current) {
@@ -164,6 +116,4 @@ function SpeechToTextPlugin(): null {
   return null;
 }
 
-export default (SUPPORT_SPEECH_RECOGNITION
-  ? SpeechToTextPlugin
-  : () => null) as () => null;
+export default (SUPPORT_SPEECH_RECOGNITION ? SpeechToTextPlugin : () => null) as () => null;

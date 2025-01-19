@@ -1,14 +1,7 @@
 'use client';
 
-<<<<<<< HEAD
 import { useIsDeferred } from '@/common/hooks';
 import { cn } from '@/common/utils';
-=======
-import React from 'react';
-
-import { cn } from '@/common/utils';
-import { useIsDeferred } from '@/common/hooks';
->>>>>>> main
 
 import { BaseSkeleton } from '../BaseSkeleton';
 

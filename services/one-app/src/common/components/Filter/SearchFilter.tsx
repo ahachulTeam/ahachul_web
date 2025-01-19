@@ -1,18 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-<<<<<<< HEAD
 
 import { useQueryState } from 'nuqs';
 
 import { SearchIcon } from '@/common/assets/icons';
 import { useDebounce } from '@/common/hooks';
-=======
-import { useQueryState } from 'nuqs';
-
-import { useDebounce } from '@/common/hooks';
-import { SearchIcon } from '@/common/assets/icons';
->>>>>>> main
 
 export const SearchFilter = () => {
   const [keyword, setKeyword] = useQueryState('keyword', {

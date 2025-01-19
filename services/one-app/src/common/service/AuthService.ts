@@ -1,15 +1,9 @@
 import axios, { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
 
-<<<<<<< HEAD
 import { apiClient } from '@/app/api';
 import { IS_DEV_ENV } from '@/common/constants';
 import { CookieKey } from '@/model';
-=======
-import { CookieKey } from '@/model';
-import { apiClient } from '@/app/api';
-import { IS_DEV_ENV } from '@/common/constants';
->>>>>>> main
 
 class _AuthService {
   private isFetchingAccessToken = false;

@@ -1,7 +1,6 @@
 'use client';
 
 import { Suspense } from 'react';
-<<<<<<< HEAD
 
 import { Spinner, SuspenseQueryBoundary, ArticleListSuspenseFallback } from '@/common/components';
 
@@ -10,19 +9,6 @@ import { useLostFoundFilters } from './_lib';
 
 function LostFound() {
   const { loaded, keyword, filters, boundaryKeys, getFilterProps } = useLostFoundFilters();
-=======
-import { useLostFoundFilters } from './_lib';
-import { LostFoundFilterList, LostFoundSearchedList } from './_components';
-import {
-  Spinner,
-  SuspenseQueryBoundary,
-  ArticleListSuspenseFallback,
-} from '@/common/components';
-
-function LostFound() {
-  const { loaded, keyword, filters, boundaryKeys, getFilterProps } =
-    useLostFoundFilters();
->>>>>>> main
 
   return loaded ? (
     <main className="flex min-h-screen flex-col text-black bg-white ">

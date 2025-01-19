@@ -14,7 +14,6 @@
     "test:coverage": "nx run-many --target=test:coverage --all",
     "test:e2e": "nx run-many --target=test:playwright --all",
     "test:e2e:ui": "nx run-many --target=test:playwright:ui --all",
-    "test:all": "nx run-many --target=test:all --all",
     "build:all": "nx run-many --target=build --all",
     "lint:app": "nx lint @ahhachul/app",
     "test:app": "nx test @ahhachul/app",

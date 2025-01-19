@@ -12,7 +12,6 @@ export const useDeleteComment = () => {
   });
 };
 
-<<<<<<< HEAD
 export const updateComment = async (data: { content: string; commentId: number }) => {
   const response = await apiClient.patch<IResponse<Pick<Comment, 'id' | 'content'>>>(
     `comments/${data.commentId}`,
@@ -20,17 +19,6 @@ export const updateComment = async (data: { content: string; commentId: number }
       content: data.content,
     },
   );
-=======
-export const updateComment = async (data: {
-  content: string;
-  commentId: number;
-}) => {
-  const response = await apiClient.patch<
-    IResponse<Pick<Comment, 'id' | 'content'>>
-  >(`comments/${data.commentId}`, {
-    content: data.content,
-  });
->>>>>>> main
   return response.data;
 };
 

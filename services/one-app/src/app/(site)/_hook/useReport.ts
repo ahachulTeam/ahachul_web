@@ -1,8 +1,5 @@
 'use client';
-<<<<<<< HEAD
 
-=======
->>>>>>> main
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *

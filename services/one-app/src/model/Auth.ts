@@ -11,18 +11,8 @@ export interface SocialLoginOption {
   providerType: SocialSignInType;
 }
 
-<<<<<<< HEAD
 export function isValidSocialSignInType(type: string | null): type is SocialSignInType {
   return type !== null && Object.values(SocialSignInType).includes(type as SocialSignInType);
-=======
-export function isValidSocialSignInType(
-  type: string | null,
-): type is SocialSignInType {
-  return (
-    type !== null &&
-    Object.values(SocialSignInType).includes(type as SocialSignInType)
-  );
->>>>>>> main
 }
 
 export enum CookieKey {

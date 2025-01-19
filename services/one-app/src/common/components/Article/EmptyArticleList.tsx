@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-import React from 'react';
-
->>>>>>> main
 import { EmptyGraphic } from '@/common/assets/graphics';
 
 export const EmptyArticleList = () => {
