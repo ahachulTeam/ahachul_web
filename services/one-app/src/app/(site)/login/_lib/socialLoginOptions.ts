@@ -1,5 +1,5 @@
-import { type SocialLoginOption, SocialSignInType } from '@/model';
 import { KakaoIcon, AppleIcon, GoogleIcon } from '@/common/assets/icons';
+import { type SocialLoginOption, SocialSignInType } from '@/model';
 
 export const socialLoginOptions: SocialLoginOption[] = [
   {

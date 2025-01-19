@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect } from 'react';
-import { $getRoot, EditorState, ElementNode } from 'lexical';
+
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { $getRoot, EditorState, ElementNode } from 'lexical';
 
 type Props = {
   readonly?: boolean;

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
-import { SocialLogins } from './_component/SocialLogins';
 import { HelloOnLogin } from './_component/HelloOnLogin';
+import { SocialLogins } from './_component/SocialLogins';
 
 export const metadata: Metadata = {
   title: 'Create Next App',

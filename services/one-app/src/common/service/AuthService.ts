@@ -1,9 +1,9 @@
 import axios, { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
 
-import { CookieKey } from '@/model';
 import { apiClient } from '@/app/api';
 import { IS_DEV_ENV } from '@/common/constants';
+import { CookieKey } from '@/model';
 
 class _AuthService {
   private isFetchingAccessToken = false;
@@ -100,7 +100,7 @@ class _AuthService {
   }
 
   private broadcastTokenUpdate(newAccessToken: string) {
-    this.tokenSubscribers.forEach((callback) => callback(newAccessToken));
+    this.tokenSubscribers.forEach(callback => callback(newAccessToken));
     this.tokenSubscribers = [];
   }
 

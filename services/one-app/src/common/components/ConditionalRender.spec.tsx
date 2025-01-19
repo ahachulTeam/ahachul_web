@@ -1,5 +1,5 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
+
 import { ConditionalRender } from './ConditionalRender';
 
 describe('ConditionalRender 컴포넌트', () => {

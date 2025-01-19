@@ -8,7 +8,7 @@ on:
       - 'services/one-app/**'
 
 env:
-  DEFAULT_NODE_VERSION: '20.14.0'
+  DEFAULT_NODE_VERSION: '20.13.0'
 
 jobs:
   deploy:
@@ -34,15 +34,12 @@ jobs:
           node-version: ${{ env.DEFAULT_NODE_VERSION }}
 
       - name: Install dependencies
-        uses: ./.github/actions/yarn-install
+        uses: ./.github/actions/pnpm-install
 
       - name: Create .env file for one-app
         run: |
           echo '${{ secrets.DEV_ONE_APP_CONFIG }}' > config.json
           cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/one-app/.env
-
-      - name: Build one-app
-        run: yarn build:one-app
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2

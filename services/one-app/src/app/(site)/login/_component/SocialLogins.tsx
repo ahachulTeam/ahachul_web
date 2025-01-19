@@ -1,12 +1,13 @@
 'use client';
 
 import React from 'react';
+
 import { useRouter } from 'next/navigation';
 
-import type { SocialSignInType } from '@/model';
-import { APIResponseCode } from '@/common/constants';
 import { SocialLoginButton } from '@/app/(site)/login/_component';
 import { getRedirectUrl, socialLoginOptions } from '@/app/(site)/login/_lib';
+import { APIResponseCode } from '@/common/constants';
+import type { SocialSignInType } from '@/model';
 
 export const SocialLogins: React.FC = () => {
   const router = useRouter();
@@ -26,7 +27,7 @@ export const SocialLogins: React.FC = () => {
     }
   };
 
-  return socialLoginOptions.map((option) => (
+  return socialLoginOptions.map(option => (
     <SocialLoginButton
       key={option.social}
       {...option}

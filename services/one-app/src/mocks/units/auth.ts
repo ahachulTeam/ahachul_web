@@ -1,5 +1,6 @@
-import { http } from 'msw';
 import { faker } from '@faker-js/faker';
+import { http } from 'msw';
+
 import {
   User,
   ERROR_RATE,

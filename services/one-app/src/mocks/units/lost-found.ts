@@ -1,5 +1,6 @@
-import { http, HttpResponse } from 'msw';
 import { faker } from '@faker-js/faker';
+import { http, HttpResponse } from 'msw';
+
 import {
   User,
   ERROR_RATE,
@@ -9,18 +10,15 @@ import {
   generateBasicArticleData,
 } from '../mock-utils';
 
-const mock_유실물_상세_조회 = http.get(
-  '/lost-posts/:postId',
-  ({ params }): HttpResponse => {
-    const { postId } = params;
+const mock_유실물_상세_조회 = http.get('/lost-posts/:postId', ({ params }): HttpResponse => {
+  const { postId } = params;
 
-    if (Math.random() < ERROR_RATE || typeof postId !== 'string') {
-      return createErrorResponse();
-    }
+  if (Math.random() < ERROR_RATE || typeof postId !== 'string') {
+    return createErrorResponse();
+  }
 
-    return createSuccessResponse(generateBasicArticleData(postId, User[0]));
-  },
-);
+  return createSuccessResponse(generateBasicArticleData(postId, User[0]));
+});
 
 const mock_유실물_상세_댓글_목록_조회 = http.get(
   '/lost-posts/:postId/comments',
@@ -30,10 +28,7 @@ const mock_유실물_상세_댓글_목록_조회 = http.get(
     }
 
     return createSuccessResponse({
-      comments: Array.from(
-        { length: faker.number.int({ min: 1, max: 5 }) },
-        generateCommentThread,
-      ),
+      comments: Array.from({ length: faker.number.int({ min: 1, max: 5 }) }, generateCommentThread),
     });
   },
 );

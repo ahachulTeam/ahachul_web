@@ -2,30 +2,19 @@
 *.log
 *.tsbuildinfo
 
-.pnp.*
-.yarn/install-state.gz
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
 **/packge-lock.json
 **/node_modules/
 
+# vite
+**/build
 **/dist/*
 dist
-
-# storybook
-**/storybook-static/
 
 # next.js
 **/.next/
 **/out/
 
-# production
-**/build
-
 .env
 **/.env
 
-.pnp.cjs
+.nx

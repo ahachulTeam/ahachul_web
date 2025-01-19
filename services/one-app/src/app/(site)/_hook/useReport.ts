@@ -1,4 +1,5 @@
 'use client';
+
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -6,7 +7,6 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-
 import { useCallback, useEffect, useRef } from 'react';
 
 const getElement = (): HTMLElement => {
@@ -50,7 +50,7 @@ export function useReport(): (arg0: string) => ReturnType<typeof setTimeout> {
   }, [cleanup]);
 
   return useCallback(
-    (content) => {
+    content => {
       // eslint-disable-next-line no-console
       console.log(content);
       const element = getElement();

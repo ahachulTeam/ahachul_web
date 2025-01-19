@@ -1,0 +1,23 @@
+{
+  "name": "@ahhachul/utils",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint:es": "eslint src",
+    "lint:es:fix": "eslint src --fix",
+    "lint:etc": "prettier src --check",
+    "lint:etc:fix": "prettier src --write",
+    "lint": "pnpm lint:es && pnpm lint:etc",
+    "lint:fix": "pnpm lint:es:fix && pnpm lint:etc:fix"
+  },
+  "dependencies": {
+    "crypto-js": "^4.2.0",
+    "date-fns": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.2.2"
+  }
+}

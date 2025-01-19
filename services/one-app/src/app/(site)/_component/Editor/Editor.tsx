@@ -1,11 +1,11 @@
 'use client';
 
-import type { EditorState } from 'lexical';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
-import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
-import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
+import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
+import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
+import type { EditorState } from 'lexical';
 
 import {
   OnChangePlugin,
@@ -40,13 +40,7 @@ type Props = {
   onChange?: (editorState: EditorState | null) => void;
 };
 
-export const Editor = ({
-  showMic,
-  readonly,
-  placeholder,
-  initialState,
-  onChange,
-}: Props) => {
+export const Editor = ({ showMic, readonly, placeholder, initialState, onChange }: Props) => {
   const initialConfig = {
     namespace: 'MyEditor',
     theme,
@@ -64,11 +58,7 @@ export const Editor = ({
           ErrorBoundary={LexicalErrorBoundary}
         />
         <HistoryPlugin />
-        <OnChangePlugin
-          onChange={onChange}
-          readonly={readonly}
-          initialState={initialState}
-        />
+        <OnChangePlugin onChange={onChange} readonly={readonly} initialState={initialState} />
         {showMic && (
           <>
             <SpeechToTextPlugin />

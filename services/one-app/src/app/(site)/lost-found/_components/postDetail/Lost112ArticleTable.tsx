@@ -1,4 +1,3 @@
-import React from 'react';
 import Link from 'next/link';
 
 import { formatDate } from '@/common/utils';
@@ -18,45 +17,33 @@ export const Lost112ArticleTable = ({ post }: Props) => {
 
         <div className="grid grid-cols-[120px,1fr] gap-y-4 text-sm py-3 px-[5px]">
           <div className="text-gray-80 text-label-medium">습득일</div>
-          <div className="text-gray-90 text-label-medium">
-            {formatDate(post.createdAt)}
-          </div>
+          <div className="text-gray-90 text-label-medium">{formatDate(post.createdAt)}</div>
 
           {post?.storage && (
             <>
               <div className="text-gray-80 text-label-medium">습득장소</div>
-              <div className="text-gray-90 text-label-medium">
-                {post.storage}
-              </div>
+              <div className="text-gray-90 text-label-medium">{post.storage}</div>
             </>
           )}
 
           {post?.categoryName && (
             <>
               <div className="text-gray-80 text-label-medium">물품분류</div>
-              <div className="text-gray-90 text-label-medium">
-                {post.categoryName}
-              </div>
+              <div className="text-gray-90 text-label-medium">{post.categoryName}</div>
             </>
           )}
 
           {post?.storageNumber && (
             <>
-              <div className="text-gray-80 text-label-medium">
-                보관 장소 전화번호
-              </div>
-              <div className="text-gray-90 text-label-medium">
-                {post.storageNumber}
-              </div>
+              <div className="text-gray-80 text-label-medium">보관 장소 전화번호</div>
+              <div className="text-gray-90 text-label-medium">{post.storageNumber}</div>
             </>
           )}
 
           {post?.storage && (
             <>
               <div className="text-gray-80 text-label-medium">보관장소</div>
-              <div className="text-gray-90 text-label-medium">
-                {post.storage}
-              </div>
+              <div className="text-gray-90 text-label-medium">{post.storage}</div>
             </>
           )}
 

@@ -1,9 +1,9 @@
-import { z } from 'zod';
 import axios from 'axios';
+import { z } from 'zod';
 
 import { apiClient } from '@/app/api';
-import type { SocialSignInType } from '@/model';
 import { APIResponseCode, RESPONSE_MESSAGES } from '@/common/constants';
+import type { SocialSignInType } from '@/model';
 
 const RedirectUrlResponseSchema = z.object({
   code: z.literal(APIResponseCode.SUCCESS),
@@ -15,9 +15,7 @@ const RedirectUrlResponseSchema = z.object({
 
 type RedirectUrlResponse = z.infer<typeof RedirectUrlResponseSchema>;
 
-export async function getRedirectUrl(
-  params: SocialSignInType,
-): Promise<RedirectUrlResponse> {
+export async function getRedirectUrl(params: SocialSignInType): Promise<RedirectUrlResponse> {
   try {
     const response = await apiClient.get<RedirectUrlResponse>(
       `/auth/redirect-url?providerType=${params}`,

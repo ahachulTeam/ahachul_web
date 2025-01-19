@@ -1,13 +1,14 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
+
 import Link from 'next/link';
 
-import type { LostFoundFilters } from '@/model';
-import { useIntersectionObserver } from '@/common/hooks';
-import { ArticleCard, EmptyArticleList } from '@/common/components';
 import { useGetLostFoundList } from '@/app/(site)/lost-found/_lib/get';
+import { ArticleCard, EmptyArticleList } from '@/common/components';
+import { useIntersectionObserver } from '@/common/hooks';
 import { flattenInfinityList, formatSubwayLineId } from '@/common/utils';
+import type { LostFoundFilters } from '@/model';
 
 interface Props {
   keyword: string | null;
@@ -21,13 +22,12 @@ export const LostFoundSearchedList = ({ keyword, filters }: Props) => {
     [filters.subwayLineId],
   );
 
-  const { data, hasNextPage, isFetchingNextPage, fetchNextPage } =
-    useGetLostFoundList({
-      pageSize: 40,
-      keyword,
-      subwayLineId,
-      lostType: filters.lostType,
-    });
+  const { data, hasNextPage, isFetchingNextPage, fetchNextPage } = useGetLostFoundList({
+    pageSize: 40,
+    keyword,
+    subwayLineId,
+    lostType: filters.lostType,
+  });
 
   const lostArticles = flattenInfinityList(data);
   const intersectCallback = () => !isFetchingNextPage && fetchNextPage();
