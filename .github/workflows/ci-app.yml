@@ -1,4 +1,4 @@
-name: CI
+name: CI-APP
 on:
   pull_request:
     paths:
@@ -7,7 +7,6 @@ on:
       - 'pnpm-lock.yaml'
       - '.github/workflows/**'
 
-# 동일한 PR에 대해 중복 실행 방지
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -18,19 +17,13 @@ env:
 jobs:
   ci:
     runs-on: ubuntu-latest
-    timeout-minutes: 15 # 전체 작업 timeout 설정
+    timeout-minutes: 15
 
     steps:
       - name: Check out the repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Parse secrets from JSON
-        id: secrets
-        timeout-minutes: 1
-        run: |
-          echo '${{ secrets.DEV_META_DATA }}' | jq -r 'to_entries | .[] | "echo \(.key)=\(.value) >> $GITHUB_ENV"' | bash
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -51,23 +44,22 @@ jobs:
       - name: Lint ahhachul.com
         timeout-minutes: 3
         run: pnpm lint:app
-        continue-on-error: false # lint 실패 시 다음 단계로 진행하지 않음
+        continue-on-error: false
 
       - name: Test ahhachul.com
-        if: success() # 이전 단계가 성공한 경우에만 실행
+        if: success()
         timeout-minutes: 5
         run: pnpm test:app
         continue-on-error: false
 
       - name: Build ahhachul.com
-        if: success() # 이전 단계가 성공한 경우에만 실행
+        if: success()
         timeout-minutes: 5
         run: pnpm build:app
         continue-on-error: false
 
-      # 선택적: 테스트 결과나 빌드 결과를 아티팩트로 저장
       - name: Upload test results
-        if: always() # 실패하더라도 결과는 저장
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: test-results

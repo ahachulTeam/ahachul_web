@@ -18,7 +18,11 @@
     "build:all": "nx run-many --target=build --all",
     "lint:app": "nx lint @ahhachul/app",
     "test:app": "nx test @ahhachul/app",
-    "build:app": "nx build @ahhachul/app"
+    "build:app": "nx build @ahhachul/app",
+    "lint:one-app": "nx lint @ahhachul/one-app",
+    "test:one-app": "nx test @ahhachul/one-app",
+    "build:one-app": "nx build @ahhachul/one-app",
+    "start:one-app": "nx start @ahhachul/one-app"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
