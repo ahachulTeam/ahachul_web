@@ -15,6 +15,7 @@
       "@/*": ["./src/*"]
     },
     "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["@types/jest", "@testing-library/jest-dom"],
     "incremental": true,
     "esModuleInterop": true,
     "resolveJsonModule": true
