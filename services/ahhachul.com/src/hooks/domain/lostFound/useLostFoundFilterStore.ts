@@ -7,7 +7,7 @@ import type { LostFoundFilters } from '@/types/lostFound';
 
 const useLostFoundFilters = () => {
   const {
-    params: { keyword },
+    params: { keyword = '' },
   } = useActivity();
 
   const { filters, loaded, activatedCount, handleSelect, handleReset } =

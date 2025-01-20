@@ -1,6 +1,6 @@
 import React, { memo, forwardRef, useCallback } from 'react';
 
-import { CameraIcon, CircleCloseIcon } from '@/assets/icons/system';
+import { PictureIcon, CircleCloseIcon } from '@/assets/icons/system';
 import { PostImage } from '@/types';
 
 import * as S from './ImageUpload.styled';
@@ -33,16 +33,16 @@ const ImageUpload = memo(
 
       return (
         <S.UploadWrapper disabled={images.length >= 5}>
-          <label htmlFor="image-upload">
-            <CameraIcon />
+          <label htmlFor="upload-img">
+            <PictureIcon />
             <input
               hidden
-              type="file"
-              accept="image/*"
-              id="image-upload"
-              ref={ref}
-              onChange={handleChange}
               multiple
+              ref={ref}
+              type="file"
+              id="upload-img"
+              accept="image/*"
+              onChange={handleChange}
               disabled={images.length >= 5}
             />
           </label>

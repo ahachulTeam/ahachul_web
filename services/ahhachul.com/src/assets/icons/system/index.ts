@@ -9,7 +9,7 @@ export { default as PlusIcon } from './ic_plus.svg?react';
 export { default as CloseIcon } from './ic_close.svg?react';
 export { default as CheckIcon } from './ic_check.svg?react';
 export { default as SearchIcon } from './ic_search.svg?react';
-export { default as CameraIcon } from './ic_camera.svg?react';
+export { default as PictureIcon } from './ic_picture.svg?react';
 export { default as WarningIcon } from './ic_warning.svg?react';
 export { default as ProfileIcon } from './ic_profile.svg?react';
 export { default as CommentIcon } from './ic_comment.svg?react';
