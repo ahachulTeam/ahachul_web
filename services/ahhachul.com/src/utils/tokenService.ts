@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 
 import * as api from '@/apis/request/token';
-import { AUTH_ALERT_MSG } from '@/constants';
+import { AUTH_ALERT_MSG, PATH } from '@/constants';
 import type { ValueOf } from '@/types';
 
 import { AuthService } from './authService';
@@ -47,8 +47,7 @@ export class TokenRefreshService {
 
     const refreshToken = this.authService.refreshToken;
     if (!refreshToken) {
-      this.handleSessionExpiration();
-      throw error;
+      return this.handleSessionExpiration();
     }
 
     const retryOriginalRequest = new Promise<any>(resolve => {
@@ -73,13 +72,10 @@ export class TokenRefreshService {
         this.authService.updateToken('access', result.accessToken);
         this.authService.updateToken('refresh', result.refreshToken);
         this.notifySubscribers(result.accessToken);
-      } catch (refreshError: any) {
-        const { response } = refreshError as AxiosError<ErrorResponse>;
+      } catch (error) {
+        console.log('isAuthError ?', this.isAuthError(response?.data?.message));
 
-        if (this.isAuthError(response?.data?.message)) {
-          this.handleSessionExpiration();
-        }
-        throw refreshError;
+        this.handleSessionExpiration();
       } finally {
         this.isRefreshing = false;
       }
@@ -133,5 +129,6 @@ export class TokenRefreshService {
       alert(AUTH_ALERT_MSG.SESSION_EXPIRED);
     }
     this.authService.logout();
+    window.location.replace(PATH.home);
   }
 }

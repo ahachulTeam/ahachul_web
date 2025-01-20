@@ -27,6 +27,8 @@ const LostFoundDetail = ({ id }: LostFoundDetailProps) => {
 
   return (
     <>
+      <LostFoundComponent.LostFoundDetailHeaderActions id={id} createdBy={+post.createdBy} />
+
       <S.ArticleWrapper>
         <UiComponent.ImageCarousel label={post.title} images={images} />
         <S.ContentWrapper>

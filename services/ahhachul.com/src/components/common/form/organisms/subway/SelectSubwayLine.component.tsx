@@ -1,21 +1,19 @@
-import { Control, Controller, Path, FieldValues, useFormState } from 'react-hook-form';
+import { Controller, Path, FieldValues, useFormContext } from 'react-hook-form';
 
 import { FormComponent, UiComponent } from '@/components';
 
 import * as S from './SelectSubwayLine.styled';
 
 interface Props<T extends FieldValues> {
-  control: Control<T>;
   name: Path<T>;
   label?: string;
 }
 
-const SelectSubwayLine = <T extends FieldValues>({
-  control,
-  name,
-  label = '호선 선택',
-}: Props<T>) => {
-  const { errors } = useFormState({ control });
+const SelectSubwayLine = <T extends FieldValues>({ name, label = '호선 선택' }: Props<T>) => {
+  const {
+    formState: { errors },
+    control,
+  } = useFormContext<T>();
   const errorMessage = errors[name]?.message as string | undefined;
   const errorMsg = typeof errorMessage === 'string' ? errorMessage : undefined;
 

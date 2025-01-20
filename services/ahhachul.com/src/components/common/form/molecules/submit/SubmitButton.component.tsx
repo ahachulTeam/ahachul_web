@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 import { UiComponent } from '@/components';
 
@@ -8,21 +9,28 @@ interface SubmitButtoProps {
   active: boolean;
   loading: boolean;
   label?: string;
-  disabled?: boolean;
   onSubmit: () => void;
 }
 
 const SubmitButton: React.FC<SubmitButtoProps> = ({
   active,
   loading,
-  disabled,
   label = '등록',
   onSubmit,
 }) => {
+  const { watch } = useFormContext();
+
+  const [title, content] = watch(['title', 'content']);
+
+  const isDisabled = useMemo(() => {
+    const isEmpty = (value?: string) => !value?.trim();
+    return isEmpty(title) || isEmpty(content) || loading;
+  }, [title, content, loading]);
+
   return (
     <UiComponent.AnimatePortal mounted={active}>
       <S.SubmitContainer>
-        <S.SubmitButton type="button" onClick={onSubmit} disabled={disabled} aria-busy={loading}>
+        <S.SubmitButton type="button" onClick={onSubmit} disabled={isDisabled} aria-busy={loading}>
           {label}
         </S.SubmitButton>
       </S.SubmitContainer>
