@@ -56,7 +56,7 @@ const SignInCallbackPage: ActivityComponentType<SignInCallbackPageProps> = ({
 
   return (
     <LayoutComponent.Base>
-      <UiComponent.LoadingSpinner opacity={0.1} />
+      <UiComponent.LoadingSpinner isWhite />
     </LayoutComponent.Base>
   );
 };

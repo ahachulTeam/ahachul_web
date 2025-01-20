@@ -1,21 +1,18 @@
-import { UseFormRegister, Path, useFormState, Control } from 'react-hook-form';
+import { Path, useFormContext } from 'react-hook-form';
 
 import { FormComponent } from '@/components';
 
 import * as S from './TitleField.styled';
 
 interface TitleFieldProps<T extends Record<string, any>> {
-  register: UseFormRegister<T>;
-  control: Control<T>;
   name: Path<T>;
 }
 
-const TitleField = <T extends Record<string, any>>({
-  register,
-  control,
-  name,
-}: TitleFieldProps<T>) => {
-  const { errors } = useFormState({ control });
+const TitleField = <T extends Record<string, any>>({ name }: TitleFieldProps<T>) => {
+  const {
+    formState: { errors },
+    register,
+  } = useFormContext<T>();
   const errorMessage = errors[name]?.message;
   const errorMsg = typeof errorMessage === 'string' ? errorMessage : undefined;
 

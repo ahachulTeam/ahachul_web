@@ -39,6 +39,12 @@ export type PostImage = {
   imageUrl: string;
 };
 
+export interface EditableImage {
+  id: number | null;
+  data: File | null;
+  url: string;
+}
+
 export type RecommendPost = Pick<Post, 'id' | 'title' | 'writer' | 'createdAt' | 'imageUrl'>;
 
 export type WithPostId = {

@@ -51,7 +51,6 @@ export class AuthService {
       accessToken,
       refreshToken,
     };
-    console.log('newUser', newUser);
     Cookies.set(this.key, JSON.stringify(newUser));
     this.setUser(newUser as IAuthStore);
   }

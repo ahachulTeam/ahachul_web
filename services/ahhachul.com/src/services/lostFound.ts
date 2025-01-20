@@ -1,16 +1,26 @@
-import { useMutation, useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQueryClient,
+  useSuspenseInfiniteQuery,
+  useSuspenseQuery,
+} from '@tanstack/react-query';
 
 import * as api from '@/apis/request';
 import { TIMESTAMP } from '@/constants';
 import { useFlow } from '@/stackflow';
-import type { LostFoundForm, LostFoundListParams, SubwayLineFilterOptions } from '@/types';
+import {
+  LostFoundType,
+  type LostFoundForm,
+  type LostFoundEditForm,
+  type LostFoundListParams,
+  type SubwayLineFilterOptions,
+} from '@/types';
 import * as formatter from '@/utils/format';
 
 export const lostFoundKeys = {
   all: ['lostFound'] as const,
   lists: () => [...lostFoundKeys.all, 'list'] as const,
-  list: (filters: LostFoundListParams<SubwayLineFilterOptions>) =>
-    [...lostFoundKeys.lists(), { filters }] as const,
+  list: (filters: (string | number)[]) => [...lostFoundKeys.lists(), ...filters] as const,
   details: () => [...lostFoundKeys.all, 'detail'] as const,
   detail: (id: number) => [...lostFoundKeys.details(), id] as const,
   comments(id: number) {
@@ -22,8 +32,8 @@ export const useFetchLostFoundList = (filters: LostFoundListParams<SubwayLineFil
   const favoriteLine = 3;
   const req = formatter.deleteObjectKeyWithEmptyValue(
     {
-      keyword: filters.keyword,
       lostType: filters.lostType,
+      keyword: filters.keyword,
       subwayLineId: formatter.formatSubwayFilterOption(filters.subwayLineId, favoriteLine),
     },
     { removeZero: true },
@@ -31,7 +41,7 @@ export const useFetchLostFoundList = (filters: LostFoundListParams<SubwayLineFil
 
   return useSuspenseInfiniteQuery({
     initialPageParam: '',
-    queryKey: lostFoundKeys.list(filters),
+    queryKey: lostFoundKeys.list(Object.values(req)),
     queryFn: ({ pageParam = filters.pageToken }) =>
       api.fetchLostFoundList({
         ...req,
@@ -45,10 +55,15 @@ export const useCreateLostFound = () => {
   const { pop, push } = useFlow();
   // const { addToast } = useToast();
 
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (req: LostFoundForm) => api.createLostFound(req),
-    onSuccess: res => {
+    onSuccess: (res, req) => {
       pop();
+
+      queryClient.invalidateQueries({
+        queryKey: lostFoundKeys.list([req.lostType]),
+      });
       setTimeout(() => {
         push('LostFoundDetailPage', {
           id: res.result.id,
@@ -74,6 +89,36 @@ export const useFetchLostFoundCommentList = (id: number) =>
   useSuspenseQuery({
     queryKey: lostFoundKeys.comments(id),
     queryFn: () => api.fetchLostFoundCommentList(id),
-    staleTime: 5 * TIMESTAMP.MINUTE, // default: 5분, 글 수정 시에는 따로 업데이트 관리
+    staleTime: 5 * TIMESTAMP.MINUTE, //5분
     select: res => res.data.result,
   });
+
+export const useEditLostFound = (id: number, lostType: LostFoundType) => {
+  const { pop, push } = useFlow();
+  // const { addToast } = useToast();
+
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (req: LostFoundEditForm) => api.editLostFound(id, req),
+    onSuccess: res => {
+      queryClient.invalidateQueries({
+        queryKey: lostFoundKeys.list([lostType]),
+      });
+
+      pop(2);
+
+      queryClient.invalidateQueries({
+        queryKey: lostFoundKeys.detail(id),
+      });
+
+      setTimeout(() => {
+        push('LostFoundDetailPage', {
+          id: res.result.id,
+        });
+      }, 500);
+    },
+    onError: () => {
+      // addToast(TOAST_MSG.WARNING.CREATE_FAIL);
+    },
+  });
+};

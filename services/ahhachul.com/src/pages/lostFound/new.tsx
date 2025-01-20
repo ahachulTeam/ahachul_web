@@ -1,3 +1,5 @@
+import { FormProvider } from 'react-hook-form';
+
 import styled from '@emotion/styled';
 import type { ActivityComponentType } from '@stackflow/react';
 
@@ -10,24 +12,24 @@ import { mixins } from '@/styles';
 const NewLostFoundPage: ActivityComponentType = () => {
   const { isActive } = useActivity();
 
-  const { control, isPending, register, handleSubmit, onSubmit, onError } = useLostFoundForm();
-
-  const submit = handleSubmit(onSubmit, onError);
+  const { methods, isPending, handleImageUpload, handleImageDelete, submit } = useLostFoundForm();
 
   return (
     <LayoutComponent.Base>
-      <S.FormContainer onSubmit={submit}>
-        <FormComponent.ImageUpload name="images" control={control} />
-        <FormComponent.Select name="lostType" control={control} options={lostFoundTypeOptions} />
-        <FormComponent.SubwayLine name="subwayLineId" control={control} />
-        <FormComponent.Title name="title" control={control} register={register} />
-        <FormComponent.Content name="content" control={control} />
-        <FormComponent.SubmitButton
-          isActive={isActive}
-          isSubmitting={isPending}
-          onSubmit={submit}
-        />
-      </S.FormContainer>
+      <FormProvider {...methods}>
+        <S.FormContainer onSubmit={submit}>
+          <FormComponent.ImageUpload
+            name="images"
+            onDeleteImg={handleImageDelete}
+            onImgChange={handleImageUpload}
+          />
+          <FormComponent.Select name="lostType" options={lostFoundTypeOptions} />
+          <FormComponent.SubwayLine name="subwayLineId" />
+          <FormComponent.Title name="title" />
+          <FormComponent.Content name="content" />
+          <FormComponent.SubmitButton active={isActive} loading={isPending} onSubmit={submit} />
+        </S.FormContainer>
+      </FormProvider>
     </LayoutComponent.Base>
   );
 };

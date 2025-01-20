@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import type { ActivityComponentType } from '@stackflow/react';
+import { type ActivityComponentType } from '@stackflow/react';
 
 import { LayoutComponent, LostFoundComponent, UiComponent } from '@/components';
 import type { WithPostId } from '@/types';
