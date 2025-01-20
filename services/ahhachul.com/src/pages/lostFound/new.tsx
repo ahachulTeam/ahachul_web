@@ -10,9 +10,7 @@ import { mixins } from '@/styles';
 const NewLostFoundPage: ActivityComponentType = () => {
   const { isActive } = useActivity();
 
-  const { control, isPending, register, handleSubmit, onSubmit, onError } = useLostFoundForm();
-
-  const submit = handleSubmit(onSubmit, onError);
+  const { control, isPending, isDisabled, register, submit } = useLostFoundForm();
 
   return (
     <LayoutComponent.Base>
@@ -23,8 +21,9 @@ const NewLostFoundPage: ActivityComponentType = () => {
         <FormComponent.Title name="title" control={control} register={register} />
         <FormComponent.Content name="content" control={control} />
         <FormComponent.SubmitButton
-          isActive={isActive}
-          isSubmitting={isPending}
+          active={isActive}
+          loading={isPending}
+          disabled={isDisabled}
           onSubmit={submit}
         />
       </S.FormContainer>

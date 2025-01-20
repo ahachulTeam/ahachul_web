@@ -5,11 +5,11 @@ import { FormComponent } from '@/components';
 import { ImageUploadMolecules } from '../../molecules';
 
 interface ImageUploadFieldProps<T extends FieldValues> {
-  control: Control<T>;
   name: Path<T>;
+  control: Control<T>;
 }
 
-const ImageUploadField = <T extends FieldValues>({ control, name }: ImageUploadFieldProps<T>) => (
+const ImageUploadField = <T extends FieldValues>({ name, control }: ImageUploadFieldProps<T>) => (
   <FormComponent.FormSection>
     <div>
       <p>유실물 상세정보</p>

@@ -17,7 +17,7 @@ interface Props extends ComponentProps<typeof Portal> {
  */
 const AnimatePortal = ({ children, mounted, mode = 'wait' }: Props) => {
   return (
-    <Portal elementId="modal-root" mounted={mounted}>
+    <Portal mounted={mounted}>
       <AnimatePresence mode={mode}>{mounted && children}</AnimatePresence>
     </Portal>
   );

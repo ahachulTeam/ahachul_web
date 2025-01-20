@@ -11,33 +11,24 @@ export const UploadWrapper = styled.div<WrapperProps>`
   padding-left: 20px;
 
   & > label {
-    width: 55px;
-    height: 55px;
+    width: 64px;
+    height: 64px;
     border: 1px solid ${({ theme }) => theme.colors.gray[50]};
-    border-radius: 8px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: ${({ disabled }) => (disabled ? 0.1 : 1)};
-
-    & > div {
-      width: 18px;
-      height: 18px;
-
-      & > svg > path {
-        stroke: #9da5b6;
-      }
-    }
   }
 `;
 
 export const ImagePreview = styled.div`
   position: relative;
-  width: 53px;
-  height: 53px;
-  border-radius: 8px;
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
   margin-left: 8px;
-  border: 1px solid #141517;
+  border: 1px solid ${({ theme }) => theme.colors.gray[40]};
 
   & > img {
     position: absolute;
@@ -46,14 +37,12 @@ export const ImagePreview = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 10px;
   }
 
-  & > button > div {
+  & > button {
     position: absolute;
-    top: 2px;
-    right: 2px;
-    width: 18px;
-    height: 18px;
+    top: -6px;
+    right: -6px;
   }
 `;
