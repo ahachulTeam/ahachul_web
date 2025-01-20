@@ -5,9 +5,9 @@ export const SubmitContainer = styled.button`
   ${({ theme }) => css`
     position: fixed;
     top: 0;
-    right: 20px;
+    right: 16px;
     background: ${theme.colors.white};
-    z-index: 15;
+    z-index: ${theme.zIndex.header};
     height: 58px;
     display: flex;
     align-items: center;

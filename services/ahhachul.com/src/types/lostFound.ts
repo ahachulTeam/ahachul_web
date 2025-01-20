@@ -4,6 +4,7 @@ import type {
   RecommendPost,
   CursorPagination,
   SubwayLineFilterOptions,
+  EditableImage,
 } from './common';
 
 export enum LostFoundType {
@@ -52,4 +53,13 @@ export interface LostFoundForm {
   subwayLineId: number;
   lostType: LostFoundType;
   images: File[];
+}
+
+export interface LostFoundEditForm {
+  title: string;
+  content: string;
+  subwayLineId: number;
+  lostType: LostFoundType;
+  images: EditableImage[];
+  removeFileIds: number[];
 }

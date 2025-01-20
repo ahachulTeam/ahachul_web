@@ -8,6 +8,7 @@ import type {
   LostFoundPostDetail,
   CommentList,
   WithPostId,
+  LostFoundEditForm,
 } from '@/types';
 import { appendFilesToFormData, createJsonBlob, extractFormData } from '@/utils';
 
@@ -49,3 +50,31 @@ export const fetchLostFoundDetail = (id: number) =>
 
 export const fetchLostFoundCommentList = (id: number) =>
   axiosInstance.get<ApiResponse<CommentList>>(`/lost-posts/${id}/comments`);
+
+export const editLostFound = async (id: number, req: LostFoundEditForm) => {
+  const formData = new FormData();
+  const formDataWithoutImages = extractFormData(req, 'images');
+  const jsonBlob = createJsonBlob(formDataWithoutImages);
+
+  formData.append('content', jsonBlob);
+
+  if (req.images?.length) {
+    //    fileData: images,
+    appendFilesToFormData(
+      formData,
+      req.images.flatMap(image => (image.data !== null ? [image.data] : [])),
+    );
+  }
+
+  const response = await axiosInstance.post<ApiResponse<WithPostId>>(
+    `/lost-posts/${id}`,
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    },
+  );
+
+  return response.data;
+};

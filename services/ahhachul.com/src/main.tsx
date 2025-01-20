@@ -5,7 +5,7 @@ import App from './App';
 import { UiComponent } from './components';
 
 createRoot(document.getElementById('root')!).render(
-  <Suspense fallback={<UiComponent.LoadingSpinner opacity={1} />}>
+  <Suspense fallback={<UiComponent.LoadingSpinner isWhite />}>
     <App />
   </Suspense>,
 );

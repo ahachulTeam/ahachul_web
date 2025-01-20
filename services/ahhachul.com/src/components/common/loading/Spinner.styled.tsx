@@ -1,7 +1,6 @@
-import { Theme, css } from '@emotion/react';
+import { css } from '@emotion/react';
 
-export const loader = (theme: Theme) => css`
+export const loader = css`
   width: 130px;
   position: relative;
-  top: -${theme.size.header.height_m};
 `;
