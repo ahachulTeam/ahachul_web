@@ -16,3 +16,9 @@ export const communityTypeOptions = {
   [CommunityType.HUMOR]: '유머',
   [CommunityType.INSIGHT]: '정보',
 } as const;
+
+export const communityTypeFormOptions = {
+  [CommunityType.FREE]: '자유',
+  [CommunityType.HUMOR]: '유머',
+  [CommunityType.INSIGHT]: '정보',
+} as const;

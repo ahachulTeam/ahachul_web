@@ -52,3 +52,11 @@ export type CommunityFilterValues = {
 export type CommunityFilters = {
   [K in CommunityFilterKeys]: CommunityFilterValues[K];
 };
+
+export interface CommunityForm {
+  title: string;
+  content: string;
+  subwayLineId: number;
+  categoryType: CommunityType;
+  images: File[];
+}

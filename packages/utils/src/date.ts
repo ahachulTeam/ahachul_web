@@ -28,8 +28,8 @@ function formatToShortDate(date: Date): string {
  * - 1분 이내: '방금 전'
  * - 24시간 이내: 'n시간 전'
  * - 24시간 이후:
- *   - format이 'short'인 경우 'MM.DD HH:mm'
- *   - format이 'relative'인 경우 'n일 전'
+ *   - format이 'short'인 경우 'MM월 dd일 a h시 mm분'
+ *   - format이 'relative'인 경우 '약 n일 전 / 약 n개월 전 / 약 n년 전'
  */
 export function formatDateTime(dateString: string, options: FormatOptions = {}): string {
   const { format = 'relative' } = options;

@@ -7,7 +7,10 @@ import {
   CommunityType,
   CommunityDetail,
   CommentList,
+  CommunityForm,
+  WithPostId,
 } from '@/types';
+import { appendFilesToFormData, createJsonBlob, extractFormData } from '@/utils';
 
 export const fetchCommunityList = async (req: CommunityListParams) => {
   const endpoint =
@@ -21,6 +24,26 @@ export const fetchCommunityList = async (req: CommunityListParams) => {
       sort: 'createdAt,desc',
     },
   });
+  return data;
+};
+
+export const createCommunity = async (req: CommunityForm) => {
+  const formData = new FormData();
+  const formDataWithoutImages = extractFormData(req, 'images');
+  const jsonBlob = createJsonBlob(formDataWithoutImages);
+
+  formData.append('content', jsonBlob);
+
+  if (req.images?.length) {
+    appendFilesToFormData(formData, req.images, 'imageFiles');
+  }
+
+  const { data } = await axiosInstance.post<ApiResponse<WithPostId>>('/community-posts', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
   return data;
 };
 

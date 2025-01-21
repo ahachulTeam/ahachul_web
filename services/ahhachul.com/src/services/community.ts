@@ -1,12 +1,18 @@
-import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQueryClient,
+  useSuspenseInfiniteQuery,
+  useSuspenseQuery,
+} from '@tanstack/react-query';
 
 import * as api from '@/apis/request';
 import { TIMESTAMP } from '@/constants';
-import { type CommunityListParams, type SubwayLineFilterOptions } from '@/types';
+import { useFlow } from '@/stackflow';
+import { CommunityForm, type CommunityListParams, type SubwayLineFilterOptions } from '@/types';
 import * as formatter from '@/utils/format';
 
 export const communityKeys = {
-  all: ['lostFound'] as const,
+  all: ['community'] as const,
   lists: () => [...communityKeys.all, 'list'] as const,
   list: (filters: (string | number)[]) => [...communityKeys.lists(), ...filters] as const,
   details: () => [...communityKeys.all, 'detail'] as const,
@@ -20,9 +26,9 @@ export const useFetchCommunityList = (filters: CommunityListParams<SubwayLineFil
   const favoriteLine = 2;
   const req = formatter.deleteObjectKeyWithEmptyValue(
     {
-      writer: filters.writer,
-      content: filters.content,
       categoryType: filters.categoryType,
+      content: filters.content,
+      writer: filters.writer,
       subwayLineId: formatter.formatSubwayFilterOption(filters.subwayLineId, favoriteLine),
     },
     { removeZero: true, removeEmptyStrings: true },
@@ -37,6 +43,32 @@ export const useFetchCommunityList = (filters: CommunityListParams<SubwayLineFil
         ...(pageParam && { pageToken: pageParam }),
       }),
     getNextPageParam: lastPage => lastPage.result.pageToken,
+  });
+};
+
+export const useCreateCommunity = () => {
+  const { pop, push } = useFlow();
+  // const { addToast } = useToast();
+
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (req: CommunityForm) => api.createCommunity(req),
+    onSuccess: (res, req) => {
+      pop();
+
+      queryClient.invalidateQueries({
+        queryKey: communityKeys.list([req.categoryType]),
+      });
+      setTimeout(() => {
+        push('CommunityDetailPage', {
+          id: res.result.id,
+        });
+      }, 500);
+    },
+    onError: () => {
+      // addToast(TOAST_MSG.WARNING.CREATE_FAIL);
+    },
   });
 };
 
