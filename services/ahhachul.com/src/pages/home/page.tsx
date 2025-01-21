@@ -16,6 +16,7 @@ const HomePage: ActivityComponentType = () => {
     >
       <S.Container>
         <HomeComponent.WelcomeMessage />
+        <HomeComponent.Stations />
       </S.Container>
     </LayoutComponent.Base>
   );

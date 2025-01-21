@@ -9,7 +9,7 @@ import axios, {
 import { AUTH_ALERT_MSG } from '@/constants';
 import { authService } from '@/contexts';
 import type { ValueOf } from '@/types';
-import { TokenRefreshService, type ErrorResponse } from '@/utils';
+import { TokenRefreshService } from '@/utils';
 
 import { BASE_URL } from './baseUrl';
 import { API_PREFIX } from './endpointPrefix';
@@ -90,7 +90,7 @@ class ApiClient {
     const errorMessage = response.data?.message;
 
     if (errorMessage === AUTH_ALERT_MSG.INVALID_ACCESS_TOKEN) {
-      return this.tokenService.handleTokenRefresh(error as AxiosError<ErrorResponse>);
+      return this.tokenService.handleTokenRefresh(error);
     }
 
     if (errorMessage === AUTH_ALERT_MSG.DUPLICATE_SIGNIN_DETECTED) {
