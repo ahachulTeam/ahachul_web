@@ -34,7 +34,11 @@ const Post = ({ post }: PostProps) => {
                 width="100%"
                 height="100%"
                 effect="opacity"
-                src={post.imageUrl || '/placeholder.svg'}
+                src={
+                  post.image && 'imageUrl' in post.image
+                    ? post.image.imageUrl
+                    : post.imageUrl || '/placeholder.svg'
+                }
                 alt={`${post.title} - ${post.createdAt}`}
               />
             </S.ImageContainer>
