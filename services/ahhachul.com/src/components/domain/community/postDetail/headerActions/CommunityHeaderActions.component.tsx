@@ -20,8 +20,6 @@ const LostFoundHeaderActions = ({ id, createdBy }: LostFoundHeaderActionsProps) 
 
   const { user } = useUser();
 
-  console.log('user?.memberId:', user?.memberId);
-
   const [isOpen, toggle] = useReducer(open => !open, false);
 
   const isAuthor = user?.memberId === createdBy;
