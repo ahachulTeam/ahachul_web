@@ -59,13 +59,21 @@ export const editLostFound = async (id: number, req: LostFoundEditForm) => {
   formData.append('content', jsonBlob);
 
   if (req.images?.length) {
+<<<<<<< HEAD
+=======
+    //    fileData: images,
+>>>>>>> main
     appendFilesToFormData(
       formData,
       req.images.flatMap(image => (image.data !== null ? [image.data] : [])),
     );
   }
 
+<<<<<<< HEAD
   const { data } = await axiosInstance.post<ApiResponse<WithPostId>>(
+=======
+  const response = await axiosInstance.post<ApiResponse<WithPostId>>(
+>>>>>>> main
     `/lost-posts/${id}`,
     formData,
     {
@@ -75,5 +83,9 @@ export const editLostFound = async (id: number, req: LostFoundEditForm) => {
     },
   );
 
+<<<<<<< HEAD
   return data;
+=======
+  return response.data;
+>>>>>>> main
 };
