@@ -8,7 +8,13 @@ import {
 import * as api from '@/apis/request';
 import { TIMESTAMP } from '@/constants';
 import { useFlow } from '@/stackflow';
-import { CommunityForm, type CommunityListParams, type SubwayLineFilterOptions } from '@/types';
+import {
+  CommunityType,
+  type CommunityForm,
+  type CommunityEditForm,
+  type CommunityListParams,
+  type SubwayLineFilterOptions,
+} from '@/types';
 import * as formatter from '@/utils/format';
 
 export const communityKeys = {
@@ -87,3 +93,33 @@ export const useFetchCommunityCommentList = (id: number) =>
     staleTime: 5 * TIMESTAMP.MINUTE, //5분
     select: res => res.data.result,
   });
+
+export const useEditCommunity = (id: number, categoryType: CommunityType) => {
+  const { pop, push } = useFlow();
+  // const { addToast } = useToast();
+
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (req: CommunityEditForm) => api.editCommunity(id, req),
+    onSuccess: res => {
+      queryClient.invalidateQueries({
+        queryKey: communityKeys.list([categoryType]),
+      });
+
+      pop(2);
+
+      queryClient.invalidateQueries({
+        queryKey: communityKeys.detail(id),
+      });
+
+      setTimeout(() => {
+        push('LostFoundDetailPage', {
+          id: res.result.id,
+        });
+      }, 500);
+    },
+    onError: () => {
+      // addToast(TOAST_MSG.WARNING.CREATE_FAIL);
+    },
+  });
+};

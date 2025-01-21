@@ -5,6 +5,7 @@ import type {
   SubwayLineFilterOptions,
   PostImage,
   TypeYN,
+  EditableImage,
 } from './common';
 
 export enum CommunityType {
@@ -59,4 +60,13 @@ export interface CommunityForm {
   subwayLineId: number;
   categoryType: CommunityType;
   images: File[];
+}
+
+export interface CommunityEditForm {
+  title: string;
+  content: string;
+  subwayLineId: number;
+  categoryType: CommunityType;
+  images: EditableImage[];
+  removeFileIds: number[];
 }
