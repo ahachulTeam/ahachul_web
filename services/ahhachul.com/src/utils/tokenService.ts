@@ -65,16 +65,9 @@ export class TokenRefreshService {
 
         this.authService.updateToken('access', result.accessToken);
         this.authService.updateToken('refresh', result.refreshToken);
-<<<<<<< HEAD
 
         this.notifySubscribers(result.accessToken);
       } catch (error) {
-=======
-        this.notifySubscribers(result.accessToken);
-      } catch (error) {
-        console.log('isAuthError ?', this.isAuthError(response?.data?.message));
-
->>>>>>> main
         this.handleSessionExpiration();
       } finally {
         this.isRefreshing = false;

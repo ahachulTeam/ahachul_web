@@ -6,20 +6,14 @@ import { ImageUploadMolecules } from '../../molecules';
 
 interface ImageUploadFieldProps<T extends FieldValues> {
   name: Path<T>;
-<<<<<<< HEAD
   label: string;
-=======
->>>>>>> main
   onImgChange: (files: File[]) => void;
   onDeleteImg: (index: number) => void;
 }
 
 const ImageUploadField = <T extends FieldValues>({
   name,
-<<<<<<< HEAD
   label,
-=======
->>>>>>> main
   onImgChange,
   onDeleteImg,
 }: ImageUploadFieldProps<T>) => {
@@ -36,11 +30,7 @@ const ImageUploadField = <T extends FieldValues>({
   return (
     <FormComponent.FormSection>
       <div>
-<<<<<<< HEAD
         <p>{label}</p>
-=======
-        <p>유실물 상세정보</p>
->>>>>>> main
       </div>
       <Controller
         name={name}

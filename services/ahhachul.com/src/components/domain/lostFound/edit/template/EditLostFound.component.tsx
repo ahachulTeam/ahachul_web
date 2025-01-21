@@ -37,10 +37,7 @@ const EditLostFound = ({ id }: WithPostId) => {
       <S.FormContainer onSubmit={submit}>
         <FormComponent.ImageUpload
           name="images"
-<<<<<<< HEAD
           label="유실물 상세정보"
-=======
->>>>>>> main
           onDeleteImg={handleImageDelete}
           onImgChange={handleImageUpload}
         />
