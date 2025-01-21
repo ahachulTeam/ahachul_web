@@ -44,7 +44,7 @@ const Post = ({ post }: PostProps) => {
           <S.MetaInfo>
             {subwayIconMap.get(post.subwayLineId)}
             <S.StyledDotIcon />
-            <span>{post.writer || 'LOST112'}</span>
+            <span>{post.writer || '로스트 112'}</span>
             <S.StyledDotIcon />
             <span>{formatDateTime(post.createdAt, { format: 'short' })}</span>
           </S.MetaInfo>

@@ -76,14 +76,13 @@ export const useCreateLostFound = () => {
   });
 };
 
-export const useFetchLostFoundDetail = (id: number) => {
-  return useSuspenseQuery({
+export const useFetchLostFoundDetail = (id: number) =>
+  useSuspenseQuery({
     queryKey: lostFoundKeys.detail(id),
     queryFn: () => api.fetchLostFoundDetail(id),
     staleTime: 5 * TIMESTAMP.MINUTE, // 5분
     select: res => res.data.result,
   });
-};
 
 export const useFetchLostFoundCommentList = (id: number) =>
   useSuspenseQuery({

@@ -1,6 +1,7 @@
-import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 
 import * as api from '@/apis/request';
+import { TIMESTAMP } from '@/constants';
 import { type CommunityListParams, type SubwayLineFilterOptions } from '@/types';
 import * as formatter from '@/utils/format';
 
@@ -38,3 +39,19 @@ export const useFetchCommunityList = (filters: CommunityListParams<SubwayLineFil
     getNextPageParam: lastPage => lastPage.result.pageToken,
   });
 };
+
+export const useFetchCommunityDetail = (id: number) =>
+  useSuspenseQuery({
+    queryKey: communityKeys.detail(id),
+    queryFn: () => api.fetchCommunityDetail(id),
+    staleTime: 5 * TIMESTAMP.MINUTE, // 5분
+    select: res => res.data.result,
+  });
+
+export const useFetchCommunityCommentList = (id: number) =>
+  useSuspenseQuery({
+    queryKey: communityKeys.comments(id),
+    queryFn: () => api.fetchCommunityCommentList(id),
+    staleTime: 5 * TIMESTAMP.MINUTE, //5분
+    select: res => res.data.result,
+  });

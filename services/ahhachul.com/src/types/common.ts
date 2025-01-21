@@ -92,3 +92,5 @@ export enum ScrollDirection {
 }
 
 export type RegionType = 'METROPOLITAN';
+
+export type TypeYN = 'Y' | 'N';
