@@ -31,6 +31,7 @@ export type Post = {
   createdBy: string;
   commentCnt: number;
   subwayLineId: number;
+  image?: PostImage;
   imageUrl?: string;
 };
 
@@ -89,3 +90,5 @@ export enum ScrollDirection {
   up = 'up',
   down = 'down',
 }
+
+export type RegionType = 'METROPOLITAN';

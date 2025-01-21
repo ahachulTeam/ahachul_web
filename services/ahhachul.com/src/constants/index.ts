@@ -6,4 +6,5 @@ export * from './subway';
 export * from './filter';
 export * from './motion';
 export * from './lostFound';
+export * from './community';
 export * from './complaint';

@@ -36,7 +36,7 @@ export const useFetchLostFoundList = (filters: LostFoundListParams<SubwayLineFil
       keyword: filters.keyword,
       subwayLineId: formatter.formatSubwayFilterOption(filters.subwayLineId, favoriteLine),
     },
-    { removeZero: true },
+    { removeZero: true, removeEmptyStrings: true },
   ) as LostFoundListParams;
 
   return useSuspenseInfiniteQuery({
