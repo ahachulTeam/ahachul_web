@@ -21,12 +21,6 @@ export interface ErrorResponse {
   message: ValueOf<typeof AUTH_ALERT_MSG>;
 }
 
-const AUTH_ERROR_CODES = [
-  AUTH_ALERT_MSG.SESSION_EXPIRED,
-  AUTH_ALERT_MSG.DUPLICATE_SIGNIN_DETECTED,
-] as const;
-type AuthErrorCode = (typeof AUTH_ERROR_CODES)[number];
-
 export class TokenRefreshService {
   private isRefreshing = false;
   private refreshSubscribers: RetryRequestCallback[] = [];
@@ -71,10 +65,9 @@ export class TokenRefreshService {
 
         this.authService.updateToken('access', result.accessToken);
         this.authService.updateToken('refresh', result.refreshToken);
+
         this.notifySubscribers(result.accessToken);
       } catch (error) {
-        console.log('isAuthError ?', this.isAuthError(response?.data?.message));
-
         this.handleSessionExpiration();
       } finally {
         this.isRefreshing = false;
@@ -111,14 +104,6 @@ export class TokenRefreshService {
    */
   private addRetryRequest(callback: RetryRequestCallback): void {
     this.refreshSubscribers.push(callback);
-  }
-
-  /**
-   * 주어진 코드가 인증 에러 코드인지 확인하기 위한 타입 가드.
-   * @param code - 확인할 에러 코드입니다.
-   */
-  private isAuthError(code?: string): code is AuthErrorCode {
-    return AUTH_ERROR_CODES.includes(code as AuthErrorCode);
   }
 
   /**

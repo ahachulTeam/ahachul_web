@@ -6,3 +6,11 @@ export const fetchUserProfile = async () => {
 
   return data;
 };
+
+export const fetchUserFavoriteStations = async () => {
+  const { data } = await axiosInstance.get<ApiResponse<{ id: 'hello' }>>(
+    '/members/bookmarks/stations',
+  );
+
+  return data;
+};
