@@ -1,33 +1,23 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Drawer } from 'vaul';
 
-export const FilterButton = styled.button<{ isActive?: boolean }>`
-  position: relative;
-  text-align: left;
-  width: calc(100% - 40px);
-  margin: 0 auto;
-  border: 1px solid rgba(196, 212, 252, 0.37);
-  height: 44px;
-  border-radius: 6px;
-  padding: 0 12px;
-  color: ${({ isActive }) => (isActive ? '#FFFFFF' : '#9da5b6')};
-  font-size: 14px;
+export const FilterButton = styled.button<{ isActive: boolean }>`
+  flex-shrink: 0;
+  height: 30px;
+  background-color: ${({ theme }) => theme.colors.gray[10]};
+  border: 1px solid
+    ${({ theme, isActive }) => (isActive ? theme.colors.gray[100] : theme.colors.gray[20])};
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  transition: background-color 0.2s ease-out;
+  gap: 2px;
 
-  &[aria-invalid='true'] {
-    border-color: #e02020;
-  }
-`;
-
-export const ChevronIconWrapper = styled.div`
-  width: 14px;
-  height: 14px;
-  position: absolute;
-  top: 51.5%;
-  right: 12px;
-  transform: translateY(-50%);
-
-  & > svg > path {
-    stroke: #9da5b6;
+  & > span {
+    ${({ theme }) => theme.fonts.labelMedium};
+    color: ${({ theme }) => theme.colors.gray[90]};
   }
 `;
 
@@ -41,21 +31,22 @@ export const Overlay = styled(Drawer.Overlay)`
 `;
 
 export const DrawerContent = styled(Drawer.Content)`
-  z-index: 999999999;
+  z-index: ${({ theme }) => theme.zIndex.drawer};
   display: flex;
   flex-direction: column;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  height: 96%;
+  height: max-content;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
+  box-shadow: 0px -10px 16px 0px rgba(0, 0, 0, 0.17);
 `;
 
 export const ContentWrapper = styled.div`
   padding: 1.2rem 1rem;
-  background-color: #222226;
+  background-color: ${({ theme }) => theme.colors.gray[10]};
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
   height: 100%;
@@ -71,12 +62,13 @@ export const Header = styled.div`
 export const HeaderTitle = styled(Drawer.Title)`
   font-size: 16px;
   font-weight: 600;
-  color: #ffffff;
+  color: ${({ theme }) => theme.colors.gray[90]};
 `;
 
 export const ActionButton = styled.button<{ variant?: 'cancel' | 'done' }>`
   font-size: 16px;
-  color: #025fac;
+  color: ${({ theme, variant }) =>
+    variant === 'cancel' ? theme.colors.gray[90] : theme.colors['key-color']};
   font-weight: ${({ variant }) => (variant === 'done' ? 600 : 400)};
 `;
 
@@ -86,8 +78,9 @@ export const SearchContainer = styled.div`
   align-items: center;
   gap: 14px;
   width: 100%;
-  background-color: #222226;
+  background-color: ${({ theme }) => theme.colors.gray[20]};
   margin-bottom: 16px;
+  border-radius: 12px;
 `;
 
 export const SearchIconWrapper = styled.button`
@@ -107,29 +100,32 @@ export const SearchIconWrapper = styled.button`
 `;
 
 export const SearchInput = styled.input`
-  width: 100%;
-  max-width: 100%;
-  height: 36px;
-  background-color: #2e3034;
-  border-radius: 9px;
-  padding: 0 12px 0 30px;
-  font-size: 16px;
-  color: #f0f4ff;
-  caret-color: rgba(0, 255, 163, 0.5);
+  ${({ theme }) => css`
+    width: 100%;
+    max-width: 100%;
+    height: 36px;
+    border: 0;
+    color: ${theme.colors.gray[90]};
+    background-color: ${theme.colors.gray[20]};
+    padding: 0 12px 0 30px;
+    font-size: 16px;
+    caret-color: ${theme.colors['key-color']};
+    border-radius: 12px;
 
-  &::placeholder {
-    color: #999aa1;
-  }
+    &::placeholder {
+      color: ${theme.colors.gray[70]};
+    }
 
-  &:active:not(:focus) {
-    background-color: rgba(119, 119, 119, 0.8);
-  }
+    &:active:not(:focus) {
+      background-color: rgba(119, 119, 119, 0.8);
+    }
 
-  transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  `}
 `;
 
 export const ContentArea = styled.div`
-  background-color: #2e2f37;
-  height: calc(100% - 200px);
+  background-color: ${({ theme }) => theme.colors.gray[20]};
+  height: 500px;
   border-radius: 12px;
 `;

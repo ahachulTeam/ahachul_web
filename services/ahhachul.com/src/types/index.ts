@@ -4,3 +4,4 @@ export * from './common';
 export * from './filter';
 export * from './subway';
 export * from './lostFound';
+export * from './community';

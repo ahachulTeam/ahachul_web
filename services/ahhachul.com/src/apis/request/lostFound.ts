@@ -36,13 +36,13 @@ export const createLostFound = async (req: LostFoundForm) => {
     appendFilesToFormData(formData, req.images);
   }
 
-  const response = await axiosInstance.post<ApiResponse<WithPostId>>('/lost-posts', formData, {
+  const { data } = await axiosInstance.post<ApiResponse<WithPostId>>('/lost-posts', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   });
 
-  return response.data;
+  return data;
 };
 
 export const fetchLostFoundDetail = (id: number) =>
@@ -59,14 +59,13 @@ export const editLostFound = async (id: number, req: LostFoundEditForm) => {
   formData.append('content', jsonBlob);
 
   if (req.images?.length) {
-    //    fileData: images,
     appendFilesToFormData(
       formData,
       req.images.flatMap(image => (image.data !== null ? [image.data] : [])),
     );
   }
 
-  const response = await axiosInstance.post<ApiResponse<WithPostId>>(
+  const { data } = await axiosInstance.post<ApiResponse<WithPostId>>(
     `/lost-posts/${id}`,
     formData,
     {
@@ -76,5 +75,5 @@ export const editLostFound = async (id: number, req: LostFoundEditForm) => {
     },
   );
 
-  return response.data;
+  return data;
 };

@@ -26,11 +26,9 @@ const DrawerFilter: React.FC<DrawerFilterProps> = ({ label, drawerTitle }) => {
       onOpenChange={handleToggleDrawer}
     >
       <Drawer.Trigger asChild>
-        <S.FilterButton>
+        <S.FilterButton isActive={false}>
           <span>{label}</span>
-          <S.ChevronIconWrapper>
-            <ChevronIcon />
-          </S.ChevronIconWrapper>
+          <ChevronIcon />
         </S.FilterButton>
       </Drawer.Trigger>
       <Drawer.Portal>
