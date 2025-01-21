@@ -15,7 +15,7 @@ const LostFoundCommentList = ({ commentCnt, id }: LostFoundCommentListProps) => 
       <S.HeaderWrapper>
         <S.CommentCountWrapper>
           <span>댓글</span>
-          <span>{commentCnt}</span>
+          <span>{commentCnt ?? 0}</span>
         </S.CommentCountWrapper>
         <BookmarkIcon />
       </S.HeaderWrapper>

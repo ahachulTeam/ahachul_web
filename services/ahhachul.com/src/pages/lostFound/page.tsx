@@ -8,6 +8,7 @@ import { useLostFoundFilters } from '@/hooks/domain';
 
 const LostFoundPage: ActivityComponentType = () => {
   const [isScale, toggleScale] = useReducer(scale => !scale, false);
+
   const { loaded, keyword, filters, boundaryKeys, getFilterProps } = useLostFoundFilters();
 
   if (!loaded) {

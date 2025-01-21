@@ -36,7 +36,7 @@ export const useFetchLostFoundList = (filters: LostFoundListParams<SubwayLineFil
       keyword: filters.keyword,
       subwayLineId: formatter.formatSubwayFilterOption(filters.subwayLineId, favoriteLine),
     },
-    { removeZero: true },
+    { removeZero: true, removeEmptyStrings: true },
   ) as LostFoundListParams;
 
   return useSuspenseInfiniteQuery({
@@ -56,6 +56,7 @@ export const useCreateLostFound = () => {
   // const { addToast } = useToast();
 
   const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: (req: LostFoundForm) => api.createLostFound(req),
     onSuccess: (res, req) => {
@@ -76,14 +77,13 @@ export const useCreateLostFound = () => {
   });
 };
 
-export const useFetchLostFoundDetail = (id: number) => {
-  return useSuspenseQuery({
+export const useFetchLostFoundDetail = (id: number) =>
+  useSuspenseQuery({
     queryKey: lostFoundKeys.detail(id),
     queryFn: () => api.fetchLostFoundDetail(id),
     staleTime: 5 * TIMESTAMP.MINUTE, // 5분
     select: res => res.data.result,
   });
-};
 
 export const useFetchLostFoundCommentList = (id: number) =>
   useSuspenseQuery({

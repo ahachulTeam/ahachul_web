@@ -11,6 +11,7 @@ export enum LostFoundType {
   LOST = 'LOST',
   ACQUIRE = 'ACQUIRE',
 }
+
 export type LostStatus = 'PROGRESS' | 'COMPLETE';
 
 export interface LostFoundPost extends Post {

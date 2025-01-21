@@ -19,7 +19,7 @@ const RecommendPost = ({ post }: RecommendPostProps) => {
               <S.AuthorDateContainer>
                 <span>LOST112</span>
                 <S.StyledDotIcon />
-                <span>{formatDateTime(post.createdAt)}</span>
+                <span>{formatDateTime(post.createdAt, { format: 'relative' })}</span>
               </S.AuthorDateContainer>
             </S.MetaContainer>
           </S.TextContainer>
