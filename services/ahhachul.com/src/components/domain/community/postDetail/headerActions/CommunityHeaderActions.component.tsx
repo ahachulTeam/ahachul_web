@@ -9,12 +9,12 @@ import { useFlow } from '@/stackflow';
 
 import * as S from './CommunityHeaderActions.styled';
 
-interface LostFoundHeaderActionsProps {
+interface CommunityHeaderActionsProps {
   id: number;
   createdBy: number;
 }
 
-const LostFoundHeaderActions = ({ id, createdBy }: LostFoundHeaderActionsProps) => {
+const CommunityHeaderActions = ({ id, createdBy }: CommunityHeaderActionsProps) => {
   const { push } = useFlow();
   const { isActive } = useActivity();
 
@@ -68,4 +68,4 @@ const LostFoundHeaderActions = ({ id, createdBy }: LostFoundHeaderActionsProps) 
   );
 };
 
-export default LostFoundHeaderActions;
+export default CommunityHeaderActions;

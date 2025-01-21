@@ -4,12 +4,12 @@ import { useFlow } from '@/stackflow';
 
 import * as S from './CommunityErrorPage.styled';
 
-interface LostFoundErrorPage {
+interface CommunityErrorPageProps {
   error: AxiosError;
   reset: () => void;
 }
 
-const LostFoundErrorPage = ({ error, reset }: LostFoundErrorPage) => {
+const CommunityErrorPage = ({ error, reset }: CommunityErrorPageProps) => {
   const { replace } = useFlow();
 
   const isDeletedPost = error.response?.status === 404;
@@ -35,4 +35,4 @@ const LostFoundErrorPage = ({ error, reset }: LostFoundErrorPage) => {
   );
 };
 
-export default LostFoundErrorPage;
+export default CommunityErrorPage;

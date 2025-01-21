@@ -4,12 +4,12 @@ import { useFetchCommunityCommentList } from '@/services/community';
 
 import * as S from './CommunityCommentList.styled';
 
-interface LostFoundCommentListProps {
+interface CommunityCommentListProps {
   id: number;
   commentCnt: number;
 }
 
-const LostFoundCommentList = ({ commentCnt, id }: LostFoundCommentListProps) => {
+const CommunityCommentList = ({ commentCnt, id }: CommunityCommentListProps) => {
   return (
     <S.Section>
       <S.HeaderWrapper>
@@ -30,10 +30,10 @@ const LostFoundCommentList = ({ commentCnt, id }: LostFoundCommentListProps) => 
   );
 };
 
-const CommentListInner = ({ id }: Pick<LostFoundCommentListProps, 'id'>) => {
+const CommentListInner = ({ id }: Pick<CommunityCommentListProps, 'id'>) => {
   const { data } = useFetchCommunityCommentList(id);
 
   return <UiComponent.BaseCommentList commentsMap={data.comments} />;
 };
 
-export default LostFoundCommentList;
+export default CommunityCommentList;

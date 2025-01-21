@@ -2,7 +2,7 @@ import { BaseSkeleton } from '@/components/common';
 
 import * as S from './CommunityDetail.skeleton.styled';
 
-const LostFoundDetailSkeleton = () => {
+const CommunityDetailSkeleton = () => {
   return (
     <>
       <S.ArticleWrapper>
@@ -64,4 +64,4 @@ const LostFoundDetailSkeleton = () => {
   );
 };
 
-export default LostFoundDetailSkeleton;
+export default CommunityDetailSkeleton;
