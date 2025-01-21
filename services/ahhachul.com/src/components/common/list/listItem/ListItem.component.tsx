@@ -50,7 +50,7 @@ const Post = ({ post }: PostProps) => {
             <S.StyledDotIcon />
             <span>{post.writer || '로스트 112'}</span>
             <S.StyledDotIcon />
-            <span>{formatDateTime(post.createdAt, { format: 'short' })}</span>
+            <span>{formatDateTime(post.createdAt, { format: 'relative' })}</span>
           </S.MetaInfo>
           <S.CommentContainer>
             <CommentIcon />

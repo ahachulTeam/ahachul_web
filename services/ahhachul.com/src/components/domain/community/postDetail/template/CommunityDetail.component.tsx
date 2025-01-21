@@ -26,7 +26,7 @@ const CommunityDetail = ({ id }: CommunityDetailProps) => {
           <S.MetaInfoWrapper>
             <S.AuthorDateWrapper>
               <S.AuthorText>{post.writer}</S.AuthorText>
-              <S.DateText>{formatDateTime(post.createdAt)}</S.DateText>
+              <S.DateText>{formatDateTime(post.createdAt, { format: 'short' })}</S.DateText>
             </S.AuthorDateWrapper>
             <S.SubwayLineWrapper>{subwayIconMap.get(post.subwayLineId)}</S.SubwayLineWrapper>
           </S.MetaInfoWrapper>
