@@ -1,10 +1,10 @@
 import type { CursorPagination, RegionType, Post, SubwayLineFilterOptions } from './common';
 
 export enum CommunityType {
+  HOT = 'HOT',
   FREE = 'FREE',
   HUMOR = 'HUMOR',
   INSIGHT = 'INSIGHT',
-  QUESTION = 'QUESTION',
 }
 
 export interface CommunityPost extends Post {
