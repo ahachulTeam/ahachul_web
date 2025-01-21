@@ -16,7 +16,7 @@ const Lost112InfoTable = ({ post }: Props) => {
 
         <S.GridContainer>
           <S.Label>습득일</S.Label>
-          <S.Value>{formatDateTime(post.createdAt)}</S.Value>
+          <S.Value>{formatDateTime(post.createdAt, { format: 'short' })}</S.Value>
 
           {post?.storage && (
             <>

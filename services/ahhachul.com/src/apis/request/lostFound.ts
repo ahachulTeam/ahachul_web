@@ -46,7 +46,7 @@ export const createLostFound = async (req: LostFoundForm) => {
 };
 
 export const fetchLostFoundDetail = (id: number) =>
-  axiosInstance.get<ApiResponse<LostFoundPostDetail>>(`lost-posts/${id}`);
+  axiosInstance.get<ApiResponse<LostFoundPostDetail>>(`/lost-posts/${id}`);
 
 export const fetchLostFoundCommentList = (id: number) =>
   axiosInstance.get<ApiResponse<CommentList>>(`/lost-posts/${id}/comments`);

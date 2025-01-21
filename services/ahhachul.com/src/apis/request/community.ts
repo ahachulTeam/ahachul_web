@@ -5,6 +5,8 @@ import {
   type CommunityListParams,
   type CommunityPost,
   CommunityType,
+  CommunityDetail,
+  CommentList,
 } from '@/types';
 
 export const fetchCommunityList = async (req: CommunityListParams) => {
@@ -21,3 +23,9 @@ export const fetchCommunityList = async (req: CommunityListParams) => {
   });
   return data;
 };
+
+export const fetchCommunityDetail = (id: number) =>
+  axiosInstance.get<ApiResponse<CommunityDetail>>(`/community-posts/${id}`);
+
+export const fetchCommunityCommentList = (id: number) =>
+  axiosInstance.get<ApiResponse<CommentList>>(`/community-posts/${id}/comments`);

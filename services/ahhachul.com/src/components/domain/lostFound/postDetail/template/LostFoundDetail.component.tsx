@@ -3,6 +3,7 @@ import { formatDateTime, getRandomNumber } from '@ahhachul/utils';
 import { LostFoundComponent, UiComponent } from '@/components';
 import { subwayIconMap } from '@/constants';
 import { useFetchLostFoundDetail } from '@/services/lostFound';
+import { isLexicalContent } from '@/utils/lexical';
 
 import * as S from './LostFoundDetail.styled';
 
@@ -37,7 +38,7 @@ const LostFoundDetail = ({ id }: LostFoundDetailProps) => {
           <S.MetaInfoWrapper>
             <S.AuthorDateWrapper>
               <S.AuthorText>{post.writer || '로스트 112'}</S.AuthorText>
-              <S.DateText>{formatDateTime(post.createdAt)}</S.DateText>
+              <S.DateText>{formatDateTime(post.createdAt, { format: 'short' })}</S.DateText>
             </S.AuthorDateWrapper>
             <S.SubwayLineWrapper>{subwayIconMap.get(post.subwayLineId)}</S.SubwayLineWrapper>
           </S.MetaInfoWrapper>
@@ -54,7 +55,7 @@ const LostFoundDetail = ({ id }: LostFoundDetailProps) => {
         )}
 
         <S.ContentContainer>
-          {post.isFromLost112 ? (
+          {post.isFromLost112 || !isLexicalContent(post.content) ? (
             <S.TextContent>{post.content}</S.TextContent>
           ) : (
             <S.LexicalContent>

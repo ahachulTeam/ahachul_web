@@ -1,15 +1,13 @@
 import { LostFoundType } from '@/types';
 
+import * as S from './LostFoundBadge.styled';
+
 interface LostFoundBadgeProps {
   lostFoundType: LostFoundType;
 }
 
 const LostFoundBadge = ({ lostFoundType }: LostFoundBadgeProps) => {
-  return (
-    <div className=" h-7 text-label-small text-gray-0 px-2.5 flex items-center justify-center bg-[#407AD6] rounded-[100px] w-max">
-      {lostFoundType === LostFoundType.LOST ? '분실물' : '습득물'}
-    </div>
-  );
+  return <S.Badge>{lostFoundType === LostFoundType.LOST ? '분실물' : '습득물'}</S.Badge>;
 };
 
 export default LostFoundBadge;

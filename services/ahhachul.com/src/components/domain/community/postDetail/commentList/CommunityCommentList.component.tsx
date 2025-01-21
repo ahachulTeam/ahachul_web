@@ -1,15 +1,15 @@
 import { BookmarkIcon } from '@/assets/icons/system';
 import { UiComponent } from '@/components';
-import { useFetchLostFoundCommentList } from '@/services/lostFound';
+import { useFetchCommunityCommentList } from '@/services/community';
 
-import * as S from './LostFoundCommentList.styled';
+import * as S from './CommunityCommentList.styled';
 
-interface LostFoundCommentListProps {
+interface CommunityCommentListProps {
   id: number;
   commentCnt: number;
 }
 
-const LostFoundCommentList = ({ commentCnt, id }: LostFoundCommentListProps) => {
+const CommunityCommentList = ({ commentCnt, id }: CommunityCommentListProps) => {
   return (
     <S.Section>
       <S.HeaderWrapper>
@@ -30,10 +30,10 @@ const LostFoundCommentList = ({ commentCnt, id }: LostFoundCommentListProps) => 
   );
 };
 
-const CommentListInner = ({ id }: Pick<LostFoundCommentListProps, 'id'>) => {
-  const { data } = useFetchLostFoundCommentList(id);
+const CommentListInner = ({ id }: Pick<CommunityCommentListProps, 'id'>) => {
+  const { data } = useFetchCommunityCommentList(id);
 
   return <UiComponent.BaseCommentList commentsMap={data.comments} />;
 };
 
-export default LostFoundCommentList;
+export default CommunityCommentList;

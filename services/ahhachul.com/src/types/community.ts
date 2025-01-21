@@ -1,4 +1,11 @@
-import type { CursorPagination, RegionType, Post, SubwayLineFilterOptions } from './common';
+import type {
+  CursorPagination,
+  RegionType,
+  Post,
+  SubwayLineFilterOptions,
+  PostImage,
+  TypeYN,
+} from './common';
 
 export enum CommunityType {
   HOT = 'HOT',
@@ -14,6 +21,14 @@ export interface CommunityPost extends Post {
   hashTags: string[];
   regionType: RegionType;
   categoryType: CommunityType;
+}
+
+export interface CommunityDetail extends CommunityPost {
+  likeYn: TypeYN;
+  hateYn: TypeYN;
+  hateCnt: number;
+  hotPostYn: TypeYN;
+  images: PostImage[];
 }
 
 export interface CommunityListParams<TSubwayLine = number> extends Partial<CursorPagination> {

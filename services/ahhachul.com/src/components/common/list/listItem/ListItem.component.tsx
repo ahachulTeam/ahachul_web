@@ -34,7 +34,11 @@ const Post = ({ post }: PostProps) => {
                 width="100%"
                 height="100%"
                 effect="opacity"
-                src={post.imageUrl || '/placeholder.svg'}
+                src={
+                  post.image && 'imageUrl' in post.image
+                    ? post.image.imageUrl
+                    : post.imageUrl || '/placeholder.svg'
+                }
                 alt={`${post.title} - ${post.createdAt}`}
               />
             </S.ImageContainer>
@@ -44,9 +48,9 @@ const Post = ({ post }: PostProps) => {
           <S.MetaInfo>
             {subwayIconMap.get(post.subwayLineId)}
             <S.StyledDotIcon />
-            <span>{post.writer || 'LOST112'}</span>
+            <span>{post.writer || '로스트 112'}</span>
             <S.StyledDotIcon />
-            <span>{formatDateTime(post.createdAt, { format: 'short' })}</span>
+            <span>{formatDateTime(post.createdAt, { format: 'relative' })}</span>
           </S.MetaInfo>
           <S.CommentContainer>
             <CommentIcon />
