@@ -5,6 +5,7 @@ import type {
   SubwayLineFilterOptions,
   PostImage,
   TypeYN,
+  EditableImage,
 } from './common';
 
 export enum CommunityType {
@@ -52,3 +53,20 @@ export type CommunityFilterValues = {
 export type CommunityFilters = {
   [K in CommunityFilterKeys]: CommunityFilterValues[K];
 };
+
+export interface CommunityForm {
+  title: string;
+  content: string;
+  subwayLineId: number;
+  categoryType: CommunityType;
+  images: File[];
+}
+
+export interface CommunityEditForm {
+  title: string;
+  content: string;
+  subwayLineId: number;
+  categoryType: CommunityType;
+  images: EditableImage[];
+  removeFileIds: number[];
+}

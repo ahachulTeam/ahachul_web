@@ -7,7 +7,7 @@ const Stations = () => {
 
   if (isLoading || isCheckingAuthState) return null;
 
-  return <div>Stations</div>;
+  return <div css={{ paddingLeft: '20px', paddingTop: '20px' }}>Stations</div>;
 };
 
 export default Stations;

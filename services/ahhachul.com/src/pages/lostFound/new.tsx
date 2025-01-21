@@ -20,6 +20,7 @@ const NewLostFoundPage: ActivityComponentType = () => {
         <S.FormContainer onSubmit={submit}>
           <FormComponent.ImageUpload
             name="images"
+            label="유실물 상세정보"
             onDeleteImg={handleImageDelete}
             onImgChange={handleImageUpload}
           />

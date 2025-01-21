@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-export const appendFilesToFormData = (formData: FormData, files: File[]): void => {
+export const appendFilesToFormData = (formData: FormData, files: File[], name = 'files'): void => {
   files.forEach(file => {
-    formData.append('files', file, file.name);
+    formData.append(name, file, file.name);
   });
 };
 
