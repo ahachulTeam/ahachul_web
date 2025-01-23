@@ -7,7 +7,7 @@ import styled from '@emotion/styled';
 import { DotIcon } from '@/assets/icons/system';
 
 export const ArticleWrapper = styled.article`
-  padding: 24px 20px;
+  padding: 20px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray[20]};
 `;
 

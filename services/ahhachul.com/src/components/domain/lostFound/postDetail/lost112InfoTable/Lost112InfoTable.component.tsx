@@ -1,5 +1,6 @@
 import { formatDateTime } from '@ahhachul/utils';
 
+import { useNativeBridge } from '@/contexts';
 import type { LostFoundPostDetail } from '@/types';
 
 import * as S from './Lost112InfoTable.styled';
@@ -9,6 +10,14 @@ interface Props {
 }
 
 const Lost112InfoTable = ({ post }: Props) => {
+  const { bridge, isBridgeInitialized } = useNativeBridge();
+
+  const handleClickExternalLink = () => {
+    if (!isBridgeInitialized) return;
+
+    bridge.send.openExternalLink(post.pageUrl);
+  };
+
   return (
     <S.TableWrapper>
       <S.ContentWrapper>
@@ -49,9 +58,7 @@ const Lost112InfoTable = ({ post }: Props) => {
           {post?.pageUrl && (
             <>
               <S.Label>원본 게시글</S.Label>
-              <S.StyledLink href={post.pageUrl} target="_blank" rel="noopener noreferrer">
-                바로가기
-              </S.StyledLink>
+              <S.StyledLink onClick={handleClickExternalLink}>바로가기</S.StyledLink>
             </>
           )}
         </S.GridContainer>

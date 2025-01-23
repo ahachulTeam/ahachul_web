@@ -4,7 +4,7 @@ import { Player } from '@lottiefiles/react-lottie-player';
 
 import animationData from '@/assets/lottie/loading.json';
 import { useDisableScroll } from '@/hooks';
-import useTimeout from '@/hooks/useTimemout';
+import { useTimeout } from '@/hooks';
 
 import * as S from './Spinner.styled';
 
