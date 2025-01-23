@@ -23,3 +23,4 @@ export * from './imageZoomViewer';
 export * from './imageCarouselModal';
 
 export * from './skeleton';
+export * from './iosBottomPadding';

@@ -44,7 +44,7 @@ export const Value = styled.div`
   `}
 `;
 
-export const StyledLink = styled.a`
+export const StyledLink = styled.button`
   ${({ theme }) => css`
     ${theme.fonts.labelMedium};
     color: #1d4ed8;

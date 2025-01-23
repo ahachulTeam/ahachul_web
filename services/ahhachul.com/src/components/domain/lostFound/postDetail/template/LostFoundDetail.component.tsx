@@ -3,6 +3,7 @@ import { formatDateTime, getRandomNumber } from '@ahhachul/utils';
 import { LostFoundComponent, UiComponent } from '@/components';
 import { subwayIconMap } from '@/constants';
 import { useFetchLostFoundDetail } from '@/services/lostFound';
+import { formatLost112Content } from '@/utils';
 import { isLexicalContent } from '@/utils/lexical';
 
 import * as S from './LostFoundDetail.styled';
@@ -56,7 +57,7 @@ const LostFoundDetail = ({ id }: LostFoundDetailProps) => {
 
         <S.ContentContainer>
           {post.isFromLost112 || !isLexicalContent(post.content) ? (
-            <S.TextContent>{post.content}</S.TextContent>
+            <S.TextContent>{formatLost112Content(post.content)}</S.TextContent>
           ) : (
             <S.LexicalContent>
               <UiComponent.ReadonlyEditor content={post.content} />

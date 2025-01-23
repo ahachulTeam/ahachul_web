@@ -76,12 +76,16 @@ export const ContentContainer = styled.div`
   padding: 0 20px;
 `;
 
-export const TextContent = styled.p`
+export const TextContent = styled.pre`
   ${({ theme }) => css`
     ${theme.fonts.bodyLargeSemi};
+    font-family: Pretendard;
     color: ${theme.colors.gray[90]};
-    padding: 0 0 24px;
+    padding: 24px 0;
+    margin-top: 12px;
     margin-bottom: 12px;
+    white-space: pre-wrap;
+    word-break: break-all;
   `}
 `;
 

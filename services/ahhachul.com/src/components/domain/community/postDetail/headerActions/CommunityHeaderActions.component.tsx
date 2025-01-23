@@ -4,8 +4,10 @@ import { useActivity } from '@stackflow/react';
 
 import { MoreVerticalIcon, ShareIcon } from '@/assets/icons/system';
 import { UiComponent } from '@/components';
+import { useNativeBridge } from '@/contexts';
 import { useUser } from '@/hooks/domain';
 import { useFlow } from '@/stackflow';
+import { getSharePageURL } from '@/utils/share';
 
 import * as S from './CommunityHeaderActions.styled';
 
@@ -16,9 +18,16 @@ interface CommunityHeaderActionsProps {
 
 const CommunityHeaderActions = ({ id, createdBy }: CommunityHeaderActionsProps) => {
   const { push } = useFlow();
-  const { isActive } = useActivity();
-
   const { user } = useUser();
+  const { isActive } = useActivity();
+  const { bridge, isBridgeInitialized } = useNativeBridge();
+
+  const handleClickShare = () => {
+    if (!isBridgeInitialized) return;
+
+    const targetUrl = getSharePageURL('CommunityDetailPage');
+    bridge.send.share(`${targetUrl}/${id}`);
+  };
 
   const [isOpen, toggle] = useReducer(open => !open, false);
 
@@ -49,7 +58,7 @@ const CommunityHeaderActions = ({ id, createdBy }: CommunityHeaderActionsProps) 
       <UiComponent.AnimatePortal mounted={isActive}>
         <div key="header-actions">
           <S.Container>
-            <S.ActionButton type="button">
+            <S.ActionButton type="button" onClick={handleClickShare}>
               <ShareIcon />
             </S.ActionButton>
             <S.ActionButton type="button" onClick={toggle}>

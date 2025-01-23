@@ -7,7 +7,7 @@ import styled from '@emotion/styled';
 import { DotIcon } from '@/assets/icons/system';
 
 export const Article = styled.article`
-  padding: 24px 0;
+  padding: 20px 0;
   border-bottom: 1px solid #f5f5f5;
 `;
 

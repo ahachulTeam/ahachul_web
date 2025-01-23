@@ -1,3 +1,6 @@
+import type { TypeActivities } from '@/stackflow';
+import type { KeyOf } from '@/types';
+
 export const PATH = {
   /** 홈 */
   home: '/',
@@ -64,3 +67,11 @@ export const PATH = {
     reply: '/comments/:commentId/reply',
   },
 } as const;
+
+export const MAIN_PATHS: KeyOf<TypeActivities>[] = [
+  'MyPage',
+  'HomePage',
+  'CommunityPage',
+  'LostFoundPage',
+  'ComplaintPage',
+] as const;

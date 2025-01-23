@@ -5,6 +5,7 @@ export * from './error';
 export * from './subway';
 export * from './filter';
 export * from './motion';
+export * from './appEnv';
 export * from './lostFound';
 export * from './community';
 export * from './complaint';

@@ -20,3 +20,7 @@ export const downloadFile = (url: string) => {
     document.body.removeChild(a);
   }, 100);
 };
+
+export const getUserAgent = () => {
+  return window.navigator.userAgent;
+};
