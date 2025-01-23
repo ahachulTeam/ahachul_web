@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { UiComponent } from '@/components';
+
 import { GNBList } from './Gnb.constant';
 import * as S from './Gnb.styled';
 import { NavItem } from './navItem';
@@ -14,6 +16,7 @@ const Gnb = React.memo(({ handleScrollToTop }: GnbProps) => {
       {GNBList.map(item => (
         <NavItem key={item.label} item={item} handleScrollToTop={handleScrollToTop} />
       ))}
+      <UiComponent.IOSBottomPadding />
     </S.Navbar>
   );
 });

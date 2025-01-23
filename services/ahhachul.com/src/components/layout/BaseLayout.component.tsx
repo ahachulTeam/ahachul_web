@@ -4,6 +4,9 @@ import { UiComponent } from '..';
 import { AppScreen } from '@stackflow/plugin-basic-ui';
 import { useShallow } from 'zustand/react/shallow';
 
+import { MAIN_PATHS } from '@/constants';
+import { useNativeBridge } from '@/contexts';
+import { useBackAction } from '@/hooks';
 import { uiStore } from '@/stores';
 import { theme } from '@/styles';
 
@@ -20,6 +23,15 @@ const BaseLayout: React.FC<LayoutProps> = ({
   backgroundColor = theme.colors.white,
   ...props
 }) => {
+  const { bridge } = useNativeBridge();
+
+  useBackAction({
+    mainActivities: MAIN_PATHS,
+    onExit: () => bridge.send.exitApp(),
+    onBack: () => window.history.back(),
+    // onExitWarning: () => showToast('warning', '뒤로가기 버튼을 한 번 더 누르면 종료됩니다.'),
+  });
+
   const scrollableRef = useRef<HTMLDivElement>(null);
   const globalLoading = uiStore(useShallow(state => state.globalLoading));
 

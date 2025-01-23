@@ -1,5 +1,4 @@
-import { useCallback } from 'react';
-
+import { useNativeBridge } from '@/contexts';
 import { useFlow, useActivity } from '@/stackflow';
 
 import type { NavItem } from './NaItem.type';
@@ -12,12 +11,10 @@ export const useNavItem = ({
   handleScrollToTop?: VoidFunction;
 }) => {
   const activity = useActivity();
-
   const isActive = activity.name === item.href;
 
   const { replace } = useFlow();
-
-  const handleHapticFeedback = useCallback(() => {}, []);
+  const { bridge, isBridgeInitialized } = useNativeBridge();
 
   const handleTabClick = () => {
     if (isActive) {
@@ -25,7 +22,9 @@ export const useNavItem = ({
       return;
     }
 
-    handleHapticFeedback();
+    if (isBridgeInitialized) {
+      bridge.send.haptic();
+    }
 
     replace(item.href, {}, { animate: false });
   };

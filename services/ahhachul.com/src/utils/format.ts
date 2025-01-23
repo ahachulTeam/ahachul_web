@@ -34,3 +34,11 @@ export const deleteObjectKeyWithEmptyValue = <T extends Record<string, any>>(
     return result;
   }, {} as Partial<T>);
 };
+
+export const formatLost112Content = (content: string) => {
+  const formattedText = content
+    .replace(/하였습니다. /g, '하였습니다.\n\n')
+    .replace(/바랍니다. /g, '바랍니다.\n\n');
+
+  return formattedText;
+};
