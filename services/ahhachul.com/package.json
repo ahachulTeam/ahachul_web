@@ -8,6 +8,7 @@
     "dev:mock": "vite --mode mock",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
+    "type-check": "tsc -b",
     "lint:es": "eslint src",
     "lint:es:fix": "eslint src --fix",
     "lint:etc": "prettier src --check",

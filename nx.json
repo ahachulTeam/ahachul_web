@@ -11,7 +11,15 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "test", "test:run", "test:coverage", "lint", "lint:fix"]
+        "cacheableOperations": [
+          "build",
+          "test",
+          "test:run",
+          "test:coverage",
+          "lint",
+          "lint:fix",
+          "type-check"
+        ]
       }
     }
   },
@@ -21,7 +29,7 @@
       "persistent": true
     },
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "type-check"],
       "outputs": ["{projectRoot}/dist/**"]
     },
     "start": {
@@ -30,12 +38,16 @@
       "persistent": true
     },
     "lint": {
-      "dependsOn": ["^lint"],
+      "dependsOn": ["^lint", "type-check"],
       "inputs": ["{projectRoot}/**/*.{js,ts,tsx}"]
     },
     "lint:fix": {
       "dependsOn": ["^lint:fix"],
       "inputs": ["{projectRoot}/**/*.{js,ts,tsx}"]
+    },
+    "type-check": {
+      "cache": false,
+      "inputs": ["{projectRoot}/**/*.{ts,tsx}", "{projectRoot}/tsconfig.json"]
     },
     "test": {
       "dependsOn": ["^build"],

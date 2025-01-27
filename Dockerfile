@@ -13,8 +13,8 @@ RUN pnpm install
 
 ENV NEXT_TELEMETRY_DISABLED=1 
 
-RUN pnpm build:one-app 
+RUN pnpm nextjs:build
 
 EXPOSE 3000
 
-CMD ["pnpm", "start:one-app"]
+CMD ["pnpm", "nextjs:start"]
