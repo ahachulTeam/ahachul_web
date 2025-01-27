@@ -44,24 +44,24 @@ jobs:
 
       - name: TypeScript Compilation Check
         timeout-minutes: 3
-        run: nextjs:type
+        run: pnpm nextjs:type
         continue-on-error: false
 
       - name: Lint one-app
         timeout-minutes: 3
-        run: nextjs:lint
+        run: pnpm nextjs:lint
         continue-on-error: false
 
       - name: Test one-app
         if: success()
         timeout-minutes: 5
-        run: nextjs:test
+        run: pnpm nextjs:test
         continue-on-error: false
 
       - name: Build one-app
         if: success()
         timeout-minutes: 5
-        run: nextjs:build
+        run: pnpm nextjs:build
         continue-on-error: false
 
       - name: Upload test results
