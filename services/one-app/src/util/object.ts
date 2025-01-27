@@ -1,5 +1,3 @@
-import queryString from 'query-string';
-
 import type { ObjectKeys } from '@/types';
 
 export const isValidObject = (obj: unknown): obj is Record<string, any> => {
@@ -26,17 +24,6 @@ export function removeFalsyValues<T extends Record<string, any>>(
     return result;
   }, {} as Partial<T>);
 }
-
-export const objectToQueryString = <T extends Record<string, any>>(
-  params: T,
-  options?: { removeEmptyStrings?: boolean; removeZero?: boolean },
-): string => {
-  if (!isValidObject(params)) {
-    throw new Error('params must be a non-null object');
-  }
-
-  return queryString.stringify(removeFalsyValues(params, options));
-};
 
 export function objectEntries<Type extends Record<PropertyKey, unknown>>(
   obj: Type,

@@ -33,6 +33,11 @@ export const LostFoundSearchedList = ({ keyword, filters }: Props) => {
   const intersectCallback = () => !isFetchingNextPage && fetchNextPage();
   const { ref: loadMoreRef } = useIntersectionObserver({
     action: intersectCallback,
+    intersectionOptions: {
+      delay: 0,
+      threshold: 0,
+      rootMargin: '100px 0px 0px 0px',
+    },
   });
 
   if (!lostArticles.length) return <EmptyArticleList />;
@@ -45,7 +50,7 @@ export const LostFoundSearchedList = ({ keyword, filters }: Props) => {
         </Link>
       ))}
       {hasNextPage && (
-        <span ref={loadMoreRef} className="visuallyHidden">
+        <span ref={loadMoreRef} className=" h-4">
           더 보기
         </span>
       )}
