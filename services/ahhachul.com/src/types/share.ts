@@ -2,7 +2,7 @@ import { WEB_SERVICE_URL } from '@/constants';
 
 export type ShareablePageMap = {
   CommunityDetailPage: 'community';
-  LostFoundDetailPage: 'lostFound';
+  LostFoundDetailPage: 'lost-found';
   ComplaintDetailPage: 'complaint';
 };
 

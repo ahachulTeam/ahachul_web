@@ -41,21 +41,26 @@ jobs:
           echo '${{ secrets.DEV_REACT_APP_CONFIG }}' > config.json
           cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/ahhachul.com/.env
 
+      - name: TypeScript Compilation Check
+        timeout-minutes: 3
+        run: pnpm app:type
+        continue-on-error: false
+
       - name: Lint ahhachul.com
         timeout-minutes: 3
-        run: pnpm lint:app
+        run: pnpm app:lint
         continue-on-error: false
 
       - name: Test ahhachul.com
         if: success()
         timeout-minutes: 5
-        run: pnpm test:app
+        run: pnpm app:test
         continue-on-error: false
 
       - name: Build ahhachul.com
         if: success()
         timeout-minutes: 5
-        run: pnpm build:app
+        run: pnpm app:build
         continue-on-error: false
 
       - name: Upload test results

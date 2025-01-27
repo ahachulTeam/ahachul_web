@@ -1,7 +1,7 @@
 import { create, StateCreator } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import type { KeyOf, ValueOf, StringRecord } from '@/model';
+import type { KeyOf, ValueOf, StringRecord } from '@/types';
 
 export const filterKey = 'AHAHCHUL_FILTER_STORAGE';
 
@@ -22,17 +22,17 @@ export type FilterState<T extends StringRecord> = {
 type FilterStoreCreator<T extends StringRecord> = StateCreator<FilterState<T>>;
 
 const createFilterStoreWithPersist = <T extends StringRecord>(
-  defaultValues: T,
+  init: T,
   uniqueId: AppUniqueFilterId,
 ) => {
   const createStore: FilterStoreCreator<T> = set => ({
-    filters: defaultValues,
+    filters: init,
     activatedCount: 0,
     loaded: false,
     handleSelect: (key, value) => {
       set(state => {
-        const isDefaultValue = value === defaultValues[key];
-        const wasDefaultValue = state.filters[key] === defaultValues[key];
+        const isDefaultValue = value === init[key];
+        const wasDefaultValue = state.filters[key] === init[key];
 
         const newFilters = { ...state.filters, [key]: value };
         const newActiveFilterCount =
@@ -46,7 +46,7 @@ const createFilterStoreWithPersist = <T extends StringRecord>(
         };
       });
     },
-    handleReset: () => set({ filters: defaultValues, activatedCount: 0 }),
+    handleReset: () => set({ filters: init, activatedCount: 0 }),
   });
 
   return create<FilterState<T>>()(
