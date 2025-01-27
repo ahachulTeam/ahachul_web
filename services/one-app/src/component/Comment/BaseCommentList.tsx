@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import type { CommentList } from '@/model';
+import type { CommentList } from '@/types';
 
 import { CommentCard } from './CommentCard';
 import { EmptyCommentList } from './EmptyCommentList';

@@ -5,7 +5,7 @@ import React from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 import { CheckIcon, ChevronDownIcon } from '@/asset/icon';
-import type { KeyOf } from '@/model';
+import type { KeyOf } from '@/types';
 import { cn, objectEntries } from '@/util';
 
 export interface DropdownFilterProps<T extends Record<string, string>, K extends KeyOf<T>> {

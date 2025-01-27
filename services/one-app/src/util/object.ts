@@ -1,6 +1,6 @@
 import queryString from 'query-string';
 
-import type { ObjectKeys } from '@/model';
+import type { ObjectKeys } from '@/types';
 
 export const isValidObject = (obj: unknown): obj is Record<string, any> => {
   return typeof obj === 'object' && obj !== null && !Array.isArray(obj);

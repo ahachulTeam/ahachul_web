@@ -1,4 +1,4 @@
-import { IResponse, ListResponseWithPagination, LostFoundListParams, LostFoundPost } from '@/model';
+import { IResponse, ListResponseWithPagination, LostFoundListParams, LostFoundPost } from '@/types';
 import { objectToQueryString } from '@/util';
 
 import { axiosInstance } from '../axios';

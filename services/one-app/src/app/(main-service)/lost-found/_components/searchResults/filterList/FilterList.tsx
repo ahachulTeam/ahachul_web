@@ -1,7 +1,7 @@
 import { ResetFilter, SearchFilter, DropdownFilter } from '@/component';
 import { subwayLineIdOptions } from '@/constant';
-import { type LostFoundFilters, LostFoundType } from '@/model';
 import { FilterState } from '@/store';
+import { type LostFoundFilters, LostFoundType } from '@/types';
 
 const lostTypeOptions = {
   [LostFoundType.LOST]: '분실물',

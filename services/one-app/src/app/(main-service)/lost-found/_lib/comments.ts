@@ -2,7 +2,7 @@ import { useSuspenseQuery, useMutation } from '@tanstack/react-query';
 
 import { axiosInstance } from '@/api/axios';
 import { TIMESTAMP } from '@/constant';
-import type { IResponse, Comment, CommentList } from '@/model';
+import type { IResponse, Comment, CommentList } from '@/types';
 import { generateQueryKey } from '@/util';
 
 const getLostFoundComments = (articleId: number) =>

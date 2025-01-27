@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { SocialLoginButton } from '@/app/(auth)/_component';
 import { fetchRedirectUrl, socialLoginOptions } from '@/app/(main-service)/community/login/_lib';
 import { APIResponseCode } from '@/constant';
-import type { SocialSignInType } from '@/model';
+import type { SocialSignInType } from '@/types';
 
 export const SocialLogins: React.FC = () => {
   const router = useRouter();

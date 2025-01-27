@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { axiosInstance } from '@/api/axios';
-import type { ErrorCode } from '@/model/Error';
+import type { ErrorCode } from '@/types/error';
 
 type PostLostFoundParams = {
   lostId: string | null;

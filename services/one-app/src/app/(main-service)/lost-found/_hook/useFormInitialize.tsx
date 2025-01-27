@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import type { LostFoundFormData } from '@/model';
+import type { LostFoundFormData } from '@/types';
 
 type Params = {
   initialFormData: LostFoundFormData | null;

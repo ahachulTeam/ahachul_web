@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 import { axiosInstance } from '@/api/axios';
 import { IS_DEV_ENV } from '@/constant';
-import { CookieKey } from '@/model';
+import { CookieKey } from '@/types';
 
 class _AuthService {
   private isFetchingAccessToken = false;

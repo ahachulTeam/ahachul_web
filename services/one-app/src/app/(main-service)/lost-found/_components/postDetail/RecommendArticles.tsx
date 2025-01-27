@@ -1,6 +1,6 @@
 import { ChevronIcon } from '@/asset/icon';
 import { RecommendArticleCard } from '@/component';
-import type { RecommendPost } from '@/model';
+import type { RecommendPost } from '@/types';
 
 interface Props {
   posts: RecommendPost[];

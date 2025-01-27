@@ -2,9 +2,9 @@
 
 import { useQueryState } from 'nuqs';
 
-import { LostFoundType, type LostFoundFilters } from '@/model';
-import { SubwayLineFilterOptions } from '@/model';
 import { FilterState, APP_UNIQUE_FILTER_ID_LIST, createFilterStoreWithPersist } from '@/store';
+import { LostFoundType, type LostFoundFilters } from '@/types';
+import { SubwayLineFilterOptions } from '@/types';
 
 const LOST_FOUND_FILTER_DEFAULT_VALUES: LostFoundFilters = {
   lostType: LostFoundType.LOST,

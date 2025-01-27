@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import { axiosInstance } from '@/api/axios';
 import { APIResponseCode, RESPONSE_MESSAGES } from '@/constant';
-import type { SocialSignInType } from '@/model';
+import type { SocialSignInType } from '@/types';
 
 // TODO, 실패 케이스 추가
 export const LoginResponseSchema = z.object({

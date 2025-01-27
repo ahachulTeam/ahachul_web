@@ -1,7 +1,7 @@
 'use client';
 
 import { EllipsisIcon } from '@/asset/icon';
-import type { Comment } from '@/model';
+import type { Comment } from '@/types';
 import { cn, formatDate } from '@/util';
 
 import { LexicalSyntaxContentParser } from '../Editor';

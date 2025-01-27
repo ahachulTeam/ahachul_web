@@ -4,7 +4,7 @@ import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // import { LazyLoadImage } from 'react-lazy-load-image-component';
-import type { PostImage } from '@/model';
+import type { PostImage } from '@/types';
 
 interface Props {
   label: string;

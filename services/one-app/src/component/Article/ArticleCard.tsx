@@ -2,7 +2,7 @@
 
 import { DotIcon, CommentIcon } from '@/asset/icon';
 import { SUBWAY_LOGO_SVG_LIST } from '@/component';
-import type { Post } from '@/model';
+import type { Post } from '@/types';
 import { cn, isLexicalContent, formatDate } from '@/util';
 
 import { LexicalSyntaxContentParser } from '../Editor';

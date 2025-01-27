@@ -5,7 +5,7 @@ import { useSuspenseQuery, useSuspenseInfiniteQuery } from '@tanstack/react-quer
 import { axiosInstance } from '@/api/axios';
 import { fetchLostFoundList } from '@/api/lost-found/fetchLostFoundList';
 import { TIMESTAMP } from '@/constant';
-import type { IResponse, LostFoundPostDetail, LostFoundListParams } from '@/model';
+import type { IResponse, LostFoundPostDetail, LostFoundListParams } from '@/types';
 import { generateQueryKey } from '@/util';
 
 export const useGetLostFoundList = (params: LostFoundListParams) =>

@@ -9,7 +9,7 @@ import ArrowLeftIcon from '@/asset/icon/arrow-left';
 import CloseCircleIcon from '@/asset/icon/close-circle';
 import ImagePlaceHolder from '@/asset/icon/image-placeholder';
 import { Editor } from '@/component/Editor';
-import type { LostFoundFormData } from '@/model';
+import type { LostFoundFormData } from '@/types';
 import { createFormData } from '@/util/form';
 
 import SelectLineDrawer from './SelectLineDrawer';

@@ -6,9 +6,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useShallow } from 'zustand/shallow';
 
 import { requestLogin } from '@/app/(main-service)/community/login/_lib';
-import { isValidSocialSignInType } from '@/model/Auth';
 import { AuthService } from '@/service/AuthService';
 import { useTempAuthStore } from '@/store/auth';
+import { isValidSocialSignInType } from '@/types/auth';
 
 function AuthCallback() {
   const router = useRouter();

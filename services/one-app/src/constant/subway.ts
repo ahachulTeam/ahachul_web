@@ -1,4 +1,4 @@
-import { SubwayLineFilterOptions } from '@/model';
+import { SubwayLineFilterOptions } from '@/types';
 
 export const SUBWAY_LINES = [
   { name: '1호선', id: 1 },

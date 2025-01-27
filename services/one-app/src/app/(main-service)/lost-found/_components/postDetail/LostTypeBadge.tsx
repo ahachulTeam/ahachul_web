@@ -1,6 +1,6 @@
 'use client';
 
-import type { LostFoundType } from '@/model';
+import type { LostFoundType } from '@/types';
 
 interface Props {
   lostFoundType: LostFoundType;

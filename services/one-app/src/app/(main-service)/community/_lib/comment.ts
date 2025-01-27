@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { axiosInstance } from '@/api/axios';
-import type { Comment, IResponse } from '@/model';
+import type { Comment, IResponse } from '@/types';
 
 export const deleteComment = (commentId: number) =>
   axiosInstance.delete<IResponse<Pick<Comment, 'id'>>>(`comments/${commentId}`);

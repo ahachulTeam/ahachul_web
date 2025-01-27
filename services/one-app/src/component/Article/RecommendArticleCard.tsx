@@ -1,7 +1,7 @@
 'use client';
 
 import { DotIcon } from '@/asset/icon';
-import type { RecommendPost } from '@/model';
+import type { RecommendPost } from '@/types';
 import { formatDate } from '@/util';
 
 interface Props {

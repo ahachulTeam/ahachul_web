@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { SocialLoginOption } from '@/model';
+import type { SocialLoginOption } from '@/types';
 
 interface SocialLoginButtonProps extends SocialLoginOption {
   onLogin: () => Promise<void>;

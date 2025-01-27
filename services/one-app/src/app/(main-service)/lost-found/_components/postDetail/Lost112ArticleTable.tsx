@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import type { LostFoundPostDetail } from '@/model';
+import type { LostFoundPostDetail } from '@/types';
 import { formatDate } from '@/util';
 
 interface Props {

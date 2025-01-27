@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import type { DetailImages } from '@/model';
+import type { DetailImages } from '@/types';
 
 const MAX_IMAGE_LENGTH = 5;
 const MAX_FILE_SIZE = 10 * 1024 * 1024;

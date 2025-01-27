@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { useGetLostFoundList } from '@/app/(main-service)/lost-found/_lib/get';
 import { ArticleCard, EmptyArticleList } from '@/component';
 import { useIntersectionObserver } from '@/hook';
-import type { LostFoundFilters } from '@/model';
+import type { LostFoundFilters } from '@/types';
 import { flattenInfinityList, formatSubwayLineId } from '@/util';
 
 interface Props {

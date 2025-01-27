@@ -1,4 +1,4 @@
-import type { CreateFormDataParams } from '@/model';
+import type { CreateFormDataParams } from '@/types';
 
 /**
  * JSON 데이터와 파일 데이터를 받아 FormData 객체를 생성합니다.

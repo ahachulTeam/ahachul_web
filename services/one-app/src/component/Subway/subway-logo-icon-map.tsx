@@ -17,7 +17,7 @@ import {
   SubwayLogo_신분당,
   SubwayLogo_우이신설,
 } from '@/asset/icon';
-import type { WithSubwayLineId } from '@/model';
+import type { WithSubwayLineId } from '@/types';
 
 export const SUBWAY_LOGO_SVG_LIST: Record<
   WithSubwayLineId['subwayLineId'],

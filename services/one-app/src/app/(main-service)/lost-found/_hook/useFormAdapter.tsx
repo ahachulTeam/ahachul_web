@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import type { LostFoundFormData } from '@/model';
+import type { LostFoundFormData } from '@/types';
 
 import { useGetLostFoundDetail } from '../_lib/get';
 
