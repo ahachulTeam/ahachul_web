@@ -27,7 +27,7 @@ export const SectionWrapper = styled.section<SectionWrapperProps>`
 `;
 
 export const ArticleItem = styled.article<{ delay: number }>`
-  padding: 24px 20px;
+  padding: 20px;
   opacity: 0;
   animation: fadeIn 0.5s ease-in-out forwards;
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray[20]};
