@@ -1,13 +1,18 @@
-FROM node:20-alpine
+FROM node:20.13.0-alpine
+
+RUN npm install -g pnpm
+
 RUN apk add --no-cache libc6-compat
+
 WORKDIR /app
 
-COPY services/one-app          ./services/one-app
-COPY nx.json tsconfig*         ./ 
-COPY package.json              ./
-COPY pnpm-lock.yaml            ./ 
-COPY pnpm-workspace.yaml       ./ 
-COPY .nx                       ./ 
+COPY packages/utils           ./packages/utils
+COPY services/one-app        ./services/one-app
+COPY nx.json tsconfig*       ./ 
+COPY package.json           ./
+COPY pnpm-lock.yaml        ./ 
+COPY pnpm-workspace.yaml   ./ 
+COPY .nx                   ./ 
 
 RUN pnpm install 
 

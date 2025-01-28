@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: '홈',
-  description: '홈',
+  title: '요청하신 페이지를 찾을 수 없습니다 / 아하철 - 1등 지하철 유실물 & 민원 정보앱',
+  description: '요청하신 페이지를 찾을 수 없습니다',
 };
 
 export default function NotFound() {
