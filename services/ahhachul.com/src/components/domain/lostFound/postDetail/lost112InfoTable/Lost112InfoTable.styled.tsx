@@ -44,20 +44,19 @@ export const Value = styled.div`
   `}
 `;
 
-export const StyledLink = styled.button`
-  ${({ theme }) => css`
-    ${theme.fonts.labelMedium};
-    color: #1d4ed8;
-  `}
+export const StyledLink = styled(Value)`
+  color: #1d4ed8;
 `;
 
 export const StatusWrapper = styled.div`
-  margin-top: 24px;
+  margin-top: 12px;
+  padding-top: 12px;
   display: flex;
   align-items: center;
   gap: 8px;
   justify-content: center;
   color: ${({ theme }) => theme.colors.green[600]};
+  border-top: ${({ theme }) => `1px solid ${theme.colors.gray[20]}`};
 `;
 
 export const StatusDot = styled.div`

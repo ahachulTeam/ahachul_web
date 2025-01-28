@@ -3,36 +3,54 @@
 import React from 'react';
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
+import { objectEntries } from '@ahhachul/utils';
 
 import { CheckIcon, ChevronDownIcon } from '@/asset/icon';
-import type { KeyOf } from '@/types';
-import { cn, objectEntries } from '@/util';
+import type { KeyOf, ObjectQueryParams } from '@/types';
+import { cn } from '@/util';
 
-export interface DropdownFilterProps<T extends Record<string, string>, K extends KeyOf<T>> {
-  name: K;
-  filters: T;
-  options: Record<string, string>;
-  onSelectAction: (key: K, value: T[K]) => void;
+export interface DropdownFilterProps<T extends ObjectQueryParams, K extends KeyOf<T>> {
+  name: string;
+  value: K;
+  options: T;
 }
 
-export const DropdownFilter = <T extends Record<string, string>, K extends KeyOf<T>>({
-  filters,
-  options,
-  onSelectAction,
+export const DropdownFilter = <T extends ObjectQueryParams, K extends KeyOf<T>>({
   name,
+  value,
+  options,
 }: DropdownFilterProps<T, K>): React.ReactElement => {
-  const activeValue = filters[name];
-  const defaultValue = Object.keys(options)[0] as T[K];
-  const isActive = activeValue !== defaultValue;
+  const defaultValue = Object.keys(options)[0] as KeyOf<T>;
+  const isActive = defaultValue !== value;
+
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const onSelect = (newVal: string) => {
+    let newSearchParams = new URLSearchParams(searchParams);
+
+    if (newVal === defaultValue) {
+      newSearchParams.delete(name);
+    } else {
+      newSearchParams.set(name, newVal);
+    }
+
+    router.push(`${pathname}?${newSearchParams.toString()}`);
+  };
 
   return (
     <DropdownMenu.Root modal={false}>
       <DropdownMenu.Trigger asChild>
         <button
-          data-active={isActive}
-          className="flex h-[30px] shrink-0 items-center rounded-[1000px] border border-gray-20 bg-gray-10 px-[10px]"
+          className={cn(
+            'flex h-[30px] shrink-0 items-center rounded-[1000px] border border-gray-20 bg-gray-10 px-[10px]',
+            isActive && 'border-gray-100',
+          )}
         >
-          <span className="text-label-medium text-gray-90">{options[activeValue]}</span>
+          <span className="text-label-medium text-gray-90">{options[value]}</span>
           <ChevronDownIcon />
         </button>
       </DropdownMenu.Trigger>
@@ -48,8 +66,8 @@ export const DropdownFilter = <T extends Record<string, string>, K extends KeyOf
           )}
         >
           <DropdownMenu.RadioGroup
-            value={activeValue as string}
-            onValueChange={newValue => onSelectAction(name, newValue as T[K])}
+            value={value as string}
+            onValueChange={newValue => onSelect(newValue)}
           >
             {objectEntries(options).map(([val, label]) => (
               <DropdownMenu.RadioItem

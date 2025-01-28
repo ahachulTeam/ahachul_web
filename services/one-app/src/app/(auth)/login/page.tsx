@@ -1,4 +1,4 @@
-import { HelloOnLogin, SocialLogins } from '@/app/(auth)/_component';
+import { HelloOnLogin, SocialLogins } from '@/app/(auth)/login/_component';
 
 export default function Login() {
   return (

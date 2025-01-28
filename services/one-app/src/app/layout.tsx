@@ -1,3 +1,5 @@
+import NextTopLoader from 'nextjs-toploader';
+
 import { Pretendard } from '@/asset/font/pretendard';
 import Providers from '@/context/providers';
 import { cn } from '@/util/cn';
@@ -14,6 +16,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={cn('font-sans antialiased', Pretendard.variable)}>
+        <NextTopLoader height={2} color="#2ACF6C" showSpinner={false} />
         <Providers>
           <Header />
           {children}

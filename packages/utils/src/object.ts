@@ -1,4 +1,5 @@
-import type { ObjectKeys } from './object.type';
+export type ObjectQueryParams = Record<string, string | number | boolean>;
+export type ObjectKeys<T extends Record<PropertyKey, unknown>> = `${Exclude<keyof T, symbol>}`;
 
 export const isValidObject = (obj: unknown): obj is Record<string, any> => {
   return typeof obj === 'object' && obj !== null && !Array.isArray(obj);
@@ -30,3 +31,9 @@ export function objectEntries<Type extends Record<PropertyKey, unknown>>(
 ): Array<[ObjectKeys<Type>, Type[ObjectKeys<Type>]]> {
   return Object.entries(obj) as Array<[ObjectKeys<Type>, Type[ObjectKeys<Type>]]>;
 }
+
+export const objectToQueryString = (params: ObjectQueryParams): string => {
+  return Object.entries(params)
+    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+    .join('&');
+};

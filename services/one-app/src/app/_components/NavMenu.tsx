@@ -1,14 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { useSelectedLayoutSegment } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 import { cn } from '@/util';
 
 export default function NavMenu() {
-  const segment = useSelectedLayoutSegment();
+  const pathname = usePathname();
 
-  if (!segment || ['community', 'lost-found', 'complaint', 'me'].includes(segment as string)) {
+  if (['/', '/community', '/lost-found', '/complaint', '/me'].includes(pathname)) {
     return (
       <nav>
         <ul className="fixed bottom-0 left-0 right-0 grid grid-cols-5 w-full bg-white border-t border-gray-200 z-50">
@@ -18,16 +18,14 @@ export default function NavMenu() {
               className={cn(
                 'flex flex-1 flex-col items-center justify-center gap-0.5',
                 'h-[60px] p-0.5 text-center relative z-10',
-                'text-sm transition-colors duration-400',
-                'focus:text-[rgb(196,212,252)] focus:shadow-none',
-                !segment ? 'text-key-color' : 'text-gray-500',
+                pathname === '/' ? 'text-key-color' : 'text-gray-70',
               )}
             >
-              {!segment ? (
+              {pathname === '/' ? (
                 <>
                   <svg
-                    width="27"
-                    height="26"
+                    width="20"
+                    height="20"
                     viewBox="0 0 27 26"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -37,13 +35,13 @@ export default function NavMenu() {
                       fill="#2ACF6C"
                     />
                   </svg>
-                  <div>홈</div>
+                  <span className="text-body-small">홈</span>
                 </>
               ) : (
                 <>
                   <svg
-                    width="27"
-                    height="26"
+                    width="20"
+                    height="20"
                     viewBox="0 0 27 26"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +51,7 @@ export default function NavMenu() {
                       fill="#CED0DD"
                     />
                   </svg>
-                  <div>홈</div>
+                  <span className="text-body-small">홈</span>
                 </>
               )}
             </Link>
@@ -64,16 +62,14 @@ export default function NavMenu() {
               className={cn(
                 'flex flex-1 flex-col items-center justify-center gap-0.5',
                 'h-[60px] p-0.5 text-center relative z-10',
-                'text-sm transition-colors duration-400',
-                'focus:text-[rgb(196,212,252)] focus:shadow-none',
-                segment === 'community' ? 'text-key-color' : 'text-gray-500',
+                pathname === '/community' ? 'text-key-color' : 'text-gray-70',
               )}
             >
-              {segment === 'community' ? (
+              {pathname === '/community' ? (
                 <>
                   <svg
-                    width="27"
-                    height="26"
+                    width="20"
+                    height="20"
                     viewBox="0 0 27 26"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -91,13 +87,13 @@ export default function NavMenu() {
                       fill="white"
                     />
                   </svg>
-                  <div>커뮤니티</div>
+                  <span className="text-body-small">커뮤니티</span>
                 </>
               ) : (
                 <>
                   <svg
-                    width="27"
-                    height="26"
+                    width="20"
+                    height="20"
                     viewBox="0 0 27 26"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -115,7 +111,7 @@ export default function NavMenu() {
                       fill="white"
                     />
                   </svg>
-                  <div>커뮤니티</div>
+                  <span className="text-body-small">커뮤니티</span>
                 </>
               )}
             </Link>
@@ -126,16 +122,14 @@ export default function NavMenu() {
               className={cn(
                 'flex flex-1 flex-col items-center justify-center gap-0.5',
                 'h-[60px] p-0.5 text-center relative z-10',
-                'text-sm transition-colors duration-400',
-                'focus:text-[rgb(196,212,252)] focus:shadow-none',
-                segment === 'lost-found' ? 'text-key-color' : 'text-gray-500',
+                pathname === '/lost-found' ? 'text-key-color' : 'text-gray-70',
               )}
             >
-              {segment === 'lost-found' ? (
+              {pathname === '/lost-found' ? (
                 <>
                   <svg
-                    width="27"
-                    height="26"
+                    width="20"
+                    height="20"
                     viewBox="0 0 27 26"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -153,13 +147,13 @@ export default function NavMenu() {
                       fill="#2ACF6C"
                     />
                   </svg>
-                  <div>유실물</div>
+                  <span className="text-body-small">유실물</span>
                 </>
               ) : (
                 <>
                   <svg
-                    width="27"
-                    height="26"
+                    width="20"
+                    height="20"
                     viewBox="0 0 27 26"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -177,7 +171,7 @@ export default function NavMenu() {
                       fill="#CED0DD"
                     />
                   </svg>
-                  <div>유실물</div>
+                  <span className="text-body-small">유실물</span>
                 </>
               )}
             </Link>
@@ -188,16 +182,14 @@ export default function NavMenu() {
               className={cn(
                 'flex flex-1 flex-col items-center justify-center gap-0.5',
                 'h-[60px] p-0.5 text-center relative z-10',
-                'text-sm transition-colors duration-400',
-                'focus:text-[rgb(196,212,252)] focus:shadow-none',
-                segment === 'complaint' ? 'text-key-color' : 'text-gray-500',
+                pathname === '/complaint' ? 'text-key-color' : 'text-gray-70',
               )}
             >
-              {segment === 'complaint' ? (
+              {pathname === '/complaint' ? (
                 <>
                   <svg
-                    width="27"
-                    height="26"
+                    width="20"
+                    height="20"
                     viewBox="0 0 27 26"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -207,13 +199,13 @@ export default function NavMenu() {
                       fill="#2ACF6C"
                     />
                   </svg>
-                  <div>민원</div>
+                  <span className="text-body-small">민원</span>
                 </>
               ) : (
                 <>
                   <svg
-                    width="27"
-                    height="26"
+                    width="20"
+                    height="20"
                     viewBox="0 0 27 26"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -223,7 +215,7 @@ export default function NavMenu() {
                       fill="#CED0DD"
                     />
                   </svg>
-                  <div>민원</div>
+                  <span className="text-body-small">민원</span>
                 </>
               )}
             </Link>
@@ -234,16 +226,14 @@ export default function NavMenu() {
               className={cn(
                 'flex flex-1 flex-col items-center justify-center gap-0.5',
                 'h-[60px] p-0.5 text-center relative z-10',
-                'text-sm transition-colors duration-400',
-                'focus:text-[rgb(196,212,252)] focus:shadow-none',
-                segment === 'me' ? 'text-key-color' : 'text-gray-500',
+                pathname === '/me' ? 'text-key-color' : 'text-gray-70',
               )}
             >
-              {segment === 'complaint' ? (
+              {pathname === '/me' ? (
                 <>
                   <svg
-                    width="27"
-                    height="26"
+                    width="20"
+                    height="20"
                     viewBox="0 0 27 26"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -253,13 +243,13 @@ export default function NavMenu() {
                       fill="#2ACF6C"
                     />
                   </svg>
-                  <div>마이</div>
+                  <span className="text-body-small">마이</span>
                 </>
               ) : (
                 <>
                   <svg
-                    width="27"
-                    height="26"
+                    width="20"
+                    height="20"
                     viewBox="0 0 27 26"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -269,7 +259,7 @@ export default function NavMenu() {
                       fill="#CED0DD"
                     />
                   </svg>
-                  <div>마이</div>
+                  <span className="text-body-small">마이</span>
                 </>
               )}
             </Link>
@@ -277,5 +267,7 @@ export default function NavMenu() {
         </ul>
       </nav>
     );
+  } else {
+    return null;
   }
 }

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type TempAuthData = {
+type TempAuthData = {
   accessToken: string;
   refreshToken: string;
 };

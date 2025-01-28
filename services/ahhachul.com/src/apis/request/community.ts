@@ -1,3 +1,5 @@
+import { appendFilesToFormData, createJsonBlob, extractFormData } from '@ahhachul/utils';
+
 import axiosInstance from '@/apis/fetcher';
 import {
   type ApiResponse,
@@ -11,7 +13,6 @@ import {
   WithPostId,
   CommunityEditForm,
 } from '@/types';
-import { appendFilesToFormData, createJsonBlob, extractFormData } from '@/utils';
 
 export const fetchCommunityList = async (req: CommunityListParams) => {
   const endpoint =

@@ -1,11 +1,10 @@
-'use client';
+import { formatDateTime } from '@ahhachul/utils';
 
 import { DotIcon } from '@/asset/icon';
-import type { RecommendPost } from '@/types';
-import { formatDate } from '@/util';
+import type { IRecommendPost } from '@/types';
 
 interface Props {
-  post: RecommendPost;
+  post: IRecommendPost;
 }
 
 export const RecommendArticleCard = ({ post }: Props) => {
@@ -19,7 +18,7 @@ export const RecommendArticleCard = ({ post }: Props) => {
               <div className=" flex items-center gap-1 text-gray-80 text-body-medium">
                 <span>LOST112</span>
                 <DotIcon className=" relative top-[1px]" />
-                <span>{formatDate(post.createdAt, false)}</span>
+                <span>{formatDateTime(post.createdAt)}</span>
               </div>
             </div>
           </div>

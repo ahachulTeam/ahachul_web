@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+      # 추후 develop 브렌치는 제외
+      - develop
     paths:
       - 'services/ahhachul.com/**'
 

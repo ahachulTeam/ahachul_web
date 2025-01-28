@@ -1,19 +1,20 @@
 import type {
-  CursorBasedPaginationParams,
-  Post,
-  PostImage,
-  RecommendPost,
+  IPost,
+  IPostImage,
+  IRecommendPost,
+  CursorPagination,
   SubwayLineFilterOptions,
-  WithSubwayLineId,
+  EditableImage,
 } from './common';
 
 export enum LostFoundType {
   LOST = 'LOST',
   ACQUIRE = 'ACQUIRE',
 }
+
 export type LostStatus = 'PROGRESS' | 'COMPLETE';
 
-export interface LostFoundPost extends Post {
+export interface LostFoundPost extends IPost {
   status: LostStatus;
   imageUrl: string;
   categoryName: string;
@@ -25,16 +26,15 @@ export interface LostFoundPostDetail extends LostFoundPost {
   storageNumber: string;
   externalSourceImageUrl: string;
   isFromLost112: boolean;
-  images: PostImage[];
-  recommendPosts: RecommendPost[];
+  images: IPostImage[];
+  recommendPosts: IRecommendPost[];
   lostType: LostFoundType;
 }
 
-export interface LostFoundListParams
-  extends CursorBasedPaginationParams,
-    Partial<WithSubwayLineId> {
-  keyword: string | null;
+export interface LostFoundListParams<TSubwayLine = number> extends Partial<CursorPagination> {
   lostType: LostFoundType;
+  subwayLineId: TSubwayLine;
+  keyword?: string;
 }
 
 export type LostFoundFilterKeys = 'lostType' | 'subwayLineId';
@@ -48,16 +48,19 @@ export type LostFoundFilters = {
   [K in LostFoundFilterKeys]: LostFoundFilterValues[K];
 };
 
-export interface DetailImages {
-  id: number | null;
-  data: File | null;
-  url: string;
-}
-
-export interface LostFoundFormData {
+export interface LostFoundForm {
   title: string;
-  initialContent: string;
+  content: string;
   subwayLineId: number;
   lostType: LostFoundType;
-  images: DetailImages[];
+  images: File[];
+}
+
+export interface LostFoundEditForm {
+  title: string;
+  content: string;
+  subwayLineId: number;
+  lostType: LostFoundType;
+  images: EditableImage[];
+  removeFileIds: number[];
 }

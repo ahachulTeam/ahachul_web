@@ -18,6 +18,7 @@
     "date-fns": "^4.1.0"
   },
   "devDependencies": {
-    "@types/crypto-js": "^4.2.2"
+    "@types/crypto-js": "^4.2.2",
+    "typescript": "^5"
   }
 }

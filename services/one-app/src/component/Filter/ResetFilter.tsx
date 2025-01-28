@@ -1,26 +1,38 @@
 'use client';
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { ChevronDownIcon } from '@/asset/icon';
+import type { ObjectQueryParams } from '@/types';
 import { cn } from '@/util';
 
 import { ConditionalRender } from '../ConditionalRender';
 
 interface Props {
-  activatedCount: number;
-  handleResetAction: () => void;
+  options: ObjectQueryParams;
 }
 
-export const ResetFilter = ({ activatedCount, handleResetAction }: Props) => {
-  const renderThis = activatedCount > 0;
+export const ResetFilter = ({ options }: Props) => {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const clearSearchParams = () => {
+    router.push(pathname);
+  };
+
+  const searchParams = useSearchParams();
+  const renderThis = !!searchParams.toString();
+  const activatedCount = Object.keys(options).filter(
+    key => searchParams.has(key) && searchParams.get(key) !== options[key],
+  ).length;
 
   return (
     <ConditionalRender isRender={renderThis}>
       <DropdownMenu.Root modal={false}>
         <DropdownMenu.Trigger asChild>
           <button className=" shrink-0 h-[30px] bg-gray-10 border border-gray-20 rounded-[1000px] px-[10px] flex items-center">
-            <span className=" text-label-medium rounded-full bg-gray-90 text-gray-0 w-[14px] h-[14px] text-[9px] font-medium inline-flex items-center justify-center">
+            <span className=" rounded-full bg-gray-90 text-gray-0 w-[14px] h-[14px] text-label-small font-medium inline-flex items-center justify-center">
               {activatedCount}
             </span>
             <ChevronDownIcon />
@@ -42,7 +54,7 @@ export const ResetFilter = ({ activatedCount, handleResetAction }: Props) => {
             </DropdownMenu.Label>
             <DropdownMenu.Item
               className=" text-red text-sm flex items-center pl-[12px] h-[45px] relative bg-white"
-              onClick={handleResetAction}
+              onClick={clearSearchParams}
             >
               모든 필터 지우기
             </DropdownMenu.Item>

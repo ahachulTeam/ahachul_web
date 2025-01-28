@@ -1,14 +1,4 @@
-export interface IResponse<T> {
-  code: string;
-  message: string;
-  result: T;
-}
-
-export enum APIResponseCode {
-  SUCCESS = '100',
-  BAD_REQUEST = '101',
-  INTERNAL_SERVER_ERROR = '102',
-}
+import { APIResponseCode } from '@/types';
 
 export const RESPONSE_MESSAGES: Record<APIResponseCode, string> = {
   [APIResponseCode.SUCCESS]: 'SUCCESS',

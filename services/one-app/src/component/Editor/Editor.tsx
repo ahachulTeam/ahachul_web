@@ -31,12 +31,18 @@ const Placeholder = ({
 type Props = {
   showMic?: boolean;
   readonly?: boolean;
-  placeholder?: string;
+  placeholder?: string | false;
   initialState?: string;
   onChange?: (editorState: EditorState | null) => void;
 };
 
-export const Editor = ({ showMic, readonly, placeholder, initialState, onChange }: Props) => {
+export const Editor = ({
+  showMic,
+  readonly,
+  placeholder = false,
+  initialState,
+  onChange,
+}: Props) => {
   const initialConfig = {
     namespace: 'MyEditor',
     theme,
@@ -50,7 +56,7 @@ export const Editor = ({ showMic, readonly, placeholder, initialState, onChange 
           contentEditable={
             <ContentEditable className="h-full w-full border rounded-[5px] p-3 overflow-hidden text-wrap text-gray-90 text-body-large-semi focus:outline-none" />
           }
-          placeholder={<Placeholder placeholder={placeholder} />}
+          placeholder={placeholder && <Placeholder placeholder={placeholder} />}
           ErrorBoundary={LexicalErrorBoundary}
         />
         <HistoryPlugin />
