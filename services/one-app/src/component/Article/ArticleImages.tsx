@@ -4,11 +4,11 @@ import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // import { LazyLoadImage } from 'react-lazy-load-image-component';
-import type { PostImage } from '@/types';
+import type { IPostImage } from '@/types';
 
 interface Props {
   label: string;
-  images: PostImage[];
+  images: IPostImage[];
   canShowFullImageDialog?: boolean;
 }
 
@@ -32,7 +32,7 @@ export const BaseArticleImages = ({
 
   return (
     <>
-      {images.length === 1 ? (
+      {images?.length === 1 ? (
         <div
           className=" relative w-full aspect-square"
           // onClick={handleFullImageDialog}
@@ -45,7 +45,7 @@ export const BaseArticleImages = ({
             className=" absolute object-cover top-0 left-0 w-full h-full"
           /> */}
         </div>
-      ) : images.length > 1 ? (
+      ) : images && images.length > 1 ? (
         <Swiper
           modules={[Pagination]}
           slidesPerView={1}
@@ -55,7 +55,7 @@ export const BaseArticleImages = ({
           pagination={{ clickable: true }}
           className=" relative w-full aspect-square"
         >
-          {images.map(img => (
+          {images?.map(img => (
             <SwiperSlide
               key={img.imageId}
               // onClick={clickIndex(idx)}

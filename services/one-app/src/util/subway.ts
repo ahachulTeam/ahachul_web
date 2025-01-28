@@ -1,9 +1,13 @@
-export const formatSubwayLineId = (filtersSubwayLineId: string, userFavoriteLineId: number) => {
-  switch (filtersSubwayLineId) {
-    case 'ALL_LINES':
+import { SubwayLineFilterOptions } from '@/types';
+
+export const formatSubwayFilterOption = (
+  lineFilter: SubwayLineFilterOptions,
+  favoriteLine: number,
+) => {
+  switch (lineFilter) {
+    case SubwayLineFilterOptions.ALL_LINES:
       return 0;
-    case 'ONLY_MY_LINE':
-    default:
-      return userFavoriteLineId;
+    case SubwayLineFilterOptions.ONLY_MY_LINE:
+      return favoriteLine;
   }
 };

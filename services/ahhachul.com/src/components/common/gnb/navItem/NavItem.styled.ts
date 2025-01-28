@@ -15,7 +15,7 @@ export const NavItemButton = styled.button<NavItemProps>`
     align-items: center;
     justify-content: center;
     gap: 2px;
-    height: 100%;
+    height: 60px;
     padding: 2px;
     text-align: center;
     text-decoration: none;

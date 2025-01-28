@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { isChangedArray } from '@/util';
+import { isChangedArray } from '@ahhachul/utils';
 
 type ErrorFallbackProps = {
   error: Error;

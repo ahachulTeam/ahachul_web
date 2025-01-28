@@ -5,7 +5,6 @@ import type { ReactNode } from 'react';
 import { Player } from '@lottiefiles/react-lottie-player';
 
 import animationData from '@/asset/lottie/loading.json';
-import { FALLBACK_ACTION_CLASS_NAME } from '@/constant';
 
 interface SpinnerProps {
   full?: boolean;
@@ -25,7 +24,7 @@ export function Spinner({ full, children, zTier = 0, zIndex = 10 }: SpinnerProps
       `}
       style={{ zIndex: calculatedZIndex }}
     >
-      <div className={`table-cell align-middle text-center ${FALLBACK_ACTION_CLASS_NAME}`}>
+      <div className={`table-cell align-middle text-center`}>
         <div className="mx-auto w-28 h-28 bg-no-repeat animate-spinner">
           <Player
             loop

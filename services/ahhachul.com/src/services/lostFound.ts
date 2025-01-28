@@ -5,6 +5,8 @@ import {
   useSuspenseQuery,
 } from '@tanstack/react-query';
 
+import { removeFalsyValues } from '@ahhachul/utils';
+
 import * as api from '@/apis/request';
 import { TIMESTAMP } from '@/constants';
 import { useFlow } from '@/stackflow';
@@ -15,7 +17,7 @@ import {
   type LostFoundListParams,
   type SubwayLineFilterOptions,
 } from '@/types';
-import * as formatter from '@/utils/format';
+import { formatSubwayFilterOption } from '@/utils';
 
 export const lostFoundKeys = {
   all: ['lostFound'] as const,
@@ -30,11 +32,11 @@ export const lostFoundKeys = {
 
 export const useFetchLostFoundList = (filters: LostFoundListParams<SubwayLineFilterOptions>) => {
   const favoriteLine = 3;
-  const req = formatter.deleteObjectKeyWithEmptyValue(
+  const req = removeFalsyValues(
     {
       lostType: filters.lostType,
       keyword: filters.keyword,
-      subwayLineId: formatter.formatSubwayFilterOption(filters.subwayLineId, favoriteLine),
+      subwayLineId: formatSubwayFilterOption(filters.subwayLineId, favoriteLine),
     },
     { removeZero: true, removeEmptyStrings: true },
   ) as LostFoundListParams;

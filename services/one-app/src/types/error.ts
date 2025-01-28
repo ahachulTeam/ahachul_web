@@ -1,5 +1,3 @@
-import { HttpStatusCode } from 'axios';
-
 export type ErrorCode =
   | '100'
   | '101'
@@ -30,6 +28,6 @@ export type APIErrorResponse = {
   code: ErrorCode;
   errors: string;
   message: string;
-  status: HttpStatusCode;
+  status: number;
   statusText: string;
 };

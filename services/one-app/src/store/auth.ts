@@ -1,12 +1,9 @@
-import { z } from 'zod';
 import { create } from 'zustand';
 
-import { LoginResponseSchema } from '@/app/(main-service)/community/login/_lib';
-
-export type TempAuthData = Pick<
-  z.infer<typeof LoginResponseSchema>['result'],
-  'accessToken' | 'refreshToken'
->;
+type TempAuthData = {
+  accessToken: string;
+  refreshToken: string;
+};
 
 interface TempAuthState {
   auth: TempAuthData | null;

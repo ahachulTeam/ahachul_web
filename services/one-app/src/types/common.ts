@@ -1,36 +1,46 @@
+import type { InfiniteData } from '@tanstack/react-query';
+
 export type KeyOf<T> = keyof T;
 export type ValueOf<T> = T[keyof T];
-export type StringRecord = Record<string, string>;
-export type ObjectKeys<T extends Record<PropertyKey, unknown>> = `${Exclude<keyof T, symbol>}`;
+export type IndexOf<T, K extends KeyOf<T>> = ValueOf<T[K]>;
+export type Nullable<T> = T | null;
 
-export interface IResponse<TResult> {
+export interface IResponse<T> {
+  code: string;
+  message: string;
+  result: T;
+}
+
+export enum AppEnv {
+  PRODUCTION = 'production',
+  STAGING = 'staging',
+  DEV = 'development',
+}
+
+export enum APIResponseCode {
+  SUCCESS = '100',
+  BAD_REQUEST = '101',
+  INTERNAL_SERVER_ERROR = '102',
+}
+
+export interface CursorPagination {
+  hasNext: boolean;
+  pageToken?: string;
+}
+
+export interface PaginatedList<TData> extends CursorPagination {
+  data: TData[];
+}
+
+export type InfiniteApiResponse<TData> = InfiniteData<ApiResponse<PaginatedList<TData>>>;
+
+export interface ApiResponse<TResult> {
   code: string;
   message: string;
   result: TResult;
 }
 
-export interface CursorBasedPaginationParams {
-  pageSize: number;
-  pageToken?: string;
-}
-
-export interface CursorBasedPaginationResponse {
-  hasNext: boolean;
-  pageToken: string | null;
-}
-
-export interface ListResponseWithPagination<TData> extends CursorBasedPaginationResponse {
-  data: TData[];
-}
-
-export type CreateFormDataParams<T extends Record<string, any>> = {
-  jsonDataKey: string;
-  jsonData: T;
-  fileDataKey: string;
-  fileData: File[];
-};
-
-export type Post = {
+export type IPost = {
   id: number;
   title: string;
   writer: string;
@@ -39,20 +49,28 @@ export type Post = {
   createdBy: string;
   commentCnt: number;
   subwayLineId: number;
-} & Partial<OptionalPostFields>;
+  imageUrl?: string;
+  image?: IPostImage;
+};
 
-export type OptionalPostFields = {
+export type IPostImage = {
+  imageId: number;
   imageUrl: string;
 };
 
-export type RecommendPost = Pick<Post, 'id' | 'title' | 'writer' | 'createdAt' | 'imageUrl'>;
-
-export interface PostImage {
-  imageId: number;
-  imageUrl: string;
+export interface EditableImage {
+  id: number | null;
+  data: File | null;
+  url: string;
 }
 
-type CommentStatus = 'CREATED' | 'DELETED';
+export type IRecommendPost = Pick<IPost, 'id' | 'title' | 'writer' | 'createdAt' | 'imageUrl'>;
+
+export type WithPostId = {
+  id: number;
+};
+
+export type CommentStatus = 'CREATED' | 'DELETED';
 
 export type Comment = {
   id: number;
@@ -64,24 +82,37 @@ export type Comment = {
   status: CommentStatus;
   upperCommentId: number | null;
   likeCnt?: number;
-} & Partial<OptionalCommentFields>;
-
-export type OptionalCommentFields = {
-  likeCnt: number;
 };
 
-export interface CommentList {
+export type CommentList = {
   comments: {
     parentComment: Comment;
     childComments: Comment[];
   }[];
-}
-
-export interface WithSubwayLineId {
-  subwayLineId: number;
-}
+};
 
 export enum SubwayLineFilterOptions {
-  ALL_LINES = 'ALL_LINES',
-  ONLY_MY_LINE = 'ONLY_MY_LINE',
+  ALL_LINES = '0',
+  ONLY_MY_LINE = '3',
 }
+
+export type StringRecord = Record<string, string>;
+
+export type PrimitiveOrArray = string | number | boolean | null | Array<string | number | File>;
+
+export type RecordWithPrimitives = {
+  [key: string]: PrimitiveOrArray;
+};
+
+export enum ScrollDirection {
+  up = 'up',
+  down = 'down',
+}
+
+export type RegionType = 'METROPOLITAN';
+
+export type TypeYN = 'Y' | 'N';
+
+export type ObjectQueryParams = Record<string, string | number | boolean>;
+
+export type ObjectKeys<T extends Record<PropertyKey, unknown>> = `${Exclude<keyof T, symbol>}`;
