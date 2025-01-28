@@ -1,18 +1,21 @@
-import Form from 'next/form';
+'use client';
 
-import { SubwayLineFilterOptions } from '@/types';
+import Form from 'next/form';
+import { useSearchParams } from 'next/navigation';
 
 type Props = {
-  actionString: string;
-  q?: string;
-  category?: string;
-  subwayLineId?: SubwayLineFilterOptions;
+  searchTo: string;
 };
 
-const SearchForm = ({ actionString, q, category, subwayLineId }: Props) => {
+export default function SearchForm({ searchTo }: Props) {
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get('keyword') ?? '';
+  const category = searchParams.get('category');
+  const subwayLineId = searchParams.get('subwayLineId');
+
   return (
     <Form
-      action={actionString}
+      action={searchTo}
       className=" relative pl-[8px] flex items-center bg-gray-20 rounded-[9px] my-0 mx-auto w-[calc(100%-40px)] h-9 overflow-hidden"
     >
       <svg
@@ -33,8 +36,8 @@ const SearchForm = ({ actionString, q, category, subwayLineId }: Props) => {
       </svg>
       <input
         type="search"
-        name="q"
-        defaultValue={q}
+        name="keyword"
+        defaultValue={keyword}
         placeholder="검색"
         className="w-full h-[36px] text-[15px] text-gray-90 bg-gray-20 pr-[12px] pl-0.5"
         style={{ caretColor: 'rgba(0, 255, 163, 0.5)' }}
@@ -43,6 +46,4 @@ const SearchForm = ({ actionString, q, category, subwayLineId }: Props) => {
       {subwayLineId && <input type="hidden" name="subwayLineId" defaultValue={subwayLineId} />}
     </Form>
   );
-};
-
-export default SearchForm;
+}
