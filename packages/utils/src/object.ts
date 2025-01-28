@@ -37,3 +37,17 @@ export const objectToQueryString = (params: ObjectQueryParams): string => {
     .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
     .join('&');
 };
+
+export const queryStringToObject = (queryString: string): Record<string, string> => {
+  const query = queryString.startsWith('?') ? queryString.slice(1) : queryString;
+
+  if (!query) return {};
+
+  return query.split('&').reduce((params: Record<string, string>, param) => {
+    const [key, value] = param.split('=').map(decodeURIComponent);
+    if (key) {
+      params[key] = value || '';
+    }
+    return params;
+  }, {});
+};

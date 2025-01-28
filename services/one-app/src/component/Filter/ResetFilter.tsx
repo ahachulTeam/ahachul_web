@@ -1,7 +1,8 @@
 'use client';
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
 
 import { ChevronDownIcon } from '@/asset/icon';
 import type { ObjectQueryParams } from '@/types';

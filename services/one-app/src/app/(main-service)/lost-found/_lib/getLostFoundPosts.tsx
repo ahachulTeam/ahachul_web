@@ -1,20 +1,11 @@
 import { objectToQueryString, removeFalsyValues } from '@ahhachul/utils';
 
-import {
-  LostFoundType,
-  SubwayLineFilterOptions,
-  type ApiResponse,
-  type LostFoundPost,
-  type PaginatedList,
-} from '@/types';
+import { fetchClient } from '@/lib/fetch-client';
+import { LostFoundType, type ApiResponse, type LostFoundPost, type PaginatedList } from '@/types';
 
 type Props = {
   pageParam?: string;
-  queryKey: [
-    _1: string,
-    _2: string,
-    filters: { q?: string; category?: string; subwayLineId?: SubwayLineFilterOptions },
-  ];
+  queryKey: [_1: string, _2: string, filters: string];
 };
 
 export async function getLostFoundPosts({
@@ -22,34 +13,24 @@ export async function getLostFoundPosts({
   queryKey,
 }: Props): Promise<ApiResponse<PaginatedList<LostFoundPost>>> {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_1, _2, filters] = queryKey;
+  const [_1, _2, query] = queryKey;
 
-  const queryParams = removeFalsyValues(
-    {
-      pageSize: 10,
-      ...(pageParam && { pageToken: pageParam }),
-      ...(filters?.subwayLineId &&
-        +filters.subwayLineId !== 0 && {
-          subwayLineId: filters?.subwayLineId,
-        }),
-      ...(filters?.q && { keyword: filters.q }),
-      ...{ lostType: filters?.category ?? LostFoundType.LOST },
-    },
-    { removeZero: true, removeEmptyStrings: true },
-  );
+  const filters = new URLSearchParams(query);
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/lost-posts?${objectToQueryString(queryParams)}`,
+  const params = removeFalsyValues({
+    ...(filters.get('keyword') && { keyword: filters.get('keyword') || '' }),
+    ...(filters.get('subwayLineId') && { subwayLineId: filters.get('subwayLineId') || '' }),
+    pageSize: 10,
+    ...(pageParam && { pageToken: pageParam }),
+    ...{ lostType: filters.get('category') || LostFoundType.LOST },
+  });
+
+  return await fetchClient(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/lost-posts?${objectToQueryString(params)}`,
     {
       next: {
         tags: ['lost-found', 'posts'],
       },
     },
   );
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-
-  return res.json();
 }

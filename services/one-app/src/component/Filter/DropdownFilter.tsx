@@ -3,7 +3,8 @@
 import React from 'react';
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
 
 import { objectEntries } from '@ahhachul/utils';
 

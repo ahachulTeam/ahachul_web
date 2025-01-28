@@ -1,15 +1,12 @@
 'use client';
 
 import { DotIcon } from '@/asset/icon';
-import { useIsDeferred } from '@/hook';
 import { cn } from '@/util';
 
 import { BaseSkeleton } from '../BaseSkeleton';
 
 export const ArticleListSuspenseFallback = () => {
-  const { isDeferred } = useIsDeferred(500);
-
-  return isDeferred ? (
+  return (
     <section
       className={cn(
         'opacity-0',
@@ -21,7 +18,7 @@ export const ArticleListSuspenseFallback = () => {
         <article
           key={idx}
           className={cn(
-            'py-6 px-5',
+            'py-5 px-5',
             'opacity-0',
             'animate-[fadeIn_0.5s_ease-in-out_forwards]',
             `animation-delay-${idx * 100}`,
@@ -35,7 +32,6 @@ export const ArticleListSuspenseFallback = () => {
                 <BaseSkeleton width={100} height={23} radius={6} />
                 <BaseSkeleton width={170} height={21} radius={6} />
               </div>
-              {/* 이미지 스켈레톤 - 필요한 경우 활성화 */}
               <div className="flex items-center justify-center relative w-[66px] min-w-[66px] aspect-square">
                 <BaseSkeleton width={66} height={66} radius={6} />
               </div>
@@ -56,5 +52,5 @@ export const ArticleListSuspenseFallback = () => {
         </article>
       ))}
     </section>
-  ) : null;
+  );
 };

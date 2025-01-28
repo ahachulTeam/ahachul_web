@@ -1,16 +1,17 @@
 import { QueryFunction } from '@tanstack/react-query';
 
-import { IResponse, LostFoundPostDetail } from '@/types';
+import type { IResponse } from '@/types';
+import type { CommunityDetail } from '@/types/community';
 
-export const getLostFoundDetailPost: QueryFunction<
-  IResponse<LostFoundPostDetail>,
+export const getCommunityDetailPost: QueryFunction<
+  IResponse<CommunityDetail>,
   [_1: string, id: number]
 > = async ({ queryKey }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_1, id] = queryKey;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/lost-posts/${id}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/community-posts/${id}`, {
     next: {
-      tags: ['lost-found-post', id.toString()],
+      tags: ['lcommunity-post', id.toString()],
     },
     credentials: 'include',
   });
