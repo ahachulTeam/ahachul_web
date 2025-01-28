@@ -1,19 +1,17 @@
 import { render, screen } from '@testing-library/react';
 
-import Page from '@/app/page';
+import Home from '@/app/page';
 
 describe('Home Page', () => {
-  it('renders navigation links correctly', () => {
-    render(<Page />);
+  it('renders welcome message', () => {
+    render(<Home />);
+    expect(screen.getByRole('main')).toBeInTheDocument();
+    expect(screen.getByText('아하철님,')).toBeInTheDocument();
+  });
 
-    // Check if all links are present with exact text content
-    expect(screen.getByText('로그인 페이지')).toBeInTheDocument();
-    expect(screen.getByText('유실물 페이지')).toBeInTheDocument();
-    expect(screen.getByText('유실물 등록하기')).toBeInTheDocument();
-
-    // Optionally, verify the href attributes
-    expect(screen.getByText('로그인 페이지')).toHaveAttribute('href', '/login');
-    expect(screen.getByText('유실물 페이지')).toHaveAttribute('href', '/lost-found');
-    expect(screen.getByText('유실물 등록하기')).toHaveAttribute('href', '/lost-found/create');
+  it('has correct styling', () => {
+    render(<Home />);
+    const main = screen.getByRole('main');
+    expect(main).toHaveClass('flex', 'min-h-screen', 'flex-col', 'text-black', 'bg-white', 'pt-4');
   });
 });
