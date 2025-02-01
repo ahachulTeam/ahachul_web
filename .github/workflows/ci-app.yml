@@ -9,7 +9,6 @@ on:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 env:
   DEFAULT_NODE_VERSION: '20.13.0'
@@ -25,6 +24,14 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Cache Nx build setup
+        uses: actions/cache@v4
+        with:
+          path: node_modules/.cache/nx
+          key: ${{ runner.os }}-nx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-nx-
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         timeout-minutes: 1
@@ -35,38 +42,20 @@ jobs:
         uses: ./.github/actions/pnpm-install
         timeout-minutes: 5
 
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps
+
       - name: Create .env file for ahhachul.com
         timeout-minutes: 1
         run: |
           echo '${{ secrets.DEV_REACT_APP_CONFIG }}' > config.json
           cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/ahhachul.com/.env
 
-      - name: TypeScript Compilation Check
-        timeout-minutes: 3
-        run: pnpm app:type
-        continue-on-error: false
-
-      - name: Lint ahhachul.com
-        timeout-minutes: 3
-        run: pnpm app:lint
-        continue-on-error: false
-
-      - name: Test ahhachul.com
-        if: success()
-        timeout-minutes: 5
-        run: pnpm app:test
-        continue-on-error: false
-
-      - name: Build ahhachul.com
-        if: success()
-        timeout-minutes: 5
-        run: pnpm app:build
-        continue-on-error: false
-
-      - name: Upload test results
+      - name: Run Checks/Lint/Build
+        run: pnpm nx affected -t type-check build test lint
+        uses: actions/upload-artifact@v4
         if: always()
-        uses: actions/upload-artifact@v3
         with:
           name: test-results
-          path: services/ahhachul.com/coverage
+          path: e2e/playwright-report/
           retention-days: 7

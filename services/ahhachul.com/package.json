@@ -22,7 +22,13 @@
     "test:playwright": "playwright test",
     "test:playwright:ui": "playwright test --ui",
     "test:playwright:debug": "playwright test --debug",
-    "test:all": "vitest run && playwright test"
+    "test:all": "vitest run && playwright test",
+    "security-audit": "pnpm audit",
+    "security-audit:fix": "pnpm audit --fix",
+    "analyze": "ANALYZE=true vite build",
+    "test:perf": "node scripts/performance-test.js",
+    "test:perf:load": "autocannon http://localhost:3000",
+    "test:perf:lighthouse": "lighthouse http://localhost:3000 --view"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -71,11 +77,16 @@
     "@vitejs/plugin-react-swc": "^3.7.2",
     "@vitest/coverage-v8": "^2.1.8",
     "@vitest/ui": "^2.1.8",
+    "autocannon": "^8.0.0",
     "globals": "^15.12.0",
     "jsdom": "^26.0.0",
+    "lighthouse": "^12.3.0",
     "msw": "^2.7.0",
+    "puppeteer": "^24.1.1",
+    "rollup-plugin-visualizer": "^5.14.0",
     "typescript": "^5",
     "vite": "^6.0.1",
+    "vite-bundle-analyzer": "^0.16.1",
     "vite-plugin-svgr": "^4.3.0",
     "vitest": "^2.1.8"
   },

@@ -19,11 +19,7 @@
     "all:build": "nx run-many --target=build --all",
     "all:lint": "nx run-many --target=lint --all",
     "all:lint:fix": "nx run-many --target=lint:fix --all",
-    "all:test": "nx run-many --target=test --all",
-    "all:test:unit": "nx run-many --target=test:run --all",
-    "all:test:coverage": "nx run-many --target=test:coverage --all",
-    "all:test:e2e": "nx run-many --target=test:playwright --all",
-    "all:test:e2e:ui": "nx run-many --target=test:playwright:ui --all"
+    "all:test": "nx run-many --target=test --all"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",

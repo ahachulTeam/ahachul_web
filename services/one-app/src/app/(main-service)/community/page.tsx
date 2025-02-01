@@ -1,7 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { headers } from 'next/headers';
 
-import SearchFormWithAction from '@/component/SearchFormWithAction';
+import SearchForm from '@/component/SearchForm';
 import { SubwayLineFilterOptions } from '@/types';
 import { CommunityType } from '@/types/community';
 
@@ -38,7 +38,7 @@ export default async function CommunityPage({ searchParams }: Props) {
   return (
     <main className="flex min-h-screen flex-col bg-white ">
       <HydrationBoundary state={dehydratedState}>
-        <SearchFormWithAction />
+        <SearchForm />
         <Filters />
         <CommunityPosts />
       </HydrationBoundary>
