@@ -54,7 +54,8 @@ jobs:
 
       - name: Run Checks/Lint/Build
         run: pnpm nx affected -t type-check build test lint
-        uses: actions/upload-artifact@v4
+
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: test-results
