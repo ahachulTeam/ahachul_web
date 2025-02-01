@@ -9,6 +9,7 @@ on:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   DEFAULT_NODE_VERSION: '20.13.0'
