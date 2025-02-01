@@ -2,6 +2,7 @@
 
 import Form from 'next/form';
 import { useSearchParams } from 'next/navigation';
+<<<<<<< HEAD:services/one-app/src/component/SearchForm.tsx
 import { useRouter } from 'nextjs-toploader/app';
 
 type Props = {
@@ -26,6 +27,22 @@ export default function SearchForm({ name = 'keyword' }: Props) {
   return (
     <Form
       action={onSubmit}
+=======
+
+type Props = {
+  searchTo: string;
+};
+
+export default function SearchForm({ searchTo }: Props) {
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get('keyword') ?? '';
+  const category = searchParams.get('category');
+  const subwayLineId = searchParams.get('subwayLineId');
+
+  return (
+    <Form
+      action={searchTo}
+>>>>>>> develop:services/one-app/src/component/SearchFormWithString.tsx
       className=" relative pl-[8px] flex items-center bg-gray-20 rounded-[9px] my-0 mx-auto w-[calc(100%-40px)] h-9 overflow-hidden"
     >
       <svg
@@ -46,8 +63,13 @@ export default function SearchForm({ name = 'keyword' }: Props) {
       </svg>
       <input
         type="search"
+<<<<<<< HEAD:services/one-app/src/component/SearchForm.tsx
         name={name}
         defaultValue={defaultValue}
+=======
+        name="keyword"
+        defaultValue={keyword}
+>>>>>>> develop:services/one-app/src/component/SearchFormWithString.tsx
         placeholder="검색"
         className="w-full h-[36px] text-[15px] text-gray-90 bg-gray-20 pr-[12px] pl-0.5"
         style={{ caretColor: 'rgba(0, 255, 163, 0.5)' }}
