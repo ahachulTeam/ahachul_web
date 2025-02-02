@@ -1,0 +1,64 @@
+name: APP CI
+
+on:
+  pull_request:
+    paths:
+      - 'services/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/**'
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DEFAULT_NODE_VERSION: '20.13.0'
+  HUSKY: '0'
+  NEXT_TELEMETRY_DISABLED: '1'
+
+jobs:
+  main:
+    name: 🚀 CI Pipeline
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🔨 Setup Node.js
+        uses: actions/setup-node@v3
+        timeout-minutes: 1
+        with:
+          node-version: ${{ env.DEFAULT_NODE_VERSION }}
+
+      - name: 📦 Install Dependencies
+        uses: ./.github/actions/pnpm-install
+        timeout-minutes: 5
+
+      - name: 🔄 Set Nx Base/Head
+        uses: nrwl/nx-set-shas@v4
+
+      - name: 🔑 Create Environment File
+        timeout-minutes: 1
+        run: |
+          echo '${{ secrets.DEV_REACT_APP_CONFIG }}' > config.json
+          echo '${{ secrets.DEV_ONE_APP_CONFIG }}' | jq -r 'to_entries | .[] | "\(.key)=\(.value)"' > services/one-app/.env
+
+      - name: 🔍 Run Type Check
+        run: pnpm nx-cloud record -- nx affected -t type-check
+
+      - name: 📦 Run Build
+        run: pnpm nx-cloud record -- nx affected -t build
+
+      - name: 🧪 Run Tests
+        run: pnpm nx-cloud record -- nx-cloud record -- nx affected -t test
+
+      - name: 💅 Run Lint
+        run: pnpm nx-cloud record -- nx-cloud record -- nx affected -t lint

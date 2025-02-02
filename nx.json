@@ -1,90 +1,43 @@
 {
   "extends": "nx/presets/npm.json",
-  "affected": {
-    "defaultBase": "main"
-  },
   "workspaceLayout": {
     "appsDir": "services",
     "libsDir": "packages"
   },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx/tasks-runners/default",
-      "options": {
-        "cacheableOperations": [
-          "build",
-          "test",
-          "test:run",
-          "test:coverage",
-          "lint",
-          "lint:fix",
-          "type-check"
-        ]
-      }
-    }
-  },
   "targetDefaults": {
-    "dev": {
-      "cache": false,
-      "persistent": true
-    },
-    "build": {
-      "dependsOn": ["^build", "type-check"],
-      "outputs": ["{projectRoot}/dist/**"]
-    },
-    "start": {
-      "dependsOn": ["build"],
-      "cache": false,
-      "persistent": true
-    },
-    "lint": {
-      "dependsOn": ["^lint", "type-check"],
-      "inputs": ["{projectRoot}/**/*.{js,ts,tsx}"]
-    },
-    "lint:fix": {
-      "dependsOn": ["^lint:fix"],
-      "inputs": ["{projectRoot}/**/*.{js,ts,tsx}"]
-    },
     "type-check": {
-      "cache": false,
+      "cache": true,
       "inputs": ["{projectRoot}/**/*.{ts,tsx}", "{projectRoot}/tsconfig.json"]
     },
+    "lint": {
+      "cache": true,
+      "inputs": ["{projectRoot}/**/*.{js,ts,tsx}"]
+    },
+    "build": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "outputs": ["{projectRoot}/dist/**"]
+    },
     "test": {
-      "dependsOn": ["^build"],
-      "cache": false,
-      "inputs": ["{projectRoot}/src/**/*.{js,ts,tsx}", "{projectRoot}/test/**/*.{js,ts,tsx}"]
-    },
-    "test:run": {
-      "dependsOn": ["^build"],
       "cache": true,
       "inputs": ["{projectRoot}/src/**/*.{js,ts,tsx}", "{projectRoot}/test/**/*.{js,ts,tsx}"]
     },
-    "test:coverage": {
-      "dependsOn": ["^build"],
-      "cache": true,
-      "inputs": ["{projectRoot}/src/**/*.{js,ts,tsx}", "{projectRoot}/test/**/*.{js,ts,tsx}"],
-      "outputs": ["{projectRoot}/coverage/**"]
-    },
-    "test:playwright": {
-      "dependsOn": ["^build"],
+    "start": {
       "cache": false,
-      "inputs": ["{projectRoot}/src/**/*.{js,ts,tsx}", "{projectRoot}/e2e/**/*.{js,ts,tsx}"]
+      "persistent": true,
+      "dependsOn": ["^build"]
     },
-    "test:playwright:ui": {
-      "dependsOn": ["^build"],
-      "cache": false,
-      "inputs": ["{projectRoot}/src/**/*.{js,ts,tsx}", "{projectRoot}/e2e/**/*.{js,ts,tsx}"]
-    },
-    "test:all": {
-      "dependsOn": ["^build", "test:run", "test:playwright"],
-      "cache": false
+    "lint:fix": {
+      "cache": true
     }
   },
+  "defaultBase": "main",
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "!{projectRoot}/**/*.md"],
     "production": ["default", "!{projectRoot}/**/*.spec.ts"]
   },
   "implicitDependencies": {
     "**/.env.*local": "*"
-  }
+  },
+  "nxCloudId": "679e791071fd2cb4bf200e60"
 }

@@ -1,18 +1,18 @@
-'use client';
-
 import Form from 'next/form';
-import { useSearchParams } from 'next/navigation';
 
 type Props = {
   searchTo: string;
+  keyword?: string;
+  category?: string;
+  subwayLineId?: string;
 };
 
-export default function SearchForm({ searchTo }: Props) {
-  const searchParams = useSearchParams();
-  const keyword = searchParams.get('keyword') ?? '';
-  const category = searchParams.get('category');
-  const subwayLineId = searchParams.get('subwayLineId');
-
+export default function SearchFormServerAction({
+  searchTo,
+  keyword,
+  category,
+  subwayLineId,
+}: Props) {
   return (
     <Form
       action={searchTo}

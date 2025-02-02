@@ -8,22 +8,18 @@ type Props = {
   name?: string;
 };
 
-export default function SearchFormWithAction({ name = 'keyword' }: Props) {
+export default function SearchForm({ name = 'keyword' }: Props) {
   const searchParams = useSearchParams();
   const defaultValue = searchParams.get(name) ?? '';
 
   const router = useRouter();
   const onSubmit = (formData: FormData) => {
-    // FormData에서 input 값들을 가져옵니다
     const newKeyword = formData.get(name) as string;
 
-    // 현재 URL의 검색 파라미터를 복사
     let newSearchParams = new URLSearchParams(searchParams);
 
-    // 새로운 keyword 값을 설정
     newSearchParams.set(name, newKeyword);
 
-    // 새로운 URL로 이동
     router.push(`?${newSearchParams.toString()}`);
   };
 
