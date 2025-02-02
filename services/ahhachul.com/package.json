@@ -65,6 +65,7 @@
   "devDependencies": {
     "@ahhachul/utils": "workspace:*",
     "@playwright/test": "^1.49.1",
+    "@svgr/plugin-svgo": "^8.1.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@testing-library/react-hooks": "^8.0.1",
@@ -84,9 +85,11 @@
     "msw": "^2.7.0",
     "puppeteer": "^24.1.1",
     "rollup-plugin-visualizer": "^5.14.0",
+    "sharp": "^0.33.5",
     "typescript": "^5",
     "vite": "^6.0.1",
     "vite-bundle-analyzer": "^0.16.1",
+    "vite-plugin-image-optimizer": "^1.1.8",
     "vite-plugin-svgr": "^4.3.0",
     "vitest": "^2.1.8"
   },

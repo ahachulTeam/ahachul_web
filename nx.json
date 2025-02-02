@@ -1,31 +1,43 @@
 {
   "extends": "nx/presets/npm.json",
-  "affected": { "defaultBase": "main" },
-  "workspaceLayout": { "appsDir": "services", "libsDir": "packages" },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx/tasks-runners/default",
-      "options": { "cacheableOperations": ["build", "test", "lint", "lint:fix", "type-check"] }
-    }
+  "workspaceLayout": {
+    "appsDir": "services",
+    "libsDir": "packages"
   },
   "targetDefaults": {
     "type-check": {
       "cache": true,
       "inputs": ["{projectRoot}/**/*.{ts,tsx}", "{projectRoot}/tsconfig.json"]
     },
-    "lint": { "cache": true, "inputs": ["{projectRoot}/**/*.{js,ts,tsx}"] },
-    "build": { "cache": true, "dependsOn": ["^build"], "outputs": ["{projectRoot}/dist/**"] },
+    "lint": {
+      "cache": true,
+      "inputs": ["{projectRoot}/**/*.{js,ts,tsx}"]
+    },
+    "build": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "outputs": ["{projectRoot}/dist/**"]
+    },
     "test": {
       "cache": true,
       "inputs": ["{projectRoot}/src/**/*.{js,ts,tsx}", "{projectRoot}/test/**/*.{js,ts,tsx}"]
     },
-    "start": { "cache": false, "persistent": true, "dependsOn": ["^build"] }
+    "start": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["^build"]
+    },
+    "lint:fix": {
+      "cache": true
+    }
   },
-  "defaultBase": "develop",
+  "defaultBase": "main",
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "!{projectRoot}/**/*.md"],
     "production": ["default", "!{projectRoot}/**/*.spec.ts"]
   },
-  "implicitDependencies": { "**/.env.*local": "*" },
+  "implicitDependencies": {
+    "**/.env.*local": "*"
+  },
   "nxCloudId": "679e791071fd2cb4bf200e60"
 }
