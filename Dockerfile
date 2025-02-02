@@ -15,7 +15,8 @@ COPY pnpm-workspace.yaml   ./
 COPY .nx                   ./ 
 
 RUN pnpm install 
-RUN pnpm install sharp
+
+RUN pnpm add -w sharp
 
 ENV NEXT_TELEMETRY_DISABLED=1 
 
