@@ -66,20 +66,10 @@
       "!{projectRoot}/**/__tests__/**/*"
     ]
   },
-  "implicitDependencies": {
-    "**/.env.*local": "*",
-    "package.json": "*",
-    "nx.json": "*"
-  },
-  "nxCloudAccessToken": "${NX_CLOUD_ACCESS_TOKEN}",
-  "parallel": 3,
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx-cloud",
-      "options": {
-        "cacheableOperations": ["build", "test", "lint", "type-check"],
-        "accessToken": "${NX_CLOUD_ACCESS_TOKEN}"
-      }
+  "nxCloudId": "679e791071fd2cb4bf200e60",
+  "pluginsConfig": {
+    "@nrwl/js": {
+      "analyzeSourceFiles": true
     }
   }
 }
