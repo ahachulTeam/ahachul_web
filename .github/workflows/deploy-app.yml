@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+      # 추후 develop 브렌치는 제외
+      - develop
     paths:
       - 'services/ahhachul.com/**'
 
@@ -39,7 +41,7 @@ jobs:
           cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/ahhachul.com/.env
 
       - name: Build ahhachul.com
-        run: pnpm build:app
+        run: pnpm app:build
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2

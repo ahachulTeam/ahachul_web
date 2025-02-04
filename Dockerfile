@@ -1,20 +1,27 @@
-FROM node:20-alpine
+FROM node:20.13.0-alpine
+
+RUN npm install -g pnpm
+
 RUN apk add --no-cache libc6-compat
+
 WORKDIR /app
 
-COPY services/one-app          ./services/one-app
-COPY nx.json tsconfig*         ./ 
-COPY package.json              ./
-COPY pnpm-lock.yaml            ./ 
-COPY pnpm-workspace.yaml       ./ 
-COPY .nx                       ./ 
+COPY packages/utils           ./packages/utils
+COPY services/one-app        ./services/one-app
+COPY nx.json tsconfig*       ./ 
+COPY package.json           ./
+COPY pnpm-lock.yaml        ./ 
+COPY pnpm-workspace.yaml   ./ 
+COPY .nx                   ./ 
 
 RUN pnpm install 
 
+RUN pnpm add -w sharp
+
 ENV NEXT_TELEMETRY_DISABLED=1 
 
-RUN pnpm build:one-app 
+RUN pnpm nextjs:build
 
 EXPOSE 3000
 
-CMD ["pnpm", "start:one-app"]
+CMD ["pnpm", "nextjs:start"]

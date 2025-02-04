@@ -5,6 +5,8 @@ import {
   useSuspenseQuery,
 } from '@tanstack/react-query';
 
+import { removeFalsyValues } from '@ahhachul/utils';
+
 import * as api from '@/apis/request';
 import { TIMESTAMP } from '@/constants';
 import { useFlow } from '@/stackflow';
@@ -15,7 +17,7 @@ import {
   type CommunityListParams,
   type SubwayLineFilterOptions,
 } from '@/types';
-import * as formatter from '@/utils/format';
+import { formatSubwayFilterOption } from '@/utils';
 
 export const communityKeys = {
   all: ['community'] as const,
@@ -30,12 +32,12 @@ export const communityKeys = {
 
 export const useFetchCommunityList = (filters: CommunityListParams<SubwayLineFilterOptions>) => {
   const favoriteLine = 2;
-  const req = formatter.deleteObjectKeyWithEmptyValue(
+  const req = removeFalsyValues(
     {
       categoryType: filters.categoryType,
       content: filters.content,
       writer: filters.writer,
-      subwayLineId: formatter.formatSubwayFilterOption(filters.subwayLineId, favoriteLine),
+      subwayLineId: formatSubwayFilterOption(filters.subwayLineId, favoriteLine),
     },
     { removeZero: true, removeEmptyStrings: true },
   ) as CommunityListParams;

@@ -8,7 +8,7 @@ export const getSharePageURL = <T extends KeyOf<Pick<TypeActivities, KeyOf<Share
 ): ShareableURLMap[T] => {
   const urlMap: ShareableURLMap = {
     CommunityDetailPage: `${WEB_SERVICE_URL}/community`,
-    LostFoundDetailPage: `${WEB_SERVICE_URL}/lostFound`,
+    LostFoundDetailPage: `${WEB_SERVICE_URL}/lost-found`,
     ComplaintDetailPage: `${WEB_SERVICE_URL}/complaint`,
   } as const;
 

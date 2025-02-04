@@ -1,5 +1,5 @@
 const EditCommentPage = () => {
-  return <div>edit</div>;
+  return <div>Hi</div>;
 };
 
 export default EditCommentPage;

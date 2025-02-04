@@ -1,27 +1,25 @@
 {
-  "name": "ahhachul-front",
+  "name": "ahhachul",
   "private": true,
   "scripts": {
-    "clean:branch": "git fetch --prune && git branch | grep -v '^*' | xargs git branch -D",
-    "clean:cache": "nx reset",
     "prepare": "husky",
     "preinstall": "corepack enable",
-    "start": "nx run-many --target=start --all",
-    "lint": "nx run-many --target=lint --all",
-    "lint:fix": "nx run-many --target=lint:fix --all",
-    "test": "nx run-many --target=test --all",
-    "test:run": "nx run-many --target=test:run --all",
-    "test:coverage": "nx run-many --target=test:coverage --all",
-    "test:e2e": "nx run-many --target=test:playwright --all",
-    "test:e2e:ui": "nx run-many --target=test:playwright:ui --all",
-    "build:all": "nx run-many --target=build --all",
-    "lint:app": "nx lint @ahhachul/app",
-    "test:app": "nx test @ahhachul/app",
-    "build:app": "nx build @ahhachul/app",
-    "lint:one-app": "nx lint @ahhachul/one-app",
-    "test:one-app": "nx test @ahhachul/one-app",
-    "build:one-app": "nx build @ahhachul/one-app",
-    "start:one-app": "nx start @ahhachul/one-app"
+    "clean:branch": "git fetch --prune && git branch | grep -v '^*' | xargs git branch -D",
+    "clean:cache": "nx reset",
+    "app:type": "nx type-check @ahhachul/app",
+    "app:lint": "nx lint @ahhachul/app",
+    "app:test": "nx test @ahhachul/app",
+    "app:build": "nx build @ahhachul/app",
+    "nextjs:type": "nx type-check @ahhachul/one-app",
+    "nextjs:lint": "nx lint @ahhachul/one-app",
+    "nextjs:test": "nx test @ahhachul/one-app",
+    "nextjs:build": "nx build @ahhachul/one-app",
+    "nextjs:start": "nx start @ahhachul/one-app",
+    "all:start": "nx run-many --target=start --all",
+    "all:build": "nx run-many --target=build --all",
+    "all:lint": "nx run-many --target=lint --all",
+    "all:lint:fix": "nx run-many --target=lint:fix --all",
+    "all:test": "nx run-many --target=test --all"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
@@ -37,7 +35,7 @@
     "nano-staged": "^0.8.0",
     "nx": "^20.3.1",
     "prettier": "^3.2.5",
-    "typescript": "5.4.5"
+    "typescript": "^5"
   },
   "packageManager": "pnpm@9.1.0",
   "engines": {

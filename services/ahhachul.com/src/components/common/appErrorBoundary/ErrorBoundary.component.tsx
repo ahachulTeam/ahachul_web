@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { AxiosError } from 'axios';
 
-import { isChangedArray } from '@/utils';
+import { isChangedArray } from '@ahhachul/utils';
 
 type ErrorFallbackProps = {
   error: AxiosError;
