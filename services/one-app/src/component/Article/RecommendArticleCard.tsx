@@ -24,7 +24,6 @@ export const RecommendArticleCard = ({ post }: Props) => {
           </div>
           {post?.imageUrl && (
             <div className=" flex items-center justify-center relative w-[50px] min-w-[50px] aspect-square">
-              {/* TODO */}
               {/* <LazyLoadImage
                 width="100%"
                 height="100%"

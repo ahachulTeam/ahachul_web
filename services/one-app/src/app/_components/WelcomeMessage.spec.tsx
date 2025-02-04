@@ -11,7 +11,6 @@ describe('WelcomeMessage', () => {
   it('renders a greeting phrase', () => {
     render(<WelcomeMessage />);
 
-    // Check if any of the greeting phrases is rendered
     const greetingPhrases = [
       '멋진 오늘을 응원해요',
       '정말 잘하고 있어요',

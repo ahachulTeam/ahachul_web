@@ -1,43 +1,64 @@
 {
   "extends": "nx/presets/npm.json",
-  "workspaceLayout": {
-    "appsDir": "services",
-    "libsDir": "packages"
-  },
+  "workspaceLayout": { "appsDir": "services", "libsDir": "packages" },
   "targetDefaults": {
     "type-check": {
       "cache": true,
-      "inputs": ["{projectRoot}/**/*.{ts,tsx}", "{projectRoot}/tsconfig.json"]
+      "inputs": [
+        "{projectRoot}/**/*.{ts,tsx}",
+        "{projectRoot}/tsconfig.json",
+        "{workspaceRoot}/tsconfig.base.json"
+      ]
     },
     "lint": {
       "cache": true,
-      "inputs": ["{projectRoot}/**/*.{js,ts,tsx}"]
+      "inputs": [
+        "{projectRoot}/**/*.{js,ts,tsx}",
+        "{projectRoot}/.eslintrc.*",
+        "{workspaceRoot}/.eslintrc.*"
+      ]
     },
     "build": {
       "cache": true,
       "dependsOn": ["^build"],
-      "outputs": ["{projectRoot}/dist/**"]
+      "inputs": ["production", "{workspaceRoot}/package.json"],
+      "outputs": ["{projectRoot}/dist/**", "{projectRoot}/.next/**"]
     },
     "test": {
       "cache": true,
-      "inputs": ["{projectRoot}/src/**/*.{js,ts,tsx}", "{projectRoot}/test/**/*.{js,ts,tsx}"]
+      "inputs": [
+        "{projectRoot}/src/**/*.{js,ts,tsx}",
+        "{projectRoot}/test/**/*.{js,ts,tsx}",
+        "{projectRoot}/jest.config.*",
+        "{workspaceRoot}/jest.config.*"
+      ]
     },
-    "start": {
-      "cache": false,
-      "persistent": true,
-      "dependsOn": ["^build"]
-    },
+    "start": { "cache": false, "persistent": true, "dependsOn": ["^build"] },
     "lint:fix": {
-      "cache": true
+      "cache": true,
+      "inputs": [
+        "{projectRoot}/**/*.{js,ts,tsx}",
+        "{projectRoot}/.eslintrc.*",
+        "{workspaceRoot}/.eslintrc.*"
+      ]
     }
   },
   "defaultBase": "main",
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "!{projectRoot}/**/*.md"],
-    "production": ["default", "!{projectRoot}/**/*.spec.ts"]
+    "default": [
+      "{projectRoot}/**/*",
+      "!{projectRoot}/**/*.md",
+      "!{projectRoot}/**/CHANGELOG.md",
+      "!{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/coverage/**"
+    ],
+    "production": [
+      "default",
+      "!{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/test/**/*",
+      "!{projectRoot}/**/__tests__/**/*"
+    ]
   },
-  "implicitDependencies": {
-    "**/.env.*local": "*"
-  },
-  "nxCloudId": "679e791071fd2cb4bf200e60"
+  "parallel": 3,
+  "nxCloudId": "67a199375e4612c72a76ed4f"
 }

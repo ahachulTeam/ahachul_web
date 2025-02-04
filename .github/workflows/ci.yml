@@ -20,12 +20,14 @@ env:
   DEFAULT_NODE_VERSION: '20.13.0'
   HUSKY: '0'
   NEXT_TELEMETRY_DISABLED: '1'
+  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
 jobs:
   main:
     name: 🚀 CI Pipeline
     runs-on: ubuntu-latest
     timeout-minutes: 15
+
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
@@ -51,14 +53,6 @@ jobs:
           echo '${{ secrets.DEV_REACT_APP_CONFIG }}' > config.json
           echo '${{ secrets.DEV_ONE_APP_CONFIG }}' | jq -r 'to_entries | .[] | "\(.key)=\(.value)"' > services/one-app/.env
 
-      - name: 🔍 Run Type Check
-        run: pnpm nx-cloud record -- nx affected -t type-check
-
-      - name: 📦 Run Build
-        run: pnpm nx-cloud record -- nx affected -t build
-
-      - name: 🧪 Run Tests
-        run: pnpm nx-cloud record -- nx-cloud record -- nx affected -t test
-
-      - name: 💅 Run Lint
-        run: pnpm nx-cloud record -- nx-cloud record -- nx affected -t lint
+      - name: 🏃 Run CI Tasks
+        run: |
+          pnpm nx affected --parallel=3 -t type-check,build,test,lint
