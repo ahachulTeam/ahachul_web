@@ -59,16 +59,6 @@
       "!{projectRoot}/**/__tests__/**/*"
     ]
   },
-  "nxCloudAccessToken": "${NX_CLOUD_ACCESS_TOKEN}",
   "parallel": 3,
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx-cloud",
-      "options": {
-        "cacheableOperations": ["build", "test", "lint", "type-check"],
-        "accessToken": "${NX_CLOUD_ACCESS_TOKEN}"
-      }
-    }
-  },
   "nxCloudId": "67a199375e4612c72a76ed4f"
 }
