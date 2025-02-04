@@ -1,5 +1,5 @@
 const NewCommentReplyPage = () => {
-  return <div>edit</div>;
+  return <div>Hi</div>;
 };
 
 export default NewCommentReplyPage;
