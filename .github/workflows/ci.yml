@@ -22,7 +22,6 @@ env:
   NEXT_TELEMETRY_DISABLED: '1'
   NX_BRANCH: ${{ github.event.number }}
   NX_RUN_GROUP: ${{ github.run_id }}
-  # Nx Cloud
   NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
 jobs:
