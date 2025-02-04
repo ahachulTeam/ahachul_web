@@ -1,9 +1,6 @@
 {
   "extends": "nx/presets/npm.json",
-  "workspaceLayout": {
-    "appsDir": "services",
-    "libsDir": "packages"
-  },
+  "workspaceLayout": { "appsDir": "services", "libsDir": "packages" },
   "targetDefaults": {
     "type-check": {
       "cache": true,
@@ -36,11 +33,7 @@
         "{workspaceRoot}/jest.config.*"
       ]
     },
-    "start": {
-      "cache": false,
-      "persistent": true,
-      "dependsOn": ["^build"]
-    },
+    "start": { "cache": false, "persistent": true, "dependsOn": ["^build"] },
     "lint:fix": {
       "cache": true,
       "inputs": [
@@ -76,5 +69,6 @@
         "accessToken": "${NX_CLOUD_ACCESS_TOKEN}"
       }
     }
-  }
+  },
+  "nxCloudId": "67a199375e4612c72a76ed4f"
 }
