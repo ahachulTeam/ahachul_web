@@ -5,13 +5,10 @@ import 'react-lazy-load-image-component/src/effects/opacity.css';
 
 import { formatDateTime } from '@ahhachul/utils';
 
-// import { CommentIcon, DotIcon } from '@/asset/icon';
 import type { IPost } from '@/types';
 import { cn, isLexicalContent } from '@/util';
 
 import { ReadonlyEditor } from '../Editor';
-
-// import { SUBWAY_LOGO_SVG_LIST } from '../Subway/subway-logo-icon-map';
 
 interface Props {
   post: IPost;
