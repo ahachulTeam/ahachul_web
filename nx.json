@@ -7,20 +7,34 @@
   "targetDefaults": {
     "type-check": {
       "cache": true,
-      "inputs": ["{projectRoot}/**/*.{ts,tsx}", "{projectRoot}/tsconfig.json"]
+      "inputs": [
+        "{projectRoot}/**/*.{ts,tsx}",
+        "{projectRoot}/tsconfig.json",
+        "{workspaceRoot}/tsconfig.base.json"
+      ]
     },
     "lint": {
       "cache": true,
-      "inputs": ["{projectRoot}/**/*.{js,ts,tsx}"]
+      "inputs": [
+        "{projectRoot}/**/*.{js,ts,tsx}",
+        "{projectRoot}/.eslintrc.*",
+        "{workspaceRoot}/.eslintrc.*"
+      ]
     },
     "build": {
       "cache": true,
       "dependsOn": ["^build"],
-      "outputs": ["{projectRoot}/dist/**"]
+      "inputs": ["production", "{workspaceRoot}/package.json"],
+      "outputs": ["{projectRoot}/dist/**", "{projectRoot}/.next/**"]
     },
     "test": {
       "cache": true,
-      "inputs": ["{projectRoot}/src/**/*.{js,ts,tsx}", "{projectRoot}/test/**/*.{js,ts,tsx}"]
+      "inputs": [
+        "{projectRoot}/src/**/*.{js,ts,tsx}",
+        "{projectRoot}/test/**/*.{js,ts,tsx}",
+        "{projectRoot}/jest.config.*",
+        "{workspaceRoot}/jest.config.*"
+      ]
     },
     "start": {
       "cache": false,
@@ -28,16 +42,44 @@
       "dependsOn": ["^build"]
     },
     "lint:fix": {
-      "cache": true
+      "cache": true,
+      "inputs": [
+        "{projectRoot}/**/*.{js,ts,tsx}",
+        "{projectRoot}/.eslintrc.*",
+        "{workspaceRoot}/.eslintrc.*"
+      ]
     }
   },
   "defaultBase": "main",
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "!{projectRoot}/**/*.md"],
-    "production": ["default", "!{projectRoot}/**/*.spec.ts"]
+    "default": [
+      "{projectRoot}/**/*",
+      "!{projectRoot}/**/*.md",
+      "!{projectRoot}/**/CHANGELOG.md",
+      "!{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/coverage/**"
+    ],
+    "production": [
+      "default",
+      "!{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/test/**/*",
+      "!{projectRoot}/**/__tests__/**/*"
+    ]
   },
   "implicitDependencies": {
-    "**/.env.*local": "*"
+    "**/.env.*local": "*",
+    "package.json": "*",
+    "nx.json": "*"
   },
-  "nxCloudId": "679e791071fd2cb4bf200e60"
+  "nxCloudAccessToken": "${NX_CLOUD_ACCESS_TOKEN}",
+  "parallel": 3,
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx-cloud",
+      "options": {
+        "cacheableOperations": ["build", "test", "lint", "type-check"],
+        "accessToken": "${NX_CLOUD_ACCESS_TOKEN}"
+      }
+    }
+  }
 }

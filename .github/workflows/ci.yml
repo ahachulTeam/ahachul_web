@@ -20,12 +20,17 @@ env:
   DEFAULT_NODE_VERSION: '20.13.0'
   HUSKY: '0'
   NEXT_TELEMETRY_DISABLED: '1'
+  NX_BRANCH: ${{ github.event.number }}
+  NX_RUN_GROUP: ${{ github.run_id }}
+  # Nx Cloud
+  NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
 
 jobs:
   main:
     name: 🚀 CI Pipeline
     runs-on: ubuntu-latest
     timeout-minutes: 15
+
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
@@ -37,6 +42,18 @@ jobs:
         timeout-minutes: 1
         with:
           node-version: ${{ env.DEFAULT_NODE_VERSION }}
+
+      # Improve caching for pnpm
+      - name: 📦 Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.pnpm-store
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
 
       - name: 📦 Install Dependencies
         uses: ./.github/actions/pnpm-install
@@ -51,14 +68,9 @@ jobs:
           echo '${{ secrets.DEV_REACT_APP_CONFIG }}' > config.json
           echo '${{ secrets.DEV_ONE_APP_CONFIG }}' | jq -r 'to_entries | .[] | "\(.key)=\(.value)"' > services/one-app/.env
 
-      - name: 🔍 Run Type Check
-        run: pnpm nx-cloud record -- nx affected -t type-check
-
-      - name: 📦 Run Build
-        run: pnpm nx-cloud record -- nx affected -t build
-
-      - name: 🧪 Run Tests
-        run: pnpm nx-cloud record -- nx-cloud record -- nx affected -t test
-
-      - name: 💅 Run Lint
-        run: pnpm nx-cloud record -- nx-cloud record -- nx affected -t lint
+      # Run tasks in parallel using Nx's parallel execution
+      - name: 🏃 Run CI Tasks
+        run: |
+          pnpm nx affected --parallel=3 \
+            -t type-check,build,test,lint \
+            --configuration=ci
