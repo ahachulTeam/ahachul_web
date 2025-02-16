@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useEffect } from 'react';
 
 import type { ActivityComponentType } from '@stackflow/react';

@@ -1,13 +1,15 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { isWebView } from '@/constants';
+
 export const FloatButton = styled.button`
   ${({ theme }) => css`
     ${theme.fonts.bodyLarge};
 
     position: fixed;
     right: 20px;
-    bottom: 80px;
+    bottom: ${isWebView() ? '112px' : '80px'};
 
     width: max-content;
     height: 44px;

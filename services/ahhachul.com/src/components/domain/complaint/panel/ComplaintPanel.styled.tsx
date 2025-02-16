@@ -4,73 +4,59 @@ import styled from '@emotion/styled';
 import mixins from '@/styles/mixins';
 
 export const Panel = styled.div`
-  ${mixins.fullWidth}
-  ${mixins.flexColumn}
-  ${mixins.sideGutter}
+  ${mixins.animatedLayout(false)};
+  ${mixins.fullWidth};
+  ${mixins.flexColumn};
   gap: 36px;
-  background-color: ${({ theme }) => theme.colors.white};
+  padding-top: 16px;
 `;
 
-// export const Label = styled.span`
-//   color: ${({ theme }) => theme.color.text[50]};
-//   font-size: ${({ theme }) => theme.typography.fontSize[16]}px;
-//   font-weight: ${({ theme }) => theme.typography.fontWeight[600]};
-//   margin-bottom: 16px;
-// `;
+export const Cell = styled.div`
+  ${mixins.flexColumn};
+  gap: 12px;
+`;
 
-// export const Card = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   width: 100%;
-//   height: 100%;
-//   position: relative;
-//   padding: 16px;
-//   border-radius: 8px;
-//   background-color: ${({ theme }) => theme.color.black[500]};
+export const Label = styled.span`
+  ${({ theme }) => css`
+    color: ${theme.colors.black};
+    ${theme.fonts.titleLarge};
+  `}
+`;
 
-//   span {
-//     color: ${({ theme }) => theme.color.text[50]};
-//     font-size: ${({ theme }) => theme.typography.fontSize[16]}px;
-//     font-weight: ${({ theme }) => theme.typography.fontWeight[600]};
-//     margin-bottom: 8px;
-//   }
+export const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #eafcf1;
 
-//   & > p {
-//     color: ${({ theme }) => theme.color.blueDarkGray[500]};
-//     font-size: ${({ theme }) => theme.typography.fontSize[12]}px;
-//   }
+  span {
+    color: ${({ theme }) => theme.colors.black};
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
 
-//   & > div {
-//     position: absolute;
-//     right: 16px;
-//     bottom: 10px;
-//   }
-// `;
+  & > p {
+    color: #67696f;
+    font-size: 12px;
+  }
 
-// export const CardStats = styled.article`
-//   position: absolute;
-//   right: 16px;
-//   bottom: 10px;
-//   text-align: right;
+  & > div {
+    position: absolute;
+    right: 16px;
+    bottom: 10px;
+  }
 
-//   span {
-//     color: ${({ theme }) => theme.color.blueDarkGray[500]};
-//     font-size: ${({ theme }) => theme.typography.fontSize[12]}px;
-//   }
-
-//   p {
-//     color: ${({ theme }) => theme.color.white[700]};
-//     font-size: ${({ theme }) => theme.typography.fontSize[12]}px;
-//     margin-top: 4px;
-//     margin-bottom: 6px;
-//   }
-
-//   div {
-//     color: ${({ theme }) => theme.color.skyBlue[500]};
-//     font-size: ${({ theme }) => theme.typography.fontSize[48]}px;
-//     font-weight: ${({ theme }) => theme.typography.fontWeight[600]};
-//   }
-// `;
+  & > svg {
+    position: absolute;
+    right: 16px;
+    bottom: 10px;
+  }
+`;
 
 const grid = css`
   display: grid;

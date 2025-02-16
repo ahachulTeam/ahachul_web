@@ -11,7 +11,7 @@ import type {
 export enum CommunityType {
   HOT = 'HOT',
   FREE = 'FREE',
-  HUMOR = 'HUMOR',
+  ISSUE = 'ISSUE',
   INSIGHT = 'INSIGHT',
 }
 

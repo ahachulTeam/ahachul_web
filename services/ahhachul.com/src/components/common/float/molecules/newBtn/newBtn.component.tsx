@@ -1,25 +1,37 @@
-import { PlusIcon } from '@/assets/icons/system';
+import { ListIcon, PlusIcon } from '@/assets/icons/system';
 import { UiComponent } from '@/components';
 import { useAuth } from '@/contexts';
 import { type TypeActivities, useFlow } from '@/stackflow';
 import type { KeyOf } from '@/types';
 
+type NewBtnType = 'new' | 'list';
+
 interface NewBtnProps {
   activityName: KeyOf<TypeActivities>;
+  label?: string;
+  type?: NewBtnType;
+  replace?: boolean;
 }
 
-const NewBtn = ({ activityName }: NewBtnProps) => {
-  const { push } = useFlow();
+const NewBtn = ({ activityName, label = '글쓰기', type = 'new', replace = false }: NewBtnProps) => {
+  const { push, replace: replacePage } = useFlow();
   const { authService } = useAuth();
 
   const onClick = () => {
-    push(authService.isAuthenticated ? activityName : 'SignInPage', {});
+    const action = replace ? replacePage : push;
+    action(
+      authService.isAuthenticated ? activityName : 'SignInPage',
+      {},
+      {
+        animate: !replace,
+      },
+    );
   };
 
   return (
     <UiComponent.FloatButton onClick={onClick}>
-      <PlusIcon />
-      <span>글쓰기</span>
+      {type === 'new' ? <PlusIcon /> : <ListIcon />}
+      <span>{label}</span>
     </UiComponent.FloatButton>
   );
 };

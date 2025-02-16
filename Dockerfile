@@ -16,8 +16,6 @@ COPY .nx                   ./
 
 RUN pnpm install 
 
-RUN pnpm add -w sharp
-
 ENV NEXT_TELEMETRY_DISABLED=1 
 
 RUN pnpm nextjs:build

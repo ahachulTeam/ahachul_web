@@ -37,7 +37,7 @@ const CommunityHeaderActions = ({ id, createdBy }: CommunityHeaderActionsProps) 
     ? [
         {
           label: '수정하기',
-          onClick: () => push('EditLostFoundPage', { id }),
+          onClick: () => push('EditCommunityPage', { id }),
         },
         {
           label: '삭제하기',
