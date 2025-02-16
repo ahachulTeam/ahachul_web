@@ -1,6 +1,8 @@
 FROM node:20.13.0-alpine
 
-RUN npm install -g pnpm
+RUN npm install -g corepack@latest && \
+    corepack enable && \
+    corepack prepare pnpm@latest --activate
 
 RUN apk add --no-cache libc6-compat
 
@@ -14,7 +16,9 @@ COPY pnpm-lock.yaml        ./
 COPY pnpm-workspace.yaml   ./ 
 COPY .nx                   ./ 
 
-RUN pnpm install 
+RUN pnpm install && \
+    cd services/one-app && \
+    pnpm install sharp
 
 ENV NEXT_TELEMETRY_DISABLED=1 
 

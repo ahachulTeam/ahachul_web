@@ -16,20 +16,25 @@ const wrapperVariants = {
     scaleY: 1,
     opacity: 1,
     transition: {
+      type: 'spring',
+      bounce: 0,
       stiffness: 300,
-      damping: 20,
+      damping: 24,
       when: 'beforeChildren',
       staggerChildren: 0.02,
       duration: 0.15,
     },
   },
   closed: {
-    scaleX: 0.8,
-    scaleY: 0.8,
+    scaleX: 0.7,
+    scaleY: 0.7,
     opacity: 0,
+
     transition: {
-      duration: 0.4,
-      staggerChildren: 0.5,
+      type: 'spring',
+      bounce: 0,
+      duration: 0.2,
+      staggerChildren: 0.3,
     },
   },
 };
@@ -39,35 +44,11 @@ const iconVariants = {
   closed: { rotate: 0, transition: { duration: 0 } },
 };
 
-const itemVariants = {
-  open: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0,
-      when: 'beforeChildren',
-    },
-  },
-  closed: {
-    opacity: 0,
-    y: -15,
-    transition: {
-      duration: 0,
-      when: 'afterChildren',
-    },
-  },
-};
-
-const actionTextVariants = {
-  open: { scale: 1, y: 0, transition: { duration: 0.15 } },
-  closed: { scale: 0, y: -7, transition: { duration: 0.15 } },
-};
-
 const Option = ({ station, onClick }: { station: UserStation; onClick: () => void }) => {
   return (
-    <motion.li variants={itemVariants} css={S.option} onClick={onClick}>
-      <motion.span variants={actionTextVariants}>{station.name}</motion.span>
-    </motion.li>
+    <li css={S.option} onClick={onClick}>
+      <span>{station.name}</span>
+    </li>
   );
 };
 

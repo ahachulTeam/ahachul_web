@@ -17,6 +17,7 @@ const ComplaintPage: ActivityComponentType = () => {
         type="list"
         label="실시간 민원 보기"
         activityName="ComplaintListPage"
+        checkAuth={false}
         replace
       />
     </LayoutComponent.Base>

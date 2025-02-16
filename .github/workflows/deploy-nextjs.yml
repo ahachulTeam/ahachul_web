@@ -43,9 +43,6 @@ jobs:
           corepack enable
           pnpm --version
 
-      - name: Install sharp for Next.js image optimization
-        run: cd services/one-app && pnpm install sharp
-
       - name: Install dependencies
         uses: ./.github/actions/pnpm-install
 
