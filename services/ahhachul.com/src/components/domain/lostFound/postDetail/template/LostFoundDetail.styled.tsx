@@ -76,10 +76,10 @@ export const ContentContainer = styled.div`
   padding: 0 20px;
 `;
 
-export const TextContent = styled.pre`
+export const TextContent = styled.div`
   ${({ theme }) => css`
     ${theme.fonts.bodyLargeSemi};
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     color: ${theme.colors.gray[90]};
     padding: 24px 0;
     margin-top: 12px;

@@ -1,15 +1,14 @@
-import { LogoIcon } from '@/assets/icons/system';
-import LogoImg from '@/assets/images/logo.png';
+import { LogoIcon, LogoTextIcon } from '@/assets/icons/system';
 
 import * as S from './CenterFixedLogo.styled';
 
 const CenterFixedLogo = () => {
   return (
     <S.CenterLogoGroup>
-      <img src={LogoImg} alt="ahhachul-app-logo" />
+      <LogoIcon />
       <div>
         <span>더 편한 지하철을 만드는</span>
-        <LogoIcon />
+        <LogoTextIcon />
       </div>
     </S.CenterLogoGroup>
   );

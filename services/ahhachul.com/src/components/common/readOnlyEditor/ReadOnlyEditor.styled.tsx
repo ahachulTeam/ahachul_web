@@ -4,4 +4,8 @@ export const EditorContainer = styled.div`
   width: 100%;
   padding: 20px;
   position: relative;
+
+  & > div > div > p {
+    font-size: 13px;
+  }
 `;

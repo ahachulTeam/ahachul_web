@@ -1,16 +1,18 @@
+export { default as LogoIcon } from './logo.svg?react';
+
 export { default as DotIcon } from './ic_dot.svg?react';
 export { default as MicIcon } from './ic_mic.svg?react';
 export { default as BellIcon } from './ic_bell.svg?react';
 export { default as ListIcon } from './ic_list.svg?react';
 export { default as TalkIcon } from './ic_talk.svg?react';
 export { default as InfoIcon } from './ic_info.svg?react';
-export { default as LogoIcon } from './ic_logo.svg?react';
 export { default as HomeIcon } from './ic_home.svg?react';
 export { default as PlusIcon } from './ic_plus.svg?react';
 export { default as RetryIcon } from './ic_retry.svg?react';
 export { default as ShareIcon } from './ic_share.svg?react';
 export { default as CloseIcon } from './ic_close.svg?react';
 export { default as CheckIcon } from './ic_check.svg?react';
+export { default as LogoTextIcon } from './ic_logo.svg?react';
 export { default as SearchIcon } from './ic_search.svg?react';
 export { default as PictureIcon } from './ic_picture.svg?react';
 export { default as WarningIcon } from './ic_warning.svg?react';

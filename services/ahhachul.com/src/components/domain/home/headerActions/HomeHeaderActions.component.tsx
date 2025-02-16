@@ -33,7 +33,7 @@ const wrapperVariants = {
     transition: {
       type: 'spring',
       bounce: 0,
-      duration: 0.2,
+      duration: 0.4,
       staggerChildren: 0.3,
     },
   },

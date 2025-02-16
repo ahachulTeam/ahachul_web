@@ -136,7 +136,7 @@ const globalStyles = css`
   body {
     ${theme.fonts.bodyMedium};
     min-height: -webkit-fill-available;
-    font-family: Pretendard, system-ui;
+    font-family: 'Pretendard', system-ui;
     color: ${theme.colors.black};
     line-height: 1;
     background-color: ${theme.colors.white};
