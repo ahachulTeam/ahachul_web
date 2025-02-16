@@ -12,6 +12,7 @@ export const getLostFoundDetailPostServer = async ({
       revalidate: 3600,
       tags: ['lost-found-post', id.toString()],
     },
+    cache: 'force-cache',
     credentials: 'include',
     headers: { Cookie: (await cookies()).toString() },
   });

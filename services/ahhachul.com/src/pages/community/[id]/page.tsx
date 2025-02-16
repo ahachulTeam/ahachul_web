@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { type ActivityComponentType } from '@stackflow/react';
 
 import { LayoutComponent, UiComponent, CommunityComponent } from '@/components';

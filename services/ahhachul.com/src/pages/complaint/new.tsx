@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { FormProvider } from 'react-hook-form';
 
 import styled from '@emotion/styled';
