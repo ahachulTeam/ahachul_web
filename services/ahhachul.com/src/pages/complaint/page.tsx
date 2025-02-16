@@ -1,6 +1,7 @@
 import { ActivityComponentType } from '@stackflow/react';
 
-import { HeaderComponent, LayoutComponent } from '@/components';
+import { HeaderComponent, LayoutComponent, UiComponent } from '@/components';
+import { ComplaintPanel } from '@/components/domain/complaint';
 
 const ComplaintPage: ActivityComponentType = () => {
   return (
@@ -11,8 +12,13 @@ const ComplaintPage: ActivityComponentType = () => {
         renderRight: HeaderComponent.HeaderActions,
       }}
     >
-      {/* <GridComplaintCardSection css={styles.layout} /> */}
-      ComplaintPage
+      <ComplaintPanel />
+      <UiComponent.NewButton
+        type="list"
+        label="실시간 민원 보기"
+        activityName="ComplaintListPage"
+        replace
+      />
     </LayoutComponent.Base>
   );
 };

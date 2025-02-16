@@ -2,6 +2,8 @@ import { Controller, Path, RegisterOptions, FieldValues, useFormContext } from '
 
 import { FormComponent } from '@/components';
 
+import * as S from './Select.styled';
+
 import { SelectMolecules } from '../../molecules';
 
 interface SelectFieldProps<T extends FieldValues> {
@@ -43,7 +45,7 @@ const SelectField = <T extends FieldValues>({
           />
         )}
       />
-      <FormComponent.ErrorMessage errMsg={errorMsg} />
+      <FormComponent.ErrorMessage errMsg={errorMsg} css={S.errorStyle} />
     </FormComponent.FormSection>
   );
 };

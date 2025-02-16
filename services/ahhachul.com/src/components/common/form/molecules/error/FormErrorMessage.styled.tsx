@@ -8,7 +8,7 @@ export const ErrorMessage = styled.div`
   color: ${({ theme }) => theme.colors.red};
   gap: 6px;
 
-  & > div > svg > path {
+  & > svg > path {
     fill: #e02020;
     stroke: #ffffff;
 

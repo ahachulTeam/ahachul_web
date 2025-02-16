@@ -9,14 +9,14 @@ import { useUser } from '@/hooks/domain';
 import { useFlow } from '@/stackflow';
 import { getSharePageURL } from '@/utils/share';
 
-import * as S from './CommunityHeaderActions.styled';
+import * as S from './ComplaintHeaderActions.styled';
 
-interface CommunityHeaderActionsProps {
+interface ComplaintHeaderActionsProps {
   id: number;
   createdBy: number;
 }
 
-const CommunityHeaderActions = ({ id, createdBy }: CommunityHeaderActionsProps) => {
+const ComplaintHeaderActions = ({ id, createdBy }: ComplaintHeaderActionsProps) => {
   const { push } = useFlow();
   const { user } = useUser();
   const { isActive } = useActivity();
@@ -25,7 +25,7 @@ const CommunityHeaderActions = ({ id, createdBy }: CommunityHeaderActionsProps) 
   const handleClickShare = () => {
     if (!isBridgeInitialized) return;
 
-    const targetUrl = getSharePageURL('CommunityDetailPage');
+    const targetUrl = getSharePageURL('ComplaintDetailPage');
     bridge.send.share(`${targetUrl}/${id}`);
   };
 
@@ -37,7 +37,7 @@ const CommunityHeaderActions = ({ id, createdBy }: CommunityHeaderActionsProps) 
     ? [
         {
           label: '수정하기',
-          onClick: () => push('EditCommunityPage', { id }),
+          onClick: () => push('EditComplaintPage', { id }),
         },
         {
           label: '삭제하기',
@@ -77,4 +77,4 @@ const CommunityHeaderActions = ({ id, createdBy }: CommunityHeaderActionsProps) 
   );
 };
 
-export default CommunityHeaderActions;
+export default ComplaintHeaderActions;

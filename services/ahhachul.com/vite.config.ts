@@ -34,7 +34,6 @@ export default defineConfig({
             'sortAttrs',
             'removeXMLProcInst',
             'removeXMLNS',
-            'removeDimensions',
             'minifyStyles',
             'removeComments',
             'removeHiddenElems',
@@ -43,12 +42,6 @@ export default defineConfig({
             'removeEmptyContainers',
             'collapseGroups',
             'removeMetadata',
-            {
-              name: 'convertPathData',
-              params: {
-                floatPrecision: 2,
-              },
-            },
             {
               name: 'addAttributesToSVGElement',
               params: {

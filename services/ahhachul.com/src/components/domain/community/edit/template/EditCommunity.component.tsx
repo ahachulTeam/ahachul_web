@@ -1,7 +1,7 @@
 import { FormProvider } from 'react-hook-form';
 
 import { FormComponent } from '@/components';
-import { lostFoundTypeOptions } from '@/constants';
+import { communityTypeFormOptions } from '@/constants';
 import { useEditCommunityForm } from '@/hooks/domain/community';
 import { useFetchCommunityDetail } from '@/services/community';
 import { useActivity } from '@/stackflow';
@@ -41,7 +41,7 @@ const EditCommunity = ({ id }: WithPostId) => {
           onDeleteImg={handleImageDelete}
           onImgChange={handleImageUpload}
         />
-        <FormComponent.Select name="categoryType" options={lostFoundTypeOptions} />
+        <FormComponent.Select name="categoryType" options={communityTypeFormOptions} />
         <FormComponent.SubwayLine name="subwayLineId" />
         <FormComponent.Title name="title" />
         <FormComponent.Content name="content" initialState={post.content} />

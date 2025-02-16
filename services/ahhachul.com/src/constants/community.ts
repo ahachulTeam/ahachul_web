@@ -13,12 +13,12 @@ export const defaultCommunityFilterValues = {
 export const communityTypeOptions = {
   [CommunityType.HOT]: '인기',
   [CommunityType.FREE]: '자유',
-  [CommunityType.HUMOR]: '유머',
+  [CommunityType.ISSUE]: '이슈',
   [CommunityType.INSIGHT]: '정보',
 } as const;
 
 export const communityTypeFormOptions = {
   [CommunityType.FREE]: '자유',
-  [CommunityType.HUMOR]: '유머',
+  [CommunityType.ISSUE]: '이슈',
   [CommunityType.INSIGHT]: '정보',
 } as const;

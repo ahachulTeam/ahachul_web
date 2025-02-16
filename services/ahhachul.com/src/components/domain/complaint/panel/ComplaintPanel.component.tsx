@@ -8,11 +8,7 @@ import { KeyOf, ValueOf } from '@/types';
 
 import * as S from './ComplaintPanel.styled';
 
-interface ComplaintPanelProps {
-  layoutCss: ReturnType<typeof css>;
-}
-
-const ComplaintPanel = ({ layoutCss }: ComplaintPanelProps) => {
+const ComplaintPanel = () => {
   const topCards = objectEntries(complaintsContentList).slice(0, 4);
 
   const bottomCards = objectEntries(complaintsContentList).slice(4, 7);
@@ -22,39 +18,30 @@ const ComplaintPanel = ({ layoutCss }: ComplaintPanelProps) => {
     styleCss: ReturnType<typeof css>,
   ) => (
     <ul css={styleCss}>
-      {items.map(
-        ([
-          key,
-          {
-            // icon,
-            label,
-            desc,
-          },
-        ]) => (
-          <li key={key}>
-            <StackFlow.Link activityName={'NewComplaintPage'} activityParams={{ slug: key }}>
-              {/* <S.Card> */}
+      {items.map(([key, { icon, label, desc }]) => (
+        <li key={key}>
+          <StackFlow.Link activityName={'NewComplaintPage'} activityParams={{ slug: key }}>
+            <S.Card>
               <span>{label}</span>
               <p>{desc}</p>
-              {/* {icon} */}
-              {/* </S.Card> */}
-            </StackFlow.Link>
-          </li>
-        ),
-      )}
+              {icon}
+            </S.Card>
+          </StackFlow.Link>
+        </li>
+      ))}
     </ul>
   );
 
   return (
-    <S.Panel css={layoutCss}>
-      <div>
-        {/* <S.Label>지하철 환경</S.Label> */}
+    <S.Panel>
+      <S.Cell>
+        <S.Label>지하철 환경</S.Label>
         {renderComplaintCards(topCards, S.topSection)}
-      </div>
-      <div>
-        {/* <S.Label>긴급민원 요청</S.Label> */}
+      </S.Cell>
+      <S.Cell>
+        <S.Label>긴급민원 요청</S.Label>
         {renderComplaintCards(bottomCards, S.bottomSection)}
-      </div>
+      </S.Cell>
     </S.Panel>
   );
 };

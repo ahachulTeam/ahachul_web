@@ -1,7 +1,45 @@
-import { LayoutComponent } from '@/components';
+import { useReducer } from 'react';
 
-const ComplaintListPage = () => {
-  return <LayoutComponent.Base>ComplaintListPage</LayoutComponent.Base>;
+import type { ActivityComponentType } from '@stackflow/react';
+
+import { HeaderComponent, LayoutComponent, UiComponent } from '@/components';
+import { ComplaintComponent } from '@/components/domain';
+import { useComplaintFilters } from '@/hooks/domain';
+
+const ComplaintListPage: ActivityComponentType = () => {
+  const [isScale, toggleScale] = useReducer(scale => !scale, false);
+
+  const { loaded, keyword, filters, boundaryKeys, getFilterProps } = useComplaintFilters();
+
+  if (!loaded) {
+    return <UiComponent.LoadingSpinner opacity={0.1} />;
+  }
+
+  return (
+    <LayoutComponent.Composed
+      appBar={{
+        renderLeft: HeaderComponent.HeaderBrand,
+        renderRight: HeaderComponent.HeaderActions,
+      }}
+      outerChildren={
+        <ComplaintComponent.FilterList
+          isScale={isScale}
+          toggleScale={toggleScale}
+          {...getFilterProps()}
+        />
+      }
+    >
+      <UiComponent.SuspenseQueryBoundary
+        keys={boundaryKeys}
+        errorFallback={<div />}
+        suspenseFallback={<ComplaintComponent.SearchedListSkeleton isScale={isScale} />}
+      >
+        <ComplaintComponent.SearchedList keyword={keyword} filters={filters} isScale={isScale} />
+      </UiComponent.SuspenseQueryBoundary>
+
+      <UiComponent.NewButton activityName="ComplaintPage" replace />
+    </LayoutComponent.Composed>
+  );
 };
 
 export default ComplaintListPage;

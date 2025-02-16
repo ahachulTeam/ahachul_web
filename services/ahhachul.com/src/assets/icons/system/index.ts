@@ -1,6 +1,7 @@
 export { default as DotIcon } from './ic_dot.svg?react';
 export { default as MicIcon } from './ic_mic.svg?react';
 export { default as BellIcon } from './ic_bell.svg?react';
+export { default as ListIcon } from './ic_list.svg?react';
 export { default as TalkIcon } from './ic_talk.svg?react';
 export { default as InfoIcon } from './ic_info.svg?react';
 export { default as LogoIcon } from './ic_logo.svg?react';
