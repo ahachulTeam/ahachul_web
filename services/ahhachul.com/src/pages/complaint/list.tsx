@@ -37,7 +37,12 @@ const ComplaintListPage: ActivityComponentType = () => {
         <ComplaintComponent.SearchedList keyword={keyword} filters={filters} isScale={isScale} />
       </UiComponent.SuspenseQueryBoundary>
 
-      <UiComponent.NewButton activityName="ComplaintPage" replace />
+      <UiComponent.NewButton
+        activityName="ComplaintPage"
+        label="민원 생성하기"
+        checkAuth={false}
+        replace
+      />
     </LayoutComponent.Composed>
   );
 };
