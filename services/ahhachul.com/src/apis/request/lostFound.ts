@@ -50,7 +50,11 @@ export const fetchLostFoundDetail = (id: number) =>
   axiosInstance.get<ApiResponse<LostFoundPostDetail>>(`/lost-posts/${id}`);
 
 export const fetchLostFoundCommentList = (id: number) =>
-  axiosInstance.get<ApiResponse<CommentList>>(`/lost-posts/${id}/comments`);
+  axiosInstance.get<ApiResponse<CommentList>>(`/lost-posts/${id}/comments`, {
+    params: {
+      sort: 'createdAt,asc',
+    },
+  });
 
 export const editLostFound = async (id: number, req: LostFoundEditForm) => {
   const formData = new FormData();

@@ -11,16 +11,23 @@ interface NewBtnProps {
   label?: string;
   type?: NewBtnType;
   replace?: boolean;
+  checkAuth?: boolean;
 }
 
-const NewBtn = ({ activityName, label = '글쓰기', type = 'new', replace = false }: NewBtnProps) => {
+const NewBtn = ({
+  activityName,
+  label = '글쓰기',
+  type = 'new',
+  replace = false,
+  checkAuth = true,
+}: NewBtnProps) => {
   const { push, replace: replacePage } = useFlow();
   const { authService } = useAuth();
 
   const onClick = () => {
     const action = replace ? replacePage : push;
     action(
-      authService.isAuthenticated ? activityName : 'SignInPage',
+      !checkAuth ? activityName : authService.isAuthenticated ? activityName : 'SignInPage',
       {},
       {
         animate: !replace,

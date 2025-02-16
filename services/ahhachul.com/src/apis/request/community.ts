@@ -53,7 +53,11 @@ export const fetchCommunityDetail = (id: number) =>
   axiosInstance.get<ApiResponse<CommunityDetail>>(`/community-posts/${id}`);
 
 export const fetchCommunityCommentList = (id: number) =>
-  axiosInstance.get<ApiResponse<CommentList>>(`/community-posts/${id}/comments`);
+  axiosInstance.get<ApiResponse<CommentList>>(`/community-posts/${id}/comments`, {
+    params: {
+      sort: 'createdAt,asc',
+    },
+  });
 
 export const editCommunity = async (id: number, req: CommunityEditForm) => {
   const formData = new FormData();

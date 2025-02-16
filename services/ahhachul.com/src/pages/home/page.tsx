@@ -10,7 +10,7 @@ const HomePage: ActivityComponentType = () => {
       navigationSlot
       appBar={{
         overflow: 'visible',
-        renderLeft: HeaderComponent.HeaderBrand,
+        renderLeft: HomeComponent.HomeHeaderActions,
         renderRight: HeaderComponent.HeaderActions,
       }}
     >

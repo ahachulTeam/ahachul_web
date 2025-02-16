@@ -10,7 +10,7 @@ export const TableWrapper = styled.div`
 export const ContentWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 8px;
-  padding: 16px 20px;
+  padding: 20px;
 `;
 
 export const Title = styled.h2`
@@ -26,8 +26,9 @@ export const GridContainer = styled.div`
   display: grid;
   grid-template-columns: 120px 1fr;
   gap: 16px;
-  padding: 12px 5px;
+  padding: 8px 4px;
   font-size: 14px;
+  margin-top: 12px;
 `;
 
 export const Label = styled.div`
@@ -49,8 +50,8 @@ export const StyledLink = styled(Value)`
 `;
 
 export const StatusWrapper = styled.div`
-  margin-top: 12px;
-  padding-top: 12px;
+  margin-top: 8px;
+  padding-top: 20px;
   display: flex;
   align-items: center;
   gap: 8px;

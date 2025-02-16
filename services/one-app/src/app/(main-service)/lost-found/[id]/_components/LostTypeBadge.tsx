@@ -1,5 +1,3 @@
-'use client';
-
 import type { LostFoundType } from '@/types';
 
 interface Props {

@@ -1,5 +1,3 @@
-'use client';
-
 import { ChevronIcon } from '@/asset/icon';
 import { RecommendArticleCard } from '@/component';
 import { IRecommendPost } from '@/types';

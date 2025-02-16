@@ -1,6 +1,20 @@
 export const defaultEasing = [0.6, -0.05, 0.01, 0.99];
 
 export const motions = {
+  fadeIn: (duration = 0.3) => ({
+    initial: {
+      opacity: 0,
+      transition: { duration, ease: defaultEasing },
+    },
+    animate: {
+      opacity: 1,
+      transition: { duration, ease: defaultEasing },
+    },
+    exit: {
+      opacity: 0,
+      transition: { duration, ease: defaultEasing },
+    },
+  }),
   fadeInAndUp: (duration = 0.3) => ({
     initial: {
       opacity: 0,

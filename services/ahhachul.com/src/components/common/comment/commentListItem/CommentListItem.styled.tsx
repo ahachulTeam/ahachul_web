@@ -60,7 +60,7 @@ export const ReplyButton = styled.button`
 export const readonlyEditorCss = css`
   padding: 0;
 
-  & > div {
+  & > div > div {
     padding: 0;
     border: none;
   }

@@ -46,4 +46,8 @@ export const fetchComplaintDetail = (id: number) =>
   axiosInstance.get<ApiResponse<ComplaintPostDetail>>(`/complaint-posts/${id}`);
 
 export const fetchComplaintCommentList = (id: number) =>
-  axiosInstance.get<ApiResponse<CommentList>>(`/complaint-posts/${id}/comments`);
+  axiosInstance.get<ApiResponse<CommentList>>(`/complaint-posts/${id}/comments`, {
+    params: {
+      sort: 'createdAt,asc',
+    },
+  });
