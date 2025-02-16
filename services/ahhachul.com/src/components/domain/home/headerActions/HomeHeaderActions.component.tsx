@@ -75,7 +75,10 @@ const HomeHeaderActions = () => {
   const [openDialog, toggleDialog] = useReducer(open => !open, false);
 
   const dialogRef = useRef<HTMLDivElement>(null);
-  useOnClickOutside(dialogRef, toggleDialog);
+  useOnClickOutside(dialogRef, () => {
+    if (!openDialog) return;
+    toggleDialog();
+  });
 
   const { stations, setUserStations } = useUserStationStore(state => state);
   const activatedStation = useMemo(() => stations[0], [stations]);
@@ -96,7 +99,7 @@ const HomeHeaderActions = () => {
         )
         .subscribe();
     },
-    [activatedStation.name, stations, setUserStations],
+    [activatedStation.name, openDialog, stations, setUserStations],
   );
 
   return (
