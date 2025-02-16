@@ -27,11 +27,11 @@ export const button = css`
 export const menu = css`
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 
   width: 192px;
   background-color: white;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 8px;
   box-shadow:
     0 10px 15px rgba(0, 0, 0, 0.1),
@@ -39,7 +39,7 @@ export const menu = css`
 
   overflow: hidden;
   position: absolute;
-  top: 16px;
+  top: 26px;
   left: -94px;
 `;
 
@@ -49,10 +49,10 @@ export const option = css`
   gap: 8px;
   width: 100%;
   border-radius: 6px;
-  padding: 8px;
+  padding: 12px 8px;
 
   color: #272727;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   white-space: nowrap;
   cursor: pointer;
@@ -60,9 +60,8 @@ export const option = css`
     background-color 0.2s,
     color 0.2s;
 
-  &:active {
-    background-color: #c7d2fe;
-    color: #4f46e5;
+  &:first-of-type {
+    font-weight: 700;
   }
 
   @media (hover: hover) {
