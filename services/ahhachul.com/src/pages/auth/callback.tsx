@@ -16,6 +16,11 @@ interface SignInCallbackPageProps {
 
 const SignInCallbackPage: ActivityComponentType<SignInCallbackPageProps> = ({
   params: { type, code },
+}: {
+  params: {
+    type: string;
+    code: string;
+  };
 }) => {
   const { replace } = useFlow();
   const { authService } = useAuth();

@@ -14,7 +14,13 @@ interface ComplaintFormProps {
   slug: KeyOf<typeof complaintsContentDetail>;
 }
 
-const NewComplaintPage: ActivityComponentType<ComplaintFormProps> = ({ params: { slug } }) => {
+const NewComplaintPage: ActivityComponentType<ComplaintFormProps> = ({
+  params: { slug },
+}: {
+  params: {
+    slug: KeyOf<typeof complaintsContentDetail>;
+  };
+}) => {
   const information = complaintsContentDetail[slug];
 
   const { isActive } = useActivity();

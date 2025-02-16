@@ -1,9 +1,13 @@
-import { type ActivityComponentType } from '@stackflow/react';
+import type { ActivityComponentType } from '@stackflow/react';
 
 import { LayoutComponent, UiComponent, CommunityComponent } from '@/components';
 import type { WithPostId } from '@/types';
 
-const CommunityDetailPage: ActivityComponentType<WithPostId> = ({ params: { id } }) => {
+const CommunityDetailPage: ActivityComponentType<WithPostId> = ({
+  params: { id },
+}: {
+  params: WithPostId;
+}) => {
   return (
     <LayoutComponent.Base>
       <UiComponent.SuspenseQueryBoundary
