@@ -1,6 +1,6 @@
 import { type ActivityComponentType } from '@stackflow/react';
 
-import { LayoutComponent, LostFoundComponent, UiComponent } from '@/components';
+import { ComplaintComponent, LayoutComponent, UiComponent } from '@/components';
 import type { WithPostId } from '@/types';
 
 const ComplaintDetailPage: ActivityComponentType<WithPostId> = ({
@@ -12,10 +12,10 @@ const ComplaintDetailPage: ActivityComponentType<WithPostId> = ({
     <LayoutComponent.Base>
       <UiComponent.SuspenseQueryBoundary
         keys={[id]}
-        suspenseFallback={<LostFoundComponent.LostFoundDetailSkeleton />}
-        errorFallback={props => <LostFoundComponent.LostFoundErrorPage {...props} />}
+        suspenseFallback={<ComplaintComponent.ComplaintDetailSkeleton />}
+        errorFallback={props => <ComplaintComponent.ComplaintErrorPage {...props} />}
       >
-        <LostFoundComponent.LostFoundDetail id={id} />
+        <ComplaintComponent.ComplaintDetail id={id} />
       </UiComponent.SuspenseQueryBoundary>
     </LayoutComponent.Base>
   );

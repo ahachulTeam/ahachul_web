@@ -1,6 +1,9 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 
+import { SUBWAY_LINES } from '@/constant';
+import { extractTextFromLexical } from '@/util';
+
 import LostFoundPostDetail from './_components/LostFoundDetail';
 import { getLostFoundComments } from './_lib/getComments';
 import { getLostFoundDetailPostServer } from './_lib/getDetailPostServer';
@@ -9,9 +12,39 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const post = await getLostFoundDetailPostServer({ queryKey: ['lost-found-post', id] });
 
+  const subwayLineId = post.result.subwayLineId;
+
+  const baseTitle = `${
+    post.result.title.length > 16 ? post.result.title.slice(0, 16) + '...' : post.result.title
+  } / 지하철 분실물 & 유실물 / 아하철`;
+
+  const title =
+    subwayLineId && +subwayLineId !== 0
+      ? `${SUBWAY_LINES.find(subway => subway.id === +subwayLineId)?.name} ${baseTitle}`
+      : baseTitle;
+
+  const baseDescription =
+    '지하철에서 잃어버린 물건을 쉽고 빠르게 찾아보세요. 분실물 정보를 실시간으로 확인하고 지하철 노선별 유실물 센터 정보를 제공합니다. 소중한 물건을 찾는 가장 빠른 방법, 아하철과 함께하세요.';
+
+  const image =
+    subwayLineId && +subwayLineId !== 0
+      ? `https://static.dev.ahhachul.com/banners/lost-found/subway-line-${subwayLineId}.png`
+      : 'https://static.dev.ahhachul.com/banners/lost-found/main.png';
+
   return {
-    title: `지하철 유실물 아하철 / ${post.result.title}`,
-    description: post.result.content,
+    title,
+    description: extractTextFromLexical(post.result.content, baseDescription),
+    openGraph: {
+      title,
+      description: extractTextFromLexical(post.result.content, baseDescription),
+      images: [
+        {
+          url: image,
+          width: 800,
+          height: 400,
+        },
+      ],
+    },
   };
 }
 

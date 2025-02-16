@@ -23,6 +23,7 @@ export const fetchComplaintList = async (req: ComplaintListParams) => {
 };
 
 export const createComplaint = async (req: ComplaintForm) => {
+  console.log('req:', req);
   const formData = new FormData();
   const formDataWithoutImages = extractFormData(req, 'images');
   const jsonBlob = createJsonBlob(formDataWithoutImages);

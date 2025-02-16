@@ -26,6 +26,12 @@ export function removeFalsyValues<T extends Record<string, any>>(
   }, {} as Partial<T>);
 }
 
+export function objectKeys<Type extends Record<PropertyKey, unknown>>(
+  obj: Type,
+): Array<ObjectKeys<Type>> {
+  return Object.keys(obj) as Array<ObjectKeys<Type>>;
+}
+
 export function objectEntries<Type extends Record<PropertyKey, unknown>>(
   obj: Type,
 ): Array<[ObjectKeys<Type>, Type[ObjectKeys<Type>]]> {

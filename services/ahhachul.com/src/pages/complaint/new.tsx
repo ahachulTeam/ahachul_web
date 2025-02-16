@@ -39,7 +39,7 @@ const NewComplaintPage: ActivityComponentType<ComplaintFormProps> = ({
             onImgChange={handleImageUpload}
           />
           <FormComponent.Select
-            name="lostType"
+            name="shortContentType"
             label={information.title}
             options={information.selectList}
             rules={{

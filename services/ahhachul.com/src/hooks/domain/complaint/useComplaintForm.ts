@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { objectKeys } from '@ahhachul/utils';
+
 import { complaintsContentDetail } from '@/constants';
 import { useCreateComplaint } from '@/services/complaint';
 import { KeyOf } from '@/types';
@@ -18,6 +20,7 @@ const useComplaintForm = (slug: KeyOf<typeof complaintsContentDetail>) => {
       images: [],
       subwayLineId: 1,
       complaintType: slug,
+      shortContentType: objectKeys(complaintsContentDetail[slug].selectList)[0],
     },
   });
 
