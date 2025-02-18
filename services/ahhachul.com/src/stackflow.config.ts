@@ -25,6 +25,7 @@ export const stackflowPlugin = [
 
       // my pages
       MyPage: PATH.me.home,
+      SettingPage: PATH.me.setting,
 
       // home page
       HomePage: PATH.home,

@@ -8,6 +8,7 @@ export { default as TalkIcon } from './ic_talk.svg?react';
 export { default as InfoIcon } from './ic_info.svg?react';
 export { default as HomeIcon } from './ic_home.svg?react';
 export { default as PlusIcon } from './ic_plus.svg?react';
+export { default as MinusIcon } from './ic_minus.svg?react';
 export { default as RetryIcon } from './ic_retry.svg?react';
 export { default as ShareIcon } from './ic_share.svg?react';
 export { default as CloseIcon } from './ic_close.svg?react';

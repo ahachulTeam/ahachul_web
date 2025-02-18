@@ -40,7 +40,7 @@ export const subwayLineOptions: Record<SubwayLineType, SubwayLineKrType> = {
   '16': '수인분당선',
   '11': '경의중앙선',
   '20': '우이신설경전철',
-} as const;
+};
 
 export const subwayLineFilterOptions = {
   [SubwayLineFilterOptions.ALL_LINES]: '전체 호선 보기',
@@ -798,7 +798,7 @@ export const DEFAULT_STATIONS = {
     },
     {
       stationId: 568,
-      parentLineId: 10,
+      parentLineId: 18,
     },
   ],
   강변: [
@@ -1334,7 +1334,7 @@ export const DEFAULT_STATIONS = {
     },
     {
       stationId: 565,
-      parentLineId: 10,
+      parentLineId: 18,
     },
   ],
   안국: [
@@ -1366,7 +1366,7 @@ export const DEFAULT_STATIONS = {
     },
     {
       stationId: 569,
-      parentLineId: 10,
+      parentLineId: 18,
     },
   ],
   연신내: [
@@ -2334,7 +2334,7 @@ export const DEFAULT_STATIONS = {
     },
     {
       stationId: 566,
-      parentLineId: 10,
+      parentLineId: 18,
     },
   ],
   뚝섬유원지: [
@@ -2766,7 +2766,7 @@ export const DEFAULT_STATIONS = {
     },
     {
       stationId: 567,
-      parentLineId: 10,
+      parentLineId: 18,
     },
   ],
   신목동: [
@@ -2838,25 +2838,25 @@ export const DEFAULT_STATIONS = {
   광교: [
     {
       stationId: 580,
-      parentLineId: 10,
+      parentLineId: 18,
     },
   ],
   광교중앙: [
     {
       stationId: 579,
-      parentLineId: 10,
+      parentLineId: 18,
     },
   ],
   동천: [
     {
       stationId: 575,
-      parentLineId: 10,
+      parentLineId: 18,
     },
   ],
   미금: [
     {
       stationId: 574,
-      parentLineId: 10,
+      parentLineId: 18,
     },
     {
       stationId: 524,
@@ -2866,31 +2866,31 @@ export const DEFAULT_STATIONS = {
   상현: [
     {
       stationId: 578,
-      parentLineId: 10,
+      parentLineId: 18,
     },
   ],
   성복: [
     {
       stationId: 577,
-      parentLineId: 10,
+      parentLineId: 18,
     },
   ],
   수지구청: [
     {
       stationId: 576,
-      parentLineId: 10,
+      parentLineId: 18,
     },
   ],
   양재시민의숲: [
     {
       stationId: 570,
-      parentLineId: 10,
+      parentLineId: 18,
     },
   ],
   정자: [
     {
       stationId: 573,
-      parentLineId: 10,
+      parentLineId: 18,
     },
     {
       stationId: 523,
@@ -2900,13 +2900,13 @@ export const DEFAULT_STATIONS = {
   청계산입구: [
     {
       stationId: 571,
-      parentLineId: 10,
+      parentLineId: 18,
     },
   ],
   판교: [
     {
       stationId: 572,
-      parentLineId: 10,
+      parentLineId: 18,
     },
   ],
   가천대: [

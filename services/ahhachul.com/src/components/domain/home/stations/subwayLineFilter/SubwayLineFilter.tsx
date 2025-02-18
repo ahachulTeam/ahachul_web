@@ -41,8 +41,8 @@ const SubwayLineFilter = ({
     <ul css={S.filters}>
       {activatedStation.stationInfos.map(info => (
         <React.Fragment key={info.parentLineId}>
-          <li css={S.inherit(info.parentLineId)}>
-            <button type="button" onClick={reorderStationInfos(info.parentLineId)}>
+          <li css={S.inherit(info.parentLineId)} onClick={reorderStationInfos(info.parentLineId)}>
+            <button type="button">
               {info.parentLineId > 9
                 ? subwayLineOptions[
                     info.parentLineId as unknown as keyof typeof subwayLineOptions

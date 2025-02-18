@@ -44,7 +44,7 @@ type StationName = KeyOf<typeof DEFAULT_STATIONS>;
 
 export interface UserStation {
   name: StationName;
-  alias: string;
+  label: string;
   stationInfos: {
     stationId: number;
     parentLineId: number;

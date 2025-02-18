@@ -6,7 +6,7 @@ import type { UserStationList } from '@/types';
 const defaultStationList: UserStationList = [
   {
     name: '종로3가',
-    alias: '즐겨찾는 역',
+    label: '즐겨찾는 역',
     stationInfos: [
       {
         stationId: 31,
@@ -24,7 +24,7 @@ const defaultStationList: UserStationList = [
   },
   {
     name: '강남',
-    alias: '회사',
+    label: '회사',
     stationInfos: [
       {
         stationId: 121,
@@ -38,7 +38,7 @@ const defaultStationList: UserStationList = [
   },
   {
     name: '광교중앙',
-    alias: '집',
+    label: '집',
     stationInfos: [
       {
         stationId: 579,

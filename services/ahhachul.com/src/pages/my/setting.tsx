@@ -1,7 +1,384 @@
-import { LayoutComponent } from '@/components';
+'use client';
 
-const SettingPage = () => {
-  return <LayoutComponent.Base>SettingPage</LayoutComponent.Base>;
+import type React from 'react';
+import { useState, useTransition } from 'react';
+
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import type { ActivityComponentType } from '@stackflow/react';
+
+import { CloseIcon, SearchIcon } from '@/assets/icons/system';
+import { LayoutComponent } from '@/components';
+import { DEFAULT_STATIONS, subwayLineHexColors, subwayLineOptions } from '@/constants';
+import { useFlow } from '@/stackflow';
+import { useUserStationStore } from '@/stores/subway';
+import type { SubwayLineType, UserStationList } from '@/types';
+import { applyHighlight } from '@/utils/text';
+
+interface StationLabel {
+  stationName: string;
+  label: 'home' | 'work' | 'school' | 'favorite';
+}
+
+const LABEL_OPTIONS = [
+  { id: 'home', icon: '🏠', text: '집' },
+  { id: 'work', icon: '🏢', text: '회사' },
+  { id: 'school', icon: '🏫', text: '학교' },
+  { id: 'favorite', icon: '⭐', text: '즐겨찾는 장소' },
+] as const;
+
+const SettingPage: ActivityComponentType = () => {
+  const { pop } = useFlow();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedStation, setSelectedStation] = useState<string | null>(null);
+  const [labeledStations, setLabeledStations] = useState<StationLabel[]>([]);
+  const [isPending, startTransition] = useTransition();
+
+  const setUserStations = useUserStationStore(state => state.setUserStations);
+
+  const allStations = Object.keys(DEFAULT_STATIONS);
+
+  const displayStations = searchTerm
+    ? allStations.filter(name => name.toLowerCase().includes(searchTerm.toLowerCase()))
+    : allStations;
+
+  const renderLineNumbers = (stationName: string) => {
+    return (
+      <LineNumberContainer>
+        {DEFAULT_STATIONS[stationName as keyof typeof DEFAULT_STATIONS].map(station => (
+          <LineNumber
+            key={`${stationName}-${station.parentLineId}`}
+            lineNumber={station.parentLineId}
+          >
+            {subwayLineOptions[String(station.parentLineId) as SubwayLineType].slice(0, 1)}
+          </LineNumber>
+        ))}
+      </LineNumberContainer>
+    );
+  };
+
+  const handleStationSelect = (stationName: string) => {
+    setSelectedStation(selectedStation === stationName ? null : stationName);
+  };
+
+  const handleLabelSelect = (label: StationLabel['label']) => {
+    if (!selectedStation) return;
+
+    const filteredStations = labeledStations.filter(s => s.stationName !== selectedStation);
+
+    setLabeledStations([...filteredStations, { stationName: selectedStation, label }]);
+  };
+
+  const getDefaultLabel = () => {
+    const hasHome = labeledStations.some(s => s.label === 'home');
+    return hasHome ? 'work' : 'home';
+  };
+
+  const getStationLabel = (stationName: string) => {
+    return labeledStations.find(s => s.stationName === stationName)?.label;
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+
+    startTransition(() => {
+      setSearchTerm(value);
+    });
+  };
+
+  return (
+    <LayoutComponent.Base>
+      <S.Container>
+        <S.Headline>
+          <b>즐겨찾는 역</b>을 설정해주세요
+        </S.Headline>
+        <S.Desc>최대 3개까지 등록할 수 있어요</S.Desc>
+
+        <SearchWrapper>
+          <SearchInputIcon />
+          <SearchInput
+            placeholder="검색어를 입력해주세요"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+        </SearchWrapper>
+
+        <SearchResults $isPending={isPending}>
+          {displayStations.map(name => (
+            <StationContainer key={name}>
+              <SearchResultItem onClick={() => handleStationSelect(name)}>
+                {renderLineNumbers(name)}
+                {applyHighlight(searchTerm, name)}
+                {getStationLabel(name) && (
+                  <LabelIndicator>
+                    {LABEL_OPTIONS.find(l => l.id === getStationLabel(name))?.icon}
+                  </LabelIndicator>
+                )}
+              </SearchResultItem>
+
+              {selectedStation === name && (
+                <LabelOptions>
+                  {LABEL_OPTIONS.map(option => {
+                    const isDisabled =
+                      option.id !== getStationLabel(name) &&
+                      labeledStations.some(s => s.label === option.id);
+
+                    return (
+                      <LabelButton
+                        key={option.id}
+                        onClick={() => {
+                          if (getStationLabel(name) === option.id) {
+                            setLabeledStations(labeledStations.filter(s => s.stationName !== name));
+                          } else {
+                            handleLabelSelect(option.id);
+                          }
+                        }}
+                        $isActive={getStationLabel(name) === option.id}
+                        $isDefault={!getStationLabel(name) && option.id === getDefaultLabel()}
+                        disabled={isDisabled}
+                      >
+                        {option.icon} {option.text}
+                      </LabelButton>
+                    );
+                  })}
+                </LabelOptions>
+              )}
+            </StationContainer>
+          ))}
+        </SearchResults>
+        <ButtonArea>
+          <div
+            css={css`
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              width: 100%;
+              justify-content: center;
+            `}
+          >
+            {labeledStations.map(item => (
+              <LabelButton
+                key={item.label}
+                css={css`
+                  background-color: #242424;
+                  color: #ffffff;
+                  border: 0;
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  height: 28px;
+                  font-size: 12px;
+                  color: #ffffff;
+                `}
+              >
+                {item.stationName}
+                <CloseIcon
+                  css={css`
+                    width: 16px;
+                    height: 16px;
+                  `}
+                  onClick={() => {
+                    setLabeledStations(
+                      labeledStations.filter(s => s.stationName !== item.stationName),
+                    );
+                  }}
+                />
+              </LabelButton>
+            ))}
+          </div>
+          <SubmitBtn
+            onClick={() => {
+              const formattedStations = labeledStations.map(station => ({
+                name: station.stationName,
+                label: LABEL_OPTIONS.find(l => l.id === station.label)?.text || '',
+                stationInfos:
+                  DEFAULT_STATIONS[station.stationName as keyof typeof DEFAULT_STATIONS],
+              }));
+
+              setUserStations(formattedStations as unknown as UserStationList);
+              setTimeout(() => {
+                pop();
+              }, 500);
+            }}
+          >
+            저장하기
+          </SubmitBtn>
+        </ButtonArea>
+      </S.Container>
+    </LayoutComponent.Base>
+  );
 };
+
+// Styled components...
+const S = {
+  Container: styled.div`
+    padding: 20px;
+  `,
+  Headline: styled.h1`
+    ${({ theme }) => css`
+      font-size: 24px;
+      margin-bottom: 8px;
+
+      & > b {
+        color: ${theme.colors['key-color']};
+      }
+    `}
+  `,
+  Desc: styled.p`
+    color: #666;
+    margin-bottom: 24px;
+  `,
+};
+
+const SearchWrapper = styled.div`
+  position: relative;
+  margin-bottom: 24px;
+`;
+
+const SearchInputIcon = styled(SearchIcon)`
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+`;
+
+const SearchInput = styled.input`
+  width: 100%;
+  padding: 12px 16px 12px 40px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 16px;
+  &::placeholder {
+    color: #999;
+  }
+`;
+
+const LineNumberContainer = styled.div`
+  display: flex;
+  gap: 4px;
+  margin-right: 12px;
+`;
+
+interface LineNumberProps {
+  lineNumber: number;
+}
+
+const LineNumber = styled.div<LineNumberProps>`
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: ${props => subwayLineHexColors(props.lineNumber)};
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+`;
+
+interface SearchResultsProps {
+  $isPending: boolean;
+}
+
+const SearchResults = styled.div<SearchResultsProps>`
+  opacity: ${props => (props.$isPending ? 0.7 : 1)};
+  transition: opacity 0.2s ease;
+`;
+
+const SearchResultItem = styled.button`
+  width: 100%;
+  padding: 12px 16px;
+  text-align: left;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e5e5e5;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: #f8f8f8;
+  }
+`;
+
+const StationContainer = styled.div`
+  border-bottom: 1px solid #f5f4f3;
+
+  &:last-child {
+    border-bottom: none;
+  }
+`;
+
+const LabelOptions = styled.div`
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: #f8f8f8;
+`;
+
+interface LabelButtonProps {
+  $isActive?: boolean;
+  $isDefault?: boolean;
+}
+
+const LabelButton = styled.button<LabelButtonProps>`
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1px solid ${props => (props.$isActive ? '#00C73C' : '#e5e5e5')};
+  background-color: ${props => (props.$isActive ? '#00C73C' : 'white')};
+  color: ${props => (props.$isActive ? 'white' : props.$isDefault ? '#00C73C' : '#666')};
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: ${props => (props.$isActive ? '#00B534' : '#f8f8f8')};
+  }
+`;
+
+const LabelIndicator = styled.span`
+  margin-left: auto;
+  font-size: 16px;
+`;
+
+const ButtonArea = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 22px;
+  padding-top: 20px;
+  padding-bottom: 32px;
+`;
+
+const SubmitBtn = styled.button`
+  ${({ theme }) => css`
+    font-weight: 600;
+    color: white;
+    width: calc(100% - 40px);
+    height: 50px;
+    background-color: ${theme.colors['key-color']};
+    border-radius: 8px;
+  `}
+`;
 
 export default SettingPage;
