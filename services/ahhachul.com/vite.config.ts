@@ -67,6 +67,47 @@ export default defineConfig({
     target: 'esnext',
     minify: false,
     cssCodeSplit: false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          auth: [
+            './src/pages/auth/login',
+            './src/pages/auth/set-nickname',
+            './src/pages/auth/callback',
+          ],
+          community: [
+            './src/pages/community/page',
+            './src/pages/community/new',
+            './src/pages/community/[id]/edit',
+            './src/pages/community/[id]/page',
+          ],
+          'lost-found': [
+            './src/pages/lostFound/page',
+            './src/pages/lostFound/new',
+            './src/pages/lostFound/[id]/edit',
+            './src/pages/lostFound/[id]/page',
+          ],
+          complaint: [
+            './src/pages/complaint/page',
+            './src/pages/complaint/new',
+            './src/pages/complaint/list',
+            './src/pages/complaint/[id]/edit',
+            './src/pages/complaint/[id]/page',
+          ],
+          talk: [
+            './src/pages/talk/page',
+            './src/pages/talk/setting',
+            './src/pages/talk/[talkId]/page',
+          ],
+          notification: ['./src/pages/notification/page', './src/pages/notification/setting'],
+          comment: [
+            './src/pages/comment/[commentId]/edit',
+            './src/pages/comment/[commentId]/reply',
+          ],
+          my: ['./src/pages/my/page', './src/pages/my/setting'],
+        },
+      },
+    },
   },
   resolve: {
     alias: [
