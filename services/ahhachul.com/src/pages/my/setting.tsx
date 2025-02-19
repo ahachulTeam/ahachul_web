@@ -154,7 +154,15 @@ const SettingPage: ActivityComponentType = () => {
               align-items: center;
               gap: 8px;
               width: 100%;
-              justify-content: center;
+              max-width: 100vw;
+              overflow-x: auto;
+              -ms-overflow-style: none;
+              scrollbar-width: none;
+              padding: 16px;
+              white-space: nowrap;
+              &::-webkit-scrollbar {
+                display: none;
+              }
             `}
           >
             {labeledStations.map(item => (
@@ -169,7 +177,8 @@ const SettingPage: ActivityComponentType = () => {
                   gap: 8px;
                   height: 28px;
                   font-size: 12px;
-                  color: #ffffff;
+                  flex-shrink: 0;
+                  padding: 0 12px;
                 `}
               >
                 {item.stationName}
@@ -177,6 +186,7 @@ const SettingPage: ActivityComponentType = () => {
                   css={css`
                     width: 16px;
                     height: 16px;
+                    flex-shrink: 0;
                   `}
                   onClick={() => {
                     setLabeledStations(
@@ -189,6 +199,10 @@ const SettingPage: ActivityComponentType = () => {
           </div>
           <SubmitBtn
             onClick={() => {
+              if (!labeledStations.length) {
+                alert('역을 하나 이상 선택해주세요.');
+                return;
+              }
               const formattedStations = labeledStations.map(station => ({
                 name: station.stationName,
                 label: LABEL_OPTIONS.find(l => l.id === station.label)?.text || '',
@@ -210,7 +224,6 @@ const SettingPage: ActivityComponentType = () => {
   );
 };
 
-// Styled components...
 const S = {
   Container: styled.div`
     padding: 20px;
@@ -289,7 +302,7 @@ const SearchResults = styled.div<SearchResultsProps>`
 
 const SearchResultItem = styled.button`
   width: 100%;
-  padding: 12px 16px;
+  padding: 12px 0;
   text-align: left;
   border: none;
   background: none;
@@ -297,13 +310,10 @@ const SearchResultItem = styled.button`
   display: flex;
   align-items: center;
   border-bottom: 1px solid #e5e5e5;
+  color: #000000;
 
   &:last-child {
     border-bottom: none;
-  }
-
-  &:hover {
-    background-color: #f8f8f8;
   }
 `;
 
@@ -319,7 +329,15 @@ const LabelOptions = styled.div`
   display: flex;
   gap: 8px;
   padding: 12px 16px;
-  background-color: #f8f8f8;
+  overflow-x: auto;
+  white-space: nowrap;
+  width: 100%;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 interface LabelButtonProps {
@@ -339,14 +357,11 @@ const LabelButton = styled.button<LabelButtonProps>`
   align-items: center;
   gap: 4px;
   transition: all 0.2s ease;
+  flex-shrink: 0;
 
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-  }
-
-  &:hover:not(:disabled) {
-    background-color: ${props => (props.$isActive ? '#00B534' : '#f8f8f8')};
   }
 `;
 
