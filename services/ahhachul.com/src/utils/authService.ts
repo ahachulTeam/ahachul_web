@@ -1,5 +1,3 @@
-import Cookies from 'js-cookie';
-
 import { CRYPTO_SECRET_KEY } from '@/constants/auth';
 import type { IAuthStore } from '@/types';
 
@@ -51,7 +49,7 @@ export class AuthService {
       accessToken,
       refreshToken,
     };
-    Cookies.set(this.key, JSON.stringify(newUser));
+    localStorage.setItem(this.key, JSON.stringify(newUser));
     this.setUser(newUser as IAuthStore);
   }
 
@@ -65,7 +63,7 @@ export class AuthService {
       ...this.user,
       [type === 'access' ? 'accessToken' : 'refreshToken']: token,
     };
-    Cookies.set(this.key, JSON.stringify(newUser));
+    localStorage.setItem(this.key, JSON.stringify(newUser));
     this.setUser(newUser as IAuthStore);
   }
 
@@ -96,12 +94,12 @@ export class AuthService {
    * @param data - 로그인할 사용자 정보.
    */
   login(data: IAuthStore) {
-    Cookies.set(this.key, JSON.stringify(data));
+    localStorage.setItem(this.key, JSON.stringify(data));
     this.setUser(data);
   }
 
   logout() {
-    Cookies.remove(this.key);
+    localStorage.removeItem(this.key);
     this.user = null;
     this.notifyStateChange(null);
   }
@@ -111,7 +109,7 @@ export class AuthService {
    * @returns 메서드 체이닝을 위해 현재 인스턴스를 반환합니다.
    */
   initializeUserFromCookie() {
-    const signedInUser = Cookies.get(this.key);
+    const signedInUser = localStorage.getItem(this.key);
 
     if (signedInUser) {
       this.setUser(JSON.parse(signedInUser));
