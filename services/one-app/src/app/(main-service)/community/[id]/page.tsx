@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const baseTitle = (subwayLineId?: string) =>
     `${
       post.result.title.length > 16 ? post.result.title.slice(0, 16) + '...' : post.result.title
-    } / ${subwayLineId} 커뮤니티 / 아하철`;
+    } / ${subwayLineId} 커뮤니티 - 아하철`;
 
   const title =
     subwayLineId && +subwayLineId !== 0
