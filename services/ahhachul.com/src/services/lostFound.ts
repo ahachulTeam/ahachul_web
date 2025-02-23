@@ -10,6 +10,7 @@ import { removeFalsyValues } from '@ahhachul/utils';
 import * as api from '@/apis/request';
 import { TIMESTAMP } from '@/constants';
 import { useFlow } from '@/stackflow';
+import { useUserStationStore } from '@/stores/subway';
 import {
   LostFoundType,
   type LostFoundForm,
@@ -17,7 +18,7 @@ import {
   type LostFoundListParams,
   type SubwayLineFilterOptions,
 } from '@/types';
-import { formatSubwayFilterOption } from '@/utils';
+import { formatSubwayFilterOption, getFirstParentLineId } from '@/utils';
 
 export const lostFoundKeys = {
   all: ['lostFound'] as const,
@@ -31,7 +32,9 @@ export const lostFoundKeys = {
 };
 
 export const useFetchLostFoundList = (filters: LostFoundListParams<SubwayLineFilterOptions>) => {
-  const favoriteLine = 3;
+  const state = useUserStationStore(state => state);
+  const favoriteLine = getFirstParentLineId(state.stations);
+
   const req = removeFalsyValues(
     {
       lostType: filters.lostType,

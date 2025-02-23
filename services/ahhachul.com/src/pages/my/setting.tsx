@@ -9,6 +9,7 @@ import { CloseIcon, SearchIcon } from '@/assets/icons/system';
 import { LayoutComponent } from '@/components';
 import { subwayLineHexColors, subwayLineOptions } from '@/constants';
 import { useFetchSubwayLines } from '@/services/subway';
+import { useFetchUserFavoriteStations } from '@/services/user';
 import { useFlow } from '@/stackflow';
 import { useUserStationStore } from '@/stores/subway';
 import type { Stations, SubwayLineType, UserStationList } from '@/types';
@@ -29,6 +30,9 @@ const LABEL_OPTIONS = [
 const SettingPage: ActivityComponentType = () => {
   const { pop } = useFlow();
   const { data: DEFAULT_STATIONS } = useFetchSubwayLines();
+  const { data: FAVORIT_STATIONS } = useFetchUserFavoriteStations();
+  console.log('FAVORIT_STATIONS:', FAVORIT_STATIONS);
+
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStation, setSelectedStation] = useState<string | null>(null);
   const [labeledStations, setLabeledStations] = useState<StationLabel[]>([]);
@@ -203,6 +207,7 @@ const SettingPage: ActivityComponentType = () => {
                 alert('역을 하나 이상 선택해주세요.');
                 return;
               }
+
               const formattedStations = labeledStations.map(station => ({
                 name: station.stationName,
                 label: LABEL_OPTIONS.find(l => l.id === station.label)?.text || '',
