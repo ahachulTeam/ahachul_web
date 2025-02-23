@@ -1,8 +1,13 @@
-import { Stations, SubwayLineFilterOptions, SubwayLineServerModel } from '@/types';
+import {
+  type Stations,
+  type SubwayLineServerModel,
+  type UserStationList,
+  SubwayLineFilterOptions,
+} from '@/types';
 
 export const formatSubwayFilterOption = (
   lineFilter: SubwayLineFilterOptions,
-  favoriteLine: number,
+  favoriteLine?: number,
 ) => {
   switch (lineFilter) {
     case SubwayLineFilterOptions.ALL_LINES:
@@ -45,4 +50,8 @@ export const formatSubwayLineInfo = (subwayResponse: SubwayLineServerModel) => {
     return acc;
   }, {} as Stations);
   return possibleDuplicatedStations;
+};
+
+export const getFirstParentLineId = (stations: UserStationList): number | undefined => {
+  return stations[0]?.stationInfos[0]?.parentLineId;
 };

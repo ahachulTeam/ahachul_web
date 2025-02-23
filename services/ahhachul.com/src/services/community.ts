@@ -10,6 +10,7 @@ import { removeFalsyValues } from '@ahhachul/utils';
 import * as api from '@/apis/request';
 import { TIMESTAMP } from '@/constants';
 import { useFlow } from '@/stackflow';
+import { useUserStationStore } from '@/stores/subway';
 import {
   CommunityType,
   type CommunityForm,
@@ -17,7 +18,7 @@ import {
   type CommunityListParams,
   type SubwayLineFilterOptions,
 } from '@/types';
-import { formatSubwayFilterOption } from '@/utils';
+import { formatSubwayFilterOption, getFirstParentLineId } from '@/utils';
 
 export const communityKeys = {
   all: ['community'] as const,
@@ -31,7 +32,9 @@ export const communityKeys = {
 };
 
 export const useFetchCommunityList = (filters: CommunityListParams<SubwayLineFilterOptions>) => {
-  const favoriteLine = 2;
+  const state = useUserStationStore(state => state);
+  const favoriteLine = getFirstParentLineId(state.stations);
+
   const req = removeFalsyValues(
     {
       categoryType: filters.categoryType,

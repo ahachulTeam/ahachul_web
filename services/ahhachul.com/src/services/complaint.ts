@@ -10,9 +10,10 @@ import { removeFalsyValues } from '@ahhachul/utils';
 import * as api from '@/apis/request';
 import { TIMESTAMP } from '@/constants';
 import { useFlow } from '@/stackflow';
+import { useUserStationStore } from '@/stores/subway';
 import { SubwayLineFilterOptions } from '@/types';
 import type { ComplaintForm, ComplaintListParams } from '@/types/complaint';
-import { formatSubwayFilterOption } from '@/utils';
+import { formatSubwayFilterOption, getFirstParentLineId } from '@/utils';
 import { extractTextFromLexical } from '@/utils/lexical';
 
 export const complaintKeys = {
@@ -27,7 +28,9 @@ export const complaintKeys = {
 };
 
 export const useFetchComplaintList = (filters: ComplaintListParams<SubwayLineFilterOptions>) => {
-  const favoriteLine = 3;
+  const state = useUserStationStore(state => state);
+  const favoriteLine = getFirstParentLineId(state.stations);
+
   const req = removeFalsyValues(
     {
       keyword: filters.keyword,
