@@ -4,10 +4,16 @@ import type { ActivityComponentType } from '@stackflow/react';
 
 import { ChevronIcon } from '@/assets/icons/system';
 import { HeaderComponent, LayoutComponent } from '@/components';
+import { useFetchSubwayLines } from '@/services/subway';
+import { useFetchUserProfile } from '@/services/user';
 import { useFlow } from '@/stackflow';
 
 const MyPage: ActivityComponentType = () => {
   const { push } = useFlow();
+  const { data } = useFetchSubwayLines();
+  const { data: userInfo } = useFetchUserProfile();
+  console.log('useFetchSubwayLines data :', data);
+  console.log('userInfo data :', userInfo);
 
   return (
     <LayoutComponent.Base

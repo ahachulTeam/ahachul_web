@@ -5,7 +5,7 @@ import { useAuth } from '@/contexts';
 
 export const userKeys = {
   all: ['user'] as const,
-  infos: () => [...userKeys.all, 'infos'] as const,
+  info: () => [...userKeys.all, 'info'] as const,
   stations: () => [...userKeys.all, 'stations'] as const,
 };
 
@@ -13,9 +13,14 @@ export const useFetchUserProfile = () => {
   const { authService } = useAuth();
 
   return useQuery({
-    queryKey: userKeys.infos(),
+    queryKey: userKeys.info(),
     enabled: authService.isAuthenticated,
     queryFn: api.fetchUserProfile,
+    staleTime: 1000 * 60 * 30,
+    gcTime: 1000 * 60 * 60,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
 };
 

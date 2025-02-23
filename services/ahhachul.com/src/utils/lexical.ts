@@ -66,3 +66,46 @@ export const isLexicalContent = (content: unknown): content is LexicalNode => {
     return false;
   }
 };
+
+type LexicalTextNode = {
+  text?: string;
+  children?: LexicalTextNode[];
+  [key: string]: any;
+};
+
+export const extractTextFromLexical = (state: string, baseText: string): string => {
+  try {
+    const parsedData = JSON.parse(state);
+
+    if (typeof parsedData === 'string') {
+      return parsedData;
+    }
+
+    // Lexical 상태인 경우
+    if (parsedData?.root) {
+      const texts: string[] = [];
+
+      const getTexts = (node: LexicalTextNode) => {
+        if (node.text) {
+          texts.push(node.text);
+        }
+
+        if (node.children) {
+          node.children.forEach(getTexts);
+        }
+      };
+
+      getTexts(parsedData.root);
+      return texts.join('\n');
+    }
+
+    return baseText;
+  } catch (error) {
+    if (typeof state === 'string') {
+      return state;
+    }
+
+    console.error('Error extracting text from state:', error);
+    return baseText;
+  }
+};

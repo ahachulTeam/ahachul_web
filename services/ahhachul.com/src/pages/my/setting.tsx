@@ -1,5 +1,3 @@
-'use client';
-
 import type React from 'react';
 import { useState, useTransition } from 'react';
 
@@ -9,10 +7,11 @@ import type { ActivityComponentType } from '@stackflow/react';
 
 import { CloseIcon, SearchIcon } from '@/assets/icons/system';
 import { LayoutComponent } from '@/components';
-import { DEFAULT_STATIONS, subwayLineHexColors, subwayLineOptions } from '@/constants';
+import { subwayLineHexColors, subwayLineOptions } from '@/constants';
+import { useFetchSubwayLines } from '@/services/subway';
 import { useFlow } from '@/stackflow';
 import { useUserStationStore } from '@/stores/subway';
-import type { SubwayLineType, UserStationList } from '@/types';
+import type { Stations, SubwayLineType, UserStationList } from '@/types';
 import { applyHighlight } from '@/utils/text';
 
 interface StationLabel {
@@ -29,6 +28,7 @@ const LABEL_OPTIONS = [
 
 const SettingPage: ActivityComponentType = () => {
   const { pop } = useFlow();
+  const { data: DEFAULT_STATIONS } = useFetchSubwayLines();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStation, setSelectedStation] = useState<string | null>(null);
   const [labeledStations, setLabeledStations] = useState<StationLabel[]>([]);
@@ -36,7 +36,7 @@ const SettingPage: ActivityComponentType = () => {
 
   const setUserStations = useUserStationStore(state => state.setUserStations);
 
-  const allStations = Object.keys(DEFAULT_STATIONS);
+  const allStations = Object.keys(DEFAULT_STATIONS as Stations);
 
   const displayStations = searchTerm
     ? allStations.filter(name => name.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -45,12 +45,12 @@ const SettingPage: ActivityComponentType = () => {
   const renderLineNumbers = (stationName: string) => {
     return (
       <LineNumberContainer>
-        {DEFAULT_STATIONS[stationName as keyof typeof DEFAULT_STATIONS].map(station => (
+        {DEFAULT_STATIONS?.[stationName as keyof typeof DEFAULT_STATIONS].map((station, idx) => (
           <LineNumber
-            key={`${stationName}-${station.parentLineId}`}
+            key={`${stationName}_${station.parentLineId}_${idx}`}
             lineNumber={station.parentLineId}
           >
-            {subwayLineOptions[String(station.parentLineId) as SubwayLineType].slice(0, 1)}
+            {subwayLineOptions[String(station.parentLineId) as SubwayLineType]?.slice(0, 1)}
           </LineNumber>
         ))}
       </LineNumberContainer>
@@ -105,8 +105,8 @@ const SettingPage: ActivityComponentType = () => {
         </SearchWrapper>
 
         <SearchResults $isPending={isPending}>
-          {displayStations.map(name => (
-            <StationContainer key={name}>
+          {displayStations.map((name, idx) => (
+            <StationContainer key={`${name}_${idx}`}>
               <SearchResultItem onClick={() => handleStationSelect(name)}>
                 {renderLineNumbers(name)}
                 {applyHighlight(searchTerm, name)}
@@ -119,14 +119,14 @@ const SettingPage: ActivityComponentType = () => {
 
               {selectedStation === name && (
                 <LabelOptions>
-                  {LABEL_OPTIONS.map(option => {
+                  {LABEL_OPTIONS.map((option, idx) => {
                     const isDisabled =
                       option.id !== getStationLabel(name) &&
                       labeledStations.some(s => s.label === option.id);
 
                     return (
                       <LabelButton
-                        key={option.id}
+                        key={`${option.id}_${idx}`}
                         onClick={() => {
                           if (getStationLabel(name) === option.id) {
                             setLabeledStations(labeledStations.filter(s => s.stationName !== name));
@@ -165,9 +165,9 @@ const SettingPage: ActivityComponentType = () => {
               }
             `}
           >
-            {labeledStations.map(item => (
+            {labeledStations.map((item, idx) => (
               <LabelButton
-                key={item.label}
+                key={`${item.label}_${idx}`}
                 css={css`
                   background-color: #242424;
                   color: #ffffff;
@@ -207,7 +207,7 @@ const SettingPage: ActivityComponentType = () => {
                 name: station.stationName,
                 label: LABEL_OPTIONS.find(l => l.id === station.label)?.text || '',
                 stationInfos:
-                  DEFAULT_STATIONS[station.stationName as keyof typeof DEFAULT_STATIONS],
+                  DEFAULT_STATIONS?.[station.stationName as keyof typeof DEFAULT_STATIONS],
               }));
 
               setUserStations(formattedStations as unknown as UserStationList);

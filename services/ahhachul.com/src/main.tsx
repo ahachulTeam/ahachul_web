@@ -1,10 +1,35 @@
-import { Suspense } from 'react';
-import { createRoot } from 'react-dom/client';
+import { prefetchUserProfile } from './apis/request';
+import { fetchSubwayLines } from './apis/request/subway';
+import { queryClient } from './contexts/tanstack-query';
+import { subwayKeys } from './services/subway';
+import { userKeys } from './services/user';
+import { getAccessTokenInLocalStorage } from './utils/localStorage';
 
-import App from './App';
+async function init() {
+  await queryClient.prefetchQuery({
+    queryKey: subwayKeys.subwayLine(),
+    queryFn: fetchSubwayLines,
+    staleTime: Infinity,
+    gcTime: Infinity,
+  });
 
-createRoot(document.getElementById('root')!).render(
-  <Suspense fallback={null}>
-    <App />
-  </Suspense>,
-);
+  const accessToken = getAccessTokenInLocalStorage();
+
+  if (accessToken) {
+    try {
+      await queryClient.prefetchQuery({
+        queryKey: userKeys.info(),
+        queryFn: prefetchUserProfile,
+        retry: false,
+      });
+    } catch (error) {
+      console.log('Failed to prefetch user profile, continuing...');
+    }
+  }
+
+  const { render } = await import('./render');
+
+  render();
+}
+
+init();

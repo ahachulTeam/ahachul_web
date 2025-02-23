@@ -13,6 +13,7 @@ import { useFlow } from '@/stackflow';
 import { SubwayLineFilterOptions } from '@/types';
 import type { ComplaintForm, ComplaintListParams } from '@/types/complaint';
 import { formatSubwayFilterOption } from '@/utils';
+import { extractTextFromLexical } from '@/utils/lexical';
 
 export const complaintKeys = {
   all: ['complaint'] as const,
@@ -44,6 +45,15 @@ export const useFetchComplaintList = (filters: ComplaintListParams<SubwayLineFil
         ...(pageParam && { pageToken: pageParam }),
       }),
     getNextPageParam: lastPage => lastPage.result.pageToken,
+    select: res => {
+      res.pages[res.pages.length - 1].result.data = res.pages[res.pages.length - 1].result.data.map(
+        v => ({
+          ...v,
+          title: extractTextFromLexical(v.content, v.complaintType).slice(0, 20),
+        }),
+      );
+      return res;
+    },
   });
 };
 
@@ -78,7 +88,15 @@ export const useFetchComplaintDetail = (id: number) =>
     queryKey: complaintKeys.detail(id),
     queryFn: () => api.fetchComplaintDetail(id),
     staleTime: 5 * TIMESTAMP.MINUTE, // 5분
-    select: res => res.data.result,
+    select: res => {
+      return {
+        ...res.data.result,
+        title: extractTextFromLexical(res.data.result.content, res.data.result.complaintType).slice(
+          0,
+          20,
+        ),
+      };
+    },
   });
 
 export const useFetchComplaintCommentList = (id: number) =>

@@ -1,4 +1,4 @@
-import { SubwayLineFilterOptions } from '@/types';
+import { Stations, SubwayLineFilterOptions, SubwayLineServerModel } from '@/types';
 
 export const formatSubwayFilterOption = (
   lineFilter: SubwayLineFilterOptions,
@@ -18,4 +18,31 @@ export const formatLost112Content = (content: string) => {
     .replace(/바랍니다. /g, '바랍니다.\n\n');
 
   return formattedText;
+};
+
+export const formatSubwayLineInfo = (subwayResponse: SubwayLineServerModel) => {
+  const possibleDuplicatedStations = subwayResponse?.subwayLines.reduce((acc, curr) => {
+    curr?.stations?.forEach(station => {
+      if (!acc[station?.name]) {
+        acc[station?.name] = [
+          {
+            stationId: station?.id,
+            parentLineId: curr?.id,
+            parentLineNames: curr?.name,
+          },
+        ];
+      } else {
+        acc[station?.name] = [
+          ...acc[station?.name],
+          {
+            stationId: station?.id,
+            parentLineId: curr?.id,
+            parentLineNames: curr?.name,
+          },
+        ];
+      }
+    });
+    return acc;
+  }, {} as Stations);
+  return possibleDuplicatedStations;
 };

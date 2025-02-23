@@ -23,7 +23,7 @@ const ComplaintSearchedList = ({
     subwayLineId,
   });
 
-  const lostArticles = extractInfinitePageData(data);
+  const complaintArticles = extractInfinitePageData(data);
 
   const throttledFetchNextPage = useThrottle(() => {
     if (!isFetchingNextPage) {
@@ -35,11 +35,11 @@ const ComplaintSearchedList = ({
     callback: throttledFetchNextPage,
   });
 
-  if (!lostArticles.length) return <UiComponent.EmptyList />;
+  if (!complaintArticles.length) return <UiComponent.EmptyList />;
 
   return (
     <S.Section isScale={isScale}>
-      {lostArticles.map((post, idx) => (
+      {complaintArticles.map((post, idx) => (
         <StackFlow.Link
           key={`${post.id}${idx}`}
           activityName="ComplaintDetailPage"

@@ -5,7 +5,7 @@ import { ApiResponse, UserProfileResponseDto } from '@/types';
 
 const useUser = () => {
   const queryClient = useQueryClient();
-  const data = queryClient.getQueryData<ApiResponse<UserProfileResponseDto>>(userKeys.infos());
+  const data = queryClient.getQueryData<ApiResponse<UserProfileResponseDto>>(userKeys.info());
 
   return { user: data?.result ?? null };
 };
