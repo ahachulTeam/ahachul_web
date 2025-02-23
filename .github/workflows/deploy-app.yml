@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      # 추후 develop 브렌치는 제외
       - develop
     paths:
       - 'services/ahhachul.com/**'
@@ -22,11 +21,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Parse secrets from JSON
-        id: secrets
-        run: |
-          echo '${{ secrets.DEV_META_DATA }}' | jq -r 'to_entries | .[] | "echo \(.key)=\(.value) >> $GITHUB_ENV"' | bash
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -35,10 +29,17 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/pnpm-install
 
+      - name: Set AWS Environment Variables
+        run: |
+          echo "AWS_ACCESS_KEY_ID=${{ fromJson(secrets.DEV_META_DATA).AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=${{ fromJson(secrets.DEV_META_DATA).AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+          echo "AWS_REGION=${{ fromJson(secrets.DEV_META_DATA).AWS_REGION }}" >> $GITHUB_ENV
+          echo "S3_BUCKET_NAME=${{ fromJson(secrets.DEV_META_DATA).S3_BUCKET_NAME }}" >> $GITHUB_ENV
+          echo "AWS_CLOUDFRONT_DISTRIBUTION_ID_USER=${{ fromJson(secrets.DEV_META_DATA).AWS_CLOUDFRONT_DISTRIBUTION_ID_USER }}" >> $GITHUB_ENV
+
       - name: Create .env file for ahhachul.com
         run: |
-          echo '${{ secrets.DEV_REACT_APP_CONFIG }}' > config.json
-          cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/ahhachul.com/.env
+          echo '${{ secrets.DEV_REACT_APP_CONFIG }}' | jq -r 'to_entries[] | "\(.key)=\(.value)"' > services/ahhachul.com/.env
 
       - name: Build ahhachul.com
         run: pnpm app:build
