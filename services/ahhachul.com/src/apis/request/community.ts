@@ -37,7 +37,7 @@ export const createCommunity = async (req: CommunityForm) => {
   formData.append('content', jsonBlob);
 
   if (req.images?.length) {
-    appendFilesToFormData(formData, req.images, 'imageFiles');
+    appendFilesToFormData(formData, req.images);
   }
 
   const { data } = await axiosInstance.post<ApiResponse<WithPostId>>('/community-posts', formData, {
@@ -70,7 +70,6 @@ export const editCommunity = async (id: number, req: CommunityEditForm) => {
     appendFilesToFormData(
       formData,
       req.images.flatMap(image => (image.data !== null ? [image.data] : [])),
-      'imageFiles',
     );
   }
 
