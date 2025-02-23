@@ -1,5 +1,5 @@
 import { prefetchUserProfile } from './apis/request';
-import { fetchSubwayLines } from './apis/request/subway';
+import { prefetchSubwayLines } from './apis/request/subway';
 import { queryClient } from './contexts/tanstack-query';
 import { subwayKeys } from './services/subway';
 import { userKeys } from './services/user';
@@ -8,7 +8,7 @@ import { getAccessTokenInLocalStorage } from './utils/localStorage';
 async function init() {
   await queryClient.prefetchQuery({
     queryKey: subwayKeys.subwayLine(),
-    queryFn: fetchSubwayLines,
+    queryFn: prefetchSubwayLines,
     staleTime: Infinity,
     gcTime: Infinity,
   });
