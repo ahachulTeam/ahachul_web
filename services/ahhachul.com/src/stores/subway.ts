@@ -9,15 +9,15 @@ const defaultStationList: UserStationList = [
     label: '즐겨찾는 역',
     stationInfos: [
       {
-        stationId: 31,
+        stationId: 41,
         parentLineId: 1,
       },
       {
-        stationId: 171,
+        stationId: 41,
         parentLineId: 3,
       },
       {
-        stationId: 267,
+        stationId: 41,
         parentLineId: 5,
       },
     ],
@@ -27,11 +27,11 @@ const defaultStationList: UserStationList = [
     label: '회사',
     stationInfos: [
       {
-        stationId: 121,
+        stationId: 557,
         parentLineId: 2,
       },
       {
-        stationId: 568,
+        stationId: 557,
         parentLineId: 18,
       },
     ],
@@ -41,7 +41,7 @@ const defaultStationList: UserStationList = [
     label: '집',
     stationInfos: [
       {
-        stationId: 579,
+        stationId: 272,
         parentLineId: 18,
       },
     ],

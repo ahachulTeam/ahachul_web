@@ -31,6 +31,7 @@ const SettingPage: ActivityComponentType = () => {
   const { pop } = useFlow();
   const { data: DEFAULT_STATIONS } = useFetchSubwayLines();
   const { data: FAVORIT_STATIONS } = useFetchUserFavoriteStations();
+  console.log('DEFAULT_STATIONS:', DEFAULT_STATIONS);
   console.log('FAVORIT_STATIONS:', FAVORIT_STATIONS);
 
   const [searchTerm, setSearchTerm] = useState('');
