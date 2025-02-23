@@ -128,3 +128,27 @@ export interface Congestion {
   sectionNo: number;
   congestionColor: CongestionColorType;
 }
+
+export interface StationServerModel {
+  id: number;
+  name: string;
+}
+
+export interface StationClientModel {
+  stationId: number;
+  parentLineNames: string;
+  parentLineId: number;
+}
+
+export type Stations = { [key: string]: StationClientModel[] };
+
+export interface SubwayLine {
+  id: number;
+  name: string;
+  phoneNumber: string;
+  stations: StationServerModel[];
+}
+
+export interface SubwayLineServerModel {
+  subwayLines: SubwayLine[];
+}

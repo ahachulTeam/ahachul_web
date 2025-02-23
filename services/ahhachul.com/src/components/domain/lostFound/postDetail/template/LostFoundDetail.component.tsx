@@ -18,8 +18,6 @@ interface LostFoundDetailProps {
 const LostFoundDetail = ({ id }: LostFoundDetailProps) => {
   const { data: post } = useFetchLostFoundDetail(id);
 
-  console.log('post', post);
-
   const images = post.isFromLost112
     ? [
         {
