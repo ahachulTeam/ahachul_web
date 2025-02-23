@@ -12,6 +12,12 @@ interface Props {
 const Lost112InfoTable = ({ post }: Props) => {
   const { bridge, isBridgeInitialized } = useNativeBridge();
 
+  const handleClickExternalPhone = () => {
+    if (!isBridgeInitialized) return;
+
+    bridge.send.callPhone(post.storageNumber);
+  };
+
   const handleClickExternalLink = () => {
     if (!isBridgeInitialized) return;
 
@@ -44,7 +50,7 @@ const Lost112InfoTable = ({ post }: Props) => {
           {post?.storageNumber && (
             <>
               <S.Label>보관 장소 전화번호</S.Label>
-              <S.Value>{post.storageNumber}</S.Value>
+              <S.StyledLink onClick={handleClickExternalPhone}>{post.storageNumber}</S.StyledLink>
             </>
           )}
 
