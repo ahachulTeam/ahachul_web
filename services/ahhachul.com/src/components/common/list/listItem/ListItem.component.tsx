@@ -28,7 +28,7 @@ const Post = ({ post }: PostProps) => {
               <S.Content>{post.content}</S.Content>
             )}
           </S.TextContainer>
-          {post?.imageUrl && (
+          {(post?.imageUrl || post.image) && (
             <S.ImageContainer>
               <S.PostImage
                 width="100%"
