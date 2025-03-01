@@ -7,17 +7,20 @@ import { WithSubwayStationId } from '@/types';
 
 import * as S from './TrainRealTimes.styled';
 
+import TrainAnimation from '../trainAnimation/TrainAnimation.component';
 import TrainArrivals from '../trainArrivals/TrainArrivals';
 
 interface TrainRealTimesProps extends WithSubwayStationId {
-  name: string;
-  parentLineId: number;
+  stationName: string;
+  subwayLineId: number;
 }
-const TrainRealTimes = ({ name, stationId, parentLineId }: TrainRealTimesProps) => {
+
+const TrainRealTimes = ({ stationName, stationId, subwayLineId }: TrainRealTimesProps) => {
   const { data, isLoading, isError } = useFetchTrainInfo({
     stationId,
-    subwayLineId: parentLineId,
+    subwayLineId,
   });
+
   const trainNum = data?.trainRealTimes?.[0]?.trainNum;
   const nextStationDirection = data?.trainRealTimes?.[0]?.nextStationDirection;
   const currentTrainArrivalCode = data?.trainRealTimes?.[0]?.currentTrainArrivalCode;
@@ -26,8 +29,9 @@ const TrainRealTimes = ({ name, stationId, parentLineId }: TrainRealTimesProps) 
   return (
     <div css={S.trainRealTimes}>
       <div css={S.inner}>
-        <div css={S.thickBorder(parentLineId)}>
-          <div css={S.stationName(parentLineId, nextStationDirection)}>{name}</div>
+        <div css={S.thickBorder(subwayLineId)}>
+          <div css={S.stationName(subwayLineId)}>{stationName}</div>
+          <span>{nextStationDirection}</span>
         </div>
         <div css={S.trainInfos}>
           <div css={S.currentTrainArrivalInfo}>
@@ -73,9 +77,10 @@ const TrainRealTimes = ({ name, stationId, parentLineId }: TrainRealTimesProps) 
                 <InfoIcon />
               </div>
             </div>
+            <TrainAnimation />
           </div>
 
-          <>
+          <div css={S.listWrap}>
             {isLoading ? (
               ''
             ) : isError ? (
@@ -83,8 +88,8 @@ const TrainRealTimes = ({ name, stationId, parentLineId }: TrainRealTimesProps) 
             ) : (
               <TrainArrivals trainRealTimes={data?.trainRealTimes} />
             )}
-            <button css={S.button}>전체 시간표</button>
-          </>
+          </div>
+          <button css={S.button}>전체 시간표</button>
         </div>
       </div>
     </div>

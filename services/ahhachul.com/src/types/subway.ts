@@ -1,7 +1,3 @@
-import { DEFAULT_STATIONS } from '@/constants/subway';
-
-import type { KeyOf } from './common';
-
 export type SubwayLineType =
   | '1'
   | '2'
@@ -40,18 +36,21 @@ export type SubwayLineKrType =
   | '경의중앙선'
   | '우이신설경전철';
 
-type StationName = KeyOf<typeof DEFAULT_STATIONS>;
-
 export interface UserStation {
-  name: StationName;
   label: string;
-  stationInfos: {
-    stationId: number;
-    parentLineId: number;
+  stationId: number;
+  stationName: string;
+  subwayLineInfoList: {
+    subwayLineId: number;
+    subwayLineName: string;
   }[];
 }
 
 export type UserStationList = UserStation[];
+
+export type UserFavoriteStations = {
+  stationInfoList: UserStationList;
+};
 
 export type WithSubwayLineId = {
   subwayLineId: number;

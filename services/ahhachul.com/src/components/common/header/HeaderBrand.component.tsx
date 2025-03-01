@@ -5,7 +5,13 @@ import * as S from './HeaderBrand.styled';
 
 const HeaderBrand = () => {
   return (
-    <StackFlow.Link activityName="HomePage" activityParams={{}} css={S.logoStyle}>
+    <StackFlow.Link
+      replace
+      animate={false}
+      activityName="HomePage"
+      activityParams={{}}
+      css={S.logoStyle}
+    >
       <SmallLogeIcon />
     </StackFlow.Link>
   );

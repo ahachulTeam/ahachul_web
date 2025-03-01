@@ -36,11 +36,16 @@ export const thickBorder = (subwayLineId: number) =>
     backgroundColor: subwayLineHexColors(subwayLineId),
     display: 'flex',
     alignItems: 'center',
+    gap: '4px',
+
+    '& > span': {
+      fontSize: '14px',
+      color: 'white',
+    },
   }) as Interpolation<Theme>;
 
-export const stationName = (subwayLineId: number, subText?: string) =>
+export const stationName = (subwayLineId: number) =>
   [
-    mixins.posAbs,
     mixins.flexCenterCenter,
     ({ colors: { white, black } }: Theme) => ({
       height: '36px',
@@ -52,23 +57,10 @@ export const stationName = (subwayLineId: number, subText?: string) =>
       color: black,
       backgroundColor: white,
 
-      top: '50%',
-      left: '27px',
-      transform: 'translateY(-50%)',
+      marginLeft: '27px',
 
       fontSize: '16px',
       fontWeight: 600,
-
-      '&::after': {
-        position: 'absolute',
-        top: '50%',
-        right: '-64px',
-        transform: 'translateY(-50%)',
-        content: subText && `'${subText}'`,
-        marginLeft: '4px',
-        fontSize: '14px',
-        color: 'white',
-      },
     }),
   ] as Interpolation<Theme>;
 
@@ -111,6 +103,7 @@ export const arrivalInfoLabel = [
       top: '0.5px',
       color: black,
       fontSize: '16px',
+      lineHeight: 1.75,
     },
   }),
 ] as Interpolation<Theme>;
@@ -139,6 +132,8 @@ export const refetchBtnCss = (isClicked: boolean) =>
 export const paintingTrain = [
   mixins.flexColumn,
   {
+    paddingBottom: '14px',
+
     '& > div': {
       display: 'flex',
       alignItems: 'center',
@@ -223,3 +218,9 @@ export const button = [
     fontWeight: 600,
   }),
 ] as Interpolation<Theme>;
+
+export const listWrap = {
+  position: 'relative',
+  paddingTop: '26px',
+  borderTop: '1px solid rgba(0, 0, 0, 0.07)',
+} as Interpolation<Theme>;

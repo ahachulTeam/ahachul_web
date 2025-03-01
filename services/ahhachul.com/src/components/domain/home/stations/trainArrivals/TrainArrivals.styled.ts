@@ -1,9 +1,4 @@
-import { css, Interpolation, Theme } from '@emotion/react';
-
-export const listWrap = {
-  position: 'relative',
-  margin: '72px 0 0',
-} as Interpolation<Theme>;
+import { css } from '@emotion/react';
 
 export const arrivalList = css`
   width: 100%;
@@ -12,7 +7,6 @@ export const arrivalList = css`
   justify-items: center;
   column-gap: 24px;
   row-gap: 12px;
-  padding-top: 24px;
   border-top: 1px solid rgba(210, 210, 210, 0.09);
 
   & > li {

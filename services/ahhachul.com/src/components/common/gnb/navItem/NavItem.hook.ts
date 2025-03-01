@@ -11,7 +11,7 @@ export const useNavItem = ({
   handleScrollToTop?: VoidFunction;
 }) => {
   const activity = useActivity();
-  const isActive = activity.name === item.href;
+  const isActive = item.href.includes(activity.name as NavItem['href'][0]);
 
   const { replace } = useFlow();
   const { bridge, isBridgeInitialized } = useNativeBridge();
@@ -26,7 +26,7 @@ export const useNavItem = ({
       bridge.send.haptic();
     }
 
-    replace(item.href, {}, { animate: false });
+    replace(item.href[0], {}, { animate: false });
   };
 
   return {

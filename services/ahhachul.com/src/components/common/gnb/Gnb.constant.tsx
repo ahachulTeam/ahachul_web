@@ -15,31 +15,31 @@ import type { NavItem } from './navItem/NaItem.type';
 
 export const GNBList: NavItem[] = [
   {
-    href: 'HomePage',
+    href: ['HomePage'],
     icon: <HomeIcon />,
     activeIcon: <ActivatedHomeIcon />,
     label: '홈',
   },
   {
-    href: 'CommunityPage',
+    href: ['CommunityPage'],
     icon: <CommunityIcon />,
     activeIcon: <ActivatedCommunityIcon />,
     label: '커뮤니티',
   },
   {
-    href: 'LostFoundPage',
+    href: ['LostFoundPage'],
     icon: <LostFoundIcon />,
     activeIcon: <ActivatedLostFoundIcon />,
     label: '유실물',
   },
   {
-    href: 'ComplaintPage',
+    href: ['ComplaintPage', 'ComplaintListPage'],
     icon: <ComplaintIcon />,
     activeIcon: <ActivatedComplaintIcon />,
     label: '민원',
   },
   {
-    href: 'MyPage',
+    href: ['MyPage'],
     icon: <ProfileIcon />,
     activeIcon: <ActivatedProfileIcon />,
     label: '마이',

@@ -11,22 +11,20 @@ interface TrainArrivalTimesProps {
 
 const TrainArrivals = ({ trainRealTimes }: TrainArrivalTimesProps) => {
   return (
-    <div css={S.listWrap}>
-      <motion.ul
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        css={S.arrivalList}
-        variants={motions.fadeInAndUp(0.3)}
-      >
-        {trainRealTimes?.map(item => (
-          <li key={item.trainNum}>
-            <b>{item.trainNum}</b>
-            <span>5분33초</span>
-          </li>
-        ))}
-      </motion.ul>
-    </div>
+    <motion.ul
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      css={S.arrivalList}
+      variants={motions.fadeIn(0.3)}
+    >
+      {trainRealTimes?.map((item, idx) => (
+        <li key={`${item.trainNum}_${idx}`}>
+          <b>{item.destinationStationDirection}</b>
+          <span>5분33초</span>
+        </li>
+      ))}
+    </motion.ul>
   );
 };
 

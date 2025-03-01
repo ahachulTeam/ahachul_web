@@ -15,23 +15,23 @@ const SubwayLineFilter = ({
   activatedStation,
   setUserStations,
 }: SubwayLineFilterProps) => {
-  const reorderStationInfos = (parentLineId: number) => () => {
-    const clickedInfo = activatedStation.stationInfos.find(
-      info => info.parentLineId === parentLineId,
+  const reorderStationInfos = (subwayLineId: number) => () => {
+    const clickedInfo = activatedStation.subwayLineInfoList.find(
+      info => info.subwayLineId === subwayLineId,
     );
-    const remainingInfos = activatedStation.stationInfos.filter(
-      info => info.parentLineId !== parentLineId,
+    const remainingInfos = activatedStation.subwayLineInfoList.filter(
+      info => info.subwayLineId !== subwayLineId,
     );
 
     const reorderedStationInfos = [clickedInfo, ...remainingInfos];
 
     const updatedStation = {
       ...activatedStation,
-      stationInfos: reorderedStationInfos,
+      subwayLineInfoList: reorderedStationInfos,
     };
 
     const updatedStations = stations.map(s =>
-      s.name === activatedStation.name ? updatedStation : s,
+      s.stationName === activatedStation.stationName ? updatedStation : s,
     ) as UserStation[];
 
     setUserStations(updatedStations);
@@ -39,15 +39,22 @@ const SubwayLineFilter = ({
 
   return (
     <ul css={S.filters}>
-      {activatedStation.stationInfos.map(info => (
-        <React.Fragment key={info.parentLineId}>
-          <li css={S.inherit(info.parentLineId)} onClick={reorderStationInfos(info.parentLineId)}>
-            <button type="button">
-              {info.parentLineId > 9
+      {activatedStation.subwayLineInfoList.map(info => (
+        <React.Fragment key={info.subwayLineId}>
+          <li css={S.inherit(info.subwayLineId)} onClick={reorderStationInfos(info.subwayLineId)}>
+            <button
+              type="button"
+              css={S.filterBtn(
+                subwayLineOptions[
+                  info.subwayLineId as unknown as keyof typeof subwayLineOptions
+                ].replace('선', '').length,
+              )}
+            >
+              {info.subwayLineId > 9
                 ? subwayLineOptions[
-                    info.parentLineId as unknown as keyof typeof subwayLineOptions
+                    info.subwayLineId as unknown as keyof typeof subwayLineOptions
                   ].replace('선', '')
-                : info.parentLineId}
+                : info.subwayLineId}
             </button>
           </li>
         </React.Fragment>

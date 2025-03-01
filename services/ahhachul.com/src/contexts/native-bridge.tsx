@@ -54,6 +54,7 @@ export const NativeBridge: React.FC<NativeBridgeProps> = ({ children }) => {
         );
       },
       share: (link: string) => {
+        console.log('link:', link);
         window.ReactNativeWebView?.postMessage(
           JSON.stringify({
             name: 'share',

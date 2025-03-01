@@ -1,0 +1,320 @@
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+import useMeasure from 'react-use-measure';
+
+import styled from '@emotion/styled';
+import { useQueryClient } from '@tanstack/react-query';
+import { AnimatePresence, motion } from 'motion/react';
+import { Drawer } from 'vaul';
+
+import { CloseIcon, DangerIcon, PhraseIcon, WarningIcon } from '@/assets/icons/jsx/icons';
+import { EllipsisIcon } from '@/assets/icons/system';
+import { useUser } from '@/hooks/domain';
+import { useDeleteComment } from '@/services/comment';
+import { useFlow } from '@/stackflow';
+
+import * as S from './CommentActions.styled';
+
+export interface CommentDropEllipsisProps {
+  articleId: string;
+  commentId: number;
+  createdBy: number;
+  queryKey: unknown[];
+}
+
+export const CommentDropEllipsis = ({
+  articleId,
+  commentId,
+  createdBy,
+  queryKey,
+}: CommentDropEllipsisProps): React.ReactElement => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [view, setView] = useState('default');
+  const [elementRef, bounds] = useMeasure();
+  const previousHeightRef = useRef<number>(0);
+
+  const { user } = useUser();
+  const isAuthor = user?.memberId === createdBy;
+
+  const handleOpen = () => {
+    setView('default');
+    setTimeout(() => {
+      setIsOpen(true);
+    }, 100);
+  };
+  const handleClose = () => setIsOpen(false);
+
+  const { push } = useFlow();
+  const handleEdit = () => {
+    handleClose();
+    setTimeout(() => {
+      push('EditCommentPage', {
+        commentId,
+        articleId: +articleId,
+      });
+    }, 500);
+  };
+
+  const content = useMemo(() => {
+    switch (view) {
+      case 'default':
+        return isAuthor ? (
+          <DefaultView setView={setView} handleEdit={handleEdit} />
+        ) : (
+          <ReportView setView={setView} />
+        );
+      case 'remove':
+        return (
+          <RemoveComment
+            queryKey={queryKey}
+            articleId={articleId}
+            commentId={commentId}
+            setView={setView}
+            handleClose={handleClose}
+          />
+        );
+    }
+  }, [view, queryKey]);
+
+  const opacityDuration = useMemo(() => {
+    const MIN_DURATION = 0.15;
+    const MAX_DURATION = 0.27;
+
+    if (!previousHeightRef.current) {
+      previousHeightRef.current = bounds.height;
+      return MIN_DURATION;
+    }
+
+    const heightDifference = Math.abs(bounds.height - previousHeightRef.current);
+    previousHeightRef.current = bounds.height;
+
+    const duration = Math.min(Math.max(heightDifference / 500, MIN_DURATION), MAX_DURATION);
+
+    return duration;
+  }, [bounds.height]);
+
+  return (
+    <div css={S.buttonFilter}>
+      <DrawerButton onClick={handleOpen}>
+        <EllipsisIcon />
+      </DrawerButton>
+      <Drawer.Root open={isOpen} onOpenChange={setIsOpen}>
+        <Drawer.Portal>
+          <DrawerOverlay onClick={handleClose} />
+          <Drawer.Content asChild>
+            <DrawerContentWrapper
+              animate={{
+                height: bounds.height,
+                transition: {
+                  duration: 0.27,
+                  ease: [0.25, 1, 0.5, 1],
+                },
+              }}
+            >
+              <Drawer.Close asChild>
+                <CloseButton>
+                  <CloseIcon />
+                </CloseButton>
+              </Drawer.Close>
+              <ContentWrapper ref={elementRef}>
+                <AnimatePresence initial={false} mode="popLayout" custom={view}>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.96 }}
+                    key={view}
+                    transition={{
+                      duration: opacityDuration,
+                      ease: [0.26, 0.08, 0.25, 1],
+                    }}
+                  >
+                    {content}
+                  </motion.div>
+                </AnimatePresence>
+              </ContentWrapper>
+            </DrawerContentWrapper>
+          </Drawer.Content>
+        </Drawer.Portal>
+      </Drawer.Root>
+    </div>
+  );
+};
+
+function Header({
+  icon,
+  title,
+  description,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}) {
+  return (
+    <S.HeaderWrapper>
+      {icon}
+      <S.HeaderTitle>{title}</S.HeaderTitle>
+      <S.HeaderDescription>{description}</S.HeaderDescription>
+    </S.HeaderWrapper>
+  );
+}
+
+function DefaultView({
+  setView,
+  handleEdit,
+}: {
+  setView: (view: string) => void;
+  handleEdit: () => void;
+}) {
+  return (
+    <>
+      <S.DefaultViewHeader>
+        <S.DefaultViewTitle>설정</S.DefaultViewTitle>
+      </S.DefaultViewHeader>
+      <S.ButtonContainer>
+        <S.Button onClick={handleEdit}>
+          <PhraseIcon />
+          수정하기
+        </S.Button>
+        <S.DangerButton onClick={() => setView('remove')}>
+          <WarningIcon />
+          삭제하기
+        </S.DangerButton>
+      </S.ButtonContainer>
+    </>
+  );
+}
+
+function ReportView({ setView }: { setView: (view: string) => void }) {
+  return (
+    <>
+      <S.DefaultViewHeader css={{ marginBottom: 0 }}>
+        <S.DefaultViewTitle>설정</S.DefaultViewTitle>
+      </S.DefaultViewHeader>
+      <S.ButtonContainer>
+        <S.DangerButton onClick={() => setView('default')}>
+          <WarningIcon />
+          신고하기
+        </S.DangerButton>
+      </S.ButtonContainer>
+    </>
+  );
+}
+
+function RemoveComment({
+  articleId,
+  commentId,
+  queryKey,
+  setView,
+  handleClose,
+}: {
+  articleId: string;
+  commentId: number;
+  queryKey: unknown[];
+  setView: (view: string) => void;
+  handleClose: () => void;
+}) {
+  const queryClient = useQueryClient();
+  const { mutate: deleteComment, status, isPending } = useDeleteComment(+articleId);
+
+  const handleDeleteComment = useCallback(
+    () =>
+      deleteComment(commentId, {
+        onSuccess: () => {
+          setTimeout(() => {
+            handleClose();
+          }, 350);
+          setTimeout(() => {
+            queryClient.invalidateQueries({
+              queryKey,
+            });
+          }, 550);
+        },
+      }),
+    [articleId, commentId],
+  );
+
+  return (
+    <div>
+      <div>
+        <Header
+          icon={<DangerIcon />}
+          title="댓글을 삭제하시겠어요?"
+          description="삭제하시면 복구할 수 없어요. 해당 댓글을 삭제할까요?"
+        />
+        <S.ButtonGroup>
+          <S.SecondaryButton
+            variant="default"
+            disabled={isPending}
+            onClick={() => setView('default')}
+          >
+            취소
+          </S.SecondaryButton>
+          <S.SmoothSecondaryButton status={status} handleClick={handleDeleteComment} />
+        </S.ButtonGroup>
+      </div>
+    </div>
+  );
+}
+
+const DrawerButton = styled.button`
+  height: 24px;
+  font-weight: 500;
+  color: black;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-end;
+  &:focus-visible {
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.5);
+  }
+`;
+
+const DrawerOverlay = styled(Drawer.Overlay)`
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+`;
+
+const DrawerContentWrapper = styled(motion.div)`
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 10010;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  border-radius: 36px;
+  background-color: #ffffff;
+  outline: none;
+  transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 28px;
+  right: 32px;
+  z-index: 10;
+  display: flex;
+  height: 32px;
+  width: 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: #f7f8f9;
+  color: #949595;
+  transition: transform 0.2s;
+  &:focus {
+    transform: scale(0.95);
+  }
+  &:active {
+    transform: scale(0.75);
+  }
+`;
+
+const ContentWrapper = styled.div`
+  padding: 10px 24px 24px;
+`;

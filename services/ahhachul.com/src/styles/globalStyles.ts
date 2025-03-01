@@ -5,7 +5,7 @@ import { theme } from './theme';
 const globalStyles = css`
   @font-face {
     font-family: 'Pretendard';
-    src: url('../assets/fonts/pretendard-variable.woff2') format('woff2');
+    src: url('/fonts/pretendard-variable.woff2') format('woff2');
     font-weight: 45 920;
     font-style: normal;
     font-display: swap;

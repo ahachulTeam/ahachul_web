@@ -1,10 +1,18 @@
+import { useMemo } from 'react';
+
+import { useActivity } from '@stackflow/react';
+
 import { formatDateTime } from '@ahhachul/utils';
 
-import { EllipsisIcon } from '@/assets/icons/system';
 import { UiComponent } from '@/components';
+import { communityKeys } from '@/services/community';
+import { complaintKeys } from '@/services/complaint';
+import { lostFoundKeys } from '@/services/lostFound';
 import type { Comment } from '@/types';
 
 import * as S from './CommentListItem.styled';
+
+import { CommentDropEllipsis } from '../commentActions/CommentActions.component';
 
 interface CommentCardProps {
   comment: Comment;
@@ -12,11 +20,32 @@ interface CommentCardProps {
 }
 
 const Comment = ({ comment, asChild = false }: CommentCardProps) => {
+  const activity = useActivity();
+
+  const queryKey = useMemo(() => {
+    if (!activity.params.id) return [];
+    switch (activity.params.name) {
+      case 'LostFoundDetailPage':
+        return lostFoundKeys.detail(+activity.params.id!);
+      case 'CommunityDetailPage':
+        return communityKeys.detail(+activity.params.id!);
+      case 'ComplaintDetailPage':
+        return complaintKeys.detail(+activity.params.id!);
+      default:
+        return [];
+    }
+  }, [activity.params]);
+
   return (
     <S.CommentWrapper asChild={asChild}>
       <S.HeaderWrapper>
         <S.WriterName>{comment.writer}</S.WriterName>
-        <EllipsisIcon />
+        <CommentDropEllipsis
+          articleId={activity.params.id!}
+          createdBy={+comment.createdBy!}
+          commentId={comment.id}
+          queryKey={queryKey as unknown[]}
+        />
       </S.HeaderWrapper>
       <S.ContentWrapper>
         {comment.status === 'CREATED' ? (

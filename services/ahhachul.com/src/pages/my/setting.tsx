@@ -1,45 +1,43 @@
 import type React from 'react';
-import { useState, useTransition } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import type { ActivityComponentType } from '@stackflow/react';
 
+import { HomeMiniIcon, OfficeMiniIcon, SchoolMiniIcon, StarMiniIcon } from '@/assets/icons/setting';
 import { CloseIcon, SearchIcon } from '@/assets/icons/system';
 import { LayoutComponent } from '@/components';
 import { subwayLineHexColors, subwayLineOptions } from '@/constants';
 import { useFetchSubwayLines } from '@/services/subway';
-import { useFetchUserFavoriteStations } from '@/services/user';
+import { useUserFavoriteStations } from '@/services/user';
 import { useFlow } from '@/stackflow';
 import { useUserStationStore } from '@/stores/subway';
-import type { Stations, SubwayLineType, UserStationList } from '@/types';
+import type { Stations, SubwayLineType } from '@/types';
 import { applyHighlight } from '@/utils/text';
 
 interface StationLabel {
   stationName: string;
-  label: 'home' | 'work' | 'school' | 'favorite';
+  label: '집' | '회사' | '학교' | '즐겨찾는 장소';
 }
 
 const LABEL_OPTIONS = [
-  { id: 'home', icon: '🏠', text: '집' },
-  { id: 'work', icon: '🏢', text: '회사' },
-  { id: 'school', icon: '🏫', text: '학교' },
-  { id: 'favorite', icon: '⭐', text: '즐겨찾는 장소' },
+  { id: '집', icon: <HomeMiniIcon />, text: '집' },
+  { id: '회사', icon: <OfficeMiniIcon />, text: '회사' },
+  { id: '학교', icon: <SchoolMiniIcon />, text: '학교' },
+  { id: '즐겨찾는 장소', icon: <StarMiniIcon />, text: '즐겨찾는 장소' },
 ] as const;
 
 const SettingPage: ActivityComponentType = () => {
   const { pop } = useFlow();
   const { data: DEFAULT_STATIONS } = useFetchSubwayLines();
-  const { data: FAVORIT_STATIONS } = useFetchUserFavoriteStations();
-  console.log('DEFAULT_STATIONS:', DEFAULT_STATIONS);
-  console.log('FAVORIT_STATIONS:', FAVORIT_STATIONS);
+  const { stations: userStations } = useUserStationStore(state => state);
+  const { mutate: updateUserFavoriteStations } = useUserFavoriteStations();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStation, setSelectedStation] = useState<string | null>(null);
   const [labeledStations, setLabeledStations] = useState<StationLabel[]>([]);
   const [isPending, startTransition] = useTransition();
-
-  const setUserStations = useUserStationStore(state => state.setUserStations);
 
   const allStations = Object.keys(DEFAULT_STATIONS as Stations);
 
@@ -75,8 +73,8 @@ const SettingPage: ActivityComponentType = () => {
   };
 
   const getDefaultLabel = () => {
-    const hasHome = labeledStations.some(s => s.label === 'home');
-    return hasHome ? 'work' : 'home';
+    const hasHome = labeledStations.some(s => s.label === '집');
+    return hasHome ? '회사' : '집';
   };
 
   const getStationLabel = (stationName: string) => {
@@ -92,22 +90,35 @@ const SettingPage: ActivityComponentType = () => {
     });
   };
 
+  useEffect(() => {
+    if (userStations.length > 0) {
+      setLabeledStations(
+        userStations.map(item => ({
+          stationName: item.stationName,
+          label: item.label as '집' | '회사' | '학교' | '즐겨찾는 장소',
+        })),
+      );
+    }
+  }, [userStations]);
+
   return (
     <LayoutComponent.Base>
       <S.Container>
-        <S.Headline>
-          <b>즐겨찾는 역</b>을 설정해주세요
-        </S.Headline>
-        <S.Desc>최대 3개까지 등록할 수 있어요</S.Desc>
+        <S.Fixed>
+          <S.Headline>
+            <b>즐겨찾는 역</b>을 설정해주세요
+          </S.Headline>
+          <S.Desc>최대 4개까지 등록할 수 있어요</S.Desc>
 
-        <SearchWrapper>
-          <SearchInputIcon />
-          <SearchInput
-            placeholder="검색어를 입력해주세요"
-            value={searchTerm}
-            onChange={handleSearchChange}
-          />
-        </SearchWrapper>
+          <SearchWrapper>
+            <SearchInputIcon />
+            <SearchInput
+              placeholder="검색어를 입력해주세요"
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+          </SearchWrapper>
+        </S.Fixed>
 
         <SearchResults $isPending={isPending}>
           {displayStations.map((name, idx) => (
@@ -151,57 +162,60 @@ const SettingPage: ActivityComponentType = () => {
               )}
             </StationContainer>
           ))}
+          {/* <button>맨 위로</button> */}
         </SearchResults>
         <ButtonArea>
-          <div
-            css={css`
-              display: flex;
-              align-items: center;
-              gap: 8px;
-              width: 100%;
-              max-width: 100vw;
-              overflow-x: auto;
-              -ms-overflow-style: none;
-              scrollbar-width: none;
-              padding: 16px;
-              white-space: nowrap;
-              &::-webkit-scrollbar {
-                display: none;
-              }
-            `}
-          >
-            {labeledStations.map((item, idx) => (
-              <LabelButton
-                key={`${item.label}_${idx}`}
-                css={css`
-                  background-color: #242424;
-                  color: #ffffff;
-                  border: 0;
-                  display: flex;
-                  align-items: center;
-                  gap: 8px;
-                  height: 28px;
-                  font-size: 12px;
-                  flex-shrink: 0;
-                  padding: 0 12px;
-                `}
-              >
-                {item.stationName}
-                <CloseIcon
+          {labeledStations.length > 0 && (
+            <div
+              css={css`
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                width: 100%;
+                max-width: 100vw;
+                overflow-x: auto;
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+                padding: 0 16px 0;
+                white-space: nowrap;
+                &::-webkit-scrollbar {
+                  display: none;
+                }
+              `}
+            >
+              {labeledStations.map((item, idx) => (
+                <LabelButton
+                  key={`${item.label}_${idx}`}
                   css={css`
-                    width: 16px;
-                    height: 16px;
+                    background-color: #242424;
+                    color: #ffffff;
+                    border: 0;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    height: 28px;
+                    font-size: 12px;
                     flex-shrink: 0;
+                    padding: 0 12px;
                   `}
-                  onClick={() => {
-                    setLabeledStations(
-                      labeledStations.filter(s => s.stationName !== item.stationName),
-                    );
-                  }}
-                />
-              </LabelButton>
-            ))}
-          </div>
+                >
+                  {item.stationName}
+                  <CloseIcon
+                    css={css`
+                      width: 16px;
+                      height: 16px;
+                      flex-shrink: 0;
+                    `}
+                    onClick={() => {
+                      setLabeledStations(
+                        labeledStations.filter(s => s.stationName !== item.stationName),
+                      );
+                    }}
+                  />
+                </LabelButton>
+              ))}
+            </div>
+          )}
           <SubmitBtn
             onClick={() => {
               if (!labeledStations.length) {
@@ -210,13 +224,12 @@ const SettingPage: ActivityComponentType = () => {
               }
 
               const formattedStations = labeledStations.map(station => ({
-                name: station.stationName,
+                stationName: station.stationName,
                 label: LABEL_OPTIONS.find(l => l.id === station.label)?.text || '',
-                stationInfos:
-                  DEFAULT_STATIONS?.[station.stationName as keyof typeof DEFAULT_STATIONS],
               }));
 
-              setUserStations(formattedStations as unknown as UserStationList);
+              updateUserFavoriteStations(formattedStations);
+
               setTimeout(() => {
                 pop();
               }, 500);
@@ -232,11 +245,20 @@ const SettingPage: ActivityComponentType = () => {
 
 const S = {
   Container: styled.div`
-    padding: 20px;
+    padding: 160px 0 0;
+  `,
+  Fixed: styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 20px;
+    background-color: white;
   `,
   Headline: styled.h1`
     ${({ theme }) => css`
       font-size: 24px;
+      padding: 0 20px;
       margin-bottom: 8px;
 
       & > b {
@@ -247,17 +269,19 @@ const S = {
   Desc: styled.p`
     color: #666;
     margin-bottom: 24px;
+    padding: 0 20px;
   `,
 };
 
 const SearchWrapper = styled.div`
   position: relative;
   margin-bottom: 24px;
+  padding: 0 20px;
 `;
 
 const SearchInputIcon = styled(SearchIcon)`
   position: absolute;
-  left: 12px;
+  left: 32px;
   top: 50%;
   transform: translateY(-50%);
   color: #999;
@@ -304,11 +328,12 @@ interface SearchResultsProps {
 const SearchResults = styled.div<SearchResultsProps>`
   opacity: ${props => (props.$isPending ? 0.7 : 1)};
   transition: opacity 0.2s ease;
+  padding-bottom: 148px;
 `;
 
 const SearchResultItem = styled.button`
   width: 100%;
-  padding: 12px 0;
+  padding: 12px 20px 12px 20px;
   text-align: left;
   border: none;
   background: none;
@@ -354,9 +379,9 @@ interface LabelButtonProps {
 const LabelButton = styled.button<LabelButtonProps>`
   padding: 8px 12px;
   border-radius: 20px;
-  border: 1px solid ${props => (props.$isActive ? '#00C73C' : '#e5e5e5')};
-  background-color: ${props => (props.$isActive ? '#00C73C' : 'white')};
-  color: ${props => (props.$isActive ? 'white' : props.$isDefault ? '#00C73C' : '#666')};
+  border: 1px solid ${props => (props.$isActive ? '#2ACF6C' : '#e5e5e5')};
+  background-color: ${props => (props.$isActive ? '#2ACF6C' : 'white')};
+  color: ${props => (props.$isActive ? 'white' : '#666')};
   font-size: 14px;
   cursor: pointer;
   display: flex;
@@ -364,6 +389,10 @@ const LabelButton = styled.button<LabelButtonProps>`
   gap: 4px;
   transition: all 0.2s ease;
   flex-shrink: 0;
+
+  & > svg > path {
+    fill: ${props => (props.$isActive ? 'white' : '')};
+  }
 
   &:disabled {
     opacity: 0.5;
@@ -386,8 +415,8 @@ const ButtonArea = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  gap: 22px;
-  padding-top: 20px;
+  gap: 16px;
+  padding-top: 16px;
   padding-bottom: 32px;
 `;
 

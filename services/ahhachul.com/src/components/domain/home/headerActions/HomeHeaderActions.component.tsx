@@ -5,6 +5,8 @@ import { from, tap, map } from 'rxjs';
 
 import { ChevronIcon } from '@/assets/icons/system';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
+import { useUserFavoriteStations } from '@/services/user';
+import { useFlow } from '@/stackflow';
 import { useUserStationStore } from '@/stores/subway';
 import type { UserStation } from '@/types';
 
@@ -44,15 +46,24 @@ const iconVariants = {
   closed: { rotate: 0, transition: { duration: 0 } },
 };
 
-const Option = ({ station, onClick }: { station: UserStation; onClick: () => void }) => {
+const Option = ({
+  station,
+  className,
+  onClick,
+}: {
+  station: UserStation;
+  className?: string;
+  onClick: () => void;
+}) => {
   return (
-    <li css={S.option} onClick={onClick}>
-      <span>{station.name}</span>
+    <li css={S.option} className={className} onClick={onClick}>
+      <span>{station.stationName}</span>
     </li>
   );
 };
 
 const HomeHeaderActions = () => {
+  const { push } = useFlow();
   const [openDialog, toggleDialog] = useReducer(open => !open, false);
 
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -61,13 +72,14 @@ const HomeHeaderActions = () => {
     toggleDialog();
   });
 
-  const { stations, setUserStations } = useUserStationStore(state => state);
+  const { mutate: updateUserStations } = useUserFavoriteStations();
+  const { stations } = useUserStationStore(state => state);
   const activatedStation = useMemo(() => stations[0], [stations]);
 
   const handleStationClick = useCallback(
     (clickedStation: UserStation) => () => {
       if (!openDialog) return;
-      if (activatedStation.name === clickedStation.name) {
+      if (activatedStation.stationName === clickedStation.stationName) {
         toggleDialog();
         return;
       }
@@ -75,18 +87,27 @@ const HomeHeaderActions = () => {
       from([clickedStation])
         .pipe(
           tap(() => toggleDialog()),
-          map(clicked => [clicked, ...stations.filter(station => station.name !== clicked.name)]),
-          tap(updatedStations => setUserStations(updatedStations)),
+          map(clicked => [
+            clicked,
+            ...stations.filter(station => station.stationName !== clicked.stationName),
+          ]),
+          tap(updatedStations => {
+            const req = updatedStations.map(item => ({
+              label: item.label,
+              stationName: item.stationName,
+            }));
+            updateUserStations(req);
+          }),
         )
         .subscribe();
     },
-    [activatedStation.name, openDialog, stations, setUserStations],
+    [activatedStation.stationName, openDialog, stations],
   );
 
   return (
     <div css={S.container} ref={dialogRef}>
       <button css={S.button} onClick={toggleDialog}>
-        <span>{activatedStation.name}</span>
+        <span>{activatedStation.stationName}</span>
         <motion.span variants={iconVariants}>
           <ChevronIcon />
         </motion.span>
@@ -94,6 +115,7 @@ const HomeHeaderActions = () => {
       <motion.div
         animate={openDialog ? 'open' : 'closed'}
         css={{
+          pointerEvents: openDialog ? 'unset' : 'none',
           position: 'relative',
         }}
       >
@@ -105,9 +127,27 @@ const HomeHeaderActions = () => {
           }}
           css={S.menu}
         >
-          {stations.map(station => (
-            <Option key={station.name} station={station} onClick={handleStationClick(station)} />
+          {stations.map((station, idx) => (
+            <Option
+              key={station.stationName}
+              station={station}
+              css={{
+                color: idx === 0 ? '#272727' : '#95979F',
+              }}
+              onClick={handleStationClick(station)}
+            />
           ))}
+          <li
+            css={S.option}
+            onClick={() => {
+              toggleDialog();
+              setTimeout(() => {
+                push('SettingPage', []);
+              }, 550);
+            }}
+          >
+            <span css={{ color: '#95979F' }}>즐겨찾는역 설정하기</span>
+          </li>
         </motion.ul>
       </motion.div>
     </div>

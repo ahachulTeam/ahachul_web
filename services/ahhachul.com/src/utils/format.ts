@@ -53,5 +53,5 @@ export const formatSubwayLineInfo = (subwayResponse: SubwayLineServerModel) => {
 };
 
 export const getFirstParentLineId = (stations: UserStationList): number | undefined => {
-  return stations[0]?.stationInfos[0]?.parentLineId;
+  return stations[0]?.subwayLineInfoList[0]?.subwayLineId;
 };

@@ -22,16 +22,16 @@ export const filters = [
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       whiteSpace: 'nowrap',
-
-      '& > button': {
-        color: white,
-        fontSize: '14px',
-        fontWeight: 600,
-        letterSpacing: '-0.2px',
-      },
     },
   }),
 ] as Interpolation<Theme>;
+
+export const filterBtn = (length: number) => ({
+  color: 'white',
+  fontSize: length >= 4 ? '12px' : '14px',
+  fontWeight: 600,
+  letterSpacing: '-0.2px',
+});
 
 export const inherit = (line: number) => ({
   transition: 'background-color 0.4s ease-in-out',
