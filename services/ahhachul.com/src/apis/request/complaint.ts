@@ -1,4 +1,4 @@
-import { appendFilesToFormData, createJsonBlob, extractFormData } from '@ahhachul/utils';
+import { appendFilesToFormData, createJsonBlob, extractFormData, sleep } from '@ahhachul/utils';
 
 import axiosInstance from '@/apis/fetcher';
 import type { ApiResponse, CommentList, PaginatedList, WithPostId } from '@/types';
@@ -51,3 +51,21 @@ export const fetchComplaintCommentList = (id: number) =>
       sort: 'createdAt,asc',
     },
   });
+
+export const deleteComplaint = async (articleId: number) => {
+  const [response] = await Promise.allSettled([
+    axiosInstance.delete<ApiResponse<WithPostId>>(`/complaint-posts/${articleId}`),
+    sleep(750),
+  ]);
+
+  if (response.status === 'rejected') {
+    throw response.reason;
+  }
+
+  if (response.status === 'fulfilled') {
+    return response.value.data;
+  }
+
+  // TODO: sentry에 로그 남김
+  throw new Error('Unexpected state in Promise.allSettled');
+};

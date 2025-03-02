@@ -107,25 +107,6 @@ export const subwayLineHexColors = (line: number) => {
 
 export const defaultStationList: UserStationList = [
   {
-    label: '즐겨찾는 역',
-    stationId: 41,
-    stationName: '종로3가',
-    subwayLineInfoList: [
-      {
-        subwayLineId: 1,
-        subwayLineName: '1호선',
-      },
-      {
-        subwayLineId: 3,
-        subwayLineName: '3호선',
-      },
-      {
-        subwayLineId: 5,
-        subwayLineName: '5호선',
-      },
-    ],
-  },
-  {
     label: '회사',
     stationId: 557,
     stationName: '강남',
@@ -134,17 +115,6 @@ export const defaultStationList: UserStationList = [
         subwayLineId: 2,
         subwayLineName: '2호선',
       },
-      {
-        subwayLineId: 18,
-        subwayLineName: '신분당선',
-      },
-    ],
-  },
-  {
-    label: '집',
-    stationId: 272,
-    stationName: '광교중앙',
-    subwayLineInfoList: [
       {
         subwayLineId: 18,
         subwayLineName: '신분당선',

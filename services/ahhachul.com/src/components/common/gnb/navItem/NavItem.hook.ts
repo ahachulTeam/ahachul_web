@@ -1,4 +1,4 @@
-import { useNativeBridge } from '@/contexts';
+import { useAuth, useNativeBridge } from '@/contexts';
 import { useFlow, useActivity } from '@/stackflow';
 
 import type { NavItem } from './NaItem.type';
@@ -13,8 +13,12 @@ export const useNavItem = ({
   const activity = useActivity();
   const isActive = item.href.includes(activity.name as NavItem['href'][0]);
 
-  const { replace } = useFlow();
+  const { push, replace } = useFlow();
   const { bridge, isBridgeInitialized } = useNativeBridge();
+
+  const {
+    authService: { isAuthenticated },
+  } = useAuth();
 
   const handleTabClick = () => {
     if (isActive) {
@@ -24,6 +28,11 @@ export const useNavItem = ({
 
     if (isBridgeInitialized) {
       bridge.send.haptic();
+    }
+
+    if (item.href[0] === 'MyPage' && !isAuthenticated) {
+      push('SignInPage', {});
+      return;
     }
 
     replace(item.href[0], {}, { animate: false });

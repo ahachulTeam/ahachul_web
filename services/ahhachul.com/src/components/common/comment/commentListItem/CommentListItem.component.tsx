@@ -8,6 +8,7 @@ import { UiComponent } from '@/components';
 import { communityKeys } from '@/services/community';
 import { complaintKeys } from '@/services/complaint';
 import { lostFoundKeys } from '@/services/lostFound';
+import { useFlow } from '@/stackflow';
 import type { Comment } from '@/types';
 
 import * as S from './CommentListItem.styled';
@@ -20,6 +21,7 @@ interface CommentCardProps {
 }
 
 const Comment = ({ comment, asChild = false }: CommentCardProps) => {
+  const { push } = useFlow();
   const activity = useActivity();
 
   const queryKey = useMemo(() => {
@@ -55,7 +57,16 @@ const Comment = ({ comment, asChild = false }: CommentCardProps) => {
         )}
         <S.DateText>{formatDateTime(comment.createdAt, { format: 'short' })}</S.DateText>
       </S.ContentWrapper>
-      <S.ReplyButton>답글 달기</S.ReplyButton>
+      <S.ReplyButton
+        onClick={() =>
+          push('NewCommentReplyPage', {
+            commentId: comment.id,
+            id: +activity.params.id!,
+          })
+        }
+      >
+        답글 달기
+      </S.ReplyButton>
     </S.CommentWrapper>
   );
 };

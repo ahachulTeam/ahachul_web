@@ -1,32 +1,35 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import useMeasure from 'react-use-measure';
 
 import styled from '@emotion/styled';
 import { useQueryClient } from '@tanstack/react-query';
+// import { useQueryClient } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'motion/react';
 import { Drawer } from 'vaul';
 
+import { sleep } from '@ahhachul/utils';
+
 import { CloseIcon, DangerIcon, PhraseIcon, WarningIcon } from '@/assets/icons/jsx/icons';
-import { EllipsisIcon } from '@/assets/icons/system';
+import { MoreVerticalIcon } from '@/assets/icons/system';
 import { useUser } from '@/hooks/domain';
-import { useDeleteComment } from '@/services/comment';
+import { communityKeys, useDeleteCommunity } from '@/services/community';
+import { complaintKeys, useDeleteComplaint } from '@/services/complaint';
+import { lostFoundKeys, useDeleteLostFound } from '@/services/lostFound';
 import { useFlow } from '@/stackflow';
 
-import * as S from './CommentActions.styled';
+import * as S from './PostDropEllipsis.styled';
 
-export interface CommentDropEllipsisProps {
+export interface PostDropEllipsisProps {
   articleId: string;
-  commentId: number;
   createdBy: number;
-  queryKey: unknown[];
+  queryKey: readonly unknown[];
 }
 
-export const CommentDropEllipsis = ({
+const PostDropEllipsis = ({
   articleId,
-  commentId,
   createdBy,
   queryKey,
-}: CommentDropEllipsisProps): React.ReactElement => {
+}: PostDropEllipsisProps): React.ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
   const [view, setView] = useState('default');
   const [elementRef, bounds] = useMeasure();
@@ -46,9 +49,14 @@ export const CommentDropEllipsis = ({
   const { push } = useFlow();
   const handleEdit = () => {
     handleClose();
+    const activityName = queryKey.includes('community')
+      ? 'EditCommunityPage'
+      : queryKey.includes('lostFound')
+        ? 'EditLostFoundPage'
+        : 'EditComplaintPage';
+
     setTimeout(() => {
-      push('EditCommentPage', {
-        commentId,
+      push(activityName, {
         id: +articleId,
       });
     }, 500);
@@ -64,10 +72,9 @@ export const CommentDropEllipsis = ({
         );
       case 'remove':
         return (
-          <RemoveComment
+          <RemovePost
             queryKey={queryKey}
             articleId={articleId}
-            commentId={commentId}
             setView={setView}
             handleClose={handleClose}
           />
@@ -95,7 +102,7 @@ export const CommentDropEllipsis = ({
   return (
     <div css={S.buttonFilter}>
       <DrawerButton onClick={handleOpen}>
-        <EllipsisIcon />
+        <MoreVerticalIcon />
       </DrawerButton>
       <Drawer.Root open={isOpen} onOpenChange={setIsOpen}>
         <Drawer.Portal>
@@ -199,56 +206,75 @@ function ReportView({ setView }: { setView: (view: string) => void }) {
   );
 }
 
-function RemoveComment({
+function RemovePost({
   articleId,
-  commentId,
   queryKey,
   setView,
   handleClose,
 }: {
   articleId: string;
-  commentId: number;
-  queryKey: unknown[];
+  queryKey: readonly unknown[];
   setView: (view: string) => void;
   handleClose: () => void;
 }) {
+  const { pop } = useFlow();
   const queryClient = useQueryClient();
-  const { mutate: deleteComment, status, isPending } = useDeleteComment(+articleId);
 
-  const handleDeleteComment = useCallback(
-    () =>
-      deleteComment(commentId, {
-        onSuccess: () => {
-          setTimeout(() => {
-            handleClose();
-          }, 350);
-          setTimeout(() => {
-            queryClient.invalidateQueries({
-              queryKey,
-            });
-          }, 550);
+  const { mutateAsync: deleteCommunity, status: deletingCommunityStatus } = useDeleteCommunity();
+  const { mutateAsync: deleteLostFound, status: deletingLostFoundStatus } = useDeleteLostFound();
+  const { mutateAsync: deleteComplaint, status: deletingComplaintStatus } = useDeleteComplaint();
+
+  const invlidationQueryKey = queryKey.includes('community')
+    ? communityKeys.lists()
+    : queryKey.includes('lostFound')
+      ? lostFoundKeys.lists()
+      : complaintKeys.lists();
+
+  const deleteMutate = queryKey.includes('community')
+    ? deleteCommunity
+    : queryKey.includes('lostFound')
+      ? deleteLostFound
+      : deleteComplaint;
+
+  const status = queryKey.includes('community')
+    ? deletingCommunityStatus
+    : queryKey.includes('lostFound')
+      ? deletingLostFoundStatus
+      : deletingComplaintStatus;
+
+  const handleDeletePost = async () => {
+    try {
+      await deleteMutate(+articleId, {
+        onSuccess: async () => {
+          await sleep(350);
+          handleClose();
+          await sleep(200);
+          await queryClient.invalidateQueries({ queryKey: invlidationQueryKey });
+          pop();
         },
-      }),
-    [articleId, commentId],
-  );
+      });
+    } catch (error) {
+      console.error('게시물 삭제 중 오류 발생:', error);
+    }
+  };
 
   return (
     <div>
       <div>
         <Header
           icon={<DangerIcon />}
-          title="댓글을 삭제하시겠어요?"
-          description="삭제하시면 복구할 수 없어요. 해당 댓글을 삭제할까요?"
+          title="게시글을 삭제하시겠어요?"
+          description="삭제하시면 복구할 수 없어요. 해당 게시글을 삭제할까요?"
         />
         <S.ButtonGroup>
           <S.SecondaryButton
             variant="default"
-            disabled={isPending}
+            // disabled={isPending}
             onClick={() => setView('default')}
           >
             취소
           </S.SecondaryButton>
-          <S.SmoothSecondaryButton status={status} handleClick={handleDeleteComment} />
+          <S.SmoothSecondaryButton status={status} handleClick={handleDeletePost} />
         </S.ButtonGroup>
       </div>
     </div>
@@ -318,3 +344,5 @@ const CloseButton = styled.button`
 const ContentWrapper = styled.div`
   padding: 10px 24px 24px;
 `;
+
+export default PostDropEllipsis;

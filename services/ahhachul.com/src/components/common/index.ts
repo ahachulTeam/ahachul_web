@@ -9,7 +9,7 @@ export * from './portal';
 export * from './filter';
 export * from './loading';
 export * from './comment';
-export * from './actionSheet';
+export * from './postDropEllipsis';
 export * from './searchInput';
 export * from './animatePortal';
 export * from './readOnlyEditor';

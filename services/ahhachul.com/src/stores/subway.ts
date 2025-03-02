@@ -18,7 +18,7 @@ export const useUserStationStore = create(
       },
     }),
     {
-      name: 'user-station-list',
+      name: 'ahhachul-user-station-list',
     },
   ),
 );

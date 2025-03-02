@@ -1,4 +1,4 @@
-import { appendFilesToFormData, createJsonBlob, extractFormData } from '@ahhachul/utils';
+import { appendFilesToFormData, createJsonBlob, extractFormData, sleep } from '@ahhachul/utils';
 
 import axiosInstance from '@/apis/fetcher';
 import type {
@@ -81,4 +81,22 @@ export const editLostFound = async (id: number, req: LostFoundEditForm) => {
   );
 
   return data;
+};
+
+export const deleteLostFound = async (articleId: number) => {
+  const [response] = await Promise.allSettled([
+    axiosInstance.delete<ApiResponse<WithPostId>>(`/lost-posts/${articleId}`),
+    sleep(750),
+  ]);
+
+  if (response.status === 'rejected') {
+    throw response.reason;
+  }
+
+  if (response.status === 'fulfilled') {
+    return response.value.data;
+  }
+
+  // TODO: sentry에 로그 남김
+  throw new Error('Unexpected state in Promise.allSettled');
 };

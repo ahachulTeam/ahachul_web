@@ -127,3 +127,20 @@ export const useEditLostFound = (id: number, lostType: LostFoundType) => {
     },
   });
 };
+
+export const useDeleteLostFound = () => {
+  const afterSubmitSuccess = (res: any) => {
+    console.log('res:', res);
+  };
+  const afterSubmitFailed = (error: Error) => {
+    // 토스트 띄어주고 뒤로 가기
+    console.log('error with toast:', error, '토스트 띄어주고 뒤로 가기');
+    window.alert('댓글 식제하다가 에러 발생');
+  };
+
+  return useMutation({
+    mutationFn: api.deleteLostFound,
+    onError: afterSubmitFailed,
+    onSuccess: afterSubmitSuccess,
+  });
+};
