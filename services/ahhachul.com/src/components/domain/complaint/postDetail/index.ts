@@ -4,3 +4,4 @@ export { default as ComplaintCommentList } from './commentList/ComplaintCommentL
 export { default as ComplaintDetailHeaderActions } from './headerActions/ComplaintHeaderActions.component';
 export { default as ComplaintDetailSkeleton } from './skeleton/ComplaintDetail.skeleton';
 export { default as ComplaintErrorPage } from './error/ComplaintErrorPage.component';
+export { default as SendComplaintMessage } from './sendMessage/SendMessage.component';

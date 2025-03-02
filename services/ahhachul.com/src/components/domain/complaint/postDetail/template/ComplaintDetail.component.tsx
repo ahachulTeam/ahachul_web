@@ -16,6 +16,13 @@ const ComplaintDetail = ({ id }: ComplaintDetailProps) => {
 
   return (
     <>
+      <ComplaintComponent.SendComplaintMessage
+        id={post.id}
+        createdBy={+post.createdBy}
+        subwayLineId={post.subwayLineId}
+        complaintType={post.complaintType}
+        shortContentType={post.shortContentType}
+      />
       <ComplaintComponent.ComplaintDetailHeaderActions id={id} createdBy={+post.createdBy} />
 
       <S.ArticleWrapper>

@@ -10,7 +10,7 @@ export type NativeBridgeType = {
     share: (link: string) => void;
     callPhone: (number: string) => void;
     openExternalLink: (link: string) => void;
-    sendTextMessage: (number: string) => void;
+    sendTextMessage: (number: string, message?: string) => void;
   };
   receive: {
     deviceInfo: () => Promise<{

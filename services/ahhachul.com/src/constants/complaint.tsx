@@ -119,3 +119,19 @@ export const complaintTypeOptions: Record<ComplaintType, string> = {
   VIOLENCE: '폭력',
   SEXUAL_HARASSMENT: '성추행',
 };
+
+export const getSubwayComplaintCallNumber = (subwayLineId: number) => {
+  if (subwayLineId === 9) {
+    return '1544-4009';
+  }
+
+  if (subwayLineId === 18) {
+    return '031-8018-7777';
+  }
+
+  if (subwayLineId === 13 || subwayLineId === 11 || subwayLineId === 16) {
+    return '1544-7769';
+  }
+
+  return '1577-1234';
+};

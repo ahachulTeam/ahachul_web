@@ -30,11 +30,20 @@ export const NativeBridge: React.FC<NativeBridgeProps> = ({ children }) => {
           }),
         );
       },
-      sendTextMessage: (number: string) => {
+      sendTextMessage: (number: string, message?: string) => {
+        const processedMessage = message
+          ? message
+              .replace(/\n/g, '%0A')
+              .replace(/[&]/g, '%26')
+              .replace(/[+]/g, '%2B')
+              .replace(/\s/g, '%20')
+          : '';
+
         window.ReactNativeWebView?.postMessage(
           JSON.stringify({
             name: 'sendTextMessage',
             number,
+            message: processedMessage,
           }),
         );
       },
