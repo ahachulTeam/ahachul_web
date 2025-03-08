@@ -6,9 +6,9 @@ import { createPreloader } from '@stackflow/plugin-preload';
 import { stackflow } from '@stackflow/react';
 import { useActivity } from '@stackflow/react';
 
-import { HomePage } from '@/pages/home';
-
 import { stackflowPlugin } from './stackflow.config';
+
+const HomePage = React.lazy(() => import('@/pages/home/page'));
 
 const SignInPage = React.lazy(() => import('@/pages/auth/login'));
 const CommunityPage = React.lazy(() => import('@/pages/community/page'));

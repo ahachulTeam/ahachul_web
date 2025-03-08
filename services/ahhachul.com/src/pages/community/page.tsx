@@ -1,7 +1,14 @@
-import { useReducer } from 'react';
+import React, { useReducer } from 'react';
 
 import { CommunityComponent, HeaderComponent, LayoutComponent, UiComponent } from '@/components';
 import { useCommunityFilters } from '@/hooks/domain/community';
+
+const SearchedListSkeleton = React.lazy(
+  () => import('@/components/domain/community/searchResults/skeleton/SearchedList.skeleton'),
+);
+const SearchedList = React.lazy(
+  () => import('@/components/domain/community/searchResults/searchedList/SearchedList.component'),
+);
 
 const CommunityPage = () => {
   const [isScale, toggleScale] = useReducer(scale => !scale, false);
@@ -29,9 +36,9 @@ const CommunityPage = () => {
       <UiComponent.SuspenseQueryBoundary
         keys={boundaryKeys}
         errorFallback={<div />}
-        suspenseFallback={<CommunityComponent.SearchedListSkeleton isScale={isScale} />}
+        suspenseFallback={<SearchedListSkeleton isScale={isScale} />}
       >
-        <CommunityComponent.SearchedList keyword={keyword} filters={filters} isScale={isScale} />
+        <SearchedList keyword={keyword} filters={filters} isScale={isScale} />
       </UiComponent.SuspenseQueryBoundary>
 
       <UiComponent.NewButton activityName="NewCommunityPage" />

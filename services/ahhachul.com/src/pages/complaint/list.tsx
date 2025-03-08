@@ -1,10 +1,17 @@
-import { useReducer } from 'react';
+import React, { useReducer } from 'react';
 
 import type { ActivityComponentType } from '@stackflow/react';
 
 import { HeaderComponent, LayoutComponent, UiComponent } from '@/components';
 import { ComplaintComponent } from '@/components/domain';
 import { useComplaintFilters } from '@/hooks/domain';
+
+const SearchedListSkeleton = React.lazy(
+  () => import('@/components/domain/complaint/searchResults/skeleton/SearchedList.skeleton'),
+);
+const SearchedList = React.lazy(
+  () => import('@/components/domain/complaint/searchResults/searchedList/SearchedList.component'),
+);
 
 const ComplaintListPage: ActivityComponentType = () => {
   const [isScale, toggleScale] = useReducer(scale => !scale, false);
@@ -32,9 +39,9 @@ const ComplaintListPage: ActivityComponentType = () => {
       <UiComponent.SuspenseQueryBoundary
         keys={boundaryKeys}
         errorFallback={<div />}
-        suspenseFallback={<ComplaintComponent.SearchedListSkeleton isScale={isScale} />}
+        suspenseFallback={<SearchedListSkeleton isScale={isScale} />}
       >
-        <ComplaintComponent.SearchedList keyword={keyword} filters={filters} isScale={isScale} />
+        <SearchedList keyword={keyword} filters={filters} isScale={isScale} />
       </UiComponent.SuspenseQueryBoundary>
 
       <UiComponent.NewButton

@@ -8,7 +8,7 @@ interface SectionWrapperProps {
 }
 export const SectionWrapper = styled.section<SectionWrapperProps>`
   padding-top: 99px;
-  transform:  ${({ isScale }) => (isScale ? 'translateY(-50px)' : 'translateY(0)')}
+  transform: ${({ isScale }) => (isScale ? 'translateY(-50px)' : 'translateY(0)')};
 
   opacity: 0;
   animation: fadeIn 0.5s ease-in-out forwards;

@@ -1,10 +1,17 @@
-import { useReducer } from 'react';
+import React, { useReducer } from 'react';
 
 import type { ActivityComponentType } from '@stackflow/react';
 
 import { HeaderComponent, LayoutComponent, UiComponent } from '@/components';
 import { LostFoundComponent } from '@/components/domain';
 import { useLostFoundFilters } from '@/hooks/domain';
+
+const SearchedListSkeleton = React.lazy(
+  () => import('@/components/domain/lostFound/searchResults/skeleton/SearchedList.skeleton'),
+);
+const SearchedList = React.lazy(
+  () => import('@/components/domain/lostFound/searchResults/searchedList/SearchedList.component'),
+);
 
 const LostFoundPage: ActivityComponentType = () => {
   const [isScale, toggleScale] = useReducer(scale => !scale, false);
@@ -32,9 +39,9 @@ const LostFoundPage: ActivityComponentType = () => {
       <UiComponent.SuspenseQueryBoundary
         keys={boundaryKeys}
         errorFallback={<div />}
-        suspenseFallback={<LostFoundComponent.SearchedListSkeleton isScale={isScale} />}
+        suspenseFallback={<SearchedListSkeleton isScale={isScale} />}
       >
-        <LostFoundComponent.SearchedList keyword={keyword} filters={filters} isScale={isScale} />
+        <SearchedList keyword={keyword} filters={filters} isScale={isScale} />
       </UiComponent.SuspenseQueryBoundary>
 
       <UiComponent.NewButton activityName="NewLostFoundPage" />
