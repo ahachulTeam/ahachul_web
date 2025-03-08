@@ -6,6 +6,7 @@ on:
       - main
       - develop
     paths:
+      - 'packages/**'
       - 'services/ahhachul.com/**'
 
 env:
