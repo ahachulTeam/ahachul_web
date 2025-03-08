@@ -23,6 +23,7 @@ interface CommentInputProps {
   shouldFocusOnMount?: boolean;
   showIsPrivateBtn?: boolean;
   actionLabel?: string;
+  disablePrivateCheck?: boolean;
   onSubmit: ({ isPrivate, comment }: { isPrivate: boolean; comment: string }) => void;
 }
 
@@ -35,6 +36,7 @@ const CommentInput = React.memo(
     onSubmit,
     actionLabel = '등록',
     disabled = false,
+    disablePrivateCheck = false,
   }: CommentInputProps) => {
     const initialConfig = {
       namespace: 'commentEditor',
@@ -71,10 +73,11 @@ const CommentInput = React.memo(
           </S.EditorContainer>
           <SubmitComment
             comment={comment}
-            isPrivate={isPrivate}
+            isPrivate={disablePrivateCheck || isPrivate}
             setIsPrivate={setIsPrivate}
             showIsPrivateBtn={showIsPrivateBtn}
             actionLabel={actionLabel}
+            disablePrivateCheck={disablePrivateCheck}
             onSubmit={onSubmit}
           />
         </LexicalComposer>
@@ -89,12 +92,14 @@ const SubmitComment = ({
   setIsPrivate,
   showIsPrivateBtn,
   actionLabel,
+  disablePrivateCheck,
   onSubmit,
 }: {
   comment: string;
   isPrivate: boolean;
   setIsPrivate: React.Dispatch<React.SetStateAction<boolean>>;
   showIsPrivateBtn?: boolean;
+  disablePrivateCheck?: boolean;
   actionLabel?: string;
   onSubmit: ({ isPrivate, comment }: { isPrivate: boolean; comment: string }) => void;
 }) => {
@@ -135,8 +140,13 @@ const SubmitComment = ({
       {showIsPrivateBtn && (
         <UiComponent.Checkbox
           label="비공개 댓글"
+          disabled={disablePrivateCheck}
           checked={isPrivate}
           onChange={e => {
+            if (disablePrivateCheck) {
+              return;
+            }
+
             setIsPrivate(e.target.checked);
             editor.focus();
           }}

@@ -7,9 +7,10 @@ import * as S from './CommunityCommentList.styled';
 interface CommunityCommentListProps {
   id: number;
   commentCnt: number;
+  isArticleAuthor: boolean;
 }
 
-const CommunityCommentList = ({ commentCnt, id }: CommunityCommentListProps) => {
+const CommunityCommentList = ({ commentCnt, id, isArticleAuthor }: CommunityCommentListProps) => {
   return (
     <S.Section>
       <S.HeaderWrapper>
@@ -24,13 +25,16 @@ const CommunityCommentList = ({ commentCnt, id }: CommunityCommentListProps) => 
         errorFallback={props => <UiComponent.ErrorCommentList {...props} />}
         suspenseFallback={<UiComponent.CommentListSkeleton />}
       >
-        <CommentListInner id={id} />
+        <CommentListInner id={id} isArticleAuthor={isArticleAuthor} />
       </UiComponent.SuspenseQueryBoundary>
     </S.Section>
   );
 };
 
-const CommentListInner = ({ id }: Pick<CommunityCommentListProps, 'id'>) => {
+const CommentListInner = ({
+  id,
+  isArticleAuthor,
+}: Pick<CommunityCommentListProps, 'id' | 'isArticleAuthor'>) => {
   const { data } = useFetchCommunityCommentList(id);
 
   return (
@@ -38,6 +42,7 @@ const CommentListInner = ({ id }: Pick<CommunityCommentListProps, 'id'>) => {
       commentsMap={data.comments}
       servicePath="community-posts"
       queryKey={communityKeys.comments(id)}
+      isArticleAuthor={isArticleAuthor}
     />
   );
 };

@@ -2,6 +2,7 @@ import { formatDateTime } from '@ahhachul/utils';
 
 import { ComplaintComponent, UiComponent } from '@/components';
 import { subwayIconMap } from '@/constants';
+import { useUser } from '@/hooks/domain';
 import { useFetchComplaintDetail } from '@/services/complaint';
 import { isLexicalContent } from '@/utils/lexical';
 
@@ -13,6 +14,9 @@ interface ComplaintDetailProps {
 
 const ComplaintDetail = ({ id }: ComplaintDetailProps) => {
   const { data: post } = useFetchComplaintDetail(id);
+
+  const { user } = useUser();
+  const isArticleAuthor = +post.createdBy === user?.memberId;
 
   return (
     <>
@@ -50,7 +54,11 @@ const ComplaintDetail = ({ id }: ComplaintDetailProps) => {
         </S.ContentContainer>
       </S.ArticleWrapper>
 
-      <ComplaintComponent.ComplaintCommentList id={id} commentCnt={post.commentCnt} />
+      <ComplaintComponent.ComplaintCommentList
+        id={id}
+        commentCnt={post.commentCnt}
+        isArticleAuthor={isArticleAuthor}
+      />
       <ComplaintComponent.ComplaintCommentInput id={id} />
       <S.Padding />
     </>

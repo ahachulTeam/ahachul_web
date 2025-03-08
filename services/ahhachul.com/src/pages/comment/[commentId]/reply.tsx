@@ -78,7 +78,12 @@ const NewCommentReplyPage: ActivityComponentType<
     <LayoutComponent.Base>
       <ArticleWrapper>
         <ContentWrapper>
-          <TitleWrapper>{targetComment?.writer}</TitleWrapper>
+          <TitleWrapper>
+            {targetComment?.writer}
+            {targetComment?.isPrivate && (
+              <span css={{ marginLeft: '3px', color: '#95979F', fontWeight: 400 }}>(비공개)</span>
+            )}
+          </TitleWrapper>
           <MetaInfoWrapper>
             <AuthorDateWrapper>
               <DateText>
@@ -100,6 +105,7 @@ const NewCommentReplyPage: ActivityComponentType<
       <CommentInput
         showIsPrivateBtn
         shouldFocusOnMount
+        disablePrivateCheck
         onSubmit={submitComment}
         placeholder={`${targetComment?.writer} 남에게 답글을 남겨주세요.`}
       />

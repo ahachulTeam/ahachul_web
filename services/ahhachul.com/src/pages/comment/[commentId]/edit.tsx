@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -11,6 +11,7 @@ import { LayoutComponent, UiComponent } from '@/components';
 import { CommentInput } from '@/components/common';
 import Comment from '@/components/common/comment/commentListItem/CommentListItem.component';
 import { useUpdateComment } from '@/services/comment';
+import { useFlow } from '@/stackflow';
 import { useTempComment } from '@/stores/comment';
 import type { WithPostId } from '@/types';
 
@@ -21,7 +22,6 @@ const EditCommentPage: ActivityComponentType<
 }: {
   params: { commentId: number; queryKey: readonly unknown[] } & WithPostId;
 }) => {
-  const isFirstMounted = useRef<boolean>(true);
   const { tempComment } = useTempComment();
 
   const targetCommentMap = useMemo(
@@ -41,6 +41,7 @@ const EditCommentPage: ActivityComponentType<
       ? parentComment
       : targetCommentMap?.childComments.find(childComment => childComment.id === commentId);
 
+  const { pop } = useFlow();
   const { mutate } = useUpdateComment();
   const queryClient = useQueryClient();
 
@@ -51,28 +52,17 @@ const EditCommentPage: ActivityComponentType<
         content: comment,
       },
       {
-        onSuccess: async res => {
+        onSuccess: async () => {
           queryClient.invalidateQueries({
             queryKey: queryKey,
           });
 
           await sleep(250);
-
-          const comment = document.querySelector(`[data-comment-id="${res.result.id}"]`);
-          if (comment) {
-            comment.scrollIntoView({
-              block: 'start',
-              behavior: 'smooth',
-            });
-          }
+          pop();
         },
       },
     );
   };
-
-  useEffect(() => {
-    isFirstMounted.current = false;
-  }, []);
 
   if (!targetComment) return <UiComponent.LoadingSpinner isWhite />;
 
@@ -101,7 +91,9 @@ const EditCommentPage: ActivityComponentType<
       ))}
       <CommentInput
         actionLabel="수정"
-        shouldFocusOnMount={isFirstMounted.current}
+        showIsPrivateBtn
+        shouldFocusOnMount
+        disablePrivateCheck
         onSubmit={editComment}
         initialState={targetComment.content}
       />

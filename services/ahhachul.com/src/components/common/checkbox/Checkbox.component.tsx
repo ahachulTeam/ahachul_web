@@ -73,7 +73,7 @@ const CheckboxControl = styled.div<{ checked?: boolean; disabled?: boolean }>`
 `;
 
 const CheckboxLabel = styled.span<{ disabled?: boolean }>`
-  color: ${props => (props.disabled ? '#33333E' : '#33333E')};
+  color: ${props => (props.disabled ? '#95979F' : '#33333E')};
   font-size: 13px;
   cursor: pointer;
 `;

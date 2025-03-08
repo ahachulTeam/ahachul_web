@@ -2,6 +2,7 @@ import { formatDateTime } from '@ahhachul/utils';
 
 import { CommunityComponent, UiComponent } from '@/components';
 import { subwayIconMap } from '@/constants';
+import { useUser } from '@/hooks/domain';
 import { useFetchCommunityDetail } from '@/services/community';
 import { isLexicalContent } from '@/utils/lexical';
 
@@ -13,6 +14,9 @@ interface CommunityDetailProps {
 
 const CommunityDetail = ({ id }: CommunityDetailProps) => {
   const { data: post } = useFetchCommunityDetail(id);
+
+  const { user } = useUser();
+  const isArticleAuthor = +post.createdBy === user?.memberId;
 
   return (
     <>
@@ -43,7 +47,11 @@ const CommunityDetail = ({ id }: CommunityDetailProps) => {
         </S.ContentContainer>
       </S.ArticleWrapper>
 
-      <CommunityComponent.CommunityCommentList id={id} commentCnt={post.commentCnt} />
+      <CommunityComponent.CommunityCommentList
+        id={id}
+        commentCnt={post.commentCnt}
+        isArticleAuthor={isArticleAuthor}
+      />
       <CommunityComponent.CommuntiyCommentInput id={id} />
       <S.Padding />
     </>

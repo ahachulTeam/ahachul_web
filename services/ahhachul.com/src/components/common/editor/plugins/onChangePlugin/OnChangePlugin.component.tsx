@@ -41,7 +41,10 @@ export function OnChangePlugin({ readonly, initialState, shouldFocusOnMount, onC
 
     if (shouldFocusOnMount) {
       setTimeout(() => {
-        editor.focus();
+        const editorElement = document.querySelector('[contenteditable="true"]');
+        if (editorElement instanceof HTMLElement) {
+          editorElement.click();
+        }
       }, 550);
     }
   }, [readonly, initialState, shouldFocusOnMount]);

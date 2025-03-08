@@ -2,6 +2,7 @@ import { formatDateTime, getRandomNumber } from '@ahhachul/utils';
 
 import { LostFoundComponent, UiComponent } from '@/components';
 import { subwayIconMap } from '@/constants';
+import { useUser } from '@/hooks/domain';
 import { useFetchLostFoundDetail } from '@/services/lostFound';
 import { formatLost112Content } from '@/utils';
 import { isLexicalContent } from '@/utils/lexical';
@@ -17,6 +18,9 @@ interface LostFoundDetailProps {
 
 const LostFoundDetail = ({ id }: LostFoundDetailProps) => {
   const { data: post } = useFetchLostFoundDetail(id);
+
+  const { user } = useUser();
+  const isArticleAuthor = +post.createdBy === user?.memberId;
 
   const images = post.isFromLost112
     ? [
@@ -67,7 +71,11 @@ const LostFoundDetail = ({ id }: LostFoundDetailProps) => {
       </S.ArticleWrapper>
 
       <LostFoundComponent.RecommendPostList posts={post.recommendPosts} />
-      <LostFoundComponent.LostFoundCommentList id={id} commentCnt={post.commentCnt} />
+      <LostFoundComponent.LostFoundCommentList
+        id={id}
+        commentCnt={post.commentCnt}
+        isArticleAuthor={isArticleAuthor}
+      />
       <LostFoundComponent.CommentInput id={id} />
       <S.Padding />
     </>

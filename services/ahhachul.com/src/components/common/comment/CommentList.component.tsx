@@ -10,10 +10,11 @@ interface BaseCommentListProps {
   commentsMap: CommentList['comments'];
   servicePath: string;
   queryKey: readonly unknown[];
+  isArticleAuthor: boolean;
 }
 
 const BaseCommentList = React.memo(
-  ({ queryKey, servicePath, commentsMap }: BaseCommentListProps) => {
+  ({ queryKey, servicePath, commentsMap, isArticleAuthor }: BaseCommentListProps) => {
     const { setTempComment } = useTempComment();
 
     useEffect(() => setTempComment(commentsMap), [commentsMap]);
@@ -24,7 +25,12 @@ const BaseCommentList = React.memo(
       <>
         {commentsMap.map(({ parentComment, childComments }) => (
           <React.Fragment key={parentComment.id}>
-            <Comment comment={parentComment} queryKey={queryKey} servicePath={servicePath} />
+            <Comment
+              comment={parentComment}
+              queryKey={queryKey}
+              servicePath={servicePath}
+              isArticleAuthor={isArticleAuthor}
+            />
             {childComments.map(childComment => (
               <Comment
                 asChild
@@ -32,6 +38,7 @@ const BaseCommentList = React.memo(
                 comment={childComment}
                 queryKey={queryKey}
                 servicePath={servicePath}
+                isArticleAuthor={isArticleAuthor}
               />
             ))}
           </React.Fragment>

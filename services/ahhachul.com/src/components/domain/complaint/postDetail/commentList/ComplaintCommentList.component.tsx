@@ -7,9 +7,10 @@ import * as S from './ComplaintCommentList.styled';
 interface ComplaintCommentListProps {
   id: number;
   commentCnt: number;
+  isArticleAuthor: boolean;
 }
 
-const ComplaintCommentList = ({ commentCnt, id }: ComplaintCommentListProps) => {
+const ComplaintCommentList = ({ commentCnt, id, isArticleAuthor }: ComplaintCommentListProps) => {
   return (
     <S.Section>
       <S.HeaderWrapper>
@@ -24,13 +25,16 @@ const ComplaintCommentList = ({ commentCnt, id }: ComplaintCommentListProps) => 
         errorFallback={props => <UiComponent.ErrorCommentList {...props} />}
         suspenseFallback={<UiComponent.CommentListSkeleton />}
       >
-        <CommentListInner id={id} />
+        <CommentListInner id={id} isArticleAuthor={isArticleAuthor} />
       </UiComponent.SuspenseQueryBoundary>
     </S.Section>
   );
 };
 
-const CommentListInner = ({ id }: Pick<ComplaintCommentListProps, 'id'>) => {
+const CommentListInner = ({
+  id,
+  isArticleAuthor,
+}: Pick<ComplaintCommentListProps, 'id' | 'isArticleAuthor'>) => {
   const { data } = useFetchComplaintCommentList(id);
 
   return (
@@ -38,6 +42,7 @@ const CommentListInner = ({ id }: Pick<ComplaintCommentListProps, 'id'>) => {
       commentsMap={data.comments}
       servicePath="complaint-posts"
       queryKey={complaintKeys.comments(id)}
+      isArticleAuthor={isArticleAuthor}
     />
   );
 };

@@ -7,9 +7,10 @@ import * as S from './LostFoundCommentList.styled';
 interface LostFoundCommentListProps {
   id: number;
   commentCnt: number;
+  isArticleAuthor: boolean;
 }
 
-const LostFoundCommentList = ({ commentCnt, id }: LostFoundCommentListProps) => {
+const LostFoundCommentList = ({ commentCnt, id, isArticleAuthor }: LostFoundCommentListProps) => {
   return (
     <S.Section>
       <S.HeaderWrapper>
@@ -24,13 +25,16 @@ const LostFoundCommentList = ({ commentCnt, id }: LostFoundCommentListProps) => 
         errorFallback={props => <UiComponent.ErrorCommentList {...props} />}
         suspenseFallback={<UiComponent.CommentListSkeleton />}
       >
-        <CommentListInner id={id} />
+        <CommentListInner id={id} isArticleAuthor={isArticleAuthor} />
       </UiComponent.SuspenseQueryBoundary>
     </S.Section>
   );
 };
 
-const CommentListInner = ({ id }: Pick<LostFoundCommentListProps, 'id'>) => {
+const CommentListInner = ({
+  id,
+  isArticleAuthor,
+}: Pick<LostFoundCommentListProps, 'id' | 'isArticleAuthor'>) => {
   const { data } = useFetchLostFoundCommentList(id);
 
   return (
@@ -38,6 +42,7 @@ const CommentListInner = ({ id }: Pick<LostFoundCommentListProps, 'id'>) => {
       commentsMap={data.comments}
       servicePath="lost-posts"
       queryKey={lostFoundKeys.comments(id)}
+      isArticleAuthor={isArticleAuthor}
     />
   );
 };

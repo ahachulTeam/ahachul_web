@@ -8,7 +8,6 @@ import { Drawer } from 'vaul';
 
 import { CloseIcon, DangerIcon, PhraseIcon, WarningIcon } from '@/assets/icons/jsx/icons';
 import { EllipsisIcon } from '@/assets/icons/system';
-import { useUser } from '@/hooks/domain';
 import { useDeleteComment } from '@/services/comment';
 import { useFlow } from '@/stackflow';
 
@@ -17,23 +16,20 @@ import * as S from './CommentActions.styled';
 export interface CommentDropEllipsisProps {
   articleId: string;
   commentId: number;
-  createdBy: number;
+  isAuthor: boolean;
   queryKey: readonly unknown[];
 }
 
 export const CommentDropEllipsis = ({
   articleId,
   commentId,
-  createdBy,
+  isAuthor,
   queryKey,
 }: CommentDropEllipsisProps): React.ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
   const [view, setView] = useState('default');
   const [elementRef, bounds] = useMeasure();
   const previousHeightRef = useRef<number>(0);
-
-  const { user } = useUser();
-  const isAuthor = user?.memberId === createdBy;
 
   const handleOpen = () => {
     setView('default');
