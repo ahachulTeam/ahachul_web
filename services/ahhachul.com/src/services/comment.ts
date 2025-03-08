@@ -4,7 +4,7 @@ import * as api from '@/apis/request';
 import useLoadingStore from '@/stores/ui';
 import type { ApiResponse, Comment } from '@/types';
 
-export const usePostComment = (queryKey: unknown[], showLoading = false) => {
+export const usePostComment = (queryKey: readonly unknown[], showLoading = false) => {
   const queryClient = useQueryClient();
   const { setEnableGlobalLoading, setDisableGlobalLoading } = useLoadingStore();
 

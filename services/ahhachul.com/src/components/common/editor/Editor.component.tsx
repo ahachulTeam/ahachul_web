@@ -11,12 +11,9 @@ import Mic from './mic/Mic.component';
 import Placeholder from './placeholder/Placeholder.component';
 import { OnChangePlugin, SpeechToTextPlugin } from './plugins';
 
-function onError(error: Error) {
-  console.error(error);
-}
-
 type Props = {
   showMic?: boolean;
+  disabled?: boolean;
   hasError?: boolean;
   readonly?: boolean;
   placeholder?: string;
@@ -30,24 +27,31 @@ const Editor = ({
   readonly = false,
   placeholder = '',
   initialState = '',
+  disabled = false,
   overrideCss,
   onChange,
 }: Props) => {
   const initialConfig = {
     namespace: 'plainEditor',
-    onError,
+    onError(error: Error) {
+      console.error(error);
+    },
   };
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
-      <S.EditorContainer>
+      <S.EditorContainer id="editor-container">
         <RichTextPlugin
-          contentEditable={<ContentEditable css={[S.contentEditableCss, overrideCss]} />}
+          contentEditable={<ContentEditable css={[S.contentEditableCss(disabled), overrideCss]} />}
           placeholder={<Placeholder placeholder={placeholder} />}
           ErrorBoundary={LexicalErrorBoundary}
         />
         <HistoryPlugin />
-        <OnChangePlugin onChange={onChange} readonly={readonly} initialState={initialState} />
+        <OnChangePlugin
+          onChange={onChange}
+          readonly={readonly || disabled}
+          initialState={initialState}
+        />
         {showMic && (
           <>
             <SpeechToTextPlugin />

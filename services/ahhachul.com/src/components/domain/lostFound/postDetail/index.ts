@@ -4,3 +4,4 @@ export { default as LostFoundDetailSkeleton } from './skeleton/LostFoundDetail.s
 export { default as LostFoundCommentList } from './commentList/LostFoundCommentList.component';
 export { default as RecommendPostList } from './recommendPostList/RecommendPostList.component';
 export { default as LostFoundDetailHeaderActions } from './headerActions/LostFoundHeaderActions.component';
+export { default as CommentInput } from './commentInput/CommentInput.component';

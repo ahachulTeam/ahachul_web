@@ -7,7 +7,7 @@ export const postComment = async (data: {
   servicePath: string;
   postId: number;
   content: string;
-  upperCommentId: number;
+  upperCommentId: number | null;
   isPrivate: boolean;
 }) => {
   const { servicePath, postId, content, upperCommentId, isPrivate } = data;

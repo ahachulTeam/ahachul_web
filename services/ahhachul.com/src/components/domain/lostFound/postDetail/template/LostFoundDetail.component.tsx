@@ -68,6 +68,8 @@ const LostFoundDetail = ({ id }: LostFoundDetailProps) => {
 
       <LostFoundComponent.RecommendPostList posts={post.recommendPosts} />
       <LostFoundComponent.LostFoundCommentList id={id} commentCnt={post.commentCnt} />
+      <LostFoundComponent.CommentInput id={id} />
+      <S.Padding />
     </>
   );
 };

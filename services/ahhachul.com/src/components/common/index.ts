@@ -9,6 +9,7 @@ export * from './portal';
 export * from './filter';
 export * from './loading';
 export * from './comment';
+export * from './checkbox';
 export * from './postDropEllipsis';
 export * from './searchInput';
 export * from './animatePortal';

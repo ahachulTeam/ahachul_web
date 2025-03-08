@@ -20,6 +20,7 @@ export { default as WarningIcon } from './ic_warning.svg?react';
 export { default as ProfileIcon } from './ic_profile.svg?react';
 export { default as CommentIcon } from './ic_comment.svg?react';
 export { default as ChevronIcon } from './ic_chevron.svg?react';
+export { default as CheckboxIcon } from './ic_checkbox.svg?react';
 export { default as BookmarkIcon } from './ic_bookmark.svg?react';
 export { default as SmallLogeIcon } from './ic_logo_sm.svg?react';
 export { default as EllipsisIcon } from './ic_ellipsis.svg?react';

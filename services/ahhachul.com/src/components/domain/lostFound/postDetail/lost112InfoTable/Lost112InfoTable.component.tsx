@@ -47,17 +47,17 @@ const Lost112InfoTable = ({ post }: Props) => {
             </>
           )}
 
-          {post?.storageNumber && (
-            <>
-              <S.Label>보관 장소 전화번호</S.Label>
-              <S.StyledLink onClick={handleClickExternalPhone}>{post.storageNumber}</S.StyledLink>
-            </>
-          )}
-
           {post?.storage && (
             <>
               <S.Label>보관장소</S.Label>
               <S.Value>{post.storage}</S.Value>
+            </>
+          )}
+
+          {post?.storageNumber && (
+            <>
+              <S.Label>보관 장소 전화번호</S.Label>
+              <S.StyledLink onClick={handleClickExternalPhone}>{post.storageNumber}</S.StyledLink>
             </>
           )}
 

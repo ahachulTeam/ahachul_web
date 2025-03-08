@@ -50,7 +50,9 @@ const Comment = ({ comment, asChild = false }: CommentCardProps) => {
         />
       </S.HeaderWrapper>
       <S.ContentWrapper>
-        {comment.status === 'CREATED' ? (
+        {comment.isPrivate ? (
+          <S.DeletedComment>비공개 댓글입니다.</S.DeletedComment>
+        ) : comment.status === 'CREATED' ? (
           <UiComponent.ReadonlyEditor overrideCss={S.readonlyEditorCss} content={comment.content} />
         ) : (
           <S.DeletedComment>삭제된 댓글입니다.</S.DeletedComment>
