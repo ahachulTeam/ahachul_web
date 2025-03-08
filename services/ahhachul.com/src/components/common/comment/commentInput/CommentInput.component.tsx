@@ -9,6 +9,7 @@ import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { $getRoot, type EditorState } from 'lexical';
 
 import { UiComponent } from '@/components';
+import { useAuth } from '@/contexts';
 
 import * as S from './CommentInput.styled';
 
@@ -91,6 +92,9 @@ const SubmitComment = ({
   showIsPrivateBtn?: boolean;
   onSubmit: ({ isPrivate, comment }: { isPrivate: boolean; comment: string }) => void;
 }) => {
+  const {
+    authService: { isAuthenticated },
+  } = useAuth();
   const [editor] = useLexicalComposerContext();
 
   const clear = () => {
@@ -98,10 +102,21 @@ const SubmitComment = ({
       const root = $getRoot();
       root.clear();
     });
-    editor.blur();
+
+    setTimeout(() => {
+      const editorElement = document.querySelector('[contenteditable="true"]');
+      if (editorElement instanceof HTMLElement) {
+        editorElement.blur();
+      }
+    }, 0);
   };
 
   const handleSubmit = () => {
+    if (!isAuthenticated) {
+      alert('로그인 후 이용해주세요.');
+      return;
+    }
+
     onSubmit({
       isPrivate: showIsPrivateBtn ? isPrivate : false,
       comment,
