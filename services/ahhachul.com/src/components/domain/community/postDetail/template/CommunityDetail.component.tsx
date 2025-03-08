@@ -44,6 +44,8 @@ const CommunityDetail = ({ id }: CommunityDetailProps) => {
       </S.ArticleWrapper>
 
       <CommunityComponent.CommunityCommentList id={id} commentCnt={post.commentCnt} />
+      <CommunityComponent.CommuntiyCommentInput id={id} />
+      <S.Padding />
     </>
   );
 };

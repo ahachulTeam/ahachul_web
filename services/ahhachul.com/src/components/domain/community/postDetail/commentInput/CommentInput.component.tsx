@@ -5,18 +5,18 @@ import { sleep } from '@ahhachul/utils';
 import { UiComponent } from '@/components';
 import { useAuth } from '@/contexts';
 import { usePostComment } from '@/services/comment';
-import { lostFoundKeys } from '@/services/lostFound';
+import { communityKeys } from '@/services/community';
 
 type Props = {
   id: number;
 };
 
-const LostFoundCommentInput = ({ id }: Props) => {
+const CommuntiyCommentInput = ({ id }: Props) => {
   const {
     authService: { isAuthenticated },
   } = useAuth();
   const queryClient = useQueryClient();
-  const lostFoundCommentQueryKey = lostFoundKeys.comments(id);
+  const communityCommentQueryKey = communityKeys.comments(id);
   const { mutate } = usePostComment();
 
   const submitComment = ({ isPrivate, comment }: { isPrivate: boolean; comment: string }) => {
@@ -26,12 +26,12 @@ const LostFoundCommentInput = ({ id }: Props) => {
         content: comment,
         upperCommentId: null,
         isPrivate: isPrivate,
-        servicePath: 'lost-posts',
+        servicePath: 'community-posts',
       },
       {
         onSuccess: async res => {
           queryClient.invalidateQueries({
-            queryKey: lostFoundCommentQueryKey,
+            queryKey: communityCommentQueryKey,
           });
 
           await sleep(250);
@@ -58,4 +58,4 @@ const LostFoundCommentInput = ({ id }: Props) => {
   );
 };
 
-export default LostFoundCommentInput;
+export default CommuntiyCommentInput;

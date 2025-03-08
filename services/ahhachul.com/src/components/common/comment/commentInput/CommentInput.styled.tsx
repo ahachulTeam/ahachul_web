@@ -7,7 +7,7 @@ export const contentEditableCss = (disalbed: boolean) => (theme: Theme) => css`
   width: 100%;
   border: 1px solid ${disalbed ? theme.colors.gray[20] : theme.colors.gray[50]};
   border-radius: 5px;
-  padding: 12px;
+  padding: 12px 16px;
   overflow: hidden;
   text-wrap: wrap;
   color: ${theme.colors.gray[90]};
@@ -33,7 +33,7 @@ export const Container = styled.section`
   filter: drop-shadow(0px -1px 12px rgba(0, 0, 0, 0.04));
 
   & > #editor-container {
-    padding: 12px;
+    padding: 12px 16px;
     background-color: white;
 
     & > div {
@@ -47,7 +47,7 @@ export const Container = styled.section`
     }
 
     & > pre {
-      left: 13px;
+      left: 16px;
       top: 13px;
     }
   }
@@ -58,13 +58,14 @@ export const SubmitBox = styled.div<{ showIsPrivateBtn?: boolean }>`
     width: 100%;
     margin: 0 auto;
     background: #fff;
-    padding: 12px 8px;
+    padding: 12px 16px;
     padding-top: 0;
     border-radius: 6px;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: ${showIsPrivateBtn ? 'space-between' : 'flex-end'};
+    padding-bottom: 32px;
   `}
 `;
 

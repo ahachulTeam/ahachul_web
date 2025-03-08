@@ -4,20 +4,8 @@ import * as api from '@/apis/request';
 import useLoadingStore from '@/stores/ui';
 import type { ApiResponse, Comment } from '@/types';
 
-export const usePostComment = (queryKey: readonly unknown[], showLoading = false) => {
-  const queryClient = useQueryClient();
-  const { setEnableGlobalLoading, setDisableGlobalLoading } = useLoadingStore();
-
-  const afterSubmitSuccess = () => {
-    showLoading && setDisableGlobalLoading();
-
-    queryClient.invalidateQueries({
-      queryKey,
-    });
-  };
-
+export const usePostComment = () => {
   const afterSubmitFailed = (error: Error) => {
-    showLoading && setDisableGlobalLoading();
     // 토스트 띄어주고 뒤로 가기
     console.log('error with toast:', error, '토스트 띄어주고 뒤로 가기');
     window.alert('댓글 작성하다가 에러 발생');
@@ -26,8 +14,6 @@ export const usePostComment = (queryKey: readonly unknown[], showLoading = false
   return useMutation({
     mutationFn: api.postComment,
     onError: afterSubmitFailed,
-    onMutate: showLoading ? setEnableGlobalLoading : () => {},
-    onSuccess: afterSubmitSuccess,
   });
 };
 

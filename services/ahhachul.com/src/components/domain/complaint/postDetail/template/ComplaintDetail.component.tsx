@@ -51,6 +51,8 @@ const ComplaintDetail = ({ id }: ComplaintDetailProps) => {
       </S.ArticleWrapper>
 
       <ComplaintComponent.ComplaintCommentList id={id} commentCnt={post.commentCnt} />
+      <ComplaintComponent.ComplaintCommentInput id={id} />
+      <S.Padding />
     </>
   );
 };

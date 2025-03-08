@@ -4,3 +4,4 @@ export { default as CommunityDetailSkeleton } from './skeleton/CommunityDetail.s
 export { default as CommunityCommentList } from './commentList/CommunityCommentList.component';
 export { default as CommunityCategoryBadge } from './categoryBadge/CommunityCategoryBadge.component';
 export { default as CommunityDetailHeaderActions } from './headerActions/CommunityHeaderActions.component';
+export { default as CommuntiyCommentInput } from './commentInput/CommentInput.component';

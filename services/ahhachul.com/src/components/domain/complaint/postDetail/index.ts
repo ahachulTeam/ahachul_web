@@ -5,3 +5,4 @@ export { default as ComplaintDetailHeaderActions } from './headerActions/Complai
 export { default as ComplaintDetailSkeleton } from './skeleton/ComplaintDetail.skeleton';
 export { default as ComplaintErrorPage } from './error/ComplaintErrorPage.component';
 export { default as SendComplaintMessage } from './sendMessage/SendMessage.component';
+export { default as ComplaintCommentInput } from './commentInput/CommentInput.component';

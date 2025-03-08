@@ -115,7 +115,10 @@ const SubmitComment = ({
         <UiComponent.Checkbox
           label="비공개 댓글"
           checked={isPrivate}
-          onChange={e => setIsPrivate(e.target.checked)}
+          onChange={e => {
+            setIsPrivate(e.target.checked);
+            editor.focus();
+          }}
         />
       )}
       <S.ButtonGroup>

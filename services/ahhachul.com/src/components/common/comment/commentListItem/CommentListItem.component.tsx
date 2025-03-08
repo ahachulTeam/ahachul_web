@@ -39,7 +39,7 @@ const Comment = ({ comment, asChild = false }: CommentCardProps) => {
   }, [activity.params]);
 
   return (
-    <S.CommentWrapper asChild={asChild}>
+    <S.CommentWrapper asChild={asChild} data-comment-id={comment.id}>
       <S.HeaderWrapper>
         <S.WriterName>{comment.writer}</S.WriterName>
         <CommentDropEllipsis
