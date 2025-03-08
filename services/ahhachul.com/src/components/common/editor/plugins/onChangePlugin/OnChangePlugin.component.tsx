@@ -6,6 +6,7 @@ import { $getRoot, EditorState, ElementNode } from 'lexical';
 type Props = {
   readonly?: boolean;
   initialState?: string;
+  shouldFocusOnMount?: boolean;
   onChange?: (editorState: EditorState | null) => void;
 };
 
@@ -21,7 +22,7 @@ const isEditorEmpty = () => {
   return false;
 };
 
-export function OnChangePlugin({ readonly, initialState, onChange }: Props) {
+export function OnChangePlugin({ readonly, initialState, shouldFocusOnMount, onChange }: Props) {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
@@ -37,7 +38,13 @@ export function OnChangePlugin({ readonly, initialState, onChange }: Props) {
         editor.setEditorState(content);
       });
     }
-  }, [readonly, initialState]);
+
+    if (shouldFocusOnMount) {
+      setTimeout(() => {
+        editor.focus();
+      }, 550);
+    }
+  }, [readonly, initialState, shouldFocusOnMount]);
 
   useEffect(() => {
     return editor.registerUpdateListener(({ editorState }) => {

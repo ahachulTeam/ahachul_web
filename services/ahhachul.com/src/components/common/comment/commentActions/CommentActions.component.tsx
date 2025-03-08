@@ -18,7 +18,7 @@ export interface CommentDropEllipsisProps {
   articleId: string;
   commentId: number;
   createdBy: number;
-  queryKey: unknown[];
+  queryKey: readonly unknown[];
 }
 
 export const CommentDropEllipsis = ({
@@ -50,6 +50,7 @@ export const CommentDropEllipsis = ({
       push('EditCommentPage', {
         commentId,
         id: +articleId,
+        queryKey,
       });
     }, 500);
   };
@@ -208,7 +209,7 @@ function RemoveComment({
 }: {
   articleId: string;
   commentId: number;
-  queryKey: unknown[];
+  queryKey: readonly unknown[];
   setView: (view: string) => void;
   handleClose: () => void;
 }) {

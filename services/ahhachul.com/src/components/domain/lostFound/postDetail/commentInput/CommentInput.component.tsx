@@ -3,7 +3,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import { sleep } from '@ahhachul/utils';
 
 import { UiComponent } from '@/components';
-import { useAuth } from '@/contexts';
 import { usePostComment } from '@/services/comment';
 import { lostFoundKeys } from '@/services/lostFound';
 
@@ -12,9 +11,6 @@ type Props = {
 };
 
 const LostFoundCommentInput = ({ id }: Props) => {
-  const {
-    authService: { isAuthenticated },
-  } = useAuth();
   const queryClient = useQueryClient();
   const lostFoundCommentQueryKey = lostFoundKeys.comments(id);
   const { mutate } = usePostComment();
@@ -52,7 +48,6 @@ const LostFoundCommentInput = ({ id }: Props) => {
     <UiComponent.CommentInput
       showIsPrivateBtn
       onSubmit={submitComment}
-      disabled={!isAuthenticated}
       placeholder="댓글을 입력해주세요."
     />
   );

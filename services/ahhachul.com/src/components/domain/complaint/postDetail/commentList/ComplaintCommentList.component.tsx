@@ -1,6 +1,6 @@
 import { BookmarkIcon } from '@/assets/icons/system';
 import { UiComponent } from '@/components';
-import { useFetchComplaintCommentList } from '@/services/complaint';
+import { complaintKeys, useFetchComplaintCommentList } from '@/services/complaint';
 
 import * as S from './ComplaintCommentList.styled';
 
@@ -33,7 +33,13 @@ const ComplaintCommentList = ({ commentCnt, id }: ComplaintCommentListProps) => 
 const CommentListInner = ({ id }: Pick<ComplaintCommentListProps, 'id'>) => {
   const { data } = useFetchComplaintCommentList(id);
 
-  return <UiComponent.BaseCommentList commentsMap={data.comments} />;
+  return (
+    <UiComponent.BaseCommentList
+      commentsMap={data.comments}
+      servicePath="complaint-posts"
+      queryKey={complaintKeys.comments(id)}
+    />
+  );
 };
 
 export default ComplaintCommentList;

@@ -22,6 +22,7 @@ interface CommentInputProps {
   initialState?: string;
   shouldFocusOnMount?: boolean;
   showIsPrivateBtn?: boolean;
+  actionLabel?: string;
   onSubmit: ({ isPrivate, comment }: { isPrivate: boolean; comment: string }) => void;
 }
 
@@ -29,9 +30,10 @@ const CommentInput = React.memo(
   ({
     placeholder,
     initialState,
-    // shouldFocusOnMount,
+    shouldFocusOnMount,
     showIsPrivateBtn,
     onSubmit,
+    actionLabel = '등록',
     disabled = false,
   }: CommentInputProps) => {
     const initialConfig = {
@@ -64,6 +66,7 @@ const CommentInput = React.memo(
               readonly={disabled}
               onChange={onChangeEditorContent}
               initialState={initialState}
+              shouldFocusOnMount={shouldFocusOnMount}
             />
           </S.EditorContainer>
           <SubmitComment
@@ -71,6 +74,7 @@ const CommentInput = React.memo(
             isPrivate={isPrivate}
             setIsPrivate={setIsPrivate}
             showIsPrivateBtn={showIsPrivateBtn}
+            actionLabel={actionLabel}
             onSubmit={onSubmit}
           />
         </LexicalComposer>
@@ -84,12 +88,14 @@ const SubmitComment = ({
   isPrivate,
   setIsPrivate,
   showIsPrivateBtn,
+  actionLabel,
   onSubmit,
 }: {
   comment: string;
   isPrivate: boolean;
   setIsPrivate: React.Dispatch<React.SetStateAction<boolean>>;
   showIsPrivateBtn?: boolean;
+  actionLabel?: string;
   onSubmit: ({ isPrivate, comment }: { isPrivate: boolean; comment: string }) => void;
 }) => {
   const {
@@ -146,7 +152,7 @@ const SubmitComment = ({
           취소
         </button>
         <button type="button" onClick={handleSubmit}>
-          등록
+          {actionLabel}
         </button>
       </S.ButtonGroup>
     </S.SubmitBox>

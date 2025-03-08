@@ -99,5 +99,5 @@ export const LexicalContent = styled.div`
 
 export const Padding = styled.div`
   width: 100%;
-  height: 234px;
+  height: 194px;
 `;

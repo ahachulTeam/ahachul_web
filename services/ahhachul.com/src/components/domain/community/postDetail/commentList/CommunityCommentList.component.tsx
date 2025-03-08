@@ -1,6 +1,6 @@
 import { BookmarkIcon } from '@/assets/icons/system';
 import { UiComponent } from '@/components';
-import { useFetchCommunityCommentList } from '@/services/community';
+import { communityKeys, useFetchCommunityCommentList } from '@/services/community';
 
 import * as S from './CommunityCommentList.styled';
 
@@ -33,7 +33,13 @@ const CommunityCommentList = ({ commentCnt, id }: CommunityCommentListProps) => 
 const CommentListInner = ({ id }: Pick<CommunityCommentListProps, 'id'>) => {
   const { data } = useFetchCommunityCommentList(id);
 
-  return <UiComponent.BaseCommentList commentsMap={data.comments} />;
+  return (
+    <UiComponent.BaseCommentList
+      commentsMap={data.comments}
+      servicePath="community-posts"
+      queryKey={communityKeys.comments(id)}
+    />
+  );
 };
 
 export default CommunityCommentList;

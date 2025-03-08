@@ -1,7 +1,6 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
 import * as api from '@/apis/request';
-import useLoadingStore from '@/stores/ui';
 import type { ApiResponse, Comment } from '@/types';
 
 export const usePostComment = () => {
@@ -35,20 +34,8 @@ export const useDeleteComment = (articleId: number) => {
   });
 };
 
-export const useUpdateComment = (queryKey: unknown[], showLoading = false) => {
-  const queryClient = useQueryClient();
-  const { setEnableGlobalLoading, setDisableGlobalLoading } = useLoadingStore();
-
-  const afterSubmitSuccess = () => {
-    showLoading && setDisableGlobalLoading();
-
-    queryClient.invalidateQueries({
-      queryKey,
-    });
-  };
-
+export const useUpdateComment = () => {
   const afterSubmitFailed = (error: Error) => {
-    showLoading && setDisableGlobalLoading();
     console.log('error with toast:', error, '토스트 띄어주고 뒤로 가기');
     window.alert('댓글 수정하다가 에러 발생');
   };
@@ -56,7 +43,5 @@ export const useUpdateComment = (queryKey: unknown[], showLoading = false) => {
   return useMutation({
     mutationFn: api.updateComment,
     onError: afterSubmitFailed,
-    onMutate: showLoading ? setEnableGlobalLoading : () => {},
-    onSuccess: afterSubmitSuccess,
   });
 };

@@ -1,6 +1,6 @@
 import { BookmarkIcon } from '@/assets/icons/system';
 import { UiComponent } from '@/components';
-import { useFetchLostFoundCommentList } from '@/services/lostFound';
+import { lostFoundKeys, useFetchLostFoundCommentList } from '@/services/lostFound';
 
 import * as S from './LostFoundCommentList.styled';
 
@@ -33,7 +33,13 @@ const LostFoundCommentList = ({ commentCnt, id }: LostFoundCommentListProps) => 
 const CommentListInner = ({ id }: Pick<LostFoundCommentListProps, 'id'>) => {
   const { data } = useFetchLostFoundCommentList(id);
 
-  return <UiComponent.BaseCommentList commentsMap={data.comments} />;
+  return (
+    <UiComponent.BaseCommentList
+      commentsMap={data.comments}
+      servicePath="lost-posts"
+      queryKey={lostFoundKeys.comments(id)}
+    />
+  );
 };
 
 export default LostFoundCommentList;

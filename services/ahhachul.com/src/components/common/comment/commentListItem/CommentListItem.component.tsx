@@ -1,13 +1,8 @@
-import { useMemo } from 'react';
-
 import { useActivity } from '@stackflow/react';
 
 import { formatDateTime } from '@ahhachul/utils';
 
 import { UiComponent } from '@/components';
-import { communityKeys } from '@/services/community';
-import { complaintKeys } from '@/services/complaint';
-import { lostFoundKeys } from '@/services/lostFound';
 import { useFlow } from '@/stackflow';
 import type { Comment } from '@/types';
 
@@ -18,36 +13,26 @@ import { CommentDropEllipsis } from '../commentActions/CommentActions.component'
 interface CommentCardProps {
   comment: Comment;
   asChild?: boolean;
+  servicePath?: string;
+  queryKey?: readonly unknown[];
 }
 
-const Comment = ({ comment, asChild = false }: CommentCardProps) => {
+const Comment = ({ comment, asChild = false, servicePath, queryKey }: CommentCardProps) => {
   const { push } = useFlow();
   const activity = useActivity();
-
-  const queryKey = useMemo(() => {
-    if (!activity.params.id) return [];
-    switch (activity.params.name) {
-      case 'LostFoundDetailPage':
-        return lostFoundKeys.detail(+activity.params.id!);
-      case 'CommunityDetailPage':
-        return communityKeys.detail(+activity.params.id!);
-      case 'ComplaintDetailPage':
-        return complaintKeys.detail(+activity.params.id!);
-      default:
-        return [];
-    }
-  }, [activity.params]);
 
   return (
     <S.CommentWrapper asChild={asChild} data-comment-id={comment.id}>
       <S.HeaderWrapper>
         <S.WriterName>{comment.writer}</S.WriterName>
-        <CommentDropEllipsis
-          articleId={activity.params.id!}
-          createdBy={+comment.createdBy!}
-          commentId={comment.id}
-          queryKey={queryKey as unknown[]}
-        />
+        {queryKey && comment.status === 'CREATED' && (
+          <CommentDropEllipsis
+            articleId={activity.params.id!}
+            createdBy={+comment.createdBy!}
+            commentId={comment.id}
+            queryKey={queryKey}
+          />
+        )}
       </S.HeaderWrapper>
       <S.ContentWrapper>
         {comment.isPrivate ? (
@@ -59,16 +44,20 @@ const Comment = ({ comment, asChild = false }: CommentCardProps) => {
         )}
         <S.DateText>{formatDateTime(comment.createdAt, { format: 'short' })}</S.DateText>
       </S.ContentWrapper>
-      <S.ReplyButton
-        onClick={() =>
-          push('NewCommentReplyPage', {
-            commentId: comment.id,
-            id: +activity.params.id!,
-          })
-        }
-      >
-        답글 달기
-      </S.ReplyButton>
+      {queryKey && servicePath && !asChild && (
+        <S.ReplyButton
+          onClick={() => {
+            push('NewCommentReplyPage', {
+              commentId: comment.id,
+              id: +activity.params.id!,
+              queryKey,
+              servicePath,
+            });
+          }}
+        >
+          답글 달기
+        </S.ReplyButton>
+      )}
     </S.CommentWrapper>
   );
 };
