@@ -8,7 +8,7 @@ export const postComment = async (data: {
   postId: number;
   content: string;
   upperCommentId: number | null;
-  isPrivate: boolean;
+  isPrivate?: boolean;
 }) => {
   const { servicePath, postId, content, upperCommentId, isPrivate } = data;
 

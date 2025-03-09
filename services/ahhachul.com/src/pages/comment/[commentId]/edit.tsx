@@ -91,7 +91,6 @@ const EditCommentPage: ActivityComponentType<
       ))}
       <CommentInput
         actionLabel="수정"
-        showIsPrivateBtn
         shouldFocusOnMount
         onSubmit={editComment}
         initialState={targetComment.content}

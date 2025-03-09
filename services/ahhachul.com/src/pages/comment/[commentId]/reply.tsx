@@ -43,13 +43,12 @@ const NewCommentReplyPage: ActivityComponentType<
   const { mutate } = usePostComment();
   const queryClient = useQueryClient();
 
-  const submitComment = ({ isPrivate, comment }: { isPrivate: boolean; comment: string }) => {
+  const submitComment = ({ comment }: { isPrivate: boolean; comment: string }) => {
     mutate(
       {
         postId: id,
         content: comment,
         upperCommentId: targetComment?.id || null,
-        isPrivate: isPrivate,
         servicePath,
       },
       {
@@ -103,7 +102,6 @@ const NewCommentReplyPage: ActivityComponentType<
         <Comment key={childComment.id} comment={childComment} />
       ))}
       <CommentInput
-        showIsPrivateBtn
         shouldFocusOnMount
         onSubmit={submitComment}
         disablePrivateCheck={targetComment.isPrivate}
