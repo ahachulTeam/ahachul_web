@@ -40,7 +40,7 @@ export const useFetchCommunityList = (filters: CommunityListParams<SubwayLineFil
       categoryType: filters.categoryType,
       content: filters.content,
       writer: filters.writer,
-      subwayLineId: formatSubwayFilterOption(filters.subwayLineId, favoriteLine),
+      subwayLineIds: formatSubwayFilterOption(filters.subwayLineId, favoriteLine),
     },
     { removeZero: true, removeEmptyStrings: true },
   ) as CommunityListParams;

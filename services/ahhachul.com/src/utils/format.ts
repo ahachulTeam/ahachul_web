@@ -7,13 +7,13 @@ import {
 
 export const formatSubwayFilterOption = (
   lineFilter: SubwayLineFilterOptions,
-  favoriteLine?: number,
+  favoriteLines?: string,
 ) => {
   switch (lineFilter) {
     case SubwayLineFilterOptions.ALL_LINES:
       return 0;
     case SubwayLineFilterOptions.ONLY_MY_LINE:
-      return favoriteLine;
+      return favoriteLines;
   }
 };
 
@@ -52,6 +52,6 @@ export const formatSubwayLineInfo = (subwayResponse: SubwayLineServerModel) => {
   return possibleDuplicatedStations;
 };
 
-export const getFirstParentLineId = (stations: UserStationList): number | undefined => {
-  return stations[0]?.subwayLineInfoList[0]?.subwayLineId;
+export const getFirstParentLineId = (stations: UserStationList): string => {
+  return stations[0]?.subwayLineInfoList?.map(station => station.subwayLineId)?.join(',');
 };

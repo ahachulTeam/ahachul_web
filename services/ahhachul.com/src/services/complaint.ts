@@ -34,7 +34,7 @@ export const useFetchComplaintList = (filters: ComplaintListParams<SubwayLineFil
   const req = removeFalsyValues(
     {
       keyword: filters.keyword,
-      subwayLineId: formatSubwayFilterOption(filters.subwayLineId, favoriteLine),
+      subwayLineIds: formatSubwayFilterOption(filters.subwayLineId, favoriteLine),
     },
     { removeZero: true, removeEmptyStrings: true },
   ) as ComplaintListParams;
