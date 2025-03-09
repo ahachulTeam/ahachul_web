@@ -7,6 +7,7 @@ import { LayoutComponent, UiComponent } from '@/components';
 import { useAuth } from '@/contexts';
 import { useFlow } from '@/stackflow';
 import { useTempAuth } from '@/stores';
+import { useUserStationStore } from '@/stores/subway';
 import type { SocialSignInType } from '@/types';
 
 interface SignInCallbackPageProps {
@@ -48,7 +49,19 @@ const SignInCallbackPage: ActivityComponentType<SignInCallbackPageProps> = ({
         }
 
         authService.signIn({ accessToken, refreshToken });
-        replace('HomePage', {}, { animate: false });
+
+        try {
+          const userStations = await api.fetchUserFavoriteStations();
+          if (userStations.result.stationInfoList.length > 0) {
+            useUserStationStore.setState({
+              stations: userStations.result.stationInfoList,
+            });
+          }
+        } catch (error) {
+          console.error(error);
+        } finally {
+          replace('HomePage', {}, { animate: false });
+        }
       } catch (error) {
         console.error(error);
         replace('SignInPage', {});

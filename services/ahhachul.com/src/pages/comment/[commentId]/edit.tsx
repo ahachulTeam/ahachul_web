@@ -93,9 +93,9 @@ const EditCommentPage: ActivityComponentType<
         actionLabel="수정"
         showIsPrivateBtn
         shouldFocusOnMount
-        disablePrivateCheck
         onSubmit={editComment}
         initialState={targetComment.content}
+        disablePrivateCheck={targetComment.isPrivate}
       />
       <Padding />
     </LayoutComponent.Base>

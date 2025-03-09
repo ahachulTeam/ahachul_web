@@ -105,9 +105,9 @@ const NewCommentReplyPage: ActivityComponentType<
       <CommentInput
         showIsPrivateBtn
         shouldFocusOnMount
-        disablePrivateCheck
         onSubmit={submitComment}
-        placeholder={`${targetComment?.writer} 남에게 답글을 남겨주세요.`}
+        disablePrivateCheck={targetComment.isPrivate}
+        placeholder={`${targetComment?.writer} 님에게 답글을 남겨주세요.`}
       />
       <Padding />
     </LayoutComponent.Base>

@@ -31,7 +31,7 @@ const TrainRealTimes = ({ stationName, stationId, subwayLineId }: TrainRealTimes
       <div css={S.inner}>
         <div css={S.thickBorder(subwayLineId)}>
           <div css={S.stationName(subwayLineId)}>{stationName}</div>
-          <span>{nextStationDirection}</span>
+          <span>{nextStationDirection?.replace('방면', ' 방면')}</span>
         </div>
         <div css={S.trainInfos}>
           <div css={S.currentTrainArrivalInfo}>
