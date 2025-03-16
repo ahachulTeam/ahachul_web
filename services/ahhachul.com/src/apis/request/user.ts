@@ -54,7 +54,8 @@ export const prefetchUserFavoriteStations = async () => {
 export const createUserFavoriteStations = async (stations: any) => {
   const response = await axiosInstance.post<ApiResponse<UserFavoriteStations>>(
     '/members/bookmarks/stations',
-    { stations: stations.map((item: any) => ({ ...item, stationName: item.stationName + '역' })) },
+    { stations },
+    // { stations: stations.map((item: any) => ({ ...item, stationName: item.stationName + '역' })) },
   );
 
   return response.data;

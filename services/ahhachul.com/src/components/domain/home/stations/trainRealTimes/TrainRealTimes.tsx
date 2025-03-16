@@ -66,8 +66,7 @@ const TrainArrivalStatus = memo(
       : currentTrainArrivalCode === 'RUNNING'
         ? formatTime(remainingSeconds)
         : currentTrainArrivalCode
-          ? trainArrivalCodeMap[currentTrainArrivalCode as keyof typeof trainArrivalCodeMap] ||
-            '운행 종료'
+          ? trainArrivalCodeMap[currentTrainArrivalCode as keyof typeof trainArrivalCodeMap] || ''
           : '운행 종료';
 
     return (
