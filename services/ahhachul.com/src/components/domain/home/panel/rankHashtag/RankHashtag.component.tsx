@@ -65,7 +65,7 @@ const RankHashtag = () => {
             <StackFlow.Link
               key={item.id}
               activityName="HashtagPage"
-              activityParams={{ keyword: item.title }}
+              activityParams={{ tag: item.title }}
             >
               <S.RankContent>
                 <div>

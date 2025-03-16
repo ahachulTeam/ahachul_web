@@ -7,26 +7,25 @@ import styled from '@emotion/styled';
 import { DotIcon } from '@/assets/icons/system';
 
 export const Article = styled.article`
-  padding: 20px 0;
+  padding: 14px 0;
   border-bottom: 1px solid #f5f5f5;
 `;
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 `;
 
 export const ContentWrapper = styled.div`
   display: flex;
-  gap: 6px;
+  gap: 8px;
 `;
 
 export const TextContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 6px;
 `;
 
 export const Title = styled.div`
@@ -107,7 +106,7 @@ export const lexicalContentStyle = css`
   & > div > div {
     padding: 0;
     border: none;
-    max-height: 46px;
+    max-height: 18px;
     overflow: hidden;
   }
 `;

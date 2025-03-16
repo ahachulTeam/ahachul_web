@@ -76,6 +76,12 @@ export const PATH = {
   hashtag: {
     home: '/hashtag',
   },
+
+  /** 지하철 */
+  subway: {
+    home: '/subway',
+    map: '/subway/map',
+  },
 } as const;
 
 export const MAIN_PATHS: KeyOf<TypeActivities>[] = [

@@ -37,9 +37,10 @@ export const useFetchCommunityList = (filters: CommunityListParams<SubwayLineFil
 
   const req = removeFalsyValues(
     {
-      categoryType: filters.categoryType,
-      content: filters.content,
       writer: filters.writer,
+      content: filters.content,
+      hashTag: filters.hashTag,
+      categoryType: filters.categoryType,
       subwayLineIds: formatSubwayFilterOption(filters.subwayLineId, favoriteLine),
     },
     { removeZero: true, removeEmptyStrings: true },

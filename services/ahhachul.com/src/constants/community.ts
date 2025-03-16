@@ -6,6 +6,7 @@ export const communityFilterKeys = {
 } as const;
 
 export const defaultCommunityFilterValues = {
+  hashTag: '',
   communityType: CommunityType.HOT,
   subwayLineId: SubwayLineFilterOptions.ALL_LINES,
 } as const;

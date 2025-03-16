@@ -3,14 +3,16 @@ import { Interpolation, Theme } from '@emotion/react';
 import { subwayLineHexColors } from '@/constants/subway';
 import { mixins } from '@/styles';
 
-export const filters = [
+export const container = [
   mixins.fullWidth,
-  mixins.flexAlignCenter,
+  mixins.flexJustifySpaceBetween,
   ({ colors: { gray } }: Theme) => ({
     backgroundColor: gray[100],
     marginBottom: '32px',
   }),
-] as Interpolation<Theme>;
+];
+
+export const filters = [mixins.flexAlignCenter, { flex: 1 }] as Interpolation<Theme>;
 
 export const inherit = (line: number) => ({
   display: 'flex',
@@ -34,3 +36,13 @@ export const filterBtn = (length: number) => ({
   fontWeight: 600,
   letterSpacing: '-0.2px',
 });
+
+export const link = [
+  mixins.flexAlignCenter,
+  mixins.flexJustifySpaceBetween,
+  {
+    fontSize: '14px',
+    fontWeight: 500,
+    color: '#e6e6e6',
+  },
+];

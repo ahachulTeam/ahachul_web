@@ -19,5 +19,5 @@ export const Scrollable = styled.div<ScrollableProps>`
   ${mixins.overflowYScroll}
   
   padding-bottom: ${({ theme, navigationSlot }) =>
-    navigationSlot ? theme.size.navbar.height_m : 0};
+    navigationSlot ? `calc(${theme.size.navbar.height_m} + 32px)` : 0};
 `;

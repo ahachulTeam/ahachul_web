@@ -43,11 +43,12 @@ export interface CommunityListParams<TSubwayLine = number> extends Partial<Curso
   writer?: string;
 }
 
-export type CommunityFilterKeys = 'communityType' | 'subwayLineId';
+export type CommunityFilterKeys = 'communityType' | 'subwayLineId' | 'hashTag';
 
 export type CommunityFilterValues = {
   communityType: CommunityType;
   subwayLineId: SubwayLineFilterOptions;
+  hashTag: string;
 };
 
 export type CommunityFilters = {

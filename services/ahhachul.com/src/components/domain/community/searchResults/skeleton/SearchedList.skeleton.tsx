@@ -14,8 +14,8 @@ const SearchedListSkeleton = ({ isScale }: SearchedListSkeletonProps) => {
           <S.ContentWrapper>
             <S.TopSection>
               <S.TextSection>
-                <BaseSkeleton width={100} height={23} radius={6} />
-                <BaseSkeleton width={170} height={21} radius={6} />
+                <BaseSkeleton width={100} height={20} radius={6} />
+                <BaseSkeleton width={170} height={16} radius={6} />
               </S.TextSection>
               {/* 이미지 스켈레톤 */}
               <S.ImageSection>
