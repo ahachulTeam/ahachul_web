@@ -58,6 +58,10 @@ export const stackflowPlugin = [
 
       EditCommentPage: PATH.comment.edit,
       NewCommentReplyPage: PATH.comment.reply,
+
+      NewsDetailPage: PATH.news.detail,
+
+      HashtagPage: PATH.hashtag.home,
     },
     fallbackActivity: () => 'HomePage',
   }),

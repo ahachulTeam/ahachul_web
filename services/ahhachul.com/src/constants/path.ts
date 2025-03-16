@@ -66,6 +66,16 @@ export const PATH = {
     edit: '/comments/:commentId/edit',
     reply: '/comments/:commentId/reply',
   },
+
+  /** 뉴스 */
+  news: {
+    detail: '/news/:newsId',
+  },
+
+  /** 해시태그 */
+  hashtag: {
+    home: '/hashtag',
+  },
 } as const;
 
 export const MAIN_PATHS: KeyOf<TypeActivities>[] = [

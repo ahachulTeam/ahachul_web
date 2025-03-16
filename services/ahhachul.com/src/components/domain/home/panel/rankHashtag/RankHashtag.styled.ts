@@ -9,6 +9,7 @@ import { mixins } from '@/styles';
 
 export const Container = styled.div`
   ${({ theme }) => css`
+    ${mixins.pagePaddingBottom};
     background-color: ${theme.colors.gray[20]};
 
     b {

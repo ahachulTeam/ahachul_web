@@ -4,4 +4,5 @@ export const APP_UNIQUE_FILTER_ID_LIST: Record<AppUniqueFilterId, AppUniqueFilte
   CommunityPage: 'CommunityPage',
   LostFoundPage: 'LostFoundPage',
   ComplaintPage: 'ComplaintPage',
+  HashtagPage: 'HashtagPage',
 } as const;

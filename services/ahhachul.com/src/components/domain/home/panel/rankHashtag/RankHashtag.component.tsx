@@ -1,6 +1,7 @@
 import { NoticeGraphic } from '@/assets/graphics';
 import { useAuth } from '@/contexts';
 import { useFetchUserProfile } from '@/services/user';
+import { StackFlow } from '@/stackflow';
 
 import * as S from './RankHashtag.styled';
 
@@ -12,6 +13,12 @@ interface Hashtag {
 }
 
 const MOCK_RANKING: Hashtag[] = [
+  {
+    id: 0,
+    title: '1호선 빌런',
+    upRank: 4,
+    downRank: 3,
+  },
   {
     id: 1,
     title: '2호선 연착',
@@ -36,12 +43,6 @@ const MOCK_RANKING: Hashtag[] = [
     upRank: 18,
     downRank: 3,
   },
-  {
-    id: 5,
-    title: '우크라이나',
-    upRank: 4,
-    downRank: 3,
-  },
 ];
 
 const RankHashtag = () => {
@@ -61,13 +62,19 @@ const RankHashtag = () => {
         </S.TopRankBox>
         <S.RankList>
           {MOCK_RANKING.map((item, idx) => (
-            <S.RankContent key={item.id}>
-              <div>
-                <span>{idx + 1}</span>
-                <b>{item.title}</b>
-              </div>
-              <span>{'-'}</span>
-            </S.RankContent>
+            <StackFlow.Link
+              key={item.id}
+              activityName="HashtagPage"
+              activityParams={{ keyword: item.title }}
+            >
+              <S.RankContent>
+                <div>
+                  <span>{idx + 1}</span>
+                  <b>{item.title}</b>
+                </div>
+                <span>{'-'}</span>
+              </S.RankContent>
+            </StackFlow.Link>
           ))}
         </S.RankList>
       </S.HashtagList>

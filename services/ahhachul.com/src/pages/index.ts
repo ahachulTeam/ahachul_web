@@ -1,4 +1,6 @@
 import { EditCommentPage, NewCommentReplyPage } from './comment';
+import { HashtagPage } from './hashtag';
+import { NewsDetailPage } from './news';
 import { NotificationPage, NotificationSettingPage } from './notification';
 import { TalkPage, TalkDetailPage, TalkSettingPage } from './talk';
 
@@ -10,6 +12,8 @@ export const SharingPages = {
   NotificationSettingPage,
   EditCommentPage,
   NewCommentReplyPage,
+  NewsDetailPage,
+  HashtagPage,
 } as const;
 
 export * as MyPages from './my';

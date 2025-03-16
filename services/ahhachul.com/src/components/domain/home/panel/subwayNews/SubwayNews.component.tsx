@@ -1,6 +1,7 @@
 import { subwayIconMap } from '@/constants';
 import { useAuth } from '@/contexts';
 import { useFetchUserProfile } from '@/services/user';
+import { StackFlow } from '@/stackflow';
 
 import * as S from './SubwayNews.styled';
 
@@ -64,37 +65,43 @@ const SubwayNews = () => {
       <b>실시간 지하철 뉴스</b>
       <S.NewsList>
         {MOCK_NEWS.map(news => (
-          <S.Article key={news.id}>
-            <S.Container>
-              <S.ContentWrapper>
-                <S.TextContainer>
-                  <S.Title>{news.title}</S.Title>
-                </S.TextContainer>
-                <S.MetaContainer>
-                  <S.MetaInfo>
-                    {news.lineNumber && (
-                      <>
-                        {subwayIconMap.get(news.lineNumber)}
-                        <S.StyledDotIcon />
-                      </>
-                    )}
-                    <span>{news.timeElapsed}</span>
-                  </S.MetaInfo>
-                </S.MetaContainer>
-              </S.ContentWrapper>
-              <S.ImageContainer>
-                {news?.thumbnailUrl && (
-                  <S.PostImage
-                    width="100%"
-                    height="100%"
-                    effect="opacity"
-                    src={news.thumbnailUrl || '/placeholder.svg'}
-                    alt={`${news.title} - ${news.timeElapsed}`}
-                  />
-                )}
-              </S.ImageContainer>
-            </S.Container>
-          </S.Article>
+          <StackFlow.Link
+            key={news.id}
+            activityName="NewsDetailPage"
+            activityParams={{ newsId: news.id }}
+          >
+            <S.Article>
+              <S.Container>
+                <S.ContentWrapper>
+                  <S.TextContainer>
+                    <S.Title>{news.title}</S.Title>
+                  </S.TextContainer>
+                  <S.MetaContainer>
+                    <S.MetaInfo>
+                      {news.lineNumber && (
+                        <>
+                          {subwayIconMap.get(news.lineNumber)}
+                          <S.StyledDotIcon />
+                        </>
+                      )}
+                      <span>{news.timeElapsed}</span>
+                    </S.MetaInfo>
+                  </S.MetaContainer>
+                </S.ContentWrapper>
+                <S.ImageContainer>
+                  {news?.thumbnailUrl && (
+                    <S.PostImage
+                      width="100%"
+                      height="100%"
+                      effect="opacity"
+                      src={news.thumbnailUrl || '/placeholder.svg'}
+                      alt={`${news.title} - ${news.timeElapsed}`}
+                    />
+                  )}
+                </S.ImageContainer>
+              </S.Container>
+            </S.Article>
+          </StackFlow.Link>
         ))}
       </S.NewsList>
     </S.SubwayNews>
