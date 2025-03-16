@@ -28,10 +28,7 @@ export const useFetchSubwayLines = () =>
     },
   });
 
-export const useFetchTrainInfo = (
-  params: APITrainInfoParams,
-  prefetchOtherLines: () => Promise<void>,
-) => {
+export const useFetchTrainInfo = (params: APITrainInfoParams, prefetchOtherLines: () => void) => {
   const res = useQuery({
     staleTime: 0,
     refetchInterval: 30 * TIMESTAMP.SECOND,

@@ -29,7 +29,7 @@ const Stations = () => {
   const stationId = stations[0].stationId;
   const subwayLineInfoList = stations[0].subwayLineInfoList;
 
-  const prefetchOtherLines = async () => {
+  const prefetchOtherLines = () => {
     const copy = [...subwayLineInfoList];
     copy.unshift();
     copy.forEach(async ({ subwayLineId }) => {

@@ -123,7 +123,7 @@ const RefreshButton = ({ onRefresh }: RefreshButtonProps) => {
 interface TrainRealTimesProps extends WithSubwayStationId {
   stationName: string;
   subwayLineId: number;
-  prefetchOtherLines: () => Promise<void>;
+  prefetchOtherLines: () => void;
 }
 
 const TrainRealTimes = ({
