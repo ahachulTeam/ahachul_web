@@ -1,7 +1,7 @@
 import { keyframes, type Interpolation, type Theme } from '@emotion/react';
 
 import { subwayLineHexColors } from '@/constants';
-import { mixins } from '@/styles';
+import { fadeIn, mixins } from '@/styles';
 
 export const inner = {
   position: 'relative',
@@ -24,6 +24,7 @@ export const thickBorder = (subwayLineId: number) =>
     display: 'flex',
     alignItems: 'center',
     gap: '4px',
+    animation: `${fadeIn} 0.8s forwards`,
 
     '& > span': {
       color: 'white',
@@ -72,6 +73,7 @@ export const arrivalInfoLabel = [
   mixins.flexAlignCenter,
   ({ colors: { white, primary } }: Theme) => ({
     '& > b': {
+      animation: `${fadeIn} 0.8s forwards`,
       color: primary.primary,
       fontSize: '20px',
       fontWeight: 700,
@@ -79,6 +81,7 @@ export const arrivalInfoLabel = [
     },
 
     '& > span': {
+      animation: `${fadeIn} 0.8s forwards`,
       position: 'relative',
       top: '0.5px',
       color: white,
@@ -135,4 +138,5 @@ export const listWrap = {
   position: 'relative',
   padding: '20px',
   borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+  minHeight: '85.19px',
 } as Interpolation<Theme>;
