@@ -3,25 +3,12 @@ import { keyframes, type Interpolation, type Theme } from '@emotion/react';
 import { subwayLineHexColors } from '@/constants';
 import { mixins } from '@/styles';
 
-export const trainRealTimes = [
-  mixins.fullWidth,
-  mixins.flexColumn,
-  ({ colors: { white } }: Theme) => ({
-    paddingBottom: '24px',
-    backgroundColor: white,
-    borderBottomLeftRadius: '20px',
-    borderBottomRightRadius: '20px',
-    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.08);',
-  }),
-] as Interpolation<Theme>;
-
-export const inner = ({ colors: { white } }: Theme) =>
-  ({
-    position: 'relative',
-    width: '100%',
-    borderRadius: '20px',
-    backgroundColor: white,
-  }) as Interpolation<Theme>;
+export const inner = {
+  position: 'relative',
+  width: '100%',
+  borderRadius: '20px',
+  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+} as Interpolation<Theme>;
 
 export const thickBorder = (subwayLineId: number) =>
   ({
@@ -29,7 +16,7 @@ export const thickBorder = (subwayLineId: number) =>
     left: '0',
     top: '0',
     width: '100%',
-    height: '25px',
+    height: '30px',
     borderTopLeftRadius: '20px',
     borderTopRightRadius: '20px',
     transition: 'background-color 0.4s ease-in-out',
@@ -39,8 +26,9 @@ export const thickBorder = (subwayLineId: number) =>
     gap: '4px',
 
     '& > span': {
-      fontSize: '14px',
       color: 'white',
+      fontSize: '14px',
+      fontWeight: 600,
     },
   }) as Interpolation<Theme>;
 
@@ -49,48 +37,40 @@ export const stationName = (subwayLineId: number) =>
     mixins.flexCenterCenter,
     ({ colors: { white, black } }: Theme) => ({
       height: '36px',
-      padding: '8px 32px',
+      padding: '6px 12px',
 
-      borderRadius: '21px',
+      borderRadius: '35px',
       transition: 'border-color 0.4s ease-in-out',
-      border: `3px solid ${subwayLineHexColors(subwayLineId)}`,
+      border: `4px solid ${subwayLineHexColors(subwayLineId)}`,
       color: black,
       backgroundColor: white,
 
-      marginLeft: '27px',
+      marginLeft: '24px',
 
       fontSize: '16px',
       fontWeight: 600,
     }),
   ] as Interpolation<Theme>;
 
-export const trainDirection = [
-  mixins.posAbs,
-  ({ colors: { black } }: Theme) => ({
-    color: black,
-    fontSize: '14px',
-    fontWeight: 600,
-  }),
-] as Interpolation<Theme>;
-
 export const trainInfos = [
   mixins.posRel,
   mixins.flexColumn,
   {
     justifyContent: 'flex-end',
-    padding: '49px 20px 0 20px',
+    padding: '51px 0 0 0',
   },
 ] as Interpolation<Theme>;
 
 export const currentTrainArrivalInfo = {
   minHeight: '18.4px',
-  marginBottom: '18px',
+  marginBottom: '16px',
+  padding: '0 20px',
 };
 
 export const arrivalInfoLabel = [
   mixins.posRel,
   mixins.flexAlignCenter,
-  ({ colors: { black, primary } }: Theme) => ({
+  ({ colors: { white, primary } }: Theme) => ({
     '& > b': {
       color: primary.primary,
       fontSize: '20px',
@@ -101,9 +81,9 @@ export const arrivalInfoLabel = [
     '& > span': {
       position: 'relative',
       top: '0.5px',
-      color: black,
+      color: white,
       fontSize: '16px',
-      lineHeight: 1.75,
+      lineHeight: 1.5,
     },
   }),
 ] as Interpolation<Theme>;
@@ -129,98 +109,30 @@ export const refetchBtnCss = (isClicked: boolean) =>
     },
   }) as Interpolation<Theme>;
 
-export const paintingTrain = [
-  mixins.flexColumn,
-  {
-    paddingBottom: '14px',
-
-    '& > div': {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      width: '100%',
-      marginBottom: '12px',
-      fontSize: '12px',
-      color: '#000000',
-    },
-  },
-] as Interpolation<Theme>;
-
-export const withTrainNum = [
-  mixins.flexAlignCenter,
+export const buttonWrap = [
+  mixins.flexCenterCenter,
   mixins.fullWidth,
   {
-    justifyContent: 'space-between',
-    marginBottom: '12px',
-
-    '& > span': {
-      fontSize: '12px',
-      color: '#000000',
-    },
+    height: '88px',
+    backgroundColor: 'inherit',
+    padding: '0 16px',
   },
-] as Interpolation<Theme>;
-
-export const congestionHelper = [
-  mixins.flexAlignCenter,
-  ({ colors: { black } }: Theme) => ({
-    '& > span': {
-      fontSize: '12px',
-      color: black,
-    },
-
-    '& > ul': {
-      display: 'grid',
-      minWidth: '40px',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(10px, 1fr))',
-      gap: '2px',
-      margin: '0 4px',
-
-      '& > li': {
-        width: '10px',
-        height: '10px',
-        borderRadius: '50%',
-
-        '&:first-of-type': {
-          backgroundColor: '#a2d471',
-        },
-
-        '&:nth-of-type(2)': {
-          backgroundColor: '#ffc44d',
-        },
-
-        '&:nth-of-type(3)': {
-          backgroundColor: '#ff884d',
-        },
-
-        '&:last-of-type': {
-          backgroundColor: '#ee4d4d',
-        },
-      },
-    },
-
-    '& > div': {
-      top: '1px',
-      position: 'relative',
-      marginLeft: '4px',
-    },
-  }),
 ] as Interpolation<Theme>;
 
 export const button = [
   mixins.flexCenterCenter,
   mixins.fullWidth,
-  ({ colors: { black, gray } }: Theme) => ({
-    height: '44px',
-    borderRadius: '10px',
-    color: black,
-    backgroundColor: gray[30],
-    marginTop: '28px',
+  ({ colors: { white } }: Theme) => ({
+    height: '48px',
+    borderRadius: '8px',
+    color: white,
+    backgroundColor: 'rgba(255,255,255,0.08)',
     fontWeight: 600,
   }),
 ] as Interpolation<Theme>;
 
 export const listWrap = {
   position: 'relative',
-  paddingTop: '26px',
-  borderTop: '1px solid rgba(0, 0, 0, 0.07)',
+  padding: '20px',
+  borderTop: '1px solid rgba(255, 255, 255, 0.12)',
 } as Interpolation<Theme>;

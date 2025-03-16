@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 
 export const container = css`
   display: flex;
@@ -15,12 +16,16 @@ export const button = css`
   border-radius: 6px;
   padding: 8px 4px;
 
-  color: #272727;
+  color: #ffffff;
   font-size: 18px;
   font-weight: bold;
 
   & > span {
     height: 17px;
+
+    & > svg > g > path {
+      fill: #ffffff;
+    }
   }
 `;
 
@@ -70,4 +75,19 @@ export const option = css`
       color: #6366f1;
     }
   }
+`;
+
+export const Container = styled.nav`
+  display: grid;
+  grid-template-columns: repeat(2, 36px);
+  align-items: center;
+  gap: 2px;
+`;
+
+export const navigationButtonStyle = css`
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

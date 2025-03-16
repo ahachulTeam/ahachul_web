@@ -28,7 +28,6 @@ const NewBtn = ({
     const action = replace ? replacePage : push;
     action(
       !checkAuth ? activityName : authService.isAuthenticated ? activityName : 'SignInPage',
-      //@ts-expect-error: todo
       {},
       {
         animate: !replace,

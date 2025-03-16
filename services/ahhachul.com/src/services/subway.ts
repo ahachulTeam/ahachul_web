@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { fetchSubwayLines, fetchTrainInfo } from '@/apis/request/subway';
+import { TIMESTAMP } from '@/constants';
 import { APITrainInfoParams } from '@/types';
 import { formatSubwayLineInfo } from '@/utils';
 
@@ -27,7 +28,12 @@ export const useFetchSubwayLines = () =>
 
 export const useFetchTrainInfo = (params: APITrainInfoParams) =>
   useQuery({
+    staleTime: 0,
+    refetchInterval: 30 * TIMESTAMP.SECOND,
     queryKey: subwayKeys.train(Object.values(params)),
+    refetchOnMount: true,
+    refetchOnReconnect: true,
+    refetchOnWindowFocus: true,
     queryFn: () => fetchTrainInfo(params),
     select: res => {
       return res.data.result;

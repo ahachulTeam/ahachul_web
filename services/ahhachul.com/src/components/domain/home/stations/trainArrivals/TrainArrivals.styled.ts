@@ -7,12 +7,11 @@ export const arrivalList = css`
   justify-items: center;
   column-gap: 24px;
   row-gap: 12px;
-  border-top: 1px solid rgba(210, 210, 210, 0.09);
 
   & > li {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 8px;
     width: 100%;
     transition: opacity 0.2s ease;
@@ -21,17 +20,19 @@ export const arrivalList = css`
       opacity: 0.7;
     }
 
-    & > li > b:first-of-type {
+    & > b {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: normal;
+    }
+
+    &:first-of-type > b,
+    &:first-of-type > span {
       font-weight: bold;
     }
 
-    & > b {
-      color: #000000;
-      font-size: 14px;
-    }
-
     & > span {
-      color: #000000;
+      color: #00baf6;
       font-size: 14px;
     }
   }

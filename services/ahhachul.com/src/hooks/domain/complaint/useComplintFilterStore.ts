@@ -13,7 +13,7 @@ const useComplintFilters = () => {
   const { filters, loaded, activatedCount, handleSelect, handleReset } =
     filterStore<ComplaintFilters>(
       defaultComplaintFilterValues,
-      APP_UNIQUE_FILTER_ID_LIST.ComplaintListPage,
+      APP_UNIQUE_FILTER_ID_LIST.ComplaintPage,
     )();
 
   const boundaryKeys = [...Object.values(filters), keyword];

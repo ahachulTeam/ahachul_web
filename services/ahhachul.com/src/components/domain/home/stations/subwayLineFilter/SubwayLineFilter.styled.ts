@@ -6,18 +6,18 @@ import { mixins } from '@/styles';
 export const filters = [
   mixins.fullWidth,
   mixins.flexAlignCenter,
-  ({ colors: { white } }: Theme) => ({
-    backgroundColor: white,
-    marginBottom: '28px',
+  ({ colors: { gray } }: Theme) => ({
+    backgroundColor: gray[100],
+    marginBottom: '32px',
 
     '& > li': {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      width: '48px',
-      height: '48px',
-      borderRadius: '50%',
-      padding: '0 12px',
+      width: 'max-content',
+      height: '32px',
+      borderRadius: 999999,
+      padding: '0 8px',
       marginRight: '12px',
       overflow: 'hidden',
       textOverflow: 'ellipsis',

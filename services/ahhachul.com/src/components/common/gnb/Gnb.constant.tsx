@@ -33,7 +33,7 @@ export const GNBList: NavItem[] = [
     label: '유실물',
   },
   {
-    href: ['ComplaintPage', 'ComplaintListPage'],
+    href: ['ComplaintPage', 'ComplaintPanelPage'],
     icon: <ComplaintIcon />,
     activeIcon: <ActivatedComplaintIcon />,
     label: '민원',

@@ -1,22 +1,25 @@
 import styled from '@emotion/styled';
 import type { ActivityComponentType } from '@stackflow/react';
 
-import { HeaderComponent, HomeComponent, LayoutComponent } from '@/components';
-import { mixins } from '@/styles';
+import { HomeComponent, LayoutComponent } from '@/components';
+import { mixins, theme } from '@/styles';
 
 const HomePage: ActivityComponentType = () => {
   return (
     <LayoutComponent.Base
       navigationSlot
+      backgroundColor={theme.colors.gray[100]}
       appBar={{
         overflow: 'visible',
         renderLeft: HomeComponent.HomeHeaderActions,
-        renderRight: HeaderComponent.HeaderActions,
+        renderRight: HomeComponent.HomeHeaderRightActions,
       }}
     >
       <S.Container>
         <HomeComponent.WelcomeMessage />
         <HomeComponent.Stations />
+        <HomeComponent.SubwayNews />
+        <HomeComponent.RankHashtag />
       </S.Container>
     </LayoutComponent.Base>
   );
@@ -27,7 +30,6 @@ const S = {
     ${mixins.fullWidth};
     ${mixins.flexColumn};
     ${mixins.pagePaddingTop};
-    ${mixins.pagePaddingBottom};
   `,
 };
 

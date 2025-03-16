@@ -35,7 +35,6 @@ export const useNavItem = ({
       return;
     }
 
-    //@ts-expect-error: todo
     replace(item.href[0], {}, { animate: false });
   };
 

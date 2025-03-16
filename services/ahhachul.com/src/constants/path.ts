@@ -24,7 +24,7 @@ export const PATH = {
   /** 민원 */
   complaint: {
     home: '/complaint',
-    list: '/complaint/list',
+    list: '/complaint/panel',
     detail: '/complaint/:id',
     new: '/complaint/new',
     edit: '/complaint/:id/edit',

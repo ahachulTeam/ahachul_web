@@ -1,8 +1,6 @@
-import { Global, ThemeProvider } from '@emotion/react';
+import React from 'react';
 
-import { QueryClientProvider, AuthProvider, NativeBridge } from '@/contexts';
 import { StackFlow } from '@/stackflow';
-import { globalStyles, theme } from '@/styles';
 
 if (import.meta.env.MODE === 'mock') {
   const { worker } = await import('@/mocks');
@@ -11,16 +9,9 @@ if (import.meta.env.MODE === 'mock') {
 
 function App() {
   return (
-    <NativeBridge>
-      <QueryClientProvider>
-        <Global styles={globalStyles} />
-        <AuthProvider>
-          <ThemeProvider theme={theme}>
-            <StackFlow.Routes />
-          </ThemeProvider>
-        </AuthProvider>
-      </QueryClientProvider>
-    </NativeBridge>
+    <React.Suspense fallback={null}>
+      <StackFlow.Routes />
+    </React.Suspense>
   );
 }
 

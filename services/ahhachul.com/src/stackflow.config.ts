@@ -1,6 +1,5 @@
 import { basicUIPlugin } from '@stackflow/plugin-basic-ui';
 import { historySyncPlugin } from '@stackflow/plugin-history-sync';
-// import { preloadPlugin } from '@stackflow/plugin-preload';
 import { basicRendererPlugin } from '@stackflow/plugin-renderer-basic';
 
 import { PATH } from '@/constants/path';
@@ -44,7 +43,7 @@ export const stackflowPlugin = [
 
       // complaint pages
       ComplaintPage: PATH.complaint.home,
-      ComplaintListPage: PATH.complaint.list,
+      ComplaintPanelPage: PATH.complaint.list,
       NewComplaintPage: PATH.complaint.new,
       EditComplaintPage: PATH.complaint.edit,
       ComplaintDetailPage: PATH.complaint.detail,
@@ -62,9 +61,4 @@ export const stackflowPlugin = [
     },
     fallbackActivity: () => 'HomePage',
   }),
-  // preloadPlugin({
-  //   loaders: {
-  //     CommunityDetail: CommunityDetail(queryClient),
-  //   },
-  // }),
 ];
