@@ -11,12 +11,14 @@ interface CommunitySearchedListProps {
   filters: CommunityFilters;
   keyword?: string;
   isScale?: boolean;
+  className?: string;
 }
 
 const CommunitySearchedList = ({
   keyword,
   filters: { communityType, subwayLineId, hashTag },
   isScale,
+  className,
 }: CommunitySearchedListProps) => {
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } = useFetchCommunityList({
     hashTag,
@@ -40,7 +42,7 @@ const CommunitySearchedList = ({
   if (!communityArticles.length) return <UiComponent.EmptyList />;
 
   return (
-    <S.Section isScale={isScale}>
+    <S.Section isScale={isScale} className={className}>
       {communityArticles.map((post, idx) => (
         <StackFlow.Link
           key={`${post.id}${idx}`}
