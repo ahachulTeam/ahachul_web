@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { useQuery } from '@tanstack/react-query';
 
 import { fetchSubwayLines, fetchTrainInfo } from '@/apis/request/subway';
@@ -26,8 +28,11 @@ export const useFetchSubwayLines = () =>
     },
   });
 
-export const useFetchTrainInfo = (params: APITrainInfoParams) =>
-  useQuery({
+export const useFetchTrainInfo = (
+  params: APITrainInfoParams,
+  prefetchOtherLines: () => Promise<void>,
+) => {
+  const res = useQuery({
     staleTime: 0,
     refetchInterval: 30 * TIMESTAMP.SECOND,
     queryKey: subwayKeys.train(Object.values(params)),
@@ -39,3 +44,13 @@ export const useFetchTrainInfo = (params: APITrainInfoParams) =>
       return res.data.result;
     },
   });
+
+  useEffect(() => {
+    if (res.status !== 'success') return;
+    else {
+      prefetchOtherLines();
+    }
+  }, [res.status]);
+
+  return res;
+};

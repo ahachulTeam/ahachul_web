@@ -123,13 +123,22 @@ const RefreshButton = ({ onRefresh }: RefreshButtonProps) => {
 interface TrainRealTimesProps extends WithSubwayStationId {
   stationName: string;
   subwayLineId: number;
+  prefetchOtherLines: () => Promise<void>;
 }
 
-const TrainRealTimes = ({ stationName, stationId, subwayLineId }: TrainRealTimesProps) => {
-  const { data, isLoading, isError, refetch } = useFetchTrainInfo({
-    stationId,
-    subwayLineId,
-  });
+const TrainRealTimes = ({
+  stationName,
+  stationId,
+  subwayLineId,
+  prefetchOtherLines,
+}: TrainRealTimesProps) => {
+  const { data, isLoading, isError, refetch } = useFetchTrainInfo(
+    {
+      stationId,
+      subwayLineId,
+    },
+    prefetchOtherLines,
+  );
 
   const trainRealTimes = data?.trainRealTimes || [];
   const firstTrain = trainRealTimes[0] || {};
