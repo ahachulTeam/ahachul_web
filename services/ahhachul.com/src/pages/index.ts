@@ -2,7 +2,7 @@ import { EditCommentPage, NewCommentReplyPage } from './comment';
 import { HashtagPage } from './hashtag';
 import { NewsDetailPage } from './news';
 import { NotificationPage, NotificationSettingPage } from './notification';
-import { SubwayMapPage } from './subway';
+import { SubwayMapPage, SubwayTimelinePage } from './subway';
 import { TalkPage, TalkDetailPage, TalkSettingPage } from './talk';
 
 export const SharingPages = {
@@ -16,6 +16,7 @@ export const SharingPages = {
   NewsDetailPage,
   HashtagPage,
   SubwayMapPage,
+  SubwayTimelinePage,
 } as const;
 
 export * as MyPages from './my';

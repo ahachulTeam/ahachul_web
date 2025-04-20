@@ -81,6 +81,7 @@ export const PATH = {
   subway: {
     home: '/subway',
     map: '/subway/map',
+    timeline: '/subway/timeline',
   },
 } as const;
 

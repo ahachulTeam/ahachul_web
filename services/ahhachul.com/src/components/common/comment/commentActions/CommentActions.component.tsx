@@ -57,7 +57,7 @@ export const CommentDropEllipsis = ({
         return isAuthor ? (
           <DefaultView setView={setView} handleEdit={handleEdit} />
         ) : (
-          <ReportView setView={setView} />
+          <ReportView handleClose={handleClose} />
         );
       case 'remove':
         return (
@@ -180,14 +180,14 @@ function DefaultView({
   );
 }
 
-function ReportView({ setView }: { setView: (view: string) => void }) {
+function ReportView({ handleClose }: { handleClose: () => void }) {
   return (
     <>
       <S.DefaultViewHeader css={{ marginBottom: 0 }}>
         <S.DefaultViewTitle>설정</S.DefaultViewTitle>
       </S.DefaultViewHeader>
       <S.ButtonContainer>
-        <S.DangerButton onClick={() => setView('default')}>
+        <S.DangerButton onClick={handleClose}>
           <WarningIcon />
           신고하기
         </S.DangerButton>

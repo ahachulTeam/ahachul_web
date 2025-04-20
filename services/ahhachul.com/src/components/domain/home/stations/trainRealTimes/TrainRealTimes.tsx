@@ -5,6 +5,7 @@ import { motion } from 'motion/react';
 import { RetryIcon } from '@/assets/icons/system';
 import { motions, trainArrivalCodeMap } from '@/constants';
 import { useFetchTrainInfo } from '@/services/subway';
+import { useFlow } from '@/stackflow';
 import { fade } from '@/styles';
 import { WithSubwayStationId } from '@/types';
 
@@ -131,6 +132,7 @@ const TrainRealTimes = ({
   subwayLineId,
   prefetchOtherLines,
 }: TrainRealTimesProps) => {
+  const { push } = useFlow();
   const { data, isLoading, isError, refetch } = useFetchTrainInfo(
     {
       stationId,
@@ -180,7 +182,9 @@ const TrainRealTimes = ({
           )}
         </div>
         <div css={S.buttonWrap}>
-          <button css={S.button}>전체 시간표</button>
+          <button css={S.button} onClick={() => push('SubwayTimelinePage', {})}>
+            전체 시간표
+          </button>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { LayoutComponent } from '@/components';
 import { MaintainContent } from '@/components/common';
 
-const NotificationPage = () => {
+const SubwayTimeLinePage = () => {
   return (
     <LayoutComponent.Base>
       <MaintainContent />
@@ -9,4 +9,4 @@ const NotificationPage = () => {
   );
 };
 
-export default NotificationPage;
+export default SubwayTimeLinePage;

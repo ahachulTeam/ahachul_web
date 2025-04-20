@@ -64,6 +64,7 @@ export const stackflowPlugin = [
       HashtagPage: PATH.hashtag.home,
 
       SubwayMapPage: PATH.subway.map,
+      SubwayTimelinePage: PATH.subway.timeline,
     },
     fallbackActivity: () => 'HomePage',
   }),
