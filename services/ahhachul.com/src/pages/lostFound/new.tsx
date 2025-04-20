@@ -15,7 +15,7 @@ const NewLostFoundPage: ActivityComponentType = () => {
   const { methods, isPending, handleImageUpload, handleImageDelete, submit } = useLostFoundForm();
 
   return (
-    <LayoutComponent.Composed>
+    <LayoutComponent.Composed navigationSlot={false}>
       <FormProvider {...methods}>
         <S.FormContainer onSubmit={submit}>
           <FormComponent.ImageUpload

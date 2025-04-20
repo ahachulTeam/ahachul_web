@@ -3,12 +3,29 @@ import React, { useReducer } from 'react';
 import { Drawer } from 'vaul';
 
 import { ChevronIcon } from '@/assets/icons/system';
-import { subwayLineOptions } from '@/constants';
 import type { SubwayLineType } from '@/types';
 
 import * as S from './SubwayLinePicker.styled';
 
 import { SelectMolecules } from '../form/molecules';
+
+const subwayLineOptions = {
+  '1': '1호선',
+  '2': '2호선',
+  '3': '3호선',
+  '4': '4호선',
+  '5': '5호선',
+  '6': '6호선',
+  '7': '7호선',
+  '8': '8호선',
+  '9': '9호선',
+  '11': '경의중앙선',
+  '13': '공항철도',
+  '15': '서해선',
+  '16': '수인분당선',
+  '18': '신분당선',
+  '20': '우이신설경전철',
+};
 
 interface SubwayLinePickerProps {
   name: string;
@@ -36,13 +53,17 @@ const SubwayLinePicker: React.FC<SubwayLinePickerProps> = ({
   return (
     <Drawer.Root
       open={isOpen}
-      shouldScaleBackground
+      shouldScaleBackground={false}
       repositionInputs={false}
       onOpenChange={toggleOpen}
     >
       <Drawer.Trigger asChild>
         <S.SelectButton isActive={!!selectedLine} aria-invalid={!!errorMsg}>
-          <span>{selectedLine ? subwayLineOptions[selectedLine] : buttonLabel}</span>
+          <span>
+            {selectedLine
+              ? subwayLineOptions[selectedLine as keyof typeof subwayLineOptions]
+              : buttonLabel}
+          </span>
           <ChevronIcon />
         </S.SelectButton>
       </Drawer.Trigger>

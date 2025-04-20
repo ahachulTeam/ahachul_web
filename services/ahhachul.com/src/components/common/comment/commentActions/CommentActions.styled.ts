@@ -107,7 +107,6 @@ export const DefaultViewHeader = styled.header`
   display: flex;
   height: 72px;
   align-items: center;
-  border-bottom: 1px solid #f7f7f7;
   padding-left: 8px;
   margin-bottom: 16px;
 `;

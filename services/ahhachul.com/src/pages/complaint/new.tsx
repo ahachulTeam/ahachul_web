@@ -29,7 +29,7 @@ const NewComplaintPage: ActivityComponentType<ComplaintFormProps> = ({
     useComplaintForm(slug);
 
   return (
-    <LayoutComponent.Composed>
+    <LayoutComponent.Composed navigationSlot={false} shouldShowBackground={false}>
       <FormProvider {...methods}>
         <S.FormContainer onSubmit={submit}>
           <FormComponent.ImageUpload

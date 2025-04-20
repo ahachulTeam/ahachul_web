@@ -48,9 +48,11 @@ const DrawerFilter: React.FC<DrawerFilterProps> = ({ label, drawerTitle }) => {
               <S.SearchIconWrapper>
                 <SearchIcon />
               </S.SearchIconWrapper>
-              <S.SearchInput placeholder="사용자 필터링" />
+              <S.SearchInput placeholder="사용자 검색" />
             </S.SearchContainer>
-            <S.ContentArea />
+            <S.ContentArea>
+              <span>검색중...</span>
+            </S.ContentArea>
           </S.ContentWrapper>
         </Drawer.Content>
       </Drawer.Portal>

@@ -15,7 +15,7 @@ const NewCommunityPage: ActivityComponentType = () => {
   const { methods, isPending, handleImageUpload, handleImageDelete, submit } = useCommunityForm();
 
   return (
-    <LayoutComponent.Composed>
+    <LayoutComponent.Composed navigationSlot={false}>
       <FormProvider {...methods}>
         <S.FormContainer onSubmit={submit}>
           <FormComponent.ImageUpload

@@ -28,6 +28,7 @@ export const overlay = css`
   bottom: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999999990;
 `;
 
 export const drawerContainer = css`
@@ -85,4 +86,8 @@ export const subwayList = css`
   gap: 8px;
   justify-items: center;
   padding: 16px 0;
+
+  & > button {
+    min-width: 109px;
+  }
 `;

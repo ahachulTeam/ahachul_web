@@ -107,7 +107,7 @@ export const SearchInput = styled.input`
     color: ${theme.colors.gray[90]};
     background-color: ${theme.colors.gray[20]};
     padding: 0 12px 0 30px;
-    font-size: 16px;
+    font-size: 14px;
     caret-color: ${theme.colors['key-color']};
     border-radius: 12px;
 
@@ -125,6 +125,12 @@ export const SearchInput = styled.input`
 
 export const ContentArea = styled.div`
   background-color: ${({ theme }) => theme.colors.gray[20]};
-  height: 500px;
+  height: 360px;
   border-radius: 12px;
+  padding: 24px;
+
+  & > span {
+    ${({ theme }) => theme.fonts.labelMedium};
+    color: ${({ theme }) => theme.colors.gray[90]};
+  }
 `;

@@ -103,23 +103,22 @@ const SettingPage: ActivityComponentType = () => {
 
   return (
     <LayoutComponent.Base>
+      <S.Fixed>
+        <S.Headline>
+          <b>즐겨찾는 역</b>을 설정해주세요
+        </S.Headline>
+        <S.Desc>최대 4개까지 등록할 수 있어요</S.Desc>
+
+        <SearchWrapper>
+          <SearchInputIcon />
+          <SearchInput
+            placeholder="검색어를 입력해주세요"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+        </SearchWrapper>
+      </S.Fixed>
       <S.Container>
-        <S.Fixed>
-          <S.Headline>
-            <b>즐겨찾는 역</b>을 설정해주세요
-          </S.Headline>
-          <S.Desc>최대 4개까지 등록할 수 있어요</S.Desc>
-
-          <SearchWrapper>
-            <SearchInputIcon />
-            <SearchInput
-              placeholder="검색어를 입력해주세요"
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-          </SearchWrapper>
-        </S.Fixed>
-
         <SearchResults $isPending={isPending}>
           {displayStations.map((name, idx) => (
             <StationContainer key={`${name}_${idx}`}>
@@ -249,10 +248,9 @@ const S = {
   `,
   Fixed: styled.div`
     position: fixed;
-    top: 0;
+    top: 20px;
     left: 0;
     width: 100%;
-    padding-top: 20px;
     background-color: white;
   `,
   Headline: styled.h1`
