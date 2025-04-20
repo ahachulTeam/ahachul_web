@@ -12,7 +12,7 @@ export const EmptyContainer = styled.div`
     padding-top: 184px;
 
     & > p {
-      ${theme.fonts.titleMedium};
+      ${theme.fonts.bodyMedium};
       color: ${theme.colors.gray[80]};
     }
   `}

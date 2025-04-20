@@ -43,7 +43,7 @@ export const AuthorText = styled.span`
 `;
 
 export const DateText = styled.span`
-  font-size: 12px;
+  font-size: 11px;
   color: ${({ theme }) => theme.colors.gray[70]};
 `;
 

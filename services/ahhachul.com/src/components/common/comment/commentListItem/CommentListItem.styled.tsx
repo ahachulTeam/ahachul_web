@@ -52,7 +52,7 @@ export const DateText = styled.span`
 
 export const ReplyButton = styled.button`
   ${({ theme }) => css`
-    ${theme.fonts.bodyMedium};
+    ${theme.fonts.bodySmall};
     color: ${theme.colors.gray[90]};
     width: max-content;
   `}

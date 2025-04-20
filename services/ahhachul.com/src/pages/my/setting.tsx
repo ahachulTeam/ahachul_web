@@ -244,13 +244,14 @@ const SettingPage: ActivityComponentType = () => {
 
 const S = {
   Container: styled.div`
-    padding: 160px 0 0;
+    padding: 0 0 0;
   `,
   Fixed: styled.div`
-    position: fixed;
-    top: 20px;
+    position: sticky;
+    top: 0;
     left: 0;
     width: 100%;
+    padding-top: 20px;
     background-color: white;
   `,
   Headline: styled.h1`
@@ -273,7 +274,7 @@ const S = {
 
 const SearchWrapper = styled.div`
   position: relative;
-  margin-bottom: 24px;
+  margin-bottom: 12px;
   padding: 0 20px;
 `;
 
