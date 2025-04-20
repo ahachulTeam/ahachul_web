@@ -108,5 +108,9 @@ export default function SendComplaintMessage({
 
   if (!isAuthor) return null;
 
-  return <UiComponent.FloatButton onClick={handleClick}>즉시 민원 보내기</UiComponent.FloatButton>;
+  return (
+    <UiComponent.FloatButton css={{ bottom: '130px' }} onClick={handleClick}>
+      즉시 민원 보내기
+    </UiComponent.FloatButton>
+  );
 }

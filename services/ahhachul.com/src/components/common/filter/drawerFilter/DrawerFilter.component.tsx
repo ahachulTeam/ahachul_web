@@ -32,8 +32,8 @@ const DrawerFilter: React.FC<DrawerFilterProps> = ({ label, drawerTitle }) => {
         </S.FilterButton>
       </Drawer.Trigger>
       <Drawer.Portal>
-        <S.Overlay />
-        <S.DrawerContent>
+        <Drawer.Overlay css={S.overlay} />
+        <Drawer.Content css={S.drawerContainer}>
           <S.ContentWrapper>
             <S.Header>
               <S.ActionButton variant="cancel" onClick={handleToggleDrawer}>
@@ -52,7 +52,7 @@ const DrawerFilter: React.FC<DrawerFilterProps> = ({ label, drawerTitle }) => {
             </S.SearchContainer>
             <S.ContentArea />
           </S.ContentWrapper>
-        </S.DrawerContent>
+        </Drawer.Content>
       </Drawer.Portal>
     </Drawer.Root>
   );

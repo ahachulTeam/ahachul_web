@@ -21,7 +21,7 @@ export const FilterButton = styled.button<{ isActive: boolean }>`
   }
 `;
 
-export const Overlay = styled(Drawer.Overlay)`
+export const overlay = css`
   position: fixed;
   top: 0;
   right: 0;
@@ -30,18 +30,17 @@ export const Overlay = styled(Drawer.Overlay)`
   background-color: rgba(0, 0, 0, 0.4);
 `;
 
-export const DrawerContent = styled(Drawer.Content)`
-  z-index: ${({ theme }) => theme.zIndex.drawer};
+export const drawerContainer = css`
+  z-index: 999999999;
   display: flex;
   flex-direction: column;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  height: max-content;
+  max-height: 96%;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  box-shadow: 0px -10px 16px 0px rgba(0, 0, 0, 0.17);
 `;
 
 export const ContentWrapper = styled.div`

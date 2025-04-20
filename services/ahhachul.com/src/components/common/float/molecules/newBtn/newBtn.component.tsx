@@ -12,6 +12,7 @@ interface NewBtnProps {
   type?: NewBtnType;
   replace?: boolean;
   checkAuth?: boolean;
+  className?: string;
 }
 
 const NewBtn = ({
@@ -20,6 +21,7 @@ const NewBtn = ({
   type = 'new',
   replace = false,
   checkAuth = true,
+  className,
 }: NewBtnProps) => {
   const { push, replace: replacePage } = useFlow();
   const { authService } = useAuth();
@@ -36,7 +38,7 @@ const NewBtn = ({
   };
 
   return (
-    <UiComponent.FloatButton onClick={onClick}>
+    <UiComponent.FloatButton className={className} onClick={onClick}>
       {type === 'new' ? <PlusIcon /> : <ListIcon />}
       <span>{label}</span>
     </UiComponent.FloatButton>

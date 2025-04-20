@@ -1,7 +1,12 @@
 import { LayoutComponent } from '@/components';
+import { MaintainContent } from '@/components/common';
 
 const SubwayMapPage = () => {
-  return <LayoutComponent.Base>지하철 노선도</LayoutComponent.Base>;
+  return (
+    <LayoutComponent.Base>
+      <MaintainContent />
+    </LayoutComponent.Base>
+  );
 };
 
 export default SubwayMapPage;

@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 import { useFlow } from '@/stackflow';
 
-const MaintainContent = () => {
+const MaintainContent = ({ actionLabel = '홈으로' }: { actionLabel?: string }) => {
   const { pop } = useFlow();
   const handleBack = () => pop();
 
@@ -34,7 +34,7 @@ const MaintainContent = () => {
         <Title>기능 준비 중입니다</Title>
         <Message>{'더 나은 서비스 제공을 위해\n해당 기능의 업데이트를 진행하고 있습니다.'}</Message>
         <ButtonGroup>
-          <HomeButton onClick={handleBack}>홈으로</HomeButton>
+          <HomeButton onClick={handleBack}>{actionLabel}</HomeButton>
         </ButtonGroup>
       </ContentWrapper>
     </Container>
