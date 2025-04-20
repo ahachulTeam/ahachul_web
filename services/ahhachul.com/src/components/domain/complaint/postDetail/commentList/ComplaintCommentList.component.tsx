@@ -1,4 +1,4 @@
-import { BookmarkIcon } from '@/assets/icons/system';
+// import { BookmarkIcon } from '@/assets/icons/system';
 import { UiComponent } from '@/components';
 import { complaintKeys, useFetchComplaintCommentList } from '@/services/complaint';
 
@@ -18,7 +18,7 @@ const ComplaintCommentList = ({ commentCnt, id, isArticleAuthor }: ComplaintComm
           <span>댓글</span>
           <span>{commentCnt ?? 0}</span>
         </S.CommentCountWrapper>
-        <BookmarkIcon />
+        {/* <BookmarkIcon /> */}
       </S.HeaderWrapper>
       <UiComponent.SuspenseQueryBoundary
         keys={[id]}

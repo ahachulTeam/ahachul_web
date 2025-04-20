@@ -34,7 +34,12 @@ const SubwayLinePicker: React.FC<SubwayLinePickerProps> = ({
   };
 
   return (
-    <Drawer.Root open={isOpen} shouldScaleBackground onOpenChange={toggleOpen}>
+    <Drawer.Root
+      open={isOpen}
+      shouldScaleBackground
+      repositionInputs={false}
+      onOpenChange={toggleOpen}
+    >
       <Drawer.Trigger asChild>
         <S.SelectButton isActive={!!selectedLine} aria-invalid={!!errorMsg}>
           <span>{selectedLine ? subwayLineOptions[selectedLine] : buttonLabel}</span>
@@ -42,8 +47,8 @@ const SubwayLinePicker: React.FC<SubwayLinePickerProps> = ({
         </S.SelectButton>
       </Drawer.Trigger>
       <Drawer.Portal>
-        <S.DrawerOverlay />
-        <S.DrawerContainer>
+        <Drawer.Overlay css={S.overlay} />
+        <Drawer.Content css={S.drawerContainer}>
           <S.ContentWrapper>
             <S.DrawerHeader>
               <S.CancelButton onClick={toggleOpen}>취소</S.CancelButton>
@@ -59,7 +64,7 @@ const SubwayLinePicker: React.FC<SubwayLinePickerProps> = ({
               />
             </S.SubwayListContainer>
           </S.ContentWrapper>
-        </S.DrawerContainer>
+        </Drawer.Content>
       </Drawer.Portal>
     </Drawer.Root>
   );

@@ -21,7 +21,7 @@ export const SelectButton = styled.button<{ isActive: boolean }>`
   }
 `;
 
-export const DrawerOverlay = styled(Drawer.Overlay)`
+export const overlay = css`
   position: fixed;
   top: 0;
   right: 0;
@@ -30,13 +30,13 @@ export const DrawerOverlay = styled(Drawer.Overlay)`
   background-color: rgba(0, 0, 0, 0.4);
 `;
 
-export const DrawerContainer = styled(Drawer.Content)`
+export const drawerContainer = css`
   z-index: 999999999;
   display: flex;
   flex-direction: column;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  height: max-content;
+  max-height: 96%;
   position: fixed;
   bottom: 0;
   left: 0;

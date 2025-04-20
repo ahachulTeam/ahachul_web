@@ -15,10 +15,10 @@ export const Desc = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 2px;
 
     & > p {
-      ${theme.fonts.titleMedium};
+      ${theme.fonts.bodyMedium};
       color: ${theme.colors.gray[80]};
     }
   `}

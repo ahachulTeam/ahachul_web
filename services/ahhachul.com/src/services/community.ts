@@ -9,6 +9,8 @@ import { removeFalsyValues } from '@ahhachul/utils';
 
 import * as api from '@/apis/request';
 import { TIMESTAMP } from '@/constants';
+import { TOAST_MSG } from '@/constants/toast';
+import { useToast } from '@/hooks/useToast';
 import { useFlow } from '@/stackflow';
 import { useUserStationStore } from '@/stores/subway';
 import {
@@ -60,7 +62,7 @@ export const useFetchCommunityList = (filters: CommunityListParams<SubwayLineFil
 
 export const useCreateCommunity = () => {
   const { pop, push } = useFlow();
-  // const { addToast } = useToast();
+  const { addToast } = useToast();
 
   const queryClient = useQueryClient();
 
@@ -78,8 +80,9 @@ export const useCreateCommunity = () => {
         });
       }, 500);
     },
-    onError: () => {
-      // addToast(TOAST_MSG.WARNING.CREATE_FAIL);
+    onError: error => {
+      console.log('error:', error);
+      addToast(TOAST_MSG.WARNING.CREATE_FAIL, 'warning');
     },
   });
 };

@@ -29,7 +29,7 @@ const NewComplaintPage: ActivityComponentType<ComplaintFormProps> = ({
     useComplaintForm(slug);
 
   return (
-    <LayoutComponent.Base>
+    <LayoutComponent.Composed>
       <FormProvider {...methods}>
         <S.FormContainer onSubmit={submit}>
           <FormComponent.ImageUpload
@@ -52,7 +52,7 @@ const NewComplaintPage: ActivityComponentType<ComplaintFormProps> = ({
           <FormComponent.SubmitButton active={isActive} loading={isPending} onSubmit={submit} />
         </S.FormContainer>
       </FormProvider>
-    </LayoutComponent.Base>
+    </LayoutComponent.Composed>
   );
 };
 
