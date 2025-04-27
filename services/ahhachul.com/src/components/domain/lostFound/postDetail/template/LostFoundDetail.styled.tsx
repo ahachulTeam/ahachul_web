@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { motion } from 'motion/react';
 
 export const ArticleWrapper = styled.article``;
 
@@ -73,7 +74,7 @@ export const Lost112Text = styled.span`
   `}
 `;
 
-export const CompleteWrapper = styled.div`
+export const CompleteWrapper = styled(motion.div)`
   ${({ theme }) => css`
     padding: 0 20px;
     display: flex;
