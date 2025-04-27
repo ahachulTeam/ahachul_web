@@ -203,6 +203,15 @@ function PhraseIcon() {
   );
 }
 
+function LostIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3" y="3" width="18" height="18" rx="2" fill="#2ACF6C" />
+      <path d="M10 16.4L6 12.4L7.4 11L10 13.6L16.6 7L18 8.4L10 16.4Z" fill="#FBFBFB" />
+    </svg>
+  );
+}
+
 function CrossIcon() {
   return (
     <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -237,4 +246,5 @@ export {
   WarningIcon,
   PhraseIcon,
   CrossIcon,
+  LostIcon,
 };

@@ -3,6 +3,7 @@ import useMeasure from 'react-use-measure';
 
 import styled from '@emotion/styled';
 import { useQueryClient } from '@tanstack/react-query';
+import { Check } from 'lucide-react';
 // import { useQueryClient } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'motion/react';
 import { Drawer } from 'vaul';
@@ -12,20 +13,26 @@ import { sleep } from '@ahhachul/utils';
 import { CloseIcon, DangerIcon, PhraseIcon, WarningIcon } from '@/assets/icons/jsx/icons';
 import { MoreVerticalIcon } from '@/assets/icons/system';
 import { useUser } from '@/hooks/domain';
+import useUpdateLostFound from '@/hooks/domain/lostFound/useUpdateLostFound';
 import { communityKeys, useDeleteCommunity } from '@/services/community';
 import { complaintKeys, useDeleteComplaint } from '@/services/complaint';
 import { lostFoundKeys, useDeleteLostFound } from '@/services/lostFound';
 import { useFlow } from '@/stackflow';
+import { LostStatus } from '@/types';
 
 import * as S from './PostDropEllipsis.styled';
 
 export interface PostDropEllipsisProps {
+  isLost?: boolean;
+  status?: LostStatus;
   articleId: string;
   createdBy: number;
   queryKey: readonly unknown[];
 }
 
 const PostDropEllipsis = ({
+  isLost,
+  status,
   articleId,
   createdBy,
   queryKey,
@@ -66,7 +73,14 @@ const PostDropEllipsis = ({
     switch (view) {
       case 'default':
         return isAuthor ? (
-          <DefaultView setView={setView} handleEdit={handleEdit} />
+          <DefaultView
+            isLost={isLost}
+            status={status}
+            articleId={articleId}
+            setView={setView}
+            handleEdit={handleEdit}
+            handleClose={handleClose}
+          />
         ) : (
           <ReportView handleClose={handleClose} />
         );
@@ -165,18 +179,53 @@ function Header({
 }
 
 function DefaultView({
+  isLost,
+  status,
+  articleId,
   setView,
   handleEdit,
+  handleClose,
 }: {
+  isLost?: boolean;
+  status?: LostStatus;
+  articleId: string;
   setView: (view: string) => void;
   handleEdit: () => void;
+  handleClose: () => void;
 }) {
+  const queryClient = useQueryClient();
+  const { mutate } = useUpdateLostFound();
+  const handleLost = () => {
+    mutate(
+      {
+        articleId: +articleId,
+        status: status === 'COMPLETE' ? 'PROGRESS' : 'COMPLETE',
+      },
+      {
+        onSuccess: () => {
+          handleClose();
+          setTimeout(() => {
+            queryClient.invalidateQueries({
+              queryKey: lostFoundKeys.detail(+articleId),
+            });
+          }, 1000);
+        },
+      },
+    );
+  };
+
   return (
     <>
       <S.DefaultViewHeader>
         <S.DefaultViewTitle>설정</S.DefaultViewTitle>
       </S.DefaultViewHeader>
       <S.ButtonContainer>
+        {isLost && (
+          <S.GreenButton onClick={handleLost}>
+            <Check size={21} color="white" />
+            {status === 'PROGRESS' ? '습득 완료' : '상태 변경'}
+          </S.GreenButton>
+        )}
         <S.Button onClick={handleEdit}>
           <PhraseIcon />
           수정하기

@@ -1,3 +1,5 @@
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 import { formatDateTime, getRandomNumber } from '@ahhachul/utils';
 
 import { LostFoundComponent, UiComponent } from '@/components';
@@ -33,7 +35,11 @@ const LostFoundDetail = ({ id }: LostFoundDetailProps) => {
 
   return (
     <>
-      <LostFoundComponent.LostFoundDetailHeaderActions id={id} createdBy={+post.createdBy} />
+      <LostFoundComponent.LostFoundDetailHeaderActions
+        id={id}
+        status={post.status}
+        createdBy={+post.createdBy}
+      />
 
       <S.ArticleWrapper>
         <UiComponent.ImageCarousel label={post.title} images={images} />
@@ -52,11 +58,40 @@ const LostFoundDetail = ({ id }: LostFoundDetailProps) => {
         {post.isFromLost112 && (
           <>
             <S.Lost112Wrapper>
-              {/* <Image src="/images/lost112.png" alt="lost112-image" width={24} height={24} priority /> */}
+              <LazyLoadImage src="/lost112.png" alt="lost112-image" width={24} height={24} />
               <S.Lost112Text>로스트 112에 등록된 분실물입니다.</S.Lost112Text>
             </S.Lost112Wrapper>
             <Lost112InfoTable post={post} />
           </>
+        )}
+
+        {post.status === 'COMPLETE' && (
+          <S.CompleteWrapper>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
+                stroke="white"
+                strokeWidth="2"
+                strokeMiterlimit="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M15 10L11 14L9 12"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <S.CompleteText>유실물 찾기 완료</S.CompleteText>
+          </S.CompleteWrapper>
         )}
 
         <S.ContentContainer>
@@ -70,12 +105,12 @@ const LostFoundDetail = ({ id }: LostFoundDetailProps) => {
         </S.ContentContainer>
       </S.ArticleWrapper>
 
-      <LostFoundComponent.RecommendPostList posts={post.recommendPosts} />
       <LostFoundComponent.LostFoundCommentList
         id={id}
         commentCnt={post.commentCnt}
         isArticleAuthor={isArticleAuthor}
       />
+      <LostFoundComponent.RecommendPostList posts={post.recommendPosts} />
       <LostFoundComponent.CommentInput id={id} />
       <S.Padding />
     </>

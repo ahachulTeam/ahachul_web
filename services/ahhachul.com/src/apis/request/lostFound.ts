@@ -11,6 +11,7 @@ import type {
   CommentList,
   WithPostId,
   LostFoundEditForm,
+  LostStatus,
 } from '@/types';
 
 export const fetchLostFoundList = async (req: LostFoundListParams) => {
@@ -86,6 +87,24 @@ export const editLostFound = async (id: number, req: LostFoundEditForm) => {
 export const deleteLostFound = async (articleId: number) => {
   const [response] = await Promise.allSettled([
     axiosInstance.delete<ApiResponse<WithPostId>>(`/lost-posts/${articleId}`),
+    sleep(750),
+  ]);
+
+  if (response.status === 'rejected') {
+    throw response.reason;
+  }
+
+  if (response.status === 'fulfilled') {
+    return response.value.data;
+  }
+
+  // TODO: sentry에 로그 남김
+  throw new Error('Unexpected state in Promise.allSettled');
+};
+
+export const updateLostFoundStatus = async (articleId: number, status: LostStatus) => {
+  const [response] = await Promise.allSettled([
+    axiosInstance.patch<ApiResponse<WithPostId>>(`/lost-posts/${articleId}/status`, { status }),
     sleep(750),
   ]);
 

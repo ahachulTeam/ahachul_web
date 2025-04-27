@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 export const ArticleWrapper = styled.article``;
 
 export const ContentWrapper = styled.div`
-  padding: 20px 20px 24px;
+  padding: 20px 20px 0 20px;
 `;
 
 export const TitleWrapper = styled.div`
@@ -73,8 +73,27 @@ export const Lost112Text = styled.span`
   `}
 `;
 
+export const CompleteWrapper = styled.div`
+  ${({ theme }) => css`
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    height: 48px;
+    width: 100%;
+    gap: 8px;
+    background-color: ${theme.colors['key-color']};
+  `}
+`;
+
+export const CompleteText = styled.span`
+  ${({ theme }) => css`
+    ${theme.fonts.titleSmall};
+    color: ${theme.colors.white};
+  `}
+`;
+
 export const ContentContainer = styled.div`
-  padding: 0 20px;
+  padding: 24px 20px 0;
 `;
 
 export const TextContent = styled.div`

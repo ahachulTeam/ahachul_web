@@ -172,7 +172,6 @@ export const DefaultViewHeader = styled.header`
   display: flex;
   height: 72px;
   align-items: center;
-  border-bottom: 1px solid #f7f7f7;
   padding-left: 8px;
   margin-bottom: 16px;
 `;
@@ -193,4 +192,11 @@ export const DangerButton = styled.button`
   ${buttonBase}
   background-color: #fff0f0;
   color: #ff3f40;
+`;
+
+export const GreenButton = styled.button`
+  ${buttonBase}
+
+  background-color: #4ade80; /* 초록색 배경 */
+  color: white;
 `;
