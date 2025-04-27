@@ -33,17 +33,17 @@ const Lost112InfoTable = ({ post }: Props) => {
           <S.Label>습득일</S.Label>
           <S.Value>{formatDateTime(post.createdAt, { format: 'short' })}</S.Value>
 
-          {post?.storage && (
-            <>
-              <S.Label>습득장소</S.Label>
-              <S.Value>{post.storage}</S.Value>
-            </>
-          )}
-
           {post?.categoryName && (
             <>
               <S.Label>물품분류</S.Label>
               <S.Value>{post.categoryName}</S.Value>
+            </>
+          )}
+
+          {post?.storage && (
+            <>
+              <S.Label>습득장소</S.Label>
+              <S.Value>{post.storage}</S.Value>
             </>
           )}
 
