@@ -17,7 +17,7 @@ export const Desc = styled.div`
     gap: 4px;
 
     & > p {
-      ${theme.fonts.titleMedium};
+      ${theme.fonts.bodyMedium};
       color: ${theme.colors.gray[80]};
     }
   `}

@@ -11,14 +11,16 @@ export const Container = styled.div`
 
 export const Title = styled.p`
   text-align: center;
-  font-size: 20px;
-  font-weight: 700;
+  ${({ theme }) => css`
+    ${theme.fonts.labelMedium};
+  `}
 `;
 
 export const Description = styled.p`
   text-align: center;
   ${({ theme }) => css`
-    ${theme.fonts.labelMedium};
+    ${theme.fonts.bodyMedium};
+    color: ${theme.colors.gray[80]};
   `}
 `;
 

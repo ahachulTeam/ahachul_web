@@ -92,8 +92,10 @@ export const CompleteText = styled.span`
   `}
 `;
 
-export const ContentContainer = styled.div`
-  padding: 24px 20px 0;
+export const ContentContainer = styled.div<{ isFromLost112: boolean }>`
+  ${({ isFromLost112 }) => css`
+    padding: ${isFromLost112 ? '0 20px' : '24px 20px 0'};
+  `}
 `;
 
 export const TextContent = styled.div`

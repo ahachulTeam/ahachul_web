@@ -10,15 +10,15 @@ interface CommunityErrorPageProps {
 }
 
 const CommunityErrorPage = ({ error, reset }: CommunityErrorPageProps) => {
-  const { replace } = useFlow();
+  const { pop } = useFlow();
 
   const isDeletedPost = error.response?.status === 404;
 
   return isDeletedPost ? (
     <S.Container>
       <S.Title>삭제된 게시글입니다.</S.Title>
-      <S.RetryButton type="button" onClick={() => replace('HomePage', {}, { animate: false })}>
-        홈으로 이동하기
+      <S.RetryButton type="button" onClick={() => pop()}>
+        목록으로 이동하기
       </S.RetryButton>
     </S.Container>
   ) : (

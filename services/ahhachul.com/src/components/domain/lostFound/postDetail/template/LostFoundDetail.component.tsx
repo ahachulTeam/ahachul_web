@@ -94,7 +94,7 @@ const LostFoundDetail = ({ id }: LostFoundDetailProps) => {
           </S.CompleteWrapper>
         )}
 
-        <S.ContentContainer>
+        <S.ContentContainer isFromLost112={post.isFromLost112}>
           {post.isFromLost112 || !isLexicalContent(post.content) ? (
             <S.TextContent>{formatLost112Content(post.content)}</S.TextContent>
           ) : (
