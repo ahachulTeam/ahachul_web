@@ -4,6 +4,7 @@ import type { ActivityComponentType } from '@stackflow/react';
 
 import { ChevronIcon } from '@/assets/icons/system';
 import { HeaderComponent, LayoutComponent } from '@/components';
+import { useToast } from '@/hooks/useToast';
 import { useFetchSubwayLines } from '@/services/subway';
 import { useFetchUserProfile } from '@/services/user';
 import { useFlow } from '@/stackflow';
@@ -13,12 +14,15 @@ const MyPage: ActivityComponentType = () => {
   useFetchUserProfile();
 
   const { push } = useFlow();
+  const { addToast } = useToast();
 
-  const logoutConfirm = () => {
-    // openAlertConfirm('로그아웃', '정말로 로그아웃 하시겠어요?', logout);
-  };
+  // const logoutConfirm = () => {
+  //   // openAlertConfirm('로그아웃', '정말로 로그아웃 하시겠어요?', logout);
+  // };
 
-  const secessionConfirm = () => {};
+  // const secessionConfirm = () => {};
+
+  const showToast = () => addToast('준비중인 기능입니다.', 'info');
 
   return (
     <LayoutComponent.Base
@@ -28,20 +32,34 @@ const MyPage: ActivityComponentType = () => {
         renderRight: HeaderComponent.HeaderActions,
       }}
     >
-      <S.Container
-        onClick={() => {
-          push('SettingPage', {});
-        }}
-      >
-        <S.Setting>
-          <S.Label>즐겨찾는 역 설정</S.Label>
-          <ChevronIcon />
-        </S.Setting>
+      <S.Container>
+        <S.SettingList>
+          <S.Setting
+            onClick={() => {
+              push('SettingPage', {});
+            }}
+          >
+            <S.Label>즐겨찾는 역 설정</S.Label>
+            <ChevronIcon />
+          </S.Setting>
+          <S.Setting onClick={showToast}>
+            <S.Label>공지사항</S.Label>
+            <ChevronIcon />
+          </S.Setting>
+          <S.Setting onClick={showToast}>
+            <S.Label>문의사항</S.Label>
+            <ChevronIcon />
+          </S.Setting>
+          <S.Setting onClick={showToast}>
+            <S.Label>약관 및 정책</S.Label>
+            <ChevronIcon />
+          </S.Setting>
+        </S.SettingList>
 
         <S.Bottom>
-          <span onClick={logoutConfirm}>로그아웃</span>
+          <span onClick={showToast}>로그아웃</span>
           <S.Line />
-          <span onClick={secessionConfirm}>회원탈퇴</span>
+          <span onClick={showToast}>회원탈퇴</span>
         </S.Bottom>
       </S.Container>
     </LayoutComponent.Base>
@@ -53,8 +71,13 @@ const S = {
     height: 100%;
     position: relative;
   `,
-  Setting: styled.div`
-    padding: 20px;
+  SettingList: styled.ul`
+    & > li:not(:last-of-type) {
+      border-bottom: 1px solid ${({ theme }) => theme.colors.gray[20]};
+    }
+  `,
+  Setting: styled.li`
+    padding: 16px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -82,7 +105,7 @@ const S = {
     color: #b0b0b0;
     height: 14px;
     position: absolute;
-    bottom: 0;
+    bottom: 32px;
     left: 0;
     width: 100%;
   `,

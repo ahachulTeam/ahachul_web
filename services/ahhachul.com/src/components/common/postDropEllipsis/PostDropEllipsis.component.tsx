@@ -10,7 +10,14 @@ import { Drawer } from 'vaul';
 
 import { sleep } from '@ahhachul/utils';
 
-import { CloseIcon, DangerIcon, PhraseIcon, WarningIcon } from '@/assets/icons/jsx/icons';
+import {
+  CloseIcon,
+  DangerIcon,
+  FaceIDIcon,
+  LockIcon,
+  PhraseIcon,
+  WarningIcon,
+} from '@/assets/icons/jsx/icons';
 import { MoreVerticalIcon } from '@/assets/icons/system';
 import { useUser } from '@/hooks/domain';
 import useUpdateLostFound from '@/hooks/domain/lostFound/useUpdateLostFound';
@@ -73,14 +80,7 @@ const PostDropEllipsis = ({
     switch (view) {
       case 'default':
         return isAuthor ? (
-          <DefaultView
-            isLost={isLost}
-            status={status}
-            articleId={articleId}
-            setView={setView}
-            handleEdit={handleEdit}
-            handleClose={handleClose}
-          />
+          <DefaultView isLost={isLost} status={status} setView={setView} handleEdit={handleEdit} />
         ) : (
           <ReportView handleClose={handleClose} />
         );
@@ -89,6 +89,16 @@ const PostDropEllipsis = ({
           <RemovePost
             queryKey={queryKey}
             articleId={articleId}
+            setView={setView}
+            handleClose={handleClose}
+          />
+        );
+      case 'update':
+        return (
+          <UpdatePost
+            queryKey={queryKey}
+            articleId={articleId}
+            lostStatus={status}
             setView={setView}
             handleClose={handleClose}
           />
@@ -181,39 +191,14 @@ function Header({
 function DefaultView({
   isLost,
   status,
-  articleId,
   setView,
   handleEdit,
-  handleClose,
 }: {
   isLost?: boolean;
   status?: LostStatus;
-  articleId: string;
   setView: (view: string) => void;
   handleEdit: () => void;
-  handleClose: () => void;
 }) {
-  const queryClient = useQueryClient();
-  const { mutate } = useUpdateLostFound();
-  const handleLost = () => {
-    mutate(
-      {
-        articleId: +articleId,
-        status: status === 'COMPLETE' ? 'PROGRESS' : 'COMPLETE',
-      },
-      {
-        onSuccess: () => {
-          handleClose();
-          setTimeout(() => {
-            queryClient.invalidateQueries({
-              queryKey: lostFoundKeys.detail(+articleId),
-            });
-          }, 1000);
-        },
-      },
-    );
-  };
-
   return (
     <>
       <S.DefaultViewHeader>
@@ -221,8 +206,8 @@ function DefaultView({
       </S.DefaultViewHeader>
       <S.ButtonContainer>
         {isLost && (
-          <S.GreenButton onClick={handleLost}>
-            <Check size={21} color="white" />
+          <S.GreenButton onClick={() => setView('update')}>
+            <Check size={21} color="#42b305ac" />
             {status === 'PROGRESS' ? '습득 완료' : '상태 변경'}
           </S.GreenButton>
         )}
@@ -313,7 +298,7 @@ function RemovePost({
         <Header
           icon={<DangerIcon />}
           title="게시글을 삭제하시겠어요?"
-          description="삭제하시면 복구할 수 없어요. 해당 게시글을 삭제할까요?"
+          description={`삭제하시면 복구할 수 없어요.\n해당 게시글을 삭제할까요?`}
         />
         <S.ButtonGroup>
           <S.SecondaryButton
@@ -324,6 +309,63 @@ function RemovePost({
             취소
           </S.SecondaryButton>
           <S.SmoothSecondaryButton status={status} handleClick={handleDeletePost} />
+        </S.ButtonGroup>
+      </div>
+    </div>
+  );
+}
+
+function UpdatePost({
+  articleId,
+  lostStatus,
+  setView,
+  handleClose,
+}: {
+  articleId: string;
+  queryKey: readonly unknown[];
+  lostStatus?: LostStatus;
+  setView: (view: string) => void;
+  handleClose: () => void;
+}) {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, status } = useUpdateLostFound();
+  const handleUpdateLostStatus = () => {
+    mutateAsync(
+      {
+        articleId: +articleId,
+        status: lostStatus === 'COMPLETE' ? 'PROGRESS' : 'COMPLETE',
+      },
+      {
+        onSuccess: () => {
+          handleClose();
+          setTimeout(() => {
+            queryClient.invalidateQueries({
+              queryKey: lostFoundKeys.detail(+articleId),
+            });
+          }, 1000);
+        },
+      },
+    );
+  };
+
+  return (
+    <div>
+      <div>
+        <Header
+          icon={lostStatus === 'COMPLETE' ? <LockIcon /> : <FaceIDIcon />}
+          title={lostStatus === 'COMPLETE' ? '찾음 상태를 취소하시겠어요?' : '분실물을 찾으셨나요?'}
+          description={
+            lostStatus === 'COMPLETE'
+              ? `물건을 다시 분실 상태로 변경하시겠어요?\n게시글이 '찾지 못함' 상태로 돌아갑니다.`
+              : `분실물을 찾으셨다면 알려주세요.\n게시글 상태가 '찾음'으로 변경됩니다.`
+          }
+        />
+        <S.ButtonGroup>
+          <S.SecondaryButton variant="default" onClick={() => setView('default')}>
+            취소
+          </S.SecondaryButton>
+          <S.SmoothGreenButton status={status} handleClick={handleUpdateLostStatus} />
         </S.ButtonGroup>
       </div>
     </div>

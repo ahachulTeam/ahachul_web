@@ -125,6 +125,15 @@ export const SmoothSecondaryButton = styled(SmoothButton)`
   color: #ffffff;
 `;
 
+export const SmoothGreenButton = styled(SmoothButton)`
+  ${buttonBase}
+  justify-content: center;
+  border-radius: 9999px;
+  font-size: 19px;
+  background-color: #29e236;
+  color: #42b305ac;
+`;
+
 export const HeaderWrapper = styled.header`
   margin-top: 21px;
 `;
@@ -142,6 +151,7 @@ export const HeaderDescription = styled.p`
   color: #33333e;
   font-size: 17px;
   line-height: 24px;
+  white-space: break-spaces;
 `;
 
 export const List = styled.ul`
@@ -197,6 +207,6 @@ export const DangerButton = styled.button`
 export const GreenButton = styled.button`
   ${buttonBase}
 
-  background-color: #4ade80; /* 초록색 배경 */
-  color: white;
+  background-color: #4ade8015;
+  color: #42b305ac;
 `;

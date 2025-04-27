@@ -80,14 +80,14 @@ export const CompleteWrapper = styled.div`
     align-items: center;
     height: 48px;
     width: 100%;
-    gap: 8px;
+    gap: 4px;
     background-color: ${theme.colors['key-color']};
   `}
 `;
 
 export const CompleteText = styled.span`
   ${({ theme }) => css`
-    ${theme.fonts.titleSmall};
+    ${theme.fonts.labelMedium};
     color: ${theme.colors.white};
   `}
 `;
