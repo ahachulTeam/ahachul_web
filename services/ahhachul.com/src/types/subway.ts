@@ -77,14 +77,15 @@ export interface APITrainInfoParams extends WithSubwayLineId, WithSubwayStationI
  * @value {'BEFORE_STATION_ENTER'} 전역진입
  * @value {'RUNNING'} 운행중
  */
-type CurrentTrainArrivalType =
-  | 'ENTER'
-  | 'ARRIVE'
-  | 'DEPARTURE'
-  | 'BEFORE_STATION_DEPARTURE'
-  | 'BEFORE_STATION_ARRIVE'
-  | 'BEFORE_STATION_ENTER'
-  | 'RUNNING';
+export enum CurrentTrainArrivalType {
+  ENTER = 'ENTER',
+  ARRIVE = 'ARRIVE',
+  DEPARTURE = 'DEPARTURE',
+  BEFORE_STATION_DEPARTURE = 'BEFORE_STATION_DEPARTURE',
+  BEFORE_STATION_ARRIVE = 'BEFORE_STATION_ARRIVE',
+  BEFORE_STATION_ENTER = 'BEFORE_STATION_ENTER',
+  RUNNING = 'RUNNING',
+}
 
 type UpDownType = 'UP' | 'DOWN';
 

@@ -55,3 +55,14 @@ export const formatSubwayLineInfo = (subwayResponse: SubwayLineServerModel) => {
 export const getFirstParentLineId = (stations: UserStationList): string => {
   return stations[0]?.subwayLineInfoList?.map(station => station.subwayLineId)?.join(',');
 };
+
+export const formatTime = (seconds: number) => {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+
+  if (remainingSeconds === 0) {
+    return `${minutes}분`;
+  }
+
+  return `${minutes}분 ${remainingSeconds}초`;
+};

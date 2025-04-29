@@ -5,16 +5,16 @@ import { defaultStationList } from '@/constants';
 import type { UserStationList } from '@/types';
 
 export interface IUserStationStore {
-  stations: UserStationList;
+  userStations: UserStationList;
   setUserStations: (updated: UserStationList) => void;
 }
 
 export const useUserStationStore = create(
   persist<IUserStationStore>(
     set => ({
-      stations: defaultStationList,
+      userStations: defaultStationList,
       setUserStations: (updated: UserStationList) => {
-        set({ stations: updated });
+        set({ userStations: updated });
       },
     }),
     {

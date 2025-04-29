@@ -8,31 +8,31 @@ import type { UserStation } from '@/types';
 import * as S from './SubwayLineFilter.styled';
 
 interface SubwayLineFilterProps extends IUserStationStore {
-  activatedStation: UserStation;
+  currentStation: UserStation;
 }
 
 const SubwayLineFilter = ({
-  stations,
-  activatedStation,
+  userStations,
+  currentStation,
   setUserStations,
 }: SubwayLineFilterProps) => {
   const reorderStationInfos = (subwayLineId: number) => () => {
-    const clickedInfo = activatedStation.subwayLineInfoList.find(
+    const clickedInfo = currentStation.subwayLineInfoList.find(
       info => info.subwayLineId === subwayLineId,
     );
-    const remainingInfos = activatedStation.subwayLineInfoList.filter(
+    const remainingInfos = currentStation.subwayLineInfoList.filter(
       info => info.subwayLineId !== subwayLineId,
     );
 
     const reorderedStationInfos = [clickedInfo, ...remainingInfos];
 
     const updatedStation = {
-      ...activatedStation,
+      ...currentStation,
       subwayLineInfoList: reorderedStationInfos,
     };
 
-    const updatedStations = stations.map(s =>
-      s.stationName === activatedStation.stationName ? updatedStation : s,
+    const updatedStations = userStations.map(s =>
+      s.stationName === currentStation.stationName ? updatedStation : s,
     ) as UserStation[];
 
     setUserStations(updatedStations);
@@ -41,7 +41,7 @@ const SubwayLineFilter = ({
   return (
     <div css={S.container}>
       <ul css={S.filters}>
-        {activatedStation.subwayLineInfoList.map(info => (
+        {currentStation.subwayLineInfoList.map(info => (
           <React.Fragment key={info.subwayLineId}>
             <li css={S.inherit(info.subwayLineId)} onClick={reorderStationInfos(info.subwayLineId)}>
               <button

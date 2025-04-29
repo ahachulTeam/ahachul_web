@@ -42,7 +42,7 @@ export const useFetchUserFavoriteStations = () => {
 };
 
 export const useUserFavoriteStations = () => {
-  const { setUserStations } = useUserStationStore(state => state);
+  const setUserStations = useUserStationStore(state => state.setUserStations);
 
   const afterSubmitSuccess = (res: ApiResponse<UserFavoriteStations>) => {
     setUserStations(res.result.stationInfoList);

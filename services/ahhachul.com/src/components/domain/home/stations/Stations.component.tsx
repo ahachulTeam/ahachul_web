@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { useQueryClient } from '@tanstack/react-query';
 
 import { fetchTrainInfo } from '@/apis/request/subway';
@@ -13,22 +11,15 @@ import TrainRealTimes from './trainRealTimes/TrainRealTimes';
 
 const Stations = () => {
   const { isCheckingAuthState } = useAuth();
-  const { stations, setUserStations } = useUserStationStore(state => state);
+  const { userStations, setUserStations } = useUserStationStore(state => state);
 
-  const activatedStation = useMemo(() => stations[0], [stations]);
-  const realTimesProps = useMemo(
-    () => ({
-      ...stations[0].subwayLineInfoList[0],
-      stationName: stations[0].stationName,
-      stationId: stations[0].stationId,
-    }),
-    [stations[0]],
-  );
+  const currentStation = userStations[0];
+  const currentSubwayLineInfo = currentStation.subwayLineInfoList[0];
+
+  const stationId = currentStation.stationId;
+  const subwayLineInfoList = currentStation.subwayLineInfoList;
 
   const queryClient = useQueryClient();
-  const stationId = stations[0].stationId;
-  const subwayLineInfoList = stations[0].subwayLineInfoList;
-
   const prefetchOtherLines = () => {
     const copy = [...subwayLineInfoList];
     copy.unshift();
@@ -40,16 +31,22 @@ const Stations = () => {
     });
   };
 
+  const realTimesProps = () => ({
+    ...currentSubwayLineInfo,
+    stationId: currentStation.stationId,
+    stationName: currentStation.stationName,
+  });
+
   if (isCheckingAuthState) return null;
 
   return (
     <section css={S.section}>
       <SubwayLineFilter
-        stations={stations}
+        userStations={userStations}
+        currentStation={currentStation}
         setUserStations={setUserStations}
-        activatedStation={activatedStation}
       />
-      <TrainRealTimes {...realTimesProps} prefetchOtherLines={prefetchOtherLines} />
+      <TrainRealTimes {...realTimesProps()} prefetchOtherLines={prefetchOtherLines} />
     </section>
   );
 };

@@ -28,7 +28,9 @@ export const useFetchSubwayLines = () =>
     },
   });
 
-export const useFetchTrainInfo = (params: APITrainInfoParams, prefetchOtherLines: () => void) => {
+export const useFetchTrainInfo = (
+  params: APITrainInfoParams & { prefetchOtherLines: () => void },
+) => {
   const res = useQuery({
     staleTime: 0,
     refetchInterval: 30 * TIMESTAMP.SECOND,
@@ -36,7 +38,8 @@ export const useFetchTrainInfo = (params: APITrainInfoParams, prefetchOtherLines
     refetchOnMount: true,
     refetchOnReconnect: true,
     refetchOnWindowFocus: true,
-    queryFn: () => fetchTrainInfo(params),
+    queryFn: () =>
+      fetchTrainInfo({ stationId: params.stationId, subwayLineId: params.subwayLineId }),
     select: res => {
       return res.data.result;
     },
@@ -45,7 +48,7 @@ export const useFetchTrainInfo = (params: APITrainInfoParams, prefetchOtherLines
   useEffect(() => {
     if (res.status !== 'success') return;
     else {
-      prefetchOtherLines();
+      params.prefetchOtherLines();
     }
   }, [res.status]);
 

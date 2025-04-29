@@ -54,7 +54,7 @@ const SignInCallbackPage: ActivityComponentType<SignInCallbackPageProps> = ({
           const userStations = await api.fetchUserFavoriteStations();
           if (userStations.result.stationInfoList.length > 0) {
             useUserStationStore.setState({
-              stations: userStations.result.stationInfoList,
+              userStations: userStations.result.stationInfoList,
             });
           }
         } catch (error) {

@@ -75,8 +75,8 @@ const HomeHeaderActions = () => {
   });
 
   const { mutate: updateUserStations } = useUserFavoriteStations();
-  const { stations } = useUserStationStore(state => state);
-  const activatedStation = useMemo(() => stations[0], [stations]);
+  const { userStations } = useUserStationStore(state => state);
+  const activatedStation = useMemo(() => userStations[0], [userStations]);
 
   const handleStationClick = useCallback(
     (clickedStation: UserStation) => () => {
@@ -95,7 +95,7 @@ const HomeHeaderActions = () => {
           tap(() => toggleDialog()),
           map(clicked => [
             clicked,
-            ...stations.filter(station => station.stationName !== clicked.stationName),
+            ...userStations.filter(station => station.stationName !== clicked.stationName),
           ]),
           tap(updatedStations => {
             const req = updatedStations.map(item => ({
@@ -107,7 +107,7 @@ const HomeHeaderActions = () => {
         )
         .subscribe();
     },
-    [activatedStation.stationName, openDialog, stations],
+    [activatedStation.stationName, openDialog, userStations],
   );
 
   const handleClickFavoriteStationSetting = () => {
@@ -141,7 +141,7 @@ const HomeHeaderActions = () => {
           }}
           css={S.menu}
         >
-          {stations.map((station, idx) => (
+          {userStations.map((station, idx) => (
             <Option
               key={station.stationName}
               station={station}

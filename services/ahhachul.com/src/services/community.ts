@@ -35,7 +35,7 @@ export const communityKeys = {
 
 export const useFetchCommunityList = (filters: CommunityListParams<SubwayLineFilterOptions>) => {
   const state = useUserStationStore(state => state);
-  const favoriteLine = getFirstParentLineId(state.stations);
+  const userStations = getFirstParentLineId(state.userStations);
 
   const req = removeFalsyValues(
     {
@@ -43,7 +43,7 @@ export const useFetchCommunityList = (filters: CommunityListParams<SubwayLineFil
       content: filters.content,
       hashTag: filters.hashTag,
       categoryType: filters.categoryType,
-      subwayLineIds: formatSubwayFilterOption(filters.subwayLineId, favoriteLine),
+      subwayLineIds: formatSubwayFilterOption(filters.subwayLineId, userStations),
     },
     { removeZero: true, removeEmptyStrings: true },
   ) as CommunityListParams;

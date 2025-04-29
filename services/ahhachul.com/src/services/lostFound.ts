@@ -35,13 +35,13 @@ export const lostFoundKeys = {
 
 export const useFetchLostFoundList = (filters: LostFoundListParams<SubwayLineFilterOptions>) => {
   const state = useUserStationStore(state => state);
-  const favoriteLines = getFirstParentLineId(state.stations);
+  const userStations = getFirstParentLineId(state.userStations);
 
   const req = removeFalsyValues(
     {
       lostType: filters.lostType,
       keyword: filters.keyword,
-      subwayLineIds: formatSubwayFilterOption(filters.subwayLineId, favoriteLines),
+      subwayLineIds: formatSubwayFilterOption(filters.subwayLineId, userStations),
     },
     { removeZero: true, removeEmptyStrings: true },
   ) as LostFoundListParams;

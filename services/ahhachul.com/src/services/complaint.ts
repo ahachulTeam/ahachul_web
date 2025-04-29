@@ -31,12 +31,12 @@ export const complaintKeys = {
 
 export const useFetchComplaintList = (filters: ComplaintListParams<SubwayLineFilterOptions>) => {
   const state = useUserStationStore(state => state);
-  const favoriteLine = getFirstParentLineId(state.stations);
+  const userStations = getFirstParentLineId(state.userStations);
 
   const req = removeFalsyValues(
     {
       keyword: filters.keyword,
-      subwayLineIds: formatSubwayFilterOption(filters.subwayLineId, favoriteLine),
+      subwayLineIds: formatSubwayFilterOption(filters.subwayLineId, userStations),
     },
     { removeZero: true, removeEmptyStrings: true },
   ) as ComplaintListParams;

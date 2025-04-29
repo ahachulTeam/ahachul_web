@@ -31,7 +31,7 @@ const LABEL_OPTIONS = [
 const SettingPage: ActivityComponentType = () => {
   const { pop } = useFlow();
   const { data: DEFAULT_STATIONS } = useFetchSubwayLines();
-  const { stations: userStations } = useUserStationStore(state => state);
+  const { userStations } = useUserStationStore(state => state);
   const { mutate: updateUserFavoriteStations } = useUserFavoriteStations();
 
   const [searchTerm, setSearchTerm] = useState('');

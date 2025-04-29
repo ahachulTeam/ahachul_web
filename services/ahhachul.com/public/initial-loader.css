@@ -1,7 +1,7 @@
 #initial-loader {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   height: 100%;
   width: 100%;
   position: fixed;
@@ -13,6 +13,7 @@
 
 .ios-spinner {
   position: relative;
+  top: -48px;
   width: 16px;
   height: 16px;
 }

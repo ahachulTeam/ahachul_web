@@ -39,7 +39,7 @@ async function init() {
 
       if (userStations.result.stationInfoList.length > 0) {
         useUserStationStore.setState({
-          stations: userStations.result.stationInfoList,
+          userStations: userStations.result.stationInfoList,
         });
       }
     } catch (error) {

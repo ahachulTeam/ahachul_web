@@ -122,3 +122,6 @@ export const defaultStationList: UserStationList = [
     ],
   },
 ];
+
+export const isSubwayNeedAnimation = (currentTrainArrivalCode?: string) =>
+  ['ENTER', 'ARRIVE', 'BEFORE_STATION_DEPARTURE'].includes(currentTrainArrivalCode || '');
