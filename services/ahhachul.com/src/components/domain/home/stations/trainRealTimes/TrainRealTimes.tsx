@@ -26,6 +26,7 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
     subwayLineId,
   });
 
+  const isServiceTerminated = data?.trainRealTimes?.length === 0;
   const currentTrain = data?.trainRealTimes?.[0];
 
   return (
@@ -39,6 +40,7 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
           <TrainArrivalStatus
             isError={isError}
             isFetching={isFetching}
+            isServiceTerminated={isServiceTerminated}
             currentArrivalTime={currentTrain?.currentArrivalTime}
             currentTrainArrivalCode={currentTrain?.currentTrainArrivalCode}
             destinationStationDirection={currentTrain?.destinationStationDirection}
@@ -71,6 +73,7 @@ interface TrainArrivalStatusProps {
   isError: boolean;
   isFetching: boolean;
   currentArrivalTime?: number;
+  isServiceTerminated: boolean;
   destinationStationDirection?: string;
   currentTrainArrivalCode?: CurrentTrainArrivalType;
   onRefetch?: () => void;
@@ -80,6 +83,7 @@ const TrainArrivalStatus = memo(
   ({
     isError,
     isFetching,
+    isServiceTerminated,
     currentTrainArrivalCode,
     destinationStationDirection = '',
     onRefetch,
@@ -100,7 +104,8 @@ const TrainArrivalStatus = memo(
           }}
         >
           {isFetching && <UiComponent.SpinnerIcon css={S.loading} />}
-          {!isFetching && getArrivalStatusText(isError, currentTrainArrivalCode)}
+          {!isFetching &&
+            getArrivalStatusText(isError, isServiceTerminated, currentTrainArrivalCode)}
         </b>
         <span>{isError || isFetching ? '' : destinationStationDirection}</span>
         {onRefetch && <RefreshButton onRefresh={onRefetch} />}

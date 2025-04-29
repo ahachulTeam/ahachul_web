@@ -129,10 +129,13 @@ export const isSubwayNeedAnimation = (currentTrainArrivalCode?: string) =>
 
 export const getArrivalStatusText = (
   isError: boolean,
+  isServiceTerminated: boolean,
   currentTrainArrivalCode?: CurrentTrainArrivalType,
 ) =>
   isError
     ? '일시적인 오류가 발생했습니다.'
-    : currentTrainArrivalCode
-      ? trainArrivalCodeMap[currentTrainArrivalCode] || ''
-      : '일시적인 오류가 발생했습니다.';
+    : isServiceTerminated
+      ? '운행이 종료되었습니다.'
+      : currentTrainArrivalCode
+        ? trainArrivalCodeMap[currentTrainArrivalCode] || ''
+        : '일시적인 오류가 발생했습니다.';
