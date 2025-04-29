@@ -134,8 +134,6 @@ const TrainArrivalStatus = memo(
   },
 );
 
-TrainArrivalStatus.displayName = 'TrainArrivalStatus';
-
 interface RefreshButtonProps {
   onRefresh: () => void;
 }
@@ -147,7 +145,6 @@ const RefreshButton = ({ onRefresh }: RefreshButtonProps) => {
     if (isRotating) return;
 
     setIsRotating(true);
-
     onRefresh();
 
     setTimeout(() => {
@@ -161,5 +158,7 @@ const RefreshButton = ({ onRefresh }: RefreshButtonProps) => {
     </button>
   );
 };
+
+TrainArrivalStatus.displayName = 'TrainArrivalStatus';
 
 export default memo(TrainRealTimes);

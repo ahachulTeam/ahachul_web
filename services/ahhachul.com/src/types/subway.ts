@@ -38,7 +38,7 @@ export type SubwayLineKrType =
 
 export interface UserStation {
   label: string;
-  stationId: number | SubwayLineType;
+  stationId: number;
   stationName: string;
   subwayLineInfoList: {
     subwayLineId: SubwayLineType;
