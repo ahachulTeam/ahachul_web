@@ -7,7 +7,6 @@ import {
   type SubwayLineType,
   type UserStationList,
 } from '@/types';
-import { formatTime } from '@/utils';
 
 export const subwayIconMap = new Map<number, React.ReactElement>([
   [1, <Icons.SubwayIcon_1 width={18} height={18} />],
@@ -130,16 +129,10 @@ export const isSubwayNeedAnimation = (currentTrainArrivalCode?: string) =>
 
 export const getArrivalStatusText = (
   isError: boolean,
-  isFetching: boolean,
-  remainingSeconds: number,
   currentTrainArrivalCode?: CurrentTrainArrivalType,
 ) =>
   isError
     ? '일시적인 오류가 발생했습니다.'
-    : isFetching
-      ? '정보를 불러오는 중입니다.'
-      : currentTrainArrivalCode === CurrentTrainArrivalType.RUNNING
-        ? formatTime(remainingSeconds)
-        : currentTrainArrivalCode
-          ? trainArrivalCodeMap[currentTrainArrivalCode] || ''
-          : '일시적인 오류가 발생했습니다.';
+    : currentTrainArrivalCode
+      ? trainArrivalCodeMap[currentTrainArrivalCode] || ''
+      : '일시적인 오류가 발생했습니다.';

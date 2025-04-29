@@ -24,6 +24,11 @@ export const arrivalList = css`
       color: #ffffff;
       font-size: 14px;
       font-weight: normal;
+      flex-shrink: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 75%;
     }
 
     &:first-of-type > b,
@@ -34,6 +39,10 @@ export const arrivalList = css`
     & > span {
       color: #00baf6;
       font-size: 14px;
+      flex-shrink: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 `;

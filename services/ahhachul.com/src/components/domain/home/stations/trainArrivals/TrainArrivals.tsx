@@ -15,8 +15,8 @@ interface TrainArrivalTimesProps {
 const TrainArrivals = ({ trainRealTimes }: TrainArrivalTimesProps) => {
   const [trainTimers, setTrainTimers] = useState<{ [key: string]: number }>(() => {
     const initialTimers: { [key: string]: number } = {};
-    trainRealTimes.forEach((train, index) => {
-      initialTimers[`train_${index}`] = train.currentArrivalTime * getRandomNumber1to60();
+    trainRealTimes.forEach(train => {
+      initialTimers[`train_${train.trainNum}`] = train.currentArrivalTime * getRandomNumber1to60();
     });
     return initialTimers;
   });
@@ -53,11 +53,11 @@ const TrainArrivals = ({ trainRealTimes }: TrainArrivalTimesProps) => {
       variants={motions.fadeIn(0.3)}
       css={S.arrivalList}
     >
-      {trainRealTimes?.map((train, idx) => (
+      {trainRealTimes?.map(train => (
         <TrainCard
-          key={`train_${idx}`}
           train={train}
-          remainingSeconds={trainTimers[`train_${idx}`]}
+          key={`train_${train.trainNum}`}
+          remainingSeconds={trainTimers[`train_${train.trainNum}`]}
         />
       ))}
     </motion.ul>
@@ -66,7 +66,11 @@ const TrainArrivals = ({ trainRealTimes }: TrainArrivalTimesProps) => {
 
 const TrainCard = memo(
   ({ train, remainingSeconds }: { train: ITrain; remainingSeconds: number }) => {
+    console.log('train:', train);
+
     const formatTime = (seconds: number) => {
+      if (!seconds && seconds !== 0) return '알 수 없음';
+
       if (seconds < 60) {
         return '곧 도착';
       }
