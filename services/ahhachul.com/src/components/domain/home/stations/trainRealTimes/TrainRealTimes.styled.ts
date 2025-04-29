@@ -1,4 +1,4 @@
-import { keyframes, type Interpolation, type Theme } from '@emotion/react';
+import { css, keyframes, type Interpolation, type Theme } from '@emotion/react';
 
 import { subwayLineHexColors } from '@/constants';
 import { fadeIn, mixins } from '@/styles';
@@ -141,3 +141,9 @@ export const listWrap = {
   borderTop: '1px solid rgba(255, 255, 255, 0.12)',
   minHeight: '85.19px',
 } as Interpolation<Theme>;
+
+export const loading = css`
+  position: relative;
+  top: 0.5px;
+  animation: ios-spin 1.5s ease infinite;
+`;

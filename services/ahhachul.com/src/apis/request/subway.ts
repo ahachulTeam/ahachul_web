@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { sleep } from '@ahhachul/utils';
+
 import axiosInstance from '@/apis/fetcher';
 import {
   ITrain,
@@ -25,5 +27,7 @@ export const prefetchSubwayLines = async () =>
     `${BASE_URL.SERVER}${API_PREFIX}/subway-lines`,
   );
 
-export const fetchTrainInfo = (params: APITrainInfoParams) =>
-  axiosInstance.get<ApiResponse<APITrainInfoResponse>>('/trains/real-times', { params });
+export const fetchTrainInfo = async (params: APITrainInfoParams) => {
+  await sleep(400);
+  return axiosInstance.get<ApiResponse<APITrainInfoResponse>>('/trains/real-times', { params });
+};

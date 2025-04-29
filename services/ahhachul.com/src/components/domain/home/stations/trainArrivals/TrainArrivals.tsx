@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 
 import { motion } from 'motion/react';
 
@@ -16,7 +16,7 @@ const TrainArrivals = ({ trainRealTimes }: TrainArrivalTimesProps) => {
   const [trainTimers, setTrainTimers] = useState<{ [key: string]: number }>(() => {
     const initialTimers: { [key: string]: number } = {};
     trainRealTimes.forEach((train, index) => {
-      initialTimers[`train-${index}`] = train.currentArrivalTime * getRandomNumber1to60();
+      initialTimers[`train_${index}`] = train.currentArrivalTime * getRandomNumber1to60();
     });
     return initialTimers;
   });
@@ -66,7 +66,7 @@ const TrainArrivals = ({ trainRealTimes }: TrainArrivalTimesProps) => {
 
 const TrainCard = memo(
   ({ train, remainingSeconds }: { train: ITrain; remainingSeconds: number }) => {
-    const formatTime = useCallback((seconds: number) => {
+    const formatTime = (seconds: number) => {
       if (seconds < 60) {
         return '곧 도착';
       }
@@ -79,7 +79,7 @@ const TrainCard = memo(
       }
 
       return `${minutes}분 ${remainingSeconds}초`;
-    }, []);
+    };
 
     return (
       <li>

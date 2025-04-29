@@ -3,6 +3,7 @@ import { memo, useCallback, useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 
 import { RetryIcon } from '@/assets/icons/system';
+import { UiComponent } from '@/components';
 import { getArrivalStatusText, isSubwayNeedAnimation, motions } from '@/constants';
 import { useFetchTrainInfo } from '@/services/subway';
 import { useFlow } from '@/stackflow';
@@ -45,6 +46,7 @@ const TrainRealTimes = ({
         <div css={S.currentTrainArrivalInfo}>
           <TrainArrivalStatus
             isError={isError}
+            isFetching={isFetching}
             currentArrivalTime={currentTrain?.currentArrivalTime}
             currentTrainArrivalCode={currentTrain?.currentTrainArrivalCode}
             destinationStationDirection={currentTrain?.destinationStationDirection}
@@ -74,7 +76,8 @@ const TrainRealTimes = ({
 };
 
 interface TrainArrivalStatusProps {
-  isError?: boolean;
+  isError: boolean;
+  isFetching: boolean;
   currentArrivalTime?: number;
   destinationStationDirection?: string;
   currentTrainArrivalCode?: CurrentTrainArrivalType;
@@ -83,7 +86,8 @@ interface TrainArrivalStatusProps {
 
 const TrainArrivalStatus = memo(
   ({
-    isError = false,
+    isError,
+    isFetching,
     currentArrivalTime = 1,
     currentTrainArrivalCode,
     destinationStationDirection = '',
@@ -95,6 +99,7 @@ const TrainArrivalStatus = memo(
 
     useEffect(() => {
       if (isError) return;
+      if (isFetching) return;
       if (currentTrainArrivalCode !== CurrentTrainArrivalType.RUNNING) return;
 
       const timerId = setInterval(() => {
@@ -108,7 +113,7 @@ const TrainArrivalStatus = memo(
       }, 1000);
 
       return () => clearInterval(timerId);
-    }, [isError, currentTrainArrivalCode]);
+    }, [isError, isFetching, currentTrainArrivalCode]);
 
     return (
       <motion.div
@@ -125,9 +130,11 @@ const TrainArrivalStatus = memo(
               : 'none',
           }}
         >
-          {getArrivalStatusText(isError, remainingSeconds, currentTrainArrivalCode)}
+          {isFetching && <UiComponent.SpinnerIcon css={S.loading} />}
+          {!isFetching &&
+            getArrivalStatusText(isError, isFetching, remainingSeconds, currentTrainArrivalCode)}
         </b>
-        <span>{isError ? '' : destinationStationDirection}</span>
+        <span>{isError || isFetching ? '' : destinationStationDirection}</span>
         {onRefetch && <RefreshButton onRefresh={onRefetch} />}
       </motion.div>
     );

@@ -32,12 +32,11 @@ export const useFetchTrainInfo = (
   params: APITrainInfoParams & { prefetchOtherLines: () => void },
 ) => {
   const res = useQuery({
-    staleTime: 0,
+    staleTime: 20 * TIMESTAMP.SECOND,
     refetchInterval: 30 * TIMESTAMP.SECOND,
-    queryKey: subwayKeys.train(Object.values(params)),
-    refetchOnMount: true,
-    refetchOnReconnect: true,
-    refetchOnWindowFocus: true,
+    queryKey: subwayKeys.train(
+      Object.values({ stationId: params.stationId, subwayLineId: params.subwayLineId }),
+    ),
     queryFn: () =>
       fetchTrainInfo({ stationId: params.stationId, subwayLineId: params.subwayLineId }),
     select: res => {
