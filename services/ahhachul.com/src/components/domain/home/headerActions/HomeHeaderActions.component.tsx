@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { from, tap, map } from 'rxjs';
 
 import { ChevronIcon } from '@/assets/icons/system';
+import { useNativeBridge } from '@/contexts';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { useUserFavoriteStations } from '@/services/user';
 import { useFlow } from '@/stackflow';
@@ -64,6 +65,7 @@ const Option = ({
 
 const HomeHeaderActions = () => {
   const { push } = useFlow();
+  const { bridge, isBridgeInitialized } = useNativeBridge();
   const [openDialog, toggleDialog] = useReducer(open => !open, false);
 
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -82,6 +84,10 @@ const HomeHeaderActions = () => {
       if (activatedStation.stationName === clickedStation.stationName) {
         toggleDialog();
         return;
+      }
+
+      if (isBridgeInitialized) {
+        bridge.send.haptic();
       }
 
       from([clickedStation])
@@ -103,6 +109,14 @@ const HomeHeaderActions = () => {
     },
     [activatedStation.stationName, openDialog, stations],
   );
+
+  const handleClickFavoriteStationSetting = () => {
+    isBridgeInitialized && bridge.send.haptic();
+    toggleDialog();
+    setTimeout(() => {
+      push('SettingPage', []);
+    }, 550);
+  };
 
   return (
     <div css={S.container} ref={dialogRef}>
@@ -137,15 +151,7 @@ const HomeHeaderActions = () => {
               onClick={handleStationClick(station)}
             />
           ))}
-          <li
-            css={S.option}
-            onClick={() => {
-              toggleDialog();
-              setTimeout(() => {
-                push('SettingPage', []);
-              }, 550);
-            }}
-          >
+          <li css={S.option} onClick={handleClickFavoriteStationSetting}>
             <span css={{ color: '#95979F' }}>즐겨찾는역 설정하기</span>
           </li>
         </motion.ul>

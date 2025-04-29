@@ -1,0 +1,51 @@
+#initial-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+  z-index: 9999;
+}
+
+.ios-spinner {
+  position: relative;
+  width: 16px;
+  height: 16px;
+}
+
+.ios-spinner::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.ios-spinner::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 2.5px solid rgba(200, 200, 200, 0.2);
+  border-top-color: #004fec;
+  animation: ios-spin 1.5s ease infinite;
+}
+
+@keyframes ios-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
