@@ -2,6 +2,7 @@ import { keyframes, type Interpolation, type Theme } from '@emotion/react';
 
 import { subwayLineHexColors } from '@/constants';
 import { fadeIn, mixins } from '@/styles';
+import type { SubwayLineType } from '@/types';
 
 export const inner = {
   position: 'relative',
@@ -10,7 +11,7 @@ export const inner = {
   backgroundColor: 'rgba(255, 255, 255, 0.1)',
 } as Interpolation<Theme>;
 
-export const thickBorder = (subwayLineId: number) =>
+export const thickBorder = (subwayLineId: SubwayLineType) =>
   ({
     position: 'absolute',
     left: '0',
@@ -20,7 +21,7 @@ export const thickBorder = (subwayLineId: number) =>
     borderTopLeftRadius: '20px',
     borderTopRightRadius: '20px',
     transition: 'background-color 0.4s ease-in-out',
-    backgroundColor: subwayLineHexColors(subwayLineId),
+    backgroundColor: subwayLineHexColors(Number(subwayLineId)),
     display: 'flex',
     alignItems: 'center',
     gap: '4px',
@@ -33,7 +34,7 @@ export const thickBorder = (subwayLineId: number) =>
     },
   }) as Interpolation<Theme>;
 
-export const stationName = (subwayLineId: number) =>
+export const stationName = (subwayLineId: SubwayLineType) =>
   [
     mixins.flexCenterCenter,
     ({ colors: { white, black } }: Theme) => ({
@@ -42,7 +43,7 @@ export const stationName = (subwayLineId: number) =>
 
       borderRadius: '35px',
       transition: 'border-color 0.4s ease-in-out',
-      border: `4px solid ${subwayLineHexColors(subwayLineId)}`,
+      border: `4px solid ${subwayLineHexColors(Number(subwayLineId))}`,
       color: black,
       backgroundColor: white,
 

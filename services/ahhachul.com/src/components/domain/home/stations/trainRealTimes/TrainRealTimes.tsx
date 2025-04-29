@@ -3,12 +3,12 @@ import { memo, useCallback, useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 
 import { RetryIcon } from '@/assets/icons/system';
-import { isSubwayNeedAnimation, motions, trainArrivalCodeMap } from '@/constants';
+import { getArrivalStatusText, isSubwayNeedAnimation, motions } from '@/constants';
 import { useFetchTrainInfo } from '@/services/subway';
 import { useFlow } from '@/stackflow';
 import { fade } from '@/styles';
-import { CurrentTrainArrivalType, WithSubwayStationId } from '@/types';
-import { formatTime } from '@/utils';
+import { CurrentTrainArrivalType, SubwayLineType, WithSubwayStationId } from '@/types';
+import { getRandomNumber1to60 } from '@/utils';
 
 import * as S from './TrainRealTimes.styled';
 
@@ -16,7 +16,7 @@ import TrainArrivals from '../trainArrivals/TrainArrivals';
 
 interface TrainRealTimesProps extends WithSubwayStationId {
   stationName: string;
-  subwayLineId: number;
+  subwayLineId: SubwayLineType;
   prefetchOtherLines: () => void;
 }
 
@@ -27,17 +27,13 @@ const TrainRealTimes = ({
   prefetchOtherLines,
 }: TrainRealTimesProps) => {
   const { push } = useFlow();
-  const { data, isLoading, isError, refetch } = useFetchTrainInfo({
+  const { data, isFetching, isError, refetch } = useFetchTrainInfo({
     stationId,
     subwayLineId,
     prefetchOtherLines,
   });
 
   const currentTrain = data?.trainRealTimes?.[0];
-
-  const handleRefetch = useCallback(() => {
-    refetch();
-  }, [refetch]);
 
   return (
     <div css={S.inner}>
@@ -52,12 +48,12 @@ const TrainRealTimes = ({
             currentArrivalTime={currentTrain?.currentArrivalTime}
             currentTrainArrivalCode={currentTrain?.currentTrainArrivalCode}
             destinationStationDirection={currentTrain?.destinationStationDirection}
-            onRefetch={handleRefetch}
+            onRefetch={refetch}
           />
         </div>
 
         <div css={S.listWrap}>
-          {isLoading ? (
+          {isFetching ? (
             <div></div>
           ) : isError ? (
             <div>일시적인 오류</div>
@@ -88,28 +84,18 @@ interface TrainArrivalStatusProps {
 const TrainArrivalStatus = memo(
   ({
     isError = false,
-    currentArrivalTime = 0,
+    currentArrivalTime = 1,
     currentTrainArrivalCode,
     destinationStationDirection = '',
     onRefetch,
   }: TrainArrivalStatusProps) => {
-    const [remainingSeconds, setRemainingSeconds] = useState<number>(currentArrivalTime * 60);
-
-    const arrivalText = isError
-      ? '일시적인 오류'
-      : currentTrainArrivalCode === CurrentTrainArrivalType.RUNNING
-        ? formatTime(remainingSeconds)
-        : currentTrainArrivalCode
-          ? trainArrivalCodeMap[currentTrainArrivalCode as keyof typeof trainArrivalCodeMap] || ''
-          : '운행 종료';
+    const [remainingSeconds, setRemainingSeconds] = useState<number>(
+      currentArrivalTime * getRandomNumber1to60(),
+    );
 
     useEffect(() => {
-      if (
-        isError ||
-        currentTrainArrivalCode !== CurrentTrainArrivalType.RUNNING ||
-        remainingSeconds <= 0
-      )
-        return;
+      if (isError) return;
+      if (currentTrainArrivalCode !== CurrentTrainArrivalType.RUNNING) return;
 
       const timerId = setInterval(() => {
         setRemainingSeconds(prev => {
@@ -122,7 +108,7 @@ const TrainArrivalStatus = memo(
       }, 1000);
 
       return () => clearInterval(timerId);
-    }, [currentTrainArrivalCode, remainingSeconds, isError]);
+    }, [isError, currentTrainArrivalCode]);
 
     return (
       <motion.div
@@ -139,7 +125,7 @@ const TrainArrivalStatus = memo(
               : 'none',
           }}
         >
-          {arrivalText}
+          {getArrivalStatusText(isError, remainingSeconds, currentTrainArrivalCode)}
         </b>
         <span>{isError ? '' : destinationStationDirection}</span>
         {onRefetch && <RefreshButton onRefresh={onRefetch} />}

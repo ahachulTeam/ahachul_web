@@ -3,7 +3,7 @@ import React from 'react';
 import { subwayLineOptions } from '@/constants';
 import { StackFlow } from '@/stackflow';
 import type { IUserStationStore } from '@/stores/subway';
-import type { UserStation } from '@/types';
+import type { SubwayLineType, UserStation } from '@/types';
 
 import * as S from './SubwayLineFilter.styled';
 
@@ -16,7 +16,7 @@ const SubwayLineFilter = ({
   currentStation,
   setUserStations,
 }: SubwayLineFilterProps) => {
-  const reorderStationInfos = (subwayLineId: number) => () => {
+  const reorderStationInfos = (subwayLineId: SubwayLineType) => () => {
     const clickedInfo = currentStation.subwayLineInfoList.find(
       info => info.subwayLineId === subwayLineId,
     );
@@ -46,16 +46,10 @@ const SubwayLineFilter = ({
             <li css={S.inherit(info.subwayLineId)} onClick={reorderStationInfos(info.subwayLineId)}>
               <button
                 type="button"
-                css={S.filterBtn(
-                  subwayLineOptions[
-                    info.subwayLineId as unknown as keyof typeof subwayLineOptions
-                  ].replace('선', '').length,
-                )}
+                css={S.filterBtn(subwayLineOptions[info.subwayLineId].replace('선', '').length)}
               >
-                {info.subwayLineId > 9
-                  ? subwayLineOptions[
-                      info.subwayLineId as unknown as keyof typeof subwayLineOptions
-                    ].replace('선', '')
+                {Number(info.subwayLineId) > 9
+                  ? subwayLineOptions[info.subwayLineId].replace('선', '')
                   : info.subwayLineId}
               </button>
             </li>

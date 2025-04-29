@@ -38,10 +38,10 @@ export type SubwayLineKrType =
 
 export interface UserStation {
   label: string;
-  stationId: number;
+  stationId: number | SubwayLineType;
   stationName: string;
   subwayLineInfoList: {
-    subwayLineId: number;
+    subwayLineId: SubwayLineType;
     subwayLineName: string;
   }[];
 }
@@ -53,7 +53,7 @@ export type UserFavoriteStations = {
 };
 
 export type WithSubwayLineId = {
-  subwayLineId: number;
+  subwayLineId: number | SubwayLineType;
 };
 
 export type WithSubwayStationId = {

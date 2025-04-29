@@ -1,11 +1,13 @@
 /* eslint-disable react/jsx-key */
 import * as Icons from '@/assets/icons/subway';
 import {
+  CurrentTrainArrivalType,
   SubwayLineFilterOptions,
   type SubwayLineKrType,
   type SubwayLineType,
   type UserStationList,
 } from '@/types';
+import { formatTime } from '@/utils';
 
 export const subwayIconMap = new Map<number, React.ReactElement>([
   [1, <Icons.SubwayIcon_1 width={18} height={18} />],
@@ -52,7 +54,7 @@ export const subwayLineFilterOptions = {
   [SubwayLineFilterOptions.ONLY_MY_LINE]: '내 호선만 보기',
 } as const;
 
-export const trainArrivalCodeMap = {
+export const trainArrivalCodeMap: Record<CurrentTrainArrivalType, string> = {
   ENTER: '진입',
   ARRIVE: '도착',
   DEPARTURE: '출발',
@@ -112,11 +114,11 @@ export const defaultStationList: UserStationList = [
     stationName: '강남',
     subwayLineInfoList: [
       {
-        subwayLineId: 2,
+        subwayLineId: '2',
         subwayLineName: '2호선',
       },
       {
-        subwayLineId: 18,
+        subwayLineId: '18',
         subwayLineName: '신분당선',
       },
     ],
@@ -125,3 +127,16 @@ export const defaultStationList: UserStationList = [
 
 export const isSubwayNeedAnimation = (currentTrainArrivalCode?: string) =>
   ['ENTER', 'ARRIVE', 'BEFORE_STATION_DEPARTURE'].includes(currentTrainArrivalCode || '');
+
+export const getArrivalStatusText = (
+  isError: boolean,
+  remainingSeconds: number,
+  currentTrainArrivalCode?: CurrentTrainArrivalType,
+) =>
+  isError
+    ? '일시적인 오류'
+    : currentTrainArrivalCode === CurrentTrainArrivalType.RUNNING
+      ? formatTime(remainingSeconds)
+      : currentTrainArrivalCode
+        ? trainArrivalCodeMap[currentTrainArrivalCode] || ''
+        : '운행 종료';

@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 
 import { motions } from '@/constants';
 import type { ITrain } from '@/types';
+import { getRandomNumber1to60 } from '@/utils';
 
 import * as S from './TrainArrivals.styled';
 
@@ -15,17 +16,17 @@ const TrainArrivals = ({ trainRealTimes }: TrainArrivalTimesProps) => {
   const [trainTimers, setTrainTimers] = useState<{ [key: string]: number }>(() => {
     const initialTimers: { [key: string]: number } = {};
     trainRealTimes.forEach((train, index) => {
-      initialTimers[`train-${index}`] = train.currentArrivalTime * 60;
+      initialTimers[`train-${index}`] = train.currentArrivalTime * getRandomNumber1to60();
     });
     return initialTimers;
   });
 
-  const needsTimer = Object.values(trainTimers).some(time => time > 0);
+  const needTimer = Object.values(trainTimers).some(time => time > 0);
 
   useEffect(() => {
-    if (!needsTimer) return;
+    if (!needTimer) return;
 
-    const timer = setInterval(() => {
+    const timerId = setInterval(() => {
       setTrainTimers(prev => {
         const updated = { ...prev };
         let changed = false;
@@ -41,22 +42,22 @@ const TrainArrivals = ({ trainRealTimes }: TrainArrivalTimesProps) => {
       });
     }, 1000);
 
-    return () => clearInterval(timer);
-  }, [needsTimer]);
+    return () => clearInterval(timerId);
+  }, [needTimer]);
 
   return (
     <motion.ul
-      initial="initial"
-      animate="animate"
       exit="exit"
-      css={S.arrivalList}
+      animate="animate"
+      initial="initial"
       variants={motions.fadeIn(0.3)}
+      css={S.arrivalList}
     >
       {trainRealTimes?.map((train, idx) => (
         <TrainCard
-          key={`train-${idx}`}
+          key={`train_${idx}`}
           train={train}
-          remainingSeconds={trainTimers[`train-${idx}`]}
+          remainingSeconds={trainTimers[`train_${idx}`]}
         />
       ))}
     </motion.ul>
@@ -83,7 +84,7 @@ const TrainCard = memo(
     return (
       <li>
         <b>{train.destinationStationDirection}</b>
-        <span> {formatTime(remainingSeconds)}</span>
+        <span>{formatTime(remainingSeconds)}</span>
       </li>
     );
   },
