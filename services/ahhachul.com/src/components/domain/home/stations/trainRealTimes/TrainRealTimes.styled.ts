@@ -1,4 +1,4 @@
-import { css, keyframes, type Interpolation, type Theme } from '@emotion/react';
+import { css, type Interpolation, type Theme } from '@emotion/react';
 
 import { subwayLineHexColors } from '@/constants';
 import { fadeIn, mixins } from '@/styles';
@@ -93,24 +93,28 @@ export const arrivalInfoLabel = [
   }),
 ] as Interpolation<Theme>;
 
-const rotate = keyframes`
-  0% { transform: translateY(-50%) rotate(0deg); }
-  100% { transform: translateY(-50%) rotate(360deg); }
-`;
-
-export const refetchBtnCss = (isClicked: boolean) =>
+export const refetchBtnCss = () =>
   ({
     position: 'absolute',
     top: '50%',
     right: 0,
     transform: 'translateY(-50%)',
-    animation: isClicked && `${rotate} 0.8s forwards`,
+    // animation: isClicked && `${rotate} 0.8s forwards`,
+    transition: 'all 100ms ease-out',
 
     '& > svg': {
       position: 'relative',
       top: '1px',
       width: '18px',
       height: '18px',
+    },
+
+    '&:hover': {
+      transform: 'translateY(-50%) scale(1.05)',
+    },
+
+    '&:active': {
+      transform: 'translateY(-50%) scale(0.95)',
     },
   }) as Interpolation<Theme>;
 

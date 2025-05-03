@@ -1,4 +1,4 @@
-import { memo, useCallback, useReducer, useState } from 'react';
+import { memo, useReducer } from 'react';
 
 import { motion } from 'motion/react';
 
@@ -138,21 +138,21 @@ interface RefreshButtonProps {
 }
 
 const RefreshButton = ({ onRefresh }: RefreshButtonProps) => {
-  const [isRotating, setIsRotating] = useState(false);
+  // const [isRotating, setIsRotating] = useState(false);
 
-  const handleClick = useCallback(() => {
-    if (isRotating) return;
+  // const handleClick = useCallback(() => {
+  // if (isRotating) return;
 
-    setIsRotating(true);
-    onRefresh();
+  // setIsRotating(true);
+  // onRefresh();
 
-    setTimeout(() => {
-      setIsRotating(false);
-    }, 1000);
-  }, [isRotating, onRefresh]);
+  // setTimeout(() => {
+  //   setIsRotating(false);
+  // }, 1000);
+  // }, [onRefresh]);
 
   return (
-    <button css={S.refetchBtnCss(isRotating)} onClick={handleClick} aria-label="새로고침">
+    <button css={S.refetchBtnCss} onClick={onRefresh} aria-label="새로고침">
       <RetryIcon />
     </button>
   );

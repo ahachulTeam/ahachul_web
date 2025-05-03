@@ -30,8 +30,16 @@ export const inherit = (line: SubwayLineType) => ({
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
-  transition: 'background-color 0.4s ease-in-out',
   backgroundColor: subwayLineHexColors(Number(line)),
+  transition: 'transform 200ms ease-in-out',
+
+  '&:hover': {
+    transform: 'scale(1.05)',
+  },
+
+  '&:active': {
+    transform: 'scale(0.95)',
+  },
 });
 
 export const filterBtn = (length: number) => ({
@@ -39,6 +47,7 @@ export const filterBtn = (length: number) => ({
   fontSize: length >= 4 ? '12px' : '14px',
   fontWeight: 600,
   letterSpacing: '-0.2px',
+  lineHeight: '0',
 });
 
 export const link = [
@@ -56,12 +65,12 @@ export const link = [
 
     '&:hover': {
       transform: 'scale(1.02)',
-      backgroundColor: 'rgba(255, 255, 255, 0.15)',
+      // backgroundColor: 'rgba(255, 255, 255, 0.15)',
     },
 
     '&:active': {
       transform: 'scale(0.93)',
-      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+      // backgroundColor: 'rgba(255, 255, 255, 0.05)',
     },
 
     '& > svg': {

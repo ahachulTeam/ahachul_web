@@ -55,7 +55,7 @@ export const option = css`
   width: 100%;
   border-radius: 6px;
   padding: 12px 8px;
-
+  background-color: white;
   color: #272727;
   font-size: 16px;
   font-weight: 500;
@@ -63,17 +63,21 @@ export const option = css`
   cursor: pointer;
   transition:
     background-color 0.2s,
-    color 0.2s;
+    color 0.2s,
+    transform 0.2s;
 
   &:first-of-type {
     font-weight: 700;
   }
 
-  @media (hover: hover) {
-    &:hover {
-      background-color: #e0e7ff;
-      color: #6366f1;
-    }
+  &:hover {
+    transform: scale(1.02);
+    background-color: #ebebeb;
+  }
+
+  &:active {
+    transform: scale(0.93);
+    background-color: #ebebeb;
   }
 `;
 
