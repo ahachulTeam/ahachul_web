@@ -4,10 +4,11 @@ import styled from '@emotion/styled';
 import { ChevronIcon } from '@/assets/icons/system';
 import { useToast } from '@/hooks/useToast';
 
+import deps from '../../../../package.json';
+
 const menuSections = [
   { label: '알림 설정', to: '/all/settings/notifications' },
   { label: '약관 및 이용 동의', to: '/all/terms' },
-  { label: '앱 버전', to: '' },
 ];
 
 const MenuSections = () => {
@@ -26,6 +27,11 @@ const MenuSections = () => {
             <ChevronIcon />
           </Section>
         ))}
+
+        <Section>
+          <p>앱 버전</p>
+          <p style={{ color: '#70747D' }}>{deps.version}</p>
+        </Section>
       </SectionsBox>
       <SectionsBox>
         <SectionCs>

@@ -32,6 +32,10 @@ const MyAccountPage: ActivityComponentType = () => {
         </FlexCenter>
 
         <Fields>
+          <div>
+            <p className="main">이메일</p>
+            <p className="secondary">{userInfo?.result?.email ?? '-'}</p>
+          </div>
           <div onClick={showToast}>
             <p className="main">닉네임</p>
             <div>
@@ -39,11 +43,6 @@ const MyAccountPage: ActivityComponentType = () => {
               <ChevronIcon />
             </div>
           </div>
-          <div>
-            <p className="main">이메일</p>
-            <p className="secondary">{userInfo?.result?.email ?? '-'}</p>
-          </div>
-
           <div onClick={showToast}>
             <p className="main">비밀번호 변경</p>
             <ChevronIcon />
@@ -121,9 +120,8 @@ const Fields = styled.div`
 
   > div {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     height: 56px;
 
     & > svg {
@@ -133,7 +131,8 @@ const Fields = styled.div`
 
   div > div {
     display: flex;
-    flex-direction: row;
+    align-items: center;
+
     p {
       margin-right: 8px;
     }
@@ -152,7 +151,6 @@ const Fields = styled.div`
 
   p.secondary {
     font-size: 16px;
-    line-height: 24px;
     color: #70747d;
   }
 `;
@@ -174,6 +172,10 @@ const RemoveAccountCard = styled.div`
 
   & > svg {
     transform: rotate(270deg);
+
+    & > g > path {
+      fill: #838791;
+    }
   }
 `;
 
