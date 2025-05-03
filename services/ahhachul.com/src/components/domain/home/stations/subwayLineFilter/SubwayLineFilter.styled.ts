@@ -31,14 +31,14 @@ export const inherit = (line: SubwayLineType) => ({
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
   backgroundColor: subwayLineHexColors(Number(line)),
-  transition: 'transform 200ms ease-in-out',
+  transition: 'transform 150ms ease-out',
 
   '&:hover': {
     transform: 'scale(1.05)',
   },
 
   '&:active': {
-    transform: 'scale(0.95)',
+    transform: 'scale(0.9)',
   },
 });
 

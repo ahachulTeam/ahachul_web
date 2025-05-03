@@ -60,13 +60,13 @@ export const trainInfos = [
   mixins.flexColumn,
   {
     justifyContent: 'flex-end',
-    padding: '42px 0 0 0',
+    padding: '49px 0 0 0',
   },
 ] as Interpolation<Theme>;
 
 export const currentTrainArrivalInfo = {
   minHeight: '24px',
-  marginBottom: '8px',
+  marginBottom: '14px',
   padding: '0 16px',
 };
 
@@ -99,22 +99,12 @@ export const refetchBtnCss = () =>
     top: '50%',
     right: 0,
     transform: 'translateY(-50%)',
-    // animation: isClicked && `${rotate} 0.8s forwards`,
-    transition: 'all 100ms ease-out',
 
     '& > svg': {
       position: 'relative',
       top: '1px',
-      width: '18px',
-      height: '18px',
-    },
-
-    '&:hover': {
-      transform: 'translateY(-50%) scale(1.05)',
-    },
-
-    '&:active': {
-      transform: 'translateY(-50%) scale(0.95)',
+      width: '16px',
+      height: '16px',
     },
   }) as Interpolation<Theme>;
 
@@ -137,6 +127,17 @@ export const button = [
     color: white,
     backgroundColor: 'rgba(255,255,255,0.08)',
     fontWeight: 500,
+    transition: 'all 100ms ease-out',
+
+    '&:hover': {
+      transform: 'scale(1.02)',
+      backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    },
+
+    '&:active': {
+      transform: 'scale(0.98)',
+      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    },
   }),
 ] as Interpolation<Theme>;
 
@@ -161,7 +162,7 @@ export const upDown = css`
     content: '';
     position: absolute;
     top: 50%;
-    right: -9px;
+    right: -10px;
     width: 1px;
     height: 10px;
     background-color: #949db2;

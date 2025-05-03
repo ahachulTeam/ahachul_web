@@ -13,7 +13,7 @@ export const FilterBtn = styled.button`
   outline: none;
   padding: 0;
   border-radius: 8px;
-  transition: all 100ms ease-out;
+  transition: all 150ms ease-out;
 
   & > svg {
     width: 16px;
@@ -25,6 +25,6 @@ export const FilterBtn = styled.button`
   }
 
   &:active {
-    transform: scale(0.95);
+    transform: scale(0.9);
   }
 `;

@@ -6,7 +6,7 @@ export const section = [
   mixins.fullWidth,
   mixins.flexColumn,
   {
-    marginTop: '32px',
+    marginTop: '16px',
     marginBottom: '30px',
   },
 ] as Interpolation<Theme>;
