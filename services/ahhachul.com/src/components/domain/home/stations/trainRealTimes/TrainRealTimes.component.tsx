@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useReducer, useState } from 'react';
 
 import { motion } from 'motion/react';
 
@@ -8,11 +8,12 @@ import { getArrivalStatusText, isSubwayNeedAnimation, motions } from '@/constant
 import { useFetchTrainInfo } from '@/services/subway';
 import { useFlow } from '@/stackflow';
 import { fade } from '@/styles';
-import { CurrentTrainArrivalType, SubwayLineType, WithSubwayStationId } from '@/types';
+import { CurrentTrainArrivalType, SubwayLineType, UpDownType, WithSubwayStationId } from '@/types';
 
 import * as S from './TrainRealTimes.styled';
 
-import TrainArrivals from '../trainArrivals/TrainArrivals';
+import TrainArrivals from '../trainArrivals/TrainArrivals.component';
+import SubwayUpDownFilter from '../upDownFilter/UpDownFilter.component';
 
 interface TrainRealTimesProps extends WithSubwayStationId {
   stationName: string;
@@ -26,8 +27,17 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
     subwayLineId,
   });
 
-  const isServiceTerminated = data?.trainRealTimes?.length === 0;
-  const currentTrain = data?.trainRealTimes?.[0];
+  const [sort, handleSort] = useReducer(
+    prev => (prev === UpDownType.UP ? UpDownType.DOWN : UpDownType.UP),
+    UpDownType.UP,
+  );
+
+  const filterdStationsData = {
+    ...data,
+    trainRealTimes: data?.trainRealTimes?.filter(item => item.upDownType === sort),
+  };
+  const isServiceTerminated = filterdStationsData?.trainRealTimes?.length === 0;
+  const currentTrain = filterdStationsData?.trainRealTimes?.[0];
 
   return (
     <div css={S.inner}>
@@ -44,18 +54,20 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
             currentArrivalTime={currentTrain?.currentArrivalTime}
             currentTrainArrivalCode={currentTrain?.currentTrainArrivalCode}
             destinationStationDirection={currentTrain?.destinationStationDirection}
+            sort={sort}
             onRefetch={refetch}
+            handleSort={handleSort}
           />
         </div>
 
         <div css={S.listWrap}>
           {isFetching ? (
-            <div></div>
+            <div css={{ minHeight: '16.04px' }}></div>
           ) : isError ? (
             <div>일시적인 오류</div>
           ) : (
-            (data?.trainRealTimes || []).length > 0 && (
-              <TrainArrivals trainRealTimes={data?.trainRealTimes || []} />
+            (filterdStationsData?.trainRealTimes || []).length > 0 && (
+              <TrainArrivals trainRealTimes={filterdStationsData?.trainRealTimes || []} />
             )
           )}
         </div>
@@ -70,23 +82,27 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
 };
 
 interface TrainArrivalStatusProps {
+  sort: UpDownType;
   isError: boolean;
   isFetching: boolean;
   currentArrivalTime?: number;
   isServiceTerminated: boolean;
   destinationStationDirection?: string;
   currentTrainArrivalCode?: CurrentTrainArrivalType;
-  onRefetch?: () => void;
+  onRefetch: () => void;
+  handleSort: () => void;
 }
 
 const TrainArrivalStatus = memo(
   ({
+    sort,
     isError,
     isFetching,
     isServiceTerminated,
     currentTrainArrivalCode,
     destinationStationDirection = '',
     onRefetch,
+    handleSort,
   }: TrainArrivalStatusProps) => {
     return (
       <motion.div
@@ -108,6 +124,9 @@ const TrainArrivalStatus = memo(
             getArrivalStatusText(isError, isServiceTerminated, currentTrainArrivalCode)}
         </b>
         <span>{isError || isFetching ? '' : destinationStationDirection}</span>
+        <div css={S.upDown}>
+          <SubwayUpDownFilter sort={sort} handleSort={handleSort} />
+        </div>
         {onRefetch && <RefreshButton onRefresh={onRefetch} />}
       </motion.div>
     );

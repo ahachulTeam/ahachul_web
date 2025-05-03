@@ -87,7 +87,10 @@ export enum CurrentTrainArrivalType {
   RUNNING = 'RUNNING',
 }
 
-type UpDownType = 'UP' | 'DOWN';
+export enum UpDownType {
+  UP = 'UP',
+  DOWN = 'DOWN',
+}
 
 /**
  * Train interface

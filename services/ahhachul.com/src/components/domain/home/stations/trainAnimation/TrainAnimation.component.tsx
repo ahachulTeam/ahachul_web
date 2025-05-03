@@ -3,8 +3,8 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import { useThrottle } from '@/hooks';
 
 import * as S from './TrainAnimation.styled';
-import { TrainEachSection } from './TrainEachSection';
-import { TrainIcon } from './TrainIcon';
+import { TrainEachSection } from './TrainEachSection.component';
+import { TrainIcon } from './TrainIcon.component';
 
 const TrainAnimation = () => {
   const container = useRef<HTMLDivElement | null>(null);

@@ -13,13 +13,16 @@ interface TrainArrivalTimesProps {
 }
 
 const TrainArrivals = ({ trainRealTimes }: TrainArrivalTimesProps) => {
-  const [trainTimers, setTrainTimers] = useState<{ [key: string]: number }>(() => {
+  const [trainTimers, setTrainTimers] = useState<{ [key: string]: number }>({});
+
+  // trainRealTimes가 변경될 때마다 trainTimers 상태를 업데이트
+  useEffect(() => {
     const initialTimers: { [key: string]: number } = {};
     trainRealTimes.forEach(train => {
       initialTimers[`train_${train.trainNum}`] = train.currentArrivalTime * getRandomNumber1to60();
     });
-    return initialTimers;
-  });
+    setTrainTimers(initialTimers);
+  }, [trainRealTimes]);
 
   const needTimer = Object.values(trainTimers).some(time => time > 0);
 
@@ -66,8 +69,6 @@ const TrainArrivals = ({ trainRealTimes }: TrainArrivalTimesProps) => {
 
 const TrainCard = memo(
   ({ train, remainingSeconds }: { train: ITrain; remainingSeconds: number }) => {
-    console.log('train:', train);
-
     const formatTime = (seconds: number) => {
       if (!seconds && seconds !== 0) return '알 수 없음';
 

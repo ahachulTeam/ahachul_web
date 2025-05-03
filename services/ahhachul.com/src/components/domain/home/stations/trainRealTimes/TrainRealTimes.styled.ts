@@ -6,9 +6,10 @@ import type { SubwayLineType } from '@/types';
 
 export const inner = {
   position: 'relative',
-  width: '100%',
+  width: 'calc(100% - 40px)',
   borderRadius: '20px',
   backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  margin: '0 auto',
 } as Interpolation<Theme>;
 
 export const thickBorder = (subwayLineId: SubwayLineType) =>
@@ -47,7 +48,7 @@ export const stationName = (subwayLineId: SubwayLineType) =>
       color: black,
       backgroundColor: white,
 
-      marginLeft: '24px',
+      marginLeft: '20px',
 
       fontSize: '16px',
       fontWeight: 600,
@@ -59,14 +60,14 @@ export const trainInfos = [
   mixins.flexColumn,
   {
     justifyContent: 'flex-end',
-    padding: '51px 0 0 0',
+    padding: '42px 0 0 0',
   },
 ] as Interpolation<Theme>;
 
 export const currentTrainArrivalInfo = {
-  minHeight: '18.4px',
-  marginBottom: '16px',
-  padding: '0 20px',
+  minHeight: '24px',
+  marginBottom: '8px',
+  padding: '0 16px',
 };
 
 export const arrivalInfoLabel = [
@@ -114,36 +115,52 @@ export const refetchBtnCss = (isClicked: boolean) =>
   }) as Interpolation<Theme>;
 
 export const buttonWrap = [
-  mixins.flexCenterCenter,
   mixins.fullWidth,
+  mixins.flexCenterCenter,
   {
-    height: '88px',
     backgroundColor: 'inherit',
-    padding: '0 16px',
+    padding: '0 16px 14px 16px',
   },
 ] as Interpolation<Theme>;
 
 export const button = [
-  mixins.flexCenterCenter,
   mixins.fullWidth,
+  mixins.flexCenterCenter,
   ({ colors: { white } }: Theme) => ({
-    height: '48px',
+    height: '34px',
     borderRadius: '8px',
+    padding: '0 16px',
     color: white,
     backgroundColor: 'rgba(255,255,255,0.08)',
-    fontWeight: 600,
+    fontWeight: 500,
   }),
 ] as Interpolation<Theme>;
 
 export const listWrap = {
   position: 'relative',
-  padding: '20px',
+  padding: '14px 16px',
   borderTop: '1px solid rgba(255, 255, 255, 0.12)',
-  minHeight: '85.19px',
 } as Interpolation<Theme>;
 
 export const loading = css`
-  position: relative;
-  top: 0.5px;
+  height: 19px;
   animation: ios-spin 1.5s ease infinite;
+`;
+
+export const upDown = css`
+  position: absolute;
+  top: 50%;
+  right: 36px;
+  transform: translateY(-50%);
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -9px;
+    width: 1px;
+    height: 10px;
+    background-color: #949db2;
+    transform: translateY(-50%);
+  }
 `;

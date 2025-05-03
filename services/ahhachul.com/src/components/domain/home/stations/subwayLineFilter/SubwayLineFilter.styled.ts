@@ -9,11 +9,14 @@ export const container = [
   mixins.flexJustifySpaceBetween,
   ({ colors: { gray } }: Theme) => ({
     backgroundColor: gray[100],
-    marginBottom: '32px',
+    marginBottom: '16px',
   }),
 ];
 
-export const filters = [mixins.flexAlignCenter, { flex: 1 }] as Interpolation<Theme>;
+export const filters = [
+  mixins.flexAlignCenter,
+  { flex: 1, paddingLeft: '20px' },
+] as Interpolation<Theme>;
 
 export const inherit = (line: SubwayLineType) => ({
   display: 'flex',
@@ -45,5 +48,25 @@ export const link = [
     fontSize: '14px',
     fontWeight: 500,
     color: '#e6e6e6',
+    padding: '12px 20px',
+    borderRadius: '8px',
+    transition: 'all 100ms ease-out',
+    minHeight: '44px',
+    cursor: 'pointer',
+
+    '&:hover': {
+      transform: 'scale(1.02)',
+      backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    },
+
+    '&:active': {
+      transform: 'scale(0.93)',
+      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    },
+
+    '& > svg': {
+      width: '20px',
+      height: '20px',
+    },
   },
 ];
