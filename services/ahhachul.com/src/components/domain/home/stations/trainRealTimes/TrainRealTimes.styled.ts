@@ -60,7 +60,7 @@ export const trainInfos = [
   mixins.flexColumn,
   {
     justifyContent: 'flex-end',
-    padding: '49px 0 0 0',
+    padding: '47px 0 0 0',
   },
 ] as Interpolation<Theme>;
 
