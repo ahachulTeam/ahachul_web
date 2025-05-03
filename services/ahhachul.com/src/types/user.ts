@@ -19,4 +19,5 @@ export interface UserProfileResponseDto {
   email?: string;
   gender?: Gender;
   ageRange?: AgeRange;
+  imageUrl?: string;
 }

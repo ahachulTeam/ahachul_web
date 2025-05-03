@@ -1,0 +1,68 @@
+import styled from '@emotion/styled';
+
+import AppLinkIcon from '@/assets/icons/my/app-link.svg';
+import QnaIcon from '@/assets/icons/my/qna.svg';
+import { useToast } from '@/hooks/useToast';
+import { useFlow } from '@/stackflow';
+
+const RequestCard = () => {
+  const { push } = useFlow();
+  const { addToast } = useToast();
+
+  const handleSettingPage = () => push('SettingPage', {});
+  const showToast = () => addToast('준비중인 기능입니다.', 'info');
+
+  return (
+    <Wrapper>
+      <button onClick={handleSettingPage}>
+        <img src={AppLinkIcon} />
+        <p>즐겨찾는 역 관리</p>
+      </button>
+
+      <div className="divider" />
+
+      <button onClick={showToast}>
+        <img src={QnaIcon} />
+        <p>문의사항 관리</p>
+      </button>
+    </Wrapper>
+  );
+};
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 64px;
+  background-color: #f3f7ff;
+  padding: 4px 0;
+  border-radius: 8px;
+
+  button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    outline: none;
+    border: none;
+    background-color: inherit;
+  }
+
+  div.divider {
+    width: 1px;
+    height: 24px;
+    background: #d7dfef;
+    border-radius: 2px;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+    margin-left: 10px;
+    color: #3c3f44;
+  }
+`;
+
+export default RequestCard;

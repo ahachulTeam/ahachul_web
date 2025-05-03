@@ -34,6 +34,7 @@ export const PATH = {
   me: {
     home: '/me',
     setting: '/me/setting',
+    account: '/me/setting/account',
   },
 
   /** 인증 관련 */

@@ -252,6 +252,7 @@ const S = {
     left: 0;
     width: 100%;
     padding-top: 20px;
+    padding-bottom: 20px;
     background-color: white;
   `,
   Headline: styled.h1`

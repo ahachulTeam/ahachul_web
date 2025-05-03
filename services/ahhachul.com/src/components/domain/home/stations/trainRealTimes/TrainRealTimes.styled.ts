@@ -73,33 +73,31 @@ export const currentTrainArrivalInfo = {
 export const arrivalInfoLabel = [
   mixins.posRel,
   mixins.flexAlignCenter,
+  mixins.flexJustifySpaceBetween,
   ({ colors: { white, primary } }: Theme) => ({
-    '& > b': {
-      animation: `${fadeIn} 0.8s forwards`,
-      color: primary.primary,
-      fontSize: '20px',
-      fontWeight: 700,
-      marginRight: '6px',
-    },
+    '& > div': {
+      '& > b': {
+        animation: `${fadeIn} 0.8s forwards`,
+        color: primary.primary,
+        fontSize: '20px',
+        fontWeight: 700,
+        marginRight: '6px',
+      },
 
-    '& > span': {
-      animation: `${fadeIn} 0.8s forwards`,
-      position: 'relative',
-      top: '0.5px',
-      color: white,
-      fontSize: '16px',
-      lineHeight: 1.5,
+      '& > span': {
+        animation: `${fadeIn} 0.8s forwards`,
+        position: 'relative',
+        top: '0.5px',
+        color: white,
+        fontSize: '16px',
+        lineHeight: 1.5,
+      },
     },
   }),
 ] as Interpolation<Theme>;
 
 export const refetchBtnCss = () =>
   ({
-    position: 'absolute',
-    top: '50%',
-    right: 0,
-    transform: 'translateY(-50%)',
-
     '& > svg': {
       position: 'relative',
       top: '1px',
@@ -153,19 +151,13 @@ export const loading = css`
 `;
 
 export const upDown = css`
-  position: absolute;
-  top: 50%;
-  right: 36px;
-  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: -10px;
+  & > div {
     width: 1px;
-    height: 10px;
+    height: 8px;
     background-color: #949db2;
-    transform: translateY(-50%);
   }
 `;

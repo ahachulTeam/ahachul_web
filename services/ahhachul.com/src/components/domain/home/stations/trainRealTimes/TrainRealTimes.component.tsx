@@ -112,22 +112,25 @@ const TrainArrivalStatus = memo(
         css={S.arrivalInfoLabel}
         variants={motions.fadeIn(0.3)}
       >
-        <b
-          css={{
-            animation: isSubwayNeedAnimation(currentTrainArrivalCode)
-              ? `${fade} 2s infinite ease-in-out`
-              : 'none',
-          }}
-        >
-          {isFetching && <UiComponent.SpinnerIcon css={S.loading} />}
-          {!isFetching &&
-            getArrivalStatusText(isError, isServiceTerminated, currentTrainArrivalCode)}
-        </b>
-        <span>{isError || isFetching ? '' : destinationStationDirection}</span>
+        <div css={{ display: 'flex', alignItems: 'center' }}>
+          <b
+            css={{
+              animation: isSubwayNeedAnimation(currentTrainArrivalCode)
+                ? `${fade} 2s infinite ease-in-out`
+                : 'none',
+            }}
+          >
+            {isFetching && <UiComponent.SpinnerIcon css={S.loading} />}
+            {!isFetching &&
+              getArrivalStatusText(isError, isServiceTerminated, currentTrainArrivalCode)}
+          </b>
+          <span>{isError || isFetching ? '' : destinationStationDirection}</span>
+        </div>
         <div css={S.upDown}>
           <SubwayUpDownFilter sort={sort} handleSort={handleSort} />
+          <div />
+          <RefreshButton onRefresh={onRefetch} />
         </div>
-        {onRefetch && <RefreshButton onRefresh={onRefetch} />}
       </motion.div>
     );
   },
@@ -138,19 +141,6 @@ interface RefreshButtonProps {
 }
 
 const RefreshButton = ({ onRefresh }: RefreshButtonProps) => {
-  // const [isRotating, setIsRotating] = useState(false);
-
-  // const handleClick = useCallback(() => {
-  // if (isRotating) return;
-
-  // setIsRotating(true);
-  // onRefresh();
-
-  // setTimeout(() => {
-  //   setIsRotating(false);
-  // }, 1000);
-  // }, [onRefresh]);
-
   return (
     <button css={S.refetchBtnCss} onClick={onRefresh} aria-label="새로고침">
       <RetryIcon />
