@@ -112,7 +112,7 @@ const TrainArrivalStatus = memo(
         css={S.arrivalInfoLabel}
         variants={motions.fadeIn(0.3)}
       >
-        <div css={{ display: 'flex', alignItems: 'center' }}>
+        <div css={{ display: 'flex', alignItems: 'center', height: '24px' }}>
           <b
             css={{
               animation: isSubwayNeedAnimation(currentTrainArrivalCode)

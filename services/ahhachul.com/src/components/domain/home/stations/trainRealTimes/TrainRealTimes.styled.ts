@@ -146,7 +146,6 @@ export const listWrap = {
 } as Interpolation<Theme>;
 
 export const loading = css`
-  height: 19px;
   animation: ios-spin 1.5s ease infinite;
 `;
 
