@@ -15,11 +15,11 @@ interface TrainArrivalTimesProps {
 const TrainArrivals = ({ trainRealTimes }: TrainArrivalTimesProps) => {
   const [trainTimers, setTrainTimers] = useState<{ [key: string]: number }>({});
 
-  // trainRealTimes가 변경될 때마다 trainTimers 상태를 업데이트
   useEffect(() => {
     const initialTimers: { [key: string]: number } = {};
     trainRealTimes.forEach(train => {
-      initialTimers[`train_${train.trainNum}`] = train.currentArrivalTime * getRandomNumber1to60();
+      initialTimers[`train_${train.trainNum}`] =
+        train.currentArrivalTime * 60 - getRandomNumber1to60();
     });
     setTrainTimers(initialTimers);
   }, [trainRealTimes]);
