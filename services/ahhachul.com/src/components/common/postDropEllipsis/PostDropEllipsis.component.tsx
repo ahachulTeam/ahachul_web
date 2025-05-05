@@ -208,7 +208,7 @@ function DefaultView({
         {isLost && (
           <S.GreenButton onClick={() => setView('update')}>
             <Check size={21} color="#42b305ac" />
-            {status === 'PROGRESS' ? '습득 완료' : '상태 변경'}
+            {status === 'PROGRESS' ? '찾기 완료' : '상태 변경'}
           </S.GreenButton>
         )}
         <S.Button onClick={handleEdit}>
