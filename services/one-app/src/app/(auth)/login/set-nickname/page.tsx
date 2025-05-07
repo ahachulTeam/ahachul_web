@@ -42,8 +42,10 @@
 //     if (disabled || !auth) return;
 //     updateUserAndTryLoginProcessDone({ nickname, auth });
 //   };
+
 //   const isUpdating = status === 'pending';
 //   const isProcessing = isNicknameChecking || isUpdating;
+
 //   return (
 //     <main className="relative min-h-screen bg-black pt-9 px-5">
 //       <div className="flex items-center mb-8">

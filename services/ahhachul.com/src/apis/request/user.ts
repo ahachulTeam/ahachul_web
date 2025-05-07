@@ -1,7 +1,13 @@
 import axios from 'axios';
 
 import axiosInstance from '@/apis/fetcher';
-import type { ApiResponse, UserFavoriteStations, UserProfileResponseDto } from '@/types';
+import type {
+  ApiResponse,
+  APIUpdateUserResponse,
+  AuthTokens,
+  UserFavoriteStations,
+  UserProfileResponseDto,
+} from '@/types';
 import { getAccessTokenInLocalStorage } from '@/utils/localStorage';
 
 import { BASE_URL } from '../baseUrl';
@@ -59,4 +65,28 @@ export const createUserFavoriteStations = async (stations: any) => {
   );
 
   return response.data;
+};
+
+export const updateUser = async (data: { nickname: string; auth: AuthTokens }) => {
+  try {
+    const accessToken = data.auth.accessToken;
+    const res = await axios.patch<APIUpdateUserResponse>(
+      `${import.meta.env.VITE_BASE_URL}/v1/members`,
+      { nickname: data.nickname },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(`Update user failed: ${error.response?.data?.message || error.message}`);
+    } else {
+      console.error('Unexpected error during user update:', error);
+      throw new Error('An unexpected error occurred during user update.');
+    }
+  }
 };

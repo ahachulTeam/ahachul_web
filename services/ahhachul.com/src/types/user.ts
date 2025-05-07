@@ -21,3 +21,9 @@ export interface UserProfileResponseDto {
   ageRange?: AgeRange;
   imageUrl?: string;
 }
+
+export interface APIUpdateUserResponse {
+  nickname: string;
+  gender: string | null;
+  ageRange: string | null;
+}
