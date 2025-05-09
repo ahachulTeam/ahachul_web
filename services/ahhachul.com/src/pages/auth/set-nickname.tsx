@@ -9,7 +9,6 @@ import { updateUser } from '@/apis/request';
 import { LayoutComponent } from '@/components';
 import { NicknameSetup } from '@/components/domain/auth/nickname/NicknameSetup';
 import { useAuth } from '@/contexts';
-import { useInitialLoader } from '@/hooks/domain/home/useInitialLoader';
 import { useToast } from '@/hooks/useToast';
 import { useFlow } from '@/stackflow';
 import { useTempAuth } from '@/stores';
@@ -36,7 +35,6 @@ const animateVariants = (duration = 0.3): MotionVariantsType => ({
 });
 
 const SetNickNamePage = () => {
-  useInitialLoader();
   const { addToast } = useToast();
 
   const { replace } = useFlow();

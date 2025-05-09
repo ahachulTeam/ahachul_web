@@ -2,12 +2,9 @@ import styled from '@emotion/styled';
 import type { ActivityComponentType } from '@stackflow/react';
 
 import { HomeComponent, LayoutComponent } from '@/components';
-import { useInitialLoader } from '@/hooks/domain/home/useInitialLoader';
 import { mixins, theme } from '@/styles';
 
 const HomePage: ActivityComponentType = () => {
-  useInitialLoader();
-
   return (
     <LayoutComponent.Base
       navigationSlot
