@@ -10,8 +10,8 @@ const SocialLogin = () => {
     if (loginType === SocialSignInType.APPLE) {
       const APPLE_CLIENT_ID = 'com.ahhachul.todayapp.login';
       const APPLE_REDIRECT_URI = 'https://app.dev.ahhachul.com/login/callback?type=APPLE';
-      const url = `https://appleid.apple.com/auth/authorize?response_type=code&response_mode=form_post&scope=name%20email&client_id=${APPLE_CLIENT_ID}&redirect_uri=${APPLE_REDIRECT_URI}`;
-
+      const url = `https://appleid.apple.com/auth/authorize?client_id=${APPLE_CLIENT_ID}&redirect_uri=${APPLE_REDIRECT_URI}&response_type=code&scope=openid`;
+      // &response_mode=form_post
       window.location.assign(url);
       return;
     } else {
