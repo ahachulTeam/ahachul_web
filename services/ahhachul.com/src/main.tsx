@@ -1,3 +1,4 @@
+import '@ahhachul/design-system/tokens.css';
 import { QUERY_GC_TIME, QUERY_STALE_TIME } from '@ahhachul/domain';
 
 import { prefetchUserProfile, prefetchUserFavoriteStations } from './apis/request';

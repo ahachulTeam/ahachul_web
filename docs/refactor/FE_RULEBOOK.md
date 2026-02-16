@@ -9,6 +9,7 @@
   3. Date/time formatting conventions
   4. Validation + number/price formatting conventions
   5. Form + Zod + schema hook conventions
+  6. Design-system token conventions
 
 ## FE Pod Structure
 
@@ -141,6 +142,14 @@
   - formatting: date/number/price/subway/common formatting contracts
 - `validate:test` must execute shared utility package tests via Nx (`@ahhachul/utils:test`).
 
+## Rule 7: Design System Token Conventions
+
+- Vite color palette is the canonical source and must be centralized in `@ahhachul/design-system`.
+- Vite Emotion theme color export (`services/ahhachul.com/src/styles/theme/colors.ts`) must only re-export shared tokens.
+- Next Tailwind color configuration must consume `tailwindColors` from `@ahhachul/design-system` and must not duplicate palette literals.
+- Both apps must subscribe to shared CSS tokens (`@ahhachul/design-system/tokens.css`) at the app entry layer.
+- Any new shared UI color token must be added in `@ahhachul/design-system` first, then consumed by apps; app-local ad-hoc hex literals are allowed only as temporary exceptions with follow-up task debt.
+
 ## Implementation Checklist
 
 - [ ] New utility function added with explicit input/output type.
@@ -154,6 +163,7 @@
 - [ ] User-facing numeric labels/prices use `formatDisplayNumber` / `formatDisplayPrice`.
 - [ ] Subway/common utility helpers use shared `@ahhachul/utils` contracts (no duplicated app-local implementation bodies).
 - [ ] Shared utility behavior changes include corresponding unit tests in `@ahhachul/utils`.
+- [ ] Shared color token changes are applied in `@ahhachul/design-system` first and consumed by both apps.
 - [ ] FE rulebook changes are recorded in `FE_RULEBOOK_CHANGELOG.md`.
 - [ ] FE meeting records are added as timestamped files and indexed in `FE_MEETING_LOG.md`.
 

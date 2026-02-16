@@ -69,3 +69,11 @@ Track every modification to `FE_RULEBOOK.md` in chronological order.
 - Section(s): Rule 6 (Shared Utility Test Conventions), Implementation Checklist
 - Summary: Added mandatory unit-test conventions for shared utility contracts and required `@ahhachul/utils:test` inclusion in validator test gate.
 - Follow-up: Apply the same test-first rule to all future shared utility changes.
+
+- DateTime (KST): 2026-02-17 03:34:41
+- Task ID: RF-880
+- Author/Owner: FE Lead
+- Change Type: Added
+- Section(s): Scope priority, Rule 7 (Design System Token Conventions), Implementation Checklist
+- Summary: Added design-system governance requiring Vite palette authority in `@ahhachul/design-system`, shared token consumption by Vite/Next, and dual-app token subscription rule.
+- Follow-up: Replace residual app-local ad-hoc hex literals with semantic/shared tokens in follow-up refactor tasks.

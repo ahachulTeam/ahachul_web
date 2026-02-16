@@ -157,3 +157,10 @@
 - Summary: Added `@ahhachul/utils` test target (`vitest`) and implemented contract-level regression tests for validation/format utilities (`validation.test.ts`, `format.test.ts`) covering nickname/required text/lexical validation, date/number/price formatting, subway/common formatters, and file extension parsing.
 - Validation Result: Pass (`pnpm validate:full`, including `@ahhachul/utils:test`)
 - Follow-up: Keep shared utility changes blocked from merge unless corresponding tests are updated in the same task.
+
+- DateTime (KST): 2026-02-17 03:34:41
+- Task ID: RF-880
+- Contributors: FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Built `@ahhachul/design-system` as the shared color-token source using Vite palette as single authority, migrated Vite Emotion theme colors to shared export, migrated Next Tailwind colors + semantic colors to shared tokens, and subscribed both apps to shared `tokens.css`.
+- Validation Result: Pass (`pnpm validate:full`, `pnpm install --frozen-lockfile`)
+- Follow-up: Remove remaining app-inline hex literals incrementally by replacing them with design-system semantic tokens.

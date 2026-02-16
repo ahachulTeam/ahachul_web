@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import NextTopLoader from 'nextjs-toploader';
 
+import { colors } from '@ahhachul/design-system';
+import '@ahhachul/design-system/tokens.css';
 import { BRAND } from '@ahhachul/domain';
 import { createPageMetadata } from '@ahhachul/seo';
 
@@ -14,7 +16,7 @@ import NavMenu from './_components/NavMenu';
 import './globals.css';
 
 export const viewport: Viewport = {
-  themeColor: 'white',
+  themeColor: colors.white,
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
@@ -54,7 +56,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={cn('font-sans antialiased', Pretendard.variable)}>
-        <NextTopLoader height={2} color="#2ACF6C" showSpinner={false} />
+        <NextTopLoader height={2} color={colors['key-color']} showSpinner={false} />
         <Providers>
           <Header />
           {children}

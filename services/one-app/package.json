@@ -22,6 +22,7 @@
     "test:perf:lighthouse": "lighthouse http://localhost:3000 --view"
   },
   "dependencies": {
+    "@ahhachul/design-system": "workspace:*",
     "@ahhachul/domain": "workspace:*",
     "@ahhachul/http": "workspace:*",
     "@ahhachul/routes": "workspace:*",

@@ -1,0 +1,79 @@
+:root {
+  --ah-color-primary-primary: #00baf6;
+  --ah-color-primary-primary-pressed: #009ed1;
+  --ah-color-primary-primary-hover: #80ddfb;
+
+  --ah-color-secondary-secondary: #d0eeff;
+  --ah-color-secondary-secondary-pressed: #b8e5ff;
+  --ah-color-secondary-secondary-hover: #e2f5ff;
+
+  --ah-color-subway-s1: #2a3e91;
+  --ah-color-subway-s2: #60b157;
+  --ah-color-subway-s3: #fe8a39;
+  --ah-color-subway-s4: #509dd8;
+  --ah-color-subway-s5: #7f41d8;
+  --ah-color-subway-s6: #a95523;
+  --ah-color-subway-s7: #727719;
+  --ah-color-subway-s8: #d2386e;
+  --ah-color-subway-s9: #d1a946;
+  --ah-color-subway-airport: #82b5e0;
+  --ah-color-subway-gyeongui: #8cc2a7;
+  --ah-color-subway-gyeongchun: #4fac7f;
+  --ah-color-subway-suin-bundang: #e1ab3a;
+  --ah-color-subway-sin-bundang: #bc2a38;
+  --ah-color-subway-gyeonggang: #3c74ea;
+  --ah-color-subway-seohae: #98c255;
+  --ah-color-subway-incheon1: #7899cb;
+  --ah-color-subway-incheon2: #e9ad54;
+  --ah-color-subway-everline: #89c07a;
+  --ah-color-subway-uijeongbu: #c5c03e;
+  --ah-color-subway-wuisinseol: #8cc2a7;
+  --ah-color-subway-gimpo-gold: #907227;
+  --ah-color-subway-sinlim: #5367a0;
+
+  --ah-color-gray-10: #fcfcfc;
+  --ah-color-gray-20: #f5f5f5;
+  --ah-color-gray-30: #eaecf1;
+  --ah-color-gray-40: #dcdee7;
+  --ah-color-gray-50: #ced0dd;
+  --ah-color-gray-60: #b7b9c3;
+  --ah-color-gray-70: #95979f;
+  --ah-color-gray-80: #74757c;
+  --ah-color-gray-90: #33333e;
+  --ah-color-gray-100: #121212;
+
+  --ah-color-green-50: #eafaf0;
+  --ah-color-green-100: #bdf0d1;
+  --ah-color-green-200: #9de9bb;
+  --ah-color-green-300: #70df9d;
+  --ah-color-green-400: #55d989;
+  --ah-color-green-500: #2acf6c;
+  --ah-color-green-600: #26bc62;
+  --ah-color-green-700: #1e934d;
+  --ah-color-green-800: #17723b;
+  --ah-color-green-900: #12572d;
+
+  --ah-color-key-color: #2acf6c;
+  --ah-color-red: #eb4d3d;
+  --ah-color-white: #ffffff;
+  --ah-color-black: #272727;
+  --ah-color-black-00: #000000;
+  --ah-color-black-secondary: #141517;
+  --ah-color-dim: rgba(0, 0, 0, 0.3);
+
+  --ah-color-background: var(--ah-color-white);
+  --ah-color-foreground: var(--ah-color-gray-100);
+  --ah-color-card: var(--ah-color-white);
+  --ah-color-card-foreground: var(--ah-color-gray-100);
+  --ah-color-popover: var(--ah-color-white);
+  --ah-color-popover-foreground: var(--ah-color-gray-100);
+  --ah-color-muted: var(--ah-color-gray-20);
+  --ah-color-muted-foreground: var(--ah-color-gray-70);
+  --ah-color-accent: var(--ah-color-gray-20);
+  --ah-color-accent-foreground: var(--ah-color-gray-90);
+  --ah-color-destructive: var(--ah-color-red);
+  --ah-color-destructive-foreground: var(--ah-color-white);
+  --ah-color-border: var(--ah-color-gray-30);
+  --ah-color-input: var(--ah-color-gray-30);
+  --ah-color-ring: var(--ah-color-primary-primary);
+}

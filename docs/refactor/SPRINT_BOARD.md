@@ -46,6 +46,7 @@
 | RF-850 | 9      | FE hooks elevation + meeting/rulebook audit workflow     | FE Lead           | Done   | 177b5501 | Form+Zod schema hook sharedization + FE governance audit logging workflow completed     |
 | RF-860 | 9      | RF-840 follow-up utility promotion (`subway/common`)     | FE Lead           | Done   | db67ca42 | Promoted remaining app-local subway/common pure utils into `@ahhachul/utils`            |
 | RF-870 | 9      | Utility regression hardening (`validate/format` tests)   | FE Specialist A/B | Done   | pending  | Added unit tests and Nx test-target integration for shared validate/format contracts    |
+| RF-880 | 10     | Shared design-system foundation (`Vite` color authority) | FE Lead           | Done   | pending  | Added `@ahhachul/design-system` and migrated Vite/Next to consume shared color tokens   |
 
 ## Rule
 
