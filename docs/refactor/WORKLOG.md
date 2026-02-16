@@ -87,3 +87,10 @@
 - Summary: Replaced lost-found new/edit guide placeholders with real reusable editor flows, added multipart create/edit request helpers, linked list/detail-to-edit navigation, and expanded middleware auth protection for write routes.
 - Validation Result: Pass (`pnpm validate:full`, including type/lint/test/build)
 - Follow-up: Execute RF-700 deploy smoke/chunk automation and rerun blocking gate.
+
+- DateTime (KST): 2026-02-17
+- Task ID: RF-700
+- Contributors: Infra Engineer, QA Engineer, Perfectionist Validator
+- Summary: Added `deploy-smoke-check` automation script, hardened Vite/Next deploy workflows with completion wait gates, and enforced post-deploy chunk/static reachability checks with immutable cache policy validation.
+- Validation Result: Pass (`pnpm validate:full` + `node scripts/deploy-smoke-check.mjs --product=test --base-url=https://example.com --routes=/`)
+- Follow-up: Execute RF-710 final regression/release approval and close sprint artifacts.

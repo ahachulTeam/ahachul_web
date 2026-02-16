@@ -14,3 +14,6 @@
 {"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-410","state":"QAReady","note":"validate:full evidence collected for RF-410. Request blocking gate.","at":"2026-02-17T01:34:00+09:00"}
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-410","state":"ValidatorPass","note":"validate:full passed including type/lint/test/build after lost-found parity changes.","at":"2026-02-17T01:34:00+09:00"}
 {"from":"Team Lead","to":"Infra Engineer","taskId":"RF-700","state":"IN_PROGRESS","note":"RF-410 gate passed. Start deploy smoke/chunk hardening implementation.","at":"2026-02-17T01:34:00+09:00"}
+{"from":"Infra Engineer","to":"QA Engineer","taskId":"RF-700","state":"QAReady","note":"Deploy smoke/chunk workflow hardening complete. Request regression + gate.","at":"2026-02-17T01:38:58+09:00"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-700","state":"QAReady","note":"validate:full and smoke script sanity check evidence attached for RF-700.","at":"2026-02-17T01:38:58+09:00"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-700","state":"ValidatorPass","note":"validate:full passed after deploy smoke/chunk hardening changes.","at":"2026-02-17T01:38:58+09:00"}

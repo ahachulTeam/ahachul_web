@@ -1,61 +1,61 @@
 {
-  "updatedAt": "2026-02-17T01:34:00+09:00",
+  "updatedAt": "2026-02-17T01:38:58+09:00",
   "branch": "codex/refactor-foundation",
   "sprintFocus": "Residual sprints: lost-found form parity + deploy smoke hardening + final release validation",
   "leadDirective": [
-    "1) Technical Writer syncs RF-410 artifacts and prepares commit boundary.",
-    "2) Infra starts RF-700 deploy smoke/chunk verification workflow implementation.",
-    "3) QA+Validator keep blocking gate policy for RF-700 and RF-710.",
-    "4) Team Lead advances sprint only after validator pass is recorded."
+    "1) Technical Writer syncs RF-700 artifacts and prepares task commit.",
+    "2) Team Lead starts RF-710 final release validation after RF-700 commit boundary.",
+    "3) QA+Validator rerun full gate and release checklist for final sign-off.",
+    "4) No sprint closeout until Perfectionist Validator approves RF-710."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-410",
+      "taskId": "RF-700",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T01:34:00+09:00",
-      "nextAction": "close RF-410 commit and hand off active implementation to RF-700"
+      "updatedAt": "2026-02-17T01:38:58+09:00",
+      "nextAction": "close RF-700 commit and promote RF-710 final gate"
     },
     {
       "role": "FE Engineer",
       "owner": "fe-core",
-      "taskId": "RF-410",
-      "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T01:34:00+09:00",
-      "nextAction": "support QA evidence and parity doc sync for lost-found create/edit"
+      "taskId": "RF-710",
+      "state": "Ready",
+      "updatedAt": "2026-02-17T01:38:58+09:00",
+      "nextAction": "support final release validation and address blocker fixes"
     },
     {
       "role": "Infra Engineer",
       "owner": "infra-core",
       "taskId": "RF-700",
-      "state": "InProgress",
-      "updatedAt": "2026-02-17T01:34:00+09:00",
-      "nextAction": "implement deploy smoke/chunk verification workflow and scripts"
+      "state": "ValidatorPass",
+      "updatedAt": "2026-02-17T01:38:58+09:00",
+      "nextAction": "provide deploy workflow evidence and await commit closeout"
     },
     {
       "role": "QA Engineer",
       "owner": "qa-core",
-      "taskId": "RF-410",
+      "taskId": "RF-700",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T01:34:00+09:00",
-      "nextAction": "attach RF-410 gate evidence and prepare RF-700 smoke assertions"
+      "updatedAt": "2026-02-17T01:38:58+09:00",
+      "nextAction": "start RF-710 final regression matrix after commit boundary"
     },
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-410",
+      "taskId": "RF-700",
       "state": "InProgress",
-      "updatedAt": "2026-02-17T01:34:00+09:00",
-      "nextAction": "sync sprint board/worklog/route map before RF-410 commit"
+      "updatedAt": "2026-02-17T01:38:58+09:00",
+      "nextAction": "sync deploy runbook and sprint artifacts for RF-700"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
-      "taskId": "RF-410",
+      "taskId": "RF-700",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T01:34:00+09:00",
-      "nextAction": "wait for RF-700 QAReady and rerun full gate"
+      "updatedAt": "2026-02-17T01:38:58+09:00",
+      "nextAction": "wait for RF-710 QAReady and execute final blocking gate"
     }
   ],
   "handoffs": [
@@ -186,14 +186,38 @@
       "state": "IN_PROGRESS",
       "note": "RF-410 gate passed. Start deploy smoke/chunk hardening implementation.",
       "at": "2026-02-17T01:34:00+09:00"
+    },
+    {
+      "from": "Infra Engineer",
+      "to": "QA Engineer",
+      "taskId": "RF-700",
+      "state": "QAReady",
+      "note": "Deploy smoke/chunk workflow hardening complete. Request regression + gate.",
+      "at": "2026-02-17T01:38:58+09:00"
+    },
+    {
+      "from": "QA Engineer",
+      "to": "Perfectionist Validator",
+      "taskId": "RF-700",
+      "state": "QAReady",
+      "note": "validate:full and smoke script sanity check evidence attached for RF-700.",
+      "at": "2026-02-17T01:38:58+09:00"
+    },
+    {
+      "from": "Perfectionist Validator",
+      "to": "Team Lead",
+      "taskId": "RF-700",
+      "state": "ValidatorPass",
+      "note": "validate:full passed after deploy smoke/chunk hardening changes.",
+      "at": "2026-02-17T01:38:58+09:00"
     }
   ],
   "validator": {
-    "queue": ["RF-700", "RF-710"],
+    "queue": ["RF-710"],
     "lastGate": {
-      "taskId": "RF-410",
+      "taskId": "RF-700",
       "result": "PASS",
-      "at": "2026-02-17T01:34:00+09:00"
+      "at": "2026-02-17T01:38:58+09:00"
     }
   }
 }

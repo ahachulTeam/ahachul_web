@@ -29,12 +29,12 @@
 | RF-200 | 2      | Introduce shared packages (`domain/http/seo/routes`)   | FE               | Done          | 336e1eb5 | Shared package skeleton + Next SEO integration baseline                              |
 | RF-300 | 3      | Fix critical Next defects                              | FE               | Done          | 24b05f60 | Endpoint/env/middleware/auth cookie/fetch contract defects fixed                     |
 | RF-400 | 4      | Next route parity implementation (`complaint/me/user`) | FE               | Done          | 007bd52b | Complaint list parity + my/messages/notifications/user routes + auth flow completion |
-| RF-410 | 4      | Lost-found create/edit full parity in Next             | FE               | ValidatorPass | pending  | Real create/edit forms, multipart submit, edit prefill, auth guard, route linkage    |
+| RF-410 | 4      | Lost-found create/edit full parity in Next             | FE               | Done          | 0654599a | Real create/edit forms, multipart submit, edit prefill, auth guard, route linkage    |
 | RF-500 | 5      | Integrate reusable SEO architecture in Next            | FE               | Done          | 6b5966c4 | Detail-page metadata + robots/sitemap + canonicalized redirects                      |
 | RF-600 | 6      | Harden CI/CD for cache-safe immutable deploys          | Infra            | Done          | 7a85c08c | Immutable image tagging + non-destructive static deploy + workflow trigger hardening |
 | RF-610 | 6      | Validator pass and lockfile synchronization            | QA               | Done          | a6ab84e6 | `pnpm validate:full` pass and lockfile refresh                                       |
 | RF-620 | 7      | RF-400 commit/documentation synchronization            | Technical Writer | Done          | 09531abf | Updated sprint board commit map and final team dashboard state                       |
-| RF-700 | 6      | Deploy smoke/chunk verification hardening              | Infra            | InProgress    | pending  | Add post-deploy smoke + chunk availability workflow and runbook evidence             |
+| RF-700 | 6      | Deploy smoke/chunk verification hardening              | Infra            | ValidatorPass | pending  | Added blocking smoke script + deploy wait steps + runbook/checklist hardening        |
 | RF-710 | 7      | Final regression and release approval pack             | Validator        | Todo          | pending  | Full gate rerun + release sign-off documentation                                     |
 
 ## Rule

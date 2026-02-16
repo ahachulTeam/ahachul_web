@@ -49,6 +49,21 @@ jobs:
           echo '${{ secrets.DEV_ONE_APP_CONFIG }}' > config.json
           cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/one-app/.env
 
+      - name: Resolve smoke base url
+        run: |
+          if [ "${GITHUB_REF_NAME}" = "main" ]; then
+            BASE_URL=$(jq -r '.NEXT_PUBLIC_SITE_URL_PRODUCTION // .APP_PRODUCTION_URL // .NEXT_PUBLIC_SITE_URL_STAGING // empty' config.json)
+          else
+            BASE_URL=$(jq -r '.NEXT_PUBLIC_SITE_URL_STAGING // .NEXT_PUBLIC_SITE_URL_DEV // .APP_DEV_URL // .NEXT_PUBLIC_SITE_URL_PRODUCTION // empty' config.json)
+          fi
+
+          if [ -z "$BASE_URL" ]; then
+            echo "Unable to resolve smoke base URL from DEV_ONE_APP_CONFIG" >&2
+            exit 1
+          fi
+
+          echo "SMOKE_BASE_URL=$BASE_URL" >> $GITHUB_ENV
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -119,8 +134,22 @@ jobs:
       - name: Create Codedeploy deployment for one-app
         run: |
           APPSPEC_CONTENT=$(cat appspec-one-app.yaml | jq -sR .)
-          aws deploy create-deployment \
+          DEPLOYMENT_ID=$(aws deploy create-deployment \
             --application-name ${{ env.CODEDEPLOY_APP_NAME }} \
             --deployment-group-name ${{ env.CODEDEPLOY_DEPLOYMENT_GROUP }} \
             --deployment-config-name CodeDeployDefault.ECSAllAtOnce \
-            --revision "{\"revisionType\":\"AppSpecContent\",\"appSpecContent\":{\"content\":$APPSPEC_CONTENT}}"
+            --revision "{\"revisionType\":\"AppSpecContent\",\"appSpecContent\":{\"content\":$APPSPEC_CONTENT}}" \
+            --query 'deploymentId' \
+            --output text)
+          echo "DEPLOYMENT_ID=$DEPLOYMENT_ID" >> $GITHUB_ENV
+
+      - name: Wait for Codedeploy completion
+        run: |
+          aws deploy wait deployment-successful --deployment-id ${{ env.DEPLOYMENT_ID }}
+
+      - name: Smoke check chunk availability
+        run: |
+          node scripts/deploy-smoke-check.mjs \
+            --product=next \
+            --base-url="${SMOKE_BASE_URL}" \
+            --routes="/,/community,/complaint,/lost-found,/login"
