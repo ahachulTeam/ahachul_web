@@ -1,7 +1,8 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import type { Metadata } from 'next';
+import { createDetailMetadata } from '@ahhachul/seo';
 
-import { SUBWAY_LINES } from '@/constant';
+import { SITE_URL, SUBWAY_LINES } from '@/constant';
 import { extractTextFromLexical } from '@/util';
 
 import LostFoundPostDetail from './_components/LostFoundDetail';
@@ -32,21 +33,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ? `https://static.dev.ahhachul.com/banners/lost-found/subway-line-${subwayLineId}.png`
       : 'https://static.dev.ahhachul.com/banners/lost-found/main.png';
 
-  return {
+  const description = extractTextFromLexical(post.result.content, baseDescription);
+
+  return createDetailMetadata({
     title,
-    description: extractTextFromLexical(post.result.content, baseDescription),
-    openGraph: {
-      title,
-      description: extractTextFromLexical(post.result.content, baseDescription),
-      images: [
-        {
-          url: image,
-          width: 800,
-          height: 400,
-        },
-      ],
-    },
-  };
+    description,
+    imageUrl: image,
+    siteUrl: SITE_URL,
+    pathname: `/lost-found/${id}`,
+  }) as Metadata;
 }
 
 type Props = {

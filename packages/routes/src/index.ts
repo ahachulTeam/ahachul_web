@@ -4,16 +4,39 @@ export type RouteRedirectRule = {
   permanent: boolean;
 };
 
+export const LEGACY_EXACT_REDIRECTS: Record<string, string> = {
+  '/auth/login': '/login',
+  '/auth/callback': '/login/callback',
+  '/auth/set-nickname': '/login/set-nickname',
+  '/lostFound': '/lost-found',
+  '/my': '/me',
+  '/notification': '/notifications',
+};
+
+export const LEGACY_PREFIX_REDIRECTS: Array<{ from: string; to: string }> = [
+  { from: '/lostFound/', to: '/lost-found/' },
+  { from: '/my/', to: '/me/' },
+  { from: '/notification/', to: '/notifications/' },
+];
+
 export const LEGACY_TO_CANONICAL_ROUTES: RouteRedirectRule[] = [
-  { from: '/lostFound', to: '/lost-found', permanent: true },
-  { from: '/lostFound/:path*', to: '/lost-found/:path*', permanent: true },
-  { from: '/auth/login', to: '/login', permanent: true },
-  { from: '/auth/callback', to: '/login/callback', permanent: true },
-  { from: '/auth/set-nickname', to: '/login/set-nickname', permanent: true },
-  { from: '/my', to: '/me', permanent: true },
-  { from: '/my/:path*', to: '/me/:path*', permanent: true },
-  { from: '/notification', to: '/notifications', permanent: true },
-  { from: '/notification/:path*', to: '/notifications/:path*', permanent: true },
+  ...Object.entries(LEGACY_EXACT_REDIRECTS).map(([from, to]) => ({
+    from,
+    to,
+    permanent: true,
+  })),
+  ...LEGACY_PREFIX_REDIRECTS.flatMap(rule => [
+    {
+      from: rule.from,
+      to: rule.to,
+      permanent: true,
+    },
+    {
+      from: `${rule.from}:path*`,
+      to: `${rule.to}:path*`,
+      permanent: true,
+    },
+  ]),
 ];
 
 export const SEO_INDEXABLE_ROUTES: string[] = [

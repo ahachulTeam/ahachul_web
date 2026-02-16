@@ -29,3 +29,10 @@
 - Summary: Fixed Next critical defects including complaint endpoint typo, auth cookie-key mismatch, middleware route mismatch, API base URL normalization, and fetch client contract misuse.
 - Validation Result: Pending (validator run after CI/CD hardening changes)
 - Follow-up: Execute RF-600 workflow hardening and run full checklist.
+
+- DateTime (KST): 2026-02-17
+- Task ID: RF-500
+- Contributors: FE Engineer
+- Summary: Replaced duplicated detail-page SEO object construction with reusable metadata builder and centralized legacy URL redirect rules for canonical SEO routes.
+- Validation Result: Pending (waiting for full validator gate)
+- Follow-up: Complete RF-600 and execute full checklist.

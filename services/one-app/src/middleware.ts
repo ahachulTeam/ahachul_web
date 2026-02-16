@@ -1,29 +1,15 @@
 import { isBot } from 'next/dist/server/web/spec-extension/user-agent';
+import { LEGACY_EXACT_REDIRECTS, LEGACY_PREFIX_REDIRECTS } from '@ahhachul/routes';
 import { NextRequest, NextResponse } from 'next/server';
 
 import { SITE_URL } from '@/constant';
 import { CookieKey } from '@/types';
 
-const exactLegacyRedirects: Record<string, string> = {
-  '/auth/login': '/login',
-  '/auth/callback': '/login/callback',
-  '/auth/set-nickname': '/login/set-nickname',
-  '/lostFound': '/lost-found',
-  '/my': '/me',
-  '/notification': '/notifications',
-};
-
-const prefixLegacyRedirects: Array<{ from: string; to: string }> = [
-  { from: '/lostFound/', to: '/lost-found/' },
-  { from: '/my/', to: '/me/' },
-  { from: '/notification/', to: '/notifications/' },
-];
-
 function getLegacyRedirectPath(pathname: string) {
-  const exactTarget = exactLegacyRedirects[pathname];
+  const exactTarget = LEGACY_EXACT_REDIRECTS[pathname];
   if (exactTarget) return exactTarget;
 
-  for (const rule of prefixLegacyRedirects) {
+  for (const rule of LEGACY_PREFIX_REDIRECTS) {
     if (pathname.startsWith(rule.from)) {
       return pathname.replace(rule.from, rule.to);
     }
