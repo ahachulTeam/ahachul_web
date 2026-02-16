@@ -2,6 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { formatDateTime } from '@ahhachul/utils';
 
@@ -54,7 +55,12 @@ export default function LostFoundPostDetail({ id }: Props) {
               <span className=" text-gray-70">{formatDateTime(post.createdAt!)}</span>
             </div>
             <div className=" flex items-center text-gray-90 text-label-medium font-regular">
-              {/* {SUBWAY_LOGO_SVG_LIST[post.subwayLineId]} */}
+              <Link
+                href={`/lost-found/${id}/edit`}
+                className="inline-flex h-8 items-center rounded-lg border border-gray-40 px-3 text-body-small text-gray-90"
+              >
+                수정
+              </Link>
             </div>
           </div>
         </div>

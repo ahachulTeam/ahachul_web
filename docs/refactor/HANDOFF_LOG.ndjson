@@ -8,3 +8,9 @@
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-400","state":"ValidatorPass","note":"validate:full passed (type/lint/test/build).","at":"2026-02-17T01:14:38+09:00"}
 {"from":"Team Lead","to":"Technical Writer","taskId":"RF-400","state":"COMMITTED","note":"Finalize documentation sync and commit mapping.","at":"2026-02-17T01:14:38+09:00"}
 {"from":"Team Lead","to":"All Agents","taskId":"RF-400","state":"Done","note":"RF-400 committed as 007bd52b and sprint records synchronized.","at":"2026-02-17T01:15:59+09:00"}
+{"from":"Team Lead","to":"FE Engineer","taskId":"RF-410","state":"ASSIGNED","note":"Implement full lost-found create/edit parity forms.","at":"2026-02-17T01:21:05+09:00"}
+{"from":"Team Lead","to":"Infra Engineer","taskId":"RF-700","state":"ASSIGNED","note":"Automate post-deploy smoke and chunk availability verification.","at":"2026-02-17T01:21:05+09:00"}
+{"from":"FE Engineer","to":"QA Engineer","taskId":"RF-410","state":"QAReady","note":"Lost-found create/edit parity implementation complete; request regression gate.","at":"2026-02-17T01:34:00+09:00"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-410","state":"QAReady","note":"validate:full evidence collected for RF-410. Request blocking gate.","at":"2026-02-17T01:34:00+09:00"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-410","state":"ValidatorPass","note":"validate:full passed including type/lint/test/build after lost-found parity changes.","at":"2026-02-17T01:34:00+09:00"}
+{"from":"Team Lead","to":"Infra Engineer","taskId":"RF-700","state":"IN_PROGRESS","note":"RF-410 gate passed. Start deploy smoke/chunk hardening implementation.","at":"2026-02-17T01:34:00+09:00"}

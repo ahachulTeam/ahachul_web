@@ -64,6 +64,8 @@ export function createHttpClient(config: HttpClientConfig) {
 
     const url = toUrl(baseUrl, endpoint, params);
     const headers = new Headers(defaultHeaders);
+    const isFormDataBody =
+      typeof FormData !== 'undefined' && requestOptions.body instanceof FormData;
 
     if (requestHeaders) {
       new Headers(requestHeaders).forEach((value, key) => {
@@ -71,7 +73,7 @@ export function createHttpClient(config: HttpClientConfig) {
       });
     }
 
-    if (!headers.has('Content-Type')) {
+    if (!headers.has('Content-Type') && !isFormDataBody) {
       headers.set('Content-Type', 'application/json');
     }
 

@@ -24,7 +24,11 @@ function requiresAuth(pathname: string) {
     return true;
   }
 
-  return ['/me', '/messages', '/notifications'].some(
+  if (/^\/lost-found\/[^/]+\/edit(?:\/|$)/.test(pathname)) {
+    return true;
+  }
+
+  return ['/me', '/messages', '/notifications', '/lost-found/new'].some(
     route => pathname === route || pathname.startsWith(`${route}/`),
   );
 }
