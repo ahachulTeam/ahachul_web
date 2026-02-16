@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+
 import { createListMetadata } from '@ahhachul/seo';
 
 import { SITE_URL } from '@/constant';

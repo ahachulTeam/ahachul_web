@@ -50,11 +50,39 @@ importers:
         specifier: ^5
         version: 5.7.3
 
+  packages/domain:
+    devDependencies:
+      typescript:
+        specifier: ^5
+        version: 5.7.3
+
   packages/esbuild-config:
     dependencies:
       esbuild:
         specifier: 0.16.17
         version: 0.16.17
+
+  packages/http:
+    devDependencies:
+      typescript:
+        specifier: ^5
+        version: 5.7.3
+
+  packages/routes:
+    devDependencies:
+      typescript:
+        specifier: ^5
+        version: 5.7.3
+
+  packages/seo:
+    dependencies:
+      '@ahhachul/domain':
+        specifier: workspace:*
+        version: link:../domain
+    devDependencies:
+      typescript:
+        specifier: ^5
+        version: 5.7.3
 
   packages/utils:
     dependencies:
@@ -270,6 +298,18 @@ importers:
 
   services/one-app:
     dependencies:
+      '@ahhachul/domain':
+        specifier: workspace:*
+        version: link:../../packages/domain
+      '@ahhachul/http':
+        specifier: workspace:*
+        version: link:../../packages/http
+      '@ahhachul/routes':
+        specifier: workspace:*
+        version: link:../../packages/routes
+      '@ahhachul/seo':
+        specifier: workspace:*
+        version: link:../../packages/seo
       '@lexical/react':
         specifier: ^0.21.0
         version: 0.21.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(yjs@13.6.23)
@@ -10030,10 +10070,10 @@ packages:
         integrity: sha512-taJ0Us0lKoYBqcbccMuDElSUPOxmBfwlHe1OkHQ3KFf+RwovvBHdXhbFk9XJVQE2vHzxbTwvwg5GFsT9hbDokQ==,
       }
 
-  third-party-web@0.26.6:
+  third-party-web@0.29.0:
     resolution:
       {
-        integrity: sha512-GsjP92xycMK8qLTcQCacgzvffYzEqe29wyz3zdKVXlfRD5Kz1NatCTOZEeDaSd6uCZXvGd2CNVtQ89RNIhJWvA==,
+        integrity: sha512-nBDSJw5B7Sl1YfsATG2XkW5qgUPODbJhXw++BKygi9w6O/NKS98/uY/nR/DxDq2axEjL6halHW1v+jhm/j1DBQ==,
       }
 
   through@2.3.8:
@@ -12967,7 +13007,7 @@ snapshots:
 
   '@paulirish/trace_engine@0.0.39':
     dependencies:
-      third-party-web: 0.26.6
+      third-party-web: 0.29.0
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -17597,7 +17637,7 @@ snapshots:
 
   third-party-web@0.26.2: {}
 
-  third-party-web@0.26.6: {}
+  third-party-web@0.29.0: {}
 
   through@2.3.8: {}
 

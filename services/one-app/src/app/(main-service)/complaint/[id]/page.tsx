@@ -1,5 +1,6 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import type { Metadata } from 'next';
+
 import { createDetailMetadata } from '@ahhachul/seo';
 
 import { SITE_URL, SUBWAY_LINES } from '@/constant';

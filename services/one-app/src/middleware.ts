@@ -1,6 +1,7 @@
 import { isBot } from 'next/dist/server/web/spec-extension/user-agent';
-import { LEGACY_EXACT_REDIRECTS, LEGACY_PREFIX_REDIRECTS } from '@ahhachul/routes';
 import { NextRequest, NextResponse } from 'next/server';
+
+import { LEGACY_EXACT_REDIRECTS, LEGACY_PREFIX_REDIRECTS } from '@ahhachul/routes';
 
 import { SITE_URL } from '@/constant';
 import { CookieKey } from '@/types';

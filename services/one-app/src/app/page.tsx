@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+
 import { BRAND } from '@ahhachul/domain';
 import { createPageMetadata } from '@ahhachul/seo';
 

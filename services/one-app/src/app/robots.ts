@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+
 import { createRobots } from '@ahhachul/seo';
 
 import { SITE_URL } from '@/constant';

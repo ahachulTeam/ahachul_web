@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+
 import { SEO_INDEXABLE_ROUTES } from '@ahhachul/routes';
 import { createSitemapEntries } from '@ahhachul/seo';
 

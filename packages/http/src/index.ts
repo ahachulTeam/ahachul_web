@@ -44,23 +44,14 @@ async function parseResponse<T>(response: Response): Promise<T> {
   const data = await response.json();
 
   if (!response.ok) {
-    throw toError(
-      data?.message ?? 'API request failed.',
-      response.status,
-      data,
-    );
+    throw toError(data?.message ?? 'API request failed.', response.status, data);
   }
 
   return data as T;
 }
 
 export function createHttpClient(config: HttpClientConfig) {
-  const {
-    baseUrl,
-    defaultHeaders,
-    getAccessToken,
-    renewAccessToken,
-  } = config;
+  const { baseUrl, defaultHeaders, getAccessToken, renewAccessToken } = config;
 
   return async function request<T>(endpoint: string, options: HttpRequestOptions = {}) {
     const {

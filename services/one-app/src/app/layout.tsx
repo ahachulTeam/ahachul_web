@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from 'next';
+import NextTopLoader from 'nextjs-toploader';
+
 import { BRAND } from '@ahhachul/domain';
 import { createPageMetadata } from '@ahhachul/seo';
-import NextTopLoader from 'nextjs-toploader';
 
 import { Pretendard } from '@/asset/font/pretendard';
 import { SITE_URL } from '@/constant';
