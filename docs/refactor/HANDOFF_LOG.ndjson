@@ -144,3 +144,9 @@
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-940","state":"ValidatorPass","note":"RF-940 gate passed: no Vite source inline-hex exceptions remain.","at":"2026-02-17T05:36:23+09:00"}
 {"from":"Team Lead","to":"Technical Writer","taskId":"RF-940","state":"COMMITTED","note":"Synchronize sprint/rulebook/checklist/team-memory artifacts before commit.","at":"2026-02-17T05:36:23+09:00"}
 {"from":"Team Lead","to":"All Agents","taskId":"RF-940","state":"Done","note":"RF-940 completed: design-system exception scope removed and token policy fully normalized.","at":"2026-02-17T05:36:23+09:00"}
+{"from":"Team Lead","to":"Infra Engineer","taskId":"RF-950","state":"ASSIGNED","note":"Implement automated rollback/game-day rehearsal reporting and wire it into validator gates.","at":"2026-02-17T05:40:20+09:00"}
+{"from":"Infra Engineer","to":"QA Engineer","taskId":"RF-950","state":"QAReady","note":"Scheduled/manual rehearsal workflow and report script delivered. Request blocking gate.","at":"2026-02-17T05:44:10+09:00"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-950","state":"QAReady","note":"validate:full pass evidence attached for RF-950 and runbook/checklist synchronized.","at":"2026-02-17T05:44:10+09:00"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-950","state":"ValidatorPass","note":"RF-950 gate passed: automated rehearsal report and rollback-readiness checks are enforced.","at":"2026-02-17T05:44:10+09:00"}
+{"from":"Team Lead","to":"Technical Writer","taskId":"RF-950","state":"COMMITTED","note":"Sync sprint/worklog/decision/team-state artifacts and finalize single-task commit.","at":"2026-02-17T05:44:10+09:00"}
+{"from":"Team Lead","to":"All Agents","taskId":"RF-950","state":"Done","note":"RF-950 completed: game-day rehearsal automation and rollback-readiness reporting are now enforced.","at":"2026-02-17T05:45:12+09:00"}

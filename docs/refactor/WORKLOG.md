@@ -220,3 +220,10 @@
 - Summary: Completed RF-891 exception cleanup by extending shared design-system tokens (`colors.icon.{disabled,neutral,muted,success,danger,light}`, `colors.subway.fallback`), migrating Vite icon SVG color literals and subway line color switch logic to shared tokens, and upgrading residual-hex policy to zero exception files.
 - Validation Result: Pass (`pnpm validate:full`, `rg -n \"#[0-9A-Fa-f]{3,8}\" services/ahhachul.com/src --glob '!**/*.svg'` => no match)
 - Follow-up: Keep all future icon/subway palette updates token-first in `@ahhachul/design-system`.
+
+- DateTime (KST): 2026-02-17 05:43:27
+- Task ID: RF-950
+- Contributors: Infra Engineer, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Added deployment game-day rehearsal automation by introducing `scripts/deploy-game-day-report.mjs`, wiring weekly/manual workflow execution in `.github/workflows/game-day-rehearsal-report.yml`, and extending deploy/validator docs to enforce smoke + rollback-readiness reporting as a blocking operational gate.
+- Validation Result: Pass (`pnpm validate:full`)
+- Follow-up: Run the workflow in GitHub Actions with real `staging` and `production` inputs, then attach generated report artifacts to release approval evidence.

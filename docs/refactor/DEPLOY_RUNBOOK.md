@@ -46,3 +46,23 @@
 
 - Vite: revert HTML entry point to prior release references.
 - Next: redeploy previous ECS task definition revision.
+
+## Game-Day Rehearsal Automation
+
+- Workflow: `.github/workflows/game-day-rehearsal-report.yml`
+- Trigger:
+  - Scheduled weekly (`Mon 02:00 UTC`)
+  - Manual (`workflow_dispatch`) with `production|staging` target selection
+- Report script: `scripts/deploy-game-day-report.mjs`
+- Automated checks:
+  1. Post-deploy smoke check for Vite and Next base URLs (route + chunk availability)
+  2. Vite rollback readiness (at least two S3 release manifests under `releases/`)
+  3. Next rollback readiness (previous ECS task definition revision resolvable)
+- Outputs:
+  - Workflow Summary markdown
+  - Uploaded artifact `game-day-rehearsal-report`
+
+## Manual Execution
+
+- Example:
+  - `pnpm ops:game-day-report -- --environment=production --vite-base-url=<vite-url> --next-base-url=<next-url> --s3-bucket=<bucket> --ecs-cluster=<cluster> --ecs-service=<service> --output=artifacts/game-day-report.md`

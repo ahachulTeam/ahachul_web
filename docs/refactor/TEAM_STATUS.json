@@ -1,76 +1,76 @@
 {
-  "updatedAt": "2026-02-16T20:36:23Z",
+  "updatedAt": "2026-02-16T20:45:12Z",
   "branch": "codex/refactor-foundation",
-  "sprintFocus": "RF-940 complete: design-system exception scope removed (icons/subway fully tokenized)",
+  "sprintFocus": "RF-950 complete: deployment rollback/game-day rehearsal report automation added and gated",
   "leadDirective": [
-    "1) RF-940 completed: RF-891 exception files are fully tokenized and removed from exception scope.",
-    "2) Added shared icon/subway fallback tokens in @ahhachul/design-system and migrated Vite icon/subway modules.",
-    "3) Residual-hex policy is now zero-exception for Vite source (excluding only raw .svg assets).",
-    "4) Next task is RF-950: rollout rollback/game-day rehearsal automation report in CI/CD operations."
+    "1) RF-950 completed: scheduled/manual rehearsal workflow now publishes smoke + rollback readiness report artifacts.",
+    "2) Added scripts/deploy-game-day-report.mjs and workflow game-day-rehearsal-report.yml for dual-product checks.",
+    "3) Validator checklist now includes report command as a blocking operational gate.",
+    "4) Next step: execute workflow in staging/production and attach artifacts to release approval evidence."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-940",
+      "taskId": "RF-950",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:36:23+09:00",
-      "nextAction": "start RF-950 rollback/game-day automation reporting"
+      "updatedAt": "2026-02-17T05:45:12+09:00",
+      "nextAction": "sequence next prioritized backlog item after RF-950 closeout"
     },
     {
       "role": "FE Lead",
       "owner": "fe-lead",
-      "taskId": "RF-940",
-      "state": "Done",
-      "updatedAt": "2026-02-17T05:36:23+09:00",
-      "nextAction": "keep icon/subway contributions token-first with zero inline-hex exceptions"
+      "taskId": "RF-950",
+      "state": "Ready",
+      "updatedAt": "2026-02-17T05:45:12+09:00",
+      "nextAction": "maintain shared FE conventions while infra rehearsal evidence is collected"
     },
     {
       "role": "FE Specialist A",
       "owner": "fe-spec-a",
-      "taskId": "RF-940",
-      "state": "Done",
-      "updatedAt": "2026-02-17T05:36:23+09:00",
-      "nextAction": "maintain expanded icon/subway token sets in design-system"
+      "taskId": "RF-950",
+      "state": "Ready",
+      "updatedAt": "2026-02-17T05:45:12+09:00",
+      "nextAction": "support follow-up migrations only if validator identifies regressions"
     },
     {
       "role": "FE Specialist B",
       "owner": "fe-spec-b",
-      "taskId": "RF-940",
-      "state": "Done",
-      "updatedAt": "2026-02-17T05:36:23+09:00",
-      "nextAction": "ensure future icon assets consume shared token constants"
+      "taskId": "RF-950",
+      "state": "Ready",
+      "updatedAt": "2026-02-17T05:45:12+09:00",
+      "nextAction": "monitor app-level adoption and patch regressions if detected"
     },
     {
       "role": "Infra Engineer",
       "owner": "infra-core",
-      "taskId": "RF-940",
-      "state": "Ready",
-      "updatedAt": "2026-02-17T05:36:23+09:00",
-      "nextAction": "prepare game-day and rollback rehearsal report automation in workflows"
+      "taskId": "RF-950",
+      "state": "Done",
+      "updatedAt": "2026-02-17T05:45:12+09:00",
+      "nextAction": "run rehearsal workflow against staging/production and archive report artifacts"
     },
     {
       "role": "QA Engineer",
       "owner": "qa-core",
-      "taskId": "RF-940",
+      "taskId": "RF-950",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T05:36:23+09:00",
-      "nextAction": "keep zero-residual-hex scan evidence in validator packet"
+      "updatedAt": "2026-02-17T05:45:12+09:00",
+      "nextAction": "include game-day report outputs in release validation packet"
     },
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-940",
+      "taskId": "RF-950",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:36:23+09:00",
-      "nextAction": "sync exception-removal policy updates across refactor artifacts"
+      "updatedAt": "2026-02-17T05:45:12+09:00",
+      "nextAction": "keep deploy runbook and validator checklist aligned with workflow updates"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
-      "taskId": "RF-940",
+      "taskId": "RF-950",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T05:36:23+09:00",
+      "updatedAt": "2026-02-17T05:45:12+09:00",
       "nextAction": "await next QAReady handoff"
     }
   ],
@@ -1234,14 +1234,62 @@
       "state": "Done",
       "note": "RF-940 completed: design-system exception scope removed and token policy fully normalized.",
       "at": "2026-02-17T05:36:23+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "Infra Engineer",
+      "taskId": "RF-950",
+      "state": "ASSIGNED",
+      "note": "Implement automated rollback/game-day rehearsal reporting and wire it into validator gates.",
+      "at": "2026-02-17T05:40:20+09:00"
+    },
+    {
+      "from": "Infra Engineer",
+      "to": "QA Engineer",
+      "taskId": "RF-950",
+      "state": "QAReady",
+      "note": "Scheduled/manual rehearsal workflow and report script delivered. Request blocking gate.",
+      "at": "2026-02-17T05:44:10+09:00"
+    },
+    {
+      "from": "QA Engineer",
+      "to": "Perfectionist Validator",
+      "taskId": "RF-950",
+      "state": "QAReady",
+      "note": "validate:full pass evidence attached for RF-950 and runbook/checklist synchronized.",
+      "at": "2026-02-17T05:44:10+09:00"
+    },
+    {
+      "from": "Perfectionist Validator",
+      "to": "Team Lead",
+      "taskId": "RF-950",
+      "state": "ValidatorPass",
+      "note": "RF-950 gate passed: automated rehearsal report and rollback-readiness checks are enforced.",
+      "at": "2026-02-17T05:44:10+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "Technical Writer",
+      "taskId": "RF-950",
+      "state": "COMMITTED",
+      "note": "Sync sprint/worklog/decision/team-state artifacts and finalize single-task commit.",
+      "at": "2026-02-17T05:44:10+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "All Agents",
+      "taskId": "RF-950",
+      "state": "Done",
+      "note": "RF-950 completed: game-day rehearsal automation and rollback-readiness reporting are now enforced.",
+      "at": "2026-02-17T05:45:12+09:00"
     }
   ],
   "validator": {
     "queue": [],
     "lastGate": {
-      "taskId": "RF-940",
+      "taskId": "RF-950",
       "result": "PASS",
-      "at": "2026-02-16T20:36:23Z"
+      "at": "2026-02-16T20:44:06Z"
     }
   }
 }

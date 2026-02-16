@@ -52,9 +52,10 @@
 | RF-900 | 11     | Shared UI extraction + Storybook public baseline           | FE Lead           | Done   | pending  | Added `@ahhachul/ui`, migrated dual-app reusable primitives, and established Storybook-based promotion gate                  |
 | RF-901 | 11     | Shared nav shell extraction + app adapter split            | FE Lead           | Done   | pending  | Added shared `BottomNav`/`BottomNavItem` and migrated Vite/Next nav to local adapters with Storybook docs                    |
 | RF-910 | 12     | API contract layer sharedization (`fetch/axios` 유지)      | FE Lead           | Done   | pending  | Centralized API endpoint/default contracts in `@ahhachul/http` and migrated dual-app callsites without transport unification |
-| RF-920 | 12     | Shared API/domain type contract consolidation              | FE Lead           | Done   | pending  | Promoted `ApiResponse`/pagination/id canonical contracts to `@ahhachul/domain` and migrated dual-app common types to aliases |
-| RF-930 | 13     | Endpoint literal ban automation (`lint + scan + CI`)       | FE Lead           | Done   | pending  | Enforced API endpoint literal prohibition with ESLint, AST scan script, and CI blocking gate                                 |
-| RF-940 | 13     | Design-system exception removal (`icons/subway` tokenized) | FE Lead           | Done   | pending  | Removed RF-891 exception files by tokenizing Vite icon/subway color literals into shared design-system tokens                |
+| RF-920 | 12     | Shared API/domain type contract consolidation              | FE Lead           | Done   | 5a386f91 | Promoted `ApiResponse`/pagination/id canonical contracts to `@ahhachul/domain` and migrated dual-app common types to aliases |
+| RF-930 | 13     | Endpoint literal ban automation (`lint + scan + CI`)       | FE Lead           | Done   | 7e06d138 | Enforced API endpoint literal prohibition with ESLint, AST scan script, and CI blocking gate                                 |
+| RF-940 | 13     | Design-system exception removal (`icons/subway` tokenized) | FE Lead           | Done   | 6ac6132e | Removed RF-891 exception files by tokenizing Vite icon/subway color literals into shared design-system tokens                |
+| RF-950 | 13     | Deployment rollback/game-day rehearsal report automation   | Infra Engineer    | Done   | pending  | Added scheduled+manual rehearsal workflow and report gate for smoke + rollback readiness checks                              |
 
 ## Rule
 

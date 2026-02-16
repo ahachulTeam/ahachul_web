@@ -31,6 +31,7 @@
     "ui:storybook:build": "pnpm --filter @ahhachul/ui storybook:build",
     "team:status": "node ./scripts/refactor-team-dashboard.mjs",
     "team:watch": "node ./scripts/refactor-team-dashboard.mjs --watch",
+    "ops:game-day-report": "node ./scripts/deploy-game-day-report.mjs",
     "affected:type": "nx affected --target=type-check --parallel=3",
     "affected:lint": "nx affected --target=lint --parallel=3",
     "affected:test": "nx affected --target=test --parallel=3",
