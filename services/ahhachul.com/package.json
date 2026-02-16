@@ -102,5 +102,11 @@
     "workerDirectory": [
       "public"
     ]
+  },
+  "nx": {
+    "tags": [
+      "type:app",
+      "framework:vite"
+    ]
   }
 }

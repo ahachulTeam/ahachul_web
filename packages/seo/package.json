@@ -18,5 +18,11 @@
   },
   "devDependencies": {
     "typescript": "^5"
+  },
+  "nx": {
+    "tags": [
+      "type:shared",
+      "layer:seo"
+    ]
   }
 }

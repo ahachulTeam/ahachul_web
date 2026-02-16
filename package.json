@@ -26,7 +26,11 @@
     "validate:build": "nx run-many --target=build --all --parallel=3",
     "validate:full": "pnpm validate:type && pnpm validate:lint && pnpm validate:test && pnpm validate:build",
     "team:status": "node ./scripts/refactor-team-dashboard.mjs",
-    "team:watch": "node ./scripts/refactor-team-dashboard.mjs --watch"
+    "team:watch": "node ./scripts/refactor-team-dashboard.mjs --watch",
+    "affected:type": "nx affected --target=type-check --parallel=3",
+    "affected:lint": "nx affected --target=lint --parallel=3",
+    "affected:test": "nx affected --target=test --parallel=3",
+    "affected:build": "nx affected --target=build --parallel=3"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
@@ -42,7 +46,8 @@
     "nano-staged": "^0.8.0",
     "nx": "^20.3.1",
     "prettier": "^3.2.5",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@nx/eslint-plugin": "20.3.1"
   },
   "packageManager": "pnpm@9.1.0",
   "engines": {

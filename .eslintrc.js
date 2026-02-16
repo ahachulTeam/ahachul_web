@@ -14,7 +14,7 @@ module.exports = {
     sourceType: 'module',
     ecmaVersion: 2021,
   },
-  plugins: ['unused-imports', 'compat'],
+  plugins: ['unused-imports', 'compat', '@nx'],
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -40,6 +40,31 @@ module.exports = {
     'react/no-unknown-property': ['error', { ignore: ['css'] }],
   },
   overrides: [
+    {
+      files: ['services/**/*.{js,jsx,ts,tsx}', 'packages/**/*.{js,jsx,ts,tsx}'],
+      rules: {
+        '@nx/enforce-module-boundaries': [
+          'error',
+          {
+            enforceBuildableLibDependency: false,
+            depConstraints: [
+              {
+                sourceTag: 'type:app',
+                onlyDependOnLibsWithTags: ['type:shared', 'type:tooling'],
+              },
+              {
+                sourceTag: 'type:shared',
+                onlyDependOnLibsWithTags: ['type:shared', 'type:tooling'],
+              },
+              {
+                sourceTag: 'type:tooling',
+                onlyDependOnLibsWithTags: ['type:tooling'],
+              },
+            ],
+          },
+        ],
+      },
+    },
     {
       files: ['*.js'],
       rules: {

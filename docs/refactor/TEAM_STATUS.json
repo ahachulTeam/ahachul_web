@@ -1,60 +1,60 @@
 {
-  "updatedAt": "2026-02-17T00:51:00+09:00",
+  "updatedAt": "2026-02-17T01:03:14+09:00",
   "branch": "codex/refactor-foundation",
-  "sprintFocus": "RF-100 (Nx boundary) + RF-400 (route parity)",
+  "sprintFocus": "RF-400 (route parity) with RF-100 validated",
   "leadDirective": [
-    "1) Infra starts RF-100 boundary enforcement baseline.",
-    "2) FE starts RF-400 placeholder route parity implementation.",
-    "3) QA prepares scenario matrix for newly completed routes.",
-    "4) Validator blocks merge until full gate passes."
+    "1) RF-100 boundary guardrail passed validator gate and is ready to commit.",
+    "2) FE continues RF-400 by replacing placeholder route surfaces.",
+    "3) QA updates parity checklist for complaint/me/messages/notifications/user profile routes.",
+    "4) Validator re-runs full gate once RF-400 reaches QAReady."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-100",
-      "state": "IN_PROGRESS",
-      "updatedAt": "2026-02-17T00:51:00+09:00",
-      "nextAction": "split RF-100 into enforce-module-boundary and affected-accuracy tasks"
+      "taskId": "RF-400",
+      "state": "InProgress",
+      "updatedAt": "2026-02-17T01:03:14+09:00",
+      "nextAction": "drive RF-400 implementation and task-level acceptance"
     },
     {
       "role": "FE Engineer",
       "owner": "fe-core",
       "taskId": "RF-400",
-      "state": "READY",
-      "updatedAt": "2026-02-17T00:51:00+09:00",
-      "nextAction": "replace one-app placeholder pages with real domain flows"
+      "state": "InProgress",
+      "updatedAt": "2026-02-17T01:03:14+09:00",
+      "nextAction": "replace placeholder pages with reusable route parity sections"
     },
     {
       "role": "Infra Engineer",
       "owner": "infra-core",
       "taskId": "RF-100",
-      "state": "READY",
-      "updatedAt": "2026-02-17T00:51:00+09:00",
-      "nextAction": "add nx enforce-module-boundaries policy and project tags"
+      "state": "ValidatorPass",
+      "updatedAt": "2026-02-17T01:03:14+09:00",
+      "nextAction": "prepare RF-100 commit and document enforced boundaries"
     },
     {
       "role": "QA Engineer",
       "owner": "qa-core",
       "taskId": "RF-400",
-      "state": "READY",
-      "updatedAt": "2026-02-17T00:51:00+09:00",
-      "nextAction": "prepare parity test checklist for me/notifications/messages and auth flows"
+      "state": "InProgress",
+      "updatedAt": "2026-02-17T01:03:14+09:00",
+      "nextAction": "execute parity regression checklist as each route is completed"
     },
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-020",
-      "state": "IN_PROGRESS",
-      "updatedAt": "2026-02-17T00:51:00+09:00",
-      "nextAction": "keep worklog and handoff history synchronized"
+      "taskId": "RF-100",
+      "state": "InProgress",
+      "updatedAt": "2026-02-17T01:03:14+09:00",
+      "nextAction": "sync sprint board/worklog with RF-100 validator evidence"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
       "taskId": "RF-400",
-      "state": "WAITING",
-      "updatedAt": "2026-02-17T00:51:00+09:00",
+      "state": "Waiting",
+      "updatedAt": "2026-02-17T01:03:14+09:00",
       "nextAction": "run validate:full when RF-400 reaches QAReady"
     }
   ],
@@ -74,14 +74,38 @@
       "state": "ASSIGNED",
       "note": "Start placeholder route parity implementation",
       "at": "2026-02-17T00:51:00+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "Perfectionist Validator",
+      "taskId": "RF-100",
+      "state": "QAReady",
+      "note": "Boundary policy delivered. Run full validator gate.",
+      "at": "2026-02-17T01:03:14+09:00"
+    },
+    {
+      "from": "Perfectionist Validator",
+      "to": "Team Lead",
+      "taskId": "RF-100",
+      "state": "ValidatorPass",
+      "note": "validate:type/lint/test/build passed without boundary violations.",
+      "at": "2026-02-17T01:03:14+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "FE Engineer",
+      "taskId": "RF-400",
+      "state": "IN_PROGRESS",
+      "note": "Continue parity implementation after RF-100 gate pass.",
+      "at": "2026-02-17T01:03:14+09:00"
     }
   ],
   "validator": {
-    "queue": ["RF-100", "RF-400"],
+    "queue": ["RF-400"],
     "lastGate": {
-      "taskId": "RF-610",
+      "taskId": "RF-100",
       "result": "PASS",
-      "at": "2026-02-17T00:43:00+09:00"
+      "at": "2026-02-17T01:03:14+09:00"
     }
   }
 }

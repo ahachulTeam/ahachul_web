@@ -20,5 +20,11 @@
   "devDependencies": {
     "@types/crypto-js": "^4.2.2",
     "typescript": "^5"
+  },
+  "nx": {
+    "tags": [
+      "type:shared",
+      "layer:utils"
+    ]
   }
 }
