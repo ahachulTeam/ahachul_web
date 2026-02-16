@@ -7,3 +7,4 @@
 {"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-400","state":"QAReady","note":"validate:full evidence attached. Request final gate.","at":"2026-02-17T01:14:38+09:00"}
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-400","state":"ValidatorPass","note":"validate:full passed (type/lint/test/build).","at":"2026-02-17T01:14:38+09:00"}
 {"from":"Team Lead","to":"Technical Writer","taskId":"RF-400","state":"COMMITTED","note":"Finalize documentation sync and commit mapping.","at":"2026-02-17T01:14:38+09:00"}
+{"from":"Team Lead","to":"All Agents","taskId":"RF-400","state":"Done","note":"RF-400 committed as 007bd52b and sprint records synchronized.","at":"2026-02-17T01:15:59+09:00"}
