@@ -104,3 +104,11 @@
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-900","state":"ValidatorPass","note":"RF-900 gate passed with dual-app validation and Storybook build success.","at":"2026-02-17T04:23:59+09:00"}
 {"from":"Team Lead","to":"Technical Writer","taskId":"RF-900","state":"COMMITTED","note":"Synchronize sprint/rulebook/meeting/team-memory artifacts before commit.","at":"2026-02-17T04:23:59+09:00"}
 {"from":"Team Lead","to":"All Agents","taskId":"RF-900","state":"Done","note":"RF-900 completed: selective shared UI extraction and Storybook baseline established.","at":"2026-02-17T04:23:59+09:00"}
+{"from":"Team Lead","to":"FE Lead","taskId":"RF-901","state":"ASSIGNED","note":"Execute nav sharedization with shell/adaptor split under Rule 8.","at":"2026-02-17T04:42:19+09:00"}
+{"from":"FE Lead","to":"FE Specialist A","taskId":"RF-901","state":"ASSIGNED","note":"Implement BottomNav and BottomNavItem primitives in @ahhachul/ui with Storybook stories.","at":"2026-02-17T04:42:19+09:00"}
+{"from":"FE Lead","to":"FE Specialist B","taskId":"RF-901","state":"ASSIGNED","note":"Migrate Vite/Next nav components to app-local adapters consuming shared primitives.","at":"2026-02-17T04:42:19+09:00"}
+{"from":"FE Specialist A/B","to":"QA Engineer","taskId":"RF-901","state":"QAReady","note":"Shared nav shell and dual-app adapter migration complete. Request blocking gate.","at":"2026-02-17T04:42:19+09:00"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-901","state":"QAReady","note":"validate:full and CI=1 pnpm ui:storybook:build evidence attached for RF-901.","at":"2026-02-17T04:42:19+09:00"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-901","state":"ValidatorPass","note":"RF-901 gate passed with nav shell/adaptor boundary and dual-app validation success.","at":"2026-02-17T04:42:19+09:00"}
+{"from":"Team Lead","to":"Technical Writer","taskId":"RF-901","state":"COMMITTED","note":"Synchronize sprint/rulebook/meeting/team-memory artifacts before commit.","at":"2026-02-17T04:42:19+09:00"}
+{"from":"Team Lead","to":"All Agents","taskId":"RF-901","state":"Done","note":"RF-901 completed: shared nav shell extraction and app adapter split established.","at":"2026-02-17T04:42:19+09:00"}

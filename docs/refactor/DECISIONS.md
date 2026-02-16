@@ -24,3 +24,4 @@
 20. Design-system color authority is centralized in `@ahhachul/design-system` and must follow the Vite hex palette as source of truth; Vite Emotion theme and Next Tailwind/global tokens must consume shared exports instead of duplicating palette literals.
 21. One-app inline hex literals are disallowed for class-based styling: `className` with Tailwind arbitrary hex (`bg-[#...]` etc.) must be replaced by semantic/shared tokens from `@ahhachul/design-system`, and lint now blocks new occurrences.
 22. Shared component extraction is selective, not exhaustive: only cross-app presentational primitives with Storybook external narrative value are promoted into `@ahhachul/ui`, while domain orchestration components remain app-local with optional wrappers/re-exports.
+23. Navigation components follow a shell/adapter split: presentational nav primitives are shared in `@ahhachul/ui`, while route/auth/side-effect orchestration stays app-local.

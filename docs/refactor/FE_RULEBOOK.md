@@ -190,6 +190,14 @@
 - Keep legacy app import paths stable with wrapper/re-export files when needed.
 - Remove duplicated local implementations only after shared replacement passes `validate:full`.
 
+### 5) Navigation Component Boundary
+
+- Global navigation components (e.g., bottom nav/navbar) must be split by responsibility:
+  - shared: presentational shell/item primitives (`@ahhachul/ui`)
+  - app-local: route policy, auth gating, router/stackflow integration, haptic/side effects
+- Do not move app-specific nav visibility rules or navigation orchestration into shared packages.
+- Shared nav primitives must be token-based and story-documented before app migration.
+
 ## Implementation Checklist
 
 - [ ] New utility function added with explicit input/output type.
@@ -208,6 +216,7 @@
 - [ ] Vite Emotion/styled layer has no residual inline hex literals outside approved exceptions (`rg -n "#[0-9A-Fa-f]{3,8}" services/ahhachul.com/src --glob '!**/*.svg' | grep -v 'assets/icons/jsx/icons.tsx' | grep -v 'constants/subway.tsx'`).
 - [ ] Shared component promotion criteria (Rule 8) are satisfied before extraction.
 - [ ] New shared component includes Storybook stories and `CI=1 pnpm ui:storybook:build` passes.
+- [ ] Navigation components follow shell/adaptor split (shared presentation + app-local routing/orchestration).
 - [ ] FE rulebook changes are recorded in `FE_RULEBOOK_CHANGELOG.md`.
 - [ ] FE meeting records are added as timestamped files and indexed in `FE_MEETING_LOG.md`.
 

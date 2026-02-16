@@ -1,76 +1,76 @@
 {
-  "updatedAt": "2026-02-16T19:23:59Z",
+  "updatedAt": "2026-02-16T19:42:19Z",
   "branch": "codex/refactor-foundation",
-  "sprintFocus": "RF-900 complete: selective shared UI extraction and Storybook baseline in @ahhachul/ui",
+  "sprintFocus": "RF-901 complete: shared nav shell extraction and app adapter split",
   "leadDirective": [
-    "1) RF-900 completed: shared UI extraction policy is now selective and Storybook-gated (Rule 8).",
-    "2) Added @ahhachul/ui with first-wave cross-app primitives and dual-app migration wrappers.",
-    "3) Storybook public baseline is operational and validated via CI=1 pnpm ui:storybook:build.",
-    "4) Next FE phase should evaluate additional candidates strictly against Rule 8 promotion criteria."
+    "1) RF-901 completed: NavBar follows shell/adaptor architecture with strict app-boundary ownership.",
+    "2) Added shared BottomNav primitives in @ahhachul/ui and Storybook coverage for external narrative.",
+    "3) Migrated Vite/Next nav to app-local adapters preserving route/auth/orchestration rules.",
+    "4) Next FE phase should apply the same boundary model to any future navigation variants."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-900",
+      "taskId": "RF-901",
       "state": "Done",
-      "updatedAt": "2026-02-17T04:23:59+09:00",
-      "nextAction": "prioritize next shared component candidates under Rule 8 gate"
+      "updatedAt": "2026-02-17T04:42:19+09:00",
+      "nextAction": "prioritize next shared component candidates using nav shell/adaptor boundary"
     },
     {
       "role": "FE Lead",
       "owner": "fe-lead",
-      "taskId": "RF-900",
+      "taskId": "RF-901",
       "state": "Done",
-      "updatedAt": "2026-02-17T04:23:59+09:00",
-      "nextAction": "enforce selective component promotion and story taxonomy standards"
+      "updatedAt": "2026-02-17T04:42:19+09:00",
+      "nextAction": "enforce nav shell/adaptor split for future shared navigation work"
     },
     {
       "role": "FE Specialist A",
       "owner": "fe-spec-a",
-      "taskId": "RF-900",
+      "taskId": "RF-901",
       "state": "Done",
-      "updatedAt": "2026-02-17T04:23:59+09:00",
-      "nextAction": "stabilize @ahhachul/ui API and maintain Storybook docs quality"
+      "updatedAt": "2026-02-17T04:42:19+09:00",
+      "nextAction": "stabilize BottomNav primitive API and Storybook contract"
     },
     {
       "role": "FE Specialist B",
       "owner": "fe-spec-b",
-      "taskId": "RF-900",
+      "taskId": "RF-901",
       "state": "Done",
-      "updatedAt": "2026-02-17T04:23:59+09:00",
-      "nextAction": "continue dual-app migration with wrapper-first compatibility strategy"
+      "updatedAt": "2026-02-17T04:42:19+09:00",
+      "nextAction": "maintain thin app-local adapters for route/auth side-effect logic"
     },
     {
       "role": "Infra Engineer",
       "owner": "infra-core",
-      "taskId": "RF-900",
+      "taskId": "RF-901",
       "state": "Ready",
-      "updatedAt": "2026-02-17T04:23:59+09:00",
-      "nextAction": "prepare optional Storybook artifact publish workflow if requested"
+      "updatedAt": "2026-02-17T04:42:19+09:00",
+      "nextAction": "prepare optional Storybook artifact pipeline support if requested"
     },
     {
       "role": "QA Engineer",
       "owner": "qa-core",
-      "taskId": "RF-900",
+      "taskId": "RF-901",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T04:23:59+09:00",
-      "nextAction": "attach validate:full + ui:storybook:build evidence for RF-900"
+      "updatedAt": "2026-02-17T04:42:19+09:00",
+      "nextAction": "attach validate:full + ui:storybook:build evidence for RF-901"
     },
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-900",
+      "taskId": "RF-901",
       "state": "Done",
-      "updatedAt": "2026-02-17T04:23:59+09:00",
-      "nextAction": "keep FE rulebook/meeting/changelog artifacts synchronized per task"
+      "updatedAt": "2026-02-17T04:42:19+09:00",
+      "nextAction": "keep FE rulebook/changelog/meeting/team-memory synchronized per FE task"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
-      "taskId": "RF-900",
+      "taskId": "RF-901",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T04:23:59+09:00",
+      "updatedAt": "2026-02-17T04:42:19+09:00",
       "nextAction": "await next QAReady handoff"
     }
   ],
@@ -914,14 +914,78 @@
       "state": "Done",
       "note": "RF-900 completed: selective shared UI extraction and Storybook baseline established.",
       "at": "2026-02-17T04:23:59+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "FE Lead",
+      "taskId": "RF-901",
+      "state": "ASSIGNED",
+      "note": "Execute nav sharedization with shell/adaptor split under Rule 8.",
+      "at": "2026-02-17T04:42:19+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist A",
+      "taskId": "RF-901",
+      "state": "ASSIGNED",
+      "note": "Implement BottomNav and BottomNavItem primitives in @ahhachul/ui with Storybook stories.",
+      "at": "2026-02-17T04:42:19+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist B",
+      "taskId": "RF-901",
+      "state": "ASSIGNED",
+      "note": "Migrate Vite/Next nav components to app-local adapters consuming shared primitives.",
+      "at": "2026-02-17T04:42:19+09:00"
+    },
+    {
+      "from": "FE Specialist A/B",
+      "to": "QA Engineer",
+      "taskId": "RF-901",
+      "state": "QAReady",
+      "note": "Shared nav shell and dual-app adapter migration complete. Request blocking gate.",
+      "at": "2026-02-17T04:42:19+09:00"
+    },
+    {
+      "from": "QA Engineer",
+      "to": "Perfectionist Validator",
+      "taskId": "RF-901",
+      "state": "QAReady",
+      "note": "validate:full and CI=1 pnpm ui:storybook:build evidence attached for RF-901.",
+      "at": "2026-02-17T04:42:19+09:00"
+    },
+    {
+      "from": "Perfectionist Validator",
+      "to": "Team Lead",
+      "taskId": "RF-901",
+      "state": "ValidatorPass",
+      "note": "RF-901 gate passed with nav shell/adaptor boundary and dual-app validation success.",
+      "at": "2026-02-17T04:42:19+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "Technical Writer",
+      "taskId": "RF-901",
+      "state": "COMMITTED",
+      "note": "Synchronize sprint/rulebook/meeting/team-memory artifacts before commit.",
+      "at": "2026-02-17T04:42:19+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "All Agents",
+      "taskId": "RF-901",
+      "state": "Done",
+      "note": "RF-901 completed: shared nav shell extraction and app adapter split established.",
+      "at": "2026-02-17T04:42:19+09:00"
     }
   ],
   "validator": {
     "queue": [],
     "lastGate": {
-      "taskId": "RF-900",
+      "taskId": "RF-901",
       "result": "PASS",
-      "at": "2026-02-16T19:23:59Z"
+      "at": "2026-02-16T19:42:19Z"
     }
   }
 }

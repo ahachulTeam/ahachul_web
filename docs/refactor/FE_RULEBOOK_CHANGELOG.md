@@ -101,3 +101,11 @@ Track every modification to `FE_RULEBOOK.md` in chronological order.
 - Section(s): Scope priority, Rule 8 (Shared Component + Storybook Conventions), Implementation Checklist
 - Summary: Added shared component promotion criteria, non-promotion boundaries, Storybook delivery baseline (`Playground/Service Context/Edge`), and blocking `ui:storybook:build` gate for all shared component extraction tasks.
 - Follow-up: Apply Rule 8 to subsequent component promotions and keep app-local feature orchestration components out of `packages/ui`.
+
+- DateTime (KST): 2026-02-17 04:42:19
+- Task ID: RF-901
+- Author/Owner: FE Lead
+- Change Type: Changed
+- Section(s): Rule 8 (Navigation Component Boundary), Implementation Checklist
+- Summary: Added navbar/bottom-nav shell-adapter policy: keep shared package limited to presentational nav primitives and enforce app-local route/auth/orchestration ownership.
+- Follow-up: Apply the same boundary to any future tab/header navigation promotion tasks.

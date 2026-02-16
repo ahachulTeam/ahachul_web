@@ -185,3 +185,10 @@
 - Summary: Established selective shared-component extraction policy, introduced `@ahhachul/ui` with Storybook baseline, migrated dual-app reusable primitives (`ServiceBadge`, empty states, skeleton, conditional render), removed Vite duplicated badge styled implementations, and documented Rule 8 promotion boundaries in FE governance artifacts.
 - Validation Result: Pass (`pnpm validate:full`, `CI=1 pnpm ui:storybook:build`)
 - Follow-up: Expand `@ahhachul/ui` only for components that satisfy Rule 8 criteria and keep domain orchestration components app-local.
+
+- DateTime (KST): 2026-02-17 04:42:19
+- Task ID: RF-901
+- Contributors: FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Promoted navigation presentation layer into `@ahhachul/ui` by adding `BottomNav` and `BottomNavItem`, migrated Vite `Gnb` and Next `NavMenu` to thin app-local adapters, and formalized nav shell/adaptor boundary in FE rulebook/governance docs.
+- Validation Result: Pass (`pnpm validate:full`, `CI=1 pnpm ui:storybook:build`)
+- Follow-up: Apply shell/adaptor split to future shared navigation variants (top tab, segmented nav) and keep route/auth orchestration app-local.

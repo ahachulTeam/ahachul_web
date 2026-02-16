@@ -1,9 +1,10 @@
 import React from 'react';
 
+import { BottomNav } from '@ahhachul/ui';
+
 import { UiComponent } from '@/components';
 
 import { GNBList } from './Gnb.constant';
-import * as S from './Gnb.styled';
 import { NavItem } from './navItem';
 
 interface GnbProps {
@@ -12,12 +13,11 @@ interface GnbProps {
 
 const Gnb = React.memo(({ handleScrollToTop }: GnbProps) => {
   return (
-    <S.Navbar>
+    <BottomNav itemCount={GNBList.length} bottomInset={<UiComponent.IOSBottomPadding />}>
       {GNBList.map(item => (
         <NavItem key={item.label} item={item} handleScrollToTop={handleScrollToTop} />
       ))}
-      <UiComponent.IOSBottomPadding />
-    </S.Navbar>
+    </BottomNav>
   );
 });
 

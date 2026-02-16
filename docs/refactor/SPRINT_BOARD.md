@@ -50,6 +50,7 @@
 | RF-890 | 10     | Inline hex eradication (`semantic/shared token` enforced) | FE Lead           | Done   | pending  | Replaced one-app residual inline hex with shared semantic tokens and lint guardrail                         |
 | RF-891 | 10     | Vite legacy inline hex phase-out (`Emotion/styled`)       | FE Lead           | Done   | pending  | Removed Vite Emotion/styled inline hex via shared `legacy` semantic tokens with gated exception scope       |
 | RF-900 | 11     | Shared UI extraction + Storybook public baseline          | FE Lead           | Done   | pending  | Added `@ahhachul/ui`, migrated dual-app reusable primitives, and established Storybook-based promotion gate |
+| RF-901 | 11     | Shared nav shell extraction + app adapter split           | FE Lead           | Done   | pending  | Added shared `BottomNav`/`BottomNavItem` and migrated Vite/Next nav to local adapters with Storybook docs   |
 
 ## Rule
 
