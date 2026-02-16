@@ -1,4 +1,4 @@
-export const parseFileExtOfName = (fileName: string): string => fileName.split('.').at(-1) ?? '';
+export { parseFileExtOfName } from '@ahhachul/utils';
 
 export const downloadFile = (url: string) => {
   const a = document.createElement('a');

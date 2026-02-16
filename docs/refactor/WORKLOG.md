@@ -143,3 +143,10 @@
 - Summary: Elevated duplicated Vite domain form hooks into shared schema/orchestration primitives (`useSchemaForm`, `useLexicalValidatedSubmit`, `useCreatePostImageHandlers`, `useEditPostImageHandlers`), migrated community/lost-found/complaint form hooks, and upgraded FE governance with rulebook changelog + timestamped meeting-log folder workflow.
 - Validation Result: Pass (`pnpm validate:full`)
 - Follow-up: Plan next tranche for cross-product generic hook elevation (`useIntersectionObserver`/timeout/debounce family) after parity readiness review.
+
+- DateTime (KST): 2026-02-17
+- Task ID: RF-860
+- Contributors: FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Completed RF-840 follow-up by promoting remaining app-local subway/common pure utilities into `@ahhachul/utils` (`formatSubwayFilterOption`, `formatSubwayLineInfo`, `getFirstParentLineId`, `formatLost112Content`, `formatSubwayArrivalTime`, `parseFileExtOfName`), migrating Vite service/component callsites to shared imports, and converting Next local subway util to a shared-wrapper implementation.
+- Validation Result: Pass (`pnpm validate:full`)
+- Follow-up: Execute RF-870 by adding utility regression tests for validate/format contracts.

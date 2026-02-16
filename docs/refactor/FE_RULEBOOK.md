@@ -71,6 +71,15 @@
   - `Number.prototype.toLocaleString`
 - Exception scope: shared numeric formatter implementation file (`packages/utils/src/number.ts`).
 
+### 8) Subway/Common Utility Baseline
+
+- Subway filter conversion must use shared `formatSubwayFilterOption`.
+- Subway line/station dedupe-map conversion must use shared `formatSubwayLineInfo`.
+- Favorite-line aggregation must use shared `getFirstParentLineId`.
+- Lost112 content text normalization must use shared `formatLost112Content`.
+- Subway/train arrival countdown labeling must use shared `formatSubwayArrivalTime`.
+- File extension parsing must use shared `parseFileExtOfName`.
+
 ## Rule 2: React Query Conventions
 
 ### 1) Query Keys
@@ -135,6 +144,7 @@
 - [ ] User-facing date output uses `formatDisplayDate` (no direct locale/date-fns formatting in app code).
 - [ ] Validation logic uses shared `@ahhachul/utils` validators (no duplicated regex/length blocks across apps).
 - [ ] User-facing numeric labels/prices use `formatDisplayNumber` / `formatDisplayPrice`.
+- [ ] Subway/common utility helpers use shared `@ahhachul/utils` contracts (no duplicated app-local implementation bodies).
 - [ ] FE rulebook changes are recorded in `FE_RULEBOOK_CHANGELOG.md`.
 - [ ] FE meeting records are added as timestamped files and indexed in `FE_MEETING_LOG.md`.
 

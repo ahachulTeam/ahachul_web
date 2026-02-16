@@ -29,6 +29,7 @@
 - Date formatting baseline: `formatDisplayDate` in `@ahhachul/utils` is the only app-layer entrypoint (lint-enforced)
 - Validation baseline: shared validators in `@ahhachul/utils` (`validateNickname`, `validateRequiredLexicalContent`, `isBlankText`) are mandatory
 - Number/price baseline: `formatDisplayNumber`/`formatDisplayPrice` in `@ahhachul/utils` are mandatory display entrypoints (lint-enforced)
+- Subway/common baseline: filter/line-map/arrival/content/file-extension helpers must use shared `@ahhachul/utils` contracts
 
 ## Validation Authority
 

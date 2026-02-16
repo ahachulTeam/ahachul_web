@@ -2,13 +2,12 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { motion } from 'motion/react';
 
-import { formatDisplayDate, getRandomNumber } from '@ahhachul/utils';
+import { formatDisplayDate, formatLost112Content, getRandomNumber } from '@ahhachul/utils';
 
 import { LostFoundComponent, UiComponent } from '@/components';
 import { subwayIconMap } from '@/constants';
 import { useUser } from '@/hooks/domain';
 import { useFetchLostFoundDetail } from '@/services/lostFound';
-import { formatLost112Content } from '@/utils';
 import { isLexicalContent } from '@/utils/lexical';
 
 import * as S from './LostFoundDetail.styled';

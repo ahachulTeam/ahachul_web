@@ -53,3 +53,11 @@ Track every modification to `FE_RULEBOOK.md` in chronological order.
 - Section(s): Scope, Rulebook Operations
 - Summary: Established mandatory rulebook-change logging process and timestamped FE meeting-log file management.
 - Follow-up: Keep this changelog updated in every future FE rulebook edit commit.
+
+- DateTime (KST): 2026-02-17 03:13:02
+- Task ID: RF-860
+- Author/Owner: FE Lead
+- Change Type: Changed
+- Section(s): Rule 1 (Subway/Common Utility Baseline), Implementation Checklist
+- Summary: Added shared-entrypoint mandate for subway/common utilities (`formatSubwayFilterOption`, `formatSubwayLineInfo`, `getFirstParentLineId`, `formatLost112Content`, `formatSubwayArrivalTime`, `parseFileExtOfName`) and checklist enforcement item.
+- Follow-up: Complete remaining utility migration and enforce through validator gate in every new FE task.

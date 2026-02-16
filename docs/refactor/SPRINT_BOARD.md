@@ -43,7 +43,9 @@
 | RF-820 | 8      | React Query convention rollout (`key/invalidation/time`) | FE Lead           | Done   | fbd3b006 | Shared key factory, stable invalidation scope, stale/gc-time standard across dual apps  |
 | RF-830 | 8      | Date formatting convention rollout (`single-entrypoint`) | FE Lead           | Done   | afa44f41 | `formatDisplayDate` single entrypoint migration + lint guardrails for direct formatting |
 | RF-840 | 8      | Utility convention phase-2 (`validate` + `number/price`) | FE Lead           | Done   | 0abba1b9 | Shared validation/number-price entrypoints + dual-app migration + lint policy uplift    |
-| RF-850 | 9      | FE hooks elevation + meeting/rulebook audit workflow     | FE Lead           | Done   | pending  | Form+Zod schema hook sharedization + FE governance audit logging workflow completed     |
+| RF-850 | 9      | FE hooks elevation + meeting/rulebook audit workflow     | FE Lead           | Done   | 177b5501 | Form+Zod schema hook sharedization + FE governance audit logging workflow completed     |
+| RF-860 | 9      | RF-840 follow-up utility promotion (`subway/common`)     | FE Lead           | Done   | pending  | Promoted remaining app-local subway/common pure utils into `@ahhachul/utils`            |
+| RF-870 | 9      | Utility regression hardening (`validate/format` tests)   | FE Specialist A/B | Todo   | pending  | Add unit tests for shared validation and formatting utility contracts                   |
 
 ## Rule
 

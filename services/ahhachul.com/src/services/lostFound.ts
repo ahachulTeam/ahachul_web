@@ -11,7 +11,7 @@ import {
   buildQuerySignature,
   lostFoundQueryKeys,
 } from '@ahhachul/domain';
-import { removeFalsyValues } from '@ahhachul/utils';
+import { formatSubwayFilterOption, getFirstParentLineId, removeFalsyValues } from '@ahhachul/utils';
 
 import * as api from '@/apis/request';
 import { TOAST_MSG } from '@/constants/toast';
@@ -25,7 +25,6 @@ import {
   type LostFoundListParams,
   type SubwayLineFilterOptions,
 } from '@/types';
-import { formatSubwayFilterOption, getFirstParentLineId } from '@/utils';
 
 export const lostFoundKeys = lostFoundQueryKeys;
 

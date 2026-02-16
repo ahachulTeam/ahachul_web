@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from 'react';
 
 import { motion } from 'motion/react';
 
-import { getRandomNumber } from '@ahhachul/utils';
+import { formatSubwayArrivalTime, getRandomNumber } from '@ahhachul/utils';
 
 import { motions } from '@/constants';
 import type { ITrain } from '@/types';
@@ -70,27 +70,15 @@ const TrainArrivals = ({ trainRealTimes }: TrainArrivalTimesProps) => {
 
 const TrainCard = memo(
   ({ train, remainingSeconds }: { train: ITrain; remainingSeconds: number }) => {
-    const formatTime = (seconds: number) => {
-      if (!seconds && seconds !== 0) return '알 수 없음';
-
-      if (seconds < 60) {
-        return '곧 도착';
-      }
-
-      const minutes = Math.floor(seconds / 60);
-      const remainingSeconds = seconds % 60;
-
-      if (remainingSeconds === 0) {
-        return `${minutes}분`;
-      }
-
-      return `${minutes}분 ${remainingSeconds}초`;
-    };
-
     return (
       <li>
         <b>{train.destinationStationDirection}</b>
-        <span>{formatTime(remainingSeconds)}</span>
+        <span>
+          {formatSubwayArrivalTime(remainingSeconds, {
+            arrivalThresholdSeconds: 60,
+            arrivalText: '곧 도착',
+          })}
+        </span>
       </li>
     );
   },

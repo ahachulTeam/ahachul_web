@@ -6,11 +6,11 @@ import {
   buildQuerySignature,
   subwayQueryKeys,
 } from '@ahhachul/domain';
+import { formatSubwayLineInfo } from '@ahhachul/utils';
 
 import { fetchSubwayLines, fetchTrainInfo } from '@/apis/request/subway';
 import { TIMESTAMP } from '@/constants';
 import { APITrainInfoParams } from '@/types';
-import { formatSubwayLineInfo } from '@/utils';
 
 export const subwayKeys = subwayQueryKeys;
 

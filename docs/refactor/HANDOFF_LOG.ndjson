@@ -58,3 +58,11 @@
 {"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-850","state":"QAReady","note":"validate:full pass evidence attached for RF-850.","at":"2026-02-17T03:01:13+09:00"}
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-850","state":"ValidatorPass","note":"RF-850 gate passed with validate:full success (type/lint/test/build).","at":"2026-02-17T03:01:13+09:00"}
 {"from":"Team Lead","to":"All Agents","taskId":"RF-850","state":"Done","note":"RF-850 finalized with hooks sharedization and FE governance audit workflow updates.","at":"2026-02-17T03:01:13+09:00"}
+{"from":"Team Lead","to":"FE Lead","taskId":"RF-860","state":"ASSIGNED","note":"Promote remaining subway/common local utils to shared contracts.","at":"2026-02-17T03:13:02+09:00"}
+{"from":"FE Lead","to":"FE Specialist A","taskId":"RF-860","state":"ASSIGNED","note":"Implement shared subway/file utility modules in @ahhachul/utils.","at":"2026-02-17T03:13:02+09:00"}
+{"from":"FE Lead","to":"FE Specialist B","taskId":"RF-860","state":"ASSIGNED","note":"Migrate Vite/Next callsites and wrappers to shared subway/common utilities.","at":"2026-02-17T03:13:02+09:00"}
+{"from":"Technical Writer","to":"QA Engineer","taskId":"RF-860","state":"QAReady","note":"RF-860 rulebook/meeting/sprint artifacts synchronized for gate.","at":"2026-02-17T03:13:02+09:00"}
+{"from":"FE Specialist A/B","to":"QA Engineer","taskId":"RF-860","state":"QAReady","note":"Shared utility promotion and migration completed. Request validator gate.","at":"2026-02-17T03:13:02+09:00"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-860","state":"QAReady","note":"validate:full pass evidence attached for RF-860.","at":"2026-02-17T03:13:02+09:00"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-860","state":"ValidatorPass","note":"RF-860 gate passed with validate:full success (type/lint/test/build).","at":"2026-02-17T03:13:02+09:00"}
+{"from":"Team Lead","to":"All Agents","taskId":"RF-860","state":"Done","note":"RF-860 completed: subway/common utility promotion finished and synchronized.","at":"2026-02-17T03:13:02+09:00"}

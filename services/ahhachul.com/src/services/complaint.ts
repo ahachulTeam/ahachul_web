@@ -11,7 +11,7 @@ import {
   buildQuerySignature,
   complaintQueryKeys,
 } from '@ahhachul/domain';
-import { removeFalsyValues } from '@ahhachul/utils';
+import { formatSubwayFilterOption, getFirstParentLineId, removeFalsyValues } from '@ahhachul/utils';
 
 import * as api from '@/apis/request';
 import { TOAST_MSG } from '@/constants/toast';
@@ -20,7 +20,6 @@ import { useFlow } from '@/stackflow';
 import { useUserStationStore } from '@/stores/subway';
 import { SubwayLineFilterOptions } from '@/types';
 import type { ComplaintForm, ComplaintListParams } from '@/types/complaint';
-import { formatSubwayFilterOption, getFirstParentLineId } from '@/utils';
 import { extractTextFromLexical } from '@/utils/lexical';
 
 export const complaintKeys = complaintQueryKeys;
