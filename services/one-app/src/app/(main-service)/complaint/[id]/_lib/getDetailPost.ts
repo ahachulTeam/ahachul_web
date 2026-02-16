@@ -1,18 +1,20 @@
 import { QueryFunction } from '@tanstack/react-query';
 
+import { complaintQueryKeys } from '@ahhachul/domain';
+
 import { API_BASE_URL } from '@/constant';
 import type { IResponse } from '@/types';
 import { ComplaintPostDetail } from '@/types/complaint';
 
 export const getComplaintDetailPost: QueryFunction<
   IResponse<ComplaintPostDetail>,
-  [_1: string, id: number]
+  ReturnType<typeof complaintQueryKeys.detail>
 > = async ({ queryKey }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_1, id] = queryKey;
+  const [, , id] = queryKey;
+  const detailTags = complaintQueryKeys.detail(id).map(value => String(value));
   const res = await fetch(`${API_BASE_URL}/complaint-posts/${id}`, {
     next: {
-      tags: ['complaint-post', id.toString()],
+      tags: detailTags,
     },
     credentials: 'include',
   });

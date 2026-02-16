@@ -4,11 +4,11 @@ import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { QUERY_GC_TIME, QUERY_STALE_TIME, lostFoundQueryKeys } from '@ahhachul/domain';
 import { formatDateTime } from '@ahhachul/utils';
 
 import { ReadonlyEditor } from '@/component/Editor';
 // import { SUBWAY_LOGO_SVG_LIST } from '@/component';
-import { TIMESTAMP } from '@/constant';
 import { cn, isLexicalContent } from '@/util';
 
 import { Lost112ArticleTable } from './Lost112ArticleTable';
@@ -23,9 +23,10 @@ type Props = {
 
 export default function LostFoundPostDetail({ id }: Props) {
   const { data: post } = useQuery({
-    queryKey: ['lost-found-post', id],
+    queryKey: lostFoundQueryKeys.detail(id),
     queryFn: getLostFoundDetailPost,
-    staleTime: 5 * TIMESTAMP.MINUTE,
+    staleTime: QUERY_STALE_TIME.detail,
+    gcTime: QUERY_GC_TIME.detail,
     select: res => res.result,
   });
 

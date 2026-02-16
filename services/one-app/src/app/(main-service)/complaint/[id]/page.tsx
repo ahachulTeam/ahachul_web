@@ -1,6 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 
+import { complaintQueryKeys } from '@ahhachul/domain';
 import { createDetailMetadata } from '@ahhachul/seo';
 
 import { SITE_URL, SUBWAY_LINES } from '@/constant';
@@ -11,7 +12,7 @@ import { getComplaintDetailPostServer } from './_lib/getDetailPostServer';
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const post = await getComplaintDetailPostServer({ queryKey: ['complaint-post', id] });
+  const post = await getComplaintDetailPostServer({ queryKey: complaintQueryKeys.detail(id) });
 
   const subwayLineId = post.result.subwayLineId;
   const extractTitle = extractTextFromLexical(post.result.content, post.result.complaintType).slice(
@@ -57,7 +58,7 @@ export default async function ComplaintDetailPage(props: Props) {
   const { id } = await props.params;
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
-    queryKey: ['complaint-post', id],
+    queryKey: complaintQueryKeys.detail(id),
     queryFn: getComplaintDetailPostServer,
   });
   const dehydratedState = dehydrate(queryClient);

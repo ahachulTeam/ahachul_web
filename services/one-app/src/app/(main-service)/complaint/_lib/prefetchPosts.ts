@@ -1,5 +1,7 @@
 import { QueryClient } from '@tanstack/react-query';
 
+import { buildQuerySignature, complaintQueryKeys } from '@ahhachul/domain';
+
 import { SubwayLineFilterOptions } from '@/types';
 
 import { getComplaintPosts } from './getComplaintPosts';
@@ -10,15 +12,15 @@ type Props = {
 };
 
 export async function prefetchPosts(queryClient: QueryClient, query: Props) {
-  const queryString = new URLSearchParams({
-    ...(query.keyword ? { keyword: query.keyword } : {}),
-    ...(query.subwayLineId ? { subwayLineId: query.subwayLineId } : {}),
-  }).toString();
+  const querySignature = buildQuerySignature({
+    keyword: query.keyword,
+    subwayLineId: query.subwayLineId,
+  });
+  const queryKey = complaintQueryKeys.list(querySignature);
 
   await queryClient.prefetchInfiniteQuery({
-    queryKey: ['complaint', 'posts', queryString],
-    queryFn: ({ pageParam }) =>
-      getComplaintPosts({ queryKey: ['complaint', 'posts', queryString], pageParam }),
+    queryKey,
+    queryFn: ({ pageParam }) => getComplaintPosts({ queryKey, pageParam }),
     initialPageParam: '',
   });
 }

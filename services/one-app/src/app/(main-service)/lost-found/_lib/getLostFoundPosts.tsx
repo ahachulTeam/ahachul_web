@@ -1,3 +1,4 @@
+import { lostFoundQueryKeys } from '@ahhachul/domain';
 import { removeFalsyValues } from '@ahhachul/utils';
 
 import { fetchClient } from '@/lib/fetch-client';
@@ -5,17 +6,15 @@ import { LostFoundType, type ApiResponse, type LostFoundPost, type PaginatedList
 
 type Props = {
   pageParam?: string;
-  queryKey: [_1: string, _2: string, filters: string];
+  queryKey: ReturnType<typeof lostFoundQueryKeys.list>;
 };
 
 export async function getLostFoundPosts({
   pageParam,
   queryKey,
 }: Props): Promise<ApiResponse<PaginatedList<LostFoundPost>>> {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_1, _2, query] = queryKey;
-
-  const filters = new URLSearchParams(query);
+  const [, , querySignature] = queryKey;
+  const filters = new URLSearchParams(querySignature);
 
   const params = removeFalsyValues({
     ...(filters.get('keyword') && { keyword: filters.get('keyword') || '' }),

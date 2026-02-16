@@ -8,6 +8,7 @@ import { Check } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Drawer } from 'vaul';
 
+import { resolvePostListInvalidationKey, resolvePostQueryDomain } from '@ahhachul/domain';
 import { sleep } from '@ahhachul/utils';
 
 import {
@@ -21,7 +22,7 @@ import {
 import { MoreVerticalIcon } from '@/assets/icons/system';
 import { useUser } from '@/hooks/domain';
 import useUpdateLostFound from '@/hooks/domain/lostFound/useUpdateLostFound';
-import { communityKeys, useDeleteCommunity } from '@/services/community';
+import { useDeleteCommunity } from '@/services/community';
 import { complaintKeys, useDeleteComplaint } from '@/services/complaint';
 import { lostFoundKeys, useDeleteLostFound } from '@/services/lostFound';
 import { useFlow } from '@/stackflow';
@@ -63,11 +64,13 @@ const PostDropEllipsis = ({
   const { push } = useFlow();
   const handleEdit = () => {
     handleClose();
-    const activityName = queryKey.includes('community')
-      ? 'EditCommunityPage'
-      : queryKey.includes('lostFound')
-        ? 'EditLostFoundPage'
-        : 'EditComplaintPage';
+    const postDomain = resolvePostQueryDomain(queryKey);
+    const activityName =
+      postDomain === 'community'
+        ? 'EditCommunityPage'
+        : postDomain === 'lost-found'
+          ? 'EditLostFoundPage'
+          : 'EditComplaintPage';
 
     setTimeout(() => {
       push(activityName, {
@@ -258,23 +261,20 @@ function RemovePost({
   const { mutateAsync: deleteLostFound, status: deletingLostFoundStatus } = useDeleteLostFound();
   const { mutateAsync: deleteComplaint, status: deletingComplaintStatus } = useDeleteComplaint();
 
-  const invlidationQueryKey = queryKey.includes('community')
-    ? communityKeys.lists()
-    : queryKey.includes('lostFound')
-      ? lostFoundKeys.lists()
-      : complaintKeys.lists();
-
-  const deleteMutate = queryKey.includes('community')
-    ? deleteCommunity
-    : queryKey.includes('lostFound')
-      ? deleteLostFound
-      : deleteComplaint;
-
-  const status = queryKey.includes('community')
-    ? deletingCommunityStatus
-    : queryKey.includes('lostFound')
-      ? deletingLostFoundStatus
-      : deletingComplaintStatus;
+  const postDomain = resolvePostQueryDomain(queryKey);
+  const invalidationQueryKey = resolvePostListInvalidationKey(queryKey) ?? complaintKeys.lists();
+  const deleteMutate =
+    postDomain === 'community'
+      ? deleteCommunity
+      : postDomain === 'lost-found'
+        ? deleteLostFound
+        : deleteComplaint;
+  const status =
+    postDomain === 'community'
+      ? deletingCommunityStatus
+      : postDomain === 'lost-found'
+        ? deletingLostFoundStatus
+        : deletingComplaintStatus;
 
   const handleDeletePost = async () => {
     try {
@@ -283,7 +283,7 @@ function RemovePost({
           await sleep(350);
           handleClose();
           await sleep(200);
-          await queryClient.invalidateQueries({ queryKey: invlidationQueryKey });
+          await queryClient.invalidateQueries({ queryKey: invalidationQueryKey });
           pop();
         },
       });

@@ -105,6 +105,9 @@ importers:
 
   services/ahhachul.com:
     dependencies:
+      '@ahhachul/domain':
+        specifier: workspace:*
+        version: link:../../packages/domain
       '@emotion/react':
         specifier: ^11.14.0
         version: 11.14.0(@types/react@19.0.8)(react@19.0.0)

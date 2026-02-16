@@ -7,6 +7,8 @@ import { InfiniteData, useInfiniteQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
+import { QUERY_GC_TIME, QUERY_STALE_TIME, lostFoundQueryKeys } from '@ahhachul/domain';
+
 import { ArticleListSuspenseFallback, Post } from '@/component';
 import type { ApiResponse, LostFoundPost, PaginatedList } from '@/types';
 
@@ -19,15 +21,15 @@ export default function LostFoundPosts() {
     ApiResponse<PaginatedList<LostFoundPost>>,
     Error,
     InfiniteData<ApiResponse<PaginatedList<LostFoundPost>>>,
-    [_1: string, _2: string, _3: string],
+    ReturnType<typeof lostFoundQueryKeys.list>,
     string
   >({
-    queryKey: ['lost-found', 'posts', searchParams.toString()],
+    queryKey: lostFoundQueryKeys.list(searchParams.toString()),
     queryFn: getLostFoundPosts,
     initialPageParam: '',
     getNextPageParam: lastPage => lastPage.result.pageToken,
-    staleTime: 60 * 1000,
-    gcTime: 300 * 1000,
+    staleTime: QUERY_STALE_TIME.feed,
+    gcTime: QUERY_GC_TIME.feed,
   });
 
   const { ref, inView } = useInView({

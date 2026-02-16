@@ -1,18 +1,20 @@
 import { cookies } from 'next/headers';
 
+import { lostFoundQueryKeys } from '@ahhachul/domain';
+
 import { API_BASE_URL } from '@/constant';
 
 export const getLostFoundDetailPostServer = async ({
   queryKey,
 }: {
-  queryKey: [string, number];
+  queryKey: ReturnType<typeof lostFoundQueryKeys.detail>;
 }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_1, id] = queryKey;
+  const [, , id] = queryKey;
+  const detailTags = lostFoundQueryKeys.detail(id).map(value => String(value));
   const res = await fetch(`${API_BASE_URL}/lost-posts/${id}`, {
     next: {
       revalidate: 3600,
-      tags: ['lost-found-post', id.toString()],
+      tags: detailTags,
     },
     cache: 'force-cache',
     credentials: 'include',

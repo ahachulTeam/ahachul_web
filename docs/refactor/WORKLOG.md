@@ -115,3 +115,10 @@
 - Summary: Enforced utility phase-1 by consolidating lexical parsing helpers into `@ahhachul/utils`, removing duplicated app implementations, and hardening shared object/query utility typing/parsing with `URLSearchParams`.
 - Validation Result: Pass (`pnpm validate:full`)
 - Follow-up: Expand shared utility migration to date/subway/domain formatting helpers.
+
+- DateTime (KST): 2026-02-17
+- Task ID: RF-820
+- Contributors: FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator
+- Summary: Applied React Query conventions end-to-end by introducing shared query key factories and query signature normalization in `@ahhachul/domain`, migrating Vite/Next query keys to factories, standardizing mutation invalidation scope (`lists/detail/comments`), and unifying stale/gc-time policy across query clients and domain hooks.
+- Validation Result: Pass (`pnpm validate:full`)
+- Follow-up: Commit RF-820 and extend the same convention to any newly added domain modules by default.

@@ -50,16 +50,30 @@
 
 - Use deterministic array keys and domain prefixes (`['lost-found', 'posts', ...]`).
 - Query key factories are preferred for reusable domains.
+- Canonical key factories live in `@ahhachul/domain`:
+  - `communityQueryKeys`, `complaintQueryKeys`, `lostFoundQueryKeys`, `userQueryKeys`, `myQueryKeys`, `subwayQueryKeys`
+- List keys must use signature normalization (`buildQuerySignature` + `normalizeQuerySignature`) to prevent equivalent-filter cache fragmentation.
 
 ### 2) Defaults and Freshness
 
 - `staleTime` and `gcTime` must be intentionally set for user-facing feeds/details.
 - No implicit reliance on default retry/refetch behavior for critical UX.
+- Standard freshness policy:
+  - Feed/List: `staleTime=1m`, `gcTime=5m`
+  - Detail/Comments: `staleTime=5m`, `gcTime=10m`
+  - User Profile/Favorites: `staleTime=30m`, `gcTime=60m`
+  - Static dictionaries (e.g., subway lines): `staleTime=Infinity`, `gcTime=Infinity`
+- Shared constants source: `@ahhachul/domain` (`QUERY_STALE_TIME`, `QUERY_GC_TIME`).
 
 ### 3) Mutation and Invalidation
 
 - Mutation success handlers must explicitly invalidate or update the affected query domains.
 - Invalidation scope must be minimal but sufficient to prevent stale UI.
+- Invalidation baseline:
+  - Create/Delete: invalidate domain `lists()` scope.
+  - Edit/Status update: invalidate `lists()` and target `detail(id)`.
+  - Comment create/edit/delete: invalidate target `comments(id)` key.
+- Dynamic post actions must resolve invalidation domain through query-domain helpers (`resolvePostQueryDomain`, `resolvePostListInvalidationKey`) instead of string includes.
 
 ## Rule 3: Date/Time Formatting Conventions
 

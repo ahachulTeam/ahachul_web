@@ -1,6 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 
+import { communityQueryKeys } from '@ahhachul/domain';
 import { createDetailMetadata } from '@ahhachul/seo';
 
 import { SITE_URL, SUBWAY_LINES } from '@/constant';
@@ -11,7 +12,7 @@ import { getCommunityDetailPostServer } from './_lib/getDetailPostServer';
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const post = await getCommunityDetailPostServer({ queryKey: ['community-post', id] });
+  const post = await getCommunityDetailPostServer({ queryKey: communityQueryKeys.detail(id) });
 
   const subwayLineId = post.result.subwayLineId;
 
@@ -54,7 +55,7 @@ export default async function CommunityDetailPage(props: Props) {
   const { id } = await props.params;
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
-    queryKey: ['community-post', id],
+    queryKey: communityQueryKeys.detail(id),
     queryFn: getCommunityDetailPostServer,
   });
   const dehydratedState = dehydrate(queryClient);

@@ -7,8 +7,10 @@ import type { EditorState } from 'lexical';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+import { QUERY_GC_TIME, QUERY_STALE_TIME, lostFoundQueryKeys } from '@ahhachul/domain';
+
 import { Editor } from '@/component/Editor';
-import { SUBWAY_LINES, TIMESTAMP } from '@/constant';
+import { SUBWAY_LINES } from '@/constant';
 import { lostTypeOptions } from '@/constant/lost-found';
 import { fetchClient } from '@/lib/fetch-client';
 import {
@@ -84,11 +86,11 @@ export default function LostFoundPostEditor(props: Props) {
   const objectUrlsRef = useRef(new Set<string>());
 
   const detailQuery = useQuery({
-    queryKey: ['lost-found-post', editTargetId],
+    queryKey: lostFoundQueryKeys.detail(editTargetId),
     queryFn: () => fetchClient<ApiResponse<LostFoundPostDetail>>(`/lost-posts/${editTargetId}`),
     enabled: isEditMode,
-    staleTime: 5 * TIMESTAMP.MINUTE,
-    gcTime: 10 * TIMESTAMP.MINUTE,
+    staleTime: QUERY_STALE_TIME.detail,
+    gcTime: QUERY_GC_TIME.detail,
     select: response => response.result,
   });
 

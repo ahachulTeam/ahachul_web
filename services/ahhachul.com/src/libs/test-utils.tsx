@@ -3,10 +3,17 @@ import React, { type ReactElement } from 'react';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { render, renderHook, type RenderOptions } from '@testing-library/react';
 
+import { QUERY_GC_TIME, QUERY_STALE_TIME } from '@ahhachul/domain';
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: false,
+      staleTime: QUERY_STALE_TIME.feed,
+      gcTime: QUERY_GC_TIME.feed,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchOnWindowFocus: false,
     },
   },
 });

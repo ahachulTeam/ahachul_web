@@ -1,14 +1,17 @@
 import { QueryClient, defaultShouldDehydrateQuery, isServer } from '@tanstack/react-query';
 
+import { QUERY_GC_TIME, QUERY_STALE_TIME } from '@ahhachul/domain';
+
 function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
         retry: false,
-        refetchOnMount: true,
+        gcTime: QUERY_GC_TIME.feed,
+        refetchOnMount: false,
         refetchOnReconnect: false,
         refetchOnWindowFocus: false,
-        staleTime: 60 * 1000,
+        staleTime: QUERY_STALE_TIME.feed,
       },
       dehydrate: {
         // include pending queries in dehydration

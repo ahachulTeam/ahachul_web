@@ -2,11 +2,11 @@
 
 import { useQuery } from '@tanstack/react-query';
 
+import { QUERY_GC_TIME, QUERY_STALE_TIME, communityQueryKeys } from '@ahhachul/domain';
 import { formatDateTime } from '@ahhachul/utils';
 
 import { ReadonlyEditor } from '@/component/Editor';
 // import { SUBWAY_LOGO_SVG_LIST } from '@/component';
-import { TIMESTAMP } from '@/constant';
 import { cn, isLexicalContent } from '@/util';
 
 import { CommunityTypeBadge } from './CommunityTypeBadge';
@@ -19,9 +19,10 @@ type Props = {
 
 export default function CommunityPostDetail({ id }: Props) {
   const { data: post } = useQuery({
-    queryKey: ['community-post', id],
+    queryKey: communityQueryKeys.detail(id),
     queryFn: getCommunityDetailPost,
-    staleTime: 5 * TIMESTAMP.MINUTE,
+    staleTime: QUERY_STALE_TIME.detail,
+    gcTime: QUERY_GC_TIME.detail,
     select: res => res.result,
   });
 

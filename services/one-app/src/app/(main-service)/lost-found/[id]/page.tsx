@@ -1,6 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 
+import { lostFoundQueryKeys } from '@ahhachul/domain';
 import { createDetailMetadata } from '@ahhachul/seo';
 
 import { SITE_URL, SUBWAY_LINES } from '@/constant';
@@ -12,7 +13,7 @@ import { getLostFoundDetailPostServer } from './_lib/getDetailPostServer';
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const post = await getLostFoundDetailPostServer({ queryKey: ['lost-found-post', id] });
+  const post = await getLostFoundDetailPostServer({ queryKey: lostFoundQueryKeys.detail(id) });
 
   const subwayLineId = post.result.subwayLineId;
 
@@ -55,11 +56,11 @@ export default async function LostFoundDetailPage(props: Props) {
   const { id } = await props.params;
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
-    queryKey: ['lost-found-post', id],
+    queryKey: lostFoundQueryKeys.detail(id),
     queryFn: getLostFoundDetailPostServer,
   });
   await queryClient.prefetchQuery({
-    queryKey: ['lost-found-post', id, 'comments'],
+    queryKey: lostFoundQueryKeys.comments(id),
     queryFn: getLostFoundComments,
   });
   const dehydratedState = dehydrate(queryClient);

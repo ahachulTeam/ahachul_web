@@ -3,6 +3,8 @@
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 
+import { QUERY_STALE_TIME, myQueryKeys } from '@ahhachul/domain';
+
 import { getMyProfile } from '@/app/(main-service)/me/_lib/getMyProfile';
 
 type Props = {
@@ -11,9 +13,9 @@ type Props = {
 
 export default function ProfileOverview({ username }: Props) {
   const { data, isPending } = useQuery({
-    queryKey: ['me', 'profile'],
+    queryKey: myQueryKeys.profile(),
     queryFn: getMyProfile,
-    staleTime: 5 * 60 * 1000,
+    staleTime: QUERY_STALE_TIME.user,
   });
 
   const profile = data?.result;

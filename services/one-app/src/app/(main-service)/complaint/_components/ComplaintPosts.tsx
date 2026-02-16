@@ -7,6 +7,8 @@ import { InfiniteData, useInfiniteQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
+import { QUERY_GC_TIME, QUERY_STALE_TIME, complaintQueryKeys } from '@ahhachul/domain';
+
 import { ArticleListSuspenseFallback, Post } from '@/component';
 import type { ApiResponse, PaginatedList } from '@/types';
 import { ComplaintPost } from '@/types/complaint';
@@ -20,15 +22,15 @@ export default function ComplaintPosts() {
     ApiResponse<PaginatedList<ComplaintPost>>,
     Error,
     InfiniteData<ApiResponse<PaginatedList<ComplaintPost>>>,
-    [_1: string, _2: string, _3: string],
+    ReturnType<typeof complaintQueryKeys.list>,
     string
   >({
-    queryKey: ['complaint', 'posts', searchParams.toString()],
+    queryKey: complaintQueryKeys.list(searchParams.toString()),
     queryFn: getComplaintPosts,
     initialPageParam: '',
     getNextPageParam: lastPage => lastPage.result.pageToken,
-    staleTime: 60 * 1000,
-    gcTime: 300 * 1000,
+    staleTime: QUERY_STALE_TIME.feed,
+    gcTime: QUERY_GC_TIME.feed,
   });
 
   const { ref, inView } = useInView({

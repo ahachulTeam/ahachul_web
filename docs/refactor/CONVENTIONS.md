@@ -23,6 +23,7 @@
 - Affected commands: `affected:type`, `affected:lint`, `affected:test`, `affected:build`
 - FE pod model: `FE Lead` + `FE Specialist A/B` with rule authority in `docs/refactor/FE_RULEBOOK.md`
 - Utility convention baseline: shared utils are pure-first, `any`-free signatures, and parse/encode via platform primitives
+- React Query baseline: shared key factories/signature normalization + stale/gc-time and invalidation policy from `@ahhachul/domain`
 
 ## Validation Authority
 

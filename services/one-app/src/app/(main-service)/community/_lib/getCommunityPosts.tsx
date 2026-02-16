@@ -1,3 +1,4 @@
+import { communityQueryKeys } from '@ahhachul/domain';
 import { removeFalsyValues } from '@ahhachul/utils';
 
 import { fetchClient } from '@/lib/fetch-client';
@@ -6,17 +7,15 @@ import { type CommunityListParams, type CommunityPost, CommunityType } from '@/t
 
 type Props = {
   pageParam?: string;
-  queryKey: [_1: string, _2: string, filters: string];
+  queryKey: ReturnType<typeof communityQueryKeys.list>;
 };
 
 export async function getCommunityPosts({
   pageParam,
   queryKey,
 }: Props): Promise<ApiResponse<PaginatedList<CommunityPost>>> {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_1, _2, query] = queryKey;
-
-  const filters = new URLSearchParams(query);
+  const [, , querySignature] = queryKey;
+  const filters = new URLSearchParams(querySignature);
 
   const endpoint =
     filters.has('category') && filters.get('category') !== CommunityType.HOT

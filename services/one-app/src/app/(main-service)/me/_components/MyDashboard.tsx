@@ -3,6 +3,8 @@
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 
+import { QUERY_STALE_TIME, myQueryKeys } from '@ahhachul/domain';
+
 import { AuthService } from '@/lib/auth-service';
 
 import { getMyFavoriteStations, getMyProfile } from '../_lib/getMyProfile';
@@ -15,15 +17,15 @@ export default function MyDashboard() {
     isPending: isProfilePending,
     isError: isProfileError,
   } = useQuery({
-    queryKey: ['me', 'profile'],
+    queryKey: myQueryKeys.profile(),
     queryFn: getMyProfile,
-    staleTime: 5 * 60 * 1000,
+    staleTime: QUERY_STALE_TIME.user,
   });
 
   const { data: stations } = useQuery({
-    queryKey: ['me', 'favorite-stations'],
+    queryKey: myQueryKeys.favoriteStations(),
     queryFn: getMyFavoriteStations,
-    staleTime: 5 * 60 * 1000,
+    staleTime: QUERY_STALE_TIME.user,
   });
 
   if (isProfilePending) {

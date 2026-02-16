@@ -1,18 +1,20 @@
 import { QueryFunction } from '@tanstack/react-query';
 
+import { communityQueryKeys } from '@ahhachul/domain';
+
 import { API_BASE_URL } from '@/constant';
 import type { IResponse } from '@/types';
 import type { CommunityDetail } from '@/types/community';
 
 export const getCommunityDetailPost: QueryFunction<
   IResponse<CommunityDetail>,
-  [_1: string, id: number]
+  ReturnType<typeof communityQueryKeys.detail>
 > = async ({ queryKey }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_1, id] = queryKey;
+  const [, , id] = queryKey;
+  const detailTags = communityQueryKeys.detail(id).map(value => String(value));
   const res = await fetch(`${API_BASE_URL}/community-posts/${id}`, {
     next: {
-      tags: ['community-post', id.toString()],
+      tags: detailTags,
     },
     credentials: 'include',
   });

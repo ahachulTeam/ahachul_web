@@ -14,3 +14,4 @@
 10. Both deploy workflows must block on post-deploy smoke checks that verify route HTML and referenced chunk/static asset reachability.
 11. FE governance model is upgraded to `FE Lead + FE Specialist A/B`, and FE conventions are codified in a dedicated rulebook.
 12. Utility functions are phase-1 convention enforcement target: pure-first design, `unknown`-first typing, and shared promotion for duplicated logic.
+13. React Query conventions are standardized via `@ahhachul/domain`: shared key factories, normalized list-key signatures, and fixed stale/gc-time + invalidation policies across Vite/Next.

@@ -2,10 +2,10 @@
 
 import { useQuery } from '@tanstack/react-query';
 
+import { QUERY_GC_TIME, QUERY_STALE_TIME, complaintQueryKeys } from '@ahhachul/domain';
 import { formatDateTime } from '@ahhachul/utils';
 
 import { ReadonlyEditor } from '@/component/Editor';
-import { TIMESTAMP } from '@/constant';
 import { cn, extractTextFromLexical, isLexicalContent } from '@/util';
 
 import { ComplaintTypeBadge } from './ComplaintTypeBadge';
@@ -18,9 +18,10 @@ type Props = {
 
 export default function CommunityPostDetail({ id }: Props) {
   const { data: post } = useQuery({
-    queryKey: ['complaint-post', id],
+    queryKey: complaintQueryKeys.detail(id),
     queryFn: getComplaintDetailPost,
-    staleTime: 5 * TIMESTAMP.MINUTE,
+    staleTime: QUERY_STALE_TIME.detail,
+    gcTime: QUERY_GC_TIME.detail,
     select: res => res.result,
   });
 

@@ -29,3 +29,9 @@
 {"from":"FE Specialist A/B","to":"QA Engineer","taskId":"RF-810","state":"QAReady","note":"Utility convention phase-1 code changes complete. Request regression and gate.","at":"2026-02-17T01:56:20+09:00"}
 {"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-810","state":"QAReady","note":"validate:full pass evidence attached for FE utility convention rollout.","at":"2026-02-17T01:56:20+09:00"}
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-810","state":"ValidatorPass","note":"RF-800/RF-810 gate passed (type/lint/test/build) with no blocking failures.","at":"2026-02-17T01:56:20+09:00"}
+{"from":"Team Lead","to":"FE Lead","taskId":"RF-820","state":"ASSIGNED","note":"Start React Query convention rollout across both apps with shared key factory/time policy.","at":"2026-02-17T02:19:53+09:00"}
+{"from":"FE Lead","to":"FE Specialist A","taskId":"RF-820","state":"ASSIGNED","note":"Implement shared query key/signature module and migrate one-app query keys.","at":"2026-02-17T02:19:53+09:00"}
+{"from":"FE Lead","to":"FE Specialist B","taskId":"RF-820","state":"ASSIGNED","note":"Apply invalidation/staleTime standards in ahhachul.com query services and providers.","at":"2026-02-17T02:19:53+09:00"}
+{"from":"FE Specialist A/B","to":"QA Engineer","taskId":"RF-820","state":"QAReady","note":"React Query convention rollout complete. Request full validator gate.","at":"2026-02-17T02:19:53+09:00"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-820","state":"QAReady","note":"validate:full pass evidence attached for RF-820.","at":"2026-02-17T02:19:53+09:00"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-820","state":"ValidatorPass","note":"RF-820 gate passed with validate:full success (type/lint/test/build).","at":"2026-02-17T02:19:53+09:00"}

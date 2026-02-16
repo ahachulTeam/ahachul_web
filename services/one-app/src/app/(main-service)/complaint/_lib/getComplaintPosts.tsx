@@ -1,3 +1,4 @@
+import { complaintQueryKeys } from '@ahhachul/domain';
 import { removeFalsyValues } from '@ahhachul/utils';
 
 import { fetchClient } from '@/lib/fetch-client';
@@ -7,16 +8,15 @@ import { extractTextFromLexical } from '@/util';
 
 type Props = {
   pageParam?: string;
-  queryKey: [_1: string, _2: string, filters: string];
+  queryKey: ReturnType<typeof complaintQueryKeys.list>;
 };
 
 export async function getComplaintPosts({
   pageParam,
   queryKey,
 }: Props): Promise<ApiResponse<PaginatedList<ComplaintPost>>> {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_1, _2, query] = queryKey;
-  const filters = new URLSearchParams(query);
+  const [, , querySignature] = queryKey;
+  const filters = new URLSearchParams(querySignature);
   const subwayLineId = filters.get('subwayLineId');
 
   const params = removeFalsyValues({
