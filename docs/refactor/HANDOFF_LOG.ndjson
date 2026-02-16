@@ -35,3 +35,10 @@
 {"from":"FE Specialist A/B","to":"QA Engineer","taskId":"RF-820","state":"QAReady","note":"React Query convention rollout complete. Request full validator gate.","at":"2026-02-17T02:19:53+09:00"}
 {"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-820","state":"QAReady","note":"validate:full pass evidence attached for RF-820.","at":"2026-02-17T02:19:53+09:00"}
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-820","state":"ValidatorPass","note":"RF-820 gate passed with validate:full success (type/lint/test/build).","at":"2026-02-17T02:19:53+09:00"}
+{"from":"Team Lead","to":"FE Lead","taskId":"RF-830","state":"ASSIGNED","note":"Enforce single date-format entrypoint and migrate usages across dual apps.","at":"2026-02-16T17:29:09.867Z"}
+{"from":"FE Lead","to":"FE Specialist A","taskId":"RF-830","state":"ASSIGNED","note":"Migrate one-app date formatting calls to formatDisplayDate.","at":"2026-02-16T17:29:09.867Z"}
+{"from":"FE Lead","to":"FE Specialist B","taskId":"RF-830","state":"ASSIGNED","note":"Migrate ahhachul.com date formatting calls and align imports.","at":"2026-02-16T17:29:09.867Z"}
+{"from":"FE Specialist A/B","to":"QA Engineer","taskId":"RF-830","state":"QAReady","note":"Single-entrypoint date formatting migration complete. Request regression gate.","at":"2026-02-16T17:29:09.867Z"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-830","state":"QAReady","note":"validate:type and validate:lint pass with date formatting enforcement rules active.","at":"2026-02-16T17:29:09.867Z"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-830","state":"QAReady","note":"validate:full pass evidence attached for RF-830 (type/lint/test/build).","at":"2026-02-16T17:30:45.771Z"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-830","state":"ValidatorPass","note":"RF-830 gate passed with validate:full success and lint enforcement active.","at":"2026-02-16T17:30:45.771Z"}

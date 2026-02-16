@@ -1,4 +1,4 @@
-import { formatDateTime } from '@ahhachul/utils';
+import { formatDisplayDate } from '@ahhachul/utils';
 
 import { StackFlow } from '@/stackflow';
 import type { RecommendPost as TypeRecommendPost } from '@/types';
@@ -21,7 +21,7 @@ const RecommendPost = ({ post }: RecommendPostProps) => {
                 <S.AuthorDateContainer>
                   <span>LOST112</span>
                   <S.StyledDotIcon />
-                  <span>{formatDateTime(post.createdAt, { format: 'relative' })}</span>
+                  <span>{formatDisplayDate(post.createdAt, { format: 'relative' })}</span>
                 </S.AuthorDateContainer>
               </S.MetaContainer>
             </S.TextContainer>

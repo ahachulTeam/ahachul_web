@@ -1,76 +1,76 @@
 {
-  "updatedAt": "2026-02-17T02:19:53+09:00",
+  "updatedAt": "2026-02-17T02:28:28+09:00",
   "branch": "codex/refactor-foundation",
-  "sprintFocus": "FE convention uplift: React Query convention rollout (key factory/invalidation/staleTime standardization)",
+  "sprintFocus": "FE convention uplift: Date formatting single-entrypoint rollout (formatDisplayDate + lint enforcement)",
   "leadDirective": [
-    "1) RF-820 (React Query convention rollout) reached ValidatorPass with full gate evidence.",
-    "2) FE Lead keeps shared query key factory and stale/gc-time constants as mandatory baseline for new features.",
-    "3) QA enforces validator checklist against both apps after any query-domain mutation changes.",
-    "4) Technical Writer syncs sprint/worklog/rulebook artifacts before RF-820 commit boundary."
+    "1) RF-830 (Date formatting single-entrypoint) reached ValidatorPass with full gate evidence.",
+    "2) FE Lead enforces formatDisplayDate as the only app-layer date formatting entrypoint.",
+    "3) QA blocks merges on lint violations for direct date-fns/toLocale/Intl.DateTimeFormat usage.",
+    "4) Technical Writer synchronizes sprint/worklog/rulebook artifacts before RF-830 commit boundary."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-820",
+      "taskId": "RF-830",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T02:19:53+09:00",
-      "nextAction": "create RF-820 task commit and close documentation sync"
+      "updatedAt": "2026-02-17T02:28:28+09:00",
+      "nextAction": "create RF-830 task commit and close documentation sync"
     },
     {
       "role": "FE Lead",
       "owner": "fe-lead",
-      "taskId": "RF-820",
+      "taskId": "RF-830",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T02:19:53+09:00",
-      "nextAction": "approve shared query convention baseline for all upcoming domain work"
+      "updatedAt": "2026-02-17T02:28:28+09:00",
+      "nextAction": "approve date-format single-entrypoint baseline for new features"
     },
     {
       "role": "FE Specialist A",
       "owner": "fe-spec-a",
-      "taskId": "RF-820",
+      "taskId": "RF-830",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T02:19:53+09:00",
-      "nextAction": "maintain shared query key/signature factory and review new query modules"
+      "updatedAt": "2026-02-17T02:28:28+09:00",
+      "nextAction": "maintain shared date utility API and review boundary usage"
     },
     {
       "role": "FE Specialist B",
       "owner": "fe-spec-b",
-      "taskId": "RF-820",
+      "taskId": "RF-830",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T02:19:53+09:00",
-      "nextAction": "monitor UI-layer adoption and query invalidation regressions"
+      "updatedAt": "2026-02-17T02:28:28+09:00",
+      "nextAction": "monitor UI-layer migration and date-output regressions"
     },
     {
       "role": "Infra Engineer",
       "owner": "infra-core",
-      "taskId": "RF-820",
+      "taskId": "RF-830",
       "state": "Ready",
-      "updatedAt": "2026-02-17T02:19:53+09:00",
-      "nextAction": "stand by for CI rule codification around query policy checks"
+      "updatedAt": "2026-02-17T02:28:28+09:00",
+      "nextAction": "stand by for CI guardrail extensions if requested"
     },
     {
       "role": "QA Engineer",
       "owner": "qa-core",
-      "taskId": "RF-820",
+      "taskId": "RF-830",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T02:19:53+09:00",
-      "nextAction": "attach RF-820 validate:full evidence to release artifacts"
+      "updatedAt": "2026-02-17T02:28:28+09:00",
+      "nextAction": "attach RF-830 validate:full evidence to release artifacts"
     },
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-820",
+      "taskId": "RF-830",
       "state": "InProgress",
-      "updatedAt": "2026-02-17T02:19:53+09:00",
-      "nextAction": "synchronize sprint board/worklog/rulebook for RF-820 handoff closeout"
+      "updatedAt": "2026-02-17T02:28:28+09:00",
+      "nextAction": "synchronize sprint board/worklog/rulebook for RF-830 handoff closeout"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
-      "taskId": "RF-820",
+      "taskId": "RF-830",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T02:19:53+09:00",
+      "updatedAt": "2026-02-17T02:28:28+09:00",
       "nextAction": "await commit boundary and next FE convention tranche"
     }
   ],
@@ -370,6 +370,54 @@
       "state": "ValidatorPass",
       "note": "RF-820 gate passed with validate:full success (type/lint/test/build).",
       "at": "2026-02-17T02:19:53+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "FE Lead",
+      "taskId": "RF-830",
+      "state": "ASSIGNED",
+      "note": "Start date-format single-entrypoint migration and lint policy enforcement.",
+      "at": "2026-02-17T02:28:28+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist A",
+      "taskId": "RF-830",
+      "state": "ASSIGNED",
+      "note": "Implement shared date API uplift and migrate one-app usage to formatDisplayDate.",
+      "at": "2026-02-17T02:28:28+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist B",
+      "taskId": "RF-830",
+      "state": "ASSIGNED",
+      "note": "Migrate ahhachul.com usage and add lint rules that block direct formatting paths.",
+      "at": "2026-02-17T02:28:28+09:00"
+    },
+    {
+      "from": "FE Specialist A/B",
+      "to": "QA Engineer",
+      "taskId": "RF-830",
+      "state": "QAReady",
+      "note": "Date-format migration complete. Request full validator gate.",
+      "at": "2026-02-17T02:28:28+09:00"
+    },
+    {
+      "from": "QA Engineer",
+      "to": "Perfectionist Validator",
+      "taskId": "RF-830",
+      "state": "QAReady",
+      "note": "validate:full pass evidence attached for RF-830.",
+      "at": "2026-02-17T02:28:28+09:00"
+    },
+    {
+      "from": "Perfectionist Validator",
+      "to": "Team Lead",
+      "taskId": "RF-830",
+      "state": "ValidatorPass",
+      "note": "RF-830 gate passed with validate:full success (type/lint/test/build).",
+      "at": "2026-02-17T02:28:28+09:00"
     }
   ],
   "validator": {

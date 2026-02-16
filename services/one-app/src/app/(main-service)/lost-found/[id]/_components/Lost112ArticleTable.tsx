@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { formatDateTime } from '@ahhachul/utils';
+import { formatDisplayDate } from '@ahhachul/utils';
 
 import type { LostFoundPostDetail } from '@/types';
 
@@ -18,7 +18,7 @@ export const Lost112ArticleTable = ({ post }: Props) => {
 
         <div className="grid grid-cols-[120px,1fr] gap-y-4 text-sm py-3 px-[5px]">
           <div className="text-gray-80 text-label-medium">습득일</div>
-          <div className="text-gray-90 text-label-medium">{formatDateTime(post.createdAt)}</div>
+          <div className="text-gray-90 text-label-medium">{formatDisplayDate(post.createdAt)}</div>
 
           {post?.storage && (
             <>

@@ -1,4 +1,4 @@
-import { formatDateTime } from '@ahhachul/utils';
+import { formatDisplayDate } from '@ahhachul/utils';
 
 import { ComplaintComponent, UiComponent } from '@/components';
 import { subwayIconMap } from '@/constants';
@@ -37,7 +37,7 @@ const ComplaintDetail = ({ id }: ComplaintDetailProps) => {
           <S.MetaInfoWrapper>
             <S.AuthorDateWrapper>
               <S.AuthorText>{post.writer}</S.AuthorText>
-              <S.DateText>{formatDateTime(post.createdAt, { format: 'short' })}</S.DateText>
+              <S.DateText>{formatDisplayDate(post.createdAt, { format: 'short' })}</S.DateText>
             </S.AuthorDateWrapper>
             <S.SubwayLineWrapper>{subwayIconMap.get(post.subwayLineId)}</S.SubwayLineWrapper>
           </S.MetaInfoWrapper>

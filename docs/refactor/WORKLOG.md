@@ -122,3 +122,10 @@
 - Summary: Applied React Query conventions end-to-end by introducing shared query key factories and query signature normalization in `@ahhachul/domain`, migrating Vite/Next query keys to factories, standardizing mutation invalidation scope (`lists/detail/comments`), and unifying stale/gc-time policy across query clients and domain hooks.
 - Validation Result: Pass (`pnpm validate:full`)
 - Follow-up: Commit RF-820 and extend the same convention to any newly added domain modules by default.
+
+- DateTime (KST): 2026-02-17
+- Task ID: RF-830
+- Contributors: FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator
+- Summary: Migrated all user-facing date formatting calls to `formatDisplayDate` in `@ahhachul/utils`, left `formatDateTime` as compatibility alias, and added lint guardrails to block direct `date-fns`, `toLocale*`, and `Intl.DateTimeFormat` usage outside the shared date module.
+- Validation Result: Pass (`pnpm validate:full`)
+- Follow-up: Mark RF-830 committed and keep date-format changes mandatory through the lint gate.

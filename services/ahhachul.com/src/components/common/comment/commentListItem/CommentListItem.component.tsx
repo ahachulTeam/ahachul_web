@@ -1,6 +1,6 @@
 import { useActivity } from '@stackflow/react';
 
-import { formatDateTime } from '@ahhachul/utils';
+import { formatDisplayDate } from '@ahhachul/utils';
 
 import { UiComponent } from '@/components';
 import { useUser } from '@/hooks/domain';
@@ -69,7 +69,7 @@ const Comment = ({
         ) : (
           <S.DeletedComment>삭제된 댓글입니다.</S.DeletedComment>
         )}
-        <S.DateText>{formatDateTime(comment.createdAt, { format: 'short' })}</S.DateText>
+        <S.DateText>{formatDisplayDate(comment.createdAt, { format: 'short' })}</S.DateText>
       </S.ContentWrapper>
       {comment.isPrivate && isSuper && queryKey && servicePath && !asChild && (
         <S.ReplyButton

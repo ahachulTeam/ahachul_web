@@ -2,7 +2,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { motion } from 'motion/react';
 
-import { formatDateTime, getRandomNumber } from '@ahhachul/utils';
+import { formatDisplayDate, getRandomNumber } from '@ahhachul/utils';
 
 import { LostFoundComponent, UiComponent } from '@/components';
 import { subwayIconMap } from '@/constants';
@@ -95,7 +95,7 @@ const LostFoundDetail = ({ id }: LostFoundDetailProps) => {
           <S.MetaInfoWrapper>
             <S.AuthorDateWrapper>
               <S.AuthorText>{post.writer || '로스트 112'}</S.AuthorText>
-              <S.DateText>{formatDateTime(post.createdAt, { format: 'short' })}</S.DateText>
+              <S.DateText>{formatDisplayDate(post.createdAt, { format: 'short' })}</S.DateText>
             </S.AuthorDateWrapper>
             <S.SubwayLineWrapper>{subwayIconMap.get(post.subwayLineId)}</S.SubwayLineWrapper>
           </S.MetaInfoWrapper>

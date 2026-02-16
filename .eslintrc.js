@@ -66,6 +66,60 @@ module.exports = {
       },
     },
     {
+      files: ['services/**/*.{js,jsx,ts,tsx}', 'packages/**/*.{js,jsx,ts,tsx}'],
+      excludedFiles: ['packages/utils/src/date.ts'],
+      rules: {
+        'no-restricted-imports': [
+          'error',
+          {
+            paths: [
+              {
+                name: 'date-fns',
+                message:
+                  'Use formatDisplayDate from @ahhachul/utils as the single date entrypoint.',
+              },
+              {
+                name: 'date-fns/locale',
+                message:
+                  'Use formatDisplayDate from @ahhachul/utils as the single date entrypoint.',
+              },
+            ],
+            patterns: [
+              {
+                group: ['date-fns/*'],
+                message:
+                  'Use formatDisplayDate from @ahhachul/utils as the single date entrypoint.',
+              },
+            ],
+          },
+        ],
+        'no-restricted-syntax': [
+          'error',
+          {
+            selector: "CallExpression[callee.property.name='toLocaleDateString']",
+            message:
+              'Use formatDisplayDate from @ahhachul/utils instead of direct locale formatting.',
+          },
+          {
+            selector: "CallExpression[callee.property.name='toLocaleTimeString']",
+            message:
+              'Use formatDisplayDate from @ahhachul/utils instead of direct locale formatting.',
+          },
+          {
+            selector: "CallExpression[callee.property.name='toLocaleString']",
+            message:
+              'Use formatDisplayDate from @ahhachul/utils instead of direct locale formatting.',
+          },
+          {
+            selector:
+              "NewExpression[callee.object.name='Intl'][callee.property.name='DateTimeFormat']",
+            message:
+              'Use formatDisplayDate from @ahhachul/utils instead of direct Intl.DateTimeFormat.',
+          },
+        ],
+      },
+    },
+    {
       files: ['*.js'],
       rules: {
         '@typescript-eslint/explicit-function-return-type': 'off',

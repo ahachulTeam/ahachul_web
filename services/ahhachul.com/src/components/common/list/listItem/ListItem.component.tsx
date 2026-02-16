@@ -1,4 +1,4 @@
-import { formatDateTime } from '@ahhachul/utils';
+import { formatDisplayDate } from '@ahhachul/utils';
 
 import { CommentIcon } from '@/assets/icons/system';
 import { UiComponent } from '@/components';
@@ -54,7 +54,7 @@ const Post = ({ post }: PostProps) => {
             )}
             <span>{post.writer || '로스트 112'}</span>
             <S.StyledDotIcon />
-            <span>{formatDateTime(post.createdAt, { format: 'relative' })}</span>
+            <span>{formatDisplayDate(post.createdAt, { format: 'relative' })}</span>
           </S.MetaInfo>
           <S.CommentContainer>
             <CommentIcon />

@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { QUERY_GC_TIME, QUERY_STALE_TIME, communityQueryKeys } from '@ahhachul/domain';
-import { formatDateTime } from '@ahhachul/utils';
+import { formatDisplayDate } from '@ahhachul/utils';
 
 import { ReadonlyEditor } from '@/component/Editor';
 // import { SUBWAY_LOGO_SVG_LIST } from '@/component';
@@ -49,7 +49,7 @@ export default function CommunityPostDetail({ id }: Props) {
           <div className=" w-full flex items-center justify-between pb-4 border-b border-b-gray-20">
             <div className=" flex items-center gap-1 text-body-medium">
               <span className=" text-gray-80">{post.writer || '로스트 112'}</span>
-              <span className=" text-gray-70">{formatDateTime(post.createdAt!)}</span>
+              <span className=" text-gray-70">{formatDisplayDate(post.createdAt!)}</span>
             </div>
             <div className=" flex items-center text-gray-90 text-label-medium font-regular">
               {/* {SUBWAY_LOGO_SVG_LIST[post.subwayLineId]} */}

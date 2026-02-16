@@ -40,9 +40,9 @@
 
 ### 5) Date Formatting Baseline
 
-- User-visible date formatting entrypoint: `@ahhachul/utils` date helpers.
+- User-visible date formatting single entrypoint: `formatDisplayDate` from `@ahhachul/utils`.
 - Avoid repeated direct `Date.prototype.toLocale*` calls in render-heavy paths.
-- If locale formatting is needed repeatedly, use reusable/cached `Intl.DateTimeFormat` strategy.
+- If locale formatting is needed repeatedly, implement reusable/cached `Intl.DateTimeFormat` only inside shared date utility module.
 
 ## Rule 2: React Query Conventions
 
@@ -77,9 +77,10 @@
 
 ## Rule 3: Date/Time Formatting Conventions
 
-- Relative/absolute date output format must be centralized in shared helpers.
+- Relative/absolute date output format must be centralized in `formatDisplayDate`.
 - Fallback strategy for invalid date input must be deterministic and user-safe.
 - Locale baseline for now: `ko-KR`.
+- Direct `date-fns` import in app layer, direct `toLocale*`, and direct `Intl.DateTimeFormat` are blocked by lint (except `packages/utils/src/date.ts`).
 
 ## Implementation Checklist
 
@@ -89,6 +90,7 @@
 - [ ] Query-string logic uses `URLSearchParams`.
 - [ ] Duplicated pure utility considered for shared promotion.
 - [ ] React Query key + invalidation reviewed for new data flows.
+- [ ] User-facing date output uses `formatDisplayDate` (no direct locale/date-fns formatting in app code).
 
 ## Sources (Primary)
 

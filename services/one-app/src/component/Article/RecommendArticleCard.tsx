@@ -1,4 +1,4 @@
-import { formatDateTime } from '@ahhachul/utils';
+import { formatDisplayDate } from '@ahhachul/utils';
 
 import { DotIcon } from '@/asset/icon';
 import type { IRecommendPost } from '@/types';
@@ -18,7 +18,7 @@ export const RecommendArticleCard = ({ post }: Props) => {
               <div className=" flex items-center gap-1 text-gray-80 text-body-medium">
                 <span>LOST112</span>
                 <DotIcon className=" relative top-[1px]" />
-                <span>{formatDateTime(post.createdAt)}</span>
+                <span>{formatDisplayDate(post.createdAt)}</span>
               </div>
             </div>
           </div>

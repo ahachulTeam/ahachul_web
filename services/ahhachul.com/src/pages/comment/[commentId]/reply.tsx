@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import type { ActivityComponentType } from '@stackflow/react';
 import { useQueryClient } from '@tanstack/react-query';
 
-import { formatDateTime, sleep } from '@ahhachul/utils';
+import { formatDisplayDate, sleep } from '@ahhachul/utils';
 
 import { LayoutComponent, UiComponent } from '@/components';
 import { CommentInput } from '@/components/common';
@@ -86,7 +86,7 @@ const NewCommentReplyPage: ActivityComponentType<
           <MetaInfoWrapper>
             <AuthorDateWrapper>
               <DateText>
-                {formatDateTime(targetComment?.createdAt || '', { format: 'short' })}
+                {formatDisplayDate(targetComment?.createdAt || '', { format: 'short' })}
               </DateText>
             </AuthorDateWrapper>
           </MetaInfoWrapper>
