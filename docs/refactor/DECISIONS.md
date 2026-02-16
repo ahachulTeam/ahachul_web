@@ -26,3 +26,4 @@
 22. Shared component extraction is selective, not exhaustive: only cross-app presentational primitives with Storybook external narrative value are promoted into `@ahhachul/ui`, while domain orchestration components remain app-local with optional wrappers/re-exports.
 23. Navigation components follow a shell/adapter split: presentational nav primitives are shared in `@ahhachul/ui`, while route/auth/side-effect orchestration stays app-local.
 24. API layer sharedization follows a contract-first model: Vite keeps `axios` runtime and Next keeps `fetch` runtime, while endpoint/default contracts are centralized in `@ahhachul/http` (`API_PATHS`, `API_SERVICE_PATHS`, `API_PAGE_SIZE`, `API_SORT`).
+25. API response and pagination type contracts are canonical in `@ahhachul/domain` (`APIResponseCode`, `ApiResponse/IResponse`, `CursorPagination`, `PaginatedList`, `WithPostId`), and app-level `types/common.ts` modules must remain alias-only without canonical re-declaration.

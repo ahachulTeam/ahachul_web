@@ -52,6 +52,7 @@
 | RF-900 | 11     | Shared UI extraction + Storybook public baseline          | FE Lead           | Done   | pending  | Added `@ahhachul/ui`, migrated dual-app reusable primitives, and established Storybook-based promotion gate                  |
 | RF-901 | 11     | Shared nav shell extraction + app adapter split           | FE Lead           | Done   | pending  | Added shared `BottomNav`/`BottomNavItem` and migrated Vite/Next nav to local adapters with Storybook docs                    |
 | RF-910 | 12     | API contract layer sharedization (`fetch/axios` 유지)     | FE Lead           | Done   | pending  | Centralized API endpoint/default contracts in `@ahhachul/http` and migrated dual-app callsites without transport unification |
+| RF-920 | 12     | Shared API/domain type contract consolidation             | FE Lead           | Done   | pending  | Promoted `ApiResponse`/pagination/id canonical contracts to `@ahhachul/domain` and migrated dual-app common types to aliases |
 
 ## Rule
 

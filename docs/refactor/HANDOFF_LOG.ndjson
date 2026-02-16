@@ -120,3 +120,11 @@
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-910","state":"ValidatorPass","note":"RF-910 gate passed with full validation after API contract migration.","at":"2026-02-17T05:01:53+09:00"}
 {"from":"Team Lead","to":"Technical Writer","taskId":"RF-910","state":"COMMITTED","note":"Synchronize sprint/rulebook/meeting/team-memory artifacts before commit.","at":"2026-02-17T05:01:53+09:00"}
 {"from":"Team Lead","to":"All Agents","taskId":"RF-910","state":"Done","note":"RF-910 completed: API contract layer sharedized with transport split preserved.","at":"2026-02-17T05:01:53+09:00"}
+{"from":"Team Lead","to":"FE Lead","taskId":"RF-920","state":"ASSIGNED","note":"Deepen shared API/domain type contract consolidation across dual apps.","at":"2026-02-17T05:21:49+09:00"}
+{"from":"FE Lead","to":"FE Specialist A","taskId":"RF-920","state":"ASSIGNED","note":"Promote canonical response/pagination/id contracts into @ahhachul/domain.","at":"2026-02-17T05:21:49+09:00"}
+{"from":"FE Lead","to":"FE Specialist B","taskId":"RF-920","state":"ASSIGNED","note":"Migrate one-app/ahhachul.com common type modules to shared aliases.","at":"2026-02-17T05:21:49+09:00"}
+{"from":"FE Specialist A/B","to":"QA Engineer","taskId":"RF-920","state":"QAReady","note":"Shared type contract migration complete. Request blocking gate.","at":"2026-02-17T05:21:49+09:00"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-920","state":"QAReady","note":"validate:full pass evidence attached for RF-920.","at":"2026-02-17T05:21:49+09:00"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-920","state":"ValidatorPass","note":"RF-920 gate passed with validate:full success after shared type contract migration.","at":"2026-02-17T05:21:49+09:00"}
+{"from":"Team Lead","to":"Technical Writer","taskId":"RF-920","state":"COMMITTED","note":"Synchronize sprint/rulebook/meeting/team-memory artifacts before commit.","at":"2026-02-17T05:21:49+09:00"}
+{"from":"Team Lead","to":"All Agents","taskId":"RF-920","state":"Done","note":"RF-920 completed: API/domain type contracts are canonicalized in shared package.","at":"2026-02-17T05:21:49+09:00"}

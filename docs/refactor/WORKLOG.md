@@ -199,3 +199,10 @@
 - Summary: Added API contract layer to `@ahhachul/http` (`API_PATHS`, `API_SERVICE_PATHS`, `API_PAGE_SIZE`, `API_SORT`, `ApiServicePath`) and migrated both apps to consume shared endpoint/default contracts while preserving transport split (Vite=`axiosInstance`, Next=`fetch/fetchClient`).
 - Validation Result: Pass (`pnpm validate:full`)
 - Follow-up: Keep new API modules contract-first and block raw endpoint literals in production callsites by FE review policy.
+
+- DateTime (KST): 2026-02-17 05:21:49
+- Task ID: RF-920
+- Contributors: FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Added canonical shared API/domain type contracts in `@ahhachul/domain` (`APIResponseCode`, `ApiResponse`, `IResponse`, `CursorPagination`, `PaginatedList`, `WithPostId`), exported them from the domain barrel, and migrated Vite/Next `types/common.ts` duplicated definitions to shared aliases.
+- Validation Result: Pass (`pnpm validate:full`)
+- Follow-up: Continue migration from app-local alias imports to direct shared contracts where low-risk.

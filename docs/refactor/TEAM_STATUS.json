@@ -1,76 +1,76 @@
 {
-  "updatedAt": "2026-02-16T20:01:53Z",
+  "updatedAt": "2026-02-16T20:21:50Z",
   "branch": "codex/refactor-foundation",
-  "sprintFocus": "RF-910 complete: API contract layer sharedization with transport split preserved",
+  "sprintFocus": "RF-920 complete: shared API/domain type contracts canonicalized in @ahhachul/domain",
   "leadDirective": [
-    "1) RF-910 completed: API layer is contract-shared while transport runtime remains app-specific (Vite=axios, Next=fetch).",
-    "2) Added API contracts in @ahhachul/http (API_PATHS/API_SERVICE_PATHS/API_PAGE_SIZE/API_SORT/ApiServicePath).",
-    "3) Migrated dual-app API callsites to shared contracts and removed production endpoint literal drift.",
-    "4) Next FE phase should enforce contract-first API additions and reject raw endpoint literals in review."
+    "1) RF-920 completed: API response/pagination/id contracts are canonicalized in @ahhachul/domain.",
+    "2) Added shared API type module export (`APIResponseCode`, `ApiResponse/IResponse`, `CursorPagination`, `PaginatedList`, `WithPostId`).",
+    "3) Migrated Vite/Next common type modules to alias shared contracts and removed parallel declarations.",
+    "4) Next task is policy-to-automation: enforce raw endpoint literal ban with lint/CI blocking."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-910",
+      "taskId": "RF-920",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:01:53+09:00",
-      "nextAction": "prioritize contract-first API follow-up tasks and review lint guardrail options"
+      "updatedAt": "2026-02-17T05:21:49+09:00",
+      "nextAction": "prioritize RF-930 lint/scan automation for endpoint literal prohibition"
     },
     {
       "role": "FE Lead",
       "owner": "fe-lead",
-      "taskId": "RF-910",
+      "taskId": "RF-920",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:01:53+09:00",
-      "nextAction": "enforce API contract-first policy across new FE API modules"
+      "updatedAt": "2026-02-17T05:21:49+09:00",
+      "nextAction": "apply shared type contract rule to newly added API modules by default"
     },
     {
       "role": "FE Specialist A",
       "owner": "fe-spec-a",
-      "taskId": "RF-910",
+      "taskId": "RF-920",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:01:53+09:00",
-      "nextAction": "maintain @ahhachul/http API contract compatibility and typed path coverage"
+      "updatedAt": "2026-02-17T05:21:49+09:00",
+      "nextAction": "maintain backward-compatible evolution path for domain API contracts"
     },
     {
       "role": "FE Specialist B",
       "owner": "fe-spec-b",
-      "taskId": "RF-910",
+      "taskId": "RF-920",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:01:53+09:00",
-      "nextAction": "keep dual-app callsites aligned with shared API contracts"
+      "updatedAt": "2026-02-17T05:21:49+09:00",
+      "nextAction": "keep app common-type files alias-only and remove new duplications"
     },
     {
       "role": "Infra Engineer",
       "owner": "infra-core",
-      "taskId": "RF-910",
+      "taskId": "RF-920",
       "state": "Ready",
-      "updatedAt": "2026-02-17T05:01:53+09:00",
-      "nextAction": "monitor CI cache impact and build graph changes after workspace dependency update"
+      "updatedAt": "2026-02-17T05:21:49+09:00",
+      "nextAction": "prepare CI lint/scan hook for endpoint literal policy in RF-930"
     },
     {
       "role": "QA Engineer",
       "owner": "qa-core",
-      "taskId": "RF-910",
+      "taskId": "RF-920",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T05:01:53+09:00",
-      "nextAction": "attach validate:full evidence for RF-910 contract migration"
+      "updatedAt": "2026-02-17T05:21:49+09:00",
+      "nextAction": "reuse validate:full evidence baseline for next policy automation task"
     },
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-910",
+      "taskId": "RF-920",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:01:53+09:00",
-      "nextAction": "keep FE rulebook/changelog/meeting/team-memory synchronized for API contract tasks"
+      "updatedAt": "2026-02-17T05:21:49+09:00",
+      "nextAction": "keep sprint/worklog/meeting/rulebook artifacts synchronized per task"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
-      "taskId": "RF-910",
+      "taskId": "RF-920",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T05:01:53+09:00",
+      "updatedAt": "2026-02-17T05:21:49+09:00",
       "nextAction": "await next QAReady handoff"
     }
   ],
@@ -1042,14 +1042,78 @@
       "state": "Done",
       "note": "RF-910 completed: API contract layer sharedized with transport split preserved.",
       "at": "2026-02-17T05:01:53+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "FE Lead",
+      "taskId": "RF-920",
+      "state": "ASSIGNED",
+      "note": "Deepen shared API/domain type contract consolidation across dual apps.",
+      "at": "2026-02-17T05:21:49+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist A",
+      "taskId": "RF-920",
+      "state": "ASSIGNED",
+      "note": "Promote canonical response/pagination/id contracts into @ahhachul/domain.",
+      "at": "2026-02-17T05:21:49+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist B",
+      "taskId": "RF-920",
+      "state": "ASSIGNED",
+      "note": "Migrate one-app/ahhachul.com common type modules to shared aliases.",
+      "at": "2026-02-17T05:21:49+09:00"
+    },
+    {
+      "from": "FE Specialist A/B",
+      "to": "QA Engineer",
+      "taskId": "RF-920",
+      "state": "QAReady",
+      "note": "Shared type contract migration complete. Request blocking gate.",
+      "at": "2026-02-17T05:21:49+09:00"
+    },
+    {
+      "from": "QA Engineer",
+      "to": "Perfectionist Validator",
+      "taskId": "RF-920",
+      "state": "QAReady",
+      "note": "validate:full pass evidence attached for RF-920.",
+      "at": "2026-02-17T05:21:49+09:00"
+    },
+    {
+      "from": "Perfectionist Validator",
+      "to": "Team Lead",
+      "taskId": "RF-920",
+      "state": "ValidatorPass",
+      "note": "RF-920 gate passed with validate:full success after shared type contract migration.",
+      "at": "2026-02-17T05:21:49+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "Technical Writer",
+      "taskId": "RF-920",
+      "state": "COMMITTED",
+      "note": "Synchronize sprint/rulebook/meeting/team-memory artifacts before commit.",
+      "at": "2026-02-17T05:21:49+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "All Agents",
+      "taskId": "RF-920",
+      "state": "Done",
+      "note": "RF-920 completed: API/domain type contracts are canonicalized in shared package.",
+      "at": "2026-02-17T05:21:49+09:00"
     }
   ],
   "validator": {
     "queue": [],
     "lastGate": {
-      "taskId": "RF-910",
+      "taskId": "RF-920",
       "result": "PASS",
-      "at": "2026-02-16T20:01:53Z"
+      "at": "2026-02-16T20:21:50Z"
     }
   }
 }

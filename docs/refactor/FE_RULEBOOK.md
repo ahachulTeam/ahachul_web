@@ -227,6 +227,28 @@
 - Raw endpoint literals are allowed only in test/mock fixtures or one-off migration stubs with explicit follow-up debt.
 - New production API callsites with raw endpoint literals should fail FE review.
 
+## Rule 10: Shared Type Contract Conventions
+
+### 1) Canonical Ownership
+
+- API response and pagination contracts must be canonical in `@ahhachul/domain`.
+- Canonical types:
+  - `APIResponseCode`
+  - `ApiResponse` / `IResponse`
+  - `CursorPagination`
+  - `PaginatedList`
+  - `WithPostId`
+
+### 2) App-Layer Usage
+
+- `services/*/src/types/common.ts` may keep alias exports for migration stability, but must not re-declare canonical structures.
+- App code should prefer imports from shared contracts (directly or via local alias layer) instead of redefining response/pagination types per feature.
+
+### 3) Change Management
+
+- Any response/pagination schema change must be implemented once in `@ahhachul/domain`, then consumed by both apps.
+- Parallel type forks across Vite/Next are prohibited for canonical contracts.
+
 ## Implementation Checklist
 
 - [ ] New utility function added with explicit input/output type.
@@ -247,6 +269,7 @@
 - [ ] New shared component includes Storybook stories and `CI=1 pnpm ui:storybook:build` passes.
 - [ ] Navigation components follow shell/adaptor split (shared presentation + app-local routing/orchestration).
 - [ ] API callsites use `@ahhachul/http` contracts (`API_PATHS/API_SERVICE_PATHS/API_PAGE_SIZE/API_SORT`) instead of raw endpoint literals.
+- [ ] API response/pagination contracts use shared canonical types from `@ahhachul/domain` (no app-local re-declaration of canonical structures).
 - [ ] FE rulebook changes are recorded in `FE_RULEBOOK_CHANGELOG.md`.
 - [ ] FE meeting records are added as timestamped files and indexed in `FE_MEETING_LOG.md`.
 

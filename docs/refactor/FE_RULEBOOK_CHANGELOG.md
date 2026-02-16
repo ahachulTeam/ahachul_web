@@ -117,3 +117,11 @@ Track every modification to `FE_RULEBOOK.md` in chronological order.
 - Section(s): Rule 9 (API Contract Layer Conventions), Implementation Checklist
 - Summary: Added API contract convention that preserves app transport runtime (Vite=axios, Next=fetch) while enforcing shared endpoint/default contracts from `@ahhachul/http`.
 - Follow-up: Extend API contract usage to newly added API modules by default and block raw endpoint literals in FE review.
+
+- DateTime (KST): 2026-02-17 05:21:49
+- Task ID: RF-920
+- Author/Owner: FE Lead
+- Change Type: Added
+- Section(s): Rule 10 (Shared Type Contract Conventions), Implementation Checklist
+- Summary: Added canonical shared type-contract policy for `ApiResponse`/pagination/id types in `@ahhachul/domain` and prohibited app-local re-declaration of canonical response structures.
+- Follow-up: Expand migration from alias layers to direct shared imports where safe, and keep contract updates centralized in domain package.
