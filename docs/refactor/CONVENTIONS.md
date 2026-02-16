@@ -30,6 +30,7 @@
 - Validation baseline: shared validators in `@ahhachul/utils` (`validateNickname`, `validateRequiredLexicalContent`, `isBlankText`) are mandatory
 - Number/price baseline: `formatDisplayNumber`/`formatDisplayPrice` in `@ahhachul/utils` are mandatory display entrypoints (lint-enforced)
 - Subway/common baseline: filter/line-map/arrival/content/file-extension helpers must use shared `@ahhachul/utils` contracts
+- Shared utility regression baseline: validate/format utility changes must ship with unit tests and pass `@ahhachul/utils:test`
 
 ## Validation Authority
 

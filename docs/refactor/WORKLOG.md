@@ -150,3 +150,10 @@
 - Summary: Completed RF-840 follow-up by promoting remaining app-local subway/common pure utilities into `@ahhachul/utils` (`formatSubwayFilterOption`, `formatSubwayLineInfo`, `getFirstParentLineId`, `formatLost112Content`, `formatSubwayArrivalTime`, `parseFileExtOfName`), migrating Vite service/component callsites to shared imports, and converting Next local subway util to a shared-wrapper implementation.
 - Validation Result: Pass (`pnpm validate:full`)
 - Follow-up: Execute RF-870 by adding utility regression tests for validate/format contracts.
+
+- DateTime (KST): 2026-02-17
+- Task ID: RF-870
+- Contributors: FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Added `@ahhachul/utils` test target (`vitest`) and implemented contract-level regression tests for validation/format utilities (`validation.test.ts`, `format.test.ts`) covering nickname/required text/lexical validation, date/number/price formatting, subway/common formatters, and file extension parsing.
+- Validation Result: Pass (`pnpm validate:full`, including `@ahhachul/utils:test`)
+- Follow-up: Keep shared utility changes blocked from merge unless corresponding tests are updated in the same task.

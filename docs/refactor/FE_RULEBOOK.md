@@ -133,6 +133,14 @@
 - Lexical content required-validation for submit/error flows must use shared submit helper (`useLexicalValidatedSubmit`).
 - Domain-specific differences (e.g., mutation target, default values) may remain local, but orchestration primitives must be shared first.
 
+## Rule 6: Shared Utility Test Conventions
+
+- Shared utility contracts in `@ahhachul/utils` must include unit tests in the same task when behavior changes or new helpers are added.
+- Validation and format-related utilities are mandatory test scope:
+  - validation: normalize/blank/nickname/required-text/required-lexical
+  - formatting: date/number/price/subway/common formatting contracts
+- `validate:test` must execute shared utility package tests via Nx (`@ahhachul/utils:test`).
+
 ## Implementation Checklist
 
 - [ ] New utility function added with explicit input/output type.
@@ -145,6 +153,7 @@
 - [ ] Validation logic uses shared `@ahhachul/utils` validators (no duplicated regex/length blocks across apps).
 - [ ] User-facing numeric labels/prices use `formatDisplayNumber` / `formatDisplayPrice`.
 - [ ] Subway/common utility helpers use shared `@ahhachul/utils` contracts (no duplicated app-local implementation bodies).
+- [ ] Shared utility behavior changes include corresponding unit tests in `@ahhachul/utils`.
 - [ ] FE rulebook changes are recorded in `FE_RULEBOOK_CHANGELOG.md`.
 - [ ] FE meeting records are added as timestamped files and indexed in `FE_MEETING_LOG.md`.
 

@@ -66,3 +66,11 @@
 {"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-860","state":"QAReady","note":"validate:full pass evidence attached for RF-860.","at":"2026-02-17T03:13:02+09:00"}
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-860","state":"ValidatorPass","note":"RF-860 gate passed with validate:full success (type/lint/test/build).","at":"2026-02-17T03:13:02+09:00"}
 {"from":"Team Lead","to":"All Agents","taskId":"RF-860","state":"Done","note":"RF-860 completed: subway/common utility promotion finished and synchronized.","at":"2026-02-17T03:13:02+09:00"}
+{"from":"Team Lead","to":"FE Lead","taskId":"RF-870","state":"ASSIGNED","note":"Add validate/format utility unit tests and wire shared test target into gate.","at":"2026-02-17T03:19:49+09:00"}
+{"from":"FE Lead","to":"FE Specialist A","taskId":"RF-870","state":"ASSIGNED","note":"Implement validation utility contract tests in @ahhachul/utils.","at":"2026-02-17T03:19:49+09:00"}
+{"from":"FE Lead","to":"FE Specialist B","taskId":"RF-870","state":"ASSIGNED","note":"Implement formatting utility contract tests and test-target wiring.","at":"2026-02-17T03:19:49+09:00"}
+{"from":"FE Specialist A/B","to":"QA Engineer","taskId":"RF-870","state":"QAReady","note":"Utility regression test suite and package test target complete. Request gate.","at":"2026-02-17T03:19:49+09:00"}
+{"from":"Technical Writer","to":"QA Engineer","taskId":"RF-870","state":"QAReady","note":"RF-870 rulebook/meeting/sprint artifacts synchronized for validation.","at":"2026-02-17T03:19:49+09:00"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-870","state":"QAReady","note":"validate:full pass evidence attached for RF-870 (including @ahhachul/utils:test).","at":"2026-02-17T03:19:49+09:00"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-870","state":"ValidatorPass","note":"RF-870 gate passed with validate:full success and shared test-target coverage.","at":"2026-02-17T03:19:49+09:00"}
+{"from":"Team Lead","to":"All Agents","taskId":"RF-870","state":"Done","note":"RF-870 completed: shared utility regression tests hardened and enforced.","at":"2026-02-17T03:19:49+09:00"}

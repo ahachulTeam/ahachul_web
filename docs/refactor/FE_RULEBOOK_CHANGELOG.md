@@ -61,3 +61,11 @@ Track every modification to `FE_RULEBOOK.md` in chronological order.
 - Section(s): Rule 1 (Subway/Common Utility Baseline), Implementation Checklist
 - Summary: Added shared-entrypoint mandate for subway/common utilities (`formatSubwayFilterOption`, `formatSubwayLineInfo`, `getFirstParentLineId`, `formatLost112Content`, `formatSubwayArrivalTime`, `parseFileExtOfName`) and checklist enforcement item.
 - Follow-up: Complete remaining utility migration and enforce through validator gate in every new FE task.
+
+- DateTime (KST): 2026-02-17 03:19:49
+- Task ID: RF-870
+- Author/Owner: FE Lead
+- Change Type: Changed
+- Section(s): Rule 6 (Shared Utility Test Conventions), Implementation Checklist
+- Summary: Added mandatory unit-test conventions for shared utility contracts and required `@ahhachul/utils:test` inclusion in validator test gate.
+- Follow-up: Apply the same test-first rule to all future shared utility changes.

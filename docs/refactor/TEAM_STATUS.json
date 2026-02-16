@@ -1,77 +1,77 @@
 {
-  "updatedAt": "2026-02-16T18:13:02Z",
+  "updatedAt": "2026-02-16T18:19:49Z",
   "branch": "codex/refactor-foundation",
-  "sprintFocus": "RF-860 complete: remaining subway/common utilities promoted to shared contracts",
+  "sprintFocus": "RF-870 complete: shared validate/format utility regression tests hardened",
   "leadDirective": [
-    "1) RF-860 completed with shared promotion of remaining subway/common pure utilities.",
-    "2) App-local duplicated bodies are removed; only wrappers/side-effect helpers remain local.",
-    "3) Perfectionist Validator gate passed with `pnpm validate:full` for RF-860.",
-    "4) Start RF-870: add utility regression tests for validate/format contracts."
+    "1) RF-870 completed: shared validate/format utility contracts now have unit-test coverage.",
+    "2) Nx test gate now includes @ahhachul/utils:test via package-level test target.",
+    "3) Perfectionist Validator gate passed with `pnpm validate:full` including shared package tests.",
+    "4) Enforce test-first updates for every future shared utility contract change."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-860",
+      "taskId": "RF-870",
       "state": "Done",
-      "updatedAt": "2026-02-17T03:13:02+09:00",
-      "nextAction": "assign RF-870 regression hardening to FE specialists"
+      "updatedAt": "2026-02-17T03:19:49+09:00",
+      "nextAction": "prioritize next FE backlog after utility convention closure"
     },
     {
       "role": "FE Lead",
       "owner": "fe-lead",
-      "taskId": "RF-860",
+      "taskId": "RF-870",
       "state": "Done",
-      "updatedAt": "2026-02-17T03:13:02+09:00",
-      "nextAction": "enforce subway/common shared-entrypoint policy on all new feature work"
+      "updatedAt": "2026-02-17T03:19:49+09:00",
+      "nextAction": "enforce shared utility test-first convention in all future tasks"
     },
     {
       "role": "FE Specialist A",
       "owner": "fe-spec-a",
-      "taskId": "RF-860",
+      "taskId": "RF-870",
       "state": "Done",
-      "updatedAt": "2026-02-17T03:13:02+09:00",
-      "nextAction": "implement RF-870 utility unit tests for validation module"
+      "updatedAt": "2026-02-17T03:19:49+09:00",
+      "nextAction": "maintain validation utility regression tests"
     },
     {
       "role": "FE Specialist B",
       "owner": "fe-spec-b",
-      "taskId": "RF-860",
+      "taskId": "RF-870",
       "state": "Done",
-      "updatedAt": "2026-02-17T03:13:02+09:00",
-      "nextAction": "implement RF-870 utility unit tests for format module"
+      "updatedAt": "2026-02-17T03:19:49+09:00",
+      "nextAction": "maintain formatting utility regression tests"
     },
     {
       "role": "Infra Engineer",
       "owner": "infra-core",
-      "taskId": "RF-860",
+      "taskId": "RF-870",
       "state": "Ready",
-      "updatedAt": "2026-02-17T03:13:02+09:00",
-      "nextAction": "stand by for test-target pipeline adjustments if shared package tests expand"
+      "updatedAt": "2026-02-17T03:19:49+09:00",
+      "nextAction": "monitor CI runtime impact after shared test-target expansion"
     },
     {
       "role": "QA Engineer",
       "owner": "qa-core",
-      "taskId": "RF-860",
+      "taskId": "RF-870",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T03:13:02+09:00",
-      "nextAction": "attach RF-860 validate:full evidence to sprint artifacts"
+      "updatedAt": "2026-02-17T03:19:49+09:00",
+      "nextAction": "attach RF-870 validate:full evidence to sprint artifacts"
     },
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-860",
+      "taskId": "RF-870",
       "state": "Done",
-      "updatedAt": "2026-02-17T03:13:02+09:00",
-      "nextAction": "sync sprint board/worklog/rulebook changes with RF-860 commit boundary"
+      "updatedAt": "2026-02-17T03:19:49+09:00",
+      "nextAction": "sync sprint board/worklog/rulebook updates with RF-870 commit boundary"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
-      "taskId": "RF-860",
+      "taskId": "RF-870",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T03:13:02+09:00",
-      "nextAction": "await RF-870 QAReady handoff"
+      "updatedAt": "2026-02-17T03:19:49+09:00",
+      "nextAction": "await next QAReady handoff"
     }
   ],
   "handoffs": [
@@ -610,14 +610,78 @@
       "state": "Done",
       "note": "RF-860 completed: subway/common utility promotion finished and synchronized.",
       "at": "2026-02-17T03:13:02+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "FE Lead",
+      "taskId": "RF-870",
+      "state": "ASSIGNED",
+      "note": "Add validate/format utility unit tests and wire shared test target into gate.",
+      "at": "2026-02-17T03:19:49+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist A",
+      "taskId": "RF-870",
+      "state": "ASSIGNED",
+      "note": "Implement validation utility contract tests in @ahhachul/utils.",
+      "at": "2026-02-17T03:19:49+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist B",
+      "taskId": "RF-870",
+      "state": "ASSIGNED",
+      "note": "Implement formatting utility contract tests and test-target wiring.",
+      "at": "2026-02-17T03:19:49+09:00"
+    },
+    {
+      "from": "FE Specialist A/B",
+      "to": "QA Engineer",
+      "taskId": "RF-870",
+      "state": "QAReady",
+      "note": "Utility regression test suite and package test target complete. Request gate.",
+      "at": "2026-02-17T03:19:49+09:00"
+    },
+    {
+      "from": "Technical Writer",
+      "to": "QA Engineer",
+      "taskId": "RF-870",
+      "state": "QAReady",
+      "note": "RF-870 rulebook/meeting/sprint artifacts synchronized for validation.",
+      "at": "2026-02-17T03:19:49+09:00"
+    },
+    {
+      "from": "QA Engineer",
+      "to": "Perfectionist Validator",
+      "taskId": "RF-870",
+      "state": "QAReady",
+      "note": "validate:full pass evidence attached for RF-870 (including @ahhachul/utils:test).",
+      "at": "2026-02-17T03:19:49+09:00"
+    },
+    {
+      "from": "Perfectionist Validator",
+      "to": "Team Lead",
+      "taskId": "RF-870",
+      "state": "ValidatorPass",
+      "note": "RF-870 gate passed with validate:full success and shared test-target coverage.",
+      "at": "2026-02-17T03:19:49+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "All Agents",
+      "taskId": "RF-870",
+      "state": "Done",
+      "note": "RF-870 completed: shared utility regression tests hardened and enforced.",
+      "at": "2026-02-17T03:19:49+09:00"
     }
   ],
   "validator": {
     "queue": [],
     "lastGate": {
-      "taskId": "RF-860",
+      "taskId": "RF-870",
       "result": "PASS",
-      "at": "2026-02-16T18:13:02Z"
+      "at": "2026-02-16T18:19:49Z"
     }
   }
 }
