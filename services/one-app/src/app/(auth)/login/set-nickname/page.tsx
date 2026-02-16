@@ -1,123 +1,132 @@
-// 'use client';
-// import { useMutation } from '@tanstack/react-query';
-// import { useRouter } from 'next/navigation';
-// import { useShallow } from 'zustand/shallow';
-// import { CheckIcon, AlertCircleIcon } from '@/asset/icon';
-// import ArrowLeftIcon from '@/asset/icon/arrow-left';
-// import SpinnerIcon from '@/asset/icon/loading-spinner';
-// import { AuthService } from '@/lib/auth-service';
-// import { useTempAuthStore } from '@/store/auth';
-// import { cn } from '@/util/cn';
-// import { useNickname } from './_lib/useNickname';
-// const SetNickNamePage = () => {
-//   const router = useRouter();
-//   const {
-//     nickname,
-//     disabled,
-//     lengthIndicator,
-//     isTouched,
-//     isValidateOk,
-//     isValidateError,
-//     isNicknameChecking,
-//     nickNameStatusMessage,
-//     handleInputChange,
-//   } = useNickname();
-//   const { auth, reset: removeTemporaryAuth } = useTempAuthStore(
-//     useShallow(state => ({
-//       auth: state.auth,
-//       reset: state.reset,
-//     })),
-//   );
-//   const { mutate: updateUserAndTryLoginProcessDone, status } = useMutation({
-//     mutationFn: updateUser,
-//     onSuccess: () => {
-//       if (!auth) return;
-//       const { accessToken, refreshToken } = auth;
-//       AuthService.setToken(accessToken, refreshToken);
-//       removeTemporaryAuth();
-//       router.replace('/');
-//     },
-//   });
-//   const handleSubmit = () => {
-//     if (disabled || !auth) return;
-//     updateUserAndTryLoginProcessDone({ nickname, auth });
-//   };
+'use client';
 
-//   const isUpdating = status === 'pending';
-//   const isProcessing = isNicknameChecking || isUpdating;
+import { useEffect, useMemo, useState } from 'react';
 
-//   return (
-//     <main className="relative min-h-screen bg-black pt-9 px-5">
-//       <div className="flex items-center mb-8">
-//         <button
-//           onClick={() => router.back()}
-//           className="p-2 -ml-2 text-white hover:bg-white/10 rounded-full"
-//         >
-//           <ArrowLeftIcon />
-//         </button>
-//         <h2 className="ml-2 text-white">회원가입</h2>
-//       </div>
-//       <h1 className="pb-8 text-white text-2xl font-semibold">
-//         <strong className="text-[#2ACF6C]">닉네임</strong>을 설정해주세요
-//       </h1>
-//       <div className="w-full space-y-2">
-//         <div className="relative">
-//           <input
-//             value={nickname}
-//             onChange={handleInputChange}
-//             className={cn(
-//               'w-full h-12 bg-white/10 border-0 px-3 text-white placeholder:text-gray-500',
-//               'focus:outline-none focus:bg-white/15',
-//               isValidateError && 'ring-2 ring-red-500',
-//               isValidateOk && 'ring-2 ring-[#2ACF6C]',
-//             )}
-//             placeholder="닉네임을 입력해주세요"
-//           />
-//           <div className="absolute right-3 top-1/2 -translate-y-1/2">
-//             {isValidateOk ? <CheckIcon /> : isValidateError ? <AlertCircleIcon /> : null}
-//           </div>
-//         </div>
-//         <div className="flex justify-between items-center px-1">
-//           <span
-//             className={cn(
-//               'text-sm',
-//               isValidateError && 'text-red-500',
-//               isValidateOk && 'text-[#2ACF6C]',
-//               !isTouched && 'text-gray-500',
-//             )}
-//           >
-//             {nickNameStatusMessage}
-//           </span>
-//           <span className="text-sm text-gray-500">{lengthIndicator}</span>
-//         </div>
-//       </div>
-//       <button
-//         disabled={disabled}
-//         className={cn(
-//           'w-full h-12 mt-8 text-white',
-//           'bg-[#2ACF6C] hover:bg-[#2ACF6C]/90',
-//           'disabled:bg-gray-600 disabled:cursor-not-allowed',
-//           isProcessing && 'cursor-events-none',
-//         )}
-//         onClick={handleSubmit}
-//       >
-//         {isProcessing ? (
-//           <span className="flex items-center justify-center">
-//             <SpinnerIcon className="animate-spin mr-2" />
-//           </span>
-//         ) : (
-//           '완료'
-//         )}
-//       </button>
-//     </main>
-//   );
-// };
-// export default SetNickNamePage;
+import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+
+import { API_BASE_URL } from '@/constant';
+import { AuthService } from '@/lib/auth-service';
+import { useTempAuthStore } from '@/store/auth';
+
+const MIN_LENGTH = 2;
+const MAX_LENGTH = 10;
+const NICKNAME_REGEX = /^[가-힣a-zA-Z0-9_]+$/;
+
+async function updateNickname(payload: { nickname: string; accessToken: string }) {
+  const response = await fetch(`${API_BASE_URL}/members`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${payload.accessToken}`,
+    },
+    body: JSON.stringify({
+      nickname: payload.nickname,
+    }),
+  });
+
+  const data = await response.json().catch(() => null);
+
+  if (!response.ok) {
+    throw new Error(data?.message ?? '닉네임 설정에 실패했습니다.');
+  }
+
+  return data;
+}
 
 export default function SetNickNamePage() {
+  const router = useRouter();
+  const auth = useTempAuthStore(state => state.auth);
+  const resetTempAuth = useTempAuthStore(state => state.reset);
+  const [nickname, setNickname] = useState('');
+
+  useEffect(() => {
+    if (!auth) {
+      router.replace('/login');
+    }
+  }, [auth, router]);
+
+  const normalizedNickname = nickname.trim();
+  const validationMessage = useMemo(() => {
+    if (!normalizedNickname.length) return `닉네임은 ${MIN_LENGTH}자 이상 입력해주세요.`;
+    if (normalizedNickname.length < MIN_LENGTH)
+      return `닉네임은 ${MIN_LENGTH}자 이상 입력해주세요.`;
+    if (normalizedNickname.length > MAX_LENGTH)
+      return `닉네임은 ${MAX_LENGTH}자 이하로 입력해주세요.`;
+    if (!NICKNAME_REGEX.test(normalizedNickname))
+      return '한글, 영문, 숫자, 언더스코어(_)만 사용할 수 있습니다.';
+
+    return '';
+  }, [normalizedNickname]);
+
+  const { mutate, isPending, error } = useMutation({
+    mutationFn: async () => {
+      if (!auth) {
+        throw new Error('세션이 만료되었습니다.');
+      }
+
+      return updateNickname({ nickname: normalizedNickname, accessToken: auth.accessToken });
+    },
+    onSuccess: () => {
+      if (!auth) return;
+
+      AuthService.setToken(auth.accessToken, auth.refreshToken);
+      resetTempAuth();
+      router.replace('/');
+    },
+  });
+
+  const isDisabled = Boolean(validationMessage) || isPending || !auth;
+
   return (
-    <main className="relative min-h-screen overflow-hidden bg-black">
-      <section className="fixed bottom-[34px] left-0 right-0 flex flex-col gap-2 px-[30px] pt-6"></section>
+    <main className="relative min-h-screen bg-black px-5 pb-8 pt-9 text-white">
+      <h1 className="pb-2 text-headline-large">
+        <strong className="text-key-color">닉네임</strong>을 설정해주세요
+      </h1>
+      <p className="text-body-medium text-gray-60">
+        커뮤니티와 민원에서 표시될 이름입니다. 이후 설정에서 변경할 수 있습니다.
+      </p>
+
+      <section className="mt-7">
+        <label htmlFor="nickname" className="mb-2 block text-label-medium text-gray-40">
+          닉네임
+        </label>
+        <input
+          id="nickname"
+          value={nickname}
+          onChange={event => setNickname(event.target.value)}
+          maxLength={MAX_LENGTH}
+          placeholder="닉네임을 입력해주세요"
+          className="h-12 w-full rounded-xl border border-white/20 bg-white/10 px-3 text-title-medium outline-none placeholder:text-gray-70 focus:border-key-color"
+        />
+        <div className="mt-2 flex items-center justify-between">
+          <p className={`text-body-small ${validationMessage ? 'text-red' : 'text-key-color'}`}>
+            {validationMessage || '사용 가능한 닉네임 형식입니다.'}
+          </p>
+          <p className="text-body-small text-gray-70">
+            {normalizedNickname.length} / {MAX_LENGTH}
+          </p>
+        </div>
+        {error instanceof Error && <p className="mt-2 text-body-small text-red">{error.message}</p>}
+      </section>
+
+      <div className="mt-8 flex gap-2">
+        <button
+          type="button"
+          onClick={() => router.replace('/login')}
+          className="inline-flex h-12 flex-1 items-center justify-center rounded-xl border border-white/20 text-label-medium"
+        >
+          취소
+        </button>
+        <button
+          type="button"
+          disabled={isDisabled}
+          onClick={() => mutate()}
+          className="inline-flex h-12 flex-1 items-center justify-center rounded-xl bg-key-color text-label-medium text-white disabled:cursor-not-allowed disabled:bg-gray-70"
+        >
+          {isPending ? '처리 중...' : '완료'}
+        </button>
+      </div>
     </main>
   );
 }

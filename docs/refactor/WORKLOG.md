@@ -66,3 +66,10 @@
 - Summary: Established Nx boundary enforcement by tagging every workspace project (`type:app`, `type:shared`, `type:tooling`), enabling `@nx/enforce-module-boundaries`, and adding affected-run scripts for type/lint/test/build.
 - Validation Result: Pass (`pnpm validate:type`, `pnpm validate:lint`, `pnpm validate:test`, `pnpm validate:build`)
 - Follow-up: Complete RF-400 route parity and run the same full gate before commit.
+
+- DateTime (KST): 2026-02-17
+- Task ID: RF-400
+- Contributors: FE Engineer, QA Engineer, Perfectionist Validator
+- Summary: Implemented complaint list parity (filters + infinite query + SSR prefetch), upgraded `/me`, `/messages`, `/notifications`, `/user/[username]`, activated callback nickname completion page, and normalized empty auth flow routes to canonical redirects.
+- Validation Result: Pass (`pnpm validate:full`, including type/lint/test/build)
+- Follow-up: Implement full create/edit form parity for `/lost-found/new` and `/lost-found/[id]/edit`.

@@ -3,3 +3,7 @@
 {"from":"Team Lead","to":"Perfectionist Validator","taskId":"RF-100","state":"QAReady","note":"Boundary policy delivered. Run full validator gate.","at":"2026-02-17T01:03:14+09:00"}
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-100","state":"ValidatorPass","note":"validate:type/lint/test/build passed without boundary violations.","at":"2026-02-17T01:03:14+09:00"}
 {"from":"Team Lead","to":"FE Engineer","taskId":"RF-400","state":"IN_PROGRESS","note":"Continue parity implementation after RF-100 gate pass.","at":"2026-02-17T01:03:14+09:00"}
+{"from":"FE Engineer","to":"QA Engineer","taskId":"RF-400","state":"QAReady","note":"Route parity implementation complete; start regression gate.","at":"2026-02-17T01:14:38+09:00"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-400","state":"QAReady","note":"validate:full evidence attached. Request final gate.","at":"2026-02-17T01:14:38+09:00"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-400","state":"ValidatorPass","note":"validate:full passed (type/lint/test/build).","at":"2026-02-17T01:14:38+09:00"}
+{"from":"Team Lead","to":"Technical Writer","taskId":"RF-400","state":"COMMITTED","note":"Finalize documentation sync and commit mapping.","at":"2026-02-17T01:14:38+09:00"}

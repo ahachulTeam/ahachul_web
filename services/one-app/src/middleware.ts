@@ -20,7 +20,13 @@ function getLegacyRedirectPath(pathname: string) {
 }
 
 function requiresAuth(pathname: string) {
-  return pathname === '/me' || pathname.startsWith('/me/');
+  if (pathname === '/user' || pathname.startsWith('/user/')) {
+    return true;
+  }
+
+  return ['/me', '/messages', '/notifications'].some(
+    route => pathname === route || pathname.startsWith(`${route}/`),
+  );
 }
 
 export function middleware(request: NextRequest) {
