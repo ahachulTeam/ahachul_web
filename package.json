@@ -19,7 +19,12 @@
     "all:build": "nx run-many --target=build --all",
     "all:lint": "nx run-many --target=lint --all",
     "all:lint:fix": "nx run-many --target=lint:fix --all",
-    "all:test": "nx run-many --target=test --all"
+    "all:test": "nx run-many --target=test --all",
+    "validate:type": "nx run-many --target=type-check --all --parallel=3",
+    "validate:lint": "nx run-many --target=lint --all --parallel=3",
+    "validate:test": "nx run-many --target=test --all --parallel=3",
+    "validate:build": "nx run-many --target=build --all --parallel=3",
+    "validate:full": "pnpm validate:type && pnpm validate:lint && pnpm validate:test && pnpm validate:build"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
