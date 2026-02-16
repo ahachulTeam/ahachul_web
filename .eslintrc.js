@@ -67,7 +67,7 @@ module.exports = {
     },
     {
       files: ['services/**/*.{js,jsx,ts,tsx}', 'packages/**/*.{js,jsx,ts,tsx}'],
-      excludedFiles: ['packages/utils/src/date.ts'],
+      excludedFiles: ['packages/utils/src/date.ts', 'packages/utils/src/number.ts'],
       rules: {
         'no-restricted-imports': [
           'error',
@@ -108,13 +108,19 @@ module.exports = {
           {
             selector: "CallExpression[callee.property.name='toLocaleString']",
             message:
-              'Use formatDisplayDate from @ahhachul/utils instead of direct locale formatting.',
+              'Use shared display formatters from @ahhachul/utils (formatDisplayDate / formatDisplayNumber / formatDisplayPrice).',
           },
           {
             selector:
               "NewExpression[callee.object.name='Intl'][callee.property.name='DateTimeFormat']",
             message:
               'Use formatDisplayDate from @ahhachul/utils instead of direct Intl.DateTimeFormat.',
+          },
+          {
+            selector:
+              "NewExpression[callee.object.name='Intl'][callee.property.name='NumberFormat']",
+            message:
+              'Use formatDisplayNumber or formatDisplayPrice from @ahhachul/utils instead of direct Intl.NumberFormat.',
           },
         ],
       },

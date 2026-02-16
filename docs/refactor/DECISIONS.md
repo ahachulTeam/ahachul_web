@@ -16,3 +16,4 @@
 12. Utility functions are phase-1 convention enforcement target: pure-first design, `unknown`-first typing, and shared promotion for duplicated logic.
 13. React Query conventions are standardized via `@ahhachul/domain`: shared key factories, normalized list-key signatures, and fixed stale/gc-time + invalidation policies across Vite/Next.
 14. Date formatting conventions are standardized via `@ahhachul/utils`: `formatDisplayDate` is the single app-layer entrypoint, with lint-level blocking for direct `date-fns`/`toLocale*`/`Intl.DateTimeFormat` usage.
+15. Validation and numeric display conventions are standardized via `@ahhachul/utils`: `validateNickname`/`validateRequiredLexicalContent`/`isBlankText` and `formatDisplayNumber`/`formatDisplayPrice` are shared entrypoints with lint-level blocking for direct `Intl.NumberFormat` usage in app code.

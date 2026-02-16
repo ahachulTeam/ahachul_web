@@ -4,6 +4,8 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useRouter } from 'nextjs-toploader/app';
 
+import { formatDisplayNumber } from '@ahhachul/utils';
+
 import { ChevronDownIcon } from '@/asset/icon';
 import type { ObjectQueryParams } from '@/types';
 import { cn } from '@/util';
@@ -27,6 +29,7 @@ export const ResetFilter = ({ options }: Props) => {
   const activatedCount = Object.keys(options).filter(
     key => searchParams.has(key) && searchParams.get(key) !== options[key],
   ).length;
+  const activatedCountText = formatDisplayNumber(activatedCount);
 
   return (
     <ConditionalRender isRender={renderThis}>
@@ -34,7 +37,7 @@ export const ResetFilter = ({ options }: Props) => {
         <DropdownMenu.Trigger asChild>
           <button className=" shrink-0 h-[30px] bg-gray-10 border border-gray-20 rounded-[1000px] px-[10px] flex items-center">
             <span className=" rounded-full bg-gray-90 text-gray-0 w-[14px] h-[14px] text-label-small font-medium inline-flex items-center justify-center">
-              {activatedCount}
+              {activatedCountText}
             </span>
             <ChevronDownIcon />
           </button>
@@ -51,7 +54,7 @@ export const ResetFilter = ({ options }: Props) => {
             )}
           >
             <DropdownMenu.Label className=" py-3 px-3 text-xs text-gray-90">
-              {activatedCount}개 필터가 적용됨.
+              {activatedCountText}개 필터가 적용됨.
             </DropdownMenu.Label>
             <DropdownMenu.Item
               className=" text-red text-sm flex items-center pl-[12px] h-[45px] relative bg-white"

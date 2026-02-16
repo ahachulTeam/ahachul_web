@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
+import { isBlankText } from '@ahhachul/utils';
+
 import { UiComponent } from '@/components';
 
 import * as S from './SubmitButton.styled';
@@ -23,8 +25,7 @@ const SubmitButton: React.FC<SubmitButtoProps> = ({
   const [title, content] = watch(['title', 'content']);
 
   const isDisabled = useMemo(() => {
-    const isEmpty = (value?: string) => !value?.trim();
-    return isEmpty(title) || isEmpty(content) || loading;
+    return isBlankText(title) || isBlankText(content) || loading;
   }, [title, content, loading]);
 
   return (

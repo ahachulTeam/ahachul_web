@@ -1,6 +1,11 @@
 import type { UseFormSetError, Path } from 'react-hook-form';
 
-import { extractTextFromLexical, isLexicalContent, isLexicalContentEmpty } from '@ahhachul/utils';
+import {
+  extractTextFromLexical,
+  isLexicalContent,
+  isLexicalContentEmpty,
+  validateRequiredLexicalContent,
+} from '@ahhachul/utils';
 
 type WithContent<T> = T & {
   content: string | null;
@@ -13,10 +18,14 @@ export const validateLexicalContent = <T extends object>(
   content: string | null,
   setError: UseFormSetError<WithContent<T>>,
 ): boolean => {
-  if (!content || isLexicalContentEmpty(content)) {
+  const validation = validateRequiredLexicalContent(content, {
+    requiredMessage: '내용을 입력해주세요',
+  });
+
+  if (!validation.isValid) {
     setError('content' as Path<WithContent<T>>, {
       type: 'required',
-      message: '내용을 입력해주세요',
+      message: validation.message,
     });
     return false;
   }

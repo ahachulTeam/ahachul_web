@@ -7,6 +7,7 @@
   1. Utility functions
   2. React Query conventions
   3. Date/time formatting conventions
+  4. Validation + number/price formatting conventions
 
 ## FE Pod Structure
 
@@ -44,6 +45,25 @@
 - Avoid repeated direct `Date.prototype.toLocale*` calls in render-heavy paths.
 - If locale formatting is needed repeatedly, implement reusable/cached `Intl.DateTimeFormat` only inside shared date utility module.
 
+### 6) Validation Baseline
+
+- Shared validation entrypoints:
+  - `validateNickname`
+  - `validateRequiredText`
+  - `validateRequiredLexicalContent`
+  - `isBlankText`
+- Form/UI validation must consume shared validation results (`isValid`, `message`, `normalized`) instead of duplicating regex/length logic per page.
+- Input normalization baseline: `normalizeInputText` (`NFC + trim`) before length/format checks.
+
+### 7) Number/Price Formatting Baseline
+
+- User-visible number formatting entrypoint: `formatDisplayNumber`.
+- User-visible price formatting entrypoint: `formatDisplayPrice`.
+- Direct number locale formatting APIs in app layer are prohibited:
+  - `Intl.NumberFormat`
+  - `Number.prototype.toLocaleString`
+- Exception scope: shared numeric formatter implementation file (`packages/utils/src/number.ts`).
+
 ## Rule 2: React Query Conventions
 
 ### 1) Query Keys
@@ -80,7 +100,15 @@
 - Relative/absolute date output format must be centralized in `formatDisplayDate`.
 - Fallback strategy for invalid date input must be deterministic and user-safe.
 - Locale baseline for now: `ko-KR`.
-- Direct `date-fns` import in app layer, direct `toLocale*`, and direct `Intl.DateTimeFormat` are blocked by lint (except `packages/utils/src/date.ts`).
+- Direct `date-fns` import in app layer, direct `toLocale*`, and direct `Intl.DateTimeFormat` are blocked by lint (except `packages/utils/src/date.ts` and `packages/utils/src/number.ts`).
+
+## Rule 4: Validation and Numeric Display Conventions
+
+- Nickname validation must use `validateNickname` as the shared contract across Vite/Next.
+- Required lexical content validation must use `validateRequiredLexicalContent`.
+- Generic empty-string checks must use `isBlankText` where reusable.
+- Number labels/counters must use `formatDisplayNumber`.
+- Price output (if/when introduced) must use `formatDisplayPrice`.
 
 ## Implementation Checklist
 
@@ -91,6 +119,8 @@
 - [ ] Duplicated pure utility considered for shared promotion.
 - [ ] React Query key + invalidation reviewed for new data flows.
 - [ ] User-facing date output uses `formatDisplayDate` (no direct locale/date-fns formatting in app code).
+- [ ] Validation logic uses shared `@ahhachul/utils` validators (no duplicated regex/length blocks across apps).
+- [ ] User-facing numeric labels/prices use `formatDisplayNumber` / `formatDisplayPrice`.
 
 ## Sources (Primary)
 
@@ -104,9 +134,17 @@
   - [https://tanstack.com/query/latest/docs/framework/react/guides/invalidations-from-mutations](https://tanstack.com/query/latest/docs/framework/react/guides/invalidations-from-mutations)
 - MDN: `Date.prototype.toLocaleDateString()`
   - [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString)
+- MDN: `Intl.NumberFormat`
+  - [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)
+- MDN: `Number.prototype.toLocaleString()`
+  - [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString)
 - MDN: `URLSearchParams`
   - [https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams)
+- MDN: `String.prototype.normalize()`
+  - [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize)
 - TypeScript Handbook: `unknown`
   - [https://www.typescriptlang.org/docs/handbook/2/functions.html#unknown](https://www.typescriptlang.org/docs/handbook/2/functions.html#unknown)
+- OWASP: Input Validation Cheat Sheet
+  - [https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html)
 - date-fns (official repo)
   - [https://github.com/date-fns/date-fns](https://github.com/date-fns/date-fns)

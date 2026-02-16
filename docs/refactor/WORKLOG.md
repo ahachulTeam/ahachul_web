@@ -129,3 +129,10 @@
 - Summary: Migrated all user-facing date formatting calls to `formatDisplayDate` in `@ahhachul/utils`, left `formatDateTime` as compatibility alias, and added lint guardrails to block direct `date-fns`, `toLocale*`, and `Intl.DateTimeFormat` usage outside the shared date module.
 - Validation Result: Pass (`pnpm validate:full`)
 - Follow-up: Mark RF-830 committed and keep date-format changes mandatory through the lint gate.
+
+- DateTime (KST): 2026-02-17
+- Task ID: RF-840
+- Contributors: FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator
+- Summary: Rolled out utility convention phase-2 by adding shared validation entrypoints (`validateNickname`, `validateRequiredText`, `validateRequiredLexicalContent`, `isBlankText`, `normalizeInputText`) and numeric display entrypoints (`formatDisplayNumber`, `formatDisplayPrice`) to `@ahhachul/utils`, then migrated dual-app nickname/content/count validation/formatting callsites and expanded lint policy to block direct `Intl.NumberFormat`.
+- Validation Result: Pass (`pnpm validate:full`)
+- Follow-up: Mark RF-840 committed and continue replacing remaining app-local utility duplicates with shared contracts.

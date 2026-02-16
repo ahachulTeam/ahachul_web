@@ -5,13 +5,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
+import { NICKNAME_MAX_LENGTH, validateNickname } from '@ahhachul/utils';
+
 import { API_BASE_URL } from '@/constant';
 import { AuthService } from '@/lib/auth-service';
 import { useTempAuthStore } from '@/store/auth';
-
-const MIN_LENGTH = 2;
-const MAX_LENGTH = 10;
-const NICKNAME_REGEX = /^[가-힣a-zA-Z0-9_]+$/;
 
 async function updateNickname(payload: { nickname: string; accessToken: string }) {
   const response = await fetch(`${API_BASE_URL}/members`, {
@@ -46,18 +44,9 @@ export default function SetNickNamePage() {
     }
   }, [auth, router]);
 
-  const normalizedNickname = nickname.trim();
-  const validationMessage = useMemo(() => {
-    if (!normalizedNickname.length) return `닉네임은 ${MIN_LENGTH}자 이상 입력해주세요.`;
-    if (normalizedNickname.length < MIN_LENGTH)
-      return `닉네임은 ${MIN_LENGTH}자 이상 입력해주세요.`;
-    if (normalizedNickname.length > MAX_LENGTH)
-      return `닉네임은 ${MAX_LENGTH}자 이하로 입력해주세요.`;
-    if (!NICKNAME_REGEX.test(normalizedNickname))
-      return '한글, 영문, 숫자, 언더스코어(_)만 사용할 수 있습니다.';
-
-    return '';
-  }, [normalizedNickname]);
+  const nicknameValidation = useMemo(() => validateNickname(nickname), [nickname]);
+  const normalizedNickname = nicknameValidation.normalized;
+  const validationMessage = nicknameValidation.message;
 
   const { mutate, isPending, error } = useMutation({
     mutationFn: async () => {
@@ -76,7 +65,7 @@ export default function SetNickNamePage() {
     },
   });
 
-  const isDisabled = Boolean(validationMessage) || isPending || !auth;
+  const isDisabled = !nicknameValidation.isValid || isPending || !auth;
 
   return (
     <main className="relative min-h-screen bg-black px-5 pb-8 pt-9 text-white">
@@ -95,7 +84,7 @@ export default function SetNickNamePage() {
           id="nickname"
           value={nickname}
           onChange={event => setNickname(event.target.value)}
-          maxLength={MAX_LENGTH}
+          maxLength={NICKNAME_MAX_LENGTH}
           placeholder="닉네임을 입력해주세요"
           className="h-12 w-full rounded-xl border border-white/20 bg-white/10 px-3 text-title-medium outline-none placeholder:text-gray-70 focus:border-key-color"
         />
@@ -104,7 +93,7 @@ export default function SetNickNamePage() {
             {validationMessage || '사용 가능한 닉네임 형식입니다.'}
           </p>
           <p className="text-body-small text-gray-70">
-            {normalizedNickname.length} / {MAX_LENGTH}
+            {normalizedNickname.length} / {NICKNAME_MAX_LENGTH}
           </p>
         </div>
         {error instanceof Error && <p className="mt-2 text-body-small text-red">{error.message}</p>}

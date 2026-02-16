@@ -6,3 +6,4 @@ export * from './number';
 export * from './object';
 export * from './crypto';
 export * from './lexical';
+export * from './validation';

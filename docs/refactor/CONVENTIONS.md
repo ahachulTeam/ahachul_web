@@ -25,6 +25,8 @@
 - Utility convention baseline: shared utils are pure-first, `any`-free signatures, and parse/encode via platform primitives
 - React Query baseline: shared key factories/signature normalization + stale/gc-time and invalidation policy from `@ahhachul/domain`
 - Date formatting baseline: `formatDisplayDate` in `@ahhachul/utils` is the only app-layer entrypoint (lint-enforced)
+- Validation baseline: shared validators in `@ahhachul/utils` (`validateNickname`, `validateRequiredLexicalContent`, `isBlankText`) are mandatory
+- Number/price baseline: `formatDisplayNumber`/`formatDisplayPrice` in `@ahhachul/utils` are mandatory display entrypoints (lint-enforced)
 
 ## Validation Authority
 

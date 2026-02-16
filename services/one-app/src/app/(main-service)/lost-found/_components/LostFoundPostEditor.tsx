@@ -8,6 +8,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { QUERY_GC_TIME, QUERY_STALE_TIME, lostFoundQueryKeys } from '@ahhachul/domain';
+import {
+  getNormalizedTextLength,
+  isBlankText,
+  normalizeInputText,
+  validateRequiredLexicalContent,
+} from '@ahhachul/utils';
 
 import { Editor } from '@/component/Editor';
 import { SUBWAY_LINES } from '@/constant';
@@ -130,16 +136,19 @@ export default function LostFoundPostEditor(props: Props) {
   }, [detailQuery.data, isEditMode, isHydratedEditDefaults]);
 
   const validationMessage = useMemo(() => {
-    if (!title.trim()) {
+    if (isBlankText(title)) {
       return '제목을 입력해주세요.';
     }
 
-    if (title.trim().length > MAX_TITLE_LENGTH) {
+    if (getNormalizedTextLength(title) > MAX_TITLE_LENGTH) {
       return `제목은 ${MAX_TITLE_LENGTH}자 이하로 입력해주세요.`;
     }
 
-    if (!content.trim()) {
-      return '내용을 입력해주세요.';
+    const contentValidation = validateRequiredLexicalContent(content, {
+      requiredMessage: '내용을 입력해주세요.',
+    });
+    if (!contentValidation.isValid) {
+      return contentValidation.message;
     }
 
     if (!subwayLineId) {
@@ -209,8 +218,8 @@ export default function LostFoundPostEditor(props: Props) {
 
   const mutation = useMutation({
     mutationFn: async () => {
-      const normalizedTitle = title.trim();
-      const normalizedContent = content.trim();
+      const normalizedTitle = normalizeInputText(title);
+      const normalizedContent = normalizeInputText(content);
 
       if (isEditMode) {
         const payload: LostFoundEditForm = {
@@ -361,7 +370,7 @@ export default function LostFoundPostEditor(props: Props) {
               className="mt-2 h-11 w-full rounded-xl border border-gray-40 bg-white px-3 text-body-medium text-gray-100 outline-none placeholder:text-gray-70 focus:border-key-color"
             />
             <p className="mt-1 text-right text-body-small text-gray-70">
-              {title.trim().length} / {MAX_TITLE_LENGTH}
+              {getNormalizedTextLength(title)} / {MAX_TITLE_LENGTH}
             </p>
           </div>
 

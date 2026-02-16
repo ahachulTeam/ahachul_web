@@ -41,7 +41,8 @@
 | RF-800 | 8      | FE convention governance upgrade (`FE Lead + FE x2`)     | FE Lead           | Done          | aae1cf16 | Primary-source research synthesis + FE rulebook + team role realignment                 |
 | RF-810 | 8      | Utility convention phase-1 enforcement                   | FE Specialist A/B | Done          | aae1cf16 | Shared lexical utility consolidation + object/query utility hardening                   |
 | RF-820 | 8      | React Query convention rollout (`key/invalidation/time`) | FE Lead           | Done          | fbd3b006 | Shared key factory, stable invalidation scope, stale/gc-time standard across dual apps  |
-| RF-830 | 8      | Date formatting convention rollout (`single-entrypoint`) | FE Lead           | ValidatorPass | pending  | `formatDisplayDate` single entrypoint migration + lint guardrails for direct formatting |
+| RF-830 | 8      | Date formatting convention rollout (`single-entrypoint`) | FE Lead           | Done          | afa44f41 | `formatDisplayDate` single entrypoint migration + lint guardrails for direct formatting |
+| RF-840 | 8      | Utility convention phase-2 (`validate` + `number/price`) | FE Lead           | ValidatorPass | pending  | Shared validation/number-price entrypoints + dual-app migration + lint policy uplift    |
 
 ## Rule
 

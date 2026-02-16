@@ -42,3 +42,10 @@
 {"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-830","state":"QAReady","note":"validate:type and validate:lint pass with date formatting enforcement rules active.","at":"2026-02-16T17:29:09.867Z"}
 {"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-830","state":"QAReady","note":"validate:full pass evidence attached for RF-830 (type/lint/test/build).","at":"2026-02-16T17:30:45.771Z"}
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-830","state":"ValidatorPass","note":"RF-830 gate passed with validate:full success and lint enforcement active.","at":"2026-02-16T17:30:45.771Z"}
+{"from":"Team Lead","to":"FE Lead","taskId":"RF-840","state":"ASSIGNED","note":"Start utility phase-2 rollout: validation and number/price formatter conventions.","at":"2026-02-16T17:42:59.595Z"}
+{"from":"FE Lead","to":"FE Specialist A","taskId":"RF-840","state":"ASSIGNED","note":"Implement shared validation and number/price utility contracts in @ahhachul/utils.","at":"2026-02-16T17:42:59.595Z"}
+{"from":"FE Lead","to":"FE Specialist B","taskId":"RF-840","state":"ASSIGNED","note":"Migrate dual-app usage to shared validation and numeric display entrypoints.","at":"2026-02-16T17:42:59.595Z"}
+{"from":"Technical Writer","to":"Team Lead","taskId":"RF-840","state":"IN_PROGRESS","note":"Rulebook and meeting-log synchronization started for utility phase-2.","at":"2026-02-16T17:42:59.595Z"}
+{"from":"FE Specialist A/B","to":"QA Engineer","taskId":"RF-840","state":"QAReady","note":"Utility phase-2 migration complete. Request full validator gate.","at":"2026-02-16T17:44:04.055Z"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-840","state":"QAReady","note":"validate:full pass evidence attached for RF-840.","at":"2026-02-16T17:44:04.055Z"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-840","state":"ValidatorPass","note":"RF-840 gate passed with validate:full success (type/lint/test/build).","at":"2026-02-16T17:44:04.055Z"}

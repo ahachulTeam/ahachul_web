@@ -2,9 +2,10 @@ import { memo, useEffect, useState } from 'react';
 
 import { motion } from 'motion/react';
 
+import { getRandomNumber } from '@ahhachul/utils';
+
 import { motions } from '@/constants';
 import type { ITrain } from '@/types';
-import { getRandomNumber1to60 } from '@/utils';
 
 import * as S from './TrainArrivals.styled';
 
@@ -19,7 +20,7 @@ const TrainArrivals = ({ trainRealTimes }: TrainArrivalTimesProps) => {
     const initialTimers: { [key: string]: number } = {};
     trainRealTimes.forEach(train => {
       initialTimers[`train_${train.trainNum}`] =
-        train.currentArrivalTime * 60 - getRandomNumber1to60();
+        train.currentArrivalTime * 60 - getRandomNumber(1, 60);
     });
     setTrainTimers(initialTimers);
   }, [trainRealTimes]);
