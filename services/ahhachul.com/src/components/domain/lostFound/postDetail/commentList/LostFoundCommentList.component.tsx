@@ -1,4 +1,6 @@
 // import { BookmarkIcon } from '@/assets/icons/system';
+import { API_SERVICE_PATHS } from '@ahhachul/http';
+
 import { UiComponent } from '@/components';
 import { lostFoundKeys, useFetchLostFoundCommentList } from '@/services/lostFound';
 
@@ -40,7 +42,7 @@ const CommentListInner = ({
   return (
     <UiComponent.BaseCommentList
       commentsMap={data.comments}
-      servicePath="lost-posts"
+      servicePath={API_SERVICE_PATHS.lostFound}
       queryKey={lostFoundKeys.comments(id)}
       isArticleAuthor={isArticleAuthor}
     />

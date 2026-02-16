@@ -1,5 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 
+import { API_SERVICE_PATHS } from '@ahhachul/http';
 import { sleep } from '@ahhachul/utils';
 
 import { UiComponent } from '@/components';
@@ -22,7 +23,7 @@ const LostFoundCommentInput = ({ id }: Props) => {
         content: comment,
         upperCommentId: null,
         isPrivate: isPrivate,
-        servicePath: 'lost-posts',
+        servicePath: API_SERVICE_PATHS.lostFound,
       },
       {
         onSuccess: async res => {

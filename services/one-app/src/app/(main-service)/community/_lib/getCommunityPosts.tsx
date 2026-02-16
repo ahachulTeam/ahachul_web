@@ -1,4 +1,5 @@
 import { communityQueryKeys } from '@ahhachul/domain';
+import { API_PAGE_SIZE, API_PATHS, API_SORT } from '@ahhachul/http';
 import { removeFalsyValues } from '@ahhachul/utils';
 
 import { fetchClient } from '@/lib/fetch-client';
@@ -19,14 +20,14 @@ export async function getCommunityPosts({
 
   const endpoint =
     filters.has('category') && filters.get('category') !== CommunityType.HOT
-      ? 'community-posts'
-      : 'community-hot-posts';
+      ? API_PATHS.community.list
+      : API_PATHS.community.hotList;
 
   const params = removeFalsyValues({
     ...(filters.get('keyword') && { content: filters.get('keyword') || '' }),
     ...(filters.get('subwayLineId') && { subwayLineId: filters.get('subwayLineId') || '' }),
-    pageSize: 10,
-    sort: 'createdAt,desc',
+    pageSize: API_PAGE_SIZE.list,
+    sort: API_SORT.createdAtDesc,
     ...(pageParam && { pageToken: pageParam }),
     ...(filters.has('category') &&
       filters.get('category') !== CommunityType.HOT && {
@@ -34,7 +35,7 @@ export async function getCommunityPosts({
       }),
   }) as Partial<CommunityListParams>;
 
-  return fetchClient(`/${endpoint}`, {
+  return fetchClient(endpoint, {
     params: params as Record<string, string | number | boolean>,
     next: {
       tags: ['community', 'posts'],

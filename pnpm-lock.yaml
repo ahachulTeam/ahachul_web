@@ -157,6 +157,9 @@ importers:
       '@ahhachul/domain':
         specifier: workspace:*
         version: link:../../packages/domain
+      '@ahhachul/http':
+        specifier: workspace:*
+        version: link:../../packages/http
       '@ahhachul/ui':
         specifier: workspace:*
         version: link:../../packages/ui

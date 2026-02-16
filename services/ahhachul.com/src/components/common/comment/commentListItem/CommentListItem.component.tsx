@@ -1,5 +1,6 @@
 import { useActivity } from '@stackflow/react';
 
+import type { ApiServicePath } from '@ahhachul/http';
 import { formatDisplayDate } from '@ahhachul/utils';
 
 import { UiComponent } from '@/components';
@@ -14,7 +15,7 @@ import { CommentDropEllipsis } from '../commentActions/CommentActions.component'
 interface CommentCardProps {
   comment: Comment;
   asChild?: boolean;
-  servicePath?: string;
+  servicePath?: ApiServicePath;
   queryKey?: readonly unknown[];
   isArticleAuthor?: boolean;
 }

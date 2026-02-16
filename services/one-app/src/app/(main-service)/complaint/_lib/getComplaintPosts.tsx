@@ -1,4 +1,5 @@
 import { complaintQueryKeys } from '@ahhachul/domain';
+import { API_PAGE_SIZE, API_PATHS, API_SORT } from '@ahhachul/http';
 import { removeFalsyValues } from '@ahhachul/utils';
 
 import { fetchClient } from '@/lib/fetch-client';
@@ -23,13 +24,13 @@ export async function getComplaintPosts({
     ...(filters.get('keyword') && { keyword: filters.get('keyword') || '' }),
     ...(subwayLineId &&
       subwayLineId !== SubwayLineFilterOptions.ALL_LINES && { subwayLineId: Number(subwayLineId) }),
-    pageSize: 10,
-    sort: 'createdAt,desc',
+    pageSize: API_PAGE_SIZE.list,
+    sort: API_SORT.createdAtDesc,
     ...(pageParam && { pageToken: pageParam }),
   }) as Partial<ComplaintListParams>;
 
   const response = await fetchClient<ApiResponse<PaginatedList<ComplaintPost>>>(
-    '/complaint-posts',
+    API_PATHS.complaint.list,
     {
       params: params as Record<string, string | number | boolean>,
       next: {

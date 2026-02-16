@@ -1,76 +1,76 @@
 {
-  "updatedAt": "2026-02-16T19:42:19Z",
+  "updatedAt": "2026-02-16T20:01:53Z",
   "branch": "codex/refactor-foundation",
-  "sprintFocus": "RF-901 complete: shared nav shell extraction and app adapter split",
+  "sprintFocus": "RF-910 complete: API contract layer sharedization with transport split preserved",
   "leadDirective": [
-    "1) RF-901 completed: NavBar follows shell/adaptor architecture with strict app-boundary ownership.",
-    "2) Added shared BottomNav primitives in @ahhachul/ui and Storybook coverage for external narrative.",
-    "3) Migrated Vite/Next nav to app-local adapters preserving route/auth/orchestration rules.",
-    "4) Next FE phase should apply the same boundary model to any future navigation variants."
+    "1) RF-910 completed: API layer is contract-shared while transport runtime remains app-specific (Vite=axios, Next=fetch).",
+    "2) Added API contracts in @ahhachul/http (API_PATHS/API_SERVICE_PATHS/API_PAGE_SIZE/API_SORT/ApiServicePath).",
+    "3) Migrated dual-app API callsites to shared contracts and removed production endpoint literal drift.",
+    "4) Next FE phase should enforce contract-first API additions and reject raw endpoint literals in review."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-901",
+      "taskId": "RF-910",
       "state": "Done",
-      "updatedAt": "2026-02-17T04:42:19+09:00",
-      "nextAction": "prioritize next shared component candidates using nav shell/adaptor boundary"
+      "updatedAt": "2026-02-17T05:01:53+09:00",
+      "nextAction": "prioritize contract-first API follow-up tasks and review lint guardrail options"
     },
     {
       "role": "FE Lead",
       "owner": "fe-lead",
-      "taskId": "RF-901",
+      "taskId": "RF-910",
       "state": "Done",
-      "updatedAt": "2026-02-17T04:42:19+09:00",
-      "nextAction": "enforce nav shell/adaptor split for future shared navigation work"
+      "updatedAt": "2026-02-17T05:01:53+09:00",
+      "nextAction": "enforce API contract-first policy across new FE API modules"
     },
     {
       "role": "FE Specialist A",
       "owner": "fe-spec-a",
-      "taskId": "RF-901",
+      "taskId": "RF-910",
       "state": "Done",
-      "updatedAt": "2026-02-17T04:42:19+09:00",
-      "nextAction": "stabilize BottomNav primitive API and Storybook contract"
+      "updatedAt": "2026-02-17T05:01:53+09:00",
+      "nextAction": "maintain @ahhachul/http API contract compatibility and typed path coverage"
     },
     {
       "role": "FE Specialist B",
       "owner": "fe-spec-b",
-      "taskId": "RF-901",
+      "taskId": "RF-910",
       "state": "Done",
-      "updatedAt": "2026-02-17T04:42:19+09:00",
-      "nextAction": "maintain thin app-local adapters for route/auth side-effect logic"
+      "updatedAt": "2026-02-17T05:01:53+09:00",
+      "nextAction": "keep dual-app callsites aligned with shared API contracts"
     },
     {
       "role": "Infra Engineer",
       "owner": "infra-core",
-      "taskId": "RF-901",
+      "taskId": "RF-910",
       "state": "Ready",
-      "updatedAt": "2026-02-17T04:42:19+09:00",
-      "nextAction": "prepare optional Storybook artifact pipeline support if requested"
+      "updatedAt": "2026-02-17T05:01:53+09:00",
+      "nextAction": "monitor CI cache impact and build graph changes after workspace dependency update"
     },
     {
       "role": "QA Engineer",
       "owner": "qa-core",
-      "taskId": "RF-901",
+      "taskId": "RF-910",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T04:42:19+09:00",
-      "nextAction": "attach validate:full + ui:storybook:build evidence for RF-901"
+      "updatedAt": "2026-02-17T05:01:53+09:00",
+      "nextAction": "attach validate:full evidence for RF-910 contract migration"
     },
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-901",
+      "taskId": "RF-910",
       "state": "Done",
-      "updatedAt": "2026-02-17T04:42:19+09:00",
-      "nextAction": "keep FE rulebook/changelog/meeting/team-memory synchronized per FE task"
+      "updatedAt": "2026-02-17T05:01:53+09:00",
+      "nextAction": "keep FE rulebook/changelog/meeting/team-memory synchronized for API contract tasks"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
-      "taskId": "RF-901",
+      "taskId": "RF-910",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T04:42:19+09:00",
+      "updatedAt": "2026-02-17T05:01:53+09:00",
       "nextAction": "await next QAReady handoff"
     }
   ],
@@ -978,14 +978,78 @@
       "state": "Done",
       "note": "RF-901 completed: shared nav shell extraction and app adapter split established.",
       "at": "2026-02-17T04:42:19+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "FE Lead",
+      "taskId": "RF-910",
+      "state": "ASSIGNED",
+      "note": "Analyze dual-app API layer and extract shared contract while preserving transport split.",
+      "at": "2026-02-17T05:01:53+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist A",
+      "taskId": "RF-910",
+      "state": "ASSIGNED",
+      "note": "Implement API contract module in @ahhachul/http (paths/defaults/types).",
+      "at": "2026-02-17T05:01:53+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist B",
+      "taskId": "RF-910",
+      "state": "ASSIGNED",
+      "note": "Migrate Next/Vite API callsites to shared contracts without changing fetch/axios runtime.",
+      "at": "2026-02-17T05:01:53+09:00"
+    },
+    {
+      "from": "FE Specialist A/B",
+      "to": "QA Engineer",
+      "taskId": "RF-910",
+      "state": "QAReady",
+      "note": "Contract module and dual-app migration complete. Request blocking gate.",
+      "at": "2026-02-17T05:01:53+09:00"
+    },
+    {
+      "from": "QA Engineer",
+      "to": "Perfectionist Validator",
+      "taskId": "RF-910",
+      "state": "QAReady",
+      "note": "validate:full pass evidence attached for RF-910.",
+      "at": "2026-02-17T05:01:53+09:00"
+    },
+    {
+      "from": "Perfectionist Validator",
+      "to": "Team Lead",
+      "taskId": "RF-910",
+      "state": "ValidatorPass",
+      "note": "RF-910 gate passed with full validation after API contract migration.",
+      "at": "2026-02-17T05:01:53+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "Technical Writer",
+      "taskId": "RF-910",
+      "state": "COMMITTED",
+      "note": "Synchronize sprint/rulebook/meeting/team-memory artifacts before commit.",
+      "at": "2026-02-17T05:01:53+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "All Agents",
+      "taskId": "RF-910",
+      "state": "Done",
+      "note": "RF-910 completed: API contract layer sharedized with transport split preserved.",
+      "at": "2026-02-17T05:01:53+09:00"
     }
   ],
   "validator": {
     "queue": [],
     "lastGate": {
-      "taskId": "RF-901",
+      "taskId": "RF-910",
       "result": "PASS",
-      "at": "2026-02-16T19:42:19Z"
+      "at": "2026-02-16T20:01:53Z"
     }
   }
 }

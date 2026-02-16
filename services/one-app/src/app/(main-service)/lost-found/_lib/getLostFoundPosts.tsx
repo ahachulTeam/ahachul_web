@@ -1,4 +1,5 @@
 import { lostFoundQueryKeys } from '@ahhachul/domain';
+import { API_PAGE_SIZE, API_PATHS } from '@ahhachul/http';
 import { removeFalsyValues } from '@ahhachul/utils';
 
 import { fetchClient } from '@/lib/fetch-client';
@@ -19,12 +20,12 @@ export async function getLostFoundPosts({
   const params = removeFalsyValues({
     ...(filters.get('keyword') && { keyword: filters.get('keyword') || '' }),
     ...(filters.get('subwayLineId') && { subwayLineId: filters.get('subwayLineId') || '' }),
-    pageSize: 10,
+    pageSize: API_PAGE_SIZE.list,
     ...(pageParam && { pageToken: pageParam }),
     ...{ lostType: filters.get('category') || LostFoundType.LOST },
   });
 
-  return fetchClient('/lost-posts', {
+  return fetchClient(API_PATHS.lostFound.list, {
     params: params as Record<string, string | number | boolean>,
     next: {
       tags: ['lost-found', 'posts'],

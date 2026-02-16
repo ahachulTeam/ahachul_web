@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { API_PATHS } from '@ahhachul/http';
+
 import { RESPONSE_MESSAGES } from '@/constant';
 import { fetchClient } from '@/lib/fetch-client';
 import { APIResponseCode, type SocialSignInType } from '@/types';
@@ -18,7 +20,7 @@ export const LoginResponseSchema = z.object({
 });
 
 export async function login({ code, type }: { type: SocialSignInType; code: string }) {
-  const data = await fetchClient(`/auth/login`, {
+  const data = await fetchClient(API_PATHS.auth.login, {
     skipAuth: true,
     params: {
       providerCode: code,

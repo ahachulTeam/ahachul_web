@@ -1,5 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 
+import { API_SERVICE_PATHS } from '@ahhachul/http';
 import { sleep } from '@ahhachul/utils';
 
 import { UiComponent } from '@/components';
@@ -26,7 +27,7 @@ const ComplaintCommentInput = ({ id }: Props) => {
         content: comment,
         upperCommentId: null,
         isPrivate: isPrivate,
-        servicePath: 'complaint-posts',
+        servicePath: API_SERVICE_PATHS.complaint,
       },
       {
         onSuccess: async res => {

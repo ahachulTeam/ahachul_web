@@ -1,3 +1,4 @@
+import { API_PAGE_SIZE, API_PATHS, API_SORT } from '@ahhachul/http';
 import { appendFilesToFormData, createJsonBlob, extractFormData, sleep } from '@ahhachul/utils';
 
 import axiosInstance from '@/apis/fetcher';
@@ -16,11 +17,11 @@ import type {
 
 export const fetchLostFoundList = async (req: LostFoundListParams) => {
   const { data } = await axiosInstance.get<ApiResponse<PaginatedList<LostFoundPost>>>(
-    '/lost-posts',
+    API_PATHS.lostFound.list,
     {
       params: {
         ...req,
-        pageSize: 10,
+        pageSize: API_PAGE_SIZE.list,
       },
     },
   );
@@ -38,22 +39,26 @@ export const createLostFound = async (req: LostFoundForm) => {
     appendFilesToFormData(formData, req.images);
   }
 
-  const { data } = await axiosInstance.post<ApiResponse<WithPostId>>('/lost-posts', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
+  const { data } = await axiosInstance.post<ApiResponse<WithPostId>>(
+    API_PATHS.lostFound.list,
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     },
-  });
+  );
 
   return data;
 };
 
 export const fetchLostFoundDetail = (id: number) =>
-  axiosInstance.get<ApiResponse<LostFoundPostDetail>>(`/lost-posts/${id}`);
+  axiosInstance.get<ApiResponse<LostFoundPostDetail>>(API_PATHS.lostFound.detail(id));
 
 export const fetchLostFoundCommentList = (id: number) =>
-  axiosInstance.get<ApiResponse<CommentList>>(`/lost-posts/${id}/comments`, {
+  axiosInstance.get<ApiResponse<CommentList>>(API_PATHS.lostFound.comments(id), {
     params: {
-      sort: 'createdAt,asc',
+      sort: API_SORT.createdAtAsc,
     },
   });
 
@@ -72,7 +77,7 @@ export const editLostFound = async (id: number, req: LostFoundEditForm) => {
   }
 
   const { data } = await axiosInstance.post<ApiResponse<WithPostId>>(
-    `/lost-posts/${id}`,
+    API_PATHS.lostFound.detail(id),
     formData,
     {
       headers: {
@@ -86,7 +91,7 @@ export const editLostFound = async (id: number, req: LostFoundEditForm) => {
 
 export const deleteLostFound = async (articleId: number) => {
   const [response] = await Promise.allSettled([
-    axiosInstance.delete<ApiResponse<WithPostId>>(`/lost-posts/${articleId}`),
+    axiosInstance.delete<ApiResponse<WithPostId>>(API_PATHS.lostFound.detail(articleId)),
     sleep(750),
   ]);
 
@@ -104,7 +109,7 @@ export const deleteLostFound = async (articleId: number) => {
 
 export const updateLostFoundStatus = async (articleId: number, status: LostStatus) => {
   const [response] = await Promise.allSettled([
-    axiosInstance.patch<ApiResponse<WithPostId>>(`/lost-posts/${articleId}/status`, { status }),
+    axiosInstance.patch<ApiResponse<WithPostId>>(API_PATHS.lostFound.status(articleId), { status }),
     sleep(750),
   ]);
 

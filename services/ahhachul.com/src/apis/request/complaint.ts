@@ -1,3 +1,4 @@
+import { API_PAGE_SIZE, API_PATHS, API_SORT } from '@ahhachul/http';
 import { appendFilesToFormData, createJsonBlob, extractFormData, sleep } from '@ahhachul/utils';
 
 import axiosInstance from '@/apis/fetcher';
@@ -11,11 +12,11 @@ import type {
 
 export const fetchComplaintList = async (req: ComplaintListParams) => {
   const { data } = await axiosInstance.get<ApiResponse<PaginatedList<ComplaintPost>>>(
-    '/complaint-posts',
+    API_PATHS.complaint.list,
     {
       params: {
         ...req,
-        pageSize: 10,
+        pageSize: API_PAGE_SIZE.list,
       },
     },
   );
@@ -33,28 +34,32 @@ export const createComplaint = async (req: ComplaintForm) => {
     appendFilesToFormData(formData, req.images);
   }
 
-  const { data } = await axiosInstance.post<ApiResponse<WithPostId>>('/complaint-posts', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
+  const { data } = await axiosInstance.post<ApiResponse<WithPostId>>(
+    API_PATHS.complaint.list,
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     },
-  });
+  );
 
   return data;
 };
 
 export const fetchComplaintDetail = (id: number) =>
-  axiosInstance.get<ApiResponse<ComplaintPostDetail>>(`/complaint-posts/${id}`);
+  axiosInstance.get<ApiResponse<ComplaintPostDetail>>(API_PATHS.complaint.detail(id));
 
 export const fetchComplaintCommentList = (id: number) =>
-  axiosInstance.get<ApiResponse<CommentList>>(`/complaint-posts/${id}/comments`, {
+  axiosInstance.get<ApiResponse<CommentList>>(API_PATHS.complaint.comments(id), {
     params: {
-      sort: 'createdAt,asc',
+      sort: API_SORT.createdAtAsc,
     },
   });
 
 export const deleteComplaint = async (articleId: number) => {
   const [response] = await Promise.allSettled([
-    axiosInstance.delete<ApiResponse<WithPostId>>(`/complaint-posts/${articleId}`),
+    axiosInstance.delete<ApiResponse<WithPostId>>(API_PATHS.complaint.detail(articleId)),
     sleep(750),
   ]);
 

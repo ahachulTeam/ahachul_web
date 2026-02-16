@@ -1,6 +1,7 @@
 import { QueryFunction } from '@tanstack/react-query';
 
 import { lostFoundQueryKeys } from '@ahhachul/domain';
+import { API_PATHS } from '@ahhachul/http';
 
 import { API_BASE_URL } from '@/constant';
 import { IResponse, LostFoundPostDetail } from '@/types';
@@ -11,7 +12,8 @@ export const getLostFoundDetailPost: QueryFunction<
 > = async ({ queryKey }) => {
   const [, , id] = queryKey;
   const detailTags = lostFoundQueryKeys.detail(id).map(value => String(value));
-  const res = await fetch(`${API_BASE_URL}/lost-posts/${id}`, {
+  const endpoint = `${API_BASE_URL}${API_PATHS.lostFound.detail(id)}`;
+  const res = await fetch(endpoint, {
     next: {
       tags: detailTags,
     },

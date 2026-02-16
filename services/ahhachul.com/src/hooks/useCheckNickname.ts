@@ -4,6 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { Subject, catchError, debounceTime, filter, from, map, mergeMap, of } from 'rxjs';
 
+import { API_PATHS } from '@ahhachul/http';
 import { normalizeInputText, validateNickname } from '@ahhachul/utils';
 
 import axiosInstance from '@/apis/fetcher';
@@ -18,7 +19,7 @@ interface APICheckNicknameParams {
 }
 
 const checkNickname = (body: APICheckNicknameParams) =>
-  axiosInstance.post(`/members/check-nickname`, body);
+  axiosInstance.post(API_PATHS.user.checkNickname, body);
 export const useCheckNickName = () => useMutation({ mutationFn: checkNickname });
 
 export const useCheckNickname = ({ nickname, originNickname = '' }: Props) => {

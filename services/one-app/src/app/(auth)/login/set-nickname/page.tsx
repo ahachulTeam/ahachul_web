@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
+import { API_PATHS } from '@ahhachul/http';
 import { NICKNAME_MAX_LENGTH, validateNickname } from '@ahhachul/utils';
 
 import { API_BASE_URL } from '@/constant';
@@ -12,7 +13,8 @@ import { AuthService } from '@/lib/auth-service';
 import { useTempAuthStore } from '@/store/auth';
 
 async function updateNickname(payload: { nickname: string; accessToken: string }) {
-  const response = await fetch(`${API_BASE_URL}/members`, {
+  const endpoint = `${API_BASE_URL}${API_PATHS.user.profile}`;
+  const response = await fetch(endpoint, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

@@ -1,3 +1,4 @@
+import { API_PAGE_SIZE, API_PATHS, API_SORT } from '@ahhachul/http';
 import { appendFilesToFormData, createJsonBlob, extractFormData, sleep } from '@ahhachul/utils';
 
 import axiosInstance from '@/apis/fetcher';
@@ -16,14 +17,14 @@ import {
 
 export const fetchCommunityList = async (req: CommunityListParams) => {
   const endpoint =
-    req.categoryType === CommunityType.HOT ? '/community-hot-posts' : '/community-posts';
+    req.categoryType === CommunityType.HOT ? API_PATHS.community.hotList : API_PATHS.community.list;
 
   const { data } = await axiosInstance.get<ApiResponse<PaginatedList<CommunityPost>>>(endpoint, {
     params: {
       ...req,
       ...(req.categoryType !== CommunityType.HOT && { categoryType: req.categoryType }),
-      pageSize: 10,
-      sort: 'createdAt,desc',
+      pageSize: API_PAGE_SIZE.list,
+      sort: API_SORT.createdAtDesc,
     },
   });
   return data;
@@ -40,22 +41,26 @@ export const createCommunity = async (req: CommunityForm) => {
     appendFilesToFormData(formData, req.images);
   }
 
-  const { data } = await axiosInstance.post<ApiResponse<WithPostId>>('/community-posts', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
+  const { data } = await axiosInstance.post<ApiResponse<WithPostId>>(
+    API_PATHS.community.list,
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     },
-  });
+  );
 
   return data;
 };
 
 export const fetchCommunityDetail = (id: number) =>
-  axiosInstance.get<ApiResponse<CommunityDetail>>(`/community-posts/${id}`);
+  axiosInstance.get<ApiResponse<CommunityDetail>>(API_PATHS.community.detail(id));
 
 export const fetchCommunityCommentList = (id: number) =>
-  axiosInstance.get<ApiResponse<CommentList>>(`/community-posts/${id}/comments`, {
+  axiosInstance.get<ApiResponse<CommentList>>(API_PATHS.community.comments(id), {
     params: {
-      sort: 'createdAt,asc',
+      sort: API_SORT.createdAtAsc,
     },
   });
 
@@ -74,7 +79,7 @@ export const editCommunity = async (id: number, req: CommunityEditForm) => {
   }
 
   const { data } = await axiosInstance.post<ApiResponse<WithPostId>>(
-    `/community-posts/${id}`,
+    API_PATHS.community.detail(id),
     formData,
     {
       headers: {
@@ -88,7 +93,7 @@ export const editCommunity = async (id: number, req: CommunityEditForm) => {
 
 export const deleteCommunity = async (articleId: number) => {
   const [response] = await Promise.allSettled([
-    axiosInstance.delete<ApiResponse<WithPostId>>(`/community-posts/${articleId}`),
+    axiosInstance.delete<ApiResponse<WithPostId>>(API_PATHS.community.detail(articleId)),
     sleep(750),
   ]);
 

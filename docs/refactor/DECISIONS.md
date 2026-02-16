@@ -25,3 +25,4 @@
 21. One-app inline hex literals are disallowed for class-based styling: `className` with Tailwind arbitrary hex (`bg-[#...]` etc.) must be replaced by semantic/shared tokens from `@ahhachul/design-system`, and lint now blocks new occurrences.
 22. Shared component extraction is selective, not exhaustive: only cross-app presentational primitives with Storybook external narrative value are promoted into `@ahhachul/ui`, while domain orchestration components remain app-local with optional wrappers/re-exports.
 23. Navigation components follow a shell/adapter split: presentational nav primitives are shared in `@ahhachul/ui`, while route/auth/side-effect orchestration stays app-local.
+24. API layer sharedization follows a contract-first model: Vite keeps `axios` runtime and Next keeps `fetch` runtime, while endpoint/default contracts are centralized in `@ahhachul/http` (`API_PATHS`, `API_SERVICE_PATHS`, `API_PAGE_SIZE`, `API_SORT`).

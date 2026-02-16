@@ -192,3 +192,10 @@
 - Summary: Promoted navigation presentation layer into `@ahhachul/ui` by adding `BottomNav` and `BottomNavItem`, migrated Vite `Gnb` and Next `NavMenu` to thin app-local adapters, and formalized nav shell/adaptor boundary in FE rulebook/governance docs.
 - Validation Result: Pass (`pnpm validate:full`, `CI=1 pnpm ui:storybook:build`)
 - Follow-up: Apply shell/adaptor split to future shared navigation variants (top tab, segmented nav) and keep route/auth orchestration app-local.
+
+- DateTime (KST): 2026-02-17 04:57:19
+- Task ID: RF-910
+- Contributors: FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Added API contract layer to `@ahhachul/http` (`API_PATHS`, `API_SERVICE_PATHS`, `API_PAGE_SIZE`, `API_SORT`, `ApiServicePath`) and migrated both apps to consume shared endpoint/default contracts while preserving transport split (Vite=`axiosInstance`, Next=`fetch/fetchClient`).
+- Validation Result: Pass (`pnpm validate:full`)
+- Follow-up: Keep new API modules contract-first and block raw endpoint literals in production callsites by FE review policy.

@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import { API_PATHS } from '@ahhachul/http';
 import { sleep } from '@ahhachul/utils';
 
 import axiosInstance from '@/apis/fetcher';
@@ -20,14 +21,16 @@ interface APITrainInfoResponse {
 }
 
 export const fetchSubwayLines = async () =>
-  await axiosInstance.get<ApiResponse<SubwayLineServerModel>>('/subway-lines');
+  await axiosInstance.get<ApiResponse<SubwayLineServerModel>>(API_PATHS.subway.lines);
 
 export const prefetchSubwayLines = async () =>
   await axios.get<ApiResponse<SubwayLineServerModel>>(
-    `${BASE_URL.SERVER}${API_PREFIX}/subway-lines`,
+    `${BASE_URL.SERVER}${API_PREFIX}${API_PATHS.subway.lines}`,
   );
 
 export const fetchTrainInfo = async (params: APITrainInfoParams) => {
   await sleep(400);
-  return axiosInstance.get<ApiResponse<APITrainInfoResponse>>('/trains/real-times', { params });
+  return axiosInstance.get<ApiResponse<APITrainInfoResponse>>(API_PATHS.subway.trainRealTimes, {
+    params,
+  });
 };

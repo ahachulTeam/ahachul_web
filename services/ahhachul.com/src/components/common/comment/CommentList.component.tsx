@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 
+import type { ApiServicePath } from '@ahhachul/http';
+
 import { useTempComment } from '@/stores/comment';
 import type { CommentList } from '@/types';
 
@@ -8,7 +10,7 @@ import EmptyCommentList from './emptyCommentList/EmptyCommentList.component';
 
 interface BaseCommentListProps {
   commentsMap: CommentList['comments'];
-  servicePath: string;
+  servicePath: ApiServicePath;
   queryKey: readonly unknown[];
   isArticleAuthor: boolean;
 }

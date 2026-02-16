@@ -198,6 +198,35 @@
 - Do not move app-specific nav visibility rules or navigation orchestration into shared packages.
 - Shared nav primitives must be token-based and story-documented before app migration.
 
+## Rule 9: API Contract Layer Conventions
+
+### 1) Transport Ownership (Keep As-Is)
+
+- Vite keeps `axiosInstance`/`axios` as transport runtime.
+- Next keeps `fetch`/`fetchClient` as transport runtime.
+- Do not force transport unification if it increases app-specific risk.
+
+### 2) Shared Contract Ownership
+
+- API endpoint strings must be sourced from `@ahhachul/http`:
+  - `API_PATHS`
+  - `API_SERVICE_PATHS`
+  - `API_PAGE_SIZE`
+  - `API_SORT`
+- Domain API modules in both apps must not hardcode endpoint literals when equivalent shared contracts exist.
+
+### 3) URL Construction Baseline
+
+- Relative request paths use `API_PATHS.*`.
+- Absolute prefetch URLs in Vite must compose as:
+  - `${BASE_URL.SERVER}${API_PREFIX}${API_PATHS.*}`
+- `servicePath` payloads for comment/reply flows must use `ApiServicePath` typed values.
+
+### 4) Exception Scope
+
+- Raw endpoint literals are allowed only in test/mock fixtures or one-off migration stubs with explicit follow-up debt.
+- New production API callsites with raw endpoint literals should fail FE review.
+
 ## Implementation Checklist
 
 - [ ] New utility function added with explicit input/output type.
@@ -217,6 +246,7 @@
 - [ ] Shared component promotion criteria (Rule 8) are satisfied before extraction.
 - [ ] New shared component includes Storybook stories and `CI=1 pnpm ui:storybook:build` passes.
 - [ ] Navigation components follow shell/adaptor split (shared presentation + app-local routing/orchestration).
+- [ ] API callsites use `@ahhachul/http` contracts (`API_PATHS/API_SERVICE_PATHS/API_PAGE_SIZE/API_SORT`) instead of raw endpoint literals.
 - [ ] FE rulebook changes are recorded in `FE_RULEBOOK_CHANGELOG.md`.
 - [ ] FE meeting records are added as timestamped files and indexed in `FE_MEETING_LOG.md`.
 

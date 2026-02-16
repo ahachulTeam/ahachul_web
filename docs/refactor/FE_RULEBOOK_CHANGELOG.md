@@ -109,3 +109,11 @@ Track every modification to `FE_RULEBOOK.md` in chronological order.
 - Section(s): Rule 8 (Navigation Component Boundary), Implementation Checklist
 - Summary: Added navbar/bottom-nav shell-adapter policy: keep shared package limited to presentational nav primitives and enforce app-local route/auth/orchestration ownership.
 - Follow-up: Apply the same boundary to any future tab/header navigation promotion tasks.
+
+- DateTime (KST): 2026-02-17 04:57:19
+- Task ID: RF-910
+- Author/Owner: FE Lead
+- Change Type: Added
+- Section(s): Rule 9 (API Contract Layer Conventions), Implementation Checklist
+- Summary: Added API contract convention that preserves app transport runtime (Vite=axios, Next=fetch) while enforcing shared endpoint/default contracts from `@ahhachul/http`.
+- Follow-up: Extend API contract usage to newly added API modules by default and block raw endpoint literals in FE review.

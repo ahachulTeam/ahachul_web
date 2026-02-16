@@ -1,6 +1,7 @@
 import { QueryFunction } from '@tanstack/react-query';
 
 import { communityQueryKeys } from '@ahhachul/domain';
+import { API_PATHS } from '@ahhachul/http';
 
 import { API_BASE_URL } from '@/constant';
 import type { IResponse } from '@/types';
@@ -12,7 +13,8 @@ export const getCommunityDetailPost: QueryFunction<
 > = async ({ queryKey }) => {
   const [, , id] = queryKey;
   const detailTags = communityQueryKeys.detail(id).map(value => String(value));
-  const res = await fetch(`${API_BASE_URL}/community-posts/${id}`, {
+  const endpoint = `${API_BASE_URL}${API_PATHS.community.detail(id)}`;
+  const res = await fetch(endpoint, {
     next: {
       tags: detailTags,
     },

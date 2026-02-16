@@ -1,6 +1,7 @@
 import { QueryFunction } from '@tanstack/react-query';
 
 import { complaintQueryKeys } from '@ahhachul/domain';
+import { API_PATHS } from '@ahhachul/http';
 
 import { API_BASE_URL } from '@/constant';
 import type { IResponse } from '@/types';
@@ -12,7 +13,8 @@ export const getComplaintDetailPost: QueryFunction<
 > = async ({ queryKey }) => {
   const [, , id] = queryKey;
   const detailTags = complaintQueryKeys.detail(id).map(value => String(value));
-  const res = await fetch(`${API_BASE_URL}/complaint-posts/${id}`, {
+  const endpoint = `${API_BASE_URL}${API_PATHS.complaint.detail(id)}`;
+  const res = await fetch(endpoint, {
     next: {
       tags: detailTags,
     },

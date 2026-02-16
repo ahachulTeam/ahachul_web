@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { QUERY_GC_TIME, QUERY_STALE_TIME, lostFoundQueryKeys } from '@ahhachul/domain';
+import { API_PATHS } from '@ahhachul/http';
 import {
   getNormalizedTextLength,
   isBlankText,
@@ -93,7 +94,8 @@ export default function LostFoundPostEditor(props: Props) {
 
   const detailQuery = useQuery({
     queryKey: lostFoundQueryKeys.detail(editTargetId),
-    queryFn: () => fetchClient<ApiResponse<LostFoundPostDetail>>(`/lost-posts/${editTargetId}`),
+    queryFn: () =>
+      fetchClient<ApiResponse<LostFoundPostDetail>>(API_PATHS.lostFound.detail(editTargetId)),
     enabled: isEditMode,
     staleTime: QUERY_STALE_TIME.detail,
     gcTime: QUERY_GC_TIME.detail,

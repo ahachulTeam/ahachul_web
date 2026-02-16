@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 
 import { communityQueryKeys } from '@ahhachul/domain';
+import { API_PATHS } from '@ahhachul/http';
 
 import { API_BASE_URL } from '@/constant';
 
@@ -11,7 +12,8 @@ export const getCommunityDetailPostServer = async ({
 }) => {
   const [, , id] = queryKey;
   const detailTags = communityQueryKeys.detail(id).map(value => String(value));
-  const res = await fetch(`${API_BASE_URL}/community-posts/${id}`, {
+  const endpoint = `${API_BASE_URL}${API_PATHS.community.detail(id)}`;
+  const res = await fetch(endpoint, {
     next: {
       revalidate: 3600,
       tags: detailTags,

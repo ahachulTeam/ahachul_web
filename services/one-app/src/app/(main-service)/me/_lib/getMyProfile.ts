@@ -1,3 +1,5 @@
+import { API_PATHS } from '@ahhachul/http';
+
 import { fetchClient } from '@/lib/fetch-client';
 import type { ApiResponse, User } from '@/types';
 
@@ -13,9 +15,9 @@ export type FavoriteStationList = {
 };
 
 export async function getMyProfile() {
-  return fetchClient<ApiResponse<User>>('/members');
+  return fetchClient<ApiResponse<User>>(API_PATHS.user.profile);
 }
 
 export async function getMyFavoriteStations() {
-  return fetchClient<ApiResponse<FavoriteStationList>>('/members/bookmarks/stations');
+  return fetchClient<ApiResponse<FavoriteStationList>>(API_PATHS.user.favoriteStations);
 }

@@ -104,3 +104,6 @@ export function createHttpClient(config: HttpClientConfig) {
     return parseResponse<T>(response);
   };
 }
+
+export type { ApiServicePath } from './api-contract';
+export { API_PAGE_SIZE, API_PATHS, API_SERVICE_PATHS, API_SORT } from './api-contract';

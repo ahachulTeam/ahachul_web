@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 
 import { lostFoundQueryKeys } from '@ahhachul/domain';
+import { API_PATHS } from '@ahhachul/http';
 
 import { API_BASE_URL } from '@/constant';
 
@@ -11,7 +12,8 @@ export const getLostFoundDetailPostServer = async ({
 }) => {
   const [, , id] = queryKey;
   const detailTags = lostFoundQueryKeys.detail(id).map(value => String(value));
-  const res = await fetch(`${API_BASE_URL}/lost-posts/${id}`, {
+  const endpoint = `${API_BASE_URL}${API_PATHS.lostFound.detail(id)}`;
+  const res = await fetch(endpoint, {
     next: {
       revalidate: 3600,
       tags: detailTags,

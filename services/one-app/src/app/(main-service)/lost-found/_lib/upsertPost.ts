@@ -1,3 +1,4 @@
+import { API_PATHS } from '@ahhachul/http';
 import { appendFilesToFormData, createJsonBlob, extractFormData } from '@ahhachul/utils';
 
 import { fetchClient } from '@/lib/fetch-client';
@@ -22,7 +23,7 @@ function buildMultipartBody<T extends LostFoundForm | LostFoundEditForm>(
 export function createLostFoundPost(form: LostFoundForm): Promise<ApiResponse<WithPostId>> {
   const multipartBody = buildMultipartBody(form, form.images);
 
-  return fetchClient<ApiResponse<WithPostId>>('/lost-posts', {
+  return fetchClient<ApiResponse<WithPostId>>(API_PATHS.lostFound.list, {
     method: 'POST',
     body: multipartBody,
   });
@@ -35,7 +36,7 @@ export function editLostFoundPost(
   const files = form.images.flatMap(image => (image.data ? [image.data] : []));
   const multipartBody = buildMultipartBody(form, files);
 
-  return fetchClient<ApiResponse<WithPostId>>(`/lost-posts/${id}`, {
+  return fetchClient<ApiResponse<WithPostId>>(API_PATHS.lostFound.detail(id), {
     method: 'POST',
     body: multipartBody,
   });

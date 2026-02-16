@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import type { ActivityComponentType } from '@stackflow/react';
 import { useQueryClient } from '@tanstack/react-query';
 
+import type { ApiServicePath } from '@ahhachul/http';
 import { formatDisplayDate, sleep } from '@ahhachul/utils';
 
 import { LayoutComponent, UiComponent } from '@/components';
@@ -15,11 +16,15 @@ import { useTempComment } from '@/stores/comment';
 import type { WithPostId } from '@/types';
 
 const NewCommentReplyPage: ActivityComponentType<
-  { commentId: number; queryKey: readonly unknown[]; servicePath: string } & WithPostId
+  { commentId: number; queryKey: readonly unknown[]; servicePath: ApiServicePath } & WithPostId
 > = ({
   params: { id, commentId, queryKey, servicePath },
 }: {
-  params: { commentId: number; queryKey: readonly unknown[]; servicePath: string } & WithPostId;
+  params: {
+    commentId: number;
+    queryKey: readonly unknown[];
+    servicePath: ApiServicePath;
+  } & WithPostId;
 }) => {
   const { tempComment } = useTempComment();
 
