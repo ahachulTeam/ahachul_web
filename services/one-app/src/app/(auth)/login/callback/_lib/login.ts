@@ -18,7 +18,7 @@ export const LoginResponseSchema = z.object({
 });
 
 export async function login({ code, type }: { type: SocialSignInType; code: string }) {
-  const { data } = await fetchClient(`/auth/login`, {
+  const data = await fetchClient(`/auth/login`, {
     skipAuth: true,
     params: {
       providerCode: code,

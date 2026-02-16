@@ -1,5 +1,6 @@
 import { QueryFunction } from '@tanstack/react-query';
 
+import { API_BASE_URL } from '@/constant';
 import type { IResponse } from '@/types';
 import type { CommunityDetail } from '@/types/community';
 
@@ -9,9 +10,9 @@ export const getCommunityDetailPost: QueryFunction<
 > = async ({ queryKey }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_1, id] = queryKey;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/community-posts/${id}`, {
+  const res = await fetch(`${API_BASE_URL}/community-posts/${id}`, {
     next: {
-      tags: ['lcommunity-post', id.toString()],
+      tags: ['community-post', id.toString()],
     },
     credentials: 'include',
   });

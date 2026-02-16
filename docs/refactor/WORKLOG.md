@@ -22,3 +22,10 @@
 - Summary: Added shared workspace packages (`@ahhachul/domain`, `@ahhachul/http`, `@ahhachul/seo`, `@ahhachul/routes`) and applied reusable metadata/robots/sitemap to Next app.
 - Validation Result: Pending (full validator gate queued after critical defect fixes)
 - Follow-up: Resolve RF-300 defects and run validator checklist.
+
+- DateTime (KST): 2026-02-17
+- Task ID: RF-300
+- Contributors: FE Engineer, QA Engineer
+- Summary: Fixed Next critical defects including complaint endpoint typo, auth cookie-key mismatch, middleware route mismatch, API base URL normalization, and fetch client contract misuse.
+- Validation Result: Pending (validator run after CI/CD hardening changes)
+- Follow-up: Execute RF-600 workflow hardening and run full checklist.

@@ -15,7 +15,7 @@ const RedirectUrlResponseSchema = z.object({
 type RedirectUrlResponse = z.infer<typeof RedirectUrlResponseSchema>;
 
 export async function getRedirectUrl(type: SocialSignInType): Promise<RedirectUrlResponse> {
-  const { data } = await fetchClient('/auth/redirect-url', {
+  const data = await fetchClient('/auth/redirect-url', {
     method: 'GET',
     skipAuth: true,
     params: {

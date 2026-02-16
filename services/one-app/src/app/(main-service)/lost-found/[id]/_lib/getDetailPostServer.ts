@@ -1,5 +1,7 @@
 import { cookies } from 'next/headers';
 
+import { API_BASE_URL } from '@/constant';
+
 export const getLostFoundDetailPostServer = async ({
   queryKey,
 }: {
@@ -7,7 +9,7 @@ export const getLostFoundDetailPostServer = async ({
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_1, id] = queryKey;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/lost-posts/${id}`, {
+  const res = await fetch(`${API_BASE_URL}/lost-posts/${id}`, {
     next: {
       revalidate: 3600,
       tags: ['lost-found-post', id.toString()],

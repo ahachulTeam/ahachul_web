@@ -1,4 +1,4 @@
-import { objectToQueryString, removeFalsyValues } from '@ahhachul/utils';
+import { removeFalsyValues } from '@ahhachul/utils';
 
 import { fetchClient } from '@/lib/fetch-client';
 import { LostFoundType, type ApiResponse, type LostFoundPost, type PaginatedList } from '@/types';
@@ -25,12 +25,10 @@ export async function getLostFoundPosts({
     ...{ lostType: filters.get('category') || LostFoundType.LOST },
   });
 
-  return await fetchClient(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/lost-posts?${objectToQueryString(params)}`,
-    {
-      next: {
-        tags: ['lost-found', 'posts'],
-      },
+  return fetchClient('/lost-posts', {
+    params: params as Record<string, string | number | boolean>,
+    next: {
+      tags: ['lost-found', 'posts'],
     },
-  );
+  });
 }

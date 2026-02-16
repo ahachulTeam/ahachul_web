@@ -1,6 +1,6 @@
 import type { SubwayLineFilterOptions } from '@/types';
 
-import { generateComplaintyMetadata } from './_lib/metadata';
+import { generateComplaintMetadata } from './_lib/metadata';
 
 type Props = {
   searchParams: Promise<{
@@ -10,7 +10,7 @@ type Props = {
 };
 
 export async function generateMetadata({ searchParams }: Props) {
-  return generateComplaintyMetadata(searchParams);
+  return generateComplaintMetadata(searchParams);
 }
 
 export default function ComplaintPage() {

@@ -1,5 +1,6 @@
 import { QueryFunction } from '@tanstack/react-query';
 
+import { API_BASE_URL } from '@/constant';
 import type { IResponse } from '@/types';
 import { ComplaintPostDetail } from '@/types/complaint';
 
@@ -9,7 +10,7 @@ export const getComplaintDetailPost: QueryFunction<
 > = async ({ queryKey }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_1, id] = queryKey;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/complaintcomplaint-posts/${id}`, {
+  const res = await fetch(`${API_BASE_URL}/complaint-posts/${id}`, {
     next: {
       tags: ['complaint-post', id.toString()],
     },

@@ -1,5 +1,7 @@
 import { cookies } from 'next/headers';
 
+import { API_BASE_URL } from '@/constant';
+
 export const getComplaintDetailPostServer = async ({
   queryKey,
 }: {
@@ -7,7 +9,7 @@ export const getComplaintDetailPostServer = async ({
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_1, id] = queryKey;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/complaint-posts/${id}`, {
+  const res = await fetch(`${API_BASE_URL}/complaint-posts/${id}`, {
     next: {
       revalidate: 3600,
       tags: ['complaint-post', id.toString()],

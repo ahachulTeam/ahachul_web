@@ -23,7 +23,7 @@
 | RF-000 | 0 | Governance docs and persistent memory files | Technical Writer | Done | pending | Initial baseline artifacts |
 | RF-100 | 1 | Nx workspace boundary and shared architecture baseline | Infra | Todo | - | - |
 | RF-200 | 2 | Introduce shared packages (`domain/http/seo/routes`) | FE | Done | pending | Shared package skeleton + Next SEO integration baseline |
-| RF-300 | 3 | Fix critical Next defects | FE | Todo | - | - |
+| RF-300 | 3 | Fix critical Next defects | FE | Done | pending | Endpoint/env/middleware/auth cookie/fetch contract defects fixed |
 | RF-500 | 5 | Integrate reusable SEO architecture in Next | FE | Todo | - | - |
 | RF-600 | 6 | Harden CI/CD for cache-safe immutable deploys | Infra | Todo | - | - |
 

@@ -1,4 +1,4 @@
-import { objectToQueryString, removeFalsyValues } from '@ahhachul/utils';
+import { removeFalsyValues } from '@ahhachul/utils';
 
 import { fetchClient } from '@/lib/fetch-client';
 import { type ApiResponse, type PaginatedList } from '@/types';
@@ -35,12 +35,10 @@ export async function getCommunityPosts({
       }),
   }) as Partial<CommunityListParams>;
 
-  return await fetchClient(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/${endpoint}?${objectToQueryString(params)}`,
-    {
-      next: {
-        tags: ['community', 'posts'],
-      },
+  return fetchClient(`/${endpoint}`, {
+    params: params as Record<string, string | number | boolean>,
+    next: {
+      tags: ['community', 'posts'],
     },
-  );
+  });
 }

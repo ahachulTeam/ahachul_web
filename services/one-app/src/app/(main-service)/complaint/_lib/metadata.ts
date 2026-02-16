@@ -4,7 +4,7 @@ import { createListMetadata } from '@ahhachul/seo';
 import { SITE_URL } from '@/constant';
 import { CommunityType } from '@/types/community';
 
-export async function generateComplaintyMetadata(
+export async function generateComplaintMetadata(
   searchParams: Promise<{
     q?: string;
     subwayLineId?: string;
@@ -22,3 +22,6 @@ export async function generateComplaintyMetadata(
     pathname: '/complaint',
   }) as Metadata;
 }
+
+// TODO: remove after all call sites migrate to `generateComplaintMetadata`.
+export const generateComplaintyMetadata = generateComplaintMetadata;

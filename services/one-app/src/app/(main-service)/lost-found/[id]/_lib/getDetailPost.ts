@@ -1,5 +1,6 @@
 import { QueryFunction } from '@tanstack/react-query';
 
+import { API_BASE_URL } from '@/constant';
 import { IResponse, LostFoundPostDetail } from '@/types';
 
 export const getLostFoundDetailPost: QueryFunction<
@@ -8,7 +9,7 @@ export const getLostFoundDetailPost: QueryFunction<
 > = async ({ queryKey }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_1, id] = queryKey;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/lost-posts/${id}`, {
+  const res = await fetch(`${API_BASE_URL}/lost-posts/${id}`, {
     next: {
       tags: ['lost-found-post', id.toString()],
     },

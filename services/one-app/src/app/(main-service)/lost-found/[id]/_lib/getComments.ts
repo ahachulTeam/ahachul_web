@@ -1,5 +1,6 @@
 import { QueryFunction } from '@tanstack/react-query';
 
+import { API_BASE_URL } from '@/constant';
 import { CommentList, IResponse } from '@/types';
 
 export const getLostFoundComments: QueryFunction<
@@ -8,7 +9,7 @@ export const getLostFoundComments: QueryFunction<
 > = async ({ queryKey }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_1, id] = queryKey;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/lost-posts/${id}/comments`, {
+  const res = await fetch(`${API_BASE_URL}/lost-posts/${id}/comments`, {
     next: {
       tags: ['lost-found-post', id.toString(), 'comments'],
     },

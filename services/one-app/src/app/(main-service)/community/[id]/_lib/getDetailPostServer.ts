@@ -1,5 +1,7 @@
 import { cookies } from 'next/headers';
 
+import { API_BASE_URL } from '@/constant';
+
 export const getCommunityDetailPostServer = async ({
   queryKey,
 }: {
@@ -7,7 +9,7 @@ export const getCommunityDetailPostServer = async ({
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_1, id] = queryKey;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/community-posts/${id}`, {
+  const res = await fetch(`${API_BASE_URL}/community-posts/${id}`, {
     next: {
       revalidate: 3600,
       tags: ['community-post', id.toString()],

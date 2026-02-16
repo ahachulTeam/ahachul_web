@@ -3,11 +3,7 @@
 import Cookies from 'js-cookie';
 
 import { IS_DEV_ENV } from '@/constant';
-
-export enum CookieKey {
-  ACCESS_TOKEN = 'access_token',
-  REFRESH_TOKEN = 'refresh_token',
-}
+import { CookieKey } from '@/types';
 
 class _AuthService {
   private isRefreshing = false;
