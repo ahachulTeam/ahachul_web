@@ -29,7 +29,7 @@
 | RF-300 | 3      | Fix critical Next defects                              | FE               | Done   | 24b05f60 | Endpoint/env/middleware/auth cookie/fetch contract defects fixed                     |
 | RF-500 | 5      | Integrate reusable SEO architecture in Next            | FE               | Done   | 6b5966c4 | Detail-page metadata + robots/sitemap + canonicalized redirects                      |
 | RF-600 | 6      | Harden CI/CD for cache-safe immutable deploys          | Infra            | Done   | 7a85c08c | Immutable image tagging + non-destructive static deploy + workflow trigger hardening |
-| RF-610 | 6      | Validator pass and lockfile synchronization            | QA               | Done   | pending  | `pnpm validate:full` pass and lockfile refresh                                       |
+| RF-610 | 6      | Validator pass and lockfile synchronization            | QA               | Done   | a6ab84e6 | `pnpm validate:full` pass and lockfile refresh                                       |
 
 ## Rule
 
