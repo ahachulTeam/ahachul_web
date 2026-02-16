@@ -1,76 +1,76 @@
 {
-  "updatedAt": "2026-02-16T18:59:25Z",
+  "updatedAt": "2026-02-16T19:23:59Z",
   "branch": "codex/refactor-foundation",
-  "sprintFocus": "RF-891 complete: Vite Emotion/styled inline hex migrated to shared semantic tokens",
+  "sprintFocus": "RF-900 complete: selective shared UI extraction and Storybook baseline in @ahhachul/ui",
   "leadDirective": [
-    "1) RF-891 completed: Vite Emotion/styled inline hex literals are removed outside approved exception scope.",
-    "2) Added design-system legacy semantic tokens for Vite palette retention and migrated common/domain/page callsites.",
-    "3) Validator gate now includes Vite residual-hex scan command with explicit exception filters.",
-    "4) Next FE phase should remove exception scope by tokenizing icon JSX source and subway line constants."
+    "1) RF-900 completed: shared UI extraction policy is now selective and Storybook-gated (Rule 8).",
+    "2) Added @ahhachul/ui with first-wave cross-app primitives and dual-app migration wrappers.",
+    "3) Storybook public baseline is operational and validated via CI=1 pnpm ui:storybook:build.",
+    "4) Next FE phase should evaluate additional candidates strictly against Rule 8 promotion criteria."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-891",
+      "taskId": "RF-900",
       "state": "Done",
-      "updatedAt": "2026-02-17T03:59:25+09:00",
-      "nextAction": "prioritize exception-scope removal backlog and assign RF-892"
+      "updatedAt": "2026-02-17T04:23:59+09:00",
+      "nextAction": "prioritize next shared component candidates under Rule 8 gate"
     },
     {
       "role": "FE Lead",
       "owner": "fe-lead",
-      "taskId": "RF-891",
+      "taskId": "RF-900",
       "state": "Done",
-      "updatedAt": "2026-02-17T03:59:25+09:00",
-      "nextAction": "enforce Vite no-inline-hex policy in all new style changes"
+      "updatedAt": "2026-02-17T04:23:59+09:00",
+      "nextAction": "enforce selective component promotion and story taxonomy standards"
     },
     {
       "role": "FE Specialist A",
       "owner": "fe-spec-a",
-      "taskId": "RF-891",
+      "taskId": "RF-900",
       "state": "Done",
-      "updatedAt": "2026-02-17T03:59:25+09:00",
-      "nextAction": "maintain and normalize legacy token taxonomy across apps"
+      "updatedAt": "2026-02-17T04:23:59+09:00",
+      "nextAction": "stabilize @ahhachul/ui API and maintain Storybook docs quality"
     },
     {
       "role": "FE Specialist B",
       "owner": "fe-spec-b",
-      "taskId": "RF-891",
+      "taskId": "RF-900",
       "state": "Done",
-      "updatedAt": "2026-02-17T03:59:25+09:00",
-      "nextAction": "continue migration for approved exception files in follow-up"
+      "updatedAt": "2026-02-17T04:23:59+09:00",
+      "nextAction": "continue dual-app migration with wrapper-first compatibility strategy"
     },
     {
       "role": "Infra Engineer",
       "owner": "infra-core",
-      "taskId": "RF-891",
+      "taskId": "RF-900",
       "state": "Ready",
-      "updatedAt": "2026-02-17T03:59:25+09:00",
-      "nextAction": "monitor validator scan command stability in CI pipelines"
+      "updatedAt": "2026-02-17T04:23:59+09:00",
+      "nextAction": "prepare optional Storybook artifact publish workflow if requested"
     },
     {
       "role": "QA Engineer",
       "owner": "qa-core",
-      "taskId": "RF-891",
+      "taskId": "RF-900",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T03:59:25+09:00",
-      "nextAction": "attach RF-891 validate:full + residual-hex scan evidence"
+      "updatedAt": "2026-02-17T04:23:59+09:00",
+      "nextAction": "attach validate:full + ui:storybook:build evidence for RF-900"
     },
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-891",
+      "taskId": "RF-900",
       "state": "Done",
-      "updatedAt": "2026-02-17T03:59:25+09:00",
-      "nextAction": "sync RF-891 sprint/worklog/rulebook/meeting artifacts"
+      "updatedAt": "2026-02-17T04:23:59+09:00",
+      "nextAction": "keep FE rulebook/meeting/changelog artifacts synchronized per task"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
-      "taskId": "RF-891",
+      "taskId": "RF-900",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T03:59:25+09:00",
+      "updatedAt": "2026-02-17T04:23:59+09:00",
       "nextAction": "await next QAReady handoff"
     }
   ],
@@ -850,14 +850,78 @@
       "state": "Done",
       "note": "RF-891 completed: Vite styled inline hex migrated under shared semantic token policy.",
       "at": "2026-02-17T03:59:25+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "FE Lead",
+      "taskId": "RF-900",
+      "state": "ASSIGNED",
+      "note": "Define selective shared-component extraction policy and Storybook baseline.",
+      "at": "2026-02-17T04:23:59+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist A",
+      "taskId": "RF-900",
+      "state": "ASSIGNED",
+      "note": "Build @ahhachul/ui package + Storybook configuration and component APIs.",
+      "at": "2026-02-17T04:23:59+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist B",
+      "taskId": "RF-900",
+      "state": "ASSIGNED",
+      "note": "Migrate dual-app reusable component callsites and remove duplicated implementations.",
+      "at": "2026-02-17T04:23:59+09:00"
+    },
+    {
+      "from": "FE Specialist A/B",
+      "to": "QA Engineer",
+      "taskId": "RF-900",
+      "state": "QAReady",
+      "note": "Shared UI package and app migrations completed. Request blocking gate.",
+      "at": "2026-02-17T04:23:59+09:00"
+    },
+    {
+      "from": "QA Engineer",
+      "to": "Perfectionist Validator",
+      "taskId": "RF-900",
+      "state": "QAReady",
+      "note": "validate:full and CI=1 pnpm ui:storybook:build evidence attached for RF-900.",
+      "at": "2026-02-17T04:23:59+09:00"
+    },
+    {
+      "from": "Perfectionist Validator",
+      "to": "Team Lead",
+      "taskId": "RF-900",
+      "state": "ValidatorPass",
+      "note": "RF-900 gate passed with dual-app validation and Storybook build success.",
+      "at": "2026-02-17T04:23:59+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "Technical Writer",
+      "taskId": "RF-900",
+      "state": "COMMITTED",
+      "note": "Synchronize sprint/rulebook/meeting/team-memory artifacts before commit.",
+      "at": "2026-02-17T04:23:59+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "All Agents",
+      "taskId": "RF-900",
+      "state": "Done",
+      "note": "RF-900 completed: selective shared UI extraction and Storybook baseline established.",
+      "at": "2026-02-17T04:23:59+09:00"
     }
   ],
   "validator": {
     "queue": [],
     "lastGate": {
-      "taskId": "RF-891",
+      "taskId": "RF-900",
       "result": "PASS",
-      "at": "2026-02-16T18:59:25Z"
+      "at": "2026-02-16T19:23:59Z"
     }
   }
 }

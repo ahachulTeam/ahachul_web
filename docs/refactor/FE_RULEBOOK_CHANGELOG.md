@@ -93,3 +93,11 @@ Track every modification to `FE_RULEBOOK.md` in chronological order.
 - Section(s): Rule 7 (Design System Token Conventions), Implementation Checklist
 - Summary: Expanded no-inline-hex policy to Vite Emotion/styled layer with explicit exception scope (`assets/icons/jsx/icons.tsx`, `constants/subway.tsx`) and added required residual-hex scan command for validator gate.
 - Follow-up: Remove exception scopes in dedicated icon/subway tokenization tasks and keep scan check mandatory for all future Vite style refactors.
+
+- DateTime (KST): 2026-02-17 04:23:59
+- Task ID: RF-900
+- Author/Owner: FE Lead
+- Change Type: Added
+- Section(s): Scope priority, Rule 8 (Shared Component + Storybook Conventions), Implementation Checklist
+- Summary: Added shared component promotion criteria, non-promotion boundaries, Storybook delivery baseline (`Playground/Service Context/Edge`), and blocking `ui:storybook:build` gate for all shared component extraction tasks.
+- Follow-up: Apply Rule 8 to subsequent component promotions and keep app-local feature orchestration components out of `packages/ui`.

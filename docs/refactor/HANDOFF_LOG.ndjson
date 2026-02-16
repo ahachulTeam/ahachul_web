@@ -96,3 +96,11 @@
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-891","state":"ValidatorPass","note":"RF-891 gate passed with validate:full success and residual-hex scan clean result.","at":"2026-02-17T03:59:25+09:00"}
 {"from":"Team Lead","to":"Technical Writer","taskId":"RF-891","state":"COMMITTED","note":"Synchronize sprint/rulebook/meeting/worklog artifacts before commit.","at":"2026-02-17T03:59:25+09:00"}
 {"from":"Team Lead","to":"All Agents","taskId":"RF-891","state":"Done","note":"RF-891 completed: Vite styled inline hex migrated under shared semantic token policy.","at":"2026-02-17T03:59:25+09:00"}
+{"from":"Team Lead","to":"FE Lead","taskId":"RF-900","state":"ASSIGNED","note":"Define selective shared-component extraction policy and Storybook baseline.","at":"2026-02-17T04:23:59+09:00"}
+{"from":"FE Lead","to":"FE Specialist A","taskId":"RF-900","state":"ASSIGNED","note":"Build @ahhachul/ui package + Storybook configuration and component APIs.","at":"2026-02-17T04:23:59+09:00"}
+{"from":"FE Lead","to":"FE Specialist B","taskId":"RF-900","state":"ASSIGNED","note":"Migrate dual-app reusable component callsites and remove duplicated implementations.","at":"2026-02-17T04:23:59+09:00"}
+{"from":"FE Specialist A/B","to":"QA Engineer","taskId":"RF-900","state":"QAReady","note":"Shared UI package and app migrations completed. Request blocking gate.","at":"2026-02-17T04:23:59+09:00"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-900","state":"QAReady","note":"validate:full and CI=1 pnpm ui:storybook:build evidence attached for RF-900.","at":"2026-02-17T04:23:59+09:00"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-900","state":"ValidatorPass","note":"RF-900 gate passed with dual-app validation and Storybook build success.","at":"2026-02-17T04:23:59+09:00"}
+{"from":"Team Lead","to":"Technical Writer","taskId":"RF-900","state":"COMMITTED","note":"Synchronize sprint/rulebook/meeting/team-memory artifacts before commit.","at":"2026-02-17T04:23:59+09:00"}
+{"from":"Team Lead","to":"All Agents","taskId":"RF-900","state":"Done","note":"RF-900 completed: selective shared UI extraction and Storybook baseline established.","at":"2026-02-17T04:23:59+09:00"}

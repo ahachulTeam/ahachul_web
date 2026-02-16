@@ -178,3 +178,10 @@
 - Summary: Expanded semantic token migration to Vite legacy Emotion/styled layer by introducing `legacy` token groups in `@ahhachul/design-system`, replacing inline hex literals across Vite styled/css/inline style callsites with shared token variables, and formalizing exception scope for icon source and subway line constants.
 - Validation Result: Pass (`pnpm validate:full` + Vite residual-hex scan excluding approved exceptions)
 - Follow-up: Tokenize remaining exception files (`assets/icons/jsx/icons.tsx`, `constants/subway.tsx`) in a dedicated follow-up task and keep residual-hex scan mandatory.
+
+- DateTime (KST): 2026-02-17 04:23:59
+- Task ID: RF-900
+- Contributors: FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Established selective shared-component extraction policy, introduced `@ahhachul/ui` with Storybook baseline, migrated dual-app reusable primitives (`ServiceBadge`, empty states, skeleton, conditional render), removed Vite duplicated badge styled implementations, and documented Rule 8 promotion boundaries in FE governance artifacts.
+- Validation Result: Pass (`pnpm validate:full`, `CI=1 pnpm ui:storybook:build`)
+- Follow-up: Expand `@ahhachul/ui` only for components that satisfy Rule 8 criteria and keep domain orchestration components app-local.

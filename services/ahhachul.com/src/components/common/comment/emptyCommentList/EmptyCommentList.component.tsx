@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 
-import { EmptyGraphic } from '@/assets/graphics';
+import { CommentEmptyState } from '@ahhachul/ui';
 
-import * as S from './EmptyCommentList.styled';
+import { EmptyGraphic } from '@/assets/graphics';
 
 interface Props {
   overrideCss?: ReturnType<typeof css>;
@@ -10,13 +10,15 @@ interface Props {
 
 const EmptyCommentList = ({ overrideCss }: Props) => {
   return (
-    <S.EmptyContainer css={overrideCss}>
-      <EmptyGraphic />
-      <S.Desc>
-        <p>댓글이 없어요.</p>
-        <p>첫 댓글을 남겨주세요.</p>
-      </S.Desc>
-    </S.EmptyContainer>
+    <div css={overrideCss}>
+      <CommentEmptyState
+        illustration={<EmptyGraphic />}
+        style={{
+          padding: '64px 0 128px',
+          minHeight: 'unset',
+        }}
+      />
+    </div>
   );
 };
 

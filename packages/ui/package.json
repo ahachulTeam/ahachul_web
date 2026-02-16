@@ -1,0 +1,41 @@
+{
+  "name": "@ahhachul/ui",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint:es": "eslint src",
+    "lint:es:fix": "eslint src --fix",
+    "lint:etc": "prettier src .storybook --check",
+    "lint:etc:fix": "prettier src .storybook --write",
+    "lint": "pnpm lint:es && pnpm lint:etc",
+    "lint:fix": "pnpm lint:es:fix && pnpm lint:etc:fix",
+    "storybook": "storybook dev -p 6106 --config-dir .storybook",
+    "storybook:build": "storybook build --config-dir .storybook"
+  },
+  "dependencies": {
+    "@ahhachul/design-system": "workspace:*",
+    "react-loading-skeleton": "^3.5.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@storybook/addon-essentials": "^8.6.14",
+    "@storybook/react": "^8.6.14",
+    "@storybook/react-vite": "^8.6.14",
+    "storybook": "^8.6.14",
+    "typescript": "^5"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "nx": {
+    "tags": [
+      "type:shared",
+      "layer:ui"
+    ]
+  }
+}

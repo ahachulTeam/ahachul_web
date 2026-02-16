@@ -10,6 +10,7 @@
   4. Validation + number/price formatting conventions
   5. Form + Zod + schema hook conventions
   6. Design-system token conventions
+  7. Shared component + Storybook conventions
 
 ## FE Pod Structure
 
@@ -156,6 +157,39 @@
   - raw icon source literals in `services/ahhachul.com/src/assets/icons/jsx/icons.tsx`
   - subway line canonical color mapping in `services/ahhachul.com/src/constants/subway.tsx`
 
+## Rule 8: Shared Component + Storybook Conventions
+
+### 1) Promotion Criteria (Must-pass)
+
+- Promote to shared (`packages/ui`) only when all criteria pass:
+  - Reusability: used in both apps now, or confirmed cross-app reuse in next sprint scope.
+  - Responsibility: presentational/UI primitive only (no route/domain orchestration, no API side effects).
+  - Token alignment: style values come from shared tokens (`@ahhachul/design-system`) and are app-agnostic.
+  - Public narrative value: component helps communicate service tone when exposed in Storybook.
+
+### 2) Non-Promotion Criteria (Keep local)
+
+- Do not promote when component is tightly coupled with:
+  - route navigation, server actions, domain mutation flows, or feature-specific state orchestration
+  - app-only layout contracts that are not reusable between Vite/Next
+
+### 3) Storybook Delivery Baseline
+
+- Every promoted shared component must provide Storybook stories:
+  - `Playground` (args-first contract demo)
+  - `Service Context` example (realistic product usage tone)
+  - `Edge/Empty` example when applicable
+- Story taxonomy must stay service-readable for external sharing:
+  - `Service/*` for product-facing primitives
+  - `Utility/*` for low-level rendering utilities
+- Blocking gate for shared component tasks:
+  - `CI=1 pnpm ui:storybook:build`
+
+### 4) Migration Pattern
+
+- Keep legacy app import paths stable with wrapper/re-export files when needed.
+- Remove duplicated local implementations only after shared replacement passes `validate:full`.
+
 ## Implementation Checklist
 
 - [ ] New utility function added with explicit input/output type.
@@ -172,6 +206,8 @@
 - [ ] Shared color token changes are applied in `@ahhachul/design-system` first and consumed by both apps.
 - [ ] One-app has no residual inline hex literals (`rg -n "#[0-9A-Fa-f]{3,8}" services/one-app/src`).
 - [ ] Vite Emotion/styled layer has no residual inline hex literals outside approved exceptions (`rg -n "#[0-9A-Fa-f]{3,8}" services/ahhachul.com/src --glob '!**/*.svg' | grep -v 'assets/icons/jsx/icons.tsx' | grep -v 'constants/subway.tsx'`).
+- [ ] Shared component promotion criteria (Rule 8) are satisfied before extraction.
+- [ ] New shared component includes Storybook stories and `CI=1 pnpm ui:storybook:build` passes.
 - [ ] FE rulebook changes are recorded in `FE_RULEBOOK_CHANGELOG.md`.
 - [ ] FE meeting records are added as timestamped files and indexed in `FE_MEETING_LOG.md`.
 
@@ -179,6 +215,8 @@
 
 - React: Keeping Components Pure
   - [https://react.dev/learn/keeping-components-pure](https://react.dev/learn/keeping-components-pure)
+- React: Thinking in React
+  - [https://react.dev/learn/thinking-in-react](https://react.dev/learn/thinking-in-react)
 - TanStack Query: Important Defaults
   - [https://tanstack.com/query/latest/docs/framework/react/guides/important-defaults](https://tanstack.com/query/latest/docs/framework/react/guides/important-defaults)
 - TanStack Query: Query Keys
@@ -199,5 +237,9 @@
   - [https://www.typescriptlang.org/docs/handbook/2/functions.html#unknown](https://www.typescriptlang.org/docs/handbook/2/functions.html#unknown)
 - OWASP: Input Validation Cheat Sheet
   - [https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html)
+- Storybook: Why Storybook
+  - [https://storybook.js.org/docs/get-started/why-storybook](https://storybook.js.org/docs/get-started/why-storybook)
+- Storybook: React + Vite Framework
+  - [https://storybook.js.org/docs/get-started/frameworks/react-vite](https://storybook.js.org/docs/get-started/frameworks/react-vite)
 - date-fns (official repo)
   - [https://github.com/date-fns/date-fns](https://github.com/date-fns/date-fns)

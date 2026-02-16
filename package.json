@@ -25,6 +25,8 @@
     "validate:test": "nx run-many --target=test --all --parallel=3",
     "validate:build": "nx run-many --target=build --all --parallel=3",
     "validate:full": "pnpm validate:type && pnpm validate:lint && pnpm validate:test && pnpm validate:build",
+    "ui:storybook": "pnpm --filter @ahhachul/ui storybook",
+    "ui:storybook:build": "pnpm --filter @ahhachul/ui storybook:build",
     "team:status": "node ./scripts/refactor-team-dashboard.mjs",
     "team:watch": "node ./scripts/refactor-team-dashboard.mjs --watch",
     "affected:type": "nx affected --target=type-check --parallel=3",
