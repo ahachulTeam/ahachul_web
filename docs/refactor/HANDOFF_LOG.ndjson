@@ -81,3 +81,10 @@
 {"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-880","state":"QAReady","note":"validate:full and frozen-lockfile evidence attached for RF-880.","at":"2026-02-17T03:34:41+09:00"}
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-880","state":"ValidatorPass","note":"RF-880 gate passed with shared design-system integration verified end-to-end.","at":"2026-02-17T03:34:41+09:00"}
 {"from":"Team Lead","to":"All Agents","taskId":"RF-880","state":"Done","note":"RF-880 completed: dual-app design-system token authority is now centralized.","at":"2026-02-17T03:34:41+09:00"}
+{"from":"Team Lead","to":"FE Lead","taskId":"RF-890","state":"ASSIGNED","note":"Execute one-app residual inline hex migration to semantic/shared design tokens.","at":"2026-02-17T03:45:50+09:00"}
+{"from":"FE Lead","to":"FE Specialist A","taskId":"RF-890","state":"ASSIGNED","note":"Expand design-system semantic token groups and tailwind token exposure.","at":"2026-02-17T03:45:50+09:00"}
+{"from":"FE Lead","to":"FE Specialist B","taskId":"RF-890","state":"ASSIGNED","note":"Migrate one-app inline hex callsites to shared token references.","at":"2026-02-17T03:45:50+09:00"}
+{"from":"FE Specialist A/B","to":"QA Engineer","taskId":"RF-890","state":"QAReady","note":"Inline hex migration complete. Request validator gate.","at":"2026-02-17T03:45:50+09:00"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-890","state":"QAReady","note":"validate:full and one-app residual hex scan evidence attached for RF-890.","at":"2026-02-17T03:45:50+09:00"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-890","state":"ValidatorPass","note":"RF-890 gate passed with shared-token migration and lint guardrail validation.","at":"2026-02-17T03:45:50+09:00"}
+{"from":"Team Lead","to":"All Agents","taskId":"RF-890","state":"Done","note":"RF-890 completed: one-app inline hex removed and semantic token policy enforced.","at":"2026-02-17T03:45:50+09:00"}

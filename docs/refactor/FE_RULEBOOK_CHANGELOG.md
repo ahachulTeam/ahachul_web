@@ -77,3 +77,11 @@ Track every modification to `FE_RULEBOOK.md` in chronological order.
 - Section(s): Scope priority, Rule 7 (Design System Token Conventions), Implementation Checklist
 - Summary: Added design-system governance requiring Vite palette authority in `@ahhachul/design-system`, shared token consumption by Vite/Next, and dual-app token subscription rule.
 - Follow-up: Replace residual app-local ad-hoc hex literals with semantic/shared tokens in follow-up refactor tasks.
+
+- DateTime (KST): 2026-02-17 03:45:50
+- Task ID: RF-890
+- Author/Owner: FE Lead
+- Change Type: Changed
+- Section(s): Rule 7 (Design System Token Conventions), Implementation Checklist
+- Summary: Added strict no-inline-hex policy for one-app (`className` arbitrary hex and JSX/SVG hex literals) and documented shared-token-only enforcement with scan checklist.
+- Follow-up: Expand identical no-inline-hex enforcement to phased Vite legacy migration tasks (RF-891+).

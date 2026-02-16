@@ -149,6 +149,8 @@
 - Next Tailwind color configuration must consume `tailwindColors` from `@ahhachul/design-system` and must not duplicate palette literals.
 - Both apps must subscribe to shared CSS tokens (`@ahhachul/design-system/tokens.css`) at the app entry layer.
 - Any new shared UI color token must be added in `@ahhachul/design-system` first, then consumed by apps; app-local ad-hoc hex literals are allowed only as temporary exceptions with follow-up task debt.
+- One-app `className` must not use Tailwind arbitrary hex notation (`bg-[#...]`, `text-[#...]`, `border-[#...]`); use semantic shared token classes instead.
+- One-app JSX/SVG inline color literals (`fill="#..."`, `stroke="#..."`, direct hex props) must use shared token references (`colors.*`) instead.
 
 ## Implementation Checklist
 
@@ -164,6 +166,7 @@
 - [ ] Subway/common utility helpers use shared `@ahhachul/utils` contracts (no duplicated app-local implementation bodies).
 - [ ] Shared utility behavior changes include corresponding unit tests in `@ahhachul/utils`.
 - [ ] Shared color token changes are applied in `@ahhachul/design-system` first and consumed by both apps.
+- [ ] One-app has no residual inline hex literals (`rg -n "#[0-9A-Fa-f]{3,8}" services/one-app/src`).
 - [ ] FE rulebook changes are recorded in `FE_RULEBOOK_CHANGELOG.md`.
 - [ ] FE meeting records are added as timestamped files and indexed in `FE_MEETING_LOG.md`.
 

@@ -17,7 +17,7 @@ export const socialLoginOptions: SocialLoginOption[] = [
   {
     social: 'Kakao',
     icon: KakaoIcon,
-    bgColor: 'bg-[#fee500]',
+    bgColor: 'bg-social-kakao',
     providerType: SocialSignInType.KAKAO,
   },
 ];

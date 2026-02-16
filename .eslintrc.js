@@ -122,6 +122,12 @@ module.exports = {
             message:
               'Use formatDisplayNumber or formatDisplayPrice from @ahhachul/utils instead of direct Intl.NumberFormat.',
           },
+          {
+            selector:
+              "JSXAttribute[name.name='className'] Literal[value=/\\[[^\\]]*#[0-9A-Fa-f]{3,8}[^\\]]*\\]/]",
+            message:
+              'Use shared semantic tokens from @ahhachul/design-system instead of Tailwind arbitrary hex values.',
+          },
         ],
       },
     },

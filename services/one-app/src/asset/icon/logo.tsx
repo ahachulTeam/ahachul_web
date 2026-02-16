@@ -1,4 +1,6 @@
 // todo: svgr 적용하기
+import { colors } from '@ahhachul/design-system';
+
 function LogoIcon() {
   return (
     <svg
@@ -16,7 +18,7 @@ function LogoIcon() {
         height="63"
         rx="11.5"
         fill="url(#pattern0_5921_23114)"
-        stroke="#2ACF6C"
+        stroke={colors['key-color']}
       />
       <defs>
         <pattern

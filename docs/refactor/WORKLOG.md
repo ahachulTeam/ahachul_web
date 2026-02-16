@@ -164,3 +164,10 @@
 - Summary: Built `@ahhachul/design-system` as the shared color-token source using Vite palette as single authority, migrated Vite Emotion theme colors to shared export, migrated Next Tailwind colors + semantic colors to shared tokens, and subscribed both apps to shared `tokens.css`.
 - Validation Result: Pass (`pnpm validate:full`, `pnpm install --frozen-lockfile`)
 - Follow-up: Remove remaining app-inline hex literals incrementally by replacing them with design-system semantic tokens.
+
+- DateTime (KST): 2026-02-17 03:45:50
+- Task ID: RF-890
+- Contributors: FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Removed residual inline hex usage in `services/one-app/src` by introducing shared semantic token groups (`badge/social/icon/skeleton/brand`) in `@ahhachul/design-system`, migrating Tailwind arbitrary hex classes (`bg-[#...]`) to semantic classes, and replacing inline SVG/styling hex literals with shared token references.
+- Validation Result: Pass (`pnpm validate:full`)
+- Follow-up: Apply the same semantic-token migration strategy to remaining Vite inline hex legacy files in phased RF-891 cleanup.

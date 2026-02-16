@@ -59,6 +59,29 @@ export const colors = {
     900: '#12572d',
   },
   'key-color': '#2ACF6C',
+  badge: {
+    service: '#407AD6',
+  },
+  social: {
+    kakao: '#FEE500',
+    google: {
+      blue: '#4285F4',
+      green: '#34A853',
+      yellow: '#FBBC05',
+      red: '#EA4335',
+    },
+  },
+  brand: {
+    logo: '#2EE477',
+  },
+  icon: {
+    dark: '#14181F',
+    warning: '#F05C2E',
+  },
+  skeleton: {
+    base: '#F5F5F4',
+    highlight: '#FAFAF9',
+  },
   red: '#EB4D3D',
   white: '#FFFFFF',
   black: '#272727',

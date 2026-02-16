@@ -1,76 +1,76 @@
 {
-  "updatedAt": "2026-02-16T18:34:41Z",
+  "updatedAt": "2026-02-16T18:45:50Z",
   "branch": "codex/refactor-foundation",
-  "sprintFocus": "RF-880 complete: shared design-system foundation shipped with Vite palette authority",
+  "sprintFocus": "RF-890 complete: one-app residual inline hex fully migrated to semantic/shared tokens",
   "leadDirective": [
-    "1) RF-880 completed: @ahhachul/design-system is now the shared color-token source for both products.",
-    "2) Vite Emotion theme and Next Tailwind/global styles now consume shared token exports instead of duplicated palette literals.",
-    "3) Perfectionist Validator gate passed with `pnpm validate:full` and lockfile integrity verified via `pnpm install --frozen-lockfile`.",
-    "4) Prioritize follow-up cleanup to remove remaining app-level ad-hoc hex literals via semantic token replacement."
+    "1) RF-890 completed: one-app inline hex literals are removed and replaced with shared design-system token references.",
+    "2) Added shared semantic token groups (badge/social/icon/skeleton/brand) and migrated badge/nav/header/search/icon/skeleton/auth callsites.",
+    "3) Tailwind arbitrary hex class usage is now lint-blocked for className via no-restricted-syntax policy.",
+    "4) Plan RF-891 to phase the same no-inline-hex migration across Vite legacy modules."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-880",
+      "taskId": "RF-890",
       "state": "Done",
-      "updatedAt": "2026-02-17T03:34:41+09:00",
-      "nextAction": "prioritize RF-890 to remove remaining app-level ad-hoc hex literals"
+      "updatedAt": "2026-02-17T03:45:50+09:00",
+      "nextAction": "prioritize RF-891 backlog for Vite inline-hex migration and parity guardrails"
     },
     {
       "role": "FE Lead",
       "owner": "fe-lead",
-      "taskId": "RF-880",
+      "taskId": "RF-890",
       "state": "Done",
-      "updatedAt": "2026-02-17T03:34:41+09:00",
-      "nextAction": "enforce design-system-first token policy in all new UI work"
+      "updatedAt": "2026-02-17T03:45:50+09:00",
+      "nextAction": "enforce no-inline-hex rule in all new one-app PRs and lead Vite rollout plan"
     },
     {
       "role": "FE Specialist A",
       "owner": "fe-spec-a",
-      "taskId": "RF-880",
+      "taskId": "RF-890",
       "state": "Done",
-      "updatedAt": "2026-02-17T03:34:41+09:00",
-      "nextAction": "extend shared token catalog when new cross-app color semantics are introduced"
+      "updatedAt": "2026-02-17T03:45:50+09:00",
+      "nextAction": "maintain semantic token catalog and shared color naming consistency"
     },
     {
       "role": "FE Specialist B",
       "owner": "fe-spec-b",
-      "taskId": "RF-880",
+      "taskId": "RF-890",
       "state": "Done",
-      "updatedAt": "2026-02-17T03:34:41+09:00",
-      "nextAction": "migrate residual inline hex usages to shared semantic tokens"
+      "updatedAt": "2026-02-17T03:45:50+09:00",
+      "nextAction": "continue migrating Vite residual inline hex to shared semantic tokens"
     },
     {
       "role": "Infra Engineer",
       "owner": "infra-core",
-      "taskId": "RF-880",
+      "taskId": "RF-890",
       "state": "Ready",
-      "updatedAt": "2026-02-17T03:34:41+09:00",
-      "nextAction": "monitor CI cache/runtime impact from new shared package dependency graph"
+      "updatedAt": "2026-02-17T03:45:50+09:00",
+      "nextAction": "monitor lint/runtime impact of new no-inline-hex policy in CI"
     },
     {
       "role": "QA Engineer",
       "owner": "qa-core",
-      "taskId": "RF-880",
+      "taskId": "RF-890",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T03:34:41+09:00",
-      "nextAction": "attach RF-880 validate:full and frozen-lockfile evidence to sprint artifacts"
+      "updatedAt": "2026-02-17T03:45:50+09:00",
+      "nextAction": "attach RF-890 validate:full and residual-hex scan evidence to sprint artifacts"
     },
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-880",
+      "taskId": "RF-890",
       "state": "Done",
-      "updatedAt": "2026-02-17T03:34:41+09:00",
-      "nextAction": "sync sprint board/worklog/rulebook updates with RF-880 commit boundary"
+      "updatedAt": "2026-02-17T03:45:50+09:00",
+      "nextAction": "sync RF-890 commit mapping and meeting/rulebook artifact links"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
-      "taskId": "RF-880",
+      "taskId": "RF-890",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T03:34:41+09:00",
+      "updatedAt": "2026-02-17T03:45:50+09:00",
       "nextAction": "await next QAReady handoff"
     }
   ],
@@ -730,14 +730,70 @@
       "state": "Done",
       "note": "RF-880 completed: dual-app design-system token authority is now centralized.",
       "at": "2026-02-17T03:34:41+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "FE Lead",
+      "taskId": "RF-890",
+      "state": "ASSIGNED",
+      "note": "Execute one-app residual inline hex migration to semantic/shared design tokens.",
+      "at": "2026-02-17T03:45:50+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist A",
+      "taskId": "RF-890",
+      "state": "ASSIGNED",
+      "note": "Expand design-system semantic token groups and tailwind token exposure.",
+      "at": "2026-02-17T03:45:50+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist B",
+      "taskId": "RF-890",
+      "state": "ASSIGNED",
+      "note": "Migrate one-app inline hex callsites to shared token references.",
+      "at": "2026-02-17T03:45:50+09:00"
+    },
+    {
+      "from": "FE Specialist A/B",
+      "to": "QA Engineer",
+      "taskId": "RF-890",
+      "state": "QAReady",
+      "note": "Inline hex migration complete. Request validator gate.",
+      "at": "2026-02-17T03:45:50+09:00"
+    },
+    {
+      "from": "QA Engineer",
+      "to": "Perfectionist Validator",
+      "taskId": "RF-890",
+      "state": "QAReady",
+      "note": "validate:full and one-app residual hex scan evidence attached for RF-890.",
+      "at": "2026-02-17T03:45:50+09:00"
+    },
+    {
+      "from": "Perfectionist Validator",
+      "to": "Team Lead",
+      "taskId": "RF-890",
+      "state": "ValidatorPass",
+      "note": "RF-890 gate passed with shared-token migration and lint guardrail validation.",
+      "at": "2026-02-17T03:45:50+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "All Agents",
+      "taskId": "RF-890",
+      "state": "Done",
+      "note": "RF-890 completed: one-app inline hex removed and semantic token policy enforced.",
+      "at": "2026-02-17T03:45:50+09:00"
     }
   ],
   "validator": {
     "queue": [],
     "lastGate": {
-      "taskId": "RF-880",
+      "taskId": "RF-890",
       "result": "PASS",
-      "at": "2026-02-16T18:34:41Z"
+      "at": "2026-02-16T18:45:50Z"
     }
   }
 }

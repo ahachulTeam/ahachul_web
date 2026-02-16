@@ -18,7 +18,7 @@ interface Props {
 
 export const ComplaintTypeBadge = ({ complaintType }: Props) => {
   return (
-    <div className=" h-7 text-label-small text-gray-0 px-2.5 flex items-center justify-center bg-[#407AD6] rounded-[100px] w-max">
+    <div className=" h-7 text-label-small text-gray-0 px-2.5 flex items-center justify-center bg-badge-service rounded-[100px] w-max">
       {complaintTypeOptions[complaintType]}
     </div>
   );
