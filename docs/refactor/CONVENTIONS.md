@@ -22,6 +22,8 @@
 - Boundary guard: `@nx/enforce-module-boundaries` must pass in `validate:lint`
 - Affected commands: `affected:type`, `affected:lint`, `affected:test`, `affected:build`
 - FE pod model: `FE Lead` + `FE Specialist A/B` with rule authority in `docs/refactor/FE_RULEBOOK.md`
+- FE rulebook change tracking is mandatory in `docs/refactor/FE_RULEBOOK_CHANGELOG.md`
+- FE meeting logs are timestamped files under `docs/refactor/fe-meetings` with index sync in `docs/refactor/FE_MEETING_LOG.md`
 - Utility convention baseline: shared utils are pure-first, `any`-free signatures, and parse/encode via platform primitives
 - React Query baseline: shared key factories/signature normalization + stale/gc-time and invalidation policy from `@ahhachul/domain`
 - Date formatting baseline: `formatDisplayDate` in `@ahhachul/utils` is the only app-layer entrypoint (lint-enforced)

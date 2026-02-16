@@ -1,77 +1,77 @@
 {
-  "updatedAt": "2026-02-16T17:45:17.938Z",
+  "updatedAt": "2026-02-16T18:01:13Z",
   "branch": "codex/refactor-foundation",
-  "sprintFocus": "FE convention uplift: Utility phase-2 (validation + number/price) reached validator gate",
+  "sprintFocus": "FE hooks elevation + Form/Zod schema convention rollout (RF-850) reached validator gate",
   "leadDirective": [
-    "1) RF-840 reached ValidatorPass with validate:full evidence.",
-    "2) Shared validation entrypoints are now mandatory across dual apps.",
-    "3) Shared number/price display entrypoints and lint policy are active.",
-    "4) Technical Writer finalizes sprint/worklog/rulebook sync before RF-840 commit boundary."
+    "1) RF-850 completed: Vite domain form hooks now use shared schema/form/image-submit primitives.",
+    "2) FE governance auditability is active via FE rulebook changelog + timestamped meeting logs.",
+    "3) Validator gate passed with `pnpm validate:full`; direct duplicate form orchestration is blocked in new FE work.",
+    "4) Start next FE hook tranche on cross-product generic hooks after parity readiness review."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-840",
-      "state": "ValidatorPass",
-      "updatedAt": "2026-02-16T17:44:04.055Z",
-      "nextAction": "create RF-840 task commit and close documentation sync"
+      "taskId": "RF-850",
+      "state": "Done",
+      "updatedAt": "2026-02-17T03:01:13+09:00",
+      "nextAction": "prioritize next FE hook elevation tranche backlog"
     },
     {
       "role": "FE Lead",
       "owner": "fe-lead",
-      "taskId": "RF-840",
-      "state": "ValidatorPass",
-      "updatedAt": "2026-02-16T17:44:04.055Z",
-      "nextAction": "enforce utility phase-2 baseline on all new feature PRs"
+      "taskId": "RF-850",
+      "state": "Done",
+      "updatedAt": "2026-02-17T03:01:13+09:00",
+      "nextAction": "enforce schema-first form hook policy on new features"
     },
     {
       "role": "FE Specialist A",
       "owner": "fe-spec-a",
-      "taskId": "RF-840",
-      "state": "ValidatorPass",
-      "updatedAt": "2026-02-16T17:44:04.055Z",
-      "nextAction": "maintain shared validation and number/price contracts"
+      "taskId": "RF-850",
+      "state": "Done",
+      "updatedAt": "2026-02-17T03:01:13+09:00",
+      "nextAction": "maintain shared form hook primitives and schemas"
     },
     {
       "role": "FE Specialist B",
       "owner": "fe-spec-b",
-      "taskId": "RF-840",
-      "state": "ValidatorPass",
-      "updatedAt": "2026-02-16T17:44:04.055Z",
-      "nextAction": "monitor migration regressions in app-layer forms and labels"
+      "taskId": "RF-850",
+      "state": "Done",
+      "updatedAt": "2026-02-17T03:01:13+09:00",
+      "nextAction": "continue migration of remaining duplicated form orchestration callsites"
     },
     {
       "role": "Infra Engineer",
       "owner": "infra-core",
-      "taskId": "RF-840",
+      "taskId": "RF-850",
       "state": "Ready",
-      "updatedAt": "2026-02-16T17:44:04.055Z",
-      "nextAction": "stand by for additional lint/CI guardrails if requested"
+      "updatedAt": "2026-02-17T03:01:13+09:00",
+      "nextAction": "stand by for additional lint/CI guardrails if hook package elevation starts"
     },
     {
       "role": "QA Engineer",
       "owner": "qa-core",
-      "taskId": "RF-840",
+      "taskId": "RF-850",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-16T17:44:04.055Z",
-      "nextAction": "attach RF-840 validate:full evidence to release artifacts"
+      "updatedAt": "2026-02-17T03:01:13+09:00",
+      "nextAction": "attach RF-850 validate:full evidence to sprint artifacts"
     },
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-840",
-      "state": "InProgress",
-      "updatedAt": "2026-02-16T17:44:04.055Z",
-      "nextAction": "synchronize sprint board/worklog/rulebook/meeting logs for RF-840 closeout"
+      "taskId": "RF-850",
+      "state": "Done",
+      "updatedAt": "2026-02-17T03:01:13+09:00",
+      "nextAction": "maintain FE rulebook changelog and meeting index consistency"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
-      "taskId": "RF-840",
+      "taskId": "RF-850",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-16T17:44:04.055Z",
-      "nextAction": "await commit boundary and next FE convention tranche"
+      "updatedAt": "2026-02-17T03:01:13+09:00",
+      "nextAction": "await next FE tranche QAReady handoff"
     }
   ],
   "handoffs": [
@@ -474,14 +474,86 @@
       "state": "ValidatorPass",
       "note": "RF-840 gate passed with validate:full success (type/lint/test/build).",
       "at": "2026-02-16T17:44:04.055Z"
+    },
+    {
+      "from": "Team Lead",
+      "to": "FE Lead",
+      "taskId": "RF-850",
+      "state": "ASSIGNED",
+      "note": "Analyze scattered React hooks and design Form+Zod+Schema standardization plan.",
+      "at": "2026-02-17T03:01:13+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist A",
+      "taskId": "RF-850",
+      "state": "ASSIGNED",
+      "note": "Implement shared schema/form/image orchestration primitives under domain form hooks.",
+      "at": "2026-02-17T03:01:13+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist B",
+      "taskId": "RF-850",
+      "state": "ASSIGNED",
+      "note": "Migrate community/lost-found/complaint form hooks to shared primitives.",
+      "at": "2026-02-17T03:01:13+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "Technical Writer",
+      "taskId": "RF-850",
+      "state": "ASSIGNED",
+      "note": "Add FE rulebook changelog and timestamped FE meeting log governance.",
+      "at": "2026-02-17T03:01:13+09:00"
+    },
+    {
+      "from": "FE Specialist A/B",
+      "to": "QA Engineer",
+      "taskId": "RF-850",
+      "state": "QAReady",
+      "note": "Form hook sharedization and domain migration completed. Request full validator gate.",
+      "at": "2026-02-17T03:01:13+09:00"
+    },
+    {
+      "from": "Technical Writer",
+      "to": "QA Engineer",
+      "taskId": "RF-850",
+      "state": "QAReady",
+      "note": "Rulebook changelog and meeting-log folder governance synchronized.",
+      "at": "2026-02-17T03:01:13+09:00"
+    },
+    {
+      "from": "QA Engineer",
+      "to": "Perfectionist Validator",
+      "taskId": "RF-850",
+      "state": "QAReady",
+      "note": "validate:full pass evidence attached for RF-850.",
+      "at": "2026-02-17T03:01:13+09:00"
+    },
+    {
+      "from": "Perfectionist Validator",
+      "to": "Team Lead",
+      "taskId": "RF-850",
+      "state": "ValidatorPass",
+      "note": "RF-850 gate passed with validate:full success (type/lint/test/build).",
+      "at": "2026-02-17T03:01:13+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "All Agents",
+      "taskId": "RF-850",
+      "state": "Done",
+      "note": "RF-850 finalized with hooks sharedization and FE governance audit workflow updates.",
+      "at": "2026-02-17T03:01:13+09:00"
     }
   ],
   "validator": {
     "queue": [],
     "lastGate": {
-      "taskId": "RF-840",
+      "taskId": "RF-850",
       "result": "PASS",
-      "at": "2026-02-16T17:45:17.938Z"
+      "at": "2026-02-16T18:01:13Z"
     }
   }
 }

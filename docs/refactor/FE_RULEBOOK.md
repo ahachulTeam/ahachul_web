@@ -8,12 +8,19 @@
   2. React Query conventions
   3. Date/time formatting conventions
   4. Validation + number/price formatting conventions
+  5. Form + Zod + schema hook conventions
 
 ## FE Pod Structure
 
 - FE Lead (`fe-lead`): final technical decision owner for FE architecture and conventions.
 - FE Specialist A (`fe-spec-a`): shared utility/API/query architecture.
 - FE Specialist B (`fe-spec-b`): UI-layer adoption, migration execution, and regression safety.
+
+## Rulebook Operations
+
+- Every edit to this rulebook must add one entry to `docs/refactor/FE_RULEBOOK_CHANGELOG.md` in the same commit.
+- Every FE meeting record must be stored in `docs/refactor/fe-meetings` with `YYYY-MM-DD_HHMMSS_<TOPIC>.md`.
+- `docs/refactor/FE_MEETING_LOG.md` is index-only and must be synchronized when adding a new meeting file.
 
 ## Rule 1: Utility Function Conventions (Phase 1)
 
@@ -110,6 +117,13 @@
 - Number labels/counters must use `formatDisplayNumber`.
 - Price output (if/when introduced) must use `formatDisplayPrice`.
 
+## Rule 5: Form + Zod + Schema Hook Conventions
+
+- Form hooks should use schema-driven form setup (`useSchemaForm`) as the default baseline.
+- Repeated image-upload/delete logic across post forms must use shared form hooks (`useCreatePostImageHandlers`, `useEditPostImageHandlers`).
+- Lexical content required-validation for submit/error flows must use shared submit helper (`useLexicalValidatedSubmit`).
+- Domain-specific differences (e.g., mutation target, default values) may remain local, but orchestration primitives must be shared first.
+
 ## Implementation Checklist
 
 - [ ] New utility function added with explicit input/output type.
@@ -121,6 +135,8 @@
 - [ ] User-facing date output uses `formatDisplayDate` (no direct locale/date-fns formatting in app code).
 - [ ] Validation logic uses shared `@ahhachul/utils` validators (no duplicated regex/length blocks across apps).
 - [ ] User-facing numeric labels/prices use `formatDisplayNumber` / `formatDisplayPrice`.
+- [ ] FE rulebook changes are recorded in `FE_RULEBOOK_CHANGELOG.md`.
+- [ ] FE meeting records are added as timestamped files and indexed in `FE_MEETING_LOG.md`.
 
 ## Sources (Primary)
 

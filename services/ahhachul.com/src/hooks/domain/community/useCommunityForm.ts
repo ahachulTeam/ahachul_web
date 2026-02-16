@@ -1,15 +1,19 @@
-import { useCallback } from 'react';
-import { useForm } from 'react-hook-form';
-
 import { useCreateCommunity } from '@/services/community';
 import { CommunityType, type CommunityForm } from '@/types';
-import { validateLexicalContent } from '@/utils/lexical';
+
+import {
+  MAX_POST_IMAGE_COUNT,
+  communityFormSchema,
+  useCreatePostImageHandlers,
+  useLexicalValidatedSubmit,
+  useSchemaForm,
+} from '../form';
 
 const useCommunityForm = () => {
   const { mutate: createCommunity, isPending } = useCreateCommunity();
 
-  const methods = useForm<CommunityForm>({
-    mode: 'onBlur',
+  const methods = useSchemaForm<CommunityForm>({
+    schema: communityFormSchema,
     defaultValues: {
       title: '',
       content: '',
@@ -19,58 +23,21 @@ const useCommunityForm = () => {
     },
   });
 
-  const images = methods.watch('images');
-
-  const validateContent = useCallback(
-    (content: string) => validateLexicalContent(content, methods.setError),
-    [methods.setError],
+  const { handleImageUpload, handleImageDelete } = useCreatePostImageHandlers(
+    methods,
+    MAX_POST_IMAGE_COUNT,
   );
-
-  const handleImageUpload = useCallback(
-    (files: File[]) => {
-      const fileBlob = files[0];
-      if (!fileBlob) return;
-
-      const newImages = [...images, ...files].slice(0, 5);
-
-      methods.setValue('images', newImages, { shouldDirty: true });
-    },
-    [methods.setValue, images],
-  );
-
-  const handleImageDelete = useCallback(
-    (index: number) => {
-      const targetImage = images[index];
-      if (!targetImage) return;
-
-      methods.setValue(
-        'images',
-        images.filter((_, i) => i !== index),
-        { shouldDirty: true },
-      );
-    },
-    [images, methods.setValue],
-  );
-
-  const onSubmit = useCallback(
-    (data: CommunityForm) => {
-      if (!validateContent(data.content)) return;
-
-      createCommunity(data);
-    },
-    [createCommunity, validateContent],
-  );
-
-  const onError = useCallback(() => {
-    validateContent(methods.getValues('content'));
-  }, [methods.getValues, validateContent]);
+  const { submit } = useLexicalValidatedSubmit({
+    methods,
+    onValidSubmit: createCommunity,
+  });
 
   return {
     methods,
     isPending,
     handleImageUpload,
     handleImageDelete,
-    submit: methods.handleSubmit(onSubmit, onError),
+    submit,
   };
 };
 

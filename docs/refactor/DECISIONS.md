@@ -17,3 +17,5 @@
 13. React Query conventions are standardized via `@ahhachul/domain`: shared key factories, normalized list-key signatures, and fixed stale/gc-time + invalidation policies across Vite/Next.
 14. Date formatting conventions are standardized via `@ahhachul/utils`: `formatDisplayDate` is the single app-layer entrypoint, with lint-level blocking for direct `date-fns`/`toLocale*`/`Intl.DateTimeFormat` usage.
 15. Validation and numeric display conventions are standardized via `@ahhachul/utils`: `validateNickname`/`validateRequiredLexicalContent`/`isBlankText` and `formatDisplayNumber`/`formatDisplayPrice` are shared entrypoints with lint-level blocking for direct `Intl.NumberFormat` usage in app code.
+16. FE governance artifacts are append-only and auditable: rulebook edits must be recorded in `FE_RULEBOOK_CHANGELOG.md`, and FE meeting logs must be timestamped files under `docs/refactor/fe-meetings`.
+17. Form hooks in Vite domain flows are standardized with shared schema and orchestration primitives (`useSchemaForm`, `useLexicalValidatedSubmit`, image handler hooks); cross-app hook package elevation is deferred until Next form stack converges.

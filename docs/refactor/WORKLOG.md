@@ -136,3 +136,10 @@
 - Summary: Rolled out utility convention phase-2 by adding shared validation entrypoints (`validateNickname`, `validateRequiredText`, `validateRequiredLexicalContent`, `isBlankText`, `normalizeInputText`) and numeric display entrypoints (`formatDisplayNumber`, `formatDisplayPrice`) to `@ahhachul/utils`, then migrated dual-app nickname/content/count validation/formatting callsites and expanded lint policy to block direct `Intl.NumberFormat`.
 - Validation Result: Pass (`pnpm validate:full`)
 - Follow-up: Mark RF-840 committed and continue replacing remaining app-local utility duplicates with shared contracts.
+
+- DateTime (KST): 2026-02-17
+- Task ID: RF-850
+- Contributors: FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Elevated duplicated Vite domain form hooks into shared schema/orchestration primitives (`useSchemaForm`, `useLexicalValidatedSubmit`, `useCreatePostImageHandlers`, `useEditPostImageHandlers`), migrated community/lost-found/complaint form hooks, and upgraded FE governance with rulebook changelog + timestamped meeting-log folder workflow.
+- Validation Result: Pass (`pnpm validate:full`)
+- Follow-up: Plan next tranche for cross-product generic hook elevation (`useIntersectionObserver`/timeout/debounce family) after parity readiness review.
