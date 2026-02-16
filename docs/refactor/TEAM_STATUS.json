@@ -1,76 +1,76 @@
 {
-  "updatedAt": "2026-02-16T20:45:12Z",
+  "updatedAt": "2026-02-16T20:51:11Z",
   "branch": "codex/refactor-foundation",
-  "sprintFocus": "RF-950 complete: deployment rollback/game-day rehearsal report automation added and gated",
+  "sprintFocus": "RF-960 complete: manual staging/production game-day execution checklist and dispatcher standardized",
   "leadDirective": [
-    "1) RF-950 completed: scheduled/manual rehearsal workflow now publishes smoke + rollback readiness report artifacts.",
-    "2) Added scripts/deploy-game-day-report.mjs and workflow game-day-rehearsal-report.yml for dual-product checks.",
-    "3) Validator checklist now includes report command as a blocking operational gate.",
-    "4) Next step: execute workflow in staging/production and attach artifacts to release approval evidence."
+    "1) RF-960 completed: manual operation checklist added for staging -> production game-day rehearsal order.",
+    "2) Added ops:game-day:dispatch helper for gh dispatch/watch/artifact download with dry-run support.",
+    "3) Deploy runbook and validator checklist now reference checklist-based release-ops evidence.",
+    "4) Next step: run non-dry-run staging rehearsal, then production rehearsal with archived report artifacts."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-950",
+      "taskId": "RF-960",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:45:12+09:00",
-      "nextAction": "sequence next prioritized backlog item after RF-950 closeout"
+      "updatedAt": "2026-02-17T05:51:11+09:00",
+      "nextAction": "queue next backlog item after RF-960 closeout"
     },
     {
       "role": "FE Lead",
       "owner": "fe-lead",
-      "taskId": "RF-950",
+      "taskId": "RF-960",
       "state": "Ready",
-      "updatedAt": "2026-02-17T05:45:12+09:00",
-      "nextAction": "maintain shared FE conventions while infra rehearsal evidence is collected"
+      "updatedAt": "2026-02-17T05:51:11+09:00",
+      "nextAction": "support infra rehearsal follow-up only if app regressions are reported"
     },
     {
       "role": "FE Specialist A",
       "owner": "fe-spec-a",
-      "taskId": "RF-950",
+      "taskId": "RF-960",
       "state": "Ready",
-      "updatedAt": "2026-02-17T05:45:12+09:00",
-      "nextAction": "support follow-up migrations only if validator identifies regressions"
+      "updatedAt": "2026-02-17T05:51:11+09:00",
+      "nextAction": "stand by for shared-layer patch requests from rehearsal findings"
     },
     {
       "role": "FE Specialist B",
       "owner": "fe-spec-b",
-      "taskId": "RF-950",
+      "taskId": "RF-960",
       "state": "Ready",
-      "updatedAt": "2026-02-17T05:45:12+09:00",
-      "nextAction": "monitor app-level adoption and patch regressions if detected"
+      "updatedAt": "2026-02-17T05:51:11+09:00",
+      "nextAction": "stand by for app-level patch requests from rehearsal findings"
     },
     {
       "role": "Infra Engineer",
       "owner": "infra-core",
-      "taskId": "RF-950",
+      "taskId": "RF-960",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:45:12+09:00",
-      "nextAction": "run rehearsal workflow against staging/production and archive report artifacts"
+      "updatedAt": "2026-02-17T05:51:11+09:00",
+      "nextAction": "execute non-dry-run checklist in order (staging then production)"
     },
     {
       "role": "QA Engineer",
       "owner": "qa-core",
-      "taskId": "RF-950",
+      "taskId": "RF-960",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T05:45:12+09:00",
-      "nextAction": "include game-day report outputs in release validation packet"
+      "updatedAt": "2026-02-17T05:51:11+09:00",
+      "nextAction": "collect run URL and artifact evidence for release packet"
     },
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-950",
+      "taskId": "RF-960",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:45:12+09:00",
-      "nextAction": "keep deploy runbook and validator checklist aligned with workflow updates"
+      "updatedAt": "2026-02-17T05:51:11+09:00",
+      "nextAction": "keep checklist and runbook synchronized with workflow evolution"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
-      "taskId": "RF-950",
+      "taskId": "RF-960",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T05:45:12+09:00",
+      "updatedAt": "2026-02-17T05:51:11+09:00",
       "nextAction": "await next QAReady handoff"
     }
   ],
@@ -1282,14 +1282,62 @@
       "state": "Done",
       "note": "RF-950 completed: game-day rehearsal automation and rollback-readiness reporting are now enforced.",
       "at": "2026-02-17T05:45:12+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "Infra Engineer",
+      "taskId": "RF-960",
+      "state": "ASSIGNED",
+      "note": "Add manual staging/production game-day execution checklist and operator dispatch helper.",
+      "at": "2026-02-17T05:48:00+09:00"
+    },
+    {
+      "from": "Infra Engineer",
+      "to": "QA Engineer",
+      "taskId": "RF-960",
+      "state": "QAReady",
+      "note": "gh dispatch helper and checklist delivered. Dry-run verification attached.",
+      "at": "2026-02-17T05:50:20+09:00"
+    },
+    {
+      "from": "QA Engineer",
+      "to": "Perfectionist Validator",
+      "taskId": "RF-960",
+      "state": "QAReady",
+      "note": "validate:full and manual-dispatch dry-run evidence attached for RF-960.",
+      "at": "2026-02-17T05:50:20+09:00"
+    },
+    {
+      "from": "Perfectionist Validator",
+      "to": "Team Lead",
+      "taskId": "RF-960",
+      "state": "ValidatorPass",
+      "note": "RF-960 gate passed with validate:full success and dry-run dispatch verification.",
+      "at": "2026-02-17T05:51:11+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "Technical Writer",
+      "taskId": "RF-960",
+      "state": "COMMITTED",
+      "note": "Sync checklist/runbook/sprint artifacts and finalize single-task commit.",
+      "at": "2026-02-17T05:51:11+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "All Agents",
+      "taskId": "RF-960",
+      "state": "Done",
+      "note": "RF-960 completed: manual game-day staging/production checklist and dispatcher are standardized.",
+      "at": "2026-02-17T05:51:11+09:00"
     }
   ],
   "validator": {
     "queue": [],
     "lastGate": {
-      "taskId": "RF-950",
+      "taskId": "RF-960",
       "result": "PASS",
-      "at": "2026-02-16T20:44:06Z"
+      "at": "2026-02-16T20:51:11Z"
     }
   }
 }

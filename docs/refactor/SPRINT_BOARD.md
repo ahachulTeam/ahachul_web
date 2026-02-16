@@ -55,7 +55,8 @@
 | RF-920 | 12     | Shared API/domain type contract consolidation              | FE Lead           | Done   | 5a386f91 | Promoted `ApiResponse`/pagination/id canonical contracts to `@ahhachul/domain` and migrated dual-app common types to aliases |
 | RF-930 | 13     | Endpoint literal ban automation (`lint + scan + CI`)       | FE Lead           | Done   | 7e06d138 | Enforced API endpoint literal prohibition with ESLint, AST scan script, and CI blocking gate                                 |
 | RF-940 | 13     | Design-system exception removal (`icons/subway` tokenized) | FE Lead           | Done   | 6ac6132e | Removed RF-891 exception files by tokenizing Vite icon/subway color literals into shared design-system tokens                |
-| RF-950 | 13     | Deployment rollback/game-day rehearsal report automation   | Infra Engineer    | Done   | pending  | Added scheduled+manual rehearsal workflow and report gate for smoke + rollback readiness checks                              |
+| RF-950 | 13     | Deployment rollback/game-day rehearsal report automation   | Infra Engineer    | Done   | 22b4929a | Added scheduled+manual rehearsal workflow and report gate for smoke + rollback readiness checks                              |
+| RF-960 | 13     | Game-day manual execution checklist (`staging/production`) | Infra Engineer    | Done   | pending  | Added gh dispatch helper and operator checklist for staged+production rehearsal execution and evidence collection            |
 
 ## Rule
 

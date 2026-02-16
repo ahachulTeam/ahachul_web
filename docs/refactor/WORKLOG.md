@@ -227,3 +227,10 @@
 - Summary: Added deployment game-day rehearsal automation by introducing `scripts/deploy-game-day-report.mjs`, wiring weekly/manual workflow execution in `.github/workflows/game-day-rehearsal-report.yml`, and extending deploy/validator docs to enforce smoke + rollback-readiness reporting as a blocking operational gate.
 - Validation Result: Pass (`pnpm validate:full`)
 - Follow-up: Run the workflow in GitHub Actions with real `staging` and `production` inputs, then attach generated report artifacts to release approval evidence.
+
+- DateTime (KST): 2026-02-17 05:49:14
+- Task ID: RF-960
+- Contributors: Infra Engineer, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Added manual game-day operation layer with `scripts/dispatch-game-day-workflow.mjs` (gh workflow dispatch/watch/artifact-download) and `docs/refactor/GAME_DAY_MANUAL_CHECKLIST.md` for staged+production execution, decision gates, failure handling, and evidence template.
+- Validation Result: Pass (`pnpm ops:game-day:dispatch -- --environment=all --watch=true --download=true --dry-run=true`, `pnpm validate:full`)
+- Follow-up: Execute non-dry-run staging rehearsal first, then production rehearsal after explicit gate approval and archive both report artifacts.

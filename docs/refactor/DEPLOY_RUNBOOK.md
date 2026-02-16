@@ -66,3 +66,9 @@
 
 - Example:
   - `pnpm ops:game-day-report -- --environment=production --vite-base-url=<vite-url> --next-base-url=<next-url> --s3-bucket=<bucket> --ecs-cluster=<cluster> --ecs-service=<service> --output=artifacts/game-day-report.md`
+- Workflow dispatch via GitHub CLI:
+  - `pnpm ops:game-day:dispatch -- --environment=staging --watch=true --download=true`
+  - `pnpm ops:game-day:dispatch -- --environment=production --watch=true --download=true`
+  - `pnpm ops:game-day:dispatch -- --environment=all --watch=true --download=true`
+- Full operational checklist:
+  - `docs/refactor/GAME_DAY_MANUAL_CHECKLIST.md`
