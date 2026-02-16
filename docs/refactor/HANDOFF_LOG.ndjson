@@ -21,3 +21,11 @@
 {"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-710","state":"QAReady","note":"Final validate:full evidence attached. Request release gate.","at":"2026-02-17T01:40:41+09:00"}
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-710","state":"ValidatorPass","note":"Final release gate passed with validate:full success.","at":"2026-02-17T01:40:41+09:00"}
 {"from":"Team Lead","to":"All Agents","taskId":"RF-710","state":"Done","note":"Final release gate passed. Sprint backlog closed and artifacts synchronized.","at":"2026-02-17T01:41:40+09:00"}
+{"from":"Team Lead","to":"FE Lead","taskId":"RF-800","state":"ASSIGNED","note":"Promote FE governance: appoint FE Lead and launch convention council with web research.","at":"2026-02-17T01:54:04+09:00"}
+{"from":"FE Lead","to":"FE Specialist A","taskId":"RF-810","state":"ASSIGNED","note":"Implement shared lexical utility consolidation in @ahhachul/utils.","at":"2026-02-17T01:54:04+09:00"}
+{"from":"FE Lead","to":"FE Specialist B","taskId":"RF-810","state":"ASSIGNED","note":"Implement object/query utility hardening and typing baseline.","at":"2026-02-17T01:54:04+09:00"}
+{"from":"FE Lead","to":"Technical Writer","taskId":"RF-800","state":"IN_PROGRESS","note":"Document FE meeting minutes and publish FE rulebook with primary sources.","at":"2026-02-17T01:54:04+09:00"}
+{"from":"FE Lead","to":"QA Engineer","taskId":"RF-800","state":"QAReady","note":"FE rulebook and meeting outcomes documented. Request quality gate.","at":"2026-02-17T01:56:20+09:00"}
+{"from":"FE Specialist A/B","to":"QA Engineer","taskId":"RF-810","state":"QAReady","note":"Utility convention phase-1 code changes complete. Request regression and gate.","at":"2026-02-17T01:56:20+09:00"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-810","state":"QAReady","note":"validate:full pass evidence attached for FE utility convention rollout.","at":"2026-02-17T01:56:20+09:00"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-810","state":"ValidatorPass","note":"RF-800/RF-810 gate passed (type/lint/test/build) with no blocking failures.","at":"2026-02-17T01:56:20+09:00"}

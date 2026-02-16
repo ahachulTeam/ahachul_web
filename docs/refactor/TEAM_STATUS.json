@@ -1,60 +1,77 @@
 {
-  "updatedAt": "2026-02-17T01:41:40+09:00",
+  "updatedAt": "2026-02-17T01:56:20+09:00",
   "branch": "codex/refactor-foundation",
-  "sprintFocus": "Sprint 7 closeout: final validator approval and release artifact synchronization",
+  "sprintFocus": "FE convention uplift: FE pod expansion + utility convention phase-1 enforcement",
   "leadDirective": [
-    "1) RF-710 release gate completed and sprint execution is finished.",
-    "2) Keep team:watch and memory artifacts as the canonical session handoff source.",
-    "3) Any follow-up work must open a new task ID with the same validator gate policy."
+    "1) RF-800/RF-810 validator gate passed; Technical Writer synchronizes artifacts for commit boundary.",
+    "2) FE Lead confirms utility convention phase-1 is baseline for upcoming FE tasks.",
+    "3) Team Lead keeps FE pod model active for next convention rollouts.",
+    "4) Perfectionist Validator remains blocking authority for follow-up FE tasks."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-710",
-      "state": "Done",
-      "updatedAt": "2026-02-17T01:41:40+09:00",
-      "nextAction": "sprint closed; wait for new backlog"
+      "taskId": "RF-810",
+      "state": "ValidatorPass",
+      "updatedAt": "2026-02-17T01:56:20+09:00",
+      "nextAction": "create task commit and close RF-800/RF-810 boundary"
     },
     {
-      "role": "FE Engineer",
-      "owner": "fe-core",
-      "taskId": "RF-710",
-      "state": "Done",
-      "updatedAt": "2026-02-17T01:41:40+09:00",
-      "nextAction": "sprint closed; wait for new backlog"
+      "role": "FE Lead",
+      "owner": "fe-lead",
+      "taskId": "RF-800",
+      "state": "ValidatorPass",
+      "updatedAt": "2026-02-17T01:56:20+09:00",
+      "nextAction": "approve rulebook baseline and kickoff next FE convention slice"
+    },
+    {
+      "role": "FE Specialist A",
+      "owner": "fe-spec-a",
+      "taskId": "RF-810",
+      "state": "ValidatorPass",
+      "updatedAt": "2026-02-17T01:56:20+09:00",
+      "nextAction": "prepare phase-2 shared utility migration candidates"
+    },
+    {
+      "role": "FE Specialist B",
+      "owner": "fe-spec-b",
+      "taskId": "RF-810",
+      "state": "ValidatorPass",
+      "updatedAt": "2026-02-17T01:56:20+09:00",
+      "nextAction": "monitor regression and adoption in app-layer utilities"
     },
     {
       "role": "Infra Engineer",
       "owner": "infra-core",
-      "taskId": "RF-710",
-      "state": "Done",
-      "updatedAt": "2026-02-17T01:41:40+09:00",
-      "nextAction": "sprint closed; wait for new backlog"
+      "taskId": "RF-810",
+      "state": "Ready",
+      "updatedAt": "2026-02-17T01:56:20+09:00",
+      "nextAction": "stand by for CI policy codification if requested"
     },
     {
       "role": "QA Engineer",
       "owner": "qa-core",
-      "taskId": "RF-710",
-      "state": "Done",
-      "updatedAt": "2026-02-17T01:41:40+09:00",
-      "nextAction": "sprint closed; wait for new backlog"
+      "taskId": "RF-810",
+      "state": "ValidatorPass",
+      "updatedAt": "2026-02-17T01:56:20+09:00",
+      "nextAction": "attach final gate evidence to worklog and sprint board"
     },
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-710",
-      "state": "Done",
-      "updatedAt": "2026-02-17T01:41:40+09:00",
-      "nextAction": "sprint closed; wait for new backlog"
+      "taskId": "RF-800",
+      "state": "InProgress",
+      "updatedAt": "2026-02-17T01:56:20+09:00",
+      "nextAction": "sync FE rulebook + meeting log + sprint artifacts before commit"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
-      "taskId": "RF-710",
-      "state": "Done",
-      "updatedAt": "2026-02-17T01:41:40+09:00",
-      "nextAction": "sprint closed; wait for new backlog"
+      "taskId": "RF-810",
+      "state": "ValidatorPass",
+      "updatedAt": "2026-02-17T01:56:20+09:00",
+      "nextAction": "await new FE task entering QAReady"
     }
   ],
   "handoffs": [
@@ -241,14 +258,78 @@
       "state": "Done",
       "note": "Final release gate passed. Sprint backlog closed and artifacts synchronized.",
       "at": "2026-02-17T01:41:40+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "FE Lead",
+      "taskId": "RF-800",
+      "state": "ASSIGNED",
+      "note": "Promote FE governance: appoint FE Lead and launch convention council with web research.",
+      "at": "2026-02-17T01:54:04+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist A",
+      "taskId": "RF-810",
+      "state": "ASSIGNED",
+      "note": "Implement shared lexical utility consolidation in @ahhachul/utils.",
+      "at": "2026-02-17T01:54:04+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist B",
+      "taskId": "RF-810",
+      "state": "ASSIGNED",
+      "note": "Implement object/query utility hardening and typing baseline.",
+      "at": "2026-02-17T01:54:04+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "Technical Writer",
+      "taskId": "RF-800",
+      "state": "IN_PROGRESS",
+      "note": "Document FE meeting minutes and publish FE rulebook with primary sources.",
+      "at": "2026-02-17T01:54:04+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "QA Engineer",
+      "taskId": "RF-800",
+      "state": "QAReady",
+      "note": "FE rulebook and meeting outcomes documented. Request quality gate.",
+      "at": "2026-02-17T01:56:20+09:00"
+    },
+    {
+      "from": "FE Specialist A/B",
+      "to": "QA Engineer",
+      "taskId": "RF-810",
+      "state": "QAReady",
+      "note": "Utility convention phase-1 code changes complete. Request regression and gate.",
+      "at": "2026-02-17T01:56:20+09:00"
+    },
+    {
+      "from": "QA Engineer",
+      "to": "Perfectionist Validator",
+      "taskId": "RF-810",
+      "state": "QAReady",
+      "note": "validate:full pass evidence attached for FE utility convention rollout.",
+      "at": "2026-02-17T01:56:20+09:00"
+    },
+    {
+      "from": "Perfectionist Validator",
+      "to": "Team Lead",
+      "taskId": "RF-810",
+      "state": "ValidatorPass",
+      "note": "RF-800/RF-810 gate passed (type/lint/test/build) with no blocking failures.",
+      "at": "2026-02-17T01:56:20+09:00"
     }
   ],
   "validator": {
     "queue": [],
     "lastGate": {
-      "taskId": "RF-710",
+      "taskId": "RF-810",
       "result": "PASS",
-      "at": "2026-02-17T01:40:41+09:00"
+      "at": "2026-02-17T01:56:20+09:00"
     }
   }
 }

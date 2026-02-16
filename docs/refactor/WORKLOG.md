@@ -101,3 +101,17 @@
 - Summary: Executed final release gate by rerunning `validate:full`, confirmed validator queue drain, and synchronized sprint board/team status/handoff memory artifacts for sprint closure.
 - Validation Result: Pass (`pnpm validate:full`)
 - Follow-up: None. Sprint backlog closed.
+
+- DateTime (KST): 2026-02-17
+- Task ID: RF-800
+- Contributors: FE Lead, FE Specialist A, FE Specialist B, Technical Writer
+- Summary: Upgraded FE pod structure to `FE Lead + FE Specialist A/B`, ran convention council with primary-source research, and published FE convention artifacts (`FE_RULEBOOK.md`, `FE_MEETING_LOG.md`).
+- Validation Result: Pass (`pnpm team:status` + validator handoff synchronization)
+- Follow-up: Continue utility convention phase-2 expansion after RF-810 commit.
+
+- DateTime (KST): 2026-02-17
+- Task ID: RF-810
+- Contributors: FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator
+- Summary: Enforced utility phase-1 by consolidating lexical parsing helpers into `@ahhachul/utils`, removing duplicated app implementations, and hardening shared object/query utility typing/parsing with `URLSearchParams`.
+- Validation Result: Pass (`pnpm validate:full`)
+- Follow-up: Expand shared utility migration to date/subway/domain formatting helpers.
