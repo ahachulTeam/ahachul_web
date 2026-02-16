@@ -136,3 +136,11 @@
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-930","state":"ValidatorPass","note":"RF-930 gate passed: endpoint literal policy is now lint/scan/CI blocking.","at":"2026-02-17T05:30:11+09:00"}
 {"from":"Team Lead","to":"Technical Writer","taskId":"RF-930","state":"COMMITTED","note":"Synchronize sprint/rulebook/checklist/team-memory artifacts before commit.","at":"2026-02-17T05:30:11+09:00"}
 {"from":"Team Lead","to":"All Agents","taskId":"RF-930","state":"Done","note":"RF-930 completed: endpoint literal policy shifted from documentation to automation.","at":"2026-02-17T05:30:11+09:00"}
+{"from":"Team Lead","to":"FE Lead","taskId":"RF-940","state":"ASSIGNED","note":"Remove RF-891 design-system exception scope by full icon/subway tokenization.","at":"2026-02-17T05:36:23+09:00"}
+{"from":"FE Lead","to":"FE Specialist A","taskId":"RF-940","state":"ASSIGNED","note":"Add missing icon/subway fallback semantic tokens in @ahhachul/design-system.","at":"2026-02-17T05:36:23+09:00"}
+{"from":"FE Lead","to":"FE Specialist B","taskId":"RF-940","state":"ASSIGNED","note":"Migrate Vite icon/subway exception files to shared tokens and remove literals.","at":"2026-02-17T05:36:23+09:00"}
+{"from":"FE Specialist A/B","to":"QA Engineer","taskId":"RF-940","state":"QAReady","note":"Exception-file tokenization complete. Request blocking gate.","at":"2026-02-17T05:36:23+09:00"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-940","state":"QAReady","note":"validate:full pass and zero-residual-hex scan evidence attached for RF-940.","at":"2026-02-17T05:36:23+09:00"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-940","state":"ValidatorPass","note":"RF-940 gate passed: no Vite source inline-hex exceptions remain.","at":"2026-02-17T05:36:23+09:00"}
+{"from":"Team Lead","to":"Technical Writer","taskId":"RF-940","state":"COMMITTED","note":"Synchronize sprint/rulebook/checklist/team-memory artifacts before commit.","at":"2026-02-17T05:36:23+09:00"}
+{"from":"Team Lead","to":"All Agents","taskId":"RF-940","state":"Done","note":"RF-940 completed: design-system exception scope removed and token policy fully normalized.","at":"2026-02-17T05:36:23+09:00"}

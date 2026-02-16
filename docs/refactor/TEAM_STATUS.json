@@ -1,76 +1,76 @@
 {
-  "updatedAt": "2026-02-16T20:30:11Z",
+  "updatedAt": "2026-02-16T20:36:23Z",
   "branch": "codex/refactor-foundation",
-  "sprintFocus": "RF-930 complete: endpoint literal policy is now lint/scan/CI blocking",
+  "sprintFocus": "RF-940 complete: design-system exception scope removed (icons/subway fully tokenized)",
   "leadDirective": [
-    "1) RF-930 completed: API endpoint literal policy is now automatically enforced (not review-only).",
-    "2) Added AST scan gate (`validate:api-contract`) and wired it into `validate:full` + CI.",
-    "3) Added ESLint restrictions for literal network call arguments and migrated one-app internal refresh endpoint to centralized contract constants.",
-    "4) Next step is RF-940: remove design-system exception scopes (icons/subway) via full tokenization."
+    "1) RF-940 completed: RF-891 exception files are fully tokenized and removed from exception scope.",
+    "2) Added shared icon/subway fallback tokens in @ahhachul/design-system and migrated Vite icon/subway modules.",
+    "3) Residual-hex policy is now zero-exception for Vite source (excluding only raw .svg assets).",
+    "4) Next task is RF-950: rollout rollback/game-day rehearsal automation report in CI/CD operations."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-930",
+      "taskId": "RF-940",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:30:11+09:00",
-      "nextAction": "start RF-940 tokenization for icon/subway exception removal"
+      "updatedAt": "2026-02-17T05:36:23+09:00",
+      "nextAction": "start RF-950 rollback/game-day automation reporting"
     },
     {
       "role": "FE Lead",
       "owner": "fe-lead",
-      "taskId": "RF-930",
+      "taskId": "RF-940",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:30:11+09:00",
-      "nextAction": "enforce endpoint literal automation baseline for all new API modules"
+      "updatedAt": "2026-02-17T05:36:23+09:00",
+      "nextAction": "keep icon/subway contributions token-first with zero inline-hex exceptions"
     },
     {
       "role": "FE Specialist A",
       "owner": "fe-spec-a",
-      "taskId": "RF-930",
+      "taskId": "RF-940",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:30:11+09:00",
-      "nextAction": "maintain and extend AST scan patterns with API contract growth"
+      "updatedAt": "2026-02-17T05:36:23+09:00",
+      "nextAction": "maintain expanded icon/subway token sets in design-system"
     },
     {
       "role": "FE Specialist B",
       "owner": "fe-spec-b",
-      "taskId": "RF-930",
+      "taskId": "RF-940",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:30:11+09:00",
-      "nextAction": "migrate any future internal API literals into centralized contract constants"
+      "updatedAt": "2026-02-17T05:36:23+09:00",
+      "nextAction": "ensure future icon assets consume shared token constants"
     },
     {
       "role": "Infra Engineer",
       "owner": "infra-core",
-      "taskId": "RF-930",
-      "state": "Done",
-      "updatedAt": "2026-02-17T05:30:11+09:00",
-      "nextAction": "keep CI gate ordering stable and monitor runtime impact"
+      "taskId": "RF-940",
+      "state": "Ready",
+      "updatedAt": "2026-02-17T05:36:23+09:00",
+      "nextAction": "prepare game-day and rollback rehearsal report automation in workflows"
     },
     {
       "role": "QA Engineer",
       "owner": "qa-core",
-      "taskId": "RF-930",
+      "taskId": "RF-940",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T05:30:11+09:00",
-      "nextAction": "keep validate:api-contract evidence in every validator packet"
+      "updatedAt": "2026-02-17T05:36:23+09:00",
+      "nextAction": "keep zero-residual-hex scan evidence in validator packet"
     },
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-930",
+      "taskId": "RF-940",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:30:11+09:00",
-      "nextAction": "synchronize rulebook/checklist/sprint/worklog/team logs per task"
+      "updatedAt": "2026-02-17T05:36:23+09:00",
+      "nextAction": "sync exception-removal policy updates across refactor artifacts"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
-      "taskId": "RF-930",
+      "taskId": "RF-940",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T05:30:11+09:00",
+      "updatedAt": "2026-02-17T05:36:23+09:00",
       "nextAction": "await next QAReady handoff"
     }
   ],
@@ -1170,14 +1170,78 @@
       "state": "Done",
       "note": "RF-930 completed: endpoint literal policy shifted from documentation to automation.",
       "at": "2026-02-17T05:30:11+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "FE Lead",
+      "taskId": "RF-940",
+      "state": "ASSIGNED",
+      "note": "Remove RF-891 design-system exception scope by full icon/subway tokenization.",
+      "at": "2026-02-17T05:36:23+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist A",
+      "taskId": "RF-940",
+      "state": "ASSIGNED",
+      "note": "Add missing icon/subway fallback semantic tokens in @ahhachul/design-system.",
+      "at": "2026-02-17T05:36:23+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist B",
+      "taskId": "RF-940",
+      "state": "ASSIGNED",
+      "note": "Migrate Vite icon/subway exception files to shared tokens and remove literals.",
+      "at": "2026-02-17T05:36:23+09:00"
+    },
+    {
+      "from": "FE Specialist A/B",
+      "to": "QA Engineer",
+      "taskId": "RF-940",
+      "state": "QAReady",
+      "note": "Exception-file tokenization complete. Request blocking gate.",
+      "at": "2026-02-17T05:36:23+09:00"
+    },
+    {
+      "from": "QA Engineer",
+      "to": "Perfectionist Validator",
+      "taskId": "RF-940",
+      "state": "QAReady",
+      "note": "validate:full pass and zero-residual-hex scan evidence attached for RF-940.",
+      "at": "2026-02-17T05:36:23+09:00"
+    },
+    {
+      "from": "Perfectionist Validator",
+      "to": "Team Lead",
+      "taskId": "RF-940",
+      "state": "ValidatorPass",
+      "note": "RF-940 gate passed: no Vite source inline-hex exceptions remain.",
+      "at": "2026-02-17T05:36:23+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "Technical Writer",
+      "taskId": "RF-940",
+      "state": "COMMITTED",
+      "note": "Synchronize sprint/rulebook/checklist/team-memory artifacts before commit.",
+      "at": "2026-02-17T05:36:23+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "All Agents",
+      "taskId": "RF-940",
+      "state": "Done",
+      "note": "RF-940 completed: design-system exception scope removed and token policy fully normalized.",
+      "at": "2026-02-17T05:36:23+09:00"
     }
   ],
   "validator": {
     "queue": [],
     "lastGate": {
-      "taskId": "RF-930",
+      "taskId": "RF-940",
       "result": "PASS",
-      "at": "2026-02-16T20:30:11Z"
+      "at": "2026-02-16T20:36:23Z"
     }
   }
 }

@@ -30,6 +30,7 @@
   --ah-color-subway-wuisinseol: #8cc2a7;
   --ah-color-subway-gimpo-gold: #907227;
   --ah-color-subway-sinlim: #5367a0;
+  --ah-color-subway-fallback: rgba(255, 255, 255, 0.04);
 
   --ah-color-gray-10: #fcfcfc;
   --ah-color-gray-20: #f5f5f5;
@@ -63,6 +64,12 @@
   --ah-color-brand-logo: #2ee477;
   --ah-color-icon-dark: #14181f;
   --ah-color-icon-warning: #f05c2e;
+  --ah-color-icon-disabled: #999999;
+  --ah-color-icon-neutral: #a5a5a5;
+  --ah-color-icon-muted: #8f8f8f;
+  --ah-color-icon-success: #29e236;
+  --ah-color-icon-danger: #ff3f3f;
+  --ah-color-icon-light: #fbfbfb;
   --ah-color-skeleton-base: #f5f5f4;
   --ah-color-skeleton-highlight: #fafaf9;
   --ah-color-red: #eb4d3d;

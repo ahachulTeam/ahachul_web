@@ -153,9 +153,7 @@
 - One-app `className` must not use Tailwind arbitrary hex notation (`bg-[#...]`, `text-[#...]`, `border-[#...]`); use semantic shared token classes instead.
 - One-app JSX/SVG inline color literals (`fill="#..."`, `stroke="#..."`, direct hex props) must use shared token references (`colors.*`) instead.
 - Vite Emotion/styled layer must not use direct hex literals in `styled.*`, Emotion `css`, or inline style objects; use shared tokens (`theme.colors.*` or `var(--ah-color-*)`) from `@ahhachul/design-system`.
-- Temporary Vite exception scope is limited to:
-  - raw icon source literals in `services/ahhachul.com/src/assets/icons/jsx/icons.tsx`
-  - subway line canonical color mapping in `services/ahhachul.com/src/constants/subway.tsx`
+- Temporary exception scope is removed. Vite source has zero approved inline-hex exception files.
 
 ## Rule 8: Shared Component + Storybook Conventions
 
@@ -273,7 +271,7 @@
 - [ ] Shared utility behavior changes include corresponding unit tests in `@ahhachul/utils`.
 - [ ] Shared color token changes are applied in `@ahhachul/design-system` first and consumed by both apps.
 - [ ] One-app has no residual inline hex literals (`rg -n "#[0-9A-Fa-f]{3,8}" services/one-app/src`).
-- [ ] Vite Emotion/styled layer has no residual inline hex literals outside approved exceptions (`rg -n "#[0-9A-Fa-f]{3,8}" services/ahhachul.com/src --glob '!**/*.svg' | grep -v 'assets/icons/jsx/icons.tsx' | grep -v 'constants/subway.tsx'`).
+- [ ] Vite source has no residual inline hex literals (`rg -n "#[0-9A-Fa-f]{3,8}" services/ahhachul.com/src --glob '!**/*.svg'`).
 - [ ] Shared component promotion criteria (Rule 8) are satisfied before extraction.
 - [ ] New shared component includes Storybook stories and `CI=1 pnpm ui:storybook:build` passes.
 - [ ] Navigation components follow shell/adaptor split (shared presentation + app-local routing/orchestration).

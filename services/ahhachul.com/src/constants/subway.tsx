@@ -1,4 +1,6 @@
 /* eslint-disable react/jsx-key */
+import { colors } from '@ahhachul/design-system';
+
 import * as Icons from '@/assets/icons/subway';
 import {
   CurrentTrainArrivalType,
@@ -63,47 +65,29 @@ export const trainArrivalCodeMap: Record<CurrentTrainArrivalType, string> = {
   RUNNING: '운행중',
 } as const;
 
+const subwayLineColorMap: Record<number, string> = {
+  1: colors.subway.s1,
+  2: colors.subway.s2,
+  3: colors.subway.s3,
+  4: colors.subway.s4,
+  5: colors.subway.s5,
+  6: colors.subway.s6,
+  7: colors.subway.s7,
+  8: colors.subway.s8,
+  9: colors.subway.s9,
+  10: colors.subway.gyeonggang,
+  11: colors.subway.gyeongui,
+  12: colors.subway.gyeongchun,
+  13: colors.subway.airport,
+  14: colors.subway.incheon1,
+  15: colors.subway.seohae,
+  16: colors.subway.suinBundang,
+  18: colors.subway.sinBundang,
+  20: colors.subway.wuisinseol,
+};
+
 export const subwayLineHexColors = (line: number) => {
-  switch (line) {
-    case 1:
-      return '#0052A4';
-    case 2:
-      return '#00A84D';
-    case 3:
-      return '#EF7C1C';
-    case 4:
-      return '#00A4E3';
-    case 5:
-      return '#996cac';
-    case 6:
-      return '#CD7C2F';
-    case 7:
-      return '#747F00';
-    case 8:
-      return '#E6186C';
-    case 9:
-      return '#BDB092';
-    case 10:
-      return '#0054a6';
-    case 11:
-      return '#77C4A3';
-    case 12:
-      return '#0054a6';
-    case 13:
-      return '#0090D2';
-    case 14:
-      return '#6789CA';
-    case 15:
-      return '#0054A6';
-    case 16:
-      return '#FABE00';
-    case 18:
-      return '#D31145';
-    case 20:
-      return '#B7C450';
-    default:
-      return 'rgba(255, 255, 255, 0.04)';
-  }
+  return subwayLineColorMap[line] ?? colors.subway.fallback;
 };
 
 export const defaultStationList: UserStationList = [

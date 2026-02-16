@@ -213,3 +213,10 @@
 - Summary: Converted API endpoint literal policy into an automatic blocking system by adding ESLint restrictions for literal network call arguments, introducing `scripts/scan-api-endpoint-literals.mjs` (AST-based scan), wiring `validate:api-contract` into `validate:full`, adding CI gate step in `.github/workflows/ci.yml`, and centralizing one-app internal refresh endpoint into `INTERNAL_API_PATHS`.
 - Validation Result: Pass (`pnpm validate:api-contract`, `pnpm validate:full`)
 - Follow-up: Keep scan patterns aligned with API contract evolution and reject any new literal endpoint callsites outside approved contract files.
+
+- DateTime (KST): 2026-02-17 05:36:23
+- Task ID: RF-940
+- Contributors: FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Completed RF-891 exception cleanup by extending shared design-system tokens (`colors.icon.{disabled,neutral,muted,success,danger,light}`, `colors.subway.fallback`), migrating Vite icon SVG color literals and subway line color switch logic to shared tokens, and upgrading residual-hex policy to zero exception files.
+- Validation Result: Pass (`pnpm validate:full`, `rg -n \"#[0-9A-Fa-f]{3,8}\" services/ahhachul.com/src --glob '!**/*.svg'` => no match)
+- Follow-up: Keep all future icon/subway palette updates token-first in `@ahhachul/design-system`.

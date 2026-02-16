@@ -33,6 +33,7 @@ export const colors = {
     wuisinseol: '#8CC2A7',
     gimpoGold: '#907227',
     sinlim: '#5367A0',
+    fallback: 'rgba(255, 255, 255, 0.04)',
   },
   gray: {
     10: '#FCFCFC',
@@ -77,6 +78,12 @@ export const colors = {
   icon: {
     dark: '#14181F',
     warning: '#F05C2E',
+    disabled: '#999999',
+    neutral: '#A5A5A5',
+    muted: '#8F8F8F',
+    success: '#29E236',
+    danger: '#FF3F3F',
+    light: '#FBFBFB',
   },
   skeleton: {
     base: '#F5F5F4',

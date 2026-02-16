@@ -133,3 +133,11 @@ Track every modification to `FE_RULEBOOK.md` in chronological order.
 - Section(s): Rule 9 (Automatic Enforcement Gate), Implementation Checklist
 - Summary: Upgraded endpoint literal policy from review-only to automatic blocking via lint restriction and `validate:api-contract` AST scan gate; documented approved contract-file exception boundary.
 - Follow-up: Keep scan pattern list synchronized with API contract growth and fail CI on any newly introduced network-call endpoint literal.
+
+- DateTime (KST): 2026-02-17 05:36:23
+- Task ID: RF-940
+- Author/Owner: FE Lead
+- Change Type: Changed
+- Section(s): Rule 7 (Design System Token Conventions), Implementation Checklist
+- Summary: Removed RF-891 temporary exception scope by fully tokenizing Vite icon/subway files and upgraded residual-hex policy to zero-exception scan across Vite source.
+- Follow-up: Keep all future icon/subway color additions token-first in `@ahhachul/design-system` and reject any inline hex reintroduction.
