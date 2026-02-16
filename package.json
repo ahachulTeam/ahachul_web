@@ -24,7 +24,9 @@
     "validate:lint": "nx run-many --target=lint --all --parallel=3",
     "validate:test": "nx run-many --target=test --all --parallel=3",
     "validate:build": "nx run-many --target=build --all --parallel=3",
-    "validate:full": "pnpm validate:type && pnpm validate:lint && pnpm validate:test && pnpm validate:build"
+    "validate:full": "pnpm validate:type && pnpm validate:lint && pnpm validate:test && pnpm validate:build",
+    "team:status": "node ./scripts/refactor-team-dashboard.mjs",
+    "team:watch": "node ./scripts/refactor-team-dashboard.mjs --watch"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",

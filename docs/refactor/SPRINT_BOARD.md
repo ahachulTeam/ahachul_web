@@ -24,6 +24,7 @@
 | ID     | Sprint | Task                                                   | Owner            | Status | Commit   | Notes                                                                                |
 | ------ | ------ | ------------------------------------------------------ | ---------------- | ------ | -------- | ------------------------------------------------------------------------------------ |
 | RF-000 | 0      | Governance docs and persistent memory files            | Technical Writer | Done   | c289a8da | Initial baseline artifacts                                                           |
+| RF-020 | 0      | Real-time team visibility dashboard                    | Technical Writer | Done   | pending  | Added live team status viewer and handoff log contract                               |
 | RF-100 | 1      | Nx workspace boundary and shared architecture baseline | Infra            | Todo   | -        | -                                                                                    |
 | RF-200 | 2      | Introduce shared packages (`domain/http/seo/routes`)   | FE               | Done   | 336e1eb5 | Shared package skeleton + Next SEO integration baseline                              |
 | RF-300 | 3      | Fix critical Next defects                              | FE               | Done   | 24b05f60 | Endpoint/env/middleware/auth cookie/fetch contract defects fixed                     |

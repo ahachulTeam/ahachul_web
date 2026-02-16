@@ -19,6 +19,13 @@
 - Follow-up: Start RF-100 and RF-200 implementation.
 
 - DateTime (KST): 2026-02-17
+- Task ID: RF-020
+- Contributors: Technical Writer, Team Lead
+- Summary: Added transparent team visibility layer with live dashboard script (`team:watch`), runtime status file, and append-only handoff log.
+- Validation Result: Pass (`pnpm team:status` output verified)
+- Follow-up: Keep `TEAM_STATUS.json` synchronized whenever ownership or state changes.
+
+- DateTime (KST): 2026-02-17
 - Task ID: RF-200
 - Contributors: FE Engineer, Technical Writer
 - Summary: Added shared workspace packages (`@ahhachul/domain`, `@ahhachul/http`, `@ahhachul/seo`, `@ahhachul/routes`) and applied reusable metadata/robots/sitemap to Next app.

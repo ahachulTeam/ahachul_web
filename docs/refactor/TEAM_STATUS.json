@@ -1,0 +1,87 @@
+{
+  "updatedAt": "2026-02-17T00:51:00+09:00",
+  "branch": "codex/refactor-foundation",
+  "sprintFocus": "RF-100 (Nx boundary) + RF-400 (route parity)",
+  "leadDirective": [
+    "1) Infra starts RF-100 boundary enforcement baseline.",
+    "2) FE starts RF-400 placeholder route parity implementation.",
+    "3) QA prepares scenario matrix for newly completed routes.",
+    "4) Validator blocks merge until full gate passes."
+  ],
+  "agents": [
+    {
+      "role": "Team Lead",
+      "owner": "lead",
+      "taskId": "RF-100",
+      "state": "IN_PROGRESS",
+      "updatedAt": "2026-02-17T00:51:00+09:00",
+      "nextAction": "split RF-100 into enforce-module-boundary and affected-accuracy tasks"
+    },
+    {
+      "role": "FE Engineer",
+      "owner": "fe-core",
+      "taskId": "RF-400",
+      "state": "READY",
+      "updatedAt": "2026-02-17T00:51:00+09:00",
+      "nextAction": "replace one-app placeholder pages with real domain flows"
+    },
+    {
+      "role": "Infra Engineer",
+      "owner": "infra-core",
+      "taskId": "RF-100",
+      "state": "READY",
+      "updatedAt": "2026-02-17T00:51:00+09:00",
+      "nextAction": "add nx enforce-module-boundaries policy and project tags"
+    },
+    {
+      "role": "QA Engineer",
+      "owner": "qa-core",
+      "taskId": "RF-400",
+      "state": "READY",
+      "updatedAt": "2026-02-17T00:51:00+09:00",
+      "nextAction": "prepare parity test checklist for me/notifications/messages and auth flows"
+    },
+    {
+      "role": "Technical Writer",
+      "owner": "writer",
+      "taskId": "RF-020",
+      "state": "IN_PROGRESS",
+      "updatedAt": "2026-02-17T00:51:00+09:00",
+      "nextAction": "keep worklog and handoff history synchronized"
+    },
+    {
+      "role": "Perfectionist Validator",
+      "owner": "validator",
+      "taskId": "RF-400",
+      "state": "WAITING",
+      "updatedAt": "2026-02-17T00:51:00+09:00",
+      "nextAction": "run validate:full when RF-400 reaches QAReady"
+    }
+  ],
+  "handoffs": [
+    {
+      "from": "Team Lead",
+      "to": "Infra Engineer",
+      "taskId": "RF-100",
+      "state": "ASSIGNED",
+      "note": "Start Nx module boundary guardrail",
+      "at": "2026-02-17T00:51:00+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "FE Engineer",
+      "taskId": "RF-400",
+      "state": "ASSIGNED",
+      "note": "Start placeholder route parity implementation",
+      "at": "2026-02-17T00:51:00+09:00"
+    }
+  ],
+  "validator": {
+    "queue": ["RF-100", "RF-400"],
+    "lastGate": {
+      "taskId": "RF-610",
+      "result": "PASS",
+      "at": "2026-02-17T00:43:00+09:00"
+    }
+  }
+}
