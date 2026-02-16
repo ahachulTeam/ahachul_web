@@ -36,3 +36,10 @@
 - Summary: Replaced duplicated detail-page SEO object construction with reusable metadata builder and centralized legacy URL redirect rules for canonical SEO routes.
 - Validation Result: Pending (waiting for full validator gate)
 - Follow-up: Complete RF-600 and execute full checklist.
+
+- DateTime (KST): 2026-02-17
+- Task ID: RF-600
+- Contributors: Infra Engineer
+- Summary: Hardened CI/CD by aligning pnpm version, broadening CI trigger scope, switching Vite deploy to non-destructive immutable asset upload, and deploying Next with immutable SHA image plus new ECS task definition revision.
+- Validation Result: Pending (requires live pipeline execution in GitHub Actions)
+- Follow-up: Run validator gates and production-like deploy smoke checks.

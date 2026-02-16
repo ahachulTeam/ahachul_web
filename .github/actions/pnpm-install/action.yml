@@ -7,7 +7,7 @@ runs:
     - name: Setup pnpm
       uses: pnpm/action-setup@v2
       with:
-        version: 8
+        version: 9.1.0
 
     - name: Get pnpm store directory
       id: pnpm-cache
@@ -25,4 +25,4 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: pnpm install
+      run: pnpm install --frozen-lockfile

@@ -25,7 +25,7 @@
 | RF-200 | 2 | Introduce shared packages (`domain/http/seo/routes`) | FE | Done | pending | Shared package skeleton + Next SEO integration baseline |
 | RF-300 | 3 | Fix critical Next defects | FE | Done | pending | Endpoint/env/middleware/auth cookie/fetch contract defects fixed |
 | RF-500 | 5 | Integrate reusable SEO architecture in Next | FE | Done | pending | Detail-page metadata + robots/sitemap + canonicalized redirects |
-| RF-600 | 6 | Harden CI/CD for cache-safe immutable deploys | Infra | Todo | - | - |
+| RF-600 | 6 | Harden CI/CD for cache-safe immutable deploys | Infra | Done | pending | Immutable image tagging + non-destructive static deploy + workflow trigger hardening |
 
 ## Rule
 A task can move to `Done` only after `Perfectionist Validator` confirms all checks in `VALIDATOR_CHECKLIST.md`.
