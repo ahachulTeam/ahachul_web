@@ -36,7 +36,7 @@ const Wrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 64px;
-  background-color: #f3f7ff;
+  background-color: var(--ah-color-legacy-surface-brand-tint);
   padding: 4px 0;
   border-radius: 8px;
 
@@ -52,7 +52,7 @@ const Wrapper = styled.div`
   div.divider {
     width: 1px;
     height: 24px;
-    background: #d7dfef;
+    background: var(--ah-color-legacy-surface-brand-divider);
     border-radius: 2px;
   }
 
@@ -61,7 +61,7 @@ const Wrapper = styled.div`
     line-height: 20px;
     font-weight: 600;
     margin-left: 10px;
-    color: #3c3f44;
+    color: var(--ah-color-legacy-text-body);
   }
 `;
 

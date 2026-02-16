@@ -13,7 +13,7 @@ export const NAVIGATION_LINKS: NavigationLink[] = [
       <TalkIcon
         css={css`
           & > path {
-            stroke: #ffffff;
+            stroke: var(--ah-color-white);
           }
         `}
       />
@@ -26,7 +26,7 @@ export const NAVIGATION_LINKS: NavigationLink[] = [
       <BellIcon
         css={css`
           & > path {
-            stroke: #ffffff;
+            stroke: var(--ah-color-white);
           }
         `}
       />

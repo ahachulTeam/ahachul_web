@@ -186,8 +186,8 @@ const SettingPage: ActivityComponentType = () => {
                 <LabelButton
                   key={`${item.label}_${idx}`}
                   css={css`
-                    background-color: #242424;
-                    color: #ffffff;
+                    background-color: var(--ah-color-legacy-surface-inverse);
+                    color: var(--ah-color-white);
                     border: 0;
                     display: flex;
                     align-items: center;
@@ -267,7 +267,7 @@ const S = {
     `}
   `,
   Desc: styled.p`
-    color: #666;
+    color: var(--ah-color-legacy-text-subtle);
     margin-bottom: 24px;
     padding: 0 20px;
   `,
@@ -284,17 +284,17 @@ const SearchInputIcon = styled(SearchIcon)`
   left: 32px;
   top: 50%;
   transform: translateY(-50%);
-  color: #999;
+  color: var(--ah-color-legacy-text-disabled);
 `;
 
 const SearchInput = styled.input`
   width: 100%;
   padding: 12px 16px 12px 40px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--ah-color-legacy-border-soft);
   border-radius: 8px;
   font-size: 16px;
   &::placeholder {
-    color: #999;
+    color: var(--ah-color-legacy-text-disabled);
   }
 `;
 
@@ -340,8 +340,8 @@ const SearchResultItem = styled.button`
   cursor: pointer;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #e5e5e5;
-  color: #000000;
+  border-bottom: 1px solid var(--ah-color-legacy-border-soft);
+  color: var(--ah-color-black-00);
 
   &:last-child {
     border-bottom: none;
@@ -349,7 +349,7 @@ const SearchResultItem = styled.button`
 `;
 
 const StationContainer = styled.div`
-  border-bottom: 1px solid #f5f4f3;
+  border-bottom: 1px solid var(--ah-color-legacy-border-soft-alt);
 
   &:last-child {
     border-bottom: none;
@@ -379,9 +379,11 @@ interface LabelButtonProps {
 const LabelButton = styled.button<LabelButtonProps>`
   padding: 8px 12px;
   border-radius: 20px;
-  border: 1px solid ${props => (props.$isActive ? '#2ACF6C' : '#e5e5e5')};
-  background-color: ${props => (props.$isActive ? '#2ACF6C' : 'white')};
-  color: ${props => (props.$isActive ? 'white' : '#666')};
+  border: 1px solid
+    ${props =>
+      props.$isActive ? 'var(--ah-color-key-color)' : 'var(--ah-color-legacy-border-soft)'};
+  background-color: ${props => (props.$isActive ? 'var(--ah-color-key-color)' : 'white')};
+  color: ${props => (props.$isActive ? 'white' : 'var(--ah-color-legacy-text-subtle)')};
   font-size: 14px;
   cursor: pointer;
   display: flex;

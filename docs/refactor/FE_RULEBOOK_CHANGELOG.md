@@ -85,3 +85,11 @@ Track every modification to `FE_RULEBOOK.md` in chronological order.
 - Section(s): Rule 7 (Design System Token Conventions), Implementation Checklist
 - Summary: Added strict no-inline-hex policy for one-app (`className` arbitrary hex and JSX/SVG hex literals) and documented shared-token-only enforcement with scan checklist.
 - Follow-up: Expand identical no-inline-hex enforcement to phased Vite legacy migration tasks (RF-891+).
+
+- DateTime (KST): 2026-02-17 03:59:25
+- Task ID: RF-891
+- Author/Owner: FE Lead
+- Change Type: Changed
+- Section(s): Rule 7 (Design System Token Conventions), Implementation Checklist
+- Summary: Expanded no-inline-hex policy to Vite Emotion/styled layer with explicit exception scope (`assets/icons/jsx/icons.tsx`, `constants/subway.tsx`) and added required residual-hex scan command for validator gate.
+- Follow-up: Remove exception scopes in dedicated icon/subway tokenization tasks and keep scan check mandatory for all future Vite style refactors.

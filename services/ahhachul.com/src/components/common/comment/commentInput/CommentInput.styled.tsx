@@ -29,7 +29,7 @@ export const Container = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
-  border-top: 1px solid #eaecf1;
+  border-top: 1px solid var(--ah-color-gray-30);
   filter: drop-shadow(0px -1px 12px rgba(0, 0, 0, 0.04));
 
   & > #editor-container {
@@ -42,7 +42,7 @@ export const Container = styled.section`
       background-color: white;
       max-height: 130px !important;
       padding-bottom: 12px;
-      border-bottom: 1px solid #eaecf1;
+      border-bottom: 1px solid var(--ah-color-gray-30);
       border-radius: 0;
     }
 
@@ -57,7 +57,7 @@ export const SubmitBox = styled.div<{ showIsPrivateBtn?: boolean }>`
   ${({ showIsPrivateBtn }) => css`
     width: 100%;
     margin: 0 auto;
-    background: #fff;
+    background: var(--ah-color-white);
     padding: 12px 16px;
     padding-top: 0;
     border-radius: 6px;
@@ -81,12 +81,12 @@ export const ButtonGroup = styled.div`
     justify-content: center;
     background: none;
     padding: 5px 8px;
-    color: #33333e;
+    color: var(--ah-color-gray-90);
     font-size: 12px;
     cursor: pointer;
-    border: 1px solid #dcdee7;
+    border: 1px solid var(--ah-color-gray-40);
     border-radius: 3px;
-    background-color: #fff;
+    background-color: var(--ah-color-white);
 
     &:disabled {
       opacity: 0.5;
@@ -101,11 +101,11 @@ export const ButtonGroup = styled.div`
     justify-content: center;
     background: none;
     padding: 5px 8px;
-    color: #fff;
+    color: var(--ah-color-white);
     font-size: 12px;
     cursor: pointer;
     border-radius: 3px;
-    background-color: #2acf6c;
+    background-color: var(--ah-color-key-color);
 
     &:disabled {
       opacity: 0.5;

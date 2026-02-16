@@ -56,12 +56,12 @@ const UserInfo = styled.div`
     font-size: 18px;
     line-height: 24px;
     font-weight: 600;
-    color: #26282b;
+    color: var(--ah-color-legacy-text-strong);
   }
   p.mobile {
     font-size: 14px;
     line-height: 18px;
-    color: #9a9ea8;
+    color: var(--ah-color-legacy-text-hint);
     opacity: 0.8;
   }
 `;

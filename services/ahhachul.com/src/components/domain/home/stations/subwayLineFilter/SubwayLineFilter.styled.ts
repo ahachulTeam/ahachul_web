@@ -56,7 +56,7 @@ export const link = [
   {
     fontSize: '14px',
     fontWeight: 500,
-    color: '#e6e6e6',
+    color: 'var(--ah-color-legacy-text-ghost)',
     padding: '12px 20px',
     borderRadius: '8px',
     transition: 'all 100ms ease-out',

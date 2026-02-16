@@ -88,3 +88,11 @@
 {"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-890","state":"QAReady","note":"validate:full and one-app residual hex scan evidence attached for RF-890.","at":"2026-02-17T03:45:50+09:00"}
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-890","state":"ValidatorPass","note":"RF-890 gate passed with shared-token migration and lint guardrail validation.","at":"2026-02-17T03:45:50+09:00"}
 {"from":"Team Lead","to":"All Agents","taskId":"RF-890","state":"Done","note":"RF-890 completed: one-app inline hex removed and semantic token policy enforced.","at":"2026-02-17T03:45:50+09:00"}
+{"from":"Team Lead","to":"FE Lead","taskId":"RF-891","state":"ASSIGNED","note":"Execute Vite legacy Emotion/styled inline hex migration with shared semantic tokens.","at":"2026-02-17T03:59:25+09:00"}
+{"from":"FE Lead","to":"FE Specialist A","taskId":"RF-891","state":"ASSIGNED","note":"Expand design-system legacy token groups and CSS variables for Vite palette values.","at":"2026-02-17T03:59:25+09:00"}
+{"from":"FE Lead","to":"FE Specialist B","taskId":"RF-891","state":"ASSIGNED","note":"Migrate Vite styled/css/inline callsites to shared token references.","at":"2026-02-17T03:59:25+09:00"}
+{"from":"FE Specialist A/B","to":"QA Engineer","taskId":"RF-891","state":"QAReady","note":"Vite inline hex migration complete. Request validator gate.","at":"2026-02-17T03:59:25+09:00"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-891","state":"QAReady","note":"validate:full and Vite residual-hex scan evidence attached for RF-891.","at":"2026-02-17T03:59:25+09:00"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-891","state":"ValidatorPass","note":"RF-891 gate passed with validate:full success and residual-hex scan clean result.","at":"2026-02-17T03:59:25+09:00"}
+{"from":"Team Lead","to":"Technical Writer","taskId":"RF-891","state":"COMMITTED","note":"Synchronize sprint/rulebook/meeting/worklog artifacts before commit.","at":"2026-02-17T03:59:25+09:00"}
+{"from":"Team Lead","to":"All Agents","taskId":"RF-891","state":"Done","note":"RF-891 completed: Vite styled inline hex migrated under shared semantic token policy.","at":"2026-02-17T03:59:25+09:00"}

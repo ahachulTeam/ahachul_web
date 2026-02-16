@@ -146,13 +146,13 @@ const HomeHeaderActions = () => {
               key={station.stationName}
               station={station}
               css={{
-                color: idx === 0 ? '#272727' : '#95979F',
+                color: idx === 0 ? 'var(--ah-color-black)' : 'var(--ah-color-gray-70)',
               }}
               onClick={handleStationClick(station)}
             />
           ))}
           <li css={S.option} onClick={handleClickFavoriteStationSetting}>
-            <span css={{ color: '#95979F' }}>즐겨찾는역 설정하기</span>
+            <span css={{ color: 'var(--ah-color-gray-70)' }}>즐겨찾는역 설정하기</span>
           </li>
         </motion.ul>
       </motion.div>

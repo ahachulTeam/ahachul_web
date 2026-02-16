@@ -71,6 +71,56 @@
   --ah-color-black-00: #000000;
   --ah-color-black-secondary: #141517;
   --ah-color-dim: rgba(0, 0, 0, 0.3);
+  --ah-color-legacy-text-strong: #26282b;
+  --ah-color-legacy-text-contrast: #222222;
+  --ah-color-legacy-text-contrast-alpha: #222226f3;
+  --ah-color-legacy-text-title: #171717;
+  --ah-color-legacy-text-body: #3c3f44;
+  --ah-color-legacy-text-caption: #67696f;
+  --ah-color-legacy-text-muted: #70747d;
+  --ah-color-legacy-text-muted-secondary: #838791;
+  --ah-color-legacy-text-dim: #949595;
+  --ah-color-legacy-text-faint: #949db2;
+  --ah-color-legacy-text-disabled: #999999;
+  --ah-color-legacy-text-hint: #9a9ea8;
+  --ah-color-legacy-text-slate: #515458;
+  --ah-color-legacy-text-subtle: #666666;
+  --ah-color-legacy-text-link: #004fec;
+  --ah-color-legacy-text-link-strong: #1d4ed8;
+  --ah-color-legacy-text-success-alpha: #42b305ac;
+  --ah-color-legacy-text-ghost: #e6e6e6;
+  --ah-color-legacy-text-heading: #363e52;
+  --ah-color-legacy-text-mint: #84e4c2;
+
+  --ah-color-legacy-surface-inverse: #242424;
+  --ah-color-legacy-surface-soft: #f7f8f9;
+  --ah-color-legacy-surface-soft-alt: #f0f2f4;
+  --ah-color-legacy-surface-hover: #ebebeb;
+  --ah-color-legacy-surface-brand-tint: #f3f7ff;
+  --ah-color-legacy-surface-brand-divider: #d7dfef;
+  --ah-color-legacy-surface-success-tint: #eafcf1;
+  --ah-color-legacy-surface-success-soft-alpha: #4ade8015;
+  --ah-color-legacy-surface-success-solid: #29e236;
+  --ah-color-legacy-surface-danger-tint: #fff0f0;
+  --ah-color-legacy-surface-overlay-end: #18181d;
+  --ah-color-legacy-surface-train-body: #e9e9e9;
+  --ah-color-legacy-surface-train-cab: #adadad;
+  --ah-color-legacy-surface-lime-disabled: #f7fdfb;
+  --ah-color-legacy-surface-lime-muted: #b6efdb;
+
+  --ah-color-legacy-border-soft: #e5e5e5;
+  --ah-color-legacy-border-soft-alt: #f5f4f3;
+  --ah-color-legacy-border-muted: #e1e6ed;
+  --ah-color-legacy-border-subtle: #e3e5e8;
+  --ah-color-legacy-border-light: #eaeaec;
+
+  --ah-color-legacy-status-success: #22c55e;
+  --ah-color-legacy-status-info: #3b82f6;
+  --ah-color-legacy-status-danger: #ef4444;
+  --ah-color-legacy-status-critical: #ff3f40;
+  --ah-color-legacy-status-validation: #e02020;
+  --ah-color-legacy-status-accent-blue: #3974ff;
+  --ah-color-legacy-status-primary-soft: #4dafff;
 
   --ah-color-background: var(--ah-color-white);
   --ah-color-foreground: var(--ah-color-gray-100);

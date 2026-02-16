@@ -46,7 +46,7 @@ export const Value = styled.div`
 `;
 
 export const StyledLink = styled(Value)`
-  color: #1d4ed8;
+  color: var(--ah-color-legacy-text-link-strong);
 `;
 
 export const StatusWrapper = styled.div`

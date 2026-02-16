@@ -17,7 +17,7 @@ export const SelectButton = styled.button<{ isActive: boolean }>`
   font-size: 14px;
 
   &[aria-invalid='true'] {
-    border-color: #e02020;
+    border-color: var(--ah-color-legacy-status-validation);
   }
 `;
 

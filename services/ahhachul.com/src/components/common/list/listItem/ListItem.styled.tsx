@@ -8,7 +8,7 @@ import { DotIcon } from '@/assets/icons/system';
 
 export const Article = styled.article`
   padding: 14px 0;
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid var(--ah-color-gray-20);
 `;
 
 export const Container = styled.div`

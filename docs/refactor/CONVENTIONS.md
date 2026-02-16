@@ -31,6 +31,7 @@
 - Number/price baseline: `formatDisplayNumber`/`formatDisplayPrice` in `@ahhachul/utils` are mandatory display entrypoints (lint-enforced)
 - Subway/common baseline: filter/line-map/arrival/content/file-extension helpers must use shared `@ahhachul/utils` contracts
 - Shared utility regression baseline: validate/format utility changes must ship with unit tests and pass `@ahhachul/utils:test`
+- Design-system color baseline: Vite/Next style layers must consume shared tokens from `@ahhachul/design-system`; direct inline hex is blocked in one-app and blocked in Vite Emotion/styled except approved legacy exception files.
 
 ## Validation Authority
 

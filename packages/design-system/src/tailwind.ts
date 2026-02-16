@@ -21,6 +21,7 @@ export const tailwindBaseColors = {
   black_00: colors.black_00,
   black_secondary: colors.black_secondary,
   dim: colors.dim,
+  legacy: colors.legacy,
 } as const;
 
 export const tailwindSemanticColors = semanticColors;

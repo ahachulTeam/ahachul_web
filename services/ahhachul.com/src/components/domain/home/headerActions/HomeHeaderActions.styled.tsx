@@ -16,7 +16,7 @@ export const button = css`
   border-radius: 6px;
   padding: 8px 4px;
 
-  color: #ffffff;
+  color: var(--ah-color-white);
   font-size: 18px;
   font-weight: bold;
 
@@ -24,7 +24,7 @@ export const button = css`
     height: 17px;
 
     & > svg > g > path {
-      fill: #ffffff;
+      fill: var(--ah-color-white);
     }
   }
 `;
@@ -56,7 +56,7 @@ export const option = css`
   border-radius: 6px;
   padding: 12px 8px;
   background-color: white;
-  color: #272727;
+  color: var(--ah-color-black);
   font-size: 16px;
   font-weight: 500;
   white-space: nowrap;
@@ -72,12 +72,12 @@ export const option = css`
 
   &:hover {
     transform: scale(1.02);
-    background-color: #ebebeb;
+    background-color: var(--ah-color-legacy-surface-hover);
   }
 
   &:active {
     transform: scale(0.93);
-    background-color: #ebebeb;
+    background-color: var(--ah-color-legacy-surface-hover);
   }
 `;
 

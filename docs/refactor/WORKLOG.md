@@ -171,3 +171,10 @@
 - Summary: Removed residual inline hex usage in `services/one-app/src` by introducing shared semantic token groups (`badge/social/icon/skeleton/brand`) in `@ahhachul/design-system`, migrating Tailwind arbitrary hex classes (`bg-[#...]`) to semantic classes, and replacing inline SVG/styling hex literals with shared token references.
 - Validation Result: Pass (`pnpm validate:full`)
 - Follow-up: Apply the same semantic-token migration strategy to remaining Vite inline hex legacy files in phased RF-891 cleanup.
+
+- DateTime (KST): 2026-02-17 03:59:25
+- Task ID: RF-891
+- Contributors: FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Expanded semantic token migration to Vite legacy Emotion/styled layer by introducing `legacy` token groups in `@ahhachul/design-system`, replacing inline hex literals across Vite styled/css/inline style callsites with shared token variables, and formalizing exception scope for icon source and subway line constants.
+- Validation Result: Pass (`pnpm validate:full` + Vite residual-hex scan excluding approved exceptions)
+- Follow-up: Tokenize remaining exception files (`assets/icons/jsx/icons.tsx`, `constants/subway.tsx`) in a dedicated follow-up task and keep residual-hex scan mandatory.

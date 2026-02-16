@@ -24,6 +24,6 @@ export const TextField = styled.input`
   }
 
   &[aria-invalid='true'] {
-    border-color: #e02020;
+    border-color: var(--ah-color-legacy-status-validation);
   }
 `;

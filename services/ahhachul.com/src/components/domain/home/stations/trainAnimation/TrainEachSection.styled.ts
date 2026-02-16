@@ -7,5 +7,5 @@ export const eachSection = {
   width: '100%',
   height: '90%',
   borderRadius: '6px',
-  backgroundColor: '#ffffff',
+  backgroundColor: 'var(--ah-color-white)',
 } as Interpolation<Theme>;

@@ -151,6 +151,10 @@
 - Any new shared UI color token must be added in `@ahhachul/design-system` first, then consumed by apps; app-local ad-hoc hex literals are allowed only as temporary exceptions with follow-up task debt.
 - One-app `className` must not use Tailwind arbitrary hex notation (`bg-[#...]`, `text-[#...]`, `border-[#...]`); use semantic shared token classes instead.
 - One-app JSX/SVG inline color literals (`fill="#..."`, `stroke="#..."`, direct hex props) must use shared token references (`colors.*`) instead.
+- Vite Emotion/styled layer must not use direct hex literals in `styled.*`, Emotion `css`, or inline style objects; use shared tokens (`theme.colors.*` or `var(--ah-color-*)`) from `@ahhachul/design-system`.
+- Temporary Vite exception scope is limited to:
+  - raw icon source literals in `services/ahhachul.com/src/assets/icons/jsx/icons.tsx`
+  - subway line canonical color mapping in `services/ahhachul.com/src/constants/subway.tsx`
 
 ## Implementation Checklist
 
@@ -167,6 +171,7 @@
 - [ ] Shared utility behavior changes include corresponding unit tests in `@ahhachul/utils`.
 - [ ] Shared color token changes are applied in `@ahhachul/design-system` first and consumed by both apps.
 - [ ] One-app has no residual inline hex literals (`rg -n "#[0-9A-Fa-f]{3,8}" services/one-app/src`).
+- [ ] Vite Emotion/styled layer has no residual inline hex literals outside approved exceptions (`rg -n "#[0-9A-Fa-f]{3,8}" services/ahhachul.com/src --glob '!**/*.svg' | grep -v 'assets/icons/jsx/icons.tsx' | grep -v 'constants/subway.tsx'`).
 - [ ] FE rulebook changes are recorded in `FE_RULEBOOK_CHANGELOG.md`.
 - [ ] FE meeting records are added as timestamped files and indexed in `FE_MEETING_LOG.md`.
 

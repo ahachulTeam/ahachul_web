@@ -39,7 +39,9 @@ const Comment = ({
         <S.WriterName>
           {comment.writer}
           {((comment.isPrivate && isAuthor) || (comment.isPrivate && isArticleAuthor)) && (
-            <span css={{ marginLeft: '3px', color: '#95979F', fontWeight: 400 }}>(비공개)</span>
+            <span css={{ marginLeft: '3px', color: 'var(--ah-color-gray-70)', fontWeight: 400 }}>
+              (비공개)
+            </span>
           )}
         </S.WriterName>
         {comment.isPrivate && isSuper && queryKey && comment.status === 'CREATED' && (

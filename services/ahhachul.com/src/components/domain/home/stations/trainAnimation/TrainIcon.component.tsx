@@ -19,12 +19,12 @@ export const TrainIcon = ({ width }: TrainIconProps) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d={d} fill="#E9E9E9" />
+      <path d={d} fill="var(--ah-color-legacy-surface-train-body)" />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
         d="M2 22L5.39623 7H12C13.1046 7 14 7.89543 14 9V20C14 21.1046 13.1046 22 12 22H2Z"
-        fill="#ADADAD"
+        fill="var(--ah-color-legacy-surface-train-cab)"
       />
     </svg>
   );

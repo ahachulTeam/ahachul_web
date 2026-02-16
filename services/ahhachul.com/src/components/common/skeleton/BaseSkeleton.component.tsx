@@ -10,8 +10,8 @@ const BaseSkeleton = ({ radius = 0, ...props }: SkeletonProps) => (
   <Skeleton
     {...props}
     borderRadius={radius}
-    baseColor="#F5F5F4" // 따뜻한 회색
-    highlightColor="#FAFAF9" // 더 밝은 따뜻한 회색
+    baseColor="var(--ah-color-skeleton-base)" // 따뜻한 회색
+    highlightColor="var(--ah-color-skeleton-highlight)" // 더 밝은 따뜻한 회색
   />
 );
 

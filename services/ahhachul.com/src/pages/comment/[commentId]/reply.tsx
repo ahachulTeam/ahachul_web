@@ -80,7 +80,9 @@ const NewCommentReplyPage: ActivityComponentType<
           <TitleWrapper>
             {targetComment?.writer}
             {targetComment?.isPrivate && (
-              <span css={{ marginLeft: '3px', color: '#95979F', fontWeight: 400 }}>(비공개)</span>
+              <span css={{ marginLeft: '3px', color: 'var(--ah-color-gray-70)', fontWeight: 400 }}>
+                (비공개)
+              </span>
             )}
           </TitleWrapper>
           <MetaInfoWrapper>

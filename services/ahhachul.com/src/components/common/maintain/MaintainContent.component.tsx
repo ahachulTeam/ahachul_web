@@ -16,7 +16,7 @@ const MaintainContent = ({ actionLabel = '홈으로' }: { actionLabel?: string }
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <circle cx="25" cy="24" r="20" fill="#3974FF" />
+          <circle cx="25" cy="24" r="20" fill="var(--ah-color-legacy-status-accent-blue)" />
           <path
             d="M26.8487 31.8551C26.8488 32.1735 26.7861 32.4888 26.6643 32.783C26.5425 33.0772 26.364 33.3446 26.1388 33.5697C25.9137 33.7949 25.6464 33.9736 25.3523 34.0954C25.0581 34.2173 24.7428 34.28 24.4244 34.28C24.1059 34.28 23.7906 34.2173 23.4965 34.0954C23.2023 33.9736 22.935 33.7949 22.7099 33.5697C22.4848 33.3446 22.3062 33.0772 22.1844 32.783C22.0626 32.4888 21.9999 32.1735 22 31.8551C21.9999 31.5367 22.0626 31.2214 22.1844 30.9272C22.3062 30.633 22.4848 30.3656 22.7099 30.1405C22.935 29.9153 23.2023 29.7367 23.4965 29.6148C23.7906 29.4929 24.1059 29.4302 24.4244 29.4302C24.7428 29.4302 25.0581 29.4929 25.3523 29.6148C25.6464 29.7367 25.9137 29.9153 26.1388 30.1405C26.364 30.3656 26.5425 30.633 26.6643 30.9272C26.7861 31.2214 26.8488 31.5367 26.8487 31.8551Z"
             fill="white"
@@ -61,7 +61,7 @@ const ContentWrapper = styled.div`
 const Title = styled.h1`
   font-size: 18px;
   font-weight: 600;
-  color: #363e52;
+  color: var(--ah-color-legacy-text-heading);
   margin-top: 10px;
   margin-bottom: 12px;
   text-align: center;
@@ -74,7 +74,7 @@ const Message = styled.p`
   font-weight: 500;
   line-height: 26px;
   letter-spacing: -0.2px;
-  color: #949db2;
+  color: var(--ah-color-legacy-text-faint);
   text-align: center;
   margin-bottom: 24px;
   white-space: break-spaces;
@@ -101,8 +101,8 @@ const Button = styled.button`
 `;
 
 const HomeButton = styled(Button)`
-  border: 1px solid #e3e5e8;
-  color: #3c3f44;
+  border: 1px solid var(--ah-color-legacy-border-subtle);
+  color: var(--ah-color-legacy-text-body);
 `;
 
 export default MaintainContent;
