@@ -124,6 +124,18 @@ module.exports = {
           },
           {
             selector:
+              'CallExpression[callee.name=/^(fetch|fetchClient|request)$/] > Literal.arguments:first-child',
+            message:
+              'Do not hardcode API endpoint literals in network calls. Use shared API contracts (`API_PATHS` / `INTERNAL_API_PATHS`).',
+          },
+          {
+            selector:
+              'CallExpression[callee.object.name=/^(axios|axiosInstance)$/][callee.property.name=/^(get|post|put|patch|delete)$/] > Literal.arguments:first-child',
+            message:
+              'Do not hardcode API endpoint literals in axios calls. Use shared API contracts (`API_PATHS` / `INTERNAL_API_PATHS`).',
+          },
+          {
+            selector:
               "JSXAttribute[name.name='className'] Literal[value=/\\[[^\\]]*#[0-9A-Fa-f]{3,8}[^\\]]*\\]/]",
             message:
               'Use shared semantic tokens from @ahhachul/design-system instead of Tailwind arbitrary hex values.',

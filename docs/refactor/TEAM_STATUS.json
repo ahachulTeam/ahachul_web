@@ -1,76 +1,76 @@
 {
-  "updatedAt": "2026-02-16T20:21:50Z",
+  "updatedAt": "2026-02-16T20:30:11Z",
   "branch": "codex/refactor-foundation",
-  "sprintFocus": "RF-920 complete: shared API/domain type contracts canonicalized in @ahhachul/domain",
+  "sprintFocus": "RF-930 complete: endpoint literal policy is now lint/scan/CI blocking",
   "leadDirective": [
-    "1) RF-920 completed: API response/pagination/id contracts are canonicalized in @ahhachul/domain.",
-    "2) Added shared API type module export (`APIResponseCode`, `ApiResponse/IResponse`, `CursorPagination`, `PaginatedList`, `WithPostId`).",
-    "3) Migrated Vite/Next common type modules to alias shared contracts and removed parallel declarations.",
-    "4) Next task is policy-to-automation: enforce raw endpoint literal ban with lint/CI blocking."
+    "1) RF-930 completed: API endpoint literal policy is now automatically enforced (not review-only).",
+    "2) Added AST scan gate (`validate:api-contract`) and wired it into `validate:full` + CI.",
+    "3) Added ESLint restrictions for literal network call arguments and migrated one-app internal refresh endpoint to centralized contract constants.",
+    "4) Next step is RF-940: remove design-system exception scopes (icons/subway) via full tokenization."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-920",
+      "taskId": "RF-930",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:21:49+09:00",
-      "nextAction": "prioritize RF-930 lint/scan automation for endpoint literal prohibition"
+      "updatedAt": "2026-02-17T05:30:11+09:00",
+      "nextAction": "start RF-940 tokenization for icon/subway exception removal"
     },
     {
       "role": "FE Lead",
       "owner": "fe-lead",
-      "taskId": "RF-920",
+      "taskId": "RF-930",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:21:49+09:00",
-      "nextAction": "apply shared type contract rule to newly added API modules by default"
+      "updatedAt": "2026-02-17T05:30:11+09:00",
+      "nextAction": "enforce endpoint literal automation baseline for all new API modules"
     },
     {
       "role": "FE Specialist A",
       "owner": "fe-spec-a",
-      "taskId": "RF-920",
+      "taskId": "RF-930",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:21:49+09:00",
-      "nextAction": "maintain backward-compatible evolution path for domain API contracts"
+      "updatedAt": "2026-02-17T05:30:11+09:00",
+      "nextAction": "maintain and extend AST scan patterns with API contract growth"
     },
     {
       "role": "FE Specialist B",
       "owner": "fe-spec-b",
-      "taskId": "RF-920",
+      "taskId": "RF-930",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:21:49+09:00",
-      "nextAction": "keep app common-type files alias-only and remove new duplications"
+      "updatedAt": "2026-02-17T05:30:11+09:00",
+      "nextAction": "migrate any future internal API literals into centralized contract constants"
     },
     {
       "role": "Infra Engineer",
       "owner": "infra-core",
-      "taskId": "RF-920",
-      "state": "Ready",
-      "updatedAt": "2026-02-17T05:21:49+09:00",
-      "nextAction": "prepare CI lint/scan hook for endpoint literal policy in RF-930"
+      "taskId": "RF-930",
+      "state": "Done",
+      "updatedAt": "2026-02-17T05:30:11+09:00",
+      "nextAction": "keep CI gate ordering stable and monitor runtime impact"
     },
     {
       "role": "QA Engineer",
       "owner": "qa-core",
-      "taskId": "RF-920",
+      "taskId": "RF-930",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T05:21:49+09:00",
-      "nextAction": "reuse validate:full evidence baseline for next policy automation task"
+      "updatedAt": "2026-02-17T05:30:11+09:00",
+      "nextAction": "keep validate:api-contract evidence in every validator packet"
     },
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-920",
+      "taskId": "RF-930",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:21:49+09:00",
-      "nextAction": "keep sprint/worklog/meeting/rulebook artifacts synchronized per task"
+      "updatedAt": "2026-02-17T05:30:11+09:00",
+      "nextAction": "synchronize rulebook/checklist/sprint/worklog/team logs per task"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
-      "taskId": "RF-920",
+      "taskId": "RF-930",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T05:21:49+09:00",
+      "updatedAt": "2026-02-17T05:30:11+09:00",
       "nextAction": "await next QAReady handoff"
     }
   ],
@@ -1106,14 +1106,78 @@
       "state": "Done",
       "note": "RF-920 completed: API/domain type contracts are canonicalized in shared package.",
       "at": "2026-02-17T05:21:49+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "FE Lead",
+      "taskId": "RF-930",
+      "state": "ASSIGNED",
+      "note": "Convert endpoint literal policy into automatic blocking gates.",
+      "at": "2026-02-17T05:30:11+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist A",
+      "taskId": "RF-930",
+      "state": "ASSIGNED",
+      "note": "Implement lint + AST scan policy for endpoint literal detection.",
+      "at": "2026-02-17T05:30:11+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist B",
+      "taskId": "RF-930",
+      "state": "ASSIGNED",
+      "note": "Migrate remaining internal endpoint literals to centralized contract constants.",
+      "at": "2026-02-17T05:30:11+09:00"
+    },
+    {
+      "from": "Infra Engineer",
+      "to": "QA Engineer",
+      "taskId": "RF-930",
+      "state": "QAReady",
+      "note": "CI workflow gate added for validate:api-contract. Request validator gate.",
+      "at": "2026-02-17T05:30:11+09:00"
+    },
+    {
+      "from": "QA Engineer",
+      "to": "Perfectionist Validator",
+      "taskId": "RF-930",
+      "state": "QAReady",
+      "note": "validate:api-contract and validate:full pass evidence attached for RF-930.",
+      "at": "2026-02-17T05:30:11+09:00"
+    },
+    {
+      "from": "Perfectionist Validator",
+      "to": "Team Lead",
+      "taskId": "RF-930",
+      "state": "ValidatorPass",
+      "note": "RF-930 gate passed: endpoint literal policy is now lint/scan/CI blocking.",
+      "at": "2026-02-17T05:30:11+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "Technical Writer",
+      "taskId": "RF-930",
+      "state": "COMMITTED",
+      "note": "Synchronize sprint/rulebook/checklist/team-memory artifacts before commit.",
+      "at": "2026-02-17T05:30:11+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "All Agents",
+      "taskId": "RF-930",
+      "state": "Done",
+      "note": "RF-930 completed: endpoint literal policy shifted from documentation to automation.",
+      "at": "2026-02-17T05:30:11+09:00"
     }
   ],
   "validator": {
     "queue": [],
     "lastGate": {
-      "taskId": "RF-920",
+      "taskId": "RF-930",
       "result": "PASS",
-      "at": "2026-02-16T20:21:50Z"
+      "at": "2026-02-16T20:30:11Z"
     }
   }
 }

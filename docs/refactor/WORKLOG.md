@@ -206,3 +206,10 @@
 - Summary: Added canonical shared API/domain type contracts in `@ahhachul/domain` (`APIResponseCode`, `ApiResponse`, `IResponse`, `CursorPagination`, `PaginatedList`, `WithPostId`), exported them from the domain barrel, and migrated Vite/Next `types/common.ts` duplicated definitions to shared aliases.
 - Validation Result: Pass (`pnpm validate:full`)
 - Follow-up: Continue migration from app-local alias imports to direct shared contracts where low-risk.
+
+- DateTime (KST): 2026-02-17 05:30:11
+- Task ID: RF-930
+- Contributors: FE Lead, FE Specialist A, FE Specialist B, Infra Engineer, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Converted API endpoint literal policy into an automatic blocking system by adding ESLint restrictions for literal network call arguments, introducing `scripts/scan-api-endpoint-literals.mjs` (AST-based scan), wiring `validate:api-contract` into `validate:full`, adding CI gate step in `.github/workflows/ci.yml`, and centralizing one-app internal refresh endpoint into `INTERNAL_API_PATHS`.
+- Validation Result: Pass (`pnpm validate:api-contract`, `pnpm validate:full`)
+- Follow-up: Keep scan patterns aligned with API contract evolution and reject any new literal endpoint callsites outside approved contract files.

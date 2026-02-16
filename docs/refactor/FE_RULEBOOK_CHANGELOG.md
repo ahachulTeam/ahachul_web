@@ -125,3 +125,11 @@ Track every modification to `FE_RULEBOOK.md` in chronological order.
 - Section(s): Rule 10 (Shared Type Contract Conventions), Implementation Checklist
 - Summary: Added canonical shared type-contract policy for `ApiResponse`/pagination/id types in `@ahhachul/domain` and prohibited app-local re-declaration of canonical response structures.
 - Follow-up: Expand migration from alias layers to direct shared imports where safe, and keep contract updates centralized in domain package.
+
+- DateTime (KST): 2026-02-17 05:30:11
+- Task ID: RF-930
+- Author/Owner: FE Lead
+- Change Type: Changed
+- Section(s): Rule 9 (Automatic Enforcement Gate), Implementation Checklist
+- Summary: Upgraded endpoint literal policy from review-only to automatic blocking via lint restriction and `validate:api-contract` AST scan gate; documented approved contract-file exception boundary.
+- Follow-up: Keep scan pattern list synchronized with API contract growth and fail CI on any newly introduced network-call endpoint literal.

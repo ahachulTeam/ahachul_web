@@ -58,6 +58,9 @@ jobs:
           echo '${{ secrets.DEV_REACT_APP_CONFIG }}' > config.json
           echo '${{ secrets.DEV_ONE_APP_CONFIG }}' | jq -r 'to_entries | .[] | "\(.key)=\(.value)"' > services/one-app/.env
 
+      - name: 🚫 Validate API Endpoint Literal Policy
+        run: pnpm validate:api-contract
+
       - name: 🏃 Run CI Tasks
         run: |
           pnpm nx affected --parallel=3 -t type-check,build,test,lint

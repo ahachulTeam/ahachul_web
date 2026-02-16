@@ -227,6 +227,15 @@
 - Raw endpoint literals are allowed only in test/mock fixtures or one-off migration stubs with explicit follow-up debt.
 - New production API callsites with raw endpoint literals should fail FE review.
 
+### 5) Automatic Enforcement Gate
+
+- Endpoint literal policy is CI-blocking:
+  - lint-time restriction (`.eslintrc.js`) blocks string-literal network endpoints in `fetch/fetchClient/request` and `axios/axiosInstance`.
+  - AST scan (`pnpm validate:api-contract`) blocks endpoint fragments in network call string/template arguments.
+- Approved endpoint-literal definition files are limited to:
+  - `packages/http/src/api-contract.ts`
+  - `services/one-app/src/lib/internal-api-contract.ts`
+
 ## Rule 10: Shared Type Contract Conventions
 
 ### 1) Canonical Ownership
@@ -269,6 +278,7 @@
 - [ ] New shared component includes Storybook stories and `CI=1 pnpm ui:storybook:build` passes.
 - [ ] Navigation components follow shell/adaptor split (shared presentation + app-local routing/orchestration).
 - [ ] API callsites use `@ahhachul/http` contracts (`API_PATHS/API_SERVICE_PATHS/API_PAGE_SIZE/API_SORT`) instead of raw endpoint literals.
+- [ ] `pnpm validate:api-contract` passes (no endpoint literals in network calls outside approved contract files).
 - [ ] API response/pagination contracts use shared canonical types from `@ahhachul/domain` (no app-local re-declaration of canonical structures).
 - [ ] FE rulebook changes are recorded in `FE_RULEBOOK_CHANGELOG.md`.
 - [ ] FE meeting records are added as timestamped files and indexed in `FE_MEETING_LOG.md`.
