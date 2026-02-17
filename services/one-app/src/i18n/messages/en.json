@@ -2,6 +2,7 @@
   "common": {
     "language": "Language",
     "languageSelectAria": "Select site language",
+    "unknownError": "An unknown error occurred.",
     "languages": {
       "ko": "한국어",
       "en": "English",
@@ -66,6 +67,52 @@
     "noFavoriteStations": "No favorite stations registered.",
     "languageSectionTitle": "Language settings"
   },
+  "login": {
+    "heroSubtitle": "Making subway life easier",
+    "continueWithProvider": "Continue with {provider}"
+  },
+  "messagesPage": {
+    "title": "Messages",
+    "description": "Check operation notices and activity updates.",
+    "backToMyPage": "Back to My Page",
+    "items": [
+      {
+        "sender": "Operations Team",
+        "title": "Ahhachul usage guide",
+        "body": "See quick tips to use real-time complaint and lost-item features more effectively.",
+        "receivedAt": "Just now"
+      },
+      {
+        "sender": "Notification Bot",
+        "title": "New comment received",
+        "body": "A new comment has been posted on your article.",
+        "receivedAt": "1 hour ago"
+      }
+    ]
+  },
+  "notificationsPage": {
+    "title": "Notifications",
+    "description": "Get updates on complaint status changes and activity signals.",
+    "backToMyPage": "Back to My Page",
+    "items": [
+      {
+        "category": "Complaint",
+        "title": "Your submitted complaint has been resolved.",
+        "description": "The status of your Line 2 HVAC complaint was updated to DONE.",
+        "time": "10 minutes ago"
+      },
+      {
+        "category": "Community",
+        "title": "There is new activity on a watched post.",
+        "description": "3 likes and 1 comment were added.",
+        "time": "2 hours ago"
+      }
+    ]
+  },
+  "notFound": {
+    "message": "This page does not exist. Explore another page.",
+    "goHome": "Go to home"
+  },
   "seo": {
     "home": {
       "title": "All-in-one platform for subway complaints, lost items, and community",
@@ -74,6 +121,22 @@
     "me": {
       "title": "My Page",
       "description": "A personal dashboard to manage activity, favorite stations, messages, and notifications."
+    },
+    "login": {
+      "title": "Ahhachul Login",
+      "description": "Sign in to continue with subway complaints, lost-item posts, and community activity."
+    },
+    "messages": {
+      "title": "Messages",
+      "description": "A personal inbox for operation notices and updates related to your activity."
+    },
+    "notifications": {
+      "title": "Notifications",
+      "description": "Track complaint status changes and engagement updates in real time."
+    },
+    "notFound": {
+      "title": "Page Not Found",
+      "description": "The requested page could not be found. Return to Ahhachul home to continue."
     }
   }
 }

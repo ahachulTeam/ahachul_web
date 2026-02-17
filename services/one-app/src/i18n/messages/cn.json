@@ -2,6 +2,7 @@
   "common": {
     "language": "语言",
     "languageSelectAria": "选择网站语言",
+    "unknownError": "发生未知错误。",
     "languages": {
       "ko": "한국어",
       "en": "English",
@@ -66,6 +67,52 @@
     "noFavoriteStations": "暂无收藏车站。",
     "languageSectionTitle": "语言设置"
   },
+  "login": {
+    "heroSubtitle": "打造更轻松的地铁出行体验",
+    "continueWithProvider": "使用 {provider} 继续"
+  },
+  "messagesPage": {
+    "title": "消息",
+    "description": "查看运营公告与活动消息。",
+    "backToMyPage": "返回我的页面",
+    "items": [
+      {
+        "sender": "运营团队",
+        "title": "Ahhachul 使用指南",
+        "body": "查看技巧，更高效地使用实时投诉与失物功能。",
+        "receivedAt": "刚刚"
+      },
+      {
+        "sender": "通知机器人",
+        "title": "收到新评论",
+        "body": "你发布的帖子新增了一条评论。",
+        "receivedAt": "1小时前"
+      }
+    ]
+  },
+  "notificationsPage": {
+    "title": "通知",
+    "description": "接收投诉处理状态与活动动态更新。",
+    "backToMyPage": "返回我的页面",
+    "items": [
+      {
+        "category": "投诉",
+        "title": "你提交的投诉已处理完成。",
+        "description": "你提交的2号线空调投诉状态已更新为 DONE。",
+        "time": "10分钟前"
+      },
+      {
+        "category": "社区",
+        "title": "你关注的帖子有新动态。",
+        "description": "新增 3 个点赞和 1 条评论。",
+        "time": "2小时前"
+      }
+    ]
+  },
+  "notFound": {
+    "message": "该页面不存在，请访问其他页面。",
+    "goHome": "前往首页"
+  },
   "seo": {
     "home": {
       "title": "地铁投诉、失物招领与社区的一体化平台",
@@ -74,6 +121,22 @@
     "me": {
       "title": "我的页面",
       "description": "在个人仪表盘中统一管理活动、收藏车站、消息和通知。"
+    },
+    "login": {
+      "title": "Ahhachul 登录",
+      "description": "登录后继续使用地铁投诉、失物登记与社区功能。"
+    },
+    "messages": {
+      "title": "消息",
+      "description": "用于查看运营公告与个人活动更新的消息中心。"
+    },
+    "notifications": {
+      "title": "通知",
+      "description": "实时跟踪投诉处理状态与互动变化。"
+    },
+    "notFound": {
+      "title": "页面不存在",
+      "description": "未找到请求页面。请返回 Ahhachul 首页继续浏览。"
     }
   }
 }

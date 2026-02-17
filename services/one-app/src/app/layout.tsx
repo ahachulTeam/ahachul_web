@@ -45,7 +45,7 @@ export default async function RootLayout({
 
   return (
     <html lang={HTML_LANG_BY_LOCALE[locale]}>
-      <body className={cn('font-sans antialiased', Pretendard.variable)}>
+      <body suppressHydrationWarning className={cn('font-sans antialiased', Pretendard.variable)}>
         <SeoStructuredData />
         <NextTopLoader height={2} color={colors['key-color']} showSpinner={false} />
         <Providers>

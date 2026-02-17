@@ -2,6 +2,7 @@
   "common": {
     "language": "언어",
     "languageSelectAria": "사이트 언어 선택",
+    "unknownError": "알 수 없는 오류가 발생했습니다.",
     "languages": {
       "ko": "한국어",
       "en": "English",
@@ -66,6 +67,52 @@
     "noFavoriteStations": "등록된 즐겨찾기 역이 없습니다.",
     "languageSectionTitle": "언어 설정"
   },
+  "login": {
+    "heroSubtitle": "더 편한 지하철을 만드는",
+    "continueWithProvider": "{provider}로 계속하기"
+  },
+  "messagesPage": {
+    "title": "메시지함",
+    "description": "운영팀 공지와 활동 메시지를 확인하세요.",
+    "backToMyPage": "마이 페이지로 돌아가기",
+    "items": [
+      {
+        "sender": "운영팀",
+        "title": "아하철 이용 가이드",
+        "body": "실시간 민원과 분실물 기능을 더 빠르게 활용하는 팁을 확인해보세요.",
+        "receivedAt": "방금 전"
+      },
+      {
+        "sender": "알림봇",
+        "title": "새 댓글 도착",
+        "body": "내가 작성한 게시글에 새로운 댓글이 등록되었습니다.",
+        "receivedAt": "1시간 전"
+      }
+    ]
+  },
+  "notificationsPage": {
+    "title": "알림",
+    "description": "민원 상태 변경과 활동 소식을 받아보세요.",
+    "backToMyPage": "마이 페이지로 돌아가기",
+    "items": [
+      {
+        "category": "민원",
+        "title": "등록한 민원이 처리 완료되었습니다.",
+        "description": "2호선 냉난방 민원 상태가 DONE으로 업데이트되었습니다.",
+        "time": "10분 전"
+      },
+      {
+        "category": "커뮤니티",
+        "title": "관심 게시글에 새로운 반응이 있습니다.",
+        "description": "좋아요 3개, 댓글 1개가 추가되었습니다.",
+        "time": "2시간 전"
+      }
+    ]
+  },
+  "notFound": {
+    "message": "이 페이지는 존재하지 않습니다. 다른 페이지를 구경해보세요.",
+    "goHome": "홈으로 이동"
+  },
   "seo": {
     "home": {
       "title": "지하철 민원·분실물·커뮤니티 통합 플랫폼",
@@ -74,6 +121,22 @@
     "me": {
       "title": "마이 페이지",
       "description": "내 활동, 즐겨찾기 역, 알림·메시지를 한 화면에서 관리할 수 있는 개인 대시보드입니다."
+    },
+    "login": {
+      "title": "아하철 로그인",
+      "description": "로그인 후 지하철 민원 접수, 분실물 등록, 커뮤니티 활동을 이어서 이용할 수 있습니다."
+    },
+    "messages": {
+      "title": "메시지함",
+      "description": "운영 공지와 내 활동 관련 메시지를 빠르게 확인할 수 있는 개인 메시지함입니다."
+    },
+    "notifications": {
+      "title": "알림",
+      "description": "민원 처리 상태와 댓글·좋아요 같은 활동 변화를 실시간으로 확인하세요."
+    },
+    "notFound": {
+      "title": "페이지를 찾을 수 없습니다",
+      "description": "요청하신 페이지를 찾을 수 없습니다. 아하철 홈에서 원하는 서비스를 다시 탐색하세요."
     }
   }
 }

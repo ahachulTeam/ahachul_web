@@ -365,6 +365,7 @@
   - preserve current pathname (normalized then relocalized)
   - preserve current query string
   - update locale cookie
+  - complete transition in a single deterministic navigation step (no multi-step push+refresh chaining)
 
 ### 4) Server/Client Boundary
 

@@ -10,7 +10,15 @@ import { APIResponseCode, type SocialSignInType } from '@/types';
 
 import { getRedirectUrl } from '../_lib/getRedirectUrl';
 
-export const SocialLogins: React.FC = () => {
+type SocialLoginsProps = {
+  continueWithProviderTemplate: string;
+  unknownErrorMessage: string;
+};
+
+export const SocialLogins: React.FC<SocialLoginsProps> = ({
+  continueWithProviderTemplate,
+  unknownErrorMessage,
+}) => {
   const router = useRouter();
 
   const handleLogin = async (socialType: SocialSignInType) => {
@@ -18,12 +26,12 @@ export const SocialLogins: React.FC = () => {
       const { code, result } = await getRedirectUrl(socialType);
 
       if (code !== APIResponseCode.SUCCESS) {
-        alert('알 수 없는 오류가 발생했습니다.');
+        alert(unknownErrorMessage);
         return;
       }
       router.push(result.redirectUrl);
-    } catch (error) {
-      alert('알 수 없는 오류가 발생했습니다.');
+    } catch {
+      alert(unknownErrorMessage);
     }
   };
 
@@ -31,6 +39,7 @@ export const SocialLogins: React.FC = () => {
     <SocialLoginButton
       key={option.social}
       {...option}
+      label={continueWithProviderTemplate.replace('{provider}', option.social)}
       onLoginAction={() => handleLogin(option.providerType)}
     />
   ));

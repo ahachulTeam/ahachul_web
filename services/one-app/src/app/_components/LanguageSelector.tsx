@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 import {
   LOCALE_COOKIE_KEY,
@@ -26,7 +26,6 @@ function setLocaleCookie(locale: SupportedLocale) {
 }
 
 export default function LanguageSelector({ className = '' }: LanguageSelectorProps) {
-  const router = useRouter();
   const pathname = usePathname() ?? '/';
   const searchParams = useSearchParams();
   const currentLocale = resolvePathLocale(pathname, null);
@@ -42,14 +41,17 @@ export default function LanguageSelector({ className = '' }: LanguageSelectorPro
   );
 
   const handleChange = (nextLocale: SupportedLocale) => {
+    if (nextLocale === currentLocale) {
+      return;
+    }
+
     const normalizedPathname = stripLocaleFromPathname(pathname);
     const localizedPathname = localizePathname(normalizedPathname, nextLocale);
     const query = searchParams.toString();
     const nextHref = query ? `${localizedPathname}?${query}` : localizedPathname;
 
     setLocaleCookie(nextLocale);
-    router.push(nextHref);
-    router.refresh();
+    window.location.assign(nextHref);
   };
 
   return (
