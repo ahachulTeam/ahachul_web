@@ -1,6 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { headers } from 'next/headers';
 
+import BreadcrumbNav from '@/app/_components/BreadcrumbNav';
 import SearchForm from '@/component/SearchForm';
 import { SubwayLineFilterOptions } from '@/types';
 import { CommunityType } from '@/types/community';
@@ -38,6 +39,12 @@ export default async function CommunityPage({ searchParams }: Props) {
   return (
     <main className="flex min-h-screen flex-col bg-white ">
       <HydrationBoundary state={dehydratedState}>
+        <BreadcrumbNav
+          items={[
+            { name: '홈', href: '/' },
+            { name: '커뮤니티', href: '/community' },
+          ]}
+        />
         <SearchForm />
         <Filters />
         <CommunityPosts />

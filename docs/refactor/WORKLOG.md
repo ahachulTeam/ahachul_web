@@ -255,3 +255,10 @@
 - Summary: Completed Next-first SEO metadata quality upgrade by extending `@ahhachul/seo` (canonical/metadataBase/robots/OG consistency), introducing centralized SEO copy constants in one-app, rewriting service/list/detail/auth metadata copy, adding missing auth-route metadata coverage, reducing sitemap indexable routes to public value pages, and aligning Vite `index.html` single metadata baseline to the upgraded brand copy.
 - Validation Result: Pass (`pnpm validate:full`)
 - Follow-up: Monitor production Search Console title/snippet behavior and add metadata snapshot tests for newly added routes.
+
+- DateTime (KST): 2026-02-17 17:20:00
+- Task ID: RF-1000
+- Contributors: Team Lead, FE Lead, FE Specialist A, FE Specialist B, Infra Engineer, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Upgraded Next SEO discovery architecture by adding crawlable internal links (header/home/bottom nav anchors), global/breadcrumb JSON-LD (`WebSite`/`Organization`/`SiteNavigationElement`/`BreadcrumbList`), segmented sitemap index routes (`/sitemap.xml` -> `/sitemaps/*.xml`), and RSS feeds (`/rss.xml`, section feeds) backed by shared content-discovery aggregation with resilient fallback behavior during build-time network failures.
+- Validation Result: Pass (`pnpm --filter @ahhachul/one-app build`, `pnpm validate:full`)
+- Follow-up: Add production Search Console monitoring for sitelinks and feed discovery metrics; optionally suppress repetitive build-time fetch logs once observability channel is defined.

@@ -2,7 +2,7 @@
 
 import type { ReactElement } from 'react';
 
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 import { colors } from '@ahhachul/design-system';
 import { BottomNav, BottomNavItem } from '@ahhachul/ui';
@@ -112,7 +112,6 @@ const NAV_ITEMS: ReadonlyArray<{
 
 export default function NavMenu() {
   const pathname = usePathname();
-  const router = useRouter();
 
   if (!ROOT_NAV_PATHS.includes(pathname as NavPath)) {
     return null;
@@ -128,15 +127,9 @@ export default function NavMenu() {
             key={href}
             label={label}
             isActive={isActive}
+            href={href}
             icon={renderIcon({ isActive: false })}
             activeIcon={renderIcon({ isActive: true })}
-            onClick={() => {
-              if (isActive) {
-                return;
-              }
-
-              router.push(href);
-            }}
           />
         );
       })}
