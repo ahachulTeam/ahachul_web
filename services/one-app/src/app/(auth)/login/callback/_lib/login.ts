@@ -21,11 +21,12 @@ export const LoginResponseSchema = z.object({
 
 export async function login({ code, type }: { type: SocialSignInType; code: string }) {
   const data = await fetchClient(API_PATHS.auth.login, {
+    method: 'POST',
     skipAuth: true,
-    params: {
+    body: JSON.stringify({
       providerCode: code,
       providerType: type,
-    },
+    }),
   });
 
   return LoginResponseSchema.parse(data);
