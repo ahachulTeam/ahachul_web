@@ -4,9 +4,9 @@ This document is the index for convention scopes.
 
 ## Convention Scopes
 
-- Common: `docs/refactor/CONVENTIONS_COMMON.md`
-- FE (ahachul_web): `docs/refactor/CONVENTIONS_FE.md`
-- BE/DB/Infra stack (`ahhachul_backend`, `ahachul_data`, `ahachul_secret`): `docs/refactor/CONVENTIONS_BE.md`
+- Common: `docs/CONVENTIONS_COMMON.md`
+- FE (ahachul_web): `docs/CONVENTIONS_FE.md`
+- BE/DB/Infra stack (`ahhachul_backend`, `ahachul_data`, `ahachul_secret`): `docs/CONVENTIONS_BE.md`
 
 ## Precedence
 

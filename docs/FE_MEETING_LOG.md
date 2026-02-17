@@ -2,7 +2,7 @@
 
 This file is an index only.
 
-All FE meeting logs are managed as timestamped files in `docs/refactor/fe-meetings` using the naming rule:
+All FE meeting logs are managed as timestamped files in `docs/fe-meetings` using the naming rule:
 
 - `YYYY-MM-DD_HHMMSS_<TOPIC>.md`
 
@@ -32,5 +32,5 @@ All FE meeting logs are managed as timestamped files in `docs/refactor/fe-meetin
 
 ## Rule
 
-- When a new FE meeting is completed, create a new timestamped file in `docs/refactor/fe-meetings`.
+- When a new FE meeting is completed, create a new timestamped file in `docs/fe-meetings`.
 - Update this index in the same commit.

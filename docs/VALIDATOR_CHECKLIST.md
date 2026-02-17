@@ -16,11 +16,11 @@
    - `node scripts/deploy-game-day-report.mjs --environment=<production|staging> --vite-base-url=<vite-url> --next-base-url=<next-url> --s3-bucket=<bucket> --ecs-cluster=<cluster> --ecs-service=<service> --output=artifacts/game-day-report.md`
 10. Release-ops manual rehearsal gate (release approval scope)
 
-- `docs/refactor/GAME_DAY_MANUAL_CHECKLIST.md` 순서(`staging -> production`)대로 실행하고, 두 환경의 run URL + artifact 경로를 증빙으로 남길 것.
+- `docs/GAME_DAY_MANUAL_CHECKLIST.md` 순서(`staging -> production`)대로 실행하고, 두 환경의 run URL + artifact 경로를 증빙으로 남길 것.
 
 11. Refactor critical rules gate
 
-- `docs/refactor/REFACTORING_CRITICAL_RULES.md` rule 1-4를 수동 검증 기록으로 남길 것.
+- `docs/REFACTORING_CRITICAL_RULES.md` rule 1-4를 수동 검증 기록으로 남길 것.
 
 12. Mock-mode isolation gate (RF-980+)
 

@@ -231,7 +231,7 @@
 - DateTime (KST): 2026-02-17 05:49:14
 - Task ID: RF-960
 - Contributors: Infra Engineer, QA Engineer, Perfectionist Validator, Technical Writer
-- Summary: Added manual game-day operation layer with `scripts/dispatch-game-day-workflow.mjs` (gh workflow dispatch/watch/artifact-download) and `docs/refactor/GAME_DAY_MANUAL_CHECKLIST.md` for staged+production execution, decision gates, failure handling, and evidence template.
+- Summary: Added manual game-day operation layer with `scripts/dispatch-game-day-workflow.mjs` (gh workflow dispatch/watch/artifact-download) and `docs/GAME_DAY_MANUAL_CHECKLIST.md` for staged+production execution, decision gates, failure handling, and evidence template.
 - Validation Result: Pass (`pnpm ops:game-day:dispatch -- --environment=all --watch=true --download=true --dry-run=true`, `pnpm validate:full`)
 - Follow-up: Execute non-dry-run staging rehearsal first, then production rehearsal after explicit gate approval and archive both report artifacts.
 

@@ -71,4 +71,4 @@
   - `pnpm ops:game-day:dispatch -- --environment=production --watch=true --download=true`
   - `pnpm ops:game-day:dispatch -- --environment=all --watch=true --download=true`
 - Full operational checklist:
-  - `docs/refactor/GAME_DAY_MANUAL_CHECKLIST.md`
+  - `docs/GAME_DAY_MANUAL_CHECKLIST.md`

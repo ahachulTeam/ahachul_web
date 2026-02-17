@@ -22,10 +22,10 @@
 
 ## Rulebook Operations
 
-- Every edit to this rulebook must add one entry to `docs/refactor/FE_RULEBOOK_CHANGELOG.md` in the same commit.
-- Every FE meeting record must be stored in `docs/refactor/fe-meetings` with `YYYY-MM-DD_HHMMSS_<TOPIC>.md`.
-- `docs/refactor/FE_MEETING_LOG.md` is index-only and must be synchronized when adding a new meeting file.
-- PR merge strategy governance is owned by `docs/refactor/CONVENTIONS.md` (`Merge Policy`) and FE PRs must follow that policy.
+- Every edit to this rulebook must add one entry to `docs/FE_RULEBOOK_CHANGELOG.md` in the same commit.
+- Every FE meeting record must be stored in `docs/fe-meetings` with `YYYY-MM-DD_HHMMSS_<TOPIC>.md`.
+- `docs/FE_MEETING_LOG.md` is index-only and must be synchronized when adding a new meeting file.
+- PR merge strategy governance is owned by `docs/CONVENTIONS.md` (`Merge Policy`) and FE PRs must follow that policy.
 
 ## Rule 1: Utility Function Conventions (Phase 1)
 
@@ -409,7 +409,7 @@
 - [ ] `pnpm validate:react-style` passes (no derived-state mirror `useEffect` pattern violations).
 - [ ] Naming/file-path updates do not leave typo variants (`Timemout`, `Comlaint`, etc.).
 - [ ] Refactor guardrails are checked before validator sign-off (behavior-preserving, no overengineering, touched-area-only docs/types/comments).
-- [ ] FE PR merge method follows `docs/refactor/CONVENTIONS.md` `Merge Policy`.
+- [ ] FE PR merge method follows `docs/CONVENTIONS.md` `Merge Policy`.
 - [ ] FE rulebook changes are recorded in `FE_RULEBOOK_CHANGELOG.md`.
 - [ ] FE meeting records are added as timestamped files and indexed in `FE_MEETING_LOG.md`.
 - [ ] Dual-app mock mode consumes shared handlers from `@ahhachul/mock-api` (no fragmented app-local handler ownership).
