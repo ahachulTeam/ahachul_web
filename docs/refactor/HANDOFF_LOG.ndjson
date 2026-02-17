@@ -159,3 +159,8 @@
 {"from":"Team Lead","to":"FE Lead","taskId":"RF-970","state":"ASSIGNED","note":"Start micro-style governance task: research synthesis + enforceable rules + migration.","at":"2026-02-17T15:10:00+09:00"}
 {"from":"FE Lead","to":"QA Engineer","taskId":"RF-970","state":"QAReady","note":"Rulebook/scan/lint/code migration complete. Request validator gate.","at":"2026-02-17T15:40:00+09:00"}
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-970","state":"ValidatorPass","note":"validate:react-style/type/lint/full passed and critical guardrails documented.","at":"2026-02-17T15:40:00+09:00"}
+{"from":"FE Specialist A/B","to":"QA Engineer","taskId":"RF-980","state":"QAReady","note":"Shared mock-api handlers and dual-app runtime integration complete. Request blocking gate.","at":"2026-02-17T16:03:05+09:00"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-980","state":"QAReady","note":"validate:full and @ahhachul/mock-api test evidence attached for RF-980.","at":"2026-02-17T16:03:05+09:00"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-980","state":"ValidatorPass","note":"RF-980 gate passed: dual-app mock-mode virtualization validated with strict unhandled policy.","at":"2026-02-17T16:03:05+09:00"}
+{"from":"Team Lead","to":"Technical Writer","taskId":"RF-980","state":"COMMITTED","note":"Synchronize sprint/worklog/decision/rulebook/meeting artifacts before commit.","at":"2026-02-17T16:03:05+09:00"}
+{"from":"Team Lead","to":"All Agents","taskId":"RF-980","state":"Done","note":"RF-980 completed: shared MSW virtualization established for Vite/Next with full validator pass.","at":"2026-02-17T16:03:05+09:00"}

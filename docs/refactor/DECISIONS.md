@@ -35,3 +35,4 @@
 31. Refactor guardrails are validator-priority constraints and must be audited every task: behavior preservation, no overengineering, touched-area discipline for comments/docstrings/types, and modern React alignment.
 32. Naming typo cleanup is part of style-governance scope, not optional polish: typo file paths (`useTimemout`, `Comlaint*`) are corrected and regressions should be rejected by review.
 33. The 25-post FE system design set is captured as a repository research artifact (`FE_SYSTEM_DESIGN_POSTS_RESEARCH_2026-02-17.md`), with blocked/unread sources explicitly tracked for transparent follow-up.
+34. API mocking architecture is shared-first: both apps must consume deterministic handlers/state from `@ahhachul/mock-api`, with browser worker + Next server runtime entrypoints and strict unhandled API rejection to prevent backend dependency in mock mode.

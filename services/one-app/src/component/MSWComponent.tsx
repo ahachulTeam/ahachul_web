@@ -1,15 +1,28 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-export const MSWComponent = () => {
+export const MSWComponent = ({ children }: { children: React.ReactNode }) => {
+  const shouldMock = process.env.NEXT_PUBLIC_API_MOCKING === 'enabled';
+  const [isReady, setIsReady] = useState(!shouldMock);
+
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
-        require('@/mocks/browser');
-      }
+    if (!shouldMock) {
+      return;
     }
-  }, []);
 
-  return null;
+    const startMocking = async () => {
+      const { startBrowserMocking } = await import('@/mocks/browser');
+      await startBrowserMocking();
+      setIsReady(true);
+    };
+
+    void startMocking();
+  }, [shouldMock]);
+
+  if (!isReady) {
+    return null;
+  }
+
+  return <>{children}</>;
 };

@@ -58,6 +58,7 @@
 | RF-950 | 13     | Deployment rollback/game-day rehearsal report automation   | Infra Engineer    | Done   | 22b4929a | Added scheduled+manual rehearsal workflow and report gate for smoke + rollback readiness checks                              |
 | RF-960 | 13     | Game-day manual execution checklist (`staging/production`) | Infra Engineer    | Done   | pending  | Added gh dispatch helper and operator checklist for staged+production rehearsal execution and evidence collection            |
 | RF-970 | 14     | FE micro-style governance + automation + migration         | FE Lead           | Done   | pending  | Added FE system-design research artifact, micro React style rulebook/validator gates, no-nested-ternary rollout, typo rename |
+| RF-980 | 15     | Dual-app full API MSW virtualization (`mock-api` shared)   | FE Lead           | Done   | pending  | Added shared deterministic MSW handlers and integrated Vite/Next browser+server mock mode with strict unhandled API policy   |
 
 ## Rule
 

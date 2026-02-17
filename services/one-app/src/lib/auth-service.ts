@@ -79,8 +79,13 @@ class _AuthService {
     }
 
     const data = await response.json();
-    this.setToken(data.accessToken, data.refreshToken);
-    return data.accessToken;
+    const tokenPayload =
+      typeof data?.result?.accessToken === 'string' &&
+      typeof data?.result?.refreshToken === 'string'
+        ? data.result
+        : data;
+    this.setToken(tokenPayload.accessToken, tokenPayload.refreshToken);
+    return tokenPayload.accessToken;
   }
 }
 

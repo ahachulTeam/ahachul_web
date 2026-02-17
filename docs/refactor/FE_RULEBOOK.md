@@ -11,6 +11,7 @@
   5. Form + Zod + schema hook conventions
   6. Design-system token conventions
   7. Shared component + Storybook conventions
+  8. MSW mock-mode virtualization conventions
 
 ## FE Pod Structure
 
@@ -307,6 +308,34 @@
 - Do not add/modify/remove comments, docstrings, or type annotations in untouched code regions.
 - React refactors must align with modern React guidance (data derivation first, minimal effect scope).
 
+## Rule 12: Mock-Mode Virtualization Conventions
+
+### 1) Shared Handler Ownership
+
+- API mocking handlers/state must live in `@ahhachul/mock-api` and be consumed by both apps.
+- App-local mock handlers are allowed only as temporary wrappers/bootstrap entrypoints.
+
+### 2) Strict Unhandled Policy
+
+- Mock mode must fail loudly for unhandled API requests (backend leak-through 금지).
+- Non-API asset/document requests may bypass with warning-level handling only.
+
+### 3) Runtime Boundaries
+
+- Browser mocking: `msw/browser` only in client runtime.
+- Next server mocking: `msw/node` only in node runtime (`instrumentation` path), never in edge/client bundle.
+- Next webpack alias policy must block cross-runtime import resolution (`msw/browser` on server, `msw/node` on client/edge).
+
+### 4) Deterministic State + Reset
+
+- Shared mock state must be deterministic and resettable (`resetMockApiState`) for repeatable test/runtime behavior.
+- Test setup files must reset handlers and mock state after each test.
+
+### 5) Coverage Baseline
+
+- Mock handlers must cover all contract paths in `@ahhachul/http` (`API_PATHS`, `API_SERVICE_PATHS`) used by runtime flows.
+- Minimum coverage flows: auth/profile, list/detail/create/edit/delete, comment create/edit/delete, subway, presigned upload.
+
 ## Implementation Checklist
 
 - [ ] New utility function added with explicit input/output type.
@@ -336,6 +365,9 @@
 - [ ] FE PR merge method follows `docs/refactor/CONVENTIONS.md` `Merge Policy`.
 - [ ] FE rulebook changes are recorded in `FE_RULEBOOK_CHANGELOG.md`.
 - [ ] FE meeting records are added as timestamped files and indexed in `FE_MEETING_LOG.md`.
+- [ ] Dual-app mock mode consumes shared handlers from `@ahhachul/mock-api` (no fragmented app-local handler ownership).
+- [ ] Mock runtime boundary check passes (`msw/browser` client-only, `msw/node` node-only).
+- [ ] `pnpm --filter @ahhachul/mock-api test` passes in the same task.
 
 ## Sources (Primary)
 
@@ -373,5 +405,11 @@
   - [https://react.dev/learn/you-might-not-need-an-effect](https://react.dev/learn/you-might-not-need-an-effect)
 - React: useDeferredValue
   - [https://react.dev/reference/react/useDeferredValue](https://react.dev/reference/react/useDeferredValue)
+- MSW: Browser API (`setupWorker`)
+  - [https://mswjs.io/docs/api/setup-worker](https://mswjs.io/docs/api/setup-worker)
+- MSW: Node API (`setupServer`)
+  - [https://mswjs.io/docs/api/setup-server](https://mswjs.io/docs/api/setup-server)
+- Next.js: `instrumentation.js`
+  - [https://nextjs.org/docs/app/building-your-application/optimizing/instrumentation](https://nextjs.org/docs/app/building-your-application/optimizing/instrumentation)
 - FE system design source synthesis (2026-02-17)
   - [./FE_SYSTEM_DESIGN_POSTS_RESEARCH_2026-02-17.md](./FE_SYSTEM_DESIGN_POSTS_RESEARCH_2026-02-17.md)

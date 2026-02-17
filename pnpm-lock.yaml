@@ -77,6 +77,25 @@ importers:
         specifier: ^5
         version: 5.7.3
 
+  packages/mock-api:
+    dependencies:
+      '@ahhachul/domain':
+        specifier: workspace:*
+        version: link:../domain
+      '@ahhachul/http':
+        specifier: workspace:*
+        version: link:../http
+      msw:
+        specifier: ^2.7.0
+        version: 2.7.0(@types/node@20.13.0)(typescript@5.7.3)
+    devDependencies:
+      typescript:
+        specifier: ^5
+        version: 5.7.3
+      vitest:
+        specifier: ^2.1.8
+        version: 2.1.8(@types/node@20.13.0)(@vitest/ui@2.1.8)(jsdom@26.0.0)(msw@2.7.0(@types/node@20.13.0)(typescript@5.7.3))
+
   packages/routes:
     devDependencies:
       typescript:
@@ -160,6 +179,9 @@ importers:
       '@ahhachul/http':
         specifier: workspace:*
         version: link:../../packages/http
+      '@ahhachul/mock-api':
+        specifier: workspace:*
+        version: link:../../packages/mock-api
       '@ahhachul/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -371,6 +393,9 @@ importers:
       '@ahhachul/http':
         specifier: workspace:*
         version: link:../../packages/http
+      '@ahhachul/mock-api':
+        specifier: workspace:*
+        version: link:../../packages/mock-api
       '@ahhachul/routes':
         specifier: workspace:*
         version: link:../../packages/routes

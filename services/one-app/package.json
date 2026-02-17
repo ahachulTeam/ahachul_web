@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev:mock": "NEXT_PUBLIC_API_MOCKING=enabled next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "type-check": "tsc --noEmit",
@@ -25,6 +26,7 @@
     "@ahhachul/design-system": "workspace:*",
     "@ahhachul/domain": "workspace:*",
     "@ahhachul/http": "workspace:*",
+    "@ahhachul/mock-api": "workspace:*",
     "@ahhachul/routes": "workspace:*",
     "@ahhachul/seo": "workspace:*",
     "@ahhachul/ui": "workspace:*",

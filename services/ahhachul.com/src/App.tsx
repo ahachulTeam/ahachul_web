@@ -6,8 +6,8 @@ import { UiComponent } from './components';
 import { useInitialLoader } from './hooks/domain/home/useInitialLoader';
 
 if (import.meta.env.MODE === 'mock') {
-  const { worker } = await import('@/mocks');
-  worker.start();
+  const { startBrowserMocking } = await import('@/mocks');
+  await startBrowserMocking();
 }
 
 function App() {

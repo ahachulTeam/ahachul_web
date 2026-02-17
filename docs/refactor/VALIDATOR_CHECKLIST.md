@@ -22,6 +22,12 @@
 
 - `docs/refactor/REFACTORING_CRITICAL_RULES.md` rule 1-4를 수동 검증 기록으로 남길 것.
 
+12. Mock-mode isolation gate (RF-980+)
+
+- Vite mock mode: `pnpm --filter @ahhachul/app dev --mode mock` 환경에서 핵심 라우트 진입 시 백엔드 호출 누수(미핸들 API 요청)가 없어야 함.
+- Next mock mode: `pnpm --filter @ahhachul/one-app dev:mock` 환경에서 핵심 라우트 진입 시 백엔드 호출 누수(미핸들 API 요청)가 없어야 함.
+- Shared handler regression: `pnpm --filter @ahhachul/mock-api test` must pass.
+
 ## Rule
 
 - Any failed gate returns task to `Rework`.

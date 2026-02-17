@@ -34,6 +34,7 @@
     "@ahhachul/design-system": "workspace:*",
     "@ahhachul/domain": "workspace:*",
     "@ahhachul/http": "workspace:*",
+    "@ahhachul/mock-api": "workspace:*",
     "@ahhachul/ui": "workspace:*",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
