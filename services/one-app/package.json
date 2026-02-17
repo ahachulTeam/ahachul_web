@@ -3,8 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "dev:mock": "NEXT_PUBLIC_API_MOCKING=enabled next dev --turbopack",
+    "dev": "next dev",
+    "dev:mock": "NEXT_PUBLIC_API_MOCKING=enabled next dev",
+    "dev:turbo": "next dev --turbopack",
+    "dev:mock:turbo": "NEXT_PUBLIC_API_MOCKING=enabled next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "type-check": "tsc --noEmit",
