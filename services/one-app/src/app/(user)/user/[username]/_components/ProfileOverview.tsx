@@ -20,19 +20,19 @@ export default function ProfileOverview({ username }: Props) {
 
   const profile = data?.result;
   const isMine = profile?.nickname === username;
+  let profileGuideText = '요청한 사용자 경로를 확인했습니다.';
+  if (isPending) {
+    profileGuideText = '사용자 정보를 불러오는 중입니다.';
+  } else if (isMine) {
+    profileGuideText = '현재 로그인된 내 프로필입니다.';
+  }
 
   return (
     <section className="space-y-3 px-5 pb-24 pt-4">
       <article className="rounded-2xl border border-gray-30 bg-white p-4">
         <p className="text-label-small text-gray-70">사용자 프로필</p>
         <h1 className="mt-1 text-headline-small text-gray-100">{username}</h1>
-        <p className="mt-1 text-body-medium text-gray-80">
-          {isPending
-            ? '사용자 정보를 불러오는 중입니다.'
-            : isMine
-              ? '현재 로그인된 내 프로필입니다.'
-              : '요청한 사용자 경로를 확인했습니다.'}
-        </p>
+        <p className="mt-1 text-body-medium text-gray-80">{profileGuideText}</p>
       </article>
 
       <article className="rounded-2xl border border-gray-30 bg-white p-4">

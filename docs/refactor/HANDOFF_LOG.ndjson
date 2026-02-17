@@ -156,3 +156,6 @@
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-960","state":"ValidatorPass","note":"RF-960 gate passed with validate:full success and dry-run dispatch verification.","at":"2026-02-17T05:51:11+09:00"}
 {"from":"Team Lead","to":"Technical Writer","taskId":"RF-960","state":"COMMITTED","note":"Sync checklist/runbook/sprint artifacts and finalize single-task commit.","at":"2026-02-17T05:51:11+09:00"}
 {"from":"Team Lead","to":"All Agents","taskId":"RF-960","state":"Done","note":"RF-960 completed: manual game-day staging/production checklist and dispatcher are standardized.","at":"2026-02-17T05:51:11+09:00"}
+{"from":"Team Lead","to":"FE Lead","taskId":"RF-970","state":"ASSIGNED","note":"Start micro-style governance task: research synthesis + enforceable rules + migration.","at":"2026-02-17T15:10:00+09:00"}
+{"from":"FE Lead","to":"QA Engineer","taskId":"RF-970","state":"QAReady","note":"Rulebook/scan/lint/code migration complete. Request validator gate.","at":"2026-02-17T15:40:00+09:00"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-970","state":"ValidatorPass","note":"validate:react-style/type/lint/full passed and critical guardrails documented.","at":"2026-02-17T15:40:00+09:00"}

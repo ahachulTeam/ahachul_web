@@ -20,6 +20,30 @@ interface SelectButtonProps {
   isError?: boolean;
 }
 
+const resolveBorderColor = ({
+  isError,
+  isActive,
+  theme,
+}: SelectButtonProps & {
+  theme: {
+    colors: {
+      red: string;
+      'key-color': string;
+      gray: Record<number, string>;
+    };
+  };
+}) => {
+  if (isError) {
+    return theme.colors.red;
+  }
+
+  if (isActive) {
+    return theme.colors['key-color'];
+  }
+
+  return theme.colors.gray[50];
+};
+
 export const SelectButton = styled.button<SelectButtonProps>`
   ${({ theme }) => theme.fonts.labelMedium}
   font-weight: ${({ isActive }) => (isActive ? 600 : 400)};
@@ -31,8 +55,7 @@ export const SelectButton = styled.button<SelectButtonProps>`
   width: max-content;
   margin-right: 8px;
   border: 1px solid
-    ${({ theme, isActive, isError }) =>
-      isError ? theme.colors.red : isActive ? theme.colors['key-color'] : theme.colors.gray[50]};
+    ${({ theme, isActive, isError }) => resolveBorderColor({ theme, isActive, isError })};
   background: ${({ theme, isActive }) => (isActive ? theme.colors['key-color'] : 'inherit')};
   color: ${({ theme, isActive }) => (isActive ? theme.colors.white : theme.colors.gray[90])};
 `;

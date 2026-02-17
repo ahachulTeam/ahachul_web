@@ -33,6 +33,8 @@
 - Shared utility regression baseline: validate/format utility changes must ship with unit tests and pass `@ahhachul/utils:test`
 - Design-system color baseline: Vite/Next style layers must consume shared tokens from `@ahhachul/design-system`; direct inline hex is blocked in one-app and blocked in Vite Emotion/styled except approved legacy exception files.
 - Shared component baseline: promote UI primitives to `packages/ui` only when they pass FE Rulebook Rule 8 (cross-app reuse + presentational scope + Storybook external narrative value) and block merge unless `CI=1 pnpm ui:storybook:build` passes.
+- Micro style baseline: nested ternary is blocked globally, and obvious mirror derived-state effects are blocked by `validate:react-style`.
+- Validator guardrail baseline: `docs/refactor/REFACTORING_CRITICAL_RULES.md` must be checked before FE refactor sign-off.
 
 ## Validation Authority
 

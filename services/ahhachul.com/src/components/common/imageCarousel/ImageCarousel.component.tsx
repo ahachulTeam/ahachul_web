@@ -1,4 +1,4 @@
-import { useReducer, useRef, useState } from 'react';
+import { type ReactNode, useReducer, useRef, useState } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 
@@ -34,40 +34,47 @@ const ImageCarousel = ({ label, images }: ImageCarouselProps) => {
     toggleModal();
   };
 
+  let carouselContent: ReactNode = null;
+  if (images.length === 1) {
+    carouselContent = (
+      <div css={S.swipeContainerCss} onClick={toggleModal}>
+        <LazyLoadImage
+          src={images[0].imageUrl}
+          alt={`${label}-img-0`}
+          css={S.swipeImageCss}
+          effect="opacity"
+        />
+      </div>
+    );
+  } else if (images.length > 1) {
+    carouselContent = (
+      <Swiper
+        ref={swiperRef}
+        modules={[Pagination]}
+        slidesPerView={1}
+        simulateTouch={false}
+        touchStartPreventDefault={false}
+        touchMoveStopPropagation={false}
+        pagination={{ clickable: true }}
+        css={S.swipeContainerCss}
+      >
+        {images.map((img, idx) => (
+          <SwiperSlide key={img.imageId} onClick={handleClickSlide(idx)}>
+            <LazyLoadImage
+              effect="opacity"
+              alt={`${label}-img-${idx + 1}`}
+              src={img.imageUrl}
+              css={S.swipeImageCss}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    );
+  }
+
   return (
     <>
-      {images.length === 1 ? (
-        <div css={S.swipeContainerCss} onClick={toggleModal}>
-          <LazyLoadImage
-            src={images[0].imageUrl}
-            alt={`${label}-img-0`}
-            css={S.swipeImageCss}
-            effect="opacity"
-          />
-        </div>
-      ) : images.length > 1 ? (
-        <Swiper
-          ref={swiperRef}
-          modules={[Pagination]}
-          slidesPerView={1}
-          simulateTouch={false}
-          touchStartPreventDefault={false}
-          touchMoveStopPropagation={false}
-          pagination={{ clickable: true }}
-          css={S.swipeContainerCss}
-        >
-          {images.map((img, idx) => (
-            <SwiperSlide key={img.imageId} onClick={handleClickSlide(idx)}>
-              <LazyLoadImage
-                effect="opacity"
-                alt={`${label}-img-${idx + 1}`}
-                src={img.imageUrl}
-                css={S.swipeImageCss}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      ) : null}
+      {carouselContent}
 
       {showCarouselMdal && (
         <UiComponent.ImageCarouselModal

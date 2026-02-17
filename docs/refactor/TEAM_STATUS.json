@@ -1,77 +1,77 @@
 {
-  "updatedAt": "2026-02-16T20:51:11Z",
+  "updatedAt": "2026-02-17T06:02:21.699Z",
   "branch": "codex/refactor-foundation",
-  "sprintFocus": "RF-960 complete: manual staging/production game-day execution checklist and dispatcher standardized",
+  "sprintFocus": "RF-970 complete: FE micro-style governance automated (nested ternary ban + derived-state scan + validator critical rules)",
   "leadDirective": [
-    "1) RF-960 completed: manual operation checklist added for staging -> production game-day rehearsal order.",
-    "2) Added ops:game-day:dispatch helper for gh dispatch/watch/artifact download with dry-run support.",
-    "3) Deploy runbook and validator checklist now reference checklist-based release-ops evidence.",
-    "4) Next step: run non-dry-run staging rehearsal, then production rehearsal with archived report artifacts."
+    "1) RF-970 completed: micro FE coding-style conventions moved from docs to blocking CI gates.",
+    "2) Added research artifact for 25-post system design set with explicit blocked-source tracking.",
+    "3) Added validate:react-style and refactor critical rules to validator checklist.",
+    "4) Next step: keep incremental micro-style cleanup behavior-preserving and gate-driven."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-960",
+      "taskId": "RF-970",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:51:11+09:00",
-      "nextAction": "queue next backlog item after RF-960 closeout"
+      "updatedAt": "2026-02-17T15:40:00+09:00",
+      "nextAction": "queue next FE micro-consistency backlog item after RF-970 closeout"
     },
     {
       "role": "FE Lead",
       "owner": "fe-lead",
-      "taskId": "RF-960",
-      "state": "Ready",
-      "updatedAt": "2026-02-17T05:51:11+09:00",
-      "nextAction": "support infra rehearsal follow-up only if app regressions are reported"
+      "taskId": "RF-970",
+      "state": "Done",
+      "updatedAt": "2026-02-17T15:40:00+09:00",
+      "nextAction": "monitor Rule 11 adoption and keep scans low-noise"
     },
     {
       "role": "FE Specialist A",
       "owner": "fe-spec-a",
-      "taskId": "RF-960",
+      "taskId": "RF-970",
       "state": "Ready",
-      "updatedAt": "2026-02-17T05:51:11+09:00",
-      "nextAction": "stand by for shared-layer patch requests from rehearsal findings"
+      "updatedAt": "2026-02-17T15:40:00+09:00",
+      "nextAction": "evolve style scan heuristics only with false-positive evidence"
     },
     {
       "role": "FE Specialist B",
       "owner": "fe-spec-b",
-      "taskId": "RF-960",
+      "taskId": "RF-970",
       "state": "Ready",
-      "updatedAt": "2026-02-17T05:51:11+09:00",
-      "nextAction": "stand by for app-level patch requests from rehearsal findings"
+      "updatedAt": "2026-02-17T15:40:00+09:00",
+      "nextAction": "continue behavior-preserving migration for remaining micro-style hotspots"
     },
     {
       "role": "Infra Engineer",
       "owner": "infra-core",
-      "taskId": "RF-960",
-      "state": "Done",
-      "updatedAt": "2026-02-17T05:51:11+09:00",
-      "nextAction": "execute non-dry-run checklist in order (staging then production)"
+      "taskId": "RF-970",
+      "state": "Ready",
+      "updatedAt": "2026-02-17T15:40:00+09:00",
+      "nextAction": "maintain validate:full runtime and CI reliability for new style gate"
     },
     {
       "role": "QA Engineer",
       "owner": "qa-core",
-      "taskId": "RF-960",
+      "taskId": "RF-970",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T05:51:11+09:00",
-      "nextAction": "collect run URL and artifact evidence for release packet"
+      "updatedAt": "2026-02-17T15:40:00+09:00",
+      "nextAction": "use RF-970 guardrails as default checklist for FE refactor QA"
     },
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-960",
+      "taskId": "RF-970",
       "state": "Done",
-      "updatedAt": "2026-02-17T05:51:11+09:00",
-      "nextAction": "keep checklist and runbook synchronized with workflow evolution"
+      "updatedAt": "2026-02-17T15:40:00+09:00",
+      "nextAction": "keep research/rulebook/changelog synchronized for future rule updates"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
-      "taskId": "RF-960",
+      "taskId": "RF-970",
       "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T05:51:11+09:00",
-      "nextAction": "await next QAReady handoff"
+      "updatedAt": "2026-02-17T15:40:00+09:00",
+      "nextAction": "enforce refactor critical rules before every task acceptance"
     }
   ],
   "handoffs": [

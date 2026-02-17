@@ -36,6 +36,7 @@ module.exports = {
     'no-async-promise-executor': 'off',
     'no-prototype-builtins': 'off',
     'unused-imports/no-unused-imports': 'error',
+    'no-nested-ternary': 'error',
     // emotion css props
     'react/no-unknown-property': ['error', { ignore: ['css'] }],
   },

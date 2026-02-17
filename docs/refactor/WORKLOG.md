@@ -234,3 +234,10 @@
 - Summary: Added manual game-day operation layer with `scripts/dispatch-game-day-workflow.mjs` (gh workflow dispatch/watch/artifact-download) and `docs/refactor/GAME_DAY_MANUAL_CHECKLIST.md` for staged+production execution, decision gates, failure handling, and evidence template.
 - Validation Result: Pass (`pnpm ops:game-day:dispatch -- --environment=all --watch=true --download=true --dry-run=true`, `pnpm validate:full`)
 - Follow-up: Execute non-dry-run staging rehearsal first, then production rehearsal after explicit gate approval and archive both report artifacts.
+
+- DateTime (KST): 2026-02-17 15:40:00
+- Task ID: RF-970
+- Contributors: Team Lead, FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Completed FE micro-style modernization pass by publishing `FE_SYSTEM_DESIGN_POSTS_RESEARCH_2026-02-17.md` (25-source coverage with explicit skip list), adding Rule 11 and refactor guardrails, introducing blocking style automation (`no-nested-ternary`, `scan-react-style-violations`, `validate:react-style`), migrating dual-app nested ternary callsites, applying `useDeferredValue` search pattern improvement, and fixing naming-typo file paths (`useTimeout`, `ComplaintDetail*`, `useDisableScroll.test.ts`).
+- Validation Result: Pass (`pnpm validate:react-style`, `pnpm validate:type`, `pnpm validate:lint`, `pnpm validate:full`)
+- Follow-up: Extend RF-970 pattern by adding more fine-grained style scans only when false-positive-free and measurable.

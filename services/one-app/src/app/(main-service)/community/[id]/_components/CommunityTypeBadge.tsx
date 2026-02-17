@@ -9,12 +9,12 @@ interface Props {
 }
 
 export const CommunityTypeBadge = ({ communityType }: Props) => {
-  const label =
-    communityType === CommunityType.FREE
-      ? '자유'
-      : communityType === CommunityType.HUMOR
-        ? '유머'
-        : '정보';
+  let label = '정보';
+  if (communityType === CommunityType.FREE) {
+    label = '자유';
+  } else if (communityType === CommunityType.HUMOR) {
+    label = '유머';
+  }
 
   return (
     <ServiceBadge

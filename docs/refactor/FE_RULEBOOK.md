@@ -256,6 +256,56 @@
 - Any response/pagination schema change must be implemented once in `@ahhachul/domain`, then consumed by both apps.
 - Parallel type forks across Vite/Next are prohibited for canonical contracts.
 
+## Rule 11: Micro React Coding Style Conventions
+
+### 1) Conditional Rendering Readability
+
+- Nested ternary (`a ? b : c ? d : e`) is prohibited across FE source.
+- Prefer explicit branching with:
+  - `if/else` for business conditions
+  - precomputed variables (`let label = ...`)
+  - small render helpers for JSX-heavy branches
+- Enforcement:
+  - ESLint `no-nested-ternary=error`
+
+### 2) Derived State and `useEffect`
+
+- `useEffect(() => setState(prop), [prop])` mirror patterns are prohibited unless there is an explicit synchronization boundary requirement.
+- Preferred order:
+  1. derive directly from props/query/store in render (`useMemo` only if expensive)
+  2. keep editable local state only when true user edits exist
+  3. if sync is required, document the boundary and keep effect scope minimal
+- Enforcement:
+  - `pnpm validate:react-style` (`scan-react-style-violations.mjs`) blocks obvious mirror patterns.
+
+### 3) Input/Search Responsiveness Pattern
+
+- For expensive filtered views driven by text input:
+  - keep controlled input state immediate
+  - defer heavy list derivation with `useDeferredValue` pattern
+- Avoid redundant state writes in one handler (`setState` + transition duplicate calls).
+
+### 4) Naming Conventions
+
+- Variable names:
+  - booleans start with `is/has/can/should`
+  - collection variables use plural nouns (`images`, `stations`)
+  - ambiguous abbreviations are prohibited unless domain-standard (`id`, `url`, `api`)
+- Function names:
+  - event handlers start with `handle`
+  - predicates start with `is/has/can`
+  - format/parse functions start with `format/parse`
+- File names:
+  - no typo variants (`Timemout`, `Comlaint`, etc.)
+  - hook file names must reflect exported hook (`useTimeout.ts` -> `useTimeout`)
+
+### 5) Refactor Guardrails (Validator Priority)
+
+- Refactors must preserve existing behavior unless task scope explicitly includes feature change.
+- Avoid overengineering: do not introduce unnecessary abstraction layers.
+- Do not add/modify/remove comments, docstrings, or type annotations in untouched code regions.
+- React refactors must align with modern React guidance (data derivation first, minimal effect scope).
+
 ## Implementation Checklist
 
 - [ ] New utility function added with explicit input/output type.
@@ -278,6 +328,10 @@
 - [ ] API callsites use `@ahhachul/http` contracts (`API_PATHS/API_SERVICE_PATHS/API_PAGE_SIZE/API_SORT`) instead of raw endpoint literals.
 - [ ] `pnpm validate:api-contract` passes (no endpoint literals in network calls outside approved contract files).
 - [ ] API response/pagination contracts use shared canonical types from `@ahhachul/domain` (no app-local re-declaration of canonical structures).
+- [ ] No nested ternary remains in FE source (`no-nested-ternary` lint pass).
+- [ ] `pnpm validate:react-style` passes (no derived-state mirror `useEffect` pattern violations).
+- [ ] Naming/file-path updates do not leave typo variants (`Timemout`, `Comlaint`, etc.).
+- [ ] Refactor guardrails are checked before validator sign-off (behavior-preserving, no overengineering, touched-area-only docs/types/comments).
 - [ ] FE rulebook changes are recorded in `FE_RULEBOOK_CHANGELOG.md`.
 - [ ] FE meeting records are added as timestamped files and indexed in `FE_MEETING_LOG.md`.
 
@@ -313,3 +367,9 @@
   - [https://storybook.js.org/docs/get-started/frameworks/react-vite](https://storybook.js.org/docs/get-started/frameworks/react-vite)
 - date-fns (official repo)
   - [https://github.com/date-fns/date-fns](https://github.com/date-fns/date-fns)
+- React: You Might Not Need an Effect
+  - [https://react.dev/learn/you-might-not-need-an-effect](https://react.dev/learn/you-might-not-need-an-effect)
+- React: useDeferredValue
+  - [https://react.dev/reference/react/useDeferredValue](https://react.dev/reference/react/useDeferredValue)
+- FE system design source synthesis (2026-02-17)
+  - [./FE_SYSTEM_DESIGN_POSTS_RESEARCH_2026-02-17.md](./FE_SYSTEM_DESIGN_POSTS_RESEARCH_2026-02-17.md)

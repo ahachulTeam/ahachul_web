@@ -22,20 +22,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const baseTitle = (subwayLineId?: string) =>
     `${extractTitle} / ${subwayLineId} 민원 접수 - 아하철`;
 
-  const title =
-    subwayLineId && +subwayLineId !== 0
-      ? baseTitle(SUBWAY_LINES.find(subway => subway.id === +subwayLineId)?.name)
-      : baseTitle('지하철');
+  let title = baseTitle('지하철');
+  if (subwayLineId && +subwayLineId !== 0) {
+    title = baseTitle(SUBWAY_LINES.find(subway => subway.id === +subwayLineId)?.name);
+  }
 
   const baseDescription =
     '지하철 이용 중 불편사항을 쉽고 빠르게 신고하세요. 시설물 고장, 불편사항, 개선 요청 등 다양한 민원을 실시간으로 접수하고 처리 현황을 확인할 수 있습니다. 더 나은 지하철 환경을 만드는 첫걸음, 아하철 민원 서비스입니다.';
 
-  const image =
-    post.result.images.length > 0 && post.result.images.at(0).imageUrl
-      ? post.result.images.at(0).imageUrl
-      : subwayLineId && +subwayLineId !== 0
-        ? `https://static.dev.ahhachul.com/banners/complaint/subway-line-${subwayLineId}.png`
-        : 'https://static.dev.ahhachul.com/banners/complaint/main.png';
+  let image = 'https://static.dev.ahhachul.com/banners/complaint/main.png';
+  if (subwayLineId && +subwayLineId !== 0) {
+    image = `https://static.dev.ahhachul.com/banners/complaint/subway-line-${subwayLineId}.png`;
+  }
+  if (post.result.images.length > 0 && post.result.images.at(0).imageUrl) {
+    image = post.result.images.at(0).imageUrl;
+  }
 
   const description = extractTextFromLexical(post.result.content, baseDescription);
 

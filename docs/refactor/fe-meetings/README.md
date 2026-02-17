@@ -8,5 +8,6 @@ Examples:
 
 - `2026-02-17_015404_FE_CONVENTION_MEETING_001.md`
 - `2026-02-17_031500_FE_FORM_SCHEMA_HOOKS_MEETING_003.md`
+- `2026-02-17_154000_FE_MICRO_STYLE_GOVERNANCE_MEETING_015.md`
 
 Because filenames start with date and time, lexical sorting keeps meetings in chronological order.

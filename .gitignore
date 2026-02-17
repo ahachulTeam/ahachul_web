@@ -1,8 +1,9 @@
 *.DS_Store
 *.log
+pnpm-debug.log*
 *.tsbuildinfo
 
-**/packge-lock.json
+**/package-lock.json
 **/node_modules/
 
 # vite
@@ -13,6 +14,9 @@ dist
 # next.js
 **/.next/
 **/out/
+**/storybook-static/
+artifacts/
+services/ahhachul.com/stats.html
 
 .env
 **/.env

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { useTimeout } from './useTimemout';
+import { useTimeout } from './useTimeout';
 
 export const useIsDeferred = (ms?: number) => {
   const [isDeferred, setIsDeferred] = useState(false);

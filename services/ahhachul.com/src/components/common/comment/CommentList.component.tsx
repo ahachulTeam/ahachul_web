@@ -19,7 +19,9 @@ const BaseCommentList = React.memo(
   ({ queryKey, servicePath, commentsMap, isArticleAuthor }: BaseCommentListProps) => {
     const { setTempComment } = useTempComment();
 
-    useEffect(() => setTempComment(commentsMap), [commentsMap]);
+    useEffect(() => {
+      setTempComment(commentsMap);
+    }, [commentsMap, setTempComment]);
 
     if (commentsMap.length === 0) return <EmptyCommentList />;
 

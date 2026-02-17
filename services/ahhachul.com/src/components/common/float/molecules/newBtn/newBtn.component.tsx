@@ -28,8 +28,10 @@ const NewBtn = ({
 
   const onClick = () => {
     const action = replace ? replacePage : push;
+    const nextActivity = !checkAuth || authService.isAuthenticated ? activityName : 'SignInPage';
+
     action(
-      !checkAuth ? activityName : authService.isAuthenticated ? activityName : 'SignInPage',
+      nextActivity,
       {},
       {
         animate: !replace,

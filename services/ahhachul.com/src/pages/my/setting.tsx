@@ -1,5 +1,5 @@
 import type React from 'react';
-import { useEffect, useState, useTransition } from 'react';
+import { useDeferredValue, useEffect, useState } from 'react';
 
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -37,12 +37,13 @@ const SettingPage: ActivityComponentType = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStation, setSelectedStation] = useState<string | null>(null);
   const [labeledStations, setLabeledStations] = useState<StationLabel[]>([]);
-  const [isPending, startTransition] = useTransition();
+  const deferredSearchTerm = useDeferredValue(searchTerm);
+  const isPending = searchTerm !== deferredSearchTerm;
 
   const allStations = Object.keys(DEFAULT_STATIONS as Stations);
 
-  const displayStations = searchTerm
-    ? allStations.filter(name => name.toLowerCase().includes(searchTerm.toLowerCase()))
+  const displayStations = deferredSearchTerm
+    ? allStations.filter(name => name.toLowerCase().includes(deferredSearchTerm.toLowerCase()))
     : allStations;
 
   const renderLineNumbers = (stationName: string) => {
@@ -84,10 +85,6 @@ const SettingPage: ActivityComponentType = () => {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchTerm(value);
-
-    startTransition(() => {
-      setSearchTerm(value);
-    });
   };
 
   useEffect(() => {

@@ -311,6 +311,12 @@ export default function LostFoundPostEditor(props: Props) {
   }
 
   const cancelHref = isEditMode ? `/lost-found/${editTargetId}` : '/lost-found';
+  let submitButtonLabel = '등록 완료';
+  if (mutation.isPending) {
+    submitButtonLabel = '저장 중...';
+  } else if (isEditMode) {
+    submitButtonLabel = '수정 완료';
+  }
 
   return (
     <main className="min-h-screen bg-gray-10 px-5 pb-24 pt-4">
@@ -443,7 +449,7 @@ export default function LostFoundPostEditor(props: Props) {
               disabled={mutation.isPending}
               className="inline-flex h-11 flex-1 items-center justify-center rounded-xl bg-key-color text-label-medium text-white disabled:cursor-not-allowed disabled:bg-gray-70"
             >
-              {mutation.isPending ? '저장 중...' : isEditMode ? '수정 완료' : '등록 완료'}
+              {submitButtonLabel}
             </button>
           </div>
         </form>

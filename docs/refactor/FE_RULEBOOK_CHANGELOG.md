@@ -141,3 +141,11 @@ Track every modification to `FE_RULEBOOK.md` in chronological order.
 - Section(s): Rule 7 (Design System Token Conventions), Implementation Checklist
 - Summary: Removed RF-891 temporary exception scope by fully tokenizing Vite icon/subway files and upgraded residual-hex policy to zero-exception scan across Vite source.
 - Follow-up: Keep all future icon/subway color additions token-first in `@ahhachul/design-system` and reject any inline hex reintroduction.
+
+- DateTime (KST): 2026-02-17 15:40:00
+- Task ID: RF-970
+- Author/Owner: FE Lead
+- Change Type: Added
+- Section(s): Rule 11 (Micro React Coding Style), Implementation Checklist, Sources
+- Summary: Added micro FE coding-style conventions for nested ternary prohibition, derived-state/useEffect boundaries, `useDeferredValue` input filtering pattern, naming/file typo hygiene, and refactor guardrails; linked new automated `validate:react-style` gate and research synthesis document.
+- Follow-up: Keep all future FE refactor tasks blocked unless `validate:react-style` and `no-nested-ternary` gates pass.

@@ -39,6 +39,18 @@ export const Button = styled.button`
   color: var(--ah-color-legacy-text-contrast);
 `;
 
+const resolveSecondaryBackgroundColor = (variant?: 'default' | 'primary' | 'danger') => {
+  if (variant === 'primary') {
+    return 'var(--ah-color-legacy-status-primary-soft)';
+  }
+
+  if (variant === 'danger') {
+    return 'var(--ah-color-legacy-status-critical)';
+  }
+
+  return 'var(--ah-color-legacy-surface-soft-alt)';
+};
+
 export const SecondaryButton = styled.button<{
   variant?: 'default' | 'primary' | 'danger';
 }>`
@@ -46,12 +58,7 @@ export const SecondaryButton = styled.button<{
   justify-content: center;
   border-radius: 9999px;
   font-size: 19px;
-  background-color: ${props =>
-    props.variant === 'primary'
-      ? 'var(--ah-color-legacy-status-primary-soft)'
-      : props.variant === 'danger'
-        ? 'var(--ah-color-legacy-status-critical)'
-        : 'var(--ah-color-legacy-surface-soft-alt)'};
+  background-color: ${props => resolveSecondaryBackgroundColor(props.variant)};
   color: ${props =>
     props.variant === 'default' ? 'var(--ah-color-legacy-text-contrast)' : 'var(--ah-color-white)'};
 `;

@@ -38,6 +38,19 @@ export interface PostDropEllipsisProps {
   queryKey: readonly unknown[];
 }
 
+function resolveEditActivityName(queryKey: readonly unknown[]) {
+  const postDomain = resolvePostQueryDomain(queryKey);
+  if (postDomain === 'community') {
+    return 'EditCommunityPage';
+  }
+
+  if (postDomain === 'lost-found') {
+    return 'EditLostFoundPage';
+  }
+
+  return 'EditComplaintPage';
+}
+
 const PostDropEllipsis = ({
   isLost,
   status,
@@ -64,13 +77,7 @@ const PostDropEllipsis = ({
   const { push } = useFlow();
   const handleEdit = () => {
     handleClose();
-    const postDomain = resolvePostQueryDomain(queryKey);
-    const activityName =
-      postDomain === 'community'
-        ? 'EditCommunityPage'
-        : postDomain === 'lost-found'
-          ? 'EditLostFoundPage'
-          : 'EditComplaintPage';
+    const activityName = resolveEditActivityName(queryKey);
 
     setTimeout(() => {
       push(activityName, {
@@ -263,18 +270,16 @@ function RemovePost({
 
   const postDomain = resolvePostQueryDomain(queryKey);
   const invalidationQueryKey = resolvePostListInvalidationKey(queryKey) ?? complaintKeys.lists();
-  const deleteMutate =
-    postDomain === 'community'
-      ? deleteCommunity
-      : postDomain === 'lost-found'
-        ? deleteLostFound
-        : deleteComplaint;
-  const status =
-    postDomain === 'community'
-      ? deletingCommunityStatus
-      : postDomain === 'lost-found'
-        ? deletingLostFoundStatus
-        : deletingComplaintStatus;
+  let deleteMutate = deleteComplaint;
+  let mutationStatus = deletingComplaintStatus;
+
+  if (postDomain === 'community') {
+    deleteMutate = deleteCommunity;
+    mutationStatus = deletingCommunityStatus;
+  } else if (postDomain === 'lost-found') {
+    deleteMutate = deleteLostFound;
+    mutationStatus = deletingLostFoundStatus;
+  }
 
   const handleDeletePost = async () => {
     try {
@@ -308,7 +313,7 @@ function RemovePost({
           >
             취소
           </S.SecondaryButton>
-          <S.SmoothSecondaryButton status={status} handleClick={handleDeletePost} />
+          <S.SmoothSecondaryButton status={mutationStatus} handleClick={handleDeletePost} />
         </S.ButtonGroup>
       </div>
     </div>

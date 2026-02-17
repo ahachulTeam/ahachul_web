@@ -55,7 +55,12 @@ export function formatDisplayDate(input: DateInput, options: DateFormatOptions =
     return invalidText;
   }
 
-  const baseTime = now instanceof Date ? now.getTime() : typeof now === 'number' ? now : Date.now();
+  let baseTime = Date.now();
+  if (now instanceof Date) {
+    baseTime = now.getTime();
+  } else if (typeof now === 'number') {
+    baseTime = now;
+  }
   const diffInSeconds = (baseTime - date.getTime()) / 1000;
 
   // 1분 이내
@@ -72,9 +77,11 @@ export function formatDisplayDate(input: DateInput, options: DateFormatOptions =
   }
 
   // 24시간 이후
-  return format === 'short'
-    ? formatToShortDate(date)
-    : formatDistanceToNow(date, { addSuffix: true, locale: ko });
+  if (format === 'short') {
+    return formatToShortDate(date);
+  }
+
+  return formatDistanceToNow(date, { addSuffix: true, locale: ko });
 }
 
 /**

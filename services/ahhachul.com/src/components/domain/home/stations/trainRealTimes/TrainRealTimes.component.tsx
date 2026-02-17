@@ -1,4 +1,4 @@
-import { memo, useReducer } from 'react';
+import { type ReactNode, memo, useReducer } from 'react';
 
 import { motion } from 'motion/react';
 
@@ -39,6 +39,17 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
   const isServiceTerminated = filterdStationsData?.trainRealTimes?.length === 0;
   const currentTrain = filterdStationsData?.trainRealTimes?.[0];
 
+  let trainArrivalsContent: ReactNode = null;
+  if (isFetching) {
+    trainArrivalsContent = <div css={{ minHeight: '16.04px' }}></div>;
+  } else if (isError) {
+    trainArrivalsContent = <div>일시적인 오류</div>;
+  } else if ((filterdStationsData?.trainRealTimes || []).length > 0) {
+    trainArrivalsContent = (
+      <TrainArrivals trainRealTimes={filterdStationsData?.trainRealTimes || []} />
+    );
+  }
+
   return (
     <div css={S.inner}>
       <div css={S.thickBorder(subwayLineId)}>
@@ -60,17 +71,7 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
           />
         </div>
 
-        <div css={S.listWrap}>
-          {isFetching ? (
-            <div css={{ minHeight: '16.04px' }}></div>
-          ) : isError ? (
-            <div>일시적인 오류</div>
-          ) : (
-            (filterdStationsData?.trainRealTimes || []).length > 0 && (
-              <TrainArrivals trainRealTimes={filterdStationsData?.trainRealTimes || []} />
-            )
-          )}
-        </div>
+        <div css={S.listWrap}>{trainArrivalsContent}</div>
         <div css={S.buttonWrap}>
           <button css={S.button} onClick={() => push('SubwayTimelinePage', {})}>
             전체 시간표

@@ -1,6 +1,6 @@
 import { BaseSkeleton } from '@/components/common';
 
-import * as S from './ComlaintDetail.skeleton.styled';
+import * as S from './ComplaintDetail.skeleton.styled';
 
 const ComplaintDetailSkeleton = () => {
   return (

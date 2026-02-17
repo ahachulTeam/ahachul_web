@@ -31,3 +31,7 @@
 27. RF-891 design-system exceptions are retired: Vite icon source and subway color constants are fully tokenized through `@ahhachul/design-system`, and residual inline-hex policy now has zero file-level exceptions.
 28. Deployment reliability must include recurring rollback/game-day rehearsal evidence: weekly and manual workflow runs generate a markdown report covering dual-app smoke checks plus Vite/Next rollback readiness, and this report command is part of validator gate criteria.
 29. Manual game-day operation must be standardized: operators use a single gh-based dispatcher (`ops:game-day:dispatch`) with explicit `staging -> production` gate order, artifact archiving, and checklist sign-off (`GAME_DAY_MANUAL_CHECKLIST.md`) before release approval.
+30. FE micro-style policy is now CI-enforced, not review-only: nested ternary is globally blocked (`no-nested-ternary`) and derived-state mirror `useEffect` patterns are blocked by `validate:react-style`.
+31. Refactor guardrails are validator-priority constraints and must be audited every task: behavior preservation, no overengineering, touched-area discipline for comments/docstrings/types, and modern React alignment.
+32. Naming typo cleanup is part of style-governance scope, not optional polish: typo file paths (`useTimemout`, `Comlaint*`) are corrected and regressions should be rejected by review.
+33. The 25-post FE system design set is captured as a repository research artifact (`FE_SYSTEM_DESIGN_POSTS_RESEARCH_2026-02-17.md`), with blocked/unread sources explicitly tracked for transparent follow-up.

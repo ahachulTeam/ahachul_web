@@ -30,15 +30,19 @@ const API_LITERAL_FRAGMENT =
   /\/(?:api\/auth\/token\/refresh|auth(?:\/|$)|members(?:\/|$)|community(?:-hot-posts|-posts|\/|$)|complaint(?:-posts|\/|$)|lost(?:-posts|\/|$)|subway(?:-lines|\/|$)|trains(?:\/|$)|common(?:\/|$)|signout(?:\/|$))/;
 
 function listTrackedSourceFiles() {
-  const output = execFileSync('git', ['ls-files', ...FILE_PATTERNS], {
+  const output = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', ...FILE_PATTERNS], {
     cwd: ROOT_DIR,
     encoding: 'utf8',
   });
 
-  return output
-    .split('\n')
-    .map(file => file.trim())
-    .filter(Boolean);
+  return Array.from(
+    new Set(
+      output
+        .split('\n')
+        .map(file => file.trim())
+        .filter(Boolean),
+    ),
+  );
 }
 
 function isIgnoredFile(filePath) {
@@ -115,6 +119,10 @@ function inspectCallArgument(filePath, sourceFile, argNode, violations) {
 
 function scanFile(filePath, violations) {
   const absolutePath = path.join(ROOT_DIR, filePath);
+  if (!fs.existsSync(absolutePath)) {
+    return;
+  }
+
   const sourceText = fs.readFileSync(absolutePath, 'utf8');
   const scriptKind = filePath.endsWith('.tsx') ? ts.ScriptKind.TSX : ts.ScriptKind.TS;
   const sourceFile = ts.createSourceFile(filePath, sourceText, ts.ScriptTarget.Latest, true, scriptKind);
