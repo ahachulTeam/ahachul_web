@@ -1,5 +1,5 @@
 import { setupServer } from 'msw/node';
 
-import { handlers } from './handlers/example';
+import { mockApiHandlers } from '@ahhachul/mock-api';
 
-export const server = setupServer(...handlers);
+export const server = setupServer(...mockApiHandlers);

@@ -157,3 +157,11 @@ Track every modification to `FE_RULEBOOK.md` in chronological order.
 - Section(s): Rulebook Operations, Implementation Checklist
 - Summary: Added explicit reference to repository-level merge governance (`CONVENTIONS.md` `Merge Policy`) and required FE PR merge-method compliance in the checklist.
 - Follow-up: Apply merge-method policy consistently (`Merge Commit` for large refactors/ops, `Squash` for small noisy PRs, constrained `Rebase` usage only when eligible).
+
+- DateTime (KST): 2026-02-17 16:35:00
+- Task ID: RF-980
+- Author/Owner: FE Lead
+- Change Type: Added
+- Section(s): Scope priority, Rule 12 (Mock-Mode Virtualization Conventions), Implementation Checklist
+- Summary: Added shared MSW virtualization conventions for dual-app runtime boundaries, deterministic state reset, strict unhandled API policy, and mandatory shared mock-handler regression test gate.
+- Follow-up: Add explicit route-level mock-mode E2E smoke artifact as follow-up validator evidence.

@@ -1,0 +1,33 @@
+{
+  "name": "@ahhachul/mock-api",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint:es": "eslint src",
+    "lint:es:fix": "eslint src --fix",
+    "lint:etc": "prettier src --check",
+    "lint:etc:fix": "prettier src --write",
+    "lint": "pnpm lint:es && pnpm lint:etc",
+    "lint:fix": "pnpm lint:es:fix && pnpm lint:etc:fix",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@ahhachul/domain": "workspace:*",
+    "@ahhachul/http": "workspace:*",
+    "msw": "^2.7.0"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "vitest": "^2.1.8"
+  },
+  "nx": {
+    "tags": [
+      "type:shared",
+      "layer:http"
+    ]
+  }
+}

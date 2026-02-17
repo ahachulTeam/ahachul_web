@@ -1,77 +1,77 @@
 {
-  "updatedAt": "2026-02-17T06:02:21.699Z",
+  "updatedAt": "2026-02-17T07:04:45.012Z",
   "branch": "codex/refactor-foundation",
-  "sprintFocus": "RF-970 complete: FE micro-style governance automated (nested ternary ban + derived-state scan + validator critical rules)",
+  "sprintFocus": "RF-980 done: dual-app full API MSW virtualization (shared deterministic handlers + strict unhandled API policy)",
   "leadDirective": [
-    "1) RF-970 completed: micro FE coding-style conventions moved from docs to blocking CI gates.",
-    "2) Added research artifact for 25-post system design set with explicit blocked-source tracking.",
-    "3) Added validate:react-style and refactor critical rules to validator checklist.",
-    "4) Next step: keep incremental micro-style cleanup behavior-preserving and gate-driven."
+    "1) Keep @ahhachul/mock-api as single source of truth for API mock contracts.",
+    "2) Add route-level mock-mode e2e smoke artifact for login/list/detail/write/edit core flows.",
+    "3) Keep strict unhandled API policy blocking backend leak-through in mock mode.",
+    "4) Start next sprint planning after RF-980 commit synchronization."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-970",
+      "taskId": "RF-980",
       "state": "Done",
-      "updatedAt": "2026-02-17T15:40:00+09:00",
-      "nextAction": "queue next FE micro-consistency backlog item after RF-970 closeout"
+      "updatedAt": "2026-02-17T16:03:05+09:00",
+      "nextAction": "close RF-980 commit synchronization and prepare RF-981 backlog"
     },
     {
       "role": "FE Lead",
       "owner": "fe-lead",
-      "taskId": "RF-970",
+      "taskId": "RF-980",
       "state": "Done",
-      "updatedAt": "2026-02-17T15:40:00+09:00",
-      "nextAction": "monitor Rule 11 adoption and keep scans low-noise"
+      "updatedAt": "2026-02-17T16:03:05+09:00",
+      "nextAction": "maintain shared mock contract governance and review follow-up e2e scope"
     },
     {
       "role": "FE Specialist A",
       "owner": "fe-spec-a",
-      "taskId": "RF-970",
-      "state": "Ready",
-      "updatedAt": "2026-02-17T15:40:00+09:00",
-      "nextAction": "evolve style scan heuristics only with false-positive evidence"
+      "taskId": "RF-980A",
+      "state": "Done",
+      "updatedAt": "2026-02-17T16:03:05+09:00",
+      "nextAction": "stand by for RF-980 follow-up handler coverage extensions"
     },
     {
       "role": "FE Specialist B",
       "owner": "fe-spec-b",
-      "taskId": "RF-970",
-      "state": "Ready",
-      "updatedAt": "2026-02-17T15:40:00+09:00",
-      "nextAction": "continue behavior-preserving migration for remaining micro-style hotspots"
+      "taskId": "RF-980B",
+      "state": "Done",
+      "updatedAt": "2026-02-17T16:03:05+09:00",
+      "nextAction": "stand by for RF-980 follow-up app-level mock smoke hardening"
     },
     {
       "role": "Infra Engineer",
       "owner": "infra-core",
-      "taskId": "RF-970",
-      "state": "Ready",
-      "updatedAt": "2026-02-17T15:40:00+09:00",
-      "nextAction": "maintain validate:full runtime and CI reliability for new style gate"
+      "taskId": "RF-980C",
+      "state": "Done",
+      "updatedAt": "2026-02-17T16:03:05+09:00",
+      "nextAction": "stand by for CI mock-mode smoke automation handoff"
     },
     {
       "role": "QA Engineer",
       "owner": "qa-core",
-      "taskId": "RF-970",
-      "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T15:40:00+09:00",
-      "nextAction": "use RF-970 guardrails as default checklist for FE refactor QA"
+      "taskId": "RF-980Q",
+      "state": "Done",
+      "updatedAt": "2026-02-17T16:03:05+09:00",
+      "nextAction": "prepare route-level mock-mode e2e smoke matrix for next task"
     },
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-970",
+      "taskId": "RF-980D",
       "state": "Done",
-      "updatedAt": "2026-02-17T15:40:00+09:00",
-      "nextAction": "keep research/rulebook/changelog synchronized for future rule updates"
+      "updatedAt": "2026-02-17T16:03:05+09:00",
+      "nextAction": "synchronize sprint/worklog/decision/meeting artifacts for RF-980"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
-      "taskId": "RF-970",
-      "state": "ValidatorPass",
-      "updatedAt": "2026-02-17T15:40:00+09:00",
-      "nextAction": "enforce refactor critical rules before every task acceptance"
+      "taskId": "RF-980V",
+      "state": "Done",
+      "updatedAt": "2026-02-17T16:03:05+09:00",
+      "nextAction": "queue cleared after RF-980 gate pass; wait for next blocking task"
     }
   ],
   "handoffs": [
@@ -1330,14 +1330,86 @@
       "state": "Done",
       "note": "RF-960 completed: manual game-day staging/production checklist and dispatcher are standardized.",
       "at": "2026-02-17T05:51:11+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "FE Lead",
+      "taskId": "RF-980",
+      "state": "ASSIGNED",
+      "note": "Start round-2 full API MSW virtualization for dual apps.",
+      "at": "2026-02-17T15:39:44.517+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist A",
+      "taskId": "RF-980A",
+      "state": "ASSIGNED",
+      "note": "Implement shared deterministic handlers/state for all API_PATHS and related endpoints.",
+      "at": "2026-02-17T15:39:44.517+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "FE Specialist B",
+      "taskId": "RF-980B",
+      "state": "ASSIGNED",
+      "note": "Integrate mock mode in Vite/Next runtime and remove fragmented legacy mocks.",
+      "at": "2026-02-17T15:39:44.517+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "QA Engineer",
+      "taskId": "RF-980Q",
+      "state": "ASSIGNED",
+      "note": "Prepare mock coverage regression suite and validator-ready gate evidence.",
+      "at": "2026-02-17T15:39:44.517+09:00"
+    },
+    {
+      "from": "FE Specialist A/B",
+      "to": "QA Engineer",
+      "taskId": "RF-980",
+      "state": "QAReady",
+      "note": "Shared mock-api handlers and dual-app runtime integration complete. Request blocking gate.",
+      "at": "2026-02-17T16:03:05+09:00"
+    },
+    {
+      "from": "QA Engineer",
+      "to": "Perfectionist Validator",
+      "taskId": "RF-980",
+      "state": "QAReady",
+      "note": "validate:full and @ahhachul/mock-api test evidence attached for RF-980.",
+      "at": "2026-02-17T16:03:05+09:00"
+    },
+    {
+      "from": "Perfectionist Validator",
+      "to": "Team Lead",
+      "taskId": "RF-980",
+      "state": "ValidatorPass",
+      "note": "RF-980 gate passed: dual-app mock-mode virtualization validated with strict unhandled policy.",
+      "at": "2026-02-17T16:03:05+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "Technical Writer",
+      "taskId": "RF-980",
+      "state": "COMMITTED",
+      "note": "Synchronize sprint/worklog/decision/rulebook/meeting artifacts before commit.",
+      "at": "2026-02-17T16:03:05+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "All Agents",
+      "taskId": "RF-980",
+      "state": "Done",
+      "note": "RF-980 completed: shared MSW virtualization established for Vite/Next with full validator pass.",
+      "at": "2026-02-17T16:03:05+09:00"
     }
   ],
   "validator": {
     "queue": [],
     "lastGate": {
-      "taskId": "RF-960",
+      "taskId": "RF-980",
       "result": "PASS",
-      "at": "2026-02-16T20:51:11Z"
+      "at": "2026-02-17T07:04:45.012Z"
     }
   }
 }
