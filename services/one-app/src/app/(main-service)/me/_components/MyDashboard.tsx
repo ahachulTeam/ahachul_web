@@ -5,13 +5,20 @@ import Link from 'next/link';
 
 import { QUERY_STALE_TIME, myQueryKeys } from '@ahhachul/domain';
 
+import LanguageSelector from '@/app/_components/LanguageSelector';
+import { localizePathname, type LocaleMessages, type SupportedLocale } from '@/i18n';
 import { AuthService } from '@/lib/auth-service';
 
 import { getMyFavoriteStations, getMyProfile } from '../_lib/getMyProfile';
 
 const cardClassName = 'rounded-2xl border border-gray-30 bg-white p-4';
 
-export default function MyDashboard() {
+type MyDashboardProps = {
+  locale: SupportedLocale;
+  copy: LocaleMessages['me'];
+};
+
+export default function MyDashboard({ locale, copy }: MyDashboardProps) {
   const {
     data: profile,
     isPending: isProfilePending,
@@ -41,15 +48,13 @@ export default function MyDashboard() {
     return (
       <section className="px-5 pb-24 pt-4">
         <article className={cardClassName}>
-          <h2 className="text-title-small text-gray-90">로그인이 필요합니다</h2>
-          <p className="mt-2 text-body-medium text-gray-70">
-            세션이 만료되었거나 사용자 정보를 불러오지 못했습니다.
-          </p>
+          <h2 className="text-title-small text-gray-90">{copy.authRequiredTitle}</h2>
+          <p className="mt-2 text-body-medium text-gray-70">{copy.authRequiredDescription}</p>
           <Link
-            href="/login"
+            href={localizePathname('/login', locale)}
             className="mt-4 inline-flex h-10 items-center rounded-xl bg-key-color px-4 text-label-medium text-white"
           >
-            로그인 화면으로 이동
+            {copy.goToLogin}
           </Link>
         </article>
       </section>
@@ -62,58 +67,58 @@ export default function MyDashboard() {
   return (
     <section className="space-y-3 px-5 pb-24 pt-4">
       <article className={`${cardClassName} bg-gradient-to-r from-green-50 to-white`}>
-        <p className="text-label-small text-gray-80">MY PROFILE</p>
+        <p className="text-label-small text-gray-80">{copy.profileLabel}</p>
         <h2 className="mt-1 text-headline-small text-gray-100">{member.nickname}</h2>
-        <p className="mt-1 text-body-medium text-gray-80">{member.email || '등록된 이메일 없음'}</p>
+        <p className="mt-1 text-body-medium text-gray-80">{member.email || copy.noEmail}</p>
         <div className="mt-4 flex items-center gap-2">
           <Link
-            href={`/user/${encodeURIComponent(member.nickname)}`}
+            href={localizePathname(`/user/${encodeURIComponent(member.nickname)}`, locale)}
             className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
           >
-            프로필 보기
+            {copy.viewProfile}
           </Link>
           <button
             type="button"
             onClick={() => AuthService.expireSession()}
             className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
           >
-            로그아웃
+            {copy.logout}
           </button>
         </div>
       </article>
 
       <article className={cardClassName}>
-        <h3 className="text-title-small text-gray-100">빠른 이동</h3>
+        <h3 className="text-title-small text-gray-100">{copy.quickLinksHeading}</h3>
         <div className="mt-3 grid grid-cols-2 gap-2">
           <Link
-            href="/messages"
+            href={localizePathname('/messages', locale)}
             className="rounded-xl bg-gray-20 p-3 text-label-medium text-gray-90"
           >
-            메시지
+            {copy.quickLinks.messages}
           </Link>
           <Link
-            href="/notifications"
+            href={localizePathname('/notifications', locale)}
             className="rounded-xl bg-gray-20 p-3 text-label-medium text-gray-90"
           >
-            알림
+            {copy.quickLinks.notifications}
           </Link>
           <Link
-            href="/community"
+            href={localizePathname('/community', locale)}
             className="rounded-xl bg-gray-20 p-3 text-label-medium text-gray-90"
           >
-            커뮤니티
+            {copy.quickLinks.community}
           </Link>
           <Link
-            href="/complaint"
+            href={localizePathname('/complaint', locale)}
             className="rounded-xl bg-gray-20 p-3 text-label-medium text-gray-90"
           >
-            민원
+            {copy.quickLinks.complaint}
           </Link>
         </div>
       </article>
 
       <article className={cardClassName}>
-        <h3 className="text-title-small text-gray-100">내 지하철 설정</h3>
+        <h3 className="text-title-small text-gray-100">{copy.subwaySettingsHeading}</h3>
         {stationNames.length ? (
           <ul className="mt-3 flex flex-wrap gap-2">
             {stationNames.map(stationName => (
@@ -126,8 +131,13 @@ export default function MyDashboard() {
             ))}
           </ul>
         ) : (
-          <p className="mt-2 text-body-medium text-gray-70">등록된 즐겨찾기 역이 없습니다.</p>
+          <p className="mt-2 text-body-medium text-gray-70">{copy.noFavoriteStations}</p>
         )}
+      </article>
+
+      <article className={cardClassName}>
+        <h3 className="text-title-small text-gray-100">{copy.languageSectionTitle}</h3>
+        <LanguageSelector className="mt-3" />
       </article>
     </section>
   );

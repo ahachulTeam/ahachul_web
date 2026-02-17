@@ -7,7 +7,15 @@ import { usePathname } from 'next/navigation';
 import { colors } from '@ahhachul/design-system';
 import { BottomNav, BottomNavItem } from '@ahhachul/ui';
 
+import {
+  getLocaleMessages,
+  localizePathname,
+  resolvePathLocale,
+  stripLocaleFromPathname,
+} from '@/i18n';
+
 type NavPath = '/' | '/community' | '/lost-found' | '/complaint' | '/me';
+type NavLabelKey = 'home' | 'community' | 'lostFound' | 'complaint' | 'me';
 
 type NavIconProps = {
   isActive: boolean;
@@ -99,35 +107,40 @@ const ProfileIcon = ({ isActive }: NavIconProps) => {
 };
 
 const NAV_ITEMS: ReadonlyArray<{
+  labelKey: NavLabelKey;
   href: NavPath;
-  label: string;
   renderIcon: (props: NavIconProps) => ReactElement;
 }> = [
-  { href: '/', label: '홈', renderIcon: HomeIcon },
-  { href: '/community', label: '커뮤니티', renderIcon: CommunityIcon },
-  { href: '/lost-found', label: '유실물', renderIcon: LostFoundIcon },
-  { href: '/complaint', label: '민원', renderIcon: ComplaintIcon },
-  { href: '/me', label: '마이', renderIcon: ProfileIcon },
+  { labelKey: 'home', href: '/', renderIcon: HomeIcon },
+  { labelKey: 'community', href: '/community', renderIcon: CommunityIcon },
+  { labelKey: 'lostFound', href: '/lost-found', renderIcon: LostFoundIcon },
+  { labelKey: 'complaint', href: '/complaint', renderIcon: ComplaintIcon },
+  { labelKey: 'me', href: '/me', renderIcon: ProfileIcon },
 ];
 
 export default function NavMenu() {
-  const pathname = usePathname();
+  const pathname = usePathname() ?? '/';
+  const locale = resolvePathLocale(pathname, null);
+  const normalizedPathname = stripLocaleFromPathname(pathname);
+  const messages = getLocaleMessages(locale);
 
-  if (!ROOT_NAV_PATHS.includes(pathname as NavPath)) {
+  if (!ROOT_NAV_PATHS.includes(normalizedPathname as NavPath)) {
     return null;
   }
 
   return (
     <BottomNav itemCount={NAV_ITEMS.length}>
-      {NAV_ITEMS.map(({ href, label, renderIcon }) => {
-        const isActive = pathname === href;
+      {NAV_ITEMS.map(({ labelKey, href, renderIcon }) => {
+        const isActive = normalizedPathname === href;
+        const localizedHref = localizePathname(href, locale);
+        const label = messages.nav[labelKey];
 
         return (
           <BottomNavItem
             key={href}
             label={label}
             isActive={isActive}
-            href={href}
+            href={localizedHref}
             icon={renderIcon({ isActive: false })}
             activeIcon={renderIcon({ isActive: true })}
           />

@@ -1,0 +1,79 @@
+{
+  "common": {
+    "language": "Language",
+    "languageSelectAria": "Select site language",
+    "languages": {
+      "ko": "한국어",
+      "en": "English",
+      "th": "ไทย",
+      "cn": "中文(简体)"
+    }
+  },
+  "header": {
+    "homeAria": "Ahhachul Home",
+    "homeTitle": "Go to Ahhachul home",
+    "messagesAria": "Messages",
+    "messagesTitle": "Messages",
+    "notificationsAria": "Notifications",
+    "notificationsTitle": "Notifications"
+  },
+  "nav": {
+    "home": "Home",
+    "community": "Community",
+    "lostFound": "Lost & Found",
+    "complaint": "Complaints",
+    "me": "My"
+  },
+  "home": {
+    "title": "All-in-one platform for subway complaints, lost items, and community",
+    "description": "Report subway issues, check lost-and-found updates, and connect with line-based communities in one place.",
+    "quickLinksHeading": "Quick access",
+    "footerTitle": "Language settings",
+    "footerDescription": "Ahhachul provides Korean, English, Thai, and Chinese through pre-translated static resources.",
+    "quickLinks": {
+      "community": {
+        "name": "Community",
+        "description": "Share real-time subway updates with other riders."
+      },
+      "complaint": {
+        "name": "Complaints",
+        "description": "Submit issues and track processing status."
+      },
+      "lostFound": {
+        "name": "Lost & Found",
+        "description": "Find lost item reports by subway line quickly."
+      }
+    }
+  },
+  "me": {
+    "title": "My Page",
+    "description": "A personal dashboard to manage activity, favorite stations, messages, and notifications.",
+    "authRequiredTitle": "Login required",
+    "authRequiredDescription": "Your session has expired or profile information could not be loaded.",
+    "goToLogin": "Go to login",
+    "profileLabel": "MY PROFILE",
+    "noEmail": "No email registered",
+    "viewProfile": "View profile",
+    "logout": "Logout",
+    "quickLinksHeading": "Quick links",
+    "quickLinks": {
+      "messages": "Messages",
+      "notifications": "Notifications",
+      "community": "Community",
+      "complaint": "Complaints"
+    },
+    "subwaySettingsHeading": "My subway settings",
+    "noFavoriteStations": "No favorite stations registered.",
+    "languageSectionTitle": "Language settings"
+  },
+  "seo": {
+    "home": {
+      "title": "All-in-one platform for subway complaints, lost items, and community",
+      "description": "Report subway issues, check lost-and-found updates, and connect with line-based communities in one place."
+    },
+    "me": {
+      "title": "My Page",
+      "description": "A personal dashboard to manage activity, favorite stations, messages, and notifications."
+    }
+  }
+}

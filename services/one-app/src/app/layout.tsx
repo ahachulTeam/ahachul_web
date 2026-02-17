@@ -9,6 +9,8 @@ import { createPageMetadata } from '@ahhachul/seo';
 import { Pretendard } from '@/asset/font/pretendard';
 import { SEO_KEYWORDS, SITE_URL } from '@/constant';
 import Providers from '@/context/providers';
+import { HTML_LANG_BY_LOCALE } from '@/i18n';
+import { getServerLocale } from '@/i18n/server';
 import { cn } from '@/util/cn';
 
 import Header from './_components/Header';
@@ -34,13 +36,15 @@ export const metadata: Metadata = createPageMetadata({
   rssPath: '/rss.xml',
 }) as Metadata;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getServerLocale();
+
   return (
-    <html lang="ko">
+    <html lang={HTML_LANG_BY_LOCALE[locale]}>
       <body className={cn('font-sans antialiased', Pretendard.variable)}>
         <SeoStructuredData />
         <NextTopLoader height={2} color={colors['key-color']} showSpinner={false} />

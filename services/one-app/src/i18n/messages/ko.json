@@ -1,0 +1,79 @@
+{
+  "common": {
+    "language": "언어",
+    "languageSelectAria": "사이트 언어 선택",
+    "languages": {
+      "ko": "한국어",
+      "en": "English",
+      "th": "ไทย",
+      "cn": "中文(简体)"
+    }
+  },
+  "header": {
+    "homeAria": "아하철 홈",
+    "homeTitle": "아하철 홈으로 이동",
+    "messagesAria": "메시지함",
+    "messagesTitle": "메시지함",
+    "notificationsAria": "알림",
+    "notificationsTitle": "알림"
+  },
+  "nav": {
+    "home": "홈",
+    "community": "커뮤니티",
+    "lostFound": "유실물",
+    "complaint": "민원",
+    "me": "마이"
+  },
+  "home": {
+    "title": "지하철 민원·분실물·커뮤니티 통합 플랫폼",
+    "description": "지하철 민원 접수, 분실물·유실물 조회, 노선별 커뮤니티 소통까지 아하철에서 한 번에 해결하세요.",
+    "quickLinksHeading": "주요 서비스 바로가기",
+    "footerTitle": "언어 설정",
+    "footerDescription": "아하철은 정적 번역 리소스 기반으로 한국어·영어·태국어·중국어를 제공합니다.",
+    "quickLinks": {
+      "community": {
+        "name": "커뮤니티",
+        "description": "지하철 이용자와 실시간으로 정보를 공유하세요."
+      },
+      "complaint": {
+        "name": "민원",
+        "description": "불편 사항을 접수하고 처리 상태를 확인하세요."
+      },
+      "lostFound": {
+        "name": "분실물",
+        "description": "노선별 분실물·유실물 정보를 빠르게 찾아보세요."
+      }
+    }
+  },
+  "me": {
+    "title": "마이 페이지",
+    "description": "내 활동, 즐겨찾기 역, 알림·메시지를 한 화면에서 관리할 수 있는 개인 대시보드입니다.",
+    "authRequiredTitle": "로그인이 필요합니다",
+    "authRequiredDescription": "세션이 만료되었거나 사용자 정보를 불러오지 못했습니다.",
+    "goToLogin": "로그인 화면으로 이동",
+    "profileLabel": "MY PROFILE",
+    "noEmail": "등록된 이메일 없음",
+    "viewProfile": "프로필 보기",
+    "logout": "로그아웃",
+    "quickLinksHeading": "빠른 이동",
+    "quickLinks": {
+      "messages": "메시지",
+      "notifications": "알림",
+      "community": "커뮤니티",
+      "complaint": "민원"
+    },
+    "subwaySettingsHeading": "내 지하철 설정",
+    "noFavoriteStations": "등록된 즐겨찾기 역이 없습니다.",
+    "languageSectionTitle": "언어 설정"
+  },
+  "seo": {
+    "home": {
+      "title": "지하철 민원·분실물·커뮤니티 통합 플랫폼",
+      "description": "지하철 민원 접수, 분실물·유실물 조회, 노선별 커뮤니티 소통까지 아하철에서 한 번에 해결하세요."
+    },
+    "me": {
+      "title": "마이 페이지",
+      "description": "내 활동, 즐겨찾기 역, 알림·메시지를 한 화면에서 관리할 수 있는 개인 대시보드입니다."
+    }
+  }
+}

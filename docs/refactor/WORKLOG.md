@@ -262,3 +262,10 @@
 - Summary: Upgraded Next SEO discovery architecture by adding crawlable internal links (header/home/bottom nav anchors), global/breadcrumb JSON-LD (`WebSite`/`Organization`/`SiteNavigationElement`/`BreadcrumbList`), segmented sitemap index routes (`/sitemap.xml` -> `/sitemaps/*.xml`), and RSS feeds (`/rss.xml`, section feeds) backed by shared content-discovery aggregation with resilient fallback behavior during build-time network failures.
 - Validation Result: Pass (`pnpm --filter @ahhachul/one-app build`, `pnpm validate:full`)
 - Follow-up: Add production Search Console monitoring for sitelinks and feed discovery metrics; optionally suppress repetitive build-time fetch logs once observability channel is defined.
+
+- DateTime (KST): 2026-02-17 18:19:35
+- Task ID: RF-1010
+- Contributors: Team Lead, FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Reset i18n architecture to static-only (dynamic translation/DeepL removed from scope), introduced shared locale module (`ko/en/th/cn`) with middleware locale normalization and cookie/header synchronization, added locale-aware metadata + localized navigation paths, and delivered language selector UX on home footer and my page.
+- Validation Result: Pass (`pnpm nextjs:type`, `pnpm nextjs:lint`, `pnpm --filter @ahhachul/one-app test -- --runInBand`, `pnpm validate:full`)
+- Follow-up: Extend localized metadata coverage to additional Next routes incrementally while preserving static-message ownership in `services/one-app/src/i18n/messages`.

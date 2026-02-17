@@ -1,0 +1,79 @@
+{
+  "common": {
+    "language": "语言",
+    "languageSelectAria": "选择网站语言",
+    "languages": {
+      "ko": "한국어",
+      "en": "English",
+      "th": "ไทย",
+      "cn": "中文(简体)"
+    }
+  },
+  "header": {
+    "homeAria": "Ahhachul 首页",
+    "homeTitle": "前往 Ahhachul 首页",
+    "messagesAria": "消息",
+    "messagesTitle": "消息",
+    "notificationsAria": "通知",
+    "notificationsTitle": "通知"
+  },
+  "nav": {
+    "home": "首页",
+    "community": "社区",
+    "lostFound": "失物招领",
+    "complaint": "投诉",
+    "me": "我的"
+  },
+  "home": {
+    "title": "地铁投诉、失物招领与社区的一体化平台",
+    "description": "在 Ahhachul 一站式完成地铁问题反馈、失物查询与线路社区交流。",
+    "quickLinksHeading": "快捷入口",
+    "footerTitle": "语言设置",
+    "footerDescription": "Ahhachul 通过预先翻译的静态资源提供韩语、英语、泰语和中文。",
+    "quickLinks": {
+      "community": {
+        "name": "社区",
+        "description": "与其他乘客实时分享地铁信息。"
+      },
+      "complaint": {
+        "name": "投诉",
+        "description": "提交问题并查看处理进度。"
+      },
+      "lostFound": {
+        "name": "失物招领",
+        "description": "按线路快速查找失物信息。"
+      }
+    }
+  },
+  "me": {
+    "title": "我的页面",
+    "description": "在个人仪表盘中统一管理活动、收藏车站、消息和通知。",
+    "authRequiredTitle": "需要登录",
+    "authRequiredDescription": "会话已过期或无法加载用户信息。",
+    "goToLogin": "前往登录页",
+    "profileLabel": "MY PROFILE",
+    "noEmail": "未登记邮箱",
+    "viewProfile": "查看资料",
+    "logout": "退出登录",
+    "quickLinksHeading": "快捷入口",
+    "quickLinks": {
+      "messages": "消息",
+      "notifications": "通知",
+      "community": "社区",
+      "complaint": "投诉"
+    },
+    "subwaySettingsHeading": "我的地铁设置",
+    "noFavoriteStations": "暂无收藏车站。",
+    "languageSectionTitle": "语言设置"
+  },
+  "seo": {
+    "home": {
+      "title": "地铁投诉、失物招领与社区的一体化平台",
+      "description": "在 Ahhachul 一站式完成地铁问题反馈、失物查询与线路社区交流。"
+    },
+    "me": {
+      "title": "我的页面",
+      "description": "在个人仪表盘中统一管理活动、收藏车站、消息和通知。"
+    }
+  }
+}

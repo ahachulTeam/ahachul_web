@@ -165,3 +165,11 @@ Track every modification to `FE_RULEBOOK.md` in chronological order.
 - Section(s): Scope priority, Rule 12 (Mock-Mode Virtualization Conventions), Implementation Checklist
 - Summary: Added shared MSW virtualization conventions for dual-app runtime boundaries, deterministic state reset, strict unhandled API policy, and mandatory shared mock-handler regression test gate.
 - Follow-up: Add explicit route-level mock-mode E2E smoke artifact as follow-up validator evidence.
+
+- DateTime (KST): 2026-02-17 18:19:35
+- Task ID: RF-1010
+- Author/Owner: FE Lead
+- Change Type: Added
+- Section(s): Scope priority, Rule 13 (Static i18n Conventions), Implementation Checklist
+- Summary: Added Next-only static i18n governance: fixed locale set (`ko/en/th/cn`), default-locale canonical URL policy, middleware locale normalization/cookie/header sync, home-footer + my-page language selector baseline, and explicit server/client import boundary (`@/i18n/server`).
+- Follow-up: Keep dynamic translation dependencies out of scope until separately approved and extend static-message coverage route-by-route with the same boundary rules.
