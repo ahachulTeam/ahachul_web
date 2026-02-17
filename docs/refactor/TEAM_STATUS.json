@@ -1,77 +1,77 @@
 {
-  "updatedAt": "2026-02-17T07:04:45.012Z",
-  "branch": "codex/refactor-foundation",
-  "sprintFocus": "RF-980 done: dual-app full API MSW virtualization (shared deterministic handlers + strict unhandled API policy)",
+  "updatedAt": "2026-02-17T07:39:08.877Z",
+  "branch": "codex/rf-990-seo-metadata-upgrade",
+  "sprintFocus": "RF-990 진행: Next-first SEO metadata 카피/아키텍처 고도화 및 Vite 단일 메타 정렬",
   "leadDirective": [
-    "1) Keep @ahhachul/mock-api as single source of truth for API mock contracts.",
-    "2) Add route-level mock-mode e2e smoke artifact for login/list/detail/write/edit core flows.",
-    "3) Keep strict unhandled API policy blocking backend leak-through in mock mode.",
-    "4) Start next sprint planning after RF-980 commit synchronization."
+    "1) Next 메타데이터는 서비스 가치 페이지(indexable)와 내부 플로우(noindex)를 분리해 검색 품질을 높인다.",
+    "2) metadata copy는 공통 SEO 카피 상수로 통일해 페이지 간 톤/키워드 일관성을 유지한다.",
+    "3) sitemap에는 공개 가치가 높은 canonical route만 유지하고 내부/개인화 페이지는 제외한다.",
+    "4) 모든 변경은 pnpm validate:full 블로킹 게이트 통과 후 커밋한다."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-980",
+      "taskId": "RF-990",
       "state": "Done",
-      "updatedAt": "2026-02-17T16:03:05+09:00",
-      "nextAction": "close RF-980 commit synchronization and prepare RF-981 backlog"
+      "updatedAt": "2026-02-17T16:48:00+09:00",
+      "nextAction": "commit and open develop PR with metadata quality summary"
     },
     {
       "role": "FE Lead",
       "owner": "fe-lead",
-      "taskId": "RF-980",
+      "taskId": "RF-990",
       "state": "Done",
-      "updatedAt": "2026-02-17T16:03:05+09:00",
-      "nextAction": "maintain shared mock contract governance and review follow-up e2e scope"
+      "updatedAt": "2026-02-17T16:48:00+09:00",
+      "nextAction": "monitor metadata quality deltas and future route coverage"
     },
     {
       "role": "FE Specialist A",
       "owner": "fe-spec-a",
-      "taskId": "RF-980A",
+      "taskId": "RF-990A",
       "state": "Done",
-      "updatedAt": "2026-02-17T16:03:05+09:00",
-      "nextAction": "stand by for RF-980 follow-up handler coverage extensions"
+      "updatedAt": "2026-02-17T16:48:00+09:00",
+      "nextAction": "maintain shared seo utility contracts"
     },
     {
       "role": "FE Specialist B",
       "owner": "fe-spec-b",
-      "taskId": "RF-980B",
+      "taskId": "RF-990B",
       "state": "Done",
-      "updatedAt": "2026-02-17T16:03:05+09:00",
-      "nextAction": "stand by for RF-980 follow-up app-level mock smoke hardening"
+      "updatedAt": "2026-02-17T16:48:00+09:00",
+      "nextAction": "maintain app-level metadata migration consistency"
     },
     {
       "role": "Infra Engineer",
       "owner": "infra-core",
-      "taskId": "RF-980C",
+      "taskId": "RF-990C",
       "state": "Done",
-      "updatedAt": "2026-02-17T16:03:05+09:00",
-      "nextAction": "stand by for CI mock-mode smoke automation handoff"
+      "updatedAt": "2026-02-17T16:48:00+09:00",
+      "nextAction": "watch production snippet/indexing signals after deploy"
     },
     {
       "role": "QA Engineer",
       "owner": "qa-core",
-      "taskId": "RF-980Q",
+      "taskId": "RF-990Q",
       "state": "Done",
-      "updatedAt": "2026-02-17T16:03:05+09:00",
-      "nextAction": "prepare route-level mock-mode e2e smoke matrix for next task"
+      "updatedAt": "2026-02-17T16:48:00+09:00",
+      "nextAction": "extend metadata snapshot/e2e checks if route surface expands"
     },
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-980D",
+      "taskId": "RF-990D",
       "state": "Done",
-      "updatedAt": "2026-02-17T16:03:05+09:00",
-      "nextAction": "synchronize sprint/worklog/decision/meeting artifacts for RF-980"
+      "updatedAt": "2026-02-17T16:48:00+09:00",
+      "nextAction": "synchronize sprint/worklog/decision/meeting artifacts for RF-990"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
-      "taskId": "RF-980V",
+      "taskId": "RF-990V",
       "state": "Done",
-      "updatedAt": "2026-02-17T16:03:05+09:00",
-      "nextAction": "queue cleared after RF-980 gate pass; wait for next blocking task"
+      "updatedAt": "2026-02-17T16:48:00+09:00",
+      "nextAction": "validator gate passed via pnpm validate:full"
     }
   ],
   "handoffs": [
@@ -1402,14 +1402,54 @@
       "state": "Done",
       "note": "RF-980 completed: shared MSW virtualization established for Vite/Next with full validator pass.",
       "at": "2026-02-17T16:03:05+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "FE Lead",
+      "taskId": "RF-990",
+      "state": "ASSIGNED",
+      "note": "Start Next-first metadata quality sprint: copy rewrite, missing coverage, and reusable SEO builder uplift.",
+      "at": "2026-02-17T16:20:00+09:00"
+    },
+    {
+      "from": "FE Specialist A/B",
+      "to": "QA Engineer",
+      "taskId": "RF-990",
+      "state": "QAReady",
+      "note": "SEO utility+route migration complete including noindex/indexable split and Vite baseline alignment.",
+      "at": "2026-02-17T16:48:00+09:00"
+    },
+    {
+      "from": "QA Engineer",
+      "to": "Perfectionist Validator",
+      "taskId": "RF-990",
+      "state": "QAReady",
+      "note": "`pnpm validate:full` evidence attached for metadata quality upgrade.",
+      "at": "2026-02-17T16:48:00+09:00"
+    },
+    {
+      "from": "Perfectionist Validator",
+      "to": "Team Lead",
+      "taskId": "RF-990",
+      "state": "ValidatorPass",
+      "note": "RF-990 gate passed: metadata architecture/copy/noindex policy changes validated without behavior regression.",
+      "at": "2026-02-17T16:48:00+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "All Agents",
+      "taskId": "RF-990",
+      "state": "Done",
+      "note": "RF-990 completed: Next-first metadata quality uplift with validator pass and docs sync.",
+      "at": "2026-02-17T16:49:20+09:00"
     }
   ],
   "validator": {
     "queue": [],
     "lastGate": {
-      "taskId": "RF-980",
+      "taskId": "RF-990",
       "result": "PASS",
-      "at": "2026-02-17T07:04:45.012Z"
+      "at": "2026-02-17T16:48:00+09:00"
     }
   }
 }

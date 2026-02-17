@@ -39,12 +39,4 @@ export const LEGACY_TO_CANONICAL_ROUTES: RouteRedirectRule[] = [
   ]),
 ];
 
-export const SEO_INDEXABLE_ROUTES: string[] = [
-  '/',
-  '/community',
-  '/complaint',
-  '/lost-found',
-  '/login',
-  '/me',
-  '/notifications',
-];
+export const SEO_INDEXABLE_ROUTES: string[] = ['/', '/community', '/complaint', '/lost-found'];

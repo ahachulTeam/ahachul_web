@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 
 import { createPageMetadata } from '@ahhachul/seo';
 
-import { SITE_URL } from '@/constant';
+import { SITE_URL, withBrandTitle } from '@/constant';
 
 import LostFoundPostEditor from '../../_components/LostFoundPostEditor';
 
@@ -17,10 +17,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
 
   return createPageMetadata({
-    title: `유실물 글 수정(${id}) / 1등 지하철 민원 & 분실물 & 커뮤니티 정보 앱 - 아하철`,
-    description: '유실물 게시글을 수정하고 최신 상태로 갱신하세요.',
+    title: withBrandTitle(`유실물 글 수정 #${id}`),
+    description: '유실물 게시글 정보를 최신 상태로 수정하세요.',
     siteUrl: SITE_URL,
     pathname: `/lost-found/${id}/edit`,
+    noIndex: true,
   }) as Metadata;
 }
 

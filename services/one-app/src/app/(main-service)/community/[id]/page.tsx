@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { communityQueryKeys } from '@ahhachul/domain';
 import { createDetailMetadata } from '@ahhachul/seo';
 
-import { SITE_URL, SUBWAY_LINES } from '@/constant';
+import { SEO_KEYWORDS, SEO_PAGE_COPY, SITE_URL, SUBWAY_LINES, withBrandTitle } from '@/constant';
 import { extractTextFromLexical } from '@/util';
 
 import CommunityPostDetail from './_components/CommunityDetail';
@@ -15,26 +15,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getCommunityDetailPostServer({ queryKey: communityQueryKeys.detail(id) });
 
   const subwayLineId = post.result.subwayLineId;
-
-  const baseTitle = (subwayLineId?: string) =>
-    `${
-      post.result.title.length > 16 ? post.result.title.slice(0, 16) + '...' : post.result.title
-    } / ${subwayLineId} 커뮤니티 - 아하철`;
-
-  const title =
-    subwayLineId && +subwayLineId !== 0
-      ? baseTitle(SUBWAY_LINES.find(subway => subway.id === +subwayLineId)?.name)
-      : baseTitle('지하철');
-
-  const baseDescription =
-    '지하철 이용객들과 실시간으로 소통하세요. 지하철 관련 정보, 꿀팁, 일상 이야기부터 지하철 운행 상황까지 다양한 이야기를 나눌 수 있는 공간입니다. 함께 만들어가는 지하철 커뮤니티, 아하철에서 시작하세요.';
+  const lineName = SUBWAY_LINES.find(subway => subway.id === +subwayLineId)?.name;
+  const lineLabel = subwayLineId && +subwayLineId !== 0 ? (lineName ?? '해당 노선') : '전체 노선';
+  const headline =
+    post.result.title.length > 28 ? `${post.result.title.slice(0, 28)}...` : post.result.title;
+  const title = withBrandTitle(`${headline} - ${lineLabel} 커뮤니티 글`);
 
   const image =
     subwayLineId && +subwayLineId !== 0
       ? `https://static.dev.ahhachul.com/banners/community/subway-line-${subwayLineId}.png`
       : 'https://static.dev.ahhachul.com/banners/community/main.png';
 
-  const description = extractTextFromLexical(post.result.content, baseDescription);
+  const description = extractTextFromLexical(
+    post.result.content,
+    SEO_PAGE_COPY.community.description,
+  );
 
   return createDetailMetadata({
     title,
@@ -42,6 +37,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     imageUrl: image,
     siteUrl: SITE_URL,
     pathname: `/community/${id}`,
+    keywords: [...SEO_KEYWORDS, post.result.title, '지하철 커뮤니티 글'],
+    category: 'community',
   }) as Metadata;
 }
 

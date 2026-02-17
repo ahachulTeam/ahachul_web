@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { createPageMetadata } from '@ahhachul/seo';
 
-import { SITE_URL } from '@/constant';
+import { SEO_PAGE_COPY, SITE_URL, withBrandTitle } from '@/constant';
 
 const mockMessages = [
   {
@@ -23,10 +23,11 @@ const mockMessages = [
 ];
 
 export const metadata: Metadata = createPageMetadata({
-  title: '메시지함 / 1등 지하철 민원 & 분실물 & 커뮤니티 정보 앱 - 아하철',
-  description: '운영 공지와 개인 메시지를 확인할 수 있는 메시지함입니다.',
+  title: withBrandTitle(SEO_PAGE_COPY.messages.title),
+  description: SEO_PAGE_COPY.messages.description,
   siteUrl: SITE_URL,
   pathname: '/messages',
+  noIndex: true,
 }) as Metadata;
 
 export default function MessagesPage() {
