@@ -164,3 +164,9 @@
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-980","state":"ValidatorPass","note":"RF-980 gate passed: dual-app mock-mode virtualization validated with strict unhandled policy.","at":"2026-02-17T16:03:05+09:00"}
 {"from":"Team Lead","to":"Technical Writer","taskId":"RF-980","state":"COMMITTED","note":"Synchronize sprint/worklog/decision/rulebook/meeting artifacts before commit.","at":"2026-02-17T16:03:05+09:00"}
 {"from":"Team Lead","to":"All Agents","taskId":"RF-980","state":"Done","note":"RF-980 completed: shared MSW virtualization established for Vite/Next with full validator pass.","at":"2026-02-17T16:03:05+09:00"}
+{"from":"Team Lead","to":"FE Lead","taskId":"RF-990","state":"ASSIGNED","note":"Start Next-first metadata quality sprint: copy rewrite, missing coverage, and reusable SEO builder uplift.","at":"2026-02-17T16:20:00+09:00"}
+{"from":"FE Specialist A/B","to":"QA Engineer","taskId":"RF-990","state":"QAReady","note":"SEO utility+route migration complete including noindex/indexable split and Vite baseline alignment.","at":"2026-02-17T16:48:00+09:00"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-990","state":"QAReady","note":"`pnpm validate:full` evidence attached for metadata quality upgrade.","at":"2026-02-17T16:48:00+09:00"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-990","state":"ValidatorPass","note":"RF-990 gate passed: metadata architecture/copy/noindex policy changes validated without behavior regression.","at":"2026-02-17T16:48:00+09:00"}
+{"from":"Team Lead","to":"Technical Writer","taskId":"RF-990","state":"COMMITTED","note":"Synchronize sprint/worklog/decision/team-state artifacts and prepare single-task commit.","at":"2026-02-17T16:48:00+09:00"}
+{"from":"Team Lead","to":"All Agents","taskId":"RF-990","state":"Done","note":"RF-990 completed: Next-first metadata quality uplift with validator pass and docs sync.","at":"2026-02-17T16:49:20+09:00"}

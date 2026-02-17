@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { lostFoundQueryKeys } from '@ahhachul/domain';
 import { createDetailMetadata } from '@ahhachul/seo';
 
-import { SITE_URL, SUBWAY_LINES } from '@/constant';
+import { SEO_KEYWORDS, SEO_PAGE_COPY, SITE_URL, SUBWAY_LINES, withBrandTitle } from '@/constant';
 import { extractTextFromLexical } from '@/util';
 
 import LostFoundPostDetail from './_components/LostFoundDetail';
@@ -16,26 +16,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getLostFoundDetailPostServer({ queryKey: lostFoundQueryKeys.detail(id) });
 
   const subwayLineId = post.result.subwayLineId;
-
-  const baseTitle = (subwayLineId?: string) =>
-    `${
-      post.result.title.length > 16 ? post.result.title.slice(0, 16) + '...' : post.result.title
-    } / ${subwayLineId} 분실물 & 유실물 - 아하철`;
-
-  const title =
-    subwayLineId && +subwayLineId !== 0
-      ? baseTitle(SUBWAY_LINES.find(subway => subway.id === +subwayLineId)?.name)
-      : baseTitle('지하철');
-
-  const baseDescription =
-    '지하철에서 잃어버린 물건을 쉽고 빠르게 찾아보세요. 분실물 정보를 실시간으로 확인하고 지하철 노선별 유실물 센터 정보를 제공합니다. 소중한 물건을 찾는 가장 빠른 방법, 아하철과 함께하세요.';
+  const lineName = SUBWAY_LINES.find(subway => subway.id === +subwayLineId)?.name;
+  const lineLabel = subwayLineId && +subwayLineId !== 0 ? (lineName ?? '해당 노선') : '전체 노선';
+  const headline =
+    post.result.title.length > 28 ? `${post.result.title.slice(0, 28)}...` : post.result.title;
+  const title = withBrandTitle(`${headline} - ${lineLabel} 분실물 글`);
 
   const image =
     subwayLineId && +subwayLineId !== 0
       ? `https://static.dev.ahhachul.com/banners/lost-found/subway-line-${subwayLineId}.png`
       : 'https://static.dev.ahhachul.com/banners/lost-found/main.png';
 
-  const description = extractTextFromLexical(post.result.content, baseDescription);
+  const description = extractTextFromLexical(
+    post.result.content,
+    SEO_PAGE_COPY.lostFound.description,
+  );
 
   return createDetailMetadata({
     title,
@@ -43,6 +38,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     imageUrl: image,
     siteUrl: SITE_URL,
     pathname: `/lost-found/${id}`,
+    keywords: [...SEO_KEYWORDS, post.result.title, '지하철 분실물 글'],
+    category: 'lost-found',
   }) as Metadata;
 }
 

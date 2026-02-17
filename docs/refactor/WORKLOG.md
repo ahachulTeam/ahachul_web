@@ -248,3 +248,10 @@
 - Summary: Implemented round-2 dual-app MSW virtualization by introducing shared `@ahhachul/mock-api` deterministic handler/state architecture, migrating Vite and Next to shared handlers, enabling Next browser+node mock runtime entrypoints, removing fragmented one-app legacy mock modules, and enforcing strict unhandled API behavior to block backend leak-through in mock mode.
 - Validation Result: Pass (`pnpm validate:full`, `pnpm --filter @ahhachul/mock-api test`, `pnpm --filter @ahhachul/one-app build`)
 - Follow-up: Expand RF-980 with route-level mock-mode E2E smoke (login/list/detail/write/edit core journeys) as explicit CI artifact in the next task.
+
+- DateTime (KST): 2026-02-17 16:48:00
+- Task ID: RF-990
+- Contributors: Team Lead, FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Completed Next-first SEO metadata quality upgrade by extending `@ahhachul/seo` (canonical/metadataBase/robots/OG consistency), introducing centralized SEO copy constants in one-app, rewriting service/list/detail/auth metadata copy, adding missing auth-route metadata coverage, reducing sitemap indexable routes to public value pages, and aligning Vite `index.html` single metadata baseline to the upgraded brand copy.
+- Validation Result: Pass (`pnpm validate:full`)
+- Follow-up: Monitor production Search Console title/snippet behavior and add metadata snapshot tests for newly added routes.

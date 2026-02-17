@@ -1,11 +1,17 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 
-export const metadata: Metadata = {
-  title:
-    '요청하신 페이지를 찾을 수 없습니다 / 아하철 - 1등 지하철 민원 & 유실물 & 커뮤니티 정보 앱',
-  description: '요청하신 페이지를 찾을 수 없습니다',
-};
+import { createPageMetadata } from '@ahhachul/seo';
+
+import { SEO_PAGE_COPY, SITE_URL, withBrandTitle } from '@/constant';
+
+export const metadata: Metadata = createPageMetadata({
+  title: withBrandTitle(SEO_PAGE_COPY.notFound.title),
+  description: SEO_PAGE_COPY.notFound.description,
+  siteUrl: SITE_URL,
+  pathname: '/not-found',
+  noIndex: true,
+}) as Metadata;
 
 export default function NotFound() {
   return (

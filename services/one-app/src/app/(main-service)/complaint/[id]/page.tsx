@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { complaintQueryKeys } from '@ahhachul/domain';
 import { createDetailMetadata } from '@ahhachul/seo';
 
-import { SITE_URL, SUBWAY_LINES } from '@/constant';
+import { SEO_KEYWORDS, SEO_PAGE_COPY, SITE_URL, SUBWAY_LINES, withBrandTitle } from '@/constant';
 import { extractTextFromLexical } from '@/util';
 
 import ComplaintDetail from './_components/ComplaintDetail';
@@ -17,18 +17,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const subwayLineId = post.result.subwayLineId;
   const extractTitle = extractTextFromLexical(post.result.content, post.result.complaintType).slice(
     0,
-    16,
+    28,
   );
-  const baseTitle = (subwayLineId?: string) =>
-    `${extractTitle} / ${subwayLineId} 민원 접수 - 아하철`;
-
-  let title = baseTitle('지하철');
-  if (subwayLineId && +subwayLineId !== 0) {
-    title = baseTitle(SUBWAY_LINES.find(subway => subway.id === +subwayLineId)?.name);
-  }
-
-  const baseDescription =
-    '지하철 이용 중 불편사항을 쉽고 빠르게 신고하세요. 시설물 고장, 불편사항, 개선 요청 등 다양한 민원을 실시간으로 접수하고 처리 현황을 확인할 수 있습니다. 더 나은 지하철 환경을 만드는 첫걸음, 아하철 민원 서비스입니다.';
+  const lineName = SUBWAY_LINES.find(subway => subway.id === +subwayLineId)?.name;
+  const lineLabel = subwayLineId && +subwayLineId !== 0 ? (lineName ?? '해당 노선') : '전체 노선';
+  const issueTitle = extractTitle || post.result.complaintType;
+  const title = withBrandTitle(`${issueTitle} - ${lineLabel} 민원 사례`);
 
   let image = 'https://static.dev.ahhachul.com/banners/complaint/main.png';
   if (subwayLineId && +subwayLineId !== 0) {
@@ -38,7 +32,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     image = post.result.images.at(0).imageUrl;
   }
 
-  const description = extractTextFromLexical(post.result.content, baseDescription);
+  const description = extractTextFromLexical(
+    post.result.content,
+    SEO_PAGE_COPY.complaint.description,
+  );
 
   return createDetailMetadata({
     title,
@@ -46,6 +43,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     imageUrl: image,
     siteUrl: SITE_URL,
     pathname: `/complaint/${id}`,
+    keywords: [...SEO_KEYWORDS, post.result.complaintType, '지하철 민원 사례'],
+    category: 'complaint',
   }) as Metadata;
 }
 

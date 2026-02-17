@@ -59,6 +59,7 @@
 | RF-960 | 13     | Game-day manual execution checklist (`staging/production`) | Infra Engineer    | Done   | pending  | Added gh dispatch helper and operator checklist for staged+production rehearsal execution and evidence collection            |
 | RF-970 | 14     | FE micro-style governance + automation + migration         | FE Lead           | Done   | pending  | Added FE system-design research artifact, micro React style rulebook/validator gates, no-nested-ternary rollout, typo rename |
 | RF-980 | 15     | Dual-app full API MSW virtualization (`mock-api` shared)   | FE Lead           | Done   | pending  | Added shared deterministic MSW handlers and integrated Vite/Next browser+server mock mode with strict unhandled API policy   |
+| RF-990 | 16     | Next-first SEO metadata copy/architecture quality upgrade  | FE Lead           | Done   | pending  | Upgraded reusable SEO metadata builder, migrated Next route metadata copy/noindex policy, and aligned Vite single metadata   |
 
 ## Rule
 

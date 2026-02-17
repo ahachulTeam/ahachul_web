@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import { createPageMetadata } from '@ahhachul/seo';
 
-import { SITE_URL } from '@/constant';
+import { SEO_PAGE_COPY, SITE_URL, withBrandTitle } from '@/constant';
 
 const mockNotifications = [
   {
@@ -23,10 +23,11 @@ const mockNotifications = [
 ];
 
 export const metadata: Metadata = createPageMetadata({
-  title: '알림 / 1등 지하철 민원 & 분실물 & 커뮤니티 정보 앱 - 아하철',
-  description: '민원 처리상태와 활동 알림을 한 곳에서 확인할 수 있습니다.',
+  title: withBrandTitle(SEO_PAGE_COPY.notifications.title),
+  description: SEO_PAGE_COPY.notifications.description,
   siteUrl: SITE_URL,
   pathname: '/notifications',
+  noIndex: true,
 }) as Metadata;
 
 export default function NotificationsPage() {
