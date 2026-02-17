@@ -149,3 +149,11 @@ Track every modification to `FE_RULEBOOK.md` in chronological order.
 - Section(s): Rule 11 (Micro React Coding Style), Implementation Checklist, Sources
 - Summary: Added micro FE coding-style conventions for nested ternary prohibition, derived-state/useEffect boundaries, `useDeferredValue` input filtering pattern, naming/file typo hygiene, and refactor guardrails; linked new automated `validate:react-style` gate and research synthesis document.
 - Follow-up: Keep all future FE refactor tasks blocked unless `validate:react-style` and `no-nested-ternary` gates pass.
+
+- DateTime (KST): 2026-02-17 16:26:00
+- Task ID: RF-972
+- Author/Owner: FE Lead
+- Change Type: Changed
+- Section(s): Rulebook Operations, Implementation Checklist
+- Summary: Added explicit reference to repository-level merge governance (`CONVENTIONS.md` `Merge Policy`) and required FE PR merge-method compliance in the checklist.
+- Follow-up: Apply merge-method policy consistently (`Merge Commit` for large refactors/ops, `Squash` for small noisy PRs, constrained `Rebase` usage only when eligible).

@@ -11,6 +11,14 @@
 - Branch naming: `codex/<scope>`
 - Commit message format: `refactor(scope): [Task-ID] summary`
 
+## Merge Policy
+
+- Large refactor or operational hardening PRs: use `Merge Commit`.
+- Small feature/fix PRs with noisy intermediate commits: use `Squash Merge`.
+- Rebase policy is opt-in and limited:
+  - use `Rebase Merge` only when linear-history enforcement is explicitly required
+  - do not use `Rebase Merge` when commit hashes are referenced by governance docs (`SPRINT_BOARD`, `WORKLOG`, `DECISIONS`, etc.)
+
 ## Engineering
 
 - Node: `20.13.0`
