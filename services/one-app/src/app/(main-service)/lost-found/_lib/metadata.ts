@@ -20,6 +20,7 @@ export async function generateLostFoundMetadata(
     imageBasePath: 'https://static.dev.ahhachul.com/banners/lost-found',
     siteUrl: SITE_URL,
     pathname: '/lost-found',
+    rssPath: '/lost-found/rss.xml',
     keywords: [...SEO_KEYWORDS, '지하철 분실물', '지하철 유실물', '지하철 물건 찾기'],
     category: 'lost-found',
   }) as Metadata;

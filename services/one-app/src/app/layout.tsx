@@ -13,6 +13,8 @@ import { cn } from '@/util/cn';
 
 import Header from './_components/Header';
 import NavMenu from './_components/NavMenu';
+import SeoInternalLinks from './_components/SeoInternalLinks';
+import SeoStructuredData from './_components/SeoStructuredData';
 import './globals.css';
 
 export const viewport: Viewport = {
@@ -29,6 +31,7 @@ export const metadata: Metadata = createPageMetadata({
   keywords: [...SEO_KEYWORDS],
   siteUrl: SITE_URL,
   pathname: '/',
+  rssPath: '/rss.xml',
 }) as Metadata;
 
 export default function RootLayout({
@@ -39,10 +42,12 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={cn('font-sans antialiased', Pretendard.variable)}>
+        <SeoStructuredData />
         <NextTopLoader height={2} color={colors['key-color']} showSpinner={false} />
         <Providers>
           <Header />
           {children}
+          <SeoInternalLinks />
           <NavMenu />
         </Providers>
       </body>

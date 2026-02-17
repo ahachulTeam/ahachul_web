@@ -1,76 +1,76 @@
 {
-  "updatedAt": "2026-02-17T07:39:08.877Z",
-  "branch": "codex/rf-990-seo-metadata-upgrade",
-  "sprintFocus": "RF-990 진행: Next-first SEO metadata 카피/아키텍처 고도화 및 Vite 단일 메타 정렬",
+  "updatedAt": "2026-02-17T08:20:00.000Z",
+  "branch": "codex/rf-1000-seo-linking-sitemap-rss",
+  "sprintFocus": "RF-1000 진행: Next SEO 내부 링크/구조화 데이터/사이트맵+RSS 자동화 고도화",
   "leadDirective": [
-    "1) Next 메타데이터는 서비스 가치 페이지(indexable)와 내부 플로우(noindex)를 분리해 검색 품질을 높인다.",
-    "2) metadata copy는 공통 SEO 카피 상수로 통일해 페이지 간 톤/키워드 일관성을 유지한다.",
-    "3) sitemap에는 공개 가치가 높은 canonical route만 유지하고 내부/개인화 페이지는 제외한다.",
-    "4) 모든 변경은 pnpm validate:full 블로킹 게이트 통과 후 커밋한다."
+    "1) 내부 탐색 경로는 anchor 기반으로 노출해 검색 크롤러가 구조를 안정적으로 학습하도록 유지한다.",
+    "2) WebSite/Organization/SiteNavigationElement/BreadcrumbList JSON-LD를 shared builder로 일관 생성한다.",
+    "3) sitemap은 index + segment 구조로 운영하고 indexable 공개 라우트와 세부 콘텐츠를 분리 관리한다.",
+    "4) RSS/sitemap route는 upstream API 장애 시에도 유효 XML을 반환해 빌드/배포 안정성을 보장한다."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-990",
+      "taskId": "RF-1000",
       "state": "Done",
-      "updatedAt": "2026-02-17T16:48:00+09:00",
-      "nextAction": "commit and open develop PR with metadata quality summary"
+      "updatedAt": "2026-02-17T17:20:00+09:00",
+      "nextAction": "prepare commit and develop PR summary for RF-1000"
     },
     {
       "role": "FE Lead",
       "owner": "fe-lead",
-      "taskId": "RF-990",
+      "taskId": "RF-1000",
       "state": "Done",
-      "updatedAt": "2026-02-17T16:48:00+09:00",
-      "nextAction": "monitor metadata quality deltas and future route coverage"
+      "updatedAt": "2026-02-17T17:20:00+09:00",
+      "nextAction": "monitor sitelink/structured-data indexing quality and route growth"
     },
     {
       "role": "FE Specialist A",
       "owner": "fe-spec-a",
-      "taskId": "RF-990A",
+      "taskId": "RF-1000A",
       "state": "Done",
-      "updatedAt": "2026-02-17T16:48:00+09:00",
-      "nextAction": "maintain shared seo utility contracts"
+      "updatedAt": "2026-02-17T17:20:00+09:00",
+      "nextAction": "maintain shared sitemap/rss/jsonld builder contracts"
     },
     {
       "role": "FE Specialist B",
       "owner": "fe-spec-b",
-      "taskId": "RF-990B",
+      "taskId": "RF-1000B",
       "state": "Done",
-      "updatedAt": "2026-02-17T16:48:00+09:00",
-      "nextAction": "maintain app-level metadata migration consistency"
+      "updatedAt": "2026-02-17T17:20:00+09:00",
+      "nextAction": "maintain app-layer metadata/internal-link migration consistency"
     },
     {
       "role": "Infra Engineer",
       "owner": "infra-core",
-      "taskId": "RF-990C",
+      "taskId": "RF-1000C",
       "state": "Done",
-      "updatedAt": "2026-02-17T16:48:00+09:00",
-      "nextAction": "watch production snippet/indexing signals after deploy"
+      "updatedAt": "2026-02-17T17:20:00+09:00",
+      "nextAction": "track production feed/sitemap availability and caching headers"
     },
     {
       "role": "QA Engineer",
       "owner": "qa-core",
-      "taskId": "RF-990Q",
+      "taskId": "RF-1000Q",
       "state": "Done",
-      "updatedAt": "2026-02-17T16:48:00+09:00",
-      "nextAction": "extend metadata snapshot/e2e checks if route surface expands"
+      "updatedAt": "2026-02-17T17:20:00+09:00",
+      "nextAction": "add sitemap/rss integration assertions in future e2e suite"
     },
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-990D",
+      "taskId": "RF-1000D",
       "state": "Done",
-      "updatedAt": "2026-02-17T16:48:00+09:00",
-      "nextAction": "synchronize sprint/worklog/decision/meeting artifacts for RF-990"
+      "updatedAt": "2026-02-17T17:20:00+09:00",
+      "nextAction": "sync sprint/worklog/decision/meeting artifacts for RF-1000"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
-      "taskId": "RF-990V",
+      "taskId": "RF-1000V",
       "state": "Done",
-      "updatedAt": "2026-02-17T16:48:00+09:00",
+      "updatedAt": "2026-02-17T17:20:00+09:00",
       "nextAction": "validator gate passed via pnpm validate:full"
     }
   ],
@@ -1442,14 +1442,54 @@
       "state": "Done",
       "note": "RF-990 completed: Next-first metadata quality uplift with validator pass and docs sync.",
       "at": "2026-02-17T16:49:20+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "FE Lead",
+      "taskId": "RF-1000",
+      "state": "ASSIGNED",
+      "note": "Start SEO discovery hardening: internal links + structured navigation + sitemap/rss architecture.",
+      "at": "2026-02-17T17:00:00+09:00"
+    },
+    {
+      "from": "FE Specialist A/B",
+      "to": "QA Engineer",
+      "taskId": "RF-1000",
+      "state": "QAReady",
+      "note": "SEO linking/jsonld/sitemap/rss implementation complete. Request blocking gate.",
+      "at": "2026-02-17T17:20:00+09:00"
+    },
+    {
+      "from": "QA Engineer",
+      "to": "Perfectionist Validator",
+      "taskId": "RF-1000",
+      "state": "QAReady",
+      "note": "pnpm --filter @ahhachul/one-app build + pnpm validate:full evidence attached for RF-1000.",
+      "at": "2026-02-17T17:20:00+09:00"
+    },
+    {
+      "from": "Perfectionist Validator",
+      "to": "Team Lead",
+      "taskId": "RF-1000",
+      "state": "ValidatorPass",
+      "note": "RF-1000 gate passed: resilient sitemap/rss build and SEO link architecture validated.",
+      "at": "2026-02-17T17:20:00+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "All Agents",
+      "taskId": "RF-1000",
+      "state": "Done",
+      "note": "RF-1000 completed: internal linking, structured data, sitemap index segmentation, and RSS automation synchronized.",
+      "at": "2026-02-17T17:20:00+09:00"
     }
   ],
   "validator": {
     "queue": [],
     "lastGate": {
-      "taskId": "RF-990",
+      "taskId": "RF-1000",
       "result": "PASS",
-      "at": "2026-02-17T16:48:00+09:00"
+      "at": "2026-02-17T17:20:00+09:00"
     }
   }
 }

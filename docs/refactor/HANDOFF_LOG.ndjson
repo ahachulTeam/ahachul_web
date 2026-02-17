@@ -170,3 +170,8 @@
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-990","state":"ValidatorPass","note":"RF-990 gate passed: metadata architecture/copy/noindex policy changes validated without behavior regression.","at":"2026-02-17T16:48:00+09:00"}
 {"from":"Team Lead","to":"Technical Writer","taskId":"RF-990","state":"COMMITTED","note":"Synchronize sprint/worklog/decision/team-state artifacts and prepare single-task commit.","at":"2026-02-17T16:48:00+09:00"}
 {"from":"Team Lead","to":"All Agents","taskId":"RF-990","state":"Done","note":"RF-990 completed: Next-first metadata quality uplift with validator pass and docs sync.","at":"2026-02-17T16:49:20+09:00"}
+{"from":"Team Lead","to":"FE Lead","taskId":"RF-1000","state":"ASSIGNED","note":"Start SEO discovery hardening: internal links + structured navigation + sitemap/rss architecture.","at":"2026-02-17T17:00:00+09:00"}
+{"from":"FE Specialist A/B","to":"QA Engineer","taskId":"RF-1000","state":"QAReady","note":"SEO linking/jsonld/sitemap/rss implementation complete. Request blocking gate.","at":"2026-02-17T17:20:00+09:00"}
+{"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-1000","state":"QAReady","note":"pnpm --filter @ahhachul/one-app build + pnpm validate:full evidence attached for RF-1000.","at":"2026-02-17T17:20:00+09:00"}
+{"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-1000","state":"ValidatorPass","note":"RF-1000 gate passed: resilient sitemap/rss build and SEO link architecture validated.","at":"2026-02-17T17:20:00+09:00"}
+{"from":"Team Lead","to":"All Agents","taskId":"RF-1000","state":"Done","note":"RF-1000 completed: internal linking, structured data, sitemap index segmentation, and RSS automation synchronized.","at":"2026-02-17T17:20:00+09:00"}

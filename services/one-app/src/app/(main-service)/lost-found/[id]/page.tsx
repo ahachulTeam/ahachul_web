@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { lostFoundQueryKeys } from '@ahhachul/domain';
 import { createDetailMetadata } from '@ahhachul/seo';
 
+import BreadcrumbNav from '@/app/_components/BreadcrumbNav';
 import { SEO_KEYWORDS, SEO_PAGE_COPY, SITE_URL, SUBWAY_LINES, withBrandTitle } from '@/constant';
 import { extractTextFromLexical } from '@/util';
 
@@ -65,6 +66,13 @@ export default async function LostFoundDetailPage(props: Props) {
   return (
     <main className="flex min-h-screen flex-col text-black bg-white mb-[210px]">
       <HydrationBoundary state={dehydratedState}>
+        <BreadcrumbNav
+          items={[
+            { name: '홈', href: '/' },
+            { name: '분실물', href: '/lost-found' },
+            { name: `분실물 #${id}`, href: `/lost-found/${id}` },
+          ]}
+        />
         <LostFoundPostDetail id={id} />
       </HydrationBoundary>
     </main>

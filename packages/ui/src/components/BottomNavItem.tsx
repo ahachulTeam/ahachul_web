@@ -8,6 +8,7 @@ export interface BottomNavItemProps {
   icon: ReactNode;
   activeIcon?: ReactNode;
   isActive?: boolean;
+  href?: string;
   onClick?: () => void;
   className?: string;
   style?: CSSProperties;
@@ -21,6 +22,7 @@ export const BottomNavItem = ({
   icon,
   activeIcon,
   isActive = false,
+  href,
   onClick,
   className,
   style,
@@ -29,6 +31,32 @@ export const BottomNavItem = ({
   disabled = false,
 }: BottomNavItemProps) => {
   const color = isActive ? colors['key-color'] : colors.gray[70];
+  const content = (
+    <>
+      {isActive && activeIcon ? activeIcon : icon}
+      <span>{label}</span>
+    </>
+  );
+  const commonStyle: CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '2px',
+    height: '60px',
+    width: '100%',
+    padding: '2px',
+    border: 'none',
+    background: 'transparent',
+    color,
+    fontSize: '12px',
+    lineHeight: '18px',
+    fontWeight: 500,
+    textAlign: 'center',
+    cursor: disabled ? 'not-allowed' : 'pointer',
+    textDecoration: 'none',
+    ...buttonStyle,
+  };
 
   return (
     <li
@@ -40,35 +68,32 @@ export const BottomNavItem = ({
         ...style,
       }}
     >
-      <button
-        type="button"
-        onClick={onClick}
-        disabled={disabled}
-        className={buttonClassName}
-        aria-current={isActive ? 'page' : undefined}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '2px',
-          height: '60px',
-          width: '100%',
-          padding: '2px',
-          border: 'none',
-          background: 'transparent',
-          color,
-          fontSize: '12px',
-          lineHeight: '18px',
-          fontWeight: 500,
-          textAlign: 'center',
-          cursor: disabled ? 'not-allowed' : 'pointer',
-          ...buttonStyle,
-        }}
-      >
-        {isActive && activeIcon ? activeIcon : icon}
-        <span>{label}</span>
-      </button>
+      {href ? (
+        <a
+          href={href}
+          onClick={onClick}
+          className={buttonClassName}
+          aria-current={isActive ? 'page' : undefined}
+          aria-disabled={disabled || undefined}
+          style={{
+            ...commonStyle,
+            pointerEvents: disabled ? 'none' : undefined,
+          }}
+        >
+          {content}
+        </a>
+      ) : (
+        <button
+          type="button"
+          onClick={onClick}
+          disabled={disabled}
+          className={buttonClassName}
+          aria-current={isActive ? 'page' : undefined}
+          style={commonStyle}
+        >
+          {content}
+        </button>
+      )}
     </li>
   );
 };

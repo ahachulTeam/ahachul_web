@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { communityQueryKeys } from '@ahhachul/domain';
 import { createDetailMetadata } from '@ahhachul/seo';
 
+import BreadcrumbNav from '@/app/_components/BreadcrumbNav';
 import { SEO_KEYWORDS, SEO_PAGE_COPY, SITE_URL, SUBWAY_LINES, withBrandTitle } from '@/constant';
 import { extractTextFromLexical } from '@/util';
 
@@ -60,6 +61,13 @@ export default async function CommunityDetailPage(props: Props) {
   return (
     <main className="flex min-h-screen flex-col text-black bg-white mb-[210px]">
       <HydrationBoundary state={dehydratedState}>
+        <BreadcrumbNav
+          items={[
+            { name: '홈', href: '/' },
+            { name: '커뮤니티', href: '/community' },
+            { name: `게시글 #${id}`, href: `/community/${id}` },
+          ]}
+        />
         <CommunityPostDetail id={id} />
       </HydrationBoundary>
     </main>

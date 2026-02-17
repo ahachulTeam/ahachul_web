@@ -20,6 +20,7 @@ export async function generateComplaintMetadata(
     imageBasePath: 'https://static.dev.ahhachul.com/banners/complaint',
     siteUrl: SITE_URL,
     pathname: '/complaint',
+    rssPath: '/complaint/rss.xml',
     keywords: [...SEO_KEYWORDS, '지하철 민원', '지하철 불편 신고'],
     category: 'complaint',
   }) as Metadata;

@@ -20,6 +20,7 @@ export async function generateCommunityMetadata(
     imageBasePath: 'https://static.dev.ahhachul.com/banners/community',
     siteUrl: SITE_URL,
     pathname: '/community',
+    rssPath: '/community/rss.xml',
     keywords: [...SEO_KEYWORDS, '지하철 커뮤니티', '지하철 정보 공유'],
     category: 'community',
   }) as Metadata;

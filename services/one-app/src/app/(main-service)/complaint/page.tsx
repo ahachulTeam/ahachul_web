@@ -1,6 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { headers } from 'next/headers';
 
+import BreadcrumbNav from '@/app/_components/BreadcrumbNav';
 import SearchForm from '@/component/SearchForm';
 import type { SubwayLineFilterOptions } from '@/types';
 
@@ -36,6 +37,12 @@ export default async function ComplaintPage({ searchParams }: Props) {
   return (
     <main className="flex min-h-screen flex-col bg-white">
       <HydrationBoundary state={dehydratedState}>
+        <BreadcrumbNav
+          items={[
+            { name: '홈', href: '/' },
+            { name: '민원', href: '/complaint' },
+          ]}
+        />
         <SearchForm />
         <Filters />
         <ComplaintPosts />
