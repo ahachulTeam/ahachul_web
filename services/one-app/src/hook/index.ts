@@ -1,4 +1,4 @@
-export * from './useTimemout';
+export * from './useTimeout';
 export * from './useDebounce';
 export * from './useIsDeferred';
 export * from './useAsyncCallback';

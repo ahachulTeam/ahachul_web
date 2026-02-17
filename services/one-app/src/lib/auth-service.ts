@@ -3,11 +3,8 @@
 import Cookies from 'js-cookie';
 
 import { IS_DEV_ENV } from '@/constant';
-
-export enum CookieKey {
-  ACCESS_TOKEN = 'access_token',
-  REFRESH_TOKEN = 'refresh_token',
-}
+import { INTERNAL_API_PATHS } from '@/lib/internal-api-contract';
+import { CookieKey } from '@/types';
 
 class _AuthService {
   private isRefreshing = false;
@@ -69,7 +66,7 @@ class _AuthService {
   }
 
   private async fetchRefreshToken(): Promise<string> {
-    const response = await fetch('/api/auth/token/refresh', {
+    const response = await fetch(INTERNAL_API_PATHS.auth.refreshToken, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

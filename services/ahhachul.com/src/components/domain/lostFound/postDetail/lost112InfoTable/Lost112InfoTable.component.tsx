@@ -1,4 +1,4 @@
-import { formatDateTime } from '@ahhachul/utils';
+import { formatDisplayDate } from '@ahhachul/utils';
 
 import { useNativeBridge } from '@/contexts';
 import type { LostFoundPostDetail } from '@/types';
@@ -31,7 +31,7 @@ const Lost112InfoTable = ({ post }: Props) => {
 
         <S.GridContainer>
           <S.Label>습득일</S.Label>
-          <S.Value>{formatDateTime(post.createdAt, { format: 'short' })}</S.Value>
+          <S.Value>{formatDisplayDate(post.createdAt, { format: 'short' })}</S.Value>
 
           {post?.categoryName && (
             <>

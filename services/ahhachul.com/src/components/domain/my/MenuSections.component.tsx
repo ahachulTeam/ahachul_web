@@ -30,14 +30,14 @@ const MenuSections = () => {
 
         <Section>
           <p>앱 버전</p>
-          <p style={{ color: '#70747D' }}>{deps.version}</p>
+          <p style={{ color: 'var(--ah-color-legacy-text-muted)' }}>{deps.version}</p>
         </Section>
       </SectionsBox>
       <SectionsBox>
         <SectionCs>
           <h3
             css={css`
-              color: #26282b;
+              color: var(--ah-color-legacy-text-strong);
               line-height: 24px;
             `}
           >
@@ -45,7 +45,7 @@ const MenuSections = () => {
           </h3>
           <p
             css={css`
-              color: #838791;
+              color: var(--ah-color-legacy-text-muted-secondary);
               margin: 0 0 14px;
               line-height: 24px;
             `}
@@ -57,8 +57,8 @@ const MenuSections = () => {
             onClick={showToast}
             css={css`
               font-weight: 600;
-              color: #004fec;
-              border: 1px solid #004fec;
+              color: var(--ah-color-legacy-text-link);
+              border: 1px solid var(--ah-color-legacy-text-link);
               border-radius: 8px;
               width: 100%;
               height: 40px;
@@ -100,7 +100,7 @@ const Section = styled.div`
     font-size: 16px;
     line-height: 24px;
     font-weight: 500;
-    color: #26282b;
+    color: var(--ah-color-legacy-text-strong);
   }
 
   & > svg {

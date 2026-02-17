@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { API_PATHS } from '@ahhachul/http';
+
 import axiosInstance from '@/apis/fetcher';
 import type {
   ApiResponse,
@@ -14,7 +16,9 @@ import { BASE_URL } from '../baseUrl';
 import { API_PREFIX } from '../endpointPrefix';
 
 export const fetchUserProfile = async () => {
-  const { data } = await axiosInstance.get<ApiResponse<UserProfileResponseDto>>('/members');
+  const { data } = await axiosInstance.get<ApiResponse<UserProfileResponseDto>>(
+    API_PATHS.user.profile,
+  );
 
   return data;
 };
@@ -23,7 +27,7 @@ export const prefetchUserProfile = async () => {
   const accessToken = getAccessTokenInLocalStorage();
 
   const { data } = await axios.get<ApiResponse<UserProfileResponseDto>>(
-    `${BASE_URL.SERVER}${API_PREFIX}/members`,
+    `${BASE_URL.SERVER}${API_PREFIX}${API_PATHS.user.profile}`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -36,7 +40,7 @@ export const prefetchUserProfile = async () => {
 
 export const fetchUserFavoriteStations = async () => {
   const { data } = await axiosInstance.get<ApiResponse<UserFavoriteStations>>(
-    '/members/bookmarks/stations',
+    API_PATHS.user.favoriteStations,
   );
 
   return data;
@@ -46,7 +50,7 @@ export const prefetchUserFavoriteStations = async () => {
   const accessToken = getAccessTokenInLocalStorage();
 
   const { data } = await axios.get<ApiResponse<UserFavoriteStations>>(
-    `${BASE_URL.SERVER}${API_PREFIX}/members/bookmarks/stations`,
+    `${BASE_URL.SERVER}${API_PREFIX}${API_PATHS.user.favoriteStations}`,
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -59,7 +63,7 @@ export const prefetchUserFavoriteStations = async () => {
 
 export const createUserFavoriteStations = async (stations: any) => {
   const response = await axiosInstance.post<ApiResponse<UserFavoriteStations>>(
-    '/members/bookmarks/stations',
+    API_PATHS.user.favoriteStations,
     { stations },
     // { stations: stations.map((item: any) => ({ ...item, stationName: item.stationName + '역' })) },
   );
@@ -71,7 +75,7 @@ export const updateUser = async (data: { nickname: string; auth: AuthTokens }) =
   try {
     const accessToken = data.auth.accessToken;
     const res = await axios.patch<APIUpdateUserResponse>(
-      `${import.meta.env.VITE_BASE_URL}/v1/members`,
+      `${BASE_URL.SERVER}${API_PREFIX}${API_PATHS.user.profile}`,
       { nickname: data.nickname },
       {
         headers: {

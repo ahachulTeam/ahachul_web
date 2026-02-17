@@ -1,18 +1,9 @@
 import type { ComponentProps } from 'react';
-import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
 
-interface SkeletonProps extends Omit<ComponentProps<typeof Skeleton>, 'borderRadius'> {
-  radius: number;
-}
+import { BaseSkeleton as SharedBaseSkeleton } from '@ahhachul/ui';
 
-const BaseSkeleton = ({ radius = 0, ...props }: SkeletonProps) => (
-  <Skeleton
-    {...props}
-    borderRadius={radius}
-    baseColor="#F5F5F4" // 따뜻한 회색
-    highlightColor="#FAFAF9" // 더 밝은 따뜻한 회색
-  />
-);
+type SkeletonProps = ComponentProps<typeof SharedBaseSkeleton>;
+
+const BaseSkeleton = (props: SkeletonProps) => <SharedBaseSkeleton {...props} />;
 
 export default BaseSkeleton;

@@ -1,4 +1,6 @@
-import { objectToQueryString, removeFalsyValues } from '@ahhachul/utils';
+import { communityQueryKeys } from '@ahhachul/domain';
+import { API_PAGE_SIZE, API_PATHS, API_SORT } from '@ahhachul/http';
+import { removeFalsyValues } from '@ahhachul/utils';
 
 import { fetchClient } from '@/lib/fetch-client';
 import { type ApiResponse, type PaginatedList } from '@/types';
@@ -6,28 +8,26 @@ import { type CommunityListParams, type CommunityPost, CommunityType } from '@/t
 
 type Props = {
   pageParam?: string;
-  queryKey: [_1: string, _2: string, filters: string];
+  queryKey: ReturnType<typeof communityQueryKeys.list>;
 };
 
 export async function getCommunityPosts({
   pageParam,
   queryKey,
 }: Props): Promise<ApiResponse<PaginatedList<CommunityPost>>> {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_1, _2, query] = queryKey;
-
-  const filters = new URLSearchParams(query);
+  const [, , querySignature] = queryKey;
+  const filters = new URLSearchParams(querySignature);
 
   const endpoint =
     filters.has('category') && filters.get('category') !== CommunityType.HOT
-      ? 'community-posts'
-      : 'community-hot-posts';
+      ? API_PATHS.community.list
+      : API_PATHS.community.hotList;
 
   const params = removeFalsyValues({
     ...(filters.get('keyword') && { content: filters.get('keyword') || '' }),
     ...(filters.get('subwayLineId') && { subwayLineId: filters.get('subwayLineId') || '' }),
-    pageSize: 10,
-    sort: 'createdAt,desc',
+    pageSize: API_PAGE_SIZE.list,
+    sort: API_SORT.createdAtDesc,
     ...(pageParam && { pageToken: pageParam }),
     ...(filters.has('category') &&
       filters.get('category') !== CommunityType.HOT && {
@@ -35,12 +35,10 @@ export async function getCommunityPosts({
       }),
   }) as Partial<CommunityListParams>;
 
-  return await fetchClient(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/${endpoint}?${objectToQueryString(params)}`,
-    {
-      next: {
-        tags: ['community', 'posts'],
-      },
+  return fetchClient(endpoint, {
+    params: params as Record<string, string | number | boolean>,
+    next: {
+      tags: ['community', 'posts'],
     },
-  );
+  });
 }

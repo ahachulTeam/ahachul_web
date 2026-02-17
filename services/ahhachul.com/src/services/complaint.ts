@@ -5,29 +5,24 @@ import {
   useSuspenseQuery,
 } from '@tanstack/react-query';
 
-import { removeFalsyValues } from '@ahhachul/utils';
+import {
+  QUERY_GC_TIME,
+  QUERY_STALE_TIME,
+  buildQuerySignature,
+  complaintQueryKeys,
+} from '@ahhachul/domain';
+import { formatSubwayFilterOption, getFirstParentLineId, removeFalsyValues } from '@ahhachul/utils';
 
 import * as api from '@/apis/request';
-import { TIMESTAMP } from '@/constants';
 import { TOAST_MSG } from '@/constants/toast';
 import { useToast } from '@/hooks/useToast';
 import { useFlow } from '@/stackflow';
 import { useUserStationStore } from '@/stores/subway';
 import { SubwayLineFilterOptions } from '@/types';
 import type { ComplaintForm, ComplaintListParams } from '@/types/complaint';
-import { formatSubwayFilterOption, getFirstParentLineId } from '@/utils';
 import { extractTextFromLexical } from '@/utils/lexical';
 
-export const complaintKeys = {
-  all: ['complaint'] as const,
-  lists: () => [...complaintKeys.all, 'list'] as const,
-  list: (filters: (string | number)[]) => [...complaintKeys.lists(), ...filters] as const,
-  details: () => [...complaintKeys.all, 'detail'] as const,
-  detail: (id: number) => [...complaintKeys.details(), id] as const,
-  comments(id: number) {
-    return [...this.detail(id), 'comment-list'] as const;
-  },
-};
+export const complaintKeys = complaintQueryKeys;
 
 export const useFetchComplaintList = (filters: ComplaintListParams<SubwayLineFilterOptions>) => {
   const state = useUserStationStore(state => state);
@@ -40,10 +35,14 @@ export const useFetchComplaintList = (filters: ComplaintListParams<SubwayLineFil
     },
     { removeZero: true, removeEmptyStrings: true },
   ) as ComplaintListParams;
+  const querySignature = buildQuerySignature({
+    keyword: req.keyword,
+    subwayLineId: req.subwayLineId,
+  });
 
   return useSuspenseInfiniteQuery({
     initialPageParam: '',
-    queryKey: complaintKeys.list(Object.values(req)),
+    queryKey: complaintKeys.list(querySignature),
     queryFn: ({ pageParam = filters.pageToken }) =>
       api.fetchComplaintList({
         ...req,
@@ -59,6 +58,8 @@ export const useFetchComplaintList = (filters: ComplaintListParams<SubwayLineFil
       );
       return res;
     },
+    staleTime: QUERY_STALE_TIME.feed,
+    gcTime: QUERY_GC_TIME.feed,
   });
 };
 
@@ -92,7 +93,8 @@ export const useFetchComplaintDetail = (id: number) =>
   useSuspenseQuery({
     queryKey: complaintKeys.detail(id),
     queryFn: () => api.fetchComplaintDetail(id),
-    staleTime: 5 * TIMESTAMP.MINUTE, // 5분
+    staleTime: QUERY_STALE_TIME.detail,
+    gcTime: QUERY_GC_TIME.detail,
     select: res => {
       return {
         ...res.data.result,
@@ -108,7 +110,8 @@ export const useFetchComplaintCommentList = (id: number) =>
   useSuspenseQuery({
     queryKey: complaintKeys.comments(id),
     queryFn: () => api.fetchComplaintCommentList(id),
-    staleTime: 5 * TIMESTAMP.MINUTE, //5분
+    staleTime: QUERY_STALE_TIME.detail,
+    gcTime: QUERY_GC_TIME.detail,
     select: res => res.data.result,
   });
 

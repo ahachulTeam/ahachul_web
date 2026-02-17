@@ -1,4 +1,6 @@
 // import { BookmarkIcon } from '@/assets/icons/system';
+import { API_SERVICE_PATHS } from '@ahhachul/http';
+
 import { UiComponent } from '@/components';
 import { communityKeys, useFetchCommunityCommentList } from '@/services/community';
 
@@ -40,7 +42,7 @@ const CommentListInner = ({
   return (
     <UiComponent.BaseCommentList
       commentsMap={data.comments}
-      servicePath="community-posts"
+      servicePath={API_SERVICE_PATHS.community}
       queryKey={communityKeys.comments(id)}
       isArticleAuthor={isArticleAuthor}
     />

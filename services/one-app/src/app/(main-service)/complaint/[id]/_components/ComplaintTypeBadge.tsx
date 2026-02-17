@@ -1,5 +1,7 @@
 'use client';
 
+import { ServiceBadge } from '@ahhachul/ui';
+
 import type { ComplaintType } from '@/types/complaint';
 
 const complaintTypeOptions: Record<ComplaintType, string> = {
@@ -18,8 +20,13 @@ interface Props {
 
 export const ComplaintTypeBadge = ({ complaintType }: Props) => {
   return (
-    <div className=" h-7 text-label-small text-gray-0 px-2.5 flex items-center justify-center bg-[#407AD6] rounded-[100px] w-max">
-      {complaintTypeOptions[complaintType]}
-    </div>
+    <ServiceBadge
+      label={complaintTypeOptions[complaintType]}
+      className="text-label-small"
+      style={{
+        minHeight: '28px',
+        padding: '0 10px',
+      }}
+    />
   );
 };

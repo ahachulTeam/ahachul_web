@@ -1,5 +1,6 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import { headers } from 'next/headers';
+import Link from 'next/link';
 
 import SearchForm from '@/component/SearchForm';
 import type { LostFoundType, SubwayLineFilterOptions } from '@/types';
@@ -39,6 +40,14 @@ export default async function LostFoundPage({ searchParams }: Props) {
       <HydrationBoundary state={dehydratedState}>
         <SearchForm />
         <Filters />
+        <div className="px-5 pb-2 pt-3">
+          <Link
+            href="/lost-found/new"
+            className="inline-flex h-10 items-center rounded-xl bg-key-color px-4 text-label-medium text-white"
+          >
+            유실물 등록
+          </Link>
+        </div>
         <LostFoundPosts />
       </HydrationBoundary>
     </main>

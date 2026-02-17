@@ -1,81 +1,41 @@
-import { useCallback } from 'react';
-import { useForm } from 'react-hook-form';
-
 import { useEditCommunity } from '@/services/community';
-import type { CommunityEditForm, EditableImage, CommunityType } from '@/types';
-import { validateLexicalContent } from '@/utils/lexical';
+import type { CommunityEditForm, CommunityType } from '@/types';
+
+import {
+  MAX_POST_IMAGE_COUNT,
+  communityEditFormSchema,
+  useEditPostImageHandlers,
+  useLexicalValidatedSubmit,
+  useSchemaForm,
+} from '../form';
 
 const useEditCommunityForm = (
   id: number,
   categoryType: CommunityType,
   defaultValues: CommunityEditForm,
 ) => {
-  const { mutate: updateLostArticle, isPending } = useEditCommunity(id, categoryType);
+  const { mutate: updateCommunityArticle, isPending } = useEditCommunity(id, categoryType);
 
-  const methods = useForm<CommunityEditForm>({
-    mode: 'onBlur',
+  const methods = useSchemaForm<CommunityEditForm>({
+    schema: communityEditFormSchema,
     defaultValues,
   });
 
-  const [images = [], removeFileIds = []] = methods.watch(['images', 'removeFileIds']);
-
-  const validateContent = useCallback(
-    (content: string) => validateLexicalContent(content, methods.setError),
-    [methods.setError],
+  const { handleImageUpload, handleImageDelete } = useEditPostImageHandlers(
+    methods,
+    MAX_POST_IMAGE_COUNT,
   );
-
-  const handleImageUpload = useCallback(
-    (files: File[]) => {
-      const fileBlob = files[0];
-      if (!fileBlob) return;
-
-      const fileUrl = URL.createObjectURL(fileBlob);
-      const newImage: EditableImage = { id: null, data: fileBlob, url: fileUrl };
-
-      methods.setValue('images', [...images, newImage], { shouldDirty: true });
-    },
-    [methods.setValue, images],
-  );
-
-  const handleImageDelete = useCallback(
-    (index: number) => {
-      const targetImage = images[index];
-      if (!targetImage) return;
-
-      if (targetImage.id !== null) {
-        methods.setValue('removeFileIds', [...removeFileIds, targetImage.id], {
-          shouldDirty: true,
-        });
-      }
-
-      methods.setValue(
-        'images',
-        images.filter((_, i) => i !== index),
-        { shouldDirty: true },
-      );
-    },
-    [images, removeFileIds, methods.setValue],
-  );
-
-  const onSubmit = useCallback(
-    (data: CommunityEditForm) => {
-      if (!validateContent(data.content)) return;
-
-      updateLostArticle(data);
-    },
-    [updateLostArticle, validateContent],
-  );
-
-  const onError = useCallback(() => {
-    validateContent(methods.getValues('content'));
-  }, [methods.getValues, validateContent]);
+  const { submit } = useLexicalValidatedSubmit({
+    methods,
+    onValidSubmit: updateCommunityArticle,
+  });
 
   return {
     methods,
     isPending,
     handleImageUpload,
     handleImageDelete,
-    submit: methods.handleSubmit(onSubmit, onError),
+    submit,
   };
 };
 

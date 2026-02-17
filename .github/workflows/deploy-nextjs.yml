@@ -9,6 +9,11 @@ on:
     paths:
       - 'packages/**'
       - 'services/one-app/**'
+      - 'Dockerfile'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'nx.json'
 
 env:
   DEFAULT_NODE_VERSION: '20.13.0'
@@ -32,17 +37,9 @@ jobs:
         run: echo "AWS_REGION is $AWS_REGION"
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.DEFAULT_NODE_VERSION }}
-
-      - name: Update Corepack
-        run: |
-          echo "Before: corepack version => $(corepack --version || echo 'not installed')"
-          npm install -g corepack@latest
-          echo "After : corepack version => $(corepack --version)"
-          corepack enable
-          pnpm --version
 
       - name: Install dependencies
         uses: ./.github/actions/pnpm-install
@@ -51,6 +48,21 @@ jobs:
         run: |
           echo '${{ secrets.DEV_ONE_APP_CONFIG }}' > config.json
           cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/one-app/.env
+
+      - name: Resolve smoke base url
+        run: |
+          if [ "${GITHUB_REF_NAME}" = "main" ]; then
+            BASE_URL=$(jq -r '.NEXT_PUBLIC_SITE_URL_PRODUCTION // .APP_PRODUCTION_URL // .NEXT_PUBLIC_SITE_URL_STAGING // empty' config.json)
+          else
+            BASE_URL=$(jq -r '.NEXT_PUBLIC_SITE_URL_STAGING // .NEXT_PUBLIC_SITE_URL_DEV // .APP_DEV_URL // .NEXT_PUBLIC_SITE_URL_PRODUCTION // empty' config.json)
+          fi
+
+          if [ -z "$BASE_URL" ]; then
+            echo "Unable to resolve smoke base URL from DEV_ONE_APP_CONFIG" >&2
+            exit 1
+          fi
+
+          echo "SMOKE_BASE_URL=$BASE_URL" >> $GITHUB_ENV
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -63,11 +75,14 @@ jobs:
         run: |
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ env.ECR_REPOSITORY_URI }}
 
+      - name: Set immutable image tag
+        run: echo "IMAGE_TAG=one-app-${GITHUB_SHA::12}" >> $GITHUB_ENV
+
       - name: Build Docker image for one-app
-        run: docker build -t ${{ env.ECR_REPOSITORY_URI }}:one-app-latest -f Dockerfile .
+        run: docker build -t ${{ env.ECR_REPOSITORY_URI }}:${{ env.IMAGE_TAG }} -f Dockerfile .
 
       - name: Push Docker image for one-app to Amazon ECR
-        run: docker push ${{ env.ECR_REPOSITORY_URI }}:one-app-latest
+        run: docker push ${{ env.ECR_REPOSITORY_URI }}:${{ env.IMAGE_TAG }}
 
       - name: Get the latest Task Definition ARN for one-app
         id: task_definition_one_app
@@ -78,6 +93,26 @@ jobs:
             --query 'services[0].taskDefinition' --output text)
           echo "TASK_DEF_ARN_ONE_APP=$TASK_DEF_ARN" >> $GITHUB_ENV
 
+      - name: Register new task definition with immutable image
+        run: |
+          aws ecs describe-task-definition --task-definition "$TASK_DEF_ARN_ONE_APP" \
+            --query 'taskDefinition' \
+            --output json > current-task-def.json
+
+          jq \
+            --arg IMAGE "${{ env.ECR_REPOSITORY_URI }}:${{ env.IMAGE_TAG }}" \
+            --arg CONTAINER_NAME "${{ env.CONTAINER_NAME }}" \
+            'del(.taskDefinitionArn,.revision,.status,.requiresAttributes,.compatibilities,.registeredAt,.registeredBy,.deregisteredAt)
+            | .containerDefinitions = (.containerDefinitions | map(if .name == $CONTAINER_NAME then .image = $IMAGE else . end))' \
+            current-task-def.json > next-task-def.json
+
+          NEW_TASK_DEF_ARN=$(aws ecs register-task-definition \
+            --cli-input-json file://next-task-def.json \
+            --query 'taskDefinition.taskDefinitionArn' \
+            --output text)
+
+          echo "NEW_TASK_DEF_ARN=$NEW_TASK_DEF_ARN" >> $GITHUB_ENV
+
       - name: Generate appspec.yaml for one-app
         run: |
           cat <<EOF > ./appspec-one-app.yaml
@@ -86,7 +121,7 @@ jobs:
             - TargetService:
                 Type: AWS::ECS::Service
                 Properties:
-                  TaskDefinition: "$TASK_DEF_ARN_ONE_APP"
+                  TaskDefinition: "$NEW_TASK_DEF_ARN"
                   LoadBalancerInfo:
                     ContainerName: ${{ env.CONTAINER_NAME }}
                     ContainerPort: ${{ env.CONTAINER_PORT }}
@@ -99,8 +134,22 @@ jobs:
       - name: Create Codedeploy deployment for one-app
         run: |
           APPSPEC_CONTENT=$(cat appspec-one-app.yaml | jq -sR .)
-          aws deploy create-deployment \
+          DEPLOYMENT_ID=$(aws deploy create-deployment \
             --application-name ${{ env.CODEDEPLOY_APP_NAME }} \
             --deployment-group-name ${{ env.CODEDEPLOY_DEPLOYMENT_GROUP }} \
             --deployment-config-name CodeDeployDefault.ECSAllAtOnce \
-            --revision "{\"revisionType\":\"AppSpecContent\",\"appSpecContent\":{\"content\":$APPSPEC_CONTENT}}"
+            --revision "{\"revisionType\":\"AppSpecContent\",\"appSpecContent\":{\"content\":$APPSPEC_CONTENT}}" \
+            --query 'deploymentId' \
+            --output text)
+          echo "DEPLOYMENT_ID=$DEPLOYMENT_ID" >> $GITHUB_ENV
+
+      - name: Wait for Codedeploy completion
+        run: |
+          aws deploy wait deployment-successful --deployment-id ${{ env.DEPLOYMENT_ID }}
+
+      - name: Smoke check chunk availability
+        run: |
+          node scripts/deploy-smoke-check.mjs \
+            --product=next \
+            --base-url="${SMOKE_BASE_URL}" \
+            --routes="/,/community,/complaint,/lost-found,/login"

@@ -1,10 +1,11 @@
+import type { ApiServicePath } from '@ahhachul/http';
 import { sleep } from '@ahhachul/utils';
 
 import axiosInstance from '@/apis/fetcher';
 import type { ApiResponse, Comment } from '@/types';
 
 export const postComment = async (data: {
-  servicePath: string;
+  servicePath: ApiServicePath;
   postId: number;
   content: string;
   upperCommentId: number | null;

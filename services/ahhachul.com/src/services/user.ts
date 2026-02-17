@@ -1,15 +1,13 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 
+import { QUERY_GC_TIME, QUERY_STALE_TIME, userQueryKeys } from '@ahhachul/domain';
+
 import * as api from '@/apis/request';
 import { useAuth } from '@/contexts';
 import { useUserStationStore } from '@/stores/subway';
 import { ApiResponse, UserFavoriteStations } from '@/types';
 
-export const userKeys = {
-  all: ['user'] as const,
-  info: () => [...userKeys.all, 'info'] as const,
-  stations: () => [...userKeys.all, 'stations'] as const,
-};
+export const userKeys = userQueryKeys;
 
 export const useFetchUserProfile = () => {
   const { authService } = useAuth();
@@ -18,8 +16,8 @@ export const useFetchUserProfile = () => {
     queryKey: userKeys.info(),
     enabled: authService.isAuthenticated,
     queryFn: api.fetchUserProfile,
-    gcTime: 1000 * 60 * 60,
-    staleTime: 1000 * 60 * 30,
+    gcTime: QUERY_GC_TIME.user,
+    staleTime: QUERY_STALE_TIME.user,
     refetchOnMount: false,
     refetchOnReconnect: false,
     refetchOnWindowFocus: false,
@@ -33,8 +31,8 @@ export const useFetchUserFavoriteStations = () => {
     queryKey: userKeys.stations(),
     enabled: authService.isAuthenticated,
     queryFn: api.fetchUserFavoriteStations,
-    staleTime: 1000 * 60 * 30,
-    gcTime: 1000 * 60 * 60,
+    staleTime: QUERY_STALE_TIME.user,
+    gcTime: QUERY_GC_TIME.user,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,

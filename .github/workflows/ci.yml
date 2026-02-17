@@ -3,9 +3,14 @@ name: APP CI
 on:
   pull_request:
     paths:
+      - 'packages/**'
       - 'services/**'
       - 'package.json'
       - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'nx.json'
+      - 'tsconfig.base.json'
+      - '.eslintrc.js'
       - '.github/workflows/**'
 
 permissions:
@@ -35,7 +40,7 @@ jobs:
           fetch-depth: 0
 
       - name: 🔨 Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         timeout-minutes: 1
         with:
           node-version: ${{ env.DEFAULT_NODE_VERSION }}
@@ -52,6 +57,9 @@ jobs:
         run: |
           echo '${{ secrets.DEV_REACT_APP_CONFIG }}' > config.json
           echo '${{ secrets.DEV_ONE_APP_CONFIG }}' | jq -r 'to_entries | .[] | "\(.key)=\(.value)"' > services/one-app/.env
+
+      - name: 🚫 Validate API Endpoint Literal Policy
+        run: pnpm validate:api-contract
 
       - name: 🏃 Run CI Tasks
         run: |

@@ -14,7 +14,7 @@ module.exports = {
     sourceType: 'module',
     ecmaVersion: 2021,
   },
-  plugins: ['unused-imports', 'compat'],
+  plugins: ['unused-imports', 'compat', '@nx'],
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -36,10 +36,114 @@ module.exports = {
     'no-async-promise-executor': 'off',
     'no-prototype-builtins': 'off',
     'unused-imports/no-unused-imports': 'error',
+    'no-nested-ternary': 'error',
     // emotion css props
     'react/no-unknown-property': ['error', { ignore: ['css'] }],
   },
   overrides: [
+    {
+      files: ['services/**/*.{js,jsx,ts,tsx}', 'packages/**/*.{js,jsx,ts,tsx}'],
+      rules: {
+        '@nx/enforce-module-boundaries': [
+          'error',
+          {
+            enforceBuildableLibDependency: false,
+            depConstraints: [
+              {
+                sourceTag: 'type:app',
+                onlyDependOnLibsWithTags: ['type:shared', 'type:tooling'],
+              },
+              {
+                sourceTag: 'type:shared',
+                onlyDependOnLibsWithTags: ['type:shared', 'type:tooling'],
+              },
+              {
+                sourceTag: 'type:tooling',
+                onlyDependOnLibsWithTags: ['type:tooling'],
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      files: ['services/**/*.{js,jsx,ts,tsx}', 'packages/**/*.{js,jsx,ts,tsx}'],
+      excludedFiles: ['packages/utils/src/date.ts', 'packages/utils/src/number.ts'],
+      rules: {
+        'no-restricted-imports': [
+          'error',
+          {
+            paths: [
+              {
+                name: 'date-fns',
+                message:
+                  'Use formatDisplayDate from @ahhachul/utils as the single date entrypoint.',
+              },
+              {
+                name: 'date-fns/locale',
+                message:
+                  'Use formatDisplayDate from @ahhachul/utils as the single date entrypoint.',
+              },
+            ],
+            patterns: [
+              {
+                group: ['date-fns/*'],
+                message:
+                  'Use formatDisplayDate from @ahhachul/utils as the single date entrypoint.',
+              },
+            ],
+          },
+        ],
+        'no-restricted-syntax': [
+          'error',
+          {
+            selector: "CallExpression[callee.property.name='toLocaleDateString']",
+            message:
+              'Use formatDisplayDate from @ahhachul/utils instead of direct locale formatting.',
+          },
+          {
+            selector: "CallExpression[callee.property.name='toLocaleTimeString']",
+            message:
+              'Use formatDisplayDate from @ahhachul/utils instead of direct locale formatting.',
+          },
+          {
+            selector: "CallExpression[callee.property.name='toLocaleString']",
+            message:
+              'Use shared display formatters from @ahhachul/utils (formatDisplayDate / formatDisplayNumber / formatDisplayPrice).',
+          },
+          {
+            selector:
+              "NewExpression[callee.object.name='Intl'][callee.property.name='DateTimeFormat']",
+            message:
+              'Use formatDisplayDate from @ahhachul/utils instead of direct Intl.DateTimeFormat.',
+          },
+          {
+            selector:
+              "NewExpression[callee.object.name='Intl'][callee.property.name='NumberFormat']",
+            message:
+              'Use formatDisplayNumber or formatDisplayPrice from @ahhachul/utils instead of direct Intl.NumberFormat.',
+          },
+          {
+            selector:
+              'CallExpression[callee.name=/^(fetch|fetchClient|request)$/] > Literal.arguments:first-child',
+            message:
+              'Do not hardcode API endpoint literals in network calls. Use shared API contracts (`API_PATHS` / `INTERNAL_API_PATHS`).',
+          },
+          {
+            selector:
+              'CallExpression[callee.object.name=/^(axios|axiosInstance)$/][callee.property.name=/^(get|post|put|patch|delete)$/] > Literal.arguments:first-child',
+            message:
+              'Do not hardcode API endpoint literals in axios calls. Use shared API contracts (`API_PATHS` / `INTERNAL_API_PATHS`).',
+          },
+          {
+            selector:
+              "JSXAttribute[name.name='className'] Literal[value=/\\[[^\\]]*#[0-9A-Fa-f]{3,8}[^\\]]*\\]/]",
+            message:
+              'Use shared semantic tokens from @ahhachul/design-system instead of Tailwind arbitrary hex values.',
+          },
+        ],
+      },
+    },
     {
       files: ['*.js'],
       rules: {

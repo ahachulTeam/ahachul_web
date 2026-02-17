@@ -1,3 +1,5 @@
+import { API_PATHS } from '@ahhachul/http';
+
 import axiosInstance from '@/apis/fetcher';
 import type {
   ApiResponse,
@@ -8,7 +10,7 @@ import type {
 } from '@/types';
 
 export const fetchRedirectUrl = async (providerType: SocialSignInType) => {
-  const { data } = await axiosInstance.get<ApiResponse<RedirectUrl>>('/auth/redirect-url', {
+  const { data } = await axiosInstance.get<ApiResponse<RedirectUrl>>(API_PATHS.auth.redirectUrl, {
     params: {
       providerType,
     },
@@ -18,9 +20,12 @@ export const fetchRedirectUrl = async (providerType: SocialSignInType) => {
 };
 
 export const login = async (req: SignInRequestDto) => {
-  const { data } = await axiosInstance.post<ApiResponse<SignInResponseDto>>('/auth/login', req);
+  const { data } = await axiosInstance.post<ApiResponse<SignInResponseDto>>(
+    API_PATHS.auth.login,
+    req,
+  );
 
   return data;
 };
 
-export const logout = () => axiosInstance.post('/signout');
+export const logout = () => axiosInstance.post(API_PATHS.auth.signOut);

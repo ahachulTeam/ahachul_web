@@ -11,7 +11,9 @@
     "lint:etc": "prettier src --check",
     "lint:etc:fix": "prettier src --write",
     "lint": "pnpm lint:es && pnpm lint:etc",
-    "lint:fix": "pnpm lint:es:fix && pnpm lint:etc:fix"
+    "lint:fix": "pnpm lint:es:fix && pnpm lint:etc:fix",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "crypto-js": "^4.2.0",
@@ -19,6 +21,13 @@
   },
   "devDependencies": {
     "@types/crypto-js": "^4.2.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^2.1.8"
+  },
+  "nx": {
+    "tags": [
+      "type:shared",
+      "layer:utils"
+    ]
   }
 }

@@ -2,6 +2,8 @@ import React from 'react';
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
+import { formatDisplayNumber } from '@ahhachul/utils';
+
 import { ChevronIcon } from '@/assets/icons/system';
 import { UiComponent } from '@/components';
 
@@ -17,19 +19,20 @@ const FilterActions: React.FC<FilterActionsProps> = ({
   removeAllFilterControl,
 }) => {
   const renderThis = activeFilterCount > 0;
+  const activeFilterCountText = formatDisplayNumber(activeFilterCount);
 
   return (
     <UiComponent.ConditionalRender isRender={renderThis}>
       <DropdownMenu.Root modal={false}>
         <DropdownMenu.Trigger asChild>
           <S.FilterButton>
-            <S.FilterCount>{activeFilterCount}</S.FilterCount>
+            <S.FilterCount>{activeFilterCountText}</S.FilterCount>
             <ChevronIcon />
           </S.FilterButton>
         </DropdownMenu.Trigger>
 
         <S.Content align="start" sideOffset={10} alignOffset={-10} className="DropdownMenuContent">
-          <S.Label className="DropdownMenuLabel">{activeFilterCount}개 필터가 적용됨.</S.Label>
+          <S.Label className="DropdownMenuLabel">{activeFilterCountText}개 필터가 적용됨.</S.Label>
           <S.Item className="DropdownMenuItem red" onClick={removeAllFilterControl}>
             모든 필터 지우기
           </S.Item>

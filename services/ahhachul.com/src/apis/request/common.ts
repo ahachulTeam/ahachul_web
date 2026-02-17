@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { API_PATHS } from '@ahhachul/http';
+
 import { downloadFile, parseFileExtOfName } from '@/utils';
 
 import axiosInstance from '../fetcher';
@@ -9,13 +11,15 @@ export const fetchS3Presigned = async (s3key: string, fileName?: string) => {
   const params = {
     ...(fileName && { fileName }),
   };
-  return axiosInstance.get(`/common/presigned/${s3key}`, { params }).then(res => res?.data?.url);
+  return axiosInstance
+    .get(API_PATHS.common.s3Presigned(s3key), { params })
+    .then(res => res?.data?.url);
 };
 
 // AWS S3 업로드용 Presigned URL 요청
 export const createS3Presigned = async (s3key: string, file: File | Blob) => {
   if (!file || !s3key) return;
-  const postPresigned = await axiosInstance.post(`/common/presigned/${s3key}`);
+  const postPresigned = await axiosInstance.post(API_PATHS.common.s3Presigned(s3key));
 
   const { url, fields } = postPresigned.data;
   const formData = new FormData();

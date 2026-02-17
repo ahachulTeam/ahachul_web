@@ -22,6 +22,12 @@
     "test:perf:lighthouse": "lighthouse http://localhost:3000 --view"
   },
   "dependencies": {
+    "@ahhachul/design-system": "workspace:*",
+    "@ahhachul/domain": "workspace:*",
+    "@ahhachul/http": "workspace:*",
+    "@ahhachul/routes": "workspace:*",
+    "@ahhachul/seo": "workspace:*",
+    "@ahhachul/ui": "workspace:*",
     "@lexical/react": "^0.21.0",
     "@lottiefiles/react-lottie-player": "^3.5.4",
     "@radix-ui/react-dialog": "^1.1.2",
@@ -81,6 +87,12 @@
   "msw": {
     "workerDirectory": [
       "public"
+    ]
+  },
+  "nx": {
+    "tags": [
+      "type:app",
+      "framework:next"
     ]
   }
 }

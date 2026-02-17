@@ -1,5 +1,7 @@
 import Form from 'next/form';
 
+import { colors } from '@ahhachul/design-system';
+
 type Props = {
   searchTo: string;
   keyword?: string;
@@ -25,10 +27,10 @@ export default function SearchFormServerAction({
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <circle cx="9.16659" cy="9.16668" r="4.83333" stroke="#95979F" strokeWidth="2" />
+        <circle cx="9.16659" cy="9.16668" r="4.83333" stroke={colors.gray[70]} strokeWidth="2" />
         <path
           d="M13.3333 13.3333L15.8333 15.8333"
-          stroke="#95979F"
+          stroke={colors.gray[70]}
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"

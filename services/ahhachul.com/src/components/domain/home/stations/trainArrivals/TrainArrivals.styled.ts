@@ -21,7 +21,7 @@ export const arrivalList = css`
     }
 
     & > b {
-      color: #ffffff;
+      color: var(--ah-color-white);
       font-size: 14px;
       font-weight: normal;
       flex-shrink: 0;
@@ -37,7 +37,7 @@ export const arrivalList = css`
     }
 
     & > span {
-      color: #00baf6;
+      color: var(--ah-color-primary-primary);
       font-size: 14px;
       flex-shrink: 0;
       overflow: hidden;

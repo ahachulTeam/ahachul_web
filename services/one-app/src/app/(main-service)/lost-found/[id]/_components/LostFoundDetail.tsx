@@ -2,12 +2,13 @@
 
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
+import Link from 'next/link';
 
-import { formatDateTime } from '@ahhachul/utils';
+import { QUERY_GC_TIME, QUERY_STALE_TIME, lostFoundQueryKeys } from '@ahhachul/domain';
+import { formatDisplayDate } from '@ahhachul/utils';
 
 import { ReadonlyEditor } from '@/component/Editor';
 // import { SUBWAY_LOGO_SVG_LIST } from '@/component';
-import { TIMESTAMP } from '@/constant';
 import { cn, isLexicalContent } from '@/util';
 
 import { Lost112ArticleTable } from './Lost112ArticleTable';
@@ -22,9 +23,10 @@ type Props = {
 
 export default function LostFoundPostDetail({ id }: Props) {
   const { data: post } = useQuery({
-    queryKey: ['lost-found-post', id],
+    queryKey: lostFoundQueryKeys.detail(id),
     queryFn: getLostFoundDetailPost,
-    staleTime: 5 * TIMESTAMP.MINUTE,
+    staleTime: QUERY_STALE_TIME.detail,
+    gcTime: QUERY_GC_TIME.detail,
     select: res => res.result,
   });
 
@@ -51,10 +53,15 @@ export default function LostFoundPostDetail({ id }: Props) {
           <div className=" w-full flex items-center justify-between pb-4 border-b border-b-gray-20">
             <div className=" flex items-center gap-1 text-body-medium">
               <span className=" text-gray-80">{post.writer || '로스트 112'}</span>
-              <span className=" text-gray-70">{formatDateTime(post.createdAt!)}</span>
+              <span className=" text-gray-70">{formatDisplayDate(post.createdAt!)}</span>
             </div>
             <div className=" flex items-center text-gray-90 text-label-medium font-regular">
-              {/* {SUBWAY_LOGO_SVG_LIST[post.subwayLineId]} */}
+              <Link
+                href={`/lost-found/${id}/edit`}
+                className="inline-flex h-8 items-center rounded-lg border border-gray-40 px-3 text-body-small text-gray-90"
+              >
+                수정
+              </Link>
             </div>
           </div>
         </div>

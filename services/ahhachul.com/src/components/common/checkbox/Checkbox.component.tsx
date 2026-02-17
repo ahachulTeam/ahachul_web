@@ -35,45 +35,46 @@ const CheckboxControl = styled.div<{ checked?: boolean; disabled?: boolean }>`
   width: 20px;
   height: 20px;
   border-radius: 4px;
-  border: 2px solid #eaeaec;
+  border: 2px solid var(--ah-color-legacy-border-light);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  background-color: #ffffff;
+  background-color: var(--ah-color-white);
   cursor: pointer;
 
   ${({ checked, disabled }) => {
     if (checked && !disabled) {
       return css`
-        background-color: #2acf6c;
-        border-color: #2acf6c;
+        background-color: var(--ah-color-key-color);
+        border-color: var(--ah-color-key-color);
       `;
     }
     if (checked && disabled) {
       return css`
-        background-color: #b6efdb;
-        border-color: #b6efdb;
+        background-color: var(--ah-color-legacy-surface-lime-muted);
+        border-color: var(--ah-color-legacy-surface-lime-muted);
       `;
     }
     if (!checked && disabled) {
       return css`
-        background-color: #f7fdfb;
-        border-color: #b6efdb;
+        background-color: var(--ah-color-legacy-surface-lime-disabled);
+        border-color: var(--ah-color-legacy-surface-lime-muted);
       `;
     }
     return '';
   }}
 
   svg {
-    color: ${props => (props.disabled ? '#84E4C2' : '#ffffff')};
+    color: ${props =>
+      props.disabled ? 'var(--ah-color-legacy-text-mint)' : 'var(--ah-color-white)'};
     opacity: ${props => (props.checked ? 1 : 0)};
     transition: opacity 0.2s ease;
   }
 `;
 
 const CheckboxLabel = styled.span<{ disabled?: boolean }>`
-  color: ${props => (props.disabled ? '#95979F' : '#33333E')};
+  color: ${props => (props.disabled ? 'var(--ah-color-gray-70)' : 'var(--ah-color-gray-90)')};
   font-size: 13px;
   cursor: pointer;
 `;

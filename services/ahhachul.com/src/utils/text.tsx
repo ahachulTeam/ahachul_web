@@ -12,7 +12,7 @@ export const applyHighlight = (searchValue: string, suggestion: string) => {
         {start}
         <span
           css={css`
-            color: #2acf6c;
+            color: var(--ah-color-key-color);
             font-weight: 600;
           `}
         >

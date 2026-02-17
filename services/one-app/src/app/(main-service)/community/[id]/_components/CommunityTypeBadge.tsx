@@ -1,5 +1,7 @@
 'use client';
 
+import { ServiceBadge } from '@ahhachul/ui';
+
 import { CommunityType } from '@/types/community';
 
 interface Props {
@@ -7,13 +9,21 @@ interface Props {
 }
 
 export const CommunityTypeBadge = ({ communityType }: Props) => {
+  let label = '정보';
+  if (communityType === CommunityType.FREE) {
+    label = '자유';
+  } else if (communityType === CommunityType.HUMOR) {
+    label = '유머';
+  }
+
   return (
-    <div className=" h-7 text-label-small text-gray-0 px-2.5 flex items-center justify-center bg-[#407AD6] rounded-[100px] w-max">
-      {communityType === CommunityType.FREE
-        ? '자유'
-        : communityType === CommunityType.HUMOR
-          ? '유머'
-          : '정보'}
-    </div>
+    <ServiceBadge
+      label={label}
+      className="text-label-small"
+      style={{
+        minHeight: '28px',
+        padding: '0 10px',
+      }}
+    />
   );
 };

@@ -157,6 +157,6 @@ export const upDown = css`
   & > div {
     width: 1px;
     height: 8px;
-    background-color: #949db2;
+    background-color: var(--ah-color-legacy-text-faint);
   }
 `;

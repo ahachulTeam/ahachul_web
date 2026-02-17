@@ -1,16 +1,22 @@
 import { cookies } from 'next/headers';
 
+import { communityQueryKeys } from '@ahhachul/domain';
+import { API_PATHS } from '@ahhachul/http';
+
+import { API_BASE_URL } from '@/constant';
+
 export const getCommunityDetailPostServer = async ({
   queryKey,
 }: {
-  queryKey: [string, number];
+  queryKey: ReturnType<typeof communityQueryKeys.detail>;
 }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_1, id] = queryKey;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/community-posts/${id}`, {
+  const [, , id] = queryKey;
+  const detailTags = communityQueryKeys.detail(id).map(value => String(value));
+  const endpoint = `${API_BASE_URL}${API_PATHS.community.detail(id)}`;
+  const res = await fetch(endpoint, {
     next: {
       revalidate: 3600,
-      tags: ['community-post', id.toString()],
+      tags: detailTags,
     },
     credentials: 'include',
     headers: { Cookie: (await cookies()).toString() },

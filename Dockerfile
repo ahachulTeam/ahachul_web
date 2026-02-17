@@ -2,21 +2,20 @@ FROM node:20.13.0-alpine
 
 RUN npm install -g corepack@latest && \
     corepack enable && \
-    corepack prepare pnpm@latest --activate
+    corepack prepare pnpm@9.1.0 --activate
 
 RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
 
-COPY packages/utils           ./packages/utils
-COPY services/one-app        ./services/one-app
-COPY nx.json tsconfig*       ./ 
-COPY package.json           ./
-COPY pnpm-lock.yaml        ./ 
-COPY pnpm-workspace.yaml   ./ 
-COPY .nx                   ./ 
+COPY packages          ./packages
+COPY services/one-app  ./services/one-app
+COPY nx.json tsconfig* ./
+COPY package.json      ./
+COPY pnpm-lock.yaml    ./
+COPY pnpm-workspace.yaml ./
 
-RUN pnpm install && \
+RUN pnpm install --frozen-lockfile && \
     cd services/one-app && \
     pnpm install sharp
 

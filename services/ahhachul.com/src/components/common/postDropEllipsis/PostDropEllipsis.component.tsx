@@ -8,6 +8,7 @@ import { Check } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Drawer } from 'vaul';
 
+import { resolvePostListInvalidationKey, resolvePostQueryDomain } from '@ahhachul/domain';
 import { sleep } from '@ahhachul/utils';
 
 import {
@@ -21,7 +22,7 @@ import {
 import { MoreVerticalIcon } from '@/assets/icons/system';
 import { useUser } from '@/hooks/domain';
 import useUpdateLostFound from '@/hooks/domain/lostFound/useUpdateLostFound';
-import { communityKeys, useDeleteCommunity } from '@/services/community';
+import { useDeleteCommunity } from '@/services/community';
 import { complaintKeys, useDeleteComplaint } from '@/services/complaint';
 import { lostFoundKeys, useDeleteLostFound } from '@/services/lostFound';
 import { useFlow } from '@/stackflow';
@@ -35,6 +36,19 @@ export interface PostDropEllipsisProps {
   articleId: string;
   createdBy: number;
   queryKey: readonly unknown[];
+}
+
+function resolveEditActivityName(queryKey: readonly unknown[]) {
+  const postDomain = resolvePostQueryDomain(queryKey);
+  if (postDomain === 'community') {
+    return 'EditCommunityPage';
+  }
+
+  if (postDomain === 'lost-found') {
+    return 'EditLostFoundPage';
+  }
+
+  return 'EditComplaintPage';
 }
 
 const PostDropEllipsis = ({
@@ -63,11 +77,7 @@ const PostDropEllipsis = ({
   const { push } = useFlow();
   const handleEdit = () => {
     handleClose();
-    const activityName = queryKey.includes('community')
-      ? 'EditCommunityPage'
-      : queryKey.includes('lostFound')
-        ? 'EditLostFoundPage'
-        : 'EditComplaintPage';
+    const activityName = resolveEditActivityName(queryKey);
 
     setTimeout(() => {
       push(activityName, {
@@ -207,7 +217,7 @@ function DefaultView({
       <S.ButtonContainer>
         {isLost && (
           <S.GreenButton onClick={() => setView('update')}>
-            <Check size={21} color="#42b305ac" />
+            <Check size={21} color="var(--ah-color-legacy-text-success-alpha)" />
             {status === 'PROGRESS' ? '찾기 완료' : '상태 변경'}
           </S.GreenButton>
         )}
@@ -258,23 +268,18 @@ function RemovePost({
   const { mutateAsync: deleteLostFound, status: deletingLostFoundStatus } = useDeleteLostFound();
   const { mutateAsync: deleteComplaint, status: deletingComplaintStatus } = useDeleteComplaint();
 
-  const invlidationQueryKey = queryKey.includes('community')
-    ? communityKeys.lists()
-    : queryKey.includes('lostFound')
-      ? lostFoundKeys.lists()
-      : complaintKeys.lists();
+  const postDomain = resolvePostQueryDomain(queryKey);
+  const invalidationQueryKey = resolvePostListInvalidationKey(queryKey) ?? complaintKeys.lists();
+  let deleteMutate = deleteComplaint;
+  let mutationStatus = deletingComplaintStatus;
 
-  const deleteMutate = queryKey.includes('community')
-    ? deleteCommunity
-    : queryKey.includes('lostFound')
-      ? deleteLostFound
-      : deleteComplaint;
-
-  const status = queryKey.includes('community')
-    ? deletingCommunityStatus
-    : queryKey.includes('lostFound')
-      ? deletingLostFoundStatus
-      : deletingComplaintStatus;
+  if (postDomain === 'community') {
+    deleteMutate = deleteCommunity;
+    mutationStatus = deletingCommunityStatus;
+  } else if (postDomain === 'lost-found') {
+    deleteMutate = deleteLostFound;
+    mutationStatus = deletingLostFoundStatus;
+  }
 
   const handleDeletePost = async () => {
     try {
@@ -283,7 +288,7 @@ function RemovePost({
           await sleep(350);
           handleClose();
           await sleep(200);
-          await queryClient.invalidateQueries({ queryKey: invlidationQueryKey });
+          await queryClient.invalidateQueries({ queryKey: invalidationQueryKey });
           pop();
         },
       });
@@ -308,7 +313,7 @@ function RemovePost({
           >
             취소
           </S.SecondaryButton>
-          <S.SmoothSecondaryButton status={status} handleClick={handleDeletePost} />
+          <S.SmoothSecondaryButton status={mutationStatus} handleClick={handleDeletePost} />
         </S.ButtonGroup>
       </div>
     </div>
@@ -405,7 +410,7 @@ const DrawerContentWrapper = styled(motion.div)`
   margin-right: auto;
   overflow: hidden;
   border-radius: 36px;
-  background-color: #ffffff;
+  background-color: var(--ah-color-white);
   outline: none;
   transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
 `;
@@ -421,8 +426,8 @@ const CloseButton = styled.button`
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  background-color: #f7f8f9;
-  color: #949595;
+  background-color: var(--ah-color-legacy-surface-soft);
+  color: var(--ah-color-legacy-text-dim);
   transition: transform 0.2s;
   &:focus {
     transform: scale(0.95);

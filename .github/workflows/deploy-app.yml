@@ -8,6 +8,10 @@ on:
     paths:
       - 'packages/**'
       - 'services/ahhachul.com/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'nx.json'
 
 env:
   DEFAULT_NODE_VERSION: '20.13.0'
@@ -23,7 +27,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ env.DEFAULT_NODE_VERSION }}
 
@@ -40,10 +44,29 @@ jobs:
 
       - name: Create .env file for ahhachul.com
         run: |
-          echo '${{ secrets.DEV_REACT_APP_CONFIG }}' | jq -r 'to_entries[] | "\(.key)=\(.value)"' > services/ahhachul.com/.env
+          echo '${{ secrets.DEV_REACT_APP_CONFIG }}' > react-config.json
+          cat react-config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' > services/ahhachul.com/.env
+
+      - name: Resolve smoke base url
+        run: |
+          if [ "${GITHUB_REF_NAME}" = "main" ]; then
+            BASE_URL=$(jq -r '.VITE_WEB_PRODUCTION_URL // .VITE_APP_PRODUCTION_URL // .WEB_PRODUCTION_URL // .VITE_WEB_STAGING_URL // empty' react-config.json)
+          else
+            BASE_URL=$(jq -r '.VITE_WEB_STAGING_URL // .VITE_APP_STAGING_URL // .WEB_STAGING_URL // .VITE_WEB_PRODUCTION_URL // empty' react-config.json)
+          fi
+
+          if [ -z "$BASE_URL" ]; then
+            echo "Unable to resolve smoke base URL from DEV_REACT_APP_CONFIG" >&2
+            exit 1
+          fi
+
+          echo "SMOKE_BASE_URL=$BASE_URL" >> $GITHUB_ENV
 
       - name: Build ahhachul.com
         run: pnpm app:build
+
+      - name: Set release id
+        run: echo "RELEASE_ID=${GITHUB_SHA::12}" >> $GITHUB_ENV
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -52,10 +75,47 @@ jobs:
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Remove Existing Files & Upload New to S3
+      - name: Upload immutable static assets
         run: |
-          aws s3 rm s3://${S3_BUCKET_NAME} --recursive
-          aws s3 cp services/ahhachul.com/dist s3://${S3_BUCKET_NAME} --recursive
+          aws s3 cp services/ahhachul.com/dist s3://${S3_BUCKET_NAME} \
+            --recursive \
+            --exclude "*.html" \
+            --cache-control "public,max-age=31536000,immutable"
+
+      - name: Upload entry documents
+        run: |
+          aws s3 cp services/ahhachul.com/dist s3://${S3_BUCKET_NAME} \
+            --recursive \
+            --exclude "*" \
+            --include "*.html" \
+            --cache-control "no-cache,no-store,must-revalidate"
+
+      - name: Publish release manifest
+        run: |
+          cat <<EOF > release-manifest.json
+          {"releaseId":"${RELEASE_ID}","sha":"${GITHUB_SHA}"}
+          EOF
+          aws s3 cp release-manifest.json s3://${S3_BUCKET_NAME}/releases/${RELEASE_ID}/manifest.json \
+            --cache-control "no-cache,no-store,must-revalidate"
 
       - name: Invalidate CloudFront
-        run: aws cloudfront create-invalidation --distribution-id ${{ env.AWS_CLOUDFRONT_DISTRIBUTION_ID_USER }} --paths "/*"
+        run: |
+          INVALIDATION_ID=$(aws cloudfront create-invalidation \
+            --distribution-id ${{ env.AWS_CLOUDFRONT_DISTRIBUTION_ID_USER }} \
+            --paths "/*" \
+            --query 'Invalidation.Id' \
+            --output text)
+          echo "INVALIDATION_ID=${INVALIDATION_ID}" >> $GITHUB_ENV
+
+      - name: Wait for CloudFront invalidation
+        run: |
+          aws cloudfront wait invalidation-completed \
+            --distribution-id ${{ env.AWS_CLOUDFRONT_DISTRIBUTION_ID_USER }} \
+            --id ${{ env.INVALIDATION_ID }}
+
+      - name: Smoke check chunk availability
+        run: |
+          node scripts/deploy-smoke-check.mjs \
+            --product=vite \
+            --base-url="${SMOKE_BASE_URL}" \
+            --routes="/,/community,/complaint,/lostFound"

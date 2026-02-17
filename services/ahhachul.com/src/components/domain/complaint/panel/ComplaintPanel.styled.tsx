@@ -31,7 +31,7 @@ export const Card = styled.div`
   position: relative;
   padding: 16px;
   border-radius: 8px;
-  background-color: #eafcf1;
+  background-color: var(--ah-color-legacy-surface-success-tint);
 
   span {
     color: ${({ theme }) => theme.colors.black};
@@ -41,7 +41,7 @@ export const Card = styled.div`
   }
 
   & > p {
-    color: #67696f;
+    color: var(--ah-color-legacy-text-caption);
     font-size: 12px;
   }
 

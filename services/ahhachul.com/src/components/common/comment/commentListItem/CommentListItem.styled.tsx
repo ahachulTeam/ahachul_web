@@ -64,7 +64,7 @@ export const readonlyEditorCss = css`
   & > div > div {
     padding: 0;
     border: none;
-    background-color: #fcfcfc;
+    background-color: var(--ah-color-gray-10);
 
     & > p {
       line-height: 150%;

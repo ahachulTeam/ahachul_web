@@ -285,7 +285,7 @@ const DrawerContentWrapper = styled(motion.div)`
   margin-right: auto;
   overflow: hidden;
   border-radius: 36px;
-  background-color: #ffffff;
+  background-color: var(--ah-color-white);
   outline: none;
   transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
 `;
@@ -301,8 +301,8 @@ const CloseButton = styled.button`
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  background-color: #f7f8f9;
-  color: #949595;
+  background-color: var(--ah-color-legacy-surface-soft);
+  color: var(--ah-color-legacy-text-dim);
   transition: transform 0.2s;
   &:focus {
     transform: scale(0.95);

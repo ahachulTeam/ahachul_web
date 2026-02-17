@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 
+import type { ApiServicePath } from '@ahhachul/http';
+
 import { useTempComment } from '@/stores/comment';
 import type { CommentList } from '@/types';
 
@@ -8,7 +10,7 @@ import EmptyCommentList from './emptyCommentList/EmptyCommentList.component';
 
 interface BaseCommentListProps {
   commentsMap: CommentList['comments'];
-  servicePath: string;
+  servicePath: ApiServicePath;
   queryKey: readonly unknown[];
   isArticleAuthor: boolean;
 }
@@ -17,7 +19,9 @@ const BaseCommentList = React.memo(
   ({ queryKey, servicePath, commentsMap, isArticleAuthor }: BaseCommentListProps) => {
     const { setTempComment } = useTempComment();
 
-    useEffect(() => setTempComment(commentsMap), [commentsMap]);
+    useEffect(() => {
+      setTempComment(commentsMap);
+    }, [commentsMap, setTempComment]);
 
     if (commentsMap.length === 0) return <EmptyCommentList />;
 

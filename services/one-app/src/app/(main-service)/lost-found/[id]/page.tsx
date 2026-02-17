@@ -1,7 +1,10 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 
-import { SUBWAY_LINES } from '@/constant';
+import { lostFoundQueryKeys } from '@ahhachul/domain';
+import { createDetailMetadata } from '@ahhachul/seo';
+
+import { SITE_URL, SUBWAY_LINES } from '@/constant';
 import { extractTextFromLexical } from '@/util';
 
 import LostFoundPostDetail from './_components/LostFoundDetail';
@@ -10,7 +13,7 @@ import { getLostFoundDetailPostServer } from './_lib/getDetailPostServer';
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const post = await getLostFoundDetailPostServer({ queryKey: ['lost-found-post', id] });
+  const post = await getLostFoundDetailPostServer({ queryKey: lostFoundQueryKeys.detail(id) });
 
   const subwayLineId = post.result.subwayLineId;
 
@@ -32,21 +35,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ? `https://static.dev.ahhachul.com/banners/lost-found/subway-line-${subwayLineId}.png`
       : 'https://static.dev.ahhachul.com/banners/lost-found/main.png';
 
-  return {
+  const description = extractTextFromLexical(post.result.content, baseDescription);
+
+  return createDetailMetadata({
     title,
-    description: extractTextFromLexical(post.result.content, baseDescription),
-    openGraph: {
-      title,
-      description: extractTextFromLexical(post.result.content, baseDescription),
-      images: [
-        {
-          url: image,
-          width: 800,
-          height: 400,
-        },
-      ],
-    },
-  };
+    description,
+    imageUrl: image,
+    siteUrl: SITE_URL,
+    pathname: `/lost-found/${id}`,
+  }) as Metadata;
 }
 
 type Props = {
@@ -59,11 +56,11 @@ export default async function LostFoundDetailPage(props: Props) {
   const { id } = await props.params;
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
-    queryKey: ['lost-found-post', id],
+    queryKey: lostFoundQueryKeys.detail(id),
     queryFn: getLostFoundDetailPostServer,
   });
   await queryClient.prefetchQuery({
-    queryKey: ['lost-found-post', id, 'comments'],
+    queryKey: lostFoundQueryKeys.comments(id),
     queryFn: getLostFoundComments,
   });
   const dehydratedState = dehydrate(queryClient);

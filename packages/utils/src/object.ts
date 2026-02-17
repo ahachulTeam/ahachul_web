@@ -1,11 +1,11 @@
 export type ObjectQueryParams = Record<string, string | number | boolean>;
 export type ObjectKeys<T extends Record<PropertyKey, unknown>> = `${Exclude<keyof T, symbol>}`;
 
-export const isValidObject = (obj: unknown): obj is Record<string, any> => {
+export const isValidObject = (obj: unknown): obj is Record<string, unknown> => {
   return typeof obj === 'object' && obj !== null && !Array.isArray(obj);
 };
 
-export function removeFalsyValues<T extends Record<string, any>>(
+export function removeFalsyValues<T extends Record<string, unknown>>(
   obj: T,
   options: { removeEmptyStrings?: boolean; removeZero?: boolean } = {},
 ): Partial<T> {
@@ -20,7 +20,7 @@ export function removeFalsyValues<T extends Record<string, any>>(
       (options.removeZero ? value !== 0 : true) &&
       (options.removeEmptyStrings ? value !== '' : true)
     ) {
-      result[key as keyof T] = value;
+      result[key as keyof T] = value as T[keyof T];
     }
     return result;
   }, {} as Partial<T>);
@@ -39,21 +39,26 @@ export function objectEntries<Type extends Record<PropertyKey, unknown>>(
 }
 
 export const objectToQueryString = (params: ObjectQueryParams): string => {
-  return Object.entries(params)
-    .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-    .join('&');
+  const searchParams = new URLSearchParams();
+
+  Object.entries(params).forEach(([key, value]) => {
+    searchParams.append(key, String(value));
+  });
+
+  return searchParams.toString();
 };
 
 export const queryStringToObject = (queryString: string): Record<string, string> => {
-  const query = queryString.startsWith('?') ? queryString.slice(1) : queryString;
+  const query = queryString.startsWith('?') ? queryString.slice(1) : queryString.trim();
 
   if (!query) return {};
 
-  return query.split('&').reduce((params: Record<string, string>, param) => {
-    const [key, value] = param.split('=').map(decodeURIComponent);
-    if (key) {
-      params[key] = value || '';
-    }
-    return params;
-  }, {});
+  const searchParams = new URLSearchParams(query);
+  const params: Record<string, string> = {};
+
+  searchParams.forEach((value, key) => {
+    params[key] = value;
+  });
+
+  return params;
 };

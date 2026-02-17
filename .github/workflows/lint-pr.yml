@@ -19,3 +19,28 @@ jobs:
       - uses: amannn/action-semantic-pull-request@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # Conventional-style PR titles + ROUND summary titles are both allowed.
+          # Examples:
+          # - refactor(fe): [RF-970] enforce micro style gates
+          # - [ROUND 1] Monorepo/FE/SEO/Deploy 리팩토링 통합
+          types: |
+            feat
+            fix
+            refactor
+            chore
+            docs
+            test
+            ci
+            perf
+            build
+            style
+            revert
+            \[ROUND\s*[0-9]+\]
+          headerPattern: '^(\[ROUND\s*[0-9]+\]|[a-z]+)(?:\(([^)]+)\))?(?::\s|\s+)(.+)$'
+          headerPatternCorrespondence: type, scope, subject
+          subjectPattern: '^.{3,}$'
+          subjectPatternError: |
+            PR title must follow one of:
+            1) <type>(<scope>): <subject> (Conventional)
+            2) [ROUND <number>] <subject>

@@ -5,7 +5,8 @@ import styled from '@emotion/styled';
 import type { ActivityComponentType } from '@stackflow/react';
 import { useQueryClient } from '@tanstack/react-query';
 
-import { formatDateTime, sleep } from '@ahhachul/utils';
+import type { ApiServicePath } from '@ahhachul/http';
+import { formatDisplayDate, sleep } from '@ahhachul/utils';
 
 import { LayoutComponent, UiComponent } from '@/components';
 import { CommentInput } from '@/components/common';
@@ -15,11 +16,15 @@ import { useTempComment } from '@/stores/comment';
 import type { WithPostId } from '@/types';
 
 const NewCommentReplyPage: ActivityComponentType<
-  { commentId: number; queryKey: readonly unknown[]; servicePath: string } & WithPostId
+  { commentId: number; queryKey: readonly unknown[]; servicePath: ApiServicePath } & WithPostId
 > = ({
   params: { id, commentId, queryKey, servicePath },
 }: {
-  params: { commentId: number; queryKey: readonly unknown[]; servicePath: string } & WithPostId;
+  params: {
+    commentId: number;
+    queryKey: readonly unknown[];
+    servicePath: ApiServicePath;
+  } & WithPostId;
 }) => {
   const { tempComment } = useTempComment();
 
@@ -80,13 +85,15 @@ const NewCommentReplyPage: ActivityComponentType<
           <TitleWrapper>
             {targetComment?.writer}
             {targetComment?.isPrivate && (
-              <span css={{ marginLeft: '3px', color: '#95979F', fontWeight: 400 }}>(비공개)</span>
+              <span css={{ marginLeft: '3px', color: 'var(--ah-color-gray-70)', fontWeight: 400 }}>
+                (비공개)
+              </span>
             )}
           </TitleWrapper>
           <MetaInfoWrapper>
             <AuthorDateWrapper>
               <DateText>
-                {formatDateTime(targetComment?.createdAt || '', { format: 'short' })}
+                {formatDisplayDate(targetComment?.createdAt || '', { format: 'short' })}
               </DateText>
             </AuthorDateWrapper>
           </MetaInfoWrapper>

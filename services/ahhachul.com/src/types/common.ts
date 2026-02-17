@@ -1,26 +1,24 @@
 import type { InfiniteData } from '@tanstack/react-query';
 
+import type {
+  ApiResponse as SharedApiResponse,
+  CursorPagination as SharedCursorPagination,
+  PaginatedList as SharedPaginatedList,
+  WithPostId as SharedWithPostId,
+} from '@ahhachul/domain';
+
 export type KeyOf<T> = keyof T;
 export type ValueOf<T> = T[keyof T];
 export type IndexOf<T, K extends KeyOf<T>> = ValueOf<T[K]>;
 export type Nullable<T> = T | null;
 
-export interface CursorPagination {
-  hasNext: boolean;
-  pageToken: string | null;
-}
+export type CursorPagination = SharedCursorPagination;
 
-export interface PaginatedList<TData> extends CursorPagination {
-  data: TData[];
-}
+export type PaginatedList<TData> = SharedPaginatedList<TData>;
 
 export type InfiniteApiResponse<TData> = InfiniteData<ApiResponse<PaginatedList<TData>>>;
 
-export interface ApiResponse<TResult> {
-  code: string;
-  message: string;
-  result: TResult;
-}
+export type ApiResponse<TResult> = SharedApiResponse<TResult>;
 
 export type Post = {
   id: number;
@@ -48,9 +46,7 @@ export interface EditableImage {
 
 export type RecommendPost = Pick<Post, 'id' | 'title' | 'writer' | 'createdAt' | 'imageUrl'>;
 
-export type WithPostId = {
-  id: number;
-};
+export type WithPostId = SharedWithPostId;
 
 export type CommentStatus = 'CREATED' | 'DELETED';
 

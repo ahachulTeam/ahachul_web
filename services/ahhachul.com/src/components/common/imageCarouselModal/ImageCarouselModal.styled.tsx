@@ -5,7 +5,7 @@ export const Wrap = styled.div`
   width: 100vw;
   height: 100vh;
   position: relative;
-  background-color: #000;
+  background-color: var(--ah-color-black-00);
 `;
 
 export const Header = styled.div<{ headerShown: boolean; isPanEnabled: boolean }>`
@@ -18,7 +18,7 @@ export const Header = styled.div<{ headerShown: boolean; isPanEnabled: boolean }
   z-index: 50;
   display: flex;
   align-items: center;
-  background-color: ${props => (props.isPanEnabled ? 'rgba(0,0,0,0)' : '#000')};
+  background-color: ${props => (props.isPanEnabled ? 'rgba(0,0,0,0)' : 'var(--ah-color-black-00)')};
 
   & > span,
   & > div {
@@ -41,7 +41,7 @@ export const Title = styled.span`
 export const Body = styled.div<{ isPanEnabled: boolean }>`
   width: 100%;
   height: 100%;
-  background-color: #000;
+  background-color: var(--ah-color-black-00);
   display: flex;
   align-items: center;
   justify-content: center;

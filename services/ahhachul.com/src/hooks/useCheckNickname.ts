@@ -4,10 +4,10 @@ import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { Subject, catchError, debounceTime, filter, from, map, mergeMap, of } from 'rxjs';
 
-import axiosInstance from '@/apis/fetcher';
+import { API_PATHS } from '@ahhachul/http';
+import { normalizeInputText, validateNickname } from '@ahhachul/utils';
 
-const MIN_LEN = 2;
-const MAX_LEN = 10;
+import axiosInstance from '@/apis/fetcher';
 
 interface Props {
   nickname: string;
@@ -19,7 +19,7 @@ interface APICheckNicknameParams {
 }
 
 const checkNickname = (body: APICheckNicknameParams) =>
-  axiosInstance.post(`/members/check-nickname`, body);
+  axiosInstance.post(API_PATHS.user.checkNickname, body);
 export const useCheckNickName = () => useMutation({ mutationFn: checkNickname });
 
 export const useCheckNickname = ({ nickname, originNickname = '' }: Props) => {
@@ -27,30 +27,34 @@ export const useCheckNickname = ({ nickname, originNickname = '' }: Props) => {
   const { mutateAsync, status } = useCheckNickName();
 
   const [errorMessage, setErrorMessage] = useState('');
+  const nicknameValidation = useMemo(() => validateNickname(nickname), [nickname]);
   const disabled = useMemo(() => {
     if (errorMessage !== '') return true;
     if (status === 'pending') return true;
-    if (nickname.length < MIN_LEN || nickname.length > MAX_LEN) return true;
+    if (!nicknameValidation.isValid) return true;
 
     return false;
-  }, [nickname, errorMessage, status]);
+  }, [errorMessage, nicknameValidation.isValid, status]);
 
   useEffect(() => {
     subject.current
       .pipe(
         debounceTime(500),
-        filter(v => v !== originNickname),
+        filter(v => normalizeInputText(v) !== normalizeInputText(originNickname)),
         map(v => {
-          if (v.length > MAX_LEN) {
-            setErrorMessage('한글,영문 10자 이하로 입력해주세요');
-            return '';
-          } else if (v.length === 1) {
-            setErrorMessage('최소 2자 이상 입력해주세요');
-            return '';
-          } else {
+          const validation = validateNickname(v);
+          if (validation.code === 'empty') {
             setErrorMessage('');
-            return v;
+            return '';
           }
+
+          if (!validation.isValid) {
+            setErrorMessage(validation.message);
+            return '';
+          }
+
+          setErrorMessage('');
+          return validation.normalized;
         }),
         filter(v => v !== ''),
         mergeMap(v => from(mutateAsync({ nickname: v })).pipe(catchError(e => of(e)))),
@@ -66,7 +70,7 @@ export const useCheckNickname = ({ nickname, originNickname = '' }: Props) => {
       });
 
     return () => subject.current?.unsubscribe();
-  }, []);
+  }, [mutateAsync, originNickname]);
 
   useEffect(() => {
     subject.current.next(nickname);

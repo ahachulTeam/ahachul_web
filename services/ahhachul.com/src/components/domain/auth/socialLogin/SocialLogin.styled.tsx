@@ -30,7 +30,7 @@ export const SocialButton = styled.button`
 `;
 
 export const KakaoLogin = styled(SocialButton)`
-  background-color: #fee500;
+  background-color: var(--ah-color-social-kakao);
 `;
 
 export const GoogleLogin = styled(SocialButton)`

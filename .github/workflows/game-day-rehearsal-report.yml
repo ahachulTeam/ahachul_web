@@ -1,0 +1,97 @@
+name: Deployment Game-Day Rehearsal Report
+
+on:
+  schedule:
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Rehearsal target environment
+        required: true
+        default: production
+        type: choice
+        options:
+          - production
+          - staging
+
+permissions:
+  actions: read
+  contents: read
+
+env:
+  DEFAULT_NODE_VERSION: '20.13.0'
+
+jobs:
+  rehearsal-report:
+    name: Deployment Rehearsal Report
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.DEFAULT_NODE_VERSION }}
+
+      - name: Parse secrets from JSON
+        run: |
+          echo '${{ secrets.DEV_META_DATA }}' | jq -r 'to_entries | .[] | "echo \(.key)=\(.value) >> $GITHUB_ENV"' | bash
+
+      - name: Create environment config files
+        run: |
+          echo '${{ secrets.DEV_REACT_APP_CONFIG }}' > react-config.json
+          echo '${{ secrets.DEV_ONE_APP_CONFIG }}' > one-app-config.json
+
+      - name: Resolve rehearsal targets
+        run: |
+          TARGET_ENV="${{ github.event.inputs.environment }}"
+          if [ -z "$TARGET_ENV" ]; then
+            TARGET_ENV="production"
+          fi
+
+          if [ "$TARGET_ENV" = "staging" ]; then
+            VITE_BASE_URL=$(jq -r '.VITE_WEB_STAGING_URL // .VITE_APP_STAGING_URL // .WEB_STAGING_URL // empty' react-config.json)
+            NEXT_BASE_URL=$(jq -r '.NEXT_PUBLIC_SITE_URL_STAGING // .NEXT_PUBLIC_SITE_URL_DEV // .APP_DEV_URL // empty' one-app-config.json)
+          else
+            VITE_BASE_URL=$(jq -r '.VITE_WEB_PRODUCTION_URL // .VITE_APP_PRODUCTION_URL // .WEB_PRODUCTION_URL // empty' react-config.json)
+            NEXT_BASE_URL=$(jq -r '.NEXT_PUBLIC_SITE_URL_PRODUCTION // .APP_PRODUCTION_URL // empty' one-app-config.json)
+          fi
+
+          if [ -z "$VITE_BASE_URL" ] || [ -z "$NEXT_BASE_URL" ]; then
+            echo "Failed to resolve rehearsal targets for environment=$TARGET_ENV" >&2
+            exit 1
+          fi
+
+          echo "REPORT_ENVIRONMENT=$TARGET_ENV" >> "$GITHUB_ENV"
+          echo "VITE_BASE_URL=$VITE_BASE_URL" >> "$GITHUB_ENV"
+          echo "NEXT_BASE_URL=$NEXT_BASE_URL" >> "$GITHUB_ENV"
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Run deployment game-day rehearsal report
+        run: |
+          node scripts/deploy-game-day-report.mjs \
+            --environment="${REPORT_ENVIRONMENT}" \
+            --vite-base-url="${VITE_BASE_URL}" \
+            --next-base-url="${NEXT_BASE_URL}" \
+            --s3-bucket="${S3_BUCKET_NAME}" \
+            --ecs-cluster="${ECS_CLUSTER_NAME}" \
+            --ecs-service="${ECS_SERVICE_NAME}" \
+            --output="artifacts/game-day-report.md"
+
+      - name: Publish report to workflow summary
+        run: cat artifacts/game-day-report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: game-day-rehearsal-report
+          path: artifacts/game-day-report.md

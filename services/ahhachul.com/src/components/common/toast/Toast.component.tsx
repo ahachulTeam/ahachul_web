@@ -25,23 +25,23 @@ const getToastStyle = (type: ToastType) => {
   switch (type) {
     case 'success':
       return css`
-        background-color: #22c55e;
+        background-color: var(--ah-color-legacy-status-success);
         color: white;
       `;
     case 'warning':
     case 'error':
       return css`
-        background-color: #ef4444;
+        background-color: var(--ah-color-legacy-status-danger);
         color: white;
       `;
     case 'info':
       return css`
-        background-color: #3b82f6;
+        background-color: var(--ah-color-legacy-status-info);
         color: white;
       `;
     default:
       return css`
-        background-color: #ef4444;
+        background-color: var(--ah-color-legacy-status-danger);
         color: white;
       `;
   }

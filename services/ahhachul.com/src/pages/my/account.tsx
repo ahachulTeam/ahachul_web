@@ -54,7 +54,7 @@ const MyAccountPage: ActivityComponentType = () => {
                 font-size: 14px;
                 font-weight: 500;
                 margin-right: 8px;
-                color: #838791;
+                color: var(--ah-color-legacy-text-muted-secondary);
               `}
               onClick={showToast}
             >
@@ -69,8 +69,8 @@ const MyAccountPage: ActivityComponentType = () => {
             className="square"
             css={css`
               padding: 16px;
-              color: #515458;
-              border: 1px solid #e1e6ed;
+              color: var(--ah-color-legacy-text-slate);
+              border: 1px solid var(--ah-color-legacy-border-muted);
             `}
           >
             로그아웃
@@ -146,12 +146,12 @@ const Fields = styled.div`
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
-    color: #26282b;
+    color: var(--ah-color-legacy-text-strong);
   }
 
   p.secondary {
     font-size: 16px;
-    color: #70747d;
+    color: var(--ah-color-legacy-text-muted);
   }
 `;
 
@@ -174,13 +174,13 @@ const RemoveAccountCard = styled.div`
     transform: rotate(270deg);
 
     & > g > path {
-      fill: #838791;
+      fill: var(--ah-color-legacy-text-muted-secondary);
     }
   }
 `;
 
 const Divider = styled.span`
-  border-top: 1px solid #e1e6ed;
+  border-top: 1px solid var(--ah-color-legacy-border-muted);
   margin: 16px 0;
 `;
 

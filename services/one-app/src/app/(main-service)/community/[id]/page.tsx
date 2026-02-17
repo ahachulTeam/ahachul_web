@@ -1,7 +1,10 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 import type { Metadata } from 'next';
 
-import { SUBWAY_LINES } from '@/constant';
+import { communityQueryKeys } from '@ahhachul/domain';
+import { createDetailMetadata } from '@ahhachul/seo';
+
+import { SITE_URL, SUBWAY_LINES } from '@/constant';
 import { extractTextFromLexical } from '@/util';
 
 import CommunityPostDetail from './_components/CommunityDetail';
@@ -9,7 +12,7 @@ import { getCommunityDetailPostServer } from './_lib/getDetailPostServer';
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const post = await getCommunityDetailPostServer({ queryKey: ['community-post', id] });
+  const post = await getCommunityDetailPostServer({ queryKey: communityQueryKeys.detail(id) });
 
   const subwayLineId = post.result.subwayLineId;
 
@@ -31,21 +34,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       ? `https://static.dev.ahhachul.com/banners/community/subway-line-${subwayLineId}.png`
       : 'https://static.dev.ahhachul.com/banners/community/main.png';
 
-  return {
+  const description = extractTextFromLexical(post.result.content, baseDescription);
+
+  return createDetailMetadata({
     title,
-    description: extractTextFromLexical(post.result.content, baseDescription),
-    openGraph: {
-      title,
-      description: extractTextFromLexical(post.result.content, baseDescription),
-      images: [
-        {
-          url: image,
-          width: 800,
-          height: 400,
-        },
-      ],
-    },
-  };
+    description,
+    imageUrl: image,
+    siteUrl: SITE_URL,
+    pathname: `/community/${id}`,
+  }) as Metadata;
 }
 
 type Props = {
@@ -58,7 +55,7 @@ export default async function CommunityDetailPage(props: Props) {
   const { id } = await props.params;
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
-    queryKey: ['community-post', id],
+    queryKey: communityQueryKeys.detail(id),
     queryFn: getCommunityDetailPostServer,
   });
   const dehydratedState = dehydrate(queryClient);

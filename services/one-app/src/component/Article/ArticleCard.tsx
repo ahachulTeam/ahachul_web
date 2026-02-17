@@ -3,7 +3,7 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 
-import { formatDateTime } from '@ahhachul/utils';
+import { formatDisplayDate } from '@ahhachul/utils';
 
 import type { IPost } from '@/types';
 import { cn, isLexicalContent } from '@/util';
@@ -54,7 +54,7 @@ export const Post = ({ post }: Props) => {
             {/* <DotIcon className=" relative top-[1px]" /> */}
             <span>{post.writer || '로스트 112'}</span>
             {/* <DotIcon className=" relative top-[1px]" /> */}
-            <span>{formatDateTime(post.createdAt)}</span>
+            <span>{formatDisplayDate(post.createdAt)}</span>
           </div>
           <div className=" flex items-center gap-0.5 text-gray-80 text-body-medium">
             {/* <CommentIcon /> */}

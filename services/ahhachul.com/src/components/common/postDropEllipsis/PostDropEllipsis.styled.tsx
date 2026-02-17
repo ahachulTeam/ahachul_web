@@ -100,9 +100,21 @@ export const buttonBase = css`
 
 export const Button = styled.button`
   ${buttonBase}
-  background-color: #F7F8F9;
-  color: #222222;
+  background-color: var(--ah-color-legacy-surface-soft);
+  color: var(--ah-color-legacy-text-contrast);
 `;
+
+const resolveSecondaryBackgroundColor = (variant?: 'default' | 'primary' | 'danger') => {
+  if (variant === 'primary') {
+    return 'var(--ah-color-legacy-status-primary-soft)';
+  }
+
+  if (variant === 'danger') {
+    return 'var(--ah-color-legacy-status-critical)';
+  }
+
+  return 'var(--ah-color-legacy-surface-soft-alt)';
+};
 
 export const SecondaryButton = styled.button<{
   variant?: 'default' | 'primary' | 'danger';
@@ -111,9 +123,9 @@ export const SecondaryButton = styled.button<{
   justify-content: center;
   border-radius: 9999px;
   font-size: 19px;
-  background-color: ${props =>
-    props.variant === 'primary' ? '#4DAFFF' : props.variant === 'danger' ? '#FF3F40' : '#F0F2F4'};
-  color: ${props => (props.variant === 'default' ? '#222222' : '#FFFFFF')};
+  background-color: ${props => resolveSecondaryBackgroundColor(props.variant)};
+  color: ${props =>
+    props.variant === 'default' ? 'var(--ah-color-legacy-text-contrast)' : 'var(--ah-color-white)'};
 `;
 
 export const SmoothSecondaryButton = styled(SmoothButton)`
@@ -121,8 +133,8 @@ export const SmoothSecondaryButton = styled(SmoothButton)`
   justify-content: center;
   border-radius: 9999px;
   font-size: 19px;
-  background-color: #ff3f40;
-  color: #ffffff;
+  background-color: var(--ah-color-legacy-status-critical);
+  color: var(--ah-color-white);
 `;
 
 export const SmoothGreenButton = styled(SmoothButton)`
@@ -130,8 +142,8 @@ export const SmoothGreenButton = styled(SmoothButton)`
   justify-content: center;
   border-radius: 9999px;
   font-size: 19px;
-  background-color: #29e236;
-  color: #42b305ac;
+  background-color: var(--ah-color-legacy-surface-success-solid);
+  color: var(--ah-color-legacy-text-success-alpha);
 `;
 
 export const HeaderWrapper = styled.header`
@@ -141,14 +153,14 @@ export const HeaderWrapper = styled.header`
 export const HeaderTitle = styled.h2`
   margin-top: 10px;
   font-weight: 600;
-  color: #222226f3;
+  color: var(--ah-color-legacy-text-contrast-alpha);
   font-size: 22px;
 `;
 
 export const HeaderDescription = styled.p`
   margin-top: 12px;
   font-weight: 500;
-  color: #33333e;
+  color: var(--ah-color-gray-90);
   font-size: 17px;
   line-height: 24px;
   white-space: break-spaces;
@@ -157,7 +169,7 @@ export const HeaderDescription = styled.p`
 export const List = styled.ul`
   margin-top: 24px;
   padding-top: 24px;
-  border-top: 1px solid #f5f5f5;
+  border-top: 1px solid var(--ah-color-gray-20);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -168,7 +180,7 @@ export const ListItem = styled.li`
   align-items: center;
   gap: 12px;
   font-weight: 600;
-  color: #999999;
+  color: var(--ah-color-legacy-text-disabled);
   font-size: 15px;
 `;
 
@@ -188,7 +200,7 @@ export const DefaultViewHeader = styled.header`
 
 export const DefaultViewTitle = styled.h2`
   font-weight: 600;
-  color: #222226f3;
+  color: var(--ah-color-legacy-text-contrast-alpha);
   font-size: 19px;
 `;
 
@@ -200,13 +212,13 @@ export const ButtonContainer = styled.div`
 
 export const DangerButton = styled.button`
   ${buttonBase}
-  background-color: #fff0f0;
-  color: #ff3f40;
+  background-color: var(--ah-color-legacy-surface-danger-tint);
+  color: var(--ah-color-legacy-status-critical);
 `;
 
 export const GreenButton = styled.button`
   ${buttonBase}
 
-  background-color: #4ade8015;
-  color: #42b305ac;
+  background-color: var(--ah-color-legacy-surface-success-soft-alpha);
+  color: var(--ah-color-legacy-text-success-alpha);
 `;

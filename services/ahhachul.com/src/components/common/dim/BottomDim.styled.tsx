@@ -18,6 +18,6 @@ export const BottomDim = styled.div`
     rgba(24, 24, 29, 0.59) 34.59%,
     rgba(24, 24, 29, 0.69) 41.18%,
     rgba(24, 24, 29, 0.83) 51.39%,
-    #18181d 63.25%
+    var(--ah-color-legacy-surface-overlay-end) 63.25%
   );
 `;

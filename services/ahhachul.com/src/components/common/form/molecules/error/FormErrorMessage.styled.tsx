@@ -9,11 +9,11 @@ export const ErrorMessage = styled.div`
   gap: 6px;
 
   & > svg > path {
-    fill: #e02020;
-    stroke: #ffffff;
+    fill: var(--ah-color-legacy-status-validation);
+    stroke: var(--ah-color-white);
 
     &:first-of-type {
-      stroke: #e02020;
+      stroke: var(--ah-color-legacy-status-validation);
     }
   }
 `;

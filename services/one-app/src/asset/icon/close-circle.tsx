@@ -1,8 +1,10 @@
+import { colors } from '@ahhachul/design-system';
+
 function CloseCircleIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clipPath="url(#clip0_6089_5611)">
-        <rect width="24" height="24" rx="12" fill="#33333E" />
+        <rect width="24" height="24" rx="12" fill={colors.gray[90]} />
         <path
           d="M16 16L8 8"
           stroke="white"

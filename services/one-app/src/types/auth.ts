@@ -12,6 +12,6 @@ export interface SocialLoginOption {
 }
 
 export enum CookieKey {
-  ACCESS_TOKEN = 'AHAHCHUL_ACCESS_TOKEN',
-  REFRESH_TOKEN = 'AHAHCHUL_REFRESH_TOKEN',
+  ACCESS_TOKEN = 'access_token',
+  REFRESH_TOKEN = 'refresh_token',
 }

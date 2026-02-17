@@ -1,16 +1,21 @@
 import { QueryFunction } from '@tanstack/react-query';
 
+import { lostFoundQueryKeys } from '@ahhachul/domain';
+import { API_PATHS } from '@ahhachul/http';
+
+import { API_BASE_URL } from '@/constant';
 import { CommentList, IResponse } from '@/types';
 
 export const getLostFoundComments: QueryFunction<
   IResponse<CommentList>,
-  [_1: string, id: number, _2: string]
+  ReturnType<typeof lostFoundQueryKeys.comments>
 > = async ({ queryKey }) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_1, id] = queryKey;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/lost-posts/${id}/comments`, {
+  const [, , id] = queryKey;
+  const commentTags = lostFoundQueryKeys.comments(id).map(value => String(value));
+  const endpoint = `${API_BASE_URL}${API_PATHS.lostFound.comments(id)}`;
+  const res = await fetch(endpoint, {
     next: {
-      tags: ['lost-found-post', id.toString(), 'comments'],
+      tags: commentTags,
     },
     credentials: 'include',
     cache: 'no-store',

@@ -1,7 +1,13 @@
 import type { Metadata, Viewport } from 'next';
 import NextTopLoader from 'nextjs-toploader';
 
+import { colors } from '@ahhachul/design-system';
+import '@ahhachul/design-system/tokens.css';
+import { BRAND } from '@ahhachul/domain';
+import { createPageMetadata } from '@ahhachul/seo';
+
 import { Pretendard } from '@/asset/font/pretendard';
+import { SITE_URL } from '@/constant';
 import Providers from '@/context/providers';
 import { cn } from '@/util/cn';
 
@@ -10,18 +16,16 @@ import NavMenu from './_components/NavMenu';
 import './globals.css';
 
 export const viewport: Viewport = {
-  themeColor: 'white',
+  themeColor: colors.white,
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
 };
 
-export const metadata: Metadata = {
-  title: '아하철 / 1등 지하철 민원 & 분실물 & 커뮤니티 정보 앱',
-  description:
-    '지하철 이용의 모든 것, 아하철과 함께하세요. 불편사항은 민원 서비스로 해결하고, 소중한 분실물은 빠르게 찾을 수 있습니다. 지하철 이용객들과 일상을 나누고 유용한 정보를 공유하는 따뜻한 커뮤니티까지, 더 나은 지하철 문화를 만들어갑니다.',
-  applicationName: '아하철 | AhHachul',
+export const metadata: Metadata = createPageMetadata({
+  title: BRAND.defaultTitle,
+  description: BRAND.defaultDescription,
   keywords: [
     '지하철',
     '지하철 민원',
@@ -39,8 +43,10 @@ export const metadata: Metadata = {
     '신분당선',
     '수인분당선',
     '경의중앙선',
-  ].join(', '),
-};
+  ],
+  siteUrl: SITE_URL,
+  pathname: '/',
+}) as Metadata;
 
 export default function RootLayout({
   children,
@@ -50,7 +56,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={cn('font-sans antialiased', Pretendard.variable)}>
-        <NextTopLoader height={2} color="#2ACF6C" showSpinner={false} />
+        <NextTopLoader height={2} color={colors['key-color']} showSpinner={false} />
         <Providers>
           <Header />
           {children}

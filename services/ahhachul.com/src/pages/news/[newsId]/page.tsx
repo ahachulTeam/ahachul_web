@@ -75,7 +75,7 @@ const TitleWrapper = styled.div`
   ${({ theme }) => css`
     ${theme.fonts.headlineMedium};
     font-weight: 400;
-    color: #171717;
+    color: var(--ah-color-legacy-text-title);
     margin-bottom: 12px;
     display: -webkit-box;
     -webkit-line-clamp: 2;

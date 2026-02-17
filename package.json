@@ -19,7 +19,26 @@
     "all:build": "nx run-many --target=build --all",
     "all:lint": "nx run-many --target=lint --all",
     "all:lint:fix": "nx run-many --target=lint:fix --all",
-    "all:test": "nx run-many --target=test --all"
+    "all:test": "nx run-many --target=test --all",
+    "scan:api-endpoint-literals": "node ./scripts/scan-api-endpoint-literals.mjs",
+    "scan:react-style-violations": "node ./scripts/scan-react-style-violations.mjs",
+    "validate:api-contract": "pnpm scan:api-endpoint-literals",
+    "validate:react-style": "pnpm scan:react-style-violations",
+    "validate:type": "nx run-many --target=type-check --all --parallel=3",
+    "validate:lint": "nx run-many --target=lint --all --parallel=3",
+    "validate:test": "nx run-many --target=test --all --parallel=3",
+    "validate:build": "nx run-many --target=build --all --parallel=3",
+    "validate:full": "pnpm validate:api-contract && pnpm validate:react-style && pnpm validate:type && pnpm validate:lint && pnpm validate:test && pnpm validate:build",
+    "ui:storybook": "pnpm --filter @ahhachul/ui storybook",
+    "ui:storybook:build": "pnpm --filter @ahhachul/ui storybook:build",
+    "team:status": "node ./scripts/refactor-team-dashboard.mjs",
+    "team:watch": "node ./scripts/refactor-team-dashboard.mjs --watch",
+    "ops:game-day-report": "node ./scripts/deploy-game-day-report.mjs",
+    "ops:game-day:dispatch": "node ./scripts/dispatch-game-day-workflow.mjs",
+    "affected:type": "nx affected --target=type-check --parallel=3",
+    "affected:lint": "nx affected --target=lint --parallel=3",
+    "affected:test": "nx affected --target=test --parallel=3",
+    "affected:build": "nx affected --target=build --parallel=3"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
@@ -35,7 +54,8 @@
     "nano-staged": "^0.8.0",
     "nx": "^20.3.1",
     "prettier": "^3.2.5",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@nx/eslint-plugin": "20.3.1"
   },
   "packageManager": "pnpm@9.1.0",
   "engines": {

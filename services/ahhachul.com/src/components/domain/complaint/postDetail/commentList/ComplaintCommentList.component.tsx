@@ -1,4 +1,6 @@
 // import { BookmarkIcon } from '@/assets/icons/system';
+import { API_SERVICE_PATHS } from '@ahhachul/http';
+
 import { UiComponent } from '@/components';
 import { complaintKeys, useFetchComplaintCommentList } from '@/services/complaint';
 
@@ -40,7 +42,7 @@ const CommentListInner = ({
   return (
     <UiComponent.BaseCommentList
       commentsMap={data.comments}
-      servicePath="complaint-posts"
+      servicePath={API_SERVICE_PATHS.complaint}
       queryKey={complaintKeys.comments(id)}
       isArticleAuthor={isArticleAuthor}
     />
