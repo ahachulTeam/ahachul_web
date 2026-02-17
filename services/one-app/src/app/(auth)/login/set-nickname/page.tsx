@@ -13,6 +13,10 @@ import { getLocaleMessages, localizePathname, resolvePathLocale } from '@/i18n';
 import { AuthService } from '@/lib/auth-service';
 import { useTempAuthStore } from '@/store/auth';
 
+import { checkNickname } from '../_lib/checkNickname';
+
+type NicknameCheckState = 'idle' | 'checking' | 'available' | 'duplicate' | 'error';
+
 async function updateNickname(payload: {
   nickname: string;
   accessToken: string;
@@ -49,6 +53,7 @@ export default function SetNickNamePage() {
   const auth = useTempAuthStore(state => state.auth);
   const resetTempAuth = useTempAuthStore(state => state.reset);
   const [nickname, setNickname] = useState('');
+  const [nicknameCheckState, setNicknameCheckState] = useState<NicknameCheckState>('idle');
 
   useEffect(() => {
     if (!auth) {
@@ -59,6 +64,34 @@ export default function SetNickNamePage() {
   const nicknameValidation = useMemo(() => validateNickname(nickname), [nickname]);
   const normalizedNickname = nicknameValidation.normalized;
   const validationMessage = nicknameValidation.message;
+
+  useEffect(() => {
+    if (!nicknameValidation.isValid) {
+      setNicknameCheckState('idle');
+      return;
+    }
+
+    let isCancelled = false;
+    setNicknameCheckState('checking');
+
+    const timeoutId = window.setTimeout(async () => {
+      try {
+        const response = await checkNickname(normalizedNickname);
+
+        if (isCancelled) return;
+        setNicknameCheckState(response.result.available ? 'available' : 'duplicate');
+      } catch (error) {
+        if (isCancelled) return;
+        console.error('Nickname check failed:', error);
+        setNicknameCheckState('error');
+      }
+    }, 500);
+
+    return () => {
+      isCancelled = true;
+      window.clearTimeout(timeoutId);
+    };
+  }, [nicknameValidation.isValid, normalizedNickname]);
 
   const { mutate, isPending, error } = useMutation({
     mutationFn: async () => {
@@ -81,7 +114,49 @@ export default function SetNickNamePage() {
     },
   });
 
-  const isDisabled = !nicknameValidation.isValid || isPending || !auth;
+  const nicknameStatus = useMemo(() => {
+    if (validationMessage) {
+      return {
+        message: validationMessage,
+        tone: 'error' as const,
+      };
+    }
+
+    if (nicknameCheckState === 'checking') {
+      return {
+        message: messages.setNickname.checkingMessage,
+        tone: 'muted' as const,
+      };
+    }
+
+    if (nicknameCheckState === 'duplicate') {
+      return {
+        message: messages.setNickname.duplicatedMessage,
+        tone: 'error' as const,
+      };
+    }
+
+    if (nicknameCheckState === 'error') {
+      return {
+        message: messages.setNickname.checkFailedMessage,
+        tone: 'error' as const,
+      };
+    }
+
+    return {
+      message: messages.setNickname.validMessage,
+      tone: 'success' as const,
+    };
+  }, [messages, nicknameCheckState, validationMessage]);
+
+  const nicknameStatusClassName = (() => {
+    if (nicknameStatus.tone === 'error') return 'text-red';
+    if (nicknameStatus.tone === 'muted') return 'text-gray-70';
+    return 'text-key-color';
+  })();
+
+  const isDisabled =
+    !nicknameValidation.isValid || nicknameCheckState !== 'available' || isPending || !auth;
 
   return (
     <main className="relative min-h-screen bg-black px-5 pb-8 pt-9 text-white">
@@ -104,9 +179,7 @@ export default function SetNickNamePage() {
           className="h-12 w-full rounded-xl border border-white/20 bg-white/10 px-3 text-title-medium outline-none placeholder:text-gray-70 focus:border-key-color"
         />
         <div className="mt-2 flex items-center justify-between">
-          <p className={`text-body-small ${validationMessage ? 'text-red' : 'text-key-color'}`}>
-            {validationMessage || messages.setNickname.validMessage}
-          </p>
+          <p className={`text-body-small ${nicknameStatusClassName}`}>{nicknameStatus.message}</p>
           <p className="text-body-small text-gray-70">
             {normalizedNickname.length} / {NICKNAME_MAX_LENGTH}
           </p>
