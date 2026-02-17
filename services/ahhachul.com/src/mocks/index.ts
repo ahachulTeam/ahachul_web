@@ -15,5 +15,4 @@ export async function startBrowserMocking() {
   isWorkerStarted = true;
 }
 
-export * from './server';
 export * from './browser';
