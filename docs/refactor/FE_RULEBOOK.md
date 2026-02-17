@@ -373,6 +373,16 @@
 - Client-safe i18n barrel (`@/i18n`) must not re-export server-only modules.
 - Server components importing locale resolver must use `@/i18n/server` explicitly.
 
+### 5) Locale-aware SEO Boundary
+
+- Metadata generation on localized routes must include locale-specific SEO fields from a single helper:
+  - `openGraph.locale`
+  - `alternates.languages` (`hreflang` map + `x-default`)
+- Structured data must align with request locale:
+  - `createWebsiteJsonLd(...inLanguage)` uses locale map output
+  - navigation JSON-LD labels/URLs use localized copy + localized path
+- Locale SEO mapping values are centralized and append-only (no per-page ad-hoc locale string literals).
+
 ## Implementation Checklist
 
 - [ ] New utility function added with explicit input/output type.
@@ -409,6 +419,8 @@
 - [ ] Locale route policy is preserved (`ko` non-prefix canonical, `en/th/cn` prefixed).
 - [ ] Language selector exists on home footer and my page and preserves path/query on locale change.
 - [ ] Server-only locale resolver import boundary is preserved (`@/i18n/server` only).
+- [ ] Localized metadata includes locale-aware `openGraph.locale` and `alternates.languages` from shared helper.
+- [ ] Website/navigation JSON-LD uses locale-aware `inLanguage` and localized navigation labels/URLs.
 
 ## Sources (Primary)
 

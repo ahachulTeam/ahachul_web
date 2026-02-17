@@ -8,7 +8,8 @@
       "en": "English",
       "th": "ไทย",
       "cn": "中文(简体)"
-    }
+    },
+    "lost112Writer": "Lost 112"
   },
   "header": {
     "homeAria": "Ahhachul 首页",
@@ -137,6 +138,101 @@
     "notFound": {
       "title": "页面不存在",
       "description": "未找到请求页面。请返回 Ahhachul 首页继续浏览。"
+    },
+    "loginCallback": {
+      "title": "登录回调处理",
+      "description": "确认社交登录认证结果并进入 Ahhachul 应用。"
+    },
+    "loginFlow": {
+      "title": "登录流程跳转",
+      "description": "将登录流程路径规范化为标准登录 URL。"
+    },
+    "loginModalFlow": {
+      "title": "登录弹窗流程跳转",
+      "description": "将登录弹窗流程路径规范化为标准登录 URL。"
+    },
+    "setNickname": {
+      "title": "设置昵称",
+      "description": "完成登录前，请先设置在 Ahhachul 中使用的昵称。"
+    },
+    "userProfile": {
+      "title": "{username} 的资料",
+      "description": "{username} 在 Ahhachul 的活动资料。"
+    },
+    "lostFoundNew": {
+      "title": "发布失物信息",
+      "description": "发布失物信息，快速与各线路乘客共享。"
+    },
+    "lostFoundEdit": {
+      "title": "编辑失物帖子 #{id}",
+      "description": "将失物帖子信息更新到最新状态。"
     }
+  },
+  "setNickname": {
+    "titleHighlight": "昵称",
+    "titleSuffix": "设置",
+    "description": "该名称会显示在社区与投诉中，后续可在设置中修改。",
+    "fieldLabel": "昵称",
+    "placeholder": "请输入昵称",
+    "validMessage": "该昵称格式可用。",
+    "cancel": "取消",
+    "submit": "完成",
+    "submitting": "处理中...",
+    "sessionExpired": "会话已过期。",
+    "updateFailed": "昵称设置失败。"
+  },
+  "userProfile": {
+    "sectionTitle": "用户资料",
+    "guideDefault": "这是请求的用户资料路径。",
+    "guideLoading": "正在加载用户信息。",
+    "guideMine": "这是当前登录账号的个人资料。",
+    "accountInfoTitle": "账号信息",
+    "fields": {
+      "nickname": "昵称",
+      "email": "邮箱",
+      "gender": "性别",
+      "ageRange": "年龄段"
+    },
+    "ageRangeSuffix": "",
+    "links": {
+      "myPage": "我的页面",
+      "messages": "消息"
+    }
+  },
+  "badges": {
+    "community": {
+      "info": "信息",
+      "free": "自由",
+      "humor": "幽默"
+    },
+    "lostType": {
+      "lost": "失物",
+      "acquire": "拾得物"
+    },
+    "complaintType": {
+      "environmentalComplaint": "环境投诉",
+      "temperatureControl": "温度调节",
+      "disorder": "秩序问题",
+      "announcement": "广播通知",
+      "emergencyPatient": "紧急患者",
+      "violence": "暴力",
+      "sexualHarassment": "性骚扰"
+    }
+  },
+  "lost112Table": {
+    "title": "失物详情",
+    "acquiredDate": "拾得日期",
+    "acquiredLocation": "拾得地点",
+    "category": "物品分类",
+    "storagePhone": "保管处电话",
+    "storagePlace": "保管地点",
+    "sourcePost": "原帖",
+    "openLink": "查看",
+    "statusProgress": "当前保管中。",
+    "statusDone": "已找回！"
+  },
+  "lostFoundDetail": {
+    "edit": "编辑",
+    "fromLost112": "该失物来自 Lost 112。"
   }
 }

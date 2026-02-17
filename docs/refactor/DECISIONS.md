@@ -42,3 +42,5 @@
 38. Locale switch must prefer deterministic full navigation over ambiguous client refresh chaining: selector changes must apply locale cookie and then perform a direct navigation so translated SSR output appears in a single transition without manual reload.
 39. Browser-extension-driven hydration noise is non-product behavior but should not degrade DX: root layout allows hydration warning suppression at the body boundary while keeping application state rendering behavior unchanged.
 40. Static i18n expansion priority is route-level UX+metadata parity for auth/user utility screens: login, messages, notifications, and not-found routes must consume shared locale messages for visible copy, CTA labels, and metadata descriptions.
+41. Next metadata must be locale-complete, not locale-copied: every localized route metadata call must provide locale-specific `openGraph.locale` and `alternates.languages` (`hreflang`) from a single locale-map helper.
+42. Structured data language must follow request locale: `WebSite` JSON-LD `inLanguage` and navigation labels/URLs are derived from static i18n messages and localized paths, while organization identity remains global.

@@ -9,6 +9,7 @@ import { SEO_KEYWORDS, SITE_URL, withBrandTitle } from '@/constant';
 import { getLocaleMessages, localizePathname } from '@/i18n';
 import { getServerLocale } from '@/i18n/server';
 import { getSeoNavigationLinks } from '@/seo/content-discovery';
+import { getLocalizedMetadataOptions } from '@/seo/metadata';
 
 const HOME_LINK_KEY_BY_PATH = {
   '/community': 'community',
@@ -19,15 +20,14 @@ const HOME_LINK_KEY_BY_PATH = {
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getServerLocale();
   const messages = getLocaleMessages(locale);
-  const localizedPathname = localizePathname('/', locale);
 
   return createPageMetadata({
     title: withBrandTitle(messages.seo.home.title),
     description: messages.seo.home.description,
     keywords: [...SEO_KEYWORDS],
     siteUrl: SITE_URL,
-    pathname: localizedPathname,
     rssPath: localizePathname('/rss.xml', locale),
+    ...getLocalizedMetadataOptions('/', locale),
   }) as Metadata;
 }
 

@@ -4,6 +4,8 @@ import Link from 'next/link';
 
 import BreadcrumbNav from '@/app/_components/BreadcrumbNav';
 import SearchForm from '@/component/SearchForm';
+import { getLocaleMessages, localizePathname } from '@/i18n';
+import { getServerLocale } from '@/i18n/server';
 import type { LostFoundType, SubwayLineFilterOptions } from '@/types';
 
 import Filters from './_components/FilterList';
@@ -25,6 +27,8 @@ export async function generateMetadata({ searchParams }: Props) {
 
 export default async function LostFoundPage({ searchParams }: Props) {
   const query = await searchParams;
+  const locale = await getServerLocale();
+  const messages = getLocaleMessages(locale);
   const headersList = await headers();
   const isServerRender = !headersList.get('next-url');
 
@@ -41,18 +45,18 @@ export default async function LostFoundPage({ searchParams }: Props) {
       <HydrationBoundary state={dehydratedState}>
         <BreadcrumbNav
           items={[
-            { name: '홈', href: '/' },
-            { name: '분실물', href: '/lost-found' },
+            { name: messages.nav.home, href: localizePathname('/', locale) },
+            { name: messages.nav.lostFound, href: localizePathname('/lost-found', locale) },
           ]}
         />
         <SearchForm />
         <Filters />
         <div className="px-5 pb-2 pt-3">
           <Link
-            href="/lost-found/new"
+            href={localizePathname('/lost-found/new', locale)}
             className="inline-flex h-10 items-center rounded-xl bg-key-color px-4 text-label-medium text-white"
           >
-            유실물 등록
+            {messages.seo.lostFoundNew.title}
           </Link>
         </div>
         <LostFoundPosts />

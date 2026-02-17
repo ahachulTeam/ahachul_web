@@ -8,7 +8,8 @@
       "en": "English",
       "th": "ไทย",
       "cn": "中文(简体)"
-    }
+    },
+    "lost112Writer": "로스트 112"
   },
   "header": {
     "homeAria": "아하철 홈",
@@ -137,6 +138,101 @@
     "notFound": {
       "title": "페이지를 찾을 수 없습니다",
       "description": "요청하신 페이지를 찾을 수 없습니다. 아하철 홈에서 원하는 서비스를 다시 탐색하세요."
+    },
+    "loginCallback": {
+      "title": "로그인 인증 처리",
+      "description": "소셜 로그인 인증 결과를 확인하고 아하철 앱으로 이동합니다."
+    },
+    "loginFlow": {
+      "title": "로그인 플로우 이동",
+      "description": "로그인 경로를 표준 URL로 정규화합니다."
+    },
+    "loginModalFlow": {
+      "title": "로그인 모달 플로우 이동",
+      "description": "로그인 모달 경로를 표준 URL로 정규화합니다."
+    },
+    "setNickname": {
+      "title": "닉네임 설정",
+      "description": "로그인 완료를 위해 아하철에서 사용할 닉네임을 설정합니다."
+    },
+    "userProfile": {
+      "title": "{username} 프로필",
+      "description": "{username}님의 아하철 활동 프로필입니다."
+    },
+    "lostFoundNew": {
+      "title": "유실물 등록",
+      "description": "유실물 정보를 등록해 노선별 이용자와 빠르게 공유하세요."
+    },
+    "lostFoundEdit": {
+      "title": "유실물 글 수정 #{id}",
+      "description": "유실물 게시글 정보를 최신 상태로 수정하세요."
     }
+  },
+  "setNickname": {
+    "titleHighlight": "닉네임",
+    "titleSuffix": "을 설정해주세요",
+    "description": "커뮤니티와 민원에서 표시될 이름입니다. 이후 설정에서 변경할 수 있습니다.",
+    "fieldLabel": "닉네임",
+    "placeholder": "닉네임을 입력해주세요",
+    "validMessage": "사용 가능한 닉네임 형식입니다.",
+    "cancel": "취소",
+    "submit": "완료",
+    "submitting": "처리 중...",
+    "sessionExpired": "세션이 만료되었습니다.",
+    "updateFailed": "닉네임 설정에 실패했습니다."
+  },
+  "userProfile": {
+    "sectionTitle": "사용자 프로필",
+    "guideDefault": "요청한 사용자 경로를 확인했습니다.",
+    "guideLoading": "사용자 정보를 불러오는 중입니다.",
+    "guideMine": "현재 로그인된 내 프로필입니다.",
+    "accountInfoTitle": "계정 정보",
+    "fields": {
+      "nickname": "닉네임",
+      "email": "이메일",
+      "gender": "성별",
+      "ageRange": "연령대"
+    },
+    "ageRangeSuffix": "대",
+    "links": {
+      "myPage": "마이 페이지",
+      "messages": "메시지함"
+    }
+  },
+  "badges": {
+    "community": {
+      "info": "정보",
+      "free": "자유",
+      "humor": "유머"
+    },
+    "lostType": {
+      "lost": "분실물",
+      "acquire": "습득물"
+    },
+    "complaintType": {
+      "environmentalComplaint": "환경민원",
+      "temperatureControl": "온도조절",
+      "disorder": "질서저해",
+      "announcement": "안내방송",
+      "emergencyPatient": "응급환자",
+      "violence": "폭력",
+      "sexualHarassment": "성추행"
+    }
+  },
+  "lost112Table": {
+    "title": "유실물 상세정보",
+    "acquiredDate": "습득일",
+    "acquiredLocation": "습득장소",
+    "category": "물품분류",
+    "storagePhone": "보관 장소 전화번호",
+    "storagePlace": "보관장소",
+    "sourcePost": "원본 게시글",
+    "openLink": "바로가기",
+    "statusProgress": "현재 보관중 입니다.",
+    "statusDone": "찾기 완료!"
+  },
+  "lostFoundDetail": {
+    "edit": "수정",
+    "fromLost112": "로스트 112에 등록된 분실물입니다."
   }
 }

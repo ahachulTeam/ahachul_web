@@ -6,6 +6,7 @@ import { createPageMetadata } from '@ahhachul/seo';
 import { SITE_URL, withBrandTitle } from '@/constant';
 import { getLocaleMessages, localizePathname } from '@/i18n';
 import { getServerLocale } from '@/i18n/server';
+import { getLocalizedMetadataOptions } from '@/seo/metadata';
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getServerLocale();
@@ -15,8 +16,8 @@ export async function generateMetadata(): Promise<Metadata> {
     title: withBrandTitle(messages.seo.messages.title),
     description: messages.seo.messages.description,
     siteUrl: SITE_URL,
-    pathname: localizePathname('/messages', locale),
     noIndex: true,
+    ...getLocalizedMetadataOptions('/messages', locale),
   }) as Metadata;
 }
 

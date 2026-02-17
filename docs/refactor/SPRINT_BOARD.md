@@ -62,8 +62,9 @@
 | RF-990  | 16     | Next-first SEO metadata copy/architecture quality upgrade        | FE Lead           | Done   | pending  | Upgraded reusable SEO metadata builder, migrated Next route metadata copy/noindex policy, and aligned Vite single metadata                          |
 | RF-1000 | 16     | Next SEO linking + structured data + sitemap index/RSS hardening | FE Lead           | Done   | pending  | Added crawlable internal links, global/breadcrumb JSON-LD, segmented sitemap index architecture, and resilient RSS generation                       |
 | RF-1010 | 17     | Next static i18n reset (`ko/en/th/cn`) + locale selector rollout | FE Lead           | Done   | d8faa98a | Removed dynamic-translation plan dependency, added static locale resources, locale middleware routing, and shared selector on home footer + my page |
-| RF-1020 | 17     | Locale switch UX + hydration mismatch hardening                  | FE Lead           | Done   | pending  | Fixed locale selector delayed-apply behavior via deterministic navigation and reduced extension-driven hydration mismatch noise on root layout      |
-| RF-1030 | 18     | Static i18n coverage expansion for key routes                    | FE Lead           | Done   | pending  | Expanded localized static copy+metadata for login/messages/notifications/not-found routes and localized CTA/alert content                           |
+| RF-1020 | 17     | Locale switch UX + hydration mismatch hardening                  | FE Lead           | Done   | edb2618b | Fixed locale selector delayed-apply behavior via deterministic navigation and reduced extension-driven hydration mismatch noise on root layout      |
+| RF-1030 | 18     | Static i18n coverage expansion for key routes                    | FE Lead           | Done   | edb2618b | Expanded localized static copy+metadata for login/messages/notifications/not-found routes and localized CTA/alert content                           |
+| RF-1040 | 18     | Residual hardcoded-copy migration + SEO locale full localization | FE Lead           | Done   | pending  | Localized remaining Next user/detail copy blocks, enforced locale-aware OG/hreflang/JSON-LD metadata policy, and normalized locale-aware redirects  |
 
 ## Rule
 

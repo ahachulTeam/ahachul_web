@@ -181,3 +181,11 @@ Track every modification to `FE_RULEBOOK.md` in chronological order.
 - Section(s): Scope priority, Rule 13 (Static i18n Conventions), Implementation Checklist
 - Summary: Added Next-only static i18n governance: fixed locale set (`ko/en/th/cn`), default-locale canonical URL policy, middleware locale normalization/cookie/header sync, home-footer + my-page language selector baseline, and explicit server/client import boundary (`@/i18n/server`).
 - Follow-up: Keep dynamic translation dependencies out of scope until separately approved and extend static-message coverage route-by-route with the same boundary rules.
+
+- DateTime (KST): 2026-02-17 19:02:13
+- Task ID: RF-1040
+- Author/Owner: FE Lead
+- Change Type: Changed
+- Section(s): Rule 13 (Static i18n Conventions), Implementation Checklist
+- Summary: Added locale-aware SEO enforcement (`openGraph.locale`, `hreflang alternates`, JSON-LD `inLanguage`) and updated checklist rules to require shared helper-based metadata locale mapping and localized structured-data navigation payloads.
+- Follow-up: Apply the same locale SEO helper pattern to all newly added indexable routes and avoid per-page locale string literals.

@@ -3,11 +3,13 @@
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { QUERY_GC_TIME, QUERY_STALE_TIME, lostFoundQueryKeys } from '@ahhachul/domain';
 import { formatDisplayDate } from '@ahhachul/utils';
 
 import { ReadonlyEditor } from '@/component/Editor';
+import { getLocaleMessages, localizePathname, resolvePathLocale } from '@/i18n';
 // import { SUBWAY_LOGO_SVG_LIST } from '@/component';
 import { cn, isLexicalContent } from '@/util';
 
@@ -22,6 +24,11 @@ type Props = {
 };
 
 export default function LostFoundPostDetail({ id }: Props) {
+  const pathname = usePathname() ?? '/lost-found';
+  const locale = resolvePathLocale(pathname, null);
+  const messages = getLocaleMessages(locale);
+  const copy = messages.lostFoundDetail;
+  const commonCopy = messages.common;
   const { data: post } = useQuery({
     queryKey: lostFoundQueryKeys.detail(id),
     queryFn: getLostFoundDetailPost,
@@ -52,15 +59,15 @@ export default function LostFoundPostDetail({ id }: Props) {
           </div>
           <div className=" w-full flex items-center justify-between pb-4 border-b border-b-gray-20">
             <div className=" flex items-center gap-1 text-body-medium">
-              <span className=" text-gray-80">{post.writer || '로스트 112'}</span>
+              <span className=" text-gray-80">{post.writer || commonCopy.lost112Writer}</span>
               <span className=" text-gray-70">{formatDisplayDate(post.createdAt!)}</span>
             </div>
             <div className=" flex items-center text-gray-90 text-label-medium font-regular">
               <Link
-                href={`/lost-found/${id}/edit`}
+                href={localizePathname(`/lost-found/${id}/edit`, locale)}
                 className="inline-flex h-8 items-center rounded-lg border border-gray-40 px-3 text-body-small text-gray-90"
               >
-                수정
+                {copy.edit}
               </Link>
             </div>
           </div>
@@ -75,9 +82,7 @@ export default function LostFoundPostDetail({ id }: Props) {
                 height={24}
                 priority
               />
-              <span className=" text-gray-90 text-label-medium">
-                로스트 112에 등록된 분실물입니다.
-              </span>
+              <span className=" text-gray-90 text-label-medium">{copy.fromLost112}</span>
             </div>
             <Lost112ArticleTable post={post} />
           </>

@@ -3,8 +3,9 @@ import type { Metadata } from 'next';
 import { createPageMetadata } from '@ahhachul/seo';
 
 import { SITE_URL, withBrandTitle } from '@/constant';
-import { getLocaleMessages, localizePathname } from '@/i18n';
+import { getLocaleMessages } from '@/i18n';
 import { getServerLocale } from '@/i18n/server';
+import { getLocalizedMetadataOptions } from '@/seo/metadata';
 
 import MyDashboard from './_components/MyDashboard';
 
@@ -16,8 +17,8 @@ export async function generateMetadata(): Promise<Metadata> {
     title: withBrandTitle(messages.seo.me.title),
     description: messages.seo.me.description,
     siteUrl: SITE_URL,
-    pathname: localizePathname('/me', locale),
     noIndex: true,
+    ...getLocalizedMetadataOptions('/me', locale),
   }) as Metadata;
 }
 

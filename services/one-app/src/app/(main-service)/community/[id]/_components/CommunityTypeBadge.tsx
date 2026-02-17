@@ -1,7 +1,10 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
+
 import { ServiceBadge } from '@ahhachul/ui';
 
+import { getLocaleMessages, resolvePathLocale } from '@/i18n';
 import { CommunityType } from '@/types/community';
 
 interface Props {
@@ -9,11 +12,14 @@ interface Props {
 }
 
 export const CommunityTypeBadge = ({ communityType }: Props) => {
-  let label = '정보';
+  const pathname = usePathname() ?? '/community';
+  const locale = resolvePathLocale(pathname, null);
+  const copy = getLocaleMessages(locale).badges.community;
+  let label = copy.info;
   if (communityType === CommunityType.FREE) {
-    label = '자유';
+    label = copy.free;
   } else if (communityType === CommunityType.HUMOR) {
-    label = '유머';
+    label = copy.humor;
   }
 
   return (

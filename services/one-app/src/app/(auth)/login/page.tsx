@@ -4,8 +4,9 @@ import { createPageMetadata } from '@ahhachul/seo';
 
 import { HelloOnLogin, SocialLogins } from '@/app/(auth)/login/_component';
 import { SITE_URL, withBrandTitle } from '@/constant';
-import { getLocaleMessages, localizePathname } from '@/i18n';
+import { getLocaleMessages } from '@/i18n';
 import { getServerLocale } from '@/i18n/server';
+import { getLocalizedMetadataOptions } from '@/seo/metadata';
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getServerLocale();
@@ -15,8 +16,8 @@ export async function generateMetadata(): Promise<Metadata> {
     title: withBrandTitle(messages.seo.login.title),
     description: messages.seo.login.description,
     siteUrl: SITE_URL,
-    pathname: localizePathname('/login', locale),
     noIndex: true,
+    ...getLocalizedMetadataOptions('/login', locale),
   }) as Metadata;
 }
 

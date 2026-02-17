@@ -8,7 +8,8 @@
       "en": "English",
       "th": "ไทย",
       "cn": "中文(简体)"
-    }
+    },
+    "lost112Writer": "Lost 112"
   },
   "header": {
     "homeAria": "Ahhachul Home",
@@ -137,6 +138,101 @@
     "notFound": {
       "title": "Page Not Found",
       "description": "The requested page could not be found. Return to Ahhachul home to continue."
+    },
+    "loginCallback": {
+      "title": "Login Callback",
+      "description": "Check your social login authentication result and continue to the Ahhachul app."
+    },
+    "loginFlow": {
+      "title": "Login Flow Redirect",
+      "description": "Normalize login flow routes to the canonical login URL."
+    },
+    "loginModalFlow": {
+      "title": "Login Modal Flow Redirect",
+      "description": "Normalize login modal flow routes to the canonical login URL."
+    },
+    "setNickname": {
+      "title": "Set Nickname",
+      "description": "Set the nickname to use in Ahhachul before completing login."
+    },
+    "userProfile": {
+      "title": "{username} Profile",
+      "description": "{username}'s Ahhachul activity profile."
+    },
+    "lostFoundNew": {
+      "title": "Create Lost Item Post",
+      "description": "Share lost item information with riders on each subway line quickly."
+    },
+    "lostFoundEdit": {
+      "title": "Edit Lost Item Post #{id}",
+      "description": "Update lost item post information to the latest state."
     }
+  },
+  "setNickname": {
+    "titleHighlight": "Nickname",
+    "titleSuffix": " setup",
+    "description": "This name is shown in community and complaint posts. You can change it later in settings.",
+    "fieldLabel": "Nickname",
+    "placeholder": "Enter your nickname",
+    "validMessage": "This nickname format is available.",
+    "cancel": "Cancel",
+    "submit": "Done",
+    "submitting": "Processing...",
+    "sessionExpired": "Your session has expired.",
+    "updateFailed": "Failed to set nickname."
+  },
+  "userProfile": {
+    "sectionTitle": "User Profile",
+    "guideDefault": "This is the requested user profile route.",
+    "guideLoading": "Loading user information.",
+    "guideMine": "This is your currently signed-in profile.",
+    "accountInfoTitle": "Account Information",
+    "fields": {
+      "nickname": "Nickname",
+      "email": "Email",
+      "gender": "Gender",
+      "ageRange": "Age Range"
+    },
+    "ageRangeSuffix": "",
+    "links": {
+      "myPage": "My Page",
+      "messages": "Messages"
+    }
+  },
+  "badges": {
+    "community": {
+      "info": "Info",
+      "free": "Free",
+      "humor": "Humor"
+    },
+    "lostType": {
+      "lost": "Lost Item",
+      "acquire": "Found Item"
+    },
+    "complaintType": {
+      "environmentalComplaint": "Environment",
+      "temperatureControl": "Temperature",
+      "disorder": "Disorder",
+      "announcement": "Announcement",
+      "emergencyPatient": "Emergency",
+      "violence": "Violence",
+      "sexualHarassment": "Harassment"
+    }
+  },
+  "lost112Table": {
+    "title": "Lost Item Details",
+    "acquiredDate": "Date Found",
+    "acquiredLocation": "Found Location",
+    "category": "Category",
+    "storagePhone": "Storage Contact",
+    "storagePlace": "Storage Place",
+    "sourcePost": "Original Post",
+    "openLink": "Open",
+    "statusProgress": "Currently in storage.",
+    "statusDone": "Recovered!"
+  },
+  "lostFoundDetail": {
+    "edit": "Edit",
+    "fromLost112": "This item was posted on Lost 112."
   }
 }
