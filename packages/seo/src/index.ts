@@ -21,6 +21,7 @@ type MetadataBase = {
   noFollow?: boolean;
   category?: string;
   rssPath?: string;
+  alternatesLanguages?: Record<string, string>;
 };
 
 function createMetadataBase(siteUrl?: string) {
@@ -77,18 +78,20 @@ export function createPageMetadata(base: MetadataBase) {
   const robots = buildRobots(base);
   const rssUrl =
     base.siteUrl && base.rssPath ? toAbsoluteUrl(base.siteUrl, base.rssPath) : undefined;
-  const alternates = canonical
-    ? {
-        canonical,
-        ...(rssUrl
-          ? {
-              types: {
-                'application/rss+xml': rssUrl,
-              },
-            }
-          : {}),
-      }
-    : undefined;
+  const alternates =
+    canonical || rssUrl || base.alternatesLanguages
+      ? {
+          ...(canonical ? { canonical } : {}),
+          ...(base.alternatesLanguages ? { languages: base.alternatesLanguages } : {}),
+          ...(rssUrl
+            ? {
+                types: {
+                  'application/rss+xml': rssUrl,
+                },
+              }
+            : {}),
+        }
+      : undefined;
 
   return {
     ...(metadataBase ? { metadataBase } : {}),
@@ -127,6 +130,8 @@ type ListMetadataBase = {
   keywords?: string[];
   category?: string;
   rssPath?: string;
+  locale?: string;
+  alternatesLanguages?: Record<string, string>;
 };
 
 export function createListMetadata(base: ListMetadataBase) {
@@ -152,6 +157,8 @@ export function createListMetadata(base: ListMetadataBase) {
     keywords: base.keywords,
     category: base.category,
     rssPath: base.rssPath,
+    locale: base.locale,
+    alternatesLanguages: base.alternatesLanguages,
   });
 }
 
@@ -165,6 +172,8 @@ type DetailMetadataBase = {
   noIndex?: boolean;
   noFollow?: boolean;
   category?: string;
+  locale?: string;
+  alternatesLanguages?: Record<string, string>;
 };
 
 export function createDetailMetadata(base: DetailMetadataBase) {
@@ -184,6 +193,8 @@ export function createDetailMetadata(base: DetailMetadataBase) {
     noIndex: base.noIndex,
     noFollow: base.noFollow,
     category: base.category,
+    locale: base.locale,
+    alternatesLanguages: base.alternatesLanguages,
   });
 }
 

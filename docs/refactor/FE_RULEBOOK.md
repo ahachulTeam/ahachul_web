@@ -12,6 +12,7 @@
   6. Design-system token conventions
   7. Shared component + Storybook conventions
   8. MSW mock-mode virtualization conventions
+  9. Static i18n conventions (Next-only)
 
 ## FE Pod Structure
 
@@ -336,6 +337,52 @@
 - Mock handlers must cover all contract paths in `@ahhachul/http` (`API_PATHS`, `API_SERVICE_PATHS`) used by runtime flows.
 - Minimum coverage flows: auth/profile, list/detail/create/edit/delete, comment create/edit/delete, subway, presigned upload.
 
+## Rule 13: Static i18n Conventions (Next-only)
+
+### 1) Scope Guard
+
+- Dynamic translation is out of scope for the current refactor round:
+  - no DeepL integration
+  - no runtime server translation proxy
+- Locale copy source must be static message resources under `services/one-app/src/i18n/messages`.
+
+### 2) Locale and URL Policy
+
+- Supported locales are fixed to `ko`, `en`, `th`, `cn`.
+- Default locale is `ko` and must keep canonical non-prefixed routes.
+- Non-default locales use prefixed routes (`/en/*`, `/th/*`, `/cn/*`).
+- Middleware is the single normalization point for:
+  - locale extraction from path
+  - locale cookie synchronization
+  - locale request-header injection for server components
+
+### 3) Locale UX Baseline
+
+- Language selector must be present in:
+  - home footer
+  - my page
+- Selector behavior requirements:
+  - preserve current pathname (normalized then relocalized)
+  - preserve current query string
+  - update locale cookie
+  - complete transition in a single deterministic navigation step (no multi-step push+refresh chaining)
+
+### 4) Server/Client Boundary
+
+- `next/headers`-dependent locale resolver must be isolated in `@/i18n/server`.
+- Client-safe i18n barrel (`@/i18n`) must not re-export server-only modules.
+- Server components importing locale resolver must use `@/i18n/server` explicitly.
+
+### 5) Locale-aware SEO Boundary
+
+- Metadata generation on localized routes must include locale-specific SEO fields from a single helper:
+  - `openGraph.locale`
+  - `alternates.languages` (`hreflang` map + `x-default`)
+- Structured data must align with request locale:
+  - `createWebsiteJsonLd(...inLanguage)` uses locale map output
+  - navigation JSON-LD labels/URLs use localized copy + localized path
+- Locale SEO mapping values are centralized and append-only (no per-page ad-hoc locale string literals).
+
 ## Implementation Checklist
 
 - [ ] New utility function added with explicit input/output type.
@@ -368,6 +415,12 @@
 - [ ] Dual-app mock mode consumes shared handlers from `@ahhachul/mock-api` (no fragmented app-local handler ownership).
 - [ ] Mock runtime boundary check passes (`msw/browser` client-only, `msw/node` node-only).
 - [ ] `pnpm --filter @ahhachul/mock-api test` passes in the same task.
+- [ ] Static i18n messages are owned in `services/one-app/src/i18n/messages` and no dynamic translation API dependency is introduced.
+- [ ] Locale route policy is preserved (`ko` non-prefix canonical, `en/th/cn` prefixed).
+- [ ] Language selector exists on home footer and my page and preserves path/query on locale change.
+- [ ] Server-only locale resolver import boundary is preserved (`@/i18n/server` only).
+- [ ] Localized metadata includes locale-aware `openGraph.locale` and `alternates.languages` from shared helper.
+- [ ] Website/navigation JSON-LD uses locale-aware `inLanguage` and localized navigation labels/URLs.
 
 ## Sources (Primary)
 

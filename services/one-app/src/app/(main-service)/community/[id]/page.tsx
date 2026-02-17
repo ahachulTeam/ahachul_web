@@ -6,6 +6,9 @@ import { createDetailMetadata } from '@ahhachul/seo';
 
 import BreadcrumbNav from '@/app/_components/BreadcrumbNav';
 import { SEO_KEYWORDS, SEO_PAGE_COPY, SITE_URL, SUBWAY_LINES, withBrandTitle } from '@/constant';
+import { getLocaleMessages, localizePathname } from '@/i18n';
+import { getServerLocale } from '@/i18n/server';
+import { getLocalizedMetadataOptions } from '@/seo/metadata';
 import { extractTextFromLexical } from '@/util';
 
 import CommunityPostDetail from './_components/CommunityDetail';
@@ -13,6 +16,7 @@ import { getCommunityDetailPostServer } from './_lib/getDetailPostServer';
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
+  const locale = await getServerLocale();
   const post = await getCommunityDetailPostServer({ queryKey: communityQueryKeys.detail(id) });
 
   const subwayLineId = post.result.subwayLineId;
@@ -37,9 +41,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description,
     imageUrl: image,
     siteUrl: SITE_URL,
-    pathname: `/community/${id}`,
     keywords: [...SEO_KEYWORDS, post.result.title, '지하철 커뮤니티 글'],
     category: 'community',
+    ...getLocalizedMetadataOptions(`/community/${id}`, locale),
   }) as Metadata;
 }
 
@@ -51,6 +55,8 @@ type Props = {
 
 export default async function CommunityDetailPage(props: Props) {
   const { id } = await props.params;
+  const locale = await getServerLocale();
+  const messages = getLocaleMessages(locale);
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: communityQueryKeys.detail(id),
@@ -63,9 +69,9 @@ export default async function CommunityDetailPage(props: Props) {
       <HydrationBoundary state={dehydratedState}>
         <BreadcrumbNav
           items={[
-            { name: '홈', href: '/' },
-            { name: '커뮤니티', href: '/community' },
-            { name: `게시글 #${id}`, href: `/community/${id}` },
+            { name: messages.nav.home, href: localizePathname('/', locale) },
+            { name: messages.nav.community, href: localizePathname('/community', locale) },
+            { name: `#${id}`, href: localizePathname(`/community/${id}`, locale) },
           ]}
         />
         <CommunityPostDetail id={id} />

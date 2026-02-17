@@ -6,6 +6,9 @@ import { createDetailMetadata } from '@ahhachul/seo';
 
 import BreadcrumbNav from '@/app/_components/BreadcrumbNav';
 import { SEO_KEYWORDS, SEO_PAGE_COPY, SITE_URL, SUBWAY_LINES, withBrandTitle } from '@/constant';
+import { getLocaleMessages, localizePathname } from '@/i18n';
+import { getServerLocale } from '@/i18n/server';
+import { getLocalizedMetadataOptions } from '@/seo/metadata';
 import { extractTextFromLexical } from '@/util';
 
 import ComplaintDetail from './_components/ComplaintDetail';
@@ -13,6 +16,7 @@ import { getComplaintDetailPostServer } from './_lib/getDetailPostServer';
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
+  const locale = await getServerLocale();
   const post = await getComplaintDetailPostServer({ queryKey: complaintQueryKeys.detail(id) });
 
   const subwayLineId = post.result.subwayLineId;
@@ -43,9 +47,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description,
     imageUrl: image,
     siteUrl: SITE_URL,
-    pathname: `/complaint/${id}`,
     keywords: [...SEO_KEYWORDS, post.result.complaintType, '지하철 민원 사례'],
     category: 'complaint',
+    ...getLocalizedMetadataOptions(`/complaint/${id}`, locale),
   }) as Metadata;
 }
 
@@ -57,6 +61,8 @@ type Props = {
 
 export default async function ComplaintDetailPage(props: Props) {
   const { id } = await props.params;
+  const locale = await getServerLocale();
+  const messages = getLocaleMessages(locale);
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: complaintQueryKeys.detail(id),
@@ -69,9 +75,9 @@ export default async function ComplaintDetailPage(props: Props) {
       <HydrationBoundary state={dehydratedState}>
         <BreadcrumbNav
           items={[
-            { name: '홈', href: '/' },
-            { name: '민원', href: '/complaint' },
-            { name: `민원 #${id}`, href: `/complaint/${id}` },
+            { name: messages.nav.home, href: localizePathname('/', locale) },
+            { name: messages.nav.complaint, href: localizePathname('/complaint', locale) },
+            { name: `#${id}`, href: localizePathname(`/complaint/${id}`, locale) },
           ]}
         />
         <ComplaintDetail id={id} />

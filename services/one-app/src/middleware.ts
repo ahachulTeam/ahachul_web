@@ -4,6 +4,14 @@ import { NextRequest, NextResponse } from 'next/server';
 import { LEGACY_EXACT_REDIRECTS, LEGACY_PREFIX_REDIRECTS } from '@ahhachul/routes';
 
 import { SITE_URL } from '@/constant';
+import {
+  LOCALE_COOKIE_KEY,
+  LOCALE_HEADER_KEY,
+  localizePathname,
+  resolvePathLocale,
+  stripLocaleFromPathname,
+  type SupportedLocale,
+} from '@/i18n';
 import { CookieKey } from '@/types';
 
 function getLegacyRedirectPath(pathname: string) {
@@ -33,32 +41,90 @@ function requiresAuth(pathname: string) {
   );
 }
 
+function applyLocaleCookie(response: NextResponse, locale: SupportedLocale, currentCookie: string) {
+  if (currentCookie === locale) return;
+
+  response.cookies.set(LOCALE_COOKIE_KEY, locale, {
+    path: '/',
+    maxAge: 60 * 60 * 24 * 365,
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production',
+  });
+}
+
+function withLocalePath(pathname: string, locale: SupportedLocale) {
+  return localizePathname(pathname, locale);
+}
+
 export function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
+  const localeCookie = request.cookies.get(LOCALE_COOKIE_KEY)?.value ?? '';
+  const locale = resolvePathLocale(pathname, localeCookie);
+  const normalizedPathname = stripLocaleFromPathname(pathname);
+  const hasLocalePrefix = normalizedPathname !== pathname;
+  const requestHeaders = new Headers(request.headers);
 
-  const redirectPath = getLegacyRedirectPath(pathname);
+  requestHeaders.set(LOCALE_HEADER_KEY, locale);
+
+  const redirectPath = getLegacyRedirectPath(normalizedPathname);
   if (redirectPath) {
-    return NextResponse.redirect(new URL(`${redirectPath}${search}`, SITE_URL), 308);
+    const localizedRedirectPath = withLocalePath(redirectPath, locale);
+    const response = NextResponse.redirect(
+      new URL(`${localizedRedirectPath}${search}`, SITE_URL),
+      308,
+    );
+
+    applyLocaleCookie(response, locale, localeCookie);
+    return response;
   }
 
-  if (!requiresAuth(pathname)) {
-    return NextResponse.next();
+  if (requiresAuth(normalizedPathname)) {
+    const userAgent = request.headers.get('user-agent');
+    if (!userAgent || isBot(userAgent)) {
+      const response = hasLocalePrefix
+        ? NextResponse.rewrite(
+            (() => {
+              const rewriteUrl = request.nextUrl.clone();
+              rewriteUrl.pathname = normalizedPathname;
+              return rewriteUrl;
+            })(),
+            { request: { headers: requestHeaders } },
+          )
+        : NextResponse.next({ request: { headers: requestHeaders } });
+
+      applyLocaleCookie(response, locale, localeCookie);
+      return response;
+    }
+
+    const accessToken = request.cookies.get(CookieKey.ACCESS_TOKEN);
+    const refreshToken = request.cookies.get(CookieKey.REFRESH_TOKEN);
+
+    if (!accessToken || !refreshToken) {
+      const localizedPathname = withLocalePath(normalizedPathname, locale);
+      const returnTo = `${localizedPathname}${search}`;
+      const loginPathname = withLocalePath('/login', locale);
+      const response = NextResponse.redirect(
+        `${SITE_URL}${loginPathname}?returnTo=${encodeURIComponent(returnTo)}`,
+      );
+
+      applyLocaleCookie(response, locale, localeCookie);
+      return response;
+    }
   }
 
-  const userAgent = request.headers.get('user-agent');
-  if (!userAgent || isBot(userAgent)) {
-    return NextResponse.next();
-  }
+  const response = hasLocalePrefix
+    ? NextResponse.rewrite(
+        (() => {
+          const rewriteUrl = request.nextUrl.clone();
+          rewriteUrl.pathname = normalizedPathname;
+          return rewriteUrl;
+        })(),
+        { request: { headers: requestHeaders } },
+      )
+    : NextResponse.next({ request: { headers: requestHeaders } });
 
-  const accessToken = request.cookies.get(CookieKey.ACCESS_TOKEN);
-  const refreshToken = request.cookies.get(CookieKey.REFRESH_TOKEN);
-
-  if (!accessToken || !refreshToken) {
-    const returnTo = `${pathname}${search}`;
-    return NextResponse.redirect(`${SITE_URL}/login?returnTo=${encodeURIComponent(returnTo)}`);
-  }
-
-  return NextResponse.next();
+  applyLocaleCookie(response, locale, localeCookie);
+  return response;
 }
 
 export const config = {

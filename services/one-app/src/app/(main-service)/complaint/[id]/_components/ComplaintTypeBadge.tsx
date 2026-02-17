@@ -1,24 +1,30 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
+
 import { ServiceBadge } from '@ahhachul/ui';
 
+import { getLocaleMessages, resolvePathLocale } from '@/i18n';
 import type { ComplaintType } from '@/types/complaint';
-
-const complaintTypeOptions: Record<ComplaintType, string> = {
-  ENVIRONMENTAL_COMPLAINT: '환경민원',
-  TEMPERATURE_CONTROL: '온도조절',
-  DISORDER: '질서저해',
-  ANNOUNCEMENT: '안내방송',
-  EMERGENCY_PATIENT: '응급환자',
-  VIOLENCE: '폭력',
-  SEXUAL_HARASSMENT: '성추행',
-};
 
 interface Props {
   complaintType: ComplaintType;
 }
 
 export const ComplaintTypeBadge = ({ complaintType }: Props) => {
+  const pathname = usePathname() ?? '/complaint';
+  const locale = resolvePathLocale(pathname, null);
+  const copy = getLocaleMessages(locale).badges.complaintType;
+  const complaintTypeOptions: Record<ComplaintType, string> = {
+    ENVIRONMENTAL_COMPLAINT: copy.environmentalComplaint,
+    TEMPERATURE_CONTROL: copy.temperatureControl,
+    DISORDER: copy.disorder,
+    ANNOUNCEMENT: copy.announcement,
+    EMERGENCY_PATIENT: copy.emergencyPatient,
+    VIOLENCE: copy.violence,
+    SEXUAL_HARASSMENT: copy.sexualHarassment,
+  };
+
   return (
     <ServiceBadge
       label={complaintTypeOptions[complaintType]}

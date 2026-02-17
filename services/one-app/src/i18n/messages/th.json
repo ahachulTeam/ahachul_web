@@ -1,0 +1,238 @@
+{
+  "common": {
+    "language": "ภาษา",
+    "languageSelectAria": "เลือกภาษาของเว็บไซต์",
+    "unknownError": "เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ",
+    "languages": {
+      "ko": "한국어",
+      "en": "English",
+      "th": "ไทย",
+      "cn": "中文(简体)"
+    },
+    "lost112Writer": "Lost 112"
+  },
+  "header": {
+    "homeAria": "หน้าแรก Ahhachul",
+    "homeTitle": "ไปยังหน้าแรก Ahhachul",
+    "messagesAria": "ข้อความ",
+    "messagesTitle": "ข้อความ",
+    "notificationsAria": "การแจ้งเตือน",
+    "notificationsTitle": "การแจ้งเตือน"
+  },
+  "nav": {
+    "home": "หน้าแรก",
+    "community": "ชุมชน",
+    "lostFound": "ของหาย",
+    "complaint": "ร้องเรียน",
+    "me": "ของฉัน"
+  },
+  "home": {
+    "title": "แพลตฟอร์มรวมสำหรับร้องเรียนรถไฟใต้ดิน ของหาย และชุมชน",
+    "description": "แจ้งปัญหารถไฟใต้ดิน ตรวจสอบของหาย และพูดคุยกับชุมชนตามสายรถไฟได้ในที่เดียว",
+    "quickLinksHeading": "เข้าถึงด่วน",
+    "footerTitle": "การตั้งค่าภาษา",
+    "footerDescription": "Ahhachul รองรับภาษาเกาหลี อังกฤษ ไทย และจีน ด้วยไฟล์แปลแบบสแตติกที่เตรียมไว้ล่วงหน้า",
+    "quickLinks": {
+      "community": {
+        "name": "ชุมชน",
+        "description": "แชร์ข้อมูลรถไฟใต้ดินแบบเรียลไทม์กับผู้ใช้งานคนอื่น"
+      },
+      "complaint": {
+        "name": "ร้องเรียน",
+        "description": "ส่งเรื่องร้องเรียนและติดตามสถานะการดำเนินการ"
+      },
+      "lostFound": {
+        "name": "ของหาย",
+        "description": "ค้นหาข้อมูลของหายแยกตามสายรถไฟอย่างรวดเร็ว"
+      }
+    }
+  },
+  "me": {
+    "title": "หน้าของฉัน",
+    "description": "แดชบอร์ดส่วนตัวสำหรับจัดการกิจกรรม สถานีโปรด ข้อความ และการแจ้งเตือน",
+    "authRequiredTitle": "ต้องเข้าสู่ระบบ",
+    "authRequiredDescription": "เซสชันหมดอายุ หรือไม่สามารถโหลดข้อมูลผู้ใช้ได้",
+    "goToLogin": "ไปยังหน้าเข้าสู่ระบบ",
+    "profileLabel": "MY PROFILE",
+    "noEmail": "ไม่มีอีเมลที่ลงทะเบียน",
+    "viewProfile": "ดูโปรไฟล์",
+    "logout": "ออกจากระบบ",
+    "quickLinksHeading": "ลิงก์ด่วน",
+    "quickLinks": {
+      "messages": "ข้อความ",
+      "notifications": "การแจ้งเตือน",
+      "community": "ชุมชน",
+      "complaint": "ร้องเรียน"
+    },
+    "subwaySettingsHeading": "การตั้งค่ารถไฟใต้ดินของฉัน",
+    "noFavoriteStations": "ยังไม่มีสถานีโปรดที่ลงทะเบียน",
+    "languageSectionTitle": "การตั้งค่าภาษา"
+  },
+  "login": {
+    "heroSubtitle": "เพื่อประสบการณ์รถไฟใต้ดินที่สะดวกยิ่งขึ้น",
+    "continueWithProvider": "ดำเนินการต่อด้วย {provider}"
+  },
+  "messagesPage": {
+    "title": "ข้อความ",
+    "description": "ตรวจสอบประกาศจากทีมงานและข้อความกิจกรรมของคุณ",
+    "backToMyPage": "กลับไปหน้าของฉัน",
+    "items": [
+      {
+        "sender": "ทีมปฏิบัติการ",
+        "title": "คู่มือการใช้งาน Ahhachul",
+        "body": "ดูเคล็ดลับเพื่อใช้งานฟีเจอร์ร้องเรียนและของหายแบบเรียลไทม์ได้รวดเร็วยิ่งขึ้น",
+        "receivedAt": "เมื่อสักครู่"
+      },
+      {
+        "sender": "บอทแจ้งเตือน",
+        "title": "มีความคิดเห็นใหม่",
+        "body": "มีความคิดเห็นใหม่ในโพสต์ที่คุณเขียน",
+        "receivedAt": "1 ชั่วโมงที่แล้ว"
+      }
+    ]
+  },
+  "notificationsPage": {
+    "title": "การแจ้งเตือน",
+    "description": "รับอัปเดตสถานะคำร้องและความเคลื่อนไหวล่าสุด",
+    "backToMyPage": "กลับไปหน้าของฉัน",
+    "items": [
+      {
+        "category": "คำร้อง",
+        "title": "คำร้องที่คุณส่งได้รับการดำเนินการเสร็จแล้ว",
+        "description": "สถานะคำร้องเรื่องเครื่องปรับอากาศสาย 2 ถูกอัปเดตเป็น DONE",
+        "time": "10 นาทีที่แล้ว"
+      },
+      {
+        "category": "ชุมชน",
+        "title": "มีความเคลื่อนไหวใหม่ในโพสต์ที่คุณติดตาม",
+        "description": "มีการเพิ่มไลก์ 3 ครั้ง และความคิดเห็น 1 รายการ",
+        "time": "2 ชั่วโมงที่แล้ว"
+      }
+    ]
+  },
+  "notFound": {
+    "message": "ไม่พบหน้านี้ กรุณาไปยังหน้าอื่น",
+    "goHome": "ไปหน้าแรก"
+  },
+  "seo": {
+    "home": {
+      "title": "แพลตฟอร์มรวมสำหรับร้องเรียนรถไฟใต้ดิน ของหาย และชุมชน",
+      "description": "แจ้งปัญหารถไฟใต้ดิน ตรวจสอบของหาย และพูดคุยกับชุมชนตามสายรถไฟได้ในที่เดียว"
+    },
+    "me": {
+      "title": "หน้าของฉัน",
+      "description": "แดชบอร์ดส่วนตัวสำหรับจัดการกิจกรรม สถานีโปรด ข้อความ และการแจ้งเตือน"
+    },
+    "login": {
+      "title": "เข้าสู่ระบบ Ahhachul",
+      "description": "เข้าสู่ระบบเพื่อใช้งานการร้องเรียนรถไฟใต้ดิน โพสต์ของหาย และชุมชนต่อเนื่อง"
+    },
+    "messages": {
+      "title": "ข้อความ",
+      "description": "กล่องข้อความส่วนตัวสำหรับประกาศทีมงานและกิจกรรมของคุณ"
+    },
+    "notifications": {
+      "title": "การแจ้งเตือน",
+      "description": "ติดตามสถานะคำร้องและการมีส่วนร่วมของคุณแบบเรียลไทม์"
+    },
+    "notFound": {
+      "title": "ไม่พบหน้า",
+      "description": "ไม่พบหน้าที่ร้องขอ กรุณากลับไปหน้าแรกของ Ahhachul"
+    },
+    "loginCallback": {
+      "title": "ผลการยืนยันการเข้าสู่ระบบ",
+      "description": "ตรวจสอบผลการยืนยันโซเชียลล็อกอินและไปยังแอป Ahhachul"
+    },
+    "loginFlow": {
+      "title": "เปลี่ยนเส้นทางขั้นตอนเข้าสู่ระบบ",
+      "description": "ปรับเส้นทางเข้าสู่ระบบให้เป็น URL มาตรฐาน"
+    },
+    "loginModalFlow": {
+      "title": "เปลี่ยนเส้นทางโมดอลเข้าสู่ระบบ",
+      "description": "ปรับเส้นทางโมดอลเข้าสู่ระบบให้เป็น URL มาตรฐาน"
+    },
+    "setNickname": {
+      "title": "ตั้งค่าชื่อเล่น",
+      "description": "ตั้งชื่อเล่นที่จะใช้ใน Ahhachul ก่อนเข้าสู่ระบบให้เสร็จสิ้น"
+    },
+    "userProfile": {
+      "title": "โปรไฟล์ {username}",
+      "description": "โปรไฟล์กิจกรรม Ahhachul ของ {username}"
+    },
+    "lostFoundNew": {
+      "title": "ลงทะเบียนของหาย",
+      "description": "เพิ่มข้อมูลของหายเพื่อแชร์กับผู้ใช้งานตามสายรถไฟได้อย่างรวดเร็ว"
+    },
+    "lostFoundEdit": {
+      "title": "แก้ไขโพสต์ของหาย #{id}",
+      "description": "อัปเดตข้อมูลโพสต์ของหายให้เป็นล่าสุด"
+    }
+  },
+  "setNickname": {
+    "titleHighlight": "ชื่อเล่น",
+    "titleSuffix": " ตั้งค่า",
+    "description": "ชื่อนี้จะแสดงในชุมชนและคำร้องเรียน และสามารถเปลี่ยนได้ภายหลังในตั้งค่า",
+    "fieldLabel": "ชื่อเล่น",
+    "placeholder": "กรอกชื่อเล่น",
+    "validMessage": "รูปแบบชื่อเล่นนี้ใช้งานได้",
+    "cancel": "ยกเลิก",
+    "submit": "เสร็จสิ้น",
+    "submitting": "กำลังดำเนินการ...",
+    "sessionExpired": "เซสชันหมดอายุแล้ว",
+    "updateFailed": "ตั้งค่าชื่อเล่นไม่สำเร็จ"
+  },
+  "userProfile": {
+    "sectionTitle": "โปรไฟล์ผู้ใช้",
+    "guideDefault": "นี่คือเส้นทางโปรไฟล์ผู้ใช้ที่ร้องขอ",
+    "guideLoading": "กำลังโหลดข้อมูลผู้ใช้",
+    "guideMine": "นี่คือโปรไฟล์ของบัญชีที่คุณล็อกอินอยู่",
+    "accountInfoTitle": "ข้อมูลบัญชี",
+    "fields": {
+      "nickname": "ชื่อเล่น",
+      "email": "อีเมล",
+      "gender": "เพศ",
+      "ageRange": "ช่วงอายุ"
+    },
+    "ageRangeSuffix": "",
+    "links": {
+      "myPage": "หน้าของฉัน",
+      "messages": "ข้อความ"
+    }
+  },
+  "badges": {
+    "community": {
+      "info": "ข้อมูล",
+      "free": "ทั่วไป",
+      "humor": "ตลก"
+    },
+    "lostType": {
+      "lost": "ของหาย",
+      "acquire": "ของที่พบ"
+    },
+    "complaintType": {
+      "environmentalComplaint": "สิ่งแวดล้อม",
+      "temperatureControl": "อุณหภูมิ",
+      "disorder": "ความไม่เป็นระเบียบ",
+      "announcement": "ประกาศ",
+      "emergencyPatient": "ผู้ป่วยฉุกเฉิน",
+      "violence": "ความรุนแรง",
+      "sexualHarassment": "คุกคามทางเพศ"
+    }
+  },
+  "lost112Table": {
+    "title": "รายละเอียดของหาย",
+    "acquiredDate": "วันที่พบ",
+    "acquiredLocation": "สถานที่พบ",
+    "category": "หมวดหมู่",
+    "storagePhone": "โทรศัพท์สถานที่เก็บ",
+    "storagePlace": "สถานที่เก็บ",
+    "sourcePost": "โพสต์ต้นทาง",
+    "openLink": "เปิด",
+    "statusProgress": "กำลังเก็บรักษาอยู่",
+    "statusDone": "พบแล้ว!"
+  },
+  "lostFoundDetail": {
+    "edit": "แก้ไข",
+    "fromLost112": "รายการนี้ถูกลงทะเบียนใน Lost 112"
+  }
+}

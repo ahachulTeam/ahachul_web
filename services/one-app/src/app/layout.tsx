@@ -3,12 +3,14 @@ import NextTopLoader from 'nextjs-toploader';
 
 import { colors } from '@ahhachul/design-system';
 import '@ahhachul/design-system/tokens.css';
-import { BRAND } from '@ahhachul/domain';
 import { createPageMetadata } from '@ahhachul/seo';
 
 import { Pretendard } from '@/asset/font/pretendard';
-import { SEO_KEYWORDS, SITE_URL } from '@/constant';
+import { SEO_KEYWORDS, SITE_URL, withBrandTitle } from '@/constant';
 import Providers from '@/context/providers';
+import { HTML_LANG_BY_LOCALE, getLocaleMessages, localizePathname } from '@/i18n';
+import { getServerLocale } from '@/i18n/server';
+import { getLocalizedMetadataOptions } from '@/seo/metadata';
 import { cn } from '@/util/cn';
 
 import Header from './_components/Header';
@@ -25,23 +27,30 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export const metadata: Metadata = createPageMetadata({
-  title: BRAND.defaultTitle,
-  description: BRAND.defaultDescription,
-  keywords: [...SEO_KEYWORDS],
-  siteUrl: SITE_URL,
-  pathname: '/',
-  rssPath: '/rss.xml',
-}) as Metadata;
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const messages = getLocaleMessages(locale);
 
-export default function RootLayout({
+  return createPageMetadata({
+    title: withBrandTitle(messages.seo.home.title),
+    description: messages.seo.home.description,
+    keywords: [...SEO_KEYWORDS],
+    siteUrl: SITE_URL,
+    rssPath: localizePathname('/rss.xml', locale),
+    ...getLocalizedMetadataOptions('/', locale),
+  }) as Metadata;
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getServerLocale();
+
   return (
-    <html lang="ko">
-      <body className={cn('font-sans antialiased', Pretendard.variable)}>
+    <html lang={HTML_LANG_BY_LOCALE[locale]}>
+      <body suppressHydrationWarning className={cn('font-sans antialiased', Pretendard.variable)}>
         <SeoStructuredData />
         <NextTopLoader height={2} color={colors['key-color']} showSpinner={false} />
         <Providers>

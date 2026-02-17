@@ -1,0 +1,238 @@
+{
+  "common": {
+    "language": "Language",
+    "languageSelectAria": "Select site language",
+    "unknownError": "An unknown error occurred.",
+    "languages": {
+      "ko": "한국어",
+      "en": "English",
+      "th": "ไทย",
+      "cn": "中文(简体)"
+    },
+    "lost112Writer": "Lost 112"
+  },
+  "header": {
+    "homeAria": "Ahhachul Home",
+    "homeTitle": "Go to Ahhachul home",
+    "messagesAria": "Messages",
+    "messagesTitle": "Messages",
+    "notificationsAria": "Notifications",
+    "notificationsTitle": "Notifications"
+  },
+  "nav": {
+    "home": "Home",
+    "community": "Community",
+    "lostFound": "Lost & Found",
+    "complaint": "Complaints",
+    "me": "My"
+  },
+  "home": {
+    "title": "All-in-one platform for subway complaints, lost items, and community",
+    "description": "Report subway issues, check lost-and-found updates, and connect with line-based communities in one place.",
+    "quickLinksHeading": "Quick access",
+    "footerTitle": "Language settings",
+    "footerDescription": "Ahhachul provides Korean, English, Thai, and Chinese through pre-translated static resources.",
+    "quickLinks": {
+      "community": {
+        "name": "Community",
+        "description": "Share real-time subway updates with other riders."
+      },
+      "complaint": {
+        "name": "Complaints",
+        "description": "Submit issues and track processing status."
+      },
+      "lostFound": {
+        "name": "Lost & Found",
+        "description": "Find lost item reports by subway line quickly."
+      }
+    }
+  },
+  "me": {
+    "title": "My Page",
+    "description": "A personal dashboard to manage activity, favorite stations, messages, and notifications.",
+    "authRequiredTitle": "Login required",
+    "authRequiredDescription": "Your session has expired or profile information could not be loaded.",
+    "goToLogin": "Go to login",
+    "profileLabel": "MY PROFILE",
+    "noEmail": "No email registered",
+    "viewProfile": "View profile",
+    "logout": "Logout",
+    "quickLinksHeading": "Quick links",
+    "quickLinks": {
+      "messages": "Messages",
+      "notifications": "Notifications",
+      "community": "Community",
+      "complaint": "Complaints"
+    },
+    "subwaySettingsHeading": "My subway settings",
+    "noFavoriteStations": "No favorite stations registered.",
+    "languageSectionTitle": "Language settings"
+  },
+  "login": {
+    "heroSubtitle": "Making subway life easier",
+    "continueWithProvider": "Continue with {provider}"
+  },
+  "messagesPage": {
+    "title": "Messages",
+    "description": "Check operation notices and activity updates.",
+    "backToMyPage": "Back to My Page",
+    "items": [
+      {
+        "sender": "Operations Team",
+        "title": "Ahhachul usage guide",
+        "body": "See quick tips to use real-time complaint and lost-item features more effectively.",
+        "receivedAt": "Just now"
+      },
+      {
+        "sender": "Notification Bot",
+        "title": "New comment received",
+        "body": "A new comment has been posted on your article.",
+        "receivedAt": "1 hour ago"
+      }
+    ]
+  },
+  "notificationsPage": {
+    "title": "Notifications",
+    "description": "Get updates on complaint status changes and activity signals.",
+    "backToMyPage": "Back to My Page",
+    "items": [
+      {
+        "category": "Complaint",
+        "title": "Your submitted complaint has been resolved.",
+        "description": "The status of your Line 2 HVAC complaint was updated to DONE.",
+        "time": "10 minutes ago"
+      },
+      {
+        "category": "Community",
+        "title": "There is new activity on a watched post.",
+        "description": "3 likes and 1 comment were added.",
+        "time": "2 hours ago"
+      }
+    ]
+  },
+  "notFound": {
+    "message": "This page does not exist. Explore another page.",
+    "goHome": "Go to home"
+  },
+  "seo": {
+    "home": {
+      "title": "All-in-one platform for subway complaints, lost items, and community",
+      "description": "Report subway issues, check lost-and-found updates, and connect with line-based communities in one place."
+    },
+    "me": {
+      "title": "My Page",
+      "description": "A personal dashboard to manage activity, favorite stations, messages, and notifications."
+    },
+    "login": {
+      "title": "Ahhachul Login",
+      "description": "Sign in to continue with subway complaints, lost-item posts, and community activity."
+    },
+    "messages": {
+      "title": "Messages",
+      "description": "A personal inbox for operation notices and updates related to your activity."
+    },
+    "notifications": {
+      "title": "Notifications",
+      "description": "Track complaint status changes and engagement updates in real time."
+    },
+    "notFound": {
+      "title": "Page Not Found",
+      "description": "The requested page could not be found. Return to Ahhachul home to continue."
+    },
+    "loginCallback": {
+      "title": "Login Callback",
+      "description": "Check your social login authentication result and continue to the Ahhachul app."
+    },
+    "loginFlow": {
+      "title": "Login Flow Redirect",
+      "description": "Normalize login flow routes to the canonical login URL."
+    },
+    "loginModalFlow": {
+      "title": "Login Modal Flow Redirect",
+      "description": "Normalize login modal flow routes to the canonical login URL."
+    },
+    "setNickname": {
+      "title": "Set Nickname",
+      "description": "Set the nickname to use in Ahhachul before completing login."
+    },
+    "userProfile": {
+      "title": "{username} Profile",
+      "description": "{username}'s Ahhachul activity profile."
+    },
+    "lostFoundNew": {
+      "title": "Create Lost Item Post",
+      "description": "Share lost item information with riders on each subway line quickly."
+    },
+    "lostFoundEdit": {
+      "title": "Edit Lost Item Post #{id}",
+      "description": "Update lost item post information to the latest state."
+    }
+  },
+  "setNickname": {
+    "titleHighlight": "Nickname",
+    "titleSuffix": " setup",
+    "description": "This name is shown in community and complaint posts. You can change it later in settings.",
+    "fieldLabel": "Nickname",
+    "placeholder": "Enter your nickname",
+    "validMessage": "This nickname format is available.",
+    "cancel": "Cancel",
+    "submit": "Done",
+    "submitting": "Processing...",
+    "sessionExpired": "Your session has expired.",
+    "updateFailed": "Failed to set nickname."
+  },
+  "userProfile": {
+    "sectionTitle": "User Profile",
+    "guideDefault": "This is the requested user profile route.",
+    "guideLoading": "Loading user information.",
+    "guideMine": "This is your currently signed-in profile.",
+    "accountInfoTitle": "Account Information",
+    "fields": {
+      "nickname": "Nickname",
+      "email": "Email",
+      "gender": "Gender",
+      "ageRange": "Age Range"
+    },
+    "ageRangeSuffix": "",
+    "links": {
+      "myPage": "My Page",
+      "messages": "Messages"
+    }
+  },
+  "badges": {
+    "community": {
+      "info": "Info",
+      "free": "Free",
+      "humor": "Humor"
+    },
+    "lostType": {
+      "lost": "Lost Item",
+      "acquire": "Found Item"
+    },
+    "complaintType": {
+      "environmentalComplaint": "Environment",
+      "temperatureControl": "Temperature",
+      "disorder": "Disorder",
+      "announcement": "Announcement",
+      "emergencyPatient": "Emergency",
+      "violence": "Violence",
+      "sexualHarassment": "Harassment"
+    }
+  },
+  "lost112Table": {
+    "title": "Lost Item Details",
+    "acquiredDate": "Date Found",
+    "acquiredLocation": "Found Location",
+    "category": "Category",
+    "storagePhone": "Storage Contact",
+    "storagePlace": "Storage Place",
+    "sourcePost": "Original Post",
+    "openLink": "Open",
+    "statusProgress": "Currently in storage.",
+    "statusDone": "Recovered!"
+  },
+  "lostFoundDetail": {
+    "edit": "Edit",
+    "fromLost112": "This item was posted on Lost 112."
+  }
+}

@@ -4,16 +4,26 @@ import { redirect } from 'next/navigation';
 import { createPageMetadata } from '@ahhachul/seo';
 
 import { SITE_URL, withBrandTitle } from '@/constant';
+import { getLocaleMessages, localizePathname } from '@/i18n';
+import { getServerLocale } from '@/i18n/server';
+import { getLocalizedMetadataOptions } from '@/seo/metadata';
 
-export const metadata: Metadata = createPageMetadata({
-  title: withBrandTitle('로그인 모달 플로우 이동'),
-  description: '로그인 모달 경로를 표준 URL로 정규화합니다.',
-  siteUrl: SITE_URL,
-  pathname: '/i/flow/login',
-  noIndex: true,
-  noFollow: true,
-}) as Metadata;
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const messages = getLocaleMessages(locale);
 
-export default function LoginFlowModalRedirectPage() {
-  redirect('/login');
+  return createPageMetadata({
+    title: withBrandTitle(messages.seo.loginModalFlow.title),
+    description: messages.seo.loginModalFlow.description,
+    siteUrl: SITE_URL,
+    noIndex: true,
+    noFollow: true,
+    ...getLocalizedMetadataOptions('/i/flow/login', locale),
+  }) as Metadata;
+}
+
+export default async function LoginFlowModalRedirectPage() {
+  const locale = await getServerLocale();
+
+  redirect(localizePathname('/login', locale));
 }

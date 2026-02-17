@@ -3,6 +3,8 @@ import { headers } from 'next/headers';
 
 import BreadcrumbNav from '@/app/_components/BreadcrumbNav';
 import SearchForm from '@/component/SearchForm';
+import { getLocaleMessages, localizePathname } from '@/i18n';
+import { getServerLocale } from '@/i18n/server';
 import { SubwayLineFilterOptions } from '@/types';
 import { CommunityType } from '@/types/community';
 
@@ -25,6 +27,8 @@ export async function generateMetadata({ searchParams }: Props) {
 
 export default async function CommunityPage({ searchParams }: Props) {
   const query = await searchParams;
+  const locale = await getServerLocale();
+  const messages = getLocaleMessages(locale);
   const headersList = await headers();
   const isServerRender = !headersList.get('next-url');
 
@@ -41,8 +45,8 @@ export default async function CommunityPage({ searchParams }: Props) {
       <HydrationBoundary state={dehydratedState}>
         <BreadcrumbNav
           items={[
-            { name: '홈', href: '/' },
-            { name: '커뮤니티', href: '/community' },
+            { name: messages.nav.home, href: localizePathname('/', locale) },
+            { name: messages.nav.community, href: localizePathname('/community', locale) },
           ]}
         />
         <SearchForm />

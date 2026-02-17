@@ -1,0 +1,238 @@
+{
+  "common": {
+    "language": "언어",
+    "languageSelectAria": "사이트 언어 선택",
+    "unknownError": "알 수 없는 오류가 발생했습니다.",
+    "languages": {
+      "ko": "한국어",
+      "en": "English",
+      "th": "ไทย",
+      "cn": "中文(简体)"
+    },
+    "lost112Writer": "로스트 112"
+  },
+  "header": {
+    "homeAria": "아하철 홈",
+    "homeTitle": "아하철 홈으로 이동",
+    "messagesAria": "메시지함",
+    "messagesTitle": "메시지함",
+    "notificationsAria": "알림",
+    "notificationsTitle": "알림"
+  },
+  "nav": {
+    "home": "홈",
+    "community": "커뮤니티",
+    "lostFound": "유실물",
+    "complaint": "민원",
+    "me": "마이"
+  },
+  "home": {
+    "title": "지하철 민원·분실물·커뮤니티 통합 플랫폼",
+    "description": "지하철 민원 접수, 분실물·유실물 조회, 노선별 커뮤니티 소통까지 아하철에서 한 번에 해결하세요.",
+    "quickLinksHeading": "주요 서비스 바로가기",
+    "footerTitle": "언어 설정",
+    "footerDescription": "아하철은 정적 번역 리소스 기반으로 한국어·영어·태국어·중국어를 제공합니다.",
+    "quickLinks": {
+      "community": {
+        "name": "커뮤니티",
+        "description": "지하철 이용자와 실시간으로 정보를 공유하세요."
+      },
+      "complaint": {
+        "name": "민원",
+        "description": "불편 사항을 접수하고 처리 상태를 확인하세요."
+      },
+      "lostFound": {
+        "name": "분실물",
+        "description": "노선별 분실물·유실물 정보를 빠르게 찾아보세요."
+      }
+    }
+  },
+  "me": {
+    "title": "마이 페이지",
+    "description": "내 활동, 즐겨찾기 역, 알림·메시지를 한 화면에서 관리할 수 있는 개인 대시보드입니다.",
+    "authRequiredTitle": "로그인이 필요합니다",
+    "authRequiredDescription": "세션이 만료되었거나 사용자 정보를 불러오지 못했습니다.",
+    "goToLogin": "로그인 화면으로 이동",
+    "profileLabel": "MY PROFILE",
+    "noEmail": "등록된 이메일 없음",
+    "viewProfile": "프로필 보기",
+    "logout": "로그아웃",
+    "quickLinksHeading": "빠른 이동",
+    "quickLinks": {
+      "messages": "메시지",
+      "notifications": "알림",
+      "community": "커뮤니티",
+      "complaint": "민원"
+    },
+    "subwaySettingsHeading": "내 지하철 설정",
+    "noFavoriteStations": "등록된 즐겨찾기 역이 없습니다.",
+    "languageSectionTitle": "언어 설정"
+  },
+  "login": {
+    "heroSubtitle": "더 편한 지하철을 만드는",
+    "continueWithProvider": "{provider}로 계속하기"
+  },
+  "messagesPage": {
+    "title": "메시지함",
+    "description": "운영팀 공지와 활동 메시지를 확인하세요.",
+    "backToMyPage": "마이 페이지로 돌아가기",
+    "items": [
+      {
+        "sender": "운영팀",
+        "title": "아하철 이용 가이드",
+        "body": "실시간 민원과 분실물 기능을 더 빠르게 활용하는 팁을 확인해보세요.",
+        "receivedAt": "방금 전"
+      },
+      {
+        "sender": "알림봇",
+        "title": "새 댓글 도착",
+        "body": "내가 작성한 게시글에 새로운 댓글이 등록되었습니다.",
+        "receivedAt": "1시간 전"
+      }
+    ]
+  },
+  "notificationsPage": {
+    "title": "알림",
+    "description": "민원 상태 변경과 활동 소식을 받아보세요.",
+    "backToMyPage": "마이 페이지로 돌아가기",
+    "items": [
+      {
+        "category": "민원",
+        "title": "등록한 민원이 처리 완료되었습니다.",
+        "description": "2호선 냉난방 민원 상태가 DONE으로 업데이트되었습니다.",
+        "time": "10분 전"
+      },
+      {
+        "category": "커뮤니티",
+        "title": "관심 게시글에 새로운 반응이 있습니다.",
+        "description": "좋아요 3개, 댓글 1개가 추가되었습니다.",
+        "time": "2시간 전"
+      }
+    ]
+  },
+  "notFound": {
+    "message": "이 페이지는 존재하지 않습니다. 다른 페이지를 구경해보세요.",
+    "goHome": "홈으로 이동"
+  },
+  "seo": {
+    "home": {
+      "title": "지하철 민원·분실물·커뮤니티 통합 플랫폼",
+      "description": "지하철 민원 접수, 분실물·유실물 조회, 노선별 커뮤니티 소통까지 아하철에서 한 번에 해결하세요."
+    },
+    "me": {
+      "title": "마이 페이지",
+      "description": "내 활동, 즐겨찾기 역, 알림·메시지를 한 화면에서 관리할 수 있는 개인 대시보드입니다."
+    },
+    "login": {
+      "title": "아하철 로그인",
+      "description": "로그인 후 지하철 민원 접수, 분실물 등록, 커뮤니티 활동을 이어서 이용할 수 있습니다."
+    },
+    "messages": {
+      "title": "메시지함",
+      "description": "운영 공지와 내 활동 관련 메시지를 빠르게 확인할 수 있는 개인 메시지함입니다."
+    },
+    "notifications": {
+      "title": "알림",
+      "description": "민원 처리 상태와 댓글·좋아요 같은 활동 변화를 실시간으로 확인하세요."
+    },
+    "notFound": {
+      "title": "페이지를 찾을 수 없습니다",
+      "description": "요청하신 페이지를 찾을 수 없습니다. 아하철 홈에서 원하는 서비스를 다시 탐색하세요."
+    },
+    "loginCallback": {
+      "title": "로그인 인증 처리",
+      "description": "소셜 로그인 인증 결과를 확인하고 아하철 앱으로 이동합니다."
+    },
+    "loginFlow": {
+      "title": "로그인 플로우 이동",
+      "description": "로그인 경로를 표준 URL로 정규화합니다."
+    },
+    "loginModalFlow": {
+      "title": "로그인 모달 플로우 이동",
+      "description": "로그인 모달 경로를 표준 URL로 정규화합니다."
+    },
+    "setNickname": {
+      "title": "닉네임 설정",
+      "description": "로그인 완료를 위해 아하철에서 사용할 닉네임을 설정합니다."
+    },
+    "userProfile": {
+      "title": "{username} 프로필",
+      "description": "{username}님의 아하철 활동 프로필입니다."
+    },
+    "lostFoundNew": {
+      "title": "유실물 등록",
+      "description": "유실물 정보를 등록해 노선별 이용자와 빠르게 공유하세요."
+    },
+    "lostFoundEdit": {
+      "title": "유실물 글 수정 #{id}",
+      "description": "유실물 게시글 정보를 최신 상태로 수정하세요."
+    }
+  },
+  "setNickname": {
+    "titleHighlight": "닉네임",
+    "titleSuffix": "을 설정해주세요",
+    "description": "커뮤니티와 민원에서 표시될 이름입니다. 이후 설정에서 변경할 수 있습니다.",
+    "fieldLabel": "닉네임",
+    "placeholder": "닉네임을 입력해주세요",
+    "validMessage": "사용 가능한 닉네임 형식입니다.",
+    "cancel": "취소",
+    "submit": "완료",
+    "submitting": "처리 중...",
+    "sessionExpired": "세션이 만료되었습니다.",
+    "updateFailed": "닉네임 설정에 실패했습니다."
+  },
+  "userProfile": {
+    "sectionTitle": "사용자 프로필",
+    "guideDefault": "요청한 사용자 경로를 확인했습니다.",
+    "guideLoading": "사용자 정보를 불러오는 중입니다.",
+    "guideMine": "현재 로그인된 내 프로필입니다.",
+    "accountInfoTitle": "계정 정보",
+    "fields": {
+      "nickname": "닉네임",
+      "email": "이메일",
+      "gender": "성별",
+      "ageRange": "연령대"
+    },
+    "ageRangeSuffix": "대",
+    "links": {
+      "myPage": "마이 페이지",
+      "messages": "메시지함"
+    }
+  },
+  "badges": {
+    "community": {
+      "info": "정보",
+      "free": "자유",
+      "humor": "유머"
+    },
+    "lostType": {
+      "lost": "분실물",
+      "acquire": "습득물"
+    },
+    "complaintType": {
+      "environmentalComplaint": "환경민원",
+      "temperatureControl": "온도조절",
+      "disorder": "질서저해",
+      "announcement": "안내방송",
+      "emergencyPatient": "응급환자",
+      "violence": "폭력",
+      "sexualHarassment": "성추행"
+    }
+  },
+  "lost112Table": {
+    "title": "유실물 상세정보",
+    "acquiredDate": "습득일",
+    "acquiredLocation": "습득장소",
+    "category": "물품분류",
+    "storagePhone": "보관 장소 전화번호",
+    "storagePlace": "보관장소",
+    "sourcePost": "원본 게시글",
+    "openLink": "바로가기",
+    "statusProgress": "현재 보관중 입니다.",
+    "statusDone": "찾기 완료!"
+  },
+  "lostFoundDetail": {
+    "edit": "수정",
+    "fromLost112": "로스트 112에 등록된 분실물입니다."
+  }
+}

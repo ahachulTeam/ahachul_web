@@ -3,16 +3,21 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { API_PATHS } from '@ahhachul/http';
 import { NICKNAME_MAX_LENGTH, validateNickname } from '@ahhachul/utils';
 
 import { API_BASE_URL } from '@/constant';
+import { getLocaleMessages, localizePathname, resolvePathLocale } from '@/i18n';
 import { AuthService } from '@/lib/auth-service';
 import { useTempAuthStore } from '@/store/auth';
 
-async function updateNickname(payload: { nickname: string; accessToken: string }) {
+async function updateNickname(payload: {
+  nickname: string;
+  accessToken: string;
+  updateFailedMessage: string;
+}) {
   const endpoint = `${API_BASE_URL}${API_PATHS.user.profile}`;
   const response = await fetch(endpoint, {
     method: 'PATCH',
@@ -28,7 +33,7 @@ async function updateNickname(payload: { nickname: string; accessToken: string }
   const data = await response.json().catch(() => null);
 
   if (!response.ok) {
-    throw new Error(data?.message ?? '닉네임 설정에 실패했습니다.');
+    throw new Error(data?.message ?? payload.updateFailedMessage);
   }
 
   return data;
@@ -36,15 +41,20 @@ async function updateNickname(payload: { nickname: string; accessToken: string }
 
 export default function SetNickNamePage() {
   const router = useRouter();
+  const pathname = usePathname() ?? '/login/set-nickname';
+  const locale = resolvePathLocale(pathname, null);
+  const messages = getLocaleMessages(locale);
+  const loginPath = localizePathname('/login', locale);
+  const homePath = localizePathname('/', locale);
   const auth = useTempAuthStore(state => state.auth);
   const resetTempAuth = useTempAuthStore(state => state.reset);
   const [nickname, setNickname] = useState('');
 
   useEffect(() => {
     if (!auth) {
-      router.replace('/login');
+      router.replace(loginPath);
     }
-  }, [auth, router]);
+  }, [auth, loginPath, router]);
 
   const nicknameValidation = useMemo(() => validateNickname(nickname), [nickname]);
   const normalizedNickname = nicknameValidation.normalized;
@@ -53,17 +63,21 @@ export default function SetNickNamePage() {
   const { mutate, isPending, error } = useMutation({
     mutationFn: async () => {
       if (!auth) {
-        throw new Error('세션이 만료되었습니다.');
+        throw new Error(messages.setNickname.sessionExpired);
       }
 
-      return updateNickname({ nickname: normalizedNickname, accessToken: auth.accessToken });
+      return updateNickname({
+        nickname: normalizedNickname,
+        accessToken: auth.accessToken,
+        updateFailedMessage: messages.setNickname.updateFailed,
+      });
     },
     onSuccess: () => {
       if (!auth) return;
 
       AuthService.setToken(auth.accessToken, auth.refreshToken);
       resetTempAuth();
-      router.replace('/');
+      router.replace(homePath);
     },
   });
 
@@ -72,27 +86,26 @@ export default function SetNickNamePage() {
   return (
     <main className="relative min-h-screen bg-black px-5 pb-8 pt-9 text-white">
       <h1 className="pb-2 text-headline-large">
-        <strong className="text-key-color">닉네임</strong>을 설정해주세요
+        <strong className="text-key-color">{messages.setNickname.titleHighlight}</strong>
+        {messages.setNickname.titleSuffix}
       </h1>
-      <p className="text-body-medium text-gray-60">
-        커뮤니티와 민원에서 표시될 이름입니다. 이후 설정에서 변경할 수 있습니다.
-      </p>
+      <p className="text-body-medium text-gray-60">{messages.setNickname.description}</p>
 
       <section className="mt-7">
         <label htmlFor="nickname" className="mb-2 block text-label-medium text-gray-40">
-          닉네임
+          {messages.setNickname.fieldLabel}
         </label>
         <input
           id="nickname"
           value={nickname}
           onChange={event => setNickname(event.target.value)}
           maxLength={NICKNAME_MAX_LENGTH}
-          placeholder="닉네임을 입력해주세요"
+          placeholder={messages.setNickname.placeholder}
           className="h-12 w-full rounded-xl border border-white/20 bg-white/10 px-3 text-title-medium outline-none placeholder:text-gray-70 focus:border-key-color"
         />
         <div className="mt-2 flex items-center justify-between">
           <p className={`text-body-small ${validationMessage ? 'text-red' : 'text-key-color'}`}>
-            {validationMessage || '사용 가능한 닉네임 형식입니다.'}
+            {validationMessage || messages.setNickname.validMessage}
           </p>
           <p className="text-body-small text-gray-70">
             {normalizedNickname.length} / {NICKNAME_MAX_LENGTH}
@@ -104,10 +117,10 @@ export default function SetNickNamePage() {
       <div className="mt-8 flex gap-2">
         <button
           type="button"
-          onClick={() => router.replace('/login')}
+          onClick={() => router.replace(loginPath)}
           className="inline-flex h-12 flex-1 items-center justify-center rounded-xl border border-white/20 text-label-medium"
         >
-          취소
+          {messages.setNickname.cancel}
         </button>
         <button
           type="button"
@@ -115,7 +128,7 @@ export default function SetNickNamePage() {
           onClick={() => mutate()}
           className="inline-flex h-12 flex-1 items-center justify-center rounded-xl bg-key-color text-label-medium text-white disabled:cursor-not-allowed disabled:bg-gray-70"
         >
-          {isPending ? '처리 중...' : '완료'}
+          {isPending ? messages.setNickname.submitting : messages.setNickname.submit}
         </button>
       </div>
     </main>

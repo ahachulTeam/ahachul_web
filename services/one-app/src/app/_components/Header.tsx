@@ -2,10 +2,19 @@ import Link from 'next/link';
 
 import { colors } from '@ahhachul/design-system';
 
-export default function Header() {
+import { getLocaleMessages, localizePathname } from '@/i18n';
+import { getServerLocale } from '@/i18n/server';
+
+export default async function Header() {
+  const locale = await getServerLocale();
+  const messages = getLocaleMessages(locale);
+  const homePath = localizePathname('/', locale);
+  const messagesPath = localizePathname('/messages', locale);
+  const notificationsPath = localizePathname('/notifications', locale);
+
   return (
     <header className=" h-12 bg-white flex items-center justify-between px-5">
-      <Link href="/" aria-label="아하철 홈" title="아하철 홈으로 이동">
+      <Link href={homePath} aria-label={messages.header.homeAria} title={messages.header.homeTitle}>
         <svg
           width="85"
           height="13"
@@ -21,7 +30,11 @@ export default function Header() {
       </Link>
       <ul className=" flex items-center gap-4">
         <li>
-          <Link href="/messages" aria-label="메시지함" title="메시지함">
+          <Link
+            href={messagesPath}
+            aria-label={messages.header.messagesAria}
+            title={messages.header.messagesTitle}
+          >
             <svg
               width="24"
               height="24"
@@ -61,7 +74,11 @@ export default function Header() {
           </Link>
         </li>
         <li>
-          <Link href="/notifications" aria-label="알림" title="알림">
+          <Link
+            href={notificationsPath}
+            aria-label={messages.header.notificationsAria}
+            title={messages.header.notificationsTitle}
+          >
             <svg
               width="24"
               height="24"

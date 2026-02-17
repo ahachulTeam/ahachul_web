@@ -1,11 +1,13 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { usePathname } from 'next/navigation';
 
 import { QUERY_GC_TIME, QUERY_STALE_TIME, communityQueryKeys } from '@ahhachul/domain';
 import { formatDisplayDate } from '@ahhachul/utils';
 
 import { ReadonlyEditor } from '@/component/Editor';
+import { getLocaleMessages, resolvePathLocale } from '@/i18n';
 // import { SUBWAY_LOGO_SVG_LIST } from '@/component';
 import { cn, isLexicalContent } from '@/util';
 
@@ -18,6 +20,9 @@ type Props = {
 };
 
 export default function CommunityPostDetail({ id }: Props) {
+  const pathname = usePathname() ?? '/community';
+  const locale = resolvePathLocale(pathname, null);
+  const copy = getLocaleMessages(locale);
   const { data: post } = useQuery({
     queryKey: communityQueryKeys.detail(id),
     queryFn: getCommunityDetailPost,
@@ -48,7 +53,7 @@ export default function CommunityPostDetail({ id }: Props) {
           </div>
           <div className=" w-full flex items-center justify-between pb-4 border-b border-b-gray-20">
             <div className=" flex items-center gap-1 text-body-medium">
-              <span className=" text-gray-80">{post.writer || '로스트 112'}</span>
+              <span className=" text-gray-80">{post.writer || copy.common.lost112Writer}</span>
               <span className=" text-gray-70">{formatDisplayDate(post.createdAt!)}</span>
             </div>
             <div className=" flex items-center text-gray-90 text-label-medium font-regular">

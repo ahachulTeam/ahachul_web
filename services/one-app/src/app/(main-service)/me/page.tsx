@@ -2,22 +2,33 @@ import type { Metadata } from 'next';
 
 import { createPageMetadata } from '@ahhachul/seo';
 
-import { SEO_PAGE_COPY, SITE_URL, withBrandTitle } from '@/constant';
+import { SITE_URL, withBrandTitle } from '@/constant';
+import { getLocaleMessages } from '@/i18n';
+import { getServerLocale } from '@/i18n/server';
+import { getLocalizedMetadataOptions } from '@/seo/metadata';
 
 import MyDashboard from './_components/MyDashboard';
 
-export const metadata: Metadata = createPageMetadata({
-  title: withBrandTitle(SEO_PAGE_COPY.me.title),
-  description: SEO_PAGE_COPY.me.description,
-  siteUrl: SITE_URL,
-  pathname: '/me',
-  noIndex: true,
-}) as Metadata;
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const messages = getLocaleMessages(locale);
 
-export default function MyPage() {
+  return createPageMetadata({
+    title: withBrandTitle(messages.seo.me.title),
+    description: messages.seo.me.description,
+    siteUrl: SITE_URL,
+    noIndex: true,
+    ...getLocalizedMetadataOptions('/me', locale),
+  }) as Metadata;
+}
+
+export default async function MyPage() {
+  const locale = await getServerLocale();
+  const messages = getLocaleMessages(locale);
+
   return (
     <main className="min-h-screen bg-gray-10 pb-16">
-      <MyDashboard />
+      <MyDashboard locale={locale} copy={messages.me} />
     </main>
   );
 }

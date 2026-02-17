@@ -262,3 +262,31 @@
 - Summary: Upgraded Next SEO discovery architecture by adding crawlable internal links (header/home/bottom nav anchors), global/breadcrumb JSON-LD (`WebSite`/`Organization`/`SiteNavigationElement`/`BreadcrumbList`), segmented sitemap index routes (`/sitemap.xml` -> `/sitemaps/*.xml`), and RSS feeds (`/rss.xml`, section feeds) backed by shared content-discovery aggregation with resilient fallback behavior during build-time network failures.
 - Validation Result: Pass (`pnpm --filter @ahhachul/one-app build`, `pnpm validate:full`)
 - Follow-up: Add production Search Console monitoring for sitelinks and feed discovery metrics; optionally suppress repetitive build-time fetch logs once observability channel is defined.
+
+- DateTime (KST): 2026-02-17 18:19:35
+- Task ID: RF-1010
+- Contributors: Team Lead, FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Reset i18n architecture to static-only (dynamic translation/DeepL removed from scope), introduced shared locale module (`ko/en/th/cn`) with middleware locale normalization and cookie/header synchronization, added locale-aware metadata + localized navigation paths, and delivered language selector UX on home footer and my page.
+- Validation Result: Pass (`pnpm nextjs:type`, `pnpm nextjs:lint`, `pnpm --filter @ahhachul/one-app test -- --runInBand`, `pnpm validate:full`)
+- Follow-up: Extend localized metadata coverage to additional Next routes incrementally while preserving static-message ownership in `services/one-app/src/i18n/messages`.
+
+- DateTime (KST): 2026-02-17 18:37:23
+- Task ID: RF-1020
+- Contributors: Team Lead, FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Hardened locale interaction reliability by switching language-selector transition to deterministic single-step navigation (`window.location.assign`) after locale-cookie update, and reduced extension-driven hydration mismatch noise by adding a root body hydration warning suppression boundary.
+- Validation Result: Pass (`pnpm nextjs:type`, `pnpm nextjs:lint`, `pnpm --filter @ahhachul/one-app test -- --runInBand`, `pnpm nextjs:build`)
+- Follow-up: If Turbopack/MSW browser-resolution behavior is stabilized upstream, revisit SPA-only locale transition strategy with strict parity tests.
+
+- DateTime (KST): 2026-02-17 18:37:23
+- Task ID: RF-1030
+- Contributors: Team Lead, FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Expanded static i18n coverage for key user/auth routes by localizing visible copy and metadata for login, messages, notifications, and not-found pages; added locale-aware CTA/alert templates (`continueWithProvider`, unknown-error copy), localized mock content blocks, and locale-aware route links for my-page returns.
+- Validation Result: Pass (`pnpm nextjs:type`, `pnpm nextjs:lint`, `pnpm --filter @ahhachul/one-app test -- --runInBand`, `pnpm nextjs:build`)
+- Follow-up: Continue route-level migration for remaining mixed-language UI blocks (community/lost-found detail subcomponents and editor/form helper labels).
+
+- DateTime (KST): 2026-02-17 19:02:13
+- Task ID: RF-1040
+- Contributors: Team Lead, FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Completed residual i18n migration in Next user/detail surfaces by localizing set-nickname/profile/badge/lost112/detail copy and breadcrumb labels, converted remaining metadata-constant routes to locale-aware `generateMetadata`, introduced shared SEO locale policy helpers (`openGraph locale`, `hreflang alternates`, `schema.org inLanguage`), and applied locale-aware redirects for login-flow canonicalization.
+- Validation Result: Pass (`pnpm nextjs:type`, `pnpm nextjs:lint`, `pnpm --filter @ahhachul/one-app test -- --runInBand`, `pnpm nextjs:build`, `pnpm validate:full`)
+- Follow-up: Expand static i18n coverage to remaining editor/form helper labels in list-write flows (`lost-found`/`complaint`) and complete locale-specific keyword strategy for search metadata.

@@ -6,6 +6,9 @@ import { createDetailMetadata } from '@ahhachul/seo';
 
 import BreadcrumbNav from '@/app/_components/BreadcrumbNav';
 import { SEO_KEYWORDS, SEO_PAGE_COPY, SITE_URL, SUBWAY_LINES, withBrandTitle } from '@/constant';
+import { getLocaleMessages, localizePathname } from '@/i18n';
+import { getServerLocale } from '@/i18n/server';
+import { getLocalizedMetadataOptions } from '@/seo/metadata';
 import { extractTextFromLexical } from '@/util';
 
 import LostFoundPostDetail from './_components/LostFoundDetail';
@@ -14,6 +17,7 @@ import { getLostFoundDetailPostServer } from './_lib/getDetailPostServer';
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
+  const locale = await getServerLocale();
   const post = await getLostFoundDetailPostServer({ queryKey: lostFoundQueryKeys.detail(id) });
 
   const subwayLineId = post.result.subwayLineId;
@@ -38,9 +42,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description,
     imageUrl: image,
     siteUrl: SITE_URL,
-    pathname: `/lost-found/${id}`,
     keywords: [...SEO_KEYWORDS, post.result.title, '지하철 분실물 글'],
     category: 'lost-found',
+    ...getLocalizedMetadataOptions(`/lost-found/${id}`, locale),
   }) as Metadata;
 }
 
@@ -52,6 +56,8 @@ type Props = {
 
 export default async function LostFoundDetailPage(props: Props) {
   const { id } = await props.params;
+  const locale = await getServerLocale();
+  const messages = getLocaleMessages(locale);
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: lostFoundQueryKeys.detail(id),
@@ -68,9 +74,9 @@ export default async function LostFoundDetailPage(props: Props) {
       <HydrationBoundary state={dehydratedState}>
         <BreadcrumbNav
           items={[
-            { name: '홈', href: '/' },
-            { name: '분실물', href: '/lost-found' },
-            { name: `분실물 #${id}`, href: `/lost-found/${id}` },
+            { name: messages.nav.home, href: localizePathname('/', locale) },
+            { name: messages.nav.lostFound, href: localizePathname('/lost-found', locale) },
+            { name: `#${id}`, href: localizePathname(`/lost-found/${id}`, locale) },
           ]}
         />
         <LostFoundPostDetail id={id} />

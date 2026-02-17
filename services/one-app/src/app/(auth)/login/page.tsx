@@ -3,22 +3,36 @@ import type { Metadata } from 'next';
 import { createPageMetadata } from '@ahhachul/seo';
 
 import { HelloOnLogin, SocialLogins } from '@/app/(auth)/login/_component';
-import { SEO_PAGE_COPY, SITE_URL, withBrandTitle } from '@/constant';
+import { SITE_URL, withBrandTitle } from '@/constant';
+import { getLocaleMessages } from '@/i18n';
+import { getServerLocale } from '@/i18n/server';
+import { getLocalizedMetadataOptions } from '@/seo/metadata';
 
-export const metadata: Metadata = createPageMetadata({
-  title: withBrandTitle(SEO_PAGE_COPY.login.title),
-  description: SEO_PAGE_COPY.login.description,
-  siteUrl: SITE_URL,
-  pathname: '/login',
-  noIndex: true,
-}) as Metadata;
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getServerLocale();
+  const messages = getLocaleMessages(locale);
 
-export default function Login() {
+  return createPageMetadata({
+    title: withBrandTitle(messages.seo.login.title),
+    description: messages.seo.login.description,
+    siteUrl: SITE_URL,
+    noIndex: true,
+    ...getLocalizedMetadataOptions('/login', locale),
+  }) as Metadata;
+}
+
+export default async function Login() {
+  const locale = await getServerLocale();
+  const messages = getLocaleMessages(locale);
+
   return (
     <main className="relative min-h-screen overflow-hidden bg-black">
-      <HelloOnLogin />
+      <HelloOnLogin subtitle={messages.login.heroSubtitle} />
       <section className="fixed bottom-[34px] left-0 right-0 flex flex-col gap-2 px-[30px] pt-6">
-        <SocialLogins />
+        <SocialLogins
+          continueWithProviderTemplate={messages.login.continueWithProvider}
+          unknownErrorMessage={messages.common.unknownError}
+        />
       </section>
     </main>
   );
