@@ -5,7 +5,7 @@ import path from 'node:path';
 
 const watch = process.argv.includes('--watch');
 const fileArg = process.argv.find(arg => arg.startsWith('--file='));
-const relativeFilePath = fileArg ? fileArg.replace('--file=', '') : 'docs/refactor/TEAM_STATUS.json';
+const relativeFilePath = fileArg ? fileArg.replace('--file=', '') : 'docs/TEAM_STATUS.json';
 const statusFilePath = path.resolve(process.cwd(), relativeFilePath);
 
 function pad(value, width) {

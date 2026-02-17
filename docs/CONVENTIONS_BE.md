@@ -32,5 +32,5 @@ Scope: `ahhachul_backend`, `ahachul_data`, `ahachul_secret`
 - Do not use company default AWS account for Ahhachul work.
 - Always verify identity before infra operations: `aws sts get-caller-identity`.
 - See detailed guardrails:
-  - `docs/refactor/BACKEND_DB_INFRA_RULEBOOK.md`
-  - `docs/refactor/BACKEND_DB_INFRA_EXECUTION_CHECKLIST.md`
+  - `docs/BACKEND_DB_INFRA_RULEBOOK.md`
+  - `docs/BACKEND_DB_INFRA_EXECUTION_CHECKLIST.md`

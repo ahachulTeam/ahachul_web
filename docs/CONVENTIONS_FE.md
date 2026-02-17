@@ -23,7 +23,7 @@ Scope: `ahachul_web` (Next.js + Vite + shared packages in this monorepo)
 
 ## FE Rulebook References
 
-- FE authority: `docs/refactor/FE_RULEBOOK.md`
-- Rulebook changelog: `docs/refactor/FE_RULEBOOK_CHANGELOG.md`
-- FE meeting log index: `docs/refactor/FE_MEETING_LOG.md`
-- Critical validator rule: `docs/refactor/REFACTORING_CRITICAL_RULES.md`
+- FE authority: `docs/FE_RULEBOOK.md`
+- Rulebook changelog: `docs/FE_RULEBOOK_CHANGELOG.md`
+- FE meeting log index: `docs/FE_MEETING_LOG.md`
+- Critical validator rule: `docs/REFACTORING_CRITICAL_RULES.md`

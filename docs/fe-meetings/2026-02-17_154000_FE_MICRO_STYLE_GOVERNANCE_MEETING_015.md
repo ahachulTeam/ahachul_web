@@ -22,11 +22,11 @@
 
 ## Decisions
 
-1. Added research artifact: `docs/refactor/FE_SYSTEM_DESIGN_POSTS_RESEARCH_2026-02-17.md`.
+1. Added research artifact: `docs/FE_SYSTEM_DESIGN_POSTS_RESEARCH_2026-02-17.md`.
 2. Added Rule 11 to `FE_RULEBOOK.md` for micro React coding style conventions.
 3. Added `scripts/scan-react-style-violations.mjs` and `validate:react-style` command.
 4. Added ESLint blocking rule: `no-nested-ternary=error`.
-5. Added validator guardrail file: `docs/refactor/REFACTORING_CRITICAL_RULES.md`.
+5. Added validator guardrail file: `docs/REFACTORING_CRITICAL_RULES.md`.
 6. Executed typo cleanup rename (`useTimeout`, `Complaint*`) and no-nested-ternary migration in dual apps.
 
 ## Validator Gate
