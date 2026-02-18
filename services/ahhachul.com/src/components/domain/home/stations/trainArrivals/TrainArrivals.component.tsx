@@ -9,6 +9,8 @@ import type { ITrain } from '@/types';
 
 import * as S from './TrainArrivals.styled';
 
+const TRAIN_TIMER_TICK_MS = 1000;
+
 interface TrainArrivalTimesProps {
   trainRealTimes: ITrain[];
 }
@@ -44,7 +46,7 @@ const TrainArrivals = ({ trainRealTimes }: TrainArrivalTimesProps) => {
 
         return changed ? updated : prev;
       });
-    }, 1000);
+    }, TRAIN_TIMER_TICK_MS);
 
     return () => clearInterval(timerId);
   }, [needTimer]);

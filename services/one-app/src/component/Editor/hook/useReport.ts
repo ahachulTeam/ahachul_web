@@ -9,6 +9,8 @@
  */
 import { useCallback, useEffect, useRef } from 'react';
 
+const REPORT_PREVIEW_TIMEOUT_MS = 1000;
+
 const getElement = (): HTMLElement => {
   let element = document.getElementById('report-container');
 
@@ -58,7 +60,7 @@ export function useReport(): (arg0: string) => ReturnType<typeof setTimeout> {
         clearTimeout(timer.current);
       }
       element.innerHTML = content;
-      timer.current = setTimeout(cleanup, 1000);
+      timer.current = setTimeout(cleanup, REPORT_PREVIEW_TIMEOUT_MS);
       return timer.current;
     },
     [cleanup],

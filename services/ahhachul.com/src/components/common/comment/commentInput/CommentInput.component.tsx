@@ -16,6 +16,8 @@ import * as S from './CommentInput.styled';
 import Placeholder from '../../editor/placeholder/Placeholder.component';
 import { OnChangePlugin } from '../../editor/plugins';
 
+const EDITOR_BLUR_DELAY_MS = 0;
+
 interface CommentInputProps {
   disabled?: boolean;
   placeholder?: string;
@@ -119,7 +121,7 @@ const SubmitComment = ({
       if (editorElement instanceof HTMLElement) {
         editorElement.blur();
       }
-    }, 0);
+    }, EDITOR_BLUR_DELAY_MS);
   };
 
   const handleSubmit = () => {

@@ -7,6 +7,8 @@ import { AlertCircle, CheckCircle, Info, X, AlertTriangle } from 'lucide-react';
 
 import { useToastStore, type ToastType } from '@/stores/toast';
 
+const TOAST_AUTO_CLOSE_DELAY_MS = 3000;
+
 interface ToastProps {
   id: string;
   message: string;
@@ -104,7 +106,7 @@ const Toast: React.FC<ToastProps> = ({ message, type, onClose }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose();
-    }, 3000);
+    }, TOAST_AUTO_CLOSE_DELAY_MS);
 
     return () => clearTimeout(timer);
   }, [onClose]);

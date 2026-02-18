@@ -39,8 +39,10 @@ export class BaseErrorBoundary extends React.Component<ErrorBoundaryProps, Error
   componentDidUpdate(prevProps: ErrorBoundaryProps, prevState: ErrorBoundaryState) {
     const { error } = this.state;
     const { keys } = this.props;
+    const shouldResetOnKeyChange =
+      error !== null && prevState.error !== null && isChangedArray(prevProps.keys, keys);
 
-    if (error !== null && prevState.error !== null && isChangedArray(prevProps.keys, keys)) {
+    if (shouldResetOnKeyChange) {
       this.resetBoundary();
     }
   }

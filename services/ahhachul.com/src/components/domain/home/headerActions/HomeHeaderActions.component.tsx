@@ -13,6 +13,8 @@ import type { UserStation } from '@/types';
 
 import * as S from './HomeHeaderActions.styled';
 
+const SETTING_PAGE_PUSH_DELAY_MS = 550;
+
 const wrapperVariants = {
   open: {
     scaleX: 1,
@@ -115,7 +117,7 @@ const HomeHeaderActions = () => {
     toggleDialog();
     setTimeout(() => {
       push('SettingPage', []);
-    }, 550);
+    }, SETTING_PAGE_PUSH_DELAY_MS);
   };
 
   return (

@@ -30,6 +30,10 @@ import { LostStatus } from '@/types';
 
 import * as S from './PostDropEllipsis.styled';
 
+const DRAWER_OPEN_DELAY_MS = 100;
+const EDIT_PAGE_PUSH_DELAY_MS = 500;
+const LOST_FOUND_STATUS_INVALIDATE_DELAY_MS = 1000;
+
 export interface PostDropEllipsisProps {
   isLost?: boolean;
   status?: LostStatus;
@@ -70,7 +74,7 @@ const PostDropEllipsis = ({
     setView('default');
     setTimeout(() => {
       setIsOpen(true);
-    }, 100);
+    }, DRAWER_OPEN_DELAY_MS);
   };
   const handleClose = () => setIsOpen(false);
 
@@ -83,7 +87,7 @@ const PostDropEllipsis = ({
       push(activityName, {
         id: +articleId,
       });
-    }, 500);
+    }, EDIT_PAGE_PUSH_DELAY_MS);
   };
 
   const content = useMemo(() => {
@@ -348,7 +352,7 @@ function UpdatePost({
             queryClient.invalidateQueries({
               queryKey: lostFoundKeys.detail(+articleId),
             });
-          }, 1000);
+          }, LOST_FOUND_STATUS_INVALIDATE_DELAY_MS);
         },
       },
     );

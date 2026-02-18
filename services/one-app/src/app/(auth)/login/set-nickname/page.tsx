@@ -157,6 +157,7 @@ export default function SetNickNamePage() {
 
   const isDisabled =
     !nicknameValidation.isValid || nicknameCheckState !== 'available' || isPending || !auth;
+  const handleSubmit = () => mutate();
 
   return (
     <main className="relative min-h-screen bg-black px-5 pb-8 pt-9 text-white">
@@ -198,7 +199,7 @@ export default function SetNickNamePage() {
         <button
           type="button"
           disabled={isDisabled}
-          onClick={() => mutate()}
+          onClick={handleSubmit}
           className="inline-flex h-12 flex-1 items-center justify-center rounded-xl bg-key-color text-label-medium text-white disabled:cursor-not-allowed disabled:bg-gray-70"
         >
           {isPending ? messages.setNickname.submitting : messages.setNickname.submit}

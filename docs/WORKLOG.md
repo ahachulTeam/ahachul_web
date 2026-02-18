@@ -290,3 +290,10 @@
 - Summary: Completed residual i18n migration in Next user/detail surfaces by localizing set-nickname/profile/badge/lost112/detail copy and breadcrumb labels, converted remaining metadata-constant routes to locale-aware `generateMetadata`, introduced shared SEO locale policy helpers (`openGraph locale`, `hreflang alternates`, `schema.org inLanguage`), and applied locale-aware redirects for login-flow canonicalization.
 - Validation Result: Pass (`pnpm nextjs:type`, `pnpm nextjs:lint`, `pnpm --filter @ahhachul/one-app test -- --runInBand`, `pnpm nextjs:build`, `pnpm validate:full`)
 - Follow-up: Expand static i18n coverage to remaining editor/form helper labels in list-write flows (`lost-found`/`complaint`) and complete locale-specific keyword strategy for search metadata.
+
+- DateTime (KST): 2026-02-18 14:50:00
+- Task ID: RF-1050
+- Contributors: Team Lead, FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Added services-scope FE quality governance foundation by creating Rule 14 (12-rule catalog), introducing phased rollout policy (`report -> partial block -> expanded block`), publishing strategy/meeting artifacts, implementing `scan-services-code-quality.mjs` scanner with JSON/Markdown report contract, and wiring root scripts for report/block quality gates.
+- Validation Result: Pass (`pnpm scan:services-quality`, `pnpm validate:services-quality:report`, `pnpm validate:react-style`, `pnpm validate:api-contract`)
+- Follow-up: Keep report mode as default in current round and promote low-risk rules (`timing`, `hidden side-effect`, `trivial handler wrapper`, `ternary complexity`) to blocking only after baseline and false-positive verification.

@@ -63,6 +63,7 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
 
   const member = profile.result;
   const stationNames = stations?.result.stationInfoList?.map(station => station.stationName) ?? [];
+  const handleLogout = () => AuthService.expireSession();
 
   return (
     <section className="space-y-3 px-5 pb-24 pt-4">
@@ -79,7 +80,7 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
           </Link>
           <button
             type="button"
-            onClick={() => AuthService.expireSession()}
+            onClick={handleLogout}
             className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
           >
             {copy.logout}

@@ -65,6 +65,7 @@
 | RF-1020 | 17     | Locale switch UX + hydration mismatch hardening                  | FE Lead           | Done   | edb2618b | Fixed locale selector delayed-apply behavior via deterministic navigation and reduced extension-driven hydration mismatch noise on root layout      |
 | RF-1030 | 18     | Static i18n coverage expansion for key routes                    | FE Lead           | Done   | edb2618b | Expanded localized static copy+metadata for login/messages/notifications/not-found routes and localized CTA/alert content                           |
 | RF-1040 | 18     | Residual hardcoded-copy migration + SEO locale full localization | FE Lead           | Done   | pending  | Localized remaining Next user/detail copy blocks, enforced locale-aware OG/hreflang/JSON-LD metadata policy, and normalized locale-aware redirects  |
+| RF-1050 | 19     | Services FE code-quality governance + staged scan gate           | FE Lead           | Done   | pending  | Added Rule 14, strategy/meeting/changelog artifacts, and non-blocking services-quality scanner/report gate baseline                                 |
 
 ## Rule
 

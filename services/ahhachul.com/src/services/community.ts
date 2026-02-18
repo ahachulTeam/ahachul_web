@@ -26,6 +26,12 @@ import {
   type SubwayLineFilterOptions,
 } from '@/types';
 
+const STACK_PUSH_DELAY_MS = 500;
+
+const logMutationError = (context: string, error: Error) => {
+  console.error(`[community-service] ${context}`, error);
+};
+
 export const communityKeys = communityQueryKeys;
 
 export const useFetchCommunityList = (filters: CommunityListParams<SubwayLineFilterOptions>) => {
@@ -82,7 +88,7 @@ export const useCreateCommunity = () => {
         push('CommunityDetailPage', {
           id: res.result.id,
         });
-      }, 500);
+      }, STACK_PUSH_DELAY_MS);
     },
     onError: error => {
       console.log('error:', error);
@@ -132,7 +138,7 @@ export const useEditCommunity = (id: number, _categoryType: CommunityType) => {
         push('LostFoundDetailPage', {
           id: res.result.id,
         });
-      }, 500);
+      }, STACK_PUSH_DELAY_MS);
     },
     onError: () => {
       // addToast(TOAST_MSG.WARNING.CREATE_FAIL);
@@ -145,9 +151,7 @@ export const useDeleteCommunity = () => {
     console.log('res:', res);
   };
   const afterSubmitFailed = (error: Error) => {
-    // 토스트 띄어주고 뒤로 가기
-    console.log('error with toast:', error, '토스트 띄어주고 뒤로 가기');
-    window.alert('댓글 식제하다가 에러 발생');
+    logMutationError('failed to delete community post', error);
   };
 
   return useMutation({

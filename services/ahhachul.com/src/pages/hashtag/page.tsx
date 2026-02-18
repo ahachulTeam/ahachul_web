@@ -18,6 +18,8 @@ const SearchedList = React.lazy(
   () => import('@/components/domain/community/searchResults/searchedList/SearchedList.component'),
 );
 
+const HASHTAG_SEARCH_DEBOUNCE_MS = 300;
+
 const HashtagPage = ({ params: { tag } }: any) => {
   const { pop } = useFlow();
   const { isActive } = useActivity();
@@ -39,7 +41,7 @@ const HashtagPage = ({ params: { tag } }: any) => {
               alignItems: 'center',
               justifyContent: 'center',
             }}
-            onClick={() => pop()}
+            onClick={pop}
           >
             <button type="button" aria-label="Go Back" css={{ padding: '8px', margin: '-8px' }}>
               <svg
@@ -110,7 +112,7 @@ const HashtagSearchInput = ({ hashTag }: { hashTag?: string }) => {
 
   useEffect(() => {
     const subscription = subject.current
-      .pipe(debounceTime(300))
+      .pipe(debounceTime(HASHTAG_SEARCH_DEBOUNCE_MS))
       .subscribe(value => updateKeyword(value));
 
     return () => subscription.unsubscribe();

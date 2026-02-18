@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+const INITIAL_LOADER_HIDE_DELAY_MS = 500;
+
 export const useInitialLoader = () => {
   useEffect(() => {
     const loader = document.getElementById('initial-loader');
@@ -9,7 +11,7 @@ export const useInitialLoader = () => {
 
       setTimeout(() => {
         loader.style.display = 'none';
-      }, 500);
+      }, INITIAL_LOADER_HIDE_DELAY_MS);
     }
   }, []);
 };
