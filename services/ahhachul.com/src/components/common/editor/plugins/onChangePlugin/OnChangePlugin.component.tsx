@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $getRoot, EditorState, ElementNode } from 'lexical';
 
+const FOCUS_ON_MOUNT_DELAY_MS = 550;
+
 type Props = {
   readonly?: boolean;
   initialState?: string;
@@ -45,7 +47,7 @@ export function OnChangePlugin({ readonly, initialState, shouldFocusOnMount, onC
         if (editorElement instanceof HTMLElement) {
           editorElement.click();
         }
-      }, 550);
+      }, FOCUS_ON_MOUNT_DELAY_MS);
     }
   }, [readonly, initialState, shouldFocusOnMount]);
 

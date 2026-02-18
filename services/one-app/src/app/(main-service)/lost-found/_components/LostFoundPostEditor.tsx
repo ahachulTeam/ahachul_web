@@ -112,7 +112,8 @@ export default function LostFoundPostEditor(props: Props) {
   }, []);
 
   useEffect(() => {
-    if (!isEditMode || !detailQuery.data || isHydratedEditDefaults) {
+    const shouldSkipHydration = !isEditMode || !detailQuery.data || isHydratedEditDefaults;
+    if (shouldSkipHydration) {
       return;
     }
 

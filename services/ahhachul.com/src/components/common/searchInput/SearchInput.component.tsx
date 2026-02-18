@@ -9,6 +9,8 @@ import type { AppUniqueFilterId } from '@/types/filter';
 import useSearchInput from './SearchInput.hook';
 import * as S from './SearchInput.styled';
 
+const KEYWORD_DEBOUNCE_MS = 300;
+
 const cancelVariants = {
   initial: {
     opacity: 0,
@@ -80,7 +82,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ uniqueId, toggleScale }) => {
 
   useEffect(() => {
     const subscription = subject.current
-      .pipe(debounceTime(300))
+      .pipe(debounceTime(KEYWORD_DEBOUNCE_MS))
       .subscribe(value => updateKeyword(value));
 
     return () => subscription.unsubscribe();

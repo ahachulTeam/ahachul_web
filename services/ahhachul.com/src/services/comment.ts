@@ -3,11 +3,13 @@ import { useMutation } from '@tanstack/react-query';
 import * as api from '@/apis/request';
 import type { ApiResponse, Comment } from '@/types';
 
+const logMutationError = (context: string, error: Error) => {
+  console.error(`[comment-service] ${context}`, error);
+};
+
 export const usePostComment = () => {
   const afterSubmitFailed = (error: Error) => {
-    // 토스트 띄어주고 뒤로 가기
-    console.log('error with toast:', error, '토스트 띄어주고 뒤로 가기');
-    window.alert('댓글 작성하다가 에러 발생');
+    logMutationError('failed to create comment', error);
   };
 
   return useMutation({
@@ -22,9 +24,7 @@ export const useDeleteComment = (articleId: number) => {
     console.log('articleId:', articleId);
   };
   const afterSubmitFailed = (error: Error) => {
-    // 토스트 띄어주고 뒤로 가기
-    console.log('error with toast:', error, '토스트 띄어주고 뒤로 가기');
-    window.alert('댓글 식제하다가 에러 발생');
+    logMutationError('failed to delete comment', error);
   };
 
   return useMutation({
@@ -36,8 +36,7 @@ export const useDeleteComment = (articleId: number) => {
 
 export const useUpdateComment = () => {
   const afterSubmitFailed = (error: Error) => {
-    console.log('error with toast:', error, '토스트 띄어주고 뒤로 가기');
-    window.alert('댓글 수정하다가 에러 발생');
+    logMutationError('failed to update comment', error);
   };
 
   return useMutation({

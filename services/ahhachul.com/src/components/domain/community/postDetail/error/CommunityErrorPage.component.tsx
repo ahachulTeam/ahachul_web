@@ -17,7 +17,7 @@ const CommunityErrorPage = ({ error, reset }: CommunityErrorPageProps) => {
   return isDeletedPost ? (
     <S.Container>
       <S.Title>삭제된 게시글입니다.</S.Title>
-      <S.RetryButton type="button" onClick={() => pop()}>
+      <S.RetryButton type="button" onClick={pop}>
         목록으로 이동하기
       </S.RetryButton>
     </S.Container>

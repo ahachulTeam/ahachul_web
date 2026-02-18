@@ -9,6 +9,8 @@ import { normalizeInputText, validateNickname } from '@ahhachul/utils';
 
 import axiosInstance from '@/apis/fetcher';
 
+const NICKNAME_CHECK_DEBOUNCE_MS = 500;
+
 interface Props {
   nickname: string;
   originNickname?: string;
@@ -39,7 +41,7 @@ export const useCheckNickname = ({ nickname, originNickname = '' }: Props) => {
   useEffect(() => {
     subject.current
       .pipe(
-        debounceTime(500),
+        debounceTime(NICKNAME_CHECK_DEBOUNCE_MS),
         filter(v => normalizeInputText(v) !== normalizeInputText(originNickname)),
         map(v => {
           const validation = validateNickname(v);

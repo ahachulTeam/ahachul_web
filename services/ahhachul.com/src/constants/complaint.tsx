@@ -121,6 +121,9 @@ export const complaintTypeOptions: Record<ComplaintType, string> = {
 };
 
 export const getSubwayComplaintCallNumber = (subwayLineId: number) => {
+  const isKtxOrBundangOrEverLine =
+    subwayLineId === 13 || subwayLineId === 11 || subwayLineId === 16;
+
   if (subwayLineId === 9) {
     return '1544-4009';
   }
@@ -129,7 +132,7 @@ export const getSubwayComplaintCallNumber = (subwayLineId: number) => {
     return '031-8018-7777';
   }
 
-  if (subwayLineId === 13 || subwayLineId === 11 || subwayLineId === 16) {
+  if (isKtxOrBundangOrEverLine) {
     return '1544-7769';
   }
 

@@ -189,3 +189,11 @@ Track every modification to `FE_RULEBOOK.md` in chronological order.
 - Section(s): Rule 13 (Static i18n Conventions), Implementation Checklist
 - Summary: Added locale-aware SEO enforcement (`openGraph.locale`, `hreflang alternates`, JSON-LD `inLanguage`) and updated checklist rules to require shared helper-based metadata locale mapping and localized structured-data navigation payloads.
 - Follow-up: Apply the same locale SEO helper pattern to all newly added indexable routes and avoid per-page locale string literals.
+
+- DateTime (KST): 2026-02-18 14:50:00
+- Task ID: RF-1050
+- Author/Owner: FE Lead
+- Change Type: Added
+- Section(s): Rule 14 (Services Code Quality Governance Conventions), Implementation Checklist
+- Summary: Added services-scope FE quality governance rule set (12-rule catalog), phased rollout policy (`report -> partial block -> expanded block`), scanner/artifact contract (`scan-services-code-quality`), and related checklist items for non-blocking report gate introduction.
+- Follow-up: Run report gate continuously, then promote low-risk rules (`1/2/3/6`) to blocking mode after baseline and false-positive verification.

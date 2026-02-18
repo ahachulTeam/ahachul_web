@@ -13,6 +13,11 @@ import { useFlow } from '@/stackflow';
 
 import * as S from './CommentActions.styled';
 
+const DRAWER_OPEN_DELAY_MS = 100;
+const EDIT_PAGE_PUSH_DELAY_MS = 500;
+const DELETE_CLOSE_DELAY_MS = 350;
+const DELETE_INVALIDATE_DELAY_MS = 550;
+
 export interface CommentDropEllipsisProps {
   articleId: string;
   commentId: number;
@@ -35,7 +40,7 @@ export const CommentDropEllipsis = ({
     setView('default');
     setTimeout(() => {
       setIsOpen(true);
-    }, 100);
+    }, DRAWER_OPEN_DELAY_MS);
   };
   const handleClose = () => setIsOpen(false);
 
@@ -48,7 +53,7 @@ export const CommentDropEllipsis = ({
         id: +articleId,
         queryKey,
       });
-    }, 500);
+    }, EDIT_PAGE_PUSH_DELAY_MS);
   };
 
   const content = useMemo(() => {
@@ -218,12 +223,12 @@ function RemoveComment({
         onSuccess: () => {
           setTimeout(() => {
             handleClose();
-          }, 350);
+          }, DELETE_CLOSE_DELAY_MS);
           setTimeout(() => {
             queryClient.invalidateQueries({
               queryKey,
             });
-          }, 550);
+          }, DELETE_INVALIDATE_DELAY_MS);
         },
       }),
     [articleId, commentId],

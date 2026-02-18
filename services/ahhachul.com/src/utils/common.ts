@@ -1,5 +1,7 @@
 export { parseFileExtOfName } from '@ahhachul/utils';
 
+const FILE_DOWNLOAD_CLEANUP_DELAY_MS = 100;
+
 export const downloadFile = (url: string) => {
   const a = document.createElement('a');
   a.href = url;
@@ -11,7 +13,7 @@ export const downloadFile = (url: string) => {
   setTimeout(() => {
     URL.revokeObjectURL(url);
     document.body.removeChild(a);
-  }, 100);
+  }, FILE_DOWNLOAD_CLEANUP_DELAY_MS);
 };
 
 export const getUserAgent = () => {

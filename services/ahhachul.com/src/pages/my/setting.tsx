@@ -27,6 +27,7 @@ const LABEL_OPTIONS = [
   { id: '학교', icon: <SchoolMiniIcon />, text: '학교' },
   { id: '즐겨찾는 장소', icon: <StarMiniIcon />, text: '즐겨찾는 장소' },
 ] as const;
+const POP_AFTER_SAVE_DELAY_MS = 500;
 
 const SettingPage: ActivityComponentType = () => {
   const { pop } = useFlow();
@@ -228,7 +229,7 @@ const SettingPage: ActivityComponentType = () => {
 
               setTimeout(() => {
                 pop();
-              }, 500);
+              }, POP_AFTER_SAVE_DELAY_MS);
             }}
           >
             저장하기

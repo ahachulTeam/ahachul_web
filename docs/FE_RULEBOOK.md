@@ -383,6 +383,73 @@
   - navigation JSON-LD labels/URLs use localized copy + localized path
 - Locale SEO mapping values are centralized and append-only (no per-page ad-hoc locale string literals).
 
+## Rule 14: Services Code Quality Governance Conventions
+
+### 1) Scope and Priority
+
+- This rule applies only to FE service apps in current round:
+  - `services/ahhachul.com/src`
+  - `services/one-app/src`
+- Priority order for rollout:
+  1. Readability
+  2. Predictability
+  3. Cohesion/Coupling
+
+### 2) Rule Catalog (12)
+
+- `timing-magic-number-constant`
+- `no-hidden-ui-side-effect-in-service`
+- `no-trivial-inline-handler-wrapper`
+- `split-conditional-render-path`
+- `complex-condition-must-be-named`
+- `ternary-complexity-cap`
+- `hook-return-contract-standardization`
+- `validation-result-union-standard`
+- `interaction-component-extraction`
+- `form-cohesion-policy`
+- `state-scope-minimization`
+- `composition-over-props-drilling`
+
+### 3) Rollout Policy
+
+- Phase A (`governance`): document rules and acceptance policy.
+- Phase B (`visibility`): scanner report only (non-blocking).
+- Phase C (`partial block`): block only low-risk rules:
+  - `timing-magic-number-constant`
+  - `no-hidden-ui-side-effect-in-service`
+  - `no-trivial-inline-handler-wrapper`
+  - `ternary-complexity-cap`
+- Phase D (`expanded block`): gradually promote the remaining rules after baseline reduction.
+
+### 4) Enforcement Contract
+
+- Scanner script:
+  - `scripts/scan-services-code-quality.mjs`
+- Root commands:
+  - `pnpm scan:services-quality`
+  - `pnpm validate:services-quality:report` (non-blocking report gate)
+  - `pnpm validate:services-quality:block` (threshold-based blocking gate)
+- Artifact contract:
+  - JSON: `artifacts/services-quality/report.json`
+  - Markdown: `artifacts/services-quality/report.md`
+  - Required summary fields:
+    - `summary.total`
+    - `summary.byRule`
+    - `summary.byService`
+
+### 5) Blocking Promotion Criteria
+
+- A rule can move from report mode to block mode only when all conditions hold:
+  - false-positive rate is low and review-confirmed
+  - remediation path is explicit and low-risk
+  - rollback or temporary downgrade path is documented
+
+### 6) Refactor Boundary
+
+- RF-1050 stage must avoid broad behavior changes.
+- Do not require full migration of all rule violations in governance-only round.
+- Keep runtime behavior stable while introducing measurement and gate infrastructure.
+
 ## Implementation Checklist
 
 - [ ] New utility function added with explicit input/output type.
@@ -421,6 +488,9 @@
 - [ ] Server-only locale resolver import boundary is preserved (`@/i18n/server` only).
 - [ ] Localized metadata includes locale-aware `openGraph.locale` and `alternates.languages` from shared helper.
 - [ ] Website/navigation JSON-LD uses locale-aware `inLanguage` and localized navigation labels/URLs.
+- [ ] `pnpm scan:services-quality` produces artifacts at `artifacts/services-quality/report.{json,md}`.
+- [ ] `pnpm validate:services-quality:report` runs as non-blocking visibility gate.
+- [ ] `pnpm validate:services-quality:block` is reserved for phased blocking promotion.
 
 ## Sources (Primary)
 
