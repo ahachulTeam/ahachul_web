@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
 import { TAB_STATE } from '@/constants/todo';
-import { act, renderHook, waitFor } from '@/libs/test-utils';
+import { act, renderHook, waitFor } from '@/lib/test-utils';
 import { todos as mockTodos } from '@/mocks/handlers/todo';
 
 import useTodoList from './useTodoList';

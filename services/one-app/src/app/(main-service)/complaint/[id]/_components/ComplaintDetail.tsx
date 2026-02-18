@@ -6,9 +6,9 @@ import { usePathname } from 'next/navigation';
 import { QUERY_GC_TIME, QUERY_STALE_TIME, complaintQueryKeys } from '@ahhachul/domain';
 import { formatDisplayDate } from '@ahhachul/utils';
 
-import { ReadonlyEditor } from '@/component/Editor';
+import { ReadonlyEditor } from '@/components/Editor';
 import { getLocaleMessages, resolvePathLocale } from '@/i18n';
-import { cn, extractTextFromLexical, isLexicalContent } from '@/util';
+import { cn, extractTextFromLexical, isLexicalContent } from '@/utils';
 
 import { ComplaintTypeBadge } from './ComplaintTypeBadge';
 

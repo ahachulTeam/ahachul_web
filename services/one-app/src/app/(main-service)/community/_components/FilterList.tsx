@@ -2,9 +2,9 @@
 
 import { useSearchParams } from 'next/navigation';
 
-import { ResetFilter, DropdownFilter } from '@/component';
-import { subwayLineIdOptions } from '@/constant';
-import { communityTypeOptions, defaultCommunityFilterValues } from '@/constant/community';
+import { ResetFilter, DropdownFilter } from '@/components';
+import { subwayLineIdOptions } from '@/constants';
+import { communityTypeOptions, defaultCommunityFilterValues } from '@/constants/community';
 import { SubwayLineFilterOptions } from '@/types';
 import { CommunityType } from '@/types/community';
 

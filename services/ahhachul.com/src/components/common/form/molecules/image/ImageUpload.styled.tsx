@@ -30,7 +30,8 @@ export const ImagePreview = styled.div`
   margin-left: 8px;
   border: 1px solid ${({ theme }) => theme.colors.gray[40]};
 
-  & > img {
+  & > img,
+  & > svg {
     position: absolute;
     top: 0;
     left: 0;

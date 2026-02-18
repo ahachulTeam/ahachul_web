@@ -1,0 +1,13 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <title>Danger</title>
+      <path
+        d="M22 43C32.4934 43 41 34.4934 41 24C41 13.5066 32.4934 5 22 5C11.5066 5 3 13.5066 3 24C3 34.4934 11.5066 43 22 43Z"
+        stroke="#FF3F3F"
+        stroke-width="2.75"
+        stroke-linecap="round"
+        stroke-linejoin="round" />
+      <path
+        d="M23.55 26.5008L23.9334 14.9989C23.9698 13.9059 23.0936 13 22 13C20.9064 13 20.0302 13.9059 20.0666 14.9989L20.45 26.5008C20.4779 27.3367 21.1636 28 22 28C22.8364 28 23.5221 27.3367 23.55 26.5008Z"
+        fill="#FF3F3F" />
+      <circle cx="21.9866" cy="33.2991" r="1.9866" fill="#FF3F3F" />
+    </svg>

@@ -1,7 +1,7 @@
 'use client';
 
-import { ChevronIcon } from '@/asset/icon';
-import { RecommendArticleCard } from '@/component';
+import { ChevronIcon } from '@/assets/icon';
+import { RecommendArticleCard } from '@/components';
 import { IRecommendPost } from '@/types';
 
 interface Props {

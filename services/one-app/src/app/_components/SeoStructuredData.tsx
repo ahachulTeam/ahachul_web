@@ -6,7 +6,7 @@ import {
   toAbsoluteUrl,
 } from '@ahhachul/seo';
 
-import { SITE_URL } from '@/constant';
+import { SITE_URL } from '@/constants';
 import { getLocaleMessages, localizePathname } from '@/i18n';
 import { getServerLocale } from '@/i18n/server';
 import { getSeoNavigationLinks } from '@/seo/content-discovery';

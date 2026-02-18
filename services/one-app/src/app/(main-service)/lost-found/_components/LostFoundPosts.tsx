@@ -9,7 +9,7 @@ import { useSearchParams } from 'next/navigation';
 
 import { QUERY_GC_TIME, QUERY_STALE_TIME, lostFoundQueryKeys } from '@ahhachul/domain';
 
-import { ArticleListSuspenseFallback, Post } from '@/component';
+import { ArticleListSuspenseFallback, Post } from '@/components';
 import type { ApiResponse, LostFoundPost, PaginatedList } from '@/types';
 
 import { getLostFoundPosts } from '../_lib/getLostFoundPosts';

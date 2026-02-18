@@ -2,7 +2,7 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 import { headers } from 'next/headers';
 
 import BreadcrumbNav from '@/app/_components/BreadcrumbNav';
-import SearchForm from '@/component/SearchForm';
+import SearchForm from '@/components/SearchForm';
 import { getLocaleMessages, localizePathname } from '@/i18n';
 import { getServerLocale } from '@/i18n/server';
 import { SubwayLineFilterOptions } from '@/types';

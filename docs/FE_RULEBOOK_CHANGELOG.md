@@ -197,3 +197,11 @@ Track every modification to `FE_RULEBOOK.md` in chronological order.
 - Section(s): Rule 14 (Services Code Quality Governance Conventions), Implementation Checklist
 - Summary: Added services-scope FE quality governance rule set (12-rule catalog), phased rollout policy (`report -> partial block -> expanded block`), scanner/artifact contract (`scan-services-code-quality`), and related checklist items for non-blocking report gate introduction.
 - Follow-up: Run report gate continuously, then promote low-risk rules (`1/2/3/6`) to blocking mode after baseline and false-positive verification.
+
+- DateTime (KST): 2026-02-18 17:10:00
+- Task ID: RF-1060
+- Author/Owner: FE Lead
+- Change Type: Added
+- Section(s): Scope priority, Rule 15 (Services File and Folder Convention Governance), Implementation Checklist, Sources
+- Summary: Added dual-app file/folder naming governance (Rule 15), scanner/report/block command contract (`scan-services-file-conventions`), and validator checklist items for one-app plural root folders, `_components` path policy, and ahhachul `lib` path policy.
+- Follow-up: Promote low-false-positive naming checks to blocking mode after two release cycles of report-only baseline.

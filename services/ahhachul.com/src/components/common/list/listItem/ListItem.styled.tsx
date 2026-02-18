@@ -5,6 +5,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { DotIcon } from '@/assets/icons/system';
+import { ReactComponent as DefaultThumbnailIcon } from '@/assets/images/default_thumbnail.svg';
 
 export const Article = styled.article`
   padding: 14px 0;
@@ -66,6 +67,15 @@ export const PostImage = styled(LazyLoadImage)`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 8px;
+`;
+
+export const PlaceholderImage = styled(DefaultThumbnailIcon)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   border-radius: 8px;
 `;
 

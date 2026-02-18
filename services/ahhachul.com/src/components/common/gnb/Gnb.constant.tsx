@@ -11,7 +11,7 @@ import {
   ProfileIcon,
 } from '@/assets/icons/system';
 
-import type { NavItem } from './navItem/NaItem.type';
+import type { NavItem } from './navItem/NavItem.type';
 
 export const GNBList: NavItem[] = [
   {

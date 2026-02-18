@@ -5,11 +5,11 @@ import { complaintQueryKeys } from '@ahhachul/domain';
 import { createDetailMetadata } from '@ahhachul/seo';
 
 import BreadcrumbNav from '@/app/_components/BreadcrumbNav';
-import { SEO_KEYWORDS, SEO_PAGE_COPY, SITE_URL, SUBWAY_LINES, withBrandTitle } from '@/constant';
+import { SEO_KEYWORDS, SEO_PAGE_COPY, SITE_URL, SUBWAY_LINES, withBrandTitle } from '@/constants';
 import { getLocaleMessages, localizePathname } from '@/i18n';
 import { getServerLocale } from '@/i18n/server';
 import { getLocalizedMetadataOptions } from '@/seo/metadata';
-import { extractTextFromLexical } from '@/util';
+import { extractTextFromLexical } from '@/utils';
 
 import ComplaintDetail from './_components/ComplaintDetail';
 import { getComplaintDetailPostServer } from './_lib/getDetailPostServer';

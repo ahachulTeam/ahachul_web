@@ -1,7 +1,7 @@
 import { useAuth, useNativeBridge } from '@/contexts';
 import { useFlow, useActivity } from '@/stackflow';
 
-import type { NavItem } from './NaItem.type';
+import type { NavItem } from './NavItem.type';
 
 export const useNavItem = ({
   item,

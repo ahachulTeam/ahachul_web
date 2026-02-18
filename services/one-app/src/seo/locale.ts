@@ -1,6 +1,6 @@
 import { toAbsoluteUrl } from '@ahhachul/seo';
 
-import { SITE_URL } from '@/constant';
+import { SITE_URL } from '@/constants';
 import { SUPPORTED_LOCALES, localizePathname, type SupportedLocale } from '@/i18n';
 
 const OPEN_GRAPH_LOCALE_BY_LOCALE: Record<SupportedLocale, string> = {

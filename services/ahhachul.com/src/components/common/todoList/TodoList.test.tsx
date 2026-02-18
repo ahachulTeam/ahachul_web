@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@/libs/test-utils';
+import { render, screen, waitFor } from '@/lib/test-utils';
 import { todos as mockTodos } from '@/mocks/handlers/todo';
 
 import { TodoList } from './TodoList';

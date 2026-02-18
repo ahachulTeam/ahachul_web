@@ -297,3 +297,10 @@
 - Summary: Added services-scope FE quality governance foundation by creating Rule 14 (12-rule catalog), introducing phased rollout policy (`report -> partial block -> expanded block`), publishing strategy/meeting artifacts, implementing `scan-services-code-quality.mjs` scanner with JSON/Markdown report contract, and wiring root scripts for report/block quality gates.
 - Validation Result: Pass (`pnpm scan:services-quality`, `pnpm validate:services-quality:report`, `pnpm validate:react-style`, `pnpm validate:api-contract`)
 - Follow-up: Keep report mode as default in current round and promote low-risk rules (`timing`, `hidden side-effect`, `trivial handler wrapper`, `ternary complexity`) to blocking only after baseline and false-positive verification.
+
+- DateTime (KST): 2026-02-18 17:10:00
+- Task ID: RF-1060
+- Contributors: Team Lead, FE Lead, FE Specialist A, FE Specialist B, QA Engineer, Perfectionist Validator, Technical Writer
+- Summary: Completed dual-app file/folder convention normalization by applying one-app plural root-folder migration and route-private `_components` unification, fixing ahhachul component-module naming typos and `src/lib` path normalization, adding Rule 15 governance, publishing dedicated filename/folder convention books with official web-research references, and introducing `scan-services-file-conventions` report/block automation.
+- Validation Result: Pass (`pnpm validate:services-file-conventions:report`, `pnpm validate:services-quality:report`, `pnpm app:type`, `pnpm nextjs:type`, `pnpm app:lint`, `pnpm nextjs:lint`, `pnpm app:build`, `pnpm nextjs:build`)
+- Follow-up: Keep file-convention gate in report mode for baseline collection, then promote low-false-positive naming checks to block mode with remediation playbook.

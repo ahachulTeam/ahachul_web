@@ -3,7 +3,7 @@ import { QueryFunction } from '@tanstack/react-query';
 import { complaintQueryKeys } from '@ahhachul/domain';
 import { API_PATHS } from '@ahhachul/http';
 
-import { API_BASE_URL } from '@/constant';
+import { API_BASE_URL } from '@/constants';
 import type { IResponse } from '@/types';
 import { ComplaintPostDetail } from '@/types/complaint';
 

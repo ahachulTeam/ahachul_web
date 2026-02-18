@@ -61,21 +61,23 @@ const Comment = ({
   }
 
   let replyButton: ReactNode = null;
-  if (queryKey && servicePath && canRenderReplyButton) {
-    replyButton = (
-      <S.ReplyButton
-        onClick={() => {
-          push('NewCommentReplyPage', {
-            commentId: comment.id,
-            id: +activity.params.id!,
-            queryKey,
-            servicePath,
-          });
-        }}
-      >
-        답글 달기
-      </S.ReplyButton>
-    );
+  if (queryKey && servicePath) {
+    if (canRenderReplyButton) {
+      replyButton = (
+        <S.ReplyButton
+          onClick={() => {
+            push('NewCommentReplyPage', {
+              commentId: comment.id,
+              id: +activity.params.id!,
+              queryKey,
+              servicePath,
+            });
+          }}
+        >
+          답글 달기
+        </S.ReplyButton>
+      );
+    }
   }
 
   return (

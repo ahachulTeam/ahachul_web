@@ -1,3 +1,3 @@
-export { default as ErrorGraphic } from './error.svg?react';
-export { default as NoticeGraphic } from './notice.svg?react';
-export { default as EmptyGraphic } from './no-results.svg?react';
+export { ReactComponent as ErrorGraphic } from './error.svg';
+export { ReactComponent as NoticeGraphic } from './notice.svg';
+export { ReactComponent as EmptyGraphic } from './no-results.svg';

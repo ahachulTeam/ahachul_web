@@ -4,7 +4,7 @@
 
 // import { useMutation } from '@tanstack/react-query';
 
-// import { useDebounce } from '@/hook';
+// import { useDebounce } from '@/hooks';
 
 // const MAX_LENGTH = 10;
 // const MIN_LENGTH = 2;

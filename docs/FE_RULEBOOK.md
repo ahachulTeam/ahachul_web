@@ -13,6 +13,7 @@
   7. Shared component + Storybook conventions
   8. MSW mock-mode virtualization conventions
   9. Static i18n conventions (Next-only)
+  10. Services file/folder naming conventions (dual-app)
 
 ## FE Pod Structure
 
@@ -450,6 +451,62 @@
 - Do not require full migration of all rule violations in governance-only round.
 - Keep runtime behavior stable while introducing measurement and gate infrastructure.
 
+## Rule 15: Services File and Folder Convention Governance
+
+### 1) Scope
+
+- This rule applies to:
+  - `services/one-app/src`
+  - `services/ahhachul.com/src`
+- Goal: keep filename/folder conventions explicit and scanner-verifiable before deep feature refactors.
+
+### 2) Filename Conventions
+
+- `one-app` (Next.js):
+  - App-router reserved files stay framework convention names:
+    - `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`, `route.ts`, `not-found.tsx`
+  - Shared component files in `src/components/**` and route-private components in `src/app/**/_components/**` must use `PascalCase` (optional variant suffix allowed, e.g. `ArticleList.suspense.tsx`).
+  - Hook files must follow exported hook name (`useXxx.ts`).
+  - Test files must use semantic names (`*.spec.tsx` / `*.test.tsx`) and must not use numeric prefixes.
+- `ahhachul.com` (Vite):
+  - Component module files must use PascalCase base (optional variant suffix) + suffix:
+    - `*.component.tsx`
+    - `*.styled.tsx`
+    - `*.hook.ts`
+    - `*.type.ts`
+    - `*.constant.ts(x)`
+  - Legacy typo/miscase variants are prohibited (`newBtn`, `NaItem`, `imageZoomViewer` style variants).
+
+### 3) Folder Conventions
+
+- `one-app` shared root layer uses lowercase plural nouns:
+  - `assets`, `components`, `constants`, `contexts`, `hooks`, `stores`, `utils`, `__tests__`
+- `one-app` route-private component folders use `_components` (not `_component`).
+- `ahhachul.com` utility support folder uses `lib` (not `libs`).
+- Preserve existing route/domain structure unless a dedicated migration task explicitly owns behavior-risky moves.
+
+### 4) Enforcement Contract
+
+- Scanner script:
+  - `scripts/scan-services-file-conventions.mjs`
+- Root commands:
+  - `pnpm scan:services-file-conventions`
+  - `pnpm validate:services-file-conventions:report` (non-blocking visibility gate)
+  - `pnpm validate:services-file-conventions:block` (blocking mode for targeted promotion)
+- Artifact contract:
+  - JSON: `artifacts/services-file-conventions/report.json`
+  - Markdown: `artifacts/services-file-conventions/report.md`
+  - Summary fields:
+    - `summary.total`
+    - `summary.byRule`
+    - `summary.byService`
+
+### 5) Rollout Policy
+
+- Phase A (current): naming normalization + scanner baseline report.
+- Phase B: enable selective block mode in PR-level checks for low-false-positive naming rules.
+- Phase C: combine folder-contract checks with service-specific refactor phases (domain slice extraction, boundary cleanup).
+
 ## Implementation Checklist
 
 - [ ] New utility function added with explicit input/output type.
@@ -491,6 +548,12 @@
 - [ ] `pnpm scan:services-quality` produces artifacts at `artifacts/services-quality/report.{json,md}`.
 - [ ] `pnpm validate:services-quality:report` runs as non-blocking visibility gate.
 - [ ] `pnpm validate:services-quality:block` is reserved for phased blocking promotion.
+- [ ] `pnpm scan:services-file-conventions` produces artifacts at `artifacts/services-file-conventions/report.{json,md}`.
+- [ ] `pnpm validate:services-file-conventions:report` runs as non-blocking visibility gate.
+- [ ] `pnpm validate:services-file-conventions:block` is used only after low-false-positive verification.
+- [ ] `services/one-app/src` shared root folders stay pluralized (`assets/components/constants/contexts/hooks/stores/utils/__tests__`).
+- [ ] `services/one-app/src/app/**/_components` naming is preserved (no `_component` folders).
+- [ ] `services/ahhachul.com/src/lib` naming is preserved (no `src/libs` reintroduction).
 
 ## Sources (Primary)
 
@@ -534,5 +597,15 @@
   - [https://mswjs.io/docs/api/setup-server](https://mswjs.io/docs/api/setup-server)
 - Next.js: `instrumentation.js`
   - [https://nextjs.org/docs/app/building-your-application/optimizing/instrumentation](https://nextjs.org/docs/app/building-your-application/optimizing/instrumentation)
+- Next.js: App Router project structure
+  - [https://nextjs.org/docs/app/getting-started/project-structure](https://nextjs.org/docs/app/getting-started/project-structure)
+- Next.js: File-system conventions
+  - [https://nextjs.org/docs/app/api-reference/file-conventions](https://nextjs.org/docs/app/api-reference/file-conventions)
+- Vite: Shared options (`root`, `publicDir`)
+  - [https://vite.dev/config/shared-options](https://vite.dev/config/shared-options)
+- Nx: Enforce module boundaries
+  - [https://nx.dev/features/enforce-module-boundaries](https://nx.dev/features/enforce-module-boundaries)
+- Redux Style Guide: Structure files as feature folders
+  - [https://redux.js.org/style-guide/](https://redux.js.org/style-guide/)
 - FE system design source synthesis (2026-02-17)
   - [./FE_SYSTEM_DESIGN_POSTS_RESEARCH_2026-02-17.md](./FE_SYSTEM_DESIGN_POSTS_RESEARCH_2026-02-17.md)

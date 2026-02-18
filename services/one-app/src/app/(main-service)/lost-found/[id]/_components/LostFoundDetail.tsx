@@ -8,10 +8,10 @@ import { usePathname } from 'next/navigation';
 import { QUERY_GC_TIME, QUERY_STALE_TIME, lostFoundQueryKeys } from '@ahhachul/domain';
 import { formatDisplayDate } from '@ahhachul/utils';
 
-import { ReadonlyEditor } from '@/component/Editor';
+import { ReadonlyEditor } from '@/components/Editor';
 import { getLocaleMessages, localizePathname, resolvePathLocale } from '@/i18n';
-// import { SUBWAY_LOGO_SVG_LIST } from '@/component';
-import { cn, isLexicalContent } from '@/util';
+// import { SUBWAY_LOGO_SVG_LIST } from '@/components';
+import { cn, isLexicalContent } from '@/utils';
 
 import { Lost112ArticleTable } from './Lost112ArticleTable';
 import { LostTypeBadge } from './LostTypeBadge';

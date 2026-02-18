@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import { createListMetadata } from '@ahhachul/seo';
 
-import { SEO_KEYWORDS, SEO_PAGE_COPY, SITE_URL, withBrandTitle } from '@/constant';
+import { SEO_KEYWORDS, SEO_PAGE_COPY, SITE_URL, withBrandTitle } from '@/constants';
 import { localizePathname } from '@/i18n';
 import { getServerLocale } from '@/i18n/server';
 import { getLocalizedMetadataOptions } from '@/seo/metadata';

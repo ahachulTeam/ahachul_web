@@ -5,10 +5,10 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useShallow } from 'zustand/shallow';
 
-import { useAsyncCallback } from '@/hook';
+import { useAsyncCallback } from '@/hooks';
 import { AuthService } from '@/lib/auth-service';
-import { useTempAuthStore } from '@/store/auth';
-import { isValidSocialSignInType } from '@/util/auth';
+import { useTempAuthStore } from '@/stores/auth';
+import { isValidSocialSignInType } from '@/utils/auth';
 
 import { login } from '../_lib/login';
 

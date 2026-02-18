@@ -13,6 +13,9 @@ interface PostProps {
 }
 
 const Post = ({ post }: PostProps) => {
+  const imageSrc =
+    post.image && 'imageUrl' in post.image ? post.image.imageUrl : (post.imageUrl ?? undefined);
+
   return (
     <S.Article>
       <S.Container>
@@ -30,17 +33,17 @@ const Post = ({ post }: PostProps) => {
           </S.TextContainer>
           {(post?.imageUrl || post.image) && (
             <S.ImageContainer>
-              <S.PostImage
-                width="100%"
-                height="100%"
-                effect="opacity"
-                src={
-                  post.image && 'imageUrl' in post.image
-                    ? post.image.imageUrl
-                    : post.imageUrl || '/placeholder.svg'
-                }
-                alt={`${post.title} - ${post.createdAt}`}
-              />
+              {imageSrc ? (
+                <S.PostImage
+                  width="100%"
+                  height="100%"
+                  effect="opacity"
+                  src={imageSrc}
+                  alt={`${post.title} - ${post.createdAt}`}
+                />
+              ) : (
+                <S.PlaceholderImage />
+              )}
             </S.ImageContainer>
           )}
         </S.ContentWrapper>

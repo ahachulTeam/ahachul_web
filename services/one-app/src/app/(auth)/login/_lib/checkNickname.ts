@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { API_PATHS } from '@ahhachul/http';
 
-import { RESPONSE_MESSAGES } from '@/constant';
+import { RESPONSE_MESSAGES } from '@/constants';
 import { fetchClient } from '@/lib/fetch-client';
 import { APIResponseCode } from '@/types';
 

@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 
 import { createPageMetadata } from '@ahhachul/seo';
 
-import { SITE_URL, withBrandTitle } from '@/constant';
+import { SITE_URL, withBrandTitle } from '@/constants';
 import { getLocaleMessages } from '@/i18n';
 import { getServerLocale } from '@/i18n/server';
 import { getLocalizedMetadataOptions } from '@/seo/metadata';

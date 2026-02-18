@@ -3,7 +3,7 @@ import { headers } from 'next/headers';
 import Link from 'next/link';
 
 import BreadcrumbNav from '@/app/_components/BreadcrumbNav';
-import SearchForm from '@/component/SearchForm';
+import SearchForm from '@/components/SearchForm';
 import { getLocaleMessages, localizePathname } from '@/i18n';
 import { getServerLocale } from '@/i18n/server';
 import type { LostFoundType, SubwayLineFilterOptions } from '@/types';

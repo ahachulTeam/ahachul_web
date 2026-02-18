@@ -2,9 +2,9 @@
 
 import { useSearchParams } from 'next/navigation';
 
-import { ResetFilter, DropdownFilter } from '@/component';
-import { subwayLineIdOptions } from '@/constant';
-import { defaultLostFoundFilterValues, lostTypeOptions } from '@/constant/lost-found';
+import { ResetFilter, DropdownFilter } from '@/components';
+import { subwayLineIdOptions } from '@/constants';
+import { defaultLostFoundFilterValues, lostTypeOptions } from '@/constants/lost-found';
 import { LostFoundType, SubwayLineFilterOptions } from '@/types';
 
 export default function Filters() {

@@ -1,6 +1,6 @@
 import { createHttpClient, type HttpRequestOptions } from '@ahhachul/http';
 
-import { API_BASE_URL } from '@/constant';
+import { API_BASE_URL } from '@/constants';
 import type { ObjectQueryParams } from '@/types';
 
 import { AuthService } from './auth-service';

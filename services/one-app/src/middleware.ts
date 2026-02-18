@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { LEGACY_EXACT_REDIRECTS, LEGACY_PREFIX_REDIRECTS } from '@ahhachul/routes';
 
-import { SITE_URL } from '@/constant';
+import { SITE_URL } from '@/constants';
 import {
   LOCALE_COOKIE_KEY,
   LOCALE_HEADER_KEY,
