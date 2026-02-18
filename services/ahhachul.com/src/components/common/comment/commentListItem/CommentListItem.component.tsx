@@ -36,12 +36,8 @@ const Comment = ({
   const isAuthor = user?.memberId === +comment.createdBy;
   const isSuper = comment.isPrivate && (isAuthor || isArticleAuthor);
   const isPrivateCommentHidden = comment.isPrivate && !isAuthor && !isArticleAuthor;
-  const canRenderCommentAction = Boolean(
-    queryKey && comment.status === 'CREATED' && (!comment.isPrivate || isSuper),
-  );
-  const canRenderReplyButton = Boolean(
-    queryKey && servicePath && !asChild && (!comment.isPrivate || isSuper),
-  );
+  const canRenderCommentAction = comment.status === 'CREATED' && (!comment.isPrivate || isSuper);
+  const canRenderReplyButton = !asChild && (!comment.isPrivate || isSuper);
 
   let contentNode = <S.DeletedComment>삭제된 댓글입니다.</S.DeletedComment>;
   if (isPrivateCommentHidden) {
@@ -53,7 +49,7 @@ const Comment = ({
   }
 
   let commentAction: ReactNode = null;
-  if (canRenderCommentAction) {
+  if (queryKey && canRenderCommentAction) {
     commentAction = (
       <CommentDropEllipsis
         isAuthor={isAuthor}
@@ -65,7 +61,7 @@ const Comment = ({
   }
 
   let replyButton: ReactNode = null;
-  if (canRenderReplyButton) {
+  if (queryKey && servicePath && canRenderReplyButton) {
     replyButton = (
       <S.ReplyButton
         onClick={() => {
