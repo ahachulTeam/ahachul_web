@@ -26,4 +26,6 @@ Scope: `ahachul_web` (Next.js + Vite + shared packages in this monorepo)
 - FE authority: `docs/FE_RULEBOOK.md`
 - Rulebook changelog: `docs/FE_RULEBOOK_CHANGELOG.md`
 - FE meeting log index: `docs/FE_MEETING_LOG.md`
+- Services filename convention book: `docs/FE_SERVICES_FILE_NAMING_CONVENTION_BOOK_2026-02-18.md`
+- Services folder convention book: `docs/FE_SERVICES_FOLDER_STRUCTURE_CONVENTION_BOOK_2026-02-18.md`
 - Critical validator rule: `docs/REFACTORING_CRITICAL_RULES.md`

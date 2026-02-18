@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { createBreadcrumbJsonLd, toAbsoluteUrl } from '@ahhachul/seo';
 
-import { SITE_URL } from '@/constant';
+import { SITE_URL } from '@/constants';
 
 import JsonLdScript from './JsonLdScript';
 

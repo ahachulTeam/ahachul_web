@@ -5,7 +5,7 @@ import { removeFalsyValues } from '@ahhachul/utils';
 import { fetchClient } from '@/lib/fetch-client';
 import { type ApiResponse, type PaginatedList, SubwayLineFilterOptions } from '@/types';
 import { type ComplaintListParams, type ComplaintPost } from '@/types/complaint';
-import { extractTextFromLexical } from '@/util';
+import { extractTextFromLexical } from '@/utils';
 
 type Props = {
   pageParam?: string;

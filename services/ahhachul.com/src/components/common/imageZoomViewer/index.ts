@@ -1,1 +1,1 @@
-export { default as ImageZoomViewer } from './imageZoomViewer.component';
+export { default as ImageZoomViewer } from './ImageZoomViewer.component';

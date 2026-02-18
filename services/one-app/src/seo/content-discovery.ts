@@ -8,7 +8,7 @@ import {
 } from '@ahhachul/routes';
 import { toAbsoluteUrl } from '@ahhachul/seo';
 
-import { API_BASE_URL, SEO_PAGE_COPY, SITE_URL } from '@/constant';
+import { API_BASE_URL, SEO_PAGE_COPY, SITE_URL } from '@/constants';
 
 type DiscoverySection = Exclude<SeoSitemapSegment, 'core'>;
 

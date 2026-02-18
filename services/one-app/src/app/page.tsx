@@ -5,7 +5,7 @@ import { createPageMetadata } from '@ahhachul/seo';
 
 import HomeFooter from '@/app/_components/HomeFooter';
 import WelcomeMessage from '@/app/_components/WelcomeMessage';
-import { SEO_KEYWORDS, SITE_URL, withBrandTitle } from '@/constant';
+import { SEO_KEYWORDS, SITE_URL, withBrandTitle } from '@/constants';
 import { getLocaleMessages, localizePathname } from '@/i18n';
 import { getServerLocale } from '@/i18n/server';
 import { getSeoNavigationLinks } from '@/seo/content-discovery';

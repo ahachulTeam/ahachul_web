@@ -1,7 +1,7 @@
 import { BottomNavItem } from '@ahhachul/ui';
 
-import type { NavItem as NavItemType } from './NaItem.type';
 import { useNavItem } from './NavItem.hook';
+import type { NavItem as NavItemType } from './NavItem.type';
 
 interface NavItemProps {
   item: NavItemType;

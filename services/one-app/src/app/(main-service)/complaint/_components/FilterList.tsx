@@ -2,9 +2,9 @@
 
 import { useSearchParams } from 'next/navigation';
 
-import { DropdownFilter, ResetFilter } from '@/component';
-import { defaultComplaintFilterValues } from '@/constant/complaint';
-import { subwayLineIdOptions } from '@/constant/subway';
+import { DropdownFilter, ResetFilter } from '@/components';
+import { defaultComplaintFilterValues } from '@/constants/complaint';
+import { subwayLineIdOptions } from '@/constants/subway';
 import { SubwayLineFilterOptions } from '@/types';
 
 const Filters = () => {

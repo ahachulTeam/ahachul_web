@@ -94,7 +94,7 @@ const SubwayNews = () => {
                       width="100%"
                       height="100%"
                       effect="opacity"
-                      src={news.thumbnailUrl || '/placeholder.svg'}
+                      src={news.thumbnailUrl}
                       alt={`${news.title} - ${news.timeElapsed}`}
                     />
                   )}

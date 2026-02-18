@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { ChevronRightWhiteIcon } from '@/assets/icons/system';
 import { subwayLineOptions } from '@/constants';
 import { StackFlow } from '@/stackflow';
 import type { IUserStationStore } from '@/stores/subway';
@@ -58,15 +59,7 @@ const SubwayLineFilter = ({
       </ul>
       <StackFlow.Link activityName="SubwayMapPage" activityParams={{}} css={S.link}>
         <span>전체 노선도 보기</span>
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M10 8L14 12L10 16" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+        <ChevronRightWhiteIcon />
       </StackFlow.Link>
     </div>
   );

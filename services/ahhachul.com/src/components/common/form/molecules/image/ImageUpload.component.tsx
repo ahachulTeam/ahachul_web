@@ -1,6 +1,7 @@
 import React, { memo, forwardRef, useCallback } from 'react';
 
 import { PictureIcon, CircleCloseIcon } from '@/assets/icons/system';
+import { ReactComponent as DefaultThumbnailIcon } from '@/assets/images/default_thumbnail.svg';
 import { EditableImage } from '@/types';
 
 import * as S from './ImageUpload.styled';
@@ -40,7 +41,11 @@ const ImagePreviewItem = memo(
 
     return (
       <S.ImagePreview key={'url' in image ? image.id : index}>
-        <img src={imageUrl || '/placeholder.svg'} alt={`preview ${index + 1}`} />
+        {imageUrl ? (
+          <img src={imageUrl} alt={`preview ${index + 1}`} />
+        ) : (
+          <DefaultThumbnailIcon aria-label={`preview ${index + 1}`} />
+        )}
         <button type="button" onClick={onRemove(index)}>
           <CircleCloseIcon />
         </button>

@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 import { communityQueryKeys } from '@ahhachul/domain';
 import { API_PATHS } from '@ahhachul/http';
 
-import { API_BASE_URL } from '@/constant';
+import { API_BASE_URL } from '@/constants';
 
 export const getCommunityDetailPostServer = async ({
   queryKey,

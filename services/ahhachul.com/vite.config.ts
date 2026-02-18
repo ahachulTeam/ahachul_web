@@ -14,7 +14,10 @@ export default defineConfig({
       brotliSize: true,
     }),
     svgr({
+      include: /\.svg$/,
       svgrOptions: {
+        exportType: 'named',
+        namedExport: 'ReactComponent',
         plugins: ['@svgr/plugin-svgo', '@svgr/plugin-jsx'],
         svgoConfig: {
           multipass: true,

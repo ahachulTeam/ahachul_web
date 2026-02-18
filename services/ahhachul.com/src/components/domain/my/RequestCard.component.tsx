@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 
-import AppLinkIcon from '@/assets/icons/my/app-link.svg';
-import QnaIcon from '@/assets/icons/my/qna.svg';
+import { AppLinkIcon, QnaIcon } from '@/assets/icons/my';
 import { useToast } from '@/hooks/useToast';
 import { useFlow } from '@/stackflow';
 
@@ -15,14 +14,14 @@ const RequestCard = () => {
   return (
     <Wrapper>
       <button onClick={handleSettingPage}>
-        <img src={AppLinkIcon} />
+        <AppLinkIcon />
         <p>즐겨찾는 역 관리</p>
       </button>
 
       <div className="divider" />
 
       <button onClick={showToast}>
-        <img src={QnaIcon} />
+        <QnaIcon />
         <p>문의사항 관리</p>
       </button>
     </Wrapper>

@@ -49,6 +49,8 @@ const nextConfig = {
           options: {
             svgo: true,
             typescript: true,
+            exportType: 'named',
+            namedExport: 'ReactComponent',
           },
         },
       ],

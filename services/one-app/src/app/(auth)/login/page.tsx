@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 
 import { createPageMetadata } from '@ahhachul/seo';
 
-import { HelloOnLogin, SocialLogins } from '@/app/(auth)/login/_component';
-import { SITE_URL, withBrandTitle } from '@/constant';
+import { HelloOnLogin, SocialLogins } from '@/app/(auth)/login/_components';
+import { SITE_URL, withBrandTitle } from '@/constants';
 import { getLocaleMessages } from '@/i18n';
 import { getServerLocale } from '@/i18n/server';
 import { getLocalizedMetadataOptions } from '@/seo/metadata';

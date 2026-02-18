@@ -8,10 +8,10 @@ import { usePathname, useRouter } from 'next/navigation';
 import { API_PATHS } from '@ahhachul/http';
 import { NICKNAME_MAX_LENGTH, validateNickname } from '@ahhachul/utils';
 
-import { API_BASE_URL } from '@/constant';
+import { API_BASE_URL } from '@/constants';
 import { getLocaleMessages, localizePathname, resolvePathLocale } from '@/i18n';
 import { AuthService } from '@/lib/auth-service';
-import { useTempAuthStore } from '@/store/auth';
+import { useTempAuthStore } from '@/stores/auth';
 
 import { checkNickname } from '../_lib/checkNickname';
 

@@ -31,7 +31,7 @@ const RecommendPost = ({ post }: RecommendPostProps) => {
                   width="100%"
                   height="100%"
                   effect="opacity"
-                  src={post.imageUrl || '/placeholder.svg'}
+                  src={post.imageUrl}
                   alt={`${post.title} - ${post.createdAt}`}
                 />
               </S.ImageContainer>

@@ -16,9 +16,9 @@ import {
   validateRequiredLexicalContent,
 } from '@ahhachul/utils';
 
-import { Editor } from '@/component/Editor';
-import { SUBWAY_LINES } from '@/constant';
-import { lostTypeOptions } from '@/constant/lost-found';
+import { Editor } from '@/components/Editor';
+import { SUBWAY_LINES } from '@/constants';
+import { lostTypeOptions } from '@/constants/lost-found';
 import { fetchClient } from '@/lib/fetch-client';
 import {
   LostFoundType,
@@ -28,7 +28,7 @@ import {
   type LostFoundForm,
   type LostFoundPostDetail,
 } from '@/types';
-import { isLexicalContent } from '@/util';
+import { isLexicalContent } from '@/utils';
 
 import { createLostFoundPost, editLostFoundPost } from '../_lib/upsertPost';
 

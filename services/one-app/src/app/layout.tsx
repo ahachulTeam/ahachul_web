@@ -5,13 +5,13 @@ import { colors } from '@ahhachul/design-system';
 import '@ahhachul/design-system/tokens.css';
 import { createPageMetadata } from '@ahhachul/seo';
 
-import { Pretendard } from '@/asset/font/pretendard';
-import { SEO_KEYWORDS, SITE_URL, withBrandTitle } from '@/constant';
-import Providers from '@/context/providers';
+import { Pretendard } from '@/assets/font/pretendard';
+import { SEO_KEYWORDS, SITE_URL, withBrandTitle } from '@/constants';
+import Providers from '@/contexts/providers';
 import { HTML_LANG_BY_LOCALE, getLocaleMessages, localizePathname } from '@/i18n';
 import { getServerLocale } from '@/i18n/server';
 import { getLocalizedMetadataOptions } from '@/seo/metadata';
-import { cn } from '@/util/cn';
+import { cn } from '@/utils/cn';
 
 import Header from './_components/Header';
 import NavMenu from './_components/NavMenu';

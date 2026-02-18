@@ -1,6 +1,6 @@
 import { createRssXml } from '@ahhachul/seo';
 
-import { SITE_URL, SEO_PAGE_COPY } from '@/constant';
+import { SITE_URL, SEO_PAGE_COPY } from '@/constants';
 import { getRssFeedContent } from '@/seo/content-discovery';
 
 export const revalidate = 1800;

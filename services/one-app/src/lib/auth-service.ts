@@ -2,7 +2,7 @@
 
 import Cookies from 'js-cookie';
 
-import { IS_DEV_ENV } from '@/constant';
+import { IS_DEV_ENV } from '@/constants';
 import { INTERNAL_API_PATHS } from '@/lib/internal-api-contract';
 import { CookieKey } from '@/types';
 
