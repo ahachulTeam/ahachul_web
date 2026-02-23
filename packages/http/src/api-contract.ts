@@ -49,6 +49,7 @@ export const API_PATHS = {
   subway: {
     lines: '/subway-lines',
     trainRealTimes: '/trains/real-times',
+    trainRealTimesV2: '/v2/trains/real-times',
   },
   common: {
     s3Presigned: (s3Key: string) => `/common/presigned/${s3Key}`,

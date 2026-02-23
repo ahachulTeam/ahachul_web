@@ -8,11 +8,13 @@ import {
 } from '@ahhachul/domain';
 import { formatSubwayLineInfo } from '@ahhachul/utils';
 
-import { fetchSubwayLines, fetchTrainInfo } from '@/apis/request/subway';
+import { fetchSubwayLines, fetchTrainInfo, fetchTrainInfoV2 } from '@/apis/request/subway';
 import { TIMESTAMP } from '@/constants';
 import { APITrainInfoParams } from '@/types';
 
 export const subwayKeys = subwayQueryKeys;
+
+const isTrainRealtimeV2Enabled = import.meta.env.VITE_TRAIN_REALTIME_V2_ENABLED === 'true';
 
 export const useFetchSubwayLines = () =>
   useQuery({
@@ -37,7 +39,17 @@ export const useFetchTrainInfo = (params: APITrainInfoParams) => {
   return useQuery({
     refetchInterval: 30 * TIMESTAMP.SECOND,
     queryKey: subwayKeys.train(trainQuerySignature),
-    queryFn: () => fetchTrainInfo(params),
+    queryFn: async () => {
+      if (!isTrainRealtimeV2Enabled) {
+        return fetchTrainInfo(params);
+      }
+
+      try {
+        return await fetchTrainInfoV2(params);
+      } catch {
+        return fetchTrainInfo(params);
+      }
+    },
     staleTime: 15 * TIMESTAMP.SECOND,
     gcTime: QUERY_GC_TIME.feed,
     select: res => {
