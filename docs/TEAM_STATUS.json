@@ -1,37 +1,37 @@
 {
-  "updatedAt": "2026-02-24T01:14:00+09:00",
+  "updatedAt": "2026-02-24T01:31:37+09:00",
   "branch": "develop",
-  "sprintFocus": "RF-1100 진행: 커뮤니티 댓글 조회/작성/수정/삭제/답글 안정화",
+  "sprintFocus": "RF-1201 진행: 유실물 기능 미흡점 보완 및 FE/BE 동시 개선",
   "leadDirective": [
-    "1) PM 명세를 단일 소스로 삼아 FE/BE가 동일한 댓글 계약(수정/삭제/권한/에러)을 구현한다.",
-    "2) FE는 커뮤니티 상세 댓글 영역을 실제 마운트하고 작성/수정/삭제/답글 UX를 완료한다.",
-    "3) BE는 PATCH/DELETE 댓글 API와 권한/검증 예외 코드를 고정하고 계약 샘플을 제공한다.",
-    "4) QAReady 이전에 FE/BE 간 계약 검증(JSON 샘플 + 에러 케이스)을 반드시 맞춘다."
+    "1) PM 분석 문서를 단일 소스로 삼아 one-app 유실물 기능의 P0/P1 갭을 이번 스프린트에서 해소한다.",
+    "2) FE는 댓글 섹션 활성화, 필터 파라미터 정합화, 권한 기반 수정 버튼 노출, sort 파라미터 반영을 우선 구현한다.",
+    "3) BE는 유실물 댓글 scoped PATCH/DELETE, sort 정책 명확화, 목록 N+1 완화, 오류 계약 고정을 수행한다.",
+    "4) 제출 전 문서 비어있음 검사를 통과하고, FE/BE 계약/테스트 증적을 validator 게이트에 제출한다."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-1100",
+      "taskId": "RF-1201",
       "state": "InProgress",
-      "updatedAt": "2026-02-24T01:14:00+09:00",
-      "nextAction": "track FE/BE progress and handoff QA-ready evidence"
+      "updatedAt": "2026-02-24T01:31:37+09:00",
+      "nextAction": "track PM handoff completion and FE/BE implementation evidence"
     },
     {
       "role": "FE Lead",
       "owner": "fe-lead",
-      "taskId": "RF-1100-FE",
+      "taskId": "RF-1201-FE",
       "state": "ASSIGNED",
-      "updatedAt": "2026-02-24T01:14:00+09:00",
-      "nextAction": "implement comment section mount, create/reply/edit/delete flows in one-app"
+      "updatedAt": "2026-02-24T01:31:37+09:00",
+      "nextAction": "implement lost-found P0: comments mount, subwayLineIds, author-only edit action, comment sort query"
     },
     {
       "role": "BE Lead",
       "owner": "be-lead",
-      "taskId": "RF-1100-BE",
+      "taskId": "RF-1201-BE",
       "state": "ASSIGNED",
-      "updatedAt": "2026-02-24T01:14:00+09:00",
-      "nextAction": "deliver comment PATCH/DELETE APIs with auth/validation error contracts"
+      "updatedAt": "2026-02-24T01:31:37+09:00",
+      "nextAction": "implement lost-found comment scoped patch/delete, sort policy, list query performance uplift"
     },
     {
       "role": "FE Specialist A",
@@ -68,18 +68,18 @@
     {
       "role": "Technical Writer",
       "owner": "writer",
-      "taskId": "RF-1000D",
-      "state": "Done",
-      "updatedAt": "2026-02-17T17:20:00+09:00",
-      "nextAction": "sync sprint/worklog/decision/meeting artifacts for RF-1000"
+      "taskId": "RF-1201-D",
+      "state": "ASSIGNED",
+      "updatedAt": "2026-02-24T01:31:37+09:00",
+      "nextAction": "synchronize PM analysis/handoff artifacts and maintain traceable audit records"
     },
     {
       "role": "Perfectionist Validator",
       "owner": "validator",
-      "taskId": "RF-1000V",
-      "state": "Done",
-      "updatedAt": "2026-02-17T17:20:00+09:00",
-      "nextAction": "validator gate passed via pnpm validate:full"
+      "taskId": "RF-1201-V",
+      "state": "ASSIGNED",
+      "updatedAt": "2026-02-24T01:31:37+09:00",
+      "nextAction": "enforce non-empty-doc gate and verify FE/BE test evidence before Done"
     }
   ],
   "handoffs": [
@@ -1506,10 +1506,42 @@
       "state": "ASSIGNED",
       "note": "PM 커뮤니티 미흡점 명세 기반으로 댓글 PATCH/DELETE API 및 권한/검증 에러 규약 구현 시작.",
       "at": "2026-02-24T01:14:00+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "PM",
+      "taskId": "RF-1201-PM",
+      "state": "ASSIGNED",
+      "note": "현재 구현된 유실물 기능 전체 분석 및 미흡점/기술 보완점/개선점 문서화",
+      "at": "2026-02-24T01:31:37+09:00"
+    },
+    {
+      "from": "PM",
+      "to": "Team Lead",
+      "taskId": "RF-1201-PM",
+      "state": "Done",
+      "note": "분석/전달 문서 작성 완료: PM_LOST_FOUND_GAP_ANALYSIS_2026-02-24.md, PM_TO_FE_LOST_FOUND_IMPROVEMENT_V1_SPEC.md, PM_TO_BE_LOST_FOUND_IMPROVEMENT_V1_SPEC.md",
+      "at": "2026-02-24T01:31:37+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "FE Lead",
+      "taskId": "RF-1201-FE",
+      "state": "ASSIGNED",
+      "note": "유실물 개선 FE 구현 착수: docs/PM_TO_FE_LOST_FOUND_IMPROVEMENT_V1_SPEC.md",
+      "at": "2026-02-24T01:31:37+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "BE Lead",
+      "taskId": "RF-1201-BE",
+      "state": "ASSIGNED",
+      "note": "유실물 개선 BE 구현 착수: docs/PM_TO_BE_LOST_FOUND_IMPROVEMENT_V1_SPEC.md",
+      "at": "2026-02-24T01:31:37+09:00"
     }
   ],
   "validator": {
-    "queue": ["RF-1100-BE", "RF-1100-FE"],
+    "queue": ["RF-1201-FE", "RF-1201-BE"],
     "lastGate": {
       "taskId": "RF-1000",
       "result": "PASS",
