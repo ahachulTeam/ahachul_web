@@ -1,36 +1,13 @@
-# BE/DB/Infra Conventions
+# BE/DB/Infra Conventions (Pointer)
 
-Scope: `ahhachul_backend`, `ahachul_data`, `ahachul_secret`
+이 파일은 FE 컨벤션 허브(`CONVENTIONS.md`)의 호환 경로를 유지하기 위한 포인터입니다.
 
-## Commit Message
+## 정본
 
-- Source of truth: backend README collaboration rule.
-- Format: `gitmoji <commit message> (#issue number)`
-- Examples:
-  - `:sparkles: 로그인 API 개선 (#123)`
-  - `:bug: OAuth callback 예외 처리 수정 (#124)`
-  - `:memo: 시크릿 키 운영 문서 보강 (#125)`
+- `ahhachul_backend/docs/governance/CONVENTIONS_BE.md`
 
-## Branch Strategy
+## FE 작업 시 최소 규칙
 
-- Backend documented branch model:
-  - `main`
-  - `develop`
-  - `feature/<#issue number>`
-  - `hotfix`
-
-## Architecture/Coding Standards
-
-- Hexagonal + multi-module baseline (`core`, `application`, `scheduler`, `consumer`) must be preserved.
-- API response contract uses `CommonResponse` and `ResponseCode`.
-- Request DTO to use-case mapping follows `toCommand(...)`.
-- DB schema changes must use Flyway migrations under `core/src/main/resources/db/migration`.
-- Secret changes must be managed via `ahachul_secret` files, never hardcoded in code.
-
-## Operational Safety
-
-- Do not use company default AWS account for Ahhachul work.
-- Always verify identity before infra operations: `aws sts get-caller-identity`.
-- See detailed guardrails:
-  - `docs/BACKEND_DB_INFRA_RULEBOOK.md`
-  - `docs/BACKEND_DB_INFRA_EXECUTION_CHECKLIST.md`
+- BE 변경이 포함되면 BE 레포 PR을 분리한다.
+- BE 타겟 브랜치/작업 브랜치 정책은 정본을 따른다.
+- 상세 규칙(아키텍처/Flyway/운영 가드레일)은 정본에서 확인한다.

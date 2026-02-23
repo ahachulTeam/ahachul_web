@@ -9,7 +9,7 @@ This file explains how to watch the multi-role refactor workflow in real time.
 - One-shot status: `pnpm team:status`
 - Live auto-refresh status: `pnpm team:watch`
 
-The dashboard reads `/Users/createahb21/Documents/Programming/repositories/@Ahhachul/ahachul_web/docs/TEAM_STATUS.json` and prints:
+The dashboard reads `docs/TEAM_STATUS.json` and prints:
 
 - current sprint focus
 - role-by-role assignment
@@ -18,10 +18,10 @@ The dashboard reads `/Users/createahb21/Documents/Programming/repositories/@Ahha
 
 ## Source of Truth
 
-- team runtime status: `/Users/createahb21/Documents/Programming/repositories/@Ahhachul/ahachul_web/docs/TEAM_STATUS.json`
-- append-only handoff history: `/Users/createahb21/Documents/Programming/repositories/@Ahhachul/ahachul_web/docs/HANDOFF_LOG.ndjson`
-- sprint board and task history: `/Users/createahb21/Documents/Programming/repositories/@Ahhachul/ahachul_web/docs/SPRINT_BOARD.md`
-- narrative logs: `/Users/createahb21/Documents/Programming/repositories/@Ahhachul/ahachul_web/docs/WORKLOG.md`
+- team runtime status: `docs/TEAM_STATUS.json`
+- append-only handoff history: `docs/HANDOFF_LOG.ndjson`
+- sprint board and task history: `docs/SPRINT_BOARD.md`
+- narrative logs: `docs/WORKLOG.md`
 
 ## Update Contract
 

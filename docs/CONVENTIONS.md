@@ -6,7 +6,7 @@ This document is the index for convention scopes.
 
 - Common: `docs/CONVENTIONS_COMMON.md`
 - FE (ahachul_web): `docs/CONVENTIONS_FE.md`
-- BE/DB/Infra stack (`ahhachul_backend`, `ahachul_data`, `ahachul_secret`): `docs/CONVENTIONS_BE.md`
+- BE/DB/Infra stack (`ahhachul_backend`, `ahachul_data`, `ahachul_secret`): `docs/CONVENTIONS_BE.md` (pointer)
 
 ## Precedence
 
@@ -18,3 +18,4 @@ This document is the index for convention scopes.
 
 - If a task touches multiple repos, apply commit message rules per target repo.
 - Branch naming remains unified as `codex/<scope>`.
+- `docs/CONVENTIONS_BE.md` and `docs/BACKEND_DB_INFRA_*` are compatibility pointers to backend governance source.
