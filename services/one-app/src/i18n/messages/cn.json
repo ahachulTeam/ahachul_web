@@ -251,5 +251,29 @@
   "lostFoundDetail": {
     "edit": "编辑",
     "fromLost112": "该失物来自 Lost 112。"
+  },
+  "communityDetail": {
+    "commentCount": "评论 {count} 条",
+    "createPlaceholder": "给 {writer} 留下评论。",
+    "replyPlaceholder": "回复 {writer}。",
+    "editPlaceholder": "请修改评论内容。",
+    "submit": "发布",
+    "save": "保存",
+    "cancel": "取消",
+    "pending": "处理中...",
+    "privateLabel": "私密评论",
+    "reply": "回复",
+    "edit": "编辑",
+    "delete": "删除",
+    "deleted": "该评论已删除。",
+    "privateHidden": "这是私密评论。",
+    "loading": "正在加载评论。",
+    "loadError": "评论加载失败。",
+    "retry": "重试",
+    "deleteConfirm": "要删除这条评论吗？",
+    "emptyContentError": "请输入评论内容。",
+    "createError": "评论发布失败。",
+    "updateError": "评论修改失败。",
+    "deleteError": "评论删除失败。"
   }
 }

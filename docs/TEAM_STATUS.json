@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-02-24T01:32:59+09:00",
+  "updatedAt": "2026-02-24T01:55:12+09:00",
   "branch": "develop",
   "sprintFocus": "병렬 운영: RF-1100(커뮤니티 댓글 안정화) + RF-1201(PM 유실물 분석/전달)",
   "leadDirective": [
@@ -14,24 +14,24 @@
       "owner": "lead",
       "taskId": "RF-1100|RF-1201",
       "state": "InProgress",
-      "updatedAt": "2026-02-24T01:32:59+09:00",
-      "nextAction": "orchestrate community implementation while keeping PM lost-found handoff queue active"
+      "updatedAt": "2026-02-24T01:55:12+09:00",
+      "nextAction": "track RF-1100 FE QA handoff and close BE integration-test environment gap"
     },
     {
       "role": "FE Lead",
       "owner": "fe-lead",
       "taskId": "RF-1100-FE",
-      "state": "InProgress",
-      "updatedAt": "2026-02-24T01:32:59+09:00",
-      "nextAction": "continue community comment flows; track RF-1201 lost-found handoff in parallel backlog"
+      "state": "QAReady",
+      "updatedAt": "2026-02-24T01:55:12+09:00",
+      "nextAction": "submit one-app community comment feature evidence to QA and validator"
     },
     {
       "role": "BE Lead",
       "owner": "be-lead",
       "taskId": "RF-1100-BE",
       "state": "InProgress",
-      "updatedAt": "2026-02-24T01:32:59+09:00",
-      "nextAction": "continue community comment APIs; review RF-1201 lost-found backend spec in parallel backlog"
+      "updatedAt": "2026-02-24T01:55:12+09:00",
+      "nextAction": "community scoped comment API done; finish integration test on docker-enabled environment"
     },
     {
       "role": "FE Specialist A",
@@ -1570,6 +1570,22 @@
       "state": "QUEUED",
       "note": "PM 유실물 전달서 수신 완료, 커뮤니티와 병렬 검토/후속 구현 대기",
       "at": "2026-02-24T01:32:59+09:00"
+    },
+    {
+      "from": "FE Lead",
+      "to": "QA Engineer",
+      "taskId": "RF-1100-FE",
+      "state": "QAReady",
+      "note": "one-app 커뮤니티 댓글 조회/작성/수정/삭제/답글 구현 및 FE lint/type/test 통과",
+      "at": "2026-02-24T01:55:12+09:00"
+    },
+    {
+      "from": "BE Lead",
+      "to": "Team Lead",
+      "taskId": "RF-1100-BE",
+      "state": "IN_PROGRESS",
+      "note": "커뮤니티 scoped PATCH/DELETE 및 docs test 통과, CommentService 통합테스트는 Docker(Testcontainers) 환경 의존으로 로컬 실행 보류",
+      "at": "2026-02-24T01:55:12+09:00"
     }
   ],
   "validator": {

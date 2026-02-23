@@ -1310,6 +1310,55 @@ const routes: RouteDefinition[] = [
     },
   },
   {
+    method: 'PATCH',
+    pattern: '/community-posts/:postId/comments/:commentId',
+    resolver: async ({ params, request }) => {
+      const postId = Number(params.postId);
+      const commentId = Number(params.commentId);
+      const payload = await parseRequestBody(request);
+      const content = String(payload.content ?? '').trim();
+      const target = findCommentById(commentId);
+
+      if (
+        !target ||
+        target.servicePath !== API_SERVICE_PATHS.community ||
+        target.postId !== postId
+      ) {
+        return toErrorResponse('Comment not found.', 404);
+      }
+
+      if (!content) {
+        return toErrorResponse('Comment content is required.');
+      }
+
+      target.comment.content = content;
+      return toSuccessResponse({ id: commentId, content });
+    },
+  },
+  {
+    method: 'DELETE',
+    pattern: '/community-posts/:postId/comments/:commentId',
+    resolver: ({ params }) => {
+      const postId = Number(params.postId);
+      const commentId = Number(params.commentId);
+      const target = findCommentById(commentId);
+
+      if (
+        !target ||
+        target.servicePath !== API_SERVICE_PATHS.community ||
+        target.postId !== postId
+      ) {
+        return toErrorResponse('Comment not found.', 404);
+      }
+
+      target.comment.status = 'DELETED';
+      target.comment.content = '삭제된 댓글입니다.';
+      updateCommentCount(target.servicePath, target.postId, -1);
+
+      return toSuccessResponse({ id: commentId });
+    },
+  },
+  {
     method: 'DELETE',
     pattern: '/comments/:commentId',
     resolver: ({ params }) => {

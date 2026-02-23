@@ -251,5 +251,29 @@
   "lostFoundDetail": {
     "edit": "แก้ไข",
     "fromLost112": "รายการนี้ถูกลงทะเบียนใน Lost 112"
+  },
+  "communityDetail": {
+    "commentCount": "ความคิดเห็น {count} รายการ",
+    "createPlaceholder": "แสดงความคิดเห็นถึง {writer}",
+    "replyPlaceholder": "ตอบกลับถึง {writer}",
+    "editPlaceholder": "แก้ไขความคิดเห็นของคุณ",
+    "submit": "ส่ง",
+    "save": "บันทึก",
+    "cancel": "ยกเลิก",
+    "pending": "กำลังดำเนินการ...",
+    "privateLabel": "ความคิดเห็นส่วนตัว",
+    "reply": "ตอบกลับ",
+    "edit": "แก้ไข",
+    "delete": "ลบ",
+    "deleted": "ความคิดเห็นนี้ถูกลบแล้ว",
+    "privateHidden": "นี่คือความคิดเห็นส่วนตัว",
+    "loading": "กำลังโหลดความคิดเห็น",
+    "loadError": "ไม่สามารถโหลดความคิดเห็นได้",
+    "retry": "ลองอีกครั้ง",
+    "deleteConfirm": "ต้องการลบความคิดเห็นนี้หรือไม่?",
+    "emptyContentError": "กรุณากรอกความคิดเห็น",
+    "createError": "ไม่สามารถส่งความคิดเห็นได้",
+    "updateError": "ไม่สามารถแก้ไขความคิดเห็นได้",
+    "deleteError": "ไม่สามารถลบความคิดเห็นได้"
   }
 }

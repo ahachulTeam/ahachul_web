@@ -251,5 +251,29 @@
   "lostFoundDetail": {
     "edit": "Edit",
     "fromLost112": "This item was posted on Lost 112."
+  },
+  "communityDetail": {
+    "commentCount": "{count} comments",
+    "createPlaceholder": "Leave a comment for {writer}.",
+    "replyPlaceholder": "Write a reply to {writer}.",
+    "editPlaceholder": "Edit your comment.",
+    "submit": "Post",
+    "save": "Save",
+    "cancel": "Cancel",
+    "pending": "Processing...",
+    "privateLabel": "Private comment",
+    "reply": "Reply",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleted": "This comment has been deleted.",
+    "privateHidden": "This is a private comment.",
+    "loading": "Loading comments.",
+    "loadError": "Failed to load comments.",
+    "retry": "Retry",
+    "deleteConfirm": "Delete this comment?",
+    "emptyContentError": "Please enter a comment.",
+    "createError": "Failed to create comment.",
+    "updateError": "Failed to update comment.",
+    "deleteError": "Failed to delete comment."
   }
 }

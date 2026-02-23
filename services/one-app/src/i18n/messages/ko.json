@@ -251,5 +251,29 @@
   "lostFoundDetail": {
     "edit": "수정",
     "fromLost112": "로스트 112에 등록된 분실물입니다."
+  },
+  "communityDetail": {
+    "commentCount": "댓글 {count}개",
+    "createPlaceholder": "{writer}에게 댓글을 남겨주세요.",
+    "replyPlaceholder": "{writer}님에게 답글을 남겨주세요.",
+    "editPlaceholder": "댓글을 수정해주세요.",
+    "submit": "등록",
+    "save": "저장",
+    "cancel": "취소",
+    "pending": "처리 중...",
+    "privateLabel": "비공개 댓글",
+    "reply": "답글 달기",
+    "edit": "수정",
+    "delete": "삭제",
+    "deleted": "삭제된 댓글입니다.",
+    "privateHidden": "비공개 댓글입니다.",
+    "loading": "댓글을 불러오는 중입니다.",
+    "loadError": "댓글을 불러오지 못했습니다.",
+    "retry": "다시 시도",
+    "deleteConfirm": "댓글을 삭제할까요?",
+    "emptyContentError": "댓글 내용을 입력해주세요.",
+    "createError": "댓글 등록에 실패했습니다.",
+    "updateError": "댓글 수정에 실패했습니다.",
+    "deleteError": "댓글 삭제에 실패했습니다."
   }
 }

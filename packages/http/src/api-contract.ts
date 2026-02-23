@@ -34,6 +34,8 @@ export const API_PATHS = {
     hotList: '/community-hot-posts',
     detail: (id: Identifier) => `/${API_SERVICE_PATHS.community}/${id}`,
     comments: (id: Identifier) => `/${API_SERVICE_PATHS.community}/${id}/comments`,
+    comment: (postId: Identifier, commentId: Identifier) =>
+      `/${API_SERVICE_PATHS.community}/${postId}/comments/${commentId}`,
   },
   complaint: {
     list: `/${API_SERVICE_PATHS.complaint}`,

@@ -70,6 +70,7 @@ export type Comment = {
   createdBy: string;
   status: CommentStatus;
   upperCommentId: number | null;
+  isPrivate?: boolean;
   likeCnt?: number;
 };
 

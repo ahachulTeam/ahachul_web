@@ -151,6 +151,31 @@ describe('@ahhachul/mock-api', () => {
 
     expect(createCommentResponse.ok).toBe(true);
     expect(createCommentBody.result.content).toBe('테스트 댓글');
+    const createdCommentId = createCommentBody.result.id as number;
+
+    const updateCommentResponse = await fetch(
+      `${BASE_URL}${API_PATHS.community.comment(targetPostId, createdCommentId)}`,
+      {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: '수정된 댓글' }),
+      },
+    );
+    const updateCommentBody = await updateCommentResponse.json();
+
+    expect(updateCommentResponse.ok).toBe(true);
+    expect(updateCommentBody.result.content).toBe('수정된 댓글');
+
+    const deleteCommentResponse = await fetch(
+      `${BASE_URL}${API_PATHS.community.comment(targetPostId, createdCommentId)}`,
+      {
+        method: 'DELETE',
+      },
+    );
+    const deleteCommentBody = await deleteCommentResponse.json();
+
+    expect(deleteCommentResponse.ok).toBe(true);
+    expect(deleteCommentBody.result.id).toBe(createdCommentId);
 
     const commentsResponse = await fetch(
       `${BASE_URL}/${API_SERVICE_PATHS.community}/${targetPostId}/comments`,

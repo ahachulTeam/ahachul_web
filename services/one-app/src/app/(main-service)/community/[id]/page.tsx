@@ -12,6 +12,7 @@ import { getLocalizedMetadataOptions } from '@/seo/metadata';
 import { extractTextFromLexical } from '@/utils';
 
 import CommunityPostDetail from './_components/CommunityDetail';
+import { getCommunityComments } from './_lib/getComments';
 import { getCommunityDetailPostServer } from './_lib/getDetailPostServer';
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -61,6 +62,10 @@ export default async function CommunityDetailPage(props: Props) {
   await queryClient.prefetchQuery({
     queryKey: communityQueryKeys.detail(id),
     queryFn: getCommunityDetailPostServer,
+  });
+  await queryClient.prefetchQuery({
+    queryKey: communityQueryKeys.comments(id),
+    queryFn: getCommunityComments,
   });
   const dehydratedState = dehydrate(queryClient);
 
