@@ -66,7 +66,21 @@
     },
     "subwaySettingsHeading": "My subway settings",
     "noFavoriteStations": "No favorite stations registered.",
-    "languageSectionTitle": "Language settings"
+    "languageSectionTitle": "Language settings",
+    "realtime": {
+      "title": "Realtime arrival at {station}",
+      "refresh": "Refresh",
+      "updatedAtFallback": "No update timestamp",
+      "loading": "Loading realtime arrivals.",
+      "error": "Failed to load realtime arrivals.",
+      "empty": "No arrival trains.",
+      "minuteSuffix": "m",
+      "firstLastTitle": "First/Last train today",
+      "summaryLoading": "Loading first/last train summary.",
+      "summaryError": "Failed to load first/last train summary.",
+      "upLabel": "UP",
+      "downLabel": "DOWN"
+    }
   },
   "login": {
     "heroSubtitle": "Making subway life easier",

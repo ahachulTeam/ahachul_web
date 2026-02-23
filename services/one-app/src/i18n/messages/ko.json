@@ -66,7 +66,21 @@
     },
     "subwaySettingsHeading": "내 지하철 설정",
     "noFavoriteStations": "등록된 즐겨찾기 역이 없습니다.",
-    "languageSectionTitle": "언어 설정"
+    "languageSectionTitle": "언어 설정",
+    "realtime": {
+      "title": "{station} 실시간 도착",
+      "refresh": "새로고침",
+      "updatedAtFallback": "마지막 갱신 정보 없음",
+      "loading": "실시간 도착정보를 불러오는 중입니다.",
+      "error": "실시간 도착정보를 불러오지 못했습니다.",
+      "empty": "도착 열차 정보가 없습니다.",
+      "minuteSuffix": "분",
+      "firstLastTitle": "오늘 첫차/막차",
+      "summaryLoading": "첫차/막차 정보를 불러오는 중입니다.",
+      "summaryError": "첫차/막차 정보를 불러오지 못했습니다.",
+      "upLabel": "상행",
+      "downLabel": "하행"
+    }
   },
   "login": {
     "heroSubtitle": "더 편한 지하철을 만드는",

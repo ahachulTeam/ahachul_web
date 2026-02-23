@@ -102,6 +102,12 @@ export const subwayQueryKeys = {
     [...subwayQueryKeys.trains(), normalizeQuerySignature(signature)] as const,
 } as const;
 
+export const subwayRealtimeV2QueryKeys = {
+  all: ['subway-realtime-v2'] as const,
+  list: (signature = '') =>
+    [...subwayRealtimeV2QueryKeys.all, normalizeQuerySignature(signature)] as const,
+} as const;
+
 export type PostQueryDomain = 'community' | 'complaint' | 'lost-found';
 
 export function resolvePostQueryDomain(queryKey: readonly unknown[]): PostQueryDomain | null {

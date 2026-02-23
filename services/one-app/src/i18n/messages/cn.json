@@ -66,7 +66,21 @@
     },
     "subwaySettingsHeading": "我的地铁设置",
     "noFavoriteStations": "暂无收藏车站。",
-    "languageSectionTitle": "语言设置"
+    "languageSectionTitle": "语言设置",
+    "realtime": {
+      "title": "{station} 实时到站",
+      "refresh": "刷新",
+      "updatedAtFallback": "暂无更新时间",
+      "loading": "正在加载实时到站信息。",
+      "error": "实时到站信息加载失败。",
+      "empty": "暂无到站列车信息。",
+      "minuteSuffix": "分",
+      "firstLastTitle": "今日首末班车",
+      "summaryLoading": "正在加载首末班车信息。",
+      "summaryError": "首末班车信息加载失败。",
+      "upLabel": "上行",
+      "downLabel": "下行"
+    }
   },
   "login": {
     "heroSubtitle": "打造更轻松的地铁出行体验",
