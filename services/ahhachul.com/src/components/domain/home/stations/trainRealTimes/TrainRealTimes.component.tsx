@@ -1,14 +1,20 @@
-import { type ReactNode, memo, useReducer } from 'react';
+import { type ReactNode, memo, useMemo, useReducer } from 'react';
 
 import { motion } from 'motion/react';
 
 import { RetryIcon } from '@/assets/icons/system';
 import { UiComponent } from '@/components';
 import { getArrivalStatusText, isSubwayNeedAnimation, motions } from '@/constants';
-import { useFetchTrainInfo } from '@/services/subway';
+import { useFetchStationTimesSummary, useFetchTrainInfo } from '@/services/subway';
 import { useFlow } from '@/stackflow';
 import { fade } from '@/styles';
-import { CurrentTrainArrivalType, SubwayLineType, UpDownType, WithSubwayStationId } from '@/types';
+import {
+  CurrentTrainArrivalType,
+  StationTimeWeekType,
+  SubwayLineType,
+  UpDownType,
+  WithSubwayStationId,
+} from '@/types';
 
 import * as S from './TrainRealTimes.styled';
 
@@ -20,12 +26,59 @@ interface TrainRealTimesProps extends WithSubwayStationId {
   subwayLineId: SubwayLineType;
 }
 
+function resolveStationTimeWeekType(now: Date): StationTimeWeekType {
+  const day = now.getDay();
+
+  if (day === 6) {
+    return StationTimeWeekType.SATURDAY;
+  }
+
+  if (day === 0) {
+    return StationTimeWeekType.HOLIDAY;
+  }
+
+  return StationTimeWeekType.WEEKDAY;
+}
+
+function formatStationTime(time: string | null | undefined): string {
+  return time ? time.slice(0, 5) : '--:--';
+}
+
+function getUpDownLabel(upDownType: UpDownType): string {
+  return upDownType === UpDownType.UP ? '상행' : '하행';
+}
+
+const defaultStationTimeSummaries = [
+  {
+    upDownType: UpDownType.UP,
+    firstDepartureTime: null,
+    lastDepartureTime: null,
+    firstDestinationStationName: null,
+    lastDestinationStationName: null,
+  },
+  {
+    upDownType: UpDownType.DOWN,
+    firstDepartureTime: null,
+    lastDepartureTime: null,
+    firstDestinationStationName: null,
+    lastDestinationStationName: null,
+  },
+];
+
 const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimesProps) => {
   const { push } = useFlow();
   const { data, isFetching, isError, refetch } = useFetchTrainInfo({
     stationId,
     subwayLineId,
   });
+
+  const stationTimeWeekType = useMemo(() => resolveStationTimeWeekType(new Date()), []);
+  const { data: stationTimeSummary, isFetching: isStationTimeSummaryFetching } =
+    useFetchStationTimesSummary({
+      stationId,
+      subwayLineId,
+      stationTimeWeekType,
+    });
 
   const [sort, handleSort] = useReducer(
     prev => (prev === UpDownType.UP ? UpDownType.DOWN : UpDownType.UP),
@@ -38,6 +91,8 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
   };
   const isServiceTerminated = filterdStationsData?.trainRealTimes?.length === 0;
   const currentTrain = filterdStationsData?.trainRealTimes?.[0];
+
+  const stationTimeSummaries = stationTimeSummary?.summaries ?? defaultStationTimeSummaries;
 
   let trainArrivalsContent: ReactNode = null;
   if (isFetching) {
@@ -69,6 +124,49 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
             onRefetch={refetch}
             handleSort={handleSort}
           />
+        </div>
+
+        <div
+          css={{
+            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+            margin: '0 16px',
+            paddingTop: '10px',
+            paddingBottom: '4px',
+          }}
+        >
+          <div
+            css={{
+              color: 'var(--ah-color-legacy-text-faint)',
+              fontSize: '12px',
+              fontWeight: 600,
+              marginBottom: '6px',
+            }}
+          >
+            오늘 첫차/막차
+          </div>
+          {isStationTimeSummaryFetching ? (
+            <div css={{ color: 'white', fontSize: '12px' }}>오늘 첫차/막차 불러오는 중...</div>
+          ) : (
+            stationTimeSummaries.map(summary => (
+              <div
+                key={summary.upDownType}
+                css={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  fontSize: '12px',
+                  color: 'white',
+                  marginBottom: '4px',
+                }}
+              >
+                <span>{getUpDownLabel(summary.upDownType)}</span>
+                <span>
+                  {formatStationTime(summary.firstDepartureTime)} /{' '}
+                  {formatStationTime(summary.lastDepartureTime)}
+                </span>
+              </div>
+            ))
+          )}
         </div>
 
         <div css={S.listWrap}>{trainArrivalsContent}</div>

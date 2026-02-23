@@ -8,9 +8,14 @@ import {
 } from '@ahhachul/domain';
 import { formatSubwayLineInfo } from '@ahhachul/utils';
 
-import { fetchSubwayLines, fetchTrainInfo, fetchTrainInfoV2 } from '@/apis/request/subway';
+import {
+  fetchStationTimeSummaryV2,
+  fetchSubwayLines,
+  fetchTrainInfo,
+  fetchTrainInfoV2,
+} from '@/apis/request/subway';
 import { TIMESTAMP } from '@/constants';
-import { APITrainInfoParams } from '@/types';
+import { APITrainInfoParams, StationTimeWeekType } from '@/types';
 
 export const subwayKeys = subwayQueryKeys;
 
@@ -52,6 +57,29 @@ export const useFetchTrainInfo = (params: APITrainInfoParams) => {
     },
     staleTime: 15 * TIMESTAMP.SECOND,
     gcTime: QUERY_GC_TIME.feed,
+    select: res => {
+      return res.data.result;
+    },
+  });
+};
+
+interface StationTimeSummaryParams extends APITrainInfoParams {
+  stationTimeWeekType: StationTimeWeekType;
+}
+
+export const useFetchStationTimesSummary = (params: StationTimeSummaryParams) => {
+  const stationTimeSummarySignature = buildQuerySignature({
+    subwayLineId: params.subwayLineId,
+    stationId: params.stationId,
+    stationTimeWeekType: params.stationTimeWeekType,
+  });
+
+  return useQuery({
+    queryKey: [...subwayKeys.trains(), 'station-time-summary-v2', stationTimeSummarySignature],
+    queryFn: () => fetchStationTimeSummaryV2(params),
+    staleTime: QUERY_STALE_TIME.feed,
+    gcTime: QUERY_GC_TIME.feed,
+    retry: 1,
     select: res => {
       return res.data.result;
     },

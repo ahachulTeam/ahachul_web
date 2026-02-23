@@ -6,7 +6,9 @@ import { sleep } from '@ahhachul/utils';
 import axiosInstance from '@/apis/fetcher';
 import {
   ITrain,
+  StationTimeWeekType,
   SubwayLineServerModel,
+  UpDownType,
   WithSubwayLineId,
   WithSubwayStationId,
   type ApiResponse,
@@ -30,6 +32,21 @@ interface APITrainInfoV2Response {
   trainRealTimes: ITrain[];
 }
 
+interface APIStationTimeSummaryParams extends WithSubwayLineId, WithSubwayStationId {
+  stationTimeWeekType: StationTimeWeekType;
+}
+
+export interface APIStationTimeSummaryV2Response {
+  stationTimeWeekType: StationTimeWeekType;
+  summaries: {
+    upDownType: UpDownType;
+    firstDepartureTime: string | null;
+    lastDepartureTime: string | null;
+    firstDestinationStationName: string | null;
+    lastDestinationStationName: string | null;
+  }[];
+}
+
 export const fetchSubwayLines = async () =>
   await axiosInstance.get<ApiResponse<SubwayLineServerModel>>(API_PATHS.subway.lines);
 
@@ -49,4 +66,13 @@ export const fetchTrainInfoV2 = async (params: APITrainInfoParams) => {
   return axiosInstance.get<ApiResponse<APITrainInfoV2Response>>(API_PATHS.subway.trainRealTimesV2, {
     params,
   });
+};
+
+export const fetchStationTimeSummaryV2 = async (params: APIStationTimeSummaryParams) => {
+  return axiosInstance.get<ApiResponse<APIStationTimeSummaryV2Response>>(
+    API_PATHS.subway.stationTimeSummaryV2,
+    {
+      params,
+    },
+  );
 };

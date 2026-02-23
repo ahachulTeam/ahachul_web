@@ -155,3 +155,22 @@ export interface SubwayLine {
 export interface SubwayLineServerModel {
   subwayLines: SubwayLine[];
 }
+
+export enum StationTimeWeekType {
+  WEEKDAY = 'WEEKDAY',
+  SATURDAY = 'SATURDAY',
+  HOLIDAY = 'HOLIDAY',
+}
+
+export interface StationTimeSummary {
+  upDownType: UpDownType;
+  firstDepartureTime: string | null;
+  lastDepartureTime: string | null;
+  firstDestinationStationName: string | null;
+  lastDestinationStationName: string | null;
+}
+
+export interface StationTimeSummaryResponse {
+  stationTimeWeekType: StationTimeWeekType;
+  summaries: StationTimeSummary[];
+}
