@@ -7,6 +7,7 @@ import axiosInstance from '@/apis/fetcher';
 import {
   CurrentTrainArrivalType,
   LastTrainRiskLevel,
+  QuickExitConfidenceLevel,
   ITrain,
   StationTimeWeekType,
   SubwayLineServerModel,
@@ -86,6 +87,23 @@ export interface APILastTrainRiskV2Response {
   message: string;
 }
 
+interface APIQuickExitsV2Params extends WithSubwayLineId, WithSubwayStationId {
+  upDownType: UpDownType;
+}
+
+export interface APIQuickExitsV2Response {
+  stationId: number;
+  subwayLineId: number;
+  upDownType: UpDownType;
+  recommendations: {
+    carNo: string;
+    exitNo: string;
+    directionHint: string;
+    walkingBenefitMinutes: number;
+    confidenceLevel: QuickExitConfidenceLevel;
+  }[];
+}
+
 const isCurrentTrainArrivalType = (value: string): value is CurrentTrainArrivalType => {
   return Object.values(CurrentTrainArrivalType).includes(value as CurrentTrainArrivalType);
 };
@@ -151,6 +169,15 @@ export const fetchStationTimeSummaryV2 = async (params: APIStationTimeSummaryPar
 export const fetchLastTrainRiskV2 = async (params: APILastTrainRiskV2Params) => {
   return axiosInstance.get<ApiResponse<APILastTrainRiskV2Response>>(
     API_PATHS.subway.stationLastTrainRiskV2,
+    {
+      params,
+    },
+  );
+};
+
+export const fetchQuickExitsV2 = async (params: APIQuickExitsV2Params) => {
+  return axiosInstance.get<ApiResponse<APIQuickExitsV2Response>>(
+    API_PATHS.subway.stationQuickExitsV2,
     {
       params,
     },

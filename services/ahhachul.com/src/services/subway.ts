@@ -10,6 +10,7 @@ import { formatSubwayLineInfo } from '@ahhachul/utils';
 
 import {
   fetchLastTrainRiskV2,
+  fetchQuickExitsV2,
   fetchStationTimeSummaryV2,
   fetchSubwayLines,
   fetchTrainInfo,
@@ -114,6 +115,27 @@ export const useFetchLastTrainRisk = (params: LastTrainRiskParams) => {
     queryKey: [...subwayKeys.trains(), 'last-train-risk-v2', signature],
     queryFn: () => fetchLastTrainRiskV2(params),
     staleTime: 10 * TIMESTAMP.SECOND,
+    gcTime: QUERY_GC_TIME.feed,
+    retry: 1,
+    select: res => res.data.result,
+  });
+};
+
+interface QuickExitsParams extends APITrainInfoParams {
+  upDownType: UpDownType;
+}
+
+export const useFetchQuickExits = (params: QuickExitsParams) => {
+  const signature = buildQuerySignature({
+    stationId: params.stationId,
+    subwayLineId: params.subwayLineId,
+    upDownType: params.upDownType,
+  });
+
+  return useQuery({
+    queryKey: [...subwayKeys.trains(), 'quick-exits-v2', signature],
+    queryFn: () => fetchQuickExitsV2(params),
+    staleTime: 30 * TIMESTAMP.SECOND,
     gcTime: QUERY_GC_TIME.feed,
     retry: 1,
     select: res => res.data.result,

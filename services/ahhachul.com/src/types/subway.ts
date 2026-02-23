@@ -160,3 +160,24 @@ export interface LastTrainRiskResponse {
   riskLevel: LastTrainRiskLevel;
   message: string;
 }
+
+export enum QuickExitConfidenceLevel {
+  HIGH = 'HIGH',
+  MEDIUM = 'MEDIUM',
+  LOW = 'LOW',
+}
+
+export interface QuickExitRecommendation {
+  carNo: string;
+  exitNo: string;
+  directionHint: string;
+  walkingBenefitMinutes: number;
+  confidenceLevel: QuickExitConfidenceLevel;
+}
+
+export interface QuickExitResponse {
+  stationId: number;
+  subwayLineId: number;
+  upDownType: UpDownType;
+  recommendations: QuickExitRecommendation[];
+}

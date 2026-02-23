@@ -7,6 +7,7 @@ import { UiComponent } from '@/components';
 import { getArrivalStatusText, isSubwayNeedAnimation, motions } from '@/constants';
 import {
   useFetchLastTrainRisk,
+  useFetchQuickExits,
   useFetchStationTimesSummary,
   useFetchTrainInfo,
 } from '@/services/subway';
@@ -15,10 +16,12 @@ import { fade } from '@/styles';
 import {
   CurrentTrainArrivalType,
   LastTrainRiskLevel,
+  QuickExitConfidenceLevel,
   StationTimeWeekType,
   SubwayLineType,
   UpDownType,
-  WithSubwayStationId,
+  type QuickExitRecommendation,
+  type WithSubwayStationId,
 } from '@/types';
 
 import * as S from './TrainRealTimes.styled';
@@ -115,6 +118,30 @@ function resolveMinutesToLastTrainText(minutesToLastTrain: number): string {
   return `막차까지 ${minutesToLastTrain}분`;
 }
 
+function resolveQuickExitConfidenceLabel(level: QuickExitConfidenceLevel): string {
+  if (level === QuickExitConfidenceLevel.HIGH) {
+    return '높음';
+  }
+  if (level === QuickExitConfidenceLevel.MEDIUM) {
+    return '보통';
+  }
+  return '낮음';
+}
+
+function resolveQuickExitConfidenceColor(level: QuickExitConfidenceLevel): string {
+  if (level === QuickExitConfidenceLevel.HIGH) {
+    return 'rgba(16, 185, 129, 0.72)';
+  }
+  if (level === QuickExitConfidenceLevel.MEDIUM) {
+    return 'rgba(245, 158, 11, 0.72)';
+  }
+  return 'rgba(239, 68, 68, 0.72)';
+}
+
+function resolveQuickExitLineText(recommendation: QuickExitRecommendation): string {
+  return `${recommendation.carNo}칸 · 출구 ${recommendation.exitNo} · 약 ${recommendation.walkingBenefitMinutes}분 단축`;
+}
+
 const defaultStationTimeSummaries = [
   {
     upDownType: UpDownType.UP,
@@ -160,6 +187,12 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
     upDownType: sort,
     stationTimeWeekType,
     walkingMinutes,
+  });
+
+  const { data: quickExitData, isFetching: isQuickExitFetching } = useFetchQuickExits({
+    stationId,
+    subwayLineId,
+    upDownType: sort,
   });
 
   const filterdStationsData = {
@@ -226,6 +259,55 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
           {lastTrainRisk.message}
         </div>
       </>
+    );
+  }
+
+  let quickExitContent: ReactNode = (
+    <div css={{ color: 'var(--ah-color-legacy-text-faint)', fontSize: '12px' }}>
+      추천 정보 준비 중입니다.
+    </div>
+  );
+
+  if (isQuickExitFetching) {
+    quickExitContent = (
+      <div css={{ color: 'var(--ah-color-legacy-text-faint)', fontSize: '12px' }}>
+        빠른하차/출구 추천 불러오는 중...
+      </div>
+    );
+  } else if ((quickExitData?.recommendations?.length || 0) > 0) {
+    quickExitContent = (
+      <div css={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        {quickExitData!.recommendations.slice(0, 2).map(recommendation => (
+          <div
+            key={`${recommendation.carNo}-${recommendation.exitNo}`}
+            css={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '10px',
+            }}
+          >
+            <span css={{ color: 'white', fontSize: '12px' }}>
+              {resolveQuickExitLineText(recommendation)}
+            </span>
+            <span
+              css={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                height: '18px',
+                padding: '0 6px',
+                borderRadius: '999px',
+                fontSize: '10px',
+                fontWeight: 700,
+                color: 'white',
+                backgroundColor: resolveQuickExitConfidenceColor(recommendation.confidenceLevel),
+              }}
+            >
+              {resolveQuickExitConfidenceLabel(recommendation.confidenceLevel)}
+            </span>
+          </div>
+        ))}
+      </div>
     );
   }
 
@@ -377,6 +459,27 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
             </label>
           </div>
           <div css={{ marginTop: '8px' }}>{lastTrainRiskContent}</div>
+        </div>
+
+        <div
+          css={{
+            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+            margin: '0 16px',
+            paddingTop: '10px',
+            paddingBottom: '10px',
+          }}
+        >
+          <div
+            css={{
+              color: 'var(--ah-color-legacy-text-faint)',
+              fontSize: '12px',
+              fontWeight: 600,
+              marginBottom: '8px',
+            }}
+          >
+            빠른하차/출구 추천
+          </div>
+          {quickExitContent}
         </div>
 
         <div css={S.listWrap}>{trainArrivalsContent}</div>
