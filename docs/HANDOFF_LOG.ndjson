@@ -181,3 +181,7 @@
 {"from":"PM","to":"Team Lead","taskId":"RF-1201-PM","state":"Done","note":"분석/전달 문서 작성 완료: PM_LOST_FOUND_GAP_ANALYSIS_2026-02-24.md, PM_TO_FE_LOST_FOUND_IMPROVEMENT_V1_SPEC.md, PM_TO_BE_LOST_FOUND_IMPROVEMENT_V1_SPEC.md","at":"2026-02-24T01:31:37+09:00"}
 {"from":"Team Lead","to":"FE Lead","taskId":"RF-1201-FE","state":"ASSIGNED","note":"유실물 개선 FE 구현 착수: docs/PM_TO_FE_LOST_FOUND_IMPROVEMENT_V1_SPEC.md","at":"2026-02-24T01:31:37+09:00"}
 {"from":"Team Lead","to":"BE Lead","taskId":"RF-1201-BE","state":"ASSIGNED","note":"유실물 개선 BE 구현 착수: docs/PM_TO_BE_LOST_FOUND_IMPROVEMENT_V1_SPEC.md","at":"2026-02-24T01:31:37+09:00"}
+{"from":"Team Lead","to":"FE Lead","taskId":"RF-1100-FE","state":"IN_PROGRESS","note":"커뮤니티 댓글 작업을 PM 유실물 분석 트랙과 병렬로 계속 진행","at":"2026-02-24T01:32:59+09:00"}
+{"from":"Team Lead","to":"BE Lead","taskId":"RF-1100-BE","state":"IN_PROGRESS","note":"커뮤니티 댓글 API 작업을 PM 유실물 분석 트랙과 병렬로 계속 진행","at":"2026-02-24T01:32:59+09:00"}
+{"from":"Team Lead","to":"FE Lead","taskId":"RF-1201-FE","state":"QUEUED","note":"PM 유실물 전달서 수신 완료, 커뮤니티와 병렬 검토/후속 구현 대기","at":"2026-02-24T01:32:59+09:00"}
+{"from":"Team Lead","to":"BE Lead","taskId":"RF-1201-BE","state":"QUEUED","note":"PM 유실물 전달서 수신 완료, 커뮤니티와 병렬 검토/후속 구현 대기","at":"2026-02-24T01:32:59+09:00"}
