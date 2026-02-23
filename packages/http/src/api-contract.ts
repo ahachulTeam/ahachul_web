@@ -46,6 +46,8 @@ export const API_PATHS = {
     list: `/${API_SERVICE_PATHS.lostFound}`,
     detail: (id: Identifier) => `/${API_SERVICE_PATHS.lostFound}/${id}`,
     comments: (id: Identifier) => `/${API_SERVICE_PATHS.lostFound}/${id}/comments`,
+    comment: (postId: Identifier, commentId: Identifier) =>
+      `/${API_SERVICE_PATHS.lostFound}/${postId}/comments/${commentId}`,
     status: (id: Identifier) => `/${API_SERVICE_PATHS.lostFound}/${id}/status`,
   },
   subway: {

@@ -250,7 +250,8 @@
   },
   "lostFoundDetail": {
     "edit": "수정",
-    "fromLost112": "로스트 112에 등록된 분실물입니다."
+    "fromLost112": "로스트 112에 등록된 분실물입니다.",
+    "recommendTitle": "추천 습득물"
   },
   "communityDetail": {
     "commentCount": "댓글 {count}개",
@@ -275,5 +276,37 @@
     "createError": "댓글 등록에 실패했습니다.",
     "updateError": "댓글 수정에 실패했습니다.",
     "deleteError": "댓글 삭제에 실패했습니다."
+  },
+  "lostFoundEditor": {
+    "headingCreate": "유실물 게시글 작성",
+    "headingEdit": "유실물 게시글 수정",
+    "description": "정확한 정보를 작성하면 분실물 찾기에 더 도움이 됩니다.",
+    "typeLabel": "유형",
+    "subwayLineLabel": "노선",
+    "titleLabel": "제목",
+    "titlePlaceholder": "제목을 입력해주세요",
+    "contentLabel": "내용",
+    "contentPlaceholder": "유실물 상세 내용과 연락 가능한 정보를 작성해주세요.",
+    "imageLabel": "이미지",
+    "imageAlt": "유실물 이미지 {index}",
+    "imageDelete": "삭제",
+    "submitHint": "등록 전 내용을 다시 확인해주세요.",
+    "submitCreate": "등록",
+    "submitEdit": "수정 완료",
+    "submitPending": "처리 중...",
+    "cancel": "취소",
+    "submitError": "게시글 저장에 실패했습니다. 잠시 후 다시 시도해주세요.",
+    "loadErrorTitle": "유실물 게시글을 불러오지 못했습니다.",
+    "loadErrorDescription": "게시글 정보가 없거나 일시적인 오류가 발생했습니다.",
+    "goToDetail": "상세로 이동",
+    "goToList": "목록으로 이동",
+    "loadingTitle": "유실물 게시글을 불러오는 중입니다.",
+    "loadingDescription": "잠시만 기다려주세요.",
+    "validation": {
+      "titleRequired": "제목을 입력해주세요.",
+      "titleMax": "제목은 {max}자 이하로 입력해주세요.",
+      "contentRequired": "내용을 입력해주세요.",
+      "subwayLineRequired": "노선을 선택해주세요."
+    }
   }
 }

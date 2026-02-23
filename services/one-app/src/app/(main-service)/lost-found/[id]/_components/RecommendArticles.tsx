@@ -1,5 +1,8 @@
+import { usePathname } from 'next/navigation';
+
 import { ChevronIcon } from '@/assets/icon';
 import { RecommendArticleCard } from '@/components';
+import { getLocaleMessages, resolvePathLocale } from '@/i18n';
 import { IRecommendPost } from '@/types';
 
 interface Props {
@@ -7,12 +10,16 @@ interface Props {
 }
 
 export const RecommendArticles = ({ posts }: Props) => {
+  const pathname = usePathname() ?? '/lost-found';
+  const locale = resolvePathLocale(pathname, null);
+  const copy = getLocaleMessages(locale).lostFoundDetail;
+
   if (!posts?.length) return null;
 
   return (
     <section>
       <div className=" h-12 pl-5 flex items-center border-b border-b-gray-30">
-        <span className=" text-gray-90 text-title-large">추천 습득물</span>
+        <span className=" text-gray-90 text-title-large">{copy.recommendTitle}</span>
         <ChevronIcon />
       </div>
       {posts.map(post => (

@@ -5,7 +5,7 @@ import { ChangeEvent, FormEvent, useEffect, useMemo, useRef, useState } from 're
 import { useMutation, useQuery } from '@tanstack/react-query';
 import type { EditorState } from 'lexical';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { QUERY_GC_TIME, QUERY_STALE_TIME, lostFoundQueryKeys } from '@ahhachul/domain';
 import { API_PATHS } from '@ahhachul/http';
@@ -19,6 +19,7 @@ import {
 import { Editor } from '@/components/Editor';
 import { SUBWAY_LINES } from '@/constants';
 import { lostTypeOptions } from '@/constants/lost-found';
+import { getLocaleMessages, localizePathname, resolvePathLocale } from '@/i18n';
 import { fetchClient } from '@/lib/fetch-client';
 import {
   LostFoundType,
@@ -78,6 +79,9 @@ function createLexicalStateFromText(text: string): string {
 
 export default function LostFoundPostEditor(props: Props) {
   const router = useRouter();
+  const pathname = usePathname() ?? '/lost-found';
+  const locale = resolvePathLocale(pathname, null);
+  const copy = getLocaleMessages(locale).lostFoundEditor;
   const isEditMode = props.mode === 'edit';
   const editTargetId = isEditMode ? props.postId : -1;
 
@@ -140,26 +144,34 @@ export default function LostFoundPostEditor(props: Props) {
 
   const validationMessage = useMemo(() => {
     if (isBlankText(title)) {
-      return '제목을 입력해주세요.';
+      return copy.validation.titleRequired;
     }
 
     if (getNormalizedTextLength(title) > MAX_TITLE_LENGTH) {
-      return `제목은 ${MAX_TITLE_LENGTH}자 이하로 입력해주세요.`;
+      return copy.validation.titleMax.replace('{max}', String(MAX_TITLE_LENGTH));
     }
 
     const contentValidation = validateRequiredLexicalContent(content, {
-      requiredMessage: '내용을 입력해주세요.',
+      requiredMessage: copy.validation.contentRequired,
     });
     if (!contentValidation.isValid) {
       return contentValidation.message;
     }
 
     if (!subwayLineId) {
-      return '지하철 호선을 선택해주세요.';
+      return copy.validation.subwayLineRequired;
     }
 
     return '';
-  }, [content, subwayLineId, title]);
+  }, [
+    content,
+    copy.validation.contentRequired,
+    copy.validation.subwayLineRequired,
+    copy.validation.titleMax,
+    copy.validation.titleRequired,
+    subwayLineId,
+    title,
+  ]);
 
   const handleContentChange = (editorState: EditorState | null) => {
     if (!editorState) {
@@ -248,7 +260,7 @@ export default function LostFoundPostEditor(props: Props) {
       return createLostFoundPost(payload);
     },
     onSuccess: response => {
-      router.replace(`/lost-found/${response.result.id}`);
+      router.replace(localizePathname(`/lost-found/${response.result.id}`, locale));
       router.refresh();
     },
     onError: error => {
@@ -257,7 +269,7 @@ export default function LostFoundPostEditor(props: Props) {
         return;
       }
 
-      setSubmitError('요청 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      setSubmitError(copy.submitError);
     },
   });
 
@@ -277,22 +289,20 @@ export default function LostFoundPostEditor(props: Props) {
     return (
       <main className="min-h-screen bg-gray-10 px-5 pb-24 pt-4">
         <section className="rounded-2xl border border-red/30 bg-white p-4">
-          <h1 className="text-title-small text-gray-100">유실물 게시글을 불러오지 못했습니다.</h1>
-          <p className="mt-2 text-body-medium text-gray-80">
-            네트워크 상태를 확인한 뒤 다시 시도해주세요.
-          </p>
+          <h1 className="text-title-small text-gray-100">{copy.loadErrorTitle}</h1>
+          <p className="mt-2 text-body-medium text-gray-80">{copy.loadErrorDescription}</p>
           <div className="mt-4 flex gap-2">
             <Link
-              href={`/lost-found/${editTargetId}`}
+              href={localizePathname(`/lost-found/${editTargetId}`, locale)}
               className="inline-flex h-10 items-center rounded-xl border border-gray-40 px-4 text-label-medium text-gray-90"
             >
-              상세 페이지로 이동
+              {copy.goToDetail}
             </Link>
             <Link
-              href="/lost-found"
+              href={localizePathname('/lost-found', locale)}
               className="inline-flex h-10 items-center rounded-xl bg-key-color px-4 text-label-medium text-white"
             >
-              목록으로 이동
+              {copy.goToList}
             </Link>
           </div>
         </section>
@@ -304,35 +314,35 @@ export default function LostFoundPostEditor(props: Props) {
     return (
       <main className="min-h-screen bg-gray-10 px-5 pb-24 pt-4">
         <section className="rounded-2xl border border-gray-30 bg-white p-4">
-          <h1 className="text-title-small text-gray-100">유실물 게시글을 불러오는 중입니다.</h1>
-          <p className="mt-2 text-body-medium text-gray-80">잠시만 기다려주세요.</p>
+          <h1 className="text-title-small text-gray-100">{copy.loadingTitle}</h1>
+          <p className="mt-2 text-body-medium text-gray-80">{copy.loadingDescription}</p>
         </section>
       </main>
     );
   }
 
-  const cancelHref = isEditMode ? `/lost-found/${editTargetId}` : '/lost-found';
-  let submitButtonLabel = '등록 완료';
+  const cancelHref = isEditMode
+    ? localizePathname(`/lost-found/${editTargetId}`, locale)
+    : localizePathname('/lost-found', locale);
+  let submitButtonLabel = copy.submitCreate;
   if (mutation.isPending) {
-    submitButtonLabel = '저장 중...';
+    submitButtonLabel = copy.submitPending;
   } else if (isEditMode) {
-    submitButtonLabel = '수정 완료';
+    submitButtonLabel = copy.submitEdit;
   }
 
   return (
     <main className="min-h-screen bg-gray-10 px-5 pb-24 pt-4">
       <section className="rounded-2xl border border-gray-30 bg-white p-4">
         <h1 className="text-title-small text-gray-100">
-          {isEditMode ? '유실물 게시글 수정' : '유실물 게시글 등록'}
+          {isEditMode ? copy.headingEdit : copy.headingCreate}
         </h1>
-        <p className="mt-2 text-body-medium text-gray-80">
-          등록된 정보는 노선별 유실물 탐색과 상세 페이지에서 즉시 확인할 수 있습니다.
-        </p>
+        <p className="mt-2 text-body-medium text-gray-80">{copy.description}</p>
 
         <form className="mt-5 flex flex-col gap-4" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="lostType" className="text-label-medium text-gray-90">
-              유형
+              {copy.typeLabel}
             </label>
             <select
               id="lostType"
@@ -350,7 +360,7 @@ export default function LostFoundPostEditor(props: Props) {
 
           <div>
             <label htmlFor="subwayLineId" className="text-label-medium text-gray-90">
-              지하철 호선
+              {copy.subwayLineLabel}
             </label>
             <select
               id="subwayLineId"
@@ -368,14 +378,14 @@ export default function LostFoundPostEditor(props: Props) {
 
           <div>
             <label htmlFor="title" className="text-label-medium text-gray-90">
-              제목
+              {copy.titleLabel}
             </label>
             <input
               id="title"
               value={title}
               onChange={event => setTitle(event.target.value)}
               maxLength={MAX_TITLE_LENGTH}
-              placeholder="유실물 제목을 입력해주세요"
+              placeholder={copy.titlePlaceholder}
               className="mt-2 h-11 w-full rounded-xl border border-gray-40 bg-white px-3 text-body-medium text-gray-100 outline-none placeholder:text-gray-70 focus:border-key-color"
             />
             <p className="mt-1 text-right text-body-small text-gray-70">
@@ -384,10 +394,10 @@ export default function LostFoundPostEditor(props: Props) {
           </div>
 
           <div>
-            <label className="text-label-medium text-gray-90">내용</label>
+            <label className="text-label-medium text-gray-90">{copy.contentLabel}</label>
             <div className="mt-2 h-56 [&>div>div]:h-full [&>div>div]:rounded-xl [&>div>div]:border-gray-40 [&>div>div]:p-3 [&>div>div]:text-body-medium [&>div>div]:text-gray-100">
               <Editor
-                placeholder="분실물 상세 상황을 작성해주세요."
+                placeholder={copy.contentPlaceholder}
                 initialState={editorInitialState}
                 onChange={handleContentChange}
               />
@@ -397,7 +407,7 @@ export default function LostFoundPostEditor(props: Props) {
           <div>
             <div className="flex items-center justify-between">
               <label htmlFor="images" className="text-label-medium text-gray-90">
-                이미지
+                {copy.imageLabel}
               </label>
               <span className="text-body-small text-gray-70">
                 {images.length} / {MAX_IMAGE_COUNT}
@@ -418,7 +428,7 @@ export default function LostFoundPostEditor(props: Props) {
                   <li key={`${image.id ?? 'new'}-${image.url}`} className="relative">
                     <img
                       src={image.url}
-                      alt={`첨부 이미지 ${index + 1}`}
+                      alt={copy.imageAlt.replace('{index}', String(index + 1))}
                       className="h-24 w-full rounded-lg object-cover"
                     />
                     <button
@@ -426,7 +436,7 @@ export default function LostFoundPostEditor(props: Props) {
                       onClick={() => handleImageDelete(index)}
                       className="absolute right-1 top-1 inline-flex h-6 items-center rounded-md bg-black/70 px-2 text-[11px] text-white"
                     >
-                      삭제
+                      {copy.imageDelete}
                     </button>
                   </li>
                 ))}
@@ -435,7 +445,7 @@ export default function LostFoundPostEditor(props: Props) {
           </div>
 
           <p className={`text-body-small ${submitError ? 'text-red' : 'text-gray-70'}`}>
-            {submitError || validationMessage || '등록 전 내용과 첨부 파일을 확인해주세요.'}
+            {submitError || validationMessage || copy.submitHint}
           </p>
 
           <div className="mt-1 flex gap-2">
@@ -443,7 +453,7 @@ export default function LostFoundPostEditor(props: Props) {
               href={cancelHref}
               className="inline-flex h-11 flex-1 items-center justify-center rounded-xl border border-gray-40 bg-white text-label-medium text-gray-90"
             >
-              취소
+              {copy.cancel}
             </Link>
             <button
               type="submit"

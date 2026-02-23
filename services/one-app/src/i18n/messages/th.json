@@ -250,7 +250,8 @@
   },
   "lostFoundDetail": {
     "edit": "แก้ไข",
-    "fromLost112": "รายการนี้ถูกลงทะเบียนใน Lost 112"
+    "fromLost112": "รายการนี้ถูกลงทะเบียนใน Lost 112",
+    "recommendTitle": "รายการแนะนำ"
   },
   "communityDetail": {
     "commentCount": "ความคิดเห็น {count} รายการ",
@@ -275,5 +276,37 @@
     "createError": "ไม่สามารถส่งความคิดเห็นได้",
     "updateError": "ไม่สามารถแก้ไขความคิดเห็นได้",
     "deleteError": "ไม่สามารถลบความคิดเห็นได้"
+  },
+  "lostFoundEditor": {
+    "headingCreate": "สร้างโพสต์ของหาย",
+    "headingEdit": "แก้ไขโพสต์ของหาย",
+    "description": "กรอกรายละเอียดให้ครบเพื่อช่วยตามหาของได้เร็วขึ้น",
+    "typeLabel": "ประเภท",
+    "subwayLineLabel": "สายรถไฟ",
+    "titleLabel": "หัวข้อ",
+    "titlePlaceholder": "กรอกหัวข้อ",
+    "contentLabel": "รายละเอียด",
+    "contentPlaceholder": "กรอกรายละเอียดของหายและข้อมูลติดต่อ",
+    "imageLabel": "รูปภาพ",
+    "imageAlt": "รูปของหาย {index}",
+    "imageDelete": "ลบ",
+    "submitHint": "กรุณาตรวจสอบข้อมูลก่อนส่ง",
+    "submitCreate": "โพสต์",
+    "submitEdit": "บันทึกการแก้ไข",
+    "submitPending": "กำลังดำเนินการ...",
+    "cancel": "ยกเลิก",
+    "submitError": "บันทึกโพสต์ไม่สำเร็จ โปรดลองอีกครั้ง",
+    "loadErrorTitle": "ไม่สามารถโหลดโพสต์ของหายได้",
+    "loadErrorDescription": "อาจไม่พบโพสต์หรือเกิดข้อผิดพลาดชั่วคราว",
+    "goToDetail": "ไปหน้ารายละเอียด",
+    "goToList": "กลับไปหน้ารายการ",
+    "loadingTitle": "กำลังโหลดโพสต์ของหาย",
+    "loadingDescription": "โปรดรอสักครู่",
+    "validation": {
+      "titleRequired": "กรุณากรอกหัวข้อ",
+      "titleMax": "หัวข้อต้องไม่เกิน {max} ตัวอักษร",
+      "contentRequired": "กรุณากรอกรายละเอียด",
+      "subwayLineRequired": "กรุณาเลือกสายรถไฟ"
+    }
   }
 }

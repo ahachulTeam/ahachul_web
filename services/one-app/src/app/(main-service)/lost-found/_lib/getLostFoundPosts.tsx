@@ -19,7 +19,7 @@ export async function getLostFoundPosts({
 
   const params = removeFalsyValues({
     ...(filters.get('keyword') && { keyword: filters.get('keyword') || '' }),
-    ...(filters.get('subwayLineId') && { subwayLineId: filters.get('subwayLineId') || '' }),
+    ...(filters.get('subwayLineId') && { subwayLineIds: filters.get('subwayLineId') || '' }),
     pageSize: API_PAGE_SIZE.list,
     ...(pageParam && { pageToken: pageParam }),
     ...{ lostType: filters.get('category') || LostFoundType.LOST },

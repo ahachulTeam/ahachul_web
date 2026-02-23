@@ -250,7 +250,8 @@
   },
   "lostFoundDetail": {
     "edit": "Edit",
-    "fromLost112": "This item was posted on Lost 112."
+    "fromLost112": "This item was posted on Lost 112.",
+    "recommendTitle": "Recommended found items"
   },
   "communityDetail": {
     "commentCount": "{count} comments",
@@ -275,5 +276,37 @@
     "createError": "Failed to create comment.",
     "updateError": "Failed to update comment.",
     "deleteError": "Failed to delete comment."
+  },
+  "lostFoundEditor": {
+    "headingCreate": "Create lost & found post",
+    "headingEdit": "Edit lost & found post",
+    "description": "Accurate details help recover items faster.",
+    "typeLabel": "Type",
+    "subwayLineLabel": "Line",
+    "titleLabel": "Title",
+    "titlePlaceholder": "Enter a title",
+    "contentLabel": "Content",
+    "contentPlaceholder": "Describe the item details and contact information.",
+    "imageLabel": "Images",
+    "imageAlt": "Lost item image {index}",
+    "imageDelete": "Remove",
+    "submitHint": "Please review before submitting.",
+    "submitCreate": "Create",
+    "submitEdit": "Save changes",
+    "submitPending": "Processing...",
+    "cancel": "Cancel",
+    "submitError": "Failed to save the post. Please try again later.",
+    "loadErrorTitle": "Failed to load the lost & found post.",
+    "loadErrorDescription": "The post may not exist or a temporary error occurred.",
+    "goToDetail": "Go to detail",
+    "goToList": "Go to list",
+    "loadingTitle": "Loading lost & found post.",
+    "loadingDescription": "Please wait a moment.",
+    "validation": {
+      "titleRequired": "Please enter a title.",
+      "titleMax": "Title must be {max} characters or less.",
+      "contentRequired": "Please enter content.",
+      "subwayLineRequired": "Please select a subway line."
+    }
   }
 }

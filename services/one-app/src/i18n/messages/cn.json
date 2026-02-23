@@ -250,7 +250,8 @@
   },
   "lostFoundDetail": {
     "edit": "编辑",
-    "fromLost112": "该失物来自 Lost 112。"
+    "fromLost112": "该失物来自 Lost 112。",
+    "recommendTitle": "推荐拾得物"
   },
   "communityDetail": {
     "commentCount": "评论 {count} 条",
@@ -275,5 +276,37 @@
     "createError": "评论发布失败。",
     "updateError": "评论修改失败。",
     "deleteError": "评论删除失败。"
+  },
+  "lostFoundEditor": {
+    "headingCreate": "发布失物招领帖子",
+    "headingEdit": "编辑失物招领帖子",
+    "description": "填写准确信息有助于更快找回物品。",
+    "typeLabel": "类型",
+    "subwayLineLabel": "线路",
+    "titleLabel": "标题",
+    "titlePlaceholder": "请输入标题",
+    "contentLabel": "内容",
+    "contentPlaceholder": "请填写物品详情和可联系信息。",
+    "imageLabel": "图片",
+    "imageAlt": "失物图片 {index}",
+    "imageDelete": "删除",
+    "submitHint": "提交前请再次确认内容。",
+    "submitCreate": "发布",
+    "submitEdit": "保存修改",
+    "submitPending": "处理中...",
+    "cancel": "取消",
+    "submitError": "帖子保存失败，请稍后重试。",
+    "loadErrorTitle": "无法加载失物招领帖子。",
+    "loadErrorDescription": "帖子不存在或发生临时错误。",
+    "goToDetail": "前往详情",
+    "goToList": "返回列表",
+    "loadingTitle": "正在加载失物招领帖子。",
+    "loadingDescription": "请稍候。",
+    "validation": {
+      "titleRequired": "请输入标题。",
+      "titleMax": "标题需不超过 {max} 个字符。",
+      "contentRequired": "请输入内容。",
+      "subwayLineRequired": "请选择线路。"
+    }
   }
 }
