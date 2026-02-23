@@ -1,29 +1,37 @@
 {
-  "updatedAt": "2026-02-17T08:20:00.000Z",
-  "branch": "codex/rf-1000-seo-linking-sitemap-rss",
-  "sprintFocus": "RF-1000 진행: Next SEO 내부 링크/구조화 데이터/사이트맵+RSS 자동화 고도화",
+  "updatedAt": "2026-02-24T01:14:00+09:00",
+  "branch": "develop",
+  "sprintFocus": "RF-1100 진행: 커뮤니티 댓글 조회/작성/수정/삭제/답글 안정화",
   "leadDirective": [
-    "1) 내부 탐색 경로는 anchor 기반으로 노출해 검색 크롤러가 구조를 안정적으로 학습하도록 유지한다.",
-    "2) WebSite/Organization/SiteNavigationElement/BreadcrumbList JSON-LD를 shared builder로 일관 생성한다.",
-    "3) sitemap은 index + segment 구조로 운영하고 indexable 공개 라우트와 세부 콘텐츠를 분리 관리한다.",
-    "4) RSS/sitemap route는 upstream API 장애 시에도 유효 XML을 반환해 빌드/배포 안정성을 보장한다."
+    "1) PM 명세를 단일 소스로 삼아 FE/BE가 동일한 댓글 계약(수정/삭제/권한/에러)을 구현한다.",
+    "2) FE는 커뮤니티 상세 댓글 영역을 실제 마운트하고 작성/수정/삭제/답글 UX를 완료한다.",
+    "3) BE는 PATCH/DELETE 댓글 API와 권한/검증 예외 코드를 고정하고 계약 샘플을 제공한다.",
+    "4) QAReady 이전에 FE/BE 간 계약 검증(JSON 샘플 + 에러 케이스)을 반드시 맞춘다."
   ],
   "agents": [
     {
       "role": "Team Lead",
       "owner": "lead",
-      "taskId": "RF-1000",
-      "state": "Done",
-      "updatedAt": "2026-02-17T17:20:00+09:00",
-      "nextAction": "prepare commit and develop PR summary for RF-1000"
+      "taskId": "RF-1100",
+      "state": "InProgress",
+      "updatedAt": "2026-02-24T01:14:00+09:00",
+      "nextAction": "track FE/BE progress and handoff QA-ready evidence"
     },
     {
       "role": "FE Lead",
       "owner": "fe-lead",
-      "taskId": "RF-1000",
-      "state": "Done",
-      "updatedAt": "2026-02-17T17:20:00+09:00",
-      "nextAction": "monitor sitelink/structured-data indexing quality and route growth"
+      "taskId": "RF-1100-FE",
+      "state": "ASSIGNED",
+      "updatedAt": "2026-02-24T01:14:00+09:00",
+      "nextAction": "implement comment section mount, create/reply/edit/delete flows in one-app"
+    },
+    {
+      "role": "BE Lead",
+      "owner": "be-lead",
+      "taskId": "RF-1100-BE",
+      "state": "ASSIGNED",
+      "updatedAt": "2026-02-24T01:14:00+09:00",
+      "nextAction": "deliver comment PATCH/DELETE APIs with auth/validation error contracts"
     },
     {
       "role": "FE Specialist A",
@@ -1482,10 +1490,26 @@
       "state": "Done",
       "note": "RF-1000 completed: internal linking, structured data, sitemap index segmentation, and RSS automation synchronized.",
       "at": "2026-02-17T17:20:00+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "FE Lead",
+      "taskId": "RF-1100-FE",
+      "state": "ASSIGNED",
+      "note": "PM 커뮤니티 미흡점 명세 기반으로 one-app 댓글 조회/작성/수정/삭제/답글 기능 구현 시작.",
+      "at": "2026-02-24T01:14:00+09:00"
+    },
+    {
+      "from": "Team Lead",
+      "to": "BE Lead",
+      "taskId": "RF-1100-BE",
+      "state": "ASSIGNED",
+      "note": "PM 커뮤니티 미흡점 명세 기반으로 댓글 PATCH/DELETE API 및 권한/검증 에러 규약 구현 시작.",
+      "at": "2026-02-24T01:14:00+09:00"
     }
   ],
   "validator": {
-    "queue": [],
+    "queue": ["RF-1100-BE", "RF-1100-FE"],
     "lastGate": {
       "taskId": "RF-1000",
       "result": "PASS",

@@ -175,3 +175,5 @@
 {"from":"QA Engineer","to":"Perfectionist Validator","taskId":"RF-1000","state":"QAReady","note":"pnpm --filter @ahhachul/one-app build + pnpm validate:full evidence attached for RF-1000.","at":"2026-02-17T17:20:00+09:00"}
 {"from":"Perfectionist Validator","to":"Team Lead","taskId":"RF-1000","state":"ValidatorPass","note":"RF-1000 gate passed: resilient sitemap/rss build and SEO link architecture validated.","at":"2026-02-17T17:20:00+09:00"}
 {"from":"Team Lead","to":"All Agents","taskId":"RF-1000","state":"Done","note":"RF-1000 completed: internal linking, structured data, sitemap index segmentation, and RSS automation synchronized.","at":"2026-02-17T17:20:00+09:00"}
+{"from":"Team Lead","to":"FE Lead","taskId":"RF-1100-FE","state":"ASSIGNED","note":"PM 커뮤니티 미흡점 명세 기반으로 one-app 댓글 조회/작성/수정/삭제/답글 기능 구현 시작.","at":"2026-02-24T01:14:00+09:00"}
+{"from":"Team Lead","to":"BE Lead","taskId":"RF-1100-BE","state":"ASSIGNED","note":"PM 커뮤니티 미흡점 명세 기반으로 댓글 PATCH/DELETE API 및 권한/검증 에러 규약 구현 시작.","at":"2026-02-24T01:14:00+09:00"}
