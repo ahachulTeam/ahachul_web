@@ -53,6 +53,7 @@ export const API_PATHS = {
     stationTimeSummaryV2: '/v2/stations/times/summary',
     stationLastTrainRiskV2: '/v2/stations/times/last-train-risk',
     stationQuickExitsV2: '/v2/stations/quick-exits',
+    stationNearbyPlacesV2: '/v2/stations/nearby-places',
   },
   common: {
     s3Presigned: (s3Key: string) => `/common/presigned/${s3Key}`,

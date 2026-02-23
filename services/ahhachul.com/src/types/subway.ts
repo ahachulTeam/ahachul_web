@@ -181,3 +181,25 @@ export interface QuickExitResponse {
   upDownType: UpDownType;
   recommendations: QuickExitRecommendation[];
 }
+
+export enum NearbyPlaceConfidenceLevel {
+  HIGH = 'HIGH',
+  MEDIUM = 'MEDIUM',
+  LOW = 'LOW',
+}
+
+export interface NearbyPlace {
+  name: string;
+  category: string;
+  walkingMinutes: number;
+  openNow: boolean;
+  supportsEnglishMenu: boolean;
+  confidenceLevel: NearbyPlaceConfidenceLevel;
+}
+
+export interface NearbyPlacesResponse {
+  stationId: number;
+  subwayLineId: number;
+  exitNo?: string | null;
+  places: NearbyPlace[];
+}

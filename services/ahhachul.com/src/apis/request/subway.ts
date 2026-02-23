@@ -7,6 +7,7 @@ import axiosInstance from '@/apis/fetcher';
 import {
   CurrentTrainArrivalType,
   LastTrainRiskLevel,
+  NearbyPlaceConfidenceLevel,
   QuickExitConfidenceLevel,
   ITrain,
   StationTimeWeekType,
@@ -104,6 +105,25 @@ export interface APIQuickExitsV2Response {
   }[];
 }
 
+interface APINearbyPlacesV2Params extends WithSubwayLineId, WithSubwayStationId {
+  exitNo?: string;
+  limit?: number;
+}
+
+export interface APINearbyPlacesV2Response {
+  stationId: number;
+  subwayLineId: number;
+  exitNo?: string | null;
+  places: {
+    name: string;
+    category: string;
+    walkingMinutes: number;
+    openNow: boolean;
+    supportsEnglishMenu: boolean;
+    confidenceLevel: NearbyPlaceConfidenceLevel;
+  }[];
+}
+
 const isCurrentTrainArrivalType = (value: string): value is CurrentTrainArrivalType => {
   return Object.values(CurrentTrainArrivalType).includes(value as CurrentTrainArrivalType);
 };
@@ -178,6 +198,15 @@ export const fetchLastTrainRiskV2 = async (params: APILastTrainRiskV2Params) => 
 export const fetchQuickExitsV2 = async (params: APIQuickExitsV2Params) => {
   return axiosInstance.get<ApiResponse<APIQuickExitsV2Response>>(
     API_PATHS.subway.stationQuickExitsV2,
+    {
+      params,
+    },
+  );
+};
+
+export const fetchNearbyPlacesV2 = async (params: APINearbyPlacesV2Params) => {
+  return axiosInstance.get<ApiResponse<APINearbyPlacesV2Response>>(
+    API_PATHS.subway.stationNearbyPlacesV2,
     {
       params,
     },

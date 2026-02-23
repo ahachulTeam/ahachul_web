@@ -7,6 +7,7 @@ import { UiComponent } from '@/components';
 import { getArrivalStatusText, isSubwayNeedAnimation, motions } from '@/constants';
 import {
   useFetchLastTrainRisk,
+  useFetchNearbyPlaces,
   useFetchQuickExits,
   useFetchStationTimesSummary,
   useFetchTrainInfo,
@@ -16,10 +17,12 @@ import { fade } from '@/styles';
 import {
   CurrentTrainArrivalType,
   LastTrainRiskLevel,
+  NearbyPlaceConfidenceLevel,
   QuickExitConfidenceLevel,
   StationTimeWeekType,
   SubwayLineType,
   UpDownType,
+  type NearbyPlace,
   type QuickExitRecommendation,
   type WithSubwayStationId,
 } from '@/types';
@@ -142,6 +145,20 @@ function resolveQuickExitLineText(recommendation: QuickExitRecommendation): stri
   return `${recommendation.carNo}칸 · 출구 ${recommendation.exitNo} · 약 ${recommendation.walkingBenefitMinutes}분 단축`;
 }
 
+function resolveNearbyPlaceConfidenceColor(level: NearbyPlaceConfidenceLevel): string {
+  if (level === NearbyPlaceConfidenceLevel.HIGH) {
+    return 'rgba(16, 185, 129, 0.72)';
+  }
+  if (level === NearbyPlaceConfidenceLevel.MEDIUM) {
+    return 'rgba(245, 158, 11, 0.72)';
+  }
+  return 'rgba(239, 68, 68, 0.72)';
+}
+
+function resolveNearbyPlaceLineText(place: NearbyPlace): string {
+  return `${place.name} · ${place.category} · 도보 ${place.walkingMinutes}분`;
+}
+
 const defaultStationTimeSummaries = [
   {
     upDownType: UpDownType.UP,
@@ -193,6 +210,12 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
     stationId,
     subwayLineId,
     upDownType: sort,
+  });
+
+  const { data: nearbyPlacesData, isFetching: isNearbyPlacesFetching } = useFetchNearbyPlaces({
+    stationId,
+    subwayLineId,
+    limit: 3,
   });
 
   const filterdStationsData = {
@@ -305,6 +328,74 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
             >
               {resolveQuickExitConfidenceLabel(recommendation.confidenceLevel)}
             </span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  let nearbyPlacesContent: ReactNode = (
+    <div css={{ color: 'var(--ah-color-legacy-text-faint)', fontSize: '12px' }}>
+      주변 추천 정보 준비 중입니다.
+    </div>
+  );
+
+  if (isNearbyPlacesFetching) {
+    nearbyPlacesContent = (
+      <div css={{ color: 'var(--ah-color-legacy-text-faint)', fontSize: '12px' }}>
+        주변 장소 정보를 불러오는 중...
+      </div>
+    );
+  } else if ((nearbyPlacesData?.places?.length || 0) > 0) {
+    nearbyPlacesContent = (
+      <div css={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        {nearbyPlacesData!.places.slice(0, 3).map(place => (
+          <div
+            key={`${place.name}-${place.category}`}
+            css={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '8px',
+            }}
+          >
+            <span css={{ color: 'white', fontSize: '12px' }}>
+              {resolveNearbyPlaceLineText(place)}
+            </span>
+            <div css={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+              {place.supportsEnglishMenu && (
+                <span
+                  css={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    height: '18px',
+                    padding: '0 6px',
+                    borderRadius: '999px',
+                    fontSize: '10px',
+                    fontWeight: 700,
+                    color: '#0f172a',
+                    backgroundColor: 'rgba(255,255,255,0.88)',
+                  }}
+                >
+                  영문메뉴
+                </span>
+              )}
+              <span
+                css={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  height: '18px',
+                  padding: '0 6px',
+                  borderRadius: '999px',
+                  fontSize: '10px',
+                  fontWeight: 700,
+                  color: 'white',
+                  backgroundColor: resolveNearbyPlaceConfidenceColor(place.confidenceLevel),
+                }}
+              >
+                {place.openNow ? '영업중' : '영업종료'}
+              </span>
+            </div>
           </div>
         ))}
       </div>
@@ -480,6 +571,27 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
             빠른하차/출구 추천
           </div>
           {quickExitContent}
+        </div>
+
+        <div
+          css={{
+            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+            margin: '0 16px',
+            paddingTop: '10px',
+            paddingBottom: '10px',
+          }}
+        >
+          <div
+            css={{
+              color: 'var(--ah-color-legacy-text-faint)',
+              fontSize: '12px',
+              fontWeight: 600,
+              marginBottom: '8px',
+            }}
+          >
+            주변 간단 식사/편의시설
+          </div>
+          {nearbyPlacesContent}
         </div>
 
         <div css={S.listWrap}>{trainArrivalsContent}</div>
