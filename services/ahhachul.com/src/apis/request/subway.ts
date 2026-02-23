@@ -5,6 +5,7 @@ import { sleep } from '@ahhachul/utils';
 
 import axiosInstance from '@/apis/fetcher';
 import {
+  CurrentTrainArrivalType,
   ITrain,
   StationTimeWeekType,
   SubwayLineServerModel,
@@ -22,6 +23,16 @@ interface APITrainInfoResponse {
   trainRealTimes: ITrain[];
 }
 
+interface APITrainInfoV2Train {
+  trainNo: string;
+  upDownType: UpDownType;
+  arrivalCode: string;
+  etaSec: number;
+  etaMinDisplay: number;
+  destinationStationDirection: string;
+  nextStationDirection: string;
+}
+
 interface APITrainInfoV2Response {
   generatedAt: string;
   dataSource: 'API' | 'STALE_CACHE';
@@ -29,7 +40,16 @@ interface APITrainInfoV2Response {
   lastExternalRecptnAt: string;
   freshnessSec: number;
   confidenceLevel: 'HIGH' | 'MEDIUM' | 'LOW';
-  trainRealTimes: ITrain[];
+  trainRealTimes: APITrainInfoV2Train[];
+}
+
+export interface APITrainInfoNormalizedResponse extends APITrainInfoResponse {
+  generatedAt?: string;
+  dataSource?: 'API' | 'STALE_CACHE';
+  isStale?: boolean;
+  lastExternalRecptnAt?: string;
+  freshnessSec?: number;
+  confidenceLevel?: 'HIGH' | 'MEDIUM' | 'LOW';
 }
 
 interface APIStationTimeSummaryParams extends WithSubwayLineId, WithSubwayStationId {
@@ -46,6 +66,38 @@ export interface APIStationTimeSummaryV2Response {
     lastDestinationStationName: string | null;
   }[];
 }
+
+const isCurrentTrainArrivalType = (value: string): value is CurrentTrainArrivalType => {
+  return Object.values(CurrentTrainArrivalType).includes(value as CurrentTrainArrivalType);
+};
+
+const toSafeTrainNumber = (trainNo: string): number => {
+  const parsed = Number(trainNo);
+  return Number.isNaN(parsed) ? 0 : parsed;
+};
+
+export const normalizeTrainInfoV2Response = (
+  response: APITrainInfoV2Response,
+): APITrainInfoNormalizedResponse => {
+  return {
+    generatedAt: response.generatedAt,
+    dataSource: response.dataSource,
+    isStale: response.isStale,
+    lastExternalRecptnAt: response.lastExternalRecptnAt,
+    freshnessSec: response.freshnessSec,
+    confidenceLevel: response.confidenceLevel,
+    trainRealTimes: response.trainRealTimes.map(train => ({
+      trainNum: toSafeTrainNumber(train.trainNo),
+      upDownType: train.upDownType,
+      nextStationDirection: train.nextStationDirection,
+      destinationStationDirection: train.destinationStationDirection,
+      currentArrivalTime: train.etaMinDisplay,
+      currentTrainArrivalCode: isCurrentTrainArrivalType(train.arrivalCode)
+        ? train.arrivalCode
+        : CurrentTrainArrivalType.RUNNING,
+    })),
+  };
+};
 
 export const fetchSubwayLines = async () =>
   await axiosInstance.get<ApiResponse<SubwayLineServerModel>>(API_PATHS.subway.lines);

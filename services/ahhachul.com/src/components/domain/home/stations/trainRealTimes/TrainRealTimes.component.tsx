@@ -48,6 +48,41 @@ function getUpDownLabel(upDownType: UpDownType): string {
   return upDownType === UpDownType.UP ? '상행' : '하행';
 }
 
+function resolveConfidenceLabel(confidenceLevel?: string): string | null {
+  if (confidenceLevel === 'HIGH') {
+    return '신뢰도 높음';
+  }
+  if (confidenceLevel === 'MEDIUM') {
+    return '신뢰도 보통';
+  }
+  if (confidenceLevel === 'LOW') {
+    return '신뢰도 낮음';
+  }
+  return null;
+}
+
+function resolveConfidenceBadgeColor(confidenceLevel?: string): string {
+  if (confidenceLevel === 'HIGH') {
+    return 'rgba(16, 185, 129, 0.72)';
+  }
+  if (confidenceLevel === 'MEDIUM') {
+    return 'rgba(245, 158, 11, 0.72)';
+  }
+  return 'rgba(239, 68, 68, 0.72)';
+}
+
+function resolveFreshnessText(isStale?: boolean, freshnessSec?: number): string {
+  if (isStale) {
+    return '정보 지연';
+  }
+
+  if (typeof freshnessSec === 'number') {
+    return `최신 수신 ${freshnessSec}초 전`;
+  }
+
+  return '';
+}
+
 const defaultStationTimeSummaries = [
   {
     upDownType: UpDownType.UP,
@@ -93,6 +128,9 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
   const currentTrain = filterdStationsData?.trainRealTimes?.[0];
 
   const stationTimeSummaries = stationTimeSummary?.summaries ?? defaultStationTimeSummaries;
+  const confidenceLabel = resolveConfidenceLabel(data?.confidenceLevel);
+  const showConfidenceBadge = Boolean(confidenceLabel) && !isFetching && !isError;
+  const freshnessText = resolveFreshnessText(data?.isStale, data?.freshnessSec);
 
   let trainArrivalsContent: ReactNode = null;
   if (isFetching) {
@@ -125,6 +163,36 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
             handleSort={handleSort}
           />
         </div>
+
+        {showConfidenceBadge && (
+          <div
+            css={{
+              margin: '0 16px 10px 16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <span
+              css={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                height: '20px',
+                padding: '0 8px',
+                borderRadius: '999px',
+                fontSize: '11px',
+                fontWeight: 700,
+                color: 'white',
+                backgroundColor: resolveConfidenceBadgeColor(data?.confidenceLevel),
+              }}
+            >
+              {confidenceLabel}
+            </span>
+            <span css={{ color: 'var(--ah-color-legacy-text-faint)', fontSize: '11px' }}>
+              {freshnessText}
+            </span>
+          </div>
+        )}
 
         <div
           css={{

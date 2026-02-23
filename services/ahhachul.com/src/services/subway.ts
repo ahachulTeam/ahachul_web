@@ -13,6 +13,7 @@ import {
   fetchSubwayLines,
   fetchTrainInfo,
   fetchTrainInfoV2,
+  normalizeTrainInfoV2Response,
 } from '@/apis/request/subway';
 import { TIMESTAMP } from '@/constants';
 import { APITrainInfoParams, StationTimeWeekType } from '@/types';
@@ -50,7 +51,14 @@ export const useFetchTrainInfo = (params: APITrainInfoParams) => {
       }
 
       try {
-        return await fetchTrainInfoV2(params);
+        const v2Response = await fetchTrainInfoV2(params);
+        return {
+          ...v2Response,
+          data: {
+            ...v2Response.data,
+            result: normalizeTrainInfoV2Response(v2Response.data.result),
+          },
+        };
       } catch {
         return fetchTrainInfo(params);
       }
