@@ -1,15 +1,20 @@
-import { type ReactNode, memo, useMemo, useReducer } from 'react';
+import { type ReactNode, memo, useMemo, useReducer, useState } from 'react';
 
 import { motion } from 'motion/react';
 
 import { RetryIcon } from '@/assets/icons/system';
 import { UiComponent } from '@/components';
 import { getArrivalStatusText, isSubwayNeedAnimation, motions } from '@/constants';
-import { useFetchStationTimesSummary, useFetchTrainInfo } from '@/services/subway';
+import {
+  useFetchLastTrainRisk,
+  useFetchStationTimesSummary,
+  useFetchTrainInfo,
+} from '@/services/subway';
 import { useFlow } from '@/stackflow';
 import { fade } from '@/styles';
 import {
   CurrentTrainArrivalType,
+  LastTrainRiskLevel,
   StationTimeWeekType,
   SubwayLineType,
   UpDownType,
@@ -83,6 +88,33 @@ function resolveFreshnessText(isStale?: boolean, freshnessSec?: number): string 
   return '';
 }
 
+function resolveRiskLabel(riskLevel?: LastTrainRiskLevel): string {
+  if (riskLevel === LastTrainRiskLevel.SAFE) {
+    return '막차 여유';
+  }
+  if (riskLevel === LastTrainRiskLevel.WARN) {
+    return '막차 임박';
+  }
+  return '막차 위험';
+}
+
+function resolveRiskColor(riskLevel?: LastTrainRiskLevel): string {
+  if (riskLevel === LastTrainRiskLevel.SAFE) {
+    return 'rgba(16, 185, 129, 0.72)';
+  }
+  if (riskLevel === LastTrainRiskLevel.WARN) {
+    return 'rgba(245, 158, 11, 0.72)';
+  }
+  return 'rgba(239, 68, 68, 0.72)';
+}
+
+function resolveMinutesToLastTrainText(minutesToLastTrain: number): string {
+  if (minutesToLastTrain < 0) {
+    return '막차 시간 정보 없음';
+  }
+  return `막차까지 ${minutesToLastTrain}분`;
+}
+
 const defaultStationTimeSummaries = [
   {
     upDownType: UpDownType.UP,
@@ -108,6 +140,8 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
   });
 
   const stationTimeWeekType = useMemo(() => resolveStationTimeWeekType(new Date()), []);
+  const [walkingMinutes, setWalkingMinutes] = useState(15);
+
   const { data: stationTimeSummary, isFetching: isStationTimeSummaryFetching } =
     useFetchStationTimesSummary({
       stationId,
@@ -119,6 +153,14 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
     prev => (prev === UpDownType.UP ? UpDownType.DOWN : UpDownType.UP),
     UpDownType.UP,
   );
+
+  const { data: lastTrainRisk, isFetching: isLastTrainRiskFetching } = useFetchLastTrainRisk({
+    stationId,
+    subwayLineId,
+    upDownType: sort,
+    stationTimeWeekType,
+    walkingMinutes,
+  });
 
   const filterdStationsData = {
     ...data,
@@ -142,6 +184,62 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
       <TrainArrivals trainRealTimes={filterdStationsData?.trainRealTimes || []} />
     );
   }
+
+  let lastTrainRiskContent: ReactNode = (
+    <div css={{ color: 'var(--ah-color-legacy-text-faint)', fontSize: '12px' }}>
+      리스크 정보를 불러올 수 없습니다.
+    </div>
+  );
+
+  if (isLastTrainRiskFetching) {
+    lastTrainRiskContent = (
+      <div css={{ color: 'var(--ah-color-legacy-text-faint)', fontSize: '12px' }}>
+        막차 리스크 계산 중...
+      </div>
+    );
+  } else if (lastTrainRisk) {
+    lastTrainRiskContent = (
+      <>
+        <div css={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <span
+            css={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              height: '20px',
+              padding: '0 8px',
+              borderRadius: '999px',
+              fontSize: '11px',
+              fontWeight: 700,
+              color: 'white',
+              backgroundColor: resolveRiskColor(lastTrainRisk.riskLevel),
+            }}
+          >
+            {resolveRiskLabel(lastTrainRisk.riskLevel)}
+          </span>
+          <span css={{ color: 'white', fontSize: '12px' }}>
+            {resolveMinutesToLastTrainText(lastTrainRisk.minutesToLastTrain)}
+          </span>
+        </div>
+        <div
+          css={{ color: 'var(--ah-color-legacy-text-faint)', fontSize: '12px', marginTop: '6px' }}
+        >
+          {lastTrainRisk.message}
+        </div>
+      </>
+    );
+  }
+
+  const handleWalkingMinutesChange = (value: string) => {
+    const parsedValue = Number(value);
+
+    if (Number.isNaN(parsedValue)) {
+      setWalkingMinutes(0);
+      return;
+    }
+
+    const boundedValue = Math.max(0, Math.min(Math.round(parsedValue), 120));
+    setWalkingMinutes(boundedValue);
+  };
 
   return (
     <div css={S.inner}>
@@ -235,6 +333,50 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
               </div>
             ))
           )}
+        </div>
+
+        <div
+          css={{
+            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+            margin: '0 16px',
+            paddingTop: '10px',
+            paddingBottom: '10px',
+          }}
+        >
+          <div css={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div
+              css={{
+                color: 'var(--ah-color-legacy-text-faint)',
+                fontSize: '12px',
+                fontWeight: 600,
+              }}
+            >
+              막차 리스크
+            </div>
+            <label css={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'white' }}>
+              <span css={{ fontSize: '12px' }}>도보</span>
+              <input
+                type="number"
+                min={0}
+                max={120}
+                value={walkingMinutes}
+                onChange={event => handleWalkingMinutesChange(event.target.value)}
+                css={{
+                  width: '54px',
+                  height: '24px',
+                  borderRadius: '6px',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  background: 'rgba(255,255,255,0.04)',
+                  color: 'white',
+                  textAlign: 'right',
+                  padding: '0 6px',
+                  fontSize: '12px',
+                }}
+              />
+              <span css={{ fontSize: '12px' }}>분</span>
+            </label>
+          </div>
+          <div css={{ marginTop: '8px' }}>{lastTrainRiskContent}</div>
         </div>
 
         <div css={S.listWrap}>{trainArrivalsContent}</div>

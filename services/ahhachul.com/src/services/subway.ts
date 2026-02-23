@@ -9,6 +9,7 @@ import {
 import { formatSubwayLineInfo } from '@ahhachul/utils';
 
 import {
+  fetchLastTrainRiskV2,
   fetchStationTimeSummaryV2,
   fetchSubwayLines,
   fetchTrainInfo,
@@ -16,7 +17,7 @@ import {
   normalizeTrainInfoV2Response,
 } from '@/apis/request/subway';
 import { TIMESTAMP } from '@/constants';
-import { APITrainInfoParams, StationTimeWeekType } from '@/types';
+import { APITrainInfoParams, StationTimeWeekType, UpDownType } from '@/types';
 
 export const subwayKeys = subwayQueryKeys;
 
@@ -91,5 +92,30 @@ export const useFetchStationTimesSummary = (params: StationTimeSummaryParams) =>
     select: res => {
       return res.data.result;
     },
+  });
+};
+
+interface LastTrainRiskParams extends APITrainInfoParams {
+  upDownType: UpDownType;
+  stationTimeWeekType: StationTimeWeekType;
+  walkingMinutes: number;
+}
+
+export const useFetchLastTrainRisk = (params: LastTrainRiskParams) => {
+  const signature = buildQuerySignature({
+    stationId: params.stationId,
+    subwayLineId: params.subwayLineId,
+    upDownType: params.upDownType,
+    stationTimeWeekType: params.stationTimeWeekType,
+    walkingMinutes: params.walkingMinutes,
+  });
+
+  return useQuery({
+    queryKey: [...subwayKeys.trains(), 'last-train-risk-v2', signature],
+    queryFn: () => fetchLastTrainRiskV2(params),
+    staleTime: 10 * TIMESTAMP.SECOND,
+    gcTime: QUERY_GC_TIME.feed,
+    retry: 1,
+    select: res => res.data.result,
   });
 };

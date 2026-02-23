@@ -6,6 +6,7 @@ import { sleep } from '@ahhachul/utils';
 import axiosInstance from '@/apis/fetcher';
 import {
   CurrentTrainArrivalType,
+  LastTrainRiskLevel,
   ITrain,
   StationTimeWeekType,
   SubwayLineServerModel,
@@ -67,6 +68,24 @@ export interface APIStationTimeSummaryV2Response {
   }[];
 }
 
+interface APILastTrainRiskV2Params extends WithSubwayLineId, WithSubwayStationId {
+  upDownType: UpDownType;
+  stationTimeWeekType: StationTimeWeekType;
+  walkingMinutes: number;
+}
+
+export interface APILastTrainRiskV2Response {
+  stationTimeWeekType: StationTimeWeekType;
+  upDownType: UpDownType;
+  walkingMinutes: number;
+  nowAt: string;
+  lastDepartureTime: string | null;
+  minutesToLastTrain: number;
+  isLastTrainRisk: boolean;
+  riskLevel: LastTrainRiskLevel;
+  message: string;
+}
+
 const isCurrentTrainArrivalType = (value: string): value is CurrentTrainArrivalType => {
   return Object.values(CurrentTrainArrivalType).includes(value as CurrentTrainArrivalType);
 };
@@ -123,6 +142,15 @@ export const fetchTrainInfoV2 = async (params: APITrainInfoParams) => {
 export const fetchStationTimeSummaryV2 = async (params: APIStationTimeSummaryParams) => {
   return axiosInstance.get<ApiResponse<APIStationTimeSummaryV2Response>>(
     API_PATHS.subway.stationTimeSummaryV2,
+    {
+      params,
+    },
+  );
+};
+
+export const fetchLastTrainRiskV2 = async (params: APILastTrainRiskV2Params) => {
+  return axiosInstance.get<ApiResponse<APILastTrainRiskV2Response>>(
+    API_PATHS.subway.stationLastTrainRiskV2,
     {
       params,
     },
