@@ -33,6 +33,28 @@ export function normalizeInputText(value: string | null | undefined): string {
   return (value ?? '').normalize('NFC').trim();
 }
 
+export function maskEmail(value: string | null | undefined): string {
+  const normalized = normalizeInputText(value);
+  if (!normalized) {
+    return '';
+  }
+
+  const parts = normalized.split('@');
+  if (parts.length !== 2) {
+    return normalized;
+  }
+
+  const [localPart, domain] = parts;
+  if (!localPart || !domain) {
+    return normalized;
+  }
+
+  const visibleCount = localPart.length <= 2 ? 1 : 2;
+  const maskedCount = Math.max(localPart.length - visibleCount, 1);
+  const maskedLocal = `${localPart.slice(0, visibleCount)}${'*'.repeat(maskedCount)}`;
+  return `${maskedLocal}@${domain}`;
+}
+
 export function isBlankText(value: string | null | undefined): boolean {
   return normalizeInputText(value).length === 0;
 }

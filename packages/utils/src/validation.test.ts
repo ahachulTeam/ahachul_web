@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   isBlankText,
+  maskEmail,
   normalizeInputText,
   validateNickname,
   validateRequiredLexicalContent,
@@ -40,6 +41,14 @@ describe('validation utils', () => {
   it('identifies blank text correctly', () => {
     expect(isBlankText('   ')).toBe(true);
     expect(isBlankText('내용')).toBe(false);
+  });
+
+  it('masks email local-part for privacy-safe display', () => {
+    expect(maskEmail('email@mail.com')).toBe('em***@mail.com');
+    expect(maskEmail('ab@mail.com')).toBe('a*@mail.com');
+    expect(maskEmail('a@mail.com')).toBe('a*@mail.com');
+    expect(maskEmail('  invalid-email  ')).toBe('invalid-email');
+    expect(maskEmail('')).toBe('');
   });
 
   it('validates nickname rules by code', () => {

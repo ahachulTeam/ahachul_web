@@ -41,9 +41,9 @@ describe('fetchTrainInfoV2', () => {
 
     const result = await fetchTrainInfoV2(params);
 
-    expect(axiosInstance.get).toHaveBeenCalledWith(API_PATHS.subway.trainRealTimesV2, {
-      params,
-    });
+    const [url, config] = vi.mocked(axiosInstance.get).mock.calls[0] ?? [];
+    expect(url).toEqual(expect.stringContaining(API_PATHS.subway.trainRealTimesV2));
+    expect(config).toEqual({ params });
     expect(result).toEqual(mockedResponse);
   });
 

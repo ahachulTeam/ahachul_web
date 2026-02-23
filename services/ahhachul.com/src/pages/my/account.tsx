@@ -1,21 +1,98 @@
+import { useState } from 'react';
+
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import type { ActivityComponentType } from '@stackflow/react';
+import { useQueryClient } from '@tanstack/react-query';
 
+import { API_PATHS } from '@ahhachul/http';
+import { maskEmail, normalizeInputText, validateNickname } from '@ahhachul/utils';
+
+import axiosInstance from '@/apis/fetcher';
+import { updateUser } from '@/apis/request';
 import { ChevronIcon } from '@/assets/icons/system';
 import CameraImg from '@/assets/images/icon_camera.png';
 import { LayoutComponent } from '@/components';
 import { Avatar } from '@/components/common/avatar/Avatar.component';
 import { useAuth } from '@/contexts';
 import { useToast } from '@/hooks/useToast';
-import { useFetchUserProfile } from '@/services/user';
+import { useFetchUserProfile, userKeys } from '@/services/user';
+import type { ApiResponse } from '@/types';
 
 const MyAccountPage: ActivityComponentType = () => {
   const { addToast } = useToast();
-  const { isCheckingAuthState } = useAuth();
+  const queryClient = useQueryClient();
+  const { isCheckingAuthState, authService } = useAuth();
   const { data: userInfo, isLoading } = useFetchUserProfile();
+  const [isUpdatingNickname, setIsUpdatingNickname] = useState(false);
 
   const showToast = () => addToast('준비중인 기능입니다.', 'info');
+  const handleLogout = () => {
+    authService.logout();
+    addToast('로그아웃되었습니다.', 'success');
+  };
+
+  const handleNicknameEdit = async () => {
+    const currentNickname = userInfo?.result?.nickname ?? '';
+    const input = window.prompt('변경할 닉네임을 입력해주세요.', currentNickname);
+    if (input === null) {
+      return;
+    }
+
+    const validation = validateNickname(input);
+    if (!validation.isValid) {
+      addToast(validation.message, 'error');
+      return;
+    }
+
+    const nextNickname = validation.normalized;
+    if (normalizeInputText(currentNickname) === nextNickname) {
+      addToast('기존 닉네임과 동일합니다.', 'info');
+      return;
+    }
+
+    const accessToken = authService.accessToken;
+    const refreshToken = authService.refreshToken;
+    if (!accessToken || !refreshToken) {
+      addToast('로그인이 필요합니다.', 'error');
+      return;
+    }
+
+    setIsUpdatingNickname(true);
+    try {
+      const { data } = await axiosInstance.post<
+        ApiResponse<{ available: boolean }> & { payload?: boolean }
+      >(API_PATHS.user.checkNickname, {
+        nickname: nextNickname,
+      });
+
+      const isAvailable = data.result?.available ?? !data.payload;
+      if (!isAvailable) {
+        addToast('중복인 닉네임이라 사용할 수 없습니다.', 'error');
+        return;
+      }
+
+      await updateUser({
+        nickname: nextNickname,
+        auth: {
+          accessToken,
+          refreshToken,
+        },
+      });
+
+      await queryClient.invalidateQueries({ queryKey: userKeys.info() });
+      addToast('닉네임이 변경되었습니다.', 'success');
+    } catch (error) {
+      addToast(
+        error instanceof Error
+          ? error.message
+          : '닉네임 변경에 실패했습니다. 잠시 후 다시 시도해주세요.',
+        'error',
+      );
+    } finally {
+      setIsUpdatingNickname(false);
+    }
+  };
 
   if (isLoading || isCheckingAuthState) return null;
 
@@ -34,12 +111,16 @@ const MyAccountPage: ActivityComponentType = () => {
         <Fields>
           <div>
             <p className="main">이메일</p>
-            <p className="secondary">{userInfo?.result?.email ?? '-'}</p>
+            <p className="secondary">
+              {maskEmail(userInfo?.result?.maskedEmail ?? userInfo?.result?.email) || '-'}
+            </p>
           </div>
-          <div onClick={showToast}>
+          <div onClick={isUpdatingNickname ? undefined : handleNicknameEdit}>
             <p className="main">닉네임</p>
             <div>
-              <p className="secondary">{userInfo?.result?.nickname}</p>
+              <p className="secondary">
+                {isUpdatingNickname ? '변경 중...' : userInfo?.result?.nickname}
+              </p>
               <ChevronIcon />
             </div>
           </div>
@@ -67,6 +148,7 @@ const MyAccountPage: ActivityComponentType = () => {
         <LogoutButtonWrapper>
           <button
             className="square"
+            onClick={handleLogout}
             css={css`
               padding: 16px;
               color: var(--ah-color-legacy-text-slate);

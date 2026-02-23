@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { maskEmail } from '@ahhachul/utils';
+
 import { ChevronIcon } from '@/assets/icons/system';
 import { Avatar } from '@/components/common/avatar/Avatar.component';
 import { useAuth } from '@/contexts';
@@ -20,7 +22,9 @@ const UserProfile = () => {
 
         <div data-clarity-mask="True">
           <p className="name">{userInfo?.result?.nickname || '아하철'}</p>
-          <p className="email">{userInfo?.result?.email}</p>
+          <p className="email">
+            {maskEmail(userInfo?.result?.maskedEmail ?? userInfo?.result?.email)}
+          </p>
         </div>
       </UserInfo>
 

@@ -1,9 +1,30 @@
 import { APIResponseCode } from '@/types';
 
-export const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL ??
-  process.env.NEXT_PUBLIC_BASE_URL ??
-  'http://localhost:3000/api';
+const INVALID_ENV_VALUES = new Set(['undefined', 'null', 'undefinedundefined', 'nullnull']);
+
+function sanitizeEnvValue(rawValue: string | undefined): string | null {
+  const value = (rawValue ?? '').trim();
+  if (!value.length) {
+    return null;
+  }
+
+  const normalized = value.toLowerCase().replace(/[^a-z]/g, '');
+  if (INVALID_ENV_VALUES.has(normalized)) {
+    return null;
+  }
+
+  return value;
+}
+
+function resolveApiBaseUrl(): string {
+  return (
+    sanitizeEnvValue(process.env.NEXT_PUBLIC_API_URL) ??
+    sanitizeEnvValue(process.env.NEXT_PUBLIC_BASE_URL) ??
+    'http://localhost:3000/api'
+  );
+}
+
+export const API_BASE_URL = resolveApiBaseUrl();
 
 export const API_ORIGIN_URL = (() => {
   try {

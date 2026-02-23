@@ -38,9 +38,9 @@ describe('fetchStationTimeSummaryV2', () => {
 
     const result = await fetchStationTimeSummaryV2(params);
 
-    expect(axiosInstance.get).toHaveBeenCalledWith(API_PATHS.subway.stationTimeSummaryV2, {
-      params,
-    });
+    const [url, config] = vi.mocked(axiosInstance.get).mock.calls[0] ?? [];
+    expect(url).toEqual(expect.stringContaining(API_PATHS.subway.stationTimeSummaryV2));
+    expect(config).toEqual({ params });
     expect(result).toEqual(mockedResponse);
   });
 

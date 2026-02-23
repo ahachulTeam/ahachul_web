@@ -17,6 +17,7 @@ export interface UserProfileResponseDto {
   memberId: number;
   nickname: string;
   email?: string;
+  maskedEmail?: string;
   gender?: Gender;
   ageRange?: AgeRange;
   imageUrl?: string;
