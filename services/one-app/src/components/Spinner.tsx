@@ -2,7 +2,7 @@
 
 import type { ReactNode } from 'react';
 
-import { Player } from '@lottiefiles/react-lottie-player';
+import dynamic from 'next/dynamic';
 
 import animationData from '@/assets/lottie/loading.json';
 
@@ -12,6 +12,13 @@ interface SpinnerProps {
   zTier?: number;
   zIndex?: number;
 }
+
+const Player = dynamic(
+  () => import('@lottiefiles/react-lottie-player').then(module => module.Player),
+  {
+    ssr: false,
+  },
+);
 
 export function Spinner({ full, children, zTier = 0, zIndex = 10 }: SpinnerProps) {
   const calculatedZIndex = zTier * 100 + zIndex;
