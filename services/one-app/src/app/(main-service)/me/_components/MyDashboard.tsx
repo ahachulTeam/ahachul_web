@@ -27,6 +27,10 @@ import {
 
 import {
   checkNicknameAvailability,
+  createMyFavoriteRoute,
+  deleteMyFavoriteRoute,
+  getMyFavoriteRouteRecommendations,
+  getMyFavoriteRoutes,
   getMyFavoriteStations,
   getMyProfile,
   updateMyFavoriteStations,
@@ -90,6 +94,9 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
   const [expectedArrivalAtDraft, setExpectedArrivalAtDraft] = useState('');
   const [customDelayMessage, setCustomDelayMessage] = useState('');
   const [delayProofResult, setDelayProofResult] = useState<DelayProofPayload | null>(null);
+  const [routeSourceStationId, setRouteSourceStationId] = useState<number | null>(null);
+  const [routeDestinationStationId, setRouteDestinationStationId] = useState<number | null>(null);
+  const [routeTitleDraft, setRouteTitleDraft] = useState('');
 
   const {
     data: profile,
@@ -107,8 +114,34 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
     staleTime: QUERY_STALE_TIME.user,
   });
 
+  const {
+    data: routeRecommendationResponse,
+    isPending: isRouteRecommendationPending,
+    isError: isRouteRecommendationError,
+    refetch: refetchRouteRecommendations,
+  } = useQuery({
+    queryKey: [...myQueryKeys.all, 'favorite-route-recommendations'],
+    queryFn: () => getMyFavoriteRouteRecommendations(3),
+    staleTime: QUERY_STALE_TIME.user,
+    enabled: Boolean(profile?.result) && !isProfilePending && !isProfileError,
+  });
+
+  const {
+    data: favoriteRouteResponse,
+    isPending: isFavoriteRoutePending,
+    isError: isFavoriteRouteError,
+    refetch: refetchFavoriteRoutes,
+  } = useQuery({
+    queryKey: [...myQueryKeys.all, 'favorite-routes'],
+    queryFn: getMyFavoriteRoutes,
+    staleTime: QUERY_STALE_TIME.user,
+    enabled: Boolean(profile?.result) && !isProfilePending && !isProfileError,
+  });
+
   const profileReady = Boolean(profile?.result) && !isProfilePending && !isProfileError;
   const favoriteStations = stations?.result.stationInfoList ?? [];
+  const recommendedRoutes = routeRecommendationResponse?.result.routes ?? [];
+  const favoriteRoutes = favoriteRouteResponse?.result.routes ?? [];
   const stationNames = favoriteStations.map(station => station.stationName);
   const primaryStation = favoriteStations[0];
   const primarySubwayLineId =
@@ -133,6 +166,29 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: myQueryKeys.favoriteStations() });
       setIsEditingFavorites(false);
+    },
+  });
+
+  const favoriteRouteCreateMutation = useMutation({
+    mutationFn: createMyFavoriteRoute,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: [...myQueryKeys.all, 'favorite-routes'] });
+      await queryClient.invalidateQueries({
+        queryKey: [...myQueryKeys.all, 'favorite-route-recommendations'],
+      });
+      setRouteTitleDraft('');
+      setRouteSourceStationId(null);
+      setRouteDestinationStationId(null);
+    },
+  });
+
+  const favoriteRouteDeleteMutation = useMutation({
+    mutationFn: deleteMyFavoriteRoute,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: [...myQueryKeys.all, 'favorite-routes'] });
+      await queryClient.invalidateQueries({
+        queryKey: [...myQueryKeys.all, 'favorite-route-recommendations'],
+      });
     },
   });
 
@@ -256,6 +312,13 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
       .filter(station => station.stationName.length > 0);
   }, [favoriteDraft]);
 
+  const favoriteRouteStationOptions = useMemo(() => {
+    return favoriteStations.map(station => ({
+      stationId: station.stationId,
+      stationName: station.stationName,
+    }));
+  }, [favoriteStations]);
+
   const saveFavoriteStations = async () => {
     if (!normalizedFavoritePayload.length) {
       window.alert('즐겨찾는 역을 1개 이상 입력해주세요.');
@@ -283,6 +346,63 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
         error instanceof Error
           ? error.message
           : '즐겨찾는 역 저장에 실패했습니다. 잠시 후 다시 시도해주세요.',
+      );
+    }
+  };
+
+  const refreshFavoriteRoutes = () => {
+    void refetchFavoriteRoutes();
+    void refetchRouteRecommendations();
+  };
+
+  const createFavoriteRoute = async () => {
+    if (favoriteRouteStationOptions.length < 2) {
+      window.alert('즐겨찾는 역을 2개 이상 등록하면 경로를 설정할 수 있습니다.');
+      return;
+    }
+
+    const defaultSource = favoriteRouteStationOptions[0]?.stationId ?? null;
+    const defaultDestination = favoriteRouteStationOptions.find(
+      station => station.stationId !== defaultSource,
+    )?.stationId;
+
+    const sourceStationId = routeSourceStationId ?? defaultSource;
+    const destinationStationId = routeDestinationStationId ?? defaultDestination ?? null;
+
+    if (!sourceStationId || !destinationStationId || sourceStationId === destinationStationId) {
+      window.alert('출발역과 도착역을 서로 다르게 선택해주세요.');
+      return;
+    }
+
+    try {
+      await favoriteRouteCreateMutation.mutateAsync({
+        sourceStationId,
+        destinationStationId,
+        title: normalizeInputText(routeTitleDraft) || undefined,
+      });
+      window.alert('즐겨찾기 경로가 저장되었습니다.');
+    } catch (error) {
+      window.alert(
+        error instanceof Error
+          ? error.message
+          : '즐겨찾기 경로 저장에 실패했습니다. 잠시 후 다시 시도해주세요.',
+      );
+    }
+  };
+
+  const deleteFavoriteRoute = async (routeId: number | null) => {
+    if (!routeId) {
+      return;
+    }
+
+    try {
+      await favoriteRouteDeleteMutation.mutateAsync(routeId);
+      window.alert('즐겨찾기 경로를 삭제했습니다.');
+    } catch (error) {
+      window.alert(
+        error instanceof Error
+          ? error.message
+          : '즐겨찾기 경로 삭제에 실패했습니다. 잠시 후 다시 시도해주세요.',
       );
     }
   };
@@ -472,6 +592,122 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
     );
   }
 
+  let recommendedRoutesContent: React.ReactNode = null;
+  if (isRouteRecommendationPending) {
+    recommendedRoutesContent = (
+      <p className="mt-2 text-body-small text-gray-70">추천 경로를 불러오는 중입니다.</p>
+    );
+  } else if (isRouteRecommendationError) {
+    recommendedRoutesContent = (
+      <p className="mt-2 text-body-small text-danger">추천 경로를 불러오지 못했습니다.</p>
+    );
+  } else if (!recommendedRoutes.length) {
+    recommendedRoutesContent = (
+      <p className="mt-2 text-body-small text-gray-70">
+        추천 경로가 없습니다. 즐겨찾는 역을 2개 이상 등록해보세요.
+      </p>
+    );
+  } else {
+    recommendedRoutesContent = (
+      <div className="mt-2 space-y-2">
+        {recommendedRoutes.map(route => (
+          <div
+            key={`recommended-route-${route.sourceStationId}-${route.destinationStationId}`}
+            className="rounded-lg border border-gray-20 bg-gray-10 p-2"
+          >
+            <p className="text-label-small text-gray-80">
+              {route.sourceStationName} → {route.destinationStationName}
+            </p>
+            <p className="mt-1 text-label-small text-gray-70">
+              정거장 {route.summary.totalStops} · 환승 {route.summary.transferCount} · 예상{' '}
+              {route.summary.estimatedMinutes}분
+            </p>
+            <div className="mt-2 flex flex-wrap items-center gap-1">
+              {route.nodes.map((node, index) => (
+                <div
+                  key={`recommended-route-node-${route.sourceStationId}-${route.destinationStationId}-${node.stationId}-${index}`}
+                  className="inline-flex items-center gap-1"
+                >
+                  <span className="rounded-full border border-gray-30 bg-white px-2 py-0.5 text-label-small text-gray-90">
+                    {node.stationName}
+                  </span>
+                  {route.edges[index] ? (
+                    <span className="rounded-full border border-gray-30 bg-white px-2 py-0.5 text-[11px] text-gray-70">
+                      {route.edges[index].subwayLineName} →
+                    </span>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  let favoriteRoutesContent: React.ReactNode = null;
+  if (isFavoriteRoutePending) {
+    favoriteRoutesContent = (
+      <p className="mt-2 text-body-small text-gray-70">저장한 경로를 불러오는 중입니다.</p>
+    );
+  } else if (isFavoriteRouteError) {
+    favoriteRoutesContent = (
+      <p className="mt-2 text-body-small text-danger">저장한 경로를 불러오지 못했습니다.</p>
+    );
+  } else if (!favoriteRoutes.length) {
+    favoriteRoutesContent = (
+      <p className="mt-2 text-body-small text-gray-70">
+        아직 저장한 경로가 없습니다. 위에서 자주 가는 경로를 등록해보세요.
+      </p>
+    );
+  } else {
+    favoriteRoutesContent = (
+      <div className="mt-2 space-y-2">
+        {favoriteRoutes.map(route => (
+          <div
+            key={`favorite-route-${route.routeId}`}
+            className="rounded-lg border border-gray-20 bg-gray-10 p-2"
+          >
+            <div className="flex items-center justify-between gap-2">
+              <p className="text-label-small text-gray-80">
+                {route.title || `${route.sourceStationName} → ${route.destinationStationName}`}
+              </p>
+              <button
+                type="button"
+                onClick={() => void deleteFavoriteRoute(route.routeId)}
+                disabled={favoriteRouteDeleteMutation.isPending}
+                className="rounded-md border border-gray-40 px-2 py-1 text-label-small text-gray-90 disabled:cursor-not-allowed disabled:text-gray-60"
+              >
+                삭제
+              </button>
+            </div>
+            <p className="mt-1 text-label-small text-gray-70">
+              정거장 {route.summary.totalStops} · 환승 {route.summary.transferCount} · 예상{' '}
+              {route.summary.estimatedMinutes}분
+            </p>
+            <div className="mt-2 flex flex-wrap items-center gap-1">
+              {route.nodes.map((node, index) => (
+                <div
+                  key={`favorite-route-node-${route.routeId}-${node.stationId}-${index}`}
+                  className="inline-flex items-center gap-1"
+                >
+                  <span className="rounded-full border border-gray-30 bg-white px-2 py-0.5 text-label-small text-gray-90">
+                    {node.stationName}
+                  </span>
+                  {route.edges[index] ? (
+                    <span className="rounded-full border border-gray-30 bg-white px-2 py-0.5 text-[11px] text-gray-70">
+                      {route.edges[index].subwayLineName} →
+                    </span>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   return (
     <section className="space-y-3 px-5 pb-24 pt-4">
       <article className={`${cardClassName} bg-gradient-to-r from-green-50 to-white`}>
@@ -638,6 +874,101 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
             </div>
           </div>
         )}
+
+        <div className="mt-4 rounded-xl border border-gray-30 bg-gray-10 p-3">
+          <div className="flex items-center justify-between">
+            <h4 className="text-label-medium text-gray-100">즐겨찾기 경로</h4>
+            <button
+              type="button"
+              onClick={refreshFavoriteRoutes}
+              className="rounded-md border border-gray-40 px-2 py-1 text-label-small text-gray-90"
+            >
+              새로고침
+            </button>
+          </div>
+          <p className="mt-1 text-body-small text-gray-70">
+            즐겨찾기 역 기반 추천 경로를 확인하고, 자주 타는 이동 경로를 직접 저장할 수 있습니다.
+          </p>
+
+          <div className="mt-3 rounded-xl border border-gray-30 bg-white p-3">
+            <p className="text-label-small text-gray-80">내 경로 추가</p>
+            <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-4">
+              <select
+                value={String(
+                  routeSourceStationId ?? favoriteRouteStationOptions[0]?.stationId ?? 0,
+                )}
+                onChange={event => {
+                  const nextValue = Number(event.target.value);
+                  setRouteSourceStationId(Number.isNaN(nextValue) ? null : nextValue);
+                }}
+                className="h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
+              >
+                {favoriteRouteStationOptions.length ? (
+                  favoriteRouteStationOptions.map(station => (
+                    <option key={`source-${station.stationId}`} value={station.stationId}>
+                      출발: {station.stationName}
+                    </option>
+                  ))
+                ) : (
+                  <option value={0}>출발역 없음</option>
+                )}
+              </select>
+              <select
+                value={String(
+                  routeDestinationStationId ??
+                    favoriteRouteStationOptions.find(
+                      station =>
+                        station.stationId !==
+                        (routeSourceStationId ?? favoriteRouteStationOptions[0]?.stationId ?? 0),
+                    )?.stationId ??
+                    0,
+                )}
+                onChange={event => {
+                  const nextValue = Number(event.target.value);
+                  setRouteDestinationStationId(Number.isNaN(nextValue) ? null : nextValue);
+                }}
+                className="h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
+              >
+                {favoriteRouteStationOptions.length ? (
+                  favoriteRouteStationOptions.map(station => (
+                    <option key={`destination-${station.stationId}`} value={station.stationId}>
+                      도착: {station.stationName}
+                    </option>
+                  ))
+                ) : (
+                  <option value={0}>도착역 없음</option>
+                )}
+              </select>
+              <input
+                value={routeTitleDraft}
+                onChange={event => setRouteTitleDraft(event.target.value)}
+                placeholder="경로 별칭(선택)"
+                maxLength={50}
+                className="h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
+              />
+              <button
+                type="button"
+                onClick={() => void createFavoriteRoute()}
+                disabled={favoriteRouteCreateMutation.isPending}
+                className="inline-flex h-9 items-center justify-center rounded-lg bg-key-color px-3 text-label-medium text-white disabled:cursor-not-allowed disabled:bg-gray-70"
+              >
+                {favoriteRouteCreateMutation.isPending ? '저장 중...' : '경로 저장'}
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
+            <div className="rounded-xl border border-gray-30 bg-white p-3">
+              <p className="text-label-medium text-gray-100">추천 경로</p>
+              {recommendedRoutesContent}
+            </div>
+
+            <div className="rounded-xl border border-gray-30 bg-white p-3">
+              <p className="text-label-medium text-gray-100">내가 저장한 경로</p>
+              {favoriteRoutesContent}
+            </div>
+          </div>
+        </div>
 
         {primaryStation && (
           <div className="mt-4 rounded-xl border border-gray-30 bg-gray-10 p-3">
