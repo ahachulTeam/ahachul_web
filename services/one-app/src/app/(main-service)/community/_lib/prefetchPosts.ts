@@ -10,6 +10,8 @@ import { getCommunityPosts } from './getCommunityPosts';
 type SearchParams = {
   q?: string;
   keyword?: string;
+  hashTag?: string;
+  writer?: string;
   category?: CommunityType;
   subwayLineId?: SubwayLineFilterOptions;
 };
@@ -17,6 +19,8 @@ type SearchParams = {
 export async function prefetchPosts(queryClient: QueryClient, query: SearchParams) {
   const querySignature = buildQuerySignature({
     keyword: query.keyword ?? query.q,
+    hashTag: query.hashTag,
+    writer: query.writer,
     category: query.category,
     subwayLineId: query.subwayLineId,
   });

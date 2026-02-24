@@ -18,13 +18,19 @@ export async function getCommunityPosts({
   const [, , querySignature] = queryKey;
   const filters = new URLSearchParams(querySignature);
 
+  const hasHashTagFilter = Boolean(filters.get('hashTag'));
+  const hasWriterFilter = Boolean(filters.get('writer'));
   const endpoint =
-    filters.has('category') && filters.get('category') !== CommunityType.HOT
+    hasHashTagFilter ||
+    hasWriterFilter ||
+    (filters.has('category') && filters.get('category') !== CommunityType.HOT)
       ? API_PATHS.community.list
       : API_PATHS.community.hotList;
 
   const params = removeFalsyValues({
     ...(filters.get('keyword') && { content: filters.get('keyword') || '' }),
+    ...(filters.get('hashTag') && { hashTag: filters.get('hashTag') || '' }),
+    ...(filters.get('writer') && { writer: filters.get('writer') || '' }),
     ...(filters.get('subwayLineId') && { subwayLineId: filters.get('subwayLineId') || '' }),
     pageSize: API_PAGE_SIZE.list,
     sort: API_SORT.createdAtDesc,
