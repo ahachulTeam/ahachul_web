@@ -101,6 +101,7 @@ const HomeHeaderActions = () => {
           ]),
           tap(updatedStations => {
             const req = updatedStations.map(item => ({
+              stationId: item.stationId,
               label: item.label,
               stationName: item.stationName,
             }));

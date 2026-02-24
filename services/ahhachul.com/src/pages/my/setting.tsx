@@ -17,8 +17,14 @@ import type { Stations, SubwayLineType } from '@/types';
 import { applyHighlight } from '@/utils/text';
 
 interface StationLabel {
+  stationId?: number;
   stationName: string;
   label: '집' | '회사' | '학교' | '즐겨찾는 장소';
+}
+
+interface SelectedStation {
+  stationId: number | null;
+  stationName: string;
 }
 
 const LABEL_OPTIONS = [
@@ -36,12 +42,12 @@ const SettingPage: ActivityComponentType = () => {
   const { mutate: updateUserFavoriteStations } = useUserFavoriteStations();
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedStation, setSelectedStation] = useState<string | null>(null);
+  const [selectedStation, setSelectedStation] = useState<SelectedStation | null>(null);
   const [labeledStations, setLabeledStations] = useState<StationLabel[]>([]);
   const deferredSearchTerm = useDeferredValue(searchTerm);
   const isPending = searchTerm !== deferredSearchTerm;
 
-  const allStations = Object.keys(DEFAULT_STATIONS as Stations);
+  const allStations = Object.keys((DEFAULT_STATIONS as Stations) ?? {});
 
   const displayStations = deferredSearchTerm
     ? allStations.filter(name => name.toLowerCase().includes(deferredSearchTerm.toLowerCase()))
@@ -63,15 +69,36 @@ const SettingPage: ActivityComponentType = () => {
   };
 
   const handleStationSelect = (stationName: string) => {
-    setSelectedStation(selectedStation === stationName ? null : stationName);
+    const stationId =
+      DEFAULT_STATIONS?.[stationName as keyof typeof DEFAULT_STATIONS]?.[0]?.stationId;
+
+    setSelectedStation(previous => {
+      if (previous?.stationName === stationName) {
+        return null;
+      }
+
+      return {
+        stationId: stationId ?? null,
+        stationName,
+      };
+    });
   };
 
   const handleLabelSelect = (label: StationLabel['label']) => {
     if (!selectedStation) return;
 
-    const filteredStations = labeledStations.filter(s => s.stationName !== selectedStation);
+    const filteredStations = labeledStations.filter(
+      station => station.stationName !== selectedStation.stationName,
+    );
 
-    setLabeledStations([...filteredStations, { stationName: selectedStation, label }]);
+    setLabeledStations([
+      ...filteredStations,
+      {
+        stationId: selectedStation.stationId ?? undefined,
+        stationName: selectedStation.stationName,
+        label,
+      },
+    ]);
   };
 
   const getDefaultLabel = () => {
@@ -92,6 +119,7 @@ const SettingPage: ActivityComponentType = () => {
     if (userStations.length > 0) {
       setLabeledStations(
         userStations.map(item => ({
+          stationId: item.stationId,
           stationName: item.stationName,
           label: item.label as '집' | '회사' | '학교' | '즐겨찾는 장소',
         })),
@@ -130,7 +158,7 @@ const SettingPage: ActivityComponentType = () => {
                 )}
               </SearchResultItem>
 
-              {selectedStation === name && (
+              {selectedStation?.stationName === name && (
                 <LabelOptions>
                   {LABEL_OPTIONS.map((option, idx) => {
                     const isDisabled =
@@ -182,7 +210,7 @@ const SettingPage: ActivityComponentType = () => {
             >
               {labeledStations.map((item, idx) => (
                 <LabelButton
-                  key={`${item.label}_${idx}`}
+                  key={`${item.stationName}_${item.label}_${idx}`}
                   css={css`
                     background-color: var(--ah-color-legacy-surface-inverse);
                     color: var(--ah-color-white);
@@ -223,6 +251,7 @@ const SettingPage: ActivityComponentType = () => {
               const formattedStations = labeledStations.map(station => ({
                 stationName: station.stationName,
                 label: LABEL_OPTIONS.find(l => l.id === station.label)?.text || '',
+                ...(typeof station.stationId === 'number' ? { stationId: station.stationId } : {}),
               }));
 
               updateUserFavoriteStations(formattedStations);
