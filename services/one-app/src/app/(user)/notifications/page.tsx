@@ -46,12 +46,20 @@ export default async function NotificationsPage() {
         ))}
       </section>
 
-      <Link
-        href={localizePathname('/me', locale)}
-        className="mt-4 inline-flex h-10 items-center rounded-xl border border-gray-40 bg-white px-4 text-label-medium text-gray-90"
-      >
-        {copy.backToMyPage}
-      </Link>
+      <div className="mt-4 flex gap-2">
+        <Link
+          href={localizePathname('/notifications/settings', locale)}
+          className="inline-flex h-10 items-center rounded-xl border border-gray-40 bg-white px-4 text-label-medium text-gray-90"
+        >
+          알림 설정
+        </Link>
+        <Link
+          href={localizePathname('/me', locale)}
+          className="inline-flex h-10 items-center rounded-xl border border-gray-40 bg-white px-4 text-label-medium text-gray-90"
+        >
+          {copy.backToMyPage}
+        </Link>
+      </div>
     </main>
   );
 }
