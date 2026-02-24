@@ -15,6 +15,9 @@ export enum CommunityType {
   INSIGHT = 'INSIGHT',
 }
 
+export type CommunitySubwayLineFilterValue = SubwayLineFilterOptions | `${number}`;
+export type CommunityStationFilterValue = `${number}`;
+
 export interface CommunityPost extends Post {
   commentCnt: number;
   likeCnt: number;
@@ -22,6 +25,7 @@ export interface CommunityPost extends Post {
   hashTags: string[];
   regionType: RegionType;
   categoryType: CommunityType;
+  stationId?: number;
 }
 
 export interface CommunityDetail extends CommunityPost {
@@ -35,6 +39,7 @@ export interface CommunityDetail extends CommunityPost {
 export interface CommunityListParams<TSubwayLine = number> extends Partial<CursorPagination> {
   categoryType: CommunityType;
   subwayLineId: TSubwayLine;
+  stationId?: number;
   /** 검색하고자 하는 내용 */
   content?: string;
   /** 검색하고자 하는 해시태그 */
@@ -43,11 +48,12 @@ export interface CommunityListParams<TSubwayLine = number> extends Partial<Curso
   writer?: string;
 }
 
-export type CommunityFilterKeys = 'communityType' | 'subwayLineId' | 'hashTag';
+export type CommunityFilterKeys = 'communityType' | 'subwayLineId' | 'stationId' | 'hashTag';
 
 export type CommunityFilterValues = {
   communityType: CommunityType;
-  subwayLineId: SubwayLineFilterOptions;
+  subwayLineId: CommunitySubwayLineFilterValue;
+  stationId: CommunityStationFilterValue;
   hashTag: string;
 };
 
@@ -58,7 +64,8 @@ export type CommunityFilters = {
 export interface CommunityForm {
   title: string;
   content: string;
-  subwayLineId: number;
+  subwayLineId: number | string;
+  stationId: number | string;
   categoryType: CommunityType;
   images: File[];
 }
@@ -66,7 +73,8 @@ export interface CommunityForm {
 export interface CommunityEditForm {
   title: string;
   content: string;
-  subwayLineId: number;
+  subwayLineId: number | string;
+  stationId: number | string;
   categoryType: CommunityType;
   images: EditableImage[];
   removeFileIds: number[];

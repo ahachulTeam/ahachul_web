@@ -5,7 +5,6 @@ import axiosInstance from '@/apis/fetcher';
 import {
   type ApiResponse,
   type PaginatedList,
-  type CommunityListParams,
   type CommunityPost,
   CommunityType,
   CommunityDetail,
@@ -15,7 +14,30 @@ import {
   CommunityEditForm,
 } from '@/types';
 
-export const fetchCommunityList = async (req: CommunityListParams) => {
+interface CommunityListRequestParams {
+  categoryType: CommunityType;
+  subwayLineIds?: string | number;
+  stationId?: number;
+  content?: string;
+  hashTag?: string;
+  writer?: string;
+  pageToken?: string;
+}
+
+const normalizePositiveNumber = (value: string | number | undefined): number | undefined => {
+  if (value === undefined) {
+    return undefined;
+  }
+
+  const parsed = Number(value);
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    return undefined;
+  }
+
+  return parsed;
+};
+
+export const fetchCommunityList = async (req: CommunityListRequestParams) => {
   const endpoint =
     req.categoryType === CommunityType.HOT ? API_PATHS.community.hotList : API_PATHS.community.list;
 
@@ -32,7 +54,12 @@ export const fetchCommunityList = async (req: CommunityListParams) => {
 
 export const createCommunity = async (req: CommunityForm) => {
   const formData = new FormData();
-  const formDataWithoutImages = extractFormData(req, 'images');
+  const normalizedRequest = {
+    ...req,
+    subwayLineId: normalizePositiveNumber(req.subwayLineId),
+    stationId: normalizePositiveNumber(req.stationId),
+  };
+  const formDataWithoutImages = extractFormData(normalizedRequest, 'images');
   const jsonBlob = createJsonBlob(formDataWithoutImages);
 
   formData.append('content', jsonBlob);
@@ -66,7 +93,12 @@ export const fetchCommunityCommentList = (id: number) =>
 
 export const editCommunity = async (id: number, req: CommunityEditForm) => {
   const formData = new FormData();
-  const formDataWithoutImages = extractFormData(req, 'images');
+  const normalizedRequest = {
+    ...req,
+    subwayLineId: normalizePositiveNumber(req.subwayLineId),
+    stationId: normalizePositiveNumber(req.stationId),
+  };
+  const formDataWithoutImages = extractFormData(normalizedRequest, 'images');
   const jsonBlob = createJsonBlob(formDataWithoutImages);
 
   formData.append('content', jsonBlob);

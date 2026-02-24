@@ -18,7 +18,8 @@ const useCommunityForm = () => {
       title: '',
       content: '',
       images: [],
-      subwayLineId: 1,
+      subwayLineId: '1',
+      stationId: '0',
       categoryType: CommunityType.FREE,
     },
   });
