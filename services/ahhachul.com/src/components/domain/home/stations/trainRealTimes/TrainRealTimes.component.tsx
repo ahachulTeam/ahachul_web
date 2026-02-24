@@ -28,6 +28,7 @@ import {
 } from '@/types';
 
 import * as S from './TrainRealTimes.styled';
+import { resolveMinutesToLastTrainText } from './lastTrainRisk';
 
 import TrainArrivals from '../trainArrivals/TrainArrivals.component';
 import SubwayUpDownFilter from '../upDownFilter/UpDownFilter.component';
@@ -112,13 +113,6 @@ function resolveRiskColor(riskLevel?: LastTrainRiskLevel): string {
     return 'rgba(245, 158, 11, 0.72)';
   }
   return 'rgba(239, 68, 68, 0.72)';
-}
-
-function resolveMinutesToLastTrainText(minutesToLastTrain: number): string {
-  if (minutesToLastTrain < 0) {
-    return '막차 시간 정보 없음';
-  }
-  return `막차까지 ${minutesToLastTrain}분`;
 }
 
 function resolveQuickExitConfidenceLabel(level: QuickExitConfidenceLevel): string {
