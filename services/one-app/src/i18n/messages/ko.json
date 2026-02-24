@@ -314,6 +314,8 @@
     "description": "정확한 정보를 작성하면 분실물 찾기에 더 도움이 됩니다.",
     "typeLabel": "유형",
     "subwayLineLabel": "노선",
+    "stationLabel": "역",
+    "stationPlaceholder": "역을 선택해주세요",
     "titleLabel": "제목",
     "titlePlaceholder": "제목을 입력해주세요",
     "contentLabel": "내용",
@@ -337,7 +339,8 @@
       "titleRequired": "제목을 입력해주세요.",
       "titleMax": "제목은 {max}자 이하로 입력해주세요.",
       "contentRequired": "내용을 입력해주세요.",
-      "subwayLineRequired": "노선을 선택해주세요."
+      "subwayLineRequired": "노선을 선택해주세요.",
+      "stationRequired": "역을 선택해주세요."
     }
   }
 }

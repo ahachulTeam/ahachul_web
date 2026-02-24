@@ -314,6 +314,8 @@
     "description": "Accurate details help recover items faster.",
     "typeLabel": "Type",
     "subwayLineLabel": "Line",
+    "stationLabel": "Station",
+    "stationPlaceholder": "Select a station",
     "titleLabel": "Title",
     "titlePlaceholder": "Enter a title",
     "contentLabel": "Content",
@@ -337,7 +339,8 @@
       "titleRequired": "Please enter a title.",
       "titleMax": "Title must be {max} characters or less.",
       "contentRequired": "Please enter content.",
-      "subwayLineRequired": "Please select a subway line."
+      "subwayLineRequired": "Please select a subway line.",
+      "stationRequired": "Please select a station."
     }
   }
 }

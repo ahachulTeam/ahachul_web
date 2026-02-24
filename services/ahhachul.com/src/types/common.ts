@@ -29,6 +29,7 @@ export type Post = {
   createdBy: string;
   commentCnt: number;
   subwayLineId: number;
+  stationId?: number;
   image?: PostImage;
   imageUrl?: string;
 };

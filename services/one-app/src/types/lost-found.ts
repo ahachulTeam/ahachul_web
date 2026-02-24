@@ -57,6 +57,7 @@ export interface LostFoundForm {
   title: string;
   content: string;
   subwayLineId: number;
+  stationId: number;
   lostType: LostFoundType;
   images: File[];
 }
@@ -65,6 +66,7 @@ export interface LostFoundEditForm {
   title: string;
   content: string;
   subwayLineId: number;
+  stationId: number;
   lostType: LostFoundType;
   images: EditableImage[];
   removeFileIds: number[];

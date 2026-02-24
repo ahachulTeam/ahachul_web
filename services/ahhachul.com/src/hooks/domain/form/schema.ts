@@ -78,6 +78,7 @@ export const lostFoundFormSchema: z.ZodType<LostFoundForm> = z.object({
   title: titleSchema,
   content: contentSchema,
   subwayLineId: subwayLineIdSchema,
+  stationId: stationIdSchema,
   lostType: z.nativeEnum(LostFoundType),
   images: createImagesSchema,
 });
@@ -86,6 +87,7 @@ export const lostFoundEditFormSchema: z.ZodType<LostFoundEditForm> = z.object({
   title: titleSchema,
   content: contentSchema,
   subwayLineId: subwayLineIdSchema,
+  stationId: stationIdSchema,
   lostType: z.nativeEnum(LostFoundType),
   images: editImagesSchema,
   removeFileIds: z.array(z.number().int().positive()),
@@ -95,6 +97,7 @@ export const complaintFormSchema: z.ZodType<ComplaintForm> = z.object({
   title: titleSchema,
   content: contentSchema,
   subwayLineId: subwayLineIdSchema,
+  stationId: stationIdSchema,
   complaintType: complaintTypeSchema,
   shortContentType: shortComplaintTypeSchema,
   images: createImagesSchema,

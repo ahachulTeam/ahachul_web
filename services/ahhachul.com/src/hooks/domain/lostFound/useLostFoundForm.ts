@@ -18,7 +18,8 @@ const useLostFoundForm = () => {
       title: '',
       content: '',
       images: [],
-      subwayLineId: 1,
+      subwayLineId: '1',
+      stationId: '0',
       lostType: LostFoundType.LOST,
     },
   });

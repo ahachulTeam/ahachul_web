@@ -23,9 +23,27 @@ export const fetchComplaintList = async (req: ComplaintListParams) => {
   return data;
 };
 
+const normalizePositiveNumber = (value: string | number | undefined): number | undefined => {
+  if (value === undefined) {
+    return undefined;
+  }
+
+  const parsed = Number(value);
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    return undefined;
+  }
+
+  return parsed;
+};
+
 export const createComplaint = async (req: ComplaintForm) => {
   const formData = new FormData();
-  const formDataWithoutImages = extractFormData(req, 'images');
+  const normalizedRequest = {
+    ...req,
+    subwayLineId: normalizePositiveNumber(req.subwayLineId),
+    stationId: normalizePositiveNumber(req.stationId),
+  };
+  const formDataWithoutImages = extractFormData(normalizedRequest, 'images');
   const jsonBlob = createJsonBlob(formDataWithoutImages);
 
   formData.append('content', jsonBlob);

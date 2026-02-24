@@ -7,7 +7,12 @@ import type { EditorState } from 'lexical';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
-import { QUERY_GC_TIME, QUERY_STALE_TIME, lostFoundQueryKeys } from '@ahhachul/domain';
+import {
+  QUERY_GC_TIME,
+  QUERY_STALE_TIME,
+  lostFoundQueryKeys,
+  subwayQueryKeys,
+} from '@ahhachul/domain';
 import { API_PATHS } from '@ahhachul/http';
 import {
   getNormalizedTextLength,
@@ -35,6 +40,7 @@ import { createLostFoundPost, editLostFoundPost } from '../_lib/upsertPost';
 
 const MAX_IMAGE_COUNT = 5;
 const MAX_TITLE_LENGTH = 80;
+const DEFAULT_STATION_ID = 0;
 
 type Props =
   | {
@@ -44,6 +50,21 @@ type Props =
       mode: 'edit';
       postId: number;
     };
+
+type Station = {
+  id: number;
+  name: string;
+};
+
+type SubwayLine = {
+  id: number;
+  name: string;
+  stations: Station[];
+};
+
+type SubwayLineCatalogResponse = {
+  subwayLines: SubwayLine[];
+};
 
 function createLexicalStateFromText(text: string): string {
   return JSON.stringify({
@@ -90,6 +111,7 @@ export default function LostFoundPostEditor(props: Props) {
   const [editorInitialState, setEditorInitialState] = useState<string | undefined>(undefined);
   const [lostType, setLostType] = useState<LostFoundType>(LostFoundType.LOST);
   const [subwayLineId, setSubwayLineId] = useState<number>(SUBWAY_LINES[0]?.id ?? 1);
+  const [stationId, setStationId] = useState<number>(DEFAULT_STATION_ID);
   const [images, setImages] = useState<EditableImage[]>([]);
   const [removeFileIds, setRemoveFileIds] = useState<number[]>([]);
   const [submitError, setSubmitError] = useState('');
@@ -105,6 +127,18 @@ export default function LostFoundPostEditor(props: Props) {
     gcTime: QUERY_GC_TIME.detail,
     select: response => response.result,
   });
+  const subwayLineCatalogQuery = useQuery({
+    queryKey: subwayQueryKeys.subwayLine(),
+    queryFn: () => fetchClient<ApiResponse<SubwayLineCatalogResponse>>(API_PATHS.subway.lines),
+    staleTime: QUERY_STALE_TIME.static,
+    gcTime: QUERY_GC_TIME.static,
+    select: response => response.result.subwayLines,
+  });
+  const subwayLines = subwayLineCatalogQuery.data ?? [];
+  const stationOptions = useMemo(
+    () => subwayLines.find(line => line.id === subwayLineId)?.stations ?? [],
+    [subwayLineId, subwayLines],
+  );
 
   useEffect(() => {
     return () => {
@@ -129,6 +163,7 @@ export default function LostFoundPostEditor(props: Props) {
     setTitle(post.title ?? '');
     setLostType(post.lostType ?? LostFoundType.LOST);
     setSubwayLineId(post.subwayLineId || SUBWAY_LINES[0]?.id || 1);
+    setStationId(post.stationId ?? DEFAULT_STATION_ID);
     setImages(
       (post.images ?? []).map(image => ({
         id: image.imageId ?? null,
@@ -141,6 +176,18 @@ export default function LostFoundPostEditor(props: Props) {
     setContent(serializedContent);
     setIsHydratedEditDefaults(true);
   }, [detailQuery.data, isEditMode, isHydratedEditDefaults]);
+
+  useEffect(() => {
+    if (stationId === DEFAULT_STATION_ID) {
+      return;
+    }
+
+    if (stationOptions.some(station => station.id === stationId)) {
+      return;
+    }
+
+    setStationId(DEFAULT_STATION_ID);
+  }, [stationId, stationOptions]);
 
   const validationMessage = useMemo(() => {
     if (isBlankText(title)) {
@@ -162,13 +209,19 @@ export default function LostFoundPostEditor(props: Props) {
       return copy.validation.subwayLineRequired;
     }
 
+    if (stationId <= 0) {
+      return copy.validation.stationRequired;
+    }
+
     return '';
   }, [
     content,
     copy.validation.contentRequired,
+    copy.validation.stationRequired,
     copy.validation.subwayLineRequired,
     copy.validation.titleMax,
     copy.validation.titleRequired,
+    stationId,
     subwayLineId,
     title,
   ]);
@@ -241,6 +294,7 @@ export default function LostFoundPostEditor(props: Props) {
           title: normalizedTitle,
           content: normalizedContent,
           subwayLineId,
+          stationId,
           lostType,
           images,
           removeFileIds: Array.from(new Set(removeFileIds)),
@@ -253,6 +307,7 @@ export default function LostFoundPostEditor(props: Props) {
         title: normalizedTitle,
         content: normalizedContent,
         subwayLineId,
+        stationId,
         lostType,
         images: images.flatMap(image => (image.data ? [image.data] : [])),
       };
@@ -371,6 +426,25 @@ export default function LostFoundPostEditor(props: Props) {
               {SUBWAY_LINES.map(line => (
                 <option key={line.id} value={line.id}>
                   {line.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="stationId" className="text-label-medium text-gray-90">
+              {copy.stationLabel}
+            </label>
+            <select
+              id="stationId"
+              value={stationId}
+              onChange={event => setStationId(Number(event.target.value))}
+              className="mt-2 h-11 w-full rounded-xl border border-gray-40 bg-white px-3 text-body-medium text-gray-100 outline-none focus:border-key-color"
+            >
+              <option value={DEFAULT_STATION_ID}>{copy.stationPlaceholder}</option>
+              {stationOptions.map(station => (
+                <option key={station.id} value={station.id}>
+                  {station.name}역
                 </option>
               ))}
             </select>

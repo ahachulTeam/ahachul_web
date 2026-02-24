@@ -53,7 +53,8 @@ export interface ComplaintListParams<TSubwayLine = number> extends Partial<Curso
 export interface ComplaintForm {
   title: string;
   content: string;
-  subwayLineId: number;
+  subwayLineId: number | string;
+  stationId: number | string;
   complaintType: ComplaintType;
   shortContentType: ShortComplaintType;
   images: File[];

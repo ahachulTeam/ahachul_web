@@ -56,7 +56,8 @@ export type LostFoundFilters = {
 export interface LostFoundForm {
   title: string;
   content: string;
-  subwayLineId: number;
+  subwayLineId: number | string;
+  stationId: number | string;
   lostType: LostFoundType;
   images: File[];
 }
@@ -64,7 +65,8 @@ export interface LostFoundForm {
 export interface LostFoundEditForm {
   title: string;
   content: string;
-  subwayLineId: number;
+  subwayLineId: number | string;
+  stationId: number | string;
   lostType: LostFoundType;
   images: EditableImage[];
   removeFileIds: number[];

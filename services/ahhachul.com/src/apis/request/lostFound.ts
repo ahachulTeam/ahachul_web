@@ -28,9 +28,27 @@ export const fetchLostFoundList = async (req: LostFoundListParams) => {
   return data;
 };
 
+const normalizePositiveNumber = (value: string | number | undefined): number | undefined => {
+  if (value === undefined) {
+    return undefined;
+  }
+
+  const parsed = Number(value);
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    return undefined;
+  }
+
+  return parsed;
+};
+
 export const createLostFound = async (req: LostFoundForm) => {
   const formData = new FormData();
-  const formDataWithoutImages = extractFormData(req, 'images');
+  const normalizedRequest = {
+    ...req,
+    subwayLineId: normalizePositiveNumber(req.subwayLineId),
+    stationId: normalizePositiveNumber(req.stationId),
+  };
+  const formDataWithoutImages = extractFormData(normalizedRequest, 'images');
   const jsonBlob = createJsonBlob(formDataWithoutImages);
 
   formData.append('content', jsonBlob);
@@ -64,7 +82,12 @@ export const fetchLostFoundCommentList = (id: number) =>
 
 export const editLostFound = async (id: number, req: LostFoundEditForm) => {
   const formData = new FormData();
-  const formDataWithoutImages = extractFormData(req, 'images');
+  const normalizedRequest = {
+    ...req,
+    subwayLineId: normalizePositiveNumber(req.subwayLineId),
+    stationId: normalizePositiveNumber(req.stationId),
+  };
+  const formDataWithoutImages = extractFormData(normalizedRequest, 'images');
   const jsonBlob = createJsonBlob(formDataWithoutImages);
 
   formData.append('content', jsonBlob);

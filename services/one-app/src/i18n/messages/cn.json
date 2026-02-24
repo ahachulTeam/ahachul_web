@@ -314,6 +314,8 @@
     "description": "填写准确信息有助于更快找回物品。",
     "typeLabel": "类型",
     "subwayLineLabel": "线路",
+    "stationLabel": "车站",
+    "stationPlaceholder": "请选择车站",
     "titleLabel": "标题",
     "titlePlaceholder": "请输入标题",
     "contentLabel": "内容",
@@ -337,7 +339,8 @@
       "titleRequired": "请输入标题。",
       "titleMax": "标题需不超过 {max} 个字符。",
       "contentRequired": "请输入内容。",
-      "subwayLineRequired": "请选择线路。"
+      "subwayLineRequired": "请选择线路。",
+      "stationRequired": "请选择车站。"
     }
   }
 }

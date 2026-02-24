@@ -40,6 +40,7 @@ export type IPost = {
   createdBy: string;
   commentCnt: number;
   subwayLineId: number;
+  stationId?: number;
   imageUrl?: string;
   image?: IPostImage;
 };

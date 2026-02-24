@@ -314,6 +314,8 @@
     "description": "กรอกรายละเอียดให้ครบเพื่อช่วยตามหาของได้เร็วขึ้น",
     "typeLabel": "ประเภท",
     "subwayLineLabel": "สายรถไฟ",
+    "stationLabel": "สถานี",
+    "stationPlaceholder": "เลือกสถานี",
     "titleLabel": "หัวข้อ",
     "titlePlaceholder": "กรอกหัวข้อ",
     "contentLabel": "รายละเอียด",
@@ -337,7 +339,8 @@
       "titleRequired": "กรุณากรอกหัวข้อ",
       "titleMax": "หัวข้อต้องไม่เกิน {max} ตัวอักษร",
       "contentRequired": "กรุณากรอกรายละเอียด",
-      "subwayLineRequired": "กรุณาเลือกสายรถไฟ"
+      "subwayLineRequired": "กรุณาเลือกสายรถไฟ",
+      "stationRequired": "กรุณาเลือกสถานี"
     }
   }
 }
