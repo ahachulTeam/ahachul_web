@@ -80,6 +80,30 @@
       "summaryError": "首末班车信息加载失败。",
       "upLabel": "上行",
       "downLabel": "下行"
+    },
+    "delayProof": {
+      "title": "延误凭证",
+      "description": "可生成包含预计到达时间与证据摘要的延误凭证。",
+      "openButton": "生成凭证",
+      "createButton": "签发凭证",
+      "pending": "签发中...",
+      "closeButton": "关闭",
+      "expectedArrivalAtLabel": "预计到达时间",
+      "customMessageLabel": "附加说明",
+      "customMessagePlaceholder": "我会尽快赶到。",
+      "createError": "签发延误凭证失败，请稍后再试。",
+      "stationRequired": "至少需要 1 个收藏车站才能生成凭证。",
+      "copyUnsupported": "当前设备不支持复制。",
+      "copyTextButton": "复制文案",
+      "copyLinkButton": "复制链接",
+      "shareButton": "分享",
+      "copyTextSuccess": "已复制凭证文案。",
+      "copyLinkSuccess": "已复制凭证链接。",
+      "shareTitle": "Ahhachul 延误凭证",
+      "gradeLabel": "等级",
+      "confidenceLabel": "可信度",
+      "evidenceLabel": "证据摘要：",
+      "legalNotice": "提示：本凭证不具备法律证明效力。"
     }
   },
   "login": {

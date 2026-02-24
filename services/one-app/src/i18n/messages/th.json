@@ -80,6 +80,30 @@
       "summaryError": "ไม่สามารถโหลดข้อมูลเที่ยวแรก/เที่ยวสุดท้าย",
       "upLabel": "ขาขึ้น",
       "downLabel": "ขาลง"
+    },
+    "delayProof": {
+      "title": "หลักฐานความล่าช้า",
+      "description": "สร้างหลักฐานความล่าช้าพร้อมเวลาถึงโดยประมาณและสรุปหลักฐาน",
+      "openButton": "สร้างหลักฐาน",
+      "createButton": "ออกหลักฐาน",
+      "pending": "กำลังออกหลักฐาน...",
+      "closeButton": "ปิด",
+      "expectedArrivalAtLabel": "เวลาถึงโดยประมาณ",
+      "customMessageLabel": "ข้อความเพิ่มเติม",
+      "customMessagePlaceholder": "จะรีบไปให้เร็วที่สุด",
+      "createError": "ไม่สามารถออกหลักฐานได้ กรุณาลองใหม่อีกครั้ง",
+      "stationRequired": "ต้องมีสถานีโปรดอย่างน้อย 1 สถานีก่อนสร้างหลักฐาน",
+      "copyUnsupported": "อุปกรณ์นี้ไม่รองรับการคัดลอก",
+      "copyTextButton": "คัดลอกข้อความ",
+      "copyLinkButton": "คัดลอกลิงก์",
+      "shareButton": "แชร์",
+      "copyTextSuccess": "คัดลอกข้อความหลักฐานแล้ว",
+      "copyLinkSuccess": "คัดลอกลิงก์หลักฐานแล้ว",
+      "shareTitle": "หลักฐานความล่าช้า Ahhachul",
+      "gradeLabel": "ระดับ",
+      "confidenceLabel": "ความน่าเชื่อถือ",
+      "evidenceLabel": "สรุปหลักฐาน:",
+      "legalNotice": "หมายเหตุ: หลักฐานนี้ไม่ใช่เอกสารรับรองทางกฎหมาย"
     }
   },
   "login": {

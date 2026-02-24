@@ -12,7 +12,12 @@ import LanguageSelector from '@/app/_components/LanguageSelector';
 import { useStationTimeSummaryV2Query, useTrainRealtimeV2Query } from '@/hooks';
 import { localizePathname, type LocaleMessages, type SupportedLocale } from '@/i18n';
 import { AuthService } from '@/lib/auth-service';
-import { mapRealtimePayloadToSectionVM, type StationTimeWeekType } from '@/types';
+import { createDelayProofV2 } from '@/lib/delay-proof';
+import {
+  mapRealtimePayloadToSectionVM,
+  type DelayProofPayload,
+  type StationTimeWeekType,
+} from '@/types';
 
 import {
   checkNicknameAvailability,
@@ -26,6 +31,7 @@ const cardClassName = 'rounded-2xl border border-gray-30 bg-white p-4';
 const TERMS_URL = process.env.NEXT_PUBLIC_AHHACHUL_TERMS_URL ?? 'https://ahhachul.com/terms';
 const PRIVACY_URL = process.env.NEXT_PUBLIC_AHHACHUL_PRIVACY_URL ?? 'https://ahhachul.com/privacy';
 const MAX_FAVORITE_STATIONS = 4;
+const DEFAULT_DELAY_PROOF_MINUTES = 10;
 
 function resolveStationTimeWeekType(currentDate = new Date()): StationTimeWeekType {
   const day = currentDate.getDay();
@@ -45,6 +51,21 @@ function formatStationTime(time: string | null | undefined) {
   return time.slice(0, 5);
 }
 
+function toDatetimeLocalValue(date: Date): string {
+  const year = date.getFullYear();
+  const month = `${date.getMonth() + 1}`.padStart(2, '0');
+  const day = `${date.getDate()}`.padStart(2, '0');
+  const hours = `${date.getHours()}`.padStart(2, '0');
+  const minutes = `${date.getMinutes()}`.padStart(2, '0');
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+
+function buildExpectedArrivalDraft(etaSec: number | undefined): string {
+  const minutes = Math.max(Math.ceil((etaSec ?? DEFAULT_DELAY_PROOF_MINUTES * 60) / 60), 1);
+  const arrivalAt = new Date(Date.now() + minutes * 60 * 1000);
+  return toDatetimeLocalValue(arrivalAt);
+}
+
 type EditableFavoriteStation = {
   stationName: string;
   label: string;
@@ -59,6 +80,10 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
   const queryClient = useQueryClient();
   const [isEditingFavorites, setIsEditingFavorites] = useState(false);
   const [favoriteDraft, setFavoriteDraft] = useState<EditableFavoriteStation[]>([]);
+  const [isDelayProofFormOpen, setIsDelayProofFormOpen] = useState(false);
+  const [expectedArrivalAtDraft, setExpectedArrivalAtDraft] = useState('');
+  const [customDelayMessage, setCustomDelayMessage] = useState('');
+  const [delayProofResult, setDelayProofResult] = useState<DelayProofPayload | null>(null);
 
   const {
     data: profile,
@@ -156,6 +181,13 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
     void refetchRealtime();
     void refetchSummary();
   };
+
+  const delayProofMutation = useMutation({
+    mutationFn: createDelayProofV2,
+    onSuccess: response => {
+      setDelayProofResult(response.result);
+    },
+  });
 
   const openFavoriteEditor = () => {
     setFavoriteDraft(
@@ -263,6 +295,72 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
         error instanceof Error ? error.message : '닉네임 변경에 실패했습니다. 다시 시도해주세요.',
       );
     }
+  };
+
+  const openDelayProofForm = () => {
+    setExpectedArrivalAtDraft(buildExpectedArrivalDraft(realtimeSection?.cards[0]?.etaSec));
+    setCustomDelayMessage('');
+    setDelayProofResult(null);
+    setIsDelayProofFormOpen(true);
+  };
+
+  const handleCreateDelayProof = async () => {
+    if (!primaryStation || !primarySubwayLineId) {
+      window.alert(copy.delayProof.stationRequired);
+      return;
+    }
+
+    try {
+      const normalizedExpectedArrivalAt = expectedArrivalAtDraft
+        ? new Date(expectedArrivalAtDraft).toISOString()
+        : undefined;
+
+      await delayProofMutation.mutateAsync({
+        stationId: primaryStation.stationId,
+        subwayLineId: primarySubwayLineId,
+        upDownType: realtimeSection?.cards[0]?.upDownType,
+        expectedArrivalAt: normalizedExpectedArrivalAt,
+        customMessage: customDelayMessage.trim() || undefined,
+      });
+    } catch (error) {
+      window.alert(error instanceof Error ? error.message : copy.delayProof.createError);
+    }
+  };
+
+  const copyToClipboard = async (value: string, successMessage: string) => {
+    try {
+      if (typeof navigator === 'undefined' || !navigator.clipboard?.writeText) {
+        throw new Error('clipboard-not-supported');
+      }
+      await navigator.clipboard.writeText(value);
+      window.alert(successMessage);
+    } catch {
+      window.alert(copy.delayProof.copyUnsupported);
+    }
+  };
+
+  const handleShareDelayProof = async () => {
+    if (!delayProofResult) {
+      return;
+    }
+
+    if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
+      try {
+        await navigator.share({
+          title: copy.delayProof.shareTitle,
+          text: delayProofResult.text,
+          url: delayProofResult.shareUrl,
+        });
+        return;
+      } catch {
+        // 사용자 취소 포함 모든 케이스에서 copy fallback으로 안전 처리한다.
+      }
+    }
+
+    await copyToClipboard(
+      `${delayProofResult.text}\n${delayProofResult.shareUrl}`,
+      copy.delayProof.copyTextSuccess,
+    );
   };
 
   if (isProfilePending) {
@@ -512,6 +610,120 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
             <div className="mt-3 border-t border-gray-30 pt-2">
               <p className="text-label-small text-gray-80">{copy.realtime.firstLastTitle}</p>
               {summaryContent}
+            </div>
+
+            <div className="mt-3 border-t border-gray-30 pt-3">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="text-label-medium text-gray-100">{copy.delayProof.title}</p>
+                <button
+                  type="button"
+                  onClick={openDelayProofForm}
+                  className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+                >
+                  {copy.delayProof.openButton}
+                </button>
+              </div>
+              <p className="mt-1 text-body-small text-gray-70">{copy.delayProof.description}</p>
+
+              {isDelayProofFormOpen && (
+                <div className="mt-3 space-y-2 rounded-xl border border-gray-30 bg-white p-3">
+                  <div className="space-y-1">
+                    <label className="block text-label-small text-gray-80">
+                      {copy.delayProof.expectedArrivalAtLabel}
+                    </label>
+                    <input
+                      type="datetime-local"
+                      value={expectedArrivalAtDraft}
+                      onChange={event => setExpectedArrivalAtDraft(event.target.value)}
+                      className="h-9 w-full rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="block text-label-small text-gray-80">
+                      {copy.delayProof.customMessageLabel}
+                    </label>
+                    <input
+                      type="text"
+                      value={customDelayMessage}
+                      maxLength={120}
+                      onChange={event => setCustomDelayMessage(event.target.value)}
+                      placeholder={copy.delayProof.customMessagePlaceholder}
+                      className="h-9 w-full rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
+                    />
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => void handleCreateDelayProof()}
+                      disabled={delayProofMutation.isPending}
+                      className="inline-flex h-9 items-center rounded-lg bg-key-color px-3 text-label-medium text-white disabled:cursor-not-allowed disabled:bg-gray-70"
+                    >
+                      {delayProofMutation.isPending
+                        ? copy.delayProof.pending
+                        : copy.delayProof.createButton}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsDelayProofFormOpen(false);
+                        setDelayProofResult(null);
+                      }}
+                      className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+                    >
+                      {copy.delayProof.closeButton}
+                    </button>
+                  </div>
+                  <p className="text-label-small text-danger">{copy.delayProof.legalNotice}</p>
+                </div>
+              )}
+
+              {delayProofResult && (
+                <div className="mt-3 space-y-2 rounded-xl border border-gray-30 bg-white p-3">
+                  <div className="flex flex-wrap items-center gap-2 text-label-small text-gray-80">
+                    <span className="rounded-full border border-gray-30 px-2 py-0.5">
+                      {copy.delayProof.gradeLabel}: {delayProofResult.grade}
+                    </span>
+                    <span className="rounded-full border border-gray-30 px-2 py-0.5">
+                      {copy.delayProof.confidenceLabel}: {delayProofResult.confidenceLevel}
+                    </span>
+                  </div>
+                  <p className="text-body-small text-gray-90">{delayProofResult.text}</p>
+                  <p className="text-label-small text-gray-70">
+                    {copy.delayProof.evidenceLabel}
+                    {` Official ${delayProofResult.evidenceSummary.official.eventCount} · Community ${delayProofResult.evidenceSummary.community.signalCount} · Realtime ${delayProofResult.evidenceSummary.realtime.confidenceLevel}`}
+                  </p>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        void copyToClipboard(delayProofResult.text, copy.delayProof.copyTextSuccess)
+                      }
+                      className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+                    >
+                      {copy.delayProof.copyTextButton}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        void copyToClipboard(
+                          delayProofResult.shareUrl,
+                          copy.delayProof.copyLinkSuccess,
+                        )
+                      }
+                      className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+                    >
+                      {copy.delayProof.copyLinkButton}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => void handleShareDelayProof()}
+                      className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+                    >
+                      {copy.delayProof.shareButton}
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}

@@ -80,6 +80,30 @@
       "summaryError": "Failed to load first/last train summary.",
       "upLabel": "UP",
       "downLabel": "DOWN"
+    },
+    "delayProof": {
+      "title": "Delay proof",
+      "description": "Create a shareable delay proof with ETA and evidence summary.",
+      "openButton": "Create proof",
+      "createButton": "Issue proof",
+      "pending": "Issuing...",
+      "closeButton": "Close",
+      "expectedArrivalAtLabel": "Expected arrival time",
+      "customMessageLabel": "Additional message",
+      "customMessagePlaceholder": "I will get there as soon as possible.",
+      "createError": "Failed to issue delay proof. Please try again later.",
+      "stationRequired": "At least one favorite station is required to create proof.",
+      "copyUnsupported": "Clipboard is not available on this device.",
+      "copyTextButton": "Copy text",
+      "copyLinkButton": "Copy link",
+      "shareButton": "Share",
+      "copyTextSuccess": "Proof text copied.",
+      "copyLinkSuccess": "Proof link copied.",
+      "shareTitle": "Ahhachul Delay Proof",
+      "gradeLabel": "Grade",
+      "confidenceLabel": "Confidence",
+      "evidenceLabel": "Evidence:",
+      "legalNotice": "Notice: This proof is not a legal certificate."
     }
   },
   "login": {

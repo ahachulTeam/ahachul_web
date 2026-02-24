@@ -80,6 +80,30 @@
       "summaryError": "첫차/막차 정보를 불러오지 못했습니다.",
       "upLabel": "상행",
       "downLabel": "하행"
+    },
+    "delayProof": {
+      "title": "지연 증빙",
+      "description": "도착 예정 시각과 근거를 포함한 지연 증빙을 생성할 수 있습니다.",
+      "openButton": "증빙 만들기",
+      "createButton": "발급하기",
+      "pending": "발급 중...",
+      "closeButton": "닫기",
+      "expectedArrivalAtLabel": "도착 예정 시각",
+      "customMessageLabel": "추가 메시지",
+      "customMessagePlaceholder": "최대한 빨리 가겠습니다.",
+      "createError": "지연 증빙 발급에 실패했습니다. 잠시 후 다시 시도해주세요.",
+      "stationRequired": "즐겨찾는 역이 있어야 증빙을 만들 수 있습니다.",
+      "copyUnsupported": "복사 기능을 사용할 수 없습니다.",
+      "copyTextButton": "문구 복사",
+      "copyLinkButton": "링크 복사",
+      "shareButton": "공유",
+      "copyTextSuccess": "증빙 문구를 복사했습니다.",
+      "copyLinkSuccess": "증빙 링크를 복사했습니다.",
+      "shareTitle": "아하철 지연 증빙",
+      "gradeLabel": "등급",
+      "confidenceLabel": "신뢰도",
+      "evidenceLabel": "근거 요약:",
+      "legalNotice": "안내: 본 증빙은 법적 증명서가 아닙니다."
     }
   },
   "login": {
