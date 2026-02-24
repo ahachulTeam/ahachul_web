@@ -6,11 +6,17 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 
 import { QUERY_STALE_TIME, myQueryKeys } from '@ahhachul/domain';
-import { maskEmail, normalizeInputText, validateNickname } from '@ahhachul/utils';
+import {
+  formatDisplayDate,
+  maskEmail,
+  normalizeInputText,
+  validateNickname,
+} from '@ahhachul/utils';
 
 import LanguageSelector from '@/app/_components/LanguageSelector';
 import { useStationTimeSummaryV2Query, useTrainRealtimeV2Query } from '@/hooks';
 import { localizePathname, type LocaleMessages, type SupportedLocale } from '@/i18n';
+import { getMyArticleReactionHistories } from '@/lib/article-reactions';
 import { AuthService } from '@/lib/auth-service';
 import { createDelayProofV2 } from '@/lib/delay-proof';
 import {
@@ -181,6 +187,18 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
     void refetchRealtime();
     void refetchSummary();
   };
+
+  const {
+    data: articleHistoryResponse,
+    isPending: isArticleHistoryPending,
+    isError: isArticleHistoryError,
+    refetch: refetchArticleHistory,
+  } = useQuery({
+    queryKey: [...myQueryKeys.all, 'article-histories'],
+    queryFn: () => getMyArticleReactionHistories(30),
+    staleTime: QUERY_STALE_TIME.user,
+    enabled: profileReady,
+  });
 
   const delayProofMutation = useMutation({
     mutationFn: createDelayProofV2,
@@ -361,6 +379,24 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
       `${delayProofResult.text}\n${delayProofResult.shareUrl}`,
       copy.delayProof.copyTextSuccess,
     );
+  };
+
+  const likedArticles = articleHistoryResponse?.result.likedArticles ?? [];
+  const bookmarkedArticles = articleHistoryResponse?.result.bookmarkedArticles ?? [];
+
+  const resolveArticlePath = (
+    articleType: 'COMMUNITY' | 'COMPLAINT' | 'LOST',
+    articleId: number,
+  ) => {
+    if (articleType === 'COMMUNITY') {
+      return localizePathname(`/community/${articleId}`, locale);
+    }
+
+    if (articleType === 'COMPLAINT') {
+      return localizePathname(`/complaint/${articleId}`, locale);
+    }
+
+    return localizePathname(`/lost-found/${articleId}`, locale);
   };
 
   if (isProfilePending) {
@@ -727,6 +763,81 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
             </div>
           </div>
         )}
+      </article>
+
+      <article className={cardClassName}>
+        <div className="flex items-center justify-between">
+          <h3 className="text-title-small text-gray-100">좋아요/북마크 히스토리</h3>
+          <button
+            type="button"
+            onClick={() => {
+              void refetchArticleHistory();
+            }}
+            className="rounded-md border border-gray-40 px-2 py-1 text-label-small text-gray-90"
+          >
+            새로고침
+          </button>
+        </div>
+        {isArticleHistoryPending ? (
+          <p className="mt-2 text-body-small text-gray-70">히스토리를 불러오는 중입니다.</p>
+        ) : null}
+        {isArticleHistoryError ? (
+          <p className="mt-2 text-body-small text-danger">히스토리를 불러오지 못했습니다.</p>
+        ) : null}
+
+        {!isArticleHistoryPending && !isArticleHistoryError ? (
+          <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
+            <div className="rounded-xl border border-gray-30 bg-gray-10 p-3">
+              <h4 className="text-label-medium text-gray-100">좋아요</h4>
+              {likedArticles.length ? (
+                <ul className="mt-2 space-y-2">
+                  {likedArticles.slice(0, 8).map(article => (
+                    <li key={`liked-${article.articleType}-${article.articleId}`}>
+                      <Link
+                        href={resolveArticlePath(article.articleType, article.articleId)}
+                        className="block rounded-lg bg-white px-3 py-2"
+                      >
+                        <p className="line-clamp-1 text-body-small text-gray-100">
+                          {article.title}
+                        </p>
+                        <p className="mt-1 text-label-small text-gray-70">
+                          {article.articleType} · {formatDisplayDate(article.reactedAt)}
+                        </p>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-2 text-body-small text-gray-70">좋아요한 글이 없습니다.</p>
+              )}
+            </div>
+
+            <div className="rounded-xl border border-gray-30 bg-gray-10 p-3">
+              <h4 className="text-label-medium text-gray-100">북마크</h4>
+              {bookmarkedArticles.length ? (
+                <ul className="mt-2 space-y-2">
+                  {bookmarkedArticles.slice(0, 8).map(article => (
+                    <li key={`bookmark-${article.articleType}-${article.articleId}`}>
+                      <Link
+                        href={resolveArticlePath(article.articleType, article.articleId)}
+                        className="block rounded-lg bg-white px-3 py-2"
+                      >
+                        <p className="line-clamp-1 text-body-small text-gray-100">
+                          {article.title}
+                        </p>
+                        <p className="mt-1 text-label-small text-gray-70">
+                          {article.articleType} · {formatDisplayDate(article.reactedAt)}
+                        </p>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-2 text-body-small text-gray-70">북마크한 글이 없습니다.</p>
+              )}
+            </div>
+          </div>
+        ) : null}
       </article>
 
       <article className={cardClassName}>

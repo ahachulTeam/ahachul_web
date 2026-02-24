@@ -183,3 +183,26 @@ export const useDeleteComplaint = () => {
     onSuccess: afterSubmitSuccess,
   });
 };
+
+export const useToggleComplaintLike = (id: number, liked: boolean) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () => (liked ? api.unlikeComplaint(id) : api.likeComplaint(id)),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: complaintKeys.detail(id) });
+      await queryClient.invalidateQueries({ queryKey: complaintKeys.lists() });
+    },
+  });
+};
+
+export const useToggleComplaintBookmark = (id: number, bookmarked: boolean) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () => (bookmarked ? api.unbookmarkComplaint(id) : api.bookmarkComplaint(id)),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: complaintKeys.detail(id) });
+    },
+  });
+};

@@ -28,12 +28,15 @@ export const API_PATHS = {
   user: {
     profile: '/members',
     favoriteStations: '/members/bookmarks/stations',
+    articleHistories: '/members/article-histories',
     checkNickname: '/members/check-nickname',
   },
   community: {
     list: `/${API_SERVICE_PATHS.community}`,
     hotList: '/community-hot-posts',
     detail: (id: Identifier) => `/${API_SERVICE_PATHS.community}/${id}`,
+    like: (id: Identifier) => `/${API_SERVICE_PATHS.community}/${id}/like`,
+    bookmark: (id: Identifier) => `/${API_SERVICE_PATHS.community}/${id}/bookmark`,
     comments: (id: Identifier) => `/${API_SERVICE_PATHS.community}/${id}/comments`,
     comment: (postId: Identifier, commentId: Identifier) =>
       `/${API_SERVICE_PATHS.community}/${postId}/comments/${commentId}`,
@@ -41,11 +44,15 @@ export const API_PATHS = {
   complaint: {
     list: `/${API_SERVICE_PATHS.complaint}`,
     detail: (id: Identifier) => `/${API_SERVICE_PATHS.complaint}/${id}`,
+    like: (id: Identifier) => `/${API_SERVICE_PATHS.complaint}/${id}/like`,
+    bookmark: (id: Identifier) => `/${API_SERVICE_PATHS.complaint}/${id}/bookmark`,
     comments: (id: Identifier) => `/${API_SERVICE_PATHS.complaint}/${id}/comments`,
   },
   lostFound: {
     list: `/${API_SERVICE_PATHS.lostFound}`,
     detail: (id: Identifier) => `/${API_SERVICE_PATHS.lostFound}/${id}`,
+    like: (id: Identifier) => `/${API_SERVICE_PATHS.lostFound}/${id}/like`,
+    bookmark: (id: Identifier) => `/${API_SERVICE_PATHS.lostFound}/${id}/bookmark`,
     comments: (id: Identifier) => `/${API_SERVICE_PATHS.lostFound}/${id}/comments`,
     comment: (postId: Identifier, commentId: Identifier) =>
       `/${API_SERVICE_PATHS.lostFound}/${postId}/comments/${commentId}`,

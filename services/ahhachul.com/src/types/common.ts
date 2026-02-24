@@ -30,6 +30,10 @@ export type Post = {
   commentCnt: number;
   subwayLineId: number;
   stationId?: number;
+  likeCnt?: number;
+  bookmarkCnt?: number;
+  likeYn?: TypeYN;
+  bookmarkYn?: TypeYN;
   image?: PostImage;
   imageUrl?: string;
 };
@@ -92,3 +96,17 @@ export enum ScrollDirection {
 export type RegionType = 'METROPOLITAN';
 
 export type TypeYN = 'Y' | 'N';
+
+export type ArticleType = 'COMMUNITY' | 'COMPLAINT' | 'LOST';
+
+export type ArticleHistoryItem = {
+  articleType: ArticleType;
+  articleId: number;
+  title: string;
+  contentPreview: string;
+  writer?: string | null;
+  subwayLineId?: number | null;
+  stationId?: number | null;
+  articleCreatedAt: string;
+  reactedAt: string;
+};

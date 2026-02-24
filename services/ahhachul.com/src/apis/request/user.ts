@@ -6,6 +6,7 @@ import axiosInstance from '@/apis/fetcher';
 import type {
   ApiResponse,
   APIUpdateUserResponse,
+  ArticleHistoryResponseDto,
   AuthTokens,
   UserFavoriteStations,
   UserProfileResponseDto,
@@ -69,6 +70,17 @@ export const createUserFavoriteStations = async (stations: any) => {
   );
 
   return response.data;
+};
+
+export const fetchUserArticleHistories = async (limit = 30) => {
+  const { data } = await axiosInstance.get<ApiResponse<ArticleHistoryResponseDto>>(
+    API_PATHS.user.articleHistories,
+    {
+      params: { limit },
+    },
+  );
+
+  return data;
 };
 
 export const updateUser = async (data: { nickname: string; auth: AuthTokens }) => {

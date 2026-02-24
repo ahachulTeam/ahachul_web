@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 
 import { QUERY_GC_TIME, QUERY_STALE_TIME, complaintQueryKeys } from '@ahhachul/domain';
@@ -8,6 +8,13 @@ import { formatDisplayDate } from '@ahhachul/utils';
 
 import { ReadonlyEditor } from '@/components/Editor';
 import { getLocaleMessages, resolvePathLocale } from '@/i18n';
+import {
+  bookmarkComplaintPost,
+  likeComplaintPost,
+  unbookmarkComplaintPost,
+  unlikeComplaintPost,
+} from '@/lib/article-reactions';
+import { AuthService } from '@/lib/auth-service';
 import { cn, extractTextFromLexical, isLexicalContent } from '@/utils';
 
 import { ComplaintTypeBadge } from './ComplaintTypeBadge';
@@ -19,15 +26,33 @@ type Props = {
 };
 
 export default function CommunityPostDetail({ id }: Props) {
+  const queryClient = useQueryClient();
   const pathname = usePathname() ?? '/complaint';
   const locale = resolvePathLocale(pathname, null);
   const copy = getLocaleMessages(locale);
+  const isLoggedIn = AuthService.isLoggedIn;
   const { data: post } = useQuery({
     queryKey: complaintQueryKeys.detail(id),
     queryFn: getComplaintDetailPost,
     staleTime: QUERY_STALE_TIME.detail,
     gcTime: QUERY_GC_TIME.detail,
     select: res => res.result,
+  });
+
+  const likeMutation = useMutation({
+    mutationFn: () => (post?.likeYn === 'Y' ? unlikeComplaintPost(id) : likeComplaintPost(id)),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: complaintQueryKeys.detail(id) });
+      await queryClient.invalidateQueries({ queryKey: complaintQueryKeys.list() });
+    },
+  });
+
+  const bookmarkMutation = useMutation({
+    mutationFn: () =>
+      post?.bookmarkYn === 'Y' ? unbookmarkComplaintPost(id) : bookmarkComplaintPost(id),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: complaintQueryKeys.detail(id) });
+    },
   });
 
   console.log('post.result:', post);
@@ -63,6 +88,36 @@ export default function CommunityPostDetail({ id }: Props) {
           ) : (
             <p className=" py-6 mb-3 text-body-large-semi text-gray-90">{post.content}</p>
           )}
+        </div>
+        <div className="flex items-center gap-2 border-t border-t-gray-20 px-5 py-3">
+          <button
+            type="button"
+            onClick={() => {
+              if (!isLoggedIn) {
+                window.alert(copy.communityDetail.loginRequired);
+                return;
+              }
+              likeMutation.mutate();
+            }}
+            disabled={likeMutation.isPending}
+            className="rounded-lg border border-gray-30 px-3 py-1 text-body-small text-gray-90 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {post.likeYn === 'Y' ? '좋아요 취소' : '좋아요'} · {post.likeCnt ?? 0}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (!isLoggedIn) {
+                window.alert(copy.communityDetail.loginRequired);
+                return;
+              }
+              bookmarkMutation.mutate();
+            }}
+            disabled={bookmarkMutation.isPending}
+            className="rounded-lg border border-gray-30 px-3 py-1 text-body-small text-gray-90 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {post.bookmarkYn === 'Y' ? '북마크 취소' : '북마크'} · {post.bookmarkCnt ?? 0}
+          </button>
         </div>
       </article>
 

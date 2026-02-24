@@ -14,6 +14,12 @@ import { getMyProfile } from '@/app/(main-service)/me/_lib/getMyProfile';
 import { BaseCommentList, CommentTextField } from '@/components/Comment';
 import { ReadonlyEditor } from '@/components/Editor';
 import { getLocaleMessages, localizePathname, resolvePathLocale } from '@/i18n';
+import {
+  bookmarkLostPost,
+  likeLostPost,
+  unbookmarkLostPost,
+  unlikeLostPost,
+} from '@/lib/article-reactions';
 import { AuthService } from '@/lib/auth-service';
 import type { Comment } from '@/types';
 import { cn, isLexicalContent } from '@/utils';
@@ -157,6 +163,21 @@ export default function LostFoundPostDetail({ id }: Props) {
     },
     onError: () => {
       setSubmitError(commentCopy.deleteError);
+    },
+  });
+
+  const likeMutation = useMutation({
+    mutationFn: () => (post?.likeYn === 'Y' ? unlikeLostPost(id) : likeLostPost(id)),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: lostFoundQueryKeys.detail(id) });
+      await queryClient.invalidateQueries({ queryKey: lostFoundQueryKeys.list() });
+    },
+  });
+
+  const bookmarkMutation = useMutation({
+    mutationFn: () => (post?.bookmarkYn === 'Y' ? unbookmarkLostPost(id) : bookmarkLostPost(id)),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: lostFoundQueryKeys.detail(id) });
     },
   });
 
@@ -369,6 +390,36 @@ export default function LostFoundPostDetail({ id }: Props) {
           ) : (
             <p className=" py-6 mb-3 text-body-large-semi text-gray-90">{post.content}</p>
           )}
+        </div>
+        <div className="flex items-center gap-2 border-t border-t-gray-20 px-5 py-3">
+          <button
+            type="button"
+            onClick={() => {
+              if (!isLoggedIn) {
+                window.alert(commentCopy.loginRequired);
+                return;
+              }
+              likeMutation.mutate();
+            }}
+            disabled={likeMutation.isPending}
+            className="rounded-lg border border-gray-30 px-3 py-1 text-body-small text-gray-90 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {post.likeYn === 'Y' ? '좋아요 취소' : '좋아요'} · {post.likeCnt ?? 0}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (!isLoggedIn) {
+                window.alert(commentCopy.loginRequired);
+                return;
+              }
+              bookmarkMutation.mutate();
+            }}
+            disabled={bookmarkMutation.isPending}
+            className="rounded-lg border border-gray-30 px-3 py-1 text-body-small text-gray-90 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {post.bookmarkYn === 'Y' ? '북마크 취소' : '북마크'} · {post.bookmarkCnt ?? 0}
+          </button>
         </div>
       </article>
 

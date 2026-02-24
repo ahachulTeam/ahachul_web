@@ -200,3 +200,26 @@ export const useDeleteLostFound = () => {
     onSuccess: afterSubmitSuccess,
   });
 };
+
+export const useToggleLostFoundLike = (id: number, liked: boolean) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () => (liked ? api.unlikeLostFound(id) : api.likeLostFound(id)),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: lostFoundKeys.detail(id) });
+      await queryClient.invalidateQueries({ queryKey: lostFoundKeys.lists() });
+    },
+  });
+};
+
+export const useToggleLostFoundBookmark = (id: number, bookmarked: boolean) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () => (bookmarked ? api.unbookmarkLostFound(id) : api.bookmarkLostFound(id)),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: lostFoundKeys.detail(id) });
+    },
+  });
+};

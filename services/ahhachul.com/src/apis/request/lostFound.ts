@@ -73,6 +73,18 @@ export const createLostFound = async (req: LostFoundForm) => {
 export const fetchLostFoundDetail = (id: number) =>
   axiosInstance.get<ApiResponse<LostFoundPostDetail>>(API_PATHS.lostFound.detail(id));
 
+export const likeLostFound = (id: number) =>
+  axiosInstance.post<ApiResponse<null>>(API_PATHS.lostFound.like(id));
+
+export const unlikeLostFound = (id: number) =>
+  axiosInstance.delete<ApiResponse<null>>(API_PATHS.lostFound.like(id));
+
+export const bookmarkLostFound = (id: number) =>
+  axiosInstance.post<ApiResponse<null>>(API_PATHS.lostFound.bookmark(id));
+
+export const unbookmarkLostFound = (id: number) =>
+  axiosInstance.delete<ApiResponse<null>>(API_PATHS.lostFound.bookmark(id));
+
 export const fetchLostFoundCommentList = (id: number) =>
   axiosInstance.get<ApiResponse<CommentList>>(API_PATHS.lostFound.comments(id), {
     params: {

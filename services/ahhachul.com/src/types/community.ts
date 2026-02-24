@@ -30,6 +30,8 @@ export interface CommunityPost extends Post {
 
 export interface CommunityDetail extends CommunityPost {
   likeYn: TypeYN;
+  bookmarkYn: TypeYN;
+  bookmarkCnt: number;
   hateYn: TypeYN;
   hateCnt: number;
   hotPostYn: TypeYN;

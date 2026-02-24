@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import type { ActivityComponentType } from '@stackflow/react';
 
 import { HeaderComponent, LayoutComponent } from '@/components';
+import ArticleHistoryCard from '@/components/domain/my/ArticleHistoryCard.component';
 import MenuSections from '@/components/domain/my/MenuSections.component';
 import RequestCard from '@/components/domain/my/RequestCard.component';
 import UserProfile from '@/components/domain/my/UserProfile.component';
@@ -24,6 +25,7 @@ const MyPage: ActivityComponentType = () => {
         <S.Wrapper>
           <UserProfile />
           <RequestCard />
+          <ArticleHistoryCard />
           <MenuSections />
         </S.Wrapper>
       </S.Container>

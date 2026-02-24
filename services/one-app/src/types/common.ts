@@ -41,6 +41,10 @@ export type IPost = {
   commentCnt: number;
   subwayLineId: number;
   stationId?: number;
+  likeCnt?: number;
+  bookmarkCnt?: number;
+  likeYn?: TypeYN;
+  bookmarkYn?: TypeYN;
   imageUrl?: string;
   image?: IPostImage;
 };
@@ -103,6 +107,20 @@ export enum ScrollDirection {
 export type RegionType = 'METROPOLITAN';
 
 export type TypeYN = 'Y' | 'N';
+
+export type ArticleType = 'COMMUNITY' | 'COMPLAINT' | 'LOST';
+
+export type ArticleHistoryItem = {
+  articleType: ArticleType;
+  articleId: number;
+  title: string;
+  contentPreview: string;
+  writer?: string | null;
+  subwayLineId?: number | null;
+  stationId?: number | null;
+  articleCreatedAt: string;
+  reactedAt: string;
+};
 
 export type ObjectQueryParams = Record<string, string | number | boolean>;
 

@@ -12,6 +12,12 @@ import { getMyProfile } from '@/app/(main-service)/me/_lib/getMyProfile';
 import { BaseCommentList, CommentTextField } from '@/components/Comment';
 import { ReadonlyEditor } from '@/components/Editor';
 import { getLocaleMessages, resolvePathLocale } from '@/i18n';
+import {
+  bookmarkCommunityPost,
+  likeCommunityPost,
+  unbookmarkCommunityPost,
+  unlikeCommunityPost,
+} from '@/lib/article-reactions';
 import { AuthService } from '@/lib/auth-service';
 import type { Comment } from '@/types';
 import { cn, isLexicalContent } from '@/utils';
@@ -73,6 +79,7 @@ export default function CommunityPostDetail({ id }: Props) {
     staleTime: QUERY_STALE_TIME.user,
     enabled: AuthService.isLoggedIn,
   });
+  const isLoggedIn = AuthService.isLoggedIn;
 
   const currentMemberId = profileQuery.data?.result.memberId ?? null;
   const articleAuthorId = resolveMemberId(post?.createdBy);
@@ -129,6 +136,22 @@ export default function CommunityPostDetail({ id }: Props) {
     },
     onError: () => {
       setSubmitError(copy.deleteError);
+    },
+  });
+
+  const likeMutation = useMutation({
+    mutationFn: () => (post?.likeYn === 'Y' ? unlikeCommunityPost(id) : likeCommunityPost(id)),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: communityQueryKeys.detail(id) });
+      await queryClient.invalidateQueries({ queryKey: communityQueryKeys.list() });
+    },
+  });
+
+  const bookmarkMutation = useMutation({
+    mutationFn: () =>
+      post?.bookmarkYn === 'Y' ? unbookmarkCommunityPost(id) : bookmarkCommunityPost(id),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: communityQueryKeys.detail(id) });
     },
   });
 
@@ -288,6 +311,37 @@ export default function CommunityPostDetail({ id }: Props) {
           ) : (
             <p className="mb-3 py-6 text-body-large-semi text-gray-90">{post.content}</p>
           )}
+        </div>
+
+        <div className="flex items-center gap-2 border-t border-t-gray-20 px-5 py-3">
+          <button
+            type="button"
+            onClick={() => {
+              if (!isLoggedIn) {
+                window.alert(copy.loginRequired);
+                return;
+              }
+              likeMutation.mutate();
+            }}
+            disabled={likeMutation.isPending}
+            className="rounded-lg border border-gray-30 px-3 py-1 text-body-small text-gray-90 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {post.likeYn === 'Y' ? '좋아요 취소' : '좋아요'} · {post.likeCnt}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (!isLoggedIn) {
+                window.alert(copy.loginRequired);
+                return;
+              }
+              bookmarkMutation.mutate();
+            }}
+            disabled={bookmarkMutation.isPending}
+            className="rounded-lg border border-gray-30 px-3 py-1 text-body-small text-gray-90 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {post.bookmarkYn === 'Y' ? '북마크 취소' : '북마크'} · {post.bookmarkCnt}
+          </button>
         </div>
       </article>
 

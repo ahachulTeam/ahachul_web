@@ -58,3 +58,18 @@ export const useUserFavoriteStations = () => {
     onSuccess: afterSubmitSuccess,
   });
 };
+
+export const useFetchUserArticleHistories = (limit = 30) => {
+  const { authService } = useAuth();
+
+  return useQuery({
+    queryKey: [...userKeys.all, 'article-histories', limit],
+    enabled: authService.isAuthenticated,
+    queryFn: () => api.fetchUserArticleHistories(limit),
+    staleTime: QUERY_STALE_TIME.user,
+    gcTime: QUERY_GC_TIME.user,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
+};

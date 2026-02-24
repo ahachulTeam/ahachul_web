@@ -8,7 +8,11 @@ import { CompleteCircleCheckIcon } from '@/assets/icons/system';
 import { LostFoundComponent, UiComponent } from '@/components';
 import { subwayIconMap } from '@/constants';
 import { useUser } from '@/hooks/domain';
-import { useFetchLostFoundDetail } from '@/services/lostFound';
+import {
+  useFetchLostFoundDetail,
+  useToggleLostFoundBookmark,
+  useToggleLostFoundLike,
+} from '@/services/lostFound';
 import { isLexicalContent } from '@/utils/lexical';
 
 import * as S from './LostFoundDetail.styled';
@@ -25,6 +29,10 @@ const LostFoundDetail = ({ id }: LostFoundDetailProps) => {
 
   const { user } = useUser();
   const isArticleAuthor = +post.createdBy === user?.memberId;
+  const isLiked = post.likeYn === 'Y';
+  const isBookmarked = post.bookmarkYn === 'Y';
+  const likeMutation = useToggleLostFoundLike(id, isLiked);
+  const bookmarkMutation = useToggleLostFoundBookmark(id, isBookmarked);
 
   const images = post.isFromLost112
     ? [
@@ -97,6 +105,57 @@ const LostFoundDetail = ({ id }: LostFoundDetailProps) => {
             </S.LexicalContent>
           )}
         </S.ContentContainer>
+        <div
+          style={{
+            borderTop: '1px solid #ebeef2',
+            padding: '12px 20px',
+            display: 'flex',
+            gap: '8px',
+          }}
+        >
+          <button
+            type="button"
+            onClick={() => {
+              if (!user) {
+                window.alert('로그인 후 이용할 수 있습니다.');
+                return;
+              }
+              likeMutation.mutate();
+            }}
+            disabled={likeMutation.isPending}
+            style={{
+              border: '1px solid #dfe3e8',
+              borderRadius: '8px',
+              padding: '6px 10px',
+              background: '#fff',
+              fontSize: '12px',
+              cursor: likeMutation.isPending ? 'not-allowed' : 'pointer',
+            }}
+          >
+            {isLiked ? '좋아요 취소' : '좋아요'} · {post.likeCnt ?? 0}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (!user) {
+                window.alert('로그인 후 이용할 수 있습니다.');
+                return;
+              }
+              bookmarkMutation.mutate();
+            }}
+            disabled={bookmarkMutation.isPending}
+            style={{
+              border: '1px solid #dfe3e8',
+              borderRadius: '8px',
+              padding: '6px 10px',
+              background: '#fff',
+              fontSize: '12px',
+              cursor: bookmarkMutation.isPending ? 'not-allowed' : 'pointer',
+            }}
+          >
+            {isBookmarked ? '북마크 취소' : '북마크'} · {post.bookmarkCnt ?? 0}
+          </button>
+        </div>
       </S.ArticleWrapper>
 
       <LostFoundComponent.LostFoundCommentList

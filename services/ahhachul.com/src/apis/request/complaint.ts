@@ -68,6 +68,18 @@ export const createComplaint = async (req: ComplaintForm) => {
 export const fetchComplaintDetail = (id: number) =>
   axiosInstance.get<ApiResponse<ComplaintPostDetail>>(API_PATHS.complaint.detail(id));
 
+export const likeComplaint = (id: number) =>
+  axiosInstance.post<ApiResponse<null>>(API_PATHS.complaint.like(id));
+
+export const unlikeComplaint = (id: number) =>
+  axiosInstance.delete<ApiResponse<null>>(API_PATHS.complaint.like(id));
+
+export const bookmarkComplaint = (id: number) =>
+  axiosInstance.post<ApiResponse<null>>(API_PATHS.complaint.bookmark(id));
+
+export const unbookmarkComplaint = (id: number) =>
+  axiosInstance.delete<ApiResponse<null>>(API_PATHS.complaint.bookmark(id));
+
 export const fetchComplaintCommentList = (id: number) =>
   axiosInstance.get<ApiResponse<CommentList>>(API_PATHS.complaint.comments(id), {
     params: {

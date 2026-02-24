@@ -1,4 +1,5 @@
 import type { AuthTokens, SocialSignInType } from './auth';
+import type { ArticleHistoryItem } from './common';
 
 export interface SignInRequestDto {
   providerCode: string;
@@ -27,4 +28,9 @@ export interface APIUpdateUserResponse {
   nickname: string;
   gender: string | null;
   ageRange: string | null;
+}
+
+export interface ArticleHistoryResponseDto {
+  likedArticles: ArticleHistoryItem[];
+  bookmarkedArticles: ArticleHistoryItem[];
 }

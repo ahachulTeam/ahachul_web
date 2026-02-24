@@ -84,6 +84,18 @@ export const createCommunity = async (req: CommunityForm) => {
 export const fetchCommunityDetail = (id: number) =>
   axiosInstance.get<ApiResponse<CommunityDetail>>(API_PATHS.community.detail(id));
 
+export const likeCommunity = (id: number) =>
+  axiosInstance.post<ApiResponse<null>>(API_PATHS.community.like(id));
+
+export const unlikeCommunity = (id: number) =>
+  axiosInstance.delete<ApiResponse<null>>(API_PATHS.community.like(id));
+
+export const bookmarkCommunity = (id: number) =>
+  axiosInstance.post<ApiResponse<null>>(API_PATHS.community.bookmark(id));
+
+export const unbookmarkCommunity = (id: number) =>
+  axiosInstance.delete<ApiResponse<null>>(API_PATHS.community.bookmark(id));
+
 export const fetchCommunityCommentList = (id: number) =>
   axiosInstance.get<ApiResponse<CommentList>>(API_PATHS.community.comments(id), {
     params: {
