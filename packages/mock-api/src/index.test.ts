@@ -48,6 +48,7 @@ describe('@ahhachul/mock-api', () => {
       },
       { method: 'POST', path: API_PATHS.auth.signOut },
       { method: 'GET', path: API_PATHS.user.profile },
+      { method: 'GET', path: `${API_PATHS.user.profileDetail('아차철러')}?asPublic=true&limit=10` },
       {
         method: 'PATCH',
         path: API_PATHS.user.profile,
@@ -61,6 +62,19 @@ describe('@ahhachul/mock-api', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ stations: [] }),
       },
+      { method: 'GET', path: `${API_PATHS.user.favoriteRouteRecommendations}?limit=3` },
+      { method: 'GET', path: API_PATHS.user.favoriteRoutes },
+      {
+        method: 'POST',
+        path: API_PATHS.user.favoriteRoutes,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sourceStationId: 201,
+          destinationStationId: 501,
+          title: '출근 경로',
+        }),
+      },
+      { method: 'DELETE', path: API_PATHS.user.favoriteRoute(1) },
       {
         method: 'POST',
         path: API_PATHS.user.checkNickname,
@@ -95,8 +109,8 @@ describe('@ahhachul/mock-api', () => {
         headers: check.headers,
         body: check.body,
       });
-      expect(response.status).toBeLessThan(500);
-      expect(response.status).not.toBe(404);
+      expect(response.status, `${check.method} ${check.path}`).toBeLessThan(500);
+      expect(response.status, `${check.method} ${check.path}`).not.toBe(404);
     }
   });
 
@@ -277,6 +291,27 @@ describe('@ahhachul/mock-api', () => {
 
     expect(updateResponse.ok).toBe(true);
     expect(updateBody.nickname).toBe('새닉네임');
+  });
+
+  it('handles v1-prefixed v2 endpoints and double-encoded username profile detail', async () => {
+    const recommendationResponse = await fetch(
+      `${BASE_URL}/v1${API_PATHS.user.favoriteRouteRecommendations}?limit=2`,
+    );
+    const recommendationBody = await recommendationResponse.json();
+
+    expect(recommendationResponse.ok).toBe(true);
+    expect(Array.isArray(recommendationBody.result.routes)).toBe(true);
+    expect(recommendationBody.result.routes.length).toBeGreaterThan(0);
+
+    const doubleEncodedNickname = encodeURIComponent('아차철러');
+    const profileDetailResponse = await fetch(
+      `${BASE_URL}/v1${API_PATHS.user.profileDetail(doubleEncodedNickname)}?asPublic=true&limit=5`,
+    );
+    const profileDetailBody = await profileDetailResponse.json();
+
+    expect(profileDetailResponse.ok).toBe(true);
+    expect(profileDetailBody.result.nickname).toBe('아차철러');
+    expect(profileDetailBody.result.visibility.profileVisible).toBe(true);
   });
 
   it('supports subway and presigned upload endpoints', async () => {

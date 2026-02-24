@@ -1,4 +1,5 @@
 import ProfileOverview from '../_components/ProfileOverview';
+import { normalizeUsernameParam } from '../_lib/normalizeUsername';
 
 type Props = {
   params: Promise<{
@@ -7,7 +8,8 @@ type Props = {
 };
 
 export default async function UserProfileSettingsPage({ params }: Props) {
-  const { username } = await params;
+  const { username: rawUsername } = await params;
+  const username = normalizeUsernameParam(rawUsername);
 
   return (
     <main className="min-h-screen bg-gray-10">

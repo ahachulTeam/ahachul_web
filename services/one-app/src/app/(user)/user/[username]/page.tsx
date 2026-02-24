@@ -8,6 +8,7 @@ import { getServerLocale } from '@/i18n/server';
 import { getLocalizedMetadataOptions } from '@/seo/metadata';
 
 import ProfileOverview from './_components/ProfileOverview';
+import { normalizeUsernameParam } from './_lib/normalizeUsername';
 
 type Props = {
   params: Promise<{
@@ -16,7 +17,8 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { username } = await params;
+  const { username: rawUsername } = await params;
+  const username = normalizeUsernameParam(rawUsername);
   const locale = await getServerLocale();
   const messages = getLocaleMessages(locale);
   const title = messages.seo.userProfile.title.replace('{username}', username);
@@ -32,7 +34,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function UserProfilePage({ params }: Props) {
-  const { username } = await params;
+  const { username: rawUsername } = await params;
+  const username = normalizeUsernameParam(rawUsername);
 
   return (
     <main className="min-h-screen bg-gray-10">

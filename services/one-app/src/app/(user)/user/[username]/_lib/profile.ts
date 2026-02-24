@@ -3,6 +3,8 @@ import { API_PATHS } from '@ahhachul/http';
 import { fetchClient } from '@/lib/fetch-client';
 import type { ApiResponse, ArticleType } from '@/types';
 
+import { normalizeUsernameParam } from './normalizeUsername';
+
 export type ProfileVisibilitySettings = {
   profilePublic: boolean;
   emailPublic: boolean;
@@ -59,13 +61,17 @@ type GetUserProfileOptions = {
 
 export async function getUserProfile(username: string, options: GetUserProfileOptions = {}) {
   const { asPublic = false, limit = 20 } = options;
+  const normalizedUsername = normalizeUsernameParam(username);
 
-  return fetchClient<ApiResponse<UserProfileDetail>>(API_PATHS.user.profileDetail(username), {
-    params: {
-      asPublic,
-      limit,
+  return fetchClient<ApiResponse<UserProfileDetail>>(
+    API_PATHS.user.profileDetail(normalizedUsername),
+    {
+      params: {
+        asPublic,
+        limit,
+      },
     },
-  });
+  );
 }
 
 export function resolveProfileArticlePath(articleType: ArticleType, articleId: number): string {

@@ -164,6 +164,47 @@ type MockFavoriteStation = {
   }[];
 };
 
+type MockProfileVisibilitySettings = {
+  profilePublic: boolean;
+  emailPublic: boolean;
+  genderAgePublic: boolean;
+  postsPublic: boolean;
+  commentsPublic: boolean;
+};
+
+type MockFavoriteRouteNode = {
+  stationId: number;
+  stationName: string;
+  order: number;
+  favorite: boolean;
+};
+
+type MockFavoriteRouteEdge = {
+  fromStationId: number;
+  toStationId: number;
+  subwayLineId: number;
+  subwayLineName: string;
+};
+
+type MockFavoriteRouteSummary = {
+  totalStops: number;
+  transferCount: number;
+  estimatedMinutes: number;
+};
+
+type MockFavoriteRoute = {
+  routeId: number | null;
+  routeType: 'RECOMMENDED' | 'CUSTOM';
+  title: string | null;
+  sourceStationId: number;
+  sourceStationName: string;
+  destinationStationId: number;
+  destinationStationName: string;
+  nodes: MockFavoriteRouteNode[];
+  edges: MockFavoriteRouteEdge[];
+  summary: MockFavoriteRouteSummary;
+};
+
 type MockSubwayLine = {
   id: number;
   name: string;
@@ -268,6 +309,8 @@ type MockState = {
   bookmarkedArticleIds: Record<MockArticleType, Set<number>>;
   comments: Record<string, MockCommentThread[]>;
   favoriteStations: MockFavoriteStation[];
+  profileVisibility: MockProfileVisibilitySettings;
+  favoriteRoutes: MockFavoriteRoute[];
   messageRooms: MockMessageRoom[];
   messageThreads: Record<number, MockMessageThreadItem[]>;
   delayProofs: Record<string, MockDelayProofPayload>;
@@ -275,6 +318,7 @@ type MockState = {
   nextPostId: number;
   nextCommentId: number;
   nextMessageId: number;
+  nextFavoriteRouteId: number;
   auth: {
     accessToken: string;
     refreshToken: string;
@@ -685,6 +729,211 @@ function toArticleHistoryItem(
   };
 }
 
+function findStationById(
+  stationId: number,
+  favoriteStations: MockFavoriteStation[],
+): { stationName: string; lineId: number; lineName: string } {
+  const favorite = favoriteStations.find(station => station.stationId === stationId);
+  if (favorite) {
+    return {
+      stationName: favorite.stationName,
+      lineId: favorite.lineId,
+      lineName: favorite.lineName,
+    };
+  }
+
+  for (const line of SUBWAY_LINES) {
+    const station = line.stations.find(item => item.id === stationId);
+    if (station) {
+      return {
+        stationName: station.name,
+        lineId: line.id,
+        lineName: line.name,
+      };
+    }
+  }
+
+  return {
+    stationName: `역${stationId}`,
+    lineId: 2,
+    lineName: '2호선',
+  };
+}
+
+function createMockFavoriteRoute(
+  sourceStationId: number,
+  destinationStationId: number,
+  favoriteStations: MockFavoriteStation[],
+  options: {
+    routeType: 'RECOMMENDED' | 'CUSTOM';
+    routeId: number | null;
+    title?: string | null;
+  },
+): MockFavoriteRoute {
+  const source = findStationById(sourceStationId, favoriteStations);
+  const destination = findStationById(destinationStationId, favoriteStations);
+  const subwayLineId = source.lineId || destination.lineId || 2;
+  const subwayLineName = source.lineName || destination.lineName || `${subwayLineId}호선`;
+
+  const estimatedMinutes = Math.max(
+    6,
+    Math.min(45, 8 + (Math.abs(sourceStationId - destinationStationId) % 20)),
+  );
+
+  return {
+    routeId: options.routeId,
+    routeType: options.routeType,
+    title: options.title ?? null,
+    sourceStationId,
+    sourceStationName: source.stationName,
+    destinationStationId,
+    destinationStationName: destination.stationName,
+    nodes: [
+      {
+        stationId: sourceStationId,
+        stationName: source.stationName,
+        order: 1,
+        favorite: favoriteStations.some(station => station.stationId === sourceStationId),
+      },
+      {
+        stationId: destinationStationId,
+        stationName: destination.stationName,
+        order: 2,
+        favorite: favoriteStations.some(station => station.stationId === destinationStationId),
+      },
+    ],
+    edges: [
+      {
+        fromStationId: sourceStationId,
+        toStationId: destinationStationId,
+        subwayLineId,
+        subwayLineName,
+      },
+    ],
+    summary: {
+      totalStops: Math.max(
+        2,
+        Math.min(12, 2 + (Math.abs(sourceStationId - destinationStationId) % 8)),
+      ),
+      transferCount: source.lineId === destination.lineId ? 0 : 1,
+      estimatedMinutes,
+    },
+  };
+}
+
+function buildRecommendedRoutes(limit: number): MockFavoriteRoute[] {
+  const stationIds = Array.from(
+    new Set(
+      state.favoriteStations.map(station => station.stationId).filter(id => Number.isFinite(id)),
+    ),
+  );
+
+  if (stationIds.length < 2) {
+    return [];
+  }
+
+  const routes: MockFavoriteRoute[] = [];
+  const source = stationIds[0];
+  for (let index = 1; index < stationIds.length; index += 1) {
+    const destination = stationIds[index];
+    routes.push(
+      createMockFavoriteRoute(source, destination, state.favoriteStations, {
+        routeType: 'RECOMMENDED',
+        routeId: null,
+      }),
+    );
+  }
+
+  if (stationIds.length >= 3) {
+    routes.push(
+      createMockFavoriteRoute(stationIds[1], stationIds[2], state.favoriteStations, {
+        routeType: 'RECOMMENDED',
+        routeId: null,
+      }),
+    );
+  }
+
+  return routes.slice(0, Math.max(1, Math.min(limit, 10)));
+}
+
+function resolveArticleTypeByServicePath(servicePath: string): MockArticleType {
+  if (servicePath === API_SERVICE_PATHS.community) {
+    return 'COMMUNITY';
+  }
+  if (servicePath === API_SERVICE_PATHS.complaint) {
+    return 'COMPLAINT';
+  }
+  return 'LOST';
+}
+
+function buildProfilePostActivities(limit: number) {
+  const posts = [
+    ...state.communityPosts.map(post => ({ articleType: 'COMMUNITY' as const, post })),
+    ...state.complaintPosts.map(post => ({ articleType: 'COMPLAINT' as const, post })),
+    ...state.lostFoundPosts.map(post => ({ articleType: 'LOST' as const, post })),
+  ]
+    .sort((a, b) => b.post.createdAt.localeCompare(a.post.createdAt))
+    .slice(0, limit)
+    .map(({ articleType, post }) => ({
+      articleType,
+      articleId: post.id,
+      title: post.title,
+      contentPreview: post.content.slice(0, 120),
+      writer: post.writer,
+      subwayLineId: post.subwayLineId,
+      stationId: post.subwayLineId * 100 + 1,
+      createdAt: post.createdAt,
+    }));
+
+  return posts;
+}
+
+function buildProfileCommentActivities(limit: number) {
+  const comments: Array<{
+    commentId: number;
+    articleType: MockArticleType;
+    articleId: number;
+    contentPreview: string;
+    writer: string;
+    createdAt: string;
+  }> = [];
+
+  for (const [key, threads] of Object.entries(state.comments)) {
+    const [servicePath, postIdText] = key.split(':');
+    const articleId = Number(postIdText);
+    const articleType = resolveArticleTypeByServicePath(servicePath);
+
+    for (const thread of threads) {
+      if (thread.parentComment.status !== 'DELETED') {
+        comments.push({
+          commentId: thread.parentComment.id,
+          articleType,
+          articleId,
+          contentPreview: thread.parentComment.content.slice(0, 120),
+          writer: thread.parentComment.writer,
+          createdAt: thread.parentComment.createdAt,
+        });
+      }
+
+      for (const child of thread.childComments) {
+        if (child.status === 'DELETED') {
+          continue;
+        }
+        comments.push({
+          commentId: child.id,
+          articleType,
+          articleId,
+          contentPreview: child.content.slice(0, 120),
+          writer: child.writer,
+          createdAt: child.createdAt,
+        });
+      }
+    }
+  }
+
+  return comments.sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, limit);
+}
+
 function createInitialState(): MockState {
   const user: MockUser = {
     memberId: 1,
@@ -720,6 +969,27 @@ function createInitialState(): MockState {
     },
   ];
 
+  const profileVisibility: MockProfileVisibilitySettings = {
+    profilePublic: true,
+    emailPublic: false,
+    genderAgePublic: false,
+    postsPublic: true,
+    commentsPublic: true,
+  };
+
+  const favoriteRoutes: MockFavoriteRoute[] = [
+    createMockFavoriteRoute(201, 501, favoriteStations, {
+      routeType: 'CUSTOM',
+      routeId: 1,
+      title: '출근 경로',
+    }),
+    createMockFavoriteRoute(501, 201, favoriteStations, {
+      routeType: 'CUSTOM',
+      routeId: 2,
+      title: '퇴근 경로',
+    }),
+  ];
+
   return {
     user,
     communityPosts,
@@ -737,6 +1007,8 @@ function createInitialState(): MockState {
     },
     comments,
     favoriteStations,
+    profileVisibility,
+    favoriteRoutes,
     messageRooms: messageData.rooms,
     messageThreads: messageData.messageThreads,
     delayProofs: {
@@ -746,6 +1018,7 @@ function createInitialState(): MockState {
     nextPostId: 4000,
     nextCommentId: 9000,
     nextMessageId: messageData.nextMessageId,
+    nextFavoriteRouteId: 3,
     auth: {
       accessToken: 'mock-access-token',
       refreshToken: 'mock-refresh-token',
@@ -943,44 +1216,45 @@ function toErrorResponse(message: string = RESPONSE_MESSAGES.badRequest, status 
 
 function normalizePathname(pathname: string): string | null {
   const trimmed = pathname.replace(/\/+$/, '') || '/';
+  const withoutApiPrefix = trimmed.startsWith('/api/') ? trimmed.slice(4) || '/' : trimmed;
   const isStaticModuleRequest =
-    /\.(?:[cm]?[jt]sx?|css|map|json|svg|png|jpe?g|gif|ico|woff2?)$/i.test(trimmed);
+    /\.(?:[cm]?[jt]sx?|css|map|json|svg|png|jpe?g|gif|ico|woff2?)$/i.test(withoutApiPrefix);
 
   if (
     isStaticModuleRequest ||
-    trimmed.startsWith('/@vite') ||
-    trimmed.startsWith('/node_modules/')
+    withoutApiPrefix.startsWith('/@vite') ||
+    withoutApiPrefix.startsWith('/node_modules/')
   ) {
     return null;
   }
 
-  if (trimmed.startsWith('/mock-s3/upload/')) {
-    return trimmed;
+  if (withoutApiPrefix.startsWith('/mock-s3/upload/')) {
+    return withoutApiPrefix;
   }
 
-  const presignedPathIndex = trimmed.indexOf('/common/presigned/');
+  const presignedPathIndex = withoutApiPrefix.indexOf('/common/presigned/');
   if (presignedPathIndex !== -1) {
-    return trimmed.slice(presignedPathIndex);
+    return withoutApiPrefix.slice(presignedPathIndex);
   }
 
-  if (trimmed.startsWith('/v2/')) {
-    return trimmed;
+  if (withoutApiPrefix.startsWith('/v2/')) {
+    return withoutApiPrefix;
   }
 
-  if (trimmed.startsWith('/v1/')) {
-    return trimmed.slice(3) || '/';
+  if (withoutApiPrefix.startsWith('/v1/')) {
+    return withoutApiPrefix.slice(3) || '/';
   }
 
-  if (trimmed === '/api/auth/token/refresh') {
+  if (withoutApiPrefix === '/auth/token/refresh') {
     return API_PATHS.auth.refreshToken;
   }
 
   for (const segment of API_ROOT_SEGMENTS) {
     const token = `/${segment}`;
-    const index = trimmed.indexOf(token);
+    const index = withoutApiPrefix.indexOf(token);
 
     if (index !== -1) {
-      return trimmed.slice(index);
+      return withoutApiPrefix.slice(index);
     }
   }
 
@@ -998,6 +1272,42 @@ function toNumber(value: string | null, fallback: number): number {
 
   const numeric = Number(value);
   return Number.isFinite(numeric) ? numeric : fallback;
+}
+
+function toBoolean(value: unknown, fallback: boolean): boolean {
+  if (typeof value === 'boolean') {
+    return value;
+  }
+  return fallback;
+}
+
+function safeDecodeURIComponent(value: string): string {
+  let decoded = value;
+
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      const next = decodeURIComponent(decoded);
+      if (next === decoded) {
+        return decoded;
+      }
+      decoded = next;
+    } catch {
+      return decoded;
+    }
+  }
+
+  return decoded;
+}
+
+function maskEmailAddress(email: string): string {
+  const [local, domain] = email.split('@');
+  if (!local || !domain) {
+    return email;
+  }
+
+  const visiblePrefix = local.slice(0, Math.min(2, local.length));
+  const hiddenLength = Math.max(local.length - visiblePrefix.length, 1);
+  return `${visiblePrefix}${'*'.repeat(hiddenLength)}@${domain}`;
 }
 
 function sortByCreatedAt<T extends { createdAt: string }>(
@@ -1183,25 +1493,89 @@ const routes: RouteDefinition[] = [
   {
     method: 'GET',
     pattern: API_PATHS.user.profile,
-    resolver: () => toSuccessResponse(state.user),
+    resolver: () =>
+      toSuccessResponse({
+        ...state.user,
+        ...state.profileVisibility,
+      }),
+  },
+  {
+    method: 'GET',
+    pattern: '/members/:nickname/profile',
+    resolver: ({ params, url }) => {
+      const nickname = safeDecodeURIComponent(params.nickname ?? '');
+      const limit = Math.max(1, Math.min(toNumber(url.searchParams.get('limit'), 20), 50));
+      const asPublic = (url.searchParams.get('asPublic') ?? 'false').toLowerCase() === 'true';
+      const isMine = normalizeForCompare(nickname) === normalizeForCompare(state.user.nickname);
+      const applyVisibilityPolicy = asPublic || !isMine;
+
+      const profileVisible = applyVisibilityPolicy ? state.profileVisibility.profilePublic : true;
+      const postsVisible = applyVisibilityPolicy ? state.profileVisibility.postsPublic : true;
+      const commentsVisible = applyVisibilityPolicy ? state.profileVisibility.commentsPublic : true;
+      const emailVisible = applyVisibilityPolicy ? state.profileVisibility.emailPublic : true;
+      const genderAgeVisible = applyVisibilityPolicy
+        ? state.profileVisibility.genderAgePublic
+        : true;
+
+      const email = profileVisible && emailVisible ? state.user.email : null;
+      const maskedEmail = profileVisible ? maskEmailAddress(state.user.email) : null;
+      const gender = profileVisible && genderAgeVisible ? state.user.gender : null;
+      const ageRange = profileVisible && genderAgeVisible ? state.user.ageRange : null;
+
+      const posts = postsVisible ? buildProfilePostActivities(limit) : [];
+      const comments = commentsVisible ? buildProfileCommentActivities(limit) : [];
+
+      return toSuccessResponse({
+        memberId: state.user.memberId,
+        nickname: profileVisible ? state.user.nickname : null,
+        email,
+        maskedEmail,
+        gender,
+        ageRange,
+        isMine,
+        visibility: {
+          ...state.profileVisibility,
+          profileVisible,
+          postsVisible,
+          commentsVisible,
+        },
+        activities: {
+          posts,
+          comments,
+        },
+      });
+    },
   },
   {
     method: 'PATCH',
     pattern: API_PATHS.user.profile,
     resolver: async ({ request }) => {
       const payload = await parseRequestBody(request);
-      const nickname = String(payload.nickname ?? '').trim();
-
-      if (!nickname) {
-        return toErrorResponse('nickname is required.');
+      const hasNickname = Object.prototype.hasOwnProperty.call(payload, 'nickname');
+      if (hasNickname) {
+        const nickname = String(payload.nickname ?? '').trim();
+        if (!nickname) {
+          return toErrorResponse('nickname is required.');
+        }
+        state.user.nickname = nickname;
       }
 
-      state.user.nickname = nickname;
+      state.profileVisibility = {
+        profilePublic: toBoolean(payload.profilePublic, state.profileVisibility.profilePublic),
+        emailPublic: toBoolean(payload.emailPublic, state.profileVisibility.emailPublic),
+        genderAgePublic: toBoolean(
+          payload.genderAgePublic,
+          state.profileVisibility.genderAgePublic,
+        ),
+        postsPublic: toBoolean(payload.postsPublic, state.profileVisibility.postsPublic),
+        commentsPublic: toBoolean(payload.commentsPublic, state.profileVisibility.commentsPublic),
+      };
 
       return HttpResponse.json({
-        nickname,
+        nickname: state.user.nickname,
         gender: state.user.gender,
         ageRange: state.user.ageRange,
+        ...state.profileVisibility,
       });
     },
   },
@@ -1251,6 +1625,71 @@ const routes: RouteDefinition[] = [
       return toSuccessResponse({
         stationInfoList: state.favoriteStations,
       });
+    },
+  },
+  {
+    method: 'GET',
+    pattern: API_PATHS.user.favoriteRouteRecommendations,
+    resolver: ({ url }) => {
+      const limit = Math.max(1, Math.min(toNumber(url.searchParams.get('limit'), 3), 10));
+      return toSuccessResponse({
+        routes: buildRecommendedRoutes(limit),
+      });
+    },
+  },
+  {
+    method: 'GET',
+    pattern: API_PATHS.user.favoriteRoutes,
+    resolver: () =>
+      toSuccessResponse({
+        routes: state.favoriteRoutes,
+      }),
+  },
+  {
+    method: 'POST',
+    pattern: API_PATHS.user.favoriteRoutes,
+    resolver: async ({ request }) => {
+      const payload = await parseRequestBody(request);
+      const sourceStationId = Number(payload.sourceStationId);
+      const destinationStationId = Number(payload.destinationStationId);
+
+      if (
+        !Number.isFinite(sourceStationId) ||
+        !Number.isFinite(destinationStationId) ||
+        sourceStationId <= 0 ||
+        destinationStationId <= 0 ||
+        sourceStationId === destinationStationId
+      ) {
+        return toErrorResponse('sourceStationId and destinationStationId are required.');
+      }
+
+      const titleRaw = String(payload.title ?? '').trim();
+      const route = createMockFavoriteRoute(
+        sourceStationId,
+        destinationStationId,
+        state.favoriteStations,
+        {
+          routeType: 'CUSTOM',
+          routeId: state.nextFavoriteRouteId++,
+          title: titleRaw || null,
+        },
+      );
+
+      state.favoriteRoutes.unshift(route);
+      return toSuccessResponse(route);
+    },
+  },
+  {
+    method: 'DELETE',
+    pattern: API_PATHS.user.favoriteRoute(':routeId'),
+    resolver: ({ params }) => {
+      const routeId = Number(params.routeId);
+      if (!Number.isFinite(routeId) || routeId <= 0) {
+        return toErrorResponse('routeId is required.');
+      }
+
+      state.favoriteRoutes = state.favoriteRoutes.filter(route => route.routeId !== routeId);
+      return toSuccessResponse({ routeId });
     },
   },
   {
