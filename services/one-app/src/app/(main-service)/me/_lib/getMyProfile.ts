@@ -48,6 +48,51 @@ export type FavoriteStationPayload = {
   label?: string;
 };
 
+export type FavoriteRouteNode = {
+  stationId: number;
+  stationName: string;
+  order: number;
+  favorite: boolean;
+};
+
+export type FavoriteRouteEdge = {
+  fromStationId: number;
+  toStationId: number;
+  subwayLineId: number;
+  subwayLineName: string;
+};
+
+export type FavoriteRouteSummary = {
+  totalStops: number;
+  transferCount: number;
+  estimatedMinutes: number;
+};
+
+export type FavoriteRouteType = 'RECOMMENDED' | 'CUSTOM';
+
+export type FavoriteRoute = {
+  routeId: number | null;
+  routeType: FavoriteRouteType;
+  title?: string | null;
+  sourceStationId: number;
+  sourceStationName: string;
+  destinationStationId: number;
+  destinationStationName: string;
+  nodes: FavoriteRouteNode[];
+  edges: FavoriteRouteEdge[];
+  summary: FavoriteRouteSummary;
+};
+
+export type FavoriteRouteList = {
+  routes: FavoriteRoute[];
+};
+
+export type CreateFavoriteRoutePayload = {
+  sourceStationId: number;
+  destinationStationId: number;
+  title?: string;
+};
+
 export async function getMyProfile() {
   return fetchClient<ApiResponse<User>>(API_PATHS.user.profile);
 }
@@ -75,5 +120,28 @@ export async function updateMyFavoriteStations(stations: FavoriteStationPayload[
   return fetchClient<ApiResponse<FavoriteStationList>>(API_PATHS.user.favoriteStations, {
     method: 'POST',
     body: JSON.stringify({ stations }),
+  });
+}
+
+export async function getMyFavoriteRouteRecommendations(limit = 3) {
+  return fetchClient<ApiResponse<FavoriteRouteList>>(API_PATHS.user.favoriteRouteRecommendations, {
+    params: { limit },
+  });
+}
+
+export async function getMyFavoriteRoutes() {
+  return fetchClient<ApiResponse<FavoriteRouteList>>(API_PATHS.user.favoriteRoutes);
+}
+
+export async function createMyFavoriteRoute(payload: CreateFavoriteRoutePayload) {
+  return fetchClient<ApiResponse<FavoriteRoute>>(API_PATHS.user.favoriteRoutes, {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function deleteMyFavoriteRoute(routeId: number) {
+  return fetchClient<ApiResponse<{ routeId: number }>>(API_PATHS.user.favoriteRoute(routeId), {
+    method: 'DELETE',
   });
 }
