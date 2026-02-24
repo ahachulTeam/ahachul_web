@@ -13,6 +13,7 @@ export const API_SERVICE_PATHS = {
   community: 'community-posts',
   complaint: 'complaint-posts',
   lostFound: 'lost-posts',
+  message: 'message-rooms',
 } as const;
 
 export type ApiServicePath = (typeof API_SERVICE_PATHS)[keyof typeof API_SERVICE_PATHS];
@@ -49,6 +50,11 @@ export const API_PATHS = {
     comment: (postId: Identifier, commentId: Identifier) =>
       `/${API_SERVICE_PATHS.lostFound}/${postId}/comments/${commentId}`,
     status: (id: Identifier) => `/${API_SERVICE_PATHS.lostFound}/${id}/status`,
+  },
+  message: {
+    rooms: `/${API_SERVICE_PATHS.message}`,
+    roomMessages: (roomId: Identifier) => `/${API_SERVICE_PATHS.message}/${roomId}/messages`,
+    messages: `/${API_SERVICE_PATHS.message}/messages`,
   },
   subway: {
     lines: '/subway-lines',
