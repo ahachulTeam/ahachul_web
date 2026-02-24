@@ -17,10 +17,12 @@ import { Avatar } from '@/components/common/avatar/Avatar.component';
 import { useAuth } from '@/contexts';
 import { useToast } from '@/hooks/useToast';
 import { useFetchUserProfile, userKeys } from '@/services/user';
+import { useFlow } from '@/stackflow';
 import type { ApiResponse } from '@/types';
 
 const MyAccountPage: ActivityComponentType = () => {
   const { addToast } = useToast();
+  const { push } = useFlow();
   const queryClient = useQueryClient();
   const { isCheckingAuthState, authService } = useAuth();
   const { data: userInfo, isLoading } = useFetchUserProfile();
@@ -96,6 +98,26 @@ const MyAccountPage: ActivityComponentType = () => {
 
   if (isLoading || isCheckingAuthState) return null;
 
+  const handleOpenProfile = (mode: 'default' | 'settings' | 'preview') => {
+    const nickname = userInfo?.result?.nickname;
+    if (!nickname) {
+      addToast('프로필 정보를 찾을 수 없습니다.', 'error');
+      return;
+    }
+
+    if (mode === 'settings') {
+      push('UserProfileSettingPage', { username: nickname });
+      return;
+    }
+
+    if (mode === 'preview') {
+      push('UserProfilePreviewPage', { username: nickname });
+      return;
+    }
+
+    push('UserProfilePage', { username: nickname });
+  };
+
   return (
     <LayoutComponent.Base>
       <Wrapper>
@@ -126,6 +148,18 @@ const MyAccountPage: ActivityComponentType = () => {
           </div>
           <div onClick={showToast}>
             <p className="main">비밀번호 변경</p>
+            <ChevronIcon />
+          </div>
+          <div onClick={() => handleOpenProfile('default')}>
+            <p className="main">내 프로필</p>
+            <ChevronIcon />
+          </div>
+          <div onClick={() => handleOpenProfile('settings')}>
+            <p className="main">프로필 공개 설정</p>
+            <ChevronIcon />
+          </div>
+          <div onClick={() => handleOpenProfile('preview')}>
+            <p className="main">프로필 미리보기</p>
             <ChevronIcon />
           </div>
           <Divider />

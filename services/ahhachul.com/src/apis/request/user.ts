@@ -8,6 +8,11 @@ import type {
   APIUpdateUserResponse,
   ArticleHistoryResponseDto,
   AuthTokens,
+  CreateFavoriteRouteRequestDto,
+  FavoriteRouteDto,
+  FavoriteRouteListDto,
+  ProfileVisibilitySettings,
+  UserProfileDetailResponseDto,
   UserFavoriteStations,
   UserProfileResponseDto,
 } from '@/types';
@@ -62,14 +67,78 @@ export const prefetchUserFavoriteStations = async () => {
   return data;
 };
 
-export const createUserFavoriteStations = async (stations: any) => {
+type FavoriteStationPayload = {
+  stationName: string;
+  label?: string;
+  stationId?: number;
+};
+
+type UserProfileDetailFetchOptions = {
+  asPublic?: boolean;
+  limit?: number;
+};
+
+export const createUserFavoriteStations = async (stations: FavoriteStationPayload[]) => {
   const response = await axiosInstance.post<ApiResponse<UserFavoriteStations>>(
     API_PATHS.user.favoriteStations,
     { stations },
-    // { stations: stations.map((item: any) => ({ ...item, stationName: item.stationName + '역' })) },
   );
 
   return response.data;
+};
+
+export const fetchUserProfileDetail = async (
+  username: string,
+  options: UserProfileDetailFetchOptions = {},
+) => {
+  const { asPublic = false, limit = 20 } = options;
+  const { data } = await axiosInstance.get<ApiResponse<UserProfileDetailResponseDto>>(
+    API_PATHS.user.profileDetail(username),
+    {
+      params: {
+        asPublic,
+        limit,
+      },
+    },
+  );
+
+  return data;
+};
+
+export const fetchUserFavoriteRouteRecommendations = async (limit = 3) => {
+  const { data } = await axiosInstance.get<ApiResponse<FavoriteRouteListDto>>(
+    API_PATHS.user.favoriteRouteRecommendations,
+    {
+      params: { limit },
+    },
+  );
+
+  return data;
+};
+
+export const fetchUserFavoriteRoutes = async () => {
+  const { data } = await axiosInstance.get<ApiResponse<FavoriteRouteListDto>>(
+    API_PATHS.user.favoriteRoutes,
+  );
+
+  return data;
+};
+
+export const createUserFavoriteRoute = async (payload: CreateFavoriteRouteRequestDto) => {
+  const { data } = await axiosInstance.post<ApiResponse<FavoriteRouteDto>>(
+    API_PATHS.user.favoriteRoutes,
+    payload,
+  );
+
+  return data;
+};
+
+export const deleteUserFavoriteRoute = async (routeId: number) => {
+  const { data } = await axiosInstance.delete<ApiResponse<{ routeId: number }>>(
+    API_PATHS.user.favoriteRoute(routeId),
+  );
+
+  return data;
 };
 
 export const fetchUserArticleHistories = async (limit = 30) => {
@@ -83,17 +152,28 @@ export const fetchUserArticleHistories = async (limit = 30) => {
   return data;
 };
 
-export const updateUser = async (data: { nickname: string; auth: AuthTokens }) => {
+type UpdateUserPayload = Partial<ProfileVisibilitySettings> & {
+  nickname?: string;
+  auth?: AuthTokens;
+};
+
+export const updateUser = async ({ auth, ...payload }: UpdateUserPayload) => {
+  if (!Object.keys(payload).length) {
+    throw new Error('업데이트할 사용자 정보가 없습니다.');
+  }
+
   try {
-    const accessToken = data.auth.accessToken;
+    const headers =
+      auth?.accessToken == null
+        ? undefined
+        : {
+            Authorization: `Bearer ${auth.accessToken}`,
+          };
+
     const res = await axios.patch<APIUpdateUserResponse>(
       `${BASE_URL.SERVER}${API_PREFIX}${API_PATHS.user.profile}`,
-      { nickname: data.nickname },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
+      payload,
+      headers ? { headers } : undefined,
     );
 
     return res.data;

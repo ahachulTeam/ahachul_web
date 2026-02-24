@@ -53,6 +53,9 @@ export const stackflowPlugin = [
       TalkPage: PATH.talk.home,
       TalkDetailPage: PATH.talk.detail,
       TalkSettingPage: PATH.talk.setting,
+      UserProfilePage: PATH.user.profile,
+      UserProfileSettingPage: PATH.user.setting,
+      UserProfilePreviewPage: PATH.user.preview,
 
       NotificationPage: PATH.notification.home,
       NotificationSettingPage: PATH.notification.setting,

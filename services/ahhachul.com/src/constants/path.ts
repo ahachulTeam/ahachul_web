@@ -37,6 +37,13 @@ export const PATH = {
     account: '/me/setting/account',
   },
 
+  /** 유저 프로필 */
+  user: {
+    profile: '/user/:username',
+    setting: '/user/:username/settings',
+    preview: '/user/:username/preview',
+  },
+
   /** 인증 관련 */
   auth: {
     login: '/login',

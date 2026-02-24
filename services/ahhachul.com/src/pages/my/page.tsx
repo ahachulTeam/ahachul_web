@@ -3,6 +3,7 @@ import type { ActivityComponentType } from '@stackflow/react';
 
 import { HeaderComponent, LayoutComponent } from '@/components';
 import ArticleHistoryCard from '@/components/domain/my/ArticleHistoryCard.component';
+import FavoriteRouteCard from '@/components/domain/my/FavoriteRouteCard.component';
 import MenuSections from '@/components/domain/my/MenuSections.component';
 import RequestCard from '@/components/domain/my/RequestCard.component';
 import UserProfile from '@/components/domain/my/UserProfile.component';
@@ -25,6 +26,7 @@ const MyPage: ActivityComponentType = () => {
         <S.Wrapper>
           <UserProfile />
           <RequestCard />
+          <FavoriteRouteCard />
           <ArticleHistoryCard />
           <MenuSections />
         </S.Wrapper>

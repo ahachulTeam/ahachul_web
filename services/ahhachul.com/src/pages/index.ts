@@ -4,6 +4,7 @@ import { NewsDetailPage } from './news';
 import { NotificationPage, NotificationSettingPage } from './notification';
 import { SubwayMapPage, SubwayTimelinePage } from './subway';
 import { TalkPage, TalkDetailPage, TalkSettingPage } from './talk';
+import { UserProfilePage, UserProfilePreviewPage, UserProfileSettingPage } from './user';
 
 export const SharingPages = {
   TalkPage,
@@ -17,6 +18,9 @@ export const SharingPages = {
   HashtagPage,
   SubwayMapPage,
   SubwayTimelinePage,
+  UserProfilePage,
+  UserProfileSettingPage,
+  UserProfilePreviewPage,
 } as const;
 
 export * as MyPages from './my';
