@@ -20,6 +20,48 @@ interface ApiErrorResponse {
   message: AuthErrorCode;
 }
 
+function isAbsoluteUrl(url: string): boolean {
+  return /^https?:\/\//i.test(url);
+}
+
+function normalizePath(url: string): string {
+  if (!url.startsWith('/')) {
+    return `/${url}`;
+  }
+
+  return url;
+}
+
+function normalizePrefix(prefix: string): string {
+  if (!prefix.length) {
+    return '';
+  }
+
+  return prefix.endsWith('/') ? prefix.slice(0, -1) : prefix;
+}
+
+function isVersionedPath(path: string): boolean {
+  return path.startsWith('/v1/') || path.startsWith('/v2/');
+}
+
+function resolveRequestPath(url: string | undefined): string | undefined {
+  if (!url || isAbsoluteUrl(url)) {
+    return url;
+  }
+
+  const normalizedPath = normalizePath(url);
+  if (isVersionedPath(normalizedPath)) {
+    return normalizedPath;
+  }
+
+  const prefix = normalizePrefix(API_PREFIX);
+  if (!prefix.length) {
+    return normalizedPath;
+  }
+
+  return `${prefix}${normalizedPath}`;
+}
+
 /**
  * HTTP 요청을 처리하고 인증을 관리하기 위한 클라이언트 클래스.
  */
@@ -37,7 +79,7 @@ class ApiClient {
 
   private createAxiosInstance(): AxiosInstance {
     return axios.create({
-      baseURL: BASE_URL.SERVER + API_PREFIX,
+      baseURL: BASE_URL.SERVER,
     });
   }
 
@@ -61,6 +103,8 @@ class ApiClient {
     if (!config.headers) {
       config.headers = new AxiosHeaders();
     }
+
+    config.url = resolveRequestPath(config.url);
 
     const accessToken = this.tokenService.getAccessToken();
     if (accessToken) {
