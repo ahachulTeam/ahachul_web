@@ -8,4 +8,9 @@ export interface User {
   maskedEmail?: string;
   gender: Gender;
   ageRange: AgeRange;
+  profilePublic?: boolean;
+  emailPublic?: boolean;
+  genderAgePublic?: boolean;
+  postsPublic?: boolean;
+  commentsPublic?: boolean;
 }

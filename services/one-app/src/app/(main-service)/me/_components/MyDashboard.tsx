@@ -121,7 +121,7 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
       if (!check.result.available) {
         throw new Error('중복인 닉네임이라 사용할 수 없습니다.');
       }
-      return updateMyProfile(nickname);
+      return updateMyProfile({ nickname });
     },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: myQueryKeys.profile() });
@@ -426,6 +426,7 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
   }
 
   const member = profile.result;
+  const encodedNickname = member.nickname ? encodeURIComponent(member.nickname) : null;
   const handleLogout = () => AuthService.expireSession();
 
   let realtimeContent = <p className="text-body-small text-gray-70">{copy.realtime.empty}</p>;
@@ -480,12 +481,28 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
           {maskEmail(member.maskedEmail ?? member.email) || copy.noEmail}
         </p>
         <div className="mt-4 flex flex-wrap items-center gap-2">
-          <Link
-            href={localizePathname(`/user/${encodeURIComponent(member.nickname)}`, locale)}
-            className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
-          >
-            {copy.viewProfile}
-          </Link>
+          {encodedNickname ? (
+            <>
+              <Link
+                href={localizePathname(`/user/${encodedNickname}`, locale)}
+                className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+              >
+                {copy.viewProfile}
+              </Link>
+              <Link
+                href={localizePathname(`/user/${encodedNickname}/settings`, locale)}
+                className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+              >
+                프로필 설정
+              </Link>
+              <Link
+                href={localizePathname(`/user/${encodedNickname}/preview`, locale)}
+                className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+              >
+                프로필 미리보기
+              </Link>
+            </>
+          ) : null}
           <button
             type="button"
             onClick={() => void editNickname(member.nickname)}
