@@ -26,12 +26,13 @@ const NewComplaintPage: ActivityComponentType<ComplaintFormProps> = ({
     slug: KeyOf<typeof complaintsContentDetail>;
   };
 }) => {
-  const information = complaintsContentDetail[slug];
+  const normalizedSlug = complaintsContentDetail[slug] ? slug : 'ENVIRONMENTAL_COMPLAINT';
+  const information = complaintsContentDetail[normalizedSlug];
 
   const { isActive } = useActivity();
 
   const { methods, isPending, handleImageUpload, handleImageDelete, submit } =
-    useComplaintForm(slug);
+    useComplaintForm(normalizedSlug);
   const { data: subwayLineResponse } = useQuery({
     queryKey: subwayQueryKeys.subwayLine(),
     queryFn: fetchSubwayLines,

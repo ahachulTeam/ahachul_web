@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { $getRoot, EditorState, ElementNode } from 'lexical';
+import { $createParagraphNode, $createTextNode, $getRoot, EditorState, ElementNode } from 'lexical';
 
 const FOCUS_ON_MOUNT_DELAY_MS = 550;
 
@@ -35,9 +35,19 @@ export function OnChangePlugin({ readonly, initialState, shouldFocusOnMount, onC
     }
 
     if (initialState) {
-      const content = editor.parseEditorState(JSON.parse(initialState));
       setTimeout(() => {
-        editor.setEditorState(content);
+        try {
+          const content = editor.parseEditorState(JSON.parse(initialState));
+          editor.setEditorState(content);
+        } catch {
+          editor.update(() => {
+            const root = $getRoot();
+            root.clear();
+            const paragraph = $createParagraphNode();
+            paragraph.append($createTextNode(initialState));
+            root.append(paragraph);
+          });
+        }
       });
     }
 

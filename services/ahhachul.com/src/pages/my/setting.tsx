@@ -56,7 +56,7 @@ const SettingPage: ActivityComponentType = () => {
   const renderLineNumbers = (stationName: string) => {
     return (
       <LineNumberContainer>
-        {DEFAULT_STATIONS?.[stationName as keyof typeof DEFAULT_STATIONS].map((station, idx) => (
+        {DEFAULT_STATIONS?.[stationName as keyof typeof DEFAULT_STATIONS]?.map((station, idx) => (
           <LineNumber
             key={`${stationName}_${station.parentLineId}_${idx}`}
             lineNumber={station.parentLineId}

@@ -11,7 +11,7 @@ import {
   buildQuerySignature,
   communityQueryKeys,
 } from '@ahhachul/domain';
-import { formatSubwayFilterOption, getFirstParentLineId, removeFalsyValues } from '@ahhachul/utils';
+import { getFirstParentLineId, removeFalsyValues } from '@ahhachul/utils';
 
 import * as api from '@/apis/request';
 import { TOAST_MSG } from '@/constants/toast';
@@ -20,10 +20,11 @@ import { useFlow } from '@/stackflow';
 import { useUserStationStore } from '@/stores/subway';
 import {
   CommunityType,
+  SubwayLineFilterOptions,
+  type CommunitySubwayLineFilterValue,
   type CommunityForm,
   type CommunityEditForm,
   type CommunityListParams,
-  type SubwayLineFilterOptions,
 } from '@/types';
 
 const STACK_PUSH_DELAY_MS = 500;
@@ -34,9 +35,48 @@ const logMutationError = (context: string, error: Error) => {
 
 export const communityKeys = communityQueryKeys;
 
-export const useFetchCommunityList = (filters: CommunityListParams<SubwayLineFilterOptions>) => {
+const DEFAULT_STATION_FILTER = '0';
+
+function resolveSubwayLineIds(
+  lineFilter: CommunitySubwayLineFilterValue,
+  favoriteLines: string,
+): string | undefined {
+  if (lineFilter === SubwayLineFilterOptions.ALL_LINES) {
+    return undefined;
+  }
+
+  if (lineFilter === SubwayLineFilterOptions.ONLY_MY_LINE) {
+    return favoriteLines || undefined;
+  }
+
+  const parsed = Number(lineFilter);
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    return undefined;
+  }
+
+  return String(parsed);
+}
+
+function resolveStationId(stationFilter: string | undefined): number | undefined {
+  if (!stationFilter || stationFilter === DEFAULT_STATION_FILTER) {
+    return undefined;
+  }
+
+  const parsed = Number(stationFilter);
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    return undefined;
+  }
+
+  return parsed;
+}
+
+export const useFetchCommunityList = (
+  filters: CommunityListParams<CommunitySubwayLineFilterValue>,
+) => {
   const state = useUserStationStore(state => state);
   const userStations = getFirstParentLineId(state.userStations);
+  const subwayLineIds = resolveSubwayLineIds(filters.subwayLineId, userStations);
+  const stationId = resolveStationId(filters.stationId?.toString());
 
   const req = removeFalsyValues(
     {
@@ -44,16 +84,18 @@ export const useFetchCommunityList = (filters: CommunityListParams<SubwayLineFil
       content: filters.content,
       hashTag: filters.hashTag,
       categoryType: filters.categoryType,
-      subwayLineIds: formatSubwayFilterOption(filters.subwayLineId, userStations),
+      subwayLineIds,
+      stationId,
     },
     { removeZero: true, removeEmptyStrings: true },
-  ) as CommunityListParams;
+  ) as Record<string, string | number>;
   const querySignature = buildQuerySignature({
-    categoryType: req.categoryType,
-    writer: req.writer,
-    content: req.content,
-    hashTag: req.hashTag,
-    subwayLineId: req.subwayLineId,
+    categoryType: filters.categoryType,
+    writer: filters.writer,
+    content: filters.content,
+    hashTag: filters.hashTag,
+    subwayLineId: filters.subwayLineId,
+    stationId: filters.stationId,
   });
 
   return useSuspenseInfiniteQuery({

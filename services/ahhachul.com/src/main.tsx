@@ -10,6 +10,11 @@ import { useUserStationStore } from './stores/subway';
 import { getAccessTokenInLocalStorage } from './utils/localStorage';
 
 async function init() {
+  if (import.meta.env.MODE === 'mock') {
+    const { startBrowserMocking } = await import('@/mocks');
+    await startBrowserMocking();
+  }
+
   // 지하철 역 & 호선 정보 prefetch
   await queryClient.prefetchQuery({
     queryKey: subwayKeys.subwayLine(),

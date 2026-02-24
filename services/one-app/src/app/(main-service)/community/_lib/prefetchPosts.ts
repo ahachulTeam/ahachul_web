@@ -2,7 +2,7 @@ import type { QueryClient, InfiniteData } from '@tanstack/react-query';
 
 import { buildQuerySignature, communityQueryKeys } from '@ahhachul/domain';
 
-import type { ApiResponse, PaginatedList, SubwayLineFilterOptions } from '@/types';
+import type { ApiResponse, PaginatedList } from '@/types';
 import { CommunityPost, CommunityType } from '@/types/community';
 
 import { getCommunityPosts } from './getCommunityPosts';
@@ -13,7 +13,8 @@ type SearchParams = {
   hashTag?: string;
   writer?: string;
   category?: CommunityType;
-  subwayLineId?: SubwayLineFilterOptions;
+  subwayLineId?: string;
+  stationId?: string;
 };
 
 export async function prefetchPosts(queryClient: QueryClient, query: SearchParams) {
@@ -23,6 +24,7 @@ export async function prefetchPosts(queryClient: QueryClient, query: SearchParam
     writer: query.writer,
     category: query.category,
     subwayLineId: query.subwayLineId,
+    stationId: query.stationId,
   });
 
   await queryClient.prefetchInfiniteQuery<

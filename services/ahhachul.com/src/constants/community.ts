@@ -3,12 +3,14 @@ import { CommunityType, SubwayLineFilterOptions } from '@/types';
 export const communityFilterKeys = {
   communityType: 'communityType',
   subwayLineId: 'subwayLineId',
+  stationId: 'stationId',
 } as const;
 
 export const defaultCommunityFilterValues = {
   hashTag: '',
   communityType: CommunityType.HOT,
   subwayLineId: SubwayLineFilterOptions.ALL_LINES,
+  stationId: '0',
 } as const;
 
 export const communityTypeOptions = {

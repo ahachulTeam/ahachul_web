@@ -11,34 +11,74 @@ type Props = {
   queryKey: ReturnType<typeof communityQueryKeys.list>;
 };
 
+const DEFAULT_FILTER_VALUE = '0';
+
+export function resolveCommunityCategory(category: string | null): CommunityType {
+  if (
+    category === CommunityType.FREE ||
+    category === CommunityType.HUMOR ||
+    category === CommunityType.INSIGHT
+  ) {
+    return category;
+  }
+
+  return CommunityType.HOT;
+}
+
+export function resolveSubwayLineIds(subwayLineId: string | null): string | undefined {
+  if (!subwayLineId || subwayLineId === DEFAULT_FILTER_VALUE) {
+    return undefined;
+  }
+
+  const parsed = Number(subwayLineId);
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    return undefined;
+  }
+
+  return String(parsed);
+}
+
+export function resolveStationId(stationId: string | null): number | undefined {
+  if (!stationId || stationId === DEFAULT_FILTER_VALUE) {
+    return undefined;
+  }
+
+  const parsed = Number(stationId);
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    return undefined;
+  }
+
+  return parsed;
+}
+
 export async function getCommunityPosts({
   pageParam,
   queryKey,
 }: Props): Promise<ApiResponse<PaginatedList<CommunityPost>>> {
   const [, , querySignature] = queryKey;
   const filters = new URLSearchParams(querySignature);
+  const category = resolveCommunityCategory(filters.get('category'));
+  const keyword = filters.get('keyword')?.trim();
+  const subwayLineIds = resolveSubwayLineIds(filters.get('subwayLineId'));
+  const stationId = resolveStationId(filters.get('stationId'));
 
   const hasHashTagFilter = Boolean(filters.get('hashTag'));
   const hasWriterFilter = Boolean(filters.get('writer'));
   const endpoint =
-    hasHashTagFilter ||
-    hasWriterFilter ||
-    (filters.has('category') && filters.get('category') !== CommunityType.HOT)
+    category !== CommunityType.HOT || hasHashTagFilter || hasWriterFilter
       ? API_PATHS.community.list
       : API_PATHS.community.hotList;
 
   const params = removeFalsyValues({
-    ...(filters.get('keyword') && { content: filters.get('keyword') || '' }),
+    ...(keyword && { content: keyword }),
     ...(filters.get('hashTag') && { hashTag: filters.get('hashTag') || '' }),
     ...(filters.get('writer') && { writer: filters.get('writer') || '' }),
-    ...(filters.get('subwayLineId') && { subwayLineId: filters.get('subwayLineId') || '' }),
+    ...(subwayLineIds && { subwayLineIds }),
+    ...(stationId && { stationId }),
     pageSize: API_PAGE_SIZE.list,
     sort: API_SORT.createdAtDesc,
     ...(pageParam && { pageToken: pageParam }),
-    ...(filters.has('category') &&
-      filters.get('category') !== CommunityType.HOT && {
-        categoryType: filters.get('category'),
-      }),
+    ...(category !== CommunityType.HOT && { categoryType: category }),
   }) as Partial<CommunityListParams>;
 
   return fetchClient(endpoint, {

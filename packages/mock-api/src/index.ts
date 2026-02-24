@@ -16,9 +16,12 @@ const API_ROOT_SEGMENTS = [
   'community-hot-posts',
   'complaint-posts',
   'lost-posts',
+  'message-rooms',
   'subway-lines',
   'trains',
-  'common',
+  'stations',
+  'ranks',
+  'reports',
   'comments',
   'signout',
   'mock-s3',
@@ -171,16 +174,107 @@ type MockSubwayLine = {
   }[];
 };
 
+type MockArticleType = 'COMMUNITY' | 'COMPLAINT' | 'LOST';
+
+type MockArticleHistoryItem = {
+  articleType: MockArticleType;
+  articleId: number;
+  title: string;
+  contentPreview: string;
+  writer: string;
+  subwayLineId: number;
+  stationId: number;
+  articleCreatedAt: string;
+  reactedAt: string;
+};
+
+type MockMessageRoom = {
+  roomId: number;
+  partnerMemberId: number;
+  partnerNickname: string;
+  lastMessageContent: string | null;
+  lastMessageAt: string | null;
+  unreadCount: number;
+};
+
+type MockMessageThreadItem = {
+  messageId: number;
+  senderMemberId: number;
+  senderNickname: string;
+  content: string;
+  createdAt: string;
+  mine: boolean;
+  readYn: 'Y' | 'N';
+};
+
+type MockDelayProofOfficialIncident = {
+  eventId: string;
+  occurredAt: string;
+  resolvedAt: string | null;
+  severity: string;
+  title: string;
+  description: string;
+  source: string;
+  sourceUrl: string | null;
+};
+
+type MockDelayProofCommunitySignal = {
+  postId: number;
+  createdAt: string;
+  writer: string;
+  matchedKeyword: string;
+  reportedDelayMin: number | null;
+  snippet: string;
+};
+
+type MockDelayProofPayload = {
+  proofId: string;
+  issuedAt: string;
+  expiresAt: string;
+  grade: 'A' | 'B' | 'C';
+  confidenceLevel: 'HIGH' | 'MEDIUM' | 'LOW';
+  evidenceSummary: {
+    official: {
+      matched: boolean;
+      eventCount: number;
+      dataSource: string;
+      incidents: MockDelayProofOfficialIncident[];
+    };
+    community: {
+      signalCount: number;
+      distinctAuthors: number;
+      medianReportedDelayMin: number | null;
+      confidenceLevel: 'HIGH' | 'MEDIUM' | 'LOW';
+      signals: MockDelayProofCommunitySignal[];
+    };
+    realtime: {
+      isStale: boolean;
+      freshnessSec: number;
+      confidenceLevel: 'HIGH' | 'MEDIUM' | 'LOW';
+      generatedAt: string;
+    };
+  };
+  text: string;
+  shareUrl: string;
+  signature: string;
+};
+
 type MockState = {
   user: MockUser;
   communityPosts: MockCommunityPostDetail[];
   complaintPosts: MockComplaintPostDetail[];
   lostFoundPosts: MockLostFoundPostDetail[];
+  likedArticleIds: Record<MockArticleType, Set<number>>;
+  bookmarkedArticleIds: Record<MockArticleType, Set<number>>;
   comments: Record<string, MockCommentThread[]>;
   favoriteStations: MockFavoriteStation[];
+  messageRooms: MockMessageRoom[];
+  messageThreads: Record<number, MockMessageThreadItem[]>;
+  delayProofs: Record<string, MockDelayProofPayload>;
   subwayLines: MockSubwayLine[];
   nextPostId: number;
   nextCommentId: number;
+  nextMessageId: number;
   auth: {
     accessToken: string;
     refreshToken: string;
@@ -440,6 +534,157 @@ function createInitialComments(
   return comments;
 }
 
+function createInitialMessageData() {
+  const rooms: MockMessageRoom[] = [
+    {
+      roomId: 1,
+      partnerMemberId: 21,
+      partnerNickname: '출근메이트',
+      lastMessageContent: '오늘 2호선 지연이네요.',
+      lastMessageAt: toIsoDate(8),
+      unreadCount: 1,
+    },
+    {
+      roomId: 2,
+      partnerMemberId: 42,
+      partnerNickname: '안암러버',
+      lastMessageContent: '안암역 3번 출구 근처 괜찮은 식당 있어요.',
+      lastMessageAt: toIsoDate(35),
+      unreadCount: 0,
+    },
+  ];
+
+  const messageThreads: Record<number, MockMessageThreadItem[]> = {
+    1: [
+      {
+        messageId: 5001,
+        senderMemberId: 21,
+        senderNickname: '출근메이트',
+        content: '오늘 2호선 지연 이슈 떴어요.',
+        createdAt: toIsoDate(20),
+        mine: false,
+        readYn: 'Y',
+      },
+      {
+        messageId: 5002,
+        senderMemberId: 1,
+        senderNickname: '아차철러',
+        content: '확인했어요. 회사에 연락해야겠네요.',
+        createdAt: toIsoDate(14),
+        mine: true,
+        readYn: 'Y',
+      },
+      {
+        messageId: 5003,
+        senderMemberId: 21,
+        senderNickname: '출근메이트',
+        content: '오늘 2호선 지연이네요.',
+        createdAt: toIsoDate(8),
+        mine: false,
+        readYn: 'N',
+      },
+    ],
+    2: [
+      {
+        messageId: 5004,
+        senderMemberId: 42,
+        senderNickname: '안암러버',
+        content: '안암역 3번 출구 근처 괜찮은 식당 있어요.',
+        createdAt: toIsoDate(35),
+        mine: false,
+        readYn: 'Y',
+      },
+    ],
+  };
+
+  return {
+    rooms,
+    messageThreads,
+    nextMessageId: 5005,
+  };
+}
+
+function createDelayProofPayload(
+  proofId: string,
+  stationId: number,
+  subwayLineId: number,
+): MockDelayProofPayload {
+  const issuedAt = new Date().toISOString();
+  const expiresAt = new Date(Date.now() + 30 * 60 * 1000).toISOString();
+  const incidents: MockDelayProofOfficialIncident[] = [
+    {
+      eventId: `evt-${stationId}-${subwayLineId}`,
+      occurredAt: toIsoDate(16),
+      resolvedAt: null,
+      severity: 'MEDIUM',
+      title: '신호 장애로 인한 지연',
+      description: '일부 구간에서 열차 간격 조정 중입니다.',
+      source: '서울교통공사',
+      sourceUrl: null,
+    },
+  ];
+  const signals: MockDelayProofCommunitySignal[] = [
+    {
+      postId: 1001,
+      createdAt: toIsoDate(10),
+      writer: '아차철러',
+      matchedKeyword: '지연',
+      reportedDelayMin: 8,
+      snippet: '지금 체감상 8분 정도 늦어요.',
+    },
+  ];
+
+  return {
+    proofId,
+    issuedAt,
+    expiresAt,
+    grade: 'B',
+    confidenceLevel: 'MEDIUM',
+    evidenceSummary: {
+      official: {
+        matched: true,
+        eventCount: incidents.length,
+        dataSource: 'API',
+        incidents,
+      },
+      community: {
+        signalCount: signals.length,
+        distinctAuthors: 1,
+        medianReportedDelayMin: 8,
+        confidenceLevel: 'MEDIUM',
+        signals,
+      },
+      realtime: {
+        isStale: false,
+        freshnessSec: 28,
+        confidenceLevel: 'HIGH',
+        generatedAt: issuedAt,
+      },
+    },
+    text: '열차 지연이 공식/커뮤니티 신호로 확인되어 지연 증빙을 발급했습니다.',
+    shareUrl: `https://ahhachul.mock/delay-proofs/${proofId}`,
+    signature: `mock-signature-${proofId}`,
+  };
+}
+
+function toArticleHistoryItem(
+  articleType: MockArticleType,
+  post: MockCommunityPostDetail | MockComplaintPostDetail | MockLostFoundPostDetail,
+  reactedAt: string,
+): MockArticleHistoryItem {
+  return {
+    articleType,
+    articleId: post.id,
+    title: post.title,
+    contentPreview: post.content.slice(0, 80),
+    writer: post.writer,
+    subwayLineId: post.subwayLineId,
+    stationId: post.subwayLineId * 100 + 1,
+    articleCreatedAt: post.createdAt,
+    reactedAt,
+  };
+}
+
 function createInitialState(): MockState {
   const user: MockUser = {
     memberId: 1,
@@ -453,6 +698,8 @@ function createInitialState(): MockState {
   const complaintPosts = createInitialComplaintPosts();
   const lostFoundPosts = createInitialLostFoundPosts();
   const comments = createInitialComments(communityPosts, complaintPosts, lostFoundPosts);
+  const messageData = createInitialMessageData();
+  const defaultProof = createDelayProofPayload('dpv2_01abc', 201, 2);
 
   const favoriteStations: MockFavoriteStation[] = [
     {
@@ -478,11 +725,27 @@ function createInitialState(): MockState {
     communityPosts,
     complaintPosts,
     lostFoundPosts,
+    likedArticleIds: {
+      COMMUNITY: new Set([communityPosts[0]?.id ?? 1001]),
+      COMPLAINT: new Set([complaintPosts[0]?.id ?? 2001]),
+      LOST: new Set([lostFoundPosts[0]?.id ?? 3001]),
+    },
+    bookmarkedArticleIds: {
+      COMMUNITY: new Set([communityPosts[1]?.id ?? 1002]),
+      COMPLAINT: new Set([complaintPosts[1]?.id ?? 2002]),
+      LOST: new Set([lostFoundPosts[1]?.id ?? 3002]),
+    },
     comments,
     favoriteStations,
+    messageRooms: messageData.rooms,
+    messageThreads: messageData.messageThreads,
+    delayProofs: {
+      [defaultProof.proofId]: defaultProof,
+    },
     subwayLines: SUBWAY_LINES,
     nextPostId: 4000,
     nextCommentId: 9000,
+    nextMessageId: messageData.nextMessageId,
     auth: {
       accessToken: 'mock-access-token',
       refreshToken: 'mock-refresh-token',
@@ -562,6 +825,98 @@ function updateCommentCount(servicePath: string, postId: number, delta: number) 
   post.commentCnt = Math.max(0, post.commentCnt + delta);
 }
 
+function getReactionTypeByServicePath(servicePath: string): MockArticleType {
+  if (servicePath === API_SERVICE_PATHS.community) {
+    return 'COMMUNITY';
+  }
+
+  if (servicePath === API_SERVICE_PATHS.complaint) {
+    return 'COMPLAINT';
+  }
+
+  return 'LOST';
+}
+
+function getServicePathByArticleType(articleType: MockArticleType): string {
+  if (articleType === 'COMMUNITY') {
+    return API_SERVICE_PATHS.community;
+  }
+
+  if (articleType === 'COMPLAINT') {
+    return API_SERVICE_PATHS.complaint;
+  }
+
+  return API_SERVICE_PATHS.lostFound;
+}
+
+function getPostByServicePath(servicePath: string, postId: number) {
+  const collection = readPostCollection(servicePath);
+  return collection.find(item => item.id === postId);
+}
+
+function upsertReaction(
+  servicePath: string,
+  postId: number,
+  reactionKind: 'like' | 'bookmark',
+  action: 'add' | 'remove',
+): Response {
+  const post = getPostByServicePath(servicePath, postId);
+  if (!post) {
+    return toErrorResponse('Post not found.', 404);
+  }
+
+  const articleType = getReactionTypeByServicePath(servicePath);
+  const targetSet =
+    reactionKind === 'like'
+      ? state.likedArticleIds[articleType]
+      : state.bookmarkedArticleIds[articleType];
+
+  if (action === 'add') {
+    targetSet.add(postId);
+  } else {
+    targetSet.delete(postId);
+  }
+
+  return toSuccessResponse(null);
+}
+
+function buildArticleHistories(limit: number) {
+  const likedArticles: MockArticleHistoryItem[] = [];
+  const bookmarkedArticles: MockArticleHistoryItem[] = [];
+
+  for (const [articleType, ids] of Object.entries(state.likedArticleIds) as Array<
+    [MockArticleType, Set<number>]
+  >) {
+    for (const id of ids) {
+      const servicePath = getServicePathByArticleType(articleType);
+      const post = getPostByServicePath(servicePath, id);
+      if (post) {
+        likedArticles.push(toArticleHistoryItem(articleType, post, new Date().toISOString()));
+      }
+    }
+  }
+
+  for (const [articleType, ids] of Object.entries(state.bookmarkedArticleIds) as Array<
+    [MockArticleType, Set<number>]
+  >) {
+    for (const id of ids) {
+      const servicePath = getServicePathByArticleType(articleType);
+      const post = getPostByServicePath(servicePath, id);
+      if (post) {
+        bookmarkedArticles.push(toArticleHistoryItem(articleType, post, new Date().toISOString()));
+      }
+    }
+  }
+
+  likedArticles.sort((a, b) => b.reactedAt.localeCompare(a.reactedAt));
+  bookmarkedArticles.sort((a, b) => b.reactedAt.localeCompare(a.reactedAt));
+
+  return {
+    likedArticles: likedArticles.slice(0, Math.max(limit, 1)),
+    bookmarkedArticles: bookmarkedArticles.slice(0, Math.max(limit, 1)),
+  };
+}
+
 function toSuccessResponse<T>(result: T, init?: ResponseInit): Response {
   return HttpResponse.json(
     {
@@ -588,9 +943,32 @@ function toErrorResponse(message: string = RESPONSE_MESSAGES.badRequest, status 
 
 function normalizePathname(pathname: string): string | null {
   const trimmed = pathname.replace(/\/+$/, '') || '/';
+  const isStaticModuleRequest =
+    /\.(?:[cm]?[jt]sx?|css|map|json|svg|png|jpe?g|gif|ico|woff2?)$/i.test(trimmed);
+
+  if (
+    isStaticModuleRequest ||
+    trimmed.startsWith('/@vite') ||
+    trimmed.startsWith('/node_modules/')
+  ) {
+    return null;
+  }
 
   if (trimmed.startsWith('/mock-s3/upload/')) {
     return trimmed;
+  }
+
+  const presignedPathIndex = trimmed.indexOf('/common/presigned/');
+  if (presignedPathIndex !== -1) {
+    return trimmed.slice(presignedPathIndex);
+  }
+
+  if (trimmed.startsWith('/v2/')) {
+    return trimmed;
+  }
+
+  if (trimmed.startsWith('/v1/')) {
+    return trimmed.slice(3) || '/';
   }
 
   if (trimmed === '/api/auth/token/refresh') {
@@ -798,6 +1176,11 @@ const routes: RouteDefinition[] = [
     resolver: () => HttpResponse.json({}, { status: 200 }),
   },
   {
+    method: 'POST',
+    pattern: '/auth/logout',
+    resolver: () => HttpResponse.json({}, { status: 200 }),
+  },
+  {
     method: 'GET',
     pattern: API_PATHS.user.profile,
     resolver: () => toSuccessResponse(state.user),
@@ -882,6 +1265,14 @@ const routes: RouteDefinition[] = [
       return HttpResponse.json({
         payload: isDuplicate,
       });
+    },
+  },
+  {
+    method: 'GET',
+    pattern: API_PATHS.user.articleHistories,
+    resolver: ({ url }) => {
+      const limit = toNumber(url.searchParams.get('limit'), 30);
+      return toSuccessResponse(buildArticleHistories(limit));
     },
   },
   {
@@ -1024,6 +1415,34 @@ const routes: RouteDefinition[] = [
     },
   },
   {
+    method: 'POST',
+    pattern: '/community-posts/:id/like',
+    resolver: ({ params }) => {
+      return upsertReaction(API_SERVICE_PATHS.community, Number(params.id), 'like', 'add');
+    },
+  },
+  {
+    method: 'DELETE',
+    pattern: '/community-posts/:id/like',
+    resolver: ({ params }) => {
+      return upsertReaction(API_SERVICE_PATHS.community, Number(params.id), 'like', 'remove');
+    },
+  },
+  {
+    method: 'POST',
+    pattern: '/community-posts/:id/bookmark',
+    resolver: ({ params }) => {
+      return upsertReaction(API_SERVICE_PATHS.community, Number(params.id), 'bookmark', 'add');
+    },
+  },
+  {
+    method: 'DELETE',
+    pattern: '/community-posts/:id/bookmark',
+    resolver: ({ params }) => {
+      return upsertReaction(API_SERVICE_PATHS.community, Number(params.id), 'bookmark', 'remove');
+    },
+  },
+  {
     method: 'GET',
     pattern: API_PATHS.complaint.list,
     resolver: ({ url }) => {
@@ -1106,6 +1525,34 @@ const routes: RouteDefinition[] = [
 
       delete state.comments[commentKey(API_SERVICE_PATHS.complaint, id)];
       return toSuccessResponse({ id });
+    },
+  },
+  {
+    method: 'POST',
+    pattern: '/complaint-posts/:id/like',
+    resolver: ({ params }) => {
+      return upsertReaction(API_SERVICE_PATHS.complaint, Number(params.id), 'like', 'add');
+    },
+  },
+  {
+    method: 'DELETE',
+    pattern: '/complaint-posts/:id/like',
+    resolver: ({ params }) => {
+      return upsertReaction(API_SERVICE_PATHS.complaint, Number(params.id), 'like', 'remove');
+    },
+  },
+  {
+    method: 'POST',
+    pattern: '/complaint-posts/:id/bookmark',
+    resolver: ({ params }) => {
+      return upsertReaction(API_SERVICE_PATHS.complaint, Number(params.id), 'bookmark', 'add');
+    },
+  },
+  {
+    method: 'DELETE',
+    pattern: '/complaint-posts/:id/bookmark',
+    resolver: ({ params }) => {
+      return upsertReaction(API_SERVICE_PATHS.complaint, Number(params.id), 'bookmark', 'remove');
     },
   },
   {
@@ -1253,6 +1700,34 @@ const routes: RouteDefinition[] = [
       }
 
       return toSuccessResponse({ id: post.id });
+    },
+  },
+  {
+    method: 'POST',
+    pattern: '/lost-posts/:id/like',
+    resolver: ({ params }) => {
+      return upsertReaction(API_SERVICE_PATHS.lostFound, Number(params.id), 'like', 'add');
+    },
+  },
+  {
+    method: 'DELETE',
+    pattern: '/lost-posts/:id/like',
+    resolver: ({ params }) => {
+      return upsertReaction(API_SERVICE_PATHS.lostFound, Number(params.id), 'like', 'remove');
+    },
+  },
+  {
+    method: 'POST',
+    pattern: '/lost-posts/:id/bookmark',
+    resolver: ({ params }) => {
+      return upsertReaction(API_SERVICE_PATHS.lostFound, Number(params.id), 'bookmark', 'add');
+    },
+  },
+  {
+    method: 'DELETE',
+    pattern: '/lost-posts/:id/bookmark',
+    resolver: ({ params }) => {
+      return upsertReaction(API_SERVICE_PATHS.lostFound, Number(params.id), 'bookmark', 'remove');
     },
   },
   {
@@ -1480,6 +1955,338 @@ const routes: RouteDefinition[] = [
             currentTrainArrivalCode: 'RUNNING',
           },
         ],
+      });
+    },
+  },
+  {
+    method: 'GET',
+    pattern: API_PATHS.message.rooms,
+    resolver: () =>
+      toSuccessResponse({
+        rooms: state.messageRooms,
+      }),
+  },
+  {
+    method: 'GET',
+    pattern: '/message-rooms/:roomId/messages',
+    resolver: ({ params, url }) => {
+      const roomId = Number(params.roomId);
+      const room = state.messageRooms.find(item => item.roomId === roomId);
+      if (!room) {
+        return toErrorResponse('Message room not found.', 404);
+      }
+
+      const cursorId = url.searchParams.get('cursorId');
+      const pageSize = toNumber(url.searchParams.get('pageSize'), 30);
+      const allMessages = [...(state.messageThreads[roomId] ?? [])].sort(
+        (a, b) => a.messageId - b.messageId,
+      );
+      const filtered = cursorId
+        ? allMessages.filter(item => item.messageId < toNumber(cursorId, Number.MAX_SAFE_INTEGER))
+        : allMessages;
+      const messages = filtered.slice(Math.max(filtered.length - pageSize, 0));
+
+      return toSuccessResponse({
+        roomId,
+        partnerMemberId: room.partnerMemberId,
+        partnerNickname: room.partnerNickname,
+        hasNext: filtered.length > messages.length,
+        nextCursorId: messages[0]?.messageId ?? null,
+        messages,
+      });
+    },
+  },
+  {
+    method: 'POST',
+    pattern: API_PATHS.message.messages,
+    resolver: async ({ request }) => {
+      const payload = await parseRequestBody(request);
+      const roomIdFromPayload = Number(payload.roomId ?? 0);
+      const receiverMemberId = Number(payload.receiverMemberId ?? 0);
+      const content = String(payload.content ?? '').trim();
+      if (!content) {
+        return toErrorResponse('Message content is required.');
+      }
+
+      let room = state.messageRooms.find(item => item.roomId === roomIdFromPayload);
+
+      if (!room) {
+        const nextRoomId =
+          state.messageRooms.reduce((max, item) => Math.max(max, item.roomId), 0) + 1;
+        room = {
+          roomId: nextRoomId,
+          partnerMemberId: receiverMemberId > 0 ? receiverMemberId : 9999,
+          partnerNickname: receiverMemberId > 0 ? `member-${receiverMemberId}` : '새 유저',
+          lastMessageContent: null,
+          lastMessageAt: null,
+          unreadCount: 0,
+        };
+        state.messageRooms.unshift(room);
+        state.messageThreads[room.roomId] = [];
+      }
+
+      const createdAt = new Date().toISOString();
+      const messageId = state.nextMessageId++;
+      const message: MockMessageThreadItem = {
+        messageId,
+        senderMemberId: state.user.memberId,
+        senderNickname: state.user.nickname,
+        content,
+        createdAt,
+        mine: true,
+        readYn: 'N',
+      };
+      state.messageThreads[room.roomId] = [...(state.messageThreads[room.roomId] ?? []), message];
+      room.lastMessageContent = content;
+      room.lastMessageAt = createdAt;
+      room.unreadCount = 0;
+
+      return toSuccessResponse({
+        roomId: room.roomId,
+        messageId,
+        createdAt,
+      });
+    },
+  },
+  {
+    method: 'GET',
+    pattern: API_PATHS.subway.trainRealTimesV2,
+    resolver: ({ url }) => {
+      const stationId = toNumber(url.searchParams.get('stationId'), 201);
+      const subwayLineId = toNumber(url.searchParams.get('subwayLineId'), 2);
+      const upDownType = (url.searchParams.get('upDownType') ?? '').toUpperCase();
+      const limit = Math.min(Math.max(toNumber(url.searchParams.get('limit'), 2), 1), 4);
+      const now = new Date().toISOString();
+      const trainRealTimes = [
+        {
+          trainNo: `${subwayLineId * 100 + 1}`,
+          upDownType: 'UP',
+          arrivalCode: 'BEFORE_STATION_ARRIVE',
+          etaSec: 75,
+          etaMinDisplay: 2,
+          destinationStationDirection: '성수행',
+          nextStationDirection: `다음역 ${stationId + 1}`,
+        },
+        {
+          trainNo: `${subwayLineId * 100 + 2}`,
+          upDownType: 'DOWN',
+          arrivalCode: 'RUNNING',
+          etaSec: 180,
+          etaMinDisplay: 3,
+          destinationStationDirection: '강남행',
+          nextStationDirection: `다음역 ${Math.max(stationId - 1, 1)}`,
+        },
+        {
+          trainNo: `${subwayLineId * 100 + 3}`,
+          upDownType: 'UP',
+          arrivalCode: 'BEFORE_STATION_ENTER',
+          etaSec: 240,
+          etaMinDisplay: 4,
+          destinationStationDirection: '왕십리행',
+          nextStationDirection: `다음역 ${stationId + 2}`,
+        },
+      ]
+        .filter(item => !upDownType || item.upDownType === upDownType)
+        .slice(0, limit);
+
+      return toSuccessResponse({
+        generatedAt: now,
+        dataSource: 'API',
+        isStale: false,
+        lastExternalRecptnAt: now,
+        freshnessSec: 25,
+        confidenceLevel: 'HIGH',
+        trainRealTimes,
+      });
+    },
+  },
+  {
+    method: 'POST',
+    pattern: API_PATHS.subway.delayProofsV2,
+    resolver: async ({ request }) => {
+      const payload = await parseRequestBody(request);
+      const stationId = toNumber(String(payload.stationId ?? ''), 201);
+      const subwayLineId = toNumber(String(payload.subwayLineId ?? ''), 2);
+      const proofId = `dpv2_${Date.now().toString(36)}`;
+      const proof = createDelayProofPayload(proofId, stationId, subwayLineId);
+      const customMessage = String(payload.customMessage ?? '').trim();
+      if (customMessage) {
+        proof.text = customMessage;
+      }
+      state.delayProofs[proofId] = proof;
+      return toSuccessResponse(proof);
+    },
+  },
+  {
+    method: 'GET',
+    pattern: '/v2/delay-proofs/:proofId',
+    resolver: ({ params }) => {
+      const proof = state.delayProofs[params.proofId];
+      if (!proof) {
+        return toErrorResponse('Delay proof not found.', 404);
+      }
+
+      return toSuccessResponse(proof);
+    },
+  },
+  {
+    method: 'GET',
+    pattern: API_PATHS.subway.subwayIncidentsV2,
+    resolver: () =>
+      toSuccessResponse({
+        incidents: [
+          {
+            eventId: 'evt-2-201',
+            occurredAt: toIsoDate(20),
+            resolvedAt: null,
+            severity: 'MEDIUM',
+            title: '2호선 일부 지연',
+            description: '시설 점검으로 일부 구간 운행 간격이 증가했습니다.',
+            source: '서울교통공사',
+            sourceUrl: null,
+          },
+        ],
+      }),
+  },
+  {
+    method: 'GET',
+    pattern: API_PATHS.subway.communityDelaySignalsV2,
+    resolver: () =>
+      toSuccessResponse({
+        signals: [
+          {
+            postId: 1001,
+            createdAt: toIsoDate(9),
+            writer: '아차철러',
+            matchedKeyword: '지연',
+            reportedDelayMin: 8,
+            snippet: '체감 지연이 꽤 큽니다.',
+          },
+        ],
+      }),
+  },
+  {
+    method: 'GET',
+    pattern: API_PATHS.subway.stationTimeSummaryV2,
+    resolver: ({ url }) => {
+      const stationTimeWeekType = (
+        url.searchParams.get('stationTimeWeekType') ?? 'WEEKDAY'
+      ).toUpperCase();
+      return toSuccessResponse({
+        stationTimeWeekType,
+        summaries: [
+          {
+            upDownType: 'UP',
+            firstDepartureTime: '05:30:00',
+            lastDepartureTime: '23:58:00',
+            firstDestinationStationName: '성수',
+            lastDestinationStationName: '성수',
+          },
+          {
+            upDownType: 'DOWN',
+            firstDepartureTime: '05:32:00',
+            lastDepartureTime: '23:55:00',
+            firstDestinationStationName: '신도림',
+            lastDestinationStationName: '신도림',
+          },
+        ],
+      });
+    },
+  },
+  {
+    method: 'GET',
+    pattern: API_PATHS.subway.stationLastTrainRiskV2,
+    resolver: ({ url }) => {
+      const walkingMinutes = toNumber(url.searchParams.get('walkingMinutes'), 15);
+      let riskLevel: 'SAFE' | 'WARN' | 'RISK' = 'SAFE';
+      if (walkingMinutes >= 18) {
+        riskLevel = 'RISK';
+      } else if (walkingMinutes >= 12) {
+        riskLevel = 'WARN';
+      }
+      return toSuccessResponse({
+        stationTimeWeekType: (
+          url.searchParams.get('stationTimeWeekType') ?? 'WEEKDAY'
+        ).toUpperCase(),
+        upDownType: (url.searchParams.get('upDownType') ?? 'UP').toUpperCase(),
+        walkingMinutes,
+        nowAt: new Date().toISOString(),
+        lastDepartureTime: '23:58:00',
+        minutesToLastTrain: Math.max(3, 20 - walkingMinutes),
+        isLastTrainRisk: walkingMinutes >= 18,
+        riskLevel,
+        message: walkingMinutes >= 18 ? '막차 위험 구간입니다.' : '여유가 있습니다.',
+      });
+    },
+  },
+  {
+    method: 'GET',
+    pattern: API_PATHS.subway.stationQuickExitsV2,
+    resolver: ({ url }) => {
+      const stationId = toNumber(url.searchParams.get('stationId'), 201);
+      const subwayLineId = toNumber(url.searchParams.get('subwayLineId'), 2);
+      const upDownType = (url.searchParams.get('upDownType') ?? 'UP').toUpperCase();
+      return toSuccessResponse({
+        stationId,
+        subwayLineId,
+        upDownType,
+        recommendations: [
+          {
+            carNo: '4-2',
+            exitNo: '3',
+            directionHint: '환승 통로 방향',
+            walkingBenefitMinutes: 2,
+            confidenceLevel: 'HIGH',
+          },
+          {
+            carNo: '6-1',
+            exitNo: '2',
+            directionHint: '지상 출구 방향',
+            walkingBenefitMinutes: 1,
+            confidenceLevel: 'MEDIUM',
+          },
+        ],
+      });
+    },
+  },
+  {
+    method: 'GET',
+    pattern: API_PATHS.subway.stationNearbyPlacesV2,
+    resolver: ({ url }) => {
+      const stationId = toNumber(url.searchParams.get('stationId'), 201);
+      const subwayLineId = toNumber(url.searchParams.get('subwayLineId'), 2);
+      const limit = Math.min(Math.max(toNumber(url.searchParams.get('limit'), 3), 1), 10);
+      const places = [
+        {
+          name: '강남김밥',
+          category: '분식',
+          walkingMinutes: 4,
+          openNow: true,
+          supportsEnglishMenu: true,
+          confidenceLevel: 'HIGH',
+        },
+        {
+          name: '역전우동',
+          category: '한식',
+          walkingMinutes: 6,
+          openNow: true,
+          supportsEnglishMenu: false,
+          confidenceLevel: 'MEDIUM',
+        },
+        {
+          name: '커피스테이션',
+          category: '카페',
+          walkingMinutes: 3,
+          openNow: true,
+          supportsEnglishMenu: true,
+          confidenceLevel: 'HIGH',
+        },
+      ];
+      return toSuccessResponse({
+        stationId,
+        subwayLineId,
+        exitNo: url.searchParams.get('exitNo'),
+        places: places.slice(0, limit),
       });
     },
   },

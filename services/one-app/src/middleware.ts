@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import { LEGACY_EXACT_REDIRECTS, LEGACY_PREFIX_REDIRECTS } from '@ahhachul/routes';
 
-import { SITE_URL } from '@/constants';
 import {
   LOCALE_COOKIE_KEY,
   LOCALE_HEADER_KEY,
@@ -32,7 +31,14 @@ function requiresAuth(pathname: string) {
     return true;
   }
 
-  if (/^\/lost-found\/[^/]+\/edit(?:\/|$)/.test(pathname)) {
+  const guardedPatterns = [
+    /^\/lost-found\/[^/]+\/edit(?:\/|$)/,
+    /^\/community\/[^/]+\/edit(?:\/|$)/,
+    /^\/complaint\/[^/]+\/edit(?:\/|$)/,
+    /^\/comments\/[^/]+\/(?:edit|reply)(?:\/|$)/,
+  ];
+
+  if (guardedPatterns.some(pattern => pattern.test(pathname))) {
     return true;
   }
 
@@ -70,7 +76,7 @@ export function middleware(request: NextRequest) {
   if (redirectPath) {
     const localizedRedirectPath = withLocalePath(redirectPath, locale);
     const response = NextResponse.redirect(
-      new URL(`${localizedRedirectPath}${search}`, SITE_URL),
+      new URL(`${localizedRedirectPath}${search}`, request.nextUrl.origin),
       308,
     );
 
@@ -104,7 +110,7 @@ export function middleware(request: NextRequest) {
       const returnTo = `${localizedPathname}${search}`;
       const loginPathname = withLocalePath('/login', locale);
       const response = NextResponse.redirect(
-        `${SITE_URL}${loginPathname}?returnTo=${encodeURIComponent(returnTo)}`,
+        `${request.nextUrl.origin}${loginPathname}?returnTo=${encodeURIComponent(returnTo)}`,
       );
 
       applyLocaleCookie(response, locale, localeCookie);

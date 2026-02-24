@@ -16,13 +16,14 @@ interface CommunitySearchedListProps {
 
 const CommunitySearchedList = ({
   keyword,
-  filters: { communityType, subwayLineId, hashTag },
+  filters: { communityType, subwayLineId, stationId, hashTag },
   isScale,
   className,
 }: CommunitySearchedListProps) => {
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } = useFetchCommunityList({
     hashTag,
     subwayLineId,
+    stationId: Number(stationId),
     content: keyword,
     categoryType: communityType,
   });

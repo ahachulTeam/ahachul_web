@@ -15,6 +15,8 @@ import {
 
 const useComplaintForm = (slug: KeyOf<typeof complaintsContentDetail>) => {
   const { mutate: createComplaintArticle, isPending } = useCreateComplaint();
+  const normalizedSlug = complaintsContentDetail[slug] ? slug : 'ENVIRONMENTAL_COMPLAINT';
+  const complaintDetail = complaintsContentDetail[normalizedSlug];
 
   const methods = useSchemaForm<ComplaintForm>({
     schema: complaintFormSchema,
@@ -24,8 +26,8 @@ const useComplaintForm = (slug: KeyOf<typeof complaintsContentDetail>) => {
       images: [],
       subwayLineId: '1',
       stationId: '0',
-      complaintType: slug,
-      shortContentType: objectKeys(complaintsContentDetail[slug].selectList)[0],
+      complaintType: normalizedSlug,
+      shortContentType: objectKeys(complaintDetail.selectList)[0],
     },
   });
 

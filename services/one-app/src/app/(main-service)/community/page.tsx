@@ -5,7 +5,6 @@ import BreadcrumbNav from '@/app/_components/BreadcrumbNav';
 import SearchForm from '@/components/SearchForm';
 import { getLocaleMessages, localizePathname } from '@/i18n';
 import { getServerLocale } from '@/i18n/server';
-import { SubwayLineFilterOptions } from '@/types';
 import { CommunityType } from '@/types/community';
 
 import CommunityPosts from './_components/CommunityPosts';
@@ -17,7 +16,8 @@ type Props = {
   searchParams: Promise<{
     q?: string;
     category?: CommunityType;
-    subwayLineId?: SubwayLineFilterOptions;
+    subwayLineId?: string;
+    stationId?: string;
   }>;
 };
 

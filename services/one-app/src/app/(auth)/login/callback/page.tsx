@@ -10,7 +10,12 @@ import { getLocalizedMetadataOptions } from '@/seo/metadata';
 import CallbackRedirect from './_components/CallbackRedirect';
 
 type Props = {
-  searchParams: Promise<{ type: string; code: string }>;
+  searchParams: Promise<{
+    type?: string;
+    code?: string;
+    providerType?: string;
+    providerCode?: string;
+  }>;
 };
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -29,8 +34,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AuthCallbackPage({ searchParams }: Props) {
   const query = await searchParams;
-  const code = query.code;
-  const type = query.type;
+  const code = query.code ?? query.providerCode ?? '';
+  const type = query.type ?? query.providerType ?? '';
 
   return <CallbackRedirect code={code} type={type} />;
 }

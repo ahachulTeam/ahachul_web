@@ -172,17 +172,14 @@ export const fetchTrainInfo = async (params: APITrainInfoParams) => {
 };
 
 export const fetchTrainInfoV2 = async (params: APITrainInfoParams) => {
-  return axiosInstance.get<ApiResponse<APITrainInfoV2Response>>(
-    `${BASE_URL.SERVER}${API_PATHS.subway.trainRealTimesV2}`,
-    {
-      params,
-    },
-  );
+  return axiosInstance.get<ApiResponse<APITrainInfoV2Response>>(API_PATHS.subway.trainRealTimesV2, {
+    params,
+  });
 };
 
 export const fetchStationTimeSummaryV2 = async (params: APIStationTimeSummaryParams) => {
   return axiosInstance.get<ApiResponse<APIStationTimeSummaryV2Response>>(
-    `${BASE_URL.SERVER}${API_PATHS.subway.stationTimeSummaryV2}`,
+    API_PATHS.subway.stationTimeSummaryV2,
     {
       params,
     },
