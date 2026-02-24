@@ -27,7 +27,21 @@ export type UpdateMemberResponse = ApiResponse<{
   nickname: string | null;
   gender: string | null;
   ageRange: string | null;
+  profilePublic: boolean;
+  emailPublic: boolean;
+  genderAgePublic: boolean;
+  postsPublic: boolean;
+  commentsPublic: boolean;
 }>;
+
+export type UpdateMemberPayload = {
+  nickname?: string;
+  profilePublic?: boolean;
+  emailPublic?: boolean;
+  genderAgePublic?: boolean;
+  postsPublic?: boolean;
+  commentsPublic?: boolean;
+};
 
 export type FavoriteStationPayload = {
   stationName: string;
@@ -50,10 +64,10 @@ export async function checkNicknameAvailability(nickname: string) {
   });
 }
 
-export async function updateMyProfile(nickname: string) {
+export async function updateMyProfile(payload: UpdateMemberPayload) {
   return fetchClient<UpdateMemberResponse>(API_PATHS.user.profile, {
     method: 'PATCH',
-    body: JSON.stringify({ nickname }),
+    body: JSON.stringify(payload),
   });
 }
 

@@ -27,6 +27,8 @@ export const API_PATHS = {
   },
   user: {
     profile: '/members',
+    profileDetail: (nickname: Identifier) =>
+      `/members/${encodeURIComponent(String(nickname))}/profile`,
     favoriteStations: '/members/bookmarks/stations',
     articleHistories: '/members/article-histories',
     checkNickname: '/members/check-nickname',
