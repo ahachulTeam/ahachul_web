@@ -54,6 +54,7 @@ export interface ComplaintForm {
   title: string;
   content: string;
   subwayLineId: number;
+  stationId: number;
   complaintType: ComplaintType;
   shortContentType: ShortComplaintType;
   images: File[];
