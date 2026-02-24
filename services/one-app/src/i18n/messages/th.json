@@ -275,7 +275,11 @@
   "lostFoundDetail": {
     "edit": "แก้ไข",
     "fromLost112": "รายการนี้ถูกลงทะเบียนใน Lost 112",
-    "recommendTitle": "รายการแนะนำ"
+    "recommendTitle": "รายการแนะนำ",
+    "completeBanner": "โพสต์ของหายนี้ถูกทำเครื่องหมายว่าพบแล้ว",
+    "imageSectionTitle": "รูปภาพ",
+    "imageAlt": "รูปของหาย {index}",
+    "emptyList": "ไม่พบโพสต์ของหายตามเงื่อนไขที่เลือก"
   },
   "communityDetail": {
     "commentCount": "ความคิดเห็น {count} รายการ",
@@ -299,7 +303,10 @@
     "emptyContentError": "กรุณากรอกความคิดเห็น",
     "createError": "ไม่สามารถส่งความคิดเห็นได้",
     "updateError": "ไม่สามารถแก้ไขความคิดเห็นได้",
-    "deleteError": "ไม่สามารถลบความคิดเห็นได้"
+    "deleteError": "ไม่สามารถลบความคิดเห็นได้",
+    "loginRequired": "ต้องเข้าสู่ระบบก่อนจึงจะเขียนความคิดเห็นได้",
+    "loginAction": "เข้าสู่ระบบ",
+    "loginPlaceholder": "เข้าสู่ระบบเพื่อเขียนความคิดเห็น"
   },
   "lostFoundEditor": {
     "headingCreate": "สร้างโพสต์ของหาย",

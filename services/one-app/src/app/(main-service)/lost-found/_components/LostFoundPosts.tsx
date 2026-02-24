@@ -1,20 +1,24 @@
 'use client';
 
-import { Fragment, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { InfiniteData, useInfiniteQuery } from '@tanstack/react-query';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 import { QUERY_GC_TIME, QUERY_STALE_TIME, lostFoundQueryKeys } from '@ahhachul/domain';
 
 import { ArticleListSuspenseFallback, Post } from '@/components';
+import { getLocaleMessages, localizePathname, resolvePathLocale } from '@/i18n';
 import type { ApiResponse, LostFoundPost, PaginatedList } from '@/types';
 
 import { getLostFoundPosts } from '../_lib/getLostFoundPosts';
 
 export default function LostFoundPosts() {
+  const pathname = usePathname() ?? '/lost-found';
+  const locale = resolvePathLocale(pathname, null);
+  const copy = getLocaleMessages(locale).lostFoundDetail;
   const searchParams = useSearchParams();
 
   const { data, hasNextPage, fetchNextPage, isFetching, isPending } = useInfiniteQuery<
@@ -44,17 +48,18 @@ export default function LostFoundPosts() {
   }, [inView, isFetching, hasNextPage, fetchNextPage]);
 
   if (isPending) return <ArticleListSuspenseFallback />;
+  const posts = data?.pages.flatMap(page => page.result.data) ?? [];
+
+  if (posts.length === 0) {
+    return <p className="px-5 py-8 text-body-medium text-gray-70">{copy.emptyList}</p>;
+  }
 
   return (
     <>
-      {data?.pages.map((page, i) => (
-        <Fragment key={i}>
-          {page.result.data.map(post => (
-            <Link key={post.id} href={`/lost-found/${post.id}`}>
-              <Post post={post} />
-            </Link>
-          ))}
-        </Fragment>
+      {posts.map(post => (
+        <Link key={post.id} href={localizePathname(`/lost-found/${post.id}`, locale)}>
+          <Post post={post} />
+        </Link>
       ))}
       <div ref={ref} style={{ height: 50 }} />
     </>

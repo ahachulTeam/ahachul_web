@@ -275,7 +275,11 @@
   "lostFoundDetail": {
     "edit": "수정",
     "fromLost112": "로스트 112에 등록된 분실물입니다.",
-    "recommendTitle": "추천 습득물"
+    "recommendTitle": "추천 습득물",
+    "completeBanner": "이 게시글의 유실물은 찾기 완료되었습니다.",
+    "imageSectionTitle": "등록 이미지",
+    "imageAlt": "유실물 이미지 {index}",
+    "emptyList": "조건에 맞는 유실물 게시글이 없습니다."
   },
   "communityDetail": {
     "commentCount": "댓글 {count}개",
@@ -299,7 +303,10 @@
     "emptyContentError": "댓글 내용을 입력해주세요.",
     "createError": "댓글 등록에 실패했습니다.",
     "updateError": "댓글 수정에 실패했습니다.",
-    "deleteError": "댓글 삭제에 실패했습니다."
+    "deleteError": "댓글 삭제에 실패했습니다.",
+    "loginRequired": "댓글 작성은 로그인 후 이용할 수 있습니다.",
+    "loginAction": "로그인",
+    "loginPlaceholder": "댓글을 작성하려면 로그인해주세요."
   },
   "lostFoundEditor": {
     "headingCreate": "유실물 게시글 작성",

@@ -275,7 +275,11 @@
   "lostFoundDetail": {
     "edit": "Edit",
     "fromLost112": "This item was posted on Lost 112.",
-    "recommendTitle": "Recommended found items"
+    "recommendTitle": "Recommended found items",
+    "completeBanner": "This lost-item post has been marked as recovered.",
+    "imageSectionTitle": "Images",
+    "imageAlt": "Lost item image {index}",
+    "emptyList": "No lost-item posts match your filters."
   },
   "communityDetail": {
     "commentCount": "{count} comments",
@@ -299,7 +303,10 @@
     "emptyContentError": "Please enter a comment.",
     "createError": "Failed to create comment.",
     "updateError": "Failed to update comment.",
-    "deleteError": "Failed to delete comment."
+    "deleteError": "Failed to delete comment.",
+    "loginRequired": "You need to log in to write a comment.",
+    "loginAction": "Log in",
+    "loginPlaceholder": "Log in to write a comment."
   },
   "lostFoundEditor": {
     "headingCreate": "Create lost & found post",

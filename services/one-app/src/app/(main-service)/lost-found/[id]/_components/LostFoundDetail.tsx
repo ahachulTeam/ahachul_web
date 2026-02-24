@@ -49,6 +49,7 @@ export default function LostFoundPostDetail({ id }: Props) {
   const commentCopy = messages.communityDetail;
   const commonCopy = messages.common;
   const queryClient = useQueryClient();
+  const isLoggedIn = AuthService.isLoggedIn;
 
   const [composerMode, setComposerMode] = useState<ComposerMode>('create');
   const [targetComment, setTargetComment] = useState<Comment | null>(null);
@@ -85,6 +86,24 @@ export default function LostFoundPostDetail({ id }: Props) {
     currentMemberId !== null && articleAuthorId !== null && articleAuthorId === currentMemberId;
 
   if (!post) return null;
+
+  const imageEntries = useMemo(() => {
+    if (post.isFromLost112 && post.externalSourceImageUrl) {
+      return [{ id: `lost112-${post.id}`, url: post.externalSourceImageUrl }];
+    }
+
+    if (post.images?.length) {
+      return post.images
+        .filter(image => !!image.imageUrl)
+        .map(image => ({ id: `${image.imageId}-${post.id}`, url: image.imageUrl }));
+    }
+
+    if (post.imageUrl) {
+      return [{ id: `thumbnail-${post.id}`, url: post.imageUrl }];
+    }
+
+    return [];
+  }, [post.externalSourceImageUrl, post.id, post.imageUrl, post.images, post.isFromLost112]);
 
   const invalidateCommentQueries = async () => {
     await Promise.all([
@@ -178,6 +197,11 @@ export default function LostFoundPostDetail({ id }: Props) {
   };
 
   const handleSubmitComment = () => {
+    if (!isLoggedIn) {
+      setSubmitError(commentCopy.loginRequired);
+      return;
+    }
+
     const normalizedContent = draftContent.trim();
 
     if (!normalizedContent) {
@@ -275,6 +299,11 @@ export default function LostFoundPostDetail({ id }: Props) {
   return (
     <>
       <article>
+        {post.status === 'COMPLETE' ? (
+          <div className="sticky top-0 z-20 flex items-center bg-green-10 px-5 py-3 text-label-medium text-green-90">
+            {detailCopy.completeBanner}
+          </div>
+        ) : null}
         <div className=" pt-5 px-5">
           <LostTypeBadge lostFoundType={post.lostType} />
           <div className=" text-title-large text-gray-90 line-clamp-2 pt-[13px] pb-4">
@@ -312,6 +341,25 @@ export default function LostFoundPostDetail({ id }: Props) {
             <Lost112ArticleTable post={post} />
           </>
         )}
+        {imageEntries.length > 0 ? (
+          <section className="px-5 pt-4">
+            <p className="text-label-medium text-gray-90">{detailCopy.imageSectionTitle}</p>
+            <ul className="mt-3 flex gap-2 overflow-x-auto pb-2">
+              {imageEntries.map((image, index) => (
+                <li
+                  key={image.id}
+                  className="relative h-40 w-40 shrink-0 overflow-hidden rounded-xl border border-gray-30 bg-gray-10"
+                >
+                  <img
+                    src={image.url}
+                    alt={detailCopy.imageAlt.replace('{index}', String(index + 1))}
+                    className="h-full w-full object-cover"
+                  />
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
         <div className=" px-5">
           {isLexicalContent(post.content) ? (
             <ReadonlyEditor
@@ -329,9 +377,20 @@ export default function LostFoundPostDetail({ id }: Props) {
         <div className="px-5 py-4 text-label-large text-gray-100">{commentTitle}</div>
         {commentContent}
       </section>
+      {!isLoggedIn ? (
+        <div className="flex items-center justify-between border-t border-t-gray-20 px-5 py-3">
+          <p className="text-body-medium text-gray-80">{commentCopy.loginRequired}</p>
+          <Link
+            href={localizePathname('/login', locale)}
+            className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+          >
+            {commentCopy.loginAction}
+          </Link>
+        </div>
+      ) : null}
 
       <CommentTextField
-        placeholder={commentFieldPlaceholder}
+        placeholder={isLoggedIn ? commentFieldPlaceholder : commentCopy.loginPlaceholder}
         value={draftContent}
         onChange={setDraftContent}
         onSubmit={handleSubmitComment}
@@ -343,7 +402,8 @@ export default function LostFoundPostDetail({ id }: Props) {
         isSubmitting={isMutating}
         isPrivate={isPrivate}
         onPrivateChange={setIsPrivate}
-        showPrivateToggle={composerMode === 'create'}
+        showPrivateToggle={composerMode === 'create' && isLoggedIn}
+        disabled={!isLoggedIn}
         errorMessage={submitError}
       />
     </>

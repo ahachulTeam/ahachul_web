@@ -275,7 +275,11 @@
   "lostFoundDetail": {
     "edit": "编辑",
     "fromLost112": "该失物来自 Lost 112。",
-    "recommendTitle": "推荐拾得物"
+    "recommendTitle": "推荐拾得物",
+    "completeBanner": "该失物帖子已标记为找回完成。",
+    "imageSectionTitle": "图片",
+    "imageAlt": "失物图片 {index}",
+    "emptyList": "没有符合筛选条件的失物帖子。"
   },
   "communityDetail": {
     "commentCount": "评论 {count} 条",
@@ -299,7 +303,10 @@
     "emptyContentError": "请输入评论内容。",
     "createError": "评论发布失败。",
     "updateError": "评论修改失败。",
-    "deleteError": "评论删除失败。"
+    "deleteError": "评论删除失败。",
+    "loginRequired": "登录后才能发表评论。",
+    "loginAction": "登录",
+    "loginPlaceholder": "请先登录后再发表评论。"
   },
   "lostFoundEditor": {
     "headingCreate": "发布失物招领帖子",
