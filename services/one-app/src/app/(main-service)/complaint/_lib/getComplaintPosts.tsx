@@ -3,7 +3,7 @@ import { API_PAGE_SIZE, API_PATHS, API_SORT } from '@ahhachul/http';
 import { removeFalsyValues } from '@ahhachul/utils';
 
 import { fetchClient } from '@/lib/fetch-client';
-import { type ApiResponse, type PaginatedList, SubwayLineFilterOptions } from '@/types';
+import { type ApiResponse, type PaginatedList } from '@/types';
 import { type ComplaintListParams, type ComplaintPost } from '@/types/complaint';
 import { extractTextFromLexical } from '@/utils';
 
@@ -12,18 +12,48 @@ type Props = {
   queryKey: ReturnType<typeof complaintQueryKeys.list>;
 };
 
+const DEFAULT_FILTER_VALUE = '0';
+
+export function resolveSubwayLineIds(subwayLineId: string | null): string | undefined {
+  if (!subwayLineId || subwayLineId === DEFAULT_FILTER_VALUE) {
+    return undefined;
+  }
+
+  const parsed = Number(subwayLineId);
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    return undefined;
+  }
+
+  return String(parsed);
+}
+
+export function resolveStationId(stationId: string | null): number | undefined {
+  if (!stationId || stationId === DEFAULT_FILTER_VALUE) {
+    return undefined;
+  }
+
+  const parsed = Number(stationId);
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    return undefined;
+  }
+
+  return parsed;
+}
+
 export async function getComplaintPosts({
   pageParam,
   queryKey,
 }: Props): Promise<ApiResponse<PaginatedList<ComplaintPost>>> {
   const [, , querySignature] = queryKey;
   const filters = new URLSearchParams(querySignature);
-  const subwayLineId = filters.get('subwayLineId');
+  const keyword = filters.get('keyword')?.trim();
+  const subwayLineIds = resolveSubwayLineIds(filters.get('subwayLineId'));
+  const stationId = resolveStationId(filters.get('stationId'));
 
   const params = removeFalsyValues({
-    ...(filters.get('keyword') && { keyword: filters.get('keyword') || '' }),
-    ...(subwayLineId &&
-      subwayLineId !== SubwayLineFilterOptions.ALL_LINES && { subwayLineId: Number(subwayLineId) }),
+    ...(keyword && { keyword }),
+    ...(subwayLineIds && { subwayLineIds }),
+    ...(stationId && { stationId }),
     pageSize: API_PAGE_SIZE.list,
     sort: API_SORT.createdAtDesc,
     ...(pageParam && { pageToken: pageParam }),

@@ -3,6 +3,7 @@ import { type ComplaintType } from '@/types/complaint';
 
 export const defaultComplaintFilterValues = {
   subwayLineId: SubwayLineFilterOptions.ALL_LINES,
+  stationId: '0',
 } as const;
 
 export const complaintTypeOptions: Record<ComplaintType, string> = {

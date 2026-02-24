@@ -15,12 +15,13 @@ interface ComplaintSearchedListProps {
 
 const ComplaintSearchedList = ({
   keyword,
-  filters: { subwayLineId },
+  filters: { subwayLineId, stationId },
   isScale,
 }: ComplaintSearchedListProps) => {
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } = useFetchComplaintList({
     keyword,
     subwayLineId,
+    stationId: Number(stationId),
   });
 
   const complaintArticles = extractInfinitePageData(data);

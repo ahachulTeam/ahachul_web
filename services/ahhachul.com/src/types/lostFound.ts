@@ -31,17 +31,22 @@ export interface LostFoundPostDetail extends LostFoundPost {
   lostType: LostFoundType;
 }
 
+export type LostFoundSubwayLineFilterValue = SubwayLineFilterOptions | `${number}`;
+export type LostFoundStationFilterValue = `${number}`;
+
 export interface LostFoundListParams<TSubwayLine = number> extends Partial<CursorPagination> {
   lostType: LostFoundType;
   subwayLineId: TSubwayLine;
+  stationId?: number;
   keyword?: string;
 }
 
-export type LostFoundFilterKeys = 'lostType' | 'subwayLineId';
+export type LostFoundFilterKeys = 'lostType' | 'subwayLineId' | 'stationId';
 
 export type LostFoundFilterValues = {
   lostType: LostFoundType;
-  subwayLineId: SubwayLineFilterOptions;
+  subwayLineId: LostFoundSubwayLineFilterValue;
+  stationId: LostFoundStationFilterValue;
 };
 
 export type LostFoundFilters = {

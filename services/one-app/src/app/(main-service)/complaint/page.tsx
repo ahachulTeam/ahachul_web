@@ -5,7 +5,10 @@ import BreadcrumbNav from '@/app/_components/BreadcrumbNav';
 import SearchForm from '@/components/SearchForm';
 import { getLocaleMessages, localizePathname } from '@/i18n';
 import { getServerLocale } from '@/i18n/server';
-import type { SubwayLineFilterOptions } from '@/types';
+import type {
+  ComplaintStationFilterValue,
+  ComplaintSubwayLineFilterValue,
+} from '@/types/complaint';
 
 import ComplaintPosts from './_components/ComplaintPosts';
 import Filters from './_components/FilterList';
@@ -15,7 +18,8 @@ import { prefetchPosts } from './_lib/prefetchPosts';
 type Props = {
   searchParams: Promise<{
     keyword?: string;
-    subwayLineId?: SubwayLineFilterOptions;
+    subwayLineId?: ComplaintSubwayLineFilterValue;
+    stationId?: ComplaintStationFilterValue;
   }>;
 };
 

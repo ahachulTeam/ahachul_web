@@ -104,10 +104,12 @@ export const complaintsContentDetail = {
 
 export const compalintFilterKeys = {
   subwayLineId: 'subwayLineId',
+  stationId: 'stationId',
 } as const;
 
 export const defaultComplaintFilterValues = {
   subwayLineId: SubwayLineFilterOptions.ALL_LINES,
+  stationId: '0',
 } as const;
 
 export const complaintTypeOptions: Record<ComplaintType, string> = {

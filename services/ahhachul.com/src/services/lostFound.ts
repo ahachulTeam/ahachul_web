@@ -11,7 +11,7 @@ import {
   buildQuerySignature,
   lostFoundQueryKeys,
 } from '@ahhachul/domain';
-import { formatSubwayFilterOption, getFirstParentLineId, removeFalsyValues } from '@ahhachul/utils';
+import { getFirstParentLineId, removeFalsyValues } from '@ahhachul/utils';
 
 import * as api from '@/apis/request';
 import { TOAST_MSG } from '@/constants/toast';
@@ -20,10 +20,12 @@ import { useFlow } from '@/stackflow';
 import { useUserStationStore } from '@/stores/subway';
 import {
   LostFoundType,
+  SubwayLineFilterOptions,
   type LostFoundForm,
   type LostFoundEditForm,
   type LostFoundListParams,
-  type SubwayLineFilterOptions,
+  type LostFoundStationFilterValue,
+  type LostFoundSubwayLineFilterValue,
 } from '@/types';
 
 const STACK_PUSH_DELAY_MS = 500;
@@ -34,22 +36,65 @@ const logMutationError = (context: string, error: Error) => {
 
 export const lostFoundKeys = lostFoundQueryKeys;
 
-export const useFetchLostFoundList = (filters: LostFoundListParams<SubwayLineFilterOptions>) => {
+const DEFAULT_STATION_FILTER = '0';
+
+function resolveSubwayLineIds(
+  lineFilter: LostFoundSubwayLineFilterValue,
+  favoriteLines: string,
+): string | undefined {
+  if (lineFilter === SubwayLineFilterOptions.ALL_LINES) {
+    return undefined;
+  }
+
+  if (lineFilter === SubwayLineFilterOptions.ONLY_MY_LINE) {
+    return favoriteLines || undefined;
+  }
+
+  const parsed = Number(lineFilter);
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    return undefined;
+  }
+
+  return String(parsed);
+}
+
+function resolveStationId(
+  stationFilter: LostFoundStationFilterValue | undefined,
+): number | undefined {
+  if (!stationFilter || stationFilter === DEFAULT_STATION_FILTER) {
+    return undefined;
+  }
+
+  const parsed = Number(stationFilter);
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    return undefined;
+  }
+
+  return parsed;
+}
+
+export const useFetchLostFoundList = (
+  filters: LostFoundListParams<LostFoundSubwayLineFilterValue>,
+) => {
   const state = useUserStationStore(state => state);
   const userStations = getFirstParentLineId(state.userStations);
+  const subwayLineIds = resolveSubwayLineIds(filters.subwayLineId, userStations);
+  const stationId = resolveStationId(filters.stationId?.toString() as LostFoundStationFilterValue);
 
   const req = removeFalsyValues(
     {
       lostType: filters.lostType,
       keyword: filters.keyword,
-      subwayLineIds: formatSubwayFilterOption(filters.subwayLineId, userStations),
+      subwayLineIds,
+      stationId,
     },
     { removeZero: true, removeEmptyStrings: true },
   ) as LostFoundListParams;
   const querySignature = buildQuerySignature({
     lostType: req.lostType,
     keyword: req.keyword,
-    subwayLineId: req.subwayLineId,
+    subwayLineId: filters.subwayLineId,
+    stationId: filters.stationId,
   });
 
   return useSuspenseInfiniteQuery({

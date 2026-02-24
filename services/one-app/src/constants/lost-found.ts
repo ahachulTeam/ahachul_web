@@ -3,6 +3,7 @@ import { LostFoundType, SubwayLineFilterOptions } from '@/types';
 export const defaultLostFoundFilterValues = {
   category: LostFoundType.LOST,
   subwayLineId: SubwayLineFilterOptions.ALL_LINES,
+  stationId: '0',
 } as const;
 
 export const lostTypeOptions = {

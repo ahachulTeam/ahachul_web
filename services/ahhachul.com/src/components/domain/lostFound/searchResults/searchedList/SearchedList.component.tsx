@@ -15,13 +15,14 @@ interface LostFoundSearchedListProps {
 
 const LostFoundSearchedList = ({
   keyword,
-  filters: { lostType, subwayLineId },
+  filters: { lostType, subwayLineId, stationId },
   isScale,
 }: LostFoundSearchedListProps) => {
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } = useFetchLostFoundList({
     keyword,
     lostType,
     subwayLineId,
+    stationId: Number(stationId),
   });
 
   const lostArticles = extractInfinitePageData(data);

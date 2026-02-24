@@ -4,7 +4,12 @@ import { API_PAGE_SIZE, API_PATHS } from '@ahhachul/http';
 import { fetchClient } from '@/lib/fetch-client';
 import { LostFoundType } from '@/types';
 
-import { getLostFoundPosts, resolveLostType, resolveSubwayLineIds } from './getLostFoundPosts';
+import {
+  getLostFoundPosts,
+  resolveLostType,
+  resolveStationId,
+  resolveSubwayLineIds,
+} from './getLostFoundPosts';
 
 jest.mock('@/lib/fetch-client', () => ({
   fetchClient: jest.fn(),
@@ -64,6 +69,25 @@ describe('getLostFoundPosts', () => {
       },
     });
   });
+
+  it('역이 선택된 경우 stationId를 전달한다', async () => {
+    await getLostFoundPosts({
+      queryKey: lostFoundQueryKeys.list('category=LOST&subwayLineId=2&stationId=151'),
+      pageParam: '',
+    });
+
+    expect(mockedFetchClient).toHaveBeenCalledWith(API_PATHS.lostFound.list, {
+      params: {
+        pageSize: API_PAGE_SIZE.list,
+        lostType: LostFoundType.LOST,
+        subwayLineIds: '2',
+        stationId: 151,
+      },
+      next: {
+        tags: ['lost-found', 'posts'],
+      },
+    });
+  });
 });
 
 describe('getLostFoundPosts param resolvers', () => {
@@ -77,6 +101,16 @@ describe('getLostFoundPosts param resolvers', () => {
   it('subwayLineId=0 또는 null이면 필터를 제외한다', () => {
     expect(resolveSubwayLineIds('0')).toBeUndefined();
     expect(resolveSubwayLineIds(null)).toBeUndefined();
+    expect(resolveSubwayLineIds('-1')).toBeUndefined();
+    expect(resolveSubwayLineIds('abc')).toBeUndefined();
     expect(resolveSubwayLineIds('2')).toBe('2');
+  });
+
+  it('stationId=0 또는 비정상 값이면 필터를 제외한다', () => {
+    expect(resolveStationId('0')).toBeUndefined();
+    expect(resolveStationId('-1')).toBeUndefined();
+    expect(resolveStationId('abc')).toBeUndefined();
+    expect(resolveStationId(null)).toBeUndefined();
+    expect(resolveStationId('151')).toBe(151);
   });
 });

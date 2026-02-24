@@ -11,7 +11,7 @@ import {
   buildQuerySignature,
   complaintQueryKeys,
 } from '@ahhachul/domain';
-import { formatSubwayFilterOption, getFirstParentLineId, removeFalsyValues } from '@ahhachul/utils';
+import { getFirstParentLineId, removeFalsyValues } from '@ahhachul/utils';
 
 import * as api from '@/apis/request';
 import { TOAST_MSG } from '@/constants/toast';
@@ -19,7 +19,12 @@ import { useToast } from '@/hooks/useToast';
 import { useFlow } from '@/stackflow';
 import { useUserStationStore } from '@/stores/subway';
 import { SubwayLineFilterOptions } from '@/types';
-import type { ComplaintForm, ComplaintListParams } from '@/types/complaint';
+import type {
+  ComplaintForm,
+  ComplaintListParams,
+  ComplaintStationFilterValue,
+  ComplaintSubwayLineFilterValue,
+} from '@/types/complaint';
 import { extractTextFromLexical } from '@/utils/lexical';
 
 const STACK_PUSH_DELAY_MS = 500;
@@ -30,20 +35,63 @@ const logMutationError = (context: string, error: Error) => {
 
 export const complaintKeys = complaintQueryKeys;
 
-export const useFetchComplaintList = (filters: ComplaintListParams<SubwayLineFilterOptions>) => {
+const DEFAULT_STATION_FILTER = '0';
+
+function resolveSubwayLineIds(
+  lineFilter: ComplaintSubwayLineFilterValue,
+  favoriteLines: string,
+): string | undefined {
+  if (lineFilter === SubwayLineFilterOptions.ALL_LINES) {
+    return undefined;
+  }
+
+  if (lineFilter === SubwayLineFilterOptions.ONLY_MY_LINE) {
+    return favoriteLines || undefined;
+  }
+
+  const parsed = Number(lineFilter);
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    return undefined;
+  }
+
+  return String(parsed);
+}
+
+function resolveStationId(
+  stationFilter: ComplaintStationFilterValue | undefined,
+): number | undefined {
+  if (!stationFilter || stationFilter === DEFAULT_STATION_FILTER) {
+    return undefined;
+  }
+
+  const parsed = Number(stationFilter);
+  if (!Number.isInteger(parsed) || parsed <= 0) {
+    return undefined;
+  }
+
+  return parsed;
+}
+
+export const useFetchComplaintList = (
+  filters: ComplaintListParams<ComplaintSubwayLineFilterValue>,
+) => {
   const state = useUserStationStore(state => state);
   const userStations = getFirstParentLineId(state.userStations);
+  const subwayLineIds = resolveSubwayLineIds(filters.subwayLineId, userStations);
+  const stationId = resolveStationId(filters.stationId?.toString() as ComplaintStationFilterValue);
 
   const req = removeFalsyValues(
     {
       keyword: filters.keyword,
-      subwayLineIds: formatSubwayFilterOption(filters.subwayLineId, userStations),
+      subwayLineIds,
+      stationId,
     },
     { removeZero: true, removeEmptyStrings: true },
   ) as ComplaintListParams;
   const querySignature = buildQuerySignature({
     keyword: req.keyword,
-    subwayLineId: req.subwayLineId,
+    subwayLineId: filters.subwayLineId,
+    stationId: filters.stationId,
   });
 
   return useSuspenseInfiniteQuery({

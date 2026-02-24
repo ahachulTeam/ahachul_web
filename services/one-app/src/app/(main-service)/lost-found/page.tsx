@@ -6,7 +6,11 @@ import BreadcrumbNav from '@/app/_components/BreadcrumbNav';
 import SearchForm from '@/components/SearchForm';
 import { getLocaleMessages, localizePathname } from '@/i18n';
 import { getServerLocale } from '@/i18n/server';
-import type { LostFoundType, SubwayLineFilterOptions } from '@/types';
+import type { LostFoundType } from '@/types';
+import type {
+  LostFoundStationFilterValue,
+  LostFoundSubwayLineFilterValue,
+} from '@/types/lost-found';
 
 import Filters from './_components/FilterList';
 import LostFoundPosts from './_components/LostFoundPosts';
@@ -17,7 +21,8 @@ type Props = {
   searchParams: Promise<{
     q?: string;
     category?: LostFoundType;
-    subwayLineId?: SubwayLineFilterOptions;
+    subwayLineId?: LostFoundSubwayLineFilterValue;
+    stationId?: LostFoundStationFilterValue;
   }>;
 };
 

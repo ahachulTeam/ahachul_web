@@ -41,8 +41,12 @@ export interface ComplaintPostDetail extends ComplaintPost {
   images: PostImage[];
 }
 
+export type ComplaintSubwayLineFilterValue = SubwayLineFilterOptions | `${number}`;
+export type ComplaintStationFilterValue = `${number}`;
+
 export interface ComplaintListParams<TSubwayLine = number> extends Partial<CursorPagination> {
   subwayLineId: TSubwayLine;
+  stationId?: number;
   keyword?: string;
 }
 
@@ -55,10 +59,11 @@ export interface ComplaintForm {
   images: File[];
 }
 
-export type ComplaintFilterKeys = 'subwayLineId';
+export type ComplaintFilterKeys = 'subwayLineId' | 'stationId';
 
 export type ComplaintFilterValues = {
-  subwayLineId: SubwayLineFilterOptions;
+  subwayLineId: ComplaintSubwayLineFilterValue;
+  stationId: ComplaintStationFilterValue;
 };
 
 export type ComplaintFilters = {
