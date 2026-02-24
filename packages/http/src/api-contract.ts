@@ -47,6 +47,8 @@ export const API_PATHS = {
     like: (id: Identifier) => `/${API_SERVICE_PATHS.complaint}/${id}/like`,
     bookmark: (id: Identifier) => `/${API_SERVICE_PATHS.complaint}/${id}/bookmark`,
     comments: (id: Identifier) => `/${API_SERVICE_PATHS.complaint}/${id}/comments`,
+    comment: (postId: Identifier, commentId: Identifier) =>
+      `/${API_SERVICE_PATHS.complaint}/${postId}/comments/${commentId}`,
   },
   lostFound: {
     list: `/${API_SERVICE_PATHS.lostFound}`,
