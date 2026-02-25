@@ -14,6 +14,7 @@ import { SUBWAY_LINES } from '@/constants';
 import { communityTypeOptions } from '@/constants/community';
 import { localizePathname, resolvePathLocale } from '@/i18n';
 import { fetchClient } from '@/lib/fetch-client';
+import { resolvePostSubmitErrorMessage } from '@/lib/post-submit-error';
 import type { ApiResponse } from '@/types';
 import { CommunityType, type CommunityDetail } from '@/types/community';
 
@@ -151,7 +152,11 @@ export default function CommunityPostEditor(props: Props) {
       router.refresh();
     },
     onError: error => {
-      setSubmitError(error instanceof Error ? error.message : '게시글 저장에 실패했습니다.');
+      setSubmitError(
+        resolvePostSubmitErrorMessage(error, {
+          fallbackMessage: '게시글 저장에 실패했습니다.',
+        }),
+      );
     },
   });
 

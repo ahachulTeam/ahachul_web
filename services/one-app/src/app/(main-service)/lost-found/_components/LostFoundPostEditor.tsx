@@ -26,6 +26,7 @@ import { SUBWAY_LINES } from '@/constants';
 import { lostTypeOptions } from '@/constants/lost-found';
 import { getLocaleMessages, localizePathname, resolvePathLocale } from '@/i18n';
 import { fetchClient } from '@/lib/fetch-client';
+import { resolvePostSubmitErrorMessage } from '@/lib/post-submit-error';
 import {
   LostFoundType,
   type ApiResponse,
@@ -319,12 +320,12 @@ export default function LostFoundPostEditor(props: Props) {
       router.refresh();
     },
     onError: error => {
-      if (error instanceof Error) {
-        setSubmitError(error.message);
-        return;
-      }
-
-      setSubmitError(copy.submitError);
+      setSubmitError(
+        resolvePostSubmitErrorMessage(error, {
+          fallbackMessage: copy.submitError,
+          fileUploadMessage: copy.submitFileUploadError,
+        }),
+      );
     },
   });
 

@@ -339,6 +339,7 @@
     "submitPending": "处理中...",
     "cancel": "取消",
     "submitError": "帖子保存失败，请稍后重试。",
+    "submitFileUploadError": "图片上传失败，请稍后重试。",
     "loadErrorTitle": "无法加载失物招领帖子。",
     "loadErrorDescription": "帖子不存在或发生临时错误。",
     "goToDetail": "前往详情",

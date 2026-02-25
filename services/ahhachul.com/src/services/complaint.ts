@@ -26,6 +26,7 @@ import type {
   ComplaintSubwayLineFilterValue,
 } from '@/types/complaint';
 import { extractTextFromLexical } from '@/utils/lexical';
+import { resolvePostSubmitWarningMessage } from '@/utils/postSubmitError';
 
 const STACK_PUSH_DELAY_MS = 500;
 
@@ -137,8 +138,8 @@ export const useCreateComplaint = () => {
         });
       }, STACK_PUSH_DELAY_MS);
     },
-    onError: () => {
-      addToast(TOAST_MSG.WARNING.CREATE_FAIL, 'warning');
+    onError: error => {
+      addToast(resolvePostSubmitWarningMessage(error, TOAST_MSG.WARNING.CREATE_FAIL), 'warning');
     },
   });
 };

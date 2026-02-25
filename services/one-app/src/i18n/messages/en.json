@@ -339,6 +339,7 @@
     "submitPending": "Processing...",
     "cancel": "Cancel",
     "submitError": "Failed to save the post. Please try again later.",
+    "submitFileUploadError": "Image upload failed. Please try again later.",
     "loadErrorTitle": "Failed to load the lost & found post.",
     "loadErrorDescription": "The post may not exist or a temporary error occurred.",
     "goToDetail": "Go to detail",

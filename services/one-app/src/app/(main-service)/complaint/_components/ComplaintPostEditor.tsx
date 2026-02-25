@@ -14,6 +14,7 @@ import { SUBWAY_LINES } from '@/constants';
 import { complaintShortTypeOptions, complaintTypeOptions } from '@/constants/complaint';
 import { localizePathname, resolvePathLocale } from '@/i18n';
 import { fetchClient } from '@/lib/fetch-client';
+import { resolvePostSubmitErrorMessage } from '@/lib/post-submit-error';
 import type { ApiResponse } from '@/types';
 import type { ComplaintForm, ComplaintType, ShortComplaintType } from '@/types/complaint';
 
@@ -136,7 +137,11 @@ export default function ComplaintPostEditor() {
       router.refresh();
     },
     onError: error => {
-      setSubmitError(error instanceof Error ? error.message : '민원 등록에 실패했습니다.');
+      setSubmitError(
+        resolvePostSubmitErrorMessage(error, {
+          fallbackMessage: '민원 등록에 실패했습니다.',
+        }),
+      );
     },
   });
 

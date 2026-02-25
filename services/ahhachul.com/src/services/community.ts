@@ -26,6 +26,7 @@ import {
   type CommunityEditForm,
   type CommunityListParams,
 } from '@/types';
+import { resolvePostSubmitWarningMessage } from '@/utils/postSubmitError';
 
 const STACK_PUSH_DELAY_MS = 500;
 
@@ -133,8 +134,7 @@ export const useCreateCommunity = () => {
       }, STACK_PUSH_DELAY_MS);
     },
     onError: error => {
-      console.log('error:', error);
-      addToast(TOAST_MSG.WARNING.CREATE_FAIL, 'warning');
+      addToast(resolvePostSubmitWarningMessage(error, TOAST_MSG.WARNING.CREATE_FAIL), 'warning');
     },
   });
 };

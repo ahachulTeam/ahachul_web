@@ -339,6 +339,7 @@
     "submitPending": "처리 중...",
     "cancel": "취소",
     "submitError": "게시글 저장에 실패했습니다. 잠시 후 다시 시도해주세요.",
+    "submitFileUploadError": "이미지 업로드에 실패했습니다. 잠시 후 다시 시도해주세요.",
     "loadErrorTitle": "유실물 게시글을 불러오지 못했습니다.",
     "loadErrorDescription": "게시글 정보가 없거나 일시적인 오류가 발생했습니다.",
     "goToDetail": "상세로 이동",
