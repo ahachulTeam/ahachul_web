@@ -4,7 +4,7 @@ import ForeignerHotspotDetailClient from './_components/ForeignerHotspotDetailCl
 
 type Props = {
   params: Promise<{ stationId: string }>;
-  searchParams: Promise<{ subwayLineId?: string }>;
+  searchParams: Promise<{ subwayLineId?: string; purpose?: string }>;
 };
 
 export default async function ForeignerHotspotDetailPage({ params, searchParams }: Props) {
@@ -17,6 +17,11 @@ export default async function ForeignerHotspotDetailPage({ params, searchParams 
       locale={locale}
       stationId={Number(resolvedParams.stationId)}
       subwayLineId={Number(resolvedSearch.subwayLineId ?? 0)}
+      purpose={
+        resolvedSearch.purpose === 'LANGUAGE_EXCHANGE' || resolvedSearch.purpose === 'FRIENDSHIP'
+          ? resolvedSearch.purpose
+          : undefined
+      }
     />
   );
 }

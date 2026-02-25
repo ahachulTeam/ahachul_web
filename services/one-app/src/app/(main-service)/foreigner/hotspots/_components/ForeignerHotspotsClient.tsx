@@ -32,6 +32,14 @@ export default function ForeignerHotspotsClient({ locale }: Props) {
       <p className="mt-2 text-body-small text-gray-80">
         외국인 방문이 많은 주요 5개 역의 모임, 후기, 문화 팁을 한 번에 확인하세요.
       </p>
+      <div className="mt-3">
+        <Link
+          href={localizePathname('/foreigner/language-exchange', locale)}
+          className="inline-flex items-center rounded-lg border border-gray-30 bg-white px-3 py-2 text-label-small text-key-color"
+        >
+          외국인-한국인 언어교환/친목 허브
+        </Link>
+      </div>
 
       {hotspotsQuery.isLoading ? (
         <p className="mt-4 text-body-small text-gray-70">핫스팟 정보를 불러오는 중입니다.</p>

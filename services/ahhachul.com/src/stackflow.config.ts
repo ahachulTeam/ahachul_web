@@ -76,6 +76,7 @@ export const stackflowPlugin = [
       DelayProofPage: PATH.proof.detail,
       ForeignerHotspotsPage: PATH.foreigner.hotspots,
       ForeignerHotspotDetailPage: PATH.foreigner.hotspotDetail,
+      ForeignerLanguageExchangePage: PATH.foreigner.languageExchange,
     },
     fallbackActivity: () => 'HomePage',
   }),

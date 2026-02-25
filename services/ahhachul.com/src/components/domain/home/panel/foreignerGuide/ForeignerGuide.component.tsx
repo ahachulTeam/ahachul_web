@@ -61,9 +61,17 @@ const ForeignerGuide = () => {
     <S.Container>
       <S.Header>
         <b>외국인 모드 가이드</b>
-        <StackFlow.Link activityName="ForeignerHotspotsPage" activityParams={{ locale: 'en' }}>
-          <S.ActionButton type="button">역 소셜 허브</S.ActionButton>
-        </StackFlow.Link>
+        <S.ActionGroup>
+          <StackFlow.Link
+            activityName="ForeignerLanguageExchangePage"
+            activityParams={{ locale: 'en' }}
+          >
+            <S.ActionButton type="button">언어교환 허브</S.ActionButton>
+          </StackFlow.Link>
+          <StackFlow.Link activityName="ForeignerHotspotsPage" activityParams={{ locale: 'en' }}>
+            <S.ActionButton type="button">역 소셜 허브</S.ActionButton>
+          </StackFlow.Link>
+        </S.ActionGroup>
       </S.Header>
       <S.Card>
         {guideQuery.isLoading ? (

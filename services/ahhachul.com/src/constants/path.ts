@@ -109,6 +109,7 @@ export const PATH = {
   foreigner: {
     hotspots: '/foreigner/hotspots',
     hotspotDetail: '/foreigner/hotspots/:stationId',
+    languageExchange: '/foreigner/language-exchange',
   },
 } as const;
 

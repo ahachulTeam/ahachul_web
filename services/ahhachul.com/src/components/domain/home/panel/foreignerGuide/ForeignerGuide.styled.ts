@@ -23,6 +23,12 @@ export const Header = styled.div`
   gap: 8px;
 `;
 
+export const ActionGroup = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
 export const ActionButton = styled.button`
   ${({ theme }) => css`
     ${theme.fonts.labelSmall};

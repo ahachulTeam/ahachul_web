@@ -13,7 +13,9 @@ import { useFlow } from '@/stackflow';
 import { mixins } from '@/styles';
 import { createActionLogger, resolveClientErrorMessage } from '@/utils/observability';
 
-const foreignerHotspotsLogger = createActionLogger('foreigner-hotspots-page');
+const languageExchangeLogger = createActionLogger('foreigner-language-exchange-page');
+
+type ExchangePurpose = 'LANGUAGE_EXCHANGE' | 'FRIENDSHIP';
 
 const LOCALE_OPTIONS: Array<{ value: ForeignerLocale; label: string }> = [
   { value: 'en', label: 'EN' },
@@ -22,20 +24,16 @@ const LOCALE_OPTIONS: Array<{ value: ForeignerLocale; label: string }> = [
   { value: 'cn', label: 'CN' },
 ];
 
-type ForeignerHotspotsPageParams = {
-  locale?: ForeignerLocale;
-};
+function resolvePurposeLabel(purpose: ExchangePurpose): string {
+  return purpose === 'LANGUAGE_EXCHANGE' ? '언어교환' : '친목';
+}
 
-const ForeignerHotspotsPage: ActivityComponentType<ForeignerHotspotsPageParams> = ({
-  params,
-}: {
-  params: ForeignerHotspotsPageParams;
-}) => {
-  const { push } = useFlow();
-  const [locale, setLocale] = useState<ForeignerLocale>(params.locale ?? 'en');
+const ForeignerLanguageExchangePage: ActivityComponentType = () => {
+  const { push, pop } = useFlow();
+  const [locale, setLocale] = useState<ForeignerLocale>('en');
 
   const hotspotsQuery = useQuery({
-    queryKey: ['foreigner', 'station-social', 'hotspots', locale],
+    queryKey: ['foreigner', 'language-exchange', 'hotspots', locale],
     queryFn: () => fetchForeignerStationSocialHotspotsV2(locale),
     staleTime: QUERY_STALE_TIME.feed,
     gcTime: QUERY_GC_TIME.feed,
@@ -46,11 +44,12 @@ const ForeignerHotspotsPage: ActivityComponentType<ForeignerHotspotsPageParams> 
     if (!hotspotsQuery.error) {
       return;
     }
-    foreignerHotspotsLogger.fail(
-      'load-hotspots',
+
+    languageExchangeLogger.fail(
+      'load-language-exchange-hotspots',
       hotspotsQuery.error,
       { locale },
-      '외국인 역 소셜 허브 목록을 불러오지 못했습니다.',
+      '언어교환 허브 데이터를 불러오지 못했습니다.',
     );
   }, [hotspotsQuery.error, hotspotsQuery.errorUpdatedAt, locale]);
 
@@ -58,12 +57,28 @@ const ForeignerHotspotsPage: ActivityComponentType<ForeignerHotspotsPageParams> 
     <LayoutComponent.Base navigationSlot={false}>
       <S.Container>
         <S.HeaderCard>
-          <S.Title>외국인 역 소셜 허브</S.Title>
+          <S.HeaderTop>
+            <S.Title>외국인-한국인 언어교환/친목 허브</S.Title>
+            <S.HeaderActionRow>
+              <S.SecondaryButton type="button" onClick={pop}>
+                이전
+              </S.SecondaryButton>
+              <S.SecondaryButton
+                type="button"
+                onClick={() => push('ForeignerHotspotsPage', { locale })}
+              >
+                역 소셜 허브
+              </S.SecondaryButton>
+            </S.HeaderActionRow>
+          </S.HeaderTop>
           <S.Description>
-            명동/성수/홍대입구/강남/안국 중심으로 모임, 후기, 문화 안내를 확인하고 바로 연결할 수
-            있습니다.
+            한국인/외국인 누구나 방문해 언어교환 모임을 만들고 친목 모임으로 확장할 수 있습니다.
           </S.Description>
-          <S.HeaderActions>
+          <S.InfoBox>
+            한국인: 배우고 싶은 언어로 모임을 열어보세요. 외국인: 한국어 또는 모국어 교환 파트너를
+            빠르게 찾을 수 있습니다.
+          </S.InfoBox>
+          <S.LocaleRow>
             <S.LocaleSelect
               value={locale}
               onChange={event => setLocale(event.target.value as ForeignerLocale)}
@@ -74,36 +89,28 @@ const ForeignerHotspotsPage: ActivityComponentType<ForeignerHotspotsPageParams> 
                 </option>
               ))}
             </S.LocaleSelect>
-            <S.RefreshButton
-              type="button"
-              onClick={() => push('ForeignerLanguageExchangePage', { locale })}
-            >
-              언어교환 허브
-            </S.RefreshButton>
-            <S.RefreshButton type="button" onClick={() => void hotspotsQuery.refetch()}>
+            <S.SecondaryButton type="button" onClick={() => void hotspotsQuery.refetch()}>
               새로고침
-            </S.RefreshButton>
-          </S.HeaderActions>
+            </S.SecondaryButton>
+          </S.LocaleRow>
         </S.HeaderCard>
 
-        <S.ListCard>
+        <S.ContentCard>
           {hotspotsQuery.isLoading ? (
-            <S.HelperText>핫스팟 목록을 불러오는 중입니다.</S.HelperText>
+            <S.HelperText>허브 목록을 불러오는 중입니다.</S.HelperText>
           ) : null}
-
           {hotspotsQuery.isError ? (
             <S.ErrorText>
               {resolveClientErrorMessage(
                 hotspotsQuery.error,
-                '핫스팟 목록을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.',
+                '허브 목록을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.',
               )}
             </S.ErrorText>
           ) : null}
-
           {!hotspotsQuery.isLoading &&
           !hotspotsQuery.isError &&
           hotspotsQuery.data.hotspots.length === 0 ? (
-            <S.HelperText>현재 노출 가능한 핫스팟이 없습니다.</S.HelperText>
+            <S.HelperText>노출 가능한 허브 역이 없습니다.</S.HelperText>
           ) : null}
 
           {!hotspotsQuery.isLoading &&
@@ -111,17 +118,7 @@ const ForeignerHotspotsPage: ActivityComponentType<ForeignerHotspotsPageParams> 
           hotspotsQuery.data.hotspots.length > 0 ? (
             <S.HotspotList>
               {hotspotsQuery.data.hotspots.map(hotspot => (
-                <S.HotspotButton
-                  key={hotspot.stationId}
-                  type="button"
-                  onClick={() =>
-                    push('ForeignerHotspotDetailPage', {
-                      stationId: hotspot.stationId,
-                      subwayLineId: hotspot.subwayLineId,
-                      locale,
-                    })
-                  }
-                >
+                <S.HotspotCard key={`language-exchange-${hotspot.stationId}`}>
                   <S.HotspotHeader>
                     <div>
                       <S.DistrictLabel>{hotspot.districtLabel}</S.DistrictLabel>
@@ -129,22 +126,34 @@ const ForeignerHotspotsPage: ActivityComponentType<ForeignerHotspotsPageParams> 
                         {hotspot.stationNameLocalized} · {hotspot.lineNameLocalized}
                       </S.HotspotTitle>
                     </div>
-                    <S.MeetupCount>모임 {hotspot.upcomingMeetupCount}</S.MeetupCount>
+                    <S.MeetupBadge>모임 {hotspot.upcomingMeetupCount}</S.MeetupBadge>
                   </S.HotspotHeader>
 
-                  <S.MetaText>Romanized: {hotspot.romanizedName}</S.MetaText>
                   <S.SummaryText>{hotspot.summary}</S.SummaryText>
 
-                  <S.TagList>
-                    {hotspot.contentTags.map(tag => (
-                      <S.Tag key={`${hotspot.stationId}-${tag}`}>#{tag}</S.Tag>
+                  <S.ActionRow>
+                    {(['LANGUAGE_EXCHANGE', 'FRIENDSHIP'] as const).map(purpose => (
+                      <S.PrimaryButton
+                        key={`${hotspot.stationId}-${purpose}`}
+                        type="button"
+                        onClick={() =>
+                          push('ForeignerHotspotDetailPage', {
+                            stationId: hotspot.stationId,
+                            subwayLineId: hotspot.subwayLineId,
+                            locale,
+                            purpose,
+                          })
+                        }
+                      >
+                        {resolvePurposeLabel(purpose)} 모임 열기
+                      </S.PrimaryButton>
                     ))}
-                  </S.TagList>
-                </S.HotspotButton>
+                  </S.ActionRow>
+                </S.HotspotCard>
               ))}
             </S.HotspotList>
           ) : null}
-        </S.ListCard>
+        </S.ContentCard>
       </S.Container>
     </LayoutComponent.Base>
   );
@@ -162,12 +171,23 @@ const S = {
   HeaderCard: styled.article`
     ${({ theme }) => css`
       ${mixins.flexColumn};
-      gap: 8px;
+      gap: 10px;
       border: 1px solid ${theme.colors.gray[30]};
       border-radius: 16px;
       background-color: ${theme.colors.white};
       padding: 16px;
     `}
+  `,
+  HeaderTop: styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  `,
+  HeaderActionRow: styled.div`
+    display: flex;
+    align-items: center;
+    gap: 8px;
   `,
   Title: styled.h1`
     ${({ theme }) => css`
@@ -181,7 +201,17 @@ const S = {
       color: ${theme.colors.gray[70]};
     `}
   `,
-  HeaderActions: styled.div`
+  InfoBox: styled.p`
+    ${({ theme }) => css`
+      ${theme.fonts.bodySmall};
+      color: ${theme.colors.green[800]};
+      border: 1px solid ${theme.colors.green[200]};
+      border-radius: 10px;
+      background-color: ${theme.colors.green[50]};
+      padding: 8px 10px;
+    `}
+  `,
+  LocaleRow: styled.div`
     display: flex;
     align-items: center;
     gap: 8px;
@@ -189,18 +219,7 @@ const S = {
   LocaleSelect: styled.select`
     ${({ theme }) => css`
       ${theme.fonts.bodySmall};
-      height: 32px;
-      border: 1px solid ${theme.colors.gray[40]};
-      border-radius: 10px;
-      background-color: ${theme.colors.white};
-      color: ${theme.colors.gray[90]};
-      padding: 0 8px;
-    `}
-  `,
-  RefreshButton: styled.button`
-    ${({ theme }) => css`
-      ${theme.fonts.labelSmall};
-      height: 32px;
+      height: 34px;
       border: 1px solid ${theme.colors.gray[40]};
       border-radius: 10px;
       background-color: ${theme.colors.white};
@@ -208,7 +227,18 @@ const S = {
       padding: 0 10px;
     `}
   `,
-  ListCard: styled.article`
+  SecondaryButton: styled.button`
+    ${({ theme }) => css`
+      ${theme.fonts.labelSmall};
+      height: 34px;
+      border: 1px solid ${theme.colors.gray[40]};
+      border-radius: 10px;
+      background-color: ${theme.colors.white};
+      color: ${theme.colors.gray[90]};
+      padding: 0 10px;
+    `}
+  `,
+  ContentCard: styled.article`
     ${({ theme }) => css`
       ${mixins.flexColumn};
       gap: 8px;
@@ -222,14 +252,13 @@ const S = {
     ${mixins.flexColumn};
     gap: 10px;
   `,
-  HotspotButton: styled.button`
+  HotspotCard: styled.li`
     ${({ theme }) => css`
       ${mixins.flexColumn};
-      gap: 6px;
+      gap: 8px;
       border: 1px solid ${theme.colors.gray[30]};
       border-radius: 12px;
       background-color: ${theme.colors.gray[10]};
-      text-align: left;
       padding: 12px;
     `}
   `,
@@ -252,20 +281,14 @@ const S = {
       margin-top: 2px;
     `}
   `,
-  MeetupCount: styled.p`
+  MeetupBadge: styled.p`
     ${({ theme }) => css`
       ${theme.fonts.labelSmall};
       border: 1px solid ${theme.colors['key-color']};
       border-radius: 999px;
-      color: ${theme.colors['key-color']};
       background-color: ${theme.colors.white};
+      color: ${theme.colors['key-color']};
       padding: 2px 8px;
-    `}
-  `,
-  MetaText: styled.p`
-    ${({ theme }) => css`
-      ${theme.fonts.bodySmall};
-      color: ${theme.colors.gray[70]};
     `}
   `,
   SummaryText: styled.p`
@@ -274,20 +297,20 @@ const S = {
       color: ${theme.colors.gray[80]};
     `}
   `,
-  TagList: styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 2px;
+  ActionRow: styled.div`
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
   `,
-  Tag: styled.span`
+  PrimaryButton: styled.button`
     ${({ theme }) => css`
       ${theme.fonts.labelSmall};
+      height: 36px;
+      border-radius: 10px;
       border: 1px solid ${theme.colors.gray[30]};
-      border-radius: 999px;
-      color: ${theme.colors.gray[80]};
       background-color: ${theme.colors.white};
-      padding: 1px 8px;
+      color: ${theme.colors.gray[90]};
+      padding: 0 10px;
     `}
   `,
   HelperText: styled.p`
@@ -304,4 +327,4 @@ const S = {
   `,
 };
 
-export default ForeignerHotspotsPage;
+export default ForeignerLanguageExchangePage;

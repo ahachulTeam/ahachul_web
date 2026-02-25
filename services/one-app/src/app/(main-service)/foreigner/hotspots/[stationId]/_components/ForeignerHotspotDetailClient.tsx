@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
@@ -20,6 +20,7 @@ type Props = {
   locale: SupportedLocale;
   stationId: number;
   subwayLineId: number;
+  purpose?: 'LANGUAGE_EXCHANGE' | 'FRIENDSHIP';
 };
 
 function resolveForeignerLocale(locale: SupportedLocale): ForeignerLocale {
@@ -34,7 +35,34 @@ function getDefaultMeetupAt() {
   return now.toISOString().slice(0, 16);
 }
 
-export default function ForeignerHotspotDetailClient({ locale, stationId, subwayLineId }: Props) {
+function getPurposePreset(purpose?: 'LANGUAGE_EXCHANGE' | 'FRIENDSHIP') {
+  if (purpose === 'LANGUAGE_EXCHANGE') {
+    return {
+      title: '[언어교환] 한국어 ↔ 영어',
+      description:
+        '한국인/외국인 모두 환영합니다. 각자 모국어와 배우고 싶은 언어를 소개하고 1:1 또는 소그룹으로 교환해요.',
+      badge: '언어교환 프리셋 적용',
+    };
+  }
+
+  if (purpose === 'FRIENDSHIP') {
+    return {
+      title: '[친목모임] 함께 역 주변 탐방',
+      description:
+        '국적 상관없이 가볍게 만나는 친목 모임입니다. 간단한 대화와 역 주변 코스를 함께 즐겨요.',
+      badge: '친목 프리셋 적용',
+    };
+  }
+
+  return null;
+}
+
+export default function ForeignerHotspotDetailClient({
+  locale,
+  stationId,
+  subwayLineId,
+  purpose,
+}: Props) {
   const router = useRouter();
   const queryClient = useQueryClient();
   const foreignerLocale = resolveForeignerLocale(locale);
@@ -49,6 +77,15 @@ export default function ForeignerHotspotDetailClient({ locale, stationId, subway
   const [joinMessage, setJoinMessage] = useState('');
   const [joinNationalityCode, setJoinNationalityCode] = useState('');
   const [feedback, setFeedback] = useState<string | null>(null);
+  const purposePreset = useMemo(() => getPurposePreset(purpose), [purpose]);
+
+  useEffect(() => {
+    if (!purposePreset) {
+      return;
+    }
+    setTitle(previous => (previous.trim().length > 0 ? previous : purposePreset.title));
+    setDescription(previous => (previous.trim().length > 0 ? previous : purposePreset.description));
+  }, [purposePreset]);
 
   const overviewQueryKey = useMemo(
     () =>
@@ -228,6 +265,9 @@ export default function ForeignerHotspotDetailClient({ locale, stationId, subway
 
           <section className="mt-4 rounded-2xl border border-gray-20 bg-white p-4">
             <p className="text-title-small text-gray-100">모임 생성</p>
+            {purposePreset ? (
+              <p className="mt-1 text-label-small text-key-color">{purposePreset.badge}</p>
+            ) : null}
             <div className="mt-2 grid gap-2">
               <input
                 value={title}

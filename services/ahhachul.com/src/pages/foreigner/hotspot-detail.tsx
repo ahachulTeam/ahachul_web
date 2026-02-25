@@ -26,6 +26,7 @@ type ForeignerHotspotDetailPageParams = {
   stationId: number | string;
   subwayLineId?: number | string;
   locale?: ForeignerLocale;
+  purpose?: 'LANGUAGE_EXCHANGE' | 'FRIENDSHIP';
 };
 
 type JoinDraft = {
@@ -86,6 +87,28 @@ function getJoinDraft(draftMap: Record<number, JoinDraft>, meetupId: number): Jo
   return draftMap[meetupId] ?? { introductionMessage: '', nationalityCode: '' };
 }
 
+function getPurposePreset(purpose?: 'LANGUAGE_EXCHANGE' | 'FRIENDSHIP') {
+  if (purpose === 'LANGUAGE_EXCHANGE') {
+    return {
+      title: '[언어교환] 한국어 ↔ 영어',
+      description:
+        '한국인/외국인 모두 환영합니다. 각자 모국어와 배우고 싶은 언어를 소개하고 1:1 또는 소그룹으로 교환해요.',
+      badge: '언어교환 프리셋 적용',
+    };
+  }
+
+  if (purpose === 'FRIENDSHIP') {
+    return {
+      title: '[친목모임] 함께 역 주변 탐방',
+      description:
+        '국적 상관없이 가볍게 만나는 친목 모임입니다. 간단한 대화와 역 주변 코스를 함께 즐겨요.',
+      badge: '친목 프리셋 적용',
+    };
+  }
+
+  return null;
+}
+
 const ForeignerHotspotDetailPage: ActivityComponentType<ForeignerHotspotDetailPageParams> = ({
   params,
 }: {
@@ -94,6 +117,7 @@ const ForeignerHotspotDetailPage: ActivityComponentType<ForeignerHotspotDetailPa
   const stationId = Number(params.stationId ?? 0);
   const initialSubwayLineId = Number(params.subwayLineId ?? 0);
   const initialLocale = params.locale ?? 'en';
+  const purpose = params.purpose;
 
   const { pop, push } = useFlow();
   const queryClient = useQueryClient();
@@ -111,6 +135,7 @@ const ForeignerHotspotDetailPage: ActivityComponentType<ForeignerHotspotDetailPa
   const [meetupSameNationalityOnly, setMeetupSameNationalityOnly] = useState(false);
   const [joinDraftByMeetupId, setJoinDraftByMeetupId] = useState<Record<number, JoinDraft>>({});
   const [feedback, setFeedback] = useState<Feedback | null>(null);
+  const purposePreset = useMemo(() => getPurposePreset(purpose), [purpose]);
 
   const overviewQueryKey = useMemo(
     () =>
@@ -174,6 +199,14 @@ const ForeignerHotspotDetailPage: ActivityComponentType<ForeignerHotspotDetailPa
     }
     setSubwayLineId(overviewQuery.data.station.subwayLineId);
   }, [overviewQuery.data, subwayLineId]);
+
+  useEffect(() => {
+    if (!purposePreset) {
+      return;
+    }
+    setTitle(previous => (previous.trim().length > 0 ? previous : purposePreset.title));
+    setDescription(previous => (previous.trim().length > 0 ? previous : purposePreset.description));
+  }, [purposePreset]);
 
   const createMeetupMutation = useMutation({
     mutationFn: async () => {
@@ -438,6 +471,7 @@ const ForeignerHotspotDetailPage: ActivityComponentType<ForeignerHotspotDetailPa
 
             <S.ContentCard>
               <S.CardTitle>모임 생성</S.CardTitle>
+              {purposePreset ? <S.MetaText>{purposePreset.badge}</S.MetaText> : null}
               <S.FormGrid>
                 <S.TextInput
                   value={title}
