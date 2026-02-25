@@ -1,12 +1,16 @@
 import type { ReactNode } from 'react';
 import type { SVGProps } from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 const mockUsePathname = jest.fn();
+const mockPush = jest.fn();
 
 jest.mock('next/navigation', () => ({
   usePathname: () => mockUsePathname(),
+  useRouter: () => ({
+    push: mockPush,
+  }),
 }));
 
 jest.mock('@ahhachul/ui', () => ({
@@ -14,17 +18,21 @@ jest.mock('@ahhachul/ui', () => ({
     <nav data-testid="bottom-nav">{children}</nav>
   ),
   BottomNavItem: ({
-    href,
+    onClick,
     isActive,
     label,
   }: {
-    href: string;
+    onClick: () => void;
     isActive: boolean;
     label: string;
   }) => (
-    <a data-testid="bottom-nav-item" data-active={isActive ? 'true' : 'false'} href={href}>
+    <button
+      data-testid="bottom-nav-item"
+      data-active={isActive ? 'true' : 'false'}
+      onClick={onClick}
+    >
       {label}
-    </a>
+    </button>
   ),
 }));
 
@@ -52,6 +60,7 @@ jest.mock(
 describe('NavMenu', () => {
   beforeEach(() => {
     mockUsePathname.mockReset();
+    mockPush.mockReset();
   });
 
   it('루트 네비 경로에서는 하단 메뉴를 렌더링한다', async () => {
@@ -66,7 +75,12 @@ describe('NavMenu', () => {
 
     expect(screen.getByTestId('bottom-nav')).toBeInTheDocument();
     expect(items).toHaveLength(5);
-    expect(activeItem).toHaveAttribute('href', '/community');
+
+    expect(activeItem).toBeDefined();
+    if (activeItem) {
+      fireEvent.click(activeItem);
+    }
+    expect(mockPush).toHaveBeenCalledWith('/community');
   });
 
   it('locale prefix 경로에서도 현재 메뉴 활성화를 유지한다', async () => {
@@ -79,7 +93,11 @@ describe('NavMenu', () => {
     const items = screen.getAllByTestId('bottom-nav-item');
     const activeItem = items.find(item => item.getAttribute('data-active') === 'true');
 
-    expect(activeItem).toHaveAttribute('href', '/en/me');
+    expect(activeItem).toBeDefined();
+    if (activeItem) {
+      fireEvent.click(activeItem);
+    }
+    expect(mockPush).toHaveBeenCalledWith('/en/me');
   });
 
   it('루트 네비 대상이 아닌 경로에서는 메뉴를 렌더링하지 않는다', async () => {

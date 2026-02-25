@@ -2,7 +2,7 @@
 
 import type { ReactElement } from 'react';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { BottomNav, BottomNavItem } from '@ahhachul/ui';
 
@@ -88,6 +88,7 @@ const NAV_ITEMS: ReadonlyArray<{
 
 export default function NavMenu() {
   const pathname = usePathname() ?? '/';
+  const router = useRouter();
   const locale = resolvePathLocale(pathname, null);
   const normalizedPathname = stripLocaleFromPathname(pathname);
   const messages = getLocaleMessages(locale);
@@ -108,7 +109,9 @@ export default function NavMenu() {
             key={href}
             label={label}
             isActive={isActive}
-            href={localizedHref}
+            onClick={() => {
+              router.push(localizedHref);
+            }}
             icon={renderIcon({ isActive: false })}
             activeIcon={renderIcon({ isActive: true })}
           />
