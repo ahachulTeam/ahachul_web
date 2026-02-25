@@ -4,7 +4,7 @@ import { API_PATHS } from '@ahhachul/http';
 
 import axiosInstance from '@/apis/fetcher';
 
-import { fetchTrainInfoV2 } from './subway';
+import { fetchSubwayRouteSearchV3, fetchTrainInfoV2 } from './subway';
 
 vi.mock('@/apis/fetcher', () => ({
   default: {
@@ -62,5 +62,30 @@ describe('fetchTrainInfoV2', () => {
         subwayLineId: 1,
       },
     });
+  });
+});
+
+describe('fetchSubwayRouteSearchV3', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('v3 경로탐색 경로로 요청한다', async () => {
+    vi.mocked(axiosInstance.get).mockResolvedValue({ data: { result: {} } } as never);
+
+    const params = {
+      sourceStationId: 201,
+      destinationStationId: 301,
+      strategy: 'BALANCED' as const,
+      alternatives: 3,
+      walkingPreference: 'LESS_STAIRS' as const,
+      stationTimeWeekType: 'WEEKDAY' as const,
+    };
+
+    await fetchSubwayRouteSearchV3(params);
+
+    const [url, config] = vi.mocked(axiosInstance.get).mock.calls[0] ?? [];
+    expect(url).toEqual(expect.stringContaining(API_PATHS.subway.routeSearchV3));
+    expect(config).toEqual({ params });
   });
 });

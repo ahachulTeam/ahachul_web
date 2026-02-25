@@ -262,6 +262,20 @@ export enum RouteSearchStrategy {
   MIN_STOP = 'MIN_STOP',
 }
 
+export enum RouteWalkingPreference {
+  FAST = 'FAST',
+  LESS_STAIRS = 'LESS_STAIRS',
+}
+
+export type RouteQualityConfidenceLevel = 'HIGH' | 'MEDIUM' | 'LOW';
+export type RouteQualityBadge =
+  | 'BEST_RECOMMENDED'
+  | 'TRANSFER_HEAVY'
+  | 'WALKING_HEAVY'
+  | 'LAST_TRAIN_RISK'
+  | 'DELAY_RISK'
+  | 'DATA_LIMITED';
+
 export interface SubwayRouteNode {
   stationId: number;
   stationName: string;
@@ -287,13 +301,27 @@ export interface SubwayRoute {
   nodes: SubwayRouteNode[];
   edges: SubwayRouteEdge[];
   summary: SubwayRouteSummary;
+  quality?: {
+    totalScore: number;
+    transferRiskScore: number;
+    walkingScore: number;
+    lastTrainSafetyScore: number;
+    delayResilienceScore: number;
+    delayProbabilityPercent: number;
+    confidenceLevel: RouteQualityConfidenceLevel;
+    badges: RouteQualityBadge[];
+    reasons: string[];
+  };
 }
 
 export interface SubwayRouteSearchResponse {
+  modelVersion?: string;
   generatedAt: string;
   sourceStationId: number;
   destinationStationId: number;
   strategy: RouteSearchStrategy;
+  walkingPreference?: RouteWalkingPreference;
+  stationTimeWeekType?: StationTimeWeekType;
   routes: SubwayRoute[];
 }
 

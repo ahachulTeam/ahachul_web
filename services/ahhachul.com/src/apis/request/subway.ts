@@ -14,6 +14,7 @@ import {
   NearbyPlaceConfidenceLevel,
   QuickExitConfidenceLevel,
   RouteSearchStrategy,
+  RouteWalkingPreference,
   ITrain,
   StationTimeWeekType,
   StationTimesFullResponse,
@@ -123,6 +124,8 @@ interface APISubwayRouteSearchV2Params {
   destinationStationId: number;
   strategy: RouteSearchStrategy;
   alternatives?: number;
+  walkingPreference?: RouteWalkingPreference;
+  stationTimeWeekType?: StationTimeWeekType;
 }
 
 interface APIStationTimesFullV2Params extends WithSubwayLineId, WithSubwayStationId {}
@@ -243,6 +246,12 @@ export const fetchStationWeatherBriefV2 = async (params: APIStationWeatherBriefV
 
 export const fetchSubwayRouteSearchV2 = async (params: APISubwayRouteSearchV2Params) => {
   return axiosInstance.get<ApiResponse<SubwayRouteSearchResponse>>(API_PATHS.subway.routeSearchV2, {
+    params,
+  });
+};
+
+export const fetchSubwayRouteSearchV3 = async (params: APISubwayRouteSearchV2Params) => {
+  return axiosInstance.get<ApiResponse<SubwayRouteSearchResponse>>(API_PATHS.subway.routeSearchV3, {
     params,
   });
 };

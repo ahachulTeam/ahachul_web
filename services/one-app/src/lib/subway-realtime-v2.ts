@@ -23,8 +23,10 @@ const STATION_TIME_SUMMARY_V2_ENDPOINT = `${API_ORIGIN_URL}${API_PATHS.subway.st
 const STATION_WEATHER_BRIEF_V2_ENDPOINT = `${API_ORIGIN_URL}${API_PATHS.subway.stationWeatherBriefV2}`;
 const STATION_TIMES_FULL_V2_ENDPOINT = `${API_ORIGIN_URL}${API_PATHS.subway.stationTimesFullV2}`;
 const SUBWAY_ROUTE_SEARCH_V2_ENDPOINT = `${API_ORIGIN_URL}${API_PATHS.subway.routeSearchV2}`;
+const SUBWAY_ROUTE_SEARCH_V3_ENDPOINT = `${API_ORIGIN_URL}${API_PATHS.subway.routeSearchV3}`;
 const NO_ARRIVAL_TRAIN_CODE = '701';
 const subwayRealtimeLogger = createActionLogger('subway-realtime-v2');
+const routeSearchLogger = createActionLogger('subway-route-search');
 
 function mapV1ToV2Response(v1: TrainRealtimeV1Response): TrainRealtimeV2Response {
   const generatedAt = new Date().toISOString();
@@ -226,6 +228,47 @@ export async function fetchSubwayRouteSearchV2(
       destinationStationId: params.destinationStationId,
       strategy: params.strategy,
       ...(params.alternatives && { alternatives: params.alternatives }),
+      ...(params.walkingPreference && { walkingPreference: params.walkingPreference }),
+      ...(params.stationTimeWeekType && { stationTimeWeekType: params.stationTimeWeekType }),
     },
   });
+}
+
+export async function fetchSubwayRouteSearchV3(
+  params: SubwayRouteSearchV2Query,
+): Promise<SubwayRouteSearchV2Response> {
+  return fetchClient<SubwayRouteSearchV2Response>(SUBWAY_ROUTE_SEARCH_V3_ENDPOINT, {
+    params: {
+      sourceStationId: params.sourceStationId,
+      destinationStationId: params.destinationStationId,
+      strategy: params.strategy,
+      ...(params.alternatives && { alternatives: params.alternatives }),
+      ...(params.walkingPreference && { walkingPreference: params.walkingPreference }),
+      ...(params.stationTimeWeekType && { stationTimeWeekType: params.stationTimeWeekType }),
+    },
+  });
+}
+
+export async function fetchSubwayRouteSearchV3WithFallback(
+  params: SubwayRouteSearchV2Query,
+): Promise<SubwayRouteSearchV2Response> {
+  try {
+    const response = await fetchSubwayRouteSearchV3(params);
+    routeSearchLogger.success('fetch-v3-success', {
+      sourceStationId: params.sourceStationId,
+      destinationStationId: params.destinationStationId,
+      strategy: params.strategy,
+      walkingPreference: params.walkingPreference,
+    });
+    return response;
+  } catch (error) {
+    routeSearchLogger.warn('fetch-v3-failed-fallback-v2', {
+      sourceStationId: params.sourceStationId,
+      destinationStationId: params.destinationStationId,
+      strategy: params.strategy,
+      walkingPreference: params.walkingPreference,
+      stationTimeWeekType: params.stationTimeWeekType,
+    });
+    return fetchSubwayRouteSearchV2(params);
+  }
 }

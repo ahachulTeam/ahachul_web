@@ -10,6 +10,7 @@ import {
 } from '@/services/subway';
 import {
   RouteSearchStrategy,
+  RouteWalkingPreference,
   StationTimeWeekType,
   type SubwayLine,
   type UpDownType,
@@ -31,6 +32,11 @@ const WEEK_OPTIONS: { value: StationTimeWeekType; label: string }[] = [
   { value: StationTimeWeekType.WEEKDAY, label: '평일' },
   { value: StationTimeWeekType.SATURDAY, label: '토요일' },
   { value: StationTimeWeekType.HOLIDAY, label: '공휴일' },
+];
+
+const WALKING_OPTIONS: { value: RouteWalkingPreference; label: string }[] = [
+  { value: RouteWalkingPreference.FAST, label: '빠른 이동' },
+  { value: RouteWalkingPreference.LESS_STAIRS, label: '계단 적음' },
 ];
 
 const sectionStyle: CSSProperties = {
@@ -55,6 +61,9 @@ const SubwayTimeLinePage: ActivityComponentType<SubwayTimelineParams> = ({
     StationTimeWeekType.WEEKDAY,
   );
   const [strategy, setStrategy] = useState<RouteSearchStrategy>(RouteSearchStrategy.BALANCED);
+  const [walkingPreference, setWalkingPreference] = useState<RouteWalkingPreference>(
+    RouteWalkingPreference.FAST,
+  );
 
   useEffect(() => {
     if (!subwayLines.length) {
@@ -116,6 +125,8 @@ const SubwayTimeLinePage: ActivityComponentType<SubwayTimelineParams> = ({
       destinationStationId: destinationStationId ?? 0,
       strategy,
       alternatives: 3,
+      walkingPreference,
+      stationTimeWeekType: selectedWeekType,
     },
     {
       enabled: hasRouteSearchParams,
@@ -213,6 +224,23 @@ const SubwayTimeLinePage: ActivityComponentType<SubwayTimelineParams> = ({
                 ))}
               </select>
             </label>
+
+            <label style={{ fontSize: '12px', color: '#444' }}>
+              보행 선호
+              <select
+                value={walkingPreference}
+                onChange={event =>
+                  setWalkingPreference(event.target.value as RouteWalkingPreference)
+                }
+                style={{ width: '100%', height: '36px', marginTop: '4px' }}
+              >
+                {WALKING_OPTIONS.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
           </div>
 
           <div style={{ marginTop: '12px', display: 'grid', gap: '8px' }}>
@@ -238,9 +266,41 @@ const SubwayTimeLinePage: ActivityComponentType<SubwayTimelineParams> = ({
                     정차 {route.summary.totalStops} · 환승 {route.summary.transferCount} · 예상{' '}
                     {route.summary.estimatedMinutes}분
                   </div>
+                  {route.quality ? (
+                    <div style={{ fontSize: '12px', marginTop: '4px' }}>
+                      품질 {route.quality.totalScore}점 · 지연확률{' '}
+                      {route.quality.delayProbabilityPercent}%
+                    </div>
+                  ) : null}
+                  {route.quality?.badges?.length ? (
+                    <div
+                      style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', marginTop: '4px' }}
+                    >
+                      {route.quality.badges.map(badge => (
+                        <span
+                          key={`${route.rank}-${badge}`}
+                          style={{
+                            border: '1px solid #E2E8F0',
+                            borderRadius: '999px',
+                            padding: '1px 6px',
+                            fontSize: '11px',
+                            color: '#334155',
+                            background: '#F8FAFC',
+                          }}
+                        >
+                          {badge}
+                        </span>
+                      ))}
+                    </div>
+                  ) : null}
                   <div style={{ fontSize: '12px', marginTop: '6px' }}>
                     {route.nodes.map(node => node.stationName).join(' → ')}
                   </div>
+                  {route.quality?.reasons?.length ? (
+                    <div style={{ fontSize: '12px', color: '#64748B', marginTop: '6px' }}>
+                      {route.quality.reasons[0]}
+                    </div>
+                  ) : null}
                 </article>
               ))}
           </div>

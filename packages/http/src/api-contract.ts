@@ -90,6 +90,7 @@ export const API_PATHS = {
     stationNearbyPlacesV2: '/v2/stations/nearby-places',
     stationWeatherBriefV2: '/v2/stations/weather/brief',
     routeSearchV2: '/v2/subway/routes/search',
+    routeSearchV3: '/v3/subway/routes/search',
   },
   common: {
     s3Presigned: (s3Key: string) => `/common/presigned/${s3Key}`,

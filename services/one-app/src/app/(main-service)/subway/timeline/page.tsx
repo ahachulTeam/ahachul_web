@@ -8,7 +8,12 @@ import { API_PATHS } from '@ahhachul/http';
 
 import { useStationTimesFullV2Query, useSubwayRouteSearchV2Query } from '@/hooks';
 import { fetchClient } from '@/lib/fetch-client';
-import type { ApiResponse, StationTimeWeekType, SubwayRouteStrategy } from '@/types';
+import type {
+  ApiResponse,
+  StationTimeWeekType,
+  SubwayRouteStrategy,
+  SubwayRouteWalkingPreference,
+} from '@/types';
 
 type SubwayLineCatalogStation = {
   id: number;
@@ -37,12 +42,18 @@ const WEEK_OPTIONS: { value: StationTimeWeekType; label: string }[] = [
   { value: 'HOLIDAY', label: '공휴일' },
 ];
 
+const WALKING_OPTIONS: { value: SubwayRouteWalkingPreference; label: string }[] = [
+  { value: 'FAST', label: '빠른 이동' },
+  { value: 'LESS_STAIRS', label: '계단 적음' },
+];
+
 export default function SubwayTimelinePage() {
   const [selectedLineId, setSelectedLineId] = useState<number>(0);
   const [sourceStationId, setSourceStationId] = useState<number>(0);
   const [destinationStationId, setDestinationStationId] = useState<number>(0);
   const [strategy, setStrategy] = useState<SubwayRouteStrategy>('BALANCED');
   const [weekType, setWeekType] = useState<StationTimeWeekType>('WEEKDAY');
+  const [walkingPreference, setWalkingPreference] = useState<SubwayRouteWalkingPreference>('FAST');
 
   const subwayLineCatalogQuery = useQuery({
     queryKey: ['subway-lines-for-timeline'],
@@ -92,6 +103,8 @@ export default function SubwayTimelinePage() {
       destinationStationId,
       strategy,
       alternatives: 3,
+      walkingPreference,
+      stationTimeWeekType: weekType,
     },
     {
       enabled: sourceStationId > 0 && destinationStationId > 0,
@@ -181,6 +194,23 @@ export default function SubwayTimelinePage() {
               ))}
             </select>
           </label>
+
+          <label className="text-label-small text-gray-80">
+            보행 선호
+            <select
+              value={walkingPreference}
+              onChange={event =>
+                setWalkingPreference(event.target.value as SubwayRouteWalkingPreference)
+              }
+              className="mt-1 h-10 w-full rounded-lg border border-gray-40 bg-white px-2 text-body-small text-gray-100"
+            >
+              {WALKING_OPTIONS.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
 
         <div className="mt-3 grid gap-2">
@@ -200,9 +230,30 @@ export default function SubwayTimelinePage() {
                 정차 {route.summary.totalStops} · 환승 {route.summary.transferCount} · 예상{' '}
                 {route.summary.estimatedMinutes}분
               </p>
+              {route.quality ? (
+                <p className="mt-1 text-body-small text-gray-100">
+                  품질 {route.quality.totalScore}점 · 지연확률{' '}
+                  {route.quality.delayProbabilityPercent}%
+                </p>
+              ) : null}
+              {route.quality?.badges?.length ? (
+                <div className="mt-1 flex flex-wrap gap-1">
+                  {route.quality.badges.map(badge => (
+                    <span
+                      key={`${route.rank}-${badge}`}
+                      className="rounded-full bg-gray-20 px-2 py-0.5 text-caption text-gray-90"
+                    >
+                      {badge}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
               <p className="mt-1 text-body-small text-gray-70">
                 {route.nodes.map(node => node.stationName).join(' → ')}
               </p>
+              {route.quality?.reasons?.length ? (
+                <p className="mt-1 text-caption text-gray-70">{route.quality.reasons[0]}</p>
+              ) : null}
             </article>
           ))}
         </div>

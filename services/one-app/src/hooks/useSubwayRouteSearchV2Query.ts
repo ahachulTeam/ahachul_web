@@ -2,11 +2,11 @@ import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 
 import { buildQuerySignature, QUERY_GC_TIME } from '@ahhachul/domain';
 
-import { fetchSubwayRouteSearchV2 } from '@/lib/subway-realtime-v2';
+import { fetchSubwayRouteSearchV3WithFallback } from '@/lib/subway-realtime-v2';
 import type { SubwayRouteSearchV2Query, SubwayRouteSearchV2Response } from '@/types';
 
 const subwayRouteSearchV2QueryKeys = {
-  all: ['subway-route-search-v2'] as const,
+  all: ['subway-route-search-v3'] as const,
   list: (signature = '') => [...subwayRouteSearchV2QueryKeys.all, signature] as const,
 } as const;
 
@@ -19,11 +19,13 @@ export function useSubwayRouteSearchV2Query(
     destinationStationId: params.destinationStationId,
     strategy: params.strategy,
     alternatives: params.alternatives,
+    walkingPreference: params.walkingPreference,
+    stationTimeWeekType: params.stationTimeWeekType,
   });
 
   return useQuery<SubwayRouteSearchV2Response>({
     queryKey: subwayRouteSearchV2QueryKeys.list(signature),
-    queryFn: () => fetchSubwayRouteSearchV2(params),
+    queryFn: () => fetchSubwayRouteSearchV3WithFallback(params),
     staleTime: 30 * 1000,
     gcTime: QUERY_GC_TIME.feed,
     retry: 1,

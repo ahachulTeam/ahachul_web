@@ -19,6 +19,7 @@ import {
   fetchStationTimesFullV2,
   fetchStationTimeSummaryV2,
   fetchSubwayRouteSearchV2,
+  fetchSubwayRouteSearchV3,
   fetchSubwayLines,
   fetchTrainInfo,
   fetchTrainInfoV2,
@@ -30,6 +31,7 @@ import {
   DelayCenterOverviewQuery,
   DelayProofCreateRequest,
   RouteSearchStrategy,
+  RouteWalkingPreference,
   StationTimeWeekType,
   UpDownType,
 } from '@/types';
@@ -215,6 +217,8 @@ interface SubwayRouteSearchParams {
   destinationStationId: number;
   strategy: RouteSearchStrategy;
   alternatives?: number;
+  walkingPreference?: RouteWalkingPreference;
+  stationTimeWeekType?: StationTimeWeekType;
 }
 
 export const useFetchSubwayRoutes = (
@@ -226,11 +230,19 @@ export const useFetchSubwayRoutes = (
     destinationStationId: params.destinationStationId,
     strategy: params.strategy,
     alternatives: params.alternatives,
+    walkingPreference: params.walkingPreference,
+    stationTimeWeekType: params.stationTimeWeekType,
   });
 
   return useQuery({
-    queryKey: [...subwayKeys.trains(), 'route-search-v2', signature],
-    queryFn: () => fetchSubwayRouteSearchV2(params),
+    queryKey: [...subwayKeys.trains(), 'route-search-v3', signature],
+    queryFn: async () => {
+      try {
+        return await fetchSubwayRouteSearchV3(params);
+      } catch {
+        return fetchSubwayRouteSearchV2(params);
+      }
+    },
     enabled: options?.enabled ?? true,
     staleTime: 30 * TIMESTAMP.SECOND,
     gcTime: QUERY_GC_TIME.feed,
