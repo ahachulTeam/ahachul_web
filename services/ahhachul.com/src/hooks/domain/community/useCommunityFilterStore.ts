@@ -4,17 +4,28 @@ import { useActivity } from '@/stackflow';
 import { filterStore } from '@/stores';
 import type { IFilterState } from '@/stores/filter';
 import type { CommunityFilters } from '@/types';
+import type { AppUniqueFilterId } from '@/types/filter';
 
-const useCommunityFilters = () => {
+type UseCommunityFiltersOptions = {
+  uniqueId?: AppUniqueFilterId;
+  defaultFilters?: Partial<CommunityFilters>;
+};
+
+const useCommunityFilters = ({
+  uniqueId = APP_UNIQUE_FILTER_ID_LIST.CommunityPage,
+  defaultFilters,
+}: UseCommunityFiltersOptions = {}) => {
+  const scopedDefaultFilterValues = {
+    ...defaultCommunityFilterValues,
+    ...defaultFilters,
+  } as CommunityFilters;
+
   const {
     params: { keyword = '' },
   } = useActivity();
 
   const { filters, loaded, activatedCount, handleSelect, handleReset } =
-    filterStore<CommunityFilters>(
-      defaultCommunityFilterValues,
-      APP_UNIQUE_FILTER_ID_LIST.CommunityPage,
-    )();
+    filterStore<CommunityFilters>(scopedDefaultFilterValues, uniqueId)();
 
   const boundaryKeys = [...Object.values(filters), keyword];
 

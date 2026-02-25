@@ -38,6 +38,8 @@ export const stackflowPlugin = [
 
       // community pages
       CommunityPage: PATH.community.home,
+      CommunityStationPage: PATH.community.station,
+      CommunityLinePage: PATH.community.line,
       NewCommunityPage: PATH.community.new,
       EditCommunityPage: PATH.community.edit,
       CommunityDetailPage: PATH.community.detail,

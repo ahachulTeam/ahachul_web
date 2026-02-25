@@ -7,21 +7,25 @@ import { QUERY_GC_TIME, QUERY_STALE_TIME, subwayQueryKeys } from '@ahhachul/doma
 import { fetchSubwayLines } from '@/apis/request/subway';
 import { UiComponent } from '@/components';
 import { communityFilterKeys, communityTypeOptions } from '@/constants';
+import { APP_UNIQUE_FILTER_ID_LIST } from '@/constants/filter';
 import { useActivity } from '@/stackflow';
 import type { IFilterState } from '@/stores/filter';
 import { SubwayLineFilterOptions } from '@/types';
 import type { CommunityFilters as TypeCommunityFilters } from '@/types/community';
+import type { AppUniqueFilterId } from '@/types/filter';
 
 import * as S from './CommunityFilters.styled';
 
 interface CommunityFilterListProps extends Omit<IFilterState<TypeCommunityFilters>, 'loaded'> {
   isScale: boolean;
   toggleScale: () => void;
+  searchInputUniqueId?: AppUniqueFilterId;
 }
 
 const CommunityFilters: React.FC<CommunityFilterListProps> = ({
   isScale,
   toggleScale,
+  searchInputUniqueId = APP_UNIQUE_FILTER_ID_LIST.CommunityPage,
   filters,
   activatedCount,
   handleSelect,
@@ -96,7 +100,7 @@ const CommunityFilters: React.FC<CommunityFilterListProps> = ({
     <>
       <S.Motion isScale={isScale} />
       <S.FilterGroup isScale={isScale} isActive={isActive}>
-        <UiComponent.SearchInput uniqueId="CommunityPage" toggleScale={toggleScale} />
+        <UiComponent.SearchInput uniqueId={searchInputUniqueId} toggleScale={toggleScale} />
         <S.FilterListWrap>
           <UiComponent.FilterActions
             activeFilterCount={activatedCount}

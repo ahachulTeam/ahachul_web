@@ -16,6 +16,8 @@ export const PATH = {
   /** 커뮤니티 */
   community: {
     home: '/community',
+    station: '/community/station/:stationId',
+    line: '/community/line/:subwayLineId',
     detail: '/community/:id',
     new: '/community/new',
     edit: '/community/:id/edit',

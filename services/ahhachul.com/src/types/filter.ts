@@ -4,5 +4,10 @@ import type { KeyOf } from './common';
 
 export type AppUniqueFilterId = Extract<
   KeyOf<TypeActivities>,
-  'CommunityPage' | 'LostFoundPage' | 'ComplaintPage' | 'HashtagPage'
+  | 'CommunityPage'
+  | 'CommunityStationPage'
+  | 'CommunityLinePage'
+  | 'LostFoundPage'
+  | 'ComplaintPage'
+  | 'HashtagPage'
 >;

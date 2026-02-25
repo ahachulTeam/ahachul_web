@@ -2,9 +2,10 @@
 
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
 
+import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 
-import { API_PATHS } from '@ahhachul/http';
+import { API_PATHS, API_SORT } from '@ahhachul/http';
 
 import { getMyFavoriteStations, getMyProfile } from '@/app/(main-service)/me/_lib/getMyProfile';
 import { SUBWAY_LOGO_SVG_LIST } from '@/components/Subway/SubwayLogoIconMap';
@@ -19,6 +20,7 @@ import {
 } from '@/lib/subway-realtime-v2';
 import type {
   ApiResponse,
+  PaginatedList,
   RealtimeArrivalCode,
   RealtimeUpDownType,
   StationSummaryAvailabilityStatus,
@@ -30,6 +32,7 @@ import type {
   TrainRealtimeV2SectionVM,
 } from '@/types';
 import { mapRealtimePayloadToSectionVM } from '@/types';
+import type { CommunityPost } from '@/types/community';
 
 type SubwayLineCatalogStation = {
   id: number;
@@ -112,6 +115,8 @@ const MOCK_HASHTAGS: Hashtag[] = [
   { id: 3, title: '데일리뉴스' },
   { id: 4, title: '다이소' },
 ];
+
+const HOME_COMMUNITY_PREVIEW_LIMIT = 3;
 
 const ARRIVAL_CODE_LABELS: Record<RealtimeArrivalCode, string> = {
   ENTER: '진입',
@@ -228,6 +233,17 @@ function resolveFavoriteLineId(lineInfoList?: Array<{ subwayLineId: number }>) {
   return lineInfoList?.[0]?.subwayLineId ?? null;
 }
 
+function toCommunityPreview(content: string) {
+  if (!content) {
+    return '';
+  }
+
+  return content
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 const homeParityLogger = createActionLogger('home-vite-parity');
 
 type Props = {
@@ -274,6 +290,111 @@ export default function HomeViteParity({ locale }: Props) {
     [selectedLineId, subwayLines],
   );
   const stationOptions = selectedLine?.stations ?? [];
+  const selectedStationName =
+    stationOptions.find(station => station.id === selectedStationId)?.name ?? '역 선택';
+
+  const stationCommunityMoreHref = useMemo(() => {
+    if (!selectedStationId) {
+      return null;
+    }
+
+    const search = new URLSearchParams();
+    search.set('stationId', String(selectedStationId));
+    if (selectedLineId) {
+      search.set('subwayLineId', String(selectedLineId));
+    }
+    if (selectedStationName !== '역 선택') {
+      search.set('stationName', selectedStationName);
+    }
+    if (selectedLine?.name) {
+      search.set('lineName', selectedLine.name);
+    }
+
+    return `${localizePathname(`/community/station/${selectedStationId}`, locale)}?${search.toString()}`;
+  }, [locale, selectedLine?.name, selectedLineId, selectedStationId, selectedStationName]);
+
+  const lineCommunityMoreHref = useMemo(() => {
+    if (!selectedLineId) {
+      return null;
+    }
+
+    const search = new URLSearchParams();
+    search.set('subwayLineId', String(selectedLineId));
+    if (selectedLine?.name) {
+      search.set('lineName', selectedLine.name);
+    }
+
+    return `${localizePathname(`/community/line/${selectedLineId}`, locale)}?${search.toString()}`;
+  }, [locale, selectedLine?.name, selectedLineId]);
+
+  const stationCommunityHotQuery = useQuery({
+    queryKey: ['home', 'community-hot', 'station', selectedLineId, selectedStationId],
+    enabled: selectedLineId > 0 && selectedStationId > 0,
+    queryFn: () =>
+      fetchClient<ApiResponse<PaginatedList<CommunityPost>>>(API_PATHS.community.hotList, {
+        params: {
+          subwayLineIds: String(selectedLineId),
+          stationId: selectedStationId,
+          pageSize: HOME_COMMUNITY_PREVIEW_LIMIT,
+          sort: API_SORT.createdAtDesc,
+        },
+        next: {
+          tags: ['community', 'posts', 'home', 'station'],
+        },
+      }),
+  });
+
+  const lineCommunityHotQuery = useQuery({
+    queryKey: ['home', 'community-hot', 'line', selectedLineId],
+    enabled: selectedLineId > 0,
+    queryFn: () =>
+      fetchClient<ApiResponse<PaginatedList<CommunityPost>>>(API_PATHS.community.hotList, {
+        params: {
+          subwayLineIds: String(selectedLineId),
+          pageSize: HOME_COMMUNITY_PREVIEW_LIMIT,
+          sort: API_SORT.createdAtDesc,
+        },
+        next: {
+          tags: ['community', 'posts', 'home', 'line'],
+        },
+      }),
+  });
+
+  useEffect(() => {
+    if (!stationCommunityHotQuery.error) {
+      return;
+    }
+
+    homeParityLogger.fail(
+      'load-station-community-hot',
+      stationCommunityHotQuery.error,
+      {
+        selectedLineId,
+        selectedStationId,
+      },
+      '역 커뮤니티 인기글을 불러오지 못했습니다.',
+    );
+  }, [
+    selectedLineId,
+    selectedStationId,
+    stationCommunityHotQuery.error,
+    stationCommunityHotQuery.errorUpdatedAt,
+  ]);
+
+  useEffect(() => {
+    if (!lineCommunityHotQuery.error) {
+      return;
+    }
+
+    homeParityLogger.fail(
+      'load-line-community-hot',
+      lineCommunityHotQuery.error,
+      {
+        selectedLineId,
+      },
+      '호선 커뮤니티 인기글을 불러오지 못했습니다.',
+    );
+  }, [lineCommunityHotQuery.error, lineCommunityHotQuery.errorUpdatedAt, selectedLineId]);
 
   useEffect(() => {
     let isActive = true;
@@ -591,9 +712,11 @@ export default function HomeViteParity({ locale }: Props) {
     };
   }, [selectedStationId]);
 
-  const selectedStationName =
-    stationOptions.find(station => station.id === selectedStationId)?.name ?? '역 선택';
   const summaryStatusLabel = resolveSummaryStatusLabel(summaryStatus, isSummaryTemporarilyDelayed);
+  const stationCommunityPosts =
+    stationCommunityHotQuery.data?.result.data.slice(0, HOME_COMMUNITY_PREVIEW_LIMIT) ?? [];
+  const lineCommunityPosts =
+    lineCommunityHotQuery.data?.result.data.slice(0, HOME_COMMUNITY_PREVIEW_LIMIT) ?? [];
 
   let summaryContent: ReactNode;
   if (isSummaryLoading) {
@@ -677,6 +800,74 @@ export default function HomeViteParity({ locale }: Props) {
         <p className="text-gray-70">{weatherBrief.cautionText}</p>
         <p className="text-gray-70">{weatherBrief.friendlyText}</p>
       </div>
+    );
+  }
+
+  let stationCommunityContent: ReactNode;
+  if (stationCommunityHotQuery.isLoading) {
+    stationCommunityContent = (
+      <p className="mt-2 text-body-small text-gray-70">역 커뮤니티 인기글을 불러오는 중입니다.</p>
+    );
+  } else if (stationCommunityHotQuery.isError) {
+    stationCommunityContent = (
+      <p className="mt-2 text-body-small text-danger">역 커뮤니티 인기글을 불러오지 못했습니다.</p>
+    );
+  } else if (!stationCommunityPosts.length) {
+    stationCommunityContent = (
+      <p className="mt-2 text-body-small text-gray-70">해당 역 인기글이 아직 없습니다.</p>
+    );
+  } else {
+    stationCommunityContent = (
+      <ul className="mt-2 space-y-2">
+        {stationCommunityPosts.map(post => (
+          <li key={`station-community-${post.id}`}>
+            <Link
+              href={localizePathname(`/community/${post.id}`, locale)}
+              className="block rounded-xl border border-gray-20 bg-gray-05 px-3 py-2"
+            >
+              <p className="line-clamp-1 text-body-small text-gray-100">{post.title}</p>
+              <p className="mt-1 line-clamp-1 text-label-small text-gray-70">
+                {toCommunityPreview(post.content)}
+              </p>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    );
+  }
+
+  let lineCommunityContent: ReactNode;
+  if (lineCommunityHotQuery.isLoading) {
+    lineCommunityContent = (
+      <p className="mt-2 text-body-small text-gray-70">호선 커뮤니티 인기글을 불러오는 중입니다.</p>
+    );
+  } else if (lineCommunityHotQuery.isError) {
+    lineCommunityContent = (
+      <p className="mt-2 text-body-small text-danger">
+        호선 커뮤니티 인기글을 불러오지 못했습니다.
+      </p>
+    );
+  } else if (!lineCommunityPosts.length) {
+    lineCommunityContent = (
+      <p className="mt-2 text-body-small text-gray-70">해당 호선 인기글이 아직 없습니다.</p>
+    );
+  } else {
+    lineCommunityContent = (
+      <ul className="mt-2 space-y-2">
+        {lineCommunityPosts.map(post => (
+          <li key={`line-community-${post.id}`}>
+            <Link
+              href={localizePathname(`/community/${post.id}`, locale)}
+              className="block rounded-xl border border-gray-20 bg-gray-05 px-3 py-2"
+            >
+              <p className="line-clamp-1 text-body-small text-gray-100">{post.title}</p>
+              <p className="mt-1 line-clamp-1 text-label-small text-gray-70">
+                {toCommunityPreview(post.content)}
+              </p>
+            </Link>
+          </li>
+        ))}
+      </ul>
     );
   }
 
@@ -806,6 +997,38 @@ export default function HomeViteParity({ locale }: Props) {
               <p className="mt-2 text-body-small text-amber-700">{realtimeSection.staleMessage}</p>
             ) : null}
           </div>
+        </article>
+      </section>
+
+      <section className="mt-3 px-5">
+        <article className="rounded-2xl border border-gray-30 bg-white p-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-title-small text-gray-100">
+              {selectedStationName} 커뮤니티 인기글
+            </h2>
+            {stationCommunityMoreHref ? (
+              <Link href={stationCommunityMoreHref} className="text-label-small text-key-color">
+                더보기
+              </Link>
+            ) : null}
+          </div>
+          {stationCommunityContent}
+        </article>
+      </section>
+
+      <section className="mt-3 px-5">
+        <article className="rounded-2xl border border-gray-30 bg-white p-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-title-small text-gray-100">
+              {selectedLine?.name ?? '-'} 커뮤니티 인기글
+            </h2>
+            {lineCommunityMoreHref ? (
+              <Link href={lineCommunityMoreHref} className="text-label-small text-key-color">
+                더보기
+              </Link>
+            ) : null}
+          </div>
+          {lineCommunityContent}
         </article>
       </section>
 
