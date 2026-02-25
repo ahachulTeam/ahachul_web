@@ -75,6 +75,15 @@ const CommunityLinePage: ActivityComponentType<CommunityLinePageParams> = ({
         <span>해당 호선 중심 인기글과 필터 결과를 확인할 수 있습니다.</span>
       </S.ScopeSummary>
 
+      <CommunityComponent.CommunityReliabilitySignal
+        subwayLineFilterValue={filters.subwayLineId}
+        fallbackSubwayLineId={selectedLineId}
+        stationId={Number(filters.stationId)}
+        scopeLabel={
+          Number(filters.stationId) > 0 ? '역 범위 지연 신뢰 신호' : '호선 범위 지연 신뢰 신호'
+        }
+      />
+
       <UiComponent.SuspenseQueryBoundary
         keys={boundaryKeys}
         errorFallback={({ reset }) => (

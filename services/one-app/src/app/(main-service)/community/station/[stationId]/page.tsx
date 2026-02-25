@@ -9,6 +9,7 @@ import { getServerLocale } from '@/i18n/server';
 import { CommunityType } from '@/types/community';
 
 import CommunityPosts from '../../_components/CommunityPosts';
+import CommunityReliabilitySignal from '../../_components/CommunityReliabilitySignal';
 import Filters from '../../_components/FilterList';
 import { generateCommunityMetadata } from '../../_lib/metadata';
 import { prefetchPosts } from '../../_lib/prefetchPosts';
@@ -103,6 +104,7 @@ export default async function CommunityStationPage({ params, searchParams }: Pro
         />
         <SearchForm />
         <Filters />
+        <CommunityReliabilitySignal />
         <CommunityPosts />
       </HydrationBoundary>
     </main>

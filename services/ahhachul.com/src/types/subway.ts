@@ -420,6 +420,31 @@ export interface DelayCenterOverviewQuery {
   signalLimit?: number;
 }
 
+export type CommunityReliabilityBadgeLevel = 'NONE' | 'ELEVATED' | 'SPIKE';
+
+export interface CommunityDelaySignalsQuery {
+  subwayLineId: number;
+  stationId?: number;
+  windowMinutes?: number;
+  limit?: number;
+}
+
+export interface CommunityDelaySignalsPayload {
+  generatedAt: string;
+  subwayLineId: number;
+  stationId: number | null;
+  windowMinutes: number;
+  timeSlotMinutes: number;
+  signalCount: number;
+  distinctAuthors: number;
+  medianReportedDelayMin: number | null;
+  confidenceLevel: DelayProofConfidenceLevel;
+  reliabilityBadgeLevel: CommunityReliabilityBadgeLevel;
+  sameTimeSlotSignalCount: number;
+  sameTimeSlotDistinctAuthors: number;
+  signals: DelayProofCommunitySignal[];
+}
+
 export interface DelayCenterOverviewPayload {
   generatedAt: string;
   stationId: number;

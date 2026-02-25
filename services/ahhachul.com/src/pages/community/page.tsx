@@ -44,6 +44,13 @@ const CommunityPage = () => {
         )}
         suspenseFallback={<SearchedListSkeleton isScale={isScale} />}
       >
+        <CommunityComponent.CommunityReliabilitySignal
+          subwayLineFilterValue={filters.subwayLineId}
+          stationId={Number(filters.stationId)}
+          scopeLabel={
+            Number(filters.stationId) > 0 ? '역 범위 지연 신뢰 신호' : '호선 범위 지연 신뢰 신호'
+          }
+        />
         <SearchedList keyword={keyword} filters={filters} isScale={isScale} />
       </UiComponent.SuspenseQueryBoundary>
 

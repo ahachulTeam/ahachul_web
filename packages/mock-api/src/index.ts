@@ -2590,8 +2590,35 @@ const routes: RouteDefinition[] = [
   {
     method: 'GET',
     pattern: API_PATHS.subway.communityDelaySignalsV2,
-    resolver: () =>
-      toSuccessResponse({
+    resolver: ({ url }) => {
+      const subwayLineId = toNumber(url.searchParams.get('subwayLineId'), 2);
+      const stationIdRaw = url.searchParams.get('stationId');
+      const stationId =
+        stationIdRaw && stationIdRaw.trim().length > 0 ? toNumber(stationIdRaw, 0) : null;
+      const windowMinutes = toNumber(url.searchParams.get('windowMinutes'), 30);
+      const normalizedWindowMinutes = Math.max(5, Math.min(120, windowMinutes));
+      const slotSignals = stationId ? 7 : 4;
+      const slotAuthors = stationId ? 5 : 3;
+      let reliabilityBadgeLevel: 'SPIKE' | 'ELEVATED' | 'NONE' = 'NONE';
+
+      if (slotSignals >= 6 && slotAuthors >= 4) {
+        reliabilityBadgeLevel = 'SPIKE';
+      } else if (slotSignals >= 3 && slotAuthors >= 2) {
+        reliabilityBadgeLevel = 'ELEVATED';
+      }
+
+      return toSuccessResponse({
+        subwayLineId,
+        stationId,
+        windowMinutes: normalizedWindowMinutes,
+        timeSlotMinutes: 10,
+        signalCount: stationId ? 18 : 9,
+        distinctAuthors: stationId ? 11 : 6,
+        medianReportedDelayMin: stationId ? 8 : 6,
+        confidenceLevel: stationId ? 'HIGH' : 'MEDIUM',
+        reliabilityBadgeLevel,
+        sameTimeSlotSignalCount: slotSignals,
+        sameTimeSlotDistinctAuthors: slotAuthors,
         signals: [
           {
             postId: 1001,
@@ -2601,8 +2628,17 @@ const routes: RouteDefinition[] = [
             reportedDelayMin: 8,
             snippet: '체감 지연이 꽤 큽니다.',
           },
+          {
+            postId: 1002,
+            createdAt: toIsoDate(8),
+            writer: '출근메이트',
+            matchedKeyword: '연착',
+            reportedDelayMin: 6,
+            snippet: '열차 간격이 늘어난 느낌입니다.',
+          },
         ],
-      }),
+      });
+    },
   },
   {
     method: 'GET',

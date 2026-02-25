@@ -11,6 +11,7 @@ import { formatSubwayLineInfo } from '@ahhachul/utils';
 import {
   createDelayProofV2,
   createDailyVoteCommentV2,
+  fetchCommunityDelaySignalsV2,
   fetchDelayCenterOverviewV2,
   fetchDelayProofV2,
   fetchDailyVoteCommentsV2,
@@ -34,6 +35,7 @@ import {
 import { TIMESTAMP } from '@/constants';
 import {
   APITrainInfoParams,
+  CommunityDelaySignalsQuery,
   DelayCenterOverviewQuery,
   DelayProofCreateRequest,
   RouteSearchStrategy,
@@ -297,6 +299,28 @@ export const useFetchDelayCenterOverview = (
     queryFn: () => fetchDelayCenterOverviewV2(params),
     enabled: options?.enabled ?? true,
     staleTime: 15 * TIMESTAMP.SECOND,
+    gcTime: QUERY_GC_TIME.feed,
+    retry: 1,
+    select: res => res.data.result,
+  });
+};
+
+export const useFetchCommunityDelaySignals = (
+  params: CommunityDelaySignalsQuery,
+  options?: { enabled?: boolean },
+) => {
+  const signature = buildQuerySignature({
+    subwayLineId: params.subwayLineId,
+    stationId: params.stationId,
+    windowMinutes: params.windowMinutes,
+    limit: params.limit,
+  });
+
+  return useQuery({
+    queryKey: [...subwayKeys.trains(), 'community-delay-signals-v2', signature],
+    queryFn: () => fetchCommunityDelaySignalsV2(params),
+    enabled: (options?.enabled ?? true) && params.subwayLineId > 0,
+    staleTime: 30 * TIMESTAMP.SECOND,
     gcTime: QUERY_GC_TIME.feed,
     retry: 1,
     select: res => res.data.result,

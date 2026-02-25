@@ -5,6 +5,8 @@ import { sleep } from '@ahhachul/utils';
 
 import axiosInstance from '@/apis/fetcher';
 import {
+  CommunityDelaySignalsPayload,
+  CommunityDelaySignalsQuery,
   CurrentTrainArrivalType,
   DelayCenterOverviewPayload,
   DelayCenterOverviewQuery,
@@ -436,6 +438,15 @@ export const fetchStationTimesFullV2 = async (params: APIStationTimesFullV2Param
 export const fetchDelayCenterOverviewV2 = async (params: DelayCenterOverviewQuery) => {
   return axiosInstance.get<ApiResponse<DelayCenterOverviewPayload>>(
     API_PATHS.subway.delayCenterOverviewV2,
+    {
+      params,
+    },
+  );
+};
+
+export const fetchCommunityDelaySignalsV2 = async (params: CommunityDelaySignalsQuery) => {
+  return axiosInstance.get<ApiResponse<CommunityDelaySignalsPayload>>(
+    API_PATHS.subway.communityDelaySignalsV2,
     {
       params,
     },
