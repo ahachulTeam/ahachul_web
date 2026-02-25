@@ -62,7 +62,8 @@
       "messages": "ข้อความ",
       "notifications": "การแจ้งเตือน",
       "community": "ชุมชน",
-      "complaint": "ร้องเรียน"
+      "complaint": "ร้องเรียน",
+      "delayCenter": "ศูนย์ความล่าช้า/เหตุขัดข้อง"
     },
     "subwaySettingsHeading": "การตั้งค่ารถไฟใต้ดินของฉัน",
     "noFavoriteStations": "ยังไม่มีสถานีโปรดที่ลงทะเบียน",

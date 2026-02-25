@@ -62,7 +62,8 @@
       "messages": "메시지",
       "notifications": "알림",
       "community": "커뮤니티",
-      "complaint": "민원"
+      "complaint": "민원",
+      "delayCenter": "지연/사고 센터"
     },
     "subwaySettingsHeading": "내 지하철 설정",
     "noFavoriteStations": "등록된 즐겨찾기 역이 없습니다.",

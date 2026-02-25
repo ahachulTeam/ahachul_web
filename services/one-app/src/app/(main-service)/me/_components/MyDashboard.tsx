@@ -1081,6 +1081,12 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
           >
             {copy.quickLinks.complaint}
           </Link>
+          <Link
+            href={localizePathname('/delay-center', locale)}
+            className="rounded-xl bg-gray-20 p-3 text-label-medium text-gray-90"
+          >
+            {copy.quickLinks.delayCenter}
+          </Link>
         </div>
       </article>
 

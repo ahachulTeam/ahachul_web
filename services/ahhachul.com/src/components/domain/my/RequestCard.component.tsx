@@ -9,6 +9,7 @@ const RequestCard = () => {
   const { addToast } = useToast();
 
   const handleSettingPage = () => push('SettingPage', {});
+  const handleDelayCenterPage = () => push('DelayCenterPage', {});
   const showToast = () => addToast('준비중인 기능입니다.', 'info');
 
   return (
@@ -16,6 +17,13 @@ const RequestCard = () => {
       <button onClick={handleSettingPage}>
         <AppLinkIcon />
         <p>즐겨찾는 역 관리</p>
+      </button>
+
+      <div className="divider" />
+
+      <button onClick={handleDelayCenterPage}>
+        <AppLinkIcon />
+        <p>지연/사고 센터</p>
       </button>
 
       <div className="divider" />

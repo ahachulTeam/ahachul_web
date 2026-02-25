@@ -62,7 +62,8 @@
       "messages": "Messages",
       "notifications": "Notifications",
       "community": "Community",
-      "complaint": "Complaints"
+      "complaint": "Complaints",
+      "delayCenter": "Delay center"
     },
     "subwaySettingsHeading": "My subway settings",
     "noFavoriteStations": "No favorite stations registered.",

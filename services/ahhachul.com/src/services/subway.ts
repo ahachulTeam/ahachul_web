@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 import {
   QUERY_GC_TIME,
@@ -9,6 +9,9 @@ import {
 import { formatSubwayLineInfo } from '@ahhachul/utils';
 
 import {
+  createDelayProofV2,
+  fetchDelayCenterOverviewV2,
+  fetchDelayProofV2,
   fetchLastTrainRiskV2,
   fetchNearbyPlacesV2,
   fetchStationWeatherBriefV2,
@@ -22,7 +25,14 @@ import {
   normalizeTrainInfoV2Response,
 } from '@/apis/request/subway';
 import { TIMESTAMP } from '@/constants';
-import { APITrainInfoParams, RouteSearchStrategy, StationTimeWeekType, UpDownType } from '@/types';
+import {
+  APITrainInfoParams,
+  DelayCenterOverviewQuery,
+  DelayProofCreateRequest,
+  RouteSearchStrategy,
+  StationTimeWeekType,
+  UpDownType,
+} from '@/types';
 
 export const subwayKeys = subwayQueryKeys;
 
@@ -244,6 +254,48 @@ export const useFetchStationTimesFull = (
     queryKey: [...subwayKeys.trains(), 'station-times-full-v2', signature],
     queryFn: () => fetchStationTimesFullV2(params),
     enabled: options?.enabled ?? true,
+    staleTime: 60 * TIMESTAMP.SECOND,
+    gcTime: QUERY_GC_TIME.feed,
+    retry: 1,
+    select: res => res.data.result,
+  });
+};
+
+export const useFetchDelayCenterOverview = (
+  params: DelayCenterOverviewQuery,
+  options?: { enabled?: boolean },
+) => {
+  const signature = buildQuerySignature({
+    stationId: params.stationId,
+    subwayLineId: params.subwayLineId,
+    upDownType: params.upDownType,
+    windowMinutes: params.windowMinutes,
+    incidentLimit: params.incidentLimit,
+    signalLimit: params.signalLimit,
+  });
+
+  return useQuery({
+    queryKey: [...subwayKeys.trains(), 'delay-center-overview-v2', signature],
+    queryFn: () => fetchDelayCenterOverviewV2(params),
+    enabled: options?.enabled ?? true,
+    staleTime: 15 * TIMESTAMP.SECOND,
+    gcTime: QUERY_GC_TIME.feed,
+    retry: 1,
+    select: res => res.data.result,
+  });
+};
+
+export const useCreateDelayProof = () => {
+  return useMutation({
+    mutationFn: (payload: DelayProofCreateRequest) => createDelayProofV2(payload),
+  });
+};
+
+export const useFetchDelayProof = (proofId: string, options?: { enabled?: boolean }) => {
+  return useQuery({
+    queryKey: [...subwayKeys.trains(), 'delay-proof-v2', proofId],
+    queryFn: () => fetchDelayProofV2(proofId),
+    enabled: (options?.enabled ?? true) && proofId.length > 0,
     staleTime: 60 * TIMESTAMP.SECOND,
     gcTime: QUERY_GC_TIME.feed,
     retry: 1,

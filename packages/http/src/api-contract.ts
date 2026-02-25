@@ -78,6 +78,7 @@ export const API_PATHS = {
     lines: '/subway-lines',
     trainRealTimes: '/trains/real-times',
     trainRealTimesV2: '/v2/trains/real-times',
+    delayCenterOverviewV2: '/v2/delay-centers/overview',
     delayProofsV2: '/v2/delay-proofs',
     delayProofV2: (proofId: Identifier) => `/v2/delay-proofs/${proofId}`,
     subwayIncidentsV2: '/v2/subway/incidents',

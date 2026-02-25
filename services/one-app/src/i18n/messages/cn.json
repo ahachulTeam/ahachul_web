@@ -62,7 +62,8 @@
       "messages": "消息",
       "notifications": "通知",
       "community": "社区",
-      "complaint": "投诉"
+      "complaint": "投诉",
+      "delayCenter": "延误/事故中心"
     },
     "subwaySettingsHeading": "我的地铁设置",
     "noFavoriteStations": "暂无收藏车站。",

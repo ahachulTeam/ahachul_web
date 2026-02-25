@@ -6,6 +6,10 @@ import { sleep } from '@ahhachul/utils';
 import axiosInstance from '@/apis/fetcher';
 import {
   CurrentTrainArrivalType,
+  DelayCenterOverviewPayload,
+  DelayCenterOverviewQuery,
+  DelayProofCreateRequest,
+  DelayProofPayload,
   LastTrainRiskLevel,
   NearbyPlaceConfidenceLevel,
   QuickExitConfidenceLevel,
@@ -250,4 +254,24 @@ export const fetchStationTimesFullV2 = async (params: APIStationTimesFullV2Param
       params,
     },
   );
+};
+
+export const fetchDelayCenterOverviewV2 = async (params: DelayCenterOverviewQuery) => {
+  return axiosInstance.get<ApiResponse<DelayCenterOverviewPayload>>(
+    API_PATHS.subway.delayCenterOverviewV2,
+    {
+      params,
+    },
+  );
+};
+
+export const createDelayProofV2 = async (payload: DelayProofCreateRequest) => {
+  return axiosInstance.post<ApiResponse<DelayProofPayload>>(
+    API_PATHS.subway.delayProofsV2,
+    payload,
+  );
+};
+
+export const fetchDelayProofV2 = async (proofId: string) => {
+  return axiosInstance.get<ApiResponse<DelayProofPayload>>(API_PATHS.subway.delayProofV2(proofId));
 };

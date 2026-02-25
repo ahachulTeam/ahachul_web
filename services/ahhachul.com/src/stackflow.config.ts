@@ -26,6 +26,7 @@ export const stackflowPlugin = [
       MyPage: PATH.me.home,
       SettingPage: PATH.me.setting,
       MyAccountPage: PATH.me.account,
+      DelayCenterPage: PATH.me.delayCenter,
 
       // home page
       HomePage: PATH.home,
@@ -71,6 +72,7 @@ export const stackflowPlugin = [
 
       SubwayMapPage: PATH.subway.map,
       SubwayTimelinePage: PATH.subway.timeline,
+      DelayProofPage: PATH.proof.detail,
     },
     fallbackActivity: () => 'HomePage',
   }),

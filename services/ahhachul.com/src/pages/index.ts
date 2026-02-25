@@ -2,6 +2,7 @@ import { EditCommentPage, NewCommentReplyPage } from './comment';
 import { HashtagPage } from './hashtag';
 import { NewsDetailPage } from './news';
 import { NotificationPage, NotificationSettingPage } from './notification';
+import { DelayProofPage } from './proofs';
 import { SubwayMapPage, SubwayTimelinePage } from './subway';
 import { TalkPage, TalkDetailPage, TalkSettingPage } from './talk';
 import { UserProfilePage, UserProfilePreviewPage, UserProfileSettingPage } from './user';
@@ -18,6 +19,7 @@ export const SharingPages = {
   HashtagPage,
   SubwayMapPage,
   SubwayTimelinePage,
+  DelayProofPage,
   UserProfilePage,
   UserProfileSettingPage,
   UserProfilePreviewPage,

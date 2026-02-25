@@ -37,6 +37,12 @@ export const PATH = {
     home: '/me',
     setting: '/me/setting',
     account: '/me/setting/account',
+    delayCenter: '/me/delay-center',
+  },
+
+  /** 지연 증빙 공유 */
+  proof: {
+    detail: '/proofs/:proofId',
   },
 
   /** 유저 프로필 */

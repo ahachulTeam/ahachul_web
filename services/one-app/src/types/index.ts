@@ -9,6 +9,7 @@ export * from './station-weather-brief-v2';
 export * from './station-times-full-v2';
 export * from './subway-route-v2';
 export * from './delay-proof';
+export * from './delay-center';
 export * from './message';
 
 export * from './lost-found';
