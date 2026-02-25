@@ -18,6 +18,7 @@ const HomePage: ActivityComponentType = () => {
       <S.Container>
         <HomeComponent.WelcomeMessage />
         <HomeComponent.Stations />
+        <HomeComponent.CommuteCoach />
         <HomeComponent.CommunityHotPosts />
         <HomeComponent.SubwayNews />
         <HomeComponent.RankHashtag />

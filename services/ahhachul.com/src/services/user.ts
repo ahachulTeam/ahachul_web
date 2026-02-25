@@ -15,6 +15,7 @@ const FAVORITE_ROUTE_RECOMMENDATION_KEY = [
   'favorite-route-recommendations',
 ] as const;
 const FAVORITE_ROUTE_KEY = [...userKeys.all, 'favorite-routes'] as const;
+const COMMUTE_COACH_KEY = [...userKeys.all, 'commute-coach', 'today'] as const;
 const userServiceLogger = createActionLogger('user-service');
 
 export const useFetchUserProfile = () => {
@@ -101,6 +102,30 @@ export const useFetchUserFavoriteRouteRecommendations = (limit = 3) => {
     queryKey: [...FAVORITE_ROUTE_RECOMMENDATION_KEY, limit],
     enabled: authService.isAuthenticated,
     queryFn: () => api.fetchUserFavoriteRouteRecommendations(limit),
+    staleTime: QUERY_STALE_TIME.user,
+    gcTime: QUERY_GC_TIME.user,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
+};
+
+export const useFetchUserCommuteCoachToday = (
+  params: {
+    targetArrivalAt?: string;
+    timezone?: string;
+  } = {},
+) => {
+  const { authService } = useAuth();
+
+  return useQuery({
+    queryKey: [
+      ...COMMUTE_COACH_KEY,
+      params.targetArrivalAt ?? '09:00',
+      params.timezone ?? 'Asia/Seoul',
+    ],
+    enabled: authService.isAuthenticated,
+    queryFn: () => api.fetchUserCommuteCoachToday(params),
     staleTime: QUERY_STALE_TIME.user,
     gcTime: QUERY_GC_TIME.user,
     refetchOnMount: false,

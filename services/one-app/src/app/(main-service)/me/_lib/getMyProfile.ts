@@ -87,6 +87,20 @@ export type FavoriteRouteList = {
   routes: FavoriteRoute[];
 };
 
+export type CommuteCoachRiskLevel = 'LOW' | 'MEDIUM' | 'HIGH';
+
+export type CommuteCoach = {
+  generatedAt: string;
+  targetArrivalAt: string;
+  safeDepartureAt: string | null;
+  departureInMinutes: number | null;
+  riskLevel: CommuteCoachRiskLevel;
+  riskReasons: string[];
+  primaryRoute: FavoriteRoute | null;
+  alternativeRoutes: FavoriteRoute[];
+  guidanceMessage: string;
+};
+
 export type CreateFavoriteRoutePayload = {
   sourceStationId: number;
   destinationStationId: number;
@@ -126,6 +140,20 @@ export async function updateMyFavoriteStations(stations: FavoriteStationPayload[
 export async function getMyFavoriteRouteRecommendations(limit = 3) {
   return fetchClient<ApiResponse<FavoriteRouteList>>(API_PATHS.user.favoriteRouteRecommendations, {
     params: { limit },
+  });
+}
+
+export async function getMyTodayCommuteCoach(params?: {
+  targetArrivalAt?: string;
+  timezone?: string;
+}) {
+  const normalizedParams = {
+    ...(params?.targetArrivalAt ? { targetArrivalAt: params.targetArrivalAt } : {}),
+    ...(params?.timezone ? { timezone: params.timezone } : {}),
+  };
+
+  return fetchClient<ApiResponse<CommuteCoach>>(API_PATHS.user.commuteCoachToday, {
+    params: normalizedParams,
   });
 }
 

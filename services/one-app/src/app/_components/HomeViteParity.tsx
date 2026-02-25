@@ -7,7 +7,12 @@ import Link from 'next/link';
 
 import { API_PATHS, API_SORT } from '@ahhachul/http';
 
-import { getMyFavoriteStations, getMyProfile } from '@/app/(main-service)/me/_lib/getMyProfile';
+import {
+  getMyFavoriteStations,
+  getMyProfile,
+  getMyTodayCommuteCoach,
+  type CommuteCoachRiskLevel,
+} from '@/app/(main-service)/me/_lib/getMyProfile';
 import { SUBWAY_LOGO_SVG_LIST } from '@/components/Subway/SubwayLogoIconMap';
 import { getLocaleMessages, localizePathname, type SupportedLocale } from '@/i18n';
 import { AuthService } from '@/lib/auth-service';
@@ -219,6 +224,26 @@ function resolveWeatherSourceClassName(
   return 'border-emerald-200 bg-emerald-50 text-emerald-700';
 }
 
+function resolveCommuteRiskLabel(riskLevel?: CommuteCoachRiskLevel) {
+  if (riskLevel === 'LOW') {
+    return '안정';
+  }
+  if (riskLevel === 'MEDIUM') {
+    return '주의';
+  }
+  return '긴급';
+}
+
+function resolveCommuteRiskClassName(riskLevel?: CommuteCoachRiskLevel) {
+  if (riskLevel === 'LOW') {
+    return 'border-emerald-200 bg-emerald-50 text-emerald-700';
+  }
+  if (riskLevel === 'MEDIUM') {
+    return 'border-amber-200 bg-amber-50 text-amber-700';
+  }
+  return 'border-rose-200 bg-rose-50 text-rose-700';
+}
+
 function toSummaryByType(summaries: StationTimeSummaryItem[] = []) {
   return summaries.reduce<Partial<Record<RealtimeUpDownType, StationTimeSummaryItem>>>(
     (accumulator, item) => {
@@ -289,6 +314,7 @@ export default function HomeViteParity({ locale }: Props) {
     () => subwayLines.find(line => line.id === selectedLineId) ?? null,
     [selectedLineId, subwayLines],
   );
+  const isLoggedIn = AuthService.isLoggedIn;
   const stationOptions = selectedLine?.stations ?? [];
   const selectedStationName =
     stationOptions.find(station => station.id === selectedStationId)?.name ?? '역 선택';
@@ -360,6 +386,16 @@ export default function HomeViteParity({ locale }: Props) {
       }),
   });
 
+  const commuteCoachQuery = useQuery({
+    queryKey: ['home', 'commute-coach', 'today'],
+    enabled: isLoggedIn,
+    queryFn: () =>
+      getMyTodayCommuteCoach({
+        targetArrivalAt: '09:00',
+        timezone: 'Asia/Seoul',
+      }),
+  });
+
   useEffect(() => {
     if (!stationCommunityHotQuery.error) {
       return;
@@ -395,6 +431,19 @@ export default function HomeViteParity({ locale }: Props) {
       '호선 커뮤니티 인기글을 불러오지 못했습니다.',
     );
   }, [lineCommunityHotQuery.error, lineCommunityHotQuery.errorUpdatedAt, selectedLineId]);
+
+  useEffect(() => {
+    if (!commuteCoachQuery.error) {
+      return;
+    }
+
+    homeParityLogger.fail(
+      'load-commute-coach',
+      commuteCoachQuery.error,
+      undefined,
+      '출근 코치 정보를 불러오지 못했습니다.',
+    );
+  }, [commuteCoachQuery.error, commuteCoachQuery.errorUpdatedAt]);
 
   useEffect(() => {
     let isActive = true;
@@ -803,6 +852,71 @@ export default function HomeViteParity({ locale }: Props) {
     );
   }
 
+  const commuteCoach = commuteCoachQuery.data?.result;
+  const primaryCommuteRoute = commuteCoach?.primaryRoute ?? null;
+  let departureLabel = '-';
+  if (commuteCoach?.departureInMinutes != null) {
+    departureLabel =
+      commuteCoach.departureInMinutes <= 0
+        ? '지금 바로 출발 권장'
+        : `${commuteCoach.departureInMinutes}분 후`;
+  }
+
+  let commuteCoachContent: ReactNode;
+  if (!isLoggedIn) {
+    commuteCoachContent = (
+      <p className="mt-2 text-body-small text-gray-70">로그인 후 출근 코치를 확인할 수 있습니다.</p>
+    );
+  } else if (commuteCoachQuery.isPending) {
+    commuteCoachContent = (
+      <p className="mt-2 text-body-small text-gray-70">출근 코치 정보를 계산하는 중입니다.</p>
+    );
+  } else if (commuteCoachQuery.isError) {
+    commuteCoachContent = (
+      <p className="mt-2 text-body-small text-danger">출근 코치 정보를 불러오지 못했습니다.</p>
+    );
+  } else if (!commuteCoach || !primaryCommuteRoute) {
+    commuteCoachContent = (
+      <p className="mt-2 text-body-small text-gray-70">
+        {commuteCoach?.guidanceMessage ??
+          '즐겨찾는 역을 2개 이상 등록하면 출근 코치를 제공할 수 있어요.'}
+      </p>
+    );
+  } else {
+    commuteCoachContent = (
+      <div className="mt-2 space-y-2">
+        <div className="grid gap-1 text-body-small text-gray-90">
+          <p>목표 도착 시각 {commuteCoach.targetArrivalAt}</p>
+          <p>권장 출발 시각 {commuteCoach.safeDepartureAt ?? '-'}</p>
+          <p>출발 권장 {departureLabel}</p>
+        </div>
+        <div className="rounded-lg border border-gray-20 bg-gray-05 p-2">
+          <p className="text-label-small text-gray-100">
+            기본 경로 {primaryCommuteRoute.sourceStationName} {'->'}{' '}
+            {primaryCommuteRoute.destinationStationName}
+          </p>
+          <p className="mt-1 text-label-small text-gray-70">
+            정거장 {primaryCommuteRoute.summary.totalStops} · 환승{' '}
+            {primaryCommuteRoute.summary.transferCount} · 예상{' '}
+            {primaryCommuteRoute.summary.estimatedMinutes}분
+          </p>
+        </div>
+        {commuteCoach.alternativeRoutes.length > 0 ? (
+          <p className="text-label-small text-gray-70">
+            대체 경로 {commuteCoach.alternativeRoutes.length}개 제공
+          </p>
+        ) : null}
+        <ul className="space-y-1">
+          {commuteCoach.riskReasons.slice(0, 2).map(reason => (
+            <li key={reason} className="text-label-small text-gray-70">
+              · {reason}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
   let stationCommunityContent: ReactNode;
   if (stationCommunityHotQuery.isLoading) {
     stationCommunityContent = (
@@ -963,6 +1077,36 @@ export default function HomeViteParity({ locale }: Props) {
               ) : null}
             </div>
             {weatherContent}
+          </div>
+
+          <div className="mt-3 rounded-xl border border-gray-20 bg-white p-3">
+            <div className="flex items-center justify-between">
+              <p className="text-label-medium text-gray-100">출근 코치</p>
+              <div className="flex items-center gap-2">
+                {commuteCoach?.riskLevel ? (
+                  <p
+                    className={`inline-flex rounded-full border px-2 py-0.5 text-label-small ${resolveCommuteRiskClassName(
+                      commuteCoach.riskLevel,
+                    )}`}
+                  >
+                    {resolveCommuteRiskLabel(commuteCoach.riskLevel)}
+                  </p>
+                ) : null}
+                {isLoggedIn ? (
+                  <button
+                    type="button"
+                    className="text-label-small text-key-color"
+                    onClick={() => {
+                      homeParityLogger.info('refresh-commute-coach', {});
+                      void commuteCoachQuery.refetch();
+                    }}
+                  >
+                    새로고침
+                  </button>
+                ) : null}
+              </div>
+            </div>
+            {commuteCoachContent}
           </div>
 
           <div className="mt-3 rounded-xl border border-gray-20 bg-gray-05 p-3">

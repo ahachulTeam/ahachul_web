@@ -31,6 +31,7 @@ export const API_PATHS = {
     profileDetail: (nickname: Identifier) =>
       `/members/${encodeURIComponent(String(nickname))}/profile`,
     favoriteStations: '/members/bookmarks/stations',
+    commuteCoachToday: '/v2/members/commute-coach/today',
     favoriteRouteRecommendations: '/v2/members/bookmarks/routes/recommendations',
     favoriteRoutes: '/v2/members/bookmarks/routes',
     favoriteRoute: (id: Identifier) => `/v2/members/bookmarks/routes/${id}`,

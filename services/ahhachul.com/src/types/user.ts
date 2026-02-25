@@ -133,6 +133,20 @@ export interface FavoriteRouteListDto {
   routes: FavoriteRouteDto[];
 }
 
+export type CommuteCoachRiskLevel = 'LOW' | 'MEDIUM' | 'HIGH';
+
+export interface CommuteCoachDto {
+  generatedAt: string;
+  targetArrivalAt: string;
+  safeDepartureAt: string | null;
+  departureInMinutes: number | null;
+  riskLevel: CommuteCoachRiskLevel;
+  riskReasons: string[];
+  primaryRoute: FavoriteRouteDto | null;
+  alternativeRoutes: FavoriteRouteDto[];
+  guidanceMessage: string;
+}
+
 export interface CreateFavoriteRouteRequestDto {
   sourceStationId: number;
   destinationStationId: number;

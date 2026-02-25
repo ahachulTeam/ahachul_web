@@ -8,6 +8,7 @@ import type {
   APIUpdateUserResponse,
   ArticleHistoryResponseDto,
   AuthTokens,
+  CommuteCoachDto,
   CreateFavoriteRouteRequestDto,
   FavoriteRouteDto,
   FavoriteRouteListDto,
@@ -113,6 +114,19 @@ export const fetchUserFavoriteRouteRecommendations = async (limit = 3) => {
     API_PATHS.user.favoriteRouteRecommendations,
     {
       params: { limit },
+    },
+  );
+
+  return data;
+};
+
+export const fetchUserCommuteCoachToday = async (
+  params: { targetArrivalAt?: string; timezone?: string } = {},
+) => {
+  const { data } = await axiosInstance.get<ApiResponse<CommuteCoachDto>>(
+    API_PATHS.user.commuteCoachToday,
+    {
+      params,
     },
   );
 
