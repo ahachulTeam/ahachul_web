@@ -2,6 +2,13 @@ import { render, screen } from '@testing-library/react';
 
 import Home from '@/app/page';
 
+jest.mock('@/app/_components/HomeViteParity', () => ({
+  __esModule: true,
+  default: ({ locale }: { locale: string }) => (
+    <main className="min-h-screen bg-gray-10 pb-24 pt-4">home-vite-parity-{locale}</main>
+  ),
+}));
+
 jest.mock('next/headers', () => ({
   headers: jest.fn(async () => new Headers([['x-ahhachul-locale', 'ko']])),
   cookies: jest.fn(async () => ({
@@ -16,15 +23,15 @@ jest.mock('next/navigation', () => ({
 }));
 
 describe('Home Page', () => {
-  it('renders welcome message', async () => {
+  it('renders vite parity home component', async () => {
     render(await Home());
     expect(screen.getByRole('main')).toBeInTheDocument();
-    expect(screen.getByText('아하철님,')).toBeInTheDocument();
+    expect(screen.getByText('home-vite-parity-ko')).toBeInTheDocument();
   });
 
-  it('has correct styling', async () => {
+  it('uses the parity root layout class', async () => {
     render(await Home());
     const main = screen.getByRole('main');
-    expect(main).toHaveClass('flex', 'min-h-screen', 'flex-col', 'text-black', 'bg-white', 'pt-4');
+    expect(main).toHaveClass('min-h-screen', 'bg-gray-10', 'pb-24', 'pt-4');
   });
 });

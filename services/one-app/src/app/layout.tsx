@@ -15,8 +15,6 @@ import { cn } from '@/utils/cn';
 
 import Header from './_components/Header';
 import NavMenu from './_components/NavMenu';
-import SeoInternalLinks from './_components/SeoInternalLinks';
-import SeoStructuredData from './_components/SeoStructuredData';
 import './globals.css';
 
 export const viewport: Viewport = {
@@ -51,12 +49,11 @@ export default async function RootLayout({
   return (
     <html lang={HTML_LANG_BY_LOCALE[locale]}>
       <body suppressHydrationWarning className={cn('font-sans antialiased', Pretendard.variable)}>
-        <SeoStructuredData />
+        {/* SEO 임시 비활성화: Vite 홈 동등화 이후 재활성화 예정 */}
         <NextTopLoader height={2} color={colors['key-color']} showSpinner={false} />
         <Providers>
           <Header />
           {children}
-          <SeoInternalLinks />
           <NavMenu />
         </Providers>
       </body>
