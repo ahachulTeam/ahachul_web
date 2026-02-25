@@ -38,7 +38,13 @@ const ComplaintPage: ActivityComponentType = () => {
     >
       <UiComponent.SuspenseQueryBoundary
         keys={boundaryKeys}
-        errorFallback={<div />}
+        errorFallback={({ reset }) => (
+          <UiComponent.AppErrorFallback
+            title="민원 목록을 불러오지 못했습니다."
+            description="잠시 후 다시 시도해주세요."
+            onAction={reset}
+          />
+        )}
         suspenseFallback={<SearchedListSkeleton isScale={isScale} />}
       >
         <SearchedList keyword={keyword} filters={filters} isScale={isScale} />

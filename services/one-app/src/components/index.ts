@@ -5,3 +5,4 @@ export * from './Article';
 export * from './BaseSkeleton';
 export * from './ConditionalRender';
 export * from './SuspenseQueryBoundary';
+export * from './Error';

@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client';
 
 import App from './App';
+import { UiComponent } from './components';
 import { Provider } from './contexts';
 
 function render() {
@@ -8,7 +9,10 @@ function render() {
 
   root.render(
     <Provider>
-      <App />
+      <UiComponent.GlobalErrorListeners />
+      <UiComponent.GlobalAppErrorBoundary>
+        <App />
+      </UiComponent.GlobalAppErrorBoundary>
     </Provider>,
   );
 }

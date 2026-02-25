@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { localizePathname } from '@/i18n';
 import type { SupportedLocale } from '@/i18n/config';
 import { getMessageRoomMessages, getMessageRooms, sendMessage } from '@/lib/messages';
+import { resolveClientErrorMessage } from '@/lib/observability';
 import type { SendMessageRequest } from '@/types';
 
 const ROOM_LIST_QUERY_KEY = ['message-rooms'] as const;
@@ -27,10 +28,7 @@ interface MessageRoomClientProps {
 }
 
 function getErrorMessage(error: unknown): string {
-  if (error instanceof Error) {
-    return error.message;
-  }
-  return '쪽지 기능 처리 중 오류가 발생했습니다.';
+  return resolveClientErrorMessage(error, '쪽지 기능 처리 중 오류가 발생했습니다.');
 }
 
 export default function MessageRoomClient({ locale, roomId, copy }: MessageRoomClientProps) {

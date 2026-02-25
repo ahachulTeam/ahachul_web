@@ -4,6 +4,8 @@ import React from 'react';
 
 import { isChangedArray } from '@ahhachul/utils';
 
+import { reportClientError } from '@/lib/observability';
+
 type ErrorFallbackProps = {
   error: Error;
   reset: () => void;
@@ -32,8 +34,18 @@ export class BaseErrorBoundary extends React.Component<ErrorBoundaryProps, Error
   }
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-    console.error(error);
     return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, info: React.ErrorInfo) {
+    reportClientError(
+      'one-app:suspense-query-boundary',
+      error,
+      {
+        componentStack: info.componentStack,
+      },
+      '데이터를 불러오는 중 오류가 발생했습니다.',
+    );
   }
 
   componentDidUpdate(prevProps: ErrorBoundaryProps, prevState: ErrorBoundaryState) {

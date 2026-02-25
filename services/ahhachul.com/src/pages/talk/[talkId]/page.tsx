@@ -3,7 +3,6 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 import type { ActivityComponentType } from '@stackflow/react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
 
 import { createMessage, fetchMessageRoomMessages, fetchMessageRooms } from '@/apis/request';
 import { LayoutComponent } from '@/components';
@@ -11,21 +10,13 @@ import { useToast } from '@/hooks';
 import { useActivity, useFlow } from '@/stackflow';
 import { mixins, theme } from '@/styles';
 import type { SendMessageRequest, WithPostId } from '@/types';
+import { resolveClientErrorMessage } from '@/utils/observability';
 
 const MESSAGE_ROOMS_QUERY_KEY = ['message-rooms'] as const;
 const MESSAGE_ROOM_MESSAGES_QUERY_KEY = (roomId: number) =>
   ['message-room-messages', roomId] as const;
 const ROOM_MESSAGES_PAGE_SIZE = 50;
 const ROOM_POLLING_INTERVAL_MS = 5_000;
-
-function resolveMessageError(error: unknown, fallbackMessage: string): string {
-  if (!axios.isAxiosError(error)) {
-    return fallbackMessage;
-  }
-
-  const errorMessage = error.response?.data?.message;
-  return typeof errorMessage === 'string' ? errorMessage : fallbackMessage;
-}
 
 const TalkDetailPage: ActivityComponentType<WithPostId> = () => {
   const activity = useActivity();
@@ -75,7 +66,7 @@ const TalkDetailPage: ActivityComponentType<WithPostId> = () => {
       });
     },
     onError: error => {
-      setSubmitError(resolveMessageError(error, '메시지 전송에 실패했습니다.'));
+      setSubmitError(resolveClientErrorMessage(error, '메시지 전송에 실패했습니다.'));
     },
   });
 

@@ -3,21 +3,12 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 import type { ActivityComponentType } from '@stackflow/react';
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 
 import { createMessage } from '@/apis/request';
 import { LayoutComponent } from '@/components';
 import { useFlow } from '@/stackflow';
 import { mixins, theme } from '@/styles';
-
-function resolveMessageError(error: unknown, fallbackMessage: string): string {
-  if (!axios.isAxiosError(error)) {
-    return fallbackMessage;
-  }
-
-  const errorMessage = error.response?.data?.message;
-  return typeof errorMessage === 'string' ? errorMessage : fallbackMessage;
-}
+import { resolveClientErrorMessage } from '@/utils/observability';
 
 const TalkSettingPage: ActivityComponentType = () => {
   const { pop, replace } = useFlow();
@@ -31,7 +22,7 @@ const TalkSettingPage: ActivityComponentType = () => {
       replace('TalkDetailPage', { id: response.result.roomId });
     },
     onError: error => {
-      setSubmitError(resolveMessageError(error, '새 대화 생성에 실패했습니다.'));
+      setSubmitError(resolveClientErrorMessage(error, '새 대화 생성에 실패했습니다.'));
     },
   });
 

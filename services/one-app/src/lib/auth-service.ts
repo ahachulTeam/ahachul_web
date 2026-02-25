@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 
 import { IS_DEV_ENV } from '@/constants';
 import { INTERNAL_API_PATHS } from '@/lib/internal-api-contract';
+import { appLogger, reportClientError } from '@/lib/observability';
 import { CookieKey } from '@/types';
 
 class _AuthService {
@@ -34,6 +35,7 @@ class _AuthService {
   expireSession() {
     Cookies.remove(CookieKey.ACCESS_TOKEN, { path: '/' });
     Cookies.remove(CookieKey.REFRESH_TOKEN, { path: '/' });
+    appLogger.warn('[auth-service] session expired. redirect to login');
     window.location.replace('/login');
   }
 
@@ -57,6 +59,12 @@ class _AuthService {
       const newAccessToken = await this.refreshPromise;
       return newAccessToken;
     } catch (error) {
+      reportClientError(
+        'auth-service:renew-access-token',
+        error,
+        undefined,
+        '로그인 세션이 만료되었습니다.',
+      );
       this.expireSession();
       throw error;
     } finally {
@@ -75,6 +83,9 @@ class _AuthService {
     });
 
     if (!response.ok) {
+      appLogger.warn('[auth-service] refresh token request failed', {
+        status: response.status,
+      });
       throw new Error('토큰 갱신에 실패했습니다.');
     }
 

@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { normalizeClientError } from '@/utils/observability';
+
 const INTERNAL_SERVER_ERROR_MESSAGE = 'INTERNAL_SERVER_ERROR';
 const FILE_UPLOAD_FAILED_CODE = '811';
 
@@ -9,8 +11,10 @@ type ApiErrorPayload = {
 };
 
 export function resolvePostSubmitWarningMessage(error: unknown, fallbackMessage: string): string {
+  const normalized = normalizeClientError(error, fallbackMessage);
+
   if (!axios.isAxiosError(error)) {
-    return fallbackMessage;
+    return normalized.userMessage;
   }
 
   const payload = error.response?.data as ApiErrorPayload | undefined;
@@ -23,6 +27,10 @@ export function resolvePostSubmitWarningMessage(error: unknown, fallbackMessage:
 
   if (typeof message === 'string' && message !== INTERNAL_SERVER_ERROR_MESSAGE) {
     return message;
+  }
+
+  if (normalized.userMessage && normalized.userMessage !== fallbackMessage) {
+    return normalized.userMessage;
   }
 
   return fallbackMessage;

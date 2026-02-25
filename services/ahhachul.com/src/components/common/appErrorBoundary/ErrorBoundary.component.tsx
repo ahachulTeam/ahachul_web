@@ -4,6 +4,8 @@ import type { AxiosError } from 'axios';
 
 import { isChangedArray } from '@ahhachul/utils';
 
+import { reportClientError } from '@/utils/observability';
+
 type ErrorFallbackProps = {
   error: AxiosError;
   reset: () => void;
@@ -32,8 +34,18 @@ class BaseErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundar
   }
 
   static getDerivedStateFromError(error: AxiosError): ErrorBoundaryState {
-    console.error(error);
     return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, info: React.ErrorInfo) {
+    reportClientError(
+      'vite:suspense-query-boundary',
+      error,
+      {
+        componentStack: info.componentStack,
+      },
+      '데이터를 불러오는 중 오류가 발생했습니다.',
+    );
   }
 
   componentDidUpdate(prevProps: ErrorBoundaryProps, prevState: ErrorBoundaryState) {

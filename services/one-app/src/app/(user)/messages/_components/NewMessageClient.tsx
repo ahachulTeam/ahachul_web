@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { localizePathname } from '@/i18n';
 import type { SupportedLocale } from '@/i18n/config';
 import { sendMessage } from '@/lib/messages';
+import { resolveClientErrorMessage } from '@/lib/observability';
 
 interface NewMessageClientProps {
   locale: SupportedLocale;
@@ -18,10 +19,7 @@ interface NewMessageClientProps {
 }
 
 function getErrorMessage(error: unknown): string {
-  if (error instanceof Error) {
-    return error.message;
-  }
-  return '쪽지 기능 처리 중 오류가 발생했습니다.';
+  return resolveClientErrorMessage(error, '쪽지 기능 처리 중 오류가 발생했습니다.');
 }
 
 export default function NewMessageClient({ locale, copy }: NewMessageClientProps) {

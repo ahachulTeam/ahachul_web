@@ -8,6 +8,7 @@ import { subwayKeys } from './services/subway';
 import { userKeys } from './services/user';
 import { useUserStationStore } from './stores/subway';
 import { getAccessTokenInLocalStorage } from './utils/localStorage';
+import { appLogger, reportClientError } from './utils/observability';
 
 async function init() {
   if (import.meta.env.MODE === 'mock') {
@@ -36,7 +37,12 @@ async function init() {
         gcTime: QUERY_GC_TIME.user,
       });
     } catch (error) {
-      console.log('Failed to prefetch user profile, continuing...');
+      reportClientError(
+        'app-bootstrap:prefetch-user-profile',
+        error,
+        undefined,
+        '사용자 정보를 불러오지 못했습니다.',
+      );
     }
 
     // 유저 즐겨찾는 역 정보 prefetch
@@ -55,7 +61,12 @@ async function init() {
         });
       }
     } catch (error) {
-      console.log('Failed to prefetch user stations, continuing...');
+      reportClientError(
+        'app-bootstrap:prefetch-user-stations',
+        error,
+        undefined,
+        '즐겨찾는 역 정보를 불러오지 못했습니다.',
+      );
     }
   }
 
@@ -64,4 +75,10 @@ async function init() {
   render();
 }
 
-init();
+void init().catch(async error => {
+  reportClientError('app-bootstrap:init', error, undefined, '앱 초기화 중 오류가 발생했습니다.');
+  appLogger.warn('[app-bootstrap] fallback render without prefetch');
+
+  const { render } = await import('./render');
+  render();
+});

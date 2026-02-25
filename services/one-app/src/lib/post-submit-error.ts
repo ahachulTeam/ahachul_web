@@ -1,3 +1,5 @@
+import { normalizeClientError } from '@/lib/observability';
+
 type ApiErrorPayload = {
   code?: unknown;
   message?: unknown;
@@ -26,11 +28,10 @@ export function resolvePostSubmitErrorMessage(
     fileUploadMessage?: string;
   },
 ): string {
-  if (!(error instanceof Error)) {
-    return options.fallbackMessage;
-  }
-
-  const httpLikeError = error as HttpLikeError;
+  const normalized = normalizeClientError(error, options.fallbackMessage);
+  const httpLikeError = (
+    error instanceof Error ? error : new Error(normalized.message)
+  ) as HttpLikeError;
   const payload = asApiErrorPayload(httpLikeError.data);
   const payloadCode = payload?.code;
   const payloadMessage = payload?.message;
@@ -43,8 +44,16 @@ export function resolvePostSubmitErrorMessage(
     return payloadMessage;
   }
 
-  if (error.message && error.message !== INTERNAL_SERVER_ERROR_MESSAGE) {
-    return error.message;
+  if (
+    normalized.userMessage &&
+    normalized.userMessage !== INTERNAL_SERVER_ERROR_MESSAGE &&
+    normalized.userMessage !== options.fallbackMessage
+  ) {
+    return normalized.userMessage;
+  }
+
+  if (httpLikeError.message && httpLikeError.message !== INTERNAL_SERVER_ERROR_MESSAGE) {
+    return httpLikeError.message;
   }
 
   return options.fallbackMessage;
