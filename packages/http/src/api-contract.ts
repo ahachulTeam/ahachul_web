@@ -79,9 +79,11 @@ export const API_PATHS = {
     subwayIncidentsV2: '/v2/subway/incidents',
     communityDelaySignalsV2: '/v2/community/delay-signals',
     stationTimeSummaryV2: '/v2/stations/times/summary',
+    stationTimesFullV2: '/v2/stations/times/full',
     stationLastTrainRiskV2: '/v2/stations/times/last-train-risk',
     stationQuickExitsV2: '/v2/stations/quick-exits',
     stationNearbyPlacesV2: '/v2/stations/nearby-places',
+    routeSearchV2: '/v2/subway/routes/search',
   },
   common: {
     s3Presigned: (s3Key: string) => `/common/presigned/${s3Key}`,

@@ -9,8 +9,11 @@ import {
   LastTrainRiskLevel,
   NearbyPlaceConfidenceLevel,
   QuickExitConfidenceLevel,
+  RouteSearchStrategy,
   ITrain,
   StationTimeWeekType,
+  StationTimesFullResponse,
+  SubwayRouteSearchResponse,
   SubwayLineServerModel,
   UpDownType,
   WithSubwayLineId,
@@ -110,6 +113,15 @@ interface APINearbyPlacesV2Params extends WithSubwayLineId, WithSubwayStationId 
   limit?: number;
 }
 
+interface APISubwayRouteSearchV2Params {
+  sourceStationId: number;
+  destinationStationId: number;
+  strategy: RouteSearchStrategy;
+  alternatives?: number;
+}
+
+interface APIStationTimesFullV2Params extends WithSubwayLineId, WithSubwayStationId {}
+
 export interface APINearbyPlacesV2Response {
   stationId: number;
   subwayLineId: number;
@@ -207,6 +219,21 @@ export const fetchQuickExitsV2 = async (params: APIQuickExitsV2Params) => {
 export const fetchNearbyPlacesV2 = async (params: APINearbyPlacesV2Params) => {
   return axiosInstance.get<ApiResponse<APINearbyPlacesV2Response>>(
     API_PATHS.subway.stationNearbyPlacesV2,
+    {
+      params,
+    },
+  );
+};
+
+export const fetchSubwayRouteSearchV2 = async (params: APISubwayRouteSearchV2Params) => {
+  return axiosInstance.get<ApiResponse<SubwayRouteSearchResponse>>(API_PATHS.subway.routeSearchV2, {
+    params,
+  });
+};
+
+export const fetchStationTimesFullV2 = async (params: APIStationTimesFullV2Params) => {
+  return axiosInstance.get<ApiResponse<StationTimesFullResponse>>(
+    API_PATHS.subway.stationTimesFullV2,
     {
       params,
     },

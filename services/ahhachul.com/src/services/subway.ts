@@ -12,14 +12,16 @@ import {
   fetchLastTrainRiskV2,
   fetchNearbyPlacesV2,
   fetchQuickExitsV2,
+  fetchStationTimesFullV2,
   fetchStationTimeSummaryV2,
+  fetchSubwayRouteSearchV2,
   fetchSubwayLines,
   fetchTrainInfo,
   fetchTrainInfoV2,
   normalizeTrainInfoV2Response,
 } from '@/apis/request/subway';
 import { TIMESTAMP } from '@/constants';
-import { APITrainInfoParams, StationTimeWeekType, UpDownType } from '@/types';
+import { APITrainInfoParams, RouteSearchStrategy, StationTimeWeekType, UpDownType } from '@/types';
 
 export const subwayKeys = subwayQueryKeys;
 
@@ -37,6 +39,18 @@ export const useFetchSubwayLines = () =>
     select: res => {
       return formatSubwayLineInfo(res.data.result);
     },
+  });
+
+export const useFetchSubwayLinesRaw = () =>
+  useQuery({
+    queryKey: [...subwayKeys.subwayLine(), 'raw'],
+    queryFn: fetchSubwayLines,
+    gcTime: QUERY_GC_TIME.static,
+    staleTime: QUERY_STALE_TIME.static,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    select: res => res.data.result,
   });
 
 export const useFetchTrainInfo = (params: APITrainInfoParams) => {
@@ -159,6 +173,57 @@ export const useFetchNearbyPlaces = (params: NearbyPlacesParams) => {
   return useQuery({
     queryKey: [...subwayKeys.trains(), 'nearby-places-v2', signature],
     queryFn: () => fetchNearbyPlacesV2(params),
+    staleTime: 60 * TIMESTAMP.SECOND,
+    gcTime: QUERY_GC_TIME.feed,
+    retry: 1,
+    select: res => res.data.result,
+  });
+};
+
+interface SubwayRouteSearchParams {
+  sourceStationId: number;
+  destinationStationId: number;
+  strategy: RouteSearchStrategy;
+  alternatives?: number;
+}
+
+export const useFetchSubwayRoutes = (
+  params: SubwayRouteSearchParams,
+  options?: { enabled?: boolean },
+) => {
+  const signature = buildQuerySignature({
+    sourceStationId: params.sourceStationId,
+    destinationStationId: params.destinationStationId,
+    strategy: params.strategy,
+    alternatives: params.alternatives,
+  });
+
+  return useQuery({
+    queryKey: [...subwayKeys.trains(), 'route-search-v2', signature],
+    queryFn: () => fetchSubwayRouteSearchV2(params),
+    enabled: options?.enabled ?? true,
+    staleTime: 30 * TIMESTAMP.SECOND,
+    gcTime: QUERY_GC_TIME.feed,
+    retry: 1,
+    select: res => res.data.result,
+  });
+};
+
+interface StationTimesFullParams extends APITrainInfoParams {}
+
+export const useFetchStationTimesFull = (
+  params: StationTimesFullParams,
+  options?: { enabled?: boolean },
+) => {
+  const signature = buildQuerySignature({
+    stationId: params.stationId,
+    subwayLineId: params.subwayLineId,
+  });
+
+  return useQuery({
+    queryKey: [...subwayKeys.trains(), 'station-times-full-v2', signature],
+    queryFn: () => fetchStationTimesFullV2(params),
+    enabled: options?.enabled ?? true,
     staleTime: 60 * TIMESTAMP.SECOND,
     gcTime: QUERY_GC_TIME.feed,
     retry: 1,

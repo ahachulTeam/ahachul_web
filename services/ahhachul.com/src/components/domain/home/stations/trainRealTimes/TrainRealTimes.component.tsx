@@ -590,7 +590,16 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
 
         <div css={S.listWrap}>{trainArrivalsContent}</div>
         <div css={S.buttonWrap}>
-          <button css={S.button} onClick={() => push('SubwayTimelinePage', {})}>
+          <button
+            css={S.button}
+            onClick={() =>
+              push('SubwayTimelinePage', {
+                stationId,
+                subwayLineId: Number(subwayLineId),
+                stationName,
+              })
+            }
+          >
             전체 시간표
           </button>
         </div>

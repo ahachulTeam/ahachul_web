@@ -203,3 +203,65 @@ export interface NearbyPlacesResponse {
   exitNo?: string | null;
   places: NearbyPlace[];
 }
+
+export enum RouteSearchStrategy {
+  BALANCED = 'BALANCED',
+  MIN_TRANSFER = 'MIN_TRANSFER',
+  MIN_STOP = 'MIN_STOP',
+}
+
+export interface SubwayRouteNode {
+  stationId: number;
+  stationName: string;
+  order: number;
+  isTransfer: boolean;
+}
+
+export interface SubwayRouteEdge {
+  fromStationId: number;
+  toStationId: number;
+  subwayLineId: number;
+  subwayLineName: string;
+}
+
+export interface SubwayRouteSummary {
+  totalStops: number;
+  transferCount: number;
+  estimatedMinutes: number;
+}
+
+export interface SubwayRoute {
+  rank: number;
+  nodes: SubwayRouteNode[];
+  edges: SubwayRouteEdge[];
+  summary: SubwayRouteSummary;
+}
+
+export interface SubwayRouteSearchResponse {
+  generatedAt: string;
+  sourceStationId: number;
+  destinationStationId: number;
+  strategy: RouteSearchStrategy;
+  routes: SubwayRoute[];
+}
+
+export interface StationTimesFullWeek {
+  stationTimeWeekType: StationTimeWeekType;
+  upDownTimetables: {
+    upDownType: UpDownType;
+    stationTimes: {
+      arrivalTime: string;
+      departureTime: string;
+      arrivalStationName: string;
+      departureStationName: string;
+      trainType: string;
+    }[];
+  }[];
+}
+
+export interface StationTimesFullResponse {
+  generatedAt: string;
+  stationId: number;
+  subwayLineId: number;
+  weeks: StationTimesFullWeek[];
+}
