@@ -9,7 +9,11 @@ import {
   useFetchSubwayRoutes,
 } from '@/services/subway';
 import {
+  RouteAccessibilityMode,
+  RouteCrowdingPreference,
+  RouteLuggageMode,
   RouteSearchStrategy,
+  RouteTravelerContext,
   RouteWalkingPreference,
   StationTimeWeekType,
   type SubwayLine,
@@ -39,6 +43,84 @@ const WALKING_OPTIONS: { value: RouteWalkingPreference; label: string }[] = [
   { value: RouteWalkingPreference.LESS_STAIRS, label: '계단 적음' },
 ];
 
+const ACCESSIBILITY_OPTIONS: { value: RouteAccessibilityMode; label: string }[] = [
+  { value: RouteAccessibilityMode.BALANCED, label: '기본' },
+  { value: RouteAccessibilityMode.ELEVATOR_PRIORITY, label: '엘리베이터 우선' },
+  { value: RouteAccessibilityMode.STAIRS_MINIMIZED, label: '계단 최소' },
+  { value: RouteAccessibilityMode.WHEELCHAIR, label: '휠체어' },
+  { value: RouteAccessibilityMode.STROLLER, label: '유모차' },
+];
+
+const CROWDING_OPTIONS: { value: RouteCrowdingPreference; label: string }[] = [
+  { value: RouteCrowdingPreference.BALANCED, label: '기본' },
+  { value: RouteCrowdingPreference.LESS_CROWDED, label: '덜 붐비는 칸 우선' },
+];
+
+const LUGGAGE_OPTIONS: { value: RouteLuggageMode; label: string }[] = [
+  { value: RouteLuggageMode.NORMAL, label: '기본' },
+  { value: RouteLuggageMode.HEAVY_LUGGAGE, label: '짐 많음' },
+  { value: RouteLuggageMode.AIRPORT_TRAVEL, label: '공항 이동' },
+];
+
+const TRAVELER_CONTEXT_OPTIONS: { value: RouteTravelerContext; label: string }[] = [
+  { value: RouteTravelerContext.COMMUTE, label: '출퇴근' },
+  { value: RouteTravelerContext.SCHOOL, label: '등하교' },
+  { value: RouteTravelerContext.TRAVEL, label: '관광/여행' },
+];
+
+const LOCALE_OPTIONS: { value: 'ko' | 'en' | 'th' | 'cn'; label: string }[] = [
+  { value: 'ko', label: '한국어' },
+  { value: 'en', label: 'English' },
+  { value: 'th', label: 'ไทย' },
+  { value: 'cn', label: '中文' },
+];
+
+function resolveBadgeLabel(badge: string): string {
+  const labels: Record<string, string> = {
+    BEST_RECOMMENDED: '최적 추천',
+    TRANSFER_HEAVY: '환승 부담',
+    WALKING_HEAVY: '보행 부담',
+    LAST_TRAIN_RISK: '막차 위험',
+    DELAY_RISK: '지연 위험',
+    DATA_LIMITED: '데이터 제한',
+    ACCESSIBILITY_RECOMMENDED: '접근성 반영',
+    CROWDING_AVOIDANCE: '혼잡 회피',
+    AIRPORT_FRIENDLY: '공항 이동 친화',
+    TOURIST_FRIENDLY: '관광 이동 친화',
+  };
+  return labels[badge] ?? badge;
+}
+
+function resolveCrowdingLevelLabel(level?: string): string {
+  const labels: Record<string, string> = {
+    LOW: '여유',
+    MEDIUM: '보통',
+    HIGH: '혼잡',
+    VERY_HIGH: '매우 혼잡',
+  };
+  return labels[level ?? ''] ?? '정보 없음';
+}
+
+function resolveTravelTagLabel(tag: string): string {
+  const labels: Record<string, string> = {
+    AIRPORT_FRIENDLY: '공항 이동',
+    TOURIST_FRIENDLY: '관광 이동',
+    ACCESSIBILITY_PRIORITY: '접근성 우선',
+    LESS_CROWDED_RECOMMENDED: '혼잡 회피',
+  };
+  return labels[tag] ?? tag;
+}
+
+function resolveEssentialTypeLabel(type: string): string {
+  const labels: Record<string, string> = {
+    CONVENIENCE_STORE: '편의점',
+    RESTROOM: '화장실',
+    ATM: 'ATM',
+    LATE_NIGHT_FOOD: '늦은 시간 식당',
+  };
+  return labels[type] ?? type;
+}
+
 const sectionStyle: CSSProperties = {
   border: '1px solid #E4E6EB',
   borderRadius: '12px',
@@ -64,6 +146,18 @@ const SubwayTimeLinePage: ActivityComponentType<SubwayTimelineParams> = ({
   const [walkingPreference, setWalkingPreference] = useState<RouteWalkingPreference>(
     RouteWalkingPreference.FAST,
   );
+  const [accessibilityMode, setAccessibilityMode] = useState<RouteAccessibilityMode>(
+    RouteAccessibilityMode.BALANCED,
+  );
+  const [crowdingPreference, setCrowdingPreference] = useState<RouteCrowdingPreference>(
+    RouteCrowdingPreference.BALANCED,
+  );
+  const [luggageMode, setLuggageMode] = useState<RouteLuggageMode>(RouteLuggageMode.NORMAL);
+  const [travelerContext, setTravelerContext] = useState<RouteTravelerContext>(
+    RouteTravelerContext.COMMUTE,
+  );
+  const [routeLocale, setRouteLocale] = useState<'ko' | 'en' | 'th' | 'cn'>('ko');
+  const [oneClickNotice, setOneClickNotice] = useState<string | null>(null);
 
   useEffect(() => {
     if (!subwayLines.length) {
@@ -127,6 +221,11 @@ const SubwayTimeLinePage: ActivityComponentType<SubwayTimelineParams> = ({
       alternatives: 3,
       walkingPreference,
       stationTimeWeekType: selectedWeekType,
+      accessibilityMode,
+      crowdingPreference,
+      luggageMode,
+      travelerContext,
+      locale: routeLocale,
     },
     {
       enabled: hasRouteSearchParams,
@@ -146,6 +245,34 @@ const SubwayTimeLinePage: ActivityComponentType<SubwayTimelineParams> = ({
   const selectedWeek = fullTimetableQuery.data?.weeks.find(
     week => week.stationTimeWeekType === selectedWeekType,
   );
+  const oneClickActions = routeQuery.data?.oneClickActions ?? [];
+
+  const handleOneClickAction = async (action: {
+    actionType: string;
+    deepLink: string;
+    payloadTemplate: string | null;
+  }) => {
+    if (action.actionType === 'COPY_EMERGENCY_PHRASE') {
+      const phrase = action.payloadTemplate?.trim();
+      if (!phrase) {
+        setOneClickNotice('복사할 긴급 문구가 없습니다.');
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(phrase);
+        setOneClickNotice('긴급 문구를 클립보드에 복사했습니다.');
+      } catch {
+        setOneClickNotice('긴급 문구 복사에 실패했습니다.');
+      }
+      return;
+    }
+
+    if (!action.deepLink) {
+      setOneClickNotice('실행 가능한 링크가 없습니다.');
+      return;
+    }
+    window.location.assign(action.deepLink);
+  };
 
   return (
     <LayoutComponent.Base>
@@ -241,6 +368,85 @@ const SubwayTimeLinePage: ActivityComponentType<SubwayTimelineParams> = ({
                 ))}
               </select>
             </label>
+
+            <label style={{ fontSize: '12px', color: '#444' }}>
+              접근성 모드
+              <select
+                value={accessibilityMode}
+                onChange={event =>
+                  setAccessibilityMode(event.target.value as RouteAccessibilityMode)
+                }
+                style={{ width: '100%', height: '36px', marginTop: '4px' }}
+              >
+                {ACCESSIBILITY_OPTIONS.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label style={{ fontSize: '12px', color: '#444' }}>
+              혼잡 선호
+              <select
+                value={crowdingPreference}
+                onChange={event =>
+                  setCrowdingPreference(event.target.value as RouteCrowdingPreference)
+                }
+                style={{ width: '100%', height: '36px', marginTop: '4px' }}
+              >
+                {CROWDING_OPTIONS.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label style={{ fontSize: '12px', color: '#444' }}>
+              짐 모드
+              <select
+                value={luggageMode}
+                onChange={event => setLuggageMode(event.target.value as RouteLuggageMode)}
+                style={{ width: '100%', height: '36px', marginTop: '4px' }}
+              >
+                {LUGGAGE_OPTIONS.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label style={{ fontSize: '12px', color: '#444' }}>
+              이용 맥락
+              <select
+                value={travelerContext}
+                onChange={event => setTravelerContext(event.target.value as RouteTravelerContext)}
+                style={{ width: '100%', height: '36px', marginTop: '4px' }}
+              >
+                {TRAVELER_CONTEXT_OPTIONS.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label style={{ fontSize: '12px', color: '#444' }}>
+              액션 언어
+              <select
+                value={routeLocale}
+                onChange={event => setRouteLocale(event.target.value as 'ko' | 'en' | 'th' | 'cn')}
+                style={{ width: '100%', height: '36px', marginTop: '4px' }}
+              >
+                {LOCALE_OPTIONS.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
           </div>
 
           <div style={{ marginTop: '12px', display: 'grid', gap: '8px' }}>
@@ -248,6 +454,47 @@ const SubwayTimeLinePage: ActivityComponentType<SubwayTimelineParams> = ({
             {routeQuery.isFetching ? <div>경로를 계산하는 중입니다.</div> : null}
             {routeQuery.isError ? (
               <div>경로를 찾지 못했습니다. 조건을 다시 확인해주세요.</div>
+            ) : null}
+            {!routeQuery.isFetching && !routeQuery.isError && oneClickActions.length > 0 ? (
+              <div
+                style={{
+                  border: '1px solid #E2E8F0',
+                  borderRadius: '10px',
+                  background: '#F8FAFC',
+                  padding: '10px',
+                }}
+              >
+                <div style={{ fontSize: '12px', fontWeight: 700, color: '#0F172A' }}>
+                  다국어 긴급/신고 원클릭
+                </div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '8px' }}>
+                  {oneClickActions.map(action => (
+                    <button
+                      key={action.actionType}
+                      type="button"
+                      onClick={() => {
+                        void handleOneClickAction(action);
+                      }}
+                      style={{
+                        height: '28px',
+                        borderRadius: '999px',
+                        border: '1px solid #CBD5E1',
+                        background: '#FFFFFF',
+                        padding: '0 10px',
+                        fontSize: '11px',
+                        color: '#0F172A',
+                      }}
+                    >
+                      {action.title}
+                    </button>
+                  ))}
+                </div>
+                {oneClickNotice ? (
+                  <div style={{ marginTop: '8px', fontSize: '11px', color: '#475569' }}>
+                    {oneClickNotice}
+                  </div>
+                ) : null}
+              </div>
             ) : null}
             {!routeQuery.isFetching &&
               !routeQuery.isError &&
@@ -268,7 +515,8 @@ const SubwayTimeLinePage: ActivityComponentType<SubwayTimelineParams> = ({
                   </div>
                   {route.quality ? (
                     <div style={{ fontSize: '12px', marginTop: '4px' }}>
-                      품질 {route.quality.totalScore}점 · 지연확률{' '}
+                      품질 {route.quality.totalScore}점 · 접근성 {route.quality.accessibilityScore}
+                      점 · 혼잡쾌적 {route.quality.crowdingComfortScore}점 · 지연확률{' '}
                       {route.quality.delayProbabilityPercent}%
                     </div>
                   ) : null}
@@ -288,7 +536,27 @@ const SubwayTimeLinePage: ActivityComponentType<SubwayTimelineParams> = ({
                             background: '#F8FAFC',
                           }}
                         >
-                          {badge}
+                          {resolveBadgeLabel(badge)}
+                        </span>
+                      ))}
+                    </div>
+                  ) : null}
+                  {route.travelModeTags?.length ? (
+                    <div
+                      style={{ display: 'flex', gap: '4px', flexWrap: 'wrap', marginTop: '4px' }}
+                    >
+                      {route.travelModeTags.map(tag => (
+                        <span
+                          key={`${route.rank}-tag-${tag}`}
+                          style={{
+                            borderRadius: '999px',
+                            padding: '1px 6px',
+                            fontSize: '11px',
+                            color: '#FFFFFF',
+                            background: '#0F172A',
+                          }}
+                        >
+                          {resolveTravelTagLabel(tag)}
                         </span>
                       ))}
                     </div>
@@ -296,6 +564,54 @@ const SubwayTimeLinePage: ActivityComponentType<SubwayTimelineParams> = ({
                   <div style={{ fontSize: '12px', marginTop: '6px' }}>
                     {route.nodes.map(node => node.stationName).join(' → ')}
                   </div>
+                  {route.accessibilityProfile ? (
+                    <div style={{ fontSize: '12px', marginTop: '6px', color: '#475569' }}>
+                      접근성: {route.accessibilityProfile.inStationDifficultyLevel} · 예상 계단구간{' '}
+                      {route.accessibilityProfile.estimatedStairSections} · 엘리베이터 친화 환승{' '}
+                      {route.accessibilityProfile.elevatorFriendlyTransferCount}
+                    </div>
+                  ) : null}
+                  {route.boardingGuide ? (
+                    <div style={{ fontSize: '12px', marginTop: '4px', color: '#475569' }}>
+                      탑승 추천 {route.boardingGuide.primaryCarNo}
+                      {route.boardingGuide.transferOptimizedCarNo
+                        ? ` (환승 ${route.boardingGuide.transferOptimizedCarNo})`
+                        : ''}{' '}
+                      · {route.boardingGuide.recommendedDoorPosition}
+                    </div>
+                  ) : null}
+                  {route.crowdingGuide ? (
+                    <div style={{ fontSize: '12px', marginTop: '4px', color: '#475569' }}>
+                      혼잡 {resolveCrowdingLevelLabel(route.crowdingGuide.predictedLevel)} · 덜
+                      붐비는 칸 {route.crowdingGuide.lessCrowdedCars.join(', ')}
+                    </div>
+                  ) : null}
+                  {route.nearbyEssentials?.items?.length ? (
+                    <div
+                      style={{
+                        marginTop: '8px',
+                        border: '1px solid #E2E8F0',
+                        borderRadius: '8px',
+                        padding: '8px',
+                        background: '#FFFFFF',
+                      }}
+                    >
+                      <div style={{ fontSize: '11px', color: '#0F172A' }}>
+                        {route.nearbyEssentials.stationName} 주변 필수 정보
+                      </div>
+                      <div style={{ marginTop: '4px', display: 'grid', gap: '2px' }}>
+                        {route.nearbyEssentials.items.map(item => (
+                          <div
+                            key={`${route.rank}-${item.essentialType}-${item.name}`}
+                            style={{ fontSize: '11px', color: '#475569' }}
+                          >
+                            {resolveEssentialTypeLabel(item.essentialType)} · {item.name} · 도보{' '}
+                            {item.walkingMinutes}분 · 신뢰도 {item.reliabilityScore}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
                   {route.quality?.reasons?.length ? (
                     <div style={{ fontSize: '12px', color: '#64748B', marginTop: '6px' }}>
                       {route.quality.reasons[0]}

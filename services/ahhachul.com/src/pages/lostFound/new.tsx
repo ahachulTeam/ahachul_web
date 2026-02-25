@@ -29,6 +29,8 @@ const NewLostFoundPage: ActivityComponentType = () => {
   const [templateLocale, setTemplateLocale] = useState<ForeignerLocale>('en');
   const [templateInitialState, setTemplateInitialState] = useState('');
   const [isTemplateApplying, setIsTemplateApplying] = useState(false);
+  const [templateError, setTemplateError] = useState('');
+  const [isPrefillApplied, setIsPrefillApplied] = useState(false);
   const { data: subwayLineResponse } = useQuery({
     queryKey: subwayQueryKeys.subwayLine(),
     queryFn: fetchSubwayLines,
@@ -61,6 +63,75 @@ const NewLostFoundPage: ActivityComponentType = () => {
     methods.setValue('stationId', '0');
   }, [methods, selectedStationId, stationOptions]);
 
+  useEffect(() => {
+    if (isPrefillApplied || typeof window === 'undefined') {
+      return;
+    }
+
+    const searchParams = new URLSearchParams(window.location.search);
+    if (searchParams.get('prefill') !== '1') {
+      setIsPrefillApplied(true);
+      return;
+    }
+
+    const parsedLineId = Number(searchParams.get('subwayLineId') ?? '0');
+    const parsedStationId = Number(searchParams.get('stationId') ?? '0');
+    const parsedTemplateLocale = searchParams.get('templateLocale');
+    const nextTemplateLocale =
+      parsedTemplateLocale &&
+      FOREIGNER_LOCALE_OPTIONS.some(option => option.value === parsedTemplateLocale)
+        ? (parsedTemplateLocale as ForeignerLocale)
+        : 'en';
+
+    if (parsedLineId > 0) {
+      methods.setValue('subwayLineId', String(parsedLineId), {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
+    }
+    if (parsedStationId > 0) {
+      methods.setValue('stationId', String(parsedStationId), {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
+    }
+    setTemplateLocale(nextTemplateLocale);
+
+    if (parsedLineId <= 0 || parsedStationId <= 0) {
+      setIsPrefillApplied(true);
+      return;
+    }
+
+    const applyPrefillTemplate = async () => {
+      setIsTemplateApplying(true);
+      setTemplateError('');
+      try {
+        const response = await fetchForeignerStationGuideV2({
+          stationId: parsedStationId,
+          subwayLineId: parsedLineId,
+          locale: nextTemplateLocale,
+        });
+        const guide = response.data.result;
+        methods.setValue('title', guide.templates.lostTitleTemplate, {
+          shouldDirty: true,
+          shouldValidate: true,
+        });
+        methods.setValue('content', guide.templates.lostBodyTemplate, {
+          shouldDirty: true,
+          shouldValidate: true,
+        });
+        setTemplateInitialState(guide.templates.lostBodyTemplate);
+      } catch {
+        setTemplateError('prefill 템플릿을 불러오지 못했습니다. 직접 입력으로 진행해주세요.');
+      } finally {
+        setIsTemplateApplying(false);
+        setIsPrefillApplied(true);
+      }
+    };
+
+    void applyPrefillTemplate();
+  }, [isPrefillApplied, methods]);
+
   const applyForeignerTemplate = async () => {
     const stationId = Number(methods.getValues('stationId'));
     const subwayLineId = Number(methods.getValues('subwayLineId'));
@@ -69,6 +140,7 @@ const NewLostFoundPage: ActivityComponentType = () => {
     }
 
     setIsTemplateApplying(true);
+    setTemplateError('');
     try {
       const response = await fetchForeignerStationGuideV2({
         stationId,
@@ -85,6 +157,8 @@ const NewLostFoundPage: ActivityComponentType = () => {
         shouldValidate: true,
       });
       setTemplateInitialState(guide.templates.lostBodyTemplate);
+    } catch {
+      setTemplateError('다국어 템플릿을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.');
     } finally {
       setIsTemplateApplying(false);
     }
@@ -118,6 +192,7 @@ const NewLostFoundPage: ActivityComponentType = () => {
                 {isTemplateApplying ? '적용 중...' : '템플릿 적용'}
               </button>
             </S.TemplateControls>
+            {templateError ? <S.TemplateError>{templateError}</S.TemplateError> : null}
           </S.TemplateCard>
           <FormComponent.ImageUpload
             name="images"
@@ -190,6 +265,10 @@ const S = {
       cursor: not-allowed;
       color: ${({ theme }) => theme.colors.gray[60]};
     }
+  `,
+  TemplateError: styled.p`
+    ${({ theme }) => theme.fonts.bodySmall};
+    color: ${({ theme }) => theme.colors.red[60]};
   `,
 };
 

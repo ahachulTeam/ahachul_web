@@ -4,7 +4,7 @@ import { FormEvent, useEffect, useMemo, useState } from 'react';
 
 import { useMutation, useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { QUERY_GC_TIME, QUERY_STALE_TIME, subwayQueryKeys } from '@ahhachul/domain';
 import { API_PATHS } from '@ahhachul/http';
@@ -54,6 +54,7 @@ function resolveDefaultShortType(complaintType: ComplaintType): ShortComplaintTy
 export default function ComplaintPostEditor() {
   const router = useRouter();
   const pathname = usePathname() ?? '/complaint/new';
+  const searchParams = useSearchParams();
   const locale = resolvePathLocale(pathname, null);
 
   const [title, setTitle] = useState('');
@@ -67,6 +68,7 @@ export default function ComplaintPostEditor() {
   const [templateLocale, setTemplateLocale] = useState<ForeignerLocale>('en');
   const [isTemplateApplying, setIsTemplateApplying] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [isPrefillApplied, setIsPrefillApplied] = useState(false);
 
   const subwayLineCatalogQuery = useQuery({
     queryKey: subwayQueryKeys.subwayLine(),
@@ -102,6 +104,60 @@ export default function ComplaintPostEditor() {
 
     setShortContentType(resolveDefaultShortType(complaintType));
   }, [complaintType, shortContentType, shortTypeOptions]);
+
+  useEffect(() => {
+    if (isPrefillApplied) {
+      return;
+    }
+
+    const prefill = searchParams?.get('prefill');
+    if (prefill !== '1') {
+      setIsPrefillApplied(true);
+      return;
+    }
+
+    const parsedLineId = Number(searchParams.get('subwayLineId') ?? '0');
+    const parsedStationId = Number(searchParams.get('stationId') ?? '0');
+    const parsedTemplateLocale = searchParams.get('templateLocale');
+    const nextTemplateLocale =
+      parsedTemplateLocale &&
+      FOREIGNER_LOCALE_OPTIONS.some(option => option.value === parsedTemplateLocale)
+        ? (parsedTemplateLocale as ForeignerLocale)
+        : 'en';
+
+    if (parsedLineId > 0) {
+      setSubwayLineId(parsedLineId);
+    }
+    if (parsedStationId > 0) {
+      setStationId(parsedStationId);
+    }
+    setTemplateLocale(nextTemplateLocale);
+
+    if (parsedLineId <= 0 || parsedStationId <= 0) {
+      setIsPrefillApplied(true);
+      return;
+    }
+
+    const applyPrefillTemplate = async () => {
+      setIsTemplateApplying(true);
+      try {
+        const guide = await fetchForeignerStationGuideV2({
+          stationId: parsedStationId,
+          subwayLineId: parsedLineId,
+          locale: nextTemplateLocale,
+        });
+        setTitle(guide.templates.complaintTitleTemplate);
+        setContent(guide.templates.complaintBodyTemplate);
+      } catch {
+        setSubmitError('prefill 템플릿을 불러오지 못했습니다. 직접 입력으로 진행해주세요.');
+      } finally {
+        setIsTemplateApplying(false);
+        setIsPrefillApplied(true);
+      }
+    };
+
+    void applyPrefillTemplate();
+  }, [isPrefillApplied, searchParams]);
 
   const validationMessage = useMemo(() => {
     if (isBlankText(title)) {

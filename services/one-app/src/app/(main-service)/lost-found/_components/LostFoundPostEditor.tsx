@@ -5,7 +5,7 @@ import { ChangeEvent, FormEvent, useEffect, useMemo, useRef, useState } from 're
 import { useMutation, useQuery } from '@tanstack/react-query';
 import type { EditorState } from 'lexical';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import {
   QUERY_GC_TIME,
@@ -110,6 +110,7 @@ function createLexicalStateFromText(text: string): string {
 export default function LostFoundPostEditor(props: Props) {
   const router = useRouter();
   const pathname = usePathname() ?? '/lost-found';
+  const searchParams = useSearchParams();
   const locale = resolvePathLocale(pathname, null);
   const copy = getLocaleMessages(locale).lostFoundEditor;
   const isEditMode = props.mode === 'edit';
@@ -127,6 +128,7 @@ export default function LostFoundPostEditor(props: Props) {
   const [isTemplateApplying, setIsTemplateApplying] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [isHydratedEditDefaults, setIsHydratedEditDefaults] = useState(!isEditMode);
+  const [isPrefillApplied, setIsPrefillApplied] = useState(false);
   const objectUrlsRef = useRef(new Set<string>());
 
   const detailQuery = useQuery({
@@ -199,6 +201,62 @@ export default function LostFoundPostEditor(props: Props) {
 
     setStationId(DEFAULT_STATION_ID);
   }, [stationId, stationOptions]);
+
+  useEffect(() => {
+    if (isEditMode || isPrefillApplied) {
+      return;
+    }
+
+    const prefill = searchParams?.get('prefill');
+    if (prefill !== '1') {
+      setIsPrefillApplied(true);
+      return;
+    }
+
+    const parsedLineId = Number(searchParams.get('subwayLineId') ?? '0');
+    const parsedStationId = Number(searchParams.get('stationId') ?? '0');
+    const parsedTemplateLocale = searchParams.get('templateLocale');
+    const nextTemplateLocale =
+      parsedTemplateLocale &&
+      FOREIGNER_LOCALE_OPTIONS.some(option => option.value === parsedTemplateLocale)
+        ? (parsedTemplateLocale as ForeignerLocale)
+        : 'en';
+
+    if (parsedLineId > 0) {
+      setSubwayLineId(parsedLineId);
+    }
+    if (parsedStationId > 0) {
+      setStationId(parsedStationId);
+    }
+    setTemplateLocale(nextTemplateLocale);
+
+    if (parsedLineId <= 0 || parsedStationId <= 0) {
+      setIsPrefillApplied(true);
+      return;
+    }
+
+    const applyPrefillTemplate = async () => {
+      setIsTemplateApplying(true);
+      try {
+        const guide = await fetchForeignerStationGuideV2({
+          stationId: parsedStationId,
+          subwayLineId: parsedLineId,
+          locale: nextTemplateLocale,
+        });
+        const lexicalState = createLexicalStateFromText(guide.templates.lostBodyTemplate);
+        setTitle(guide.templates.lostTitleTemplate);
+        setEditorInitialState(lexicalState);
+        setContent(lexicalState);
+      } catch {
+        setSubmitError('prefill 템플릿을 불러오지 못했습니다. 직접 입력으로 진행해주세요.');
+      } finally {
+        setIsTemplateApplying(false);
+        setIsPrefillApplied(true);
+      }
+    };
+
+    void applyPrefillTemplate();
+  }, [isEditMode, isPrefillApplied, searchParams]);
 
   const validationMessage = useMemo(() => {
     if (isBlankText(title)) {

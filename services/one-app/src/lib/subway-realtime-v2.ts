@@ -230,6 +230,11 @@ export async function fetchSubwayRouteSearchV2(
       ...(params.alternatives && { alternatives: params.alternatives }),
       ...(params.walkingPreference && { walkingPreference: params.walkingPreference }),
       ...(params.stationTimeWeekType && { stationTimeWeekType: params.stationTimeWeekType }),
+      ...(params.accessibilityMode && { accessibilityMode: params.accessibilityMode }),
+      ...(params.crowdingPreference && { crowdingPreference: params.crowdingPreference }),
+      ...(params.luggageMode && { luggageMode: params.luggageMode }),
+      ...(params.travelerContext && { travelerContext: params.travelerContext }),
+      ...(params.locale && { locale: params.locale }),
     },
   });
 }
@@ -245,6 +250,11 @@ export async function fetchSubwayRouteSearchV3(
       ...(params.alternatives && { alternatives: params.alternatives }),
       ...(params.walkingPreference && { walkingPreference: params.walkingPreference }),
       ...(params.stationTimeWeekType && { stationTimeWeekType: params.stationTimeWeekType }),
+      ...(params.accessibilityMode && { accessibilityMode: params.accessibilityMode }),
+      ...(params.crowdingPreference && { crowdingPreference: params.crowdingPreference }),
+      ...(params.luggageMode && { luggageMode: params.luggageMode }),
+      ...(params.travelerContext && { travelerContext: params.travelerContext }),
+      ...(params.locale && { locale: params.locale }),
     },
   });
 }

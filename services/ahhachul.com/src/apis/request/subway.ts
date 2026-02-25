@@ -18,7 +18,11 @@ import {
   LastTrainRiskLevel,
   NearbyPlaceConfidenceLevel,
   QuickExitConfidenceLevel,
+  RouteAccessibilityMode,
+  RouteCrowdingPreference,
+  RouteLuggageMode,
   RouteSearchStrategy,
+  RouteTravelerContext,
   RouteWalkingPreference,
   ITrain,
   StationTimeWeekType,
@@ -131,6 +135,11 @@ interface APISubwayRouteSearchV2Params {
   alternatives?: number;
   walkingPreference?: RouteWalkingPreference;
   stationTimeWeekType?: StationTimeWeekType;
+  accessibilityMode?: RouteAccessibilityMode;
+  crowdingPreference?: RouteCrowdingPreference;
+  luggageMode?: RouteLuggageMode;
+  travelerContext?: RouteTravelerContext;
+  locale?: 'ko' | 'en' | 'th' | 'cn';
 }
 
 interface APIDailyVoteTodayParams {
@@ -172,6 +181,17 @@ export interface APIForeignerStationGuideResponse {
     safetyTip: string;
     emergencyPhrase: string;
   };
+  oneClickActions?: Array<{
+    actionType:
+      | 'CALL_EMERGENCY_112'
+      | 'OPEN_LOST_REPORT'
+      | 'OPEN_COMPLAINT_REPORT'
+      | 'COPY_EMERGENCY_PHRASE';
+    title: string;
+    description: string;
+    deepLink: string;
+    payloadTemplate: string | null;
+  }>;
   supportedLocales: ForeignerLocale[];
 }
 
@@ -303,16 +323,23 @@ export interface APIOpenForeignerStationSocialMatchResponse {
 }
 
 export interface APINearbyPlacesV2Response {
+  generatedAt?: string;
   stationId: number;
   subwayLineId: number;
   exitNo?: string | null;
+  summary?: string | null;
   places: {
+    essentialType?: 'CONVENIENCE_STORE' | 'RESTROOM' | 'ATM' | 'LATE_NIGHT_FOOD';
     name: string;
     category: string;
     walkingMinutes: number;
     openNow: boolean;
     supportsEnglishMenu: boolean;
     confidenceLevel: NearbyPlaceConfidenceLevel;
+    reliabilityScore?: number;
+    reliabilityReason?: string;
+    sourceCount?: number;
+    lastVerifiedAt?: string | null;
   }[];
 }
 

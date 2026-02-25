@@ -38,7 +38,11 @@ import {
   CommunityDelaySignalsQuery,
   DelayCenterOverviewQuery,
   DelayProofCreateRequest,
+  RouteAccessibilityMode,
+  RouteCrowdingPreference,
+  RouteLuggageMode,
   RouteSearchStrategy,
+  RouteTravelerContext,
   RouteWalkingPreference,
   StationTimeWeekType,
   UpDownType,
@@ -227,6 +231,11 @@ interface SubwayRouteSearchParams {
   alternatives?: number;
   walkingPreference?: RouteWalkingPreference;
   stationTimeWeekType?: StationTimeWeekType;
+  accessibilityMode?: RouteAccessibilityMode;
+  crowdingPreference?: RouteCrowdingPreference;
+  luggageMode?: RouteLuggageMode;
+  travelerContext?: RouteTravelerContext;
+  locale?: 'ko' | 'en' | 'th' | 'cn';
 }
 
 export const useFetchSubwayRoutes = (
@@ -240,6 +249,11 @@ export const useFetchSubwayRoutes = (
     alternatives: params.alternatives,
     walkingPreference: params.walkingPreference,
     stationTimeWeekType: params.stationTimeWeekType,
+    accessibilityMode: params.accessibilityMode,
+    crowdingPreference: params.crowdingPreference,
+    luggageMode: params.luggageMode,
+    travelerContext: params.travelerContext,
+    locale: params.locale,
   });
 
   return useQuery({

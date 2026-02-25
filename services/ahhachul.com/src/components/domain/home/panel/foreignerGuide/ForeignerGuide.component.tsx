@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 
@@ -33,6 +33,7 @@ const ForeignerGuide = () => {
     gcTime: QUERY_GC_TIME.feed,
     select: response => response.data.result,
   });
+  const [oneClickNotice, setOneClickNotice] = useState<string | null>(null);
 
   useEffect(() => {
     if (!guideQuery.error) {
@@ -56,6 +57,34 @@ const ForeignerGuide = () => {
   }
 
   const guide = guideQuery.data;
+
+  const handleOneClickAction = async (action: {
+    actionType: string;
+    deepLink: string;
+    payloadTemplate: string | null;
+  }) => {
+    if (action.actionType === 'COPY_EMERGENCY_PHRASE') {
+      const phrase = action.payloadTemplate?.trim();
+      if (!phrase) {
+        setOneClickNotice('복사할 긴급 문구가 없습니다.');
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(phrase);
+        setOneClickNotice('긴급 문구를 복사했습니다.');
+      } catch {
+        setOneClickNotice('긴급 문구 복사에 실패했습니다.');
+      }
+      return;
+    }
+
+    if (!action.deepLink) {
+      setOneClickNotice('실행 가능한 링크가 없습니다.');
+      return;
+    }
+
+    window.location.assign(action.deepLink);
+  };
 
   return (
     <S.Container>
@@ -93,6 +122,25 @@ const ForeignerGuide = () => {
               <li>{guide.cultureGuide.transferEtiquetteTip}</li>
               <li>{guide.cultureGuide.safetyTip}</li>
             </S.Tips>
+            {guide.oneClickActions?.length ? (
+              <S.OneClickSection>
+                <S.OneClickTitle>긴급/신고 원클릭</S.OneClickTitle>
+                <S.OneClickActions>
+                  {guide.oneClickActions.map(action => (
+                    <S.OneClickButton
+                      key={action.actionType}
+                      type="button"
+                      onClick={() => {
+                        void handleOneClickAction(action);
+                      }}
+                    >
+                      {action.title}
+                    </S.OneClickButton>
+                  ))}
+                </S.OneClickActions>
+                {oneClickNotice ? <S.OneClickNotice>{oneClickNotice}</S.OneClickNotice> : null}
+              </S.OneClickSection>
+            ) : null}
           </>
         ) : null}
       </S.Card>

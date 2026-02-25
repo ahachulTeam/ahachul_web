@@ -25,6 +25,17 @@ export type ForeignerStationGuide = {
     safetyTip: string;
     emergencyPhrase: string;
   };
+  oneClickActions?: Array<{
+    actionType:
+      | 'CALL_EMERGENCY_112'
+      | 'OPEN_LOST_REPORT'
+      | 'OPEN_COMPLAINT_REPORT'
+      | 'COPY_EMERGENCY_PHRASE';
+    title: string;
+    description: string;
+    deepLink: string;
+    payloadTemplate: string | null;
+  }>;
   supportedLocales: ForeignerLocale[];
 };
 

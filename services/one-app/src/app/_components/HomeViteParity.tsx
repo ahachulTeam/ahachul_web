@@ -321,6 +321,7 @@ export default function HomeViteParity({ locale }: Props) {
   const [isWeatherLoading, setIsWeatherLoading] = useState(false);
   const [weatherError, setWeatherError] = useState<string | null>(null);
   const [weatherBrief, setWeatherBrief] = useState<StationWeatherBriefV2Payload | null>(null);
+  const [foreignerOneClickNotice, setForeignerOneClickNotice] = useState<string | null>(null);
 
   const selectedLine = useMemo(
     () => subwayLines.find(line => line.id === selectedLineId) ?? null,
@@ -1013,6 +1014,38 @@ export default function HomeViteParity({ locale }: Props) {
   }
 
   const foreignerGuide = foreignerGuideQuery.data ?? null;
+  const handleForeignerOneClickAction = async (action: {
+    actionType: string;
+    deepLink: string;
+    payloadTemplate: string | null;
+  }) => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    if (action.actionType === 'COPY_EMERGENCY_PHRASE') {
+      const phrase = action.payloadTemplate?.trim();
+      if (!phrase) {
+        setForeignerOneClickNotice('복사할 긴급 문구가 없습니다.');
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(phrase);
+        setForeignerOneClickNotice('긴급 문구를 복사했습니다.');
+      } catch {
+        setForeignerOneClickNotice('긴급 문구 복사에 실패했습니다.');
+      }
+      return;
+    }
+
+    if (!action.deepLink) {
+      setForeignerOneClickNotice('실행 가능한 링크가 없습니다.');
+      return;
+    }
+
+    window.location.assign(action.deepLink);
+  };
+
   let foreignerGuideContent: ReactNode;
   if (foreignerGuideQuery.isLoading) {
     foreignerGuideContent = (
@@ -1052,6 +1085,28 @@ export default function HomeViteParity({ locale }: Props) {
             · {foreignerGuide.cultureGuide.safetyTip}
           </li>
         </ul>
+        {foreignerGuide.oneClickActions?.length ? (
+          <div className="rounded-lg border border-gray-20 bg-white p-2">
+            <p className="text-label-small text-gray-100">긴급/신고 원클릭</p>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {foreignerGuide.oneClickActions.map(action => (
+                <button
+                  key={action.actionType}
+                  type="button"
+                  onClick={() => {
+                    void handleForeignerOneClickAction(action);
+                  }}
+                  className="rounded-full border border-gray-40 px-3 py-1 text-label-small text-gray-90"
+                >
+                  {action.title}
+                </button>
+              ))}
+            </div>
+            {foreignerOneClickNotice ? (
+              <p className="mt-2 text-body-small text-gray-70">{foreignerOneClickNotice}</p>
+            ) : null}
+          </div>
+        ) : null}
       </div>
     );
   }

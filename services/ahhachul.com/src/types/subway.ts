@@ -223,12 +223,19 @@ export interface NearbyPlace {
   openNow: boolean;
   supportsEnglishMenu: boolean;
   confidenceLevel: NearbyPlaceConfidenceLevel;
+  essentialType?: 'CONVENIENCE_STORE' | 'RESTROOM' | 'ATM' | 'LATE_NIGHT_FOOD';
+  reliabilityScore?: number;
+  reliabilityReason?: string;
+  sourceCount?: number;
+  lastVerifiedAt?: string | null;
 }
 
 export interface NearbyPlacesResponse {
+  generatedAt?: string;
   stationId: number;
   subwayLineId: number;
   exitNo?: string | null;
+  summary?: string | null;
   places: NearbyPlace[];
 }
 
@@ -267,6 +274,31 @@ export enum RouteWalkingPreference {
   LESS_STAIRS = 'LESS_STAIRS',
 }
 
+export enum RouteAccessibilityMode {
+  BALANCED = 'BALANCED',
+  ELEVATOR_PRIORITY = 'ELEVATOR_PRIORITY',
+  STAIRS_MINIMIZED = 'STAIRS_MINIMIZED',
+  WHEELCHAIR = 'WHEELCHAIR',
+  STROLLER = 'STROLLER',
+}
+
+export enum RouteCrowdingPreference {
+  BALANCED = 'BALANCED',
+  LESS_CROWDED = 'LESS_CROWDED',
+}
+
+export enum RouteLuggageMode {
+  NORMAL = 'NORMAL',
+  HEAVY_LUGGAGE = 'HEAVY_LUGGAGE',
+  AIRPORT_TRAVEL = 'AIRPORT_TRAVEL',
+}
+
+export enum RouteTravelerContext {
+  COMMUTE = 'COMMUTE',
+  SCHOOL = 'SCHOOL',
+  TRAVEL = 'TRAVEL',
+}
+
 export type RouteQualityConfidenceLevel = 'HIGH' | 'MEDIUM' | 'LOW';
 export type RouteQualityBadge =
   | 'BEST_RECOMMENDED'
@@ -274,7 +306,26 @@ export type RouteQualityBadge =
   | 'WALKING_HEAVY'
   | 'LAST_TRAIN_RISK'
   | 'DELAY_RISK'
-  | 'DATA_LIMITED';
+  | 'DATA_LIMITED'
+  | 'ACCESSIBILITY_RECOMMENDED'
+  | 'CROWDING_AVOIDANCE'
+  | 'AIRPORT_FRIENDLY'
+  | 'TOURIST_FRIENDLY';
+
+export type RouteInStationDifficultyLevel = 'EASY' | 'MODERATE' | 'HARD';
+export type RouteBoardingGuideConfidenceLevel = 'HIGH' | 'MEDIUM' | 'LOW';
+export type RouteCrowdingLevel = 'LOW' | 'MEDIUM' | 'HIGH' | 'VERY_HIGH';
+export type RouteNearbyEssentialType = 'CONVENIENCE_STORE' | 'RESTROOM' | 'ATM' | 'LATE_NIGHT_FOOD';
+export type RouteTravelModeTag =
+  | 'AIRPORT_FRIENDLY'
+  | 'TOURIST_FRIENDLY'
+  | 'ACCESSIBILITY_PRIORITY'
+  | 'LESS_CROWDED_RECOMMENDED';
+export type RouteOneClickActionType =
+  | 'CALL_EMERGENCY_112'
+  | 'OPEN_LOST_REPORT'
+  | 'OPEN_COMPLAINT_REPORT'
+  | 'COPY_EMERGENCY_PHRASE';
 
 export interface SubwayRouteNode {
   stationId: number;
@@ -307,11 +358,47 @@ export interface SubwayRoute {
     walkingScore: number;
     lastTrainSafetyScore: number;
     delayResilienceScore: number;
+    accessibilityScore: number;
+    inStationDifficultyScore: number;
+    crowdingComfortScore: number;
     delayProbabilityPercent: number;
     confidenceLevel: RouteQualityConfidenceLevel;
     badges: RouteQualityBadge[];
     reasons: string[];
   };
+  accessibilityProfile?: {
+    mode: RouteAccessibilityMode;
+    elevatorFriendlyTransferCount: number;
+    estimatedStairSections: number;
+    inStationDifficultyLevel: RouteInStationDifficultyLevel;
+    mobilityNote: string;
+  };
+  boardingGuide?: {
+    primaryCarNo: string;
+    transferOptimizedCarNo: string | null;
+    recommendedDoorPosition: string;
+    reason: string;
+    confidenceLevel: RouteBoardingGuideConfidenceLevel;
+  };
+  crowdingGuide?: {
+    predictedLevel: RouteCrowdingLevel;
+    lessCrowdedCars: string[];
+    recommendation: string;
+    basedOn: string;
+  };
+  nearbyEssentials?: {
+    stationId: number;
+    stationName: string;
+    items: Array<{
+      essentialType: RouteNearbyEssentialType;
+      name: string;
+      walkingMinutes: number;
+      openNow: boolean;
+      reliabilityScore: number;
+      reliabilityReason: string;
+    }>;
+  };
+  travelModeTags?: RouteTravelModeTag[];
 }
 
 export interface SubwayRouteSearchResponse {
@@ -322,6 +409,18 @@ export interface SubwayRouteSearchResponse {
   strategy: RouteSearchStrategy;
   walkingPreference?: RouteWalkingPreference;
   stationTimeWeekType?: StationTimeWeekType;
+  accessibilityMode?: RouteAccessibilityMode;
+  crowdingPreference?: RouteCrowdingPreference;
+  luggageMode?: RouteLuggageMode;
+  travelerContext?: RouteTravelerContext;
+  locale?: 'ko' | 'en' | 'th' | 'cn';
+  oneClickActions?: Array<{
+    actionType: RouteOneClickActionType;
+    title: string;
+    description: string;
+    deepLink: string;
+    payloadTemplate: string | null;
+  }>;
   routes: SubwayRoute[];
 }
 

@@ -85,3 +85,47 @@ export const ErrorText = styled.p`
     color: ${theme.colors.red[60]};
   `}
 `;
+
+export const OneClickSection = styled.div`
+  ${({ theme }) => css`
+    margin-top: 10px;
+    border: 1px solid ${theme.colors.gray[20]};
+    border-radius: 10px;
+    background: ${theme.colors.gray[10]};
+    padding: 10px;
+  `}
+`;
+
+export const OneClickTitle = styled.p`
+  ${({ theme }) => css`
+    ${theme.fonts.labelSmall};
+    color: ${theme.colors.gray[100]};
+  `}
+`;
+
+export const OneClickActions = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+`;
+
+export const OneClickButton = styled.button`
+  ${({ theme }) => css`
+    height: 28px;
+    border-radius: 999px;
+    border: 1px solid ${theme.colors.gray[40]};
+    background: ${theme.colors.gray[10]};
+    padding: 0 10px;
+    ${theme.fonts.labelSmall};
+    color: ${theme.colors.gray[90]};
+  `}
+`;
+
+export const OneClickNotice = styled.p`
+  ${({ theme }) => css`
+    margin-top: 8px;
+    ${theme.fonts.bodySmall};
+    color: ${theme.colors.gray[70]};
+  `}
+`;

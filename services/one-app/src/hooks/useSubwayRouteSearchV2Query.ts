@@ -21,6 +21,11 @@ export function useSubwayRouteSearchV2Query(
     alternatives: params.alternatives,
     walkingPreference: params.walkingPreference,
     stationTimeWeekType: params.stationTimeWeekType,
+    accessibilityMode: params.accessibilityMode,
+    crowdingPreference: params.crowdingPreference,
+    luggageMode: params.luggageMode,
+    travelerContext: params.travelerContext,
+    locale: params.locale,
   });
 
   return useQuery<SubwayRouteSearchV2Response>({

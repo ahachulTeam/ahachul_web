@@ -45,6 +45,7 @@ const NewComplaintPage: ActivityComponentType<ComplaintFormProps> = ({
   const [templateInitialState, setTemplateInitialState] = useState('');
   const [isTemplateApplying, setIsTemplateApplying] = useState(false);
   const [templateError, setTemplateError] = useState('');
+  const [isPrefillApplied, setIsPrefillApplied] = useState(false);
   const { data: subwayLineResponse } = useQuery({
     queryKey: subwayQueryKeys.subwayLine(),
     queryFn: fetchSubwayLines,
@@ -76,6 +77,75 @@ const NewComplaintPage: ActivityComponentType<ComplaintFormProps> = ({
 
     methods.setValue('stationId', '0');
   }, [methods, selectedStationId, stationOptions]);
+
+  useEffect(() => {
+    if (isPrefillApplied || typeof window === 'undefined') {
+      return;
+    }
+
+    const searchParams = new URLSearchParams(window.location.search);
+    if (searchParams.get('prefill') !== '1') {
+      setIsPrefillApplied(true);
+      return;
+    }
+
+    const parsedLineId = Number(searchParams.get('subwayLineId') ?? '0');
+    const parsedStationId = Number(searchParams.get('stationId') ?? '0');
+    const parsedTemplateLocale = searchParams.get('templateLocale');
+    const nextTemplateLocale =
+      parsedTemplateLocale &&
+      FOREIGNER_LOCALE_OPTIONS.some(option => option.value === parsedTemplateLocale)
+        ? (parsedTemplateLocale as ForeignerLocale)
+        : 'en';
+
+    if (parsedLineId > 0) {
+      methods.setValue('subwayLineId', String(parsedLineId), {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
+    }
+    if (parsedStationId > 0) {
+      methods.setValue('stationId', String(parsedStationId), {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
+    }
+    setTemplateLocale(nextTemplateLocale);
+
+    if (parsedLineId <= 0 || parsedStationId <= 0) {
+      setIsPrefillApplied(true);
+      return;
+    }
+
+    const applyPrefillTemplate = async () => {
+      setIsTemplateApplying(true);
+      setTemplateError('');
+      try {
+        const response = await fetchForeignerStationGuideV2({
+          stationId: parsedStationId,
+          subwayLineId: parsedLineId,
+          locale: nextTemplateLocale,
+        });
+        const guide = response.data.result;
+        methods.setValue('title', guide.templates.complaintTitleTemplate, {
+          shouldDirty: true,
+          shouldValidate: true,
+        });
+        methods.setValue('content', guide.templates.complaintBodyTemplate, {
+          shouldDirty: true,
+          shouldValidate: true,
+        });
+        setTemplateInitialState(guide.templates.complaintBodyTemplate);
+      } catch {
+        setTemplateError('prefill 템플릿을 불러오지 못했습니다. 직접 입력으로 진행해주세요.');
+      } finally {
+        setIsTemplateApplying(false);
+        setIsPrefillApplied(true);
+      }
+    };
+
+    void applyPrefillTemplate();
+  }, [isPrefillApplied, methods]);
 
   const applyForeignerTemplate = async () => {
     const stationId = Number(methods.getValues('stationId'));
