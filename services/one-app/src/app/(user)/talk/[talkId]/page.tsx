@@ -12,5 +12,11 @@ type Props = {
 export default async function TalkDetailPage({ params }: Props) {
   const locale = await getServerLocale();
   const { talkId } = await params;
-  redirect(`${localizePathname('/messages', locale)}?roomId=${encodeURIComponent(talkId)}`);
+
+  const normalizedRoomId = Number(talkId);
+  if (!Number.isInteger(normalizedRoomId) || normalizedRoomId <= 0) {
+    redirect(localizePathname('/messages', locale));
+  }
+
+  redirect(localizePathname(`/messages/${normalizedRoomId}`, locale));
 }
