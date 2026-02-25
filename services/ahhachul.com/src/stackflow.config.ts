@@ -73,6 +73,8 @@ export const stackflowPlugin = [
       SubwayMapPage: PATH.subway.map,
       SubwayTimelinePage: PATH.subway.timeline,
       DelayProofPage: PATH.proof.detail,
+      ForeignerHotspotsPage: PATH.foreigner.hotspots,
+      ForeignerHotspotDetailPage: PATH.foreigner.hotspotDetail,
     },
     fallbackActivity: () => 'HomePage',
   }),

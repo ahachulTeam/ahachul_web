@@ -99,6 +99,12 @@ export const PATH = {
     map: '/subway/map',
     timeline: '/subway/timeline',
   },
+
+  /** 외국인 모드 */
+  foreigner: {
+    hotspots: '/foreigner/hotspots',
+    hotspotDetail: '/foreigner/hotspots/:stationId',
+  },
 } as const;
 
 export const MAIN_PATHS: KeyOf<TypeActivities>[] = [

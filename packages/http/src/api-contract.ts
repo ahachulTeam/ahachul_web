@@ -97,6 +97,15 @@ export const API_PATHS = {
     stationGuideV2: '/v2/foreigner/stations/guide',
     communityPostTranslationV2: (postId: Identifier) =>
       `/v2/foreigner/community-posts/${postId}/translation`,
+    stationSocialHotspotsV2: '/v2/foreigner/station-social/hotspots',
+    stationSocialOverviewV2: '/v2/foreigner/station-social/overview',
+    stationSocialMeetupsV2: '/v2/foreigner/station-social/meetups',
+    stationSocialMeetupJoinV2: (meetupId: Identifier) =>
+      `/v2/foreigner/station-social/meetups/${meetupId}/join`,
+    stationSocialMeetupParticipantV2: (meetupId: Identifier, participantId: Identifier) =>
+      `/v2/foreigner/station-social/meetups/${meetupId}/participants/${participantId}`,
+    stationSocialMeetupMatchV2: (meetupId: Identifier) =>
+      `/v2/foreigner/station-social/meetups/${meetupId}/match`,
   },
   common: {
     s3Presigned: (s3Key: string) => `/common/presigned/${s3Key}`,

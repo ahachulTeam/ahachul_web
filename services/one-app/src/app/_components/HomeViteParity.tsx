@@ -1191,7 +1191,15 @@ export default function HomeViteParity({ locale }: Props) {
           </div>
 
           <div className="mt-3 rounded-xl border border-gray-20 bg-white p-3">
-            <p className="text-label-medium text-gray-100">외국인 모드 가이드</p>
+            <div className="flex items-center justify-between">
+              <p className="text-label-medium text-gray-100">외국인 모드 가이드</p>
+              <Link
+                href={localizePathname('/foreigner/hotspots', locale)}
+                className="text-label-small text-key-color"
+              >
+                역 소셜 허브
+              </Link>
+            </div>
             {foreignerGuideContent}
           </div>
 

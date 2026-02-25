@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { QUERY_GC_TIME, QUERY_STALE_TIME } from '@ahhachul/domain';
 
 import { fetchForeignerStationGuideV2, type ForeignerLocale } from '@/apis/request/subway';
+import { StackFlow } from '@/stackflow';
 import { useUserStationStore } from '@/stores/subway';
 import { createActionLogger } from '@/utils/observability';
 
@@ -58,7 +59,12 @@ const ForeignerGuide = () => {
 
   return (
     <S.Container>
-      <b>외국인 모드 가이드</b>
+      <S.Header>
+        <b>외국인 모드 가이드</b>
+        <StackFlow.Link activityName="ForeignerHotspotsPage" activityParams={{ locale: 'en' }}>
+          <S.ActionButton type="button">역 소셜 허브</S.ActionButton>
+        </StackFlow.Link>
+      </S.Header>
       <S.Card>
         {guideQuery.isLoading ? (
           <S.StateText>외국인 안내 정보를 불러오는 중입니다.</S.StateText>

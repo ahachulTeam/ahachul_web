@@ -31,3 +31,4 @@ export * as HomePages from './home';
 export * as CommunityPages from './community';
 export * as LostFoundPages from './lostFound';
 export * as ComplaintPages from './complaint';
+export * as ForeignerPages from './foreigner';

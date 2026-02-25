@@ -39,3 +39,121 @@ export type ForeignerCommunityPostTranslation = {
   isFallback: boolean;
   notice: string;
 };
+
+export type ForeignerStationSocialHotspots = {
+  generatedAt: string;
+  locale: ForeignerLocale;
+  hotspots: Array<{
+    stationId: number;
+    subwayLineId: number;
+    stationNameKo: string;
+    stationNameLocalized: string;
+    lineNameLocalized: string;
+    romanizedName: string;
+    districtLabel: string;
+    summary: string;
+    contentTags: string[];
+    upcomingMeetupCount: number;
+    reviewCount: number;
+  }>;
+};
+
+export type ForeignerStationSocialOverview = {
+  generatedAt: string;
+  locale: ForeignerLocale;
+  station: {
+    stationId: number;
+    subwayLineId: number;
+    stationNameKo: string;
+    stationNameLocalized: string;
+    lineNameKo: string;
+    lineNameLocalized: string;
+    romanizedName: string;
+    pronunciation: string;
+    cultureTips: string[];
+  };
+  sameNationalityOnly: boolean;
+  nationalityCode: string | null;
+  calendar: Array<{
+    date: string;
+    meetupCount: number;
+  }>;
+  meetups: Array<{
+    meetupId: number;
+    title: string;
+    description: string;
+    meetupAt: string;
+    maxParticipants: number;
+    acceptedCount: number;
+    hostMemberId: number;
+    hostNickname: string;
+    nationalityCode: string | null;
+    sameNationalityOnly: boolean;
+    status: string;
+    mine: boolean;
+    participants: Array<{
+      participantId: number;
+      memberId: number;
+      nickname: string;
+      nationalityCode: string | null;
+      status: string;
+      mine: boolean;
+    }>;
+  }>;
+  reviewPosts: Array<{
+    postId: number;
+    title: string;
+    preview: string;
+    writer: string;
+    createdAt: string;
+  }>;
+};
+
+export type CreateForeignerStationSocialMeetupPayload = {
+  stationId: number;
+  subwayLineId: number;
+  title: string;
+  description: string;
+  meetupAt: string;
+  maxParticipants: number;
+  nationalityCode?: string;
+  sameNationalityOnly: boolean;
+};
+
+export type CreateForeignerStationSocialMeetupResult = {
+  meetupId: number;
+  createdAt: string;
+};
+
+export type JoinForeignerStationSocialMeetupPayload = {
+  introductionMessage?: string;
+  nationalityCode?: string;
+};
+
+export type JoinForeignerStationSocialMeetupResult = {
+  meetupId: number;
+  participantId: number;
+  status: string;
+};
+
+export type ReviewForeignerStationSocialParticipantPayload = {
+  approve: boolean;
+};
+
+export type ReviewForeignerStationSocialParticipantResult = {
+  meetupId: number;
+  participantId: number;
+  status: string;
+};
+
+export type OpenForeignerStationSocialMatchPayload = {
+  targetMemberId: number;
+  openingMessage?: string;
+};
+
+export type OpenForeignerStationSocialMatchResult = {
+  meetupId: number;
+  targetMemberId: number;
+  roomId: number;
+  messageId: number;
+};

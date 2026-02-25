@@ -16,6 +16,21 @@ export const Container = styled.section`
   `}
 `;
 
+export const Header = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+`;
+
+export const ActionButton = styled.button`
+  ${({ theme }) => css`
+    ${theme.fonts.labelSmall};
+    color: ${theme.colors['key-color']};
+    background-color: transparent;
+  `}
+`;
+
 export const Card = styled.article`
   ${({ theme }) => css`
     margin-top: 12px;

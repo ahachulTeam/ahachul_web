@@ -166,6 +166,133 @@ export interface APIForeignerStationGuideResponse {
   supportedLocales: ForeignerLocale[];
 }
 
+interface APIForeignerStationSocialOverviewParams {
+  stationId: number;
+  subwayLineId?: number;
+  locale?: ForeignerLocale;
+  sameNationalityOnly?: boolean;
+  nationalityCode?: string;
+  limit?: number;
+}
+
+export interface APIForeignerStationSocialHotspotsResponse {
+  generatedAt: string;
+  locale: ForeignerLocale;
+  hotspots: Array<{
+    stationId: number;
+    subwayLineId: number;
+    stationNameKo: string;
+    stationNameLocalized: string;
+    lineNameLocalized: string;
+    romanizedName: string;
+    districtLabel: string;
+    summary: string;
+    contentTags: string[];
+    upcomingMeetupCount: number;
+    reviewCount: number;
+  }>;
+}
+
+export interface APIForeignerStationSocialOverviewResponse {
+  generatedAt: string;
+  locale: ForeignerLocale;
+  station: {
+    stationId: number;
+    subwayLineId: number;
+    stationNameKo: string;
+    stationNameLocalized: string;
+    lineNameKo: string;
+    lineNameLocalized: string;
+    romanizedName: string;
+    pronunciation: string;
+    cultureTips: string[];
+  };
+  sameNationalityOnly: boolean;
+  nationalityCode: string | null;
+  calendar: Array<{
+    date: string;
+    meetupCount: number;
+  }>;
+  meetups: Array<{
+    meetupId: number;
+    title: string;
+    description: string;
+    meetupAt: string;
+    maxParticipants: number;
+    acceptedCount: number;
+    hostMemberId: number;
+    hostNickname: string;
+    nationalityCode: string | null;
+    sameNationalityOnly: boolean;
+    status: string;
+    mine: boolean;
+    participants: Array<{
+      participantId: number;
+      memberId: number;
+      nickname: string;
+      nationalityCode: string | null;
+      status: string;
+      mine: boolean;
+    }>;
+  }>;
+  reviewPosts: Array<{
+    postId: number;
+    title: string;
+    preview: string;
+    writer: string;
+    createdAt: string;
+  }>;
+}
+
+export interface APICreateForeignerStationSocialMeetupPayload {
+  stationId: number;
+  subwayLineId: number;
+  title: string;
+  description: string;
+  meetupAt: string;
+  maxParticipants: number;
+  nationalityCode?: string;
+  sameNationalityOnly: boolean;
+}
+
+export interface APICreateForeignerStationSocialMeetupResponse {
+  meetupId: number;
+  createdAt: string;
+}
+
+export interface APIJoinForeignerStationSocialMeetupPayload {
+  introductionMessage?: string;
+  nationalityCode?: string;
+}
+
+export interface APIJoinForeignerStationSocialMeetupResponse {
+  meetupId: number;
+  participantId: number;
+  status: string;
+}
+
+export interface APIReviewForeignerStationSocialParticipantPayload {
+  approve: boolean;
+}
+
+export interface APIReviewForeignerStationSocialParticipantResponse {
+  meetupId: number;
+  participantId: number;
+  status: string;
+}
+
+export interface APIOpenForeignerStationSocialMatchPayload {
+  targetMemberId: number;
+  openingMessage?: string;
+}
+
+export interface APIOpenForeignerStationSocialMatchResponse {
+  meetupId: number;
+  targetMemberId: number;
+  roomId: number;
+  messageId: number;
+}
+
 export interface APINearbyPlacesV2Response {
   stationId: number;
   subwayLineId: number;
@@ -325,5 +452,67 @@ export const fetchForeignerStationGuideV2 = async (params: APIForeignerStationGu
     {
       params,
     },
+  );
+};
+
+export const fetchForeignerStationSocialHotspotsV2 = async (locale?: ForeignerLocale) => {
+  return axiosInstance.get<ApiResponse<APIForeignerStationSocialHotspotsResponse>>(
+    API_PATHS.foreigner.stationSocialHotspotsV2,
+    {
+      params: {
+        ...(locale ? { locale } : {}),
+      },
+    },
+  );
+};
+
+export const fetchForeignerStationSocialOverviewV2 = async (
+  params: APIForeignerStationSocialOverviewParams,
+) => {
+  return axiosInstance.get<ApiResponse<APIForeignerStationSocialOverviewResponse>>(
+    API_PATHS.foreigner.stationSocialOverviewV2,
+    {
+      params,
+    },
+  );
+};
+
+export const createForeignerStationSocialMeetupV2 = async (
+  payload: APICreateForeignerStationSocialMeetupPayload,
+) => {
+  return axiosInstance.post<ApiResponse<APICreateForeignerStationSocialMeetupResponse>>(
+    API_PATHS.foreigner.stationSocialMeetupsV2,
+    payload,
+  );
+};
+
+export const joinForeignerStationSocialMeetupV2 = async (
+  meetupId: number,
+  payload: APIJoinForeignerStationSocialMeetupPayload,
+) => {
+  return axiosInstance.post<ApiResponse<APIJoinForeignerStationSocialMeetupResponse>>(
+    API_PATHS.foreigner.stationSocialMeetupJoinV2(meetupId),
+    payload,
+  );
+};
+
+export const reviewForeignerStationSocialParticipantV2 = async (
+  meetupId: number,
+  participantId: number,
+  payload: APIReviewForeignerStationSocialParticipantPayload,
+) => {
+  return axiosInstance.patch<ApiResponse<APIReviewForeignerStationSocialParticipantResponse>>(
+    API_PATHS.foreigner.stationSocialMeetupParticipantV2(meetupId, participantId),
+    payload,
+  );
+};
+
+export const openForeignerStationSocialMatchV2 = async (
+  meetupId: number,
+  payload: APIOpenForeignerStationSocialMatchPayload,
+) => {
+  return axiosInstance.post<ApiResponse<APIOpenForeignerStationSocialMatchResponse>>(
+    API_PATHS.foreigner.stationSocialMeetupMatchV2(meetupId),
+    payload,
   );
 };
