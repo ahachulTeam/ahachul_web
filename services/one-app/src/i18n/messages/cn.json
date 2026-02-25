@@ -112,7 +112,13 @@
   },
   "login": {
     "heroSubtitle": "打造更轻松的地铁出行体验",
-    "continueWithProvider": "使用 {provider} 继续"
+    "continueWithProvider": "使用 {provider} 继续",
+    "errors": {
+      "invalidCallbackParams": "登录请求参数无效，请重试。",
+      "invalidAuthorizationCode": "登录授权码已过期或无效，请重新登录。",
+      "invalidAccessToken": "社交登录认证已过期，请重新登录。",
+      "unknown": "登录过程中发生错误，请稍后重试。"
+    }
   },
   "messagesPage": {
     "title": "消息",

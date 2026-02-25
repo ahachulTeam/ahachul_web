@@ -10,6 +10,7 @@ import { AuthService } from '@/lib/auth-service';
 import { useTempAuthStore } from '@/stores/auth';
 import { isValidSocialSignInType } from '@/utils/auth';
 
+import { LOGIN_ERROR_QUERY, resolveLoginErrorQueryFromError } from '../../_lib/loginError';
 import { login } from '../_lib/login';
 
 interface CallbackRedirectProps {
@@ -28,7 +29,8 @@ export default function CallbackRedirect({ code, type }: CallbackRedirectProps) 
   const handleLogin = useAsyncCallback(
     async () => {
       if (!isValidSocialSignInType(type) || !code) {
-        throw new Error('Invalid callback parameters');
+        router.replace(`/login?error=${LOGIN_ERROR_QUERY.INVALID_CALLBACK_PARAMS}`);
+        return;
       }
 
       const { result } = await login({ code, type });
@@ -46,7 +48,8 @@ export default function CallbackRedirect({ code, type }: CallbackRedirectProps) 
     {
       onError: error => {
         console.error('Login failed:', error);
-        router.replace('/login?error=from_callback');
+        const errorQuery = resolveLoginErrorQueryFromError(error);
+        router.replace(`/login?error=${errorQuery}`);
       },
     },
   );

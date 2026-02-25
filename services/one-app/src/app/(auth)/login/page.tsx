@@ -8,6 +8,35 @@ import { getLocaleMessages } from '@/i18n';
 import { getServerLocale } from '@/i18n/server';
 import { getLocalizedMetadataOptions } from '@/seo/metadata';
 
+import { LOGIN_ERROR_QUERY, parseLoginErrorQuery } from './_lib/loginError';
+
+type LoginPageProps = {
+  searchParams?: Promise<{
+    error?: string | string[];
+  }>;
+};
+
+function resolveLoginErrorMessage(
+  rawError: string | undefined,
+  messages: ReturnType<typeof getLocaleMessages>,
+) {
+  const error = parseLoginErrorQuery(rawError);
+  if (!error) {
+    return null;
+  }
+
+  switch (error) {
+    case LOGIN_ERROR_QUERY.INVALID_CALLBACK_PARAMS:
+      return messages.login.errors.invalidCallbackParams;
+    case LOGIN_ERROR_QUERY.INVALID_AUTHORIZATION_CODE:
+      return messages.login.errors.invalidAuthorizationCode;
+    case LOGIN_ERROR_QUERY.INVALID_ACCESS_TOKEN:
+      return messages.login.errors.invalidAccessToken;
+    default:
+      return messages.login.errors.unknown;
+  }
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getServerLocale();
   const messages = getLocaleMessages(locale);
@@ -21,9 +50,12 @@ export async function generateMetadata(): Promise<Metadata> {
   }) as Metadata;
 }
 
-export default async function Login() {
+export default async function Login({ searchParams }: LoginPageProps) {
   const locale = await getServerLocale();
   const messages = getLocaleMessages(locale);
+  const params = searchParams ? await searchParams : undefined;
+  const errorParam = Array.isArray(params?.error) ? params?.error[0] : params?.error;
+  const initialErrorMessage = resolveLoginErrorMessage(errorParam, messages);
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-black">
@@ -32,6 +64,7 @@ export default async function Login() {
         <SocialLogins
           continueWithProviderTemplate={messages.login.continueWithProvider}
           unknownErrorMessage={messages.common.unknownError}
+          initialErrorMessage={initialErrorMessage}
         />
       </section>
     </main>

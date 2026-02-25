@@ -112,7 +112,13 @@
   },
   "login": {
     "heroSubtitle": "เพื่อประสบการณ์รถไฟใต้ดินที่สะดวกยิ่งขึ้น",
-    "continueWithProvider": "ดำเนินการต่อด้วย {provider}"
+    "continueWithProvider": "ดำเนินการต่อด้วย {provider}",
+    "errors": {
+      "invalidCallbackParams": "ข้อมูลคำขอเข้าสู่ระบบไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง",
+      "invalidAuthorizationCode": "รหัสเข้าสู่ระบบหมดอายุหรือไม่ถูกต้อง กรุณาเข้าสู่ระบบใหม่",
+      "invalidAccessToken": "การยืนยันตัวตนผ่านโซเชียลหมดอายุ กรุณาเข้าสู่ระบบใหม่",
+      "unknown": "เกิดข้อผิดพลาดระหว่างเข้าสู่ระบบ กรุณาลองใหม่อีกครั้ง"
+    }
   },
   "messagesPage": {
     "title": "ข้อความ",

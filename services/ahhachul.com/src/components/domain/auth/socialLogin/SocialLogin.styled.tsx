@@ -27,6 +27,11 @@ export const SocialButton = styled.button`
     font-size: 16px;
     font-weight: 600;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 `;
 
 export const KakaoLogin = styled(SocialButton)`

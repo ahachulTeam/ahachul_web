@@ -112,7 +112,13 @@
   },
   "login": {
     "heroSubtitle": "Making subway life easier",
-    "continueWithProvider": "Continue with {provider}"
+    "continueWithProvider": "Continue with {provider}",
+    "errors": {
+      "invalidCallbackParams": "Login request information is invalid. Please try again.",
+      "invalidAuthorizationCode": "The login code is expired or invalid. Please sign in again.",
+      "invalidAccessToken": "Social authentication expired. Please sign in again.",
+      "unknown": "Login failed. Please try again in a moment."
+    }
   },
   "messagesPage": {
     "title": "Messages",

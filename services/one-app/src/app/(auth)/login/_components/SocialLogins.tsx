@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
@@ -12,35 +12,61 @@ import { getRedirectUrl } from '../_lib/getRedirectUrl';
 
 type SocialLoginsProps = {
   continueWithProviderTemplate: string;
+  initialErrorMessage: string | null;
   unknownErrorMessage: string;
 };
 
 export const SocialLogins: React.FC<SocialLoginsProps> = ({
   continueWithProviderTemplate,
+  initialErrorMessage,
   unknownErrorMessage,
 }) => {
   const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState<string | null>(initialErrorMessage);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    setErrorMessage(initialErrorMessage);
+  }, [initialErrorMessage]);
 
   const handleLogin = async (socialType: SocialSignInType) => {
+    setErrorMessage(null);
+    setIsSubmitting(true);
+
     try {
       const { code, result } = await getRedirectUrl(socialType);
 
       if (code !== APIResponseCode.SUCCESS) {
-        alert(unknownErrorMessage);
+        setErrorMessage(unknownErrorMessage);
         return;
       }
       router.push(result.redirectUrl);
     } catch {
-      alert(unknownErrorMessage);
+      setErrorMessage(unknownErrorMessage);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  return socialLoginOptions.map(option => (
-    <SocialLoginButton
-      key={option.social}
-      {...option}
-      label={continueWithProviderTemplate.replace('{provider}', option.social)}
-      onLoginAction={() => handleLogin(option.providerType)}
-    />
-  ));
+  return (
+    <>
+      {errorMessage ? (
+        <p
+          role="alert"
+          className="mb-3 rounded-md border border-red/40 bg-gray-10 px-4 py-3 text-13m text-red"
+        >
+          {errorMessage}
+        </p>
+      ) : null}
+      {socialLoginOptions.map(option => (
+        <SocialLoginButton
+          key={option.social}
+          {...option}
+          disabled={isSubmitting}
+          label={continueWithProviderTemplate.replace('{provider}', option.social)}
+          onLoginAction={() => handleLogin(option.providerType)}
+        />
+      ))}
+    </>
+  );
 };

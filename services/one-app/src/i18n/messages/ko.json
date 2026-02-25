@@ -112,7 +112,13 @@
   },
   "login": {
     "heroSubtitle": "더 편한 지하철을 만드는",
-    "continueWithProvider": "{provider}로 계속하기"
+    "continueWithProvider": "{provider}로 계속하기",
+    "errors": {
+      "invalidCallbackParams": "로그인 요청 정보가 올바르지 않습니다. 다시 시도해주세요.",
+      "invalidAuthorizationCode": "로그인 코드가 만료되었거나 유효하지 않습니다. 다시 로그인해주세요.",
+      "invalidAccessToken": "소셜 인증이 만료되었습니다. 다시 로그인해주세요.",
+      "unknown": "로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요."
+    }
   },
   "messagesPage": {
     "title": "메시지함",

@@ -9,6 +9,7 @@ import { useFlow } from '@/stackflow';
 import { useTempAuth } from '@/stores';
 import { useUserStationStore } from '@/stores/subway';
 import type { SocialSignInType } from '@/types';
+import { resolveLoginErrorCodeFromError } from '@/utils/loginError';
 
 interface SignInCallbackPageProps {
   type: string;
@@ -30,7 +31,7 @@ const SignInCallbackPage: ActivityComponentType<SignInCallbackPageProps> = ({
   useEffect(() => {
     const handleSignIn = async () => {
       if (!type || !code) {
-        replace('SignInPage', {});
+        replace('SignInPage', { loginErrorCode: 'invalid_callback_params' });
         return;
       }
 
@@ -64,7 +65,7 @@ const SignInCallbackPage: ActivityComponentType<SignInCallbackPageProps> = ({
         }
       } catch (error) {
         console.error(error);
-        replace('SignInPage', {});
+        replace('SignInPage', { loginErrorCode: resolveLoginErrorCodeFromError(error) });
       }
     };
 

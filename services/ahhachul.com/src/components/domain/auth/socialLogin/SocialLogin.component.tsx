@@ -1,17 +1,32 @@
+import { useState } from 'react';
+
 import { fetchRedirectUrl } from '@/apis/request';
 import { GoogleIcon, AppleIcon, KakaoIcon } from '@/assets/icons/auth';
 import { motions } from '@/constants';
 import { SocialSignInType } from '@/types';
+import { resolveLoginErrorCodeFromError, type LoginErrorCode } from '@/utils/loginError';
 
 import * as S from './SocialLogin.styled';
 
-const SocialLogin = () => {
+interface SocialLoginProps {
+  onError?: (errorCode: LoginErrorCode) => void;
+  onLoginStart?: () => void;
+}
+
+const SocialLogin = ({ onError, onLoginStart }: SocialLoginProps) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const clickLogin = async (loginType: SocialSignInType) => {
+    onLoginStart?.();
+    setIsSubmitting(true);
+
     try {
       const response = await fetchRedirectUrl(loginType);
       window.location.assign(response.result.redirectUrl);
     } catch (error) {
-      window.alert('로그인 정보를 불러오는데 실패했어요.');
+      onError?.(resolveLoginErrorCodeFromError(error));
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -22,15 +37,15 @@ const SocialLogin = () => {
       initial="initial"
       variants={motions.fadeInAndUp(0.3)}
     >
-      <S.GoogleLogin onClick={() => clickLogin(SocialSignInType.GOOGLE)}>
+      <S.GoogleLogin disabled={isSubmitting} onClick={() => clickLogin(SocialSignInType.GOOGLE)}>
         <GoogleIcon />
         <span>Google로 계속하기</span>
       </S.GoogleLogin>
-      <S.AppleLogin onClick={() => clickLogin(SocialSignInType.APPLE)}>
+      <S.AppleLogin disabled={isSubmitting} onClick={() => clickLogin(SocialSignInType.APPLE)}>
         <AppleIcon />
         <span>Apple로 계속하기</span>
       </S.AppleLogin>
-      <S.KakaoLogin onClick={() => clickLogin(SocialSignInType.KAKAO)}>
+      <S.KakaoLogin disabled={isSubmitting} onClick={() => clickLogin(SocialSignInType.KAKAO)}>
         <KakaoIcon />
         <span>Kakao로 계속하기</span>
       </S.KakaoLogin>
