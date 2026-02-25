@@ -82,6 +82,7 @@
       "summaryStatusAvailable": "ปกติ",
       "summaryStatusPartial": "บางส่วน",
       "summaryStatusEmpty": "ไม่มีข้อมูล",
+      "summaryStatusDelayed": "ล่าช้าชั่วคราว",
       "upLabel": "ขาขึ้น",
       "downLabel": "ขาลง"
     },

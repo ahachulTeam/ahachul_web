@@ -82,6 +82,7 @@
       "summaryStatusAvailable": "정상 제공",
       "summaryStatusPartial": "부분 제공",
       "summaryStatusEmpty": "미제공",
+      "summaryStatusDelayed": "일시 지연",
       "upLabel": "상행",
       "downLabel": "하행"
     },

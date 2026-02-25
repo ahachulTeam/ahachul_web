@@ -20,11 +20,13 @@ import {
   NearbyPlaceConfidenceLevel,
   QuickExitConfidenceLevel,
   StationSummaryAvailabilityStatus,
+  StationSummaryDataSource,
   StationTimeWeekType,
   SubwayLineType,
   UpDownType,
   type NearbyPlace,
   type QuickExitRecommendation,
+  type StationTimeSummarySourceDetail,
   type WithSubwayStationId,
 } from '@/types';
 
@@ -118,6 +120,7 @@ function resolveRiskColor(riskLevel?: LastTrainRiskLevel): string {
 
 function resolveSummaryStatusLabel(
   availabilityStatus?: StationSummaryAvailabilityStatus,
+  isTemporarilyDelayed = false,
 ): string | null {
   if (availabilityStatus === StationSummaryAvailabilityStatus.AVAILABLE) {
     return '정상 제공';
@@ -126,19 +129,33 @@ function resolveSummaryStatusLabel(
     return '부분 제공';
   }
   if (availabilityStatus === StationSummaryAvailabilityStatus.EMPTY) {
-    return '미제공';
+    return isTemporarilyDelayed ? '일시 지연' : '미제공';
   }
   return null;
 }
 
-function resolveSummaryStatusColor(availabilityStatus?: StationSummaryAvailabilityStatus): string {
+function resolveSummaryStatusColor(
+  availabilityStatus?: StationSummaryAvailabilityStatus,
+  isTemporarilyDelayed = false,
+): string {
   if (availabilityStatus === StationSummaryAvailabilityStatus.AVAILABLE) {
     return 'rgba(16, 185, 129, 0.72)';
   }
   if (availabilityStatus === StationSummaryAvailabilityStatus.PARTIAL) {
     return 'rgba(245, 158, 11, 0.72)';
   }
+  if (availabilityStatus === StationSummaryAvailabilityStatus.EMPTY && isTemporarilyDelayed) {
+    return 'rgba(245, 158, 11, 0.72)';
+  }
   return 'rgba(239, 68, 68, 0.72)';
+}
+
+function isStationTimeSummaryTemporarilyDelayed(
+  sourceDetails?: StationTimeSummarySourceDetail[],
+): boolean {
+  return Boolean(
+    sourceDetails?.some(detail => detail.dataSource === StationSummaryDataSource.FALLBACK_EMPTY),
+  );
 }
 
 function resolveQuickExitConfidenceLabel(level: QuickExitConfidenceLevel): string {
@@ -250,7 +267,13 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
   const isStationTimeSummaryEmpty = stationTimeSummaries.every(
     summary => !summary.firstDepartureTime && !summary.lastDepartureTime,
   );
-  const summaryStatusLabel = resolveSummaryStatusLabel(stationSummaryMeta?.availabilityStatus);
+  const isSummaryTemporarilyDelayed = isStationTimeSummaryTemporarilyDelayed(
+    stationSummaryMeta?.sourceDetails,
+  );
+  const summaryStatusLabel = resolveSummaryStatusLabel(
+    stationSummaryMeta?.availabilityStatus,
+    isSummaryTemporarilyDelayed,
+  );
   const summaryNoDataMessage =
     stationSummaryMeta?.guidanceMessage ??
     '시간표 데이터를 받지 못해 첫차/막차를 표시할 수 없습니다.';
@@ -557,6 +580,7 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
                   color: 'white',
                   backgroundColor: resolveSummaryStatusColor(
                     stationSummaryMeta?.availabilityStatus,
+                    isSummaryTemporarilyDelayed,
                   ),
                 }}
               >

@@ -82,6 +82,7 @@
       "summaryStatusAvailable": "正常提供",
       "summaryStatusPartial": "部分提供",
       "summaryStatusEmpty": "未提供",
+      "summaryStatusDelayed": "临时延迟",
       "upLabel": "上行",
       "downLabel": "下行"
     },

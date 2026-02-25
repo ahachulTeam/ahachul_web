@@ -20,6 +20,7 @@ import type {
   RealtimeArrivalCode,
   RealtimeUpDownType,
   StationSummaryAvailabilityStatus,
+  StationTimeSummarySourceDetail,
   StationTimeSummaryItem,
   StationTimeWeekType,
   TrainRealtimeV2SectionVM,
@@ -138,6 +139,7 @@ function formatStationTime(time: string | null | undefined) {
 
 function resolveSummaryStatusLabel(
   availabilityStatus?: StationSummaryAvailabilityStatus,
+  isTemporarilyDelayed = false,
 ): string | null {
   if (availabilityStatus === 'AVAILABLE') {
     return '시간표 상태: 원활';
@@ -146,19 +148,31 @@ function resolveSummaryStatusLabel(
     return '시간표 상태: 일부 제공';
   }
   if (availabilityStatus === 'EMPTY') {
-    return '시간표 상태: 데이터 없음';
+    return isTemporarilyDelayed ? '시간표 상태: 일시 지연' : '시간표 상태: 미제공';
   }
   return null;
 }
 
-function resolveSummaryStatusClassName(availabilityStatus?: StationSummaryAvailabilityStatus) {
+function resolveSummaryStatusClassName(
+  availabilityStatus?: StationSummaryAvailabilityStatus,
+  isTemporarilyDelayed = false,
+) {
   if (availabilityStatus === 'AVAILABLE') {
     return 'border-emerald-200 bg-emerald-50 text-emerald-700';
   }
   if (availabilityStatus === 'PARTIAL') {
     return 'border-amber-200 bg-amber-50 text-amber-700';
   }
+  if (availabilityStatus === 'EMPTY' && isTemporarilyDelayed) {
+    return 'border-amber-200 bg-amber-50 text-amber-700';
+  }
   return 'border-rose-200 bg-rose-50 text-rose-700';
+}
+
+function isStationTimeSummaryTemporarilyDelayed(
+  sourceDetails?: StationTimeSummarySourceDetail[],
+): boolean {
+  return Boolean(sourceDetails?.some(detail => detail.dataSource === 'FALLBACK_EMPTY'));
 }
 
 function toSummaryByType(summaries: StationTimeSummaryItem[] = []) {
@@ -206,6 +220,7 @@ export default function HomeViteParity({ locale }: Props) {
   const [summaryStatus, setSummaryStatus] = useState<StationSummaryAvailabilityStatus | undefined>(
     undefined,
   );
+  const [isSummaryTemporarilyDelayed, setIsSummaryTemporarilyDelayed] = useState(false);
   const [summaryNoDataMessage, setSummaryNoDataMessage] =
     useState('시간표 정보를 확인할 수 없습니다.');
 
@@ -321,6 +336,8 @@ export default function HomeViteParity({ locale }: Props) {
     if (!selectedLineId || !selectedStationId) {
       setRealtimeSection(null);
       setSummaryByType({});
+      setSummaryStatus(undefined);
+      setIsSummaryTemporarilyDelayed(false);
       return;
     }
 
@@ -370,6 +387,9 @@ export default function HomeViteParity({ locale }: Props) {
         setSummaryError(null);
         setSummaryByType(toSummaryByType(summaryResponse.result.summaries));
         setSummaryStatus(summaryResponse.result.meta?.availabilityStatus);
+        setIsSummaryTemporarilyDelayed(
+          isStationTimeSummaryTemporarilyDelayed(summaryResponse.result.meta?.sourceDetails),
+        );
         setSummaryNoDataMessage(
           summaryResponse.result.meta?.guidanceMessage ?? '시간표 정보를 확인할 수 없습니다.',
         );
@@ -379,6 +399,8 @@ export default function HomeViteParity({ locale }: Props) {
         }
         setSummaryError('첫차/막차 정보를 불러오지 못했습니다.');
         setSummaryByType({});
+        setSummaryStatus(undefined);
+        setIsSummaryTemporarilyDelayed(false);
       } finally {
         if (isActive && initialLoad) {
           setIsSummaryLoading(false);
@@ -399,7 +421,7 @@ export default function HomeViteParity({ locale }: Props) {
 
   const selectedStationName =
     stationOptions.find(station => station.id === selectedStationId)?.name ?? '역 선택';
-  const summaryStatusLabel = resolveSummaryStatusLabel(summaryStatus);
+  const summaryStatusLabel = resolveSummaryStatusLabel(summaryStatus, isSummaryTemporarilyDelayed);
 
   let summaryContent: ReactNode;
   if (isSummaryLoading) {
@@ -543,7 +565,10 @@ export default function HomeViteParity({ locale }: Props) {
             </p>
             {summaryStatusLabel ? (
               <p
-                className={`mt-2 inline-flex rounded-full border px-2 py-0.5 text-label-small ${resolveSummaryStatusClassName(summaryStatus)}`}
+                className={`mt-2 inline-flex rounded-full border px-2 py-0.5 text-label-small ${resolveSummaryStatusClassName(
+                  summaryStatus,
+                  isSummaryTemporarilyDelayed,
+                )}`}
               >
                 {summaryStatusLabel}
               </p>

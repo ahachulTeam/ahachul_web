@@ -26,6 +26,7 @@ import {
   type ApiResponse,
   type DelayProofPayload,
   type StationSummaryAvailabilityStatus,
+  type StationTimeSummarySourceDetail,
   type StationTimeWeekType,
 } from '@/types';
 
@@ -124,6 +125,7 @@ function getFavoriteFeedbackClassName(type: FavoriteFeedbackType) {
 function resolveSummaryStatusLabel(
   copy: LocaleMessages['me'],
   availabilityStatus?: StationSummaryAvailabilityStatus,
+  isTemporarilyDelayed = false,
 ): string | null {
   if (availabilityStatus === 'AVAILABLE') {
     return copy.realtime.summaryStatusAvailable;
@@ -132,12 +134,17 @@ function resolveSummaryStatusLabel(
     return copy.realtime.summaryStatusPartial;
   }
   if (availabilityStatus === 'EMPTY') {
-    return copy.realtime.summaryStatusEmpty;
+    return isTemporarilyDelayed
+      ? copy.realtime.summaryStatusDelayed
+      : copy.realtime.summaryStatusEmpty;
   }
   return null;
 }
 
-function resolveSummaryStatusStyle(availabilityStatus?: StationSummaryAvailabilityStatus) {
+function resolveSummaryStatusStyle(
+  availabilityStatus?: StationSummaryAvailabilityStatus,
+  isTemporarilyDelayed = false,
+) {
   if (availabilityStatus === 'AVAILABLE') {
     return {
       color: '#047857',
@@ -152,11 +159,24 @@ function resolveSummaryStatusStyle(availabilityStatus?: StationSummaryAvailabili
       borderColor: '#FCD34D',
     };
   }
+  if (availabilityStatus === 'EMPTY' && isTemporarilyDelayed) {
+    return {
+      color: '#B45309',
+      backgroundColor: '#FFFBEB',
+      borderColor: '#FCD34D',
+    };
+  }
   return {
     color: '#B91C1C',
     backgroundColor: '#FEF2F2',
     borderColor: '#FCA5A5',
   };
+}
+
+function isStationTimeSummaryTemporarilyDelayed(
+  sourceDetails?: StationTimeSummarySourceDetail[],
+): boolean {
+  return Boolean(sourceDetails?.some(detail => detail.dataSource === 'FALLBACK_EMPTY'));
 }
 
 type MyDashboardProps = {
@@ -331,7 +351,14 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
     ),
   );
   const summaryMeta = summaryResponse?.result.meta;
-  const summaryStatusLabel = resolveSummaryStatusLabel(copy, summaryMeta?.availabilityStatus);
+  const isSummaryTemporarilyDelayed = isStationTimeSummaryTemporarilyDelayed(
+    summaryMeta?.sourceDetails,
+  );
+  const summaryStatusLabel = resolveSummaryStatusLabel(
+    copy,
+    summaryMeta?.availabilityStatus,
+    isSummaryTemporarilyDelayed,
+  );
   const summaryNoDataMessage = summaryMeta?.guidanceMessage ?? copy.realtime.summaryNoData;
 
   const handleRealtimeRefresh = () => {
@@ -1244,7 +1271,10 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
                 {summaryStatusLabel && !isSummaryPending && (
                   <span
                     className="inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-semibold"
-                    style={resolveSummaryStatusStyle(summaryMeta?.availabilityStatus)}
+                    style={resolveSummaryStatusStyle(
+                      summaryMeta?.availabilityStatus,
+                      isSummaryTemporarilyDelayed,
+                    )}
                   >
                     {summaryStatusLabel}
                   </span>

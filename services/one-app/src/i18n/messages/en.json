@@ -82,6 +82,7 @@
       "summaryStatusAvailable": "Available",
       "summaryStatusPartial": "Partial",
       "summaryStatusEmpty": "Unavailable",
+      "summaryStatusDelayed": "Temporarily delayed",
       "upLabel": "UP",
       "downLabel": "DOWN"
     },
