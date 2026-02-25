@@ -5,3 +5,4 @@ export * from './comment';
 export * from './lostFound';
 export * from './community';
 export * from './complaint';
+export * from './message';

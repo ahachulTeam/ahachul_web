@@ -6,3 +6,4 @@ export * from './filter';
 export * from './lostFound';
 export * from './community';
 export * from './nativeBridge';
+export * from './message';
