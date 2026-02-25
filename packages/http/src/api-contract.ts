@@ -93,6 +93,11 @@ export const API_PATHS = {
     routeSearchV2: '/v2/subway/routes/search',
     routeSearchV3: '/v3/subway/routes/search',
   },
+  foreigner: {
+    stationGuideV2: '/v2/foreigner/stations/guide',
+    communityPostTranslationV2: (postId: Identifier) =>
+      `/v2/foreigner/community-posts/${postId}/translation`,
+  },
   common: {
     s3Presigned: (s3Key: string) => `/common/presigned/${s3Key}`,
   },

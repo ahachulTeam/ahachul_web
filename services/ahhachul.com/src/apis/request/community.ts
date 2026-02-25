@@ -2,6 +2,7 @@ import { API_PAGE_SIZE, API_PATHS, API_SORT } from '@ahhachul/http';
 import { appendFilesToFormData, createJsonBlob, extractFormData, sleep } from '@ahhachul/utils';
 
 import axiosInstance from '@/apis/fetcher';
+import type { ForeignerLocale } from '@/apis/request/subway';
 import {
   type ApiResponse,
   type PaginatedList,
@@ -13,6 +14,18 @@ import {
   WithPostId,
   CommunityEditForm,
 } from '@/types';
+
+export interface CommunityPostTranslationResponse {
+  postId: number;
+  sourceLocale: string;
+  targetLocale: ForeignerLocale;
+  originalTitle: string;
+  originalContent: string;
+  translatedTitle: string;
+  translatedContent: string;
+  isFallback: boolean;
+  notice: string;
+}
 
 interface CommunityListRequestParams {
   categoryType: CommunityType;
@@ -83,6 +96,16 @@ export const createCommunity = async (req: CommunityForm) => {
 
 export const fetchCommunityDetail = (id: number) =>
   axiosInstance.get<ApiResponse<CommunityDetail>>(API_PATHS.community.detail(id));
+
+export const fetchCommunityPostTranslationV2 = (id: number, targetLocale: ForeignerLocale) =>
+  axiosInstance.get<ApiResponse<CommunityPostTranslationResponse>>(
+    API_PATHS.foreigner.communityPostTranslationV2(id),
+    {
+      params: {
+        targetLocale,
+      },
+    },
+  );
 
 export const likeCommunity = (id: number) =>
   axiosInstance.post<ApiResponse<null>>(API_PATHS.community.like(id));

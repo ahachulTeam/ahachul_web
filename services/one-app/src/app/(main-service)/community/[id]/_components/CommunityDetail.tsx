@@ -19,7 +19,8 @@ import {
   unlikeCommunityPost,
 } from '@/lib/article-reactions';
 import { AuthService } from '@/lib/auth-service';
-import type { Comment } from '@/types';
+import { fetchForeignerCommunityPostTranslationV2 } from '@/lib/foreigner-mode';
+import type { Comment, ForeignerLocale } from '@/types';
 import { cn, isLexicalContent } from '@/utils';
 
 import { CommunityTypeBadge } from './CommunityTypeBadge';
@@ -40,6 +41,12 @@ type Props = {
 };
 
 type ComposerMode = 'create' | 'reply' | 'edit';
+const FOREIGNER_LOCALE_OPTIONS: Array<{ value: ForeignerLocale; label: string }> = [
+  { value: 'en', label: 'English' },
+  { value: 'th', label: 'ไทย' },
+  { value: 'cn', label: '中文' },
+  { value: 'ko', label: '한국어' },
+];
 
 function resolveMemberId(createdBy: string | undefined) {
   const memberId = Number(createdBy);
@@ -60,6 +67,10 @@ export default function CommunityPostDetail({ id }: Props) {
   const [draftContent, setDraftContent] = useState('');
   const [isPrivate, setIsPrivate] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [showTranslation, setShowTranslation] = useState(false);
+  const [translationLocale, setTranslationLocale] = useState<ForeignerLocale>(
+    locale === 'ko' ? 'en' : (locale as ForeignerLocale),
+  );
 
   const { data: post } = useQuery({
     queryKey: communityQueryKeys.detail(id),
@@ -82,6 +93,13 @@ export default function CommunityPostDetail({ id }: Props) {
     queryFn: getMyProfile,
     staleTime: QUERY_STALE_TIME.user,
     enabled: AuthService.isLoggedIn,
+  });
+  const translationQuery = useQuery({
+    queryKey: [...communityQueryKeys.detail(id), 'translation', translationLocale] as const,
+    queryFn: () => fetchForeignerCommunityPostTranslationV2(id, translationLocale),
+    enabled: false,
+    staleTime: QUERY_STALE_TIME.detail,
+    gcTime: QUERY_GC_TIME.detail,
   });
   const isLoggedIn = AuthService.isLoggedIn;
 
@@ -282,6 +300,38 @@ export default function CommunityPostDetail({ id }: Props) {
     });
   };
 
+  const handleToggleTranslation = () => {
+    if (!showTranslation && !translationQuery.data && !translationQuery.isFetching) {
+      void translationQuery.refetch();
+    }
+    setShowTranslation(prev => !prev);
+  };
+
+  let translationContent: ReactNode = null;
+  if (showTranslation) {
+    if (translationQuery.isFetching) {
+      translationContent = (
+        <p className="text-body-small text-gray-70">번역을 불러오는 중입니다.</p>
+      );
+    } else if (translationQuery.isError) {
+      translationContent = (
+        <p className="text-body-small text-danger">
+          번역을 불러오지 못했습니다. 다시 시도해주세요.
+        </p>
+      );
+    } else if (translationQuery.data) {
+      translationContent = (
+        <div className="space-y-1">
+          <p className="text-label-small text-gray-100">{translationQuery.data.translatedTitle}</p>
+          <p className="text-body-small text-gray-80">{translationQuery.data.translatedContent}</p>
+          <p className="text-label-small text-gray-70">{translationQuery.data.notice}</p>
+        </div>
+      );
+    } else {
+      translationContent = <p className="text-body-small text-gray-70">번역 결과가 없습니다.</p>;
+    }
+  }
+
   let commentContent: ReactNode;
   if (commentsQuery.isPending) {
     commentContent = <p className="px-5 pb-8 text-body-medium text-gray-70">{copy.loading}</p>;
@@ -345,6 +395,34 @@ export default function CommunityPostDetail({ id }: Props) {
           ) : (
             <p className="mb-3 py-6 text-body-large-semi text-gray-90">{post.content}</p>
           )}
+        </div>
+
+        <div className="px-5 pb-4">
+          <div className="rounded-xl border border-gray-20 bg-gray-05 p-3">
+            <div className="flex flex-wrap items-center gap-2">
+              <p className="text-label-medium text-gray-100">자동 번역</p>
+              <select
+                value={translationLocale}
+                onChange={event => setTranslationLocale(event.target.value as ForeignerLocale)}
+                className="h-8 rounded-lg border border-gray-30 bg-white px-2 text-label-small text-gray-90"
+              >
+                {FOREIGNER_LOCALE_OPTIONS.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              <button
+                type="button"
+                onClick={handleToggleTranslation}
+                className="h-8 rounded-lg border border-gray-40 bg-white px-3 text-label-small text-gray-90"
+              >
+                {showTranslation ? '원문 보기' : '번역 보기'}
+              </button>
+            </div>
+
+            {showTranslation ? <div className="mt-2">{translationContent}</div> : null}
+          </div>
         </div>
 
         <div className="flex items-center gap-2 border-t border-t-gray-20 px-5 py-3">

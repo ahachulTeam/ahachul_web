@@ -132,6 +132,40 @@ interface APIStationTimesFullV2Params extends WithSubwayLineId, WithSubwayStatio
 
 interface APIStationWeatherBriefV2Params extends WithSubwayStationId {}
 
+export type ForeignerLocale = 'ko' | 'en' | 'th' | 'cn';
+
+interface APIForeignerStationGuideParams extends WithSubwayLineId, WithSubwayStationId {
+  locale?: ForeignerLocale;
+}
+
+export interface APIForeignerStationGuideResponse {
+  generatedAt: string;
+  station: {
+    stationId: number;
+    subwayLineId: number;
+    nameKo: string;
+    nameLocalized: string;
+    romanizedName: string;
+    pronunciation: string;
+    subwayLineNameKo: string;
+    subwayLineNameLocalized: string;
+    locale: ForeignerLocale;
+  };
+  templates: {
+    complaintTitleTemplate: string;
+    complaintBodyTemplate: string;
+    lostTitleTemplate: string;
+    lostBodyTemplate: string;
+  };
+  cultureGuide: {
+    lastTrainTip: string;
+    transferEtiquetteTip: string;
+    safetyTip: string;
+    emergencyPhrase: string;
+  };
+  supportedLocales: ForeignerLocale[];
+}
+
 export interface APINearbyPlacesV2Response {
   stationId: number;
   subwayLineId: number;
@@ -283,4 +317,13 @@ export const createDelayProofV2 = async (payload: DelayProofCreateRequest) => {
 
 export const fetchDelayProofV2 = async (proofId: string) => {
   return axiosInstance.get<ApiResponse<DelayProofPayload>>(API_PATHS.subway.delayProofV2(proofId));
+};
+
+export const fetchForeignerStationGuideV2 = async (params: APIForeignerStationGuideParams) => {
+  return axiosInstance.get<ApiResponse<APIForeignerStationGuideResponse>>(
+    API_PATHS.foreigner.stationGuideV2,
+    {
+      params,
+    },
+  );
 };

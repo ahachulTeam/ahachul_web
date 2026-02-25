@@ -98,6 +98,97 @@ export const LexicalContent = styled.div`
   }
 `;
 
+export const TranslationContainer = styled.section`
+  padding: 0 20px 16px;
+`;
+
+export const TranslationHeader = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+`;
+
+export const TranslationTitle = styled.p`
+  ${({ theme }) => css`
+    ${theme.fonts.labelMedium};
+    color: ${theme.colors.gray[100]};
+  `}
+`;
+
+export const TranslationControls = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  select {
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid ${({ theme }) => theme.colors.gray[30]};
+    background: ${({ theme }) => theme.colors.gray[10]};
+    padding: 0 8px;
+    ${({ theme }) => theme.fonts.bodySmall};
+    color: ${({ theme }) => theme.colors.gray[90]};
+  }
+
+  button {
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid ${({ theme }) => theme.colors.gray[40]};
+    background: ${({ theme }) => theme.colors.gray[10]};
+    padding: 0 10px;
+    ${({ theme }) => theme.fonts.labelSmall};
+    color: ${({ theme }) => theme.colors.gray[90]};
+    white-space: nowrap;
+  }
+`;
+
+export const TranslationBody = styled.div`
+  margin-top: 10px;
+  border-radius: 12px;
+  background: ${({ theme }) => theme.colors.gray[10]};
+  padding: 10px 12px;
+`;
+
+export const TranslationHeadline = styled.p`
+  ${({ theme }) => css`
+    ${theme.fonts.labelMedium};
+    color: ${theme.colors.gray[100]};
+  `}
+`;
+
+export const TranslationText = styled.p`
+  ${({ theme }) => css`
+    ${theme.fonts.bodySmall};
+    color: ${theme.colors.gray[80]};
+    margin-top: 6px;
+    white-space: pre-wrap;
+  `}
+`;
+
+export const TranslationNotice = styled.p`
+  ${({ theme }) => css`
+    ${theme.fonts.labelSmall};
+    color: ${theme.colors.gray[70]};
+    margin-top: 8px;
+  `}
+`;
+
+export const TranslationStateText = styled.p`
+  ${({ theme }) => css`
+    ${theme.fonts.bodySmall};
+    color: ${theme.colors.gray[70]};
+  `}
+`;
+
+export const TranslationErrorText = styled.p`
+  ${({ theme }) => css`
+    ${theme.fonts.bodySmall};
+    color: ${theme.colors.red[60]};
+  `}
+`;
+
 export const Padding = styled.div`
   width: 100%;
   height: 194px;

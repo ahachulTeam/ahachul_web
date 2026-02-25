@@ -26,11 +26,13 @@ import { SUBWAY_LINES } from '@/constants';
 import { lostTypeOptions } from '@/constants/lost-found';
 import { getLocaleMessages, localizePathname, resolvePathLocale } from '@/i18n';
 import { fetchClient } from '@/lib/fetch-client';
+import { fetchForeignerStationGuideV2 } from '@/lib/foreigner-mode';
 import { resolvePostSubmitErrorMessage } from '@/lib/post-submit-error';
 import {
   LostFoundType,
   type ApiResponse,
   type EditableImage,
+  type ForeignerLocale,
   type LostFoundEditForm,
   type LostFoundForm,
   type LostFoundPostDetail,
@@ -42,6 +44,12 @@ import { createLostFoundPost, editLostFoundPost } from '../_lib/upsertPost';
 const MAX_IMAGE_COUNT = 5;
 const MAX_TITLE_LENGTH = 80;
 const DEFAULT_STATION_ID = 0;
+const FOREIGNER_LOCALE_OPTIONS: Array<{ value: ForeignerLocale; label: string }> = [
+  { value: 'en', label: 'English' },
+  { value: 'th', label: 'ไทย' },
+  { value: 'cn', label: '中文' },
+  { value: 'ko', label: '한국어' },
+];
 
 type Props =
   | {
@@ -115,6 +123,8 @@ export default function LostFoundPostEditor(props: Props) {
   const [stationId, setStationId] = useState<number>(DEFAULT_STATION_ID);
   const [images, setImages] = useState<EditableImage[]>([]);
   const [removeFileIds, setRemoveFileIds] = useState<number[]>([]);
+  const [templateLocale, setTemplateLocale] = useState<ForeignerLocale>('en');
+  const [isTemplateApplying, setIsTemplateApplying] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [isHydratedEditDefaults, setIsHydratedEditDefaults] = useState(!isEditMode);
   const objectUrlsRef = useRef(new Set<string>());
@@ -285,6 +295,32 @@ export default function LostFoundPostEditor(props: Props) {
     });
   };
 
+  const handleApplyForeignerTemplate = async () => {
+    if (stationId <= 0 || subwayLineId <= 0) {
+      setSubmitError('노선과 역을 먼저 선택한 뒤 템플릿을 적용해주세요.');
+      return;
+    }
+
+    setIsTemplateApplying(true);
+    setSubmitError('');
+
+    try {
+      const guide = await fetchForeignerStationGuideV2({
+        stationId,
+        subwayLineId,
+        locale: templateLocale,
+      });
+      const lexicalState = createLexicalStateFromText(guide.templates.lostBodyTemplate);
+      setTitle(guide.templates.lostTitleTemplate);
+      setEditorInitialState(lexicalState);
+      setContent(lexicalState);
+    } catch {
+      setSubmitError('다국어 템플릿을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.');
+    } finally {
+      setIsTemplateApplying(false);
+    }
+  };
+
   const mutation = useMutation({
     mutationFn: async () => {
       const normalizedTitle = normalizeInputText(title);
@@ -396,6 +432,36 @@ export default function LostFoundPostEditor(props: Props) {
         <p className="mt-2 text-body-medium text-gray-80">{copy.description}</p>
 
         <form className="mt-5 flex flex-col gap-4" onSubmit={handleSubmit}>
+          <div className="rounded-xl border border-gray-20 bg-gray-05 p-3">
+            <p className="text-label-medium text-gray-100">다국어 템플릿</p>
+            <p className="mt-1 text-body-small text-gray-70">
+              선택한 언어 템플릿을 제목/본문에 자동 입력합니다.
+            </p>
+            <div className="mt-2 flex gap-2">
+              <select
+                value={templateLocale}
+                onChange={event => setTemplateLocale(event.target.value as ForeignerLocale)}
+                className="h-10 flex-1 rounded-lg border border-gray-40 bg-white px-2 text-body-small text-gray-90"
+              >
+                {FOREIGNER_LOCALE_OPTIONS.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              <button
+                type="button"
+                onClick={() => {
+                  void handleApplyForeignerTemplate();
+                }}
+                disabled={isTemplateApplying}
+                className="h-10 rounded-lg border border-gray-40 px-3 text-label-small text-gray-90 disabled:cursor-not-allowed disabled:text-gray-50"
+              >
+                {isTemplateApplying ? '적용 중...' : '템플릿 적용'}
+              </button>
+            </div>
+          </div>
+
           <div>
             <label htmlFor="lostType" className="text-label-medium text-gray-90">
               {copy.typeLabel}

@@ -17,6 +17,7 @@ import { SUBWAY_LOGO_SVG_LIST } from '@/components/Subway/SubwayLogoIconMap';
 import { getLocaleMessages, localizePathname, type SupportedLocale } from '@/i18n';
 import { AuthService } from '@/lib/auth-service';
 import { fetchClient } from '@/lib/fetch-client';
+import { fetchForeignerStationGuideV2 } from '@/lib/foreigner-mode';
 import { createActionLogger } from '@/lib/observability';
 import {
   fetchStationWeatherBriefV2,
@@ -35,6 +36,7 @@ import type {
   StationTimeSummaryItem,
   StationTimeWeekType,
   TrainRealtimeV2SectionVM,
+  ForeignerLocale as ForeignerModeLocale,
 } from '@/types';
 import { mapRealtimePayloadToSectionVM } from '@/types';
 import type { CommunityPost } from '@/types/community';
@@ -277,6 +279,7 @@ type Props = {
 
 export default function HomeViteParity({ locale }: Props) {
   const messages = getLocaleMessages(locale);
+  const foreignerLocale = locale as ForeignerModeLocale;
   const stationTimeWeekType = useMemo(() => resolveStationTimeWeekType(), []);
   const greetingPhrase = useMemo(() => {
     return GREETING_PHRASES[Math.floor(Math.random() * GREETING_PHRASES.length)];
@@ -396,6 +399,17 @@ export default function HomeViteParity({ locale }: Props) {
       }),
   });
 
+  const foreignerGuideQuery = useQuery({
+    queryKey: ['home', 'foreigner-guide-v2', selectedStationId, selectedLineId, foreignerLocale],
+    enabled: selectedStationId > 0 && selectedLineId > 0,
+    queryFn: () =>
+      fetchForeignerStationGuideV2({
+        stationId: selectedStationId,
+        subwayLineId: selectedLineId,
+        locale: foreignerLocale,
+      }),
+  });
+
   useEffect(() => {
     if (!stationCommunityHotQuery.error) {
       return;
@@ -444,6 +458,29 @@ export default function HomeViteParity({ locale }: Props) {
       '출근 코치 정보를 불러오지 못했습니다.',
     );
   }, [commuteCoachQuery.error, commuteCoachQuery.errorUpdatedAt]);
+
+  useEffect(() => {
+    if (!foreignerGuideQuery.error) {
+      return;
+    }
+
+    homeParityLogger.fail(
+      'load-foreigner-guide',
+      foreignerGuideQuery.error,
+      {
+        selectedLineId,
+        selectedStationId,
+        locale: foreignerLocale,
+      },
+      '외국인 모드 가이드를 불러오지 못했습니다.',
+    );
+  }, [
+    foreignerGuideQuery.error,
+    foreignerGuideQuery.errorUpdatedAt,
+    foreignerLocale,
+    selectedLineId,
+    selectedStationId,
+  ]);
 
   useEffect(() => {
     let isActive = true;
@@ -917,6 +954,50 @@ export default function HomeViteParity({ locale }: Props) {
     );
   }
 
+  const foreignerGuide = foreignerGuideQuery.data ?? null;
+  let foreignerGuideContent: ReactNode;
+  if (foreignerGuideQuery.isLoading) {
+    foreignerGuideContent = (
+      <p className="mt-2 text-body-small text-gray-70">외국인 모드 가이드를 불러오는 중입니다.</p>
+    );
+  } else if (foreignerGuideQuery.isError) {
+    foreignerGuideContent = (
+      <p className="mt-2 text-body-small text-danger">외국인 모드 가이드를 불러오지 못했습니다.</p>
+    );
+  } else if (!foreignerGuide) {
+    foreignerGuideContent = (
+      <p className="mt-2 text-body-small text-gray-70">외국인 모드 안내 정보가 없습니다.</p>
+    );
+  } else {
+    foreignerGuideContent = (
+      <div className="mt-2 space-y-2">
+        <div className="rounded-lg border border-gray-20 bg-gray-05 p-2">
+          <p className="text-label-small text-gray-100">
+            {foreignerGuide.station.nameLocalized} ·{' '}
+            {foreignerGuide.station.subwayLineNameLocalized}
+          </p>
+          <p className="mt-1 text-label-small text-gray-70">
+            Romanized: {foreignerGuide.station.romanizedName}
+          </p>
+          <p className="text-label-small text-gray-70">
+            Pronunciation: {foreignerGuide.station.pronunciation}
+          </p>
+        </div>
+        <ul className="space-y-1">
+          <li className="text-label-small text-gray-70">
+            · {foreignerGuide.cultureGuide.lastTrainTip}
+          </li>
+          <li className="text-label-small text-gray-70">
+            · {foreignerGuide.cultureGuide.transferEtiquetteTip}
+          </li>
+          <li className="text-label-small text-gray-70">
+            · {foreignerGuide.cultureGuide.safetyTip}
+          </li>
+        </ul>
+      </div>
+    );
+  }
+
   let stationCommunityContent: ReactNode;
   if (stationCommunityHotQuery.isLoading) {
     stationCommunityContent = (
@@ -1107,6 +1188,11 @@ export default function HomeViteParity({ locale }: Props) {
               </div>
             </div>
             {commuteCoachContent}
+          </div>
+
+          <div className="mt-3 rounded-xl border border-gray-20 bg-white p-3">
+            <p className="text-label-medium text-gray-100">외국인 모드 가이드</p>
+            {foreignerGuideContent}
           </div>
 
           <div className="mt-3 rounded-xl border border-gray-20 bg-gray-05 p-3">

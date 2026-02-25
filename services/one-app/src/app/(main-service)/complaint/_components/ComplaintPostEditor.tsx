@@ -14,8 +14,9 @@ import { SUBWAY_LINES } from '@/constants';
 import { complaintShortTypeOptions, complaintTypeOptions } from '@/constants/complaint';
 import { localizePathname, resolvePathLocale } from '@/i18n';
 import { fetchClient } from '@/lib/fetch-client';
+import { fetchForeignerStationGuideV2 } from '@/lib/foreigner-mode';
 import { resolvePostSubmitErrorMessage } from '@/lib/post-submit-error';
-import type { ApiResponse } from '@/types';
+import type { ApiResponse, ForeignerLocale } from '@/types';
 import type { ComplaintForm, ComplaintType, ShortComplaintType } from '@/types/complaint';
 
 import { createComplaintPost } from '../_lib/upsertPost';
@@ -38,6 +39,12 @@ type SubwayLineCatalogResponse = {
 const DEFAULT_STATION_ID = 0;
 const MAX_TITLE_LENGTH = 80;
 const DEFAULT_COMPLAINT_TYPE: ComplaintType = 'ENVIRONMENTAL_COMPLAINT';
+const FOREIGNER_LOCALE_OPTIONS: Array<{ value: ForeignerLocale; label: string }> = [
+  { value: 'en', label: 'English' },
+  { value: 'th', label: 'ไทย' },
+  { value: 'cn', label: '中文' },
+  { value: 'ko', label: '한국어' },
+];
 
 function resolveDefaultShortType(complaintType: ComplaintType): ShortComplaintType {
   const optionKeys = Object.keys(complaintShortTypeOptions[complaintType]) as ShortComplaintType[];
@@ -57,6 +64,8 @@ export default function ComplaintPostEditor() {
   );
   const [subwayLineId, setSubwayLineId] = useState<number>(SUBWAY_LINES[0]?.id ?? 1);
   const [stationId, setStationId] = useState<number>(DEFAULT_STATION_ID);
+  const [templateLocale, setTemplateLocale] = useState<ForeignerLocale>('en');
+  const [isTemplateApplying, setIsTemplateApplying] = useState(false);
   const [submitError, setSubmitError] = useState('');
 
   const subwayLineCatalogQuery = useQuery({
@@ -118,6 +127,30 @@ export default function ComplaintPostEditor() {
     return '';
   }, [content, stationId, subwayLineId, title]);
 
+  const handleApplyForeignerTemplate = async () => {
+    if (stationId <= 0 || subwayLineId <= 0) {
+      setSubmitError('노선과 역을 먼저 선택한 뒤 템플릿을 적용해주세요.');
+      return;
+    }
+
+    setIsTemplateApplying(true);
+    setSubmitError('');
+
+    try {
+      const guide = await fetchForeignerStationGuideV2({
+        stationId,
+        subwayLineId,
+        locale: templateLocale,
+      });
+      setTitle(guide.templates.complaintTitleTemplate);
+      setContent(guide.templates.complaintBodyTemplate);
+    } catch {
+      setSubmitError('다국어 템플릿을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.');
+    } finally {
+      setIsTemplateApplying(false);
+    }
+  };
+
   const mutation = useMutation({
     mutationFn: () => {
       const payload: ComplaintForm = {
@@ -170,6 +203,36 @@ export default function ComplaintPostEditor() {
         onSubmit={handleSubmit}
         className="mt-3 space-y-3 rounded-2xl border border-gray-30 bg-white p-4"
       >
+        <div className="rounded-xl border border-gray-20 bg-gray-05 p-3">
+          <p className="text-label-medium text-gray-100">다국어 템플릿</p>
+          <p className="mt-1 text-body-small text-gray-70">
+            선택한 언어 템플릿을 제목/본문에 자동 입력합니다.
+          </p>
+          <div className="mt-2 flex gap-2">
+            <select
+              value={templateLocale}
+              onChange={event => setTemplateLocale(event.target.value as ForeignerLocale)}
+              className="h-10 flex-1 rounded-xl border border-gray-30 px-3 text-body-medium text-gray-90"
+            >
+              {FOREIGNER_LOCALE_OPTIONS.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+            <button
+              type="button"
+              onClick={() => {
+                void handleApplyForeignerTemplate();
+              }}
+              disabled={isTemplateApplying}
+              className="inline-flex h-10 items-center rounded-xl border border-gray-40 px-3 text-label-medium text-gray-90 disabled:cursor-not-allowed disabled:text-gray-50"
+            >
+              {isTemplateApplying ? '적용 중...' : '템플릿 적용'}
+            </button>
+          </div>
+        </div>
+
         <div>
           <label className="text-label-medium text-gray-90" htmlFor="complaint-type">
             민원 유형
