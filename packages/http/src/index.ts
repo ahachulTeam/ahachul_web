@@ -19,6 +19,8 @@ export interface HttpError extends Error {
   data?: unknown;
 }
 
+const VERSIONED_API_PATH_REGEX = /^\/v\d+\//i;
+
 function toError(message: string, status?: number, data?: unknown): HttpError {
   const error = new Error(message) as HttpError;
   error.status = status;
@@ -26,8 +28,26 @@ function toError(message: string, status?: number, data?: unknown): HttpError {
   return error;
 }
 
+function trimTrailingSlash(url: string) {
+  return url.endsWith('/') ? url.slice(0, -1) : url;
+}
+
+function resolveBaseUrl(baseUrl: string, endpoint: string) {
+  if (!VERSIONED_API_PATH_REGEX.test(endpoint)) {
+    return trimTrailingSlash(baseUrl);
+  }
+
+  try {
+    return new URL(baseUrl).origin;
+  } catch {
+    return trimTrailingSlash(baseUrl);
+  }
+}
+
 function toUrl(baseUrl: string, endpoint: string, params?: QueryParams) {
-  const url = new URL(endpoint.startsWith('http') ? endpoint : `${baseUrl}${endpoint}`);
+  const url = new URL(
+    endpoint.startsWith('http') ? endpoint : `${resolveBaseUrl(baseUrl, endpoint)}${endpoint}`,
+  );
 
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
