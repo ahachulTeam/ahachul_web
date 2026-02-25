@@ -27,12 +27,15 @@ import {
   type LostFoundStationFilterValue,
   type LostFoundSubwayLineFilterValue,
 } from '@/types';
+import { createActionLogger } from '@/utils/observability';
 import { resolvePostSubmitWarningMessage } from '@/utils/postSubmitError';
 
 const STACK_PUSH_DELAY_MS = 500;
 
-const logMutationError = (context: string, error: Error) => {
-  console.error(`[lost-found-service] ${context}`, error);
+const lostFoundLogger = createActionLogger('lost-found-service');
+
+const logMutationError = (context: string, error: Error, fallbackMessage: string) => {
+  lostFoundLogger.fail(context, error, undefined, fallbackMessage);
 };
 
 export const lostFoundKeys = lostFoundQueryKeys;
@@ -133,6 +136,7 @@ export const useCreateLostFound = () => {
       }, STACK_PUSH_DELAY_MS);
     },
     onError: error => {
+      logMutationError('create-lost-found', error, TOAST_MSG.WARNING.CREATE_FAIL);
       addToast(resolvePostSubmitWarningMessage(error, TOAST_MSG.WARNING.CREATE_FAIL), 'warning');
     },
   });
@@ -181,7 +185,8 @@ export const useEditLostFound = (id: number, _lostType: LostFoundType) => {
         });
       }, STACK_PUSH_DELAY_MS);
     },
-    onError: () => {
+    onError: error => {
+      logMutationError('edit-lost-found', error, TOAST_MSG.WARNING.CREATE_FAIL);
       // addToast(TOAST_MSG.WARNING.CREATE_FAIL);
     },
   });
@@ -189,10 +194,16 @@ export const useEditLostFound = (id: number, _lostType: LostFoundType) => {
 
 export const useDeleteLostFound = () => {
   const afterSubmitSuccess = (res: any) => {
-    console.log('res:', res);
+    lostFoundLogger.success('delete-lost-found', {
+      postId: res?.result?.id,
+    });
   };
   const afterSubmitFailed = (error: Error) => {
-    logMutationError('failed to delete lost-found post', error);
+    logMutationError(
+      'delete-lost-found',
+      error,
+      '게시글 삭제에 실패했습니다. 잠시 후 다시 시도해주세요.',
+    );
   };
 
   return useMutation({

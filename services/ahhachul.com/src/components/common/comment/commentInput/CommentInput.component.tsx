@@ -10,6 +10,7 @@ import { $getRoot, type EditorState } from 'lexical';
 
 import { UiComponent } from '@/components';
 import { useAuth } from '@/contexts';
+import { createActionLogger } from '@/utils/observability';
 
 import * as S from './CommentInput.styled';
 
@@ -17,6 +18,7 @@ import Placeholder from '../../editor/placeholder/Placeholder.component';
 import { OnChangePlugin } from '../../editor/plugins';
 
 const EDITOR_BLUR_DELAY_MS = 0;
+const commentInputLogger = createActionLogger('comment-input');
 
 interface CommentInputProps {
   disabled?: boolean;
@@ -43,7 +45,12 @@ const CommentInput = React.memo(
     const initialConfig = {
       namespace: 'commentEditor',
       onError(error: Error) {
-        console.error(error);
+        commentInputLogger.fail(
+          'runtime-error',
+          error,
+          undefined,
+          '댓글 입력 처리 중 오류가 발생했습니다.',
+        );
       },
     };
 

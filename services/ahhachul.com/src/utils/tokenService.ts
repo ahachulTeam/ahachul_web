@@ -3,6 +3,7 @@ import axios, { AxiosError } from 'axios';
 import * as api from '@/apis/request/token';
 import { AUTH_ALERT_MSG, PATH } from '@/constants';
 import type { ValueOf } from '@/types';
+import { createActionLogger } from '@/utils/observability';
 
 import { AuthService } from './authService';
 
@@ -25,6 +26,7 @@ export class TokenRefreshService {
   private isRefreshing = false;
   private refreshSubscribers: RetryRequestCallback[] = [];
   private authService: AuthService;
+  private readonly logger = createActionLogger('token-refresh-service');
 
   constructor(authService: AuthService) {
     this.authService = authService;
@@ -37,11 +39,27 @@ export class TokenRefreshService {
    */
   async handleTokenRefresh(error: AxiosError<ErrorResponse>) {
     const { response } = error;
-    if (!response) throw error;
+    const requestContext = {
+      url: response?.config?.url,
+      method: response?.config?.method,
+      status: response?.status,
+    };
+    this.logger.start('handle-token-refresh', requestContext);
+
+    if (!response) {
+      this.logger.fail(
+        'missing-error-response',
+        error,
+        requestContext,
+        '인증 처리 중 알 수 없는 오류가 발생했습니다.',
+      );
+      throw error;
+    }
 
     const refreshToken = this.authService.refreshToken;
     if (!refreshToken) {
-      return this.handleSessionExpiration();
+      this.logger.warn('missing-refresh-token', requestContext);
+      return this.handleSessionExpiration('missing-refresh-token');
     }
 
     const retryOriginalRequest = new Promise<any>(resolve => {
@@ -60,6 +78,7 @@ export class TokenRefreshService {
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       try {
+        this.logger.start('refresh-token', requestContext);
         const { result } = await this.refreshTokens(refreshToken);
         if (!result.accessToken) throw error;
 
@@ -67,13 +86,22 @@ export class TokenRefreshService {
         this.authService.updateToken('refresh', result.refreshToken);
 
         this.notifySubscribers(result.accessToken);
+        this.logger.success('refresh-token', requestContext);
       } catch (error) {
-        this.handleSessionExpiration();
+        this.logger.fail(
+          'refresh-token',
+          error,
+          requestContext,
+          '로그인 세션이 만료되었습니다. 다시 로그인해주세요.',
+        );
+        this.handleSessionExpiration('refresh-failed');
       } finally {
         this.isRefreshing = false;
+        this.logger.info('refresh-flow-finished', requestContext);
       }
     }
 
+    this.logger.success('handle-token-refresh', requestContext);
     return retryOriginalRequest;
   }
 
@@ -94,6 +122,7 @@ export class TokenRefreshService {
    * @param accessToken - 새로 발급받은 액세스 토큰입니다.
    */
   private notifySubscribers(accessToken: string): void {
+    this.logger.info('notify-subscribers', { queueSize: this.refreshSubscribers.length });
     this.refreshSubscribers.forEach(callback => callback(accessToken));
     this.refreshSubscribers = [];
   }
@@ -103,13 +132,18 @@ export class TokenRefreshService {
    * @param callback - 재시도할 요청을 처리할 콜백 함수입니다.
    */
   private addRetryRequest(callback: RetryRequestCallback): void {
+    this.logger.info('add-retry-request', { queueSize: this.refreshSubscribers.length + 1 });
     this.refreshSubscribers.push(callback);
   }
 
   /**
    * 세션 만료 시 처리를 위한 메서드.
    */
-  private handleSessionExpiration(): void {
+  private handleSessionExpiration(reason?: string): void {
+    this.logger.warn('session-expiration', {
+      reason,
+      hasRefreshToken: Boolean(this.authService.refreshToken),
+    });
     if (this.authService.refreshToken) {
       alert(AUTH_ALERT_MSG.SESSION_EXPIRED);
     }

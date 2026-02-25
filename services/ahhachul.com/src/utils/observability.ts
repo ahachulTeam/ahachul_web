@@ -3,6 +3,7 @@ import {
   normalizeAppError,
   type AppClientError,
   type AppLogLevel,
+  type AppLogger,
   type NormalizedAppError,
   SERVER_ERROR_MESSAGE_BY_CODE,
   toAppClientError,
@@ -32,6 +33,67 @@ function toLogContext(context?: Record<string, unknown>) {
     appEnv: APP_ENV,
     ...context,
   };
+}
+
+type ActionLogContext = Record<string, unknown> | undefined;
+
+export interface ActionLogger {
+  start(action: string, context?: ActionLogContext): void;
+  success(action: string, context?: ActionLogContext): void;
+  info(action: string, context?: ActionLogContext): void;
+  warn(action: string, context?: ActionLogContext): void;
+  fail(
+    action: string,
+    error: unknown,
+    context?: ActionLogContext,
+    fallbackUserMessage?: string,
+  ): NormalizedAppError;
+  child(namespace: string): ActionLogger;
+}
+
+function emitScopedMessage(
+  logger: AppLogger,
+  level: 'debug' | 'info' | 'warn',
+  scope: string,
+  action: string,
+  context?: ActionLogContext,
+) {
+  const message = `[${scope}] ${action}`;
+  const payload = toLogContext(context);
+
+  if (level === 'debug') {
+    logger.debug(message, payload);
+    return;
+  }
+
+  if (level === 'info') {
+    logger.info(message, payload);
+    return;
+  }
+
+  logger.warn(message, payload);
+}
+
+function createActionLoggerWithScope(scope: string, logger: AppLogger): ActionLogger {
+  return {
+    start: (action, context) =>
+      emitScopedMessage(logger, 'debug', scope, `${action}:start`, context),
+    success: (action, context) =>
+      emitScopedMessage(logger, 'info', scope, `${action}:success`, context),
+    info: (action, context) => emitScopedMessage(logger, 'info', scope, action, context),
+    warn: (action, context) => emitScopedMessage(logger, 'warn', scope, action, context),
+    fail: (action, error, context, fallbackUserMessage) => {
+      const normalizedError = normalizeClientError(error, fallbackUserMessage);
+      logger.error(`[${scope}:${action}] request failed`, toLogContext(context), normalizedError);
+      return normalizedError;
+    },
+    child: namespace =>
+      createActionLoggerWithScope(`${scope}:${namespace}`, logger.child(namespace)),
+  };
+}
+
+export function createActionLogger(scope: string): ActionLogger {
+  return createActionLoggerWithScope(scope, appLogger);
 }
 
 export function normalizeClientError(

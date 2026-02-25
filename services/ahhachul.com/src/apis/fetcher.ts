@@ -10,7 +10,12 @@ import { AUTH_ALERT_MSG } from '@/constants';
 import { authService } from '@/contexts';
 import type { ValueOf } from '@/types';
 import { TokenRefreshService } from '@/utils';
-import { appLogger, reportClientError, toViteClientError } from '@/utils/observability';
+import {
+  appLogger,
+  createActionLogger,
+  reportClientError,
+  toViteClientError,
+} from '@/utils/observability';
 
 import { BASE_URL } from './baseUrl';
 import { API_PREFIX } from './endpointPrefix';
@@ -20,6 +25,16 @@ type AuthErrorCode = ValueOf<typeof AUTH_ALERT_MSG>;
 interface ApiErrorResponse {
   message: AuthErrorCode;
 }
+
+interface RequestTimingMeta {
+  startedAt: number;
+}
+
+type TimedRequestConfig = InternalAxiosRequestConfig & {
+  metadata?: RequestTimingMeta;
+};
+
+const axiosLogger = createActionLogger('axios-client');
 
 function isAbsoluteUrl(url: string): boolean {
   return /^https?:\/\//i.test(url);
@@ -106,11 +121,20 @@ class ApiClient {
     }
 
     config.url = resolveRequestPath(config.url);
+    (config as TimedRequestConfig).metadata = {
+      startedAt: Date.now(),
+    };
 
     const accessToken = this.tokenService.getAccessToken();
     if (accessToken) {
       config.headers.set('Authorization', `Bearer ${accessToken}`);
     }
+
+    axiosLogger.start('request', {
+      method: config.method?.toUpperCase() ?? 'GET',
+      url: config.url,
+      hasAccessToken: Boolean(accessToken),
+    });
 
     return config;
   }
@@ -129,6 +153,13 @@ class ApiClient {
   }
 
   private handleResponse(response: AxiosResponse): AxiosResponse {
+    const startedAt = (response.config as TimedRequestConfig).metadata?.startedAt ?? Date.now();
+    axiosLogger.success('response', {
+      method: response.config.method?.toUpperCase() ?? 'GET',
+      url: response.config.url,
+      status: response.status,
+      durationMs: Date.now() - startedAt,
+    });
     return response;
   }
 
@@ -139,6 +170,9 @@ class ApiClient {
    */
   private async handleResponseError(error: AxiosError<ApiErrorResponse>): Promise<unknown> {
     const { response } = error;
+    const startedAt = (error.config as TimedRequestConfig | undefined)?.metadata?.startedAt;
+    const durationMs = typeof startedAt === 'number' ? Date.now() - startedAt : undefined;
+
     if (!response) {
       reportClientError(
         'axios:response',
@@ -147,6 +181,7 @@ class ApiClient {
           method: error.config?.method,
           url: error.config?.url,
           status: undefined,
+          durationMs,
         },
         '네트워크 연결 상태를 확인해주세요.',
       );
@@ -166,6 +201,7 @@ class ApiClient {
             method: error.config?.method,
             url: error.config?.url,
             status: response.status,
+            durationMs,
           },
           '로그인 세션이 만료되었습니다. 다시 로그인해주세요.',
         );
@@ -181,6 +217,7 @@ class ApiClient {
           method: error.config?.method,
           url: error.config?.url,
           status: response.status,
+          durationMs,
         },
         AUTH_ALERT_MSG.DUPLICATE_SIGNIN_DETECTED,
       );
@@ -199,6 +236,7 @@ class ApiClient {
         method: error.config?.method,
         url: error.config?.url,
         status: response.status,
+        durationMs,
       },
       '요청 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
     );

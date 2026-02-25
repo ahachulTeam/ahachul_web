@@ -13,8 +13,10 @@ import {
   useFetchUserFavoriteStations,
 } from '@/services/user';
 import type { FavoriteRouteDto } from '@/types';
+import { createActionLogger, resolveClientErrorMessage } from '@/utils/observability';
 
 const RECOMMENDATION_LIMIT = 3;
+const favoriteRouteLogger = createActionLogger('favorite-route-card');
 
 const FavoriteRouteCard = () => {
   const { addToast } = useToast();
@@ -69,6 +71,10 @@ const FavoriteRouteCard = () => {
   const favoriteRoutes = routeResponse?.result.routes ?? [];
 
   const refreshAll = () => {
+    favoriteRouteLogger.info('manual-refresh', {
+      recommendationCount: recommendedRoutes.length,
+      routeCount: favoriteRoutes.length,
+    });
     void refetchRecommendations();
     void refetchRoutes();
   };
@@ -93,12 +99,21 @@ const FavoriteRouteCard = () => {
       setTitleDraft('');
       addToast('즐겨찾기 경로를 저장했습니다.', 'success');
     } catch (error) {
-      addToast(
-        error instanceof Error
-          ? error.message
-          : '즐겨찾기 경로 저장에 실패했습니다. 잠시 후 다시 시도해주세요.',
-        'error',
+      const message = resolveClientErrorMessage(
+        error,
+        '즐겨찾기 경로 저장에 실패했습니다. 잠시 후 다시 시도해주세요.',
       );
+      favoriteRouteLogger.fail(
+        'save-route',
+        error,
+        {
+          sourceStationId,
+          destinationStationId,
+          hasTitle: normalizeInputText(titleDraft).length > 0,
+        },
+        message,
+      );
+      addToast(message, 'error');
     }
   };
 
@@ -112,12 +127,19 @@ const FavoriteRouteCard = () => {
       await deleteRouteMutation.mutateAsync(routeId);
       addToast('즐겨찾기 경로를 삭제했습니다.', 'success');
     } catch (error) {
-      addToast(
-        error instanceof Error
-          ? error.message
-          : '즐겨찾기 경로 삭제에 실패했습니다. 잠시 후 다시 시도해주세요.',
-        'error',
+      const message = resolveClientErrorMessage(
+        error,
+        '즐겨찾기 경로 삭제에 실패했습니다. 잠시 후 다시 시도해주세요.',
       );
+      favoriteRouteLogger.fail(
+        'delete-route',
+        error,
+        {
+          routeId,
+        },
+        message,
+      );
+      addToast(message, 'error');
     }
   };
 

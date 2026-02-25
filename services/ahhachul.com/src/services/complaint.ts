@@ -26,12 +26,15 @@ import type {
   ComplaintSubwayLineFilterValue,
 } from '@/types/complaint';
 import { extractTextFromLexical } from '@/utils/lexical';
+import { createActionLogger } from '@/utils/observability';
 import { resolvePostSubmitWarningMessage } from '@/utils/postSubmitError';
 
 const STACK_PUSH_DELAY_MS = 500;
 
-const logMutationError = (context: string, error: Error) => {
-  console.error(`[complaint-service] ${context}`, error);
+const complaintLogger = createActionLogger('complaint-service');
+
+const logMutationError = (context: string, error: Error, fallbackMessage: string) => {
+  complaintLogger.fail(context, error, undefined, fallbackMessage);
 };
 
 export const complaintKeys = complaintQueryKeys;
@@ -139,6 +142,7 @@ export const useCreateComplaint = () => {
       }, STACK_PUSH_DELAY_MS);
     },
     onError: error => {
+      logMutationError('create-complaint', error, TOAST_MSG.WARNING.CREATE_FAIL);
       addToast(resolvePostSubmitWarningMessage(error, TOAST_MSG.WARNING.CREATE_FAIL), 'warning');
     },
   });
@@ -172,10 +176,16 @@ export const useFetchComplaintCommentList = (id: number) =>
 
 export const useDeleteComplaint = () => {
   const afterSubmitSuccess = (res: any) => {
-    console.log('res:', res);
+    complaintLogger.success('delete-complaint', {
+      postId: res?.result?.id,
+    });
   };
   const afterSubmitFailed = (error: Error) => {
-    logMutationError('failed to delete complaint post', error);
+    logMutationError(
+      'delete-complaint',
+      error,
+      '게시글 삭제에 실패했습니다. 잠시 후 다시 시도해주세요.',
+    );
   };
 
   return useMutation({

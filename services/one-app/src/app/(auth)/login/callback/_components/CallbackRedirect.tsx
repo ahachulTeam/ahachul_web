@@ -7,6 +7,7 @@ import { useShallow } from 'zustand/shallow';
 
 import { useAsyncCallback } from '@/hooks';
 import { AuthService } from '@/lib/auth-service';
+import { createActionLogger } from '@/lib/observability';
 import { useTempAuthStore } from '@/stores/auth';
 import { isValidSocialSignInType } from '@/utils/auth';
 
@@ -17,6 +18,8 @@ interface CallbackRedirectProps {
   code: string;
   type: string;
 }
+
+const callbackRedirectLogger = createActionLogger('login-callback-redirect');
 
 export default function CallbackRedirect({ code, type }: CallbackRedirectProps) {
   const router = useRouter();
@@ -47,7 +50,14 @@ export default function CallbackRedirect({ code, type }: CallbackRedirectProps) 
     },
     {
       onError: error => {
-        console.error('Login failed:', error);
+        callbackRedirectLogger.fail(
+          'social-login',
+          error,
+          {
+            providerType: type,
+          },
+          '로그인 처리에 실패했습니다.',
+        );
         const errorQuery = resolveLoginErrorQueryFromError(error);
         router.replace(`/login?error=${errorQuery}`);
       },

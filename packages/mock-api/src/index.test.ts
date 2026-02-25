@@ -99,6 +99,7 @@ describe('@ahhachul/mock-api', () => {
       },
       { method: 'GET', path: API_PATHS.subway.lines },
       { method: 'GET', path: `${API_PATHS.subway.trainRealTimes}?subwayLineId=2&stationId=201` },
+      { method: 'GET', path: `${API_PATHS.subway.stationWeatherBriefV2}?stationId=201` },
       { method: 'GET', path: API_PATHS.common.s3Presigned('mock-file') },
       { method: 'POST', path: API_PATHS.common.s3Presigned('mock-file') },
     ];

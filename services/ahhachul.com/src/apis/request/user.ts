@@ -17,9 +17,12 @@ import type {
   UserProfileResponseDto,
 } from '@/types';
 import { getAccessTokenInLocalStorage } from '@/utils/localStorage';
+import { createActionLogger } from '@/utils/observability';
 
 import { BASE_URL } from '../baseUrl';
 import { API_PREFIX } from '../endpointPrefix';
+
+const userRequestLogger = createActionLogger('user-request');
 
 export const fetchUserProfile = async () => {
   const { data } = await axiosInstance.get<ApiResponse<UserProfileResponseDto>>(
@@ -178,10 +181,17 @@ export const updateUser = async ({ auth, ...payload }: UpdateUserPayload) => {
 
     return res.data;
   } catch (error) {
+    userRequestLogger.fail(
+      'update-user',
+      error,
+      {
+        hasAuthToken: Boolean(auth?.accessToken),
+      },
+      '회원 정보를 업데이트하지 못했습니다.',
+    );
     if (axios.isAxiosError(error)) {
       throw new Error(`Update user failed: ${error.response?.data?.message || error.message}`);
     } else {
-      console.error('Unexpected error during user update:', error);
       throw new Error('An unexpected error occurred during user update.');
     }
   }

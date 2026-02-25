@@ -8,7 +8,9 @@ import {
 
 import { QUERY_GC_TIME, QUERY_STALE_TIME } from '@ahhachul/domain';
 
-import { appLogger, reportClientError } from '@/lib/observability';
+import { appLogger, createActionLogger, reportClientError } from '@/lib/observability';
+
+const queryLogger = createActionLogger('react-query');
 
 function makeQueryClient() {
   return new QueryClient({
@@ -19,6 +21,8 @@ function makeQueryClient() {
           error,
           {
             queryKey: query.queryKey,
+            queryHash: query.queryHash,
+            fetchStatus: query.state.fetchStatus,
           },
           '데이터를 불러오는 중 오류가 발생했습니다.',
         );
@@ -31,6 +35,12 @@ function makeQueryClient() {
           });
         }
       },
+      onSuccess: (_data, query) => {
+        queryLogger.success('query-cache-success', {
+          queryKey: query.queryKey,
+          queryHash: query.queryHash,
+        });
+      },
     }),
     mutationCache: new MutationCache({
       onError: (error, _variables, _context, mutation) => {
@@ -39,9 +49,16 @@ function makeQueryClient() {
           error,
           {
             mutationKey: mutation.options.mutationKey,
+            mutationId: mutation.mutationId,
           },
           '요청 처리 중 오류가 발생했습니다.',
         );
+      },
+      onSuccess: (_data, _variables, _context, mutation) => {
+        queryLogger.success('mutation-cache-success', {
+          mutationKey: mutation.options.mutationKey,
+          mutationId: mutation.mutationId,
+        });
       },
     }),
     defaultOptions: {

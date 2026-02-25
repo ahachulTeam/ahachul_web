@@ -11,7 +11,9 @@ import { SUBWAY_LOGO_SVG_LIST } from '@/components/Subway/SubwayLogoIconMap';
 import { getLocaleMessages, localizePathname, type SupportedLocale } from '@/i18n';
 import { AuthService } from '@/lib/auth-service';
 import { fetchClient } from '@/lib/fetch-client';
+import { createActionLogger } from '@/lib/observability';
 import {
+  fetchStationWeatherBriefV2,
   fetchStationTimeSummaryV2,
   fetchTrainRealtimeWithFallback,
 } from '@/lib/subway-realtime-v2';
@@ -20,6 +22,8 @@ import type {
   RealtimeArrivalCode,
   RealtimeUpDownType,
   StationSummaryAvailabilityStatus,
+  StationWeatherBriefV2Payload,
+  StationWeatherDataSource,
   StationTimeSummarySourceDetail,
   StationTimeSummaryItem,
   StationTimeWeekType,
@@ -175,6 +179,41 @@ function isStationTimeSummaryTemporarilyDelayed(
   return Boolean(sourceDetails?.some(detail => detail.dataSource === 'FALLBACK_EMPTY'));
 }
 
+function resolveWeatherSourceLabel(
+  dataSource?: StationWeatherDataSource,
+  isStale?: boolean,
+): string | null {
+  if (dataSource === 'FALLBACK') {
+    return '정보 지연';
+  }
+  if (isStale || dataSource === 'STALE_CACHE') {
+    return '캐시(지연)';
+  }
+  if (dataSource === 'CACHE') {
+    return '캐시';
+  }
+  if (dataSource === 'API') {
+    return '실시간';
+  }
+  return null;
+}
+
+function resolveWeatherSourceClassName(
+  dataSource?: StationWeatherDataSource,
+  isStale?: boolean,
+): string {
+  if (dataSource === 'FALLBACK') {
+    return 'border-rose-200 bg-rose-50 text-rose-700';
+  }
+  if (isStale || dataSource === 'STALE_CACHE') {
+    return 'border-amber-200 bg-amber-50 text-amber-700';
+  }
+  if (dataSource === 'CACHE') {
+    return 'border-sky-200 bg-sky-50 text-sky-700';
+  }
+  return 'border-emerald-200 bg-emerald-50 text-emerald-700';
+}
+
 function toSummaryByType(summaries: StationTimeSummaryItem[] = []) {
   return summaries.reduce<Partial<Record<RealtimeUpDownType, StationTimeSummaryItem>>>(
     (accumulator, item) => {
@@ -188,6 +227,8 @@ function toSummaryByType(summaries: StationTimeSummaryItem[] = []) {
 function resolveFavoriteLineId(lineInfoList?: Array<{ subwayLineId: number }>) {
   return lineInfoList?.[0]?.subwayLineId ?? null;
 }
+
+const homeParityLogger = createActionLogger('home-vite-parity');
 
 type Props = {
   locale: SupportedLocale;
@@ -224,6 +265,10 @@ export default function HomeViteParity({ locale }: Props) {
   const [summaryNoDataMessage, setSummaryNoDataMessage] =
     useState('시간표 정보를 확인할 수 없습니다.');
 
+  const [isWeatherLoading, setIsWeatherLoading] = useState(false);
+  const [weatherError, setWeatherError] = useState<string | null>(null);
+  const [weatherBrief, setWeatherBrief] = useState<StationWeatherBriefV2Payload | null>(null);
+
   const selectedLine = useMemo(
     () => subwayLines.find(line => line.id === selectedLineId) ?? null,
     [selectedLineId, subwayLines],
@@ -234,6 +279,7 @@ export default function HomeViteParity({ locale }: Props) {
     let isActive = true;
 
     async function loadCatalog() {
+      homeParityLogger.start('load-catalog', {});
       setIsCatalogLoading(true);
       setCatalogError(null);
 
@@ -258,10 +304,21 @@ export default function HomeViteParity({ locale }: Props) {
           const hasCurrentLine = lines.some(line => line.id === previousLineId);
           return hasCurrentLine ? previousLineId : lines[0].id;
         });
-      } catch {
+        homeParityLogger.success('load-catalog', {
+          lineCount: lines.length,
+        });
+      } catch (error) {
         if (!isActive) {
           return;
         }
+        homeParityLogger.fail(
+          'load-catalog',
+          error,
+          {
+            isActive,
+          },
+          '노선/역 정보를 불러오지 못했습니다.',
+        );
         setCatalogError('노선/역 정보를 불러오지 못했습니다.');
       } finally {
         if (isActive) {
@@ -301,8 +358,14 @@ export default function HomeViteParity({ locale }: Props) {
         if (isActive && profile.result?.nickname) {
           setNickname(profile.result.nickname);
         }
-      } catch {
+      } catch (error) {
         // 인증이 만료된 경우는 기본 닉네임으로 유지한다.
+        homeParityLogger.fail(
+          'load-user-profile',
+          error,
+          undefined,
+          '사용자 정보를 불러오지 못했습니다.',
+        );
       }
 
       try {
@@ -321,8 +384,14 @@ export default function HomeViteParity({ locale }: Props) {
           setSelectedLineId(favoriteLineId);
         }
         setSelectedStationId(favoriteStation.stationId);
-      } catch {
+      } catch (error) {
         // 즐겨찾기 역 조회 실패는 홈 렌더를 막지 않는다.
+        homeParityLogger.fail(
+          'load-user-favorite-station',
+          error,
+          undefined,
+          '즐겨찾는 역 정보를 불러오지 못했습니다.',
+        );
       }
     }
 
@@ -345,6 +414,13 @@ export default function HomeViteParity({ locale }: Props) {
     let initialLoad = true;
 
     async function loadRealtimeAndSummary() {
+      homeParityLogger.start('load-realtime-and-summary', {
+        selectedLineId,
+        selectedStationId,
+        upDownType,
+      });
+      let hasRealtimeError = false;
+      let hasSummaryError = false;
       if (initialLoad) {
         setIsRealtimeLoading(true);
         setIsSummaryLoading(true);
@@ -362,12 +438,23 @@ export default function HomeViteParity({ locale }: Props) {
         }
         setRealtimeError(null);
         setRealtimeSection(mapRealtimePayloadToSectionVM(realtimeResponse.result));
-      } catch {
+      } catch (error) {
         if (!isActive) {
           return;
         }
+        homeParityLogger.fail(
+          'load-realtime',
+          error,
+          {
+            selectedLineId,
+            selectedStationId,
+            upDownType,
+          },
+          '실시간 도착 정보를 불러오지 못했습니다.',
+        );
         setRealtimeError('실시간 도착 정보를 불러오지 못했습니다.');
         setRealtimeSection(null);
+        hasRealtimeError = true;
       } finally {
         if (isActive && initialLoad) {
           setIsRealtimeLoading(false);
@@ -393,20 +480,38 @@ export default function HomeViteParity({ locale }: Props) {
         setSummaryNoDataMessage(
           summaryResponse.result.meta?.guidanceMessage ?? '시간표 정보를 확인할 수 없습니다.',
         );
-      } catch {
+      } catch (error) {
         if (!isActive) {
           return;
         }
+        homeParityLogger.fail(
+          'load-station-summary',
+          error,
+          {
+            selectedLineId,
+            selectedStationId,
+            stationTimeWeekType,
+          },
+          '첫차/막차 정보를 불러오지 못했습니다.',
+        );
         setSummaryError('첫차/막차 정보를 불러오지 못했습니다.');
         setSummaryByType({});
         setSummaryStatus(undefined);
         setIsSummaryTemporarilyDelayed(false);
+        hasSummaryError = true;
       } finally {
         if (isActive && initialLoad) {
           setIsSummaryLoading(false);
         }
       }
 
+      if (!hasRealtimeError && !hasSummaryError) {
+        homeParityLogger.success('load-realtime-and-summary', {
+          selectedLineId,
+          selectedStationId,
+          upDownType,
+        });
+      }
       initialLoad = false;
     }
 
@@ -418,6 +523,73 @@ export default function HomeViteParity({ locale }: Props) {
       window.clearInterval(timerId);
     };
   }, [selectedLineId, selectedStationId, stationTimeWeekType, upDownType]);
+
+  useEffect(() => {
+    if (!selectedStationId) {
+      setWeatherBrief(null);
+      setWeatherError(null);
+      return;
+    }
+
+    let isActive = true;
+    let initialLoad = true;
+
+    async function loadWeatherBrief() {
+      homeParityLogger.start('load-weather-brief', {
+        selectedStationId,
+      });
+      let hasWeatherError = false;
+      if (initialLoad) {
+        setIsWeatherLoading(true);
+      }
+
+      try {
+        const weatherResponse = await fetchStationWeatherBriefV2({
+          stationId: selectedStationId,
+        });
+        if (!isActive) {
+          return;
+        }
+
+        setWeatherError(null);
+        setWeatherBrief(weatherResponse.result);
+      } catch (error) {
+        if (!isActive) {
+          return;
+        }
+        homeParityLogger.fail(
+          'load-weather-brief',
+          error,
+          {
+            selectedStationId,
+          },
+          '오늘 날씨 정보를 불러오지 못했습니다.',
+        );
+        setWeatherBrief(null);
+        setWeatherError('오늘 날씨 정보를 불러오지 못했습니다.');
+        hasWeatherError = true;
+      } finally {
+        if (isActive && initialLoad) {
+          setIsWeatherLoading(false);
+        }
+      }
+
+      if (!hasWeatherError) {
+        homeParityLogger.success('load-weather-brief', {
+          selectedStationId,
+        });
+      }
+      initialLoad = false;
+    }
+
+    void loadWeatherBrief();
+    const timerId = window.setInterval(loadWeatherBrief, 300_000);
+
+    return () => {
+      isActive = false;
+      window.clearInterval(timerId);
+    };
+  }, [selectedStationId]);
 
   const selectedStationName =
     stationOptions.find(station => station.id === selectedStationId)?.name ?? '역 선택';
@@ -479,6 +651,32 @@ export default function HomeViteParity({ locale }: Props) {
           </li>
         ))}
       </ul>
+    );
+  }
+
+  const weatherSourceLabel = resolveWeatherSourceLabel(
+    weatherBrief?.dataSource,
+    weatherBrief?.isStale,
+  );
+
+  let weatherContent: ReactNode;
+  if (isWeatherLoading) {
+    weatherContent = (
+      <p className="mt-2 text-body-small text-gray-70">오늘 날씨를 불러오는 중입니다.</p>
+    );
+  } else if (weatherError) {
+    weatherContent = <p className="mt-2 text-body-small text-danger">{weatherError}</p>;
+  } else if (!weatherBrief) {
+    weatherContent = (
+      <p className="mt-2 text-body-small text-gray-70">현재 날씨 정보를 확인할 수 없습니다.</p>
+    );
+  } else {
+    weatherContent = (
+      <div className="mt-2 space-y-1 text-body-small text-gray-90">
+        <p>{weatherBrief.summaryText}</p>
+        <p className="text-gray-70">{weatherBrief.cautionText}</p>
+        <p className="text-gray-70">{weatherBrief.friendlyText}</p>
+      </div>
     );
   }
 
@@ -558,6 +756,23 @@ export default function HomeViteParity({ locale }: Props) {
           </div>
 
           {catalogError ? <p className="mt-2 text-body-small text-danger">{catalogError}</p> : null}
+
+          <div className="mt-3 rounded-xl border border-gray-20 bg-white p-3">
+            <div className="flex items-center justify-between">
+              <p className="text-label-medium text-gray-100">오늘 날씨 안내</p>
+              {weatherSourceLabel ? (
+                <p
+                  className={`inline-flex rounded-full border px-2 py-0.5 text-label-small ${resolveWeatherSourceClassName(
+                    weatherBrief?.dataSource,
+                    weatherBrief?.isStale,
+                  )}`}
+                >
+                  {weatherSourceLabel}
+                </p>
+              ) : null}
+            </div>
+            {weatherContent}
+          </div>
 
           <div className="mt-3 rounded-xl border border-gray-20 bg-gray-05 p-3">
             <p className="text-label-medium text-gray-100">

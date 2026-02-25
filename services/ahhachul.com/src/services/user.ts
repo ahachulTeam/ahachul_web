@@ -6,6 +6,7 @@ import * as api from '@/apis/request';
 import { useAuth } from '@/contexts';
 import { useUserStationStore } from '@/stores/subway';
 import { ApiResponse, UserFavoriteStations } from '@/types';
+import { createActionLogger } from '@/utils/observability';
 
 export const userKeys = userQueryKeys;
 
@@ -14,6 +15,7 @@ const FAVORITE_ROUTE_RECOMMENDATION_KEY = [
   'favorite-route-recommendations',
 ] as const;
 const FAVORITE_ROUTE_KEY = [...userKeys.all, 'favorite-routes'] as const;
+const userServiceLogger = createActionLogger('user-service');
 
 export const useFetchUserProfile = () => {
   const { authService } = useAuth();
@@ -53,9 +55,12 @@ export const useUserFavoriteStations = () => {
   };
 
   const afterSubmitFailed = (error: Error) => {
-    // 토스트 띄어주고 뒤로 가기
-    console.log('error with toast:', error, '토스트 띄어주고 뒤로 가기');
-    // window.alert('즐겨찾는 지하철역 설정을 서버에 보내는데 에러 발생');
+    userServiceLogger.fail(
+      'update-favorite-stations',
+      error,
+      undefined,
+      '즐겨찾는 역 저장에 실패했습니다.',
+    );
   };
 
   return useMutation({

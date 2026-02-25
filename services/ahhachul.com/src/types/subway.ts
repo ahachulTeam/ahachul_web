@@ -232,6 +232,30 @@ export interface NearbyPlacesResponse {
   places: NearbyPlace[];
 }
 
+export enum StationWeatherDataSource {
+  API = 'API',
+  CACHE = 'CACHE',
+  STALE_CACHE = 'STALE_CACHE',
+  FALLBACK = 'FALLBACK',
+}
+
+export interface StationWeatherBriefResponse {
+  stationId: number;
+  stationName: string;
+  generatedAt: string;
+  dataSource: StationWeatherDataSource;
+  isStale: boolean;
+  summaryText: string;
+  cautionText: string;
+  friendlyText: string;
+  temperatureC: number | null;
+  apparentTemperatureC: number | null;
+  precipitationMm: number | null;
+  windSpeedMps: number | null;
+  weatherCode: number | null;
+  weatherLabel: string;
+}
+
 export enum RouteSearchStrategy {
   BALANCED = 'BALANCED',
   MIN_TRANSFER = 'MIN_TRANSFER',

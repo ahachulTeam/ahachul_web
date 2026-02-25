@@ -2,14 +2,17 @@ import { useMutation } from '@tanstack/react-query';
 
 import * as api from '@/apis/request';
 import type { ApiResponse, Comment } from '@/types';
+import { createActionLogger } from '@/utils/observability';
 
-const logMutationError = (context: string, error: Error) => {
-  console.error(`[comment-service] ${context}`, error);
+const commentLogger = createActionLogger('comment-service');
+
+const logMutationError = (context: string, error: Error, fallbackMessage: string) => {
+  commentLogger.fail(context, error, undefined, fallbackMessage);
 };
 
 export const usePostComment = () => {
   const afterSubmitFailed = (error: Error) => {
-    logMutationError('failed to create comment', error);
+    logMutationError('create-comment', error, '댓글 작성에 실패했습니다.');
   };
 
   return useMutation({
@@ -20,11 +23,13 @@ export const usePostComment = () => {
 
 export const useDeleteComment = (articleId: number) => {
   const afterSubmitSuccess = (res: ApiResponse<Pick<Comment, 'id'>>) => {
-    console.log('res:', res);
-    console.log('articleId:', articleId);
+    commentLogger.success('delete-comment', {
+      articleId,
+      commentId: res.result.id,
+    });
   };
   const afterSubmitFailed = (error: Error) => {
-    logMutationError('failed to delete comment', error);
+    logMutationError('delete-comment', error, '댓글 삭제에 실패했습니다.');
   };
 
   return useMutation({
@@ -36,7 +41,7 @@ export const useDeleteComment = (articleId: number) => {
 
 export const useUpdateComment = () => {
   const afterSubmitFailed = (error: Error) => {
-    logMutationError('failed to update comment', error);
+    logMutationError('update-comment', error, '댓글 수정에 실패했습니다.');
   };
 
   return useMutation({

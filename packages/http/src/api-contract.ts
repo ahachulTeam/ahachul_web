@@ -83,6 +83,7 @@ export const API_PATHS = {
     stationLastTrainRiskV2: '/v2/stations/times/last-train-risk',
     stationQuickExitsV2: '/v2/stations/quick-exits',
     stationNearbyPlacesV2: '/v2/stations/nearby-places',
+    stationWeatherBriefV2: '/v2/stations/weather/brief',
     routeSearchV2: '/v2/subway/routes/search',
   },
   common: {

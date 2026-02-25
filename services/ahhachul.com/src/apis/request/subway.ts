@@ -14,6 +14,7 @@ import {
   StationTimeWeekType,
   StationTimesFullResponse,
   SubwayRouteSearchResponse,
+  StationWeatherBriefResponse,
   SubwayLineServerModel,
   UpDownType,
   WithSubwayLineId,
@@ -122,6 +123,8 @@ interface APISubwayRouteSearchV2Params {
 
 interface APIStationTimesFullV2Params extends WithSubwayLineId, WithSubwayStationId {}
 
+interface APIStationWeatherBriefV2Params extends WithSubwayStationId {}
+
 export interface APINearbyPlacesV2Response {
   stationId: number;
   subwayLineId: number;
@@ -219,6 +222,15 @@ export const fetchQuickExitsV2 = async (params: APIQuickExitsV2Params) => {
 export const fetchNearbyPlacesV2 = async (params: APINearbyPlacesV2Params) => {
   return axiosInstance.get<ApiResponse<APINearbyPlacesV2Response>>(
     API_PATHS.subway.stationNearbyPlacesV2,
+    {
+      params,
+    },
+  );
+};
+
+export const fetchStationWeatherBriefV2 = async (params: APIStationWeatherBriefV2Params) => {
+  return axiosInstance.get<ApiResponse<StationWeatherBriefResponse>>(
+    API_PATHS.subway.stationWeatherBriefV2,
     {
       params,
     },

@@ -26,12 +26,15 @@ import {
   type CommunityEditForm,
   type CommunityListParams,
 } from '@/types';
+import { createActionLogger } from '@/utils/observability';
 import { resolvePostSubmitWarningMessage } from '@/utils/postSubmitError';
 
 const STACK_PUSH_DELAY_MS = 500;
 
-const logMutationError = (context: string, error: Error) => {
-  console.error(`[community-service] ${context}`, error);
+const communityLogger = createActionLogger('community-service');
+
+const logMutationError = (context: string, error: Error, fallbackMessage: string) => {
+  communityLogger.fail(context, error, undefined, fallbackMessage);
 };
 
 export const communityKeys = communityQueryKeys;
@@ -134,6 +137,7 @@ export const useCreateCommunity = () => {
       }, STACK_PUSH_DELAY_MS);
     },
     onError: error => {
+      logMutationError('create-community', error, TOAST_MSG.WARNING.CREATE_FAIL);
       addToast(resolvePostSubmitWarningMessage(error, TOAST_MSG.WARNING.CREATE_FAIL), 'warning');
     },
   });
@@ -182,7 +186,8 @@ export const useEditCommunity = (id: number, _categoryType: CommunityType) => {
         });
       }, STACK_PUSH_DELAY_MS);
     },
-    onError: () => {
+    onError: error => {
+      logMutationError('edit-community', error, TOAST_MSG.WARNING.CREATE_FAIL);
       // addToast(TOAST_MSG.WARNING.CREATE_FAIL);
     },
   });
@@ -190,10 +195,16 @@ export const useEditCommunity = (id: number, _categoryType: CommunityType) => {
 
 export const useDeleteCommunity = () => {
   const afterSubmitSuccess = (res: any) => {
-    console.log('res:', res);
+    communityLogger.success('delete-community', {
+      postId: res?.result?.id,
+    });
   };
   const afterSubmitFailed = (error: Error) => {
-    logMutationError('failed to delete community post', error);
+    logMutationError(
+      'delete-community',
+      error,
+      '게시글 삭제에 실패했습니다. 잠시 후 다시 시도해주세요.',
+    );
   };
 
   return useMutation({

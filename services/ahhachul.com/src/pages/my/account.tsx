@@ -19,8 +19,10 @@ import { useToast } from '@/hooks/useToast';
 import { useFetchUserProfile, userKeys } from '@/services/user';
 import { useFlow } from '@/stackflow';
 import type { ApiResponse } from '@/types';
+import { createActionLogger, resolveClientErrorMessage } from '@/utils/observability';
 
 const MyAccountPage: ActivityComponentType = () => {
+  const accountLogger = createActionLogger('my-account');
   const { addToast } = useToast();
   const { push } = useFlow();
   const queryClient = useQueryClient();
@@ -83,14 +85,25 @@ const MyAccountPage: ActivityComponentType = () => {
       });
 
       await queryClient.invalidateQueries({ queryKey: userKeys.info() });
+      accountLogger.success('edit-nickname', {
+        nicknameLength: nextNickname.length,
+      });
       addToast('닉네임이 변경되었습니다.', 'success');
     } catch (error) {
-      addToast(
-        error instanceof Error
-          ? error.message
-          : '닉네임 변경에 실패했습니다. 잠시 후 다시 시도해주세요.',
-        'error',
+      const userMessage = resolveClientErrorMessage(
+        error,
+        '닉네임 변경에 실패했습니다. 잠시 후 다시 시도해주세요.',
       );
+      accountLogger.fail(
+        'edit-nickname',
+        error,
+        {
+          currentNicknameLength: currentNickname.length,
+          nextNicknameLength: nextNickname.length,
+        },
+        userMessage,
+      );
+      addToast(userMessage, 'error');
     } finally {
       setIsUpdatingNickname(false);
     }

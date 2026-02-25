@@ -11,11 +11,13 @@ import { NICKNAME_MAX_LENGTH, validateNickname } from '@ahhachul/utils';
 import { API_BASE_URL } from '@/constants';
 import { getLocaleMessages, localizePathname, resolvePathLocale } from '@/i18n';
 import { AuthService } from '@/lib/auth-service';
+import { createActionLogger, resolveClientErrorMessage } from '@/lib/observability';
 import { useTempAuthStore } from '@/stores/auth';
 
 import { checkNickname } from '../_lib/checkNickname';
 
 type NicknameCheckState = 'idle' | 'checking' | 'available' | 'duplicate' | 'error';
+const setNicknameLogger = createActionLogger('set-nickname');
 
 async function updateNickname(payload: {
   nickname: string;
@@ -82,7 +84,14 @@ export default function SetNickNamePage() {
         setNicknameCheckState(response.result.available ? 'available' : 'duplicate');
       } catch (error) {
         if (isCancelled) return;
-        console.error('Nickname check failed:', error);
+        setNicknameLogger.fail(
+          'check-nickname',
+          error,
+          {
+            nicknameLength: normalizedNickname.length,
+          },
+          messages.setNickname.checkFailedMessage,
+        );
         setNicknameCheckState('error');
       }
     }, 500);
@@ -110,7 +119,12 @@ export default function SetNickNamePage() {
 
       AuthService.setToken(auth.accessToken, auth.refreshToken);
       resetTempAuth();
+      setNicknameLogger.success('set-nickname');
       router.replace(homePath);
+    },
+    onError: error => {
+      const userMessage = resolveClientErrorMessage(error, messages.setNickname.updateFailed);
+      setNicknameLogger.fail('set-nickname', error, undefined, userMessage);
     },
   });
 

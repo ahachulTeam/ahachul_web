@@ -11,6 +11,7 @@ import { formatSubwayLineInfo } from '@ahhachul/utils';
 import {
   fetchLastTrainRiskV2,
   fetchNearbyPlacesV2,
+  fetchStationWeatherBriefV2,
   fetchQuickExitsV2,
   fetchStationTimesFullV2,
   fetchStationTimeSummaryV2,
@@ -174,6 +175,25 @@ export const useFetchNearbyPlaces = (params: NearbyPlacesParams) => {
     queryKey: [...subwayKeys.trains(), 'nearby-places-v2', signature],
     queryFn: () => fetchNearbyPlacesV2(params),
     staleTime: 60 * TIMESTAMP.SECOND,
+    gcTime: QUERY_GC_TIME.feed,
+    retry: 1,
+    select: res => res.data.result,
+  });
+};
+
+interface StationWeatherBriefParams {
+  stationId: number;
+}
+
+export const useFetchStationWeatherBrief = (params: StationWeatherBriefParams) => {
+  const signature = buildQuerySignature({
+    stationId: params.stationId,
+  });
+
+  return useQuery({
+    queryKey: [...subwayKeys.trains(), 'station-weather-brief-v2', signature],
+    queryFn: () => fetchStationWeatherBriefV2(params),
+    staleTime: 5 * TIMESTAMP.MINUTE,
     gcTime: QUERY_GC_TIME.feed,
     retry: 1,
     select: res => res.data.result,

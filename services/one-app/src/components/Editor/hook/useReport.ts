@@ -9,7 +9,10 @@
  */
 import { useCallback, useEffect, useRef } from 'react';
 
+import { createActionLogger } from '@/lib/observability';
+
 const REPORT_PREVIEW_TIMEOUT_MS = 1000;
+const reportLogger = createActionLogger('editor-report');
 
 const getElement = (): HTMLElement => {
   let element = document.getElementById('report-container');
@@ -53,8 +56,9 @@ export function useReport(): (arg0: string) => ReturnType<typeof setTimeout> {
 
   return useCallback(
     content => {
-      // eslint-disable-next-line no-console
-      console.log(content);
+      reportLogger.info('preview-content', {
+        contentLength: content.length,
+      });
       const element = getElement();
       if (timer.current !== null) {
         clearTimeout(timer.current);

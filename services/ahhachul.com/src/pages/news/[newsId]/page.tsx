@@ -5,13 +5,16 @@ import { useActivity, type ActivityComponentType } from '@stackflow/react';
 import { ShareIcon } from '@/assets/icons/system';
 import { LayoutComponent, UiComponent } from '@/components';
 import { subwayIconMap } from '@/constants';
+import { createActionLogger } from '@/utils/observability';
+
+const newsDetailLogger = createActionLogger('news-detail');
 
 const NewsDetailPage: ActivityComponentType<{ newsId: number }> = ({
   params: { newsId },
 }: {
   params: { newsId: number };
 }) => {
-  console.log('newsId:', newsId);
+  newsDetailLogger.info('render', { newsId });
   const { isActive } = useActivity();
   const handleClickShare = () => {};
   const handleClickExternalLink = () => {};

@@ -9,8 +9,10 @@ import {
 import { toAbsoluteUrl } from '@ahhachul/seo';
 
 import { API_BASE_URL, SEO_PAGE_COPY, SITE_URL } from '@/constants';
+import { appLogger } from '@/lib/observability';
 
 type DiscoverySection = Exclude<SeoSitemapSegment, 'core'>;
+const seoDiscoveryLogger = appLogger.child('seo-discovery');
 
 type DiscoveryPost = {
   id: number | string;
@@ -215,7 +217,22 @@ export async function getSectionPosts(section: DiscoverySection, maxItems?: numb
 
     return await collectSectionPosts(section, { maxItems });
   } catch (error) {
-    console.error(`[seo] failed to collect section posts: ${section}`, error);
+    seoDiscoveryLogger.error(
+      `[seo] failed to collect section posts: ${section}`,
+      {
+        section,
+      },
+      {
+        name: error instanceof Error ? error.name : 'UnknownError',
+        message: error instanceof Error ? error.message : 'Unknown error',
+        userMessage: 'SEO 수집 처리 중 오류가 발생했습니다.',
+        isNetworkError: false,
+        isAuthError: false,
+        isClientError: false,
+        isServerError: true,
+        isRetryable: true,
+      },
+    );
     return [];
   }
 }
@@ -267,7 +284,22 @@ export async function getSectionSitemapItems(section: DiscoverySection, maxItems
       priority: 0.7,
     }));
   } catch (error) {
-    console.error(`[seo] failed to build sitemap for ${section}`, error);
+    seoDiscoveryLogger.error(
+      `[seo] failed to build sitemap for ${section}`,
+      {
+        section,
+      },
+      {
+        name: error instanceof Error ? error.name : 'UnknownError',
+        message: error instanceof Error ? error.message : 'Unknown error',
+        userMessage: 'SEO 사이트맵 생성 중 오류가 발생했습니다.',
+        isNetworkError: false,
+        isAuthError: false,
+        isClientError: false,
+        isServerError: true,
+        isRetryable: true,
+      },
+    );
     return [];
   }
 }

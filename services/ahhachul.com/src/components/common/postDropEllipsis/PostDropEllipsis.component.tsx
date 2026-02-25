@@ -27,12 +27,14 @@ import { complaintKeys, useDeleteComplaint } from '@/services/complaint';
 import { lostFoundKeys, useDeleteLostFound } from '@/services/lostFound';
 import { useFlow } from '@/stackflow';
 import { LostStatus } from '@/types';
+import { createActionLogger } from '@/utils/observability';
 
 import * as S from './PostDropEllipsis.styled';
 
 const DRAWER_OPEN_DELAY_MS = 100;
 const EDIT_PAGE_PUSH_DELAY_MS = 500;
 const LOST_FOUND_STATUS_INVALIDATE_DELAY_MS = 1000;
+const postDropEllipsisLogger = createActionLogger('post-drop-ellipsis');
 
 export interface PostDropEllipsisProps {
   isLost?: boolean;
@@ -297,7 +299,15 @@ function RemovePost({
         },
       });
     } catch (error) {
-      console.error('게시물 삭제 중 오류 발생:', error);
+      postDropEllipsisLogger.fail(
+        'delete-post',
+        error,
+        {
+          articleId,
+          postDomain,
+        },
+        '게시글 삭제 중 오류가 발생했습니다.',
+      );
     }
   };
 

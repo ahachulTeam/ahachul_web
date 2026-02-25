@@ -2,6 +2,7 @@ import type React from 'react';
 import { createContext, useEffect, useContext, useState } from 'react';
 
 import type { NativeBridgeType } from '@/types';
+import { createActionLogger } from '@/utils/observability';
 
 interface NativeBridgeContextType {
   bridge: NativeBridgeType;
@@ -9,6 +10,7 @@ interface NativeBridgeContextType {
 }
 
 const NativeBridgeContext = createContext<NativeBridgeContextType | null>(null);
+const nativeBridgeLogger = createActionLogger('native-bridge');
 
 interface NativeBridgeProps {
   children: React.ReactNode;
@@ -63,7 +65,9 @@ export const NativeBridge: React.FC<NativeBridgeProps> = ({ children }) => {
         );
       },
       share: (link: string) => {
-        console.log('link:', link);
+        nativeBridgeLogger.info('share-link', {
+          linkLength: link.length,
+        });
         window.ReactNativeWebView?.postMessage(
           JSON.stringify({
             name: 'share',

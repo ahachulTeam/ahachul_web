@@ -1,5 +1,6 @@
 import { CRYPTO_SECRET_KEY } from '@/constants/auth';
 import type { IAuthStore } from '@/types';
+import { createActionLogger } from '@/utils/observability';
 
 type AuthError = {
   message: string;
@@ -12,6 +13,7 @@ export class AuthService {
   private key;
   private user: IAuthStore | null;
   private authStateListener: AuthStateChangeHandler | null;
+  private readonly logger = createActionLogger('auth-service');
 
   constructor() {
     this.key = CRYPTO_SECRET_KEY;
@@ -44,6 +46,10 @@ export class AuthService {
    * @param tokens - 업데이트할 액세스 토큰과 리프레시 토큰
    */
   signIn({ accessToken, refreshToken }: { accessToken: string; refreshToken: string }) {
+    this.logger.start('sign-in', {
+      hasAccessToken: Boolean(accessToken),
+      hasRefreshToken: Boolean(refreshToken),
+    });
     const newUser = {
       ...this.user,
       accessToken,
@@ -51,6 +57,7 @@ export class AuthService {
     };
     localStorage.setItem(this.key, JSON.stringify(newUser));
     this.setUser(newUser as IAuthStore);
+    this.logger.success('sign-in');
   }
 
   /**
@@ -59,12 +66,14 @@ export class AuthService {
    * @param token - 새로운 토큰 값입니다.
    */
   updateToken(type: 'access' | 'refresh', token: string) {
+    this.logger.start('update-token', { type, hasToken: Boolean(token) });
     const newUser = {
       ...this.user,
       [type === 'access' ? 'accessToken' : 'refreshToken']: token,
     };
     localStorage.setItem(this.key, JSON.stringify(newUser));
     this.setUser(newUser as IAuthStore);
+    this.logger.success('update-token', { type });
   }
 
   /**
@@ -94,11 +103,14 @@ export class AuthService {
    * @param data - 로그인할 사용자 정보.
    */
   login(data: IAuthStore) {
+    this.logger.start('login', { userId: data.id, userLevel: data.level });
     localStorage.setItem(this.key, JSON.stringify(data));
     this.setUser(data);
+    this.logger.success('login', { userId: data.id });
   }
 
   logout() {
+    this.logger.info('logout');
     localStorage.removeItem(this.key);
     this.user = null;
     this.notifyStateChange(null);
@@ -112,7 +124,19 @@ export class AuthService {
     const signedInUser = localStorage.getItem(this.key);
 
     if (signedInUser) {
-      this.setUser(JSON.parse(signedInUser));
+      try {
+        this.setUser(JSON.parse(signedInUser));
+        this.logger.success('initialize-user-from-storage');
+      } catch (error) {
+        this.logger.fail(
+          'initialize-user-from-storage',
+          error,
+          { hasSignedInUser: true },
+          '저장된 로그인 정보를 복구하지 못했습니다.',
+        );
+        localStorage.removeItem(this.key);
+        this.user = null;
+      }
     }
 
     return this;

@@ -13,6 +13,7 @@ import { useToast } from '@/hooks/useToast';
 import { useFlow } from '@/stackflow';
 import { useTempAuth } from '@/stores';
 import { mixins } from '@/styles';
+import { createActionLogger, resolveClientErrorMessage } from '@/utils/observability';
 
 const defaultEasing = [0.6, -0.05, 0.01, 0.99];
 
@@ -35,6 +36,7 @@ const animateVariants = (duration = 0.3): MotionVariantsType => ({
 });
 
 const SetNickNamePage = () => {
+  const setNicknameLogger = createActionLogger('set-nickname-page');
   const { addToast } = useToast();
 
   const { replace } = useFlow();
@@ -58,15 +60,16 @@ const SetNickNamePage = () => {
       replace('HomePage', {}, { animate: false });
     },
     onError: error => {
-      console.log('API Error on updateUser:', error);
-      window.alert('로그인 정보를 불러오는데 실패했어요.');
+      const message = resolveClientErrorMessage(error, '로그인 정보를 불러오는데 실패했어요.');
+      setNicknameLogger.fail('update-user', error, undefined, message);
+      window.alert(message);
     },
   });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!tempTokens?.accessToken) {
-      console.log('null accessToken');
+      setNicknameLogger.warn('submit-without-access-token');
       return;
     }
     updateUserAndTryLoginProcessDone({ nickname, auth: tempTokens });

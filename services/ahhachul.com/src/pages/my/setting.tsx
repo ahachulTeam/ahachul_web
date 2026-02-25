@@ -14,6 +14,7 @@ import { useUserFavoriteStations } from '@/services/user';
 import { useFlow } from '@/stackflow';
 import { useUserStationStore } from '@/stores/subway';
 import type { Stations, SubwayLineType } from '@/types';
+import { createActionLogger, resolveClientErrorMessage } from '@/utils/observability';
 import { applyHighlight } from '@/utils/text';
 
 interface StationLabel {
@@ -35,6 +36,7 @@ const LABEL_OPTIONS = [
 ] as const;
 
 const SettingPage: ActivityComponentType = () => {
+  const settingLogger = createActionLogger('my-favorite-station-setting');
   const { pop } = useFlow();
   const { data: DEFAULT_STATIONS } = useFetchSubwayLines();
   const { userStations } = useUserStationStore(state => state);
@@ -256,12 +258,23 @@ const SettingPage: ActivityComponentType = () => {
 
               try {
                 await updateUserFavoriteStations(formattedStations);
+                settingLogger.success('save-favorite-stations', {
+                  stationCount: formattedStations.length,
+                });
                 pop();
               } catch (error) {
-                const errorMessage =
-                  error instanceof Error
-                    ? error.message
-                    : '즐겨찾는 역 저장에 실패했습니다. 잠시 후 다시 시도해주세요.';
+                const errorMessage = resolveClientErrorMessage(
+                  error,
+                  '즐겨찾는 역 저장에 실패했습니다. 잠시 후 다시 시도해주세요.',
+                );
+                settingLogger.fail(
+                  'save-favorite-stations',
+                  error,
+                  {
+                    stationCount: formattedStations.length,
+                  },
+                  errorMessage,
+                );
                 alert(errorMessage);
               }
             }}

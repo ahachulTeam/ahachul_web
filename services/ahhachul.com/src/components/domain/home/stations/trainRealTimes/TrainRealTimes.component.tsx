@@ -9,6 +9,7 @@ import {
   useFetchLastTrainRisk,
   useFetchNearbyPlaces,
   useFetchQuickExits,
+  useFetchStationWeatherBrief,
   useFetchStationTimesSummary,
   useFetchTrainInfo,
 } from '@/services/subway';
@@ -21,6 +22,7 @@ import {
   QuickExitConfidenceLevel,
   StationSummaryAvailabilityStatus,
   StationSummaryDataSource,
+  StationWeatherDataSource,
   StationTimeWeekType,
   SubwayLineType,
   UpDownType,
@@ -196,6 +198,41 @@ function resolveNearbyPlaceLineText(place: NearbyPlace): string {
   return `${place.name} · ${place.category} · 도보 ${place.walkingMinutes}분`;
 }
 
+function resolveWeatherSourceLabel(
+  dataSource?: StationWeatherDataSource,
+  isStale?: boolean,
+): string | null {
+  if (dataSource === StationWeatherDataSource.FALLBACK) {
+    return '정보 지연';
+  }
+  if (isStale || dataSource === StationWeatherDataSource.STALE_CACHE) {
+    return '캐시(지연)';
+  }
+  if (dataSource === StationWeatherDataSource.CACHE) {
+    return '캐시';
+  }
+  if (dataSource === StationWeatherDataSource.API) {
+    return '실시간';
+  }
+  return null;
+}
+
+function resolveWeatherSourceColor(
+  dataSource?: StationWeatherDataSource,
+  isStale?: boolean,
+): string {
+  if (dataSource === StationWeatherDataSource.FALLBACK) {
+    return 'rgba(239, 68, 68, 0.72)';
+  }
+  if (isStale || dataSource === StationWeatherDataSource.STALE_CACHE) {
+    return 'rgba(245, 158, 11, 0.72)';
+  }
+  if (dataSource === StationWeatherDataSource.CACHE) {
+    return 'rgba(59, 130, 246, 0.72)';
+  }
+  return 'rgba(16, 185, 129, 0.72)';
+}
+
 const defaultStationTimeSummaries = [
   {
     upDownType: UpDownType.UP,
@@ -254,6 +291,10 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
     subwayLineId,
     limit: 3,
   });
+  const { data: stationWeather, isFetching: isStationWeatherFetching } =
+    useFetchStationWeatherBrief({
+      stationId,
+    });
 
   const filterdStationsData = {
     ...data,
@@ -485,6 +526,37 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
     );
   }
 
+  const weatherSourceLabel = resolveWeatherSourceLabel(
+    stationWeather?.dataSource,
+    stationWeather?.isStale,
+  );
+
+  let stationWeatherContent: ReactNode = (
+    <div css={{ color: 'var(--ah-color-legacy-text-faint)', fontSize: '12px' }}>
+      오늘 날씨 정보를 준비 중입니다.
+    </div>
+  );
+
+  if (isStationWeatherFetching) {
+    stationWeatherContent = (
+      <div css={{ color: 'var(--ah-color-legacy-text-faint)', fontSize: '12px' }}>
+        오늘 날씨를 불러오는 중...
+      </div>
+    );
+  } else if (stationWeather) {
+    stationWeatherContent = (
+      <div css={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <div css={{ color: 'white', fontSize: '12px' }}>{stationWeather.summaryText}</div>
+        <div css={{ color: 'var(--ah-color-legacy-text-faint)', fontSize: '12px' }}>
+          {stationWeather.cautionText}
+        </div>
+        <div css={{ color: 'var(--ah-color-legacy-text-faint)', fontSize: '12px' }}>
+          {stationWeather.friendlyText}
+        </div>
+      </div>
+    );
+  }
+
   const handleWalkingMinutesChange = (value: string) => {
     const parsedValue = Number(value);
 
@@ -547,6 +619,48 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
             </span>
           </div>
         )}
+
+        <div
+          css={{
+            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+            margin: '0 16px',
+            paddingTop: '10px',
+            paddingBottom: '10px',
+          }}
+        >
+          <div css={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div
+              css={{
+                color: 'var(--ah-color-legacy-text-faint)',
+                fontSize: '12px',
+                fontWeight: 600,
+              }}
+            >
+              오늘 날씨 안내
+            </div>
+            {weatherSourceLabel && !isStationWeatherFetching && (
+              <span
+                css={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  height: '20px',
+                  padding: '0 8px',
+                  borderRadius: '999px',
+                  fontSize: '11px',
+                  fontWeight: 700,
+                  color: 'white',
+                  backgroundColor: resolveWeatherSourceColor(
+                    stationWeather?.dataSource,
+                    stationWeather?.isStale,
+                  ),
+                }}
+              >
+                {weatherSourceLabel}
+              </span>
+            )}
+          </div>
+          <div css={{ marginTop: '8px' }}>{stationWeatherContent}</div>
+        </div>
 
         <div
           css={{

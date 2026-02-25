@@ -7,12 +7,15 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import type { EditorState } from 'lexical';
 
+import { createActionLogger } from '@/lib/observability';
+
 import { OnChangePlugin, SpeechToTextPlugin, SpeechToTextToolbarPlugin } from './plugin';
 
 const theme = {};
+const oneAppEditorLogger = createActionLogger('lexical-editor');
 
 function onError(error: Error) {
-  console.error(error);
+  oneAppEditorLogger.fail('runtime-error', error, undefined, '에디터 처리 중 오류가 발생했습니다.');
 }
 
 const Placeholder = ({

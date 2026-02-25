@@ -6,10 +6,14 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import type { EditorState } from 'lexical';
 
+import { createActionLogger } from '@/utils/observability';
+
 import * as S from './Editor.styled';
 import Mic from './mic/Mic.component';
 import Placeholder from './placeholder/Placeholder.component';
 import { OnChangePlugin, SpeechToTextPlugin } from './plugins';
+
+const editorLogger = createActionLogger('lexical-editor');
 
 type Props = {
   showMic?: boolean;
@@ -34,7 +38,7 @@ const Editor = ({
   const initialConfig = {
     namespace: 'plainEditor',
     onError(error: Error) {
-      console.error(error);
+      editorLogger.fail('runtime-error', error, undefined, '에디터 처리 중 오류가 발생했습니다.');
     },
   };
 

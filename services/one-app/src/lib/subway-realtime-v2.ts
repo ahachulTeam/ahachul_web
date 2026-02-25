@@ -4,6 +4,8 @@ import { API_ORIGIN_URL, TRAIN_REALTIME_V2_ENABLED } from '@/constants';
 import type {
   StationTimeSummaryV2Query,
   StationTimeSummaryV2Response,
+  StationWeatherBriefV2Query,
+  StationWeatherBriefV2Response,
   StationTimesFullV2Query,
   StationTimesFullV2Response,
   SubwayRouteSearchV2Query,
@@ -14,12 +16,15 @@ import type {
 } from '@/types';
 
 import { fetchClient } from './fetch-client';
+import { createActionLogger } from './observability';
 
 const TRAIN_REALTIME_V2_ENDPOINT = `${API_ORIGIN_URL}${API_PATHS.subway.trainRealTimesV2}`;
 const STATION_TIME_SUMMARY_V2_ENDPOINT = `${API_ORIGIN_URL}${API_PATHS.subway.stationTimeSummaryV2}`;
+const STATION_WEATHER_BRIEF_V2_ENDPOINT = `${API_ORIGIN_URL}${API_PATHS.subway.stationWeatherBriefV2}`;
 const STATION_TIMES_FULL_V2_ENDPOINT = `${API_ORIGIN_URL}${API_PATHS.subway.stationTimesFullV2}`;
 const SUBWAY_ROUTE_SEARCH_V2_ENDPOINT = `${API_ORIGIN_URL}${API_PATHS.subway.routeSearchV2}`;
 const NO_ARRIVAL_TRAIN_CODE = '701';
+const subwayRealtimeLogger = createActionLogger('subway-realtime-v2');
 
 function mapV1ToV2Response(v1: TrainRealtimeV1Response): TrainRealtimeV2Response {
   const generatedAt = new Date().toISOString();
@@ -78,11 +83,31 @@ async function fetchTrainRealtimeV1AsV2(
 ): Promise<TrainRealtimeV2Response> {
   try {
     const v1 = await fetchTrainRealtimeV1(params);
+    subwayRealtimeLogger.info('fallback-v1-success', {
+      stationId: params.stationId,
+      subwayLineId: params.subwayLineId,
+      upDownType: params.upDownType,
+    });
     return mapV1ToV2Response(v1);
   } catch (error) {
     if (hasNoArrivalTrainCode(error)) {
+      subwayRealtimeLogger.warn('fallback-v1-no-arrival', {
+        stationId: params.stationId,
+        subwayLineId: params.subwayLineId,
+        upDownType: params.upDownType,
+      });
       return mapNoArrivalToEmptyResponse();
     }
+    subwayRealtimeLogger.fail(
+      'fallback-v1-failed',
+      error,
+      {
+        stationId: params.stationId,
+        subwayLineId: params.subwayLineId,
+        upDownType: params.upDownType,
+      },
+      '실시간 도착 정보를 불러오지 못했습니다.',
+    );
     throw error;
   }
 }
@@ -117,15 +142,44 @@ export async function fetchTrainRealtimeWithFallback(
   options: { forceV1?: boolean } = {},
 ): Promise<TrainRealtimeV2Response> {
   if (options.forceV1 || !TRAIN_REALTIME_V2_ENABLED) {
+    subwayRealtimeLogger.info('fallback-v1-forced', {
+      stationId: params.stationId,
+      subwayLineId: params.subwayLineId,
+      upDownType: params.upDownType,
+      forceV1: options.forceV1 ?? false,
+      isFeatureEnabled: TRAIN_REALTIME_V2_ENABLED,
+    });
     return fetchTrainRealtimeV1AsV2(params);
   }
 
   try {
-    return await fetchTrainRealtimeV2(params);
+    const response = await fetchTrainRealtimeV2(params);
+    subwayRealtimeLogger.success('fetch-v2-success', {
+      stationId: params.stationId,
+      subwayLineId: params.subwayLineId,
+      upDownType: params.upDownType,
+      trainCount: response.result.trainRealTimes.length,
+    });
+    return response;
   } catch (error) {
     if (hasNoArrivalTrainCode(error)) {
+      subwayRealtimeLogger.warn('fetch-v2-no-arrival', {
+        stationId: params.stationId,
+        subwayLineId: params.subwayLineId,
+        upDownType: params.upDownType,
+      });
       return mapNoArrivalToEmptyResponse();
     }
+    subwayRealtimeLogger.fail(
+      'fetch-v2-failed-fallback-v1',
+      error,
+      {
+        stationId: params.stationId,
+        subwayLineId: params.subwayLineId,
+        upDownType: params.upDownType,
+      },
+      '실시간 도착 정보를 불러오지 못했습니다.',
+    );
     return fetchTrainRealtimeV1AsV2(params);
   }
 }
@@ -138,6 +192,16 @@ export async function fetchStationTimeSummaryV2(
       stationId: params.stationId,
       subwayLineId: params.subwayLineId,
       stationTimeWeekType: params.stationTimeWeekType,
+    },
+  });
+}
+
+export async function fetchStationWeatherBriefV2(
+  params: StationWeatherBriefV2Query,
+): Promise<StationWeatherBriefV2Response> {
+  return fetchClient<StationWeatherBriefV2Response>(STATION_WEATHER_BRIEF_V2_ENDPOINT, {
+    params: {
+      stationId: params.stationId,
     },
   });
 }

@@ -2731,6 +2731,33 @@ const routes: RouteDefinition[] = [
   },
   {
     method: 'GET',
+    pattern: API_PATHS.subway.stationWeatherBriefV2,
+    resolver: ({ url }) => {
+      const stationId = toNumber(url.searchParams.get('stationId'), 201);
+      const stationName =
+        state.subwayLines.flatMap(line => line.stations).find(station => station.id === stationId)
+          ?.name ?? '강남';
+
+      return toSuccessResponse({
+        stationId,
+        stationName,
+        generatedAt: new Date().toISOString(),
+        dataSource: 'API',
+        isStale: false,
+        summaryText: '현재 대체로 맑음, 9°C',
+        cautionText: '일교차가 커요. 얇은 겉옷을 챙기면 좋아요.',
+        friendlyText: '오늘은 날씨가 화창합니다. 좋은 하루 되세요.',
+        temperatureC: 9.2,
+        apparentTemperatureC: 7.1,
+        precipitationMm: 0.0,
+        windSpeedMps: 2.4,
+        weatherCode: 1,
+        weatherLabel: '대체로 맑음',
+      });
+    },
+  },
+  {
+    method: 'GET',
     pattern: '/common/presigned/:s3Key',
     resolver: ({ params, url }) => {
       const fileName = url.searchParams.get('fileName');

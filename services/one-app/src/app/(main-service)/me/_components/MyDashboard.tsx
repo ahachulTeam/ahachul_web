@@ -21,6 +21,7 @@ import { getMyArticleReactionHistories } from '@/lib/article-reactions';
 import { AuthService } from '@/lib/auth-service';
 import { createDelayProofV2 } from '@/lib/delay-proof';
 import { fetchClient } from '@/lib/fetch-client';
+import { createActionLogger, resolveClientErrorMessage } from '@/lib/observability';
 import {
   mapRealtimePayloadToSectionVM,
   type ApiResponse,
@@ -47,6 +48,7 @@ const TERMS_URL = process.env.NEXT_PUBLIC_AHHACHUL_TERMS_URL ?? 'https://ahhachu
 const PRIVACY_URL = process.env.NEXT_PUBLIC_AHHACHUL_PRIVACY_URL ?? 'https://ahhachul.com/privacy';
 const MAX_FAVORITE_STATIONS = 4;
 const DEFAULT_DELAY_PROOF_MINUTES = 10;
+const dashboardLogger = createActionLogger('my-dashboard');
 
 function resolveStationTimeWeekType(currentDate = new Date()): StationTimeWeekType {
   const day = currentDate.getDay();
@@ -362,6 +364,10 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
   const summaryNoDataMessage = summaryMeta?.guidanceMessage ?? copy.realtime.summaryNoData;
 
   const handleRealtimeRefresh = () => {
+    dashboardLogger.info('manual-refresh-realtime', {
+      stationId: primaryStation?.stationId,
+      subwayLineId: primarySubwayLineId,
+    });
     void refetchRealtime();
     void refetchSummary();
   };
@@ -395,6 +401,7 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
 
   const openFavoriteEditor = () => {
     if (!subwayLines.length) {
+      dashboardLogger.warn('open-favorite-editor:no-subway-lines');
       setFavoriteFeedbackMessage(
         'error',
         '노선 정보를 아직 불러오지 못했습니다. 잠시 후 다시 시도해주세요.',
@@ -502,6 +509,9 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
 
   const addFavoriteDraft = () => {
     if (favoriteDraft.length >= MAX_FAVORITE_STATIONS) {
+      dashboardLogger.info('add-favorite-draft:max-reached', {
+        maxFavoriteStations: MAX_FAVORITE_STATIONS,
+      });
       setFavoriteFeedbackMessage(
         'info',
         `즐겨찾는 역은 최대 ${MAX_FAVORITE_STATIONS}개까지 등록할 수 있습니다.`,
@@ -512,6 +522,9 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
     const fallbackLine = subwayLines[0];
     const fallbackStation = fallbackLine?.stations[0];
     if (!fallbackLine || !fallbackStation) {
+      dashboardLogger.warn('add-favorite-draft:no-fallback-station', {
+        subwayLineCount: subwayLines.length,
+      });
       setFavoriteFeedbackMessage('error', '노선 정보를 불러오지 못해 역을 추가할 수 없습니다.');
       return;
     }
@@ -569,16 +582,27 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
       );
       setFavoriteFeedbackMessage('success', '즐겨찾는 역이 저장되었습니다.');
     } catch (error) {
-      setFavoriteFeedbackMessage(
-        'error',
-        error instanceof Error
-          ? error.message
-          : '즐겨찾는 역 저장에 실패했습니다. 잠시 후 다시 시도해주세요.',
+      const userMessage = resolveClientErrorMessage(
+        error,
+        '즐겨찾는 역 저장에 실패했습니다. 잠시 후 다시 시도해주세요.',
       );
+      dashboardLogger.fail(
+        'save-favorite-stations',
+        error,
+        {
+          stationCount: normalizedFavoritePayload.length,
+        },
+        userMessage,
+      );
+      setFavoriteFeedbackMessage('error', userMessage);
     }
   };
 
   const refreshFavoriteRoutes = () => {
+    dashboardLogger.info('manual-refresh-favorite-routes', {
+      currentFavoriteRouteCount: favoriteRoutes.length,
+      currentRecommendedRouteCount: recommendedRoutes.length,
+    });
     void refetchFavoriteRoutes();
     void refetchRouteRecommendations();
   };
@@ -613,12 +637,21 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
       });
       setFavoriteFeedbackMessage('success', '즐겨찾기 경로가 저장되었습니다.');
     } catch (error) {
-      setFavoriteFeedbackMessage(
-        'error',
-        error instanceof Error
-          ? error.message
-          : '즐겨찾기 경로 저장에 실패했습니다. 잠시 후 다시 시도해주세요.',
+      const userMessage = resolveClientErrorMessage(
+        error,
+        '즐겨찾기 경로 저장에 실패했습니다. 잠시 후 다시 시도해주세요.',
       );
+      dashboardLogger.fail(
+        'create-favorite-route',
+        error,
+        {
+          sourceStationId,
+          destinationStationId,
+          hasRouteTitle: normalizeInputText(routeTitleDraft).length > 0,
+        },
+        userMessage,
+      );
+      setFavoriteFeedbackMessage('error', userMessage);
     }
   };
 
@@ -631,12 +664,19 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
       await favoriteRouteDeleteMutation.mutateAsync(routeId);
       setFavoriteFeedbackMessage('success', '즐겨찾기 경로를 삭제했습니다.');
     } catch (error) {
-      setFavoriteFeedbackMessage(
-        'error',
-        error instanceof Error
-          ? error.message
-          : '즐겨찾기 경로 삭제에 실패했습니다. 잠시 후 다시 시도해주세요.',
+      const userMessage = resolveClientErrorMessage(
+        error,
+        '즐겨찾기 경로 삭제에 실패했습니다. 잠시 후 다시 시도해주세요.',
       );
+      dashboardLogger.fail(
+        'delete-favorite-route',
+        error,
+        {
+          routeId,
+        },
+        userMessage,
+      );
+      setFavoriteFeedbackMessage('error', userMessage);
     }
   };
 
@@ -662,9 +702,17 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
       await nicknameMutation.mutateAsync(nextNickname);
       window.alert('닉네임이 변경되었습니다.');
     } catch (error) {
-      window.alert(
-        error instanceof Error ? error.message : '닉네임 변경에 실패했습니다. 다시 시도해주세요.',
+      const userMessage = resolveClientErrorMessage(error, '닉네임 변경에 실패했습니다.');
+      dashboardLogger.fail(
+        'edit-nickname',
+        error,
+        {
+          currentNicknameLength: currentNickname.length,
+          nextNicknameLength: nextNickname.length,
+        },
+        userMessage,
       );
+      window.alert(userMessage);
     }
   };
 
@@ -694,7 +742,17 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
         customMessage: customDelayMessage.trim() || undefined,
       });
     } catch (error) {
-      window.alert(error instanceof Error ? error.message : copy.delayProof.createError);
+      const userMessage = resolveClientErrorMessage(error, copy.delayProof.createError);
+      dashboardLogger.fail(
+        'create-delay-proof',
+        error,
+        {
+          stationId: primaryStation.stationId,
+          subwayLineId: primarySubwayLineId,
+        },
+        userMessage,
+      );
+      window.alert(userMessage);
     }
   };
 
@@ -705,7 +763,8 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
       }
       await navigator.clipboard.writeText(value);
       window.alert(successMessage);
-    } catch {
+    } catch (error) {
+      dashboardLogger.fail('copy-to-clipboard', error, undefined, copy.delayProof.copyUnsupported);
       window.alert(copy.delayProof.copyUnsupported);
     }
   };
@@ -723,7 +782,10 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
           url: delayProofResult.shareUrl,
         });
         return;
-      } catch {
+      } catch (error) {
+        dashboardLogger.info('share-delay-proof:fallback-copy', {
+          reason: error instanceof Error ? error.message : 'unknown',
+        });
         // 사용자 취소 포함 모든 케이스에서 copy fallback으로 안전 처리한다.
       }
     }

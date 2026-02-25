@@ -3,8 +3,10 @@ import { useEffect, useRef } from 'react';
 import { useActivity } from '@stackflow/react';
 
 import { WebViewMessage } from '@/types';
+import { createActionLogger } from '@/utils/observability';
 
 const DEFAULT_EXIT_DELAY = 2000;
+const backActionLogger = createActionLogger('webview-back-action');
 
 interface UseBackActionOptions {
   mainActivities: string[];
@@ -34,7 +36,14 @@ const useBackAction = ({
 
         handleBackAction();
       } catch (error) {
-        console.error('Failed to parse message data:', error);
+        backActionLogger.fail(
+          'parse-message',
+          error,
+          {
+            rawType: typeof event.data,
+          },
+          '뒤로가기 메시지를 처리하지 못했습니다.',
+        );
       }
     };
 
