@@ -4,3 +4,4 @@ export { default as WelcomeMessage } from './welcomeMessage/WelcomeMessage.compo
 export { default as CommunityHotPosts } from './communityHotPosts/CommunityHotPosts.component';
 export { default as CommuteCoach } from './commuteCoach/CommuteCoach.component';
 export { default as ForeignerGuide } from './foreignerGuide/ForeignerGuide.component';
+export { default as DailyVote } from './dailyVote/DailyVote.component';

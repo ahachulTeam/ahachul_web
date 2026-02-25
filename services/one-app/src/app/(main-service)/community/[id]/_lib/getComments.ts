@@ -23,6 +23,7 @@ type CreateCommunityCommentRequest = {
   content: string;
   upperCommentId?: number | null;
   isPrivate?: boolean;
+  imageUrls?: string[];
 };
 
 export const getCommunityComments: QueryFunction<
@@ -53,11 +54,13 @@ export function createCommunityComment(postId: number, request: CreateCommunityC
       ? {
           upperCommentId: request.upperCommentId,
           content: request.content,
+          imageUrls: request.imageUrls,
         }
       : {
           upperCommentId: null,
           content: request.content,
           isPrivate: request.isPrivate ?? false,
+          imageUrls: request.imageUrls,
         };
 
   return fetchClient<IResponse<{ id: number; upperCommentId: number | null; content: string }>>(

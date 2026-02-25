@@ -45,7 +45,16 @@ const EditCommentPage: ActivityComponentType<
   const { mutate } = useUpdateComment();
   const queryClient = useQueryClient();
 
-  const editComment = ({ comment }: { isPrivate: boolean; comment: string }) => {
+  const editComment = ({
+    comment,
+    imageUrls,
+  }: {
+    isPrivate: boolean;
+    comment: string;
+    imageUrls: string[];
+  }) => {
+    // 댓글 수정 API는 현재 텍스트만 지원한다.
+    void imageUrls;
     mutate(
       {
         commentId,

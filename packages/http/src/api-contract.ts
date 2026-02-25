@@ -107,6 +107,12 @@ export const API_PATHS = {
     stationSocialMeetupMatchV2: (meetupId: Identifier) =>
       `/v2/foreigner/station-social/meetups/${meetupId}/match`,
   },
+  dailyVote: {
+    todayV2: '/v2/daily-votes/today',
+    votesV2: (pollId: Identifier) => `/v2/daily-votes/${pollId}/votes`,
+    commentsV2: (pollId: Identifier) => `/v2/daily-votes/${pollId}/comments`,
+    commentLikeV2: (commentId: Identifier) => `/v2/daily-votes/comments/${commentId}/likes`,
+  },
   common: {
     s3Presigned: (s3Key: string) => `/common/presigned/${s3Key}`,
   },

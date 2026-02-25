@@ -40,6 +40,10 @@ const Comment = ({
   const canRenderCommentAction = comment.status === 'CREATED' && (!comment.isPrivate || isSuper);
   const canRenderReplyButton = !asChild && (!comment.isPrivate || isSuper);
   const canRenderLikeButton = comment.status === 'CREATED' && !isPrivateCommentHidden;
+  const commentImageUrls =
+    !isPrivateCommentHidden && comment.status === 'CREATED'
+      ? (comment.imageUrls?.filter(Boolean) ?? [])
+      : [];
   const { mutate: toggleCommentLike, isPending: isToggleCommentLikePending } = useToggleCommentLike(
     comment.id,
     Boolean(comment.likedByMe),
@@ -120,6 +124,17 @@ const Comment = ({
       </S.HeaderWrapper>
       <S.ContentWrapper>
         {contentNode}
+        {commentImageUrls.length > 0 ? (
+          <S.ImagePreviewList>
+            {commentImageUrls.map(imageUrl => (
+              <li key={`${comment.id}-${imageUrl}`}>
+                <a href={imageUrl} target="_blank" rel="noreferrer">
+                  <img src={imageUrl} alt="댓글 이미지" loading="lazy" />
+                </a>
+              </li>
+            ))}
+          </S.ImagePreviewList>
+        ) : null}
         <S.DateText>{formatDisplayDate(comment.createdAt, { format: 'short' })}</S.DateText>
       </S.ContentWrapper>
       {(replyButton || likeButton) && (

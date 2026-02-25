@@ -20,13 +20,22 @@ const CommuntiyCommentInput = ({ id }: Props) => {
   const communityCommentQueryKey = communityKeys.comments(id);
   const { mutate } = usePostComment();
 
-  const submitComment = ({ isPrivate, comment }: { isPrivate: boolean; comment: string }) => {
+  const submitComment = ({
+    isPrivate,
+    comment,
+    imageUrls,
+  }: {
+    isPrivate: boolean;
+    comment: string;
+    imageUrls: string[];
+  }) => {
     mutate(
       {
         postId: id,
         content: comment,
         upperCommentId: null,
         isPrivate: isPrivate,
+        imageUrls,
         servicePath: API_SERVICE_PATHS.community,
       },
       {

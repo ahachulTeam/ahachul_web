@@ -100,6 +100,11 @@ export const PATH = {
     timeline: '/subway/timeline',
   },
 
+  /** 일일 투표 */
+  dailyVote: {
+    detail: '/daily-votes/:pollId',
+  },
+
   /** 외국인 모드 */
   foreigner: {
     hotspots: '/foreigner/hotspots',

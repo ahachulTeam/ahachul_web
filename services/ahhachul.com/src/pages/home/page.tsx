@@ -19,6 +19,7 @@ const HomePage: ActivityComponentType = () => {
         <HomeComponent.WelcomeMessage />
         <HomeComponent.Stations />
         <HomeComponent.CommuteCoach />
+        <HomeComponent.DailyVote />
         <HomeComponent.ForeignerGuide />
         <HomeComponent.CommunityHotPosts />
         <HomeComponent.SubwayNews />

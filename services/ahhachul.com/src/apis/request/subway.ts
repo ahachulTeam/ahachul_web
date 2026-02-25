@@ -10,6 +10,9 @@ import {
   DelayCenterOverviewQuery,
   DelayProofCreateRequest,
   DelayProofPayload,
+  DailyVoteCommentsResponse,
+  DailyVotePollCard,
+  DailyVoteTodayResponse,
   LastTrainRiskLevel,
   NearbyPlaceConfidenceLevel,
   QuickExitConfidenceLevel,
@@ -126,6 +129,10 @@ interface APISubwayRouteSearchV2Params {
   alternatives?: number;
   walkingPreference?: RouteWalkingPreference;
   stationTimeWeekType?: StationTimeWeekType;
+}
+
+interface APIDailyVoteTodayParams {
+  timezone?: string;
 }
 
 interface APIStationTimesFullV2Params extends WithSubwayLineId, WithSubwayStationId {}
@@ -515,4 +522,51 @@ export const openForeignerStationSocialMatchV2 = async (
     API_PATHS.foreigner.stationSocialMeetupMatchV2(meetupId),
     payload,
   );
+};
+
+export const fetchDailyVoteTodayV2 = async (params: APIDailyVoteTodayParams = {}) => {
+  return axiosInstance.get<ApiResponse<DailyVoteTodayResponse>>(API_PATHS.dailyVote.todayV2, {
+    params,
+  });
+};
+
+export const voteDailyPollV2 = async (pollId: number, optionCode: string) => {
+  return axiosInstance.post<ApiResponse<{ poll: DailyVotePollCard }>>(
+    API_PATHS.dailyVote.votesV2(pollId),
+    {
+      optionCode,
+    },
+  );
+};
+
+export const fetchDailyVoteCommentsV2 = async (
+  pollId: number,
+  sort: 'latest' | 'popular' = 'latest',
+) => {
+  return axiosInstance.get<ApiResponse<DailyVoteCommentsResponse>>(
+    API_PATHS.dailyVote.commentsV2(pollId),
+    {
+      params: {
+        sort,
+      },
+    },
+  );
+};
+
+export const createDailyVoteCommentV2 = async (
+  pollId: number,
+  payload: { content: string; imageUrls?: string[] },
+) => {
+  return axiosInstance.post<ApiResponse<{ commentId: number }>>(
+    API_PATHS.dailyVote.commentsV2(pollId),
+    payload,
+  );
+};
+
+export const likeDailyVoteCommentV2 = async (commentId: number) => {
+  return axiosInstance.post<ApiResponse<null>>(API_PATHS.dailyVote.commentLikeV2(commentId));
+};
+
+export const unlikeDailyVoteCommentV2 = async (commentId: number) => {
+  return axiosInstance.delete<ApiResponse<null>>(API_PATHS.dailyVote.commentLikeV2(commentId));
 };

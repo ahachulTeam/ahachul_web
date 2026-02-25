@@ -43,6 +43,33 @@ export const DeletedComment = styled.div`
   `}
 `;
 
+export const ImagePreviewList = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 2px;
+
+  li {
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid ${({ theme }) => theme.colors.gray[20]};
+    background: ${({ theme }) => theme.colors.white};
+  }
+
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: 82px;
+    object-fit: cover;
+  }
+`;
+
 export const DateText = styled.span`
   ${({ theme }) => css`
     ${theme.fonts.bodySmall};

@@ -11,8 +11,9 @@ export const postComment = async (data: {
   content: string;
   upperCommentId: number | null;
   isPrivate?: boolean;
+  imageUrls?: string[];
 }) => {
-  const { servicePath, postId, content, upperCommentId, isPrivate } = data;
+  const { servicePath, postId, content, upperCommentId, isPrivate, imageUrls } = data;
 
   const response = await axiosInstance.post<
     ApiResponse<Pick<Comment, 'id' | 'upperCommentId' | 'content'>>
@@ -20,6 +21,7 @@ export const postComment = async (data: {
     content,
     upperCommentId,
     isPrivate,
+    imageUrls,
   });
 
   return response.data;

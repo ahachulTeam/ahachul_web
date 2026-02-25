@@ -10,8 +10,11 @@ import { formatSubwayLineInfo } from '@ahhachul/utils';
 
 import {
   createDelayProofV2,
+  createDailyVoteCommentV2,
   fetchDelayCenterOverviewV2,
   fetchDelayProofV2,
+  fetchDailyVoteCommentsV2,
+  fetchDailyVoteTodayV2,
   fetchLastTrainRiskV2,
   fetchNearbyPlacesV2,
   fetchStationWeatherBriefV2,
@@ -24,6 +27,9 @@ import {
   fetchTrainInfo,
   fetchTrainInfoV2,
   normalizeTrainInfoV2Response,
+  likeDailyVoteCommentV2,
+  unlikeDailyVoteCommentV2,
+  voteDailyPollV2,
 } from '@/apis/request/subway';
 import { TIMESTAMP } from '@/constants';
 import {
@@ -312,5 +318,57 @@ export const useFetchDelayProof = (proofId: string, options?: { enabled?: boolea
     gcTime: QUERY_GC_TIME.feed,
     retry: 1,
     select: res => res.data.result,
+  });
+};
+
+export const useFetchDailyVoteToday = (options?: { enabled?: boolean; timezone?: string }) => {
+  return useQuery({
+    queryKey: ['daily-vote', 'today', options?.timezone ?? 'Asia/Seoul'],
+    queryFn: () =>
+      fetchDailyVoteTodayV2({
+        timezone: options?.timezone ?? 'Asia/Seoul',
+      }),
+    enabled: options?.enabled ?? true,
+    staleTime: 10 * TIMESTAMP.SECOND,
+    gcTime: QUERY_GC_TIME.feed,
+    retry: 1,
+    select: res => res.data.result,
+  });
+};
+
+export const useVoteDailyPoll = () => {
+  return useMutation({
+    mutationFn: ({ pollId, optionCode }: { pollId: number; optionCode: string }) =>
+      voteDailyPollV2(pollId, optionCode),
+  });
+};
+
+export const useFetchDailyVoteComments = (
+  pollId: number,
+  sort: 'latest' | 'popular',
+  options?: { enabled?: boolean },
+) => {
+  return useQuery({
+    queryKey: ['daily-vote', 'comments', pollId, sort],
+    queryFn: () => fetchDailyVoteCommentsV2(pollId, sort),
+    enabled: (options?.enabled ?? true) && pollId > 0,
+    staleTime: 5 * TIMESTAMP.SECOND,
+    gcTime: QUERY_GC_TIME.feed,
+    retry: 1,
+    select: res => res.data.result,
+  });
+};
+
+export const useCreateDailyVoteComment = (pollId: number) => {
+  return useMutation({
+    mutationFn: (payload: { content: string; imageUrls?: string[] }) =>
+      createDailyVoteCommentV2(pollId, payload),
+  });
+};
+
+export const useToggleDailyVoteCommentLike = () => {
+  return useMutation({
+    mutationFn: ({ commentId, likedByMe }: { commentId: number; likedByMe: boolean }) =>
+      likedByMe ? unlikeDailyVoteCommentV2(commentId) : likeDailyVoteCommentV2(commentId),
   });
 };

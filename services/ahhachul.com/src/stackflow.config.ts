@@ -72,6 +72,7 @@ export const stackflowPlugin = [
 
       SubwayMapPage: PATH.subway.map,
       SubwayTimelinePage: PATH.subway.timeline,
+      DailyVotePage: PATH.dailyVote.detail,
       DelayProofPage: PATH.proof.detail,
       ForeignerHotspotsPage: PATH.foreigner.hotspots,
       ForeignerHotspotDetailPage: PATH.foreigner.hotspotDetail,

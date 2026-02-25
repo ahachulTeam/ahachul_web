@@ -64,6 +64,7 @@ export const CommentCard = ({
   const shouldRenderLike = !isDeleted && !isPrivateHidden;
   const likeLabel = comment.likedByMe ? mergedCopy.liked : mergedCopy.like;
   const likeCount = comment.likeCnt ?? 0;
+  const commentImageUrls = canRenderContent ? (comment.imageUrls?.filter(Boolean) ?? []) : [];
 
   let contentNode = <div className="text-body-large-semi text-gray-90">{mergedCopy.deleted}</div>;
 
@@ -117,6 +118,25 @@ export const CommentCard = ({
       </div>
       <div className="flex flex-col gap-3 pb-5">
         {contentNode}
+        {commentImageUrls.length > 0 ? (
+          <ul className="grid grid-cols-3 gap-2">
+            {commentImageUrls.map(imageUrl => (
+              <li
+                key={`${comment.id}-${imageUrl}`}
+                className="overflow-hidden rounded-lg border border-gray-20"
+              >
+                <a href={imageUrl} target="_blank" rel="noreferrer">
+                  <img
+                    src={imageUrl}
+                    alt="댓글 첨부 이미지"
+                    className="h-24 w-full object-cover"
+                    loading="lazy"
+                  />
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : null}
         <span className="text-body-small text-gray-70">
           {formatDisplayDate(comment.createdAt, { format: 'short' })}
         </span>

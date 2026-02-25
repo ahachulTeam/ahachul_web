@@ -71,6 +71,7 @@ export type Comment = {
   title: string;
   writer: string;
   content: string;
+  imageUrls?: string[];
   createdAt: string;
   createdBy: string;
   status: CommentStatus;

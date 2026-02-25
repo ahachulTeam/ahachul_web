@@ -12,5 +12,6 @@ export * from './delay-proof';
 export * from './delay-center';
 export * from './message';
 export * from './foreigner-mode';
+export * from './daily-vote';
 
 export * from './lost-found';

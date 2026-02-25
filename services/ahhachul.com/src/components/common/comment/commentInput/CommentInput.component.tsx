@@ -28,7 +28,15 @@ interface CommentInputProps {
   showIsPrivateBtn?: boolean;
   actionLabel?: string;
   disablePrivateCheck?: boolean;
-  onSubmit: ({ isPrivate, comment }: { isPrivate: boolean; comment: string }) => void;
+  onSubmit: ({
+    isPrivate,
+    comment,
+    imageUrls,
+  }: {
+    isPrivate: boolean;
+    comment: string;
+    imageUrls: string[];
+  }) => void;
 }
 
 const CommentInput = React.memo(
@@ -56,6 +64,9 @@ const CommentInput = React.memo(
 
     const [comment, setComment] = useState('');
     const [isPrivate, setIsPrivate] = useState(false);
+    const [imageUrlInput, setImageUrlInput] = useState('');
+    const [imageUrls, setImageUrls] = useState<string[]>([]);
+    const [imageError, setImageError] = useState<string | null>(null);
 
     const onChangeEditorContent = (editorState: EditorState | null) => {
       if (editorState) {
@@ -84,6 +95,12 @@ const CommentInput = React.memo(
             comment={comment}
             isPrivate={disablePrivateCheck || isPrivate}
             setIsPrivate={setIsPrivate}
+            imageUrlInput={imageUrlInput}
+            imageUrls={imageUrls}
+            setImageUrlInput={setImageUrlInput}
+            setImageUrls={setImageUrls}
+            imageError={imageError}
+            setImageError={setImageError}
             showIsPrivateBtn={showIsPrivateBtn}
             actionLabel={actionLabel}
             disablePrivateCheck={disablePrivateCheck}
@@ -99,6 +116,12 @@ const SubmitComment = ({
   comment,
   isPrivate,
   setIsPrivate,
+  imageUrlInput,
+  imageUrls,
+  setImageUrlInput,
+  setImageUrls,
+  imageError,
+  setImageError,
   showIsPrivateBtn,
   actionLabel,
   disablePrivateCheck,
@@ -107,21 +130,56 @@ const SubmitComment = ({
   comment: string;
   isPrivate: boolean;
   setIsPrivate: React.Dispatch<React.SetStateAction<boolean>>;
+  imageUrlInput: string;
+  imageUrls: string[];
+  setImageUrlInput: React.Dispatch<React.SetStateAction<string>>;
+  setImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
+  imageError: string | null;
+  setImageError: React.Dispatch<React.SetStateAction<string | null>>;
   showIsPrivateBtn?: boolean;
   disablePrivateCheck?: boolean;
   actionLabel?: string;
-  onSubmit: ({ isPrivate, comment }: { isPrivate: boolean; comment: string }) => void;
+  onSubmit: ({
+    isPrivate,
+    comment,
+    imageUrls,
+  }: {
+    isPrivate: boolean;
+    comment: string;
+    imageUrls: string[];
+  }) => void;
 }) => {
   const {
     authService: { isAuthenticated },
   } = useAuth();
   const [editor] = useLexicalComposerContext();
 
+  const handleAddImageUrl = () => {
+    const normalized = imageUrlInput.trim();
+    if (!normalized) {
+      return;
+    }
+    if (!/^https?:\/\/\S+$/i.test(normalized)) {
+      setImageError('이미지 URL은 http(s)로 시작해야 합니다.');
+      return;
+    }
+    if (imageUrls.includes(normalized)) {
+      setImageUrlInput('');
+      return;
+    }
+    setImageUrls(prev => [...prev, normalized].slice(0, 8));
+    setImageUrlInput('');
+    setImageError(null);
+  };
+
   const clear = () => {
     editor.update(() => {
       const root = $getRoot();
       root.clear();
     });
+    setImageUrlInput('');
+    setImageUrls([]);
+    setImageError(null);
 
     setTimeout(() => {
       const editorElement = document.querySelector('[contenteditable="true"]');
@@ -140,6 +198,7 @@ const SubmitComment = ({
     onSubmit({
       isPrivate: showIsPrivateBtn ? isPrivate : false,
       comment,
+      imageUrls,
     });
     clear();
   };
@@ -174,6 +233,33 @@ const SubmitComment = ({
           {actionLabel}
         </button>
       </S.ButtonGroup>
+      <S.ImageUrlRow>
+        <input
+          type="url"
+          value={imageUrlInput}
+          onChange={event => setImageUrlInput(event.target.value)}
+          placeholder="https:// 이미지/GIF URL"
+        />
+        <button type="button" onClick={handleAddImageUrl}>
+          이미지 추가
+        </button>
+      </S.ImageUrlRow>
+      {imageError ? <S.ImageError>{imageError}</S.ImageError> : null}
+      {imageUrls.length > 0 ? (
+        <S.ImagePreviewList>
+          {imageUrls.map(url => (
+            <li key={url}>
+              <img src={url} alt="첨부 이미지" />
+              <button
+                type="button"
+                onClick={() => setImageUrls(prev => prev.filter(item => item !== url))}
+              >
+                삭제
+              </button>
+            </li>
+          ))}
+        </S.ImagePreviewList>
+      ) : null}
     </S.SubmitBox>
   );
 };

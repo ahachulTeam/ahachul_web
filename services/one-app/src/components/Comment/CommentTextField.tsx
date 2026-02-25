@@ -18,6 +18,11 @@ interface CommentTextFieldProps {
   showPrivateToggle?: boolean;
   disabled?: boolean;
   errorMessage?: string | null;
+  imageUrls?: string[];
+  onImageUrlsChange?: (imageUrls: string[]) => void;
+  maxImageUrls?: number;
+  imageUrlPlaceholder?: string;
+  addImageLabel?: string;
 }
 
 export const CommentTextField = React.memo(
@@ -37,8 +42,40 @@ export const CommentTextField = React.memo(
     showPrivateToggle = true,
     disabled = false,
     errorMessage,
+    imageUrls = [],
+    onImageUrlsChange,
+    maxImageUrls = 8,
+    imageUrlPlaceholder = 'https:// 로 시작하는 이미지/GIF URL',
+    addImageLabel = '이미지 추가',
   }: CommentTextFieldProps) => {
-    const canSubmit = value.trim().length > 0 && !isSubmitting && !disabled;
+    const [imageUrlInput, setImageUrlInput] = React.useState('');
+    const normalizedImageUrls = imageUrls.filter(url => url.trim().length > 0);
+    const canSubmit =
+      (value.trim().length > 0 || normalizedImageUrls.length > 0) && !isSubmitting && !disabled;
+    const canAddImage =
+      imageUrlInput.trim().length > 0 && normalizedImageUrls.length < maxImageUrls && !disabled;
+
+    const handleAddImageUrl = () => {
+      const normalized = imageUrlInput.trim();
+      if (!normalized) {
+        return;
+      }
+      if (!/^https?:\/\/\S+$/i.test(normalized)) {
+        return;
+      }
+      if (normalizedImageUrls.includes(normalized)) {
+        setImageUrlInput('');
+        return;
+      }
+      const nextImageUrls = [...normalizedImageUrls, normalized].slice(0, maxImageUrls);
+      onImageUrlsChange?.(nextImageUrls);
+      setImageUrlInput('');
+    };
+
+    const handleRemoveImageUrl = (imageUrl: string) => {
+      onImageUrlsChange?.(normalizedImageUrls.filter(url => url !== imageUrl));
+    };
+
     const handleSubmit = () => {
       if (!canSubmit) {
         return;
@@ -57,6 +94,46 @@ export const CommentTextField = React.memo(
           disabled={disabled || isSubmitting}
           className="w-full resize-none rounded-[8px] border border-gray-40 p-3 text-body-medium text-gray-90 outline-none placeholder:text-gray-70 focus:border-key-color disabled:cursor-not-allowed disabled:bg-gray-10"
         />
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <input
+              type="url"
+              value={imageUrlInput}
+              onChange={event => setImageUrlInput(event.target.value)}
+              placeholder={imageUrlPlaceholder}
+              disabled={disabled || isSubmitting || normalizedImageUrls.length >= maxImageUrls}
+              className="h-9 flex-1 rounded-[8px] border border-gray-40 px-3 text-body-small text-gray-90 outline-none placeholder:text-gray-70 focus:border-key-color disabled:cursor-not-allowed disabled:bg-gray-10"
+            />
+            <button
+              type="button"
+              className="h-9 rounded-[8px] border border-gray-40 bg-white px-3 text-label-small text-gray-90 disabled:cursor-not-allowed disabled:text-gray-60"
+              disabled={!canAddImage}
+              onClick={handleAddImageUrl}
+            >
+              {addImageLabel}
+            </button>
+          </div>
+          {normalizedImageUrls.length > 0 ? (
+            <ul className="grid grid-cols-4 gap-2">
+              {normalizedImageUrls.map(imageUrl => (
+                <li
+                  key={imageUrl}
+                  className="relative overflow-hidden rounded-lg border border-gray-20 bg-white"
+                >
+                  <img src={imageUrl} alt="첨부 이미지" className="h-16 w-full object-cover" />
+                  <button
+                    type="button"
+                    className="absolute right-1 top-1 rounded bg-black/60 px-1 text-[10px] text-white"
+                    onClick={() => handleRemoveImageUrl(imageUrl)}
+                    disabled={disabled || isSubmitting}
+                  >
+                    삭제
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
         {errorMessage ? <p className="text-body-small text-red">{errorMessage}</p> : null}
         <div className="flex items-center justify-between">
           {showPrivateToggle ? (

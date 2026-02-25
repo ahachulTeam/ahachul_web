@@ -65,6 +65,7 @@ export default function CommunityPostDetail({ id }: Props) {
   const [commentSort, setCommentSort] = useState<CommentSortOption>('latest');
   const [targetComment, setTargetComment] = useState<Comment | null>(null);
   const [draftContent, setDraftContent] = useState('');
+  const [draftImageUrls, setDraftImageUrls] = useState<string[]>([]);
   const [isPrivate, setIsPrivate] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [showTranslation, setShowTranslation] = useState(false);
@@ -117,6 +118,7 @@ export default function CommunityPostDetail({ id }: Props) {
     setComposerMode('create');
     setTargetComment(null);
     setDraftContent('');
+    setDraftImageUrls([]);
     setIsPrivate(false);
     setSubmitError(null);
   };
@@ -126,6 +128,7 @@ export default function CommunityPostDetail({ id }: Props) {
       content: string;
       upperCommentId?: number | null;
       isPrivate?: boolean;
+      imageUrls?: string[];
     }) => createCommunityComment(id, request),
     onSuccess: async () => {
       resetComposer();
@@ -205,6 +208,7 @@ export default function CommunityPostDetail({ id }: Props) {
     setComposerMode('reply');
     setTargetComment(comment);
     setDraftContent('');
+    setDraftImageUrls([]);
     setIsPrivate(false);
     setSubmitError(null);
   };
@@ -217,6 +221,7 @@ export default function CommunityPostDetail({ id }: Props) {
         ? extractTextFromLexical(comment.content, '')
         : comment.content,
     );
+    setDraftImageUrls([]);
     setIsPrivate(comment.isPrivate ?? false);
     setSubmitError(null);
   };
@@ -231,8 +236,9 @@ export default function CommunityPostDetail({ id }: Props) {
 
   const handleSubmitComment = () => {
     const normalizedContent = draftContent.trim();
+    const hasImages = draftImageUrls.length > 0;
 
-    if (!normalizedContent) {
+    if (!normalizedContent && !hasImages) {
       setSubmitError(copy.emptyContentError);
       return;
     }
@@ -248,6 +254,7 @@ export default function CommunityPostDetail({ id }: Props) {
       createMutation.mutate({
         upperCommentId: targetComment.id,
         content: normalizedContent,
+        imageUrls: draftImageUrls,
       });
       return;
     }
@@ -256,6 +263,7 @@ export default function CommunityPostDetail({ id }: Props) {
       upperCommentId: null,
       content: normalizedContent,
       isPrivate,
+      imageUrls: draftImageUrls,
     });
   };
 
@@ -494,6 +502,9 @@ export default function CommunityPostDetail({ id }: Props) {
         placeholder={commentFieldPlaceholder}
         value={draftContent}
         onChange={setDraftContent}
+        imageUrls={draftImageUrls}
+        onImageUrlsChange={setDraftImageUrls}
+        maxImageUrls={composerMode === 'edit' ? 0 : 8}
         onSubmit={handleSubmitComment}
         onCancel={resetComposer}
         submitLabel={submitLabel}

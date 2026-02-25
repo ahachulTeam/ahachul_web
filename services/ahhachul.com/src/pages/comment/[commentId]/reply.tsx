@@ -48,12 +48,20 @@ const NewCommentReplyPage: ActivityComponentType<
   const { mutate } = usePostComment();
   const queryClient = useQueryClient();
 
-  const submitComment = ({ comment }: { isPrivate: boolean; comment: string }) => {
+  const submitComment = ({
+    comment,
+    imageUrls,
+  }: {
+    isPrivate: boolean;
+    comment: string;
+    imageUrls: string[];
+  }) => {
     mutate(
       {
         postId: id,
         content: comment,
         upperCommentId: targetComment?.id || null,
+        imageUrls,
         servicePath,
       },
       {
