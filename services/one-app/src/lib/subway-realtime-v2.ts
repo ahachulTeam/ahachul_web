@@ -19,6 +19,7 @@ const TRAIN_REALTIME_V2_ENDPOINT = `${API_ORIGIN_URL}${API_PATHS.subway.trainRea
 const STATION_TIME_SUMMARY_V2_ENDPOINT = `${API_ORIGIN_URL}${API_PATHS.subway.stationTimeSummaryV2}`;
 const STATION_TIMES_FULL_V2_ENDPOINT = `${API_ORIGIN_URL}${API_PATHS.subway.stationTimesFullV2}`;
 const SUBWAY_ROUTE_SEARCH_V2_ENDPOINT = `${API_ORIGIN_URL}${API_PATHS.subway.routeSearchV2}`;
+const NO_ARRIVAL_TRAIN_CODE = '701';
 
 function mapV1ToV2Response(v1: TrainRealtimeV1Response): TrainRealtimeV2Response {
   const generatedAt = new Date().toISOString();
@@ -47,6 +48,43 @@ function mapV1ToV2Response(v1: TrainRealtimeV1Response): TrainRealtimeV2Response
       }),
     },
   };
+}
+
+function mapNoArrivalToEmptyResponse(): TrainRealtimeV2Response {
+  const generatedAt = new Date().toISOString();
+
+  return {
+    code: '100',
+    message: 'SUCCESS',
+    result: {
+      generatedAt,
+      dataSource: 'API',
+      isStale: false,
+      lastExternalRecptnAt: generatedAt,
+      freshnessSec: 0,
+      confidenceLevel: 'LOW',
+      trainRealTimes: [],
+    },
+  };
+}
+
+function hasNoArrivalTrainCode(error: unknown) {
+  const code = (error as { data?: { code?: string } })?.data?.code;
+  return code === NO_ARRIVAL_TRAIN_CODE;
+}
+
+async function fetchTrainRealtimeV1AsV2(
+  params: TrainRealtimeV2Query,
+): Promise<TrainRealtimeV2Response> {
+  try {
+    const v1 = await fetchTrainRealtimeV1(params);
+    return mapV1ToV2Response(v1);
+  } catch (error) {
+    if (hasNoArrivalTrainCode(error)) {
+      return mapNoArrivalToEmptyResponse();
+    }
+    throw error;
+  }
 }
 
 export async function fetchTrainRealtimeV2(
@@ -79,15 +117,16 @@ export async function fetchTrainRealtimeWithFallback(
   options: { forceV1?: boolean } = {},
 ): Promise<TrainRealtimeV2Response> {
   if (options.forceV1 || !TRAIN_REALTIME_V2_ENABLED) {
-    const v1 = await fetchTrainRealtimeV1(params);
-    return mapV1ToV2Response(v1);
+    return fetchTrainRealtimeV1AsV2(params);
   }
 
   try {
     return await fetchTrainRealtimeV2(params);
-  } catch {
-    const v1 = await fetchTrainRealtimeV1(params);
-    return mapV1ToV2Response(v1);
+  } catch (error) {
+    if (hasNoArrivalTrainCode(error)) {
+      return mapNoArrivalToEmptyResponse();
+    }
+    return fetchTrainRealtimeV1AsV2(params);
   }
 }
 

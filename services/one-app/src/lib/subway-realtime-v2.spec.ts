@@ -95,6 +95,28 @@ describe('subway-realtime-v2', () => {
     expect(mockedFetchClient.mock.calls[1]?.[0]).toEqual(API_PATHS.subway.trainRealTimes);
   });
 
+  it('V2가 701(no-data)을 반환하면 빈 실시간 응답으로 처리한다', async () => {
+    mockedFetchClient.mockRejectedValueOnce({
+      status: 404,
+      data: {
+        code: '701',
+        message: '열차 도착 정보가 없습니다.',
+        result: null,
+      },
+    });
+
+    const result = await fetchTrainRealtimeWithFallback({
+      stationId: 54,
+      subwayLineId: 20,
+      upDownType: 'UP',
+      limit: 2,
+    });
+
+    expect(result.code).toBe('100');
+    expect(result.result.trainRealTimes).toEqual([]);
+    expect(result.result.confidenceLevel).toBe('LOW');
+  });
+
   it('역 첫차/막차 요약 API는 절대 경로로 요청한다', async () => {
     mockedFetchClient.mockResolvedValue({
       code: '100',
