@@ -78,6 +78,10 @@
       "firstLastTitle": "今日首末班车",
       "summaryLoading": "正在加载首末班车信息。",
       "summaryError": "首末班车信息加载失败。",
+      "summaryNoData": "未获取到时刻表数据，无法显示首末班车。",
+      "summaryStatusAvailable": "正常提供",
+      "summaryStatusPartial": "部分提供",
+      "summaryStatusEmpty": "未提供",
       "upLabel": "上行",
       "downLabel": "下行"
     },

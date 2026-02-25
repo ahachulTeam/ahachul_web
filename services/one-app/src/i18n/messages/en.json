@@ -78,6 +78,10 @@
       "firstLastTitle": "First/Last train today",
       "summaryLoading": "Loading first/last train summary.",
       "summaryError": "Failed to load first/last train summary.",
+      "summaryNoData": "No timetable data is available for first/last train.",
+      "summaryStatusAvailable": "Available",
+      "summaryStatusPartial": "Partial",
+      "summaryStatusEmpty": "Unavailable",
       "upLabel": "UP",
       "downLabel": "DOWN"
     },

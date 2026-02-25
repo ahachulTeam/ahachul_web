@@ -78,6 +78,10 @@
       "firstLastTitle": "오늘 첫차/막차",
       "summaryLoading": "첫차/막차 정보를 불러오는 중입니다.",
       "summaryError": "첫차/막차 정보를 불러오지 못했습니다.",
+      "summaryNoData": "시간표 데이터를 받지 못해 첫차/막차를 표시할 수 없습니다.",
+      "summaryStatusAvailable": "정상 제공",
+      "summaryStatusPartial": "부분 제공",
+      "summaryStatusEmpty": "미제공",
       "upLabel": "상행",
       "downLabel": "하행"
     },

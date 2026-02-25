@@ -19,6 +19,7 @@ import {
   LastTrainRiskLevel,
   NearbyPlaceConfidenceLevel,
   QuickExitConfidenceLevel,
+  StationSummaryAvailabilityStatus,
   StationTimeWeekType,
   SubwayLineType,
   UpDownType,
@@ -110,6 +111,31 @@ function resolveRiskColor(riskLevel?: LastTrainRiskLevel): string {
     return 'rgba(16, 185, 129, 0.72)';
   }
   if (riskLevel === LastTrainRiskLevel.WARN) {
+    return 'rgba(245, 158, 11, 0.72)';
+  }
+  return 'rgba(239, 68, 68, 0.72)';
+}
+
+function resolveSummaryStatusLabel(
+  availabilityStatus?: StationSummaryAvailabilityStatus,
+): string | null {
+  if (availabilityStatus === StationSummaryAvailabilityStatus.AVAILABLE) {
+    return '정상 제공';
+  }
+  if (availabilityStatus === StationSummaryAvailabilityStatus.PARTIAL) {
+    return '부분 제공';
+  }
+  if (availabilityStatus === StationSummaryAvailabilityStatus.EMPTY) {
+    return '미제공';
+  }
+  return null;
+}
+
+function resolveSummaryStatusColor(availabilityStatus?: StationSummaryAvailabilityStatus): string {
+  if (availabilityStatus === StationSummaryAvailabilityStatus.AVAILABLE) {
+    return 'rgba(16, 185, 129, 0.72)';
+  }
+  if (availabilityStatus === StationSummaryAvailabilityStatus.PARTIAL) {
     return 'rgba(245, 158, 11, 0.72)';
   }
   return 'rgba(239, 68, 68, 0.72)';
@@ -220,6 +246,14 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
   const currentTrain = filterdStationsData?.trainRealTimes?.[0];
 
   const stationTimeSummaries = stationTimeSummary?.summaries ?? defaultStationTimeSummaries;
+  const stationSummaryMeta = stationTimeSummary?.meta;
+  const isStationTimeSummaryEmpty = stationTimeSummaries.every(
+    summary => !summary.firstDepartureTime && !summary.lastDepartureTime,
+  );
+  const summaryStatusLabel = resolveSummaryStatusLabel(stationSummaryMeta?.availabilityStatus);
+  const summaryNoDataMessage =
+    stationSummaryMeta?.guidanceMessage ??
+    '시간표 데이터를 받지 못해 첫차/막차를 표시할 수 없습니다.';
   const confidenceLabel = resolveConfidenceLabel(data?.confidenceLevel);
   const showConfidenceBadge = Boolean(confidenceLabel) && !isFetching && !isError;
   const freshnessText = resolveFreshnessText(data?.isStale, data?.freshnessSec);
@@ -232,6 +266,38 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
   } else if ((filterdStationsData?.trainRealTimes || []).length > 0) {
     trainArrivalsContent = (
       <TrainArrivals trainRealTimes={filterdStationsData?.trainRealTimes || []} />
+    );
+  }
+
+  let stationSummaryContent: ReactNode = stationTimeSummaries.map(summary => (
+    <div
+      key={summary.upDownType}
+      css={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        fontSize: '12px',
+        color: 'white',
+        marginBottom: '4px',
+      }}
+    >
+      <span>{getUpDownLabel(summary.upDownType)}</span>
+      <span>
+        {formatStationTime(summary.firstDepartureTime)} /{' '}
+        {formatStationTime(summary.lastDepartureTime)}
+      </span>
+    </div>
+  ));
+
+  if (isStationTimeSummaryFetching) {
+    stationSummaryContent = (
+      <div css={{ color: 'white', fontSize: '12px' }}>오늘 첫차/막차 불러오는 중...</div>
+    );
+  } else if (isStationTimeSummaryEmpty) {
+    stationSummaryContent = (
+      <div css={{ color: 'var(--ah-color-legacy-text-faint)', fontSize: '12px' }}>
+        {summaryNoDataMessage}
+      </div>
     );
   }
 
@@ -467,39 +533,38 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
             paddingBottom: '4px',
           }}
         >
-          <div
-            css={{
-              color: 'var(--ah-color-legacy-text-faint)',
-              fontSize: '12px',
-              fontWeight: 600,
-              marginBottom: '6px',
-            }}
-          >
-            오늘 첫차/막차
-          </div>
-          {isStationTimeSummaryFetching ? (
-            <div css={{ color: 'white', fontSize: '12px' }}>오늘 첫차/막차 불러오는 중...</div>
-          ) : (
-            stationTimeSummaries.map(summary => (
-              <div
-                key={summary.upDownType}
+          <div css={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div
+              css={{
+                color: 'var(--ah-color-legacy-text-faint)',
+                fontSize: '12px',
+                fontWeight: 600,
+                marginBottom: '6px',
+              }}
+            >
+              오늘 첫차/막차
+            </div>
+            {summaryStatusLabel && !isStationTimeSummaryFetching && (
+              <span
                 css={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
+                  display: 'inline-flex',
                   alignItems: 'center',
-                  fontSize: '12px',
+                  height: '20px',
+                  padding: '0 8px',
+                  borderRadius: '999px',
+                  fontSize: '11px',
+                  fontWeight: 700,
                   color: 'white',
-                  marginBottom: '4px',
+                  backgroundColor: resolveSummaryStatusColor(
+                    stationSummaryMeta?.availabilityStatus,
+                  ),
                 }}
               >
-                <span>{getUpDownLabel(summary.upDownType)}</span>
-                <span>
-                  {formatStationTime(summary.firstDepartureTime)} /{' '}
-                  {formatStationTime(summary.lastDepartureTime)}
-                </span>
-              </div>
-            ))
-          )}
+                {summaryStatusLabel}
+              </span>
+            )}
+          </div>
+          {stationSummaryContent}
         </div>
 
         <div

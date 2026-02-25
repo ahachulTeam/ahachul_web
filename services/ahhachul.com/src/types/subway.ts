@@ -138,9 +138,37 @@ export interface StationTimeSummary {
   lastDestinationStationName: string | null;
 }
 
+export enum StationSummaryAvailabilityStatus {
+  AVAILABLE = 'AVAILABLE',
+  PARTIAL = 'PARTIAL',
+  EMPTY = 'EMPTY',
+}
+
+export enum StationSummaryDataSource {
+  CACHE = 'CACHE',
+  API = 'API',
+  FALLBACK_EMPTY = 'FALLBACK_EMPTY',
+}
+
+export interface StationTimeSummarySourceDetail {
+  upDownType: UpDownType;
+  dataSource: StationSummaryDataSource;
+  stationTimesCount: number;
+  fallbackReasonCode: string | null;
+}
+
+export interface StationTimeSummaryMeta {
+  generatedAt: string;
+  availabilityStatus: StationSummaryAvailabilityStatus;
+  coveragePercent: number;
+  guidanceMessage: string;
+  sourceDetails: StationTimeSummarySourceDetail[];
+}
+
 export interface StationTimeSummaryResponse {
   stationTimeWeekType: StationTimeWeekType;
   summaries: StationTimeSummary[];
+  meta?: StationTimeSummaryMeta;
 }
 
 export enum LastTrainRiskLevel {

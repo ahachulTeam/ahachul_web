@@ -6,6 +6,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 
 import { QUERY_STALE_TIME, myQueryKeys } from '@ahhachul/domain';
+import { API_PATHS } from '@ahhachul/http';
 import {
   formatDisplayDate,
   maskEmail,
@@ -19,9 +20,12 @@ import { localizePathname, type LocaleMessages, type SupportedLocale } from '@/i
 import { getMyArticleReactionHistories } from '@/lib/article-reactions';
 import { AuthService } from '@/lib/auth-service';
 import { createDelayProofV2 } from '@/lib/delay-proof';
+import { fetchClient } from '@/lib/fetch-client';
 import {
   mapRealtimePayloadToSectionVM,
+  type ApiResponse,
   type DelayProofPayload,
+  type StationSummaryAvailabilityStatus,
   type StationTimeWeekType,
 } from '@/types';
 
@@ -77,9 +81,83 @@ function buildExpectedArrivalDraft(etaSec: number | undefined): string {
 }
 
 type EditableFavoriteStation = {
+  subwayLineId: number;
+  stationId: number;
   stationName: string;
   label: string;
 };
+
+type SubwayLineCatalogStation = {
+  id: number;
+  name: string;
+};
+
+type SubwayLineCatalogLine = {
+  id: number;
+  name: string;
+  stations: SubwayLineCatalogStation[];
+};
+
+type SubwayLineCatalogResponse = {
+  subwayLines: SubwayLineCatalogLine[];
+};
+
+type FavoriteFeedbackType = 'success' | 'error' | 'info';
+
+type FavoriteFeedback = {
+  type: FavoriteFeedbackType;
+  message: string;
+};
+
+function getFavoriteFeedbackClassName(type: FavoriteFeedbackType) {
+  if (type === 'error') {
+    return 'text-danger';
+  }
+
+  if (type === 'success') {
+    return 'text-key-color';
+  }
+
+  return 'text-gray-80';
+}
+
+function resolveSummaryStatusLabel(
+  copy: LocaleMessages['me'],
+  availabilityStatus?: StationSummaryAvailabilityStatus,
+): string | null {
+  if (availabilityStatus === 'AVAILABLE') {
+    return copy.realtime.summaryStatusAvailable;
+  }
+  if (availabilityStatus === 'PARTIAL') {
+    return copy.realtime.summaryStatusPartial;
+  }
+  if (availabilityStatus === 'EMPTY') {
+    return copy.realtime.summaryStatusEmpty;
+  }
+  return null;
+}
+
+function resolveSummaryStatusStyle(availabilityStatus?: StationSummaryAvailabilityStatus) {
+  if (availabilityStatus === 'AVAILABLE') {
+    return {
+      color: '#047857',
+      backgroundColor: '#ECFDF3',
+      borderColor: '#A7F3D0',
+    };
+  }
+  if (availabilityStatus === 'PARTIAL') {
+    return {
+      color: '#B45309',
+      backgroundColor: '#FFFBEB',
+      borderColor: '#FCD34D',
+    };
+  }
+  return {
+    color: '#B91C1C',
+    backgroundColor: '#FEF2F2',
+    borderColor: '#FCA5A5',
+  };
+}
 
 type MyDashboardProps = {
   locale: SupportedLocale;
@@ -90,6 +168,7 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
   const queryClient = useQueryClient();
   const [isEditingFavorites, setIsEditingFavorites] = useState(false);
   const [favoriteDraft, setFavoriteDraft] = useState<EditableFavoriteStation[]>([]);
+  const [favoriteFeedback, setFavoriteFeedback] = useState<FavoriteFeedback | null>(null);
   const [isDelayProofFormOpen, setIsDelayProofFormOpen] = useState(false);
   const [expectedArrivalAtDraft, setExpectedArrivalAtDraft] = useState('');
   const [customDelayMessage, setCustomDelayMessage] = useState('');
@@ -112,6 +191,13 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
     queryKey: myQueryKeys.favoriteStations(),
     queryFn: getMyFavoriteStations,
     staleTime: QUERY_STALE_TIME.user,
+  });
+
+  const subwayLineCatalogQuery = useQuery({
+    queryKey: ['subway-lines-for-me-favorite-editor'],
+    queryFn: () => fetchClient<ApiResponse<SubwayLineCatalogResponse>>(API_PATHS.subway.lines),
+    staleTime: QUERY_STALE_TIME.static,
+    select: response => response.result.subwayLines ?? [],
   });
 
   const {
@@ -140,6 +226,7 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
 
   const profileReady = Boolean(profile?.result) && !isProfilePending && !isProfileError;
   const favoriteStations = stations?.result.stationInfoList ?? [];
+  const subwayLines = subwayLineCatalogQuery.data ?? [];
   const recommendedRoutes = routeRecommendationResponse?.result.routes ?? [];
   const favoriteRoutes = favoriteRouteResponse?.result.routes ?? [];
   const stationNames = favoriteStations.map(station => station.stationName);
@@ -238,6 +325,14 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
     };
     return accumulator;
   }, {});
+  const isSummaryNoData = Boolean(
+    summaryResponse?.result.summaries.every(
+      summary => !summary.firstDepartureTime && !summary.lastDepartureTime,
+    ),
+  );
+  const summaryMeta = summaryResponse?.result.meta;
+  const summaryStatusLabel = resolveSummaryStatusLabel(copy, summaryMeta?.availabilityStatus);
+  const summaryNoDataMessage = summaryMeta?.guidanceMessage ?? copy.realtime.summaryNoData;
 
   const handleRealtimeRefresh = () => {
     void refetchRealtime();
@@ -263,21 +358,73 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
     },
   });
 
-  const openFavoriteEditor = () => {
-    setFavoriteDraft(
-      favoriteStations.map(station => ({
-        stationName: station.stationName,
-        label: station.label ?? '',
-      })),
-    );
-    setIsEditingFavorites(true);
+  const setFavoriteFeedbackMessage = (type: FavoriteFeedbackType, message: string) => {
+    setFavoriteFeedback({ type, message });
   };
 
-  const handleFavoriteStationChange = (
-    index: number,
-    key: keyof EditableFavoriteStation,
-    value: string,
-  ) => {
+  const getStationsByLineId = (lineId: number) => {
+    return subwayLines.find(line => line.id === lineId)?.stations ?? [];
+  };
+
+  const openFavoriteEditor = () => {
+    if (!subwayLines.length) {
+      setFavoriteFeedbackMessage(
+        'error',
+        '노선 정보를 아직 불러오지 못했습니다. 잠시 후 다시 시도해주세요.',
+      );
+      return;
+    }
+
+    if (!favoriteStations.length) {
+      const fallbackLine = subwayLines[0];
+      const fallbackStation = fallbackLine?.stations[0];
+      setFavoriteDraft(
+        fallbackLine && fallbackStation
+          ? [
+              {
+                subwayLineId: fallbackLine.id,
+                stationId: fallbackStation.id,
+                stationName: fallbackStation.name,
+                label: '',
+              },
+            ]
+          : [],
+      );
+      setIsEditingFavorites(true);
+      setFavoriteFeedback(null);
+      return;
+    }
+
+    setFavoriteDraft(
+      favoriteStations.map(station => {
+        const inferredLineId =
+          station.subwayLineInfoList?.[0]?.subwayLineId ??
+          subwayLines.find(line =>
+            line.stations.some(lineStation => lineStation.id === station.stationId),
+          )?.id ??
+          subwayLines[0]?.id ??
+          0;
+        const stationsByLine = getStationsByLineId(inferredLineId);
+        const matchedStation =
+          stationsByLine.find(lineStation => lineStation.id === station.stationId) ??
+          stationsByLine[0];
+
+        return {
+          subwayLineId: inferredLineId,
+          stationId: matchedStation?.id ?? station.stationId ?? 0,
+          stationName: matchedStation?.name ?? station.stationName,
+          label: station.label ?? '',
+        };
+      }),
+    );
+    setIsEditingFavorites(true);
+    setFavoriteFeedback(null);
+  };
+
+  const handleFavoriteLineChange = (index: number, lineId: number) => {
+    const lineStations = getStationsByLineId(lineId);
+    const nextStation = lineStations[0];
+
     setFavoriteDraft(previous =>
       previous.map((station, stationIndex) => {
         if (stationIndex !== index) {
@@ -285,7 +432,42 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
         }
         return {
           ...station,
-          [key]: value,
+          subwayLineId: lineId,
+          stationId: nextStation?.id ?? 0,
+          stationName: nextStation?.name ?? '',
+        };
+      }),
+    );
+  };
+
+  const handleFavoriteStationChange = (index: number, stationId: number) => {
+    setFavoriteDraft(previous =>
+      previous.map((station, stationIndex) => {
+        if (stationIndex !== index) {
+          return station;
+        }
+
+        const lineStations = getStationsByLineId(station.subwayLineId);
+        const nextStation = lineStations.find(lineStation => lineStation.id === stationId);
+
+        return {
+          ...station,
+          stationId,
+          stationName: nextStation?.name ?? '',
+        };
+      }),
+    );
+  };
+
+  const handleFavoriteLabelChange = (index: number, value: string) => {
+    setFavoriteDraft(previous =>
+      previous.map((station, stationIndex) => {
+        if (stationIndex !== index) {
+          return station;
+        }
+        return {
+          ...station,
+          label: value,
         };
       }),
     );
@@ -293,10 +475,29 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
 
   const addFavoriteDraft = () => {
     if (favoriteDraft.length >= MAX_FAVORITE_STATIONS) {
-      window.alert(`즐겨찾는 역은 최대 ${MAX_FAVORITE_STATIONS}개까지 등록할 수 있습니다.`);
+      setFavoriteFeedbackMessage(
+        'info',
+        `즐겨찾는 역은 최대 ${MAX_FAVORITE_STATIONS}개까지 등록할 수 있습니다.`,
+      );
       return;
     }
-    setFavoriteDraft(previous => [...previous, { stationName: '', label: '' }]);
+
+    const fallbackLine = subwayLines[0];
+    const fallbackStation = fallbackLine?.stations[0];
+    if (!fallbackLine || !fallbackStation) {
+      setFavoriteFeedbackMessage('error', '노선 정보를 불러오지 못해 역을 추가할 수 없습니다.');
+      return;
+    }
+
+    setFavoriteDraft(previous => [
+      ...previous,
+      {
+        subwayLineId: fallbackLine.id,
+        stationId: fallbackStation.id,
+        stationName: fallbackStation.name,
+        label: '',
+      },
+    ]);
   };
 
   const removeFavoriteDraft = (index: number) => {
@@ -306,10 +507,11 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
   const normalizedFavoritePayload = useMemo(() => {
     return favoriteDraft
       .map(station => ({
+        stationId: station.stationId,
         stationName: normalizeInputText(station.stationName),
         label: normalizeInputText(station.label),
       }))
-      .filter(station => station.stationName.length > 0);
+      .filter(station => station.stationId > 0 && station.stationName.length > 0);
   }, [favoriteDraft]);
 
   const favoriteRouteStationOptions = useMemo(() => {
@@ -321,15 +523,13 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
 
   const saveFavoriteStations = async () => {
     if (!normalizedFavoritePayload.length) {
-      window.alert('즐겨찾는 역을 1개 이상 입력해주세요.');
+      setFavoriteFeedbackMessage('info', '즐겨찾는 역을 1개 이상 입력해주세요.');
       return;
     }
 
-    const uniqueStationNames = new Set(
-      normalizedFavoritePayload.map(station => normalizeInputText(station.stationName)),
-    );
-    if (uniqueStationNames.size !== normalizedFavoritePayload.length) {
-      window.alert('중복된 역은 등록할 수 없습니다.');
+    const uniqueStationIds = new Set(normalizedFavoritePayload.map(station => station.stationId));
+    if (uniqueStationIds.size !== normalizedFavoritePayload.length) {
+      setFavoriteFeedbackMessage('info', '중복된 역은 등록할 수 없습니다.');
       return;
     }
 
@@ -340,9 +540,10 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
           ...(station.label ? { label: station.label } : {}),
         })),
       );
-      window.alert('즐겨찾는 역이 저장되었습니다.');
+      setFavoriteFeedbackMessage('success', '즐겨찾는 역이 저장되었습니다.');
     } catch (error) {
-      window.alert(
+      setFavoriteFeedbackMessage(
+        'error',
         error instanceof Error
           ? error.message
           : '즐겨찾는 역 저장에 실패했습니다. 잠시 후 다시 시도해주세요.',
@@ -357,7 +558,10 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
 
   const createFavoriteRoute = async () => {
     if (favoriteRouteStationOptions.length < 2) {
-      window.alert('즐겨찾는 역을 2개 이상 등록하면 경로를 설정할 수 있습니다.');
+      setFavoriteFeedbackMessage(
+        'info',
+        '즐겨찾는 역을 2개 이상 등록하면 경로를 설정할 수 있습니다.',
+      );
       return;
     }
 
@@ -370,7 +574,7 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
     const destinationStationId = routeDestinationStationId ?? defaultDestination ?? null;
 
     if (!sourceStationId || !destinationStationId || sourceStationId === destinationStationId) {
-      window.alert('출발역과 도착역을 서로 다르게 선택해주세요.');
+      setFavoriteFeedbackMessage('info', '출발역과 도착역을 서로 다르게 선택해주세요.');
       return;
     }
 
@@ -380,9 +584,10 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
         destinationStationId,
         title: normalizeInputText(routeTitleDraft) || undefined,
       });
-      window.alert('즐겨찾기 경로가 저장되었습니다.');
+      setFavoriteFeedbackMessage('success', '즐겨찾기 경로가 저장되었습니다.');
     } catch (error) {
-      window.alert(
+      setFavoriteFeedbackMessage(
+        'error',
         error instanceof Error
           ? error.message
           : '즐겨찾기 경로 저장에 실패했습니다. 잠시 후 다시 시도해주세요.',
@@ -397,9 +602,10 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
 
     try {
       await favoriteRouteDeleteMutation.mutateAsync(routeId);
-      window.alert('즐겨찾기 경로를 삭제했습니다.');
+      setFavoriteFeedbackMessage('success', '즐겨찾기 경로를 삭제했습니다.');
     } catch (error) {
-      window.alert(
+      setFavoriteFeedbackMessage(
+        'error',
         error instanceof Error
           ? error.message
           : '즐겨찾기 경로 삭제에 실패했습니다. 잠시 후 다시 시도해주세요.',
@@ -590,6 +796,8 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
     summaryContent = (
       <p className="mt-1 text-body-small text-danger">{copy.realtime.summaryError}</p>
     );
+  } else if (isSummaryNoData) {
+    summaryContent = <p className="mt-1 text-body-small text-gray-70">{summaryNoDataMessage}</p>;
   }
 
   let recommendedRoutesContent: React.ReactNode = null;
@@ -798,6 +1006,13 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
             즐겨찾는 역 수정
           </button>
         </div>
+        {favoriteFeedback ? (
+          <p
+            className={`mt-2 text-body-small ${getFavoriteFeedbackClassName(favoriteFeedback.type)}`}
+          >
+            {favoriteFeedback.message}
+          </p>
+        ) : null}
         {stationNames.length ? (
           <ul className="mt-3 flex flex-wrap gap-2">
             {favoriteStations.map(station => (
@@ -822,26 +1037,58 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
             <div className="mt-3 space-y-2">
               {favoriteDraft.map((station, index) => (
                 <div key={`favorite-draft-${index}`} className="grid grid-cols-12 gap-2">
-                  <input
-                    value={station.stationName}
-                    onChange={event =>
-                      handleFavoriteStationChange(index, 'stationName', event.target.value)
-                    }
-                    placeholder="역 이름"
-                    className="col-span-5 h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
-                  />
+                  <select
+                    value={String(station.subwayLineId)}
+                    onChange={event => {
+                      const nextLineId = Number(event.target.value);
+                      handleFavoriteLineChange(index, Number.isNaN(nextLineId) ? 0 : nextLineId);
+                    }}
+                    className="col-span-4 h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
+                  >
+                    {subwayLines.length ? (
+                      subwayLines.map(line => (
+                        <option key={`favorite-line-${line.id}`} value={line.id}>
+                          노선: {line.name}
+                        </option>
+                      ))
+                    ) : (
+                      <option value={0}>노선 없음</option>
+                    )}
+                  </select>
+                  <select
+                    value={String(station.stationId)}
+                    onChange={event => {
+                      const nextStationId = Number(event.target.value);
+                      handleFavoriteStationChange(
+                        index,
+                        Number.isNaN(nextStationId) ? 0 : nextStationId,
+                      );
+                    }}
+                    className="col-span-4 h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
+                  >
+                    {getStationsByLineId(station.subwayLineId).length ? (
+                      getStationsByLineId(station.subwayLineId).map(lineStation => (
+                        <option
+                          key={`favorite-station-${station.subwayLineId}-${lineStation.id}`}
+                          value={lineStation.id}
+                        >
+                          역: {lineStation.name}
+                        </option>
+                      ))
+                    ) : (
+                      <option value={0}>역 없음</option>
+                    )}
+                  </select>
                   <input
                     value={station.label}
-                    onChange={event =>
-                      handleFavoriteStationChange(index, 'label', event.target.value)
-                    }
+                    onChange={event => handleFavoriteLabelChange(index, event.target.value)}
                     placeholder="별칭(선택)"
-                    className="col-span-5 h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
+                    className="col-span-3 h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
                   />
                   <button
                     type="button"
                     onClick={() => removeFavoriteDraft(index)}
-                    className="col-span-2 h-9 rounded-lg border border-gray-30 text-label-small text-gray-90"
+                    className="col-span-1 h-9 rounded-lg border border-gray-30 text-label-small text-gray-90"
                   >
                     삭제
                   </button>
@@ -992,7 +1239,17 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
             <div className="mt-3 space-y-1">{realtimeContent}</div>
 
             <div className="mt-3 border-t border-gray-30 pt-2">
-              <p className="text-label-small text-gray-80">{copy.realtime.firstLastTitle}</p>
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-label-small text-gray-80">{copy.realtime.firstLastTitle}</p>
+                {summaryStatusLabel && !isSummaryPending && (
+                  <span
+                    className="inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-semibold"
+                    style={resolveSummaryStatusStyle(summaryMeta?.availabilityStatus)}
+                  >
+                    {summaryStatusLabel}
+                  </span>
+                )}
+              </div>
               {summaryContent}
             </div>
 

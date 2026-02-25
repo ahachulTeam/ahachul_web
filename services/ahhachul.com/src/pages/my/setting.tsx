@@ -33,13 +33,13 @@ const LABEL_OPTIONS = [
   { id: '학교', icon: <SchoolMiniIcon />, text: '학교' },
   { id: '즐겨찾는 장소', icon: <StarMiniIcon />, text: '즐겨찾는 장소' },
 ] as const;
-const POP_AFTER_SAVE_DELAY_MS = 500;
 
 const SettingPage: ActivityComponentType = () => {
   const { pop } = useFlow();
   const { data: DEFAULT_STATIONS } = useFetchSubwayLines();
   const { userStations } = useUserStationStore(state => state);
-  const { mutate: updateUserFavoriteStations } = useUserFavoriteStations();
+  const { mutateAsync: updateUserFavoriteStations, isPending: isSavingFavoriteStations } =
+    useUserFavoriteStations();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStation, setSelectedStation] = useState<SelectedStation | null>(null);
@@ -242,7 +242,7 @@ const SettingPage: ActivityComponentType = () => {
             </div>
           )}
           <SubmitBtn
-            onClick={() => {
+            onClick={async () => {
               if (!labeledStations.length) {
                 alert('역을 하나 이상 선택해주세요.');
                 return;
@@ -254,14 +254,20 @@ const SettingPage: ActivityComponentType = () => {
                 ...(typeof station.stationId === 'number' ? { stationId: station.stationId } : {}),
               }));
 
-              updateUserFavoriteStations(formattedStations);
-
-              setTimeout(() => {
+              try {
+                await updateUserFavoriteStations(formattedStations);
                 pop();
-              }, POP_AFTER_SAVE_DELAY_MS);
+              } catch (error) {
+                const errorMessage =
+                  error instanceof Error
+                    ? error.message
+                    : '즐겨찾는 역 저장에 실패했습니다. 잠시 후 다시 시도해주세요.';
+                alert(errorMessage);
+              }
             }}
+            disabled={isSavingFavoriteStations}
           >
-            저장하기
+            {isSavingFavoriteStations ? '저장 중...' : '저장하기'}
           </SubmitBtn>
         </ButtonArea>
       </S.Container>
@@ -457,6 +463,11 @@ const SubmitBtn = styled.button`
     height: 50px;
     background-color: ${theme.colors['key-color']};
     border-radius: 8px;
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
   `}
 `;
 

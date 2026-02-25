@@ -78,6 +78,10 @@
       "firstLastTitle": "เที่ยวแรก/เที่ยวสุดท้ายวันนี้",
       "summaryLoading": "กำลังโหลดข้อมูลเที่ยวแรก/เที่ยวสุดท้าย",
       "summaryError": "ไม่สามารถโหลดข้อมูลเที่ยวแรก/เที่ยวสุดท้าย",
+      "summaryNoData": "ไม่มีข้อมูลตารางเวลา จึงไม่สามารถแสดงเที่ยวแรก/เที่ยวสุดท้ายได้",
+      "summaryStatusAvailable": "ปกติ",
+      "summaryStatusPartial": "บางส่วน",
+      "summaryStatusEmpty": "ไม่มีข้อมูล",
       "upLabel": "ขาขึ้น",
       "downLabel": "ขาลง"
     },
