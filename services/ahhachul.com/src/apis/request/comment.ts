@@ -1,4 +1,5 @@
 import type { ApiServicePath } from '@ahhachul/http';
+import { API_PATHS } from '@ahhachul/http';
 import { sleep } from '@ahhachul/utils';
 
 import axiosInstance from '@/apis/fetcher';
@@ -52,3 +53,9 @@ export const updateComment = async (data: { content: string; commentId: number }
   );
   return response.data;
 };
+
+export const likeComment = (commentId: number) =>
+  axiosInstance.post<ApiResponse<null>>(API_PATHS.comment.likes(commentId));
+
+export const unlikeComment = (commentId: number) =>
+  axiosInstance.delete<ApiResponse<null>>(API_PATHS.comment.likes(commentId));

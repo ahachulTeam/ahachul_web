@@ -5,6 +5,7 @@ export const API_PAGE_SIZE = {
 export const API_SORT = {
   createdAtAsc: 'createdAt,asc',
   createdAtDesc: 'createdAt,desc',
+  likesDesc: 'likes,desc',
 } as const;
 
 type Identifier = number | string;
@@ -64,6 +65,9 @@ export const API_PATHS = {
     comment: (postId: Identifier, commentId: Identifier) =>
       `/${API_SERVICE_PATHS.lostFound}/${postId}/comments/${commentId}`,
     status: (id: Identifier) => `/${API_SERVICE_PATHS.lostFound}/${id}/status`,
+  },
+  comment: {
+    likes: (commentId: Identifier) => `/comments/${commentId}/likes`,
   },
   message: {
     rooms: `/${API_SERVICE_PATHS.message}`,

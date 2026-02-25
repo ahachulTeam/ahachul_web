@@ -70,7 +70,7 @@ export default async function ComplaintDetailPage(props: Props) {
     queryFn: getComplaintDetailPostServer,
   });
   await queryClient.prefetchQuery({
-    queryKey: complaintQueryKeys.comments(id),
+    queryKey: [...complaintQueryKeys.comments(id), 'latest'] as const,
     queryFn: getComplaintComments,
   });
   const dehydratedState = dehydrate(queryClient);

@@ -7,6 +7,7 @@ import { formatDisplayDate } from '@ahhachul/utils';
 
 import { UiComponent } from '@/components';
 import { useUser } from '@/hooks/domain';
+import { useToggleCommentLike } from '@/services/comment';
 import { useFlow } from '@/stackflow';
 import type { Comment } from '@/types';
 
@@ -38,6 +39,12 @@ const Comment = ({
   const isPrivateCommentHidden = comment.isPrivate && !isAuthor && !isArticleAuthor;
   const canRenderCommentAction = comment.status === 'CREATED' && (!comment.isPrivate || isSuper);
   const canRenderReplyButton = !asChild && (!comment.isPrivate || isSuper);
+  const canRenderLikeButton = comment.status === 'CREATED' && !isPrivateCommentHidden;
+  const { mutate: toggleCommentLike, isPending: isToggleCommentLikePending } = useToggleCommentLike(
+    comment.id,
+    Boolean(comment.likedByMe),
+    queryKey,
+  );
 
   let contentNode = <S.DeletedComment>삭제된 댓글입니다.</S.DeletedComment>;
   if (isPrivateCommentHidden) {
@@ -80,6 +87,24 @@ const Comment = ({
     }
   }
 
+  let likeButton: ReactNode = null;
+  if (canRenderLikeButton) {
+    likeButton = (
+      <S.LikeButton
+        type="button"
+        onClick={() => {
+          if (!user) {
+            return;
+          }
+          toggleCommentLike();
+        }}
+        disabled={!user || isToggleCommentLikePending}
+      >
+        {comment.likedByMe ? '좋아요 취소' : '좋아요'} · {comment.likeCnt ?? 0}
+      </S.LikeButton>
+    );
+  }
+
   return (
     <S.CommentWrapper asChild={asChild} data-comment-id={comment.id}>
       <S.HeaderWrapper>
@@ -97,7 +122,12 @@ const Comment = ({
         {contentNode}
         <S.DateText>{formatDisplayDate(comment.createdAt, { format: 'short' })}</S.DateText>
       </S.ContentWrapper>
-      {replyButton}
+      {(replyButton || likeButton) && (
+        <S.ActionRow>
+          {replyButton}
+          {likeButton}
+        </S.ActionRow>
+      )}
     </S.CommentWrapper>
   );
 };

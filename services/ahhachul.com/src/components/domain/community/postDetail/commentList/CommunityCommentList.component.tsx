@@ -1,7 +1,10 @@
+import { useState } from 'react';
+
 // import { BookmarkIcon } from '@/assets/icons/system';
 import { API_SERVICE_PATHS } from '@ahhachul/http';
 
 import { UiComponent } from '@/components';
+import { type CommentSortOption } from '@/services/comment';
 import { communityKeys, useFetchCommunityCommentList } from '@/services/community';
 
 import * as S from './CommunityCommentList.styled';
@@ -13,6 +16,8 @@ interface CommunityCommentListProps {
 }
 
 const CommunityCommentList = ({ commentCnt, id, isArticleAuthor }: CommunityCommentListProps) => {
+  const [sort, setSort] = useState<CommentSortOption>('latest');
+
   return (
     <S.Section>
       <S.HeaderWrapper>
@@ -20,6 +25,14 @@ const CommunityCommentList = ({ commentCnt, id, isArticleAuthor }: CommunityComm
           <span>댓글</span>
           <span>{commentCnt ?? 0}</span>
         </S.CommentCountWrapper>
+        <S.SortButtonGroup>
+          <S.SortButton active={sort === 'latest'} onClick={() => setSort('latest')}>
+            최신순
+          </S.SortButton>
+          <S.SortButton active={sort === 'popular'} onClick={() => setSort('popular')}>
+            인기순
+          </S.SortButton>
+        </S.SortButtonGroup>
         {/* <BookmarkIcon /> */}
       </S.HeaderWrapper>
       <UiComponent.SuspenseQueryBoundary
@@ -27,7 +40,7 @@ const CommunityCommentList = ({ commentCnt, id, isArticleAuthor }: CommunityComm
         errorFallback={props => <UiComponent.ErrorCommentList {...props} />}
         suspenseFallback={<UiComponent.CommentListSkeleton />}
       >
-        <CommentListInner id={id} isArticleAuthor={isArticleAuthor} />
+        <CommentListInner id={id} isArticleAuthor={isArticleAuthor} sort={sort} />
       </UiComponent.SuspenseQueryBoundary>
     </S.Section>
   );
@@ -36,14 +49,16 @@ const CommunityCommentList = ({ commentCnt, id, isArticleAuthor }: CommunityComm
 const CommentListInner = ({
   id,
   isArticleAuthor,
-}: Pick<CommunityCommentListProps, 'id' | 'isArticleAuthor'>) => {
-  const { data } = useFetchCommunityCommentList(id);
+  sort,
+}: Pick<CommunityCommentListProps, 'id' | 'isArticleAuthor'> & { sort: CommentSortOption }) => {
+  const { data } = useFetchCommunityCommentList(id, sort);
+  const commentQueryKey = [...communityKeys.comments(id), sort] as const;
 
   return (
     <UiComponent.BaseCommentList
       commentsMap={data.comments}
       servicePath={API_SERVICE_PATHS.community}
-      queryKey={communityKeys.comments(id)}
+      queryKey={commentQueryKey}
       isArticleAuthor={isArticleAuthor}
     />
   );

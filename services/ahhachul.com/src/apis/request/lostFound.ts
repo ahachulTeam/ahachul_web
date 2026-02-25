@@ -85,10 +85,10 @@ export const bookmarkLostFound = (id: number) =>
 export const unbookmarkLostFound = (id: number) =>
   axiosInstance.delete<ApiResponse<null>>(API_PATHS.lostFound.bookmark(id));
 
-export const fetchLostFoundCommentList = (id: number) =>
+export const fetchLostFoundCommentList = (id: number, sort: string = API_SORT.createdAtDesc) =>
   axiosInstance.get<ApiResponse<CommentList>>(API_PATHS.lostFound.comments(id), {
     params: {
-      sort: API_SORT.createdAtAsc,
+      sort,
     },
   });
 

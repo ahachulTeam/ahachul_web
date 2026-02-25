@@ -7,7 +7,17 @@ import { API_BASE_URL } from '@/constants';
 import { fetchClient } from '@/lib/fetch-client';
 import type { CommentList, IResponse } from '@/types';
 
-type LostFoundCommentsQueryKey = ReturnType<typeof lostFoundQueryKeys.comments>;
+export type CommentSortOption = 'latest' | 'popular';
+
+const COMMENT_SORT_VALUE: Record<CommentSortOption, string> = {
+  latest: API_SORT.createdAtDesc,
+  popular: API_SORT.likesDesc,
+};
+
+type LostFoundCommentsQueryKey = readonly [
+  ...ReturnType<typeof lostFoundQueryKeys.comments>,
+  CommentSortOption,
+];
 
 type CreateLostFoundCommentRequest = {
   content: string;
@@ -19,9 +29,9 @@ export const getLostFoundComments: QueryFunction<
   IResponse<CommentList>,
   LostFoundCommentsQueryKey
 > = async ({ queryKey }) => {
-  const [, , id] = queryKey;
+  const [, , id, , sortOption = 'latest'] = queryKey;
   const commentTags = lostFoundQueryKeys.comments(id).map(value => String(value));
-  const endpoint = `${API_BASE_URL}${API_PATHS.lostFound.comments(id)}?sort=${API_SORT.createdAtAsc}`;
+  const endpoint = `${API_BASE_URL}${API_PATHS.lostFound.comments(id)}?sort=${COMMENT_SORT_VALUE[sortOption]}`;
   const res = await fetch(endpoint, {
     next: {
       tags: commentTags,
@@ -72,6 +82,18 @@ export function updateLostFoundComment(postId: number, commentId: number, conten
 
 export function deleteLostFoundComment(postId: number, commentId: number) {
   return fetchClient<IResponse<{ id: number }>>(API_PATHS.lostFound.comment(postId, commentId), {
+    method: 'DELETE',
+  });
+}
+
+export function likeLostFoundComment(commentId: number) {
+  return fetchClient<IResponse<null>>(API_PATHS.comment.likes(commentId), {
+    method: 'POST',
+  });
+}
+
+export function unlikeLostFoundComment(commentId: number) {
+  return fetchClient<IResponse<null>>(API_PATHS.comment.likes(commentId), {
     method: 'DELETE',
   });
 }

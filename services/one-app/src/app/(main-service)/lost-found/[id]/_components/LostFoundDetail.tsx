@@ -29,9 +29,12 @@ import { LostTypeBadge } from './LostTypeBadge';
 import { RecommendArticles } from './RecommendArticles';
 
 import {
+  type CommentSortOption,
   createLostFoundComment,
   deleteLostFoundComment,
   getLostFoundComments,
+  likeLostFoundComment,
+  unlikeLostFoundComment,
   updateLostFoundComment,
 } from '../_lib/getComments';
 import { getLostFoundDetailPost } from '../_lib/getDetailPost';
@@ -58,6 +61,7 @@ export default function LostFoundPostDetail({ id }: Props) {
   const isLoggedIn = AuthService.isLoggedIn;
 
   const [composerMode, setComposerMode] = useState<ComposerMode>('create');
+  const [commentSort, setCommentSort] = useState<CommentSortOption>('latest');
   const [targetComment, setTargetComment] = useState<Comment | null>(null);
   const [draftContent, setDraftContent] = useState('');
   const [isPrivate, setIsPrivate] = useState(false);
@@ -72,7 +76,7 @@ export default function LostFoundPostDetail({ id }: Props) {
   });
 
   const commentsQuery = useQuery({
-    queryKey: lostFoundQueryKeys.comments(id),
+    queryKey: [...lostFoundQueryKeys.comments(id), commentSort] as const,
     queryFn: getLostFoundComments,
     staleTime: QUERY_STALE_TIME.detail,
     gcTime: QUERY_GC_TIME.detail,
@@ -166,6 +170,17 @@ export default function LostFoundPostDetail({ id }: Props) {
     },
   });
 
+  const commentLikeMutation = useMutation({
+    mutationFn: ({ commentId, likedByMe }: { commentId: number; likedByMe: boolean }) =>
+      likedByMe ? unlikeLostFoundComment(commentId) : likeLostFoundComment(commentId),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: lostFoundQueryKeys.comments(id) });
+    },
+    onError: () => {
+      setSubmitError(commentCopy.loadError);
+    },
+  });
+
   const likeMutation = useMutation({
     mutationFn: () => (post?.likeYn === 'Y' ? unlikeLostPost(id) : likeLostPost(id)),
     onSuccess: async () => {
@@ -182,7 +197,10 @@ export default function LostFoundPostDetail({ id }: Props) {
   });
 
   const isMutating =
-    createMutation.isPending || updateMutation.isPending || deleteMutation.isPending;
+    createMutation.isPending ||
+    updateMutation.isPending ||
+    deleteMutation.isPending ||
+    commentLikeMutation.isPending;
   const commentThreads = commentsQuery.data ?? [];
   const commentCount =
     commentThreads.reduce((count, thread) => count + 1 + thread.childComments.length, 0) ||
@@ -276,11 +294,25 @@ export default function LostFoundPostDetail({ id }: Props) {
       deleted: commentCopy.deleted,
       privateHidden: commentCopy.privateHidden,
       reply: commentCopy.reply,
+      like: commentCopy.like,
+      liked: commentCopy.liked,
       edit: commentCopy.edit,
       delete: commentCopy.delete,
     }),
     [commentCopy],
   );
+
+  const handleToggleCommentLike = (comment: Comment) => {
+    if (!isLoggedIn) {
+      window.alert(commentCopy.loginRequired);
+      return;
+    }
+
+    commentLikeMutation.mutate({
+      commentId: comment.id,
+      likedByMe: Boolean(comment.likedByMe),
+    });
+  };
 
   let commentContent: ReactNode;
   if (commentsQuery.isPending) {
@@ -310,7 +342,9 @@ export default function LostFoundPostDetail({ id }: Props) {
         articleAuthorId={articleAuthorId}
         disabledActions={isMutating}
         copy={commentCardCopy}
+        canLike={!commentLikeMutation.isPending}
         onReply={handleReply}
+        onToggleLike={handleToggleCommentLike}
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
@@ -425,7 +459,35 @@ export default function LostFoundPostDetail({ id }: Props) {
 
       <RecommendArticles posts={post.recommendPosts} />
       <section className="border-t border-t-gray-20">
-        <div className="px-5 py-4 text-label-large text-gray-100">{commentTitle}</div>
+        <div className="flex items-center justify-between px-5 py-4">
+          <div className="text-label-large text-gray-100">{commentTitle}</div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              className={cn(
+                'rounded-md border px-2 py-1 text-label-small',
+                commentSort === 'latest'
+                  ? 'border-key-color bg-key-color text-white'
+                  : 'border-gray-40 text-gray-90',
+              )}
+              onClick={() => setCommentSort('latest')}
+            >
+              {commentCopy.sortLatest}
+            </button>
+            <button
+              type="button"
+              className={cn(
+                'rounded-md border px-2 py-1 text-label-small',
+                commentSort === 'popular'
+                  ? 'border-key-color bg-key-color text-white'
+                  : 'border-gray-40 text-gray-90',
+              )}
+              onClick={() => setCommentSort('popular')}
+            >
+              {commentCopy.sortPopular}
+            </button>
+          </div>
+        </div>
         {commentContent}
       </section>
       {!isLoggedIn ? (

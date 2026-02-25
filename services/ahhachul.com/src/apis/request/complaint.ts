@@ -80,10 +80,10 @@ export const bookmarkComplaint = (id: number) =>
 export const unbookmarkComplaint = (id: number) =>
   axiosInstance.delete<ApiResponse<null>>(API_PATHS.complaint.bookmark(id));
 
-export const fetchComplaintCommentList = (id: number) =>
+export const fetchComplaintCommentList = (id: number, sort: string = API_SORT.createdAtDesc) =>
   axiosInstance.get<ApiResponse<CommentList>>(API_PATHS.complaint.comments(id), {
     params: {
-      sort: API_SORT.createdAtAsc,
+      sort,
     },
   });
 

@@ -64,7 +64,7 @@ export default async function CommunityDetailPage(props: Props) {
     queryFn: getCommunityDetailPostServer,
   });
   await queryClient.prefetchQuery({
-    queryKey: communityQueryKeys.comments(id),
+    queryKey: [...communityQueryKeys.comments(id), 'latest'] as const,
     queryFn: getCommunityComments,
   });
   const dehydratedState = dehydrate(queryClient);

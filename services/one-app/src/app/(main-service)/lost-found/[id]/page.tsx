@@ -64,7 +64,7 @@ export default async function LostFoundDetailPage(props: Props) {
     queryFn: getLostFoundDetailPostServer,
   });
   await queryClient.prefetchQuery({
-    queryKey: lostFoundQueryKeys.comments(id),
+    queryKey: [...lostFoundQueryKeys.comments(id), 'latest'] as const,
     queryFn: getLostFoundComments,
   });
   const dehydratedState = dehydrate(queryClient);

@@ -58,6 +58,20 @@ export const ReplyButton = styled.button`
   `}
 `;
 
+export const ActionRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+`;
+
+export const LikeButton = styled.button`
+  ${({ theme }) => css`
+    ${theme.fonts.bodySmall};
+    color: ${theme.colors.gray[80]};
+    width: max-content;
+  `}
+`;
+
 export const readonlyEditorCss = css`
   padding: 0;
 

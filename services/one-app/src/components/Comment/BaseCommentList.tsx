@@ -21,7 +21,9 @@ interface Props {
   articleAuthorId?: number | null;
   disabledActions?: boolean;
   copy?: Partial<CommentListCopy>;
+  canLike?: boolean;
   onReply?: (comment: Comment) => void;
+  onToggleLike?: (comment: Comment) => void;
   onEdit?: (comment: Comment) => void;
   onDelete?: (comment: Comment) => void;
 }
@@ -38,7 +40,9 @@ export const BaseCommentList = React.memo(
     articleAuthorId = null,
     disabledActions = false,
     copy,
+    canLike = true,
     onReply,
+    onToggleLike,
     onEdit,
     onDelete,
   }: Props) => {
@@ -52,42 +56,56 @@ export const BaseCommentList = React.memo(
       const canViewPrivate = !comment.isPrivate || isCommentAuthor || isArticleAuthor;
       const canEdit = comment.status === 'CREATED' && isCommentAuthor;
       const canReply = comment.status === 'CREATED' && canViewPrivate;
+      const canCommentLike = comment.status === 'CREATED' && canViewPrivate;
 
       return {
         canViewPrivate,
         canEdit,
         canReply,
+        canLike: canCommentLike,
       };
     };
 
     return (
       <>
-        {commentsMap.map(({ parentComment, childComments }) => (
-          <React.Fragment key={parentComment.id}>
-            <CommentCard
-              comment={parentComment}
-              {...resolveProps(parentComment)}
-              disabledActions={disabledActions}
-              copy={copy}
-              onReply={onReply}
-              onEdit={onEdit}
-              onDelete={onDelete}
-            />
-            {childComments.map(childComment => (
+        {commentsMap.map(({ parentComment, childComments }) => {
+          const parentResolved = resolveProps(parentComment);
+
+          return (
+            <React.Fragment key={parentComment.id}>
               <CommentCard
-                asChild
-                key={childComment.id}
-                comment={childComment}
-                {...resolveProps(childComment)}
-                canReply={false}
+                comment={parentComment}
+                {...parentResolved}
+                canLike={canLike && parentResolved.canLike}
                 disabledActions={disabledActions}
                 copy={copy}
+                onReply={onReply}
+                onToggleLike={onToggleLike}
                 onEdit={onEdit}
                 onDelete={onDelete}
               />
-            ))}
-          </React.Fragment>
-        ))}
+              {childComments.map(childComment => {
+                const childResolved = resolveProps(childComment);
+
+                return (
+                  <CommentCard
+                    asChild
+                    key={childComment.id}
+                    comment={childComment}
+                    {...childResolved}
+                    canReply={false}
+                    canLike={canLike && childResolved.canLike}
+                    disabledActions={disabledActions}
+                    copy={copy}
+                    onToggleLike={onToggleLike}
+                    onEdit={onEdit}
+                    onDelete={onDelete}
+                  />
+                );
+              })}
+            </React.Fragment>
+          );
+        })}
       </>
     );
   },

@@ -16,6 +16,7 @@ import { getFirstParentLineId, removeFalsyValues } from '@ahhachul/utils';
 import * as api from '@/apis/request';
 import { TOAST_MSG } from '@/constants/toast';
 import { useToast } from '@/hooks/useToast';
+import { COMMENT_SORT_VALUE, type CommentSortOption } from '@/services/comment';
 import { useFlow } from '@/stackflow';
 import { useUserStationStore } from '@/stores/subway';
 import {
@@ -151,10 +152,10 @@ export const useFetchLostFoundDetail = (id: number) =>
     select: res => res.data.result,
   });
 
-export const useFetchLostFoundCommentList = (id: number) =>
+export const useFetchLostFoundCommentList = (id: number, sort: CommentSortOption = 'latest') =>
   useSuspenseQuery({
-    queryKey: lostFoundKeys.comments(id),
-    queryFn: () => api.fetchLostFoundCommentList(id),
+    queryKey: [...lostFoundKeys.comments(id), sort],
+    queryFn: () => api.fetchLostFoundCommentList(id, COMMENT_SORT_VALUE[sort]),
     staleTime: QUERY_STALE_TIME.detail,
     gcTime: QUERY_GC_TIME.detail,
     select: res => res.data.result,

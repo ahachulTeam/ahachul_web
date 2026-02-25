@@ -1,4 +1,6 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import { API_SORT } from '@ahhachul/http';
 
 import * as api from '@/apis/request';
 import type { ApiResponse, Comment } from '@/types';
@@ -8,6 +10,13 @@ const commentLogger = createActionLogger('comment-service');
 
 const logMutationError = (context: string, error: Error, fallbackMessage: string) => {
   commentLogger.fail(context, error, undefined, fallbackMessage);
+};
+
+export type CommentSortOption = 'latest' | 'popular';
+
+export const COMMENT_SORT_VALUE: Record<CommentSortOption, string> = {
+  latest: API_SORT.createdAtDesc,
+  popular: API_SORT.likesDesc,
 };
 
 export const usePostComment = () => {
@@ -47,5 +56,25 @@ export const useUpdateComment = () => {
   return useMutation({
     mutationFn: api.updateComment,
     onError: afterSubmitFailed,
+  });
+};
+
+export const useToggleCommentLike = (
+  commentId: number,
+  likedByMe: boolean,
+  queryKey?: readonly unknown[],
+) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () => (likedByMe ? api.unlikeComment(commentId) : api.likeComment(commentId)),
+    onSuccess: async () => {
+      if (queryKey && queryKey.length > 0) {
+        await queryClient.invalidateQueries({ queryKey });
+      }
+    },
+    onError: error => {
+      logMutationError('toggle-comment-like', error, '댓글 좋아요 처리에 실패했습니다.');
+    },
   });
 };

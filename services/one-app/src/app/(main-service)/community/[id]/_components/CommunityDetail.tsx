@@ -25,9 +25,12 @@ import { cn, isLexicalContent } from '@/utils';
 import { CommunityTypeBadge } from './CommunityTypeBadge';
 
 import {
+  type CommentSortOption,
   createCommunityComment,
   deleteCommunityComment,
   getCommunityComments,
+  likeCommunityComment,
+  unlikeCommunityComment,
   updateCommunityComment,
 } from '../_lib/getComments';
 import { getCommunityDetailPost } from '../_lib/getDetailPost';
@@ -52,6 +55,7 @@ export default function CommunityPostDetail({ id }: Props) {
   const queryClient = useQueryClient();
 
   const [composerMode, setComposerMode] = useState<ComposerMode>('create');
+  const [commentSort, setCommentSort] = useState<CommentSortOption>('latest');
   const [targetComment, setTargetComment] = useState<Comment | null>(null);
   const [draftContent, setDraftContent] = useState('');
   const [isPrivate, setIsPrivate] = useState(false);
@@ -66,7 +70,7 @@ export default function CommunityPostDetail({ id }: Props) {
   });
 
   const commentsQuery = useQuery({
-    queryKey: communityQueryKeys.comments(id),
+    queryKey: [...communityQueryKeys.comments(id), commentSort] as const,
     queryFn: getCommunityComments,
     staleTime: QUERY_STALE_TIME.detail,
     gcTime: QUERY_GC_TIME.detail,
@@ -139,6 +143,17 @@ export default function CommunityPostDetail({ id }: Props) {
     },
   });
 
+  const commentLikeMutation = useMutation({
+    mutationFn: ({ commentId, likedByMe }: { commentId: number; likedByMe: boolean }) =>
+      likedByMe ? unlikeCommunityComment(commentId) : likeCommunityComment(commentId),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: communityQueryKeys.comments(id) });
+    },
+    onError: () => {
+      setSubmitError(copy.loadError);
+    },
+  });
+
   const likeMutation = useMutation({
     mutationFn: () => (post?.likeYn === 'Y' ? unlikeCommunityPost(id) : likeCommunityPost(id)),
     onSuccess: async () => {
@@ -158,7 +173,10 @@ export default function CommunityPostDetail({ id }: Props) {
   if (!post) return null;
 
   const isMutating =
-    createMutation.isPending || updateMutation.isPending || deleteMutation.isPending;
+    createMutation.isPending ||
+    updateMutation.isPending ||
+    deleteMutation.isPending ||
+    commentLikeMutation.isPending;
   const commentThreads = commentsQuery.data ?? [];
   const commentCount =
     commentThreads.reduce((count, thread) => count + 1 + thread.childComments.length, 0) ||
@@ -244,11 +262,25 @@ export default function CommunityPostDetail({ id }: Props) {
       deleted: copy.deleted,
       privateHidden: copy.privateHidden,
       reply: copy.reply,
+      like: copy.like,
+      liked: copy.liked,
       edit: copy.edit,
       delete: copy.delete,
     }),
     [copy],
   );
+
+  const handleToggleCommentLike = (comment: Comment) => {
+    if (!isLoggedIn) {
+      window.alert(copy.loginRequired);
+      return;
+    }
+
+    commentLikeMutation.mutate({
+      commentId: comment.id,
+      likedByMe: Boolean(comment.likedByMe),
+    });
+  };
 
   let commentContent: ReactNode;
   if (commentsQuery.isPending) {
@@ -276,7 +308,9 @@ export default function CommunityPostDetail({ id }: Props) {
         articleAuthorId={articleAuthorId}
         disabledActions={isMutating}
         copy={commentCardCopy}
+        canLike={!commentLikeMutation.isPending}
         onReply={handleReply}
+        onToggleLike={handleToggleCommentLike}
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
@@ -346,7 +380,35 @@ export default function CommunityPostDetail({ id }: Props) {
       </article>
 
       <section className="border-t border-t-gray-20">
-        <div className="px-5 py-4 text-label-large text-gray-100">{commentTitle}</div>
+        <div className="flex items-center justify-between px-5 py-4">
+          <div className="text-label-large text-gray-100">{commentTitle}</div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              className={cn(
+                'rounded-md border px-2 py-1 text-label-small',
+                commentSort === 'latest'
+                  ? 'border-key-color bg-key-color text-white'
+                  : 'border-gray-40 text-gray-90',
+              )}
+              onClick={() => setCommentSort('latest')}
+            >
+              {copy.sortLatest}
+            </button>
+            <button
+              type="button"
+              className={cn(
+                'rounded-md border px-2 py-1 text-label-small',
+                commentSort === 'popular'
+                  ? 'border-key-color bg-key-color text-white'
+                  : 'border-gray-40 text-gray-90',
+              )}
+              onClick={() => setCommentSort('popular')}
+            >
+              {copy.sortPopular}
+            </button>
+          </div>
+        </div>
         {commentContent}
       </section>
 

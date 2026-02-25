@@ -96,10 +96,10 @@ export const bookmarkCommunity = (id: number) =>
 export const unbookmarkCommunity = (id: number) =>
   axiosInstance.delete<ApiResponse<null>>(API_PATHS.community.bookmark(id));
 
-export const fetchCommunityCommentList = (id: number) =>
+export const fetchCommunityCommentList = (id: number, sort: string = API_SORT.createdAtDesc) =>
   axiosInstance.get<ApiResponse<CommentList>>(API_PATHS.community.comments(id), {
     params: {
-      sort: API_SORT.createdAtAsc,
+      sort,
     },
   });
 

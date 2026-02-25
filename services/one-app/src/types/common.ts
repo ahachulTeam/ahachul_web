@@ -77,6 +77,7 @@ export type Comment = {
   upperCommentId: number | null;
   isPrivate?: boolean;
   likeCnt?: number;
+  likedByMe?: boolean;
 };
 
 export type CommentList = {

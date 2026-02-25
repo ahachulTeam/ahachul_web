@@ -21,3 +21,21 @@ export const CommentCountWrapper = styled.div`
     gap: 4px;
   `}
 `;
+
+export const SortButtonGroup = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+`;
+
+export const SortButton = styled.button<{ active?: boolean }>`
+  ${({ theme, active }) => css`
+    ${theme.fonts.bodySmall};
+    border-radius: 8px;
+    border: 1px solid ${active ? theme.colors.keyColor : theme.colors.gray[40]};
+    background-color: ${active ? theme.colors.keyColor : theme.colors.white};
+    color: ${active ? theme.colors.white : theme.colors.gray[90]};
+    padding: 4px 8px;
+    transition: all 0.15s ease;
+  `}
+`;

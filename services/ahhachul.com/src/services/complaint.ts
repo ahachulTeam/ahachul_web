@@ -16,6 +16,7 @@ import { getFirstParentLineId, removeFalsyValues } from '@ahhachul/utils';
 import * as api from '@/apis/request';
 import { TOAST_MSG } from '@/constants/toast';
 import { useToast } from '@/hooks/useToast';
+import { COMMENT_SORT_VALUE, type CommentSortOption } from '@/services/comment';
 import { useFlow } from '@/stackflow';
 import { useUserStationStore } from '@/stores/subway';
 import { SubwayLineFilterOptions } from '@/types';
@@ -165,10 +166,10 @@ export const useFetchComplaintDetail = (id: number) =>
     },
   });
 
-export const useFetchComplaintCommentList = (id: number) =>
+export const useFetchComplaintCommentList = (id: number, sort: CommentSortOption = 'latest') =>
   useSuspenseQuery({
-    queryKey: complaintKeys.comments(id),
-    queryFn: () => api.fetchComplaintCommentList(id),
+    queryKey: [...complaintKeys.comments(id), sort],
+    queryFn: () => api.fetchComplaintCommentList(id, COMMENT_SORT_VALUE[sort]),
     staleTime: QUERY_STALE_TIME.detail,
     gcTime: QUERY_GC_TIME.detail,
     select: res => res.data.result,

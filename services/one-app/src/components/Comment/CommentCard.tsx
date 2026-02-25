@@ -11,6 +11,8 @@ type CommentCardCopy = {
   deleted: string;
   privateHidden: string;
   reply: string;
+  like: string;
+  liked: string;
   edit: string;
   delete: string;
 };
@@ -19,6 +21,8 @@ const DEFAULT_COPY: CommentCardCopy = {
   deleted: '삭제된 댓글입니다.',
   privateHidden: '비공개 댓글입니다.',
   reply: '답글 달기',
+  like: '좋아요',
+  liked: '좋아요 취소',
   edit: '수정',
   delete: '삭제',
 };
@@ -29,9 +33,11 @@ interface CommentCardProps {
   canViewPrivate?: boolean;
   canEdit?: boolean;
   canReply?: boolean;
+  canLike?: boolean;
   disabledActions?: boolean;
   copy?: Partial<CommentCardCopy>;
   onReply?: (comment: Comment) => void;
+  onToggleLike?: (comment: Comment) => void;
   onEdit?: (comment: Comment) => void;
   onDelete?: (comment: Comment) => void;
 }
@@ -42,9 +48,11 @@ export const CommentCard = ({
   canViewPrivate = true,
   canEdit = false,
   canReply = false,
+  canLike = true,
   disabledActions = false,
   copy,
   onReply,
+  onToggleLike,
   onEdit,
   onDelete,
 }: CommentCardProps) => {
@@ -53,6 +61,9 @@ export const CommentCard = ({
   const isPrivateHidden = !isDeleted && comment.isPrivate === true && !canViewPrivate;
   const canRenderContent = !isDeleted && !isPrivateHidden;
   const shouldRenderReply = canReply && !asChild && !isDeleted && !isPrivateHidden;
+  const shouldRenderLike = !isDeleted && !isPrivateHidden;
+  const likeLabel = comment.likedByMe ? mergedCopy.liked : mergedCopy.like;
+  const likeCount = comment.likeCnt ?? 0;
 
   let contentNode = <div className="text-body-large-semi text-gray-90">{mergedCopy.deleted}</div>;
 
@@ -110,15 +121,29 @@ export const CommentCard = ({
           {formatDisplayDate(comment.createdAt, { format: 'short' })}
         </span>
       </div>
-      {shouldRenderReply ? (
-        <button
-          type="button"
-          className="w-max text-label-medium text-gray-90 disabled:text-gray-60"
-          disabled={disabledActions}
-          onClick={() => onReply?.(comment)}
-        >
-          {mergedCopy.reply}
-        </button>
+      {shouldRenderReply || shouldRenderLike ? (
+        <div className="flex items-center gap-3">
+          {shouldRenderReply ? (
+            <button
+              type="button"
+              className="w-max text-label-medium text-gray-90 disabled:text-gray-60"
+              disabled={disabledActions}
+              onClick={() => onReply?.(comment)}
+            >
+              {mergedCopy.reply}
+            </button>
+          ) : null}
+          {shouldRenderLike ? (
+            <button
+              type="button"
+              className="w-max text-label-medium text-gray-80 disabled:text-gray-60"
+              disabled={disabledActions || !canLike}
+              onClick={() => onToggleLike?.(comment)}
+            >
+              {likeLabel} · {likeCount}
+            </button>
+          ) : null}
+        </div>
       ) : null}
     </div>
   );

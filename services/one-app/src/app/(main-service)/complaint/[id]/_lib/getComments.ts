@@ -7,7 +7,17 @@ import { API_BASE_URL } from '@/constants';
 import { fetchClient } from '@/lib/fetch-client';
 import type { CommentList, IResponse } from '@/types';
 
-type ComplaintCommentsQueryKey = ReturnType<typeof complaintQueryKeys.comments>;
+export type CommentSortOption = 'latest' | 'popular';
+
+const COMMENT_SORT_VALUE: Record<CommentSortOption, string> = {
+  latest: API_SORT.createdAtDesc,
+  popular: API_SORT.likesDesc,
+};
+
+type ComplaintCommentsQueryKey = readonly [
+  ...ReturnType<typeof complaintQueryKeys.comments>,
+  CommentSortOption,
+];
 
 type CreateComplaintCommentRequest = {
   content: string;
@@ -19,9 +29,9 @@ export const getComplaintComments: QueryFunction<
   IResponse<CommentList>,
   ComplaintCommentsQueryKey
 > = async ({ queryKey }) => {
-  const [, , id] = queryKey;
+  const [, , id, , sortOption = 'latest'] = queryKey;
   const commentTags = complaintQueryKeys.comments(id).map(value => String(value));
-  const endpoint = `${API_BASE_URL}${API_PATHS.complaint.comments(id)}?sort=${API_SORT.createdAtAsc}`;
+  const endpoint = `${API_BASE_URL}${API_PATHS.complaint.comments(id)}?sort=${COMMENT_SORT_VALUE[sortOption]}`;
   const res = await fetch(endpoint, {
     next: {
       tags: commentTags,
@@ -71,6 +81,18 @@ export function updateComplaintComment(postId: number, commentId: number, conten
 
 export function deleteComplaintComment(postId: number, commentId: number) {
   return fetchClient<IResponse<{ id: number }>>(API_PATHS.complaint.comment(postId, commentId), {
+    method: 'DELETE',
+  });
+}
+
+export function likeComplaintComment(commentId: number) {
+  return fetchClient<IResponse<null>>(API_PATHS.comment.likes(commentId), {
+    method: 'POST',
+  });
+}
+
+export function unlikeComplaintComment(commentId: number) {
+  return fetchClient<IResponse<null>>(API_PATHS.comment.likes(commentId), {
     method: 'DELETE',
   });
 }
