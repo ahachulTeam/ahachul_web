@@ -1,5 +1,7 @@
 import { css } from '@emotion/react';
 
+import { fontMonoCssStack, fontSansCssStack } from '@ahhachul/design-system';
+
 import { theme } from './theme';
 
 const globalStyles = css`
@@ -147,7 +149,7 @@ const globalStyles = css`
   body {
     ${theme.fonts.bodyMedium};
     min-height: -webkit-fill-available;
-    font-family: 'Pretendard', system-ui;
+    font-family: ${fontSansCssStack};
     color: ${theme.colors.black};
     line-height: 1;
     background-color: ${theme.colors.white};
@@ -192,7 +194,7 @@ const globalStyles = css`
     cursor: help;
   }
   code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-family: ${fontMonoCssStack};
   }
   path {
     pointer-events: none;
@@ -214,7 +216,7 @@ const globalStyles = css`
     list-style: none;
   }
   pre {
-    font-family: Pretendard, system-ui;
+    font-family: ${fontSansCssStack};
     color: ${theme.colors.black};
   }
 `;

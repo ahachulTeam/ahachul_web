@@ -1,4 +1,5 @@
 import { colors, semanticColors } from './tokens/colors';
+import { fontSansFallback, fontWeights, typographyScale } from './tokens/typography';
 
 export const tailwindBaseColors = {
   primary: colors.primary,
@@ -30,3 +31,29 @@ export const tailwindColors = {
   ...tailwindBaseColors,
   ...tailwindSemanticColors,
 } as const;
+
+function toKebabCase(value: string) {
+  return value.replace(/([A-Z])/g, '-$1').toLowerCase();
+}
+
+export const tailwindTypographyScale = Object.fromEntries(
+  Object.entries(typographyScale).map(([key, token]) => [
+    toKebabCase(key),
+    [
+      token.fontSize,
+      {
+        lineHeight: token.lineHeight,
+        letterSpacing: token.letterSpacing,
+        fontWeight: token.fontWeight,
+      },
+    ],
+  ]),
+) as Record<string, [string, { lineHeight: string; letterSpacing: string; fontWeight: string }]>;
+
+export const tailwindFontWeights = fontWeights;
+
+export function createTailwindSansFontFamily(variableName = '--font-pretendard') {
+  return {
+    sans: [`var(${variableName})`, ...fontSansFallback] as string[],
+  };
+}

@@ -1,6 +1,11 @@
 import type { Config } from 'tailwindcss';
 
-import { tailwindColors } from '@ahhachul/design-system';
+import {
+  createTailwindSansFontFamily,
+  tailwindColors,
+  tailwindFontWeights,
+  tailwindTypographyScale,
+} from '@ahhachul/design-system';
 
 const config: Config = {
   darkMode: ['class'],
@@ -11,16 +16,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['var(--font-pretendard)'],
-      },
+      fontFamily: createTailwindSansFontFamily('--font-pretendard'),
       colors: tailwindColors,
-      fontWeight: {
-        regular: '400',
-        medium: '500',
-        semiBold: '600',
-        bold: '700',
-      },
+      fontWeight: tailwindFontWeights,
+      fontSize: tailwindTypographyScale,
       screens: {
         sm: { raw: '(max-width: 411px)' },
         md: { raw: '(min-width: 412px) and (max-width: 531px)' },
@@ -28,145 +27,6 @@ const config: Config = {
         xl: { raw: '(min-width: 600px)' },
         pc: { raw: '(min-width: 990px)' },
       },
-      fontSize: ({ theme }) => ({
-        // Display
-        'display-large': [
-          '48px',
-          {
-            lineHeight: '128%',
-            letterSpacing: '-0.032em',
-            fontWeight: theme('fontWeight.semiBold'),
-          },
-        ],
-        'display-medium': [
-          '36px',
-          {
-            lineHeight: '133%',
-            letterSpacing: '-0.027em',
-            fontWeight: theme('fontWeight.semiBold'),
-          },
-        ],
-        'display-small': [
-          '32px',
-          {
-            lineHeight: '130%',
-            letterSpacing: '-0.025em',
-            fontWeight: theme('fontWeight.semiBold'),
-          },
-        ],
-
-        // Headline
-        'headline-large': [
-          '24px',
-          {
-            lineHeight: '133%',
-            letterSpacing: '-0.023em',
-            fontWeight: theme('fontWeight.semiBold'),
-          },
-        ],
-        'headline-medium': [
-          '20px',
-          {
-            lineHeight: '140%',
-            letterSpacing: '-0.025em',
-            fontWeight: theme('fontWeight.semiBold'),
-          },
-        ],
-        'headline-small': [
-          '18px',
-          {
-            lineHeight: '133%',
-            letterSpacing: '-0.02em',
-            fontWeight: theme('fontWeight.semiBold'),
-          },
-        ],
-
-        // Title
-        'title-large': [
-          '16px',
-          {
-            lineHeight: '150%',
-            letterSpacing: '-0.02em',
-            fontWeight: theme('fontWeight.semiBold'),
-          },
-        ],
-        'title-medium': [
-          '16px',
-          {
-            lineHeight: '150%',
-            letterSpacing: '-0.02em',
-            fontWeight: theme('fontWeight.medium'),
-          },
-        ],
-        'title-small': [
-          '15px',
-          {
-            lineHeight: '150%',
-            letterSpacing: '-0.02em',
-            fontWeight: theme('fontWeight.semiBold'),
-          },
-        ],
-
-        // Label
-        'label-large': [
-          '14px',
-          {
-            lineHeight: '150%',
-            letterSpacing: '-0.02em',
-            fontWeight: theme('fontWeight.semiBold'),
-          },
-        ],
-        'label-medium': [
-          '14px',
-          {
-            lineHeight: '148%',
-            letterSpacing: '-0.02em',
-            fontWeight: theme('fontWeight.medium'),
-          },
-        ],
-        'label-small': [
-          '12px',
-          {
-            lineHeight: '150%',
-            letterSpacing: '-0.017em',
-            fontWeight: theme('fontWeight.semiBold'),
-          },
-        ],
-
-        // Body
-        'body-large': [
-          '16px',
-          {
-            lineHeight: '150%',
-            letterSpacing: '-0.02em',
-            fontWeight: theme('fontWeight.regular'),
-          },
-        ],
-        'body-large-semi': [
-          '15px',
-          {
-            lineHeight: '150%',
-            letterSpacing: '-0.02em',
-            fontWeight: theme('fontWeight.regular'),
-          },
-        ],
-        'body-medium': [
-          '13px',
-          {
-            lineHeight: '150%',
-            letterSpacing: '-0.02em',
-            fontWeight: theme('fontWeight.regular'),
-          },
-        ],
-        'body-small': [
-          '12px',
-          {
-            lineHeight: '145%',
-            letterSpacing: '-0.02em',
-            fontWeight: theme('fontWeight.regular'),
-          },
-        ],
-      }),
       animation: {
         spinner: 'spinner 1s steps(30) infinite',
       },
@@ -188,4 +48,5 @@ const config: Config = {
   },
   plugins: [],
 };
+
 export default config;

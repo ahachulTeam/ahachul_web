@@ -2,6 +2,8 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { motion } from 'motion/react';
 
+import { fontSansCssStack } from '@ahhachul/design-system';
+
 export const ArticleWrapper = styled.article``;
 
 export const ContentWrapper = styled.div`
@@ -102,7 +104,7 @@ export const ContentContainer = styled.div<{ isFromLost112: boolean }>`
 export const TextContent = styled.div`
   ${({ theme }) => css`
     ${theme.fonts.bodyLargeSemi};
-    font-family: 'Pretendard';
+    font-family: ${fontSansCssStack};
     color: ${theme.colors.gray[90]};
     padding: 24px 0;
     margin-top: 12px;

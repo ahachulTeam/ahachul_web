@@ -2,6 +2,8 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useActivity, type ActivityComponentType } from '@stackflow/react';
 
+import { fontSansCssStack } from '@ahhachul/design-system';
+
 import { ShareIcon } from '@/assets/icons/system';
 import { LayoutComponent, UiComponent } from '@/components';
 import { subwayIconMap } from '@/constants';
@@ -126,7 +128,7 @@ const ContentContainer = styled.div`
 const TextContent = styled.div`
   ${({ theme }) => css`
     ${theme.fonts.bodyLargeSemi};
-    font-family: 'Pretendard';
+    font-family: ${fontSansCssStack};
     color: ${theme.colors.gray[90]};
     white-space: pre-wrap;
     word-break: break-all;
