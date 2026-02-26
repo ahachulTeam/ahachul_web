@@ -48,6 +48,7 @@ const DailyVote = () => {
     (poll): poll is DailyVotePollCard => poll != null,
   );
   const stationDiary = today?.stationDiary ?? null;
+  const stationBoardPoll = polls[0] ?? null;
 
   let stationDiaryContent: ReactNode = null;
   if (stationDiary?.visible) {
@@ -83,6 +84,21 @@ const DailyVote = () => {
       <b>오늘의 출퇴근/등하교 투표</b>
 
       <S.Card>
+        {stationBoardPoll ? (
+          <div style={{ marginBottom: '8px', display: 'flex', justifyContent: 'flex-end' }}>
+            <StackFlow.Link
+              activityName="DailyVoteStationPage"
+              activityParams={{
+                stationId: stationBoardPoll.stationId,
+                stationName: stationBoardPoll.stationName,
+                subwayLineId: stationBoardPoll.subwayLineId,
+                subwayLineName: stationBoardPoll.subwayLineName,
+              }}
+            >
+              <S.DetailButton type="button">역 투표 게시판</S.DetailButton>
+            </StackFlow.Link>
+          </div>
+        ) : null}
         {dailyVoteTodayQuery.isLoading ? (
           <S.EmptyText>오늘의 투표를 불러오는 중입니다.</S.EmptyText>
         ) : null}

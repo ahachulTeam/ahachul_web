@@ -10,11 +10,14 @@ import { formatSubwayLineInfo } from '@ahhachul/utils';
 
 import {
   createDelayProofV2,
+  createDailyVoteStationPollV2,
   createDailyVoteCommentV2,
+  deleteDailyVotePollV2,
   fetchCommunityDelaySignalsV2,
   fetchDelayCenterOverviewV2,
   fetchDelayProofV2,
   fetchDailyVoteCommentsV2,
+  fetchDailyVoteStationPollsV2,
   fetchDailyVoteTodayV2,
   fetchLastTrainRiskV2,
   fetchNearbyPlacesV2,
@@ -376,8 +379,49 @@ export const useFetchDailyVoteToday = (options?: { enabled?: boolean; timezone?:
 
 export const useVoteDailyPoll = () => {
   return useMutation({
-    mutationFn: ({ pollId, optionCode }: { pollId: number; optionCode: string }) =>
+    mutationFn: ({ pollId, optionCode }: { pollId: number; optionCode: 'LIKE' | 'DISLIKE' }) =>
       voteDailyPollV2(pollId, optionCode),
+  });
+};
+
+export const useFetchDailyVoteStationPolls = (
+  stationId: number,
+  params?: { sort?: 'latest' | 'popular'; limit?: number; subwayLineId?: number },
+  options?: { enabled?: boolean },
+) => {
+  return useQuery({
+    queryKey: [
+      'daily-vote',
+      'station-polls',
+      stationId,
+      params?.sort,
+      params?.limit,
+      params?.subwayLineId,
+    ],
+    queryFn: () =>
+      fetchDailyVoteStationPollsV2(stationId, {
+        sort: params?.sort ?? 'latest',
+        limit: params?.limit,
+        subwayLineId: params?.subwayLineId,
+      }),
+    enabled: (options?.enabled ?? true) && stationId > 0,
+    staleTime: 5 * TIMESTAMP.SECOND,
+    gcTime: QUERY_GC_TIME.feed,
+    retry: 1,
+    select: res => res.data.result,
+  });
+};
+
+export const useCreateDailyVoteStationPoll = (stationId: number) => {
+  return useMutation({
+    mutationFn: (payload: { question: string; subwayLineId?: number }) =>
+      createDailyVoteStationPollV2(stationId, payload),
+  });
+};
+
+export const useDeleteDailyVotePoll = () => {
+  return useMutation({
+    mutationFn: (pollId: number) => deleteDailyVotePollV2(pollId),
   });
 };
 

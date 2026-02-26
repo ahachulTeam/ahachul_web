@@ -383,6 +383,19 @@ export default function HomeViteParity({ locale }: Props) {
     return `${localizePathname(`/daily-votes/${pollId}`, locale)}?${search.toString()}`;
   };
 
+  const buildDailyVoteStationBoardHref = (
+    stationId: number,
+    stationNameValue: string,
+    subwayLineIdValue: number,
+    subwayLineNameValue: string,
+  ) => {
+    const search = new URLSearchParams();
+    search.set('stationName', stationNameValue);
+    search.set('subwayLineId', String(subwayLineIdValue));
+    search.set('subwayLineName', subwayLineNameValue);
+    return `${localizePathname(`/daily-votes/stations/${stationId}`, locale)}?${search.toString()}`;
+  };
+
   const stationCommunityHotQuery = useQuery({
     queryKey: ['home', 'community-hot', 'station', selectedLineId, selectedStationId],
     enabled: selectedLineId > 0 && selectedStationId > 0,
@@ -436,7 +449,7 @@ export default function HomeViteParity({ locale }: Props) {
   });
 
   const dailyVoteMutation = useMutation({
-    mutationFn: ({ pollId, optionCode }: { pollId: number; optionCode: string }) =>
+    mutationFn: ({ pollId, optionCode }: { pollId: number; optionCode: 'LIKE' | 'DISLIKE' }) =>
       voteDailyPollV2(pollId, { optionCode }),
     onSuccess: async () => {
       await Promise.all([
@@ -1126,6 +1139,7 @@ export default function HomeViteParity({ locale }: Props) {
   const dailyVotePollCards = [dailyVoteToday?.primaryPoll, dailyVoteToday?.secondaryPoll].filter(
     (poll): poll is DailyVotePollCard => poll != null,
   );
+  const stationBoardEntryPoll = dailyVotePollCards[0] ?? null;
 
   let dailyVoteContent: ReactNode;
   if (!isLoggedIn) {
@@ -1149,6 +1163,21 @@ export default function HomeViteParity({ locale }: Props) {
   } else {
     dailyVoteContent = (
       <div className="mt-2 space-y-3">
+        {stationBoardEntryPoll ? (
+          <div className="flex justify-end">
+            <Link
+              href={buildDailyVoteStationBoardHref(
+                stationBoardEntryPoll.stationId,
+                stationBoardEntryPoll.stationName,
+                stationBoardEntryPoll.subwayLineId,
+                stationBoardEntryPoll.subwayLineName,
+              )}
+              className="text-label-small text-key-color"
+            >
+              역 투표 게시판
+            </Link>
+          </div>
+        ) : null}
         {dailyVotePollCards.map(poll => (
           <article
             key={`daily-vote-${poll.pollId}`}

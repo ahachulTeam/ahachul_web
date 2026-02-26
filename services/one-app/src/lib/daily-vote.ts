@@ -4,6 +4,7 @@ import type {
   ApiResponse,
   DailyVoteCommentsResult,
   DailyVotePollCard,
+  DailyVoteStationPollsResult,
   DailyVoteTodayResult,
 } from '@/types';
 
@@ -14,12 +15,23 @@ type FetchDailyVoteTodayParams = {
 };
 
 type VoteDailyPollPayload = {
-  optionCode: string;
+  optionCode: 'LIKE' | 'DISLIKE';
 };
 
 type CreateDailyVoteCommentPayload = {
   content: string;
   imageUrls?: string[];
+};
+
+type FetchDailyVoteStationPollsParams = {
+  sort?: 'latest' | 'popular';
+  limit?: number;
+  subwayLineId?: number;
+};
+
+type CreateDailyVoteStationPollPayload = {
+  question: string;
+  subwayLineId?: number;
 };
 
 export async function fetchDailyVoteTodayV2(
@@ -48,6 +60,49 @@ export async function voteDailyPollV2(
     },
   );
   return response.result.poll;
+}
+
+export async function fetchDailyVoteStationPollsV2(
+  stationId: number,
+  params: FetchDailyVoteStationPollsParams = {},
+): Promise<DailyVoteStationPollsResult> {
+  const response = await fetchClient<ApiResponse<DailyVoteStationPollsResult>>(
+    API_PATHS.dailyVote.stationPollsV2(stationId),
+    {
+      params: {
+        ...(params.sort ? { sort: params.sort } : {}),
+        ...(typeof params.limit === 'number' ? { limit: params.limit } : {}),
+        ...(typeof params.subwayLineId === 'number' ? { subwayLineId: params.subwayLineId } : {}),
+      },
+    },
+  );
+  return response.result;
+}
+
+export async function createDailyVoteStationPollV2(
+  stationId: number,
+  payload: CreateDailyVoteStationPollPayload,
+): Promise<{ pollId: number }> {
+  const response = await fetchClient<ApiResponse<{ pollId: number }>>(
+    API_PATHS.dailyVote.stationPollsV2(stationId),
+    {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    },
+  );
+  return response.result;
+}
+
+export async function deleteDailyVotePollV2(
+  pollId: number,
+): Promise<{ pollId: number; status: string }> {
+  const response = await fetchClient<ApiResponse<{ pollId: number; status: string }>>(
+    API_PATHS.dailyVote.pollV2(pollId),
+    {
+      method: 'DELETE',
+    },
+  );
+  return response.result;
 }
 
 export async function fetchDailyVoteCommentsV2(

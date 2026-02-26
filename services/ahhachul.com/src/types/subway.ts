@@ -593,7 +593,7 @@ export interface DelayCenterOverviewPayload {
 }
 
 export interface DailyVoteOption {
-  optionCode: string;
+  optionCode: 'LIKE' | 'DISLIKE';
   label: string;
   emoji: string;
   voteCount: number;
@@ -603,6 +603,7 @@ export interface DailyVoteOption {
 export interface DailyVotePollCard {
   pollId: number;
   question: string;
+  pollKind: 'MAIN' | 'STATION_DIARY' | 'STATION_BOARD';
   pollContext: 'COMMUTE' | 'SCHOOL';
   pollSlot: 'MORNING' | 'EVENING';
   stationId: number;
@@ -648,4 +649,30 @@ export interface DailyVoteCommentsResponse {
   pollId: number;
   sort: 'latest' | 'popular';
   comments: DailyVoteCommentItem[];
+}
+
+export interface DailyVoteStationPollSummary {
+  pollId: number;
+  question: string;
+  pollKind: 'STATION_BOARD';
+  pollContext: 'COMMUTE' | 'SCHOOL';
+  pollSlot: 'MORNING' | 'EVENING';
+  stationId: number;
+  stationName: string;
+  subwayLineId: number;
+  subwayLineName: string;
+  totalVoteCount: number;
+  commentCount: number;
+  voted: boolean;
+  selectedOptionCode: 'LIKE' | 'DISLIKE' | null;
+  options: DailyVoteOption[];
+  mine: boolean;
+  createdAt: string;
+}
+
+export interface DailyVoteStationPollsResponse {
+  stationId: number;
+  stationName: string;
+  sort: 'latest' | 'popular';
+  polls: DailyVoteStationPollSummary[];
 }

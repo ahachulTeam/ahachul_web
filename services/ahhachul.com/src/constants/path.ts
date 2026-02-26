@@ -103,6 +103,7 @@ export const PATH = {
   /** 일일 투표 */
   dailyVote: {
     detail: '/daily-votes/:pollId',
+    station: '/daily-votes/stations/:stationId',
   },
 
   /** 외국인 모드 */

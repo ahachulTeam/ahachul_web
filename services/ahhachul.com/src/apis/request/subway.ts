@@ -14,6 +14,7 @@ import {
   DelayProofPayload,
   DailyVoteCommentsResponse,
   DailyVotePollCard,
+  DailyVoteStationPollsResponse,
   DailyVoteTodayResponse,
   LastTrainRiskLevel,
   NearbyPlaceConfidenceLevel,
@@ -144,6 +145,17 @@ interface APISubwayRouteSearchV2Params {
 
 interface APIDailyVoteTodayParams {
   timezone?: string;
+}
+
+interface APIDailyVoteStationPollsParams {
+  sort?: 'latest' | 'popular';
+  limit?: number;
+  subwayLineId?: number;
+}
+
+interface APICreateDailyVoteStationPollPayload {
+  question: string;
+  subwayLineId?: number;
 }
 
 interface APIStationTimesFullV2Params extends WithSubwayLineId, WithSubwayStationId {}
@@ -573,12 +585,40 @@ export const fetchDailyVoteTodayV2 = async (params: APIDailyVoteTodayParams = {}
   });
 };
 
-export const voteDailyPollV2 = async (pollId: number, optionCode: string) => {
+export const voteDailyPollV2 = async (pollId: number, optionCode: 'LIKE' | 'DISLIKE') => {
   return axiosInstance.post<ApiResponse<{ poll: DailyVotePollCard }>>(
     API_PATHS.dailyVote.votesV2(pollId),
     {
       optionCode,
     },
+  );
+};
+
+export const fetchDailyVoteStationPollsV2 = async (
+  stationId: number,
+  params: APIDailyVoteStationPollsParams = {},
+) => {
+  return axiosInstance.get<ApiResponse<DailyVoteStationPollsResponse>>(
+    API_PATHS.dailyVote.stationPollsV2(stationId),
+    {
+      params,
+    },
+  );
+};
+
+export const createDailyVoteStationPollV2 = async (
+  stationId: number,
+  payload: APICreateDailyVoteStationPollPayload,
+) => {
+  return axiosInstance.post<ApiResponse<{ pollId: number }>>(
+    API_PATHS.dailyVote.stationPollsV2(stationId),
+    payload,
+  );
+};
+
+export const deleteDailyVotePollV2 = async (pollId: number) => {
+  return axiosInstance.delete<ApiResponse<{ pollId: number; status: string }>>(
+    API_PATHS.dailyVote.pollV2(pollId),
   );
 };
 

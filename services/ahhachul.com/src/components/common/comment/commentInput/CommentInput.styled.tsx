@@ -136,6 +136,12 @@ export const ImageUrlRow = styled.div`
     font-size: 12px;
     color: var(--ah-color-gray-90);
     cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+      color: var(--ah-color-gray-60);
+      background: var(--ah-color-gray-10);
+    }
   }
 `;
 

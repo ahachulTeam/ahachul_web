@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -8,6 +8,7 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { $getRoot, type EditorState } from 'lexical';
 
+import { createS3Presigned } from '@/apis/request/common';
 import { UiComponent } from '@/components';
 import { useAuth } from '@/contexts';
 import { createActionLogger } from '@/utils/observability';
@@ -18,6 +19,7 @@ import Placeholder from '../../editor/placeholder/Placeholder.component';
 import { OnChangePlugin } from '../../editor/plugins';
 
 const EDITOR_BLUR_DELAY_MS = 0;
+const MAX_COMMENT_IMAGE_COUNT = 8;
 const commentInputLogger = createActionLogger('comment-input');
 
 interface CommentInputProps {
@@ -64,9 +66,9 @@ const CommentInput = React.memo(
 
     const [comment, setComment] = useState('');
     const [isPrivate, setIsPrivate] = useState(false);
-    const [imageUrlInput, setImageUrlInput] = useState('');
     const [imageUrls, setImageUrls] = useState<string[]>([]);
     const [imageError, setImageError] = useState<string | null>(null);
+    const [isImageUploading, setIsImageUploading] = useState(false);
 
     const onChangeEditorContent = (editorState: EditorState | null) => {
       if (editorState) {
@@ -95,12 +97,12 @@ const CommentInput = React.memo(
             comment={comment}
             isPrivate={disablePrivateCheck || isPrivate}
             setIsPrivate={setIsPrivate}
-            imageUrlInput={imageUrlInput}
             imageUrls={imageUrls}
-            setImageUrlInput={setImageUrlInput}
             setImageUrls={setImageUrls}
             imageError={imageError}
             setImageError={setImageError}
+            isImageUploading={isImageUploading}
+            setIsImageUploading={setIsImageUploading}
             showIsPrivateBtn={showIsPrivateBtn}
             actionLabel={actionLabel}
             disablePrivateCheck={disablePrivateCheck}
@@ -116,12 +118,12 @@ const SubmitComment = ({
   comment,
   isPrivate,
   setIsPrivate,
-  imageUrlInput,
   imageUrls,
-  setImageUrlInput,
   setImageUrls,
   imageError,
   setImageError,
+  isImageUploading,
+  setIsImageUploading,
   showIsPrivateBtn,
   actionLabel,
   disablePrivateCheck,
@@ -130,12 +132,12 @@ const SubmitComment = ({
   comment: string;
   isPrivate: boolean;
   setIsPrivate: React.Dispatch<React.SetStateAction<boolean>>;
-  imageUrlInput: string;
   imageUrls: string[];
-  setImageUrlInput: React.Dispatch<React.SetStateAction<string>>;
   setImageUrls: React.Dispatch<React.SetStateAction<string[]>>;
   imageError: string | null;
   setImageError: React.Dispatch<React.SetStateAction<string | null>>;
+  isImageUploading: boolean;
+  setIsImageUploading: React.Dispatch<React.SetStateAction<boolean>>;
   showIsPrivateBtn?: boolean;
   disablePrivateCheck?: boolean;
   actionLabel?: string;
@@ -153,23 +155,74 @@ const SubmitComment = ({
     authService: { isAuthenticated },
   } = useAuth();
   const [editor] = useLexicalComposerContext();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleAddImageUrl = () => {
-    const normalized = imageUrlInput.trim();
-    if (!normalized) {
+  const buildCommentImageS3Key = (file: File) => {
+    const extension = file.name
+      .split('.')
+      .pop()
+      ?.toLowerCase()
+      .replace(/[^a-z0-9]/g, '')
+      .slice(0, 10);
+    const randomKey =
+      typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.random().toString(36).slice(2, 12)}`;
+
+    if (!extension) {
+      return `comments/${randomKey}`;
+    }
+
+    return `comments/${randomKey}.${extension}`;
+  };
+
+  const handlePickImages = () => {
+    if (isImageUploading || imageUrls.length >= MAX_COMMENT_IMAGE_COUNT) {
       return;
     }
-    if (!/^https?:\/\/\S+$/i.test(normalized)) {
-      setImageError('이미지 URL은 http(s)로 시작해야 합니다.');
+
+    fileInputRef.current?.click();
+  };
+
+  const handleUploadFiles = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFiles = Array.from(event.target.files ?? []);
+    if (selectedFiles.length === 0) {
       return;
     }
-    if (imageUrls.includes(normalized)) {
-      setImageUrlInput('');
+
+    const availableSlots = Math.max(0, MAX_COMMENT_IMAGE_COUNT - imageUrls.length);
+    const filesForUpload = selectedFiles.slice(0, availableSlots);
+    if (filesForUpload.length === 0) {
+      setImageError('이미지는 최대 8장까지 첨부할 수 있습니다.');
+      event.target.value = '';
       return;
     }
-    setImageUrls(prev => [...prev, normalized].slice(0, 8));
-    setImageUrlInput('');
+
     setImageError(null);
+    setIsImageUploading(true);
+    try {
+      const uploadedUrls = await Promise.all(
+        filesForUpload.map(async file => {
+          const s3Key = buildCommentImageS3Key(file);
+          const uploadedUrl = await createS3Presigned(s3Key, file);
+          if (!uploadedUrl) {
+            throw new Error('이미지 업로드 URL을 생성하지 못했습니다.');
+          }
+          return uploadedUrl;
+        }),
+      );
+
+      setImageUrls(prev =>
+        [...prev, ...uploadedUrls]
+          .filter((url, index, urls) => urls.indexOf(url) === index)
+          .slice(0, MAX_COMMENT_IMAGE_COUNT),
+      );
+    } catch {
+      setImageError('이미지를 업로드하지 못했습니다. 잠시 후 다시 시도해주세요.');
+    } finally {
+      setIsImageUploading(false);
+      event.target.value = '';
+    }
   };
 
   const clear = () => {
@@ -177,7 +230,6 @@ const SubmitComment = ({
       const root = $getRoot();
       root.clear();
     });
-    setImageUrlInput('');
     setImageUrls([]);
     setImageError(null);
 
@@ -192,6 +244,11 @@ const SubmitComment = ({
   const handleSubmit = () => {
     if (!isAuthenticated) {
       alert('로그인 후 이용해주세요.');
+      return;
+    }
+
+    if (isImageUploading) {
+      setImageError('이미지 업로드가 완료된 뒤 등록해주세요.');
       return;
     }
 
@@ -226,22 +283,37 @@ const SubmitComment = ({
             setIsPrivate(false);
             clear();
           }}
+          disabled={isImageUploading}
         >
           취소
         </button>
-        <button type="button" onClick={handleSubmit}>
+        <button type="button" onClick={handleSubmit} disabled={isImageUploading}>
           {actionLabel}
         </button>
       </S.ButtonGroup>
       <S.ImageUrlRow>
         <input
-          type="url"
-          value={imageUrlInput}
-          onChange={event => setImageUrlInput(event.target.value)}
-          placeholder="https:// 이미지/GIF URL"
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          multiple
+          onChange={event => {
+            void handleUploadFiles(event);
+          }}
+          disabled={isImageUploading || imageUrls.length >= MAX_COMMENT_IMAGE_COUNT}
+          hidden
         />
-        <button type="button" onClick={handleAddImageUrl}>
-          이미지 추가
+        <input
+          type="text"
+          value={`첨부 이미지 ${imageUrls.length}/${MAX_COMMENT_IMAGE_COUNT}`}
+          readOnly
+        />
+        <button
+          type="button"
+          onClick={handlePickImages}
+          disabled={isImageUploading || imageUrls.length >= MAX_COMMENT_IMAGE_COUNT}
+        >
+          {isImageUploading ? '업로드 중...' : '이미지 선택'}
         </button>
       </S.ImageUrlRow>
       {imageError ? <S.ImageError>{imageError}</S.ImageError> : null}

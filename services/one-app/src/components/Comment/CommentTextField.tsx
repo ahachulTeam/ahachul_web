@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+import { uploadCommentImageFiles } from '@/lib/comment-image-upload';
+
 interface CommentTextFieldProps {
   placeholder: string;
   value: string;
@@ -21,8 +23,9 @@ interface CommentTextFieldProps {
   imageUrls?: string[];
   onImageUrlsChange?: (imageUrls: string[]) => void;
   maxImageUrls?: number;
-  imageUrlPlaceholder?: string;
   addImageLabel?: string;
+  imageUploadPendingLabel?: string;
+  imageUploadErrorLabel?: string;
 }
 
 export const CommentTextField = React.memo(
@@ -45,35 +48,63 @@ export const CommentTextField = React.memo(
     imageUrls = [],
     onImageUrlsChange,
     maxImageUrls = 8,
-    imageUrlPlaceholder = 'https:// 로 시작하는 이미지/GIF URL',
-    addImageLabel = '이미지 추가',
+    addImageLabel = '이미지 선택',
+    imageUploadPendingLabel = '업로드 중...',
+    imageUploadErrorLabel = '이미지를 업로드하지 못했습니다. 잠시 후 다시 시도해주세요.',
   }: CommentTextFieldProps) => {
-    const [imageUrlInput, setImageUrlInput] = React.useState('');
+    const fileInputRef = React.useRef<HTMLInputElement | null>(null);
+    const [isImageUploading, setIsImageUploading] = React.useState(false);
+    const [imageUploadError, setImageUploadError] = React.useState<string | null>(null);
     const normalizedImageUrls = imageUrls.filter(url => url.trim().length > 0);
     const canSubmit =
-      (value.trim().length > 0 || normalizedImageUrls.length > 0) && !isSubmitting && !disabled;
+      (value.trim().length > 0 || normalizedImageUrls.length > 0) &&
+      !isSubmitting &&
+      !disabled &&
+      !isImageUploading;
     const canAddImage =
-      imageUrlInput.trim().length > 0 && normalizedImageUrls.length < maxImageUrls && !disabled;
+      normalizedImageUrls.length < maxImageUrls && !disabled && !isSubmitting && !isImageUploading;
 
-    const handleAddImageUrl = () => {
-      const normalized = imageUrlInput.trim();
-      if (!normalized) {
+    const handlePickImages = () => {
+      if (!canAddImage) {
         return;
       }
-      if (!/^https?:\/\/\S+$/i.test(normalized)) {
-        return;
-      }
-      if (normalizedImageUrls.includes(normalized)) {
-        setImageUrlInput('');
-        return;
-      }
-      const nextImageUrls = [...normalizedImageUrls, normalized].slice(0, maxImageUrls);
-      onImageUrlsChange?.(nextImageUrls);
-      setImageUrlInput('');
+
+      fileInputRef.current?.click();
     };
 
     const handleRemoveImageUrl = (imageUrl: string) => {
       onImageUrlsChange?.(normalizedImageUrls.filter(url => url !== imageUrl));
+    };
+
+    const handleUploadImages = async (event: React.ChangeEvent<HTMLInputElement>) => {
+      const selectedFiles = Array.from(event.target.files ?? []);
+      if (selectedFiles.length === 0) {
+        return;
+      }
+
+      const availableSlots = Math.max(0, maxImageUrls - normalizedImageUrls.length);
+      const filesForUpload = selectedFiles.slice(0, availableSlots);
+      if (filesForUpload.length === 0) {
+        setImageUploadError(imageUploadErrorLabel);
+        event.target.value = '';
+        return;
+      }
+
+      setImageUploadError(null);
+      setIsImageUploading(true);
+
+      try {
+        const uploadedImageUrls = await uploadCommentImageFiles(filesForUpload);
+        const nextImageUrls = [...normalizedImageUrls, ...uploadedImageUrls]
+          .filter((url, index, urls) => urls.indexOf(url) === index)
+          .slice(0, maxImageUrls);
+        onImageUrlsChange?.(nextImageUrls);
+      } catch {
+        setImageUploadError(imageUploadErrorLabel);
+      } finally {
+        setIsImageUploading(false);
+        event.target.value = '';
+      }
     };
 
     const handleSubmit = () => {
@@ -97,20 +128,27 @@ export const CommentTextField = React.memo(
         <div className="space-y-2">
           <div className="flex items-center gap-2">
             <input
-              type="url"
-              value={imageUrlInput}
-              onChange={event => setImageUrlInput(event.target.value)}
-              placeholder={imageUrlPlaceholder}
-              disabled={disabled || isSubmitting || normalizedImageUrls.length >= maxImageUrls}
-              className="h-9 flex-1 rounded-[8px] border border-gray-40 px-3 text-body-small text-gray-90 outline-none placeholder:text-gray-70 focus:border-key-color disabled:cursor-not-allowed disabled:bg-gray-10"
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleUploadImages}
+              className="hidden"
+              disabled={!canAddImage}
+            />
+            <input
+              type="text"
+              value={`첨부 이미지 ${normalizedImageUrls.length}/${maxImageUrls}`}
+              readOnly
+              className="h-9 flex-1 rounded-[8px] border border-gray-40 px-3 text-body-small text-gray-90 outline-none disabled:cursor-not-allowed disabled:bg-gray-10"
             />
             <button
               type="button"
               className="h-9 rounded-[8px] border border-gray-40 bg-white px-3 text-label-small text-gray-90 disabled:cursor-not-allowed disabled:text-gray-60"
               disabled={!canAddImage}
-              onClick={handleAddImageUrl}
+              onClick={handlePickImages}
             >
-              {addImageLabel}
+              {isImageUploading ? imageUploadPendingLabel : addImageLabel}
             </button>
           </div>
           {normalizedImageUrls.length > 0 ? (
@@ -134,6 +172,7 @@ export const CommentTextField = React.memo(
             </ul>
           ) : null}
         </div>
+        {imageUploadError ? <p className="text-body-small text-red">{imageUploadError}</p> : null}
         {errorMessage ? <p className="text-body-small text-red">{errorMessage}</p> : null}
         <div className="flex items-center justify-between">
           {showPrivateToggle ? (

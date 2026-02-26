@@ -32,6 +32,10 @@ export const createS3Presigned = async (s3key: string, file: File | Blob) => {
   formData.append('file', file);
 
   await axios.post(url, formData);
+
+  const resolvedKey = typeof fields?.key === 'string' && fields.key.length > 0 ? fields.key : s3key;
+  const normalizedUrl = typeof url === 'string' && url.endsWith('/') ? url.slice(0, -1) : url;
+  return `${normalizedUrl}/${String(resolvedKey).replace(/^\/+/, '')}`;
 };
 
 export const download = async (title: string, s3Key: string) => {

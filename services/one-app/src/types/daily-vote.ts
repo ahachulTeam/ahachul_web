@@ -1,5 +1,5 @@
 export type DailyVoteOption = {
-  optionCode: string;
+  optionCode: 'LIKE' | 'DISLIKE';
   label: string;
   emoji: string;
   voteCount: number;
@@ -9,6 +9,7 @@ export type DailyVoteOption = {
 export type DailyVotePollCard = {
   pollId: number;
   question: string;
+  pollKind: 'MAIN' | 'STATION_DIARY' | 'STATION_BOARD';
   pollContext: 'COMMUTE' | 'SCHOOL';
   pollSlot: 'MORNING' | 'EVENING';
   stationId: number;
@@ -54,4 +55,30 @@ export type DailyVoteCommentsResult = {
   pollId: number;
   sort: 'latest' | 'popular';
   comments: DailyVoteCommentItem[];
+};
+
+export type DailyVoteStationPollSummary = {
+  pollId: number;
+  question: string;
+  pollKind: 'STATION_BOARD';
+  pollContext: 'COMMUTE' | 'SCHOOL';
+  pollSlot: 'MORNING' | 'EVENING';
+  stationId: number;
+  stationName: string;
+  subwayLineId: number;
+  subwayLineName: string;
+  totalVoteCount: number;
+  commentCount: number;
+  voted: boolean;
+  selectedOptionCode: 'LIKE' | 'DISLIKE' | null;
+  options: DailyVoteOption[];
+  mine: boolean;
+  createdAt: string;
+};
+
+export type DailyVoteStationPollsResult = {
+  stationId: number;
+  stationName: string;
+  sort: 'latest' | 'popular';
+  polls: DailyVoteStationPollSummary[];
 };
