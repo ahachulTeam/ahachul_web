@@ -5,3 +5,4 @@ export { default as CommunityHotPosts } from './communityHotPosts/CommunityHotPo
 export { default as CommuteCoach } from './commuteCoach/CommuteCoach.component';
 export { default as ForeignerGuide } from './foreignerGuide/ForeignerGuide.component';
 export { default as DailyVote } from './dailyVote/DailyVote.component';
+export { default as ServiceHub } from './serviceHub/ServiceHub.component';

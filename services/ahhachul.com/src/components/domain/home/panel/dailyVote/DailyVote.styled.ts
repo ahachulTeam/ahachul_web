@@ -16,12 +16,57 @@ export const Container = styled.section`
   `}
 `;
 
+export const HeaderRow = styled.div`
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+`;
+
+export const PrimaryActionButton = styled.button`
+  ${({ theme }) => css`
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid ${theme.colors['key-color']};
+    background: ${theme.colors.white};
+    color: ${theme.colors['key-color']};
+    padding: 0 12px;
+    ${theme.fonts.labelSmall};
+    font-weight: 600;
+  `}
+`;
+
 export const Card = styled.article`
   ${({ theme }) => css`
-    margin-top: 12px;
+    margin-top: 10px;
     border-radius: 12px;
     background-color: ${theme.colors.gray[10]};
     padding: 12px 14px;
+  `}
+`;
+
+export const IntroCard = styled.div`
+  ${({ theme }) => css`
+    border: 1px solid ${theme.colors.gray[20]};
+    border-radius: 10px;
+    padding: 10px;
+    background-color: ${theme.colors.gray[5]};
+  `}
+`;
+
+export const IntroTitle = styled.p`
+  ${({ theme }) => css`
+    ${theme.fonts.labelLarge};
+    color: ${theme.colors.gray[100]};
+  `}
+`;
+
+export const IntroDescription = styled.p`
+  ${({ theme }) => css`
+    margin-top: 4px;
+    ${theme.fonts.bodySmall};
+    color: ${theme.colors.gray[70]};
   `}
 `;
 
@@ -68,38 +113,39 @@ export const Question = styled.p`
   `}
 `;
 
-export const OptionList = styled.ul`
+export const OptionPreviewList = styled.ul`
   margin-top: 8px;
   display: grid;
   gap: 6px;
 `;
 
-export const OptionButton = styled.button<{ selected: boolean }>`
+export const OptionPreviewItem = styled.li<{ selected: boolean }>`
   ${({ theme, selected }) => css`
-    width: 100%;
-    border-radius: 8px;
-    border: 1px solid ${selected ? theme.colors['key-color'] : theme.colors.gray[30]};
-    background: ${selected ? theme.colors['key-color'] : theme.colors.white};
-    color: ${selected ? theme.colors.white : theme.colors.gray[90]};
-    padding: 8px 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
+    border-radius: 8px;
+    border: 1px solid ${selected ? theme.colors['key-color'] : theme.colors.gray[30]};
+    background: ${selected ? theme.colors.green[100] : theme.colors.gray[5]};
+    color: ${selected ? theme.colors['key-color'] : theme.colors.gray[90]};
+    padding: 8px 10px;
     ${theme.fonts.labelSmall};
-
-    &:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
   `}
+`;
+
+export const PollFooter = styled.div`
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 `;
 
 export const TotalVoteText = styled.p`
   ${({ theme }) => css`
     ${theme.fonts.labelSmall};
     color: ${theme.colors.gray[70]};
-    margin-top: 8px;
   `}
 `;
 

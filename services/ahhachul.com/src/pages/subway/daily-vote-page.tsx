@@ -114,7 +114,11 @@ const DailyVotePage: ActivityComponentType<DailyVotePageParams> = ({
             <h1 style={{ fontSize: '18px', fontWeight: 700 }}>오늘의 이동 공감</h1>
             <button
               type="button"
-              onClick={() => push('HomePage', {})}
+              onClick={() =>
+                push('DailyVoteHubPage', {
+                  stationName,
+                })
+              }
               style={{
                 height: '32px',
                 borderRadius: '8px',
@@ -124,7 +128,7 @@ const DailyVotePage: ActivityComponentType<DailyVotePageParams> = ({
                 cursor: 'pointer',
               }}
             >
-              홈으로
+              라운지
             </button>
           </div>
           <p style={{ marginTop: '6px', fontSize: '12px', color: '#4B5563' }}>

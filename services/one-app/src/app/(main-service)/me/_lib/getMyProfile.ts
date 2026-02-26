@@ -110,6 +110,21 @@ export type FavoriteRouteList = {
 };
 
 export type CommuteCoachRiskLevel = 'LOW' | 'MEDIUM' | 'HIGH';
+export type CommuteCoachWalkingMinutesSource = 'USER_PROFILE' | 'DEFAULT';
+
+export type CommuteCoachWalkingLeg = {
+  stationId: number;
+  stationName: string;
+  walkingMinutes: number;
+  walkingMinutesSource: CommuteCoachWalkingMinutesSource;
+  walkingMinutesUpdatedAt?: string | null;
+};
+
+export type CommuteCoachWalkingMeta = {
+  totalWalkingMinutes: number;
+  source: CommuteCoachWalkingLeg;
+  destination: CommuteCoachWalkingLeg;
+};
 
 export type CommuteCoach = {
   generatedAt: string;
@@ -118,6 +133,7 @@ export type CommuteCoach = {
   departureInMinutes: number | null;
   riskLevel: CommuteCoachRiskLevel;
   riskReasons: string[];
+  walkingMeta?: CommuteCoachWalkingMeta | null;
   primaryRoute: FavoriteRoute | null;
   alternativeRoutes: FavoriteRoute[];
   guidanceMessage: string;

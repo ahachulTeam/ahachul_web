@@ -156,6 +156,21 @@ export interface FavoriteRouteListDto {
 }
 
 export type CommuteCoachRiskLevel = 'LOW' | 'MEDIUM' | 'HIGH';
+export type CommuteCoachWalkingMinutesSource = 'USER_PROFILE' | 'DEFAULT';
+
+export interface CommuteCoachWalkingLeg {
+  stationId: number;
+  stationName: string;
+  walkingMinutes: number;
+  walkingMinutesSource: CommuteCoachWalkingMinutesSource;
+  walkingMinutesUpdatedAt?: string | null;
+}
+
+export interface CommuteCoachWalkingMeta {
+  totalWalkingMinutes: number;
+  source: CommuteCoachWalkingLeg;
+  destination: CommuteCoachWalkingLeg;
+}
 
 export interface CommuteCoachDto {
   generatedAt: string;
@@ -164,6 +179,7 @@ export interface CommuteCoachDto {
   departureInMinutes: number | null;
   riskLevel: CommuteCoachRiskLevel;
   riskReasons: string[];
+  walkingMeta?: CommuteCoachWalkingMeta | null;
   primaryRoute: FavoriteRouteDto | null;
   alternativeRoutes: FavoriteRouteDto[];
   guidanceMessage: string;

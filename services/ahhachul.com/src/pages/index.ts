@@ -3,7 +3,13 @@ import { HashtagPage } from './hashtag';
 import { NewsDetailPage } from './news';
 import { NotificationPage, NotificationSettingPage } from './notification';
 import { DelayProofPage } from './proofs';
-import { DailyVotePage, DailyVoteStationPage, SubwayMapPage, SubwayTimelinePage } from './subway';
+import {
+  DailyVoteHubPage,
+  DailyVotePage,
+  DailyVoteStationPage,
+  SubwayMapPage,
+  SubwayTimelinePage,
+} from './subway';
 import { TalkPage, TalkDetailPage, TalkSettingPage } from './talk';
 import { UserProfilePage, UserProfilePreviewPage, UserProfileSettingPage } from './user';
 
@@ -19,6 +25,7 @@ export const SharingPages = {
   HashtagPage,
   SubwayMapPage,
   SubwayTimelinePage,
+  DailyVoteHubPage,
   DailyVotePage,
   DailyVoteStationPage,
   DelayProofPage,

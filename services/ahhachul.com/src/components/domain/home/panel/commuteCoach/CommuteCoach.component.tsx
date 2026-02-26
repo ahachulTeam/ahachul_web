@@ -15,6 +15,11 @@ const RISK_LABELS: Record<CommuteCoachRiskLevel, string> = {
   HIGH: '긴급',
 };
 
+const WALKING_SOURCE_LABELS = {
+  USER_PROFILE: '프로필',
+  DEFAULT: '기본값',
+} as const;
+
 const CommuteCoach = () => {
   const { isCheckingAuthState, authService } = useAuth();
   const coachQuery = useFetchUserCommuteCoachToday({
@@ -41,6 +46,7 @@ const CommuteCoach = () => {
 
   const coach = coachQuery.data?.result;
   const primaryRoute = coach?.primaryRoute ?? null;
+  const walkingMeta = coach?.walkingMeta ?? null;
   let departureLabel = '-';
   if (coach?.departureInMinutes != null) {
     departureLabel =
@@ -74,6 +80,7 @@ const CommuteCoach = () => {
                 <li>목표 도착 시각 {coach.targetArrivalAt}</li>
                 <li>권장 출발 시각 {coach.safeDepartureAt ?? '-'}</li>
                 <li>출발 권장 {departureLabel}</li>
+                {walkingMeta ? <li>도보 합계 {walkingMeta.totalWalkingMinutes}분 반영</li> : null}
               </S.MetaList>
               <S.RouteSummary>
                 <p>
@@ -85,6 +92,14 @@ const CommuteCoach = () => {
                   분
                 </span>
               </S.RouteSummary>
+              {walkingMeta ? (
+                <S.HelperText>
+                  출발 {walkingMeta.source.stationName} {walkingMeta.source.walkingMinutes}분(
+                  {WALKING_SOURCE_LABELS[walkingMeta.source.walkingMinutesSource]}) · 도착{' '}
+                  {walkingMeta.destination.stationName} {walkingMeta.destination.walkingMinutes}분(
+                  {WALKING_SOURCE_LABELS[walkingMeta.destination.walkingMinutesSource]})
+                </S.HelperText>
+              ) : null}
               {coach.alternativeRoutes.length > 0 ? (
                 <S.HelperText>
                   대체 경로 {coach.alternativeRoutes.length}개를 함께 제안합니다.

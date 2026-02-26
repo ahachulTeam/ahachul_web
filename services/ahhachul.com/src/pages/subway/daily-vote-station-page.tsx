@@ -108,7 +108,14 @@ const DailyVoteStationPage: ActivityComponentType<DailyVoteStationPageParams> = 
             <h1 style={{ fontSize: '18px', fontWeight: 700 }}>역 투표 게시판</h1>
             <button
               type="button"
-              onClick={() => push('HomePage', {})}
+              onClick={() =>
+                push('DailyVoteHubPage', {
+                  stationId,
+                  stationName,
+                  subwayLineId: subwayLineId > 0 ? subwayLineId : undefined,
+                  subwayLineName: subwayLineName || undefined,
+                })
+              }
               style={{
                 height: '32px',
                 borderRadius: '8px',
@@ -118,7 +125,7 @@ const DailyVoteStationPage: ActivityComponentType<DailyVoteStationPageParams> = 
                 cursor: 'pointer',
               }}
             >
-              홈으로
+              라운지
             </button>
           </div>
           <p style={{ marginTop: '6px', fontSize: '12px', color: '#4B5563' }}>

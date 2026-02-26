@@ -118,8 +118,11 @@ export default function DailyVoteStationBoardClient({
     <main className="mx-auto min-h-screen w-full max-w-screen-md bg-white px-5 py-6 pb-24">
       <div className="flex items-center justify-between gap-3">
         <h1 className="text-title-large text-gray-100">역 투표 게시판</h1>
-        <Link href={localizePathname('/', locale)} className="text-label-small text-key-color">
-          홈으로
+        <Link
+          href={localizePathname('/daily-votes', locale)}
+          className="text-label-small text-key-color"
+        >
+          라운지
         </Link>
       </div>
 

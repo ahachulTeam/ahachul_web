@@ -2,7 +2,7 @@
 
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 
 import { API_PATHS, API_SORT } from '@ahhachul/http';
@@ -17,7 +17,7 @@ import { ChevronDownIcon, HeaderMessageIcon, HeaderNotificationIcon } from '@/as
 import { SUBWAY_LOGO_SVG_LIST } from '@/components/Subway/SubwayLogoIconMap';
 import { getLocaleMessages, localizePathname, type SupportedLocale } from '@/i18n';
 import { AuthService } from '@/lib/auth-service';
-import { fetchDailyVoteTodayV2, voteDailyPollV2 } from '@/lib/daily-vote';
+import { fetchDailyVoteTodayV2 } from '@/lib/daily-vote';
 import { fetchClient } from '@/lib/fetch-client';
 import { fetchForeignerStationGuideV2 } from '@/lib/foreigner-mode';
 import { createActionLogger } from '@/lib/observability';
@@ -249,6 +249,13 @@ function resolveCommuteRiskClassName(riskLevel?: CommuteCoachRiskLevel) {
   return 'border-rose-200 bg-rose-50 text-rose-700';
 }
 
+function resolveCommuteWalkingSourceLabel(source?: 'USER_PROFILE' | 'DEFAULT') {
+  if (source === 'USER_PROFILE') {
+    return '프로필';
+  }
+  return '기본값';
+}
+
 function toSummaryByType(summaries: StationTimeSummaryItem[] = []) {
   return summaries.reduce<Partial<Record<RealtimeUpDownType, StationTimeSummaryItem>>>(
     (accumulator, item) => {
@@ -337,7 +344,6 @@ export default function HomeViteParity({ locale }: Props) {
     () => subwayLines.find(line => line.id === selectedLineId) ?? null,
     [selectedLineId, subwayLines],
   );
-  const queryClient = useQueryClient();
   const stationOptions = selectedLine?.stations ?? [];
   const selectedStationName =
     stationOptions.find(station => station.id === selectedStationId)?.name ?? '역 선택';
@@ -381,6 +387,40 @@ export default function HomeViteParity({ locale }: Props) {
     search.set('question', question);
     search.set('stationName', stationName);
     return `${localizePathname(`/daily-votes/${pollId}`, locale)}?${search.toString()}`;
+  };
+
+  const buildDailyVoteHubHref = (
+    stationIdValue?: number,
+    stationNameValue?: string,
+    subwayLineIdValue?: number,
+    subwayLineNameValue?: string,
+  ) => {
+    const search = new URLSearchParams();
+    if (
+      typeof stationIdValue === 'number' &&
+      Number.isFinite(stationIdValue) &&
+      stationIdValue > 0
+    ) {
+      search.set('stationId', String(stationIdValue));
+    }
+    if (stationNameValue && stationNameValue !== '역 선택') {
+      search.set('stationName', stationNameValue);
+    }
+    if (
+      typeof subwayLineIdValue === 'number' &&
+      Number.isFinite(subwayLineIdValue) &&
+      subwayLineIdValue > 0
+    ) {
+      search.set('subwayLineId', String(subwayLineIdValue));
+    }
+    if (subwayLineNameValue) {
+      search.set('subwayLineName', subwayLineNameValue);
+    }
+
+    const query = search.toString();
+    return query
+      ? `${localizePathname('/daily-votes', locale)}?${query}`
+      : localizePathname('/daily-votes', locale);
   };
 
   const buildDailyVoteStationBoardHref = (
@@ -446,25 +486,6 @@ export default function HomeViteParity({ locale }: Props) {
       fetchDailyVoteTodayV2({
         timezone: 'Asia/Seoul',
       }),
-  });
-
-  const dailyVoteMutation = useMutation({
-    mutationFn: ({ pollId, optionCode }: { pollId: number; optionCode: 'LIKE' | 'DISLIKE' }) =>
-      voteDailyPollV2(pollId, { optionCode }),
-    onSuccess: async () => {
-      await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ['home', 'daily-vote', 'today'] }),
-        queryClient.invalidateQueries({ queryKey: ['daily-vote'] }),
-      ]);
-    },
-    onError: error => {
-      homeParityLogger.fail(
-        'vote-daily-poll',
-        error,
-        undefined,
-        '일일 투표 처리에 실패했습니다. 잠시 후 다시 시도해주세요.',
-      );
-    },
   });
 
   const foreignerGuideQuery = useQuery({
@@ -972,6 +993,7 @@ export default function HomeViteParity({ locale }: Props) {
 
   const commuteCoach = commuteCoachQuery.data?.result;
   const primaryCommuteRoute = commuteCoach?.primaryRoute ?? null;
+  const commuteWalkingMeta = commuteCoach?.walkingMeta ?? null;
   let departureLabel = '-';
   if (commuteCoach?.departureInMinutes != null) {
     departureLabel =
@@ -1009,6 +1031,9 @@ export default function HomeViteParity({ locale }: Props) {
           <p>목표 도착 시각 {commuteCoach.targetArrivalAt}</p>
           <p>권장 출발 시각 {commuteCoach.safeDepartureAt ?? '-'}</p>
           <p>출발 권장 {departureLabel}</p>
+          {commuteWalkingMeta ? (
+            <p>도보 합계 {commuteWalkingMeta.totalWalkingMinutes}분 반영</p>
+          ) : null}
         </div>
         <div className="rounded-lg border border-white/10 bg-white/[0.06] p-2">
           <p className="text-label-small text-white">
@@ -1021,6 +1046,15 @@ export default function HomeViteParity({ locale }: Props) {
             {primaryCommuteRoute.summary.estimatedMinutes}분
           </p>
         </div>
+        {commuteWalkingMeta ? (
+          <p className="text-label-small text-white/70">
+            출발 {commuteWalkingMeta.source.stationName} {commuteWalkingMeta.source.walkingMinutes}
+            분({resolveCommuteWalkingSourceLabel(commuteWalkingMeta.source.walkingMinutesSource)}) ·
+            도착 {commuteWalkingMeta.destination.stationName}{' '}
+            {commuteWalkingMeta.destination.walkingMinutes}분(
+            {resolveCommuteWalkingSourceLabel(commuteWalkingMeta.destination.walkingMinutesSource)})
+          </p>
+        ) : null}
         {commuteCoach.alternativeRoutes.length > 0 ? (
           <p className="text-label-small text-white/70">
             대체 경로 {commuteCoach.alternativeRoutes.length}개 제공
@@ -1140,44 +1174,60 @@ export default function HomeViteParity({ locale }: Props) {
     (poll): poll is DailyVotePollCard => poll != null,
   );
   const stationBoardEntryPoll = dailyVotePollCards[0] ?? null;
+  const dailyVoteHubHref = buildDailyVoteHubHref(
+    stationBoardEntryPoll?.stationId ?? selectedStationId,
+    stationBoardEntryPoll?.stationName ?? selectedStationName,
+    stationBoardEntryPoll?.subwayLineId ?? selectedLineId,
+    stationBoardEntryPoll?.subwayLineName ?? selectedLine?.name,
+  );
 
   let dailyVoteContent: ReactNode;
   if (!isLoggedIn) {
     dailyVoteContent = (
-      <p className="mt-2 text-body-small text-white/70">
-        로그인 후 오늘의 출퇴근/등하교 투표에 참여할 수 있어요.
-      </p>
+      <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.06] p-3">
+        <p className="text-body-small text-white/70">
+          로그인 후 오늘의 출퇴근/등하교 투표에 참여할 수 있어요.
+        </p>
+      </div>
     );
   } else if (dailyVoteTodayQuery.isPending) {
     dailyVoteContent = (
-      <p className="mt-2 text-body-small text-white/70">오늘의 투표를 불러오는 중입니다.</p>
+      <p className="mt-3 text-body-small text-white/70">오늘의 투표를 불러오는 중입니다.</p>
     );
   } else if (dailyVoteTodayQuery.isError) {
     dailyVoteContent = (
-      <p className="mt-2 text-body-small text-danger">오늘의 투표를 불러오지 못했습니다.</p>
+      <p className="mt-3 text-body-small text-danger">오늘의 투표를 불러오지 못했습니다.</p>
     );
   } else if (!dailyVoteToday || dailyVotePollCards.length === 0) {
     dailyVoteContent = (
-      <p className="mt-2 text-body-small text-white/70">표시할 투표가 없습니다.</p>
+      <div className="mt-3 space-y-2">
+        <p className="text-body-small text-white/70">표시할 투표가 없습니다.</p>
+        <Link
+          href={dailyVoteHubHref}
+          className="inline-flex h-8 items-center rounded-lg border border-key-color px-3 text-label-small text-key-color"
+        >
+          투표 라운지 열기
+        </Link>
+      </div>
     );
   } else {
     dailyVoteContent = (
       <div className="mt-2 space-y-3">
-        {stationBoardEntryPoll ? (
-          <div className="flex justify-end">
-            <Link
-              href={buildDailyVoteStationBoardHref(
-                stationBoardEntryPoll.stationId,
-                stationBoardEntryPoll.stationName,
-                stationBoardEntryPoll.subwayLineId,
-                stationBoardEntryPoll.subwayLineName,
-              )}
-              className="text-label-small text-key-color"
-            >
-              역 투표 게시판
-            </Link>
+        <div className="flex items-center justify-between gap-2 rounded-xl border border-white/10 bg-white/[0.06] p-3">
+          <div>
+            <p className="text-label-medium text-white">투표는 라운지에서 진행돼요</p>
+            <p className="mt-1 text-label-small text-white/70">
+              홈에서는 요약만 보고, 투표/댓글 작성은 2단계 화면에서 할 수 있어요.
+            </p>
           </div>
-        ) : null}
+          <Link
+            href={dailyVoteHubHref}
+            className="inline-flex h-8 shrink-0 items-center rounded-lg border border-key-color px-3 text-label-small text-key-color"
+          >
+            투표하러 가기
+          </Link>
+        </div>
+
         {dailyVotePollCards.map(poll => (
           <article
             key={`daily-vote-${poll.pollId}`}
@@ -1197,35 +1247,50 @@ export default function HomeViteParity({ locale }: Props) {
             <p className="mt-1 text-body-small text-white">{poll.question}</p>
             <ul className="mt-2 grid grid-cols-1 gap-2">
               {poll.options.map(option => (
-                <li key={`${poll.pollId}-${option.optionCode}`}>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      dailyVoteMutation.mutate({
-                        pollId: poll.pollId,
-                        optionCode: option.optionCode,
-                      })
-                    }
-                    disabled={dailyVoteMutation.isPending}
-                    className={
-                      option.optionCode === poll.selectedOptionCode
-                        ? 'w-full rounded-lg border border-key-color bg-key-color px-3 py-2 text-left text-label-small text-white'
-                        : 'w-full rounded-lg border border-white/20 bg-white/[0.06] px-3 py-2 text-left text-label-small text-white/90'
-                    }
-                  >
-                    <span>
-                      {option.emoji} {option.label}
-                    </span>
-                    <span className="ml-2 text-label-small">
-                      {option.voteCount}표 · {option.voteRatePercent}%
-                    </span>
-                  </button>
+                <li
+                  key={`${poll.pollId}-${option.optionCode}`}
+                  className={
+                    option.optionCode === poll.selectedOptionCode
+                      ? 'flex items-center justify-between rounded-lg border border-key-color bg-key-color/20 px-3 py-2 text-label-small text-white'
+                      : 'flex items-center justify-between rounded-lg border border-white/20 bg-white/[0.04] px-3 py-2 text-label-small text-white/90'
+                  }
+                >
+                  <span>
+                    {option.emoji} {option.label}
+                  </span>
+                  <span className="ml-2 text-label-small">
+                    {option.voteCount}표 · {option.voteRatePercent}%
+                  </span>
                 </li>
               ))}
             </ul>
-            <p className="mt-2 text-label-small text-gray-70">총 참여 {poll.totalVoteCount}명</p>
+            <div className="mt-2 flex items-center justify-between gap-2">
+              <p className="text-label-small text-gray-70">총 참여 {poll.totalVoteCount}명</p>
+              <Link
+                href={buildDailyVoteDetailHref(poll.pollId, poll.question, poll.stationName)}
+                className="text-label-small text-key-color"
+              >
+                댓글 전체 보기
+              </Link>
+            </div>
           </article>
         ))}
+
+        {stationBoardEntryPoll ? (
+          <div className="flex justify-end">
+            <Link
+              href={buildDailyVoteStationBoardHref(
+                stationBoardEntryPoll.stationId,
+                stationBoardEntryPoll.stationName,
+                stationBoardEntryPoll.subwayLineId,
+                stationBoardEntryPoll.subwayLineName,
+              )}
+              className="text-label-small text-key-color"
+            >
+              역 투표 게시판
+            </Link>
+          </div>
+        ) : null}
 
         {dailyVoteToday.stationDiary?.visible ? (
           <article className="rounded-xl border border-emerald-200 bg-emerald-50 p-3">
@@ -1481,19 +1546,69 @@ export default function HomeViteParity({ locale }: Props) {
           <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.04] p-3">
             <div className="flex items-center justify-between">
               <p className="text-label-medium text-white">오늘의 출퇴근/등하교 투표</p>
-              {isLoggedIn ? (
-                <button
-                  type="button"
-                  className="text-label-small text-key-color"
-                  onClick={() => {
-                    void dailyVoteTodayQuery.refetch();
-                  }}
-                >
-                  새로고침
-                </button>
-              ) : null}
+              <div className="flex items-center gap-3">
+                {isLoggedIn ? (
+                  <button
+                    type="button"
+                    className="text-label-small text-key-color"
+                    onClick={() => {
+                      void dailyVoteTodayQuery.refetch();
+                    }}
+                  >
+                    새로고침
+                  </button>
+                ) : null}
+                <Link href={dailyVoteHubHref} className="text-label-small text-key-color">
+                  투표 라운지
+                </Link>
+              </div>
             </div>
             {dailyVoteContent}
+          </div>
+
+          <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.04] p-3">
+            <p className="text-label-medium text-white">핵심 기능 바로가기</p>
+            <p className="mt-1 text-label-small text-white/70">
+              홈에서 요약을 보고, 세부 작업은 2~3단계 화면에서 진행하세요.
+            </p>
+            <ul className="mt-3 grid grid-cols-2 gap-2">
+              <li>
+                <Link
+                  href={dailyVoteHubHref}
+                  className="block rounded-lg border border-white/10 bg-white/[0.06] px-3 py-2"
+                >
+                  <p className="text-label-small text-white">투표 라운지</p>
+                  <p className="mt-1 text-label-small text-white/70">투표/댓글</p>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={stationCommunityMoreHref ?? localizePathname('/community', locale)}
+                  className="block rounded-lg border border-white/10 bg-white/[0.06] px-3 py-2"
+                >
+                  <p className="text-label-small text-white">역 커뮤니티</p>
+                  <p className="mt-1 text-label-small text-white/70">인기글/필터</p>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={localizePathname('/lost-found', locale)}
+                  className="block rounded-lg border border-white/10 bg-white/[0.06] px-3 py-2"
+                >
+                  <p className="text-label-small text-white">유실물 허브</p>
+                  <p className="mt-1 text-label-small text-white/70">제보/댓글</p>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={localizePathname('/complaint', locale)}
+                  className="block rounded-lg border border-white/10 bg-white/[0.06] px-3 py-2"
+                >
+                  <p className="text-label-small text-white">민원 허브</p>
+                  <p className="mt-1 text-label-small text-white/70">접수/답글</p>
+                </Link>
+              </li>
+            </ul>
           </div>
 
           <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.04] p-3">

@@ -102,6 +102,7 @@ export const PATH = {
 
   /** 일일 투표 */
   dailyVote: {
+    home: '/daily-votes',
     detail: '/daily-votes/:pollId',
     station: '/daily-votes/stations/:stationId',
   },

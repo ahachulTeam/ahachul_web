@@ -1,10 +1,9 @@
 import { type ReactNode, useEffect } from 'react';
 
-import { useQueryClient } from '@tanstack/react-query';
-
 import { useAuth } from '@/contexts';
-import { useFetchDailyVoteToday, useVoteDailyPoll } from '@/services/subway';
+import { useFetchDailyVoteToday } from '@/services/subway';
 import { StackFlow } from '@/stackflow';
+import { useUserStationStore } from '@/stores/subway';
 import type { DailyVotePollCard } from '@/types';
 import { createActionLogger } from '@/utils/observability';
 
@@ -20,12 +19,15 @@ const DailyVote = () => {
   const {
     authService: { isAuthenticated },
   } = useAuth();
-  const queryClient = useQueryClient();
+  const { userStations } = useUserStationStore(state => state);
+  const selectedStation = userStations[0];
+  const selectedLine = selectedStation?.subwayLineInfoList?.[0];
+  const selectedStationId = selectedStation?.stationId;
+  const selectedLineId = Number(selectedLine?.subwayLineId ?? 0);
 
   const dailyVoteTodayQuery = useFetchDailyVoteToday({
     enabled: isAuthenticated,
   });
-  const voteMutation = useVoteDailyPoll();
 
   useEffect(() => {
     if (!dailyVoteTodayQuery.error) {
@@ -49,6 +51,14 @@ const DailyVote = () => {
   );
   const stationDiary = today?.stationDiary ?? null;
   const stationBoardPoll = polls[0] ?? null;
+
+  const hubParams = {
+    stationId: stationBoardPoll?.stationId ?? selectedStationId,
+    stationName: stationBoardPoll?.stationName ?? selectedStation?.stationName,
+    subwayLineId:
+      stationBoardPoll?.subwayLineId ?? (selectedLineId > 0 ? selectedLineId : undefined),
+    subwayLineName: stationBoardPoll?.subwayLineName ?? selectedLine?.subwayLineName,
+  };
 
   let stationDiaryContent: ReactNode = null;
   if (stationDiary?.visible) {
@@ -83,22 +93,19 @@ const DailyVote = () => {
     <S.Container>
       <b>오늘의 출퇴근/등하교 투표</b>
 
+      <S.HeaderRow>
+        <StackFlow.Link activityName="DailyVoteHubPage" activityParams={hubParams}>
+          <S.PrimaryActionButton type="button">투표하러 가기</S.PrimaryActionButton>
+        </StackFlow.Link>
+      </S.HeaderRow>
+
       <S.Card>
-        {stationBoardPoll ? (
-          <div style={{ marginBottom: '8px', display: 'flex', justifyContent: 'flex-end' }}>
-            <StackFlow.Link
-              activityName="DailyVoteStationPage"
-              activityParams={{
-                stationId: stationBoardPoll.stationId,
-                stationName: stationBoardPoll.stationName,
-                subwayLineId: stationBoardPoll.subwayLineId,
-                subwayLineName: stationBoardPoll.subwayLineName,
-              }}
-            >
-              <S.DetailButton type="button">역 투표 게시판</S.DetailButton>
-            </StackFlow.Link>
-          </div>
-        ) : null}
+        <S.IntroCard>
+          <S.IntroTitle>홈에서는 요약만 보여드려요</S.IntroTitle>
+          <S.IntroDescription>
+            투표 선택/댓글 작성은 2단계 라운지 화면에서 진행해 더 읽기 쉽게 구성했습니다.
+          </S.IntroDescription>
+        </S.IntroCard>
         {dailyVoteTodayQuery.isLoading ? (
           <S.EmptyText>오늘의 투표를 불러오는 중입니다.</S.EmptyText>
         ) : null}
@@ -127,40 +134,35 @@ const DailyVote = () => {
               </StackFlow.Link>
             </S.PollHeader>
             <S.Question>{poll.question}</S.Question>
-            <S.OptionList>
+            <S.OptionPreviewList>
               {poll.options.map(option => (
-                <li key={`${poll.pollId}-${option.optionCode}`}>
-                  <S.OptionButton
-                    type="button"
-                    selected={option.optionCode === poll.selectedOptionCode}
-                    disabled={voteMutation.isPending}
-                    onClick={() =>
-                      voteMutation.mutate(
-                        { pollId: poll.pollId, optionCode: option.optionCode },
-                        {
-                          onSuccess: async () => {
-                            await Promise.all([
-                              queryClient.invalidateQueries({ queryKey: ['daily-vote', 'today'] }),
-                              queryClient.invalidateQueries({
-                                queryKey: ['daily-vote', 'comments'],
-                              }),
-                            ]);
-                          },
-                        },
-                      )
-                    }
-                  >
-                    <span>
-                      {option.emoji} {option.label}
-                    </span>
-                    <span>
-                      {option.voteCount}표 · {option.voteRatePercent}%
-                    </span>
-                  </S.OptionButton>
-                </li>
+                <S.OptionPreviewItem
+                  key={`${poll.pollId}-${option.optionCode}`}
+                  selected={option.optionCode === poll.selectedOptionCode}
+                >
+                  <span>
+                    {option.emoji} {option.label}
+                  </span>
+                  <span>
+                    {option.voteCount}표 · {option.voteRatePercent}%
+                  </span>
+                </S.OptionPreviewItem>
               ))}
-            </S.OptionList>
-            <S.TotalVoteText>총 참여 {poll.totalVoteCount}명</S.TotalVoteText>
+            </S.OptionPreviewList>
+            <S.PollFooter>
+              <S.TotalVoteText>총 참여 {poll.totalVoteCount}명</S.TotalVoteText>
+              <StackFlow.Link
+                activityName="DailyVoteHubPage"
+                activityParams={{
+                  stationId: poll.stationId,
+                  stationName: poll.stationName,
+                  subwayLineId: poll.subwayLineId,
+                  subwayLineName: poll.subwayLineName,
+                }}
+              >
+                <S.DetailButton type="button">라운지 이동</S.DetailButton>
+              </StackFlow.Link>
+            </S.PollFooter>
           </S.PollCard>
         ))}
 
