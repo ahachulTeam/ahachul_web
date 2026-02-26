@@ -13,9 +13,10 @@ type BreadcrumbItem = {
 
 type Props = {
   items: BreadcrumbItem[];
+  visuallyHidden?: boolean;
 };
 
-export default function BreadcrumbNav({ items }: Props) {
+export default function BreadcrumbNav({ items, visuallyHidden = false }: Props) {
   const breadcrumbJsonLd = createBreadcrumbJsonLd(
     items.map(item => ({
       name: item.name,
@@ -25,7 +26,7 @@ export default function BreadcrumbNav({ items }: Props) {
 
   return (
     <>
-      <nav aria-label="breadcrumb" className="px-5 pb-2 pt-2">
+      <nav aria-label="breadcrumb" className={visuallyHidden ? 'sr-only' : 'px-5 pb-2 pt-2'}>
         <ol className="flex flex-wrap items-center gap-1 text-body-small text-gray-70">
           {items.map((item, index) => {
             const isLast = index === items.length - 1;
