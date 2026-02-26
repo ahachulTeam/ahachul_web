@@ -92,6 +92,15 @@ type EditableFavoriteStation = {
   stationId: number;
   stationName: string;
   label: string;
+  locationMeta?: {
+    locationName?: string | null;
+    roadAddress?: string | null;
+    jibunAddress?: string | null;
+    latitude?: number | null;
+    longitude?: number | null;
+    walkingMinutes?: number | null;
+    walkingSource?: 'ADDRESS' | 'CURRENT_LOCATION' | 'MANUAL' | null;
+  } | null;
 };
 
 type SubwayLineCatalogStation = {
@@ -468,6 +477,7 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
           stationId: matchedStation?.id ?? station.stationId ?? 0,
           stationName: matchedStation?.name ?? station.stationName,
           label: station.label ?? '',
+          locationMeta: station.locationMeta ?? null,
         };
       }),
     );
@@ -570,6 +580,7 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
         stationId: station.stationId,
         stationName: normalizeInputText(station.stationName),
         label: normalizeInputText(station.label),
+        locationMeta: station.locationMeta ?? null,
       }))
       .filter(station => station.stationId > 0 && station.stationName.length > 0);
   }, [favoriteDraft]);
@@ -596,8 +607,36 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
     try {
       await favoriteMutation.mutateAsync(
         normalizedFavoritePayload.map(station => ({
+          stationId: station.stationId,
           stationName: station.stationName,
           ...(station.label ? { label: station.label } : {}),
+          ...(station.locationMeta
+            ? {
+                locationMeta: {
+                  ...(station.locationMeta.locationName
+                    ? { locationName: station.locationMeta.locationName }
+                    : {}),
+                  ...(station.locationMeta.roadAddress
+                    ? { roadAddress: station.locationMeta.roadAddress }
+                    : {}),
+                  ...(station.locationMeta.jibunAddress
+                    ? { jibunAddress: station.locationMeta.jibunAddress }
+                    : {}),
+                  ...(station.locationMeta.latitude != null
+                    ? { latitude: station.locationMeta.latitude }
+                    : {}),
+                  ...(station.locationMeta.longitude != null
+                    ? { longitude: station.locationMeta.longitude }
+                    : {}),
+                  ...(station.locationMeta.walkingMinutes != null
+                    ? { walkingMinutes: station.locationMeta.walkingMinutes }
+                    : {}),
+                  ...(station.locationMeta.walkingSource
+                    ? { walkingSource: station.locationMeta.walkingSource }
+                    : {}),
+                },
+              }
+            : {}),
         })),
       );
       setFavoriteFeedbackMessage('success', '즐겨찾는 역이 저장되었습니다.');

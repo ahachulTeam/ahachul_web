@@ -9,6 +9,16 @@ export type FavoriteStation = {
   lineId?: number;
   lineName?: string;
   label?: string | null;
+  locationMeta?: {
+    locationName?: string | null;
+    roadAddress?: string | null;
+    jibunAddress?: string | null;
+    latitude?: number | null;
+    longitude?: number | null;
+    walkingMinutes?: number | null;
+    walkingSource?: 'ADDRESS' | 'CURRENT_LOCATION' | 'MANUAL' | null;
+    walkingUpdatedAt?: string | null;
+  } | null;
   subwayLineInfoList?: Array<{
     subwayLineId: number;
     subwayLineName: string;
@@ -48,6 +58,16 @@ export type UpdateMemberPayload = {
 export type FavoriteStationPayload = {
   stationName: string;
   label?: string;
+  stationId?: number;
+  locationMeta?: {
+    locationName?: string;
+    roadAddress?: string;
+    jibunAddress?: string;
+    latitude?: number;
+    longitude?: number;
+    walkingMinutes?: number;
+    walkingSource?: 'ADDRESS' | 'CURRENT_LOCATION' | 'MANUAL';
+  };
 };
 
 export type FavoriteRouteNode = {

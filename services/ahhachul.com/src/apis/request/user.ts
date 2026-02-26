@@ -78,6 +78,15 @@ type FavoriteStationPayload = {
   stationName: string;
   label?: string;
   stationId?: number;
+  locationMeta?: {
+    locationName?: string;
+    roadAddress?: string;
+    jibunAddress?: string;
+    latitude?: number;
+    longitude?: number;
+    walkingMinutes?: number;
+    walkingSource?: 'ADDRESS' | 'CURRENT_LOCATION' | 'MANUAL';
+  };
 };
 
 type UserProfileDetailFetchOptions = {

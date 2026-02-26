@@ -142,7 +142,7 @@ export const useFetchStationTimesSummary = (params: StationTimeSummaryParams) =>
 interface LastTrainRiskParams extends APITrainInfoParams {
   upDownType: UpDownType;
   stationTimeWeekType: StationTimeWeekType;
-  walkingMinutes: number;
+  walkingMinutes?: number;
 }
 
 export const useFetchLastTrainRisk = (params: LastTrainRiskParams) => {

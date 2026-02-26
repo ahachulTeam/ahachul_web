@@ -58,4 +58,24 @@ describe('fetchLastTrainRiskV2', () => {
       },
     });
   });
+
+  it('walkingMinutes 없이 요청해도 v2 막차 리스크를 호출한다', async () => {
+    vi.mocked(axiosInstance.get).mockResolvedValue({ data: { result: {} } } as never);
+
+    await fetchLastTrainRiskV2({
+      stationId: 557,
+      subwayLineId: 18,
+      upDownType: UpDownType.UP,
+      stationTimeWeekType: StationTimeWeekType.WEEKDAY,
+    });
+
+    expect(axiosInstance.get).toHaveBeenCalledWith(API_PATHS.subway.stationLastTrainRiskV2, {
+      params: {
+        stationId: 557,
+        subwayLineId: 18,
+        upDownType: UpDownType.UP,
+        stationTimeWeekType: StationTimeWeekType.WEEKDAY,
+      },
+    });
+  });
 });

@@ -12,6 +12,7 @@ interface ImportMetaEnv {
   readonly VITE_LOG_LEVEL?: 'debug' | 'info' | 'warn' | 'error';
   readonly VITE_LOG_ENDPOINT?: string;
   readonly VITE_TRAIN_REALTIME_V2_ENABLED?: 'true' | 'false';
+  readonly VITE_KAKAO_REST_API_KEY?: string;
 }
 
 interface ImportMeta {

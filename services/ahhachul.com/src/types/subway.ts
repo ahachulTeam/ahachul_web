@@ -40,6 +40,16 @@ export interface UserStation {
   label: string;
   stationId: number;
   stationName: string;
+  locationMeta?: {
+    locationName?: string | null;
+    roadAddress?: string | null;
+    jibunAddress?: string | null;
+    latitude?: number | null;
+    longitude?: number | null;
+    walkingMinutes?: number | null;
+    walkingSource?: 'ADDRESS' | 'CURRENT_LOCATION' | 'MANUAL' | null;
+    walkingUpdatedAt?: string | null;
+  } | null;
   subwayLineInfoList: {
     subwayLineId: SubwayLineType;
     subwayLineName: string;
@@ -181,6 +191,8 @@ export interface LastTrainRiskResponse {
   stationTimeWeekType: StationTimeWeekType;
   upDownType: UpDownType;
   walkingMinutes: number;
+  walkingMinutesSource?: 'REQUEST' | 'USER_PROFILE' | 'DEFAULT';
+  walkingMinutesUpdatedAt?: string | null;
   nowAt: string;
   lastDepartureTime: string | null;
   minutesToLastTrain: number;

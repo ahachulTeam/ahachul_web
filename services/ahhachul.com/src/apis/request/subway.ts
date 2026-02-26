@@ -92,13 +92,15 @@ export interface APIStationTimeSummaryV2Response {
 interface APILastTrainRiskV2Params extends WithSubwayLineId, WithSubwayStationId {
   upDownType: UpDownType;
   stationTimeWeekType: StationTimeWeekType;
-  walkingMinutes: number;
+  walkingMinutes?: number;
 }
 
 export interface APILastTrainRiskV2Response {
   stationTimeWeekType: StationTimeWeekType;
   upDownType: UpDownType;
   walkingMinutes: number;
+  walkingMinutesSource: 'REQUEST' | 'USER_PROFILE' | 'DEFAULT';
+  walkingMinutesUpdatedAt?: string | null;
   nowAt: string;
   lastDepartureTime: string | null;
   minutesToLastTrain: number;

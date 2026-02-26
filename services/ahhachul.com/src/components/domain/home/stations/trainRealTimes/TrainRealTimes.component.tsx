@@ -1,4 +1,4 @@
-import { type ReactNode, memo, useMemo, useReducer, useState } from 'react';
+import { type ReactNode, memo, useMemo, useReducer } from 'react';
 
 import { motion } from 'motion/react';
 
@@ -14,6 +14,7 @@ import {
   useFetchTrainInfo,
 } from '@/services/subway';
 import { useFlow } from '@/stackflow';
+import { useUserStationStore } from '@/stores/subway';
 import { fade } from '@/styles';
 import {
   CurrentTrainArrivalType,
@@ -118,6 +119,43 @@ function resolveRiskColor(riskLevel?: LastTrainRiskLevel): string {
     return 'rgba(245, 158, 11, 0.72)';
   }
   return 'rgba(239, 68, 68, 0.72)';
+}
+
+function resolveWalkingSourceLabel(source?: 'REQUEST' | 'USER_PROFILE' | 'DEFAULT'): string {
+  if (source === 'USER_PROFILE') {
+    return '프로필';
+  }
+  if (source === 'REQUEST') {
+    return '직접 입력';
+  }
+  return '기본값';
+}
+
+function resolveWalkingSourceColor(source?: 'REQUEST' | 'USER_PROFILE' | 'DEFAULT'): string {
+  if (source === 'USER_PROFILE') {
+    return 'rgba(16, 185, 129, 0.72)';
+  }
+  if (source === 'REQUEST') {
+    return 'rgba(59, 130, 246, 0.72)';
+  }
+  return 'rgba(245, 158, 11, 0.72)';
+}
+
+function resolveWalkingUpdatedAtText(value?: string | null): string | null {
+  if (!value) {
+    return null;
+  }
+
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) {
+    return null;
+  }
+
+  const month = `${parsed.getMonth() + 1}`.padStart(2, '0');
+  const date = `${parsed.getDate()}`.padStart(2, '0');
+  const hour = `${parsed.getHours()}`.padStart(2, '0');
+  const minute = `${parsed.getMinutes()}`.padStart(2, '0');
+  return `${month}.${date} ${hour}:${minute} 갱신`;
 }
 
 function resolveSummaryStatusLabel(
@@ -265,13 +303,16 @@ const defaultStationTimeSummaries = [
 
 const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimesProps) => {
   const { push } = useFlow();
+  const { userStations } = useUserStationStore(state => state);
   const { data, isFetching, isError, refetch } = useFetchTrainInfo({
     stationId,
     subwayLineId,
   });
 
   const stationTimeWeekType = useMemo(() => resolveStationTimeWeekType(new Date()), []);
-  const [walkingMinutes, setWalkingMinutes] = useState(15);
+  const selectedStation = useMemo(() => {
+    return userStations.find(station => station.stationId === stationId) ?? null;
+  }, [stationId, userStations]);
 
   const { data: stationTimeSummary, isFetching: isStationTimeSummaryFetching } =
     useFetchStationTimesSummary({
@@ -290,7 +331,6 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
     subwayLineId,
     upDownType: sort,
     stationTimeWeekType,
-    walkingMinutes,
   });
 
   const { data: quickExitData, isFetching: isQuickExitFetching } = useFetchQuickExits({
@@ -334,6 +374,8 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
   const confidenceLabel = resolveConfidenceLabel(data?.confidenceLevel);
   const showConfidenceBadge = Boolean(confidenceLabel) && !isFetching && !isError;
   const freshnessText = resolveFreshnessText(data?.isStale, data?.freshnessSec);
+  const walkingSourceLabel = resolveWalkingSourceLabel(lastTrainRisk?.walkingMinutesSource);
+  const walkingUpdatedAtText = resolveWalkingUpdatedAtText(lastTrainRisk?.walkingMinutesUpdatedAt);
 
   let trainArrivalsContent: ReactNode = null;
   if (isFetching) {
@@ -418,6 +460,27 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
         >
           {lastTrainRisk.message}
         </div>
+        <div
+          css={{
+            color: 'var(--ah-color-legacy-text-faint)',
+            fontSize: '11px',
+            marginTop: '4px',
+          }}
+        >
+          기준: {walkingSourceLabel}
+          {walkingUpdatedAtText ? ` · ${walkingUpdatedAtText}` : ''}
+        </div>
+        {lastTrainRisk.walkingMinutesSource === 'DEFAULT' && (
+          <div
+            css={{
+              color: 'var(--ah-color-legacy-text-faint)',
+              fontSize: '11px',
+              marginTop: '4px',
+            }}
+          >
+            마이페이지에서 집/회사 주소를 설정하면 도보 시간이 자동 보정됩니다.
+          </div>
+        )}
       </>
     );
   }
@@ -582,18 +645,6 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
     );
   }
 
-  const handleWalkingMinutesChange = (value: string) => {
-    const parsedValue = Number(value);
-
-    if (Number.isNaN(parsedValue)) {
-      setWalkingMinutes(0);
-      return;
-    }
-
-    const boundedValue = Math.max(0, Math.min(Math.round(parsedValue), 120));
-    setWalkingMinutes(boundedValue);
-  };
-
   return (
     <div css={S.inner}>
       <div css={S.thickBorder(subwayLineId)}>
@@ -748,30 +799,41 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
             >
               막차 리스크
             </div>
-            <label css={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'white' }}>
-              <span css={{ fontSize: '12px' }}>도보</span>
-              <input
-                type="number"
-                min={0}
-                max={120}
-                value={walkingMinutes}
-                onChange={event => handleWalkingMinutesChange(event.target.value)}
-                css={{
-                  width: '54px',
-                  height: '24px',
-                  borderRadius: '6px',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  background: 'rgba(255,255,255,0.04)',
-                  color: 'white',
-                  textAlign: 'right',
-                  padding: '0 6px',
-                  fontSize: '12px',
-                }}
-              />
-              <span css={{ fontSize: '12px' }}>분</span>
-            </label>
+            {!isLastTrainRiskFetching && lastTrainRisk && (
+              <div css={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                <span css={{ color: 'white', fontSize: '12px' }}>
+                  도보 {lastTrainRisk.walkingMinutes}분
+                </span>
+                <span
+                  css={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    height: '18px',
+                    padding: '0 6px',
+                    borderRadius: '999px',
+                    fontSize: '10px',
+                    fontWeight: 700,
+                    color: 'white',
+                    backgroundColor: resolveWalkingSourceColor(lastTrainRisk.walkingMinutesSource),
+                  }}
+                >
+                  {resolveWalkingSourceLabel(lastTrainRisk.walkingMinutesSource)}
+                </span>
+              </div>
+            )}
           </div>
           <div css={{ marginTop: '8px' }}>{lastTrainRiskContent}</div>
+          {!isLastTrainRiskFetching && selectedStation && (
+            <div
+              css={{
+                marginTop: '6px',
+                color: 'var(--ah-color-legacy-text-faint)',
+                fontSize: '11px',
+              }}
+            >
+              {selectedStation.label || selectedStation.stationName} 기준 자동 계산
+            </div>
+          )}
         </div>
 
         <div
