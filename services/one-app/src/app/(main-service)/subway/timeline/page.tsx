@@ -532,7 +532,9 @@ export default function SubwayTimelinePage() {
                         className="text-caption text-gray-70"
                       >
                         {resolveEssentialTypeLabel(item.essentialType)} · {item.name} · 도보{' '}
-                        {item.walkingMinutes}분 · 신뢰도 {item.reliabilityScore}
+                        {item.walkingMinutes}분 · 운영 {item.operatingHours || '정보 없음'} · 혼잡{' '}
+                        {resolveCrowdingLevelLabel(item.crowdLevel)} · 정확도{' '}
+                        {item.poiAccuracyScore ?? '정보 없음'} · 신뢰도 {item.reliabilityScore}
                       </p>
                     ))}
                   </div>

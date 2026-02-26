@@ -198,6 +198,19 @@ function resolveNearbyPlaceLineText(place: NearbyPlace): string {
   return `${place.name} · ${place.category} · 도보 ${place.walkingMinutes}분`;
 }
 
+function resolveNearbyPlaceCrowdLabel(level: NearbyPlace['crowdLevel']): string {
+  if (level === 'LOW') {
+    return '여유';
+  }
+  if (level === 'MEDIUM') {
+    return '보통';
+  }
+  if (level === 'HIGH') {
+    return '혼잡';
+  }
+  return '매우 혼잡';
+}
+
 function resolveWeatherSourceLabel(
   dataSource?: StationWeatherDataSource,
   isStale?: boolean,
@@ -477,17 +490,39 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
           <div
             key={`${place.name}-${place.category}`}
             css={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
+              display: 'grid',
               gap: '8px',
             }}
           >
-            <span css={{ color: 'white', fontSize: '12px' }}>
-              {resolveNearbyPlaceLineText(place)}
-            </span>
-            <div css={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-              {place.supportsEnglishMenu && (
+            <div
+              css={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '8px',
+              }}
+            >
+              <span css={{ color: 'white', fontSize: '12px' }}>
+                {resolveNearbyPlaceLineText(place)}
+              </span>
+              <div css={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                {place.supportsEnglishMenu && (
+                  <span
+                    css={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      height: '18px',
+                      padding: '0 6px',
+                      borderRadius: '999px',
+                      fontSize: '10px',
+                      fontWeight: 700,
+                      color: '#0f172a',
+                      backgroundColor: 'rgba(255,255,255,0.88)',
+                    }}
+                  >
+                    영문메뉴
+                  </span>
+                )}
                 <span
                   css={{
                     display: 'inline-flex',
@@ -497,29 +532,19 @@ const TrainRealTimes = ({ stationId, stationName, subwayLineId }: TrainRealTimes
                     borderRadius: '999px',
                     fontSize: '10px',
                     fontWeight: 700,
-                    color: '#0f172a',
-                    backgroundColor: 'rgba(255,255,255,0.88)',
+                    color: 'white',
+                    backgroundColor: resolveNearbyPlaceConfidenceColor(place.confidenceLevel),
                   }}
                 >
-                  영문메뉴
+                  {place.openNow ? '영업중' : '영업종료'}
                 </span>
-              )}
-              <span
-                css={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  height: '18px',
-                  padding: '0 6px',
-                  borderRadius: '999px',
-                  fontSize: '10px',
-                  fontWeight: 700,
-                  color: 'white',
-                  backgroundColor: resolveNearbyPlaceConfidenceColor(place.confidenceLevel),
-                }}
-              >
-                {place.openNow ? '영업중' : '영업종료'}
-              </span>
+              </div>
             </div>
+            <span css={{ color: 'var(--ah-color-legacy-text-faint)', fontSize: '11px' }}>
+              {`운영 ${place.operatingHours || '정보 없음'} · 혼잡 ${resolveNearbyPlaceCrowdLabel(
+                place.crowdLevel,
+              )} · 정확도 ${place.poiAccuracyScore ?? '-'}점`}
+            </span>
           </div>
         ))}
       </div>

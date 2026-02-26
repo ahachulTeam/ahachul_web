@@ -334,8 +334,13 @@ export interface APINearbyPlacesV2Response {
     category: string;
     walkingMinutes: number;
     openNow: boolean;
+    operatingHours: string;
+    crowdLevel: 'LOW' | 'MEDIUM' | 'HIGH' | 'VERY_HIGH';
+    crowdUpdatedAt: string;
     supportsEnglishMenu: boolean;
     confidenceLevel: NearbyPlaceConfidenceLevel;
+    poiAccuracyScore: number;
+    poiAccuracyReason: string;
     reliabilityScore?: number;
     reliabilityReason?: string;
     sourceCount?: number;

@@ -221,8 +221,13 @@ export interface NearbyPlace {
   category: string;
   walkingMinutes: number;
   openNow: boolean;
+  operatingHours: string;
+  crowdLevel: RouteCrowdingLevel;
+  crowdUpdatedAt: string;
   supportsEnglishMenu: boolean;
   confidenceLevel: NearbyPlaceConfidenceLevel;
+  poiAccuracyScore: number;
+  poiAccuracyReason: string;
   essentialType?: 'CONVENIENCE_STORE' | 'RESTROOM' | 'ATM' | 'LATE_NIGHT_FOOD';
   reliabilityScore?: number;
   reliabilityReason?: string;
@@ -394,6 +399,11 @@ export interface SubwayRoute {
       name: string;
       walkingMinutes: number;
       openNow: boolean;
+      operatingHours: string;
+      crowdLevel: RouteCrowdingLevel;
+      crowdUpdatedAt: string;
+      poiAccuracyScore: number;
+      poiAccuracyReason: string;
       reliabilityScore: number;
       reliabilityReason: string;
     }>;

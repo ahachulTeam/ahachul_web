@@ -123,6 +123,11 @@ export interface SubwayRouteV2 {
       name: string;
       walkingMinutes: number;
       openNow: boolean;
+      operatingHours: string;
+      crowdLevel: SubwayRouteCrowdingLevel;
+      crowdUpdatedAt: string;
+      poiAccuracyScore: number;
+      poiAccuracyReason: string;
       reliabilityScore: number;
       reliabilityReason: string;
     }>;
