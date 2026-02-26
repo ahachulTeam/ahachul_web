@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { formatDisplayDate } from '@ahhachul/utils';
 
 import { updateUser } from '@/apis/request';
+import StoryStripCard from '@/components/domain/story/StoryStripCard.component';
 import { useToast } from '@/hooks/useToast';
 import { useFetchUserProfileDetail, userKeys } from '@/services/user';
 import { useFlow } from '@/stackflow';
@@ -263,6 +264,14 @@ const ProfileOverview = ({ username, mode = 'default' }: Props) => {
           <StateText>이 사용자는 프로필을 비공개로 설정했습니다.</StateText>
         )}
       </Card>
+
+      <StoryStripCard
+        username={username}
+        asPublic={isPreviewMode}
+        editable={isMine}
+        title="스토리"
+        description="스토리는 휘발형 UI로 소비되지만 프로필에 기록처럼 남습니다."
+      />
 
       <Card>
         <h3>작성 글</h3>

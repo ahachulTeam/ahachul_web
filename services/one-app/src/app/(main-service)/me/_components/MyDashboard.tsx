@@ -15,6 +15,7 @@ import {
 } from '@ahhachul/utils';
 
 import LanguageSelector from '@/app/_components/LanguageSelector';
+import StoryStripSection from '@/components/Story/StoryStripSection';
 import { useStationTimeSummaryV2Query, useTrainRealtimeV2Query } from '@/hooks';
 import { localizePathname, type LocaleMessages, type SupportedLocale } from '@/i18n';
 import { getMyArticleReactionHistories } from '@/lib/article-reactions';
@@ -1139,6 +1140,12 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
           </button>
         </div>
       </article>
+
+      <StoryStripSection
+        editable
+        title="내 스토리"
+        description="인스타그램처럼 사진 스토리를 올리고 프로필 기록으로 남길 수 있습니다."
+      />
 
       <article className={cardClassName}>
         <h3 className="text-title-small text-gray-100">{copy.quickLinksHeading}</h3>

@@ -7,6 +7,7 @@ import FavoriteRouteCard from '@/components/domain/my/FavoriteRouteCard.componen
 import MenuSections from '@/components/domain/my/MenuSections.component';
 import RequestCard from '@/components/domain/my/RequestCard.component';
 import UserProfile from '@/components/domain/my/UserProfile.component';
+import StoryStripCard from '@/components/domain/story/StoryStripCard.component';
 import { useFetchSubwayLines } from '@/services/subway';
 import { useFetchUserProfile } from '@/services/user';
 
@@ -25,6 +26,11 @@ const MyPage: ActivityComponentType = () => {
       <S.Container>
         <S.Wrapper>
           <UserProfile />
+          <StoryStripCard
+            editable
+            title="내 스토리"
+            description="인스타그램처럼 사진 스토리를 올리고 삭제할 수 있습니다."
+          />
           <RequestCard />
           <FavoriteRouteCard />
           <ArticleHistoryCard />

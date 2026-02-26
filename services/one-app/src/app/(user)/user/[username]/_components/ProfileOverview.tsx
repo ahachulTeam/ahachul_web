@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation';
 import { QUERY_STALE_TIME } from '@ahhachul/domain';
 
 import { updateMyProfile } from '@/app/(main-service)/me/_lib/getMyProfile';
+import StoryStripSection from '@/components/Story/StoryStripSection';
 import { getLocaleMessages, localizePathname, resolvePathLocale } from '@/i18n';
 
 import {
@@ -341,6 +342,13 @@ export default function ProfileOverview({ username, mode = 'default' }: Props) {
   const ageRangeValue = profile?.ageRange
     ? `${profile.ageRange}${copy.ageRangeSuffix}`
     : pageCopy.hiddenValue;
+  let storyDescription = '이 사용자가 공개한 스토리 기록입니다.';
+  if (shouldUsePublicView) {
+    storyDescription = '공개 프로필 기준으로 노출되는 스토리 기록입니다.';
+  } else if (isMine) {
+    storyDescription =
+      '스토리는 인스타그램처럼 빠르게 소비되지만, 삭제 전까지 프로필에 기록으로 남습니다.';
+  }
 
   let postsContent = <p className="mt-2 text-body-medium text-gray-70">{pageCopy.emptyPosts}</p>;
   if (!profile?.visibility.postsVisible) {
@@ -441,6 +449,14 @@ export default function ProfileOverview({ username, mode = 'default' }: Props) {
           <p className="mt-2 text-body-medium text-gray-70">{pageCopy.profileHidden}</p>
         )}
       </article>
+
+      <StoryStripSection
+        username={username}
+        asPublic={shouldUsePublicView || !isMine}
+        editable={isMine && mode === 'default'}
+        title={shouldUsePublicView ? '스토리 (미리보기)' : '스토리'}
+        description={storyDescription}
+      />
 
       <article className="rounded-2xl border border-gray-30 bg-white p-4">
         <h2 className="text-title-small text-gray-100">{pageCopy.postsTitle}</h2>

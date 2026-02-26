@@ -14,5 +14,6 @@ export * from './community-delay-signal';
 export * from './message';
 export * from './foreigner-mode';
 export * from './daily-vote';
+export * from './story';
 
 export * from './lost-found';

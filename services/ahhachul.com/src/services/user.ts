@@ -14,6 +14,8 @@ const FAVORITE_ROUTE_RECOMMENDATION_KEY = [
   ...userKeys.all,
   'favorite-route-recommendations',
 ] as const;
+const MY_STORIES_KEY = [...userKeys.all, 'stories', 'me'] as const;
+const PROFILE_STORIES_KEY = [...userKeys.all, 'stories', 'profile'] as const;
 const ROUTE_CONNECTION_RECOMMENDATION_KEY = [
   ...userKeys.all,
   'route-connection-recommendations',
@@ -212,5 +214,68 @@ export const useFetchUserArticleHistories = (limit = 30) => {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
+  });
+};
+
+export const useFetchMyStoriesV2 = (limit = 24, enabled = true) => {
+  const { authService } = useAuth();
+
+  return useQuery({
+    queryKey: [...MY_STORIES_KEY, limit],
+    enabled: authService.isAuthenticated && enabled,
+    queryFn: () => api.fetchMyStoriesV2(limit),
+    staleTime: QUERY_STALE_TIME.user,
+    gcTime: QUERY_GC_TIME.user,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
+};
+
+export const useFetchProfileStoriesV2 = (
+  username: string,
+  options: {
+    asPublic?: boolean;
+    limit?: number;
+    enabled?: boolean;
+  } = {},
+) => {
+  const { authService } = useAuth();
+  const { asPublic = false, limit = 24, enabled } = options;
+  const isEnabled = enabled ?? authService.isAuthenticated;
+
+  return useQuery({
+    queryKey: [...PROFILE_STORIES_KEY, username, asPublic, limit],
+    enabled: isEnabled && username.length > 0,
+    queryFn: () => api.fetchUserStoriesV2(username, { asPublic, limit }),
+    staleTime: QUERY_STALE_TIME.user,
+    gcTime: QUERY_GC_TIME.user,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
+};
+
+export const useCreateStoryV2 = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: api.createStoryV2,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: MY_STORIES_KEY });
+      await queryClient.invalidateQueries({ queryKey: PROFILE_STORIES_KEY });
+    },
+  });
+};
+
+export const useDeleteStoryV2 = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: api.deleteStoryV2,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: MY_STORIES_KEY });
+      await queryClient.invalidateQueries({ queryKey: PROFILE_STORIES_KEY });
+    },
   });
 };

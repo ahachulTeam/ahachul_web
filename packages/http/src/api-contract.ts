@@ -39,6 +39,13 @@ export const API_PATHS = {
     articleHistories: '/members/article-histories',
     checkNickname: '/members/check-nickname',
   },
+  story: {
+    myStoriesV2: '/v2/stories/me',
+    memberStoriesV2: (nickname: Identifier) =>
+      `/v2/members/${encodeURIComponent(String(nickname))}/stories`,
+    createV2: '/v2/stories',
+    deleteV2: (storyId: Identifier) => `/v2/stories/${storyId}`,
+  },
   community: {
     list: `/${API_SERVICE_PATHS.community}`,
     hotList: '/community-hot-posts',
@@ -111,6 +118,8 @@ export const API_PATHS = {
   dailyVote: {
     todayV2: '/v2/daily-votes/today',
     votesV2: (pollId: Identifier) => `/v2/daily-votes/${pollId}/votes`,
+    stationPollsV2: (stationId: Identifier) => `/v2/daily-votes/stations/${stationId}/polls`,
+    pollV2: (pollId: Identifier) => `/v2/daily-votes/polls/${pollId}`,
     commentsV2: (pollId: Identifier) => `/v2/daily-votes/${pollId}/comments`,
     commentLikeV2: (commentId: Identifier) => `/v2/daily-votes/comments/${commentId}/likes`,
   },

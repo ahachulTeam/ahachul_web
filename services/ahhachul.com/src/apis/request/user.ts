@@ -14,6 +14,8 @@ import type {
   FavoriteRouteListDto,
   ProfileVisibilitySettings,
   RouteConnectionRecommendationsDto,
+  StoryItemDto,
+  UserStoriesResponseDto,
   UserProfileDetailResponseDto,
   UserFavoriteStations,
   UserProfileResponseDto,
@@ -178,6 +180,79 @@ export const fetchUserArticleHistories = async (limit = 30) => {
     {
       params: { limit },
     },
+  );
+
+  return data;
+};
+
+type UserStoriesFetchOptions = {
+  asPublic?: boolean;
+  limit?: number;
+};
+
+type CreateStoryPayload = {
+  image: File;
+  caption?: string;
+  stationId?: number;
+  subwayLineId?: number;
+};
+
+export const fetchMyStoriesV2 = async (limit = 24) => {
+  const { data } = await axiosInstance.get<ApiResponse<UserStoriesResponseDto>>(
+    API_PATHS.story.myStoriesV2,
+    {
+      params: { limit },
+    },
+  );
+
+  return data;
+};
+
+export const fetchUserStoriesV2 = async (
+  username: string,
+  options: UserStoriesFetchOptions = {},
+) => {
+  const { asPublic = false, limit = 24 } = options;
+  const { data } = await axiosInstance.get<ApiResponse<UserStoriesResponseDto>>(
+    API_PATHS.story.memberStoriesV2(username),
+    {
+      params: {
+        asPublic,
+        limit,
+      },
+    },
+  );
+
+  return data;
+};
+
+export const createStoryV2 = async (payload: CreateStoryPayload) => {
+  const formData = new FormData();
+  const content = {
+    ...(payload.caption?.trim() ? { caption: payload.caption.trim() } : {}),
+    ...(payload.stationId ? { stationId: payload.stationId } : {}),
+    ...(payload.subwayLineId ? { subwayLineId: payload.subwayLineId } : {}),
+  };
+
+  formData.append('content', new Blob([JSON.stringify(content)], { type: 'application/json' }));
+  formData.append('image', payload.image);
+
+  const { data } = await axiosInstance.post<ApiResponse<{ story: StoryItemDto }>>(
+    API_PATHS.story.createV2,
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    },
+  );
+
+  return data;
+};
+
+export const deleteStoryV2 = async (storyId: number) => {
+  const { data } = await axiosInstance.delete<ApiResponse<{ storyId: number; deleted: boolean }>>(
+    API_PATHS.story.deleteV2(storyId),
   );
 
   return data;
