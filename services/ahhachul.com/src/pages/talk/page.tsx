@@ -7,6 +7,7 @@ import { LayoutComponent } from '@/components';
 import { useToast } from '@/hooks';
 import { useFlow } from '@/stackflow';
 import { mixins, theme } from '@/styles';
+import { getAccessTokenInLocalStorage } from '@/utils/localStorage';
 
 const MESSAGE_ROOMS_QUERY_KEY = ['message-rooms'] as const;
 const ROOM_POLLING_INTERVAL_MS = 5_000;
@@ -14,16 +15,22 @@ const ROOM_POLLING_INTERVAL_MS = 5_000;
 const TalkPage: ActivityComponentType = () => {
   const { push } = useFlow();
   const { toast } = useToast();
+  const isLoggedIn = Boolean(getAccessTokenInLocalStorage());
 
   const roomsQuery = useQuery({
     queryKey: MESSAGE_ROOMS_QUERY_KEY,
     queryFn: fetchMessageRooms,
-    refetchInterval: ROOM_POLLING_INTERVAL_MS,
+    enabled: isLoggedIn,
+    refetchInterval: isLoggedIn ? ROOM_POLLING_INTERVAL_MS : false,
   });
 
   const rooms = roomsQuery.data?.result.rooms ?? [];
 
   const handleRefresh = async () => {
+    if (!isLoggedIn) {
+      return;
+    }
+
     const result = await roomsQuery.refetch();
     if (result.isError) {
       toast.error('쪽지방 목록을 다시 불러오지 못했습니다.');
@@ -33,6 +40,24 @@ const TalkPage: ActivityComponentType = () => {
   const handleOpenRoom = (roomId: number) => {
     push('TalkDetailPage', { id: roomId });
   };
+
+  if (!isLoggedIn) {
+    return (
+      <LayoutComponent.Base navigationSlot={false}>
+        <S.Container>
+          <S.HeaderCard>
+            <S.Title>쪽지방 목록</S.Title>
+            <S.Description>쪽지 기능은 로그인 후 이용할 수 있습니다.</S.Description>
+            <S.ActionRow>
+              <S.NewButton type="button" onClick={() => push('SignInPage', {})}>
+                로그인하러 가기
+              </S.NewButton>
+            </S.ActionRow>
+          </S.HeaderCard>
+        </S.Container>
+      </LayoutComponent.Base>
+    );
+  }
 
   return (
     <LayoutComponent.Base navigationSlot={false}>

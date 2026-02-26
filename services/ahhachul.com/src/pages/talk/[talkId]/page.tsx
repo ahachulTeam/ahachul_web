@@ -10,6 +10,7 @@ import { useToast } from '@/hooks';
 import { useActivity, useFlow } from '@/stackflow';
 import { mixins, theme } from '@/styles';
 import type { SendMessageRequest, WithPostId } from '@/types';
+import { getAccessTokenInLocalStorage } from '@/utils/localStorage';
 import { resolveClientErrorMessage } from '@/utils/observability';
 
 const MESSAGE_ROOMS_QUERY_KEY = ['message-rooms'] as const;
@@ -23,8 +24,9 @@ const TalkDetailPage: ActivityComponentType<WithPostId> = () => {
   const params = (activity.params ?? {}) as Partial<WithPostId>;
   const roomId = Number(params.id ?? 0);
   const queryClient = useQueryClient();
-  const { pop } = useFlow();
+  const { pop, push } = useFlow();
   const { toast } = useToast();
+  const isLoggedIn = Boolean(getAccessTokenInLocalStorage());
 
   const [draft, setDraft] = useState('');
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -32,7 +34,8 @@ const TalkDetailPage: ActivityComponentType<WithPostId> = () => {
   const roomsQuery = useQuery({
     queryKey: MESSAGE_ROOMS_QUERY_KEY,
     queryFn: fetchMessageRooms,
-    refetchInterval: ROOM_POLLING_INTERVAL_MS,
+    enabled: isLoggedIn,
+    refetchInterval: isLoggedIn ? ROOM_POLLING_INTERVAL_MS : false,
   });
 
   const roomMessagesQuery = useQuery({
@@ -41,9 +44,9 @@ const TalkDetailPage: ActivityComponentType<WithPostId> = () => {
       fetchMessageRoomMessages(roomId, {
         pageSize: ROOM_MESSAGES_PAGE_SIZE,
       }),
-    refetchInterval: ROOM_POLLING_INTERVAL_MS,
+    refetchInterval: isLoggedIn ? ROOM_POLLING_INTERVAL_MS : false,
     refetchIntervalInBackground: true,
-    enabled: Number.isInteger(roomId) && roomId > 0,
+    enabled: isLoggedIn && Number.isInteger(roomId) && roomId > 0,
   });
 
   const roomMessages = roomMessagesQuery.data?.result.messages ?? [];
@@ -71,6 +74,10 @@ const TalkDetailPage: ActivityComponentType<WithPostId> = () => {
   });
 
   const handleRefresh = async () => {
+    if (!isLoggedIn) {
+      return;
+    }
+
     const [roomsResult, messagesResult] = await Promise.all([
       roomsQuery.refetch(),
       roomMessagesQuery.refetch(),
@@ -82,6 +89,11 @@ const TalkDetailPage: ActivityComponentType<WithPostId> = () => {
   };
 
   const handleSendMessage = () => {
+    if (!isLoggedIn) {
+      toast.warning('로그인 후 쪽지를 보낼 수 있습니다.');
+      return;
+    }
+
     const content = draft.trim();
     if (!content.length) {
       setSubmitError('쪽지 내용을 입력해주세요.');
@@ -103,6 +115,24 @@ const TalkDetailPage: ActivityComponentType<WithPostId> = () => {
           <S.BackButton type="button" onClick={pop}>
             목록으로 돌아가기
           </S.BackButton>
+        </S.Container>
+      </LayoutComponent.Base>
+    );
+  }
+
+  if (!isLoggedIn) {
+    return (
+      <LayoutComponent.Base navigationSlot={false}>
+        <S.Container>
+          <S.ErrorText>쪽지 기능은 로그인 후 이용할 수 있습니다.</S.ErrorText>
+          <S.ActionRow>
+            <S.BackButton type="button" onClick={pop}>
+              목록으로 돌아가기
+            </S.BackButton>
+            <S.RefreshButton type="button" onClick={() => push('SignInPage', {})}>
+              로그인하러 가기
+            </S.RefreshButton>
+          </S.ActionRow>
         </S.Container>
       </LayoutComponent.Base>
     );
