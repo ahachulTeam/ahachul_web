@@ -35,6 +35,7 @@ export const API_PATHS = {
     favoriteRouteRecommendations: '/v2/members/bookmarks/routes/recommendations',
     favoriteRoutes: '/v2/members/bookmarks/routes',
     favoriteRoute: (id: Identifier) => `/v2/members/bookmarks/routes/${id}`,
+    routeConnectionRecommendations: '/v2/members/route-connections/recommendations',
     articleHistories: '/members/article-histories',
     checkNickname: '/members/check-nickname',
   },

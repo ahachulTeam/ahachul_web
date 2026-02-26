@@ -152,3 +152,77 @@ export interface CreateFavoriteRouteRequestDto {
   destinationStationId: number;
   title?: string;
 }
+
+export interface RouteConnectionPolicyDto {
+  sourceMaxDistance: number;
+  destinationMaxDistance: number;
+  totalMaxDistance: number;
+}
+
+export interface RouteConnectionAnchorRouteDto {
+  sourceStationId: number;
+  sourceStationName: string;
+  destinationStationId: number;
+  destinationStationName: string;
+}
+
+export interface RouteConnectionRecommendationDto {
+  memberId: number;
+  nickname: string;
+  routeId: number | null;
+  title?: string | null;
+  sourceStationId: number;
+  sourceStationName: string;
+  destinationStationId: number;
+  destinationStationName: string;
+  sourceDistance: number;
+  destinationDistance: number;
+  totalDistance: number;
+  matchScore: number;
+  estimatedMinutes: number;
+  reason: string;
+}
+
+export interface RouteConnectionGroupMemberDto {
+  memberId: number;
+  nickname: string;
+  matchScore: number;
+  totalDistance: number;
+}
+
+export interface RouteConnectionGroupDto {
+  groupId: string;
+  sourceStationId: number;
+  sourceStationName: string;
+  destinationStationId: number;
+  destinationStationName: string;
+  memberCount: number;
+  members: RouteConnectionGroupMemberDto[];
+}
+
+export interface RouteConnectionGraphNodeDto {
+  memberId: number;
+  nickname: string;
+  me: boolean;
+}
+
+export interface RouteConnectionGraphEdgeDto {
+  fromMemberId: number;
+  toMemberId: number;
+  score: number;
+  label: string;
+}
+
+export interface RouteConnectionGraphDto {
+  nodes: RouteConnectionGraphNodeDto[];
+  edges: RouteConnectionGraphEdgeDto[];
+}
+
+export interface RouteConnectionRecommendationsDto {
+  generatedAt: string;
+  matchingPolicy: RouteConnectionPolicyDto;
+  anchorRoute: RouteConnectionAnchorRouteDto | null;
+  recommendations: RouteConnectionRecommendationDto[];
+  groups: RouteConnectionGroupDto[];
+  graph: RouteConnectionGraphDto;
+}

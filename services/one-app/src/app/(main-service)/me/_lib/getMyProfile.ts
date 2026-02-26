@@ -107,6 +107,80 @@ export type CreateFavoriteRoutePayload = {
   title?: string;
 };
 
+export type RouteConnectionPolicy = {
+  sourceMaxDistance: number;
+  destinationMaxDistance: number;
+  totalMaxDistance: number;
+};
+
+export type RouteConnectionAnchorRoute = {
+  sourceStationId: number;
+  sourceStationName: string;
+  destinationStationId: number;
+  destinationStationName: string;
+};
+
+export type RouteConnectionRecommendation = {
+  memberId: number;
+  nickname: string;
+  routeId: number | null;
+  title?: string | null;
+  sourceStationId: number;
+  sourceStationName: string;
+  destinationStationId: number;
+  destinationStationName: string;
+  sourceDistance: number;
+  destinationDistance: number;
+  totalDistance: number;
+  matchScore: number;
+  estimatedMinutes: number;
+  reason: string;
+};
+
+export type RouteConnectionGroupMember = {
+  memberId: number;
+  nickname: string;
+  matchScore: number;
+  totalDistance: number;
+};
+
+export type RouteConnectionGroup = {
+  groupId: string;
+  sourceStationId: number;
+  sourceStationName: string;
+  destinationStationId: number;
+  destinationStationName: string;
+  memberCount: number;
+  members: RouteConnectionGroupMember[];
+};
+
+export type RouteConnectionGraphNode = {
+  memberId: number;
+  nickname: string;
+  me: boolean;
+};
+
+export type RouteConnectionGraphEdge = {
+  fromMemberId: number;
+  toMemberId: number;
+  score: number;
+  label: string;
+};
+
+export type RouteConnectionGraph = {
+  nodes: RouteConnectionGraphNode[];
+  edges: RouteConnectionGraphEdge[];
+};
+
+export type RouteConnectionRecommendations = {
+  generatedAt: string;
+  matchingPolicy: RouteConnectionPolicy;
+  anchorRoute: RouteConnectionAnchorRoute | null;
+  recommendations: RouteConnectionRecommendation[];
+  groups: RouteConnectionGroup[];
+  graph: RouteConnectionGraph;
+};
+
 export async function getMyProfile() {
   return fetchClient<ApiResponse<User>>(API_PATHS.user.profile);
 }
@@ -159,6 +233,23 @@ export async function getMyTodayCommuteCoach(params?: {
 
 export async function getMyFavoriteRoutes() {
   return fetchClient<ApiResponse<FavoriteRouteList>>(API_PATHS.user.favoriteRoutes);
+}
+
+export async function getMyRouteConnectionRecommendations(params?: {
+  limit?: number;
+  groupLimit?: number;
+}) {
+  const normalizedParams = {
+    ...(params?.limit ? { limit: params.limit } : {}),
+    ...(params?.groupLimit ? { groupLimit: params.groupLimit } : {}),
+  };
+
+  return fetchClient<ApiResponse<RouteConnectionRecommendations>>(
+    API_PATHS.user.routeConnectionRecommendations,
+    {
+      params: normalizedParams,
+    },
+  );
 }
 
 export async function createMyFavoriteRoute(payload: CreateFavoriteRoutePayload) {

@@ -22,9 +22,17 @@ export async function generateMetadata(): Promise<Metadata> {
   }) as Metadata;
 }
 
-export default async function NewMessagePage() {
+type NewMessagePageProps = {
+  searchParams?: { memberId?: string | string[] };
+};
+
+export default async function NewMessagePage({ searchParams }: NewMessagePageProps) {
   const locale = await getServerLocale();
   const copy = getLocaleMessages(locale).messagesPage;
+  const memberIdParam = searchParams?.memberId;
+  const initialMemberId = Array.isArray(memberIdParam)
+    ? (memberIdParam[0] ?? '')
+    : (memberIdParam ?? '');
 
-  return <NewMessageClient locale={locale} copy={copy} />;
+  return <NewMessageClient locale={locale} copy={copy} initialMemberId={initialMemberId} />;
 }

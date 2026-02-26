@@ -16,15 +16,19 @@ interface NewMessageClientProps {
   copy: {
     backToMyPage: string;
   };
+  initialMemberId?: string;
 }
 
 function getErrorMessage(error: unknown): string {
   return resolveClientErrorMessage(error, '쪽지 기능 처리 중 오류가 발생했습니다.');
 }
 
-export default function NewMessageClient({ locale, copy }: NewMessageClientProps) {
+export default function NewMessageClient({ locale, copy, initialMemberId }: NewMessageClientProps) {
   const router = useRouter();
-  const [targetMemberId, setTargetMemberId] = useState('');
+  const normalizedInitialMemberId = /^\d+$/.test(initialMemberId ?? '')
+    ? (initialMemberId ?? '')
+    : '';
+  const [targetMemberId, setTargetMemberId] = useState(normalizedInitialMemberId);
   const [draft, setDraft] = useState('');
   const [submitError, setSubmitError] = useState<string | null>(null);
 

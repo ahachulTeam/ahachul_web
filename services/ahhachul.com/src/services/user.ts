@@ -14,6 +14,10 @@ const FAVORITE_ROUTE_RECOMMENDATION_KEY = [
   ...userKeys.all,
   'favorite-route-recommendations',
 ] as const;
+const ROUTE_CONNECTION_RECOMMENDATION_KEY = [
+  ...userKeys.all,
+  'route-connection-recommendations',
+] as const;
 const FAVORITE_ROUTE_KEY = [...userKeys.all, 'favorite-routes'] as const;
 const COMMUTE_COACH_KEY = [...userKeys.all, 'commute-coach', 'today'] as const;
 const userServiceLogger = createActionLogger('user-service');
@@ -149,6 +153,23 @@ export const useFetchUserFavoriteRoutes = () => {
   });
 };
 
+export const useFetchUserRouteConnectionRecommendations = (
+  params: { limit?: number; groupLimit?: number } = {},
+) => {
+  const { authService } = useAuth();
+
+  return useQuery({
+    queryKey: [...ROUTE_CONNECTION_RECOMMENDATION_KEY, params.limit ?? 12, params.groupLimit ?? 6],
+    enabled: authService.isAuthenticated,
+    queryFn: () => api.fetchUserRouteConnectionRecommendations(params),
+    staleTime: QUERY_STALE_TIME.user,
+    gcTime: QUERY_GC_TIME.user,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
+};
+
 export const useCreateUserFavoriteRoute = () => {
   const queryClient = useQueryClient();
 
@@ -158,6 +179,7 @@ export const useCreateUserFavoriteRoute = () => {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: FAVORITE_ROUTE_KEY }),
         queryClient.invalidateQueries({ queryKey: FAVORITE_ROUTE_RECOMMENDATION_KEY }),
+        queryClient.invalidateQueries({ queryKey: ROUTE_CONNECTION_RECOMMENDATION_KEY }),
       ]);
     },
   });
@@ -172,6 +194,7 @@ export const useDeleteUserFavoriteRoute = () => {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: FAVORITE_ROUTE_KEY }),
         queryClient.invalidateQueries({ queryKey: FAVORITE_ROUTE_RECOMMENDATION_KEY }),
+        queryClient.invalidateQueries({ queryKey: ROUTE_CONNECTION_RECOMMENDATION_KEY }),
       ]);
     },
   });

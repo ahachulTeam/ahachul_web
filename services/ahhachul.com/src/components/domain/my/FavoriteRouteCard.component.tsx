@@ -10,9 +10,11 @@ import {
   useDeleteUserFavoriteRoute,
   useFetchUserFavoriteRouteRecommendations,
   useFetchUserFavoriteRoutes,
+  useFetchUserRouteConnectionRecommendations,
   useFetchUserFavoriteStations,
 } from '@/services/user';
-import type { FavoriteRouteDto } from '@/types';
+import { useFlow } from '@/stackflow';
+import type { FavoriteRouteDto, RouteConnectionRecommendationDto } from '@/types';
 import { createActionLogger, resolveClientErrorMessage } from '@/utils/observability';
 
 const RECOMMENDATION_LIMIT = 3;
@@ -20,6 +22,7 @@ const favoriteRouteLogger = createActionLogger('favorite-route-card');
 
 const FavoriteRouteCard = () => {
   const { addToast } = useToast();
+  const { push } = useFlow();
   const { data: stationResponse } = useFetchUserFavoriteStations();
   const {
     data: recommendationResponse,
@@ -33,6 +36,12 @@ const FavoriteRouteCard = () => {
     isError: isRouteError,
     refetch: refetchRoutes,
   } = useFetchUserFavoriteRoutes();
+  const {
+    data: routeConnectionResponse,
+    isLoading: isRouteConnectionLoading,
+    isError: isRouteConnectionError,
+    refetch: refetchRouteConnections,
+  } = useFetchUserRouteConnectionRecommendations({ limit: 12, groupLimit: 4 });
   const createRouteMutation = useCreateUserFavoriteRoute();
   const deleteRouteMutation = useDeleteUserFavoriteRoute();
 
@@ -69,14 +78,18 @@ const FavoriteRouteCard = () => {
 
   const recommendedRoutes = recommendationResponse?.result.routes ?? [];
   const favoriteRoutes = routeResponse?.result.routes ?? [];
+  const routeConnections = routeConnectionResponse?.result.recommendations ?? [];
+  const routeConnectionGroups = routeConnectionResponse?.result.groups ?? [];
 
   const refreshAll = () => {
     favoriteRouteLogger.info('manual-refresh', {
       recommendationCount: recommendedRoutes.length,
       routeCount: favoriteRoutes.length,
+      routeConnectionCount: routeConnections.length,
     });
     void refetchRecommendations();
     void refetchRoutes();
+    void refetchRouteConnections();
   };
 
   const saveFavoriteRoute = async () => {
@@ -180,6 +193,36 @@ const FavoriteRouteCard = () => {
     );
   };
 
+  const startConversation = (targetMemberId: number) => {
+    push('TalkSettingPage', {
+      targetMemberId: String(targetMemberId),
+    });
+  };
+
+  const renderRouteConnection = (connection: RouteConnectionRecommendationDto) => {
+    return (
+      <RouteCard key={`route-connection-${connection.memberId}-${connection.routeId ?? 'none'}`}>
+        <RouteHeader>
+          <p>{connection.nickname}</p>
+          <RouteConnectionBadge>매칭 {connection.matchScore}점</RouteConnectionBadge>
+        </RouteHeader>
+        <RouteSummary>
+          {connection.sourceStationName} → {connection.destinationStationName}
+        </RouteSummary>
+        <RouteSummary>{connection.reason}</RouteSummary>
+        <RouteSummary>
+          정거장 차이 {connection.totalDistance} · 추정 {connection.estimatedMinutes}분
+        </RouteSummary>
+        <RouteConnectionActionButton
+          type="button"
+          onClick={() => startConversation(connection.memberId)}
+        >
+          쪽지 보내기
+        </RouteConnectionActionButton>
+      </RouteCard>
+    );
+  };
+
   return (
     <Wrapper>
       <Header>
@@ -261,6 +304,35 @@ const FavoriteRouteCard = () => {
             : null}
         </section>
       </RouteSections>
+
+      <RouteConnectionSection>
+        <h4>경로 기반 인맥 추천</h4>
+        <p>출발/도착역이 비슷한 사용자를 그룹으로 묶어 추천합니다.</p>
+        {isRouteConnectionLoading ? (
+          <StateText>비슷한 경로 사용자를 찾는 중입니다.</StateText>
+        ) : null}
+        {isRouteConnectionError ? (
+          <StateText>인맥 추천 정보를 불러오지 못했습니다.</StateText>
+        ) : null}
+        {!isRouteConnectionLoading && !isRouteConnectionError && !routeConnections.length ? (
+          <StateText>
+            조건에 맞는 경로 사용자가 아직 없습니다. 즐겨찾기 경로를 저장하면 추천 정확도가
+            올라갑니다.
+          </StateText>
+        ) : null}
+        {!isRouteConnectionLoading && !isRouteConnectionError
+          ? routeConnections.map(renderRouteConnection)
+          : null}
+        {!isRouteConnectionLoading && !isRouteConnectionError && routeConnectionGroups.length ? (
+          <RouteConnectionGroupList>
+            {routeConnectionGroups.map(group => (
+              <li key={`route-connection-group-${group.groupId}`}>
+                {group.sourceStationName} → {group.destinationStationName} · {group.memberCount}명
+              </li>
+            ))}
+          </RouteConnectionGroupList>
+        ) : null}
+      </RouteConnectionSection>
     </Wrapper>
   );
 };
@@ -353,6 +425,42 @@ const RouteSections = styled.div`
   }
 `;
 
+const RouteConnectionSection = styled.section`
+  margin-top: 12px;
+  background: var(--ah-color-legacy-surface-subtle);
+  border-radius: 8px;
+  padding: 12px;
+
+  h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ah-color-legacy-text-strong);
+  }
+
+  p {
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--ah-color-legacy-text-muted);
+  }
+`;
+
+const RouteConnectionGroupList = styled.ul`
+  margin-top: 8px;
+  display: grid;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+
+  li {
+    border-radius: 8px;
+    border: 1px solid var(--ah-color-legacy-border-soft);
+    background: #fff;
+    padding: 8px 10px;
+    font-size: 12px;
+    color: var(--ah-color-legacy-text-body);
+  }
+`;
+
 const RouteCard = styled.div`
   margin-top: 8px;
   border: 1px solid var(--ah-color-legacy-border-soft);
@@ -387,6 +495,26 @@ const RouteSummary = styled.p`
   margin-top: 6px;
   font-size: 12px;
   color: var(--ah-color-legacy-text-muted);
+`;
+
+const RouteConnectionBadge = styled.span`
+  border-radius: 9999px;
+  background: var(--ah-color-legacy-surface-brand-tint-subtle);
+  color: var(--ah-color-legacy-surface-brand-tint-strong);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+`;
+
+const RouteConnectionActionButton = styled.button`
+  margin-top: 8px;
+  border: 1px solid var(--ah-color-legacy-border-soft);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ah-color-legacy-text-body);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 10px;
 `;
 
 const RouteNodes = styled.div`

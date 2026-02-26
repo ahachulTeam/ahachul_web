@@ -13,6 +13,7 @@ import type {
   FavoriteRouteDto,
   FavoriteRouteListDto,
   ProfileVisibilitySettings,
+  RouteConnectionRecommendationsDto,
   UserProfileDetailResponseDto,
   UserFavoriteStations,
   UserProfileResponseDto,
@@ -136,6 +137,19 @@ export const fetchUserCommuteCoachToday = async (
 export const fetchUserFavoriteRoutes = async () => {
   const { data } = await axiosInstance.get<ApiResponse<FavoriteRouteListDto>>(
     API_PATHS.user.favoriteRoutes,
+  );
+
+  return data;
+};
+
+export const fetchUserRouteConnectionRecommendations = async (
+  params: { limit?: number; groupLimit?: number } = {},
+) => {
+  const { data } = await axiosInstance.get<ApiResponse<RouteConnectionRecommendationsDto>>(
+    API_PATHS.user.routeConnectionRecommendations,
+    {
+      params,
+    },
   );
 
   return data;

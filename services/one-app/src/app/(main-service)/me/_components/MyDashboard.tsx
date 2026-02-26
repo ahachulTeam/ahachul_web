@@ -37,6 +37,7 @@ import {
   deleteMyFavoriteRoute,
   getMyFavoriteRouteRecommendations,
   getMyFavoriteRoutes,
+  getMyRouteConnectionRecommendations,
   getMyFavoriteStations,
   getMyProfile,
   updateMyFavoriteStations,
@@ -246,11 +247,25 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
     enabled: Boolean(profile?.result) && !isProfilePending && !isProfileError,
   });
 
+  const {
+    data: routeConnectionResponse,
+    isPending: isRouteConnectionPending,
+    isError: isRouteConnectionError,
+    refetch: refetchRouteConnections,
+  } = useQuery({
+    queryKey: [...myQueryKeys.all, 'route-connections', 'recommendations'],
+    queryFn: () => getMyRouteConnectionRecommendations({ limit: 12, groupLimit: 4 }),
+    staleTime: QUERY_STALE_TIME.user,
+    enabled: Boolean(profile?.result) && !isProfilePending && !isProfileError,
+  });
+
   const profileReady = Boolean(profile?.result) && !isProfilePending && !isProfileError;
   const favoriteStations = stations?.result.stationInfoList ?? [];
   const subwayLines = subwayLineCatalogQuery.data ?? [];
   const recommendedRoutes = routeRecommendationResponse?.result.routes ?? [];
   const favoriteRoutes = favoriteRouteResponse?.result.routes ?? [];
+  const routeConnections = routeConnectionResponse?.result.recommendations ?? [];
+  const routeConnectionGroups = routeConnectionResponse?.result.groups ?? [];
   const stationNames = favoriteStations.map(station => station.stationName);
   const primaryStation = favoriteStations[0];
   const primarySubwayLineId =
@@ -602,9 +617,11 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
     dashboardLogger.info('manual-refresh-favorite-routes', {
       currentFavoriteRouteCount: favoriteRoutes.length,
       currentRecommendedRouteCount: recommendedRoutes.length,
+      currentRouteConnectionCount: routeConnections.length,
     });
     void refetchFavoriteRoutes();
     void refetchRouteRecommendations();
+    void refetchRouteConnections();
   };
 
   const createFavoriteRoute = async () => {
@@ -1005,6 +1022,75 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
     );
   }
 
+  let routeConnectionsContent: React.ReactNode = null;
+  if (isRouteConnectionPending) {
+    routeConnectionsContent = (
+      <p className="mt-2 text-body-small text-gray-70">비슷한 경로 사용자를 찾는 중입니다.</p>
+    );
+  } else if (isRouteConnectionError) {
+    routeConnectionsContent = (
+      <p className="mt-2 text-body-small text-danger">인맥 추천 정보를 불러오지 못했습니다.</p>
+    );
+  } else if (!routeConnections.length) {
+    routeConnectionsContent = (
+      <p className="mt-2 text-body-small text-gray-70">
+        조건에 맞는 경로 사용자가 아직 없습니다. 즐겨찾기 경로를 저장하면 추천 정확도가 올라갑니다.
+      </p>
+    );
+  } else {
+    routeConnectionsContent = (
+      <div className="mt-2 space-y-2">
+        {routeConnections.map(connection => (
+          <div
+            key={`route-connection-${connection.memberId}-${connection.routeId ?? 'none'}`}
+            className="rounded-lg border border-gray-20 bg-white p-3"
+          >
+            <div className="flex items-center justify-between gap-2">
+              <p className="text-label-medium text-gray-100">{connection.nickname}</p>
+              <span className="rounded-full bg-green-50 px-2 py-0.5 text-label-small text-key-color">
+                매칭 {connection.matchScore}점
+              </span>
+            </div>
+            <p className="mt-1 text-body-small text-gray-80">
+              {connection.sourceStationName} → {connection.destinationStationName}
+            </p>
+            <p className="mt-1 text-body-small text-gray-70">{connection.reason}</p>
+            <p className="mt-1 text-body-small text-gray-70">
+              정거장 차이 {connection.totalDistance} · 추정 {connection.estimatedMinutes}분
+            </p>
+            <div className="mt-2">
+              <Link
+                href={localizePathname(`/messages/new?memberId=${connection.memberId}`, locale)}
+                className="inline-flex h-8 items-center rounded-lg border border-gray-40 px-3 text-label-small text-gray-90"
+              >
+                쪽지 보내기
+              </Link>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  let routeConnectionGroupsContent: React.ReactNode = null;
+  if (!isRouteConnectionPending && !isRouteConnectionError && routeConnectionGroups.length) {
+    routeConnectionGroupsContent = (
+      <div className="mt-3 rounded-lg border border-gray-20 bg-white p-3">
+        <p className="text-label-medium text-gray-100">유사 경로 그룹</p>
+        <ul className="mt-2 space-y-2">
+          {routeConnectionGroups.map(group => (
+            <li
+              key={`route-connection-group-${group.groupId}`}
+              className="text-body-small text-gray-80"
+            >
+              {group.sourceStationName} → {group.destinationStationName} · {group.memberCount}명
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
   return (
     <section className="space-y-3 px-5 pb-24 pt-4">
       <article className={`${cardClassName} bg-gradient-to-r from-green-50 to-white`}>
@@ -1309,6 +1395,15 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
               <p className="text-label-medium text-gray-100">내가 저장한 경로</p>
               {favoriteRoutesContent}
             </div>
+          </div>
+
+          <div className="mt-3 rounded-xl border border-gray-30 bg-gray-10 p-3">
+            <p className="text-label-medium text-gray-100">경로 기반 인맥 추천</p>
+            <p className="mt-1 text-body-small text-gray-70">
+              출발/도착역이 비슷한 사용자를 찾아 그룹으로 묶어 추천합니다.
+            </p>
+            {routeConnectionsContent}
+            {routeConnectionGroupsContent}
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 import type { ActivityComponentType } from '@stackflow/react';
@@ -6,15 +6,33 @@ import { useMutation } from '@tanstack/react-query';
 
 import { createMessage } from '@/apis/request';
 import { LayoutComponent } from '@/components';
-import { useFlow } from '@/stackflow';
+import { useActivity, useFlow } from '@/stackflow';
 import { mixins, theme } from '@/styles';
 import { resolveClientErrorMessage } from '@/utils/observability';
 
 const TalkSettingPage: ActivityComponentType = () => {
+  const activity = useActivity();
   const { pop, replace } = useFlow();
   const [targetMemberId, setTargetMemberId] = useState('');
   const [draft, setDraft] = useState('');
   const [submitError, setSubmitError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const routeParamMemberId =
+      typeof activity.params === 'object' && activity.params !== null
+        ? (activity.params as { targetMemberId?: string }).targetMemberId
+        : undefined;
+
+    const queryParamMemberId =
+      typeof window !== 'undefined'
+        ? new URLSearchParams(window.location.search).get('targetMemberId')
+        : null;
+
+    const initialMemberId = routeParamMemberId ?? queryParamMemberId ?? '';
+    if (/^\d+$/.test(initialMemberId)) {
+      setTargetMemberId(initialMemberId);
+    }
+  }, [activity.params]);
 
   const createMessageMutation = useMutation({
     mutationFn: createMessage,
