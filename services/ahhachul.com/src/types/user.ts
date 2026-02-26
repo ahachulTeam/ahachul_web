@@ -33,6 +33,7 @@ export interface APIUpdateUserResponse {
   nickname: string | null;
   gender: string | null;
   ageRange: string | null;
+  imageUrl?: string | null;
   profilePublic?: boolean;
   emailPublic?: boolean;
   genderAgePublic?: boolean;
@@ -82,6 +83,7 @@ export interface ProfileCommentActivity {
 export interface UserProfileDetailResponseDto {
   memberId: number;
   nickname: string | null;
+  imageUrl?: string | null;
   email: string | null;
   maskedEmail: string | null;
   gender: string | null;

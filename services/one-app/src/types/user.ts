@@ -6,6 +6,7 @@ export interface User {
   nickname: string;
   email: string;
   maskedEmail?: string;
+  imageUrl?: string;
   gender: Gender;
   ageRange: AgeRange;
   profilePublic?: boolean;

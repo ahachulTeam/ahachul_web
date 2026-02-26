@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState, type ChangeEvent } from 'react';
 
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -10,6 +10,7 @@ import { maskEmail, normalizeInputText, validateNickname } from '@ahhachul/utils
 
 import axiosInstance from '@/apis/fetcher';
 import { updateUser } from '@/apis/request';
+import { createS3Presigned } from '@/apis/request/common';
 import { ChevronIcon } from '@/assets/icons/system';
 import CameraImg from '@/assets/images/icon_camera.png';
 import { LayoutComponent } from '@/components';
@@ -21,6 +22,37 @@ import { useFlow } from '@/stackflow';
 import type { ApiResponse } from '@/types';
 import { createActionLogger, resolveClientErrorMessage } from '@/utils/observability';
 
+const PROFILE_IMAGE_KEY_PREFIX = 'profile-images';
+const MAX_PROFILE_IMAGE_SIZE_BYTES = 5 * 1024 * 1024;
+
+const getFileExtension = (fileName: string) => {
+  const extension = fileName
+    .split('.')
+    .pop()
+    ?.toLowerCase()
+    .replace(/[^a-z0-9]/g, '');
+
+  if (!extension) {
+    return '';
+  }
+
+  return extension.slice(0, 10);
+};
+
+const buildProfileImageS3Key = (file: File) => {
+  const extension = getFileExtension(file.name);
+  const randomKey =
+    typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+      ? crypto.randomUUID()
+      : `${Date.now()}-${Math.random().toString(36).slice(2, 12)}`;
+
+  if (!extension) {
+    return `${PROFILE_IMAGE_KEY_PREFIX}/${randomKey}`;
+  }
+
+  return `${PROFILE_IMAGE_KEY_PREFIX}/${randomKey}.${extension}`;
+};
+
 const MyAccountPage: ActivityComponentType = () => {
   const accountLogger = createActionLogger('my-account');
   const { addToast } = useToast();
@@ -29,11 +61,85 @@ const MyAccountPage: ActivityComponentType = () => {
   const { isCheckingAuthState, authService } = useAuth();
   const { data: userInfo, isLoading } = useFetchUserProfile();
   const [isUpdatingNickname, setIsUpdatingNickname] = useState(false);
+  const [isUploadingProfileImage, setIsUploadingProfileImage] = useState(false);
+  const profileImageInputRef = useRef<HTMLInputElement>(null);
 
   const showToast = () => addToast('준비중인 기능입니다.', 'info');
   const handleLogout = () => {
     authService.logout();
     addToast('로그아웃되었습니다.', 'success');
+  };
+
+  const handleProfileImagePickerOpen = () => {
+    if (isUploadingProfileImage) {
+      return;
+    }
+    profileImageInputRef.current?.click();
+  };
+
+  const handleProfileImageUpload = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+
+    if (!file) {
+      return;
+    }
+
+    if (!file.type.startsWith('image/')) {
+      addToast('이미지 파일만 업로드할 수 있습니다.', 'error');
+      return;
+    }
+
+    if (file.size > MAX_PROFILE_IMAGE_SIZE_BYTES) {
+      addToast('이미지는 5MB 이하 파일만 업로드할 수 있습니다.', 'error');
+      return;
+    }
+
+    const accessToken = authService.accessToken;
+    const refreshToken = authService.refreshToken;
+    if (!accessToken || !refreshToken) {
+      addToast('로그인이 필요합니다.', 'error');
+      return;
+    }
+
+    setIsUploadingProfileImage(true);
+    try {
+      const s3Key = buildProfileImageS3Key(file);
+      const uploadedImageUrl = await createS3Presigned(s3Key, file);
+      if (!uploadedImageUrl) {
+        throw new Error('프로필 이미지 URL을 생성하지 못했습니다.');
+      }
+
+      await updateUser({
+        imageUrl: uploadedImageUrl,
+        auth: {
+          accessToken,
+          refreshToken,
+        },
+      });
+
+      await queryClient.invalidateQueries({ queryKey: userKeys.info() });
+      accountLogger.success('upload-profile-image', {
+        fileSize: file.size,
+      });
+      addToast('프로필 이미지가 변경되었습니다.', 'success');
+    } catch (error) {
+      const userMessage = resolveClientErrorMessage(
+        error,
+        '프로필 이미지 업로드에 실패했습니다. 잠시 후 다시 시도해주세요.',
+      );
+      accountLogger.fail(
+        'upload-profile-image',
+        error,
+        {
+          fileSize: file.size,
+        },
+        userMessage,
+      );
+      addToast(userMessage, 'error');
+    } finally {
+      setIsUploadingProfileImage(false);
+    }
   };
 
   const handleNicknameEdit = async () => {
@@ -137,9 +243,20 @@ const MyAccountPage: ActivityComponentType = () => {
         <FlexCenter>
           <AvatarWrapper>
             <Avatar src={userInfo?.result?.imageUrl} size={80} />
-            <UploadIcon>
+            <UploadIcon
+              type="button"
+              onClick={handleProfileImagePickerOpen}
+              disabled={isUploadingProfileImage}
+            >
               <img src={CameraImg} alt="CameraImg" />
             </UploadIcon>
+            <input
+              ref={profileImageInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleProfileImageUpload}
+              style={{ display: 'none' }}
+            />
           </AvatarWrapper>
         </FlexCenter>
 
@@ -229,8 +346,12 @@ const AvatarWrapper = styled.div`
   position: relative;
 `;
 
-const UploadIcon = styled.div`
+const UploadIcon = styled.button`
   background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
 
   & > img {
     width: 30px;
@@ -240,6 +361,11 @@ const UploadIcon = styled.div`
   position: absolute;
   top: 50px;
   left: 50px;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 `;
 
 const Fields = styled.div`

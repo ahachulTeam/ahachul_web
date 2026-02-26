@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState, type ChangeEvent } from 'react';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
@@ -23,6 +23,7 @@ import { AuthService } from '@/lib/auth-service';
 import { createDelayProofV2 } from '@/lib/delay-proof';
 import { fetchClient } from '@/lib/fetch-client';
 import { createActionLogger, resolveClientErrorMessage } from '@/lib/observability';
+import { uploadProfileImageFile } from '@/lib/profile-image-upload';
 import {
   mapRealtimePayloadToSectionVM,
   type ApiResponse,
@@ -50,6 +51,7 @@ const TERMS_URL = process.env.NEXT_PUBLIC_AHHACHUL_TERMS_URL ?? 'https://ahhachu
 const PRIVACY_URL = process.env.NEXT_PUBLIC_AHHACHUL_PRIVACY_URL ?? 'https://ahhachul.com/privacy';
 const MAX_FAVORITE_STATIONS = 4;
 const DEFAULT_DELAY_PROOF_MINUTES = 10;
+const MAX_PROFILE_IMAGE_SIZE_BYTES = 5 * 1024 * 1024;
 const dashboardLogger = createActionLogger('my-dashboard');
 
 function resolveStationTimeWeekType(currentDate = new Date()): StationTimeWeekType {
@@ -197,9 +199,11 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
   const [expectedArrivalAtDraft, setExpectedArrivalAtDraft] = useState('');
   const [customDelayMessage, setCustomDelayMessage] = useState('');
   const [delayProofResult, setDelayProofResult] = useState<DelayProofPayload | null>(null);
+  const [isUploadingProfileImage, setIsUploadingProfileImage] = useState(false);
   const [routeSourceStationId, setRouteSourceStationId] = useState<number | null>(null);
   const [routeDestinationStationId, setRouteDestinationStationId] = useState<number | null>(null);
   const [routeTitleDraft, setRouteTitleDraft] = useState('');
+  const profileImageInputRef = useRef<HTMLInputElement>(null);
 
   const {
     data: profile,
@@ -734,6 +738,50 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
     }
   };
 
+  const openProfileImagePicker = () => {
+    if (isUploadingProfileImage) {
+      return;
+    }
+    profileImageInputRef.current?.click();
+  };
+
+  const handleProfileImageFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+
+    if (!file) {
+      return;
+    }
+
+    if (!file.type.startsWith('image/')) {
+      window.alert('이미지 파일만 업로드할 수 있습니다.');
+      return;
+    }
+
+    if (file.size > MAX_PROFILE_IMAGE_SIZE_BYTES) {
+      window.alert('이미지는 5MB 이하 파일만 업로드할 수 있습니다.');
+      return;
+    }
+
+    setIsUploadingProfileImage(true);
+    try {
+      const uploadedImageUrl = await uploadProfileImageFile(file);
+      await updateMyProfile({ imageUrl: uploadedImageUrl });
+      await queryClient.invalidateQueries({ queryKey: myQueryKeys.profile() });
+      dashboardLogger.success('upload-profile-image', { fileSize: file.size });
+      window.alert('프로필 이미지가 변경되었습니다.');
+    } catch (error) {
+      const userMessage = resolveClientErrorMessage(
+        error,
+        '프로필 이미지 업로드에 실패했습니다. 잠시 후 다시 시도해주세요.',
+      );
+      dashboardLogger.fail('upload-profile-image', error, { fileSize: file.size }, userMessage);
+      window.alert(userMessage);
+    } finally {
+      setIsUploadingProfileImage(false);
+    }
+  };
+
   const openDelayProofForm = () => {
     setExpectedArrivalAtDraft(buildExpectedArrivalDraft(realtimeSection?.cards[0]?.etaSec));
     setCustomDelayMessage('');
@@ -1095,11 +1143,45 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
   return (
     <section className="space-y-3 px-5 pb-24 pt-4">
       <article className={`${cardClassName} bg-gradient-to-r from-green-50 to-white`}>
-        <p className="text-label-small text-gray-80">{copy.profileLabel}</p>
-        <h2 className="mt-1 text-headline-small text-gray-100">{member.nickname}</h2>
-        <p className="mt-1 text-body-medium text-gray-80">
-          {maskEmail(member.maskedEmail ?? member.email) || copy.noEmail}
-        </p>
+        <div className="flex items-center gap-3">
+          <div className="relative h-14 w-14 overflow-hidden rounded-full border border-gray-30 bg-white">
+            {member.imageUrl ? (
+              <img
+                src={member.imageUrl}
+                alt="프로필 이미지"
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center text-title-small text-gray-70">
+                {(member.nickname?.[0] ?? '아').toUpperCase()}
+              </div>
+            )}
+          </div>
+          <div className="flex-1">
+            <p className="text-label-small text-gray-80">{copy.profileLabel}</p>
+            <h2 className="mt-1 text-headline-small text-gray-100">{member.nickname}</h2>
+            <p className="mt-1 text-body-medium text-gray-80">
+              {maskEmail(member.maskedEmail ?? member.email) || copy.noEmail}
+            </p>
+          </div>
+        </div>
+        <div className="mt-3">
+          <button
+            type="button"
+            onClick={openProfileImagePicker}
+            className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90 disabled:opacity-60"
+            disabled={isUploadingProfileImage}
+          >
+            {isUploadingProfileImage ? '이미지 업로드 중...' : '프로필 이미지 변경'}
+          </button>
+          <input
+            ref={profileImageInputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleProfileImageFileChange}
+          />
+        </div>
         <div className="mt-4 flex flex-wrap items-center gap-2">
           {encodedNickname ? (
             <>

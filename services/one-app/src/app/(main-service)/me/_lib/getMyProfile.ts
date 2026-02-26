@@ -27,6 +27,7 @@ export type UpdateMemberResponse = ApiResponse<{
   nickname: string | null;
   gender: string | null;
   ageRange: string | null;
+  imageUrl?: string | null;
   profilePublic: boolean;
   emailPublic: boolean;
   genderAgePublic: boolean;
@@ -36,6 +37,7 @@ export type UpdateMemberResponse = ApiResponse<{
 
 export type UpdateMemberPayload = {
   nickname?: string;
+  imageUrl?: string;
   profilePublic?: boolean;
   emailPublic?: boolean;
   genderAgePublic?: boolean;

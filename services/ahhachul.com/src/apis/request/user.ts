@@ -260,6 +260,7 @@ export const deleteStoryV2 = async (storyId: number) => {
 
 type UpdateUserPayload = Partial<ProfileVisibilitySettings> & {
   nickname?: string;
+  imageUrl?: string;
   auth?: AuthTokens;
 };
 
