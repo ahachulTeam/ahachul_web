@@ -9,11 +9,15 @@ import {
 
 const config: Config = {
   darkMode: ['class'],
-  content: [
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './src/**/*.{js,ts,jsx,tsx}',
-  ],
+  content: {
+    // Monorepo에서 Next가 루트 cwd로 실행되어도 one-app 기준으로 스캔되도록 고정
+    relative: true,
+    files: [
+      './pages/**/*.{js,ts,jsx,tsx}',
+      './components/**/*.{js,ts,jsx,tsx}',
+      './src/**/*.{js,ts,jsx,tsx}',
+    ],
+  },
   theme: {
     extend: {
       fontFamily: createTailwindSansFontFamily('--font-pretendard'),

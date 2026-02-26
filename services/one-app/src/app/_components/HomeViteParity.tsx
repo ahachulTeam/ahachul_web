@@ -289,9 +289,18 @@ type Props = {
 export default function HomeViteParity({ locale }: Props) {
   const messages = getLocaleMessages(locale);
   const foreignerLocale = locale as ForeignerModeLocale;
-  const stationTimeWeekType = useMemo(() => resolveStationTimeWeekType(), []);
-  const greetingPhrase = useMemo(() => {
-    return GREETING_PHRASES[Math.floor(Math.random() * GREETING_PHRASES.length)];
+  const [stationTimeWeekType, setStationTimeWeekType] = useState<StationTimeWeekType>('WEEKDAY');
+  const [greetingPhrase, setGreetingPhrase] = useState<(typeof GREETING_PHRASES)[number]>(
+    GREETING_PHRASES[0],
+  );
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const next =
+      GREETING_PHRASES[Math.floor(Math.random() * GREETING_PHRASES.length)] ?? GREETING_PHRASES[0];
+    setGreetingPhrase(next);
+    setStationTimeWeekType(resolveStationTimeWeekType());
+    setIsLoggedIn(AuthService.isLoggedIn);
   }, []);
 
   const [nickname, setNickname] = useState('아하철');
@@ -327,7 +336,6 @@ export default function HomeViteParity({ locale }: Props) {
     () => subwayLines.find(line => line.id === selectedLineId) ?? null,
     [selectedLineId, subwayLines],
   );
-  const isLoggedIn = AuthService.isLoggedIn;
   const queryClient = useQueryClient();
   const stationOptions = selectedLine?.stations ?? [];
   const selectedStationName =
