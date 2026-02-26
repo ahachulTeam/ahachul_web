@@ -18,7 +18,21 @@ import { getComplaintDetailPostServer } from './_lib/getDetailPostServer';
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const locale = await getServerLocale();
-  const post = await getComplaintDetailPostServer({ queryKey: complaintQueryKeys.detail(id) });
+  let post: Awaited<ReturnType<typeof getComplaintDetailPostServer>> | null = null;
+
+  try {
+    post = await getComplaintDetailPostServer({ queryKey: complaintQueryKeys.detail(id) });
+  } catch {
+    return createDetailMetadata({
+      title: withBrandTitle(`민원 상세 #${id}`),
+      description: SEO_PAGE_COPY.complaint.description,
+      imageUrl: 'https://static.dev.ahhachul.com/banners/complaint/main.png',
+      siteUrl: SITE_URL,
+      keywords: [...SEO_KEYWORDS, '지하철 민원 상세'],
+      category: 'complaint',
+      ...getLocalizedMetadataOptions(`/complaint/${id}`, locale),
+    }) as Metadata;
+  }
 
   const subwayLineId = post.result.subwayLineId;
   const extractTitle = extractTextFromLexical(post.result.content, post.result.complaintType).slice(
@@ -65,14 +79,22 @@ export default async function ComplaintDetailPage(props: Props) {
   const locale = await getServerLocale();
   const messages = getLocaleMessages(locale);
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: complaintQueryKeys.detail(id),
-    queryFn: getComplaintDetailPostServer,
-  });
-  await queryClient.prefetchQuery({
-    queryKey: [...complaintQueryKeys.comments(id), 'latest'] as const,
-    queryFn: getComplaintComments,
-  });
+  try {
+    await queryClient.prefetchQuery({
+      queryKey: complaintQueryKeys.detail(id),
+      queryFn: getComplaintDetailPostServer,
+    });
+  } catch {
+    // no-op: client fallback boundary handles fetch failure
+  }
+  try {
+    await queryClient.prefetchQuery({
+      queryKey: [...complaintQueryKeys.comments(id), 'latest'] as const,
+      queryFn: getComplaintComments,
+    });
+  } catch {
+    // no-op: client fallback boundary handles fetch failure
+  }
   const dehydratedState = dehydrate(queryClient);
 
   return (

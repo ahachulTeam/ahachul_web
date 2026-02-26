@@ -9,6 +9,44 @@ const nextConfig = {
       bodySizeLimit: '10mb',
     },
   },
+  async rewrites() {
+    return [
+      // auth legacy paths (vite)
+      { source: '/auth/login', destination: '/login' },
+      { source: '/auth/callback', destination: '/login/callback' },
+      { source: '/auth/set-nickname', destination: '/login/set-nickname' },
+
+      // notification legacy paths
+      { source: '/notification', destination: '/notifications' },
+      { source: '/notification/setting', destination: '/notifications/settings' },
+
+      // my legacy paths
+      { source: '/my', destination: '/me' },
+      { source: '/my/account', destination: '/me/setting/account' },
+      { source: '/my/setting', destination: '/me/setting' },
+      { source: '/my/delay-center', destination: '/delay-center' },
+
+      // lost-found legacy paths
+      { source: '/lostFound', destination: '/lost-found' },
+      { source: '/lostFound/new', destination: '/lost-found/new' },
+      { source: '/lostFound/:id', destination: '/lost-found/:id' },
+      { source: '/lostFound/:id/edit', destination: '/lost-found/:id/edit' },
+
+      // comments/messages legacy paths
+      { source: '/comment/:commentId/edit', destination: '/comments/:commentId/edit' },
+      { source: '/comment/:commentId/reply', destination: '/comments/:commentId/reply' },
+      { source: '/talk/setting', destination: '/talk/settings' },
+
+      // subway legacy paths
+      { source: '/subway/map-page', destination: '/subway/map' },
+      { source: '/subway/timeline-page', destination: '/subway/timeline' },
+      { source: '/subway/daily-vote-hub-page', destination: '/daily-votes' },
+
+      // user legacy paths
+      { source: '/user/:username/setting', destination: '/user/:username/settings' },
+      { source: '/user/:username/ProfileOverview', destination: '/user/:username' },
+    ];
+  },
   images: {
     loader: 'default',
     formats: ['image/avif', 'image/webp'],

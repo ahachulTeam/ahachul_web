@@ -20,13 +20,22 @@ export const LEGACY_EXACT_REDIRECTS: Record<string, string> = {
   '/auth/set-nickname': '/login/set-nickname',
   '/lostFound': '/lost-found',
   '/my': '/me',
+  '/my/account': '/me/setting/account',
+  '/my/setting': '/me/setting',
+  '/my/delay-center': '/delay-center',
   '/notification': '/notifications',
+  '/notification/setting': '/notifications/settings',
+  '/talk/setting': '/talk/settings',
+  '/subway/map-page': '/subway/map',
+  '/subway/timeline-page': '/subway/timeline',
+  '/subway/daily-vote-hub-page': '/daily-votes',
 };
 
 export const LEGACY_PREFIX_REDIRECTS: Array<{ from: string; to: string }> = [
   { from: '/lostFound/', to: '/lost-found/' },
   { from: '/my/', to: '/me/' },
   { from: '/notification/', to: '/notifications/' },
+  { from: '/comment/', to: '/comments/' },
 ];
 
 export const LEGACY_TO_CANONICAL_ROUTES: RouteRedirectRule[] = [

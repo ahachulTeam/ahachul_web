@@ -18,7 +18,21 @@ import { getLostFoundDetailPostServer } from './_lib/getDetailPostServer';
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const locale = await getServerLocale();
-  const post = await getLostFoundDetailPostServer({ queryKey: lostFoundQueryKeys.detail(id) });
+  let post: Awaited<ReturnType<typeof getLostFoundDetailPostServer>> | null = null;
+
+  try {
+    post = await getLostFoundDetailPostServer({ queryKey: lostFoundQueryKeys.detail(id) });
+  } catch {
+    return createDetailMetadata({
+      title: withBrandTitle(`유실물 상세 #${id}`),
+      description: SEO_PAGE_COPY.lostFound.description,
+      imageUrl: 'https://static.dev.ahhachul.com/banners/lost-found/main.png',
+      siteUrl: SITE_URL,
+      keywords: [...SEO_KEYWORDS, '지하철 유실물 글'],
+      category: 'lost-found',
+      ...getLocalizedMetadataOptions(`/lost-found/${id}`, locale),
+    }) as Metadata;
+  }
 
   const subwayLineId = post.result.subwayLineId;
   const lineName = SUBWAY_LINES.find(subway => subway.id === +subwayLineId)?.name;
@@ -59,14 +73,22 @@ export default async function LostFoundDetailPage(props: Props) {
   const locale = await getServerLocale();
   const messages = getLocaleMessages(locale);
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: lostFoundQueryKeys.detail(id),
-    queryFn: getLostFoundDetailPostServer,
-  });
-  await queryClient.prefetchQuery({
-    queryKey: [...lostFoundQueryKeys.comments(id), 'latest'] as const,
-    queryFn: getLostFoundComments,
-  });
+  try {
+    await queryClient.prefetchQuery({
+      queryKey: lostFoundQueryKeys.detail(id),
+      queryFn: getLostFoundDetailPostServer,
+    });
+  } catch {
+    // no-op: client fallback boundary handles fetch failure
+  }
+  try {
+    await queryClient.prefetchQuery({
+      queryKey: [...lostFoundQueryKeys.comments(id), 'latest'] as const,
+      queryFn: getLostFoundComments,
+    });
+  } catch {
+    // no-op: client fallback boundary handles fetch failure
+  }
   const dehydratedState = dehydrate(queryClient);
 
   return (
