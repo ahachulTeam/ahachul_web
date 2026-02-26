@@ -13,6 +13,7 @@ import {
   getMyTodayCommuteCoach,
   type CommuteCoachRiskLevel,
 } from '@/app/(main-service)/me/_lib/getMyProfile';
+import { ChevronDownIcon, HeaderMessageIcon, HeaderNotificationIcon } from '@/assets/icon';
 import { SUBWAY_LOGO_SVG_LIST } from '@/components/Subway/SubwayLogoIconMap';
 import { getLocaleMessages, localizePathname, type SupportedLocale } from '@/i18n';
 import { AuthService } from '@/lib/auth-service';
@@ -874,13 +875,13 @@ export default function HomeViteParity({ locale }: Props) {
   let summaryContent: ReactNode;
   if (isSummaryLoading) {
     summaryContent = (
-      <p className="mt-2 text-body-small text-gray-70">첫차/막차 정보를 불러오는 중입니다.</p>
+      <p className="mt-2 text-body-small text-white/70">첫차/막차 정보를 불러오는 중입니다.</p>
     );
   } else if (summaryError) {
     summaryContent = <p className="mt-2 text-body-small text-danger">{summaryError}</p>;
   } else {
     summaryContent = (
-      <div className="mt-2 space-y-1 text-body-small text-gray-90">
+      <div className="mt-2 space-y-1 text-body-small text-white">
         <p>
           상행 {formatStationTime(summaryByType.UP?.firstDepartureTime)} /{' '}
           {formatStationTime(summaryByType.UP?.lastDepartureTime)}
@@ -890,7 +891,7 @@ export default function HomeViteParity({ locale }: Props) {
           {formatStationTime(summaryByType.DOWN?.lastDepartureTime)}
         </p>
         {summaryStatus === 'EMPTY' ? (
-          <p className="text-body-small text-gray-70">{summaryNoDataMessage}</p>
+          <p className="text-body-small text-white/70">{summaryNoDataMessage}</p>
         ) : null}
       </div>
     );
@@ -899,31 +900,31 @@ export default function HomeViteParity({ locale }: Props) {
   let realtimeContent: ReactNode;
   if (isRealtimeLoading) {
     realtimeContent = (
-      <p className="mt-2 text-body-small text-gray-70">실시간 도착 정보를 불러오는 중입니다.</p>
+      <p className="mt-2 text-body-small text-white/70">실시간 도착 정보를 불러오는 중입니다.</p>
     );
   } else if (realtimeError) {
     realtimeContent = <p className="mt-2 text-body-small text-danger">{realtimeError}</p>;
   } else if (!realtimeSection || realtimeSection.empty) {
     realtimeContent = (
-      <p className="mt-2 text-body-small text-gray-70">표시할 도착 열차가 없습니다.</p>
+      <p className="mt-2 text-body-small text-white/70">표시할 도착 열차가 없습니다.</p>
     );
   } else {
     realtimeContent = (
       <ul className="mt-2 space-y-2">
         {realtimeSection.cards.map(card => (
-          <li key={card.id} className="rounded-lg border border-gray-20 bg-gray-05 p-2">
+          <li key={card.id} className="rounded-lg border border-white/10 bg-white/[0.06] p-2">
             <div className="flex items-center gap-2">
-              <span className="rounded-full bg-white px-2 py-0.5 text-label-small text-gray-90">
+              <span className="rounded-full bg-white/90 px-2 py-0.5 text-label-small text-gray-100">
                 {card.upDownType === 'UP' ? '상행' : '하행'}
               </span>
-              <span className="text-label-small text-gray-70">
+              <span className="text-label-small text-white/70">
                 {ARRIVAL_CODE_LABELS[card.arrivalCode]}
               </span>
             </div>
-            <p className="mt-1 text-body-small text-gray-100">
+            <p className="mt-1 text-body-small text-white">
               {card.etaMinDisplay}분 후 · {card.destinationText}
             </p>
-            <p className="mt-1 text-body-small text-gray-70">{card.nextStationText}</p>
+            <p className="mt-1 text-body-small text-white/70">{card.nextStationText}</p>
           </li>
         ))}
       </ul>
@@ -938,20 +939,20 @@ export default function HomeViteParity({ locale }: Props) {
   let weatherContent: ReactNode;
   if (isWeatherLoading) {
     weatherContent = (
-      <p className="mt-2 text-body-small text-gray-70">오늘 날씨를 불러오는 중입니다.</p>
+      <p className="mt-2 text-body-small text-white/70">오늘 날씨를 불러오는 중입니다.</p>
     );
   } else if (weatherError) {
     weatherContent = <p className="mt-2 text-body-small text-danger">{weatherError}</p>;
   } else if (!weatherBrief) {
     weatherContent = (
-      <p className="mt-2 text-body-small text-gray-70">현재 날씨 정보를 확인할 수 없습니다.</p>
+      <p className="mt-2 text-body-small text-white/70">현재 날씨 정보를 확인할 수 없습니다.</p>
     );
   } else {
     weatherContent = (
-      <div className="mt-2 space-y-1 text-body-small text-gray-90">
+      <div className="mt-2 space-y-1 text-body-small text-white">
         <p>{weatherBrief.summaryText}</p>
-        <p className="text-gray-70">{weatherBrief.cautionText}</p>
-        <p className="text-gray-70">{weatherBrief.friendlyText}</p>
+        <p className="text-white/70">{weatherBrief.cautionText}</p>
+        <p className="text-white/70">{weatherBrief.friendlyText}</p>
       </div>
     );
   }
@@ -969,11 +970,13 @@ export default function HomeViteParity({ locale }: Props) {
   let commuteCoachContent: ReactNode;
   if (!isLoggedIn) {
     commuteCoachContent = (
-      <p className="mt-2 text-body-small text-gray-70">로그인 후 출근 코치를 확인할 수 있습니다.</p>
+      <p className="mt-2 text-body-small text-white/70">
+        로그인 후 출근 코치를 확인할 수 있습니다.
+      </p>
     );
   } else if (commuteCoachQuery.isPending) {
     commuteCoachContent = (
-      <p className="mt-2 text-body-small text-gray-70">출근 코치 정보를 계산하는 중입니다.</p>
+      <p className="mt-2 text-body-small text-white/70">출근 코치 정보를 계산하는 중입니다.</p>
     );
   } else if (commuteCoachQuery.isError) {
     commuteCoachContent = (
@@ -981,7 +984,7 @@ export default function HomeViteParity({ locale }: Props) {
     );
   } else if (!commuteCoach || !primaryCommuteRoute) {
     commuteCoachContent = (
-      <p className="mt-2 text-body-small text-gray-70">
+      <p className="mt-2 text-body-small text-white/70">
         {commuteCoach?.guidanceMessage ??
           '즐겨찾는 역을 2개 이상 등록하면 출근 코치를 제공할 수 있어요.'}
       </p>
@@ -989,30 +992,30 @@ export default function HomeViteParity({ locale }: Props) {
   } else {
     commuteCoachContent = (
       <div className="mt-2 space-y-2">
-        <div className="grid gap-1 text-body-small text-gray-90">
+        <div className="grid gap-1 text-body-small text-white">
           <p>목표 도착 시각 {commuteCoach.targetArrivalAt}</p>
           <p>권장 출발 시각 {commuteCoach.safeDepartureAt ?? '-'}</p>
           <p>출발 권장 {departureLabel}</p>
         </div>
-        <div className="rounded-lg border border-gray-20 bg-gray-05 p-2">
-          <p className="text-label-small text-gray-100">
+        <div className="rounded-lg border border-white/10 bg-white/[0.06] p-2">
+          <p className="text-label-small text-white">
             기본 경로 {primaryCommuteRoute.sourceStationName} {'->'}{' '}
             {primaryCommuteRoute.destinationStationName}
           </p>
-          <p className="mt-1 text-label-small text-gray-70">
+          <p className="mt-1 text-label-small text-white/70">
             정거장 {primaryCommuteRoute.summary.totalStops} · 환승{' '}
             {primaryCommuteRoute.summary.transferCount} · 예상{' '}
             {primaryCommuteRoute.summary.estimatedMinutes}분
           </p>
         </div>
         {commuteCoach.alternativeRoutes.length > 0 ? (
-          <p className="text-label-small text-gray-70">
+          <p className="text-label-small text-white/70">
             대체 경로 {commuteCoach.alternativeRoutes.length}개 제공
           </p>
         ) : null}
         <ul className="space-y-1">
           {commuteCoach.riskReasons.slice(0, 2).map(reason => (
-            <li key={reason} className="text-label-small text-gray-70">
+            <li key={reason} className="text-label-small text-white/70">
               · {reason}
             </li>
           ))}
@@ -1057,7 +1060,7 @@ export default function HomeViteParity({ locale }: Props) {
   let foreignerGuideContent: ReactNode;
   if (foreignerGuideQuery.isLoading) {
     foreignerGuideContent = (
-      <p className="mt-2 text-body-small text-gray-70">외국인 모드 가이드를 불러오는 중입니다.</p>
+      <p className="mt-2 text-body-small text-white/70">외국인 모드 가이드를 불러오는 중입니다.</p>
     );
   } else if (foreignerGuideQuery.isError) {
     foreignerGuideContent = (
@@ -1065,37 +1068,37 @@ export default function HomeViteParity({ locale }: Props) {
     );
   } else if (!foreignerGuide) {
     foreignerGuideContent = (
-      <p className="mt-2 text-body-small text-gray-70">외국인 모드 안내 정보가 없습니다.</p>
+      <p className="mt-2 text-body-small text-white/70">외국인 모드 안내 정보가 없습니다.</p>
     );
   } else {
     foreignerGuideContent = (
       <div className="mt-2 space-y-2">
-        <div className="rounded-lg border border-gray-20 bg-gray-05 p-2">
-          <p className="text-label-small text-gray-100">
+        <div className="rounded-lg border border-white/10 bg-white/[0.06] p-2">
+          <p className="text-label-small text-white">
             {foreignerGuide.station.nameLocalized} ·{' '}
             {foreignerGuide.station.subwayLineNameLocalized}
           </p>
-          <p className="mt-1 text-label-small text-gray-70">
+          <p className="mt-1 text-label-small text-white/70">
             Romanized: {foreignerGuide.station.romanizedName}
           </p>
-          <p className="text-label-small text-gray-70">
+          <p className="text-label-small text-white/70">
             Pronunciation: {foreignerGuide.station.pronunciation}
           </p>
         </div>
         <ul className="space-y-1">
-          <li className="text-label-small text-gray-70">
+          <li className="text-label-small text-white/70">
             · {foreignerGuide.cultureGuide.lastTrainTip}
           </li>
-          <li className="text-label-small text-gray-70">
+          <li className="text-label-small text-white/70">
             · {foreignerGuide.cultureGuide.transferEtiquetteTip}
           </li>
-          <li className="text-label-small text-gray-70">
+          <li className="text-label-small text-white/70">
             · {foreignerGuide.cultureGuide.safetyTip}
           </li>
         </ul>
         {foreignerGuide.oneClickActions?.length ? (
-          <div className="rounded-lg border border-gray-20 bg-white p-2">
-            <p className="text-label-small text-gray-100">긴급/신고 원클릭</p>
+          <div className="rounded-lg border border-white/10 bg-white/[0.06] p-2">
+            <p className="text-label-small text-white">긴급/신고 원클릭</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {foreignerGuide.oneClickActions.map(action => (
                 <button
@@ -1104,14 +1107,14 @@ export default function HomeViteParity({ locale }: Props) {
                   onClick={() => {
                     void handleForeignerOneClickAction(action);
                   }}
-                  className="rounded-full border border-gray-40 px-3 py-1 text-label-small text-gray-90"
+                  className="rounded-full border border-white/20 px-3 py-1 text-label-small text-white/90"
                 >
                   {action.title}
                 </button>
               ))}
             </div>
             {foreignerOneClickNotice ? (
-              <p className="mt-2 text-body-small text-gray-70">{foreignerOneClickNotice}</p>
+              <p className="mt-2 text-body-small text-white/70">{foreignerOneClickNotice}</p>
             ) : null}
           </div>
         ) : null}
@@ -1127,30 +1130,32 @@ export default function HomeViteParity({ locale }: Props) {
   let dailyVoteContent: ReactNode;
   if (!isLoggedIn) {
     dailyVoteContent = (
-      <p className="mt-2 text-body-small text-gray-70">
+      <p className="mt-2 text-body-small text-white/70">
         로그인 후 오늘의 출퇴근/등하교 투표에 참여할 수 있어요.
       </p>
     );
   } else if (dailyVoteTodayQuery.isPending) {
     dailyVoteContent = (
-      <p className="mt-2 text-body-small text-gray-70">오늘의 투표를 불러오는 중입니다.</p>
+      <p className="mt-2 text-body-small text-white/70">오늘의 투표를 불러오는 중입니다.</p>
     );
   } else if (dailyVoteTodayQuery.isError) {
     dailyVoteContent = (
       <p className="mt-2 text-body-small text-danger">오늘의 투표를 불러오지 못했습니다.</p>
     );
   } else if (!dailyVoteToday || dailyVotePollCards.length === 0) {
-    dailyVoteContent = <p className="mt-2 text-body-small text-gray-70">표시할 투표가 없습니다.</p>;
+    dailyVoteContent = (
+      <p className="mt-2 text-body-small text-white/70">표시할 투표가 없습니다.</p>
+    );
   } else {
     dailyVoteContent = (
       <div className="mt-2 space-y-3">
         {dailyVotePollCards.map(poll => (
           <article
             key={`daily-vote-${poll.pollId}`}
-            className="rounded-xl border border-gray-20 bg-gray-05 p-3"
+            className="rounded-xl border border-white/10 bg-white/[0.06] p-3"
           >
             <div className="flex items-center justify-between gap-2">
-              <p className="text-label-small text-gray-70">
+              <p className="text-label-small text-white/70">
                 {resolveDailyVoteContextLabel(poll.pollContext)} · {poll.subwayLineName}
               </p>
               <Link
@@ -1160,7 +1165,7 @@ export default function HomeViteParity({ locale }: Props) {
                 댓글 보기
               </Link>
             </div>
-            <p className="mt-1 text-body-small text-gray-100">{poll.question}</p>
+            <p className="mt-1 text-body-small text-white">{poll.question}</p>
             <ul className="mt-2 grid grid-cols-1 gap-2">
               {poll.options.map(option => (
                 <li key={`${poll.pollId}-${option.optionCode}`}>
@@ -1176,7 +1181,7 @@ export default function HomeViteParity({ locale }: Props) {
                     className={
                       option.optionCode === poll.selectedOptionCode
                         ? 'w-full rounded-lg border border-key-color bg-key-color px-3 py-2 text-left text-label-small text-white'
-                        : 'w-full rounded-lg border border-gray-30 bg-white px-3 py-2 text-left text-label-small text-gray-90'
+                        : 'w-full rounded-lg border border-white/20 bg-white/[0.06] px-3 py-2 text-left text-label-small text-white/90'
                     }
                   >
                     <span>
@@ -1294,26 +1299,53 @@ export default function HomeViteParity({ locale }: Props) {
   }
 
   return (
-    <main className="min-h-screen bg-gray-10 pb-24 pt-4">
+    <main className="min-h-screen bg-gray-100 pb-24 pt-4">
       <section className="px-5">
-        <h1 className="text-headline-small text-black">
+        <div className="mb-3 flex items-center justify-between">
+          <button
+            type="button"
+            className="inline-flex items-center gap-1 rounded-md px-1 py-1 text-title-small font-bold text-white"
+          >
+            {selectedStationName}
+            <ChevronDownIcon className="h-5 w-5 [&_path]:stroke-white" />
+          </button>
+          <div className="flex items-center gap-1">
+            <Link
+              href={localizePathname('/messages', locale)}
+              aria-label={messages.header.messagesAria}
+              title={messages.header.messagesTitle}
+              className="inline-flex h-9 w-9 items-center justify-center"
+            >
+              <HeaderMessageIcon className="h-6 w-6 [&_path]:stroke-white" />
+            </Link>
+            <Link
+              href={localizePathname('/notifications', locale)}
+              aria-label={messages.header.notificationsAria}
+              title={messages.header.notificationsTitle}
+              className="inline-flex h-9 w-9 items-center justify-center"
+            >
+              <HeaderNotificationIcon className="h-6 w-6 [&_path]:stroke-white" />
+            </Link>
+          </div>
+        </div>
+        <h1 className="text-headline-small text-white">
           <b className="block font-bold">{nickname}님,</b>
           {greetingPhrase}
         </h1>
       </section>
 
       <section className="mt-4 px-5">
-        <article className="rounded-2xl border border-gray-30 bg-white p-4">
-          <h2 className="text-title-small text-gray-100">내 역 실시간 도착정보</h2>
-          <p className="mt-1 text-body-small text-gray-70">
+        <article className="rounded-2xl border border-white/15 bg-white/[0.10] p-4 backdrop-blur-[2px]">
+          <h2 className="text-title-small text-white">내 역 실시간 도착정보</h2>
+          <p className="mt-1 text-body-small text-white/70">
             선택한 역/호선 기준으로 도착정보와 첫차·막차 요약을 보여줍니다.
           </p>
 
           <div className="mt-3 grid gap-2">
-            <label className="text-label-small text-gray-80">
+            <label className="text-label-small text-white/70">
               호선
               <select
-                className="mt-1 h-10 w-full rounded-lg border border-gray-40 bg-white px-2 text-body-small text-gray-100"
+                className="mt-1 h-10 w-full rounded-lg border border-white/20 bg-white/[0.08] px-2 text-body-small text-white"
                 value={selectedLineId}
                 onChange={event => setSelectedLineId(Number(event.target.value))}
                 disabled={isCatalogLoading || !subwayLines.length}
@@ -1326,10 +1358,10 @@ export default function HomeViteParity({ locale }: Props) {
               </select>
             </label>
 
-            <label className="text-label-small text-gray-80">
+            <label className="text-label-small text-white/70">
               역
               <select
-                className="mt-1 h-10 w-full rounded-lg border border-gray-40 bg-white px-2 text-body-small text-gray-100"
+                className="mt-1 h-10 w-full rounded-lg border border-white/20 bg-white/[0.08] px-2 text-body-small text-white"
                 value={selectedStationId}
                 onChange={event => setSelectedStationId(Number(event.target.value))}
                 disabled={isCatalogLoading || !stationOptions.length}
@@ -1348,8 +1380,8 @@ export default function HomeViteParity({ locale }: Props) {
               type="button"
               className={
                 upDownType === 'UP'
-                  ? 'h-8 rounded-full bg-gray-100 px-3 text-label-small text-white'
-                  : 'h-8 rounded-full border border-gray-40 bg-white px-3 text-label-small text-gray-90'
+                  ? 'h-8 rounded-full bg-key-color px-3 text-label-small text-white'
+                  : 'h-8 rounded-full border border-white/20 bg-white/[0.08] px-3 text-label-small text-white/80'
               }
               onClick={() => setUpDownType('UP')}
             >
@@ -1359,8 +1391,8 @@ export default function HomeViteParity({ locale }: Props) {
               type="button"
               className={
                 upDownType === 'DOWN'
-                  ? 'h-8 rounded-full bg-gray-100 px-3 text-label-small text-white'
-                  : 'h-8 rounded-full border border-gray-40 bg-white px-3 text-label-small text-gray-90'
+                  ? 'h-8 rounded-full bg-key-color px-3 text-label-small text-white'
+                  : 'h-8 rounded-full border border-white/20 bg-white/[0.08] px-3 text-label-small text-white/80'
               }
               onClick={() => setUpDownType('DOWN')}
             >
@@ -1370,9 +1402,9 @@ export default function HomeViteParity({ locale }: Props) {
 
           {catalogError ? <p className="mt-2 text-body-small text-danger">{catalogError}</p> : null}
 
-          <div className="mt-3 rounded-xl border border-gray-20 bg-white p-3">
+          <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.04] p-3">
             <div className="flex items-center justify-between">
-              <p className="text-label-medium text-gray-100">오늘 날씨 안내</p>
+              <p className="text-label-medium text-white">오늘 날씨 안내</p>
               {weatherSourceLabel ? (
                 <p
                   className={`inline-flex rounded-full border px-2 py-0.5 text-label-small ${resolveWeatherSourceClassName(
@@ -1387,9 +1419,9 @@ export default function HomeViteParity({ locale }: Props) {
             {weatherContent}
           </div>
 
-          <div className="mt-3 rounded-xl border border-gray-20 bg-white p-3">
+          <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.04] p-3">
             <div className="flex items-center justify-between">
-              <p className="text-label-medium text-gray-100">출근 코치</p>
+              <p className="text-label-medium text-white">출근 코치</p>
               <div className="flex items-center gap-2">
                 {commuteCoach?.riskLevel ? (
                   <p
@@ -1417,9 +1449,9 @@ export default function HomeViteParity({ locale }: Props) {
             {commuteCoachContent}
           </div>
 
-          <div className="mt-3 rounded-xl border border-gray-20 bg-white p-3">
+          <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.04] p-3">
             <div className="flex items-center justify-between">
-              <p className="text-label-medium text-gray-100">오늘의 출퇴근/등하교 투표</p>
+              <p className="text-label-medium text-white">오늘의 출퇴근/등하교 투표</p>
               {isLoggedIn ? (
                 <button
                   type="button"
@@ -1435,9 +1467,9 @@ export default function HomeViteParity({ locale }: Props) {
             {dailyVoteContent}
           </div>
 
-          <div className="mt-3 rounded-xl border border-gray-20 bg-white p-3">
+          <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.04] p-3">
             <div className="flex items-center justify-between">
-              <p className="text-label-medium text-gray-100">외국인 모드 가이드</p>
+              <p className="text-label-medium text-white">외국인 모드 가이드</p>
               <div className="flex items-center gap-3">
                 <Link
                   href={localizePathname('/foreigner/language-exchange', locale)}
@@ -1456,8 +1488,8 @@ export default function HomeViteParity({ locale }: Props) {
             {foreignerGuideContent}
           </div>
 
-          <div className="mt-3 rounded-xl border border-gray-20 bg-gray-05 p-3">
-            <p className="text-label-medium text-gray-100">
+          <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.08] p-3">
+            <p className="text-label-medium text-white">
               {selectedStationName} · {selectedLine?.name ?? '-'}
             </p>
             {summaryStatusLabel ? (
@@ -1474,11 +1506,11 @@ export default function HomeViteParity({ locale }: Props) {
             {summaryContent}
           </div>
 
-          <div className="mt-3 rounded-xl border border-gray-20 bg-white p-3">
+          <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.04] p-3">
             <div className="flex items-center justify-between">
-              <p className="text-label-medium text-gray-100">열차 도착</p>
+              <p className="text-label-medium text-white">열차 도착</p>
               {realtimeSection ? (
-                <p className="text-label-small text-gray-70">{realtimeSection.confidenceLabel}</p>
+                <p className="text-label-small text-white/70">{realtimeSection.confidenceLabel}</p>
               ) : null}
             </div>
 

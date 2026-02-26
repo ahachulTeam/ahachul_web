@@ -58,9 +58,9 @@ export default async function Login({ searchParams }: LoginPageProps) {
   const initialErrorMessage = resolveLoginErrorMessage(errorParam, messages);
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-black">
+    <main className="relative min-h-screen overflow-hidden bg-black_secondary">
       <HelloOnLogin subtitle={messages.login.heroSubtitle} />
-      <section className="fixed bottom-[34px] left-0 right-0 flex flex-col gap-2 px-[30px] pt-6">
+      <section className="absolute bottom-[34px] left-0 right-0 flex flex-col gap-2 px-[30px] pt-6">
         <SocialLogins
           continueWithProviderTemplate={messages.login.continueWithProvider}
           unknownErrorMessage={messages.common.unknownError}

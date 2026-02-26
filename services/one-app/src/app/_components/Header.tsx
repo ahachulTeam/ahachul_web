@@ -1,11 +1,27 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { HeaderLogoIcon, HeaderMessageIcon, HeaderNotificationIcon } from '@/assets/icon';
-import { getLocaleMessages, localizePathname } from '@/i18n';
-import { getServerLocale } from '@/i18n/server';
+import {
+  getLocaleMessages,
+  localizePathname,
+  resolvePathLocale,
+  stripLocaleFromPathname,
+} from '@/i18n';
 
-export default async function Header() {
-  const locale = await getServerLocale();
+const HIDDEN_HEADER_PATHS = new Set(['/login', '/login/set-nickname', '/i/flow/login', '/']);
+
+export default function Header() {
+  const pathname = usePathname() ?? '/';
+  const locale = resolvePathLocale(pathname, null);
+  const normalizedPathname = stripLocaleFromPathname(pathname);
+
+  if (HIDDEN_HEADER_PATHS.has(normalizedPathname)) {
+    return null;
+  }
+
   const messages = getLocaleMessages(locale);
   const homePath = localizePathname('/', locale);
   const messagesPath = localizePathname('/messages', locale);

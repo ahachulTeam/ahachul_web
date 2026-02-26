@@ -53,7 +53,7 @@ export const SocialLogins: React.FC<SocialLoginsProps> = ({
       {errorMessage ? (
         <p
           role="alert"
-          className="mb-3 rounded-md border border-red/40 bg-gray-10 px-4 py-3 text-13m text-red"
+          className="mb-3 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-3 text-13m leading-[1.4] text-destructive"
         >
           {errorMessage}
         </p>

@@ -3,6 +3,14 @@ import type { SVGProps } from 'react';
 import { render, screen } from '@testing-library/react';
 
 jest.mock(
+  'next/navigation',
+  () => ({
+    usePathname: () => '/en/community',
+  }),
+  { virtual: true },
+);
+
+jest.mock(
   '@/assets/icon',
   () => ({
     HeaderLogoIcon: (props: SVGProps<SVGSVGElement>) => (
@@ -14,14 +22,6 @@ jest.mock(
     HeaderNotificationIcon: (props: SVGProps<SVGSVGElement>) => (
       <svg data-testid="header-notification-icon" {...props} />
     ),
-  }),
-  { virtual: true },
-);
-
-jest.mock(
-  '@/i18n/server',
-  () => ({
-    getServerLocale: jest.fn(async () => 'en'),
   }),
   { virtual: true },
 );
@@ -48,13 +48,16 @@ jest.mock('@/i18n', () => ({
 
     return `/en${pathname}`;
   },
+  resolvePathLocale: () => 'en',
+  stripLocaleFromPathname: (pathname: string) =>
+    pathname.startsWith('/en') ? pathname.replace('/en', '') || '/' : pathname,
 }));
 
 describe('Header', () => {
   it('로케일 기준 링크와 aria/title을 렌더링한다', async () => {
     const { default: Header } = await import('./Header');
 
-    render(await Header());
+    render(<Header />);
 
     expect(screen.getByRole('link', { name: 'home-link' })).toHaveAttribute('href', '/en');
     expect(screen.getByRole('link', { name: 'messages-link' })).toHaveAttribute(
