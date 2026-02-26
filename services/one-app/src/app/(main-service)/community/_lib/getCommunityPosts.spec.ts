@@ -55,13 +55,13 @@ describe('getCommunityPosts', () => {
     });
   });
 
-  it('HOT 카테고리는 community-hot-posts로 조회한다', async () => {
+  it('HOT 카테고리도 community-posts로 조회한다', async () => {
     await getCommunityPosts({
       queryKey: communityQueryKeys.list('category=HOT&subwayLineId=0&stationId=0'),
       pageParam: '',
     });
 
-    expect(mockedFetchClient).toHaveBeenCalledWith(API_PATHS.community.hotList, {
+    expect(mockedFetchClient).toHaveBeenCalledWith(API_PATHS.community.list, {
       params: {
         pageSize: API_PAGE_SIZE.list,
         sort: API_SORT.createdAtDesc,

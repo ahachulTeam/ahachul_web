@@ -2,9 +2,8 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 import { headers } from 'next/headers';
 import Link from 'next/link';
 
-import BreadcrumbNav from '@/app/_components/BreadcrumbNav';
 import SearchForm from '@/components/SearchForm';
-import { getLocaleMessages, localizePathname } from '@/i18n';
+import { localizePathname } from '@/i18n';
 import { getServerLocale } from '@/i18n/server';
 import type { LostFoundType } from '@/types';
 import type {
@@ -33,7 +32,6 @@ export async function generateMetadata({ searchParams }: Props) {
 export default async function LostFoundPage({ searchParams }: Props) {
   const query = await searchParams;
   const locale = await getServerLocale();
-  const messages = getLocaleMessages(locale);
   const headersList = await headers();
   const isServerRender = !headersList.get('next-url');
 
@@ -48,23 +46,15 @@ export default async function LostFoundPage({ searchParams }: Props) {
   return (
     <main className="flex min-h-screen flex-col bg-white ">
       <HydrationBoundary state={dehydratedState}>
-        <BreadcrumbNav
-          items={[
-            { name: messages.nav.home, href: localizePathname('/', locale) },
-            { name: messages.nav.lostFound, href: localizePathname('/lost-found', locale) },
-          ]}
-        />
         <SearchForm />
         <Filters />
-        <div className="px-5 pb-2 pt-3">
-          <Link
-            href={localizePathname('/lost-found/new', locale)}
-            className="inline-flex h-10 items-center rounded-xl bg-key-color px-4 text-label-medium text-white"
-          >
-            {messages.seo.lostFoundNew.title}
-          </Link>
-        </div>
         <LostFoundPosts />
+        <Link
+          href={localizePathname('/lost-found/new', locale)}
+          className="fixed bottom-[84px] right-4 z-40 inline-flex items-center rounded-full bg-gray-100 px-5 py-3 text-label-large text-white shadow-[0_8px_24px_rgba(30,31,46,0.3)]"
+        >
+          + 글쓰기
+        </Link>
       </HydrationBoundary>
     </main>
   );

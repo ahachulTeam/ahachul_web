@@ -62,13 +62,6 @@ export async function getCommunityPosts({
   const subwayLineIds = resolveSubwayLineIds(filters.get('subwayLineId'));
   const stationId = resolveStationId(filters.get('stationId'));
 
-  const hasHashTagFilter = Boolean(filters.get('hashTag'));
-  const hasWriterFilter = Boolean(filters.get('writer'));
-  const endpoint =
-    category !== CommunityType.HOT || hasHashTagFilter || hasWriterFilter
-      ? API_PATHS.community.list
-      : API_PATHS.community.hotList;
-
   const params = removeFalsyValues({
     ...(keyword && { content: keyword }),
     ...(filters.get('hashTag') && { hashTag: filters.get('hashTag') || '' }),
@@ -81,7 +74,7 @@ export async function getCommunityPosts({
     ...(category !== CommunityType.HOT && { categoryType: category }),
   }) as Partial<CommunityListParams>;
 
-  return fetchClient(endpoint, {
+  return fetchClient(API_PATHS.community.list, {
     params: params as Record<string, string | number | boolean>,
     next: {
       tags: ['community', 'posts'],
