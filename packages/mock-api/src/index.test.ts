@@ -81,6 +81,10 @@ describe('@ahhachul/mock-api', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nickname: '아차철러' }),
       },
+      {
+        method: 'GET',
+        path: `${API_PATHS.story.publicStoriesV2}?limit=6&stationId=201&subwayLineId=2`,
+      },
       { method: 'GET', path: `${API_PATHS.community.list}?pageSize=3` },
       { method: 'GET', path: `${API_PATHS.community.hotList}?pageSize=3` },
       { method: 'GET', path: API_PATHS.community.detail(1001) },

@@ -43,6 +43,7 @@ export const API_PATHS = {
     myStoriesV2: '/v2/stories/me',
     memberStoriesV2: (nickname: Identifier) =>
       `/v2/members/${encodeURIComponent(String(nickname))}/stories`,
+    publicStoriesV2: '/v2/stories/public',
     createV2: '/v2/stories',
     deleteV2: (storyId: Identifier) => `/v2/stories/${storyId}`,
   },

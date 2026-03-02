@@ -229,6 +229,19 @@ type MockArticleHistoryItem = {
   reactedAt: string;
 };
 
+type MockPublicStoryItem = {
+  storyId: number;
+  memberId: number;
+  nickname: string;
+  imageUrl: string;
+  caption: string | null;
+  stationId: number | null;
+  stationName: string | null;
+  subwayLineId: number | null;
+  subwayLineName: string | null;
+  createdAt: string;
+};
+
 type MockMessageRoom = {
   roomId: number;
   partnerMemberId: number;
@@ -311,6 +324,7 @@ type MockState = {
   favoriteStations: MockFavoriteStation[];
   profileVisibility: MockProfileVisibilitySettings;
   favoriteRoutes: MockFavoriteRoute[];
+  publicStories: MockPublicStoryItem[];
   messageRooms: MockMessageRoom[];
   messageThreads: Record<number, MockMessageThreadItem[]>;
   delayProofs: Record<string, MockDelayProofPayload>;
@@ -989,6 +1003,7 @@ function createInitialState(): MockState {
       title: '퇴근 경로',
     }),
   ];
+  const publicStories = createInitialPublicStories(favoriteStations, user);
 
   return {
     user,
@@ -1009,6 +1024,7 @@ function createInitialState(): MockState {
     favoriteStations,
     profileVisibility,
     favoriteRoutes,
+    publicStories,
     messageRooms: messageData.rooms,
     messageThreads: messageData.messageThreads,
     delayProofs: {
@@ -1026,6 +1042,53 @@ function createInitialState(): MockState {
       refreshTokenExpiresIn: 1209600,
     },
   };
+}
+
+function createInitialPublicStories(
+  favoriteStations: MockFavoriteStation[],
+  user: MockUser,
+): MockPublicStoryItem[] {
+  const stationA = favoriteStations[0];
+  const stationB = favoriteStations[1];
+  const now = new Date();
+  return [
+    {
+      storyId: 701,
+      memberId: user.memberId,
+      nickname: user.nickname,
+      imageUrl: 'https://images.pexels.com/photos/1029615/pexels-photo-1029615.jpeg',
+      caption: '강남역 환승 동선이 오늘은 꽤 빠르네요.',
+      stationId: stationA?.stationId ?? null,
+      stationName: stationA?.stationName ?? null,
+      subwayLineId: stationA?.lineId ?? null,
+      subwayLineName: stationA?.lineName ?? null,
+      createdAt: now.toISOString(),
+    },
+    {
+      storyId: 702,
+      memberId: 2,
+      nickname: '출근코치',
+      imageUrl: 'https://images.pexels.com/photos/1367105/pexels-photo-1367105.jpeg',
+      caption: '광화문역 출구 앞 카페 라인이 짧아요.',
+      stationId: stationB?.stationId ?? null,
+      stationName: stationB?.stationName ?? null,
+      subwayLineId: stationB?.lineId ?? null,
+      subwayLineName: stationB?.lineName ?? null,
+      createdAt: new Date(now.getTime() - 15 * 60 * 1000).toISOString(),
+    },
+    {
+      storyId: 703,
+      memberId: 3,
+      nickname: '오늘도지하철',
+      imageUrl: 'https://images.pexels.com/photos/338515/pexels-photo-338515.jpeg',
+      caption: '2호선 혼잡하지만 환승은 예상보다 수월했습니다.',
+      stationId: stationA?.stationId ?? null,
+      stationName: stationA?.stationName ?? null,
+      subwayLineId: stationA?.lineId ?? null,
+      subwayLineName: stationA?.lineName ?? null,
+      createdAt: new Date(now.getTime() - 30 * 60 * 1000).toISOString(),
+    },
+  ];
 }
 
 let state = createInitialState();
@@ -1272,6 +1335,19 @@ function toNumber(value: string | null, fallback: number): number {
 
   const numeric = Number(value);
   return Number.isFinite(numeric) ? numeric : fallback;
+}
+
+function toNullableNumber(value: string | null): number | null {
+  if (value === null || value === '') {
+    return null;
+  }
+
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) {
+    return null;
+  }
+
+  return numeric;
 }
 
 function toBoolean(value: unknown, fallback: boolean): boolean {
@@ -1712,6 +1788,26 @@ const routes: RouteDefinition[] = [
     resolver: ({ url }) => {
       const limit = toNumber(url.searchParams.get('limit'), 30);
       return toSuccessResponse(buildArticleHistories(limit));
+    },
+  },
+  {
+    method: 'GET',
+    pattern: API_PATHS.story.publicStoriesV2,
+    resolver: ({ url }) => {
+      const limit = Math.max(1, Math.min(toNumber(url.searchParams.get('limit'), 12), 60));
+      const stationId = toNullableNumber(url.searchParams.get('stationId'));
+      const subwayLineId = toNullableNumber(url.searchParams.get('subwayLineId'));
+
+      const stories = state.publicStories
+        .filter(story => (stationId == null ? true : story.stationId === stationId))
+        .filter(story => (subwayLineId == null ? true : story.subwayLineId === subwayLineId))
+        .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+        .slice(0, limit);
+
+      return toSuccessResponse({
+        generatedAt: new Date().toISOString(),
+        stories,
+      });
     },
   },
   {

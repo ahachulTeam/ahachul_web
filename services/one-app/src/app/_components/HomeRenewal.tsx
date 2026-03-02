@@ -1,6 +1,6 @@
 'use client';
 
-import { type ReactNode, useMemo } from 'react';
+import { type ReactNode, useMemo, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
@@ -14,6 +14,7 @@ import {
 } from '@/app/(main-service)/me/_lib/getMyProfile';
 import { getLocaleMessages, localizePathname, type SupportedLocale } from '@/i18n';
 import { AuthService } from '@/lib/auth-service';
+import { getPublicStories } from '@/lib/stories';
 
 type HomeRenewalProps = {
   locale: SupportedLocale;
@@ -151,6 +152,7 @@ export default function HomeRenewal({ locale }: HomeRenewalProps) {
   const messages = getLocaleMessages(locale);
   const isLoggedIn = AuthService.isLoggedIn;
   const greeting = useMemo(() => resolveGreetingByHour(new Date().getHours()), []);
+  const [selectedStoryId, setSelectedStoryId] = useState<number | null>(null);
 
   const profileQuery = useQuery({
     queryKey: ['home-renewal', 'profile'],
@@ -173,11 +175,36 @@ export default function HomeRenewal({ locale }: HomeRenewalProps) {
     enabled: isLoggedIn,
   });
 
+  const homePublicStoriesQuery = useQuery({
+    queryKey: [
+      'home-renewal',
+      'public-stories',
+      (favoriteStationsQuery.data?.result.stationInfoList?.[0]?.stationId ?? 0).toString(),
+      (
+        favoriteStationsQuery.data?.result.stationInfoList?.[0]?.subwayLineInfoList?.[0]
+          ?.subwayLineId ?? 0
+      ).toString(),
+    ],
+    queryFn: () => {
+      const station = favoriteStationsQuery.data?.result.stationInfoList?.[0];
+      const line = station?.subwayLineInfoList?.[0];
+      return getPublicStories({
+        limit: 12,
+        stationId: station?.stationId,
+        subwayLineId: line?.subwayLineId,
+      });
+    },
+    staleTime: QUERY_STALE_TIME.feed,
+    enabled: true,
+  });
+
   const nickname = profileQuery.data?.result.nickname ?? '아하철 사용자';
   const favoriteStationNames = (favoriteStationsQuery.data?.result.stationInfoList ?? [])
     .map(station => station.stationName)
     .filter(Boolean);
   const routeMatches = routeConnectionQuery.data?.result.recommendations ?? [];
+  const publicStories = homePublicStoriesQuery.data?.result.stories ?? [];
+  const selectedStory = publicStories.find(story => story.storyId === selectedStoryId) ?? null;
   const stationSummary = formatStationSummary(favoriteStationNames);
   let routeMatchContent: ReactNode;
 
@@ -258,6 +285,69 @@ export default function HomeRenewal({ locale }: HomeRenewalProps) {
         </div>
       </section>
 
+      <section className="mt-6 rounded-3xl border border-gray-30 bg-white p-4 shadow-[0_10px_22px_rgba(14,20,28,0.08)]">
+        <div className="flex items-center justify-between gap-2">
+          <div>
+            <h2 className="text-title-large text-gray-100">홈 스토리 피드</h2>
+            <p className="mt-1 text-body-small text-gray-70">
+              실시간 공유 스토리를 홈에서 바로 확인할 수 있어요.
+            </p>
+          </div>
+          <Link
+            href={localizePathname('/me', locale)}
+            className="text-label-small text-key-color underline-offset-2 hover:underline"
+          >
+            내 스토리
+          </Link>
+        </div>
+
+        {homePublicStoriesQuery.isPending ? (
+          <p className="mt-3 text-body-small text-gray-70">스토리를 불러오는 중입니다.</p>
+        ) : null}
+        {homePublicStoriesQuery.isError ? (
+          <p className="mt-3 text-body-small text-danger">
+            스토리 피드를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.
+          </p>
+        ) : null}
+        {!homePublicStoriesQuery.isPending &&
+        !homePublicStoriesQuery.isError &&
+        !publicStories.length ? (
+          <p className="mt-3 text-body-small text-gray-70">
+            아직 공유된 스토리가 없습니다. 첫 번째 스토리를 올려보세요.
+          </p>
+        ) : null}
+
+        {!homePublicStoriesQuery.isPending &&
+        !homePublicStoriesQuery.isError &&
+        publicStories.length > 0 ? (
+          <ul className="mt-3 flex gap-3 overflow-x-auto pb-1">
+            {publicStories.map(story => (
+              <li key={`home-public-story-${story.storyId}`} className="shrink-0">
+                <button
+                  type="button"
+                  className="w-20"
+                  onClick={() => setSelectedStoryId(story.storyId)}
+                >
+                  <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-key-color p-0.5">
+                    <img
+                      src={story.imageUrl}
+                      alt={`${story.nickname} 스토리`}
+                      className="h-full w-full rounded-full border border-white/70 object-cover"
+                    />
+                  </span>
+                  <span className="mt-1 block truncate text-label-small text-gray-100">
+                    {story.nickname}
+                  </span>
+                  <span className="block truncate text-caption text-gray-70">
+                    {story.stationName ?? '역 미지정'}
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </section>
+
       {isLoggedIn ? (
         <section className="mt-6 rounded-3xl border border-gray-30 bg-white p-4 shadow-[0_10px_22px_rgba(14,20,28,0.08)]">
           <div className="flex items-center justify-between">
@@ -313,6 +403,46 @@ export default function HomeRenewal({ locale }: HomeRenewalProps) {
           피로도가 크게 줄어듭니다.
         </p>
       </section>
+
+      {selectedStory ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-5">
+          <article className="w-full max-w-md overflow-hidden rounded-3xl border border-gray-30 bg-gray-100">
+            <header className="flex items-center justify-between px-3 py-3">
+              <div>
+                <p className="text-label-large text-white">{selectedStory.nickname}</p>
+                <p className="mt-1 text-caption text-gray-60">
+                  {selectedStory.stationName ?? '역 미지정'}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedStoryId(null)}
+                className="rounded-full border border-gray-70 px-3 py-1 text-label-small text-gray-20"
+              >
+                닫기
+              </button>
+            </header>
+            <img
+              src={selectedStory.imageUrl}
+              alt="선택된 스토리"
+              className="w-full object-cover"
+              style={{ height: '52vh' }}
+            />
+            <div className="px-3 pb-3 pt-2">
+              <p className="text-body-small text-gray-30">{selectedStory.caption ?? '캡션 없음'}</p>
+              <Link
+                href={localizePathname(
+                  `/user/${encodeURIComponent(selectedStory.nickname)}`,
+                  locale,
+                )}
+                className="mt-3 inline-flex h-9 w-full items-center justify-center rounded-xl border border-gray-60 text-label-medium text-gray-20"
+              >
+                작성자 프로필 보기
+              </Link>
+            </div>
+          </article>
+        </div>
+      ) : null}
     </main>
   );
 }

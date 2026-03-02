@@ -21,6 +21,7 @@ const HomePage: ActivityComponentType = () => {
         <HomeComponent.CommuteCoach />
         <HomeComponent.ServiceHub />
         <HomeComponent.DailyVote />
+        <HomeComponent.StoryFeed />
         <HomeComponent.ForeignerGuide />
         <HomeComponent.CommunityHotPosts />
         <HomeComponent.SubwayNews />

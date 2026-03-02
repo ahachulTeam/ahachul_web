@@ -16,6 +16,7 @@ const FAVORITE_ROUTE_RECOMMENDATION_KEY = [
 ] as const;
 const MY_STORIES_KEY = [...userKeys.all, 'stories', 'me'] as const;
 const PROFILE_STORIES_KEY = [...userKeys.all, 'stories', 'profile'] as const;
+const PUBLIC_STORIES_KEY = [...userKeys.all, 'stories', 'public'] as const;
 const ROUTE_CONNECTION_RECOMMENDATION_KEY = [
   ...userKeys.all,
   'route-connection-recommendations',
@@ -256,6 +257,28 @@ export const useFetchProfileStoriesV2 = (
   });
 };
 
+export const useFetchPublicStoriesV2 = (
+  options: {
+    limit?: number;
+    stationId?: number;
+    subwayLineId?: number;
+    enabled?: boolean;
+  } = {},
+) => {
+  const { limit = 12, stationId, subwayLineId, enabled = true } = options;
+
+  return useQuery({
+    queryKey: [...PUBLIC_STORIES_KEY, limit, stationId ?? 0, subwayLineId ?? 0],
+    enabled,
+    queryFn: () => api.fetchPublicStoriesV2({ limit, stationId, subwayLineId }),
+    staleTime: QUERY_STALE_TIME.feed,
+    gcTime: QUERY_GC_TIME.feed,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
+};
+
 export const useCreateStoryV2 = () => {
   const queryClient = useQueryClient();
 
@@ -264,6 +287,7 @@ export const useCreateStoryV2 = () => {
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: MY_STORIES_KEY });
       await queryClient.invalidateQueries({ queryKey: PROFILE_STORIES_KEY });
+      await queryClient.invalidateQueries({ queryKey: PUBLIC_STORIES_KEY });
     },
   });
 };
@@ -276,6 +300,7 @@ export const useDeleteStoryV2 = () => {
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: MY_STORIES_KEY });
       await queryClient.invalidateQueries({ queryKey: PROFILE_STORIES_KEY });
+      await queryClient.invalidateQueries({ queryKey: PUBLIC_STORIES_KEY });
     },
   });
 };

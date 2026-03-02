@@ -12,6 +12,7 @@ import type {
   CreateFavoriteRouteRequestDto,
   FavoriteRouteDto,
   FavoriteRouteListDto,
+  PublicStoriesResponseDto,
   ProfileVisibilitySettings,
   RouteConnectionRecommendationsDto,
   StoryItemDto,
@@ -228,6 +229,24 @@ export const fetchUserStoriesV2 = async (
       params: {
         asPublic,
         limit,
+      },
+    },
+  );
+
+  return data;
+};
+
+export const fetchPublicStoriesV2 = async (
+  options: { limit?: number; stationId?: number; subwayLineId?: number } = {},
+) => {
+  const { limit = 12, stationId, subwayLineId } = options;
+  const { data } = await axiosInstance.get<ApiResponse<PublicStoriesResponseDto>>(
+    API_PATHS.story.publicStoriesV2,
+    {
+      params: {
+        limit,
+        ...(stationId ? { stationId } : {}),
+        ...(subwayLineId ? { subwayLineId } : {}),
       },
     },
   );

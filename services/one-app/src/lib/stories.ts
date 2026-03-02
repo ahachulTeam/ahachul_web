@@ -1,6 +1,6 @@
 import { API_PATHS } from '@ahhachul/http';
 
-import type { ApiResponse, ProfileStories, StoryItem } from '@/types';
+import type { ApiResponse, ProfileStories, PublicStories, StoryItem } from '@/types';
 
 import { fetchClient } from './fetch-client';
 
@@ -28,6 +28,25 @@ export async function getUserStories(username: string, options: GetStoriesOption
   const asPublic = options.asPublic ?? false;
   return fetchClient<ApiResponse<ProfileStories>>(API_PATHS.story.memberStoriesV2(username), {
     params: { asPublic, limit },
+  });
+}
+
+export async function getPublicStories(
+  options: {
+    limit?: number;
+    stationId?: number;
+    subwayLineId?: number;
+  } = {},
+) {
+  const limit = options.limit ?? 12;
+  const params = {
+    limit,
+    ...(options.stationId ? { stationId: options.stationId } : {}),
+    ...(options.subwayLineId ? { subwayLineId: options.subwayLineId } : {}),
+  };
+
+  return fetchClient<ApiResponse<PublicStories>>(API_PATHS.story.publicStoriesV2, {
+    params,
   });
 }
 
