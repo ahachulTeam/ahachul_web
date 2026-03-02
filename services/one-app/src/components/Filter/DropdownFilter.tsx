@@ -47,8 +47,8 @@ export const DropdownFilter = <T extends ObjectQueryParams, K extends KeyOf<T>>(
       <DropdownMenu.Trigger asChild>
         <button
           className={cn(
-            'flex h-[30px] shrink-0 items-center rounded-[1000px] border border-gray-20 bg-gray-10 px-[10px]',
-            isActive && 'border-gray-100',
+            'ah-motion-lift flex h-9 shrink-0 items-center rounded-full border border-gray-30 bg-white px-3',
+            isActive && 'border-gray-70 bg-gray-10',
           )}
         >
           <span className="text-label-medium text-gray-90">{options[value]}</span>
@@ -61,7 +61,7 @@ export const DropdownFilter = <T extends ObjectQueryParams, K extends KeyOf<T>>(
           sideOffset={10}
           alignOffset={-10}
           className={cn(
-            'w-[167px] overflow-hidden rounded-xl bg-gray-10 shadow-[0px_4px_10px_0px_rgba(0,0,0,0.15)]',
+            'w-[190px] overflow-hidden rounded-2xl border border-gray-30 bg-white shadow-[0_12px_30px_rgba(10,14,25,0.18)]',
             'data-[state=open]:animate-[slideDownAndFade_150ms_ease-out]',
             'will-change-[opacity,transform]',
           )}
@@ -75,9 +75,9 @@ export const DropdownFilter = <T extends ObjectQueryParams, K extends KeyOf<T>>(
                 key={val}
                 value={val}
                 className={cn(
-                  'relative flex h-[45px] items-center bg-white pl-[32px] text-sm text-gray-90',
+                  'relative flex h-[46px] items-center bg-white pl-[34px] text-sm text-gray-90',
                   '[&:not(:last-of-type)]:border-b [&:not(:last-of-type)]:border-gray-20',
-                  'outline-none transition-colors',
+                  'outline-none transition-colors hover:bg-gray-20',
                 )}
               >
                 <DropdownMenu.ItemIndicator className="absolute left-[6px] inline-flex w-[24px] items-center justify-center">

@@ -1,7 +1,7 @@
 'use client';
 
 import Form from 'next/form';
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useRouter } from 'nextjs-toploader/app';
 
 import { SearchIcon } from '@/assets/icon';
@@ -13,30 +13,40 @@ type Props = {
 export default function SearchForm({ name = 'keyword' }: Props) {
   const searchParams = useSearchParams();
   const defaultValue = searchParams.get(name) ?? '';
+  const pathname = usePathname() ?? '/';
 
   const router = useRouter();
   const onSubmit = (formData: FormData) => {
-    const newKeyword = formData.get(name) as string;
+    const newKeyword = (formData.get(name) as string).trim();
 
     let newSearchParams = new URLSearchParams(searchParams);
 
-    newSearchParams.set(name, newKeyword);
+    if (newKeyword.length) {
+      newSearchParams.set(name, newKeyword);
+    } else {
+      newSearchParams.delete(name);
+    }
 
-    router.push(`?${newSearchParams.toString()}`);
+    const queryString = newSearchParams.toString();
+    router.push(queryString ? `${pathname}?${queryString}` : pathname);
   };
 
   return (
     <Form
       action={onSubmit}
-      className=" relative pl-[8px] flex items-center bg-gray-20 rounded-[9px] my-0 mx-auto w-[calc(100%-40px)] h-9 overflow-hidden"
+      className="ah-glass-card relative flex h-11 w-full items-center gap-2 overflow-hidden rounded-2xl border border-white/70 bg-white/88 px-3 shadow-[0_8px_20px_rgba(15,21,33,0.08)]"
     >
+      <label htmlFor={`search-${name}`} className="sr-only">
+        검색
+      </label>
       <SearchIcon width={20} height={20} />
       <input
+        id={`search-${name}`}
         type="search"
         name={name}
         defaultValue={defaultValue}
         placeholder="검색"
-        className="w-full h-[36px] text-[15px] text-gray-90 bg-gray-20 pr-[12px] pl-0.5"
+        className="h-full w-full bg-transparent pr-1 text-title-small text-gray-90 placeholder:text-gray-70"
         style={{ caretColor: 'rgba(0, 255, 163, 0.5)' }}
       />
     </Form>

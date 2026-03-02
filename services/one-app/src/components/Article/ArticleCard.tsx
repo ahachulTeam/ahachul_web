@@ -16,11 +16,11 @@ interface Props {
 
 export const Post = ({ post }: Props) => {
   return (
-    <article className=" py-6 px-5 border-b border-b-gray-20">
-      <div className=" flex flex-col gap-3">
-        <div className=" flex gap-1.5">
-          <div className=" w-full flex flex-col gap-1.5">
-            <div className=" text-title-small text-gray-90">{post.title}</div>
+    <article className="border-b border-b-gray-20 px-4 py-4 last:border-b-0">
+      <div className="flex flex-col gap-3">
+        <div className="flex gap-2.5">
+          <div className="w-full min-w-0 flex-col gap-1.5">
+            <div className="line-clamp-1 text-title-medium text-gray-100">{post.title}</div>
             {isLexicalContent(post.content) ? (
               <ReadonlyEditor
                 content={post.content}
@@ -28,37 +28,36 @@ export const Post = ({ post }: Props) => {
                   'p-0',
                   '[&>div>div]:p-0',
                   '[&>div>div]:border-none',
-                  '[&>div>div]:max-h-[46px]',
+                  '[&>div>div]:max-h-[48px]',
                 )}
               />
             ) : (
-              <div className=" text-body-medium text-gray-90 line-clamp-2">{post.content}</div>
+              <div className="line-clamp-2 text-body-medium text-gray-80">{post.content}</div>
             )}
           </div>
           {post?.imageUrl && (
-            <div className=" flex items-center justify-center relative w-[66px] min-w-[66px] max-w-[66px] h-[66px] min-h-[66px] max-h-[66px]">
+            <div className="relative flex h-[74px] w-[74px] min-w-[74px] items-center justify-center overflow-hidden rounded-xl border border-gray-20 bg-gray-20">
               <LazyLoadImage
                 width="100%"
                 height="100%"
                 effect="opacity"
                 src={post.imageUrl}
                 alt={`${post.title} - ${post.createdAt}`}
-                className=" absolute top-0 left-0 w-full h-full object-cover rounded-md"
+                className="absolute left-0 top-0 h-full w-full object-cover"
               />
             </div>
           )}
         </div>
-        <div className=" flex items-center justify-between">
-          <div className=" flex items-center gap-1 text-gray-80 text-body-medium">
-            {/* {SUBWAY_LOGO_SVG_LIST[post.subwayLineId]} */}
-            {/* <DotIcon className=" relative top-[1px]" /> */}
-            <span>{post.writer || '로스트 112'}</span>
-            {/* <DotIcon className=" relative top-[1px]" /> */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1 text-body-small text-gray-70">
+            <span className="rounded-full bg-gray-20 px-2 py-0.5 text-[11px] text-gray-80">
+              {post.writer || '로스트 112'}
+            </span>
             <span>{formatDisplayDate(post.createdAt)}</span>
           </div>
-          <div className=" flex items-center gap-0.5 text-gray-80 text-body-medium">
-            {/* <CommentIcon /> */}
-            <span>{post.commentCnt}</span>
+          <div className="flex items-center gap-1 text-body-small text-gray-70">
+            <span>댓글</span>
+            <span className="font-semibold text-gray-90">{post.commentCnt}</span>
           </div>
         </div>
       </div>

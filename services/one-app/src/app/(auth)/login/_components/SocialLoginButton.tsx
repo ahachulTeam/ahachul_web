@@ -20,11 +20,11 @@ export const SocialLoginButton: React.FC<SocialLoginButtonProps> = ({
   <button
     onClick={onLoginAction}
     disabled={disabled}
-    className={`flex items-center justify-center gap-2 w-full h-[50px] rounded-md transition-opacity ${bgColor} ${
-      disabled ? 'cursor-not-allowed opacity-60' : ''
+    className={`ah-motion-lift flex h-[54px] w-full items-center justify-center gap-2 rounded-xl border border-gray-30 px-4 transition ${bgColor} ${
+      disabled ? 'cursor-not-allowed opacity-60' : 'hover:border-gray-50'
     }`}
   >
     <Icon />
-    <span className="text-16sb">{label}</span>
+    <span className="text-title-medium text-gray-100">{label}</span>
   </button>
 );

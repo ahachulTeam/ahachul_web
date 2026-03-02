@@ -36,6 +36,9 @@ jest.mock('@/i18n', () => ({
       notificationsAria: 'notifications-link',
       notificationsTitle: 'notifications-title',
     },
+    nav: {
+      me: 'my-page',
+    },
   }),
   localizePathname: (pathname: string, locale: string) => {
     if (locale !== 'en') {
@@ -68,6 +71,7 @@ describe('Header', () => {
       'href',
       '/en/notifications',
     );
+    expect(screen.getByRole('link', { name: 'my-page' })).toHaveAttribute('href', '/en/me');
     expect(screen.getByTestId('header-logo-icon')).toBeInTheDocument();
     expect(screen.getByTestId('header-message-icon')).toBeInTheDocument();
     expect(screen.getByTestId('header-notification-icon')).toBeInTheDocument();

@@ -1,9 +1,15 @@
-import { redirect } from 'next/navigation';
-
-import { localizePathname } from '@/i18n';
+import { getLocaleMessages } from '@/i18n';
 import { getServerLocale } from '@/i18n/server';
+
+import MeSettingHub from './_components/MeSettingHub';
 
 export default async function MeSettingPage() {
   const locale = await getServerLocale();
-  redirect(localizePathname('/me', locale));
+  const messages = getLocaleMessages(locale);
+
+  return (
+    <main className="min-h-screen px-4 pb-24 pt-3">
+      <MeSettingHub locale={locale} copy={messages.me} />
+    </main>
+  );
 }

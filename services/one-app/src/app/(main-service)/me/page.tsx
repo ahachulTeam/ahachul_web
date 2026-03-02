@@ -27,7 +27,7 @@ export default async function MyPage() {
   const messages = getLocaleMessages(locale);
 
   return (
-    <main className="min-h-screen bg-gray-10 pb-16">
+    <main className="min-h-screen px-4 pb-24 pt-3">
       <MyDashboard locale={locale} copy={messages.me} />
     </main>
   );

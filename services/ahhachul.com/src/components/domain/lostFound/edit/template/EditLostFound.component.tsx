@@ -50,11 +50,11 @@ const EditLostFound = ({ id }: WithPostId) => {
   const stationOptions = useMemo<Record<string, string>>(() => {
     const selectedLine = subwayLines.find(line => String(line.id) === selectedSubwayLineId);
     if (!selectedLine) {
-      return { '0': '역 선택' };
+      return { '0': '선택 안함' };
     }
 
     return {
-      '0': '역 선택',
+      '0': '선택 안함',
       ...selectedLine.stations.reduce<Record<string, string>>((acc, station) => {
         acc[String(station.id)] = `${station.name}역`;
         return acc;
@@ -81,7 +81,7 @@ const EditLostFound = ({ id }: WithPostId) => {
         />
         <FormComponent.Select name="lostType" options={lostFoundTypeOptions} />
         <FormComponent.SubwayLine name="subwayLineId" />
-        <FormComponent.Select name="stationId" label="역 선택" options={stationOptions} />
+        <FormComponent.Station name="stationId" label="역 선택 (선택)" options={stationOptions} />
         <FormComponent.Title name="title" />
         <FormComponent.Content name="content" initialState={post.content} />
         <FormComponent.SubmitButton active={isActive} loading={isPending} onSubmit={submit} />

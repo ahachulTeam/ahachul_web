@@ -18,13 +18,15 @@ export default function ErrorFallbackView({
   onAction,
 }: ErrorFallbackViewProps) {
   return (
-    <section className="flex min-h-[60vh] w-full flex-col items-center justify-center bg-white px-5 py-10 text-center">
-      <h1 className="text-title-medium text-gray-90">{title}</h1>
-      <p className="mt-2 whitespace-pre-wrap text-body-small text-gray-70">{description}</p>
+    <section className="flex min-h-[52vh] w-full flex-col items-center justify-center px-3 py-10 text-center">
+      <div className="w-full rounded-3xl border border-gray-30 bg-white px-5 py-8 shadow-[0_12px_30px_rgba(14,20,28,0.1)]">
+        <h1 className="text-title-large text-gray-100">{title}</h1>
+        <p className="mt-2 whitespace-pre-wrap text-body-medium text-gray-70">{description}</p>
+      </div>
       {onAction ? (
         <button
           type="button"
-          className="mt-4 rounded-lg border border-gray-40 bg-white px-4 py-2 text-label-medium text-gray-90"
+          className="mt-4 rounded-xl border border-gray-40 bg-white px-4 py-2 text-label-medium text-gray-90"
           onClick={onAction}
         >
           {actionLabel}

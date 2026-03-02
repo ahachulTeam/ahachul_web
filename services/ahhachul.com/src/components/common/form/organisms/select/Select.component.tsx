@@ -10,6 +10,9 @@ interface SelectFieldProps<T extends FieldValues> {
   options: Record<string, string>;
   name: Path<T>;
   label?: string;
+  variant?: 'chips' | 'searchable';
+  searchPlaceholder?: string;
+  emptyMessage?: string;
   rules?: Omit<RegisterOptions<T>, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>;
 }
 
@@ -17,6 +20,9 @@ const SelectField = <T extends FieldValues>({
   options,
   name,
   label = '카테고리',
+  variant = 'chips',
+  searchPlaceholder,
+  emptyMessage,
   rules,
 }: SelectFieldProps<T>) => {
   const {
@@ -39,6 +45,9 @@ const SelectField = <T extends FieldValues>({
         render={({ field }) => (
           <SelectMolecules
             options={options}
+            variant={variant}
+            searchPlaceholder={searchPlaceholder}
+            emptyMessage={emptyMessage}
             isError={!!errorMsg}
             selectedOption={field.value as string}
             onChange={field.onChange}

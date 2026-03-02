@@ -2,10 +2,10 @@ import { render, screen } from '@testing-library/react';
 
 import Home from '@/app/page';
 
-jest.mock('@/app/_components/HomeViteParity', () => ({
+jest.mock('@/app/_components/HomeRenewal', () => ({
   __esModule: true,
   default: ({ locale }: { locale: string }) => (
-    <main className="min-h-screen bg-gray-10 pb-24 pt-4">home-vite-parity-{locale}</main>
+    <main className="min-h-screen px-5 pb-28 pt-5">home-renewal-{locale}</main>
   ),
 }));
 
@@ -23,15 +23,15 @@ jest.mock('next/navigation', () => ({
 }));
 
 describe('Home Page', () => {
-  it('renders vite parity home component', async () => {
+  it('renders renewal home component', async () => {
     render(await Home());
     expect(screen.getByRole('main')).toBeInTheDocument();
-    expect(screen.getByText('home-vite-parity-ko')).toBeInTheDocument();
+    expect(screen.getByText('home-renewal-ko')).toBeInTheDocument();
   });
 
-  it('uses the parity root layout class', async () => {
+  it('uses the renewal root layout class', async () => {
     render(await Home());
     const main = screen.getByRole('main');
-    expect(main).toHaveClass('min-h-screen', 'bg-gray-10', 'pb-24', 'pt-4');
+    expect(main).toHaveClass('min-h-screen', 'px-5', 'pb-28', 'pt-5');
   });
 });

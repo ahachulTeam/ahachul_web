@@ -3,10 +3,12 @@ import type { SVGProps } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 const mockUseSearchParams = jest.fn();
+const mockUsePathname = jest.fn();
 const mockPush = jest.fn();
 
 jest.mock('next/navigation', () => ({
   useSearchParams: () => mockUseSearchParams(),
+  usePathname: () => mockUsePathname(),
 }));
 
 jest.mock('nextjs-toploader/app', () => ({
@@ -42,7 +44,9 @@ jest.mock(
 describe('SearchForm', () => {
   beforeEach(() => {
     mockUseSearchParams.mockReset();
+    mockUsePathname.mockReset();
     mockPush.mockReset();
+    mockUsePathname.mockReturnValue('/community');
   });
 
   it('search param 기본값을 표시하고 submit 시 router.push를 호출한다', async () => {
@@ -61,9 +65,10 @@ describe('SearchForm', () => {
     expect(mockPush).toHaveBeenCalledTimes(1);
 
     const pushedValue = mockPush.mock.calls[0][0] as string;
-    const pushedParams = new URLSearchParams(pushedValue.slice(1));
+    const [, queryString = ''] = pushedValue.split('?');
+    const pushedParams = new URLSearchParams(queryString);
 
-    expect(pushedValue.startsWith('?')).toBe(true);
+    expect(pushedValue.startsWith('/community?')).toBe(true);
     expect(pushedParams.get('keyword')).toBe('new-keyword');
     expect(pushedParams.get('page')).toBe('2');
   });
@@ -82,7 +87,8 @@ describe('SearchForm', () => {
     fireEvent.submit(input.closest('form') as HTMLFormElement);
 
     const pushedValue = mockPush.mock.calls[0][0] as string;
-    const pushedParams = new URLSearchParams(pushedValue.slice(1));
+    const [, queryString = ''] = pushedValue.split('?');
+    const pushedParams = new URLSearchParams(queryString);
 
     expect(pushedParams.get('query')).toBe('gangnam');
     expect(pushedParams.get('sort')).toBe('latest');

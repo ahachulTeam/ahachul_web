@@ -4,8 +4,6 @@ import type { ReactElement } from 'react';
 
 import { usePathname, useRouter } from 'next/navigation';
 
-import { BottomNav, BottomNavItem } from '@ahhachul/ui';
-
 import {
   CommunityNavActiveIcon,
   CommunityNavIcon,
@@ -98,25 +96,42 @@ export default function NavMenu() {
   }
 
   return (
-    <BottomNav itemCount={NAV_ITEMS.length}>
-      {NAV_ITEMS.map(({ labelKey, href, renderIcon }) => {
-        const isActive = normalizedPathname === href;
-        const localizedHref = localizePathname(href, locale);
-        const label = messages.nav[labelKey];
+    <nav
+      data-testid="bottom-nav"
+      className="fixed bottom-4 left-1/2 z-50 w-[calc(100%-24px)] max-w-[536px] -translate-x-1/2"
+    >
+      <ul className="ah-glass-card grid grid-cols-5 rounded-2xl border border-white/70 bg-white/90 px-1 py-1 shadow-[0_12px_28px_rgba(14,18,31,0.2)]">
+        {NAV_ITEMS.map(({ labelKey, href, renderIcon }) => {
+          const isActive = normalizedPathname === href;
+          const localizedHref = localizePathname(href, locale);
+          const label = messages.nav[labelKey];
 
-        return (
-          <BottomNavItem
-            key={href}
-            label={label}
-            isActive={isActive}
-            onClick={() => {
-              router.push(localizedHref);
-            }}
-            icon={renderIcon({ isActive: false })}
-            activeIcon={renderIcon({ isActive: true })}
-          />
-        );
-      })}
-    </BottomNav>
+          return (
+            <li key={href} className="list-none">
+              <button
+                data-testid="bottom-nav-item"
+                data-active={isActive ? 'true' : 'false'}
+                type="button"
+                aria-current={isActive ? 'page' : undefined}
+                className={[
+                  'flex w-full flex-col items-center justify-center gap-1 rounded-xl py-2 text-[11px] transition',
+                  isActive
+                    ? 'bg-key-color/15 text-key-color'
+                    : 'text-gray-70 hover:bg-gray-20 hover:text-gray-90',
+                ].join(' ')}
+                onClick={() => {
+                  router.push(localizedHref);
+                }}
+              >
+                <span className="inline-flex h-5 w-5 items-center justify-center">
+                  {renderIcon({ isActive })}
+                </span>
+                <span>{label}</span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   );
 }

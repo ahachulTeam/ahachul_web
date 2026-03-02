@@ -7,7 +7,7 @@ export const EmptyArticleList = () => {
     <SearchEmptyState
       title="검색 결과가 없습니다."
       illustration={<EmptyGraphic />}
-      className="pt-[184px]"
+      className="rounded-3xl border border-gray-30 bg-white pt-[160px] shadow-[0_10px_24px_rgba(14,20,28,0.08)]"
     />
   );
 };

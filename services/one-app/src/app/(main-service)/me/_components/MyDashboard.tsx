@@ -201,6 +201,9 @@ type MyDashboardProps = {
 
 export default function MyDashboard({ locale, copy }: MyDashboardProps) {
   const queryClient = useQueryClient();
+  const [activeSection, setActiveSection] = useState<
+    'overview' | 'mobility' | 'activity' | 'settings'
+  >('overview');
   const [isEditingFavorites, setIsEditingFavorites] = useState(false);
   const [favoriteDraft, setFavoriteDraft] = useState<EditableFavoriteStation[]>([]);
   const [favoriteFeedback, setFavoriteFeedback] = useState<FavoriteFeedback | null>(null);
@@ -1260,541 +1263,672 @@ export default function MyDashboard({ locale, copy }: MyDashboardProps) {
             {copy.logout}
           </button>
         </div>
-      </article>
-
-      <StoryStripSection
-        editable
-        title="내 스토리"
-        description="인스타그램처럼 사진 스토리를 올리고 프로필 기록으로 남길 수 있습니다."
-      />
-
-      <article className={cardClassName}>
-        <h3 className="text-title-small text-gray-100">{copy.quickLinksHeading}</h3>
-        <div className="mt-3 grid grid-cols-2 gap-2">
-          <Link
-            href={localizePathname('/messages', locale)}
-            className="rounded-xl bg-gray-20 p-3 text-label-medium text-gray-90"
-          >
-            {copy.quickLinks.messages}
-          </Link>
-          <Link
-            href={localizePathname('/notifications', locale)}
-            className="rounded-xl bg-gray-20 p-3 text-label-medium text-gray-90"
-          >
-            {copy.quickLinks.notifications}
-          </Link>
-          <Link
-            href={localizePathname('/community', locale)}
-            className="rounded-xl bg-gray-20 p-3 text-label-medium text-gray-90"
-          >
-            {copy.quickLinks.community}
-          </Link>
-          <Link
-            href={localizePathname('/complaint', locale)}
-            className="rounded-xl bg-gray-20 p-3 text-label-medium text-gray-90"
-          >
-            {copy.quickLinks.complaint}
-          </Link>
-          <Link
-            href={localizePathname('/delay-center', locale)}
-            className="rounded-xl bg-gray-20 p-3 text-label-medium text-gray-90"
-          >
-            {copy.quickLinks.delayCenter}
-          </Link>
-        </div>
-      </article>
-
-      <article className={cardClassName}>
-        <div className="flex items-center justify-between">
-          <h3 className="text-title-small text-gray-100">{copy.subwaySettingsHeading}</h3>
+        <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
           <button
             type="button"
-            onClick={openFavoriteEditor}
-            className="rounded-md border border-gray-40 px-2 py-1 text-label-small text-gray-90"
+            onClick={() => setActiveSection('overview')}
+            className={`rounded-xl px-3 py-2 text-label-small ${
+              activeSection === 'overview'
+                ? 'bg-key-color text-white'
+                : 'border border-gray-30 bg-white text-gray-90'
+            }`}
           >
-            즐겨찾는 역 수정
+            개요
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveSection('mobility')}
+            className={`rounded-xl px-3 py-2 text-label-small ${
+              activeSection === 'mobility'
+                ? 'bg-key-color text-white'
+                : 'border border-gray-30 bg-white text-gray-90'
+            }`}
+          >
+            이동 관리
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveSection('activity')}
+            className={`rounded-xl px-3 py-2 text-label-small ${
+              activeSection === 'activity'
+                ? 'bg-key-color text-white'
+                : 'border border-gray-30 bg-white text-gray-90'
+            }`}
+          >
+            활동 기록
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveSection('settings')}
+            className={`rounded-xl px-3 py-2 text-label-small ${
+              activeSection === 'settings'
+                ? 'bg-key-color text-white'
+                : 'border border-gray-30 bg-white text-gray-90'
+            }`}
+          >
+            계정 설정
           </button>
         </div>
-        {favoriteFeedback ? (
-          <p
-            className={`mt-2 text-body-small ${getFavoriteFeedbackClassName(favoriteFeedback.type)}`}
-          >
-            {favoriteFeedback.message}
-          </p>
-        ) : null}
-        {stationNames.length ? (
-          <ul className="mt-3 flex flex-wrap gap-2">
-            {favoriteStations.map(station => (
-              <li
-                key={`${station.stationId}-${station.stationName}`}
-                className="rounded-full border border-gray-30 bg-gray-10 px-3 py-1 text-body-small text-gray-90"
-              >
-                {station.stationName}
-                {station.label ? ` (${station.label})` : ''}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="mt-2 text-body-medium text-gray-70">{copy.noFavoriteStations}</p>
-        )}
+      </article>
 
-        {isEditingFavorites && (
-          <div className="mt-4 rounded-xl border border-gray-30 bg-gray-10 p-3">
-            <p className="text-label-small text-gray-80">
-              즐겨찾는 역은 최대 4개까지 등록할 수 있습니다.
+      <nav className="flex items-center gap-2 overflow-x-auto pb-1">
+        <button
+          type="button"
+          onClick={() => setActiveSection('overview')}
+          className={`inline-flex h-8 items-center rounded-full px-3 text-label-small whitespace-nowrap ${
+            activeSection === 'overview'
+              ? 'bg-key-color text-white'
+              : 'border border-gray-30 bg-white text-gray-90'
+          }`}
+        >
+          오늘 개요
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveSection('mobility')}
+          className={`inline-flex h-8 items-center rounded-full px-3 text-label-small whitespace-nowrap ${
+            activeSection === 'mobility'
+              ? 'bg-key-color text-white'
+              : 'border border-gray-30 bg-white text-gray-90'
+          }`}
+        >
+          즐겨찾기/경로
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveSection('activity')}
+          className={`inline-flex h-8 items-center rounded-full px-3 text-label-small whitespace-nowrap ${
+            activeSection === 'activity'
+              ? 'bg-key-color text-white'
+              : 'border border-gray-30 bg-white text-gray-90'
+          }`}
+        >
+          좋아요/북마크
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveSection('settings')}
+          className={`inline-flex h-8 items-center rounded-full px-3 text-label-small whitespace-nowrap ${
+            activeSection === 'settings'
+              ? 'bg-key-color text-white'
+              : 'border border-gray-30 bg-white text-gray-90'
+          }`}
+        >
+          언어/정책
+        </button>
+      </nav>
+
+      {activeSection === 'overview' ? (
+        <>
+          <StoryStripSection
+            editable
+            title="내 스토리"
+            description="인스타그램처럼 사진 스토리를 올리고 프로필 기록으로 남길 수 있습니다."
+          />
+
+          <article className={cardClassName}>
+            <h3 className="text-title-small text-gray-100">{copy.quickLinksHeading}</h3>
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              <Link
+                href={localizePathname('/messages', locale)}
+                className="rounded-xl bg-gray-20 p-3 text-label-medium text-gray-90"
+              >
+                {copy.quickLinks.messages}
+              </Link>
+              <Link
+                href={localizePathname('/notifications', locale)}
+                className="rounded-xl bg-gray-20 p-3 text-label-medium text-gray-90"
+              >
+                {copy.quickLinks.notifications}
+              </Link>
+              <Link
+                href={localizePathname('/community', locale)}
+                className="rounded-xl bg-gray-20 p-3 text-label-medium text-gray-90"
+              >
+                {copy.quickLinks.community}
+              </Link>
+              <Link
+                href={localizePathname('/complaint', locale)}
+                className="rounded-xl bg-gray-20 p-3 text-label-medium text-gray-90"
+              >
+                {copy.quickLinks.complaint}
+              </Link>
+              <Link
+                href={localizePathname('/delay-center', locale)}
+                className="rounded-xl bg-gray-20 p-3 text-label-medium text-gray-90"
+              >
+                {copy.quickLinks.delayCenter}
+              </Link>
+            </div>
+          </article>
+          <article className={cardClassName}>
+            <div className="flex items-center justify-between gap-2">
+              <div>
+                <p className="text-label-small text-gray-80">오늘의 이동 요약</p>
+                <h3 className="mt-1 text-title-small text-gray-100">
+                  {primaryStation
+                    ? `${primaryStation.stationName} 기준`
+                    : '즐겨찾기 역을 설정해보세요'}
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setActiveSection('mobility')}
+                className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+              >
+                상세 보기
+              </button>
+            </div>
+            <p className="mt-2 text-body-small text-gray-70">
+              실시간 도착, 첫차/막차, 지연 증빙, 즐겨찾기 경로/인맥 추천은 이동 관리 탭에서 확인할
+              수 있습니다.
             </p>
-            <div className="mt-3 space-y-2">
-              {favoriteDraft.map((station, index) => (
-                <div key={`favorite-draft-${index}`} className="grid grid-cols-12 gap-2">
-                  <select
-                    value={String(station.subwayLineId)}
-                    onChange={event => {
-                      const nextLineId = Number(event.target.value);
-                      handleFavoriteLineChange(index, Number.isNaN(nextLineId) ? 0 : nextLineId);
-                    }}
-                    className="col-span-4 h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
-                  >
-                    {subwayLines.length ? (
-                      subwayLines.map(line => (
-                        <option key={`favorite-line-${line.id}`} value={line.id}>
-                          노선: {line.name}
-                        </option>
-                      ))
-                    ) : (
-                      <option value={0}>노선 없음</option>
-                    )}
-                  </select>
-                  <select
-                    value={String(station.stationId)}
-                    onChange={event => {
-                      const nextStationId = Number(event.target.value);
-                      handleFavoriteStationChange(
-                        index,
-                        Number.isNaN(nextStationId) ? 0 : nextStationId,
-                      );
-                    }}
-                    className="col-span-4 h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
-                  >
-                    {getStationsByLineId(station.subwayLineId).length ? (
-                      getStationsByLineId(station.subwayLineId).map(lineStation => (
-                        <option
-                          key={`favorite-station-${station.subwayLineId}-${lineStation.id}`}
-                          value={lineStation.id}
-                        >
-                          역: {lineStation.name}
-                        </option>
-                      ))
-                    ) : (
-                      <option value={0}>역 없음</option>
-                    )}
-                  </select>
-                  <input
-                    value={station.label}
-                    onChange={event => handleFavoriteLabelChange(index, event.target.value)}
-                    placeholder="별칭(선택)"
-                    className="col-span-3 h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => removeFavoriteDraft(index)}
-                    className="col-span-1 h-9 rounded-lg border border-gray-30 text-label-small text-gray-90"
-                  >
-                    삭제
-                  </button>
-                </div>
-              ))}
-            </div>
-            <div className="mt-3 flex items-center gap-2">
-              <button
-                type="button"
-                onClick={addFavoriteDraft}
-                className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
-              >
-                역 추가
-              </button>
-              <button
-                type="button"
-                onClick={() => void saveFavoriteStations()}
-                disabled={favoriteMutation.isPending}
-                className="inline-flex h-9 items-center rounded-lg bg-key-color px-3 text-label-medium text-white disabled:cursor-not-allowed disabled:bg-gray-70"
-              >
-                {favoriteMutation.isPending ? '저장 중...' : '저장'}
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsEditingFavorites(false)}
-                className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
-              >
-                취소
-              </button>
-            </div>
-          </div>
-        )}
+          </article>
+        </>
+      ) : null}
 
-        <div className="mt-4 rounded-xl border border-gray-30 bg-gray-10 p-3">
+      {activeSection === 'mobility' ? (
+        <article className={cardClassName}>
           <div className="flex items-center justify-between">
-            <h4 className="text-label-medium text-gray-100">즐겨찾기 경로</h4>
+            <h3 className="text-title-small text-gray-100">{copy.subwaySettingsHeading}</h3>
             <button
               type="button"
-              onClick={refreshFavoriteRoutes}
+              onClick={openFavoriteEditor}
+              className="rounded-md border border-gray-40 px-2 py-1 text-label-small text-gray-90"
+            >
+              즐겨찾는 역 수정
+            </button>
+          </div>
+          {favoriteFeedback ? (
+            <p
+              className={`mt-2 text-body-small ${getFavoriteFeedbackClassName(favoriteFeedback.type)}`}
+            >
+              {favoriteFeedback.message}
+            </p>
+          ) : null}
+          {stationNames.length ? (
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {favoriteStations.map(station => (
+                <li
+                  key={`${station.stationId}-${station.stationName}`}
+                  className="rounded-full border border-gray-30 bg-gray-10 px-3 py-1 text-body-small text-gray-90"
+                >
+                  {station.stationName}
+                  {station.label ? ` (${station.label})` : ''}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-2 text-body-medium text-gray-70">{copy.noFavoriteStations}</p>
+          )}
+
+          {isEditingFavorites && (
+            <div className="mt-4 rounded-xl border border-gray-30 bg-gray-10 p-3">
+              <p className="text-label-small text-gray-80">
+                즐겨찾는 역은 최대 4개까지 등록할 수 있습니다.
+              </p>
+              <div className="mt-3 space-y-2">
+                {favoriteDraft.map((station, index) => (
+                  <div key={`favorite-draft-${index}`} className="grid grid-cols-12 gap-2">
+                    <select
+                      value={String(station.subwayLineId)}
+                      onChange={event => {
+                        const nextLineId = Number(event.target.value);
+                        handleFavoriteLineChange(index, Number.isNaN(nextLineId) ? 0 : nextLineId);
+                      }}
+                      className="col-span-4 h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
+                    >
+                      {subwayLines.length ? (
+                        subwayLines.map(line => (
+                          <option key={`favorite-line-${line.id}`} value={line.id}>
+                            노선: {line.name}
+                          </option>
+                        ))
+                      ) : (
+                        <option value={0}>노선 없음</option>
+                      )}
+                    </select>
+                    <select
+                      value={String(station.stationId)}
+                      onChange={event => {
+                        const nextStationId = Number(event.target.value);
+                        handleFavoriteStationChange(
+                          index,
+                          Number.isNaN(nextStationId) ? 0 : nextStationId,
+                        );
+                      }}
+                      className="col-span-4 h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
+                    >
+                      {getStationsByLineId(station.subwayLineId).length ? (
+                        getStationsByLineId(station.subwayLineId).map(lineStation => (
+                          <option
+                            key={`favorite-station-${station.subwayLineId}-${lineStation.id}`}
+                            value={lineStation.id}
+                          >
+                            역: {lineStation.name}
+                          </option>
+                        ))
+                      ) : (
+                        <option value={0}>역 없음</option>
+                      )}
+                    </select>
+                    <input
+                      value={station.label}
+                      onChange={event => handleFavoriteLabelChange(index, event.target.value)}
+                      placeholder="별칭(선택)"
+                      className="col-span-3 h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeFavoriteDraft(index)}
+                      className="col-span-1 h-9 rounded-lg border border-gray-30 text-label-small text-gray-90"
+                    >
+                      삭제
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-3 flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={addFavoriteDraft}
+                  className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+                >
+                  역 추가
+                </button>
+                <button
+                  type="button"
+                  onClick={() => void saveFavoriteStations()}
+                  disabled={favoriteMutation.isPending}
+                  className="inline-flex h-9 items-center rounded-lg bg-key-color px-3 text-label-medium text-white disabled:cursor-not-allowed disabled:bg-gray-70"
+                >
+                  {favoriteMutation.isPending ? '저장 중...' : '저장'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsEditingFavorites(false)}
+                  className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+                >
+                  취소
+                </button>
+              </div>
+            </div>
+          )}
+
+          <div className="mt-4 rounded-xl border border-gray-30 bg-gray-10 p-3">
+            <div className="flex items-center justify-between">
+              <h4 className="text-label-medium text-gray-100">즐겨찾기 경로</h4>
+              <button
+                type="button"
+                onClick={refreshFavoriteRoutes}
+                className="rounded-md border border-gray-40 px-2 py-1 text-label-small text-gray-90"
+              >
+                새로고침
+              </button>
+            </div>
+            <p className="mt-1 text-body-small text-gray-70">
+              즐겨찾기 역 기반 추천 경로를 확인하고, 자주 타는 이동 경로를 직접 저장할 수 있습니다.
+            </p>
+
+            <div className="mt-3 rounded-xl border border-gray-30 bg-white p-3">
+              <p className="text-label-small text-gray-80">내 경로 추가</p>
+              <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-4">
+                <select
+                  value={String(
+                    routeSourceStationId ?? favoriteRouteStationOptions[0]?.stationId ?? 0,
+                  )}
+                  onChange={event => {
+                    const nextValue = Number(event.target.value);
+                    setRouteSourceStationId(Number.isNaN(nextValue) ? null : nextValue);
+                  }}
+                  className="h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
+                >
+                  {favoriteRouteStationOptions.length ? (
+                    favoriteRouteStationOptions.map(station => (
+                      <option key={`source-${station.stationId}`} value={station.stationId}>
+                        출발: {station.stationName}
+                      </option>
+                    ))
+                  ) : (
+                    <option value={0}>출발역 없음</option>
+                  )}
+                </select>
+                <select
+                  value={String(
+                    routeDestinationStationId ??
+                      favoriteRouteStationOptions.find(
+                        station =>
+                          station.stationId !==
+                          (routeSourceStationId ?? favoriteRouteStationOptions[0]?.stationId ?? 0),
+                      )?.stationId ??
+                      0,
+                  )}
+                  onChange={event => {
+                    const nextValue = Number(event.target.value);
+                    setRouteDestinationStationId(Number.isNaN(nextValue) ? null : nextValue);
+                  }}
+                  className="h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
+                >
+                  {favoriteRouteStationOptions.length ? (
+                    favoriteRouteStationOptions.map(station => (
+                      <option key={`destination-${station.stationId}`} value={station.stationId}>
+                        도착: {station.stationName}
+                      </option>
+                    ))
+                  ) : (
+                    <option value={0}>도착역 없음</option>
+                  )}
+                </select>
+                <input
+                  value={routeTitleDraft}
+                  onChange={event => setRouteTitleDraft(event.target.value)}
+                  placeholder="경로 별칭(선택)"
+                  maxLength={50}
+                  className="h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
+                />
+                <button
+                  type="button"
+                  onClick={() => void createFavoriteRoute()}
+                  disabled={favoriteRouteCreateMutation.isPending}
+                  className="inline-flex h-9 items-center justify-center rounded-lg bg-key-color px-3 text-label-medium text-white disabled:cursor-not-allowed disabled:bg-gray-70"
+                >
+                  {favoriteRouteCreateMutation.isPending ? '저장 중...' : '경로 저장'}
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
+              <div className="rounded-xl border border-gray-30 bg-white p-3">
+                <p className="text-label-medium text-gray-100">추천 경로</p>
+                {recommendedRoutesContent}
+              </div>
+
+              <div className="rounded-xl border border-gray-30 bg-white p-3">
+                <p className="text-label-medium text-gray-100">내가 저장한 경로</p>
+                {favoriteRoutesContent}
+              </div>
+            </div>
+
+            <div className="mt-3 rounded-xl border border-gray-30 bg-gray-10 p-3">
+              <p className="text-label-medium text-gray-100">경로 기반 인맥 추천</p>
+              <p className="mt-1 text-body-small text-gray-70">
+                출발/도착역이 비슷한 사용자를 찾아 그룹으로 묶어 추천합니다.
+              </p>
+              {routeConnectionsContent}
+              {routeConnectionGroupsContent}
+            </div>
+          </div>
+
+          {primaryStation && (
+            <div className="mt-4 rounded-xl border border-gray-30 bg-gray-10 p-3">
+              <div className="flex items-center justify-between">
+                <h4 className="text-label-medium text-gray-100">
+                  {copy.realtime.title.replace('{station}', primaryStation.stationName)}
+                </h4>
+                <button
+                  type="button"
+                  onClick={handleRealtimeRefresh}
+                  className="rounded-md border border-gray-40 px-2 py-1 text-label-small text-gray-90"
+                  disabled={isRealtimeFetching}
+                >
+                  {copy.realtime.refresh}
+                </button>
+              </div>
+              <p className="mt-1 text-body-small text-gray-70">
+                {realtimeSection?.updatedAtLabel ?? copy.realtime.updatedAtFallback}
+              </p>
+
+              <div className="mt-3 space-y-1">{realtimeContent}</div>
+
+              <div className="mt-3 border-t border-gray-30 pt-2">
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-label-small text-gray-80">{copy.realtime.firstLastTitle}</p>
+                  {summaryStatusLabel && !isSummaryPending && (
+                    <span
+                      className="inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-semibold"
+                      style={resolveSummaryStatusStyle(
+                        summaryMeta?.availabilityStatus,
+                        isSummaryTemporarilyDelayed,
+                      )}
+                    >
+                      {summaryStatusLabel}
+                    </span>
+                  )}
+                </div>
+                {summaryContent}
+              </div>
+
+              <div className="mt-3 border-t border-gray-30 pt-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-label-medium text-gray-100">{copy.delayProof.title}</p>
+                  <button
+                    type="button"
+                    onClick={openDelayProofForm}
+                    className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+                  >
+                    {copy.delayProof.openButton}
+                  </button>
+                </div>
+                <p className="mt-1 text-body-small text-gray-70">{copy.delayProof.description}</p>
+
+                {isDelayProofFormOpen && (
+                  <div className="mt-3 space-y-2 rounded-xl border border-gray-30 bg-white p-3">
+                    <div className="space-y-1">
+                      <label className="block text-label-small text-gray-80">
+                        {copy.delayProof.expectedArrivalAtLabel}
+                      </label>
+                      <input
+                        type="datetime-local"
+                        value={expectedArrivalAtDraft}
+                        onChange={event => setExpectedArrivalAtDraft(event.target.value)}
+                        className="h-9 w-full rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="block text-label-small text-gray-80">
+                        {copy.delayProof.customMessageLabel}
+                      </label>
+                      <input
+                        type="text"
+                        value={customDelayMessage}
+                        maxLength={120}
+                        onChange={event => setCustomDelayMessage(event.target.value)}
+                        placeholder={copy.delayProof.customMessagePlaceholder}
+                        className="h-9 w-full rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
+                      />
+                    </div>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => void handleCreateDelayProof()}
+                        disabled={delayProofMutation.isPending}
+                        className="inline-flex h-9 items-center rounded-lg bg-key-color px-3 text-label-medium text-white disabled:cursor-not-allowed disabled:bg-gray-70"
+                      >
+                        {delayProofMutation.isPending
+                          ? copy.delayProof.pending
+                          : copy.delayProof.createButton}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsDelayProofFormOpen(false);
+                          setDelayProofResult(null);
+                        }}
+                        className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+                      >
+                        {copy.delayProof.closeButton}
+                      </button>
+                    </div>
+                    <p className="text-label-small text-danger">{copy.delayProof.legalNotice}</p>
+                  </div>
+                )}
+
+                {delayProofResult && (
+                  <div className="mt-3 space-y-2 rounded-xl border border-gray-30 bg-white p-3">
+                    <div className="flex flex-wrap items-center gap-2 text-label-small text-gray-80">
+                      <span className="rounded-full border border-gray-30 px-2 py-0.5">
+                        {copy.delayProof.gradeLabel}: {delayProofResult.grade}
+                      </span>
+                      <span className="rounded-full border border-gray-30 px-2 py-0.5">
+                        {copy.delayProof.confidenceLabel}: {delayProofResult.confidenceLevel}
+                      </span>
+                    </div>
+                    <p className="text-body-small text-gray-90">{delayProofResult.text}</p>
+                    <p className="text-label-small text-gray-70">
+                      {copy.delayProof.evidenceLabel}
+                      {` Official ${delayProofResult.evidenceSummary.official.eventCount} · Community ${delayProofResult.evidenceSummary.community.signalCount} · Realtime ${delayProofResult.evidenceSummary.realtime.confidenceLevel}`}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          void copyToClipboard(
+                            delayProofResult.text,
+                            copy.delayProof.copyTextSuccess,
+                          )
+                        }
+                        className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+                      >
+                        {copy.delayProof.copyTextButton}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          void copyToClipboard(
+                            delayProofResult.shareUrl,
+                            copy.delayProof.copyLinkSuccess,
+                          )
+                        }
+                        className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+                      >
+                        {copy.delayProof.copyLinkButton}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => void handleShareDelayProof()}
+                        className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+                      >
+                        {copy.delayProof.shareButton}
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </article>
+      ) : null}
+
+      {activeSection === 'activity' ? (
+        <article className={cardClassName}>
+          <div className="flex items-center justify-between">
+            <h3 className="text-title-small text-gray-100">좋아요/북마크 히스토리</h3>
+            <button
+              type="button"
+              onClick={() => {
+                void refetchArticleHistory();
+              }}
               className="rounded-md border border-gray-40 px-2 py-1 text-label-small text-gray-90"
             >
               새로고침
             </button>
           </div>
-          <p className="mt-1 text-body-small text-gray-70">
-            즐겨찾기 역 기반 추천 경로를 확인하고, 자주 타는 이동 경로를 직접 저장할 수 있습니다.
-          </p>
+          {isArticleHistoryPending ? (
+            <p className="mt-2 text-body-small text-gray-70">히스토리를 불러오는 중입니다.</p>
+          ) : null}
+          {isArticleHistoryError ? (
+            <p className="mt-2 text-body-small text-danger">히스토리를 불러오지 못했습니다.</p>
+          ) : null}
 
-          <div className="mt-3 rounded-xl border border-gray-30 bg-white p-3">
-            <p className="text-label-small text-gray-80">내 경로 추가</p>
-            <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-4">
-              <select
-                value={String(
-                  routeSourceStationId ?? favoriteRouteStationOptions[0]?.stationId ?? 0,
-                )}
-                onChange={event => {
-                  const nextValue = Number(event.target.value);
-                  setRouteSourceStationId(Number.isNaN(nextValue) ? null : nextValue);
-                }}
-                className="h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
-              >
-                {favoriteRouteStationOptions.length ? (
-                  favoriteRouteStationOptions.map(station => (
-                    <option key={`source-${station.stationId}`} value={station.stationId}>
-                      출발: {station.stationName}
-                    </option>
-                  ))
+          {!isArticleHistoryPending && !isArticleHistoryError ? (
+            <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
+              <div className="rounded-xl border border-gray-30 bg-gray-10 p-3">
+                <h4 className="text-label-medium text-gray-100">좋아요</h4>
+                {likedArticles.length ? (
+                  <ul className="mt-2 space-y-2">
+                    {likedArticles.slice(0, 8).map(article => (
+                      <li key={`liked-${article.articleType}-${article.articleId}`}>
+                        <Link
+                          href={resolveArticlePath(article.articleType, article.articleId)}
+                          className="block rounded-lg bg-white px-3 py-2"
+                        >
+                          <p className="line-clamp-1 text-body-small text-gray-100">
+                            {article.title}
+                          </p>
+                          <p className="mt-1 text-label-small text-gray-70">
+                            {article.articleType} · {formatDisplayDate(article.reactedAt)}
+                          </p>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
                 ) : (
-                  <option value={0}>출발역 없음</option>
-                )}
-              </select>
-              <select
-                value={String(
-                  routeDestinationStationId ??
-                    favoriteRouteStationOptions.find(
-                      station =>
-                        station.stationId !==
-                        (routeSourceStationId ?? favoriteRouteStationOptions[0]?.stationId ?? 0),
-                    )?.stationId ??
-                    0,
-                )}
-                onChange={event => {
-                  const nextValue = Number(event.target.value);
-                  setRouteDestinationStationId(Number.isNaN(nextValue) ? null : nextValue);
-                }}
-                className="h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
-              >
-                {favoriteRouteStationOptions.length ? (
-                  favoriteRouteStationOptions.map(station => (
-                    <option key={`destination-${station.stationId}`} value={station.stationId}>
-                      도착: {station.stationName}
-                    </option>
-                  ))
-                ) : (
-                  <option value={0}>도착역 없음</option>
-                )}
-              </select>
-              <input
-                value={routeTitleDraft}
-                onChange={event => setRouteTitleDraft(event.target.value)}
-                placeholder="경로 별칭(선택)"
-                maxLength={50}
-                className="h-9 rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
-              />
-              <button
-                type="button"
-                onClick={() => void createFavoriteRoute()}
-                disabled={favoriteRouteCreateMutation.isPending}
-                className="inline-flex h-9 items-center justify-center rounded-lg bg-key-color px-3 text-label-medium text-white disabled:cursor-not-allowed disabled:bg-gray-70"
-              >
-                {favoriteRouteCreateMutation.isPending ? '저장 중...' : '경로 저장'}
-              </button>
-            </div>
-          </div>
-
-          <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
-            <div className="rounded-xl border border-gray-30 bg-white p-3">
-              <p className="text-label-medium text-gray-100">추천 경로</p>
-              {recommendedRoutesContent}
-            </div>
-
-            <div className="rounded-xl border border-gray-30 bg-white p-3">
-              <p className="text-label-medium text-gray-100">내가 저장한 경로</p>
-              {favoriteRoutesContent}
-            </div>
-          </div>
-
-          <div className="mt-3 rounded-xl border border-gray-30 bg-gray-10 p-3">
-            <p className="text-label-medium text-gray-100">경로 기반 인맥 추천</p>
-            <p className="mt-1 text-body-small text-gray-70">
-              출발/도착역이 비슷한 사용자를 찾아 그룹으로 묶어 추천합니다.
-            </p>
-            {routeConnectionsContent}
-            {routeConnectionGroupsContent}
-          </div>
-        </div>
-
-        {primaryStation && (
-          <div className="mt-4 rounded-xl border border-gray-30 bg-gray-10 p-3">
-            <div className="flex items-center justify-between">
-              <h4 className="text-label-medium text-gray-100">
-                {copy.realtime.title.replace('{station}', primaryStation.stationName)}
-              </h4>
-              <button
-                type="button"
-                onClick={handleRealtimeRefresh}
-                className="rounded-md border border-gray-40 px-2 py-1 text-label-small text-gray-90"
-                disabled={isRealtimeFetching}
-              >
-                {copy.realtime.refresh}
-              </button>
-            </div>
-            <p className="mt-1 text-body-small text-gray-70">
-              {realtimeSection?.updatedAtLabel ?? copy.realtime.updatedAtFallback}
-            </p>
-
-            <div className="mt-3 space-y-1">{realtimeContent}</div>
-
-            <div className="mt-3 border-t border-gray-30 pt-2">
-              <div className="flex items-center justify-between gap-2">
-                <p className="text-label-small text-gray-80">{copy.realtime.firstLastTitle}</p>
-                {summaryStatusLabel && !isSummaryPending && (
-                  <span
-                    className="inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-semibold"
-                    style={resolveSummaryStatusStyle(
-                      summaryMeta?.availabilityStatus,
-                      isSummaryTemporarilyDelayed,
-                    )}
-                  >
-                    {summaryStatusLabel}
-                  </span>
+                  <p className="mt-2 text-body-small text-gray-70">좋아요한 글이 없습니다.</p>
                 )}
               </div>
-              {summaryContent}
-            </div>
 
-            <div className="mt-3 border-t border-gray-30 pt-3">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="text-label-medium text-gray-100">{copy.delayProof.title}</p>
-                <button
-                  type="button"
-                  onClick={openDelayProofForm}
-                  className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
-                >
-                  {copy.delayProof.openButton}
-                </button>
+              <div className="rounded-xl border border-gray-30 bg-gray-10 p-3">
+                <h4 className="text-label-medium text-gray-100">북마크</h4>
+                {bookmarkedArticles.length ? (
+                  <ul className="mt-2 space-y-2">
+                    {bookmarkedArticles.slice(0, 8).map(article => (
+                      <li key={`bookmark-${article.articleType}-${article.articleId}`}>
+                        <Link
+                          href={resolveArticlePath(article.articleType, article.articleId)}
+                          className="block rounded-lg bg-white px-3 py-2"
+                        >
+                          <p className="line-clamp-1 text-body-small text-gray-100">
+                            {article.title}
+                          </p>
+                          <p className="mt-1 text-label-small text-gray-70">
+                            {article.articleType} · {formatDisplayDate(article.reactedAt)}
+                          </p>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="mt-2 text-body-small text-gray-70">북마크한 글이 없습니다.</p>
+                )}
               </div>
-              <p className="mt-1 text-body-small text-gray-70">{copy.delayProof.description}</p>
-
-              {isDelayProofFormOpen && (
-                <div className="mt-3 space-y-2 rounded-xl border border-gray-30 bg-white p-3">
-                  <div className="space-y-1">
-                    <label className="block text-label-small text-gray-80">
-                      {copy.delayProof.expectedArrivalAtLabel}
-                    </label>
-                    <input
-                      type="datetime-local"
-                      value={expectedArrivalAtDraft}
-                      onChange={event => setExpectedArrivalAtDraft(event.target.value)}
-                      className="h-9 w-full rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <label className="block text-label-small text-gray-80">
-                      {copy.delayProof.customMessageLabel}
-                    </label>
-                    <input
-                      type="text"
-                      value={customDelayMessage}
-                      maxLength={120}
-                      onChange={event => setCustomDelayMessage(event.target.value)}
-                      placeholder={copy.delayProof.customMessagePlaceholder}
-                      className="h-9 w-full rounded-lg border border-gray-30 px-2 text-body-small text-gray-90"
-                    />
-                  </div>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => void handleCreateDelayProof()}
-                      disabled={delayProofMutation.isPending}
-                      className="inline-flex h-9 items-center rounded-lg bg-key-color px-3 text-label-medium text-white disabled:cursor-not-allowed disabled:bg-gray-70"
-                    >
-                      {delayProofMutation.isPending
-                        ? copy.delayProof.pending
-                        : copy.delayProof.createButton}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsDelayProofFormOpen(false);
-                        setDelayProofResult(null);
-                      }}
-                      className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
-                    >
-                      {copy.delayProof.closeButton}
-                    </button>
-                  </div>
-                  <p className="text-label-small text-danger">{copy.delayProof.legalNotice}</p>
-                </div>
-              )}
-
-              {delayProofResult && (
-                <div className="mt-3 space-y-2 rounded-xl border border-gray-30 bg-white p-3">
-                  <div className="flex flex-wrap items-center gap-2 text-label-small text-gray-80">
-                    <span className="rounded-full border border-gray-30 px-2 py-0.5">
-                      {copy.delayProof.gradeLabel}: {delayProofResult.grade}
-                    </span>
-                    <span className="rounded-full border border-gray-30 px-2 py-0.5">
-                      {copy.delayProof.confidenceLabel}: {delayProofResult.confidenceLevel}
-                    </span>
-                  </div>
-                  <p className="text-body-small text-gray-90">{delayProofResult.text}</p>
-                  <p className="text-label-small text-gray-70">
-                    {copy.delayProof.evidenceLabel}
-                    {` Official ${delayProofResult.evidenceSummary.official.eventCount} · Community ${delayProofResult.evidenceSummary.community.signalCount} · Realtime ${delayProofResult.evidenceSummary.realtime.confidenceLevel}`}
-                  </p>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() =>
-                        void copyToClipboard(delayProofResult.text, copy.delayProof.copyTextSuccess)
-                      }
-                      className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
-                    >
-                      {copy.delayProof.copyTextButton}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        void copyToClipboard(
-                          delayProofResult.shareUrl,
-                          copy.delayProof.copyLinkSuccess,
-                        )
-                      }
-                      className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
-                    >
-                      {copy.delayProof.copyLinkButton}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => void handleShareDelayProof()}
-                      className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
-                    >
-                      {copy.delayProof.shareButton}
-                    </button>
-                  </div>
-                </div>
-              )}
             </div>
-          </div>
-        )}
-      </article>
+          ) : null}
+        </article>
+      ) : null}
 
-      <article className={cardClassName}>
-        <div className="flex items-center justify-between">
-          <h3 className="text-title-small text-gray-100">좋아요/북마크 히스토리</h3>
-          <button
-            type="button"
-            onClick={() => {
-              void refetchArticleHistory();
-            }}
-            className="rounded-md border border-gray-40 px-2 py-1 text-label-small text-gray-90"
-          >
-            새로고침
-          </button>
-        </div>
-        {isArticleHistoryPending ? (
-          <p className="mt-2 text-body-small text-gray-70">히스토리를 불러오는 중입니다.</p>
-        ) : null}
-        {isArticleHistoryError ? (
-          <p className="mt-2 text-body-small text-danger">히스토리를 불러오지 못했습니다.</p>
-        ) : null}
-
-        {!isArticleHistoryPending && !isArticleHistoryError ? (
-          <div className="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
-            <div className="rounded-xl border border-gray-30 bg-gray-10 p-3">
-              <h4 className="text-label-medium text-gray-100">좋아요</h4>
-              {likedArticles.length ? (
-                <ul className="mt-2 space-y-2">
-                  {likedArticles.slice(0, 8).map(article => (
-                    <li key={`liked-${article.articleType}-${article.articleId}`}>
-                      <Link
-                        href={resolveArticlePath(article.articleType, article.articleId)}
-                        className="block rounded-lg bg-white px-3 py-2"
-                      >
-                        <p className="line-clamp-1 text-body-small text-gray-100">
-                          {article.title}
-                        </p>
-                        <p className="mt-1 text-label-small text-gray-70">
-                          {article.articleType} · {formatDisplayDate(article.reactedAt)}
-                        </p>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="mt-2 text-body-small text-gray-70">좋아요한 글이 없습니다.</p>
-              )}
+      {activeSection === 'settings' ? (
+        <>
+          <article className={cardClassName}>
+            <h3 className="text-title-small text-gray-100">아하철 앱 정책</h3>
+            <p className="mt-2 text-body-small text-gray-70">
+              이용약관과 개인정보처리방침을 확인할 수 있습니다.
+            </p>
+            <div className="mt-3 flex items-center gap-2">
+              <a
+                href={TERMS_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+              >
+                이용약관
+              </a>
+              <a
+                href={PRIVACY_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+              >
+                개인정보처리방침
+              </a>
             </div>
+          </article>
 
-            <div className="rounded-xl border border-gray-30 bg-gray-10 p-3">
-              <h4 className="text-label-medium text-gray-100">북마크</h4>
-              {bookmarkedArticles.length ? (
-                <ul className="mt-2 space-y-2">
-                  {bookmarkedArticles.slice(0, 8).map(article => (
-                    <li key={`bookmark-${article.articleType}-${article.articleId}`}>
-                      <Link
-                        href={resolveArticlePath(article.articleType, article.articleId)}
-                        className="block rounded-lg bg-white px-3 py-2"
-                      >
-                        <p className="line-clamp-1 text-body-small text-gray-100">
-                          {article.title}
-                        </p>
-                        <p className="mt-1 text-label-small text-gray-70">
-                          {article.articleType} · {formatDisplayDate(article.reactedAt)}
-                        </p>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p className="mt-2 text-body-small text-gray-70">북마크한 글이 없습니다.</p>
-              )}
-            </div>
-          </div>
-        ) : null}
-      </article>
-
-      <article className={cardClassName}>
-        <h3 className="text-title-small text-gray-100">아하철 앱 정책</h3>
-        <p className="mt-2 text-body-small text-gray-70">
-          이용약관과 개인정보처리방침을 확인할 수 있습니다.
-        </p>
-        <div className="mt-3 flex items-center gap-2">
-          <a
-            href={TERMS_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
-          >
-            이용약관
-          </a>
-          <a
-            href={PRIVACY_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
-          >
-            개인정보처리방침
-          </a>
-        </div>
-      </article>
-
-      <article className={cardClassName}>
-        <h3 className="text-title-small text-gray-100">{copy.languageSectionTitle}</h3>
-        <LanguageSelector className="mt-3" />
-      </article>
+          <article className={cardClassName}>
+            <h3 className="text-title-small text-gray-100">{copy.languageSectionTitle}</h3>
+            <LanguageSelector className="mt-3" />
+          </article>
+        </>
+      ) : null}
     </section>
   );
 }

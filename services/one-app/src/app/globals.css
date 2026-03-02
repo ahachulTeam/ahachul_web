@@ -8,12 +8,30 @@
 
 body {
   color: var(--ah-color-foreground);
-  background-color: var(--ah-color-background);
+  background: radial-gradient(
+      circle at 15% -10%,
+      rgba(42, 207, 108, 0.24),
+      rgba(42, 207, 108, 0) 40%
+    ),
+    radial-gradient(circle at 85% -5%, rgba(80, 157, 216, 0.22), rgba(80, 157, 216, 0) 42%),
+    linear-gradient(180deg, #f8fafd 0%, #f3f5f9 44%, #eef1f7 100%);
+  background-attachment: fixed;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .ah-glass-card {
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .ah-floating-action {
+    box-shadow:
+      0 16px 38px rgba(17, 25, 40, 0.24),
+      0 4px 10px rgba(17, 25, 40, 0.16);
   }
 }
 
@@ -50,4 +68,19 @@ body {
 
 .animate-fade-in {
   animation: fadeIn 0.5s ease-in-out;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ah-motion-lift {
+    transition:
+      transform 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .ah-motion-lift:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      0 14px 30px rgba(18, 24, 33, 0.16),
+      0 4px 10px rgba(18, 24, 33, 0.12);
+  }
 }

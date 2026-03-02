@@ -144,6 +144,8 @@ const COPY = {
   },
 } as const;
 
+const cardClassName = 'rounded-2xl border border-gray-30 bg-white p-4';
+
 export default function ProfileOverview({ username, mode = 'default' }: Props) {
   const pathname = usePathname() ?? '/user';
   const locale = resolvePathLocale(pathname, null);
@@ -280,13 +282,37 @@ export default function ProfileOverview({ username, mode = 'default' }: Props) {
   if (mode === 'settings') {
     return (
       <section className="space-y-3 px-5 pb-24 pt-4">
-        <article className="rounded-2xl border border-gray-30 bg-white p-4">
+        <article className={`${cardClassName} bg-gradient-to-r from-green-50 to-white`}>
           <p className="text-label-small text-gray-70">{pageCopy.settingsTitle}</p>
           <h1 className="mt-1 text-headline-small text-gray-100">{username}</h1>
           <p className="mt-1 text-body-medium text-gray-80">{pageCopy.settingsDescription}</p>
         </article>
 
-        <article className="rounded-2xl border border-gray-30 bg-white p-4">
+        <article className={cardClassName}>
+          <p className="text-label-small text-gray-70">프로필 모드</p>
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            <Link
+              href={profilePath}
+              className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+            >
+              {pageCopy.backToProfile}
+            </Link>
+            <Link
+              href={settingsPath}
+              className="inline-flex h-9 items-center rounded-lg bg-key-color px-3 text-label-medium text-white"
+            >
+              {pageCopy.goToSettings}
+            </Link>
+            <Link
+              href={previewPath}
+              className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+            >
+              {pageCopy.goToPreview}
+            </Link>
+          </div>
+        </article>
+
+        <article className={cardClassName}>
           <h2 className="text-title-small text-gray-100">공개 범위</h2>
           <div className="mt-3 space-y-3">
             {visibilityDraft ? (
@@ -325,10 +351,10 @@ export default function ProfileOverview({ username, mode = 'default' }: Props) {
               {saveVisibilityMutation.isPending ? pageCopy.saving : pageCopy.save}
             </button>
             <Link
-              href={profilePath}
+              href={localizePathname('/me/setting/account', locale)}
               className="inline-flex h-10 items-center rounded-xl border border-gray-40 bg-white px-4 text-label-medium text-gray-90"
             >
-              {pageCopy.backToProfile}
+              계정 기본정보 관리
             </Link>
           </div>
         </article>
@@ -406,7 +432,7 @@ export default function ProfileOverview({ username, mode = 'default' }: Props) {
 
   return (
     <section className="space-y-3 px-5 pb-24 pt-4">
-      <article className="rounded-2xl border border-gray-30 bg-white p-4">
+      <article className={`${cardClassName} bg-gradient-to-r from-green-50 to-white`}>
         {mode === 'preview' ? (
           <p className="text-label-small text-gray-70">{pageCopy.previewTitle}</p>
         ) : null}
@@ -414,25 +440,39 @@ export default function ProfileOverview({ username, mode = 'default' }: Props) {
         <h1 className="mt-1 text-headline-small text-gray-100">{username}</h1>
         <p className="mt-1 text-body-medium text-gray-80">{profileGuideText}</p>
 
-        {mode === 'default' && isMine ? (
-          <div className="mt-3 flex gap-2">
+        <div className="mt-3 flex flex-wrap gap-2">
+          <Link
+            href={profilePath}
+            className={`inline-flex h-9 items-center rounded-lg px-3 text-label-medium ${
+              mode === 'default' ? 'bg-key-color text-white' : 'border border-gray-40 text-gray-90'
+            }`}
+          >
+            프로필
+          </Link>
+          {isMine ? (
             <Link
               href={settingsPath}
               className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
             >
               {pageCopy.goToSettings}
             </Link>
+          ) : null}
+          {isMine ? (
             <Link
               href={previewPath}
-              className="inline-flex h-9 items-center rounded-lg border border-gray-40 px-3 text-label-medium text-gray-90"
+              className={`inline-flex h-9 items-center rounded-lg px-3 text-label-medium ${
+                mode === 'preview'
+                  ? 'bg-key-color text-white'
+                  : 'border border-gray-40 text-gray-90'
+              }`}
             >
               {pageCopy.goToPreview}
             </Link>
-          </div>
-        ) : null}
+          ) : null}
+        </div>
       </article>
 
-      <article className="rounded-2xl border border-gray-30 bg-white p-4">
+      <article className={cardClassName}>
         <h2 className="text-title-small text-gray-100">{copy.accountInfoTitle}</h2>
         {profileVisible ? (
           <dl className="mt-2 grid grid-cols-[96px_1fr] gap-y-2 text-body-medium text-gray-80">
@@ -458,12 +498,12 @@ export default function ProfileOverview({ username, mode = 'default' }: Props) {
         description={storyDescription}
       />
 
-      <article className="rounded-2xl border border-gray-30 bg-white p-4">
+      <article className={cardClassName}>
         <h2 className="text-title-small text-gray-100">{pageCopy.postsTitle}</h2>
         {postsContent}
       </article>
 
-      <article className="rounded-2xl border border-gray-30 bg-white p-4">
+      <article className={cardClassName}>
         <h2 className="text-title-small text-gray-100">{pageCopy.commentsTitle}</h2>
         {commentsContent}
       </article>

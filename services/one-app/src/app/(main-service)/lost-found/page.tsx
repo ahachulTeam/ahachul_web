@@ -46,7 +46,7 @@ export default async function LostFoundPage({ searchParams }: Props) {
   }
 
   return (
-    <main className="flex min-h-screen flex-col bg-white ">
+    <main className="min-h-screen px-4 pb-28 pt-3">
       <HydrationBoundary state={dehydratedState}>
         <BreadcrumbNav
           visuallyHidden
@@ -56,11 +56,15 @@ export default async function LostFoundPage({ searchParams }: Props) {
           ]}
         />
         <SearchForm />
-        <Filters />
-        <LostFoundPosts />
+        <div className="mt-3 flex flex-col gap-3">
+          <Filters />
+          <div className="overflow-hidden rounded-3xl border border-gray-30 bg-white shadow-[0_10px_24px_rgba(14,20,28,0.08)]">
+            <LostFoundPosts />
+          </div>
+        </div>
         <Link
           href={localizePathname('/lost-found/new', locale)}
-          className="fixed bottom-[84px] right-4 z-40 inline-flex items-center rounded-full bg-gray-100 px-5 py-3 text-label-large text-white shadow-[0_8px_24px_rgba(30,31,46,0.3)]"
+          className="ah-floating-action fixed bottom-[92px] right-4 z-40 inline-flex items-center rounded-2xl bg-gray-100 px-5 py-3 text-label-large text-white"
         >
           + 글쓰기
         </Link>

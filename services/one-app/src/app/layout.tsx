@@ -52,9 +52,11 @@ export default async function RootLayout({
         {/* SEO 임시 비활성화: Vite 홈 동등화 이후 재활성화 예정 */}
         <NextTopLoader height={2} color={colors['key-color']} showSpinner={false} />
         <Providers>
-          <Header />
-          {children}
-          <NavMenu />
+          <div className="relative mx-auto min-h-screen w-full max-w-[560px]">
+            <Header />
+            <div className="relative z-10">{children}</div>
+            <NavMenu />
+          </div>
         </Providers>
       </body>
     </html>

@@ -37,7 +37,7 @@ const titleSchema = z
   .max(MAX_POST_TITLE_LENGTH, `제목은 ${MAX_POST_TITLE_LENGTH}자 이하로 입력해주세요.`);
 const contentSchema = z.string().min(1, '내용을 입력해주세요.');
 const subwayLineIdSchema = z.coerce.number().int().positive('지하철 호선을 선택해주세요.');
-const stationIdSchema = z.coerce.number().int().positive('지하철 역을 선택해주세요.');
+const stationIdSchema = z.coerce.number().int().min(0);
 const createImagesSchema = z
   .array(fileSchema)
   .max(MAX_POST_IMAGE_COUNT, `이미지는 최대 ${MAX_POST_IMAGE_COUNT}개까지 첨부할 수 있습니다.`);

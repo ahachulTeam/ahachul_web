@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A-HACHUL My Page Redesign v1</title>
+    <style>
+      :root {
+        --bg: #0b1020;
+        --surface: #111a31;
+        --surface-soft: #172240;
+        --card: #0f1730;
+        --line: #2a3966;
+        --text: #ecf1ff;
+        --muted: #9ca9cc;
+        --brand: #33d07e;
+        --brand-soft: rgba(51, 208, 126, 0.18);
+        --warning: #ffbe3b;
+        --danger: #ff6c6c;
+        --radius-lg: 20px;
+        --radius-md: 14px;
+        --radius-sm: 10px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "SUIT", "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background:
+          radial-gradient(900px 600px at 10% -10%, rgba(51, 208, 126, 0.18), transparent 65%),
+          radial-gradient(900px 500px at 100% 0%, rgba(68, 114, 255, 0.2), transparent 55%),
+          var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        padding: 28px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      .top-title {
+        max-width: 1180px;
+        margin: 0 auto 18px auto;
+      }
+
+      .top-title h1 {
+        font-size: 30px;
+        font-weight: 800;
+      }
+
+      .top-title p {
+        margin-top: 8px;
+        color: var(--muted);
+      }
+
+      .board {
+        max-width: 1180px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(310px, 1fr));
+        gap: 22px;
+      }
+
+      .phone {
+        background: #060c18;
+        border: 1px solid #1f2a4b;
+        border-radius: 28px;
+        padding: 14px;
+        box-shadow: 0 28px 60px rgba(0, 0, 0, 0.48);
+      }
+
+      .screen {
+        min-height: 770px;
+        border-radius: 22px;
+        overflow: hidden;
+        background: linear-gradient(180deg, #0e1730 0%, #0d1530 50%, #0a1328 100%);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .header {
+        padding: 18px 18px 10px 18px;
+      }
+
+      .header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        color: var(--brand);
+        font-size: 17px;
+        font-weight: 900;
+        letter-spacing: 0.2px;
+      }
+
+      .icon-set {
+        display: flex;
+        gap: 8px;
+      }
+
+      .icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        display: grid;
+        place-items: center;
+        color: #d7def3;
+        font-size: 12px;
+      }
+
+      .profile-hero {
+        margin-top: 14px;
+        background: linear-gradient(135deg, rgba(51, 208, 126, 0.25), rgba(68, 114, 255, 0.24));
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: var(--radius-lg);
+        padding: 14px;
+      }
+
+      .profile-top {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .avatar {
+        width: 54px;
+        height: 54px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #e8f6ef, #b9f2d4);
+      }
+
+      .name {
+        font-size: 20px;
+        font-weight: 800;
+      }
+
+      .sub {
+        color: #d8e2ff;
+        font-size: 12px;
+        margin-top: 2px;
+      }
+
+      .hero-grid {
+        margin-top: 12px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+
+      .hero-item {
+        background: rgba(6, 14, 33, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: var(--radius-sm);
+        padding: 9px;
+      }
+
+      .hero-item p:first-child {
+        font-size: 11px;
+        color: #c6d4f8;
+      }
+
+      .hero-item p:last-child {
+        margin-top: 3px;
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      .section {
+        margin-top: 14px;
+        padding: 0 18px;
+      }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .section-head h3 {
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .action-link {
+        font-size: 12px;
+        color: var(--brand);
+      }
+
+      .tile-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 9px;
+      }
+
+      .tile {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        padding: 11px;
+      }
+
+      .tile .k {
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .tile .v {
+        margin-top: 5px;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .stack {
+        display: grid;
+        gap: 8px;
+      }
+
+      .row-card {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        padding: 11px;
+      }
+
+      .row-title {
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .row-meta {
+        margin-top: 5px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .pill {
+        margin-top: 8px;
+        display: inline-flex;
+        border-radius: 999px;
+        font-size: 11px;
+        padding: 4px 8px;
+        border: 1px solid transparent;
+      }
+
+      .pill.warn {
+        background: rgba(255, 190, 59, 0.16);
+        border-color: rgba(255, 190, 59, 0.34);
+        color: #ffd17a;
+      }
+
+      .pill.ok {
+        background: var(--brand-soft);
+        border-color: rgba(51, 208, 126, 0.34);
+        color: #9cf0c0;
+      }
+
+      .pill.bad {
+        background: rgba(255, 108, 108, 0.16);
+        border-color: rgba(255, 108, 108, 0.35);
+        color: #ffc0c0;
+      }
+
+      .nav {
+        margin: 14px 18px 16px 18px;
+        border-radius: 15px;
+        background: rgba(8, 16, 36, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        padding: 8px 4px;
+        text-align: center;
+      }
+
+      .nav div {
+        font-size: 11px;
+        color: #9da8c8;
+      }
+
+      .nav .active {
+        color: var(--brand);
+        font-weight: 700;
+      }
+
+      .caption {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .setting-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .setting {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        padding: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .toggle {
+        width: 42px;
+        height: 24px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.2);
+        position: relative;
+      }
+
+      .toggle::after {
+        content: "";
+        width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        background: #fff;
+        position: absolute;
+        top: 3px;
+        left: 3px;
+      }
+
+      .toggle.on {
+        background: var(--brand);
+      }
+
+      .toggle.on::after {
+        left: 21px;
+      }
+
+      @media (max-width: 900px) {
+        .board {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-title">
+      <h1>My Page UX Redesign (A-HACHUL)</h1>
+      <p>전면 개편안: 프로필 허브 중심 1depth + 기능 허브 2depth + 상세 작업 3depth</p>
+    </div>
+
+    <div class="board">
+      <article class="phone">
+        <section class="screen">
+          <div class="header">
+            <div class="header-row">
+              <p class="logo">A-HACHUL</p>
+              <div class="icon-set">
+                <div class="icon">알</div>
+                <div class="icon">설</div>
+              </div>
+            </div>
+
+            <div class="profile-hero">
+              <div class="profile-top">
+                <div class="avatar"></div>
+                <div>
+                  <p class="name">아하철</p>
+                  <p class="sub">강남역 · 출근 코치 ON · 프로필 공개 70%</p>
+                </div>
+              </div>
+              <div class="hero-grid">
+                <div class="hero-item">
+                  <p>좋아요/북마크</p>
+                  <p>248</p>
+                </div>
+                <div class="hero-item">
+                  <p>내 작성글</p>
+                  <p>63</p>
+                </div>
+                <div class="hero-item">
+                  <p>신뢰 점수</p>
+                  <p>94</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-head">
+              <h3>빠른 이동</h3>
+              <span class="action-link">전체 보기</span>
+            </div>
+            <div class="tile-grid">
+              <div class="tile">
+                <p class="k">즐겨찾기 역 관리</p>
+                <p class="v">집/회사/학교 동선</p>
+              </div>
+              <div class="tile">
+                <p class="k">출퇴근 코치</p>
+                <p class="v">오늘 리스크 2건</p>
+              </div>
+              <div class="tile">
+                <p class="k">내 활동 히스토리</p>
+                <p class="v">좋아요/북마크/댓글</p>
+              </div>
+              <div class="tile">
+                <p class="k">공개 범위 설정</p>
+                <p class="v">프로필 미리보기</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-head">
+              <h3>오늘의 상태</h3>
+              <span class="action-link">더보기</span>
+            </div>
+            <div class="stack">
+              <div class="row-card">
+                <p class="row-title">강남역 막차 리스크</p>
+                <p class="row-meta">도보 11분 기준 · 하행 5분 여유</p>
+                <span class="pill ok">안전</span>
+              </div>
+              <div class="row-card">
+                <p class="row-title">2호선 출근 체감 투표</p>
+                <p class="row-meta">오늘 1,283명 참여 · 댓글 421개</p>
+                <span class="pill warn">혼잡 주의</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav">
+            <div>홈</div>
+            <div>커뮤니티</div>
+            <div>유실물</div>
+            <div>민원</div>
+            <div class="active">마이</div>
+          </div>
+        </section>
+        <p class="caption">화면 A: 마이페이지 홈. 핵심 지표 + 기능 허브 + 오늘의 상태를 분리해 정보 과밀 해소.</p>
+      </article>
+
+      <article class="phone">
+        <section class="screen">
+          <div class="header">
+            <div class="header-row">
+              <p class="logo">즐겨찾기 동선 허브</p>
+              <div class="icon-set"><div class="icon">편</div></div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-head">
+              <h3>기본 경로</h3>
+              <span class="action-link">새 경로</span>
+            </div>
+            <div class="stack">
+              <div class="row-card">
+                <p class="row-title">집 → 회사 (기본)</p>
+                <p class="row-meta">역삼역 출발 · 종합운동장역 도착 · 도보 14분</p>
+                <span class="pill warn">막차 8분 여유</span>
+              </div>
+              <div class="row-card">
+                <p class="row-title">집 → 학교</p>
+                <p class="row-meta">강남역 출발 · 안암역 도착 · 환승 1회</p>
+                <span class="pill ok">평시 소요 46분</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-head">
+              <h3>추천 경로 카드</h3>
+              <span class="action-link">모두 보기</span>
+            </div>
+            <div class="stack">
+              <div class="row-card">
+                <p class="row-title">출근 대체 루트</p>
+                <p class="row-meta">지연 확률 18%↓ · 계단 최소</p>
+              </div>
+              <div class="row-card">
+                <p class="row-title">짐 많은 날 모드</p>
+                <p class="row-meta">엘리베이터 중심 · 도보 3분 증가</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-head">
+              <h3>지도/그래프 미리보기</h3>
+            </div>
+            <div class="row-card">
+              <p class="row-title">시간대별 안정성 그래프</p>
+              <p class="row-meta">07:30~08:00 혼잡 피크 · 08:20 이후 안정</p>
+            </div>
+          </div>
+
+          <div class="nav">
+            <div>요약</div>
+            <div class="active">동선</div>
+            <div>코치</div>
+            <div>히스토리</div>
+            <div>설정</div>
+          </div>
+        </section>
+        <p class="caption">화면 B: 즐겨찾기 동선 2depth. 생성/추천/그래프를 한 화면에 묶어 실행 동선 단축.</p>
+      </article>
+
+      <article class="phone">
+        <section class="screen">
+          <div class="header">
+            <div class="header-row">
+              <p class="logo">내 활동 히스토리</p>
+              <div class="icon-set"><div class="icon">필</div></div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="tile-grid">
+              <div class="tile">
+                <p class="k">좋아요</p>
+                <p class="v">138개</p>
+              </div>
+              <div class="tile">
+                <p class="k">북마크</p>
+                <p class="v">110개</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-head">
+              <h3>최근 반응 높은 댓글</h3>
+              <span class="action-link">인기순</span>
+            </div>
+            <div class="stack">
+              <div class="row-card">
+                <p class="row-title">"신분당선 출근길 오늘은 꽤 버틸만했어요"</p>
+                <p class="row-meta">좋아요 42 · 답글 11 · 2시간 전</p>
+              </div>
+              <div class="row-card">
+                <p class="row-title">"강남역 10번 출구 엘베 공사중"</p>
+                <p class="row-meta">좋아요 28 · 저장 13 · 3시간 전</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-head">
+              <h3>내가 저장한 게시물</h3>
+              <span class="action-link">최신순</span>
+            </div>
+            <div class="stack">
+              <div class="row-card">
+                <p class="row-title">[유실물] 검정 카드지갑 분실</p>
+                <p class="row-meta">서초역 인근 · 댓글 12</p>
+                <span class="pill bad">미해결</span>
+              </div>
+              <div class="row-card">
+                <p class="row-title">[커뮤니티] 오늘 2호선 출근길 어땠나요?</p>
+                <p class="row-meta">참여자 2,004명 · 공감 712</p>
+                <span class="pill ok">활성</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav">
+            <div>요약</div>
+            <div>동선</div>
+            <div>코치</div>
+            <div class="active">히스토리</div>
+            <div>설정</div>
+          </div>
+        </section>
+        <p class="caption">화면 C: 좋아요/북마크/댓글 히스토리를 한 축으로 통합. 필터 기준을 카드 상단에서 빠르게 전환.</p>
+      </article>
+
+      <article class="phone">
+        <section class="screen">
+          <div class="header">
+            <div class="header-row">
+              <p class="logo">프로필 공개 설정</p>
+              <div class="icon-set"><div class="icon">미리</div></div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-head">
+              <h3>공개 범위</h3>
+              <span class="action-link">미리보기</span>
+            </div>
+            <div class="setting-list">
+              <div class="setting">
+                <div>
+                  <p class="row-title">프로필 기본 정보</p>
+                  <p class="row-meta">닉네임/소개/프로필 이미지</p>
+                </div>
+                <div class="toggle on"></div>
+              </div>
+              <div class="setting">
+                <div>
+                  <p class="row-title">작성글 목록</p>
+                  <p class="row-meta">프로필 페이지 내 노출 여부</p>
+                </div>
+                <div class="toggle"></div>
+              </div>
+              <div class="setting">
+                <div>
+                  <p class="row-title">댓글 활동 내역</p>
+                  <p class="row-meta">프로필 페이지 내 노출 여부</p>
+                </div>
+                <div class="toggle"></div>
+              </div>
+              <div class="setting">
+                <div>
+                  <p class="row-title">경로/동선 힌트</p>
+                  <p class="row-meta">역명 비식별 요약만 공개</p>
+                </div>
+                <div class="toggle on"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-head">
+              <h3>계정 안전</h3>
+            </div>
+            <div class="stack">
+              <div class="row-card">
+                <p class="row-title">로그인 이력</p>
+                <p class="row-meta">최근 7일 접속 기기 확인</p>
+              </div>
+              <div class="row-card">
+                <p class="row-title">소셜 연동 관리</p>
+                <p class="row-meta">Google / Apple / Kakao</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="nav">
+            <div>요약</div>
+            <div>동선</div>
+            <div>코치</div>
+            <div>히스토리</div>
+            <div class="active">설정</div>
+          </div>
+        </section>
+        <p class="caption">화면 D: 공개정책/계정보안을 설정 허브로 분리. "프로필 미리보기"로 사용자 확신 강화.</p>
+      </article>
+    </div>
+    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+  </body>
+</html>
