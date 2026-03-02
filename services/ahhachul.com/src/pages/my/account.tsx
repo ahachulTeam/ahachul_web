@@ -15,6 +15,7 @@ import { ChevronIcon } from '@/assets/icons/system';
 import CameraImg from '@/assets/images/icon_camera.png';
 import { LayoutComponent } from '@/components';
 import { Avatar } from '@/components/common/avatar/Avatar.component';
+import { MY_DARK_COLORS } from '@/components/domain/my/myDesignTokens';
 import { useAuth } from '@/contexts';
 import { useToast } from '@/hooks/useToast';
 import { useFetchUserProfile, userKeys } from '@/services/user';
@@ -238,7 +239,7 @@ const MyAccountPage: ActivityComponentType = () => {
   };
 
   return (
-    <LayoutComponent.Base>
+    <LayoutComponent.Base backgroundColor={MY_DARK_COLORS.appBackground}>
       <Wrapper>
         <FlexCenter>
           <AvatarWrapper>
@@ -299,7 +300,7 @@ const MyAccountPage: ActivityComponentType = () => {
                 font-size: 14px;
                 font-weight: 500;
                 margin-right: 8px;
-                color: var(--ah-color-legacy-text-muted-secondary);
+                color: ${MY_DARK_COLORS.muted};
               `}
               onClick={showToast}
             >
@@ -315,8 +316,10 @@ const MyAccountPage: ActivityComponentType = () => {
             onClick={handleLogout}
             css={css`
               padding: 16px;
-              color: var(--ah-color-legacy-text-slate);
-              border: 1px solid var(--ah-color-legacy-border-muted);
+              color: ${MY_DARK_COLORS.body};
+              border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+              background: ${MY_DARK_COLORS.actionBg};
+              border-radius: 10px;
             `}
           >
             로그아웃
@@ -334,6 +337,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: 16px 24px 0px 20px;
+  color: ${MY_DARK_COLORS.title};
 `;
 
 const FlexCenter = styled.div`
@@ -372,6 +376,10 @@ const Fields = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 16px;
+  border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+  border-radius: 14px;
+  background: ${MY_DARK_COLORS.sectionCardBg};
+  padding: 0 12px;
 
   > div {
     display: flex;
@@ -401,12 +409,12 @@ const Fields = styled.div`
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
-    color: var(--ah-color-legacy-text-strong);
+    color: ${MY_DARK_COLORS.title};
   }
 
   p.secondary {
     font-size: 16px;
-    color: var(--ah-color-legacy-text-muted);
+    color: ${MY_DARK_COLORS.body};
   }
 `;
 
@@ -429,13 +437,13 @@ const RemoveAccountCard = styled.div`
     transform: rotate(270deg);
 
     & > g > path {
-      fill: var(--ah-color-legacy-text-muted-secondary);
+      fill: ${MY_DARK_COLORS.muted};
     }
   }
 `;
 
 const Divider = styled.span`
-  border-top: 1px solid var(--ah-color-legacy-border-muted);
+  border-top: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
   margin: 16px 0;
 `;
 

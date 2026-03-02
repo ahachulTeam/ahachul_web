@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { formatDisplayDate } from '@ahhachul/utils';
 
 import { updateUser } from '@/apis/request';
+import { MY_DARK_COLORS } from '@/components/domain/my/myDesignTokens';
 import StoryStripCard from '@/components/domain/story/StoryStripCard.component';
 import { useToast } from '@/hooks/useToast';
 import { useFetchUserProfileDetail, userKeys } from '@/services/user';
@@ -330,18 +331,19 @@ const Container = styled.section`
   display: grid;
   gap: 12px;
   padding: 16px 20px 24px;
+  background: ${MY_DARK_COLORS.appBackground};
 `;
 
 const Card = styled.article`
   width: 100%;
-  border: 1px solid var(--ah-color-legacy-border-soft);
-  border-radius: 8px;
+  border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+  border-radius: 14px;
   padding: 16px;
-  background: #fff;
+  background: ${MY_DARK_COLORS.sectionCardBg};
 
   h2,
   h3 {
-    color: var(--ah-color-legacy-text-strong);
+    color: ${MY_DARK_COLORS.title};
     font-weight: 700;
   }
 
@@ -355,7 +357,7 @@ const Card = styled.article`
 
   p {
     margin-top: 6px;
-    color: var(--ah-color-legacy-text-muted);
+    color: ${MY_DARK_COLORS.muted};
     font-size: 13px;
   }
 `;
@@ -370,8 +372,9 @@ const StateCard = styled(Card)`
     height: 32px;
     padding: 0 12px;
     border-radius: 8px;
-    border: 1px solid var(--ah-color-legacy-border-soft);
-    background: #fff;
+    border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+    background: ${MY_DARK_COLORS.actionBg};
+    color: ${MY_DARK_COLORS.body};
   }
 `;
 
@@ -380,8 +383,9 @@ const ModeBadge = styled.span`
   align-items: center;
   border-radius: 9999px;
   padding: 2px 8px;
-  background: var(--ah-color-legacy-surface-brand-tint);
-  color: var(--ah-color-legacy-text-brand);
+  background: ${MY_DARK_COLORS.chipAccentBg};
+  border: 1px solid ${MY_DARK_COLORS.chipAccentBorder};
+  color: ${MY_DARK_COLORS.chipAccent};
   font-size: 11px;
   font-weight: 600;
   margin-bottom: 8px;
@@ -398,15 +402,15 @@ const Actions = styled.div`
     border-radius: 8px;
     border: none;
     padding: 0 12px;
-    background: var(--ah-color-legacy-surface-brand-tint-strong);
-    color: #fff;
+    background: ${MY_DARK_COLORS.accent};
+    color: var(--ah-color-white);
     font-weight: 600;
   }
 
   button.secondary {
-    border: 1px solid var(--ah-color-legacy-border-soft);
-    background: #fff;
-    color: var(--ah-color-legacy-text-strong);
+    border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+    background: ${MY_DARK_COLORS.actionBg};
+    color: ${MY_DARK_COLORS.body};
   }
 `;
 
@@ -419,13 +423,14 @@ const FieldList = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid var(--ah-color-legacy-border-soft);
-    border-radius: 8px;
+    border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+    border-radius: 10px;
     padding: 10px 12px;
+    background: ${MY_DARK_COLORS.actionBg};
   }
 
   span {
-    color: var(--ah-color-legacy-text-strong);
+    color: ${MY_DARK_COLORS.title};
     font-size: 14px;
   }
 `;
@@ -438,12 +443,12 @@ const InfoGrid = styled.dl`
 
   dt {
     font-size: 13px;
-    color: var(--ah-color-legacy-text-muted);
+    color: ${MY_DARK_COLORS.muted};
   }
 
   dd {
     font-size: 13px;
-    color: var(--ah-color-legacy-text-strong);
+    color: ${MY_DARK_COLORS.title};
   }
 `;
 
@@ -455,15 +460,15 @@ const List = styled.ul`
   button {
     width: 100%;
     text-align: left;
-    border: 1px solid var(--ah-color-legacy-border-soft);
-    border-radius: 8px;
-    background: #fff;
+    border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+    border-radius: 10px;
+    background: ${MY_DARK_COLORS.actionBg};
     padding: 8px 10px;
   }
 
   p {
     margin: 0;
-    color: var(--ah-color-legacy-text-strong);
+    color: ${MY_DARK_COLORS.title};
     font-size: 13px;
     line-height: 18px;
     white-space: nowrap;
@@ -474,7 +479,7 @@ const List = styled.ul`
   span {
     display: inline-block;
     margin-top: 4px;
-    color: var(--ah-color-legacy-text-muted);
+    color: ${MY_DARK_COLORS.muted};
     font-size: 11px;
   }
 `;
@@ -482,7 +487,7 @@ const List = styled.ul`
 const StateText = styled.p`
   margin-top: 8px;
   font-size: 13px;
-  color: var(--ah-color-legacy-text-muted);
+  color: ${MY_DARK_COLORS.muted};
 `;
 
 export default ProfileOverview;

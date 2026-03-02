@@ -2,6 +2,7 @@
 import type { ActivityComponentType } from '@stackflow/react';
 
 import { LayoutComponent } from '@/components';
+import { MY_DARK_COLORS } from '@/components/domain/my/myDesignTokens';
 
 import ProfileOverview from './ProfileOverview';
 
@@ -11,7 +12,7 @@ type WithUsername = {
 
 const UserProfilePreviewPage: ActivityComponentType<WithUsername> = ({ params }) => {
   return (
-    <LayoutComponent.Base>
+    <LayoutComponent.Base backgroundColor={MY_DARK_COLORS.appBackground}>
       <ProfileOverview username={params.username} mode="preview" />
     </LayoutComponent.Base>
   );

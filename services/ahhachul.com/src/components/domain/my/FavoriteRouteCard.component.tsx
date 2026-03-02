@@ -17,6 +17,8 @@ import { useFlow } from '@/stackflow';
 import type { FavoriteRouteDto, RouteConnectionRecommendationDto } from '@/types';
 import { createActionLogger, resolveClientErrorMessage } from '@/utils/observability';
 
+import { MY_DARK_COLORS } from './myDesignTokens';
+
 const RECOMMENDATION_LIMIT = 3;
 const favoriteRouteLogger = createActionLogger('favorite-route-card');
 
@@ -339,9 +341,10 @@ const FavoriteRouteCard = () => {
 
 const Wrapper = styled.article`
   width: 100%;
-  border: 1px solid var(--ah-color-legacy-border-soft);
-  border-radius: 8px;
-  padding: 16px;
+  border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+  border-radius: 14px;
+  background: ${MY_DARK_COLORS.sectionCardBg};
+  padding: 14px;
   margin-top: 16px;
 `;
 
@@ -351,25 +354,26 @@ const Header = styled.div`
   align-items: center;
 
   h3 {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--ah-color-legacy-text-strong);
+    font-size: 14px;
+    font-weight: 800;
+    color: ${MY_DARK_COLORS.title};
   }
 
   button {
-    border: 1px solid var(--ah-color-legacy-border-soft);
-    border-radius: 6px;
-    background: #fff;
+    border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+    border-radius: 8px;
+    background: ${MY_DARK_COLORS.actionBg};
     height: 30px;
     padding: 0 10px;
-    color: var(--ah-color-legacy-text-body);
+    color: ${MY_DARK_COLORS.body};
+    font-size: 12px;
   }
 `;
 
 const Description = styled.p`
   margin-top: 8px;
-  font-size: 13px;
-  color: var(--ah-color-legacy-text-muted);
+  font-size: 12px;
+  color: ${MY_DARK_COLORS.muted};
 `;
 
 const CreatePanel = styled.div`
@@ -382,19 +386,19 @@ const CreatePanel = styled.div`
   input {
     width: 100%;
     height: 36px;
-    border: 1px solid var(--ah-color-legacy-border-soft);
-    border-radius: 8px;
+    border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+    border-radius: 10px;
     padding: 0 10px;
-    background: #fff;
-    color: var(--ah-color-legacy-text-strong);
+    background: ${MY_DARK_COLORS.actionBg};
+    color: ${MY_DARK_COLORS.title};
   }
 
   button {
     height: 36px;
     border: none;
-    border-radius: 8px;
-    background: var(--ah-color-legacy-surface-brand-tint-strong);
-    color: #fff;
+    border-radius: 10px;
+    background: ${MY_DARK_COLORS.accent};
+    color: var(--ah-color-white);
     font-weight: 600;
   }
 
@@ -409,15 +413,16 @@ const RouteSections = styled.div`
   gap: 12px;
 
   section {
-    background: var(--ah-color-legacy-surface-subtle);
-    border-radius: 8px;
+    border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+    border-radius: 12px;
+    background: ${MY_DARK_COLORS.sectionCardBg};
     padding: 12px;
   }
 
   h4 {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
-    color: var(--ah-color-legacy-text-strong);
+    color: ${MY_DARK_COLORS.title};
   }
 
   @media (min-width: 768px) {
@@ -427,20 +432,21 @@ const RouteSections = styled.div`
 
 const RouteConnectionSection = styled.section`
   margin-top: 12px;
-  background: var(--ah-color-legacy-surface-subtle);
-  border-radius: 8px;
+  border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+  border-radius: 12px;
+  background: ${MY_DARK_COLORS.sectionCardBg};
   padding: 12px;
 
   h4 {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
-    color: var(--ah-color-legacy-text-strong);
+    color: ${MY_DARK_COLORS.title};
   }
 
   p {
     margin-top: 4px;
-    font-size: 13px;
-    color: var(--ah-color-legacy-text-muted);
+    font-size: 12px;
+    color: ${MY_DARK_COLORS.muted};
   }
 `;
 
@@ -452,20 +458,20 @@ const RouteConnectionGroupList = styled.ul`
   padding: 0;
 
   li {
-    border-radius: 8px;
-    border: 1px solid var(--ah-color-legacy-border-soft);
-    background: #fff;
+    border-radius: 10px;
+    border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+    background: ${MY_DARK_COLORS.actionBg};
     padding: 8px 10px;
     font-size: 12px;
-    color: var(--ah-color-legacy-text-body);
+    color: ${MY_DARK_COLORS.body};
   }
 `;
 
 const RouteCard = styled.div`
   margin-top: 8px;
-  border: 1px solid var(--ah-color-legacy-border-soft);
-  border-radius: 8px;
-  background: #fff;
+  border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+  border-radius: 10px;
+  background: ${MY_DARK_COLORS.actionBg};
   padding: 10px;
 `;
 
@@ -478,29 +484,30 @@ const RouteHeader = styled.div`
   p {
     font-size: 13px;
     font-weight: 600;
-    color: var(--ah-color-legacy-text-strong);
+    color: ${MY_DARK_COLORS.title};
   }
 
   button {
-    border: 1px solid var(--ah-color-legacy-border-soft);
+    border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
     border-radius: 6px;
-    background: #fff;
+    background: ${MY_DARK_COLORS.actionBg};
     padding: 2px 8px;
     font-size: 12px;
-    color: var(--ah-color-legacy-text-body);
+    color: ${MY_DARK_COLORS.body};
   }
 `;
 
 const RouteSummary = styled.p`
   margin-top: 6px;
   font-size: 12px;
-  color: var(--ah-color-legacy-text-muted);
+  color: ${MY_DARK_COLORS.muted};
 `;
 
 const RouteConnectionBadge = styled.span`
   border-radius: 9999px;
-  background: var(--ah-color-legacy-surface-brand-tint-subtle);
-  color: var(--ah-color-legacy-surface-brand-tint-strong);
+  background: ${MY_DARK_COLORS.chipAccentBg};
+  border: 1px solid ${MY_DARK_COLORS.chipAccentBorder};
+  color: ${MY_DARK_COLORS.chipAccent};
   font-size: 11px;
   font-weight: 700;
   padding: 2px 8px;
@@ -508,10 +515,10 @@ const RouteConnectionBadge = styled.span`
 
 const RouteConnectionActionButton = styled.button`
   margin-top: 8px;
-  border: 1px solid var(--ah-color-legacy-border-soft);
+  border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
   border-radius: 8px;
-  background: #fff;
-  color: var(--ah-color-legacy-text-body);
+  background: ${MY_DARK_COLORS.actionBg};
+  color: ${MY_DARK_COLORS.body};
   font-size: 12px;
   font-weight: 600;
   padding: 6px 10px;
@@ -528,26 +535,26 @@ const NodePill = styled.div`
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  border: 1px solid var(--ah-color-legacy-border-soft);
+  border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
   border-radius: 9999px;
-  background: #fff;
+  background: ${MY_DARK_COLORS.actionBg};
   padding: 2px 8px;
 
   .name {
     font-size: 11px;
-    color: var(--ah-color-legacy-text-strong);
+    color: ${MY_DARK_COLORS.title};
   }
 
   .line {
     font-size: 11px;
-    color: var(--ah-color-legacy-text-muted);
+    color: ${MY_DARK_COLORS.muted};
   }
 `;
 
 const StateText = styled.p`
   margin-top: 8px;
   font-size: 12px;
-  color: var(--ah-color-legacy-text-muted);
+  color: ${MY_DARK_COLORS.muted};
 `;
 
 export default FavoriteRouteCard;

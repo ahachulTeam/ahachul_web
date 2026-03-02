@@ -4,6 +4,8 @@ import styled from '@emotion/styled';
 import { ChevronIcon } from '@/assets/icons/system';
 import { useToast } from '@/hooks/useToast';
 
+import { MY_DARK_COLORS } from './myDesignTokens';
+
 import deps from '../../../../package.json';
 
 const menuSections = [
@@ -38,14 +40,14 @@ const MenuSections = () => {
 
         <Section>
           <p>앱 버전</p>
-          <p style={{ color: 'var(--ah-color-legacy-text-muted)' }}>{deps.version}</p>
+          <p style={{ color: MY_DARK_COLORS.muted }}>{deps.version}</p>
         </Section>
       </SectionsBox>
       <SectionsBox>
         <SectionCs>
           <h3
             css={css`
-              color: var(--ah-color-legacy-text-strong);
+              color: ${MY_DARK_COLORS.title};
               line-height: 24px;
             `}
           >
@@ -53,7 +55,7 @@ const MenuSections = () => {
           </h3>
           <p
             css={css`
-              color: var(--ah-color-legacy-text-muted-secondary);
+              color: ${MY_DARK_COLORS.muted};
               margin: 0 0 14px;
               line-height: 24px;
             `}
@@ -65,8 +67,9 @@ const MenuSections = () => {
             onClick={showToast}
             css={css`
               font-weight: 600;
-              color: var(--ah-color-legacy-text-link);
-              border: 1px solid var(--ah-color-legacy-text-link);
+              color: ${MY_DARK_COLORS.accent};
+              border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+              background: ${MY_DARK_COLORS.actionBg};
               border-radius: 8px;
               width: 100%;
               height: 40px;
@@ -81,7 +84,7 @@ const MenuSections = () => {
         <SectionCs>
           <h3
             css={css`
-              color: var(--ah-color-legacy-text-strong);
+              color: ${MY_DARK_COLORS.title};
               line-height: 24px;
             `}
           >
@@ -89,7 +92,7 @@ const MenuSections = () => {
           </h3>
           <p
             css={css`
-              color: var(--ah-color-legacy-text-muted-secondary);
+              color: ${MY_DARK_COLORS.muted};
               margin: 0 0 14px;
               line-height: 24px;
             `}
@@ -107,8 +110,9 @@ const MenuSections = () => {
               css={css`
                 flex: 1;
                 font-weight: 600;
-                color: var(--ah-color-legacy-text-link);
-                border: 1px solid var(--ah-color-legacy-text-link);
+                color: ${MY_DARK_COLORS.accent};
+                border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+                background: ${MY_DARK_COLORS.actionBg};
                 border-radius: 8px;
                 height: 40px;
               `}
@@ -120,8 +124,9 @@ const MenuSections = () => {
               css={css`
                 flex: 1;
                 font-weight: 600;
-                color: var(--ah-color-legacy-text-link);
-                border: 1px solid var(--ah-color-legacy-text-link);
+                color: ${MY_DARK_COLORS.accent};
+                border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+                background: ${MY_DARK_COLORS.actionBg};
                 border-radius: 8px;
                 height: 40px;
               `}
@@ -146,6 +151,11 @@ const SectionsList = styled.div`
 `;
 
 const SectionsBox = styled.div`
+  border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+  border-radius: 14px;
+  background: ${MY_DARK_COLORS.sectionCardBg};
+  padding: 0 14px;
+
   & + & {
     margin-top: 16px;
   }
@@ -162,16 +172,25 @@ const Section = styled.div`
     font-size: 16px;
     line-height: 24px;
     font-weight: 500;
-    color: var(--ah-color-legacy-text-strong);
+    color: ${MY_DARK_COLORS.title};
   }
 
   & > svg {
     transform: rotate(270deg);
+    color: ${MY_DARK_COLORS.body};
   }
 `;
 
 const SectionCs = styled.div`
   padding: 16px 0;
+
+  h3 {
+    color: ${MY_DARK_COLORS.title};
+  }
+
+  p {
+    color: ${MY_DARK_COLORS.muted};
+  }
 `;
 
 export default MenuSections;

@@ -2,6 +2,7 @@ import { useMemo, useRef, useState } from 'react';
 
 import styled from '@emotion/styled';
 
+import { MY_DARK_COLORS, MY_LAYOUT } from '@/components/domain/my/myDesignTokens';
 import {
   useCreateStoryV2,
   useDeleteStoryV2,
@@ -37,6 +38,7 @@ export default function StoryStripCard({
 }: Props) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [caption, setCaption] = useState('');
+  const [selectedFileName, setSelectedFileName] = useState('');
   const [selectedStationId, setSelectedStationId] = useState<string>('');
   const [selectedSubwayLineId, setSelectedSubwayLineId] = useState<string>('');
   const [uploadError, setUploadError] = useState<string | null>(null);
@@ -102,6 +104,7 @@ export default function StoryStripCard({
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
+      setSelectedFileName('');
     } catch (error) {
       const message = resolveClientErrorMessage(
         error,
@@ -152,13 +155,26 @@ export default function StoryStripCard({
 
       {editable ? (
         <UploadBox>
-          <input ref={fileInputRef} type="file" accept="image/*" />
+          <label>
+            <span>사진 업로드</span>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={event => {
+                const nextFile = event.target.files?.[0];
+                setSelectedFileName(nextFile?.name ?? '');
+              }}
+            />
+            <small>{selectedFileName || '선택된 파일 없음'}</small>
+          </label>
           <textarea
             value={caption}
             maxLength={280}
             placeholder="오늘의 지하철 스토리를 남겨주세요."
             onChange={event => setCaption(event.target.value)}
           />
+          <CaptionMeta>{caption.length}/280</CaptionMeta>
           <Selectors>
             <select
               value={selectedStationId}
@@ -279,10 +295,11 @@ export default function StoryStripCard({
 
 const Card = styled.article`
   width: 100%;
-  border: 1px solid var(--ah-color-legacy-border-soft);
-  border-radius: 8px;
-  padding: 16px;
-  background: #fff;
+  border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+  border-radius: ${MY_LAYOUT.cardRadius}px;
+  padding: 14px;
+  margin-top: 16px;
+  background: ${MY_DARK_COLORS.sectionCardBg};
 `;
 
 const Header = styled.div`
@@ -291,27 +308,48 @@ const Header = styled.div`
   gap: 8px;
 
   h3 {
-    color: var(--ah-color-legacy-text-strong);
-    font-size: 16px;
-    font-weight: 700;
+    color: ${MY_DARK_COLORS.title};
+    font-size: 14px;
+    font-weight: 800;
   }
 
   p {
     margin-top: 6px;
-    color: var(--ah-color-legacy-text-muted);
-    font-size: 13px;
+    color: ${MY_DARK_COLORS.muted};
+    font-size: 12px;
+    line-height: 1.45;
   }
 `;
 
 const UploadBox = styled.div`
   margin-top: 12px;
-  border: 1px solid var(--ah-color-legacy-border-soft);
+  border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
   border-radius: 12px;
   padding: 12px;
-  background: #f8fafb;
+  background: ${MY_DARK_COLORS.actionBg};
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    > span {
+      font-size: 12px;
+      color: ${MY_DARK_COLORS.body};
+      font-weight: 600;
+    }
+
+    > small {
+      font-size: 11px;
+      color: ${MY_DARK_COLORS.subtle};
+    }
+  }
 
   input[type='file'] {
     width: 100%;
+    color: ${MY_DARK_COLORS.body};
+    font-size: 12px;
+    cursor: pointer;
   }
 
   textarea {
@@ -319,24 +357,40 @@ const UploadBox = styled.div`
     width: 100%;
     min-height: 78px;
     resize: vertical;
-    border: 1px solid var(--ah-color-legacy-border-soft);
+    border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
     border-radius: 8px;
     padding: 8px;
     font-size: 13px;
-    color: var(--ah-color-legacy-text-strong);
+    color: ${MY_DARK_COLORS.title};
+    background: rgba(0, 0, 0, 0.16);
+
+    &::placeholder {
+      color: ${MY_DARK_COLORS.subtle};
+    }
   }
 
   button {
     margin-top: 8px;
     min-width: 108px;
     height: 34px;
-    border: none;
+    border: 1px solid ${MY_DARK_COLORS.chipAccentBorder};
     border-radius: 8px;
-    background: var(--ah-color-legacy-surface-brand-tint-strong);
-    color: #fff;
+    background: ${MY_DARK_COLORS.chipAccentBg};
+    color: ${MY_DARK_COLORS.chipAccent};
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
+
+    &:disabled {
+      opacity: 0.6;
+    }
   }
+`;
+
+const CaptionMeta = styled.p`
+  margin-top: 6px;
+  text-align: right;
+  font-size: 11px;
+  color: ${MY_DARK_COLORS.subtle};
 `;
 
 const Selectors = styled.div`
@@ -348,7 +402,9 @@ const Selectors = styled.div`
   select {
     height: 34px;
     border-radius: 8px;
-    border: 1px solid var(--ah-color-legacy-border-soft);
+    border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+    background: rgba(0, 0, 0, 0.16);
+    color: ${MY_DARK_COLORS.body};
     padding: 0 8px;
     font-size: 13px;
   }
@@ -356,13 +412,13 @@ const Selectors = styled.div`
 
 const StateText = styled.p`
   margin-top: 10px;
-  color: var(--ah-color-legacy-text-muted);
-  font-size: 13px;
+  color: ${MY_DARK_COLORS.muted};
+  font-size: 12px;
 `;
 
 const ErrorText = styled.p`
   margin-top: 8px;
-  color: var(--ah-color-legacy-status-negative);
+  color: ${MY_DARK_COLORS.danger};
   font-size: 12px;
 `;
 
@@ -389,7 +445,7 @@ const StoryButton = styled.button`
 
   span {
     width: 100%;
-    color: var(--ah-color-legacy-text-strong);
+    color: ${MY_DARK_COLORS.body};
     font-size: 11px;
     text-align: center;
     white-space: nowrap;
@@ -403,7 +459,12 @@ const StoryRing = styled.span`
   height: 68px;
   border-radius: 9999px;
   padding: 2px;
-  background: linear-gradient(145deg, #34d399, #22c55e, #60a5fa);
+  background: linear-gradient(
+    145deg,
+    ${MY_DARK_COLORS.chipAccent},
+    rgba(73, 146, 252, 0.95),
+    rgba(42, 207, 108, 0.85)
+  );
   display: inline-flex;
 
   img {
@@ -411,8 +472,8 @@ const StoryRing = styled.span`
     height: 100%;
     border-radius: 9999px;
     object-fit: cover;
-    border: 2px solid #fff;
-    background: #d1d5db;
+    border: 2px solid ${MY_DARK_COLORS.appBackground};
+    background: rgba(255, 255, 255, 0.2);
   }
 `;
 
@@ -431,9 +492,10 @@ const ViewerCard = styled.div`
   width: min(420px, 100%);
   max-height: 92vh;
   border-radius: 20px;
-  background: #111827;
+  border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+  background: ${MY_DARK_COLORS.appBackground};
   overflow: hidden;
-  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.36);
+  box-shadow: ${MY_DARK_COLORS.panelShadow};
 `;
 
 const ViewerTop = styled.div`
@@ -443,15 +505,15 @@ const ViewerTop = styled.div`
   padding: 10px 12px;
 
   p {
-    color: #d1d5db;
+    color: ${MY_DARK_COLORS.body};
     font-size: 12px;
   }
 
   button {
-    border: none;
+    border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
     border-radius: 9999px;
-    background: rgba(255, 255, 255, 0.18);
-    color: #fff;
+    background: ${MY_DARK_COLORS.actionBg};
+    color: ${MY_DARK_COLORS.body};
     padding: 4px 10px;
     font-size: 12px;
   }
@@ -461,14 +523,14 @@ const ViewerImage = styled.img`
   width: 100%;
   height: min(68vh, 480px);
   object-fit: cover;
-  background: #0b1220;
+  background: rgba(0, 0, 0, 0.2);
 `;
 
 const ViewerMeta = styled.div`
   padding: 10px 12px 4px;
 
   p {
-    color: #f9fafb;
+    color: ${MY_DARK_COLORS.title};
     font-size: 14px;
     line-height: 20px;
     white-space: pre-wrap;
@@ -477,7 +539,7 @@ const ViewerMeta = styled.div`
   small {
     margin-top: 6px;
     display: inline-block;
-    color: #93c5fd;
+    color: ${MY_DARK_COLORS.chipAccent};
     font-size: 12px;
   }
 `;
@@ -490,16 +552,17 @@ const ViewerControls = styled.div`
   button {
     height: 34px;
     min-width: 68px;
-    border: 1px solid rgba(255, 255, 255, 0.26);
+    border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.08);
-    color: #f9fafb;
+    background: ${MY_DARK_COLORS.actionBg};
+    color: ${MY_DARK_COLORS.body};
     font-size: 12px;
     font-weight: 600;
   }
 
   .danger {
-    border-color: rgba(248, 113, 113, 0.58);
-    background: rgba(248, 113, 113, 0.2);
+    border-color: ${MY_DARK_COLORS.dangerBorder};
+    background: ${MY_DARK_COLORS.dangerBg};
+    color: ${MY_DARK_COLORS.danger};
   }
 `;

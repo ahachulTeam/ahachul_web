@@ -8,6 +8,7 @@ import type { ActivityComponentType } from '@stackflow/react';
 import { HomeMiniIcon, OfficeMiniIcon, SchoolMiniIcon, StarMiniIcon } from '@/assets/icons/setting';
 import { CloseIcon, SearchIcon } from '@/assets/icons/system';
 import { LayoutComponent } from '@/components';
+import { MY_DARK_COLORS } from '@/components/domain/my/myDesignTokens';
 import { subwayLineHexColors, subwayLineOptions } from '@/constants';
 import { useFetchSubwayLines } from '@/services/subway';
 import { useUserFavoriteStations } from '@/services/user';
@@ -361,7 +362,7 @@ const SettingPage: ActivityComponentType = () => {
   }, [userStations]);
 
   return (
-    <LayoutComponent.Base>
+    <LayoutComponent.Base backgroundColor={MY_DARK_COLORS.appBackground}>
       <S.Fixed>
         <S.Headline>
           <b>즐겨찾는 역</b>을 설정해주세요
@@ -550,8 +551,8 @@ const SettingPage: ActivityComponentType = () => {
                 <LabelButton
                   key={`${item.stationName}_${item.label}_${idx}`}
                   css={css`
-                    background-color: var(--ah-color-legacy-surface-inverse);
-                    color: var(--ah-color-white);
+                    background-color: ${MY_DARK_COLORS.actionBg};
+                    color: ${MY_DARK_COLORS.title};
                     border: 0;
                     display: flex;
                     align-items: center;
@@ -654,6 +655,8 @@ const SettingPage: ActivityComponentType = () => {
 const S = {
   Container: styled.div`
     padding: 0 0 0;
+    background: ${MY_DARK_COLORS.appBackground};
+    color: ${MY_DARK_COLORS.title};
   `,
   Fixed: styled.div`
     position: sticky;
@@ -662,13 +665,15 @@ const S = {
     width: 100%;
     padding-top: 20px;
     padding-bottom: 20px;
-    background-color: white;
+    background: ${MY_DARK_COLORS.appBackground};
+    border-bottom: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
   `,
   Headline: styled.h1`
     ${({ theme }) => css`
       font-size: 24px;
       padding: 0 20px;
       margin-bottom: 8px;
+      color: ${MY_DARK_COLORS.title};
 
       & > b {
         color: ${theme.colors['key-color']};
@@ -676,7 +681,7 @@ const S = {
     `}
   `,
   Desc: styled.p`
-    color: var(--ah-color-legacy-text-subtle);
+    color: ${MY_DARK_COLORS.muted};
     margin-bottom: 24px;
     padding: 0 20px;
   `,
@@ -693,17 +698,19 @@ const SearchInputIcon = styled(SearchIcon)`
   left: 32px;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--ah-color-legacy-text-disabled);
+  color: ${MY_DARK_COLORS.muted};
 `;
 
 const SearchInput = styled.input`
   width: 100%;
   padding: 12px 16px 12px 40px;
-  border: 1px solid var(--ah-color-legacy-border-soft);
-  border-radius: 8px;
+  border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+  border-radius: 12px;
   font-size: 16px;
+  background: ${MY_DARK_COLORS.actionBg};
+  color: ${MY_DARK_COLORS.title};
   &::placeholder {
-    color: var(--ah-color-legacy-text-disabled);
+    color: ${MY_DARK_COLORS.muted};
   }
 `;
 
@@ -749,8 +756,8 @@ const SearchResultItem = styled.button`
   cursor: pointer;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--ah-color-legacy-border-soft);
-  color: var(--ah-color-black-00);
+  border-bottom: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+  color: ${MY_DARK_COLORS.title};
 
   &:last-child {
     border-bottom: none;
@@ -758,7 +765,7 @@ const SearchResultItem = styled.button`
 `;
 
 const StationContainer = styled.div`
-  border-bottom: 1px solid var(--ah-color-legacy-border-soft-alt);
+  border-bottom: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
 
   &:last-child {
     border-bottom: none;
@@ -789,10 +796,9 @@ const LabelButton = styled.button<LabelButtonProps>`
   padding: 8px 12px;
   border-radius: 20px;
   border: 1px solid
-    ${props =>
-      props.$isActive ? 'var(--ah-color-key-color)' : 'var(--ah-color-legacy-border-soft)'};
-  background-color: ${props => (props.$isActive ? 'var(--ah-color-key-color)' : 'white')};
-  color: ${props => (props.$isActive ? 'white' : 'var(--ah-color-legacy-text-subtle)')};
+    ${props => (props.$isActive ? MY_DARK_COLORS.accent : MY_DARK_COLORS.sectionCardBorder)};
+  background-color: ${props => (props.$isActive ? MY_DARK_COLORS.accent : MY_DARK_COLORS.actionBg)};
+  color: ${props => (props.$isActive ? 'white' : MY_DARK_COLORS.body)};
   font-size: 14px;
   cursor: pointer;
   display: flex;
@@ -818,9 +824,9 @@ const LabelIndicator = styled.span`
 
 const LocationMetaCard = styled.div`
   margin: 0 16px 12px;
-  border: 1px solid var(--ah-color-legacy-border-soft);
+  border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
   border-radius: 12px;
-  background: var(--ah-color-gray-00);
+  background: ${MY_DARK_COLORS.sectionCardBg};
   padding: 12px;
   display: flex;
   flex-direction: column;
@@ -838,7 +844,7 @@ const MetaTitle = styled.p`
   margin: 0;
   font-size: 14px;
   font-weight: 700;
-  color: var(--ah-color-black-00);
+  color: ${MY_DARK_COLORS.title};
 `;
 
 const MetaActionRow = styled.div`
@@ -847,12 +853,12 @@ const MetaActionRow = styled.div`
 `;
 
 const MetaButton = styled.button`
-  border: 1px solid var(--ah-color-legacy-border-soft);
+  border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
   border-radius: 8px;
   padding: 6px 10px;
   font-size: 12px;
-  background: white;
-  color: var(--ah-color-black-00);
+  background: ${MY_DARK_COLORS.actionBg};
+  color: ${MY_DARK_COLORS.body};
 `;
 
 const MetaInputGroup = styled.div`
@@ -864,44 +870,47 @@ const MetaInputGroup = styled.div`
 const MetaLabel = styled.p`
   margin: 0;
   font-size: 12px;
-  color: var(--ah-color-legacy-text-subtle);
+  color: ${MY_DARK_COLORS.muted};
 `;
 
 const MetaInput = styled.input`
   height: 36px;
-  border: 1px solid var(--ah-color-legacy-border-soft);
+  border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
   border-radius: 8px;
   padding: 0 10px;
   font-size: 14px;
+  background: ${MY_DARK_COLORS.actionBg};
+  color: ${MY_DARK_COLORS.title};
 `;
 
 const MetaReadonlyText = styled.div`
   min-height: 36px;
-  border: 1px solid var(--ah-color-legacy-border-soft);
+  border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
   border-radius: 8px;
   padding: 8px 10px;
   font-size: 13px;
-  color: var(--ah-color-black-00);
+  color: ${MY_DARK_COLORS.title};
   line-height: 1.4;
+  background: ${MY_DARK_COLORS.actionBg};
 `;
 
 const MetaHint = styled.p`
   margin: 0;
   font-size: 12px;
-  color: var(--ah-color-legacy-text-subtle);
+  color: ${MY_DARK_COLORS.muted};
 `;
 
 const MetaError = styled.p`
   margin: 0;
   font-size: 12px;
-  color: #d9363e;
+  color: var(--ah-color-legacy-status-danger);
 `;
 
 const MetaHintBlock = styled.p`
   margin: 0 16px 12px;
   border-radius: 8px;
-  background: #f6f7fb;
-  color: var(--ah-color-legacy-text-subtle);
+  background: ${MY_DARK_COLORS.actionBg};
+  color: ${MY_DARK_COLORS.muted};
   padding: 10px 12px;
   font-size: 12px;
 `;
@@ -916,9 +925,9 @@ const NearbyList = styled.ul`
 `;
 
 const NearbyListItem = styled.li`
-  border: 1px solid var(--ah-color-legacy-border-soft);
+  border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
   border-radius: 10px;
-  background: white;
+  background: ${MY_DARK_COLORS.actionBg};
   padding: 8px 10px;
   display: flex;
   justify-content: space-between;
@@ -932,7 +941,7 @@ const ButtonArea = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: white;
+  background-color: ${MY_DARK_COLORS.appBackground};
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

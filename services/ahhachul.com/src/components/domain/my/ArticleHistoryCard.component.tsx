@@ -6,6 +6,8 @@ import { useFetchUserArticleHistories } from '@/services/user';
 import { useFlow } from '@/stackflow';
 import type { ArticleHistoryItem } from '@/types';
 
+import { MY_DARK_COLORS } from './myDesignTokens';
+
 type HistoryType = 'likedArticles' | 'bookmarkedArticles';
 
 const MAX_ITEMS = 8;
@@ -86,10 +88,11 @@ const ArticleHistoryCard = () => {
 
 const Wrapper = styled.article`
   width: 100%;
-  border: 1px solid var(--ah-color-legacy-border-soft);
-  border-radius: 8px;
-  padding: 16px;
+  border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+  border-radius: 14px;
+  padding: 14px;
   margin-top: 16px;
+  background: ${MY_DARK_COLORS.sectionCardBg};
 `;
 
 const Header = styled.div`
@@ -98,36 +101,38 @@ const Header = styled.div`
   align-items: center;
 
   h3 {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--ah-color-legacy-text-strong);
+    font-size: 14px;
+    font-weight: 800;
+    color: ${MY_DARK_COLORS.title};
   }
 
   button {
-    border: 1px solid var(--ah-color-legacy-border-soft);
-    border-radius: 6px;
-    background: #fff;
+    border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+    border-radius: 8px;
+    background: ${MY_DARK_COLORS.actionBg};
     height: 30px;
     padding: 0 10px;
-    color: var(--ah-color-legacy-text-body);
+    color: ${MY_DARK_COLORS.body};
+    font-size: 12px;
   }
 `;
 
 const Content = styled.div`
   margin-top: 12px;
   display: grid;
-  gap: 12px;
+  gap: 10px;
 `;
 
 const Section = styled.section`
-  background: var(--ah-color-legacy-surface-subtle);
-  border-radius: 8px;
+  border-radius: 12px;
+  border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
   padding: 12px;
+  background: ${MY_DARK_COLORS.actionBg};
 
   h4 {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
-    color: var(--ah-color-legacy-text-strong);
+    color: ${MY_DARK_COLORS.title};
   }
 `;
 
@@ -142,16 +147,16 @@ const ListItem = styled.li`
   button {
     width: 100%;
     text-align: left;
-    border: 1px solid var(--ah-color-legacy-border-soft);
-    border-radius: 6px;
-    background: #fff;
+    border: 1px solid ${MY_DARK_COLORS.sectionCardBorder};
+    border-radius: 8px;
+    background: ${MY_DARK_COLORS.actionBg};
     padding: 8px 10px;
   }
 
   p {
     font-size: 13px;
     line-height: 18px;
-    color: var(--ah-color-legacy-text-strong);
+    color: ${MY_DARK_COLORS.title};
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -159,20 +164,20 @@ const ListItem = styled.li`
 
   span {
     font-size: 11px;
-    color: var(--ah-color-legacy-text-muted);
+    color: ${MY_DARK_COLORS.muted};
   }
 `;
 
 const StateText = styled.p`
   margin-top: 8px;
-  font-size: 13px;
-  color: var(--ah-color-legacy-text-muted);
+  font-size: 12px;
+  color: ${MY_DARK_COLORS.muted};
 `;
 
 const EmptyText = styled.p`
   margin-top: 8px;
   font-size: 12px;
-  color: var(--ah-color-legacy-text-muted);
+  color: ${MY_DARK_COLORS.muted};
 `;
 
 export default ArticleHistoryCard;
