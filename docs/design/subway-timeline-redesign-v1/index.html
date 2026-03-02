@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A-HACHUL Route UX Redesign</title>
+    <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+    <style>
+      :root {
+        --bg: #090d14;
+        --surface-1: #121826;
+        --surface-2: #181f30;
+        --surface-3: #212a40;
+        --line: #2f3b55;
+        --text: #f4f7ff;
+        --muted: #9da8c7;
+        --brand: #2fdc7a;
+        --brand-2: #1fb6ff;
+        --warning: #ff9e45;
+        --danger: #ff5e7a;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 32px;
+        background: radial-gradient(circle at 20% 0%, #15203a 0%, var(--bg) 45%), var(--bg);
+        color: var(--text);
+        font-family: 'Pretendard', 'SUIT', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      }
+
+      .canvas {
+        display: grid;
+        grid-template-columns: repeat(3, 360px);
+        gap: 28px;
+        justify-content: center;
+      }
+
+      .phone {
+        border-radius: 36px;
+        overflow: hidden;
+        border: 1px solid #3d4b69;
+        background: linear-gradient(180deg, #0f1524 0%, #0a0f1a 100%);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+        min-height: 780px;
+      }
+
+      .phone-header {
+        padding: 22px 22px 14px;
+        border-bottom: 1px solid #23304b;
+        background: linear-gradient(180deg, #1a2440 0%, #11182a 100%);
+      }
+
+      .eyebrow {
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        color: #9cb3e5;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      .title {
+        font-size: 24px;
+        line-height: 1.28;
+        font-weight: 750;
+        margin: 0;
+      }
+
+      .subtitle {
+        margin-top: 8px;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--muted);
+      }
+
+      .body {
+        padding: 18px;
+        display: grid;
+        gap: 14px;
+      }
+
+      .card {
+        background: var(--surface-1);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 14px;
+      }
+
+      .card h3 {
+        margin: 0;
+        font-size: 15px;
+      }
+
+      .card p {
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .pill {
+        font-size: 12px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid #3d4d72;
+        color: #d6e0ff;
+        background: #1c2740;
+      }
+
+      .pill.green {
+        background: rgba(47, 220, 122, 0.18);
+        border-color: rgba(47, 220, 122, 0.45);
+        color: #8ff3bb;
+      }
+
+      .pill.blue {
+        background: rgba(31, 182, 255, 0.18);
+        border-color: rgba(31, 182, 255, 0.45);
+        color: #92ddff;
+      }
+
+      .pill.orange {
+        background: rgba(255, 158, 69, 0.16);
+        border-color: rgba(255, 158, 69, 0.4);
+        color: #ffd1a4;
+      }
+
+      .route-list {
+        display: grid;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .route-item {
+        border-radius: 14px;
+        padding: 12px;
+        background: var(--surface-2);
+        border: 1px solid #394869;
+      }
+
+      .route-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+
+      .route-name {
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .route-time {
+        color: #9cecc0;
+        font-size: 13px;
+        font-weight: 650;
+      }
+
+      .route-meta {
+        margin-top: 8px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .chip {
+        border-radius: 10px;
+        padding: 4px 8px;
+        font-size: 11px;
+        color: #d4dcf4;
+        background: #26324d;
+      }
+
+      .timeline {
+        margin-top: 10px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .step {
+        position: relative;
+        padding-left: 18px;
+      }
+
+      .step::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 5px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--brand-2);
+      }
+
+      .step::after {
+        content: '';
+        position: absolute;
+        left: 3px;
+        top: 14px;
+        width: 2px;
+        height: calc(100% + 6px);
+        background: #42567f;
+      }
+
+      .step:last-child::after {
+        display: none;
+      }
+
+      .step-title {
+        font-size: 13px;
+        font-weight: 620;
+      }
+
+      .step-sub {
+        margin-top: 4px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .section-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .mini {
+        border-radius: 12px;
+        padding: 10px;
+        background: var(--surface-2);
+        border: 1px solid #344263;
+      }
+
+      .mini b {
+        font-size: 12px;
+      }
+
+      .mini span {
+        display: block;
+        margin-top: 5px;
+        font-size: 11px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .bottom {
+        margin-top: 8px;
+        border-top: 1px solid #1f2c48;
+        padding-top: 12px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+
+      .tab {
+        text-align: center;
+        font-size: 11px;
+        color: #8f9cc0;
+      }
+
+      .tab.active {
+        color: var(--brand);
+        font-weight: 700;
+      }
+
+      .danger {
+        color: #ff92a8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="canvas">
+      <section class="phone">
+        <header class="phone-header">
+          <div class="eyebrow">A-HACHUL / REIMAGINED</div>
+          <h1 class="title">길찾기 허브</h1>
+          <div class="subtitle">출근/관광/짐많음 모드까지 한 번에 설정하고, 경로 품질 점수로 바로 비교합니다.</div>
+        </header>
+        <div class="body">
+          <article class="card">
+            <h3>출발 · 도착</h3>
+            <p>교대역 출발 · 인천공항2터미널 도착 · 오늘 08:40</p>
+            <div class="pill-row">
+              <span class="pill green">출근 모드</span>
+              <span class="pill blue">휠체어/유모차</span>
+              <span class="pill orange">짐 많은 사용자</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>추천 경로 TOP 3</h3>
+            <div class="route-list">
+              <div class="route-item">
+                <div class="route-head">
+                  <span class="route-name">A안 · 환승 1회</span>
+                  <span class="route-time">58분</span>
+                </div>
+                <div class="route-meta">
+                  <span class="chip">정확도 94</span>
+                  <span class="chip">막차 안전도 높음</span>
+                  <span class="chip">계단 적음</span>
+                </div>
+              </div>
+              <div class="route-item">
+                <div class="route-head">
+                  <span class="route-name">B안 · 환승 2회</span>
+                  <span class="route-time">55분</span>
+                </div>
+                <div class="route-meta">
+                  <span class="chip">정확도 87</span>
+                  <span class="chip">혼잡 보통</span>
+                  <span class="chip">지연 리스크 있음</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>오늘의 실시간 투표</h3>
+            <p>2호선 출근길 어땠나요?</p>
+            <div class="pill-row">
+              <span class="pill">좋아요 61%</span>
+              <span class="pill">싫어요 39%</span>
+            </div>
+          </article>
+
+          <div class="bottom">
+            <div class="tab active">길찾기</div>
+            <div class="tab">타임라인</div>
+            <div class="tab">혼잡도</div>
+            <div class="tab">도움센터</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="phone">
+        <header class="phone-header">
+          <div class="eyebrow">A-HACHUL / ROUTE DETAIL</div>
+          <h1 class="title">A안 상세 타임라인</h1>
+          <div class="subtitle">어디에 서야 빠른지, 어느 칸이 덜 붐비는지, 환승 리스크까지 시간축으로 제공합니다.</div>
+        </header>
+        <div class="body">
+          <article class="card">
+            <h3>이동 단계</h3>
+            <div class="timeline">
+              <div class="step">
+                <div class="step-title">08:42 교대역 4번 출구 진입</div>
+                <div class="step-sub">엘리베이터 동선 기준 도보 4분</div>
+              </div>
+              <div class="step">
+                <div class="step-title">08:47 2호선 3-2칸 탑승 추천</div>
+                <div class="step-sub">환승 통로와 가장 가까움 · 혼잡도 낮음</div>
+              </div>
+              <div class="step">
+                <div class="step-title">09:06 홍대입구 환승</div>
+                <div class="step-sub">지연 리스크 8% · 대체 라인 자동 추천 준비</div>
+              </div>
+              <div class="step">
+                <div class="step-title">09:40 인천공항2터미널 도착</div>
+                <div class="step-sub">막차 안전도: 매우 높음</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>실시간 보조 정보</h3>
+            <div class="section-grid">
+              <div class="mini"><b>혼잡도</b><span>3-2칸 낮음<br />4-1칸 보통</span></div>
+              <div class="mini"><b>접근성</b><span>엘리베이터 대기 2분<br />계단 최소 동선</span></div>
+              <div class="mini"><b>긴급신고</b><span>다국어 원클릭<br />지연/분실 즉시 전송</span></div>
+              <div class="mini"><b>주변 필수시설</b><span>화장실, ATM, 편의점<br />신뢰도 배지 표시</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>커뮤니티 신뢰 신호</h3>
+            <p>동일 시간대 제보 37건 · 지연 체감 배지 <b class="danger">주의</b></p>
+            <div class="pill-row">
+              <span class="pill">검증된 제보 24</span>
+              <span class="pill">사진 포함 11</span>
+              <span class="pill">자동 번역 on</span>
+            </div>
+          </article>
+
+          <div class="bottom">
+            <div class="tab">길찾기</div>
+            <div class="tab active">타임라인</div>
+            <div class="tab">혼잡도</div>
+            <div class="tab">도움센터</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="phone">
+        <header class="phone-header">
+          <div class="eyebrow">A-HACHUL / PERSONAL COACH</div>
+          <h1 class="title">개인화 설정</h1>
+          <div class="subtitle">집/회사 주소와 즐겨찾기 역을 연결해 막차 리스크, 출퇴근 코치, 자동 대체 경로를 제공합니다.</div>
+        </header>
+        <div class="body">
+          <article class="card">
+            <h3>내 위치 기반 설정</h3>
+            <div class="pill-row">
+              <span class="pill green">집 주소 연결됨</span>
+              <span class="pill green">회사 주소 연결됨</span>
+              <span class="pill blue">현재 위치 사용 허용</span>
+            </div>
+            <p>현재 위치 기준 주변 역 5개를 자동 탐색하여 빠른 타임라인 카드로 제공합니다.</p>
+          </article>
+
+          <article class="card">
+            <h3>선호 정책</h3>
+            <div class="section-grid">
+              <div class="mini"><b>최단시간</b><span>가중치 30%</span></div>
+              <div class="mini"><b>환승 안정성</b><span>가중치 25%</span></div>
+              <div class="mini"><b>도보/계단 최소</b><span>가중치 25%</span></div>
+              <div class="mini"><b>혼잡 회피</b><span>가중치 20%</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>외국인 모드</h3>
+            <p>역명 다국어/발음, 민원·유실물 템플릿, 커뮤니티 자동번역을 통합 제공</p>
+            <div class="pill-row">
+              <span class="pill">English</span>
+              <span class="pill">日本語</span>
+              <span class="pill">中文</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>추천 실행</h3>
+            <p>“오늘 08:35에 출발하면 지연 확률 12% 감소” 같은 코치 메시지를 홈에 자동 노출</p>
+          </article>
+
+          <div class="bottom">
+            <div class="tab">길찾기</div>
+            <div class="tab">타임라인</div>
+            <div class="tab">혼잡도</div>
+            <div class="tab active">설정</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

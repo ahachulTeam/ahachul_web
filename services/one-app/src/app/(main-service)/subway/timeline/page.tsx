@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
+import { useSearchParams } from 'next/navigation';
 
 import { API_PATHS } from '@ahhachul/http';
 
@@ -10,12 +11,13 @@ import { useStationTimesFullV2Query, useSubwayRouteSearchV2Query } from '@/hooks
 import { fetchClient } from '@/lib/fetch-client';
 import type {
   ApiResponse,
+  StationTimeWeekType,
   SubwayRouteAccessibilityMode,
   SubwayRouteCrowdingPreference,
   SubwayRouteLuggageMode,
-  StationTimeWeekType,
   SubwayRouteStrategy,
   SubwayRouteTravelerContext,
+  SubwayRouteV2,
   SubwayRouteWalkingPreference,
 } from '@/types';
 
@@ -33,6 +35,15 @@ type SubwayLineCatalogLine = {
 type SubwayLineCatalogResponse = {
   subwayLines: SubwayLineCatalogLine[];
 };
+
+type RoutePanelTab = 'PLANNER' | 'TIMELINE' | 'COACH' | 'TIMETABLE';
+
+const PANEL_TABS: { value: RoutePanelTab; label: string; description: string }[] = [
+  { value: 'PLANNER', label: '길찾기 허브', description: '입력 + 추천 경로' },
+  { value: 'TIMELINE', label: '타임라인 상세', description: '단계별 이동 흐름' },
+  { value: 'COACH', label: '개인화/접근성', description: '접근성·혼잡·긴급액션' },
+  { value: 'TIMETABLE', label: '역 전체 시간표', description: '요일·상하행 조회' },
+];
 
 const STRATEGY_OPTIONS: { value: SubwayRouteStrategy; label: string }[] = [
   { value: 'BALANCED', label: '균형(시간+환승)' },
@@ -129,7 +140,92 @@ function resolveEssentialTypeLabel(type: string): string {
   return labels[type] ?? type;
 }
 
+function resolveDifficultyLabel(level?: string): string {
+  const labels: Record<string, string> = {
+    EASY: '쉬움',
+    MODERATE: '보통',
+    HARD: '어려움',
+  };
+  return labels[level ?? ''] ?? '정보 없음';
+}
+
+function resolveConfidenceStyle(level?: string): {
+  label: string;
+  className: string;
+} {
+  if (level === 'HIGH') {
+    return {
+      label: '신뢰도 높음',
+      className: 'border border-green-30 bg-green-10 text-green-90',
+    };
+  }
+
+  if (level === 'MEDIUM') {
+    return {
+      label: '신뢰도 보통',
+      className: 'border border-yellow-40 bg-yellow-10 text-yellow-100',
+    };
+  }
+
+  return {
+    label: '신뢰도 낮음',
+    className: 'border border-red-40 bg-red-10 text-red-100',
+  };
+}
+
+function renderRouteSummary(route: SubwayRouteV2) {
+  const confidenceStyle = resolveConfidenceStyle(route.quality?.confidenceLevel);
+
+  return (
+    <article key={`route-${route.rank}`} className="rounded-2xl border border-gray-30 bg-white p-3">
+      <div className="flex items-start justify-between gap-2">
+        <div>
+          <p className="text-label-medium text-gray-100">경로 {route.rank}</p>
+          <p className="mt-1 text-body-small text-gray-70">
+            정차 {route.summary.totalStops} · 환승 {route.summary.transferCount} · 예상{' '}
+            {route.summary.estimatedMinutes}분
+          </p>
+        </div>
+        <span className={`rounded-full px-2 py-1 text-caption ${confidenceStyle.className}`}>
+          {confidenceStyle.label}
+        </span>
+      </div>
+
+      {route.quality ? (
+        <div className="mt-2 grid grid-cols-2 gap-2 rounded-xl border border-gray-20 bg-gray-05 p-2">
+          <p className="text-caption text-gray-80">품질점수 {route.quality.totalScore}</p>
+          <p className="text-caption text-gray-80">접근성 {route.quality.accessibilityScore}</p>
+          <p className="text-caption text-gray-80">혼잡쾌적 {route.quality.crowdingComfortScore}</p>
+          <p className="text-caption text-gray-80">
+            지연확률 {route.quality.delayProbabilityPercent}%
+          </p>
+        </div>
+      ) : null}
+
+      {route.quality?.badges?.length ? (
+        <div className="mt-2 flex flex-wrap gap-1.5">
+          {route.quality.badges.map(badge => (
+            <span
+              key={`${route.rank}-badge-${badge}`}
+              className="rounded-full bg-gray-20 px-2 py-0.5 text-caption text-gray-90"
+            >
+              {resolveBadgeLabel(badge)}
+            </span>
+          ))}
+        </div>
+      ) : null}
+
+      <p className="mt-2 text-caption text-gray-70">
+        {route.nodes.map(node => node.stationName).join(' -> ')}
+      </p>
+    </article>
+  );
+}
+
 export default function SubwayTimelinePage() {
+  const searchParams = useSearchParams();
+
+  const [activeTab, setActiveTab] = useState<RoutePanelTab>('PLANNER');
   const [selectedLineId, setSelectedLineId] = useState<number>(0);
   const [sourceStationId, setSourceStationId] = useState<number>(0);
   const [destinationStationId, setDestinationStationId] = useState<number>(0);
@@ -144,6 +240,11 @@ export default function SubwayTimelinePage() {
   const [travelerContext, setTravelerContext] = useState<SubwayRouteTravelerContext>('COMMUTE');
   const [routeLocale, setRouteLocale] = useState<'ko' | 'en' | 'th' | 'cn'>('ko');
   const [oneClickNotice, setOneClickNotice] = useState<string | null>(null);
+  const [selectedRouteRank, setSelectedRouteRank] = useState<number | null>(null);
+  const [queryStationApplied, setQueryStationApplied] = useState(false);
+
+  const queryLineId = Number(searchParams.get('subwayLineId') ?? 0);
+  const queryStationId = Number(searchParams.get('stationId') ?? 0);
 
   const subwayLineCatalogQuery = useQuery({
     queryKey: ['subway-lines-for-timeline'],
@@ -157,22 +258,35 @@ export default function SubwayTimelinePage() {
   const stationOptions = selectedLine?.stations ?? [];
 
   useEffect(() => {
-    if (!subwayLines.length) {
+    if (!subwayLines.length || selectedLineId > 0) {
       return;
     }
-    if (selectedLineId <= 0) {
-      setSelectedLineId(subwayLines[0].id);
+
+    if (queryLineId > 0 && subwayLines.some(line => line.id === queryLineId)) {
+      setSelectedLineId(queryLineId);
+      return;
     }
-  }, [selectedLineId, subwayLines]);
+
+    setSelectedLineId(subwayLines[0].id);
+  }, [queryLineId, selectedLineId, subwayLines]);
 
   useEffect(() => {
     if (!stationOptions.length) {
       setSourceStationId(0);
       setDestinationStationId(0);
+      setQueryStationApplied(false);
       return;
     }
 
+    const canApplyQueryStation =
+      !queryStationApplied &&
+      queryStationId > 0 &&
+      stationOptions.some(station => station.id === queryStationId);
+
     setSourceStationId(prev => {
+      if (canApplyQueryStation) {
+        return queryStationId;
+      }
       if (stationOptions.some(station => station.id === prev)) {
         return prev;
       }
@@ -180,12 +294,42 @@ export default function SubwayTimelinePage() {
     });
 
     setDestinationStationId(prev => {
-      if (stationOptions.some(station => station.id === prev) && prev !== stationOptions[0].id) {
+      let sourceCandidate = stationOptions[0].id;
+
+      if (canApplyQueryStation) {
+        sourceCandidate = queryStationId;
+      } else if (stationOptions.some(station => station.id === sourceStationId)) {
+        sourceCandidate = sourceStationId;
+      }
+
+      if (stationOptions.some(station => station.id === prev) && prev !== sourceCandidate) {
         return prev;
       }
-      return (stationOptions[1] ?? stationOptions[0]).id;
+
+      return (
+        stationOptions.find(station => station.id !== sourceCandidate)?.id ?? stationOptions[0].id
+      );
     });
-  }, [stationOptions]);
+
+    if (canApplyQueryStation) {
+      setQueryStationApplied(true);
+    }
+  }, [queryStationApplied, queryStationId, sourceStationId, stationOptions]);
+
+  useEffect(() => {
+    if (
+      sourceStationId <= 0 ||
+      destinationStationId <= 0 ||
+      sourceStationId !== destinationStationId
+    ) {
+      return;
+    }
+
+    const fallbackDestination = stationOptions.find(station => station.id !== sourceStationId);
+    if (fallbackDestination) {
+      setDestinationStationId(fallbackDestination.id);
+    }
+  }, [destinationStationId, sourceStationId, stationOptions]);
 
   const routeQuery = useSubwayRouteSearchV2Query(
     {
@@ -220,7 +364,29 @@ export default function SubwayTimelinePage() {
     () => timetableQuery.data?.result.weeks.find(week => week.stationTimeWeekType === weekType),
     [timetableQuery.data?.result.weeks, weekType],
   );
+
+  const routes = routeQuery.data?.result.routes ?? [];
   const oneClickActions = routeQuery.data?.result.oneClickActions ?? [];
+
+  useEffect(() => {
+    if (!routes.length) {
+      setSelectedRouteRank(null);
+      return;
+    }
+
+    setSelectedRouteRank(prev => {
+      if (prev != null && routes.some(route => route.rank === prev)) {
+        return prev;
+      }
+      return routes[0].rank;
+    });
+  }, [routes]);
+
+  const selectedRoute = routes.find(route => route.rank === selectedRouteRank) ?? null;
+  const sourceStationName =
+    stationOptions.find(station => station.id === sourceStationId)?.name ?? '출발역';
+  const destinationStationName =
+    stationOptions.find(station => station.id === destinationStationId)?.name ?? '도착역';
 
   const handleOneClickAction = async (action: {
     actionType: string;
@@ -254,183 +420,328 @@ export default function SubwayTimelinePage() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-10 px-5 pb-24 pt-4">
-      <section className="rounded-2xl border border-gray-30 bg-white p-4">
-        <h1 className="text-title-small text-gray-100">지하철 길찾기</h1>
-        <p className="mt-1 text-body-small text-gray-70">
-          출발역/도착역과 전략을 선택하면 최적 경로를 계산합니다.
+    <main className="min-h-screen bg-gray-10 px-4 pb-24 pt-4">
+      <section className="rounded-3xl border border-gray-90 bg-gray-100 p-5 text-white">
+        <p className="text-caption text-gray-50">A-HACHUL ROUTE REDESIGN</p>
+        <h1 className="mt-2 text-title-large text-white">지하철 길찾기 허브</h1>
+        <p className="mt-2 text-body-small text-gray-40">
+          최단시간만이 아니라 환승 리스크, 접근성, 혼잡도, 막차 안전도까지 합산해 경로를 추천합니다.
         </p>
 
-        <div className="mt-3 grid gap-2">
-          <label className="text-label-small text-gray-80">
-            호선
-            <select
-              value={selectedLineId}
-              onChange={event => setSelectedLineId(Number(event.target.value))}
-              className="mt-1 h-10 w-full rounded-lg border border-gray-40 bg-white px-2 text-body-small text-gray-100"
-            >
-              {subwayLines.map(line => (
-                <option key={line.id} value={line.id}>
-                  {line.name}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="text-label-small text-gray-80">
-            출발역
-            <select
-              value={sourceStationId}
-              onChange={event => setSourceStationId(Number(event.target.value))}
-              className="mt-1 h-10 w-full rounded-lg border border-gray-40 bg-white px-2 text-body-small text-gray-100"
-            >
-              {stationOptions.map(station => (
-                <option key={station.id} value={station.id}>
-                  {station.name}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="text-label-small text-gray-80">
-            도착역
-            <select
-              value={destinationStationId}
-              onChange={event => setDestinationStationId(Number(event.target.value))}
-              className="mt-1 h-10 w-full rounded-lg border border-gray-40 bg-white px-2 text-body-small text-gray-100"
-            >
-              {stationOptions.map(station => (
-                <option key={station.id} value={station.id}>
-                  {station.name}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="text-label-small text-gray-80">
-            전략
-            <select
-              value={strategy}
-              onChange={event => setStrategy(event.target.value as SubwayRouteStrategy)}
-              className="mt-1 h-10 w-full rounded-lg border border-gray-40 bg-white px-2 text-body-small text-gray-100"
-            >
-              {STRATEGY_OPTIONS.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="text-label-small text-gray-80">
-            보행 선호
-            <select
-              value={walkingPreference}
-              onChange={event =>
-                setWalkingPreference(event.target.value as SubwayRouteWalkingPreference)
-              }
-              className="mt-1 h-10 w-full rounded-lg border border-gray-40 bg-white px-2 text-body-small text-gray-100"
-            >
-              {WALKING_OPTIONS.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="text-label-small text-gray-80">
-            접근성 모드
-            <select
-              value={accessibilityMode}
-              onChange={event =>
-                setAccessibilityMode(event.target.value as SubwayRouteAccessibilityMode)
-              }
-              className="mt-1 h-10 w-full rounded-lg border border-gray-40 bg-white px-2 text-body-small text-gray-100"
-            >
-              {ACCESSIBILITY_OPTIONS.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="text-label-small text-gray-80">
-            혼잡 선호
-            <select
-              value={crowdingPreference}
-              onChange={event =>
-                setCrowdingPreference(event.target.value as SubwayRouteCrowdingPreference)
-              }
-              className="mt-1 h-10 w-full rounded-lg border border-gray-40 bg-white px-2 text-body-small text-gray-100"
-            >
-              {CROWDING_OPTIONS.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="text-label-small text-gray-80">
-            짐 모드
-            <select
-              value={luggageMode}
-              onChange={event => setLuggageMode(event.target.value as SubwayRouteLuggageMode)}
-              className="mt-1 h-10 w-full rounded-lg border border-gray-40 bg-white px-2 text-body-small text-gray-100"
-            >
-              {LUGGAGE_OPTIONS.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="text-label-small text-gray-80">
-            이용 맥락
-            <select
-              value={travelerContext}
-              onChange={event =>
-                setTravelerContext(event.target.value as SubwayRouteTravelerContext)
-              }
-              className="mt-1 h-10 w-full rounded-lg border border-gray-40 bg-white px-2 text-body-small text-gray-100"
-            >
-              {TRAVELER_CONTEXT_OPTIONS.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="text-label-small text-gray-80">
-            액션 언어
-            <select
-              value={routeLocale}
-              onChange={event => setRouteLocale(event.target.value as 'ko' | 'en' | 'th' | 'cn')}
-              className="mt-1 h-10 w-full rounded-lg border border-gray-40 bg-white px-2 text-body-small text-gray-100"
-            >
-              {LOCALE_OPTIONS.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </label>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <span className="rounded-full border border-green-30 bg-green-10 px-2 py-1 text-caption text-green-90">
+            {selectedLine?.name ?? '호선 선택'}
+          </span>
+          <span className="rounded-full border border-gray-70 bg-gray-90 px-2 py-1 text-caption text-gray-20">
+            {sourceStationName} {'->'} {destinationStationName}
+          </span>
+          <span className="rounded-full border border-blue-30 bg-blue-10 px-2 py-1 text-caption text-blue-90">
+            추천 경로 {routes.length}개
+          </span>
         </div>
 
-        <div className="mt-3 grid gap-2">
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          {PANEL_TABS.map(tab => {
+            const isActive = activeTab === tab.value;
+            return (
+              <button
+                key={tab.value}
+                type="button"
+                onClick={() => setActiveTab(tab.value)}
+                className={
+                  isActive
+                    ? 'rounded-xl border border-key-color bg-key-color px-3 py-2 text-left'
+                    : 'rounded-xl border border-gray-70 bg-gray-90 px-3 py-2 text-left'
+                }
+              >
+                <p
+                  className={
+                    isActive ? 'text-label-medium text-white' : 'text-label-medium text-gray-20'
+                  }
+                >
+                  {tab.label}
+                </p>
+                <p
+                  className={
+                    isActive ? 'mt-1 text-caption text-gray-20' : 'mt-1 text-caption text-gray-60'
+                  }
+                >
+                  {tab.description}
+                </p>
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      {activeTab === 'PLANNER' ? (
+        <section className="mt-3 rounded-3xl border border-gray-30 bg-white p-4">
+          <h2 className="text-title-small text-gray-100">경로 입력</h2>
+          <p className="mt-1 text-body-small text-gray-70">
+            출발역/도착역과 이동 전략을 선택하면 바로 추천 경로를 계산합니다.
+          </p>
+
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            <label className="text-label-small text-gray-80">
+              호선
+              <select
+                value={selectedLineId}
+                onChange={event => {
+                  setSelectedLineId(Number(event.target.value));
+                  setQueryStationApplied(true);
+                }}
+                className="mt-1 h-10 w-full rounded-xl border border-gray-40 bg-white px-3 text-body-small text-gray-100"
+              >
+                {subwayLines.map(line => (
+                  <option key={line.id} value={line.id}>
+                    {line.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="text-label-small text-gray-80">
+              전략
+              <select
+                value={strategy}
+                onChange={event => setStrategy(event.target.value as SubwayRouteStrategy)}
+                className="mt-1 h-10 w-full rounded-xl border border-gray-40 bg-white px-3 text-body-small text-gray-100"
+              >
+                {STRATEGY_OPTIONS.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="text-label-small text-gray-80">
+              출발역
+              <select
+                value={sourceStationId}
+                onChange={event => setSourceStationId(Number(event.target.value))}
+                className="mt-1 h-10 w-full rounded-xl border border-gray-40 bg-white px-3 text-body-small text-gray-100"
+              >
+                {stationOptions.map(station => (
+                  <option key={station.id} value={station.id}>
+                    {station.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="text-label-small text-gray-80">
+              도착역
+              <select
+                value={destinationStationId}
+                onChange={event => setDestinationStationId(Number(event.target.value))}
+                className="mt-1 h-10 w-full rounded-xl border border-gray-40 bg-white px-3 text-body-small text-gray-100"
+              >
+                {stationOptions.map(station => (
+                  <option key={station.id} value={station.id}>
+                    {station.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+
+          <h3 className="mt-4 text-label-medium text-gray-100">추천 경로</h3>
           {routeQuery.isFetching ? (
-            <p className="text-body-small text-gray-70">경로 계산 중...</p>
+            <p className="mt-2 text-body-small text-gray-70">경로 계산 중...</p>
           ) : null}
           {routeQuery.isError ? (
-            <p className="text-body-small text-danger">경로를 계산하지 못했습니다.</p>
+            <p className="mt-2 text-body-small text-danger">경로를 계산하지 못했습니다.</p>
+          ) : null}
+          {!routeQuery.isFetching && !routeQuery.isError && !routes.length ? (
+            <p className="mt-2 text-body-small text-gray-70">추천 가능한 경로가 없습니다.</p>
           ) : null}
 
-          {!routeQuery.isFetching && !routeQuery.isError && oneClickActions.length > 0 ? (
-            <div className="rounded-xl border border-gray-30 bg-gray-05 p-3">
+          {!routeQuery.isFetching && !routeQuery.isError && routes.length ? (
+            <div className="mt-2 grid gap-2">
+              {routes.map(route => (
+                <div
+                  key={`planner-route-${route.rank}`}
+                  className="rounded-2xl border border-gray-30 bg-gray-05 p-3"
+                >
+                  {renderRouteSummary(route)}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedRouteRank(route.rank);
+                      setActiveTab('TIMELINE');
+                    }}
+                    className="mt-2 h-9 w-full rounded-xl border border-key-color bg-white text-label-medium text-key-color"
+                  >
+                    타임라인 상세 보기
+                  </button>
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {activeTab === 'TIMELINE' ? (
+        <section className="mt-3 rounded-3xl border border-gray-30 bg-white p-4">
+          <h2 className="text-title-small text-gray-100">타임라인 상세</h2>
+          <p className="mt-1 text-body-small text-gray-70">
+            탑승 위치, 환승 포인트, 혼잡도, 접근성 요소를 단계별로 확인합니다.
+          </p>
+
+          {selectedRoute == null ? (
+            <p className="mt-3 text-body-small text-gray-70">
+              먼저 길찾기 허브에서 경로를 선택해주세요.
+            </p>
+          ) : (
+            <>
+              <div className="mt-3 rounded-2xl border border-gray-30 bg-gray-05 p-3">
+                {renderRouteSummary(selectedRoute)}
+              </div>
+
+              <div className="mt-3 rounded-2xl border border-gray-20 bg-white p-3">
+                <p className="text-label-medium text-gray-100">이동 단계</p>
+                <ol className="mt-2 grid gap-2">
+                  {selectedRoute.nodes.map((node, index) => (
+                    <li
+                      key={`route-node-${node.order}`}
+                      className="rounded-xl border border-gray-20 bg-gray-05 p-2"
+                    >
+                      <p className="text-label-small text-gray-100">
+                        {index + 1}. {node.stationName}
+                      </p>
+                      <p className="mt-1 text-caption text-gray-70">
+                        {node.isTransfer ? '환승 지점' : '이동 구간'}
+                      </p>
+                    </li>
+                  ))}
+                </ol>
+
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {selectedRoute.edges.map((edge, index) => (
+                    <span
+                      key={`route-edge-${edge.fromStationId}-${edge.toStationId}-${index}`}
+                      className="rounded-full bg-gray-20 px-2 py-0.5 text-caption text-gray-90"
+                    >
+                      {edge.subwayLineName}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+        </section>
+      ) : null}
+
+      {activeTab === 'COACH' ? (
+        <section className="mt-3 rounded-3xl border border-gray-30 bg-white p-4">
+          <h2 className="text-title-small text-gray-100">개인화/접근성 코치</h2>
+          <p className="mt-1 text-body-small text-gray-70">
+            사용 상황과 선호값을 반영해 접근성/혼잡/짐 모드까지 세밀하게 조정합니다.
+          </p>
+
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            <label className="text-label-small text-gray-80">
+              보행 선호
+              <select
+                value={walkingPreference}
+                onChange={event =>
+                  setWalkingPreference(event.target.value as SubwayRouteWalkingPreference)
+                }
+                className="mt-1 h-10 w-full rounded-xl border border-gray-40 bg-white px-3 text-body-small text-gray-100"
+              >
+                {WALKING_OPTIONS.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="text-label-small text-gray-80">
+              접근성 모드
+              <select
+                value={accessibilityMode}
+                onChange={event =>
+                  setAccessibilityMode(event.target.value as SubwayRouteAccessibilityMode)
+                }
+                className="mt-1 h-10 w-full rounded-xl border border-gray-40 bg-white px-3 text-body-small text-gray-100"
+              >
+                {ACCESSIBILITY_OPTIONS.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="text-label-small text-gray-80">
+              혼잡 선호
+              <select
+                value={crowdingPreference}
+                onChange={event =>
+                  setCrowdingPreference(event.target.value as SubwayRouteCrowdingPreference)
+                }
+                className="mt-1 h-10 w-full rounded-xl border border-gray-40 bg-white px-3 text-body-small text-gray-100"
+              >
+                {CROWDING_OPTIONS.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="text-label-small text-gray-80">
+              짐 모드
+              <select
+                value={luggageMode}
+                onChange={event => setLuggageMode(event.target.value as SubwayRouteLuggageMode)}
+                className="mt-1 h-10 w-full rounded-xl border border-gray-40 bg-white px-3 text-body-small text-gray-100"
+              >
+                {LUGGAGE_OPTIONS.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="text-label-small text-gray-80">
+              이용 맥락
+              <select
+                value={travelerContext}
+                onChange={event =>
+                  setTravelerContext(event.target.value as SubwayRouteTravelerContext)
+                }
+                className="mt-1 h-10 w-full rounded-xl border border-gray-40 bg-white px-3 text-body-small text-gray-100"
+              >
+                {TRAVELER_CONTEXT_OPTIONS.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="text-label-small text-gray-80">
+              액션 언어
+              <select
+                value={routeLocale}
+                onChange={event => setRouteLocale(event.target.value as 'ko' | 'en' | 'th' | 'cn')}
+                className="mt-1 h-10 w-full rounded-xl border border-gray-40 bg-white px-3 text-body-small text-gray-100"
+              >
+                {LOCALE_OPTIONS.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+
+          {oneClickActions.length ? (
+            <div className="mt-3 rounded-2xl border border-gray-30 bg-gray-05 p-3">
               <p className="text-label-medium text-gray-100">다국어 긴급/신고 원클릭</p>
               <div className="mt-2 flex flex-wrap gap-2">
                 {oneClickActions.map(action => (
@@ -440,7 +751,7 @@ export default function SubwayTimelinePage() {
                     onClick={() => {
                       void handleOneClickAction(action);
                     }}
-                    className="rounded-full border border-gray-40 px-3 py-1 text-label-small text-gray-90"
+                    className="rounded-full border border-gray-40 bg-white px-3 py-1 text-label-small text-gray-90"
                   >
                     {action.title}
                   </button>
@@ -452,155 +763,158 @@ export default function SubwayTimelinePage() {
             </div>
           ) : null}
 
-          {(routeQuery.data?.result.routes ?? []).map(route => (
-            <article
-              key={`route-${route.rank}`}
-              className="rounded-xl border border-gray-30 bg-gray-05 p-3"
-            >
-              <div className="text-label-medium text-gray-100">경로 {route.rank}</div>
-              <p className="mt-1 text-body-small text-gray-80">
-                정차 {route.summary.totalStops} · 환승 {route.summary.transferCount} · 예상{' '}
-                {route.summary.estimatedMinutes}분
-              </p>
-              {route.quality ? (
-                <p className="mt-1 text-body-small text-gray-100">
-                  품질 {route.quality.totalScore}점 · 접근성 {route.quality.accessibilityScore}점 ·
-                  혼잡쾌적 {route.quality.crowdingComfortScore}점 · 지연확률{' '}
-                  {route.quality.delayProbabilityPercent}%
-                </p>
-              ) : null}
-              {route.quality?.badges?.length ? (
-                <div className="mt-1 flex flex-wrap gap-1">
-                  {route.quality.badges.map(badge => (
-                    <span
-                      key={`${route.rank}-${badge}`}
-                      className="rounded-full bg-gray-20 px-2 py-0.5 text-caption text-gray-90"
-                    >
-                      {resolveBadgeLabel(badge)}
-                    </span>
-                  ))}
-                </div>
+          {selectedRoute ? (
+            <div className="mt-3 grid gap-2">
+              {selectedRoute.accessibilityProfile ? (
+                <article className="rounded-2xl border border-gray-30 bg-white p-3">
+                  <p className="text-label-medium text-gray-100">접근성 프로필</p>
+                  <p className="mt-1 text-caption text-gray-70">
+                    난이도{' '}
+                    {resolveDifficultyLabel(
+                      selectedRoute.accessibilityProfile.inStationDifficultyLevel,
+                    )}{' '}
+                    · 계단구간 {selectedRoute.accessibilityProfile.estimatedStairSections} ·
+                    엘리베이터 친화 환승{' '}
+                    {selectedRoute.accessibilityProfile.elevatorFriendlyTransferCount}
+                  </p>
+                  <p className="mt-1 text-caption text-gray-70">
+                    {selectedRoute.accessibilityProfile.mobilityNote}
+                  </p>
+                </article>
               ) : null}
 
-              {route.travelModeTags?.length ? (
-                <div className="mt-1 flex flex-wrap gap-1">
-                  {route.travelModeTags.map(tag => (
+              {selectedRoute.boardingGuide ? (
+                <article className="rounded-2xl border border-gray-30 bg-white p-3">
+                  <p className="text-label-medium text-gray-100">탑승 위치 가이드</p>
+                  <p className="mt-1 text-caption text-gray-70">
+                    추천 칸 {selectedRoute.boardingGuide.primaryCarNo}
+                    {selectedRoute.boardingGuide.transferOptimizedCarNo
+                      ? ` / 환승 최적 칸 ${selectedRoute.boardingGuide.transferOptimizedCarNo}`
+                      : ''}
+                  </p>
+                  <p className="mt-1 text-caption text-gray-70">
+                    {selectedRoute.boardingGuide.reason}
+                  </p>
+                </article>
+              ) : null}
+
+              {selectedRoute.crowdingGuide ? (
+                <article className="rounded-2xl border border-gray-30 bg-white p-3">
+                  <p className="text-label-medium text-gray-100">혼잡도 가이드</p>
+                  <p className="mt-1 text-caption text-gray-70">
+                    현재 {resolveCrowdingLevelLabel(selectedRoute.crowdingGuide.predictedLevel)} ·
+                    덜 붐비는 칸{' '}
+                    {selectedRoute.crowdingGuide.lessCrowdedCars.join(', ') || '정보 없음'}
+                  </p>
+                  <p className="mt-1 text-caption text-gray-70">
+                    {selectedRoute.crowdingGuide.recommendation}
+                  </p>
+                </article>
+              ) : null}
+
+              {selectedRoute.nearbyEssentials?.items?.length ? (
+                <article className="rounded-2xl border border-gray-30 bg-white p-3">
+                  <p className="text-label-medium text-gray-100">
+                    {selectedRoute.nearbyEssentials.stationName} 주변 필수 정보
+                  </p>
+                  <div className="mt-2 grid gap-2">
+                    {selectedRoute.nearbyEssentials.items.map(item => (
+                      <div
+                        key={`${selectedRoute.rank}-${item.essentialType}-${item.name}`}
+                        className="rounded-xl border border-gray-20 bg-gray-05 p-2"
+                      >
+                        <p className="text-caption text-gray-90">
+                          {resolveEssentialTypeLabel(item.essentialType)} · {item.name}
+                        </p>
+                        <p className="mt-1 text-caption text-gray-70">
+                          도보 {item.walkingMinutes}분 · 운영 {item.operatingHours || '정보 없음'} ·
+                          혼잡 {resolveCrowdingLevelLabel(item.crowdLevel)} · 신뢰도{' '}
+                          {item.reliabilityScore}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </article>
+              ) : null}
+
+              {selectedRoute.travelModeTags?.length ? (
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedRoute.travelModeTags.map(tag => (
                     <span
-                      key={`${route.rank}-tag-${tag}`}
-                      className="rounded-full bg-gray-100 px-2 py-0.5 text-caption text-white"
+                      key={`tag-${tag}`}
+                      className="rounded-full bg-gray-100 px-2 py-1 text-caption text-white"
                     >
                       {resolveTravelTagLabel(tag)}
                     </span>
                   ))}
                 </div>
               ) : null}
-
-              <p className="mt-1 text-body-small text-gray-70">
-                {route.nodes.map(node => node.stationName).join(' → ')}
-              </p>
-              {route.accessibilityProfile ? (
-                <p className="mt-1 text-caption text-gray-70">
-                  접근성: {route.accessibilityProfile.inStationDifficultyLevel} · 예상 계단구간{' '}
-                  {route.accessibilityProfile.estimatedStairSections} · 엘리베이터 친화 환승{' '}
-                  {route.accessibilityProfile.elevatorFriendlyTransferCount}
-                </p>
-              ) : null}
-              {route.boardingGuide ? (
-                <p className="mt-1 text-caption text-gray-70">
-                  탑승 추천 {route.boardingGuide.primaryCarNo}
-                  {route.boardingGuide.transferOptimizedCarNo
-                    ? ` (환승 ${route.boardingGuide.transferOptimizedCarNo})`
-                    : ''}{' '}
-                  · {route.boardingGuide.recommendedDoorPosition}
-                </p>
-              ) : null}
-              {route.crowdingGuide ? (
-                <p className="mt-1 text-caption text-gray-70">
-                  혼잡 {resolveCrowdingLevelLabel(route.crowdingGuide.predictedLevel)} · 덜 붐비는
-                  칸 {route.crowdingGuide.lessCrowdedCars.join(', ')}
-                </p>
-              ) : null}
-              {route.nearbyEssentials?.items?.length ? (
-                <div className="mt-2 rounded-lg border border-gray-20 bg-white p-2">
-                  <p className="text-caption text-gray-90">
-                    {route.nearbyEssentials.stationName} 주변 필수 정보
-                  </p>
-                  <div className="mt-1 grid gap-1">
-                    {route.nearbyEssentials.items.map(item => (
-                      <p
-                        key={`${route.rank}-${item.essentialType}-${item.name}`}
-                        className="text-caption text-gray-70"
-                      >
-                        {resolveEssentialTypeLabel(item.essentialType)} · {item.name} · 도보{' '}
-                        {item.walkingMinutes}분 · 운영 {item.operatingHours || '정보 없음'} · 혼잡{' '}
-                        {resolveCrowdingLevelLabel(item.crowdLevel)} · 정확도{' '}
-                        {item.poiAccuracyScore ?? '정보 없음'} · 신뢰도 {item.reliabilityScore}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
-              {route.quality?.reasons?.length ? (
-                <p className="mt-1 text-caption text-gray-70">{route.quality.reasons[0]}</p>
-              ) : null}
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mt-3 rounded-2xl border border-gray-30 bg-white p-4">
-        <h2 className="text-title-small text-gray-100">역 전체 시간표</h2>
-        <p className="mt-1 text-body-small text-gray-70">
-          선택한 출발역의 요일/상하행 전체 시간표를 제공합니다.
-        </p>
-
-        <div className="mt-2 flex flex-wrap gap-2">
-          {WEEK_OPTIONS.map(option => (
-            <button
-              key={option.value}
-              onClick={() => setWeekType(option.value)}
-              className={
-                weekType === option.value
-                  ? 'h-8 rounded-full bg-gray-100 px-3 text-label-small text-white'
-                  : 'h-8 rounded-full border border-gray-40 bg-white px-3 text-label-small text-gray-90'
-              }
-            >
-              {option.label}
-            </button>
-          ))}
-        </div>
-
-        {timetableQuery.isFetching ? (
-          <p className="mt-2 text-body-small text-gray-70">시간표 로딩 중...</p>
-        ) : null}
-        {timetableQuery.isError ? (
-          <p className="mt-2 text-body-small text-danger">시간표 조회 실패</p>
-        ) : null}
-
-        {!timetableQuery.isFetching &&
-          !timetableQuery.isError &&
-          selectedWeek?.upDownTimetables.map(timetable => (
-            <div key={timetable.upDownType} className="mt-3 rounded-xl border border-gray-30 p-3">
-              <p className="text-label-medium text-gray-100">
-                {timetable.upDownType === 'UP' ? '상행' : '하행'}
-              </p>
-              {timetable.stationTimes.length === 0 ? (
-                <p className="mt-1 text-body-small text-gray-70">제공 가능한 시간표가 없습니다.</p>
-              ) : (
-                <div className="mt-1 max-h-44 overflow-y-auto">
-                  {timetable.stationTimes.slice(0, 40).map((item, index) => (
-                    <p
-                      key={`${timetable.upDownType}-${item.departureTime}-${index}`}
-                      className="text-body-small text-gray-80"
-                    >
-                      {item.departureTime.slice(0, 5)} · {item.arrivalStationName}
-                    </p>
-                  ))}
-                </div>
-              )}
             </div>
-          ))}
-      </section>
+          ) : null}
+        </section>
+      ) : null}
+
+      {activeTab === 'TIMETABLE' ? (
+        <section className="mt-3 rounded-3xl border border-gray-30 bg-white p-4">
+          <h2 className="text-title-small text-gray-100">역 전체 시간표</h2>
+          <p className="mt-1 text-body-small text-gray-70">
+            선택한 출발역 기준 요일/상하행 전체 시간표를 제공합니다.
+          </p>
+
+          <div className="mt-2 flex flex-wrap gap-2">
+            {WEEK_OPTIONS.map(option => (
+              <button
+                key={option.value}
+                type="button"
+                onClick={() => setWeekType(option.value)}
+                className={
+                  weekType === option.value
+                    ? 'h-8 rounded-full bg-gray-100 px-3 text-label-small text-white'
+                    : 'h-8 rounded-full border border-gray-40 bg-white px-3 text-label-small text-gray-90'
+                }
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+
+          {timetableQuery.isFetching ? (
+            <p className="mt-2 text-body-small text-gray-70">시간표 로딩 중...</p>
+          ) : null}
+          {timetableQuery.isError ? (
+            <p className="mt-2 text-body-small text-danger">시간표를 불러오지 못했습니다.</p>
+          ) : null}
+
+          {!timetableQuery.isFetching && !timetableQuery.isError
+            ? selectedWeek?.upDownTimetables.map(timetable => (
+                <div
+                  key={timetable.upDownType}
+                  className="mt-3 rounded-2xl border border-gray-30 bg-gray-05 p-3"
+                >
+                  <p className="text-label-medium text-gray-100">
+                    {timetable.upDownType === 'UP' ? '상행' : '하행'}
+                  </p>
+                  {timetable.stationTimes.length === 0 ? (
+                    <p className="mt-1 text-body-small text-gray-70">
+                      제공 가능한 시간표가 없습니다.
+                    </p>
+                  ) : (
+                    <div className="mt-1 max-h-44 overflow-y-auto">
+                      {timetable.stationTimes.slice(0, 40).map((item, index) => (
+                        <p
+                          key={`${timetable.upDownType}-${item.departureTime}-${index}`}
+                          className="text-body-small text-gray-80"
+                        >
+                          {item.departureTime.slice(0, 5)} · {item.arrivalStationName}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))
+            : null}
+        </section>
+      ) : null}
     </main>
   );
 }
