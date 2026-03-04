@@ -7,17 +7,27 @@ import { getRandomGreeting } from './WelcomeMessage.util';
 const greetingPhrase = getRandomGreeting();
 
 const WelcomeMessage = () => {
-  const { isCheckingAuthState } = useAuth();
-  const { data: userInfo, isLoading } = useFetchUserProfile();
+  const { authService, isCheckingAuthState } = useAuth();
+  const { data: userInfo, isError } = useFetchUserProfile();
 
-  const displayName = userInfo?.result?.nickname || '아하철';
+  if (isCheckingAuthState) {
+    return (
+      <S.SkeletonHeading>
+        <S.SkeletonBar />
+      </S.SkeletonHeading>
+    );
+  }
 
-  if (isLoading || isCheckingAuthState) return null;
+  const isAuthenticated = authService.isAuthenticated;
+  const displayName =
+    isAuthenticated && !isError ? (userInfo?.result?.nickname ?? '아하철') : '아하철';
+
+  const greeting = isAuthenticated ? greetingPhrase : '오늘도 안전한 이동 되세요.';
 
   return (
     <S.WelcomeMessageHeading>
       <b>{displayName}님,</b>
-      {greetingPhrase}
+      {greeting}
     </S.WelcomeMessageHeading>
   );
 };

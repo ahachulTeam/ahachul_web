@@ -22,10 +22,7 @@ const HomePage: ActivityComponentType = () => {
         <HomeComponent.ServiceHub />
         <HomeComponent.DailyVote />
         <HomeComponent.StoryFeed />
-        <HomeComponent.ForeignerGuide />
         <HomeComponent.CommunityHotPosts />
-        <HomeComponent.SubwayNews />
-        <HomeComponent.RankHashtag />
       </S.Container>
     </LayoutComponent.Base>
   );

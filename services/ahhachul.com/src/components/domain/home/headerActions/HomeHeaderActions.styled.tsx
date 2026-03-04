@@ -29,6 +29,21 @@ export const button = css`
   }
 `;
 
+export const fallbackButton = css`
+  min-width: 64px;
+  justify-content: center;
+  padding: 8px 10px;
+`;
+
+export const skeletonButton = css`
+  width: 90px;
+  min-width: 90px;
+  height: 34px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.28);
+  color: transparent;
+`;
+
 export const menu = css`
   display: flex;
   flex-direction: column;

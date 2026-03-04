@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 import { from, tap, map } from 'rxjs';
 
 import { ChevronIcon } from '@/assets/icons/system';
-import { useNativeBridge } from '@/contexts';
+import { useAuth, useNativeBridge } from '@/contexts';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { useUserFavoriteStations } from '@/services/user';
 import { useFlow } from '@/stackflow';
@@ -66,6 +66,7 @@ const Option = ({
 };
 
 const HomeHeaderActions = () => {
+  const { isCheckingAuthState } = useAuth();
   const { push } = useFlow();
   const { bridge, isBridgeInitialized } = useNativeBridge();
   const [openDialog, toggleDialog] = useReducer(open => !open, false);
@@ -78,11 +79,11 @@ const HomeHeaderActions = () => {
 
   const { mutate: updateUserStations } = useUserFavoriteStations();
   const { userStations } = useUserStationStore(state => state);
-  const activatedStation = useMemo(() => userStations[0], [userStations]);
+  const activatedStation = useMemo(() => userStations[0] ?? null, [userStations]);
 
   const handleStationClick = useCallback(
     (clickedStation: UserStation) => () => {
-      if (!openDialog) return;
+      if (!openDialog || !activatedStation) return;
       if (activatedStation.stationName === clickedStation.stationName) {
         toggleDialog();
         return;
@@ -110,7 +111,7 @@ const HomeHeaderActions = () => {
         )
         .subscribe();
     },
-    [activatedStation.stationName, openDialog, userStations],
+    [activatedStation, bridge, isBridgeInitialized, openDialog, updateUserStations, userStations],
   );
 
   const handleClickFavoriteStationSetting = () => {
@@ -120,6 +121,38 @@ const HomeHeaderActions = () => {
       push('SettingPage', []);
     }, SETTING_PAGE_PUSH_DELAY_MS);
   };
+
+  const handleClickStationSettingFallback = () => {
+    isBridgeInitialized && bridge.send.haptic();
+    push('SettingPage', []);
+  };
+
+  if (isCheckingAuthState) {
+    return (
+      <div css={S.container}>
+        <button
+          css={[S.button, S.skeletonButton]}
+          type="button"
+          disabled
+          aria-label="역 정보 로딩 중"
+        />
+      </div>
+    );
+  }
+
+  if (!activatedStation) {
+    return (
+      <div css={S.container}>
+        <button
+          css={[S.button, S.fallbackButton]}
+          type="button"
+          onClick={handleClickStationSettingFallback}
+        >
+          <span>역 설정</span>
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div css={S.container} ref={dialogRef}>
