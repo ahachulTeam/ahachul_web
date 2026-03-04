@@ -22,3 +22,8 @@ services/ahhachul.com/stats.html
 **/.env
 
 .nx
+
+# local AI/OMX tooling artifacts
+.codex/
+.omx/
+.agents/
