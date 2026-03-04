@@ -103,10 +103,10 @@ export class AuthService {
    * @param data - 로그인할 사용자 정보.
    */
   login(data: IAuthStore) {
-    this.logger.start('login', { userId: data.id, userLevel: data.level });
+    this.logger.start('login', { userLevel: data.level });
     localStorage.setItem(this.key, JSON.stringify(data));
     this.setUser(data);
-    this.logger.success('login', { userId: data.id });
+    this.logger.success('login', { userLevel: data.level });
   }
 
   logout() {

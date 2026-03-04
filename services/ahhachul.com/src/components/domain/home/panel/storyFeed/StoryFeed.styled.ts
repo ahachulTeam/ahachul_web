@@ -110,7 +110,7 @@ export const Nickname = styled.span`
 
 export const Meta = styled.span`
   ${({ theme }) => css`
-    ${theme.fonts.caption};
+    ${theme.fonts.bodySmall};
     color: ${theme.colors.gray[70]};
     width: 100%;
     text-align: center;
@@ -155,7 +155,7 @@ export const ViewerTop = styled.div`
     }
 
     p {
-      ${theme.fonts.caption};
+      ${theme.fonts.bodySmall};
       margin-top: 4px;
       color: ${theme.colors.gray[60]};
     }

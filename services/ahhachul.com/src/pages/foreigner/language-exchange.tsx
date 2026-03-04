@@ -53,6 +53,8 @@ const ForeignerLanguageExchangePage: ActivityComponentType = () => {
     );
   }, [hotspotsQuery.error, hotspotsQuery.errorUpdatedAt, locale]);
 
+  const hotspots = hotspotsQuery.data?.hotspots ?? [];
+
   return (
     <LayoutComponent.Base navigationSlot={false}>
       <S.Container>
@@ -107,17 +109,13 @@ const ForeignerLanguageExchangePage: ActivityComponentType = () => {
               )}
             </S.ErrorText>
           ) : null}
-          {!hotspotsQuery.isLoading &&
-          !hotspotsQuery.isError &&
-          hotspotsQuery.data.hotspots.length === 0 ? (
+          {!hotspotsQuery.isLoading && !hotspotsQuery.isError && hotspots.length === 0 ? (
             <S.HelperText>노출 가능한 허브 역이 없습니다.</S.HelperText>
           ) : null}
 
-          {!hotspotsQuery.isLoading &&
-          !hotspotsQuery.isError &&
-          hotspotsQuery.data.hotspots.length > 0 ? (
+          {!hotspotsQuery.isLoading && !hotspotsQuery.isError && hotspots.length > 0 ? (
             <S.HotspotList>
-              {hotspotsQuery.data.hotspots.map(hotspot => (
+              {hotspots.map(hotspot => (
                 <S.HotspotCard key={`language-exchange-${hotspot.stationId}`}>
                   <S.HotspotHeader>
                     <div>

@@ -54,7 +54,7 @@ export const Confidence = styled.p`
 
 export const Badge = styled.span<{ level: CommunityReliabilityBadgeLevel }>`
   ${({ theme, level }) => {
-    let tone = {
+    let tone: { background: string; color: string } = {
       background: theme.colors.gray[30],
       color: theme.colors.gray[90],
     };

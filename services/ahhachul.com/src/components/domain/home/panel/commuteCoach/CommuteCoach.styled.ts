@@ -61,7 +61,7 @@ export const CardHeader = styled.div`
 
 export const RiskBadge = styled.span<RiskBadgeProps>`
   ${({ theme, riskLevel }) => {
-    let tone = {
+    let tone: { background: string; border: string; color: string } = {
       background: theme.colors.legacy.surface.danger_tint,
       border: theme.colors.legacy.status.danger,
       color: theme.colors.legacy.status.danger,

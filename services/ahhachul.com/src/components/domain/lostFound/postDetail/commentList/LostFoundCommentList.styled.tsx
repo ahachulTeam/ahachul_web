@@ -32,8 +32,8 @@ export const SortButton = styled.button<{ active?: boolean }>`
   ${({ theme, active }) => css`
     ${theme.fonts.bodySmall};
     border-radius: 8px;
-    border: 1px solid ${active ? theme.colors.keyColor : theme.colors.gray[40]};
-    background-color: ${active ? theme.colors.keyColor : theme.colors.white};
+    border: 1px solid ${active ? theme.colors['key-color'] : theme.colors.gray[40]};
+    background-color: ${active ? theme.colors['key-color'] : theme.colors.white};
     color: ${active ? theme.colors.white : theme.colors.gray[90]};
     padding: 4px 8px;
     transition: all 0.15s ease;

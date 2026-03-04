@@ -25,6 +25,8 @@ import {
   RouteSearchStrategy,
   RouteTravelerContext,
   RouteWalkingPreference,
+  StationSummaryAvailabilityStatus,
+  StationSummaryDataSource,
   ITrain,
   StationTimeWeekType,
   StationTimesFullResponse,
@@ -43,6 +45,12 @@ import { API_PREFIX } from '../endpointPrefix';
 interface APITrainInfoParams extends WithSubwayLineId, WithSubwayStationId {}
 interface APITrainInfoResponse {
   trainRealTimes: ITrain[];
+  generatedAt?: string;
+  dataSource?: 'API' | 'STALE_CACHE';
+  isStale?: boolean;
+  lastExternalRecptnAt?: string;
+  freshnessSec?: number;
+  confidenceLevel?: 'HIGH' | 'MEDIUM' | 'LOW';
 }
 
 interface APITrainInfoV2Train {
@@ -87,6 +95,18 @@ export interface APIStationTimeSummaryV2Response {
     firstDestinationStationName: string | null;
     lastDestinationStationName: string | null;
   }[];
+  meta?: {
+    generatedAt: string;
+    availabilityStatus: StationSummaryAvailabilityStatus;
+    coveragePercent: number;
+    guidanceMessage: string;
+    sourceDetails: {
+      upDownType: UpDownType;
+      dataSource: StationSummaryDataSource;
+      stationTimesCount: number;
+      fallbackReasonCode: string | null;
+    }[];
+  };
 }
 
 interface APILastTrainRiskV2Params extends WithSubwayLineId, WithSubwayStationId {

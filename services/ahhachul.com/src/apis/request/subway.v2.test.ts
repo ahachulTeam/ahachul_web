@@ -3,6 +3,7 @@ import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { API_PATHS } from '@ahhachul/http';
 
 import axiosInstance from '@/apis/fetcher';
+import { RouteSearchStrategy, RouteWalkingPreference, StationTimeWeekType } from '@/types';
 
 import { fetchSubwayRouteSearchV3, fetchTrainInfoV2 } from './subway';
 
@@ -76,10 +77,10 @@ describe('fetchSubwayRouteSearchV3', () => {
     const params = {
       sourceStationId: 201,
       destinationStationId: 301,
-      strategy: 'BALANCED' as const,
+      strategy: RouteSearchStrategy.BALANCED,
       alternatives: 3,
-      walkingPreference: 'LESS_STAIRS' as const,
-      stationTimeWeekType: 'WEEKDAY' as const,
+      walkingPreference: RouteWalkingPreference.LESS_STAIRS,
+      stationTimeWeekType: StationTimeWeekType.WEEKDAY,
     };
 
     await fetchSubwayRouteSearchV3(params);

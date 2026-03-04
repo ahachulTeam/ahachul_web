@@ -105,9 +105,7 @@ const DelayCenterPage: ActivityComponentType<DelayCenterParams> = ({
 
     const favorite = favoriteStationQuery.data?.result.stationInfoList?.[0];
     const lineIdFromFavorite =
-      favorite?.lineId ??
-      favorite?.subwayLineInfoList?.[0]?.subwayLineId ??
-      Number(params.subwayLineId);
+      Number(favorite?.subwayLineInfoList?.[0]?.subwayLineId) || Number(params.subwayLineId);
     const stationIdFromFavorite = favorite?.stationId ?? Number(params.stationId);
 
     const line =

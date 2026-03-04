@@ -11,7 +11,7 @@ import {
   buildQuerySignature,
   communityQueryKeys,
 } from '@ahhachul/domain';
-import { getFirstParentLineId, removeFalsyValues } from '@ahhachul/utils';
+import { getFirstParentLineId } from '@ahhachul/utils';
 
 import * as api from '@/apis/request';
 import { TOAST_MSG } from '@/constants/toast';
@@ -83,17 +83,14 @@ export const useFetchCommunityList = (
   const subwayLineIds = resolveSubwayLineIds(filters.subwayLineId, userStations);
   const stationId = resolveStationId(filters.stationId?.toString());
 
-  const req = removeFalsyValues(
-    {
-      writer: filters.writer,
-      content: filters.content,
-      hashTag: filters.hashTag,
-      categoryType: filters.categoryType,
-      subwayLineIds,
-      stationId,
-    },
-    { removeZero: true, removeEmptyStrings: true },
-  ) as Record<string, string | number>;
+  const req: Parameters<typeof api.fetchCommunityList>[0] = {
+    categoryType: filters.categoryType,
+    ...(filters.writer ? { writer: filters.writer } : {}),
+    ...(filters.content ? { content: filters.content } : {}),
+    ...(filters.hashTag ? { hashTag: filters.hashTag } : {}),
+    ...(subwayLineIds ? { subwayLineIds } : {}),
+    ...(stationId ? { stationId } : {}),
+  };
   const querySignature = buildQuerySignature({
     categoryType: filters.categoryType,
     writer: filters.writer,

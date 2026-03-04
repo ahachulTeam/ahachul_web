@@ -23,13 +23,16 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 type NewMessagePageProps = {
-  searchParams?: { memberId?: string | string[] };
+  searchParams?: Promise<{
+    memberId?: string | string[];
+  }>;
 };
 
 export default async function NewMessagePage({ searchParams }: NewMessagePageProps) {
   const locale = await getServerLocale();
   const copy = getLocaleMessages(locale).messagesPage;
-  const memberIdParam = searchParams?.memberId;
+  const resolvedSearchParams = await searchParams;
+  const memberIdParam = resolvedSearchParams?.memberId;
   const initialMemberId = Array.isArray(memberIdParam)
     ? (memberIdParam[0] ?? '')
     : (memberIdParam ?? '');

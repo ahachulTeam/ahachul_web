@@ -51,7 +51,7 @@ export const IntroCard = styled.div`
     border: 1px solid ${theme.colors.gray[20]};
     border-radius: 10px;
     padding: 10px;
-    background-color: ${theme.colors.gray[5]};
+    background-color: ${theme.colors.gray[10]};
   `}
 `;
 
@@ -127,7 +127,7 @@ export const OptionPreviewItem = styled.li<{ selected: boolean }>`
     gap: 8px;
     border-radius: 8px;
     border: 1px solid ${selected ? theme.colors['key-color'] : theme.colors.gray[30]};
-    background: ${selected ? theme.colors.green[100] : theme.colors.gray[5]};
+    background: ${selected ? theme.colors.green[100] : theme.colors.gray[10]};
     color: ${selected ? theme.colors['key-color'] : theme.colors.gray[90]};
     padding: 8px 10px;
     ${theme.fonts.labelSmall};

@@ -8,7 +8,10 @@ import { CommunityComponent, HeaderComponent, LayoutComponent, UiComponent } fro
 import { APP_UNIQUE_FILTER_ID_LIST } from '@/constants/filter';
 import { useCommunityFilters } from '@/hooks/domain/community';
 import { SubwayLineFilterOptions } from '@/types';
-import type { CommunitySubwayLineFilterValue } from '@/types/community';
+import type {
+  CommunityStationFilterValue,
+  CommunitySubwayLineFilterValue,
+} from '@/types/community';
 
 const SearchedListSkeleton = React.lazy(
   () => import('@/components/domain/community/searchResults/skeleton/SearchedList.skeleton'),
@@ -41,7 +44,7 @@ const CommunityLinePage: ActivityComponentType<CommunityLinePageParams> = ({
   const scopedDefaultFilters = useMemo(
     () => ({
       subwayLineId: selectedLineFilterValue,
-      stationId: '0',
+      stationId: '0' as CommunityStationFilterValue,
     }),
     [selectedLineFilterValue],
   );
