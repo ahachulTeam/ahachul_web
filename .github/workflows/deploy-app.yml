@@ -34,13 +34,25 @@ jobs:
       - name: Install dependencies
         uses: ./.github/actions/pnpm-install
 
-      - name: Set AWS Environment Variables
+      - name: Parse AWS environment metadata
         run: |
-          echo "AWS_ACCESS_KEY_ID=${{ fromJson(secrets.DEV_META_DATA).AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
-          echo "AWS_SECRET_ACCESS_KEY=${{ fromJson(secrets.DEV_META_DATA).AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
-          echo "AWS_REGION=${{ fromJson(secrets.DEV_META_DATA).AWS_REGION }}" >> $GITHUB_ENV
-          echo "S3_BUCKET_NAME=${{ fromJson(secrets.DEV_META_DATA).S3_BUCKET_NAME }}" >> $GITHUB_ENV
-          echo "AWS_CLOUDFRONT_DISTRIBUTION_ID_USER=${{ fromJson(secrets.DEV_META_DATA).AWS_CLOUDFRONT_DISTRIBUTION_ID_USER }}" >> $GITHUB_ENV
+          echo '${{ secrets.DEV_META_DATA }}' > meta.json
+          jq -r 'to_entries[] | "\(.key)=\(.value)"' meta.json >> $GITHUB_ENV
+
+          for secret_key in AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN; do
+            secret_value=$(jq -r --arg key "$secret_key" '.[$key] // empty' meta.json)
+            if [ -n "$secret_value" ]; then
+              echo "::add-mask::$secret_value"
+            fi
+          done
+
+          for required_key in AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_REGION S3_BUCKET_NAME AWS_CLOUDFRONT_DISTRIBUTION_ID_USER; do
+            required_value=$(jq -r --arg key "$required_key" '.[$key] // empty' meta.json)
+            if [ -z "$required_value" ]; then
+              echo "Missing required key in DEV_META_DATA: $required_key" >&2
+              exit 1
+            fi
+          done
 
       - name: Create .env file for ahhachul.com
         run: |

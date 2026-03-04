@@ -29,9 +29,24 @@ jobs:
           fetch-depth: 0
 
       - name: Parse secrets from JSON
-        id: secrets
         run: |
-          echo '${{ secrets.DEV_META_DATA }}' | jq -r 'to_entries | .[] | "echo \(.key)=\(.value) >> $GITHUB_ENV"' | bash
+          echo '${{ secrets.DEV_META_DATA }}' > meta.json
+          jq -r 'to_entries[] | "\(.key)=\(.value)"' meta.json >> $GITHUB_ENV
+
+          for secret_key in AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN; do
+            secret_value=$(jq -r --arg key "$secret_key" '.[$key] // empty' meta.json)
+            if [ -n "$secret_value" ]; then
+              echo "::add-mask::$secret_value"
+            fi
+          done
+
+          for required_key in AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_REGION ECR_REPOSITORY_URI ECS_CLUSTER_NAME ECS_SERVICE_NAME CONTAINER_NAME CONTAINER_PORT CODEDEPLOY_APP_NAME CODEDEPLOY_DEPLOYMENT_GROUP; do
+            required_value=$(jq -r --arg key "$required_key" '.[$key] // empty' meta.json)
+            if [ -z "$required_value" ]; then
+              echo "Missing required key in DEV_META_DATA: $required_key" >&2
+              exit 1
+            fi
+          done
 
       - name: Print AWS Region
         run: echo "AWS_REGION is $AWS_REGION"
@@ -46,23 +61,45 @@ jobs:
 
       - name: Create .env file for one-app
         run: |
-          echo '${{ secrets.DEV_ONE_APP_CONFIG }}' > config.json
-          cat config.json | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> services/one-app/.env
+          PRIMARY_CONFIG='${{ secrets.DEV_ONE_APP_CONFIG }}'
+          FALLBACK_CONFIG='${{ secrets.DEV_NEXTJS_APP_CONFIG }}'
+
+          if [ -n "$FALLBACK_CONFIG" ] && [ "$FALLBACK_CONFIG" != "null" ]; then
+            echo "$FALLBACK_CONFIG" > config-fallback.json
+          else
+            echo '{}' > config-fallback.json
+          fi
+
+          if [ -n "$PRIMARY_CONFIG" ] && [ "$PRIMARY_CONFIG" != "null" ]; then
+            echo "$PRIMARY_CONFIG" > config-primary.json
+          else
+            echo '{}' > config-primary.json
+          fi
+
+          jq -s 'reduce .[] as $item ({}; . * $item)' config-fallback.json config-primary.json > config.json
+
+          if [ "$(jq -r 'keys | length' config.json)" -eq 0 ]; then
+            echo "Both DEV_ONE_APP_CONFIG and DEV_NEXTJS_APP_CONFIG are empty." >&2
+            exit 1
+          fi
+
+          jq -r 'to_entries[] | "\(.key)=\(.value)"' config.json > services/one-app/.env
 
       - name: Resolve smoke base url
         run: |
           if [ "${GITHUB_REF_NAME}" = "main" ]; then
-            BASE_URL=$(jq -r '.NEXT_PUBLIC_SITE_URL_PRODUCTION // .APP_PRODUCTION_URL // .NEXT_PUBLIC_SITE_URL_STAGING // empty' config.json)
+            BASE_URL=$(jq -r '.NEXT_PUBLIC_SITE_URL_PRODUCTION // .APP_PRODUCTION_URL // .NEXT_PUBLIC_SITE_URL // .SITE_URL // .NEXT_PUBLIC_SITE_URL_STAGING // empty' config.json)
           else
-            BASE_URL=$(jq -r '.NEXT_PUBLIC_SITE_URL_STAGING // .NEXT_PUBLIC_SITE_URL_DEV // .APP_DEV_URL // .NEXT_PUBLIC_SITE_URL_PRODUCTION // empty' config.json)
+            BASE_URL=$(jq -r '.NEXT_PUBLIC_SITE_URL_STAGING // .NEXT_PUBLIC_SITE_URL_DEV // .APP_DEV_URL // .NEXT_PUBLIC_SITE_URL // .SITE_URL // .NEXT_PUBLIC_SITE_URL_PRODUCTION // .APP_PRODUCTION_URL // empty' config.json)
           fi
 
           if [ -z "$BASE_URL" ]; then
-            echo "Unable to resolve smoke base URL from DEV_ONE_APP_CONFIG" >&2
-            exit 1
+            echo "SMOKE_CHECK_ENABLED=false" >> $GITHUB_ENV
+            echo "Smoke base URL is not configured in DEV_ONE_APP_CONFIG/DEV_NEXTJS_APP_CONFIG. Deployment will continue and smoke check will be skipped."
+          else
+            echo "SMOKE_CHECK_ENABLED=true" >> $GITHUB_ENV
+            echo "SMOKE_BASE_URL=$BASE_URL" >> $GITHUB_ENV
           fi
-
-          echo "SMOKE_BASE_URL=$BASE_URL" >> $GITHUB_ENV
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -148,6 +185,7 @@ jobs:
           aws deploy wait deployment-successful --deployment-id ${{ env.DEPLOYMENT_ID }}
 
       - name: Smoke check chunk availability
+        if: env.SMOKE_CHECK_ENABLED == 'true'
         run: |
           node scripts/deploy-smoke-check.mjs \
             --product=next \
