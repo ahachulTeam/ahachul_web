@@ -12,6 +12,7 @@ on:
       - 'pnpm-lock.yaml'
       - 'pnpm-workspace.yaml'
       - 'nx.json'
+  workflow_dispatch:
 
 env:
   DEFAULT_NODE_VERSION: '20.13.0'
