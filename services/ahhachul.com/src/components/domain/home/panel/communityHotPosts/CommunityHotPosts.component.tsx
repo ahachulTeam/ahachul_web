@@ -27,7 +27,7 @@ const CommunityHotPosts = () => {
   const currentStation = userStations[0];
   const selectedStationId = currentStation?.stationId ?? 0;
   const selectedStationName = currentStation?.stationName ?? '역';
-  const selectedLine = currentStation?.subwayLineInfoList[0];
+  const selectedLine = currentStation?.subwayLineInfoList?.[0];
   const selectedLineId = Number(selectedLine?.subwayLineId ?? 0);
   const selectedLineName = selectedLine?.subwayLineName ?? '호선';
   const hasFavoriteStation = selectedStationId > 0 && selectedLineId > 0;

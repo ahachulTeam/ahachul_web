@@ -118,5 +118,20 @@ describe('DailyVote', () => {
 
     expect(screen.getByRole('button', { name: '투표하러 가기' })).toBeInTheDocument();
     expect(screen.getByText('오늘 투표가 없습니다.')).toBeInTheDocument();
+
+    const hubLink = screen
+      .getAllByTestId('stackflow-link')
+      .find(link => link.getAttribute('data-activity-name') === 'DailyVoteHubPage');
+
+    expect(hubLink).toBeDefined();
+    expect(hubLink).toHaveAttribute(
+      'data-activity-params',
+      JSON.stringify({
+        stationId: 557,
+        stationName: '강남',
+        subwayLineId: 2,
+        subwayLineName: '2호선',
+      }),
+    );
   });
 });

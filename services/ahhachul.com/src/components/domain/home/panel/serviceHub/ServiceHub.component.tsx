@@ -13,6 +13,25 @@ const ServiceHub = () => {
   const selectedLineId = Number(selectedLine?.subwayLineId ?? 0);
   const hasFavoriteStation = selectedStation != null && selectedLineId > 0;
 
+  let dailyVoteHubActivityName: 'DailyVoteHubPage' | 'SignInPage' | 'SettingPage';
+  if (!isAuthenticated) {
+    dailyVoteHubActivityName = 'SignInPage';
+  } else if (hasFavoriteStation) {
+    dailyVoteHubActivityName = 'DailyVoteHubPage';
+  } else {
+    dailyVoteHubActivityName = 'SettingPage';
+  }
+
+  let dailyVoteHubActivityParams: Record<string, string | number | undefined> = {};
+  if (dailyVoteHubActivityName === 'DailyVoteHubPage') {
+    dailyVoteHubActivityParams = {
+      stationId: selectedStation.stationId,
+      stationName: selectedStation.stationName,
+      subwayLineId: selectedLineId,
+      subwayLineName: selectedLine?.subwayLineName,
+    };
+  }
+
   if (isCheckingAuthState) {
     return (
       <S.Container>
@@ -42,17 +61,8 @@ const ServiceHub = () => {
       <S.Grid>
         <li>
           <StackFlow.Link
-            activityName={isAuthenticated ? 'DailyVoteHubPage' : 'SignInPage'}
-            activityParams={
-              isAuthenticated
-                ? {
-                    stationId: selectedStation?.stationId,
-                    stationName: selectedStation?.stationName,
-                    subwayLineId: selectedLineId > 0 ? selectedLineId : undefined,
-                    subwayLineName: selectedLine?.subwayLineName,
-                  }
-                : {}
-            }
+            activityName={dailyVoteHubActivityName}
+            activityParams={dailyVoteHubActivityParams}
           >
             <S.CardButton type="button">
               <S.CardTitle>투표 라운지</S.CardTitle>

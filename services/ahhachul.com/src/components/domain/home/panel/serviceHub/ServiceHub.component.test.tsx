@@ -113,5 +113,45 @@ describe('ServiceHub', () => {
       'ForeignerHotspotsPage',
       'ForeignerLanguageExchangePage',
     ]);
+    expect(links[0]).toHaveAttribute(
+      'data-activity-params',
+      JSON.stringify({
+        stationId: 557,
+        stationName: '강남',
+        subwayLineId: 2,
+        subwayLineName: '2호선',
+      }),
+    );
+    expect(links[1]).toHaveAttribute('data-activity-params', JSON.stringify({}));
+    expect(links[2]).toHaveAttribute('data-activity-params', JSON.stringify({}));
+    expect(links[3]).toHaveAttribute('data-activity-params', JSON.stringify({}));
+    expect(links[4]).toHaveAttribute('data-activity-params', JSON.stringify({ locale: 'en' }));
+    expect(links[5]).toHaveAttribute('data-activity-params', JSON.stringify({ locale: 'en' }));
+  });
+
+  it('로그인 상태에서 즐겨찾는 역이 없으면 투표 CTA를 설정 페이지로 라우팅한다', () => {
+    mockUseAuth.mockReturnValue({
+      isCheckingAuthState: false,
+      authService: { isAuthenticated: true },
+    });
+    mockUseUserStationStore.mockImplementation(
+      (selector: (state: { userStations: UserStation[] }) => unknown) =>
+        selector({ userStations: [] }),
+    );
+
+    render(<ServiceHub />);
+
+    expect(screen.getByText('즐겨찾는 역 설정 후 개인화 허브를 이용해보세요.')).toBeInTheDocument();
+
+    const links = screen.getAllByTestId('stackflow-link');
+    expect(links.map(link => link.getAttribute('data-activity-name'))).toEqual([
+      'SettingPage',
+      'CommunityPage',
+      'LostFoundPage',
+      'ComplaintPage',
+      'ForeignerHotspotsPage',
+      'ForeignerLanguageExchangePage',
+    ]);
+    expect(links[0]).toHaveAttribute('data-activity-params', JSON.stringify({}));
   });
 });
