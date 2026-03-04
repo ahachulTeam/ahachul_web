@@ -25,6 +25,20 @@ export const SectionCard = styled.article`
   `}
 `;
 
+export const SkeletonRow = styled.span<{ short?: boolean }>`
+  ${({ theme, short = false }) => css`
+    display: block;
+    width: ${short ? '56%' : '88%'};
+    height: 14px;
+    border-radius: 999px;
+    background-color: ${theme.colors.gray[30]};
+
+    &:not(:first-of-type) {
+      margin-top: 8px;
+    }
+  `}
+`;
+
 export const SectionHeader = styled.div`
   display: flex;
   align-items: center;

@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 
 import { useAuth } from '@/contexts';
 import { useFetchUserCommuteCoachToday } from '@/services/user';
+import { StackFlow } from '@/stackflow';
+import { useUserStationStore } from '@/stores/subway';
 import type { CommuteCoachRiskLevel } from '@/types';
 import { createActionLogger } from '@/utils/observability';
 
@@ -22,6 +24,8 @@ const WALKING_SOURCE_LABELS = {
 
 const CommuteCoach = () => {
   const { isCheckingAuthState, authService } = useAuth();
+  const { userStations } = useUserStationStore(state => state);
+  const hasFavoriteStation = userStations.length > 0;
   const coachQuery = useFetchUserCommuteCoachToday({
     targetArrivalAt: '09:00',
     timezone: 'Asia/Seoul',
@@ -40,8 +44,32 @@ const CommuteCoach = () => {
     );
   }, [coachQuery.error, coachQuery.errorUpdatedAt]);
 
-  if (isCheckingAuthState || !authService.isAuthenticated) {
-    return null;
+  if (isCheckingAuthState) {
+    return (
+      <S.Container>
+        <S.Header>
+          <b>출근 코치</b>
+        </S.Header>
+        <S.SkeletonCard>
+          <S.SkeletonBar />
+          <S.SkeletonBar short />
+        </S.SkeletonCard>
+      </S.Container>
+    );
+  }
+
+  if (!authService.isAuthenticated) {
+    return (
+      <S.Container>
+        <S.Header>
+          <b>출근 코치</b>
+        </S.Header>
+        <S.HelperText>로그인 후 맞춤 출근 코치 안내를 확인할 수 있어요.</S.HelperText>
+        <StackFlow.Link activityName="SignInPage" activityParams={{}}>
+          <S.RefreshButton type="button">로그인하고 코치 보기</S.RefreshButton>
+        </StackFlow.Link>
+      </S.Container>
+    );
   }
 
   const coach = coachQuery.data?.result;
@@ -65,7 +93,11 @@ const CommuteCoach = () => {
       {coachQuery.isLoading ? <S.StateText>출근 코치 정보를 계산하는 중입니다.</S.StateText> : null}
       {coachQuery.isError ? <S.ErrorText>출근 코치 정보를 불러오지 못했습니다.</S.ErrorText> : null}
 
-      {!coachQuery.isLoading && !coachQuery.isError && coach ? (
+      {!coachQuery.isLoading && !coachQuery.isError && !hasFavoriteStation ? (
+        <S.HelperText>추천 경로 없음. 즐겨찾는 역을 추가하면 맞춤 안내를 제공해요.</S.HelperText>
+      ) : null}
+
+      {!coachQuery.isLoading && !coachQuery.isError && hasFavoriteStation && coach ? (
         <S.Card>
           <S.CardHeader>
             <p>오늘 출근 안내</p>
@@ -118,6 +150,10 @@ const CommuteCoach = () => {
             </S.RiskReasonList>
           ) : null}
         </S.Card>
+      ) : null}
+
+      {!coachQuery.isLoading && !coachQuery.isError && hasFavoriteStation && !coach ? (
+        <S.HelperText>추천 경로 없음. 잠시 후 다시 확인해주세요.</S.HelperText>
       ) : null}
     </S.Container>
   );

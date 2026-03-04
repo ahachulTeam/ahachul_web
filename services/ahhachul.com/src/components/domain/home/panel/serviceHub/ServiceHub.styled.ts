@@ -24,11 +24,29 @@ export const Description = styled.p`
   `}
 `;
 
+export const HelperText = styled.p`
+  ${({ theme }) => css`
+    margin-top: 8px;
+    ${theme.fonts.bodySmall};
+    color: ${theme.colors.gray[70]};
+  `}
+`;
+
 export const Grid = styled.ul`
   margin-top: 10px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
+`;
+
+export const SkeletonCard = styled.div`
+  ${({ theme }) => css`
+    width: 100%;
+    height: 76px;
+    border-radius: 10px;
+    border: 1px solid ${theme.colors.gray[20]};
+    background: ${theme.colors.gray[30]};
+  `}
 `;
 
 export const CardButton = styled.button`
@@ -55,5 +73,24 @@ export const CardMeta = styled.p`
   ${({ theme }) => css`
     ${theme.fonts.labelSmall};
     color: ${theme.colors.gray[70]};
+  `}
+`;
+
+export const ForeignerActions = styled.div`
+  margin-top: 10px;
+  display: grid;
+  gap: 6px;
+`;
+
+export const ForeignerButton = styled.button`
+  ${({ theme }) => css`
+    width: 100%;
+    height: 34px;
+    border-radius: 8px;
+    border: 1px solid ${theme.colors.gray[30]};
+    background-color: ${theme.colors.gray[10]};
+    color: ${theme.colors.gray[90]};
+    ${theme.fonts.labelSmall};
+    font-weight: 600;
   `}
 `;

@@ -66,7 +66,7 @@ const Option = ({
 };
 
 const HomeHeaderActions = () => {
-  const { isCheckingAuthState } = useAuth();
+  const { isCheckingAuthState, authService } = useAuth();
   const { push } = useFlow();
   const { bridge, isBridgeInitialized } = useNativeBridge();
   const [openDialog, toggleDialog] = useReducer(open => !open, false);
@@ -140,7 +140,7 @@ const HomeHeaderActions = () => {
     );
   }
 
-  if (!activatedStation) {
+  if (!authService.isAuthenticated || !activatedStation) {
     return (
       <div css={S.container}>
         <button

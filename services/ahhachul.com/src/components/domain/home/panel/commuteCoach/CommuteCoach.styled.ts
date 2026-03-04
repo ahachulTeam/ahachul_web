@@ -46,6 +46,26 @@ export const Card = styled.article`
   `}
 `;
 
+export const SkeletonCard = styled(Card)`
+  ${({ theme }) => css`
+    min-height: 140px;
+    display: grid;
+    align-content: center;
+    gap: 10px;
+    background-color: ${theme.colors.gray[30]};
+  `}
+`;
+
+export const SkeletonBar = styled.span<{ short?: boolean }>`
+  ${({ theme, short = false }) => css`
+    display: block;
+    width: ${short ? '48%' : '80%'};
+    height: 14px;
+    border-radius: 999px;
+    background-color: ${theme.colors.gray[50]};
+  `}
+`;
+
 export const CardHeader = styled.div`
   display: flex;
   align-items: center;
