@@ -18,3 +18,10 @@ export type { SearchEmptyStateProps } from './components/SearchEmptyState';
 
 export { CommentEmptyState } from './components/CommentEmptyState';
 export type { CommentEmptyStateProps } from './components/CommentEmptyState';
+
+export { SeoulMetroMapViewer } from './components/SeoulMetroMapViewer';
+export type {
+  SeoulMetroMapCatalogLine,
+  SeoulMetroMapStationGuide,
+  SeoulMetroMapStationSelection,
+} from './components/SeoulMetroMapViewer';

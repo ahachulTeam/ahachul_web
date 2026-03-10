@@ -11,7 +11,7 @@ import {
   stripLocaleFromPathname,
 } from '@/i18n';
 
-const HIDDEN_PREFIXES = ['/login', '/i/flow/login'];
+const HIDDEN_PREFIXES = ['/login', '/i/flow/login', '/subway/map'];
 
 export default function Header() {
   const pathname = usePathname() ?? '/';
